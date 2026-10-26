@@ -1,0 +1,805 @@
+# R_NPCS: personajes del sueño de «La escuela de Atenas»
+
+@c6e6f54e
+Rafael Sanzio
+Raphael Sanzio
+
+@683b8aef
+Pintor (1483-1520)
+Painter (1483-1520)
+
+@9d70a98a
+«L'escola d'Atenes»
+«The School of Athens»
+
+@1844bbdd
+Rafael Sanzio d'Urbino va pintar «L'escola d'Atenes» a l'Estança de la Signatura del Vaticà (1509-1511) per al papa Juli II. És el gran símbol del Renaixement: el redescobriment de la filosofia grega i la idea que la raó antiga i la fe cristiana poden conviure. Rafael es va retratar al fresc, mirant l'espectador.
+Raphael Sanzio of Urbino painted «The School of Athens» in the Stanza della Segnatura in the Vatican (1509-1511) for Pope Julius II. It is the great symbol of the Renaissance: the rediscovery of Greek philosophy and the idea that ancient reason and Christian faith can live together. Raphael portrayed himself in the fresco, looking out at the viewer.
+
+@50208fbb
+Benvenuto, foraster. Sóc Rafael, d'Urbino. Això que veus és el meu somni, o el teu: la sala que estic pintant per al papa Juli al Vaticà. He reunit tots els savis de l'Antiguitat en una mateixa escalinata. Sé que mai no van estar junts. Per això és pintura.
+Benvenuto, stranger. I am Raphael, of Urbino. What you see is my dream, or yours: the room I am painting for Pope Julius in the Vatican. I have gathered all the sages of Antiquity on a single flight of steps. I know they were never together. That's why it is painting.
+
+@83916984
+Per què els vas reunir a tots?
+Why did you bring them all together?
+
+@a2a1d60c
+Perquè la saviesa no té data. Davant d'aquesta paret he pintat els teòlegs discutint; aquí, els filòsofs. Juntes, les dues parets diuen que la veritat es busca amb la fe i amb la raó. Plató i Aristòtil al centre, el cel i la terra; al seu voltant, la geometria, la música, l'astronomia.
+Because wisdom has no date. On the wall opposite I painted the theologians in debate; here, the philosophers. Together, the two walls say that truth is sought with faith and with reason. Plato and Aristotle in the centre, heaven and earth; around them, geometry, music, astronomy.
+
+@56a1a74a
+Qui són els models?
+Who are the models?
+
+@09b9b647
+A Plató li vaig donar la cara del vell Leonardo, que tant pensava; a Heràclit, la de Miquel Àngel, que pinta la volta de la Capella Sixtina aquí al costat i no parla amb ningú; a Euclides, la del meu paisà Bramante, l'arquitecte de Sant Pere. I jo sóc allà, a la dreta, mirant-te. Un pintor també té dret a la immortalitat.
+I gave Plato the face of old Leonardo, who thought so much; Heraclitus, that of Michelangelo, who is painting the Sistine Chapel ceiling next door and speaks to no one; Euclid, that of my fellow countryman Bramante, the architect of St Peter's. And I am there, on the right, looking at you. A painter has a right to immortality too.
+
+@f19c0e64
+On és «L'escola d'Atenes»?
+Where is «The School of Athens»?
+
+@6c75a376
+Al Palau Vaticà, a Roma
+In the Vatican Palace, in Rome
+
+@cbb860cf
+Al Museu del Louvre, a París
+In the Louvre Museum, in Paris
+
+@f3468209
+Al Partenó d'Atenes
+In the Parthenon in Athens
+
+@99eb9e91
+No. És un fresc a l'Estança de la Signatura del Palau Vaticà.
+No. It is a fresco in the Stanza della Segnatura of the Vatican Palace.
+
+@8fceafe9
+Plató (en el somni)
+Plato (in the dream)
+
+@d7e602a1
+Filòsof
+Philosopher
+
+@d7ca56a5
+Per a Plató, el món que veiem és canviant i imperfecte: una còpia d'un món d'Idees o Formes, eternes i immutables (el Bell, el Just, el Bé), que només s'assoleixen amb la raó. Conèixer és recordar el que l'ànima va veure abans de néixer. Ho va explicar amb el mite de la caverna, a la República.
+For Plato, the world we see is changing and imperfect: a copy of a world of Ideas or Forms, eternal and unchanging (the Beautiful, the Just, the Good), reached only by reason. To know is to remember what the soul saw before birth. He explained it with the myth of the cave, in the Republic.
+
+@7a26973c
+Quin somni més estrany! M'han pintat vell, amb barba blanca, assenyalant el cel. I aquest jove de blau al meu costat diuen que serà el meu millor deixeble, Aristòtil. Encara no ha nascut. Pregunta'm, foraster: per això assenyalo amunt.
+What a strange dream! They've painted me old, with a white beard, pointing at the sky. And this young man in blue beside me, they say, will be my best pupil, Aristotle. He isn't born yet. Ask me, stranger: that's why I point upwards.
+
+@26c23f94
+Per què assenyales el cel?
+Why do you point at the sky?
+
+@c1b5d21b
+Perquè el que és de debò no és aquí baix. Mira aquesta escalinata: cap esglaó no és perfectament recte, però tu entens què és la línia recta. On l'has vista? Enlloc, i tanmateix la coneixes. Aquesta és la Idea. Les coses que toquem són ombres; les Idees, la llum que les projecta.
+Because what truly is is not down here. Look at these steps: no step is perfectly straight, yet you understand what a straight line is. Where have you seen one? Nowhere, and yet you know it. That is the Idea. The things we touch are shadows; the Ideas, the light that casts them.
+
+@ed2411b9
+Explica'm la caverna
+Tell me about the cave
+
+@1b2c2e56
+Imagina uns presoners encadenats des de petits en una cova, mirant la paret del fons. Darrere, un foc, i per davant del foc passen objectes les ombres dels quals veuen a la paret. Creuen que les ombres són la realitat. Si un s'allibera i surt, el sol l'enlluerna; a poc a poc veu les coses vertaderes. Si torna a explicar-ho, els altres es riuen d'ell. O el maten, com a Sòcrates.
+Imagine prisoners chained since childhood in a cave, facing the back wall. Behind them, a fire, and in front of the fire objects pass whose shadows they see on the wall. They believe the shadows are reality. If one breaks free and goes out, the sun dazzles him; little by little he sees the true things. If he goes back to tell them, the others laugh at him. Or kill him, like Socrates.
+
+@81707cd0
+Segons Plató, què és el veritablement real?
+According to Plato, what is truly real?
+
+@c486a5df
+Les Idees o Formes, eternes i immutables
+The Ideas or Forms, eternal and unchanging
+
+@ddf1bc78
+Els àtoms que es mouen en el buit
+Atoms moving in the void
+
+@6d12e16a
+No. Per a Plató, el veritablement real són les Idees; les coses sensibles en són còpies imperfectes.
+No. For Plato, what is truly real are the Ideas; sensible things are imperfect copies of them.
+
+@8ddbffb3
+Aristòtil (en el somni)
+Aristotle (in the dream)
+
+@ae4688c4
+Filòsof, encara no nascut
+Philosopher, not yet born
+
+@06fe1ced
+Aristòtil (384-322 aC), deixeble de Plató durant vint anys i mestre d'Alexandre el Gran, va fundar el Liceu. Va rebutjar separar les Idees de les coses: la forma és en les coses mateixes, i el coneixement comença pels sentits. Va escriure sobre lògica, física, biologia, ètica, política, retòrica i poètica, i va ser la gran autoritat del saber durant gairebé dos mil anys.
+Aristotle (384-322 BC), Plato's pupil for twenty years and tutor of Alexander the Great, founded the Lyceum. He refused to separate the Ideas from things: form is in things themselves, and knowledge begins with the senses. He wrote on logic, physics, biology, ethics, politics, rhetoric and poetics, and was the great authority of learning for almost two thousand years.
+
+@f5e4d96a
+Salutacions, estranger. Si això fos real, no podries parlar amb mi: naixerà a Estagira d'aquí a dos anys un nen anomenat Aristòtil. Però en somnis tot és possible. El meu mestre mira el cel; jo prefereixo mirar la terra. Pregunta.
+Greetings, foreigner. If this were real, you couldn't talk to me: a boy called Aristotle will be born in Stagira two years from now. But in dreams anything is possible. My master looks at the sky; I prefer to look at the earth. Ask.
+
+@1981f5ff
+Per què estens la mà cap avall?
+Why do you hold your hand out downwards?
+
+@ecbeb91c
+Perquè el coneixement comença pels sentits. Obre un ou de gallina cada dia i veuràs formar-se el pollet: així s'aprèn biologia, no somiant amb la Idea de gallina. La forma d'una cosa no és en un altre món, sinó en la cosa mateixa, com la forma d'aquesta estàtua és en el marbre. Estimo Plató, però estimo més la veritat.
+Because knowledge begins with the senses. Crack open a hen's egg every day and you'll see the chick forming: that's how biology is learned, not by dreaming of the Idea of a hen. The form of a thing is not in another world, but in the thing itself, as the form of this statue is in the marble. I love Plato, but I love truth more.
+
+@4bd149c2
+Què és la felicitat?
+What is happiness?
+
+@30329cdc
+Tothom la busca, però la confonen amb el plaer, els diners o la fama. La felicitat, eudaimonia, és viure segons el millor que tenim, la raó, practicant la virtut al llarg de tota una vida. I la virtut és en el terme mitjà: el valor, entre la covardia i la temeritat; la generositat, entre l'avarícia i el malbaratament.
+Everyone seeks it, but they confuse it with pleasure, money or fame. Happiness, eudaimonia, is living according to the best thing we have, reason, practising virtue over a whole lifetime. And virtue lies in the mean: courage, between cowardice and rashness; generosity, between greed and extravagance.
+
+@ca9f38eb
+En què es diferencia Aristòtil de Plató, segons el gest del fresc?
+How does Aristotle differ from Plato, judging by his gesture in the fresco?
+
+@9ec25f54
+Busca el coneixement en l'observació de les coses concretes, no en un món separat d'Idees
+He seeks knowledge in observing concrete things, not in a separate world of Ideas
+
+@f0687b80
+Creu que només els déus poden conèixer
+He believes only the gods can know
+
+@961eb916
+Pensa que tot està fet de nombres
+He thinks everything is made of numbers
+
+@2d25657b
+No. Aristòtil, amb la mà cap a la terra, sosté que la forma és en les coses i que el coneixement comença pels sentits.
+No. Aristotle, with his hand towards the earth, holds that form is in things and that knowledge begins with the senses.
+
+@ee08dd63
+Sòcrates (en el somni)
+Socrates (in the dream)
+
+@733cbb60
+Filòsof, mort el 399 aC
+Philosopher, died 399 BC
+
+@481690c7
+Sòcrates (470-399 aC) no va escriure res. Conversava a l'Àgora preguntant què és la justícia, el valor o la bellesa, fins a mostrar que el seu interlocutor no ho sabia (ironia) i ajudar-lo a donar a llum una idea millor (maièutica, l'art de la llevadora). Va ser condemnat a beure cicuta per impietat i corrupció de la joventut.
+Socrates (470-399 BC) wrote nothing. He talked in the Agora, asking what justice, courage or beauty is, until he showed that the other person did not know (irony) and helped him give birth to a better idea (maieutics, the midwife's art). He was condemned to drink hemlock for impiety and corrupting the young.
+
+@a7c27f1a
+Ah, un foraster! I tu, què saps, amic? Jo només sé que no sé res, i això ja és més del que sap la majoria. Fa tretze anys que sóc mort en el teu temps, però els somnis són generosos. Compta amb mi amb els dits: primer, segon, tercer… on ens porta el teu raonament?
+Ah, a stranger! And what do you know, my friend? I only know that I know nothing, and that's already more than most know. I've been dead thirteen years in your time, but dreams are generous. Count with me on your fingers: first, second, third… where is your reasoning taking us?
+
+@c80e2974
+Què és el mètode socràtic?
+What is the Socratic method?
+
+@bff77de8
+Preguntar. Algú em diu que sap què és el valor: «mantenir-se ferm a la batalla». I el qui es retira per tornar a atacar, no és valent? «Sí». Aleshores la teva definició no n'hi ha prou. I així, pregunta a pregunta, descobreix que no ho sabia. La meva mare era llevadora; jo ajudo a donar a llum idees. Fa mal, però és millor que viure enganyat.
+Asking. Someone tells me he knows what courage is: «standing firm in battle». And the man who withdraws in order to attack again, isn't he brave? «Yes». Then your definition isn't enough. And so, question by question, he finds he didn't know. My mother was a midwife; I help ideas be born. It hurts, but it's better than living deceived.
+
+@297d4356
+No tenies por de la mort?
+Weren't you afraid of death?
+
+@a707db3e
+Tenir por de la mort és creure's savi sense ser-ho: ningú no sap si és el més gran dels béns. M'haurien pogut perdonar si deixava de filosofar, o si fugia de la presó, com em va oferir Critó. Però una vida sense examen no mereix ser viscuda. I no desobeiria les lleis de la meva ciutat per salvar uns quants anys de vellesa.
+Fearing death is thinking yourself wise when you are not: no one knows whether it is the greatest of goods. They could have spared me if I stopped philosophising, or if I fled the prison, as Crito offered. But the unexamined life is not worth living. And I wasn't going to disobey my city's laws to save a few years of old age.
+
+@66d31db2
+Què és la maièutica socràtica?
+What is Socratic maieutics?
+
+@267b5d5f
+Ajudar amb preguntes que l'altre «doni a llum» les seves pròpies idees
+Helping the other person, through questions, to «give birth» to their own ideas
+
+@9e352025
+Un tipus de pregària als déus
+A kind of prayer to the gods
+
+@e347b4ff
+Memoritzar els discursos dels sofistes
+Memorising the sophists' speeches
+
+@c7d0332d
+No. La maièutica, «art de la llevadora», consistia a ajudar amb preguntes que l'interlocutor descobrís per si mateix la veritat.
+No. Maieutics, «the midwife's art», meant helping the other person, through questions, to discover the truth for himself.
+
+@735709bc
+Alcibíades (en el somni)
+Alcibiades (in the dream)
+
+@bb8bad2c
+Polític i general atenès
+Athenian politician and general
+
+@62a9b513
+Alcibíades (c. 450-404 aC), nebot de Pèricles, ric, bell i brillant, va ser el deixeble més famós i menys fidel de Sòcrates. Va impulsar la desastrosa expedició a Sicília (415), va ser acusat de mutilar les hermes, es va passar a Esparta i després a Pèrsia, va tornar a Atenes com un heroi i va acabar assassinat a Frígia.
+Alcibiades (c. 450-404 BC), Pericles' nephew, rich, handsome and brilliant, was Socrates' most famous and least faithful pupil. He pushed for the disastrous Sicilian expedition (415), was accused of mutilating the herms, went over to Sparta and then to Persia, returned to Athens a hero and ended up murdered in Phrygia.
+
+@d9b7e048
+Mira'm bé: el més bell i el més ric dels atenesos. I l'únic que va fer plorar Sòcrates… o això dic jo. Escoltava aquell vell lleig i sentia vergonya de mi mateix. Després en sortia i em deixava portar per la multitud. En el teu temps ja sóc mort, foraster. M'ho vaig buscar.
+Take a good look at me: the handsomest and richest of the Athenians. And the only one who made Socrates weep… or so I say. I listened to that ugly old man and felt ashamed of myself. Then I'd leave and let the crowd carry me away. In your time I'm already dead, stranger. I asked for it.
+
+@703233a8
+Per què vas trair Atenes?
+Why did you betray Athens?
+
+@1b62c55d
+Em van acusar d'haver mutilat les hermes i de parodiar els Misteris la vigília de salpar cap a Sicília. Em van cridar a judici en plena campanya: sabia que em condemnarien. Vaig fugir a Esparta i els vaig aconsellar com fer mal a Atenes. Després em vaig passar als perses. Després vaig tornar. Un home com jo no cap en una sola ciutat.
+They accused me of mutilating the herms and of parodying the Mysteries on the eve of sailing to Sicily. They summoned me to trial in the middle of the campaign: I knew they'd condemn me. I fled to Sparta and advised them how to hurt Athens. Then I went over to the Persians. Then I came back. A man like me doesn't fit in a single city.
+
+@585692a4
+Què et va ensenyar Sòcrates?
+What did Socrates teach you?
+
+@9e6564d8
+Que jo no em coneixia. Al banquet d'Agató vaig explicar com al setge de Potidea Sòcrates em va salvar la vida i va renunciar al seu premi al valor en favor meu, com aguantava el fred descalç i es quedava dret pensant un dia sencer. L'admirava més que ningú. I tot i així no li vaig fer cas. Aquesta és la meva tragèdia.
+That I didn't know myself. At Agathon's banquet I told how at the siege of Potidaea Socrates saved my life and gave up his prize for valour in my favour, how he bore the cold barefoot and stood thinking for a whole day. I admired him more than anyone. And still I didn't listen to him. That is my tragedy.
+
+@4f7289ff
+Quina expedició desastrosa va impulsar Alcibíades el 415 aC?
+What disastrous expedition did Alcibiades push for in 415 BC?
+
+@8e8eaf29
+L'expedició a Sicília
+The Sicilian expedition
+
+@25ce4744
+La conquesta d'Egipte
+The conquest of Egypt
+
+@b36894ac
+La fundació d'Alexandria
+The founding of Alexandria
+
+@cecbd970
+No. Alcibíades va impulsar l'expedició a Sicília, que va acabar en desastre el 413.
+No. Alcibiades pushed for the Sicilian expedition, which ended in disaster in 413.
+
+@10a1a34f
+Pitàgores (en el somni)
+Pythagoras (in the dream)
+
+@37c79b11
+Filòsof i matemàtic de Samos
+Philosopher and mathematician from Samos
+
+@a5c2731a
+Pitàgores de Samos (c. 570-495 aC) va fundar a Crotona, al sud d'Itàlia, una comunitat filosòfica i religiosa. Els seus seguidors creien que tot és nombre, van descobrir que les consonàncies musicals responen a proporcions simples (octava 2:1, quinta 3:2, quarta 4:3) i creien en la transmigració de les ànimes. El teorema que porta el seu nom ja el coneixien els babilonis.
+Pythagoras of Samos (c. 570-495 BC) founded a philosophical and religious community at Croton, in southern Italy. His followers believed that everything is number, discovered that musical consonances correspond to simple ratios (octave 2:1, fifth 3:2, fourth 4:3) and believed in the transmigration of souls. The theorem that bears his name was already known to the Babylonians.
+
+@c993f5c6
+Silenci, foraster: escric. Bé, ja que hi ets. Veus la tauleta que m'aguanta el noi? L'harmonia: una corda sencera i la seva meitat sonen en octava; dos terços, en quinta. L'univers sencer està fet així, de nombres i proporcions. Fins i tot els astres canten, encara que no els sentim.
+Silence, stranger: I'm writing. Well, since you're here. See the tablet the boy is holding for me? Harmony: a whole string and its half sound an octave; two thirds, a fifth. The whole universe is made like that, of numbers and ratios. Even the stars sing, though we can't hear them.
+
+@803cd5ba
+Tot és nombre?
+Is everything number?
+
+@587656c3
+Mira: l'octava és 2 a 1, la quinta 3 a 2, la quarta 4 a 3. Amb els quatre primers nombres es fa la música. U, dos, tres i quatre sumen deu, el nombre perfecte: la tetractys, sobre la qual juram. Si la música és nombre, i l'ànima es calma amb la música, no estarà l'ànima feta també d'harmonia?
+Look: the octave is 2 to 1, the fifth 3 to 2, the fourth 4 to 3. Music is made with the first four numbers. One, two, three and four add up to ten, the perfect number: the tetractys, on which we swear. If music is number, and the soul is soothed by music, might the soul not be made of harmony too?
+
+@6335abd0
+És veritat que no menjàveu faves?
+Is it true you didn't eat beans?
+
+@b1bfc5ee
+Hi ha regles: no menjar faves, no recollir el que cau de la taula, no atiar el foc amb un ganivet. Alguns se'n riuen. Nosaltres creiem que les ànimes passen d'un cos a un altre, també als animals: una vegada vaig reconèixer la veu d'un amic mort en els udols d'un gosset a qui pegaven.
+There are rules: don't eat beans, don't pick up what falls from the table, don't stir the fire with a knife. Some laugh. We believe souls pass from one body to another, animals included: once I recognised the voice of a dead friend in the yelps of a puppy being beaten.
+
+@7dadf385
+Què van descobrir els pitagòrics sobre la música?
+What did the Pythagoreans discover about music?
+
+@4a060ab7
+Que les consonàncies responen a proporcions numèriques simples, com 2:1 a l'octava
+That consonances correspond to simple numerical ratios, like 2:1 for the octave
+
+@6bdd1c6e
+Que la música és un regal d'Apol·lo sense explicació
+That music is a gift of Apollo with no explanation
+
+@38a87ed6
+Que només els instruments de vent són harmònics
+That only wind instruments are harmonic
+
+@1972a928
+No. Els pitagòrics van veure que l'octava, la quinta i la quarta corresponen a les proporcions 2:1, 3:2 i 4:3.
+No. The Pythagoreans saw that the octave, the fifth and the fourth correspond to the ratios 2:1, 3:2 and 4:3.
+
+@a6b5cd55
+Heràclit (en el somni)
+Heraclitus (in the dream)
+
+@a18e9377
+Filòsof d'Efes
+Philosopher from Ephesus
+
+@c71cde59
+Heràclit d'Efes (c. 540-480 aC), anomenat «l'obscur» per les seves frases enigmàtiques, va sostenir que tot està en canvi constant («no et banyaràs dues vegades al mateix riu»), que la realitat és una lluita de contraris que formen unitat i que tot ho regeix el logos, una raó comuna. El principi de tot seria el foc.
+Heraclitus of Ephesus (c. 540-480 BC), called «the obscure» for his enigmatic sayings, held that everything is in constant change («you will not step twice into the same river»), that reality is a struggle of opposites forming a unity and that all is governed by the logos, a common reason. The principle of everything would be fire.
+
+@605605d3
+Hmm. Un altre que ve a molestar. Em diuen l'obscur perquè no parlo per als necis. Rafael m'ha posat aquí recolzat en aquest bloc, trist, amb la cara d'un tal Miquel Àngel, que tampoc no és gaire simpàtic. Digues-me alguna cosa que valgui la pena.
+Hmm. Another one come to bother me. They call me the obscure because I don't speak for fools. Raphael has put me here leaning on this block, gloomy, with the face of one Michelangelo, who isn't very friendly either. Tell me something worth hearing.
+
+@867f415b
+Què vol dir «tot flueix»?
+What does «everything flows» mean?
+
+@c32d748d
+Que res no roman. No et pots banyar dues vegades al mateix riu: l'aigua ja és una altra, i tu també. El camí amunt i avall és el mateix. El fred s'escalfa, el sec s'humiteja. L'única cosa constant és el canvi, i sota el canvi, una mesura: el logos, que gairebé ningú no entén.
+That nothing stays. You can't step twice into the same river: the water is already different, and so are you. The road up and the road down are the same. The cold grows warm, the dry grows wet. The only constant is change, and beneath change, a measure: the logos, which almost no one understands.
+
+@45206092
+Per què dius que la guerra és el pare de tot?
+Why do you say war is the father of all things?
+
+@372b9177
+Perquè sense oposició no hi ha res. La lira sona perquè les cordes estan tenses en sentits contraris. El dia existeix perquè existeix la nit, la salut perquè existeix la malaltia. Homer volia que s'acabés la discòrdia entre déus i homes: no sabia que demanava la mort del món.
+Because without opposition there is nothing. The lyre sounds because the strings are stretched in opposite directions. Day exists because night exists, health because illness exists. Homer wished strife would vanish among gods and men: he didn't know he was asking for the death of the world.
+
+@379aac94
+Quina idea s'associa amb Heràclit?
+What idea is associated with Heraclitus?
+
+@03077d1a
+Que tot està en canvi constant: no et banyes dues vegades al mateix riu
+That everything is in constant change: you never step twice into the same river
+
+@e0e9858a
+Que el canvi és una il·lusió i tot és immòbil
+That change is an illusion and everything is motionless
+
+@11c708dd
+Que tot està format per àtoms
+That everything is made of atoms
+
+@76b529f5
+No. Heràclit defensava el canvi constant; va ser Parmènides qui va negar el moviment.
+No. Heraclitus defended constant change; it was Parmenides who denied motion.
+
+@55604f43
+Diògenes (en el somni)
+Diogenes (in the dream)
+
+@df6ac441
+Filòsof cínic
+Cynic philosopher
+
+@7128cadf
+Diògenes de Sinope (c. 412-323 aC), deixeble d'Antístenes, va portar a l'extrem la vida senzilla: vivia en una gerra, menyspreava les convencions, la riquesa i el poder, i volia viure segons la natura, com un gos (kyon, d'aquí «cínic»). Són famoses les seves anècdotes amb Plató i amb Alexandre el Gran.
+Diogenes of Sinope (c. 412-323 BC), Antisthenes' pupil, took the simple life to the extreme: he lived in a jar, despised convention, wealth and power, and wanted to live according to nature, like a dog (kyon, hence «cynic»). His anecdotes with Plato and Alexander the Great are famous.
+
+@248bf9d8
+Què mires? No has vist mai un home ajagut en una escala? En el teu temps sóc un vailet de vint-i-sis anys a Sinope i encara no m'han desterrat per falsificar moneda. Mou-te una mica: em tapes el sol.
+What are you looking at? Never seen a man lying on a staircase? In your time I'm a lad of twenty-six in Sinope and they haven't yet exiled me for forging coins. Move over a bit: you're blocking my sun.
+
+@280c5407
+Per què vius com un gos?
+Why do you live like a dog?
+
+@73738d24
+Perquè el gos és honrat: mossega el dolent, mou la cua al bo, menja el que troba i dorm on vol. Els homes s'inventen necessitats: cases, vestits, diners, fama. Vaig veure un nen bevent amb les mans i vaig llençar el meu bol: també això em sobrava. Busco un home amb una llàntia en ple dia, i no el trobo.
+Because a dog is honest: it bites the bad, wags its tail at the good, eats what it finds and sleeps where it likes. Men invent needs for themselves: houses, clothes, money, fame. I saw a boy drinking from his hands and threw away my bowl: I didn't need that either. I search for a man with a lamp in broad daylight, and I can't find one.
+
+@3a9b112c
+I Plató?
+And Plato?
+
+@5fbeb305
+Plató va definir l'home com a «animal bípede sense plomes». Li vaig portar un gall desplomat a l'Acadèmia: «Aquí teniu l'home de Plató!». Va haver d'afegir «d'ungles planes». Ell em diu «un Sòcrates embogit». I Alexandre… quan em va preguntar què volia, li vaig dir que s'apartés, que em tapava el sol.
+Plato defined man as a «featherless biped». I brought a plucked cockerel to the Academy: «Behold Plato's man!». He had to add «with flat nails». He calls me «a Socrates gone mad». And Alexander… when he asked me what I wanted, I told him to stand aside, he was blocking my sun.
+
+@ee394d43
+Què buscava Diògenes amb una llàntia en ple dia?
+What was Diogenes looking for with a lamp in broad daylight?
+
+@a88b155c
+Un home de veritat, honrat
+A real, honest man
+
+@f28c0311
+La seva gerra perduda
+His lost jar
+
+@9984475b
+Una moneda d'or
+A gold coin
+
+@50a9ad72
+No. Segons l'anècdota, Diògenes passejava amb una llàntia encesa de dia dient que buscava un home.
+No. According to the anecdote, Diogenes walked about with a lit lamp by day saying he was looking for a man.
+
+@0a89cbfd
+Euclides (en el somni)
+Euclid (in the dream)
+
+@9b206e08
+Matemàtic d'Alexandria
+Mathematician from Alexandria
+
+@bf0cde53
+Euclides d'Alexandria (c. 300 aC) va reunir als Elements, en tretze llibres, la geometria i l'aritmètica del seu temps, partint de definicions, postulats i nocions comunes, i demostrant tota la resta pas a pas. És el llibre de matemàtiques més utilitzat de la història. Alguns identifiquen aquesta figura amb Arquimedes.
+Euclid of Alexandria (c. 300 BC) gathered the geometry and arithmetic of his time in the Elements, in thirteen books, starting from definitions, postulates and common notions, and proving everything else step by step. It is the most used mathematics book in history. Some identify this figure as Archimedes.
+
+@18b9d0f4
+Acosta't, però no trepitgis la figura. Aquests joves aprenen a demostrar: no n'hi ha prou de veure que una cosa és veritat, cal provar-ho a partir del que ja sabem. Començo per cinc postulats; el cinquè, el de les paral·leles, ningú no l'ha aconseguit provar. Potser no es pot.
+Come closer, but don't step on the figure. These young men are learning to prove: it's not enough to see that something is true, you must prove it from what we already know. I begin with five postulates; the fifth, the parallel postulate, no one has managed to prove. Perhaps it can't be done.
+
+@b3d826a1
+Partir de molt poques coses evidents, que tothom accepta: que per dos punts passa una recta, que tots els angles rectes són iguals. I, pas a pas, sense saltar-se res, arribar al que no és evident: que la suma dels angles d'un triangle és igual a dos rectes. Així no cal creure ningú: n'hi ha prou de seguir el raonament.
+Start from very few self-evident things that everyone accepts: that a straight line passes through two points, that all right angles are equal. And, step by step, skipping nothing, reach what is not self-evident: that the angles of a triangle add up to two right angles. That way you needn't believe anyone: it's enough to follow the reasoning.
+
+@83d8f2b7
+Hi ha un camí fàcil?
+Is there an easy way?
+
+@609a53e6
+Un rei, Ptolemeu, em va preguntar si no hi havia un camí més curt per aprendre geometria que els meus tretze llibres. Li vaig respondre que no hi ha camins reials per a la geometria. Plató, diuen, va posar a l'entrada de l'Acadèmia: «Que no entri ningú que no sàpiga geometria». Té raó: és la gimnàstica de l'ànima.
+A king, Ptolemy, asked me whether there was a shorter road to geometry than my thirteen books. I told him there is no royal road to geometry. Plato, they say, put at the Academy's entrance: «Let no one ignorant of geometry enter». He's right: it is the gymnastics of the soul.
+
+@3e8e9655
+Com es diu la gran obra d'Euclides?
+What is Euclid's great work called?
+
+@d0081974
+Els Elements
+The Elements
+
+@93658a8e
+La República
+The Republic
+
+@fab05e2e
+L'Almagest
+The Almagest
+
+@2fd1f784
+No. Euclides va escriure els Elements; l'Almagest és de Ptolemeu i la República, de Plató.
+No. Euclid wrote the Elements; the Almagest is Ptolemy's and the Republic, Plato's.
+
+@4685a235
+Ptolemeu (en el somni)
+Ptolemy (in the dream)
+
+@af4231eb
+Astrònom i geògraf
+Astronomer and geographer
+
+@adb92705
+Claudi Ptolemeu (c. 100-170 dC), astrònom d'Alexandria, va descriure a l'Almagest un univers amb la Terra immòbil al centre i els planetes movent-se en epicicles, un model que es va fer servir fins a Copèrnic (1543). Va escriure també una Geografia amb coordenades de milers de llocs. Rafael el pinta amb corona, confonent-lo amb els reis Ptolemeus.
+Claudius Ptolemy (c. 100-170 AD), astronomer of Alexandria, described in the Almagest a universe with the Earth motionless at the centre and the planets moving on epicycles, a model used until Copernicus (1543). He also wrote a Geography with coordinates for thousands of places. Raphael paints him crowned, confusing him with the Ptolemaic kings.
+
+@ed3cacd9
+Salve. Sostinc la Terra, com veus, encara que Rafael m'ha posat una corona: em confon amb els reis d'Egipte. Jo només sóc un astrònom d'Alexandria, molts segles després de tu. La Terra està quieta al centre, i els astres giren al seu voltant. O no?
+Salve. I hold the Earth, as you see, though Raphael has given me a crown: he confuses me with the kings of Egypt. I'm just an astronomer from Alexandria, many centuries after you. The Earth stands still at the centre, and the stars turn around it. Or don't they?
+
+@19766d9f
+Com es mouen els planetes?
+How do the planets move?
+
+@4e07babe
+Els planetes de vegades semblen retrocedir al cel. Per explicar-ho, cada planeta gira en un cercle petit, l'epicicle, el centre del qual gira al seu torn al voltant de la Terra. Amb cercles sobre cercles predic eclipsis i posicions amb gran exactitud. Mil quatre-cents anys després, un tal Copèrnic posarà el Sol al centre. Potser té raó.
+The planets sometimes seem to go backwards in the sky. To explain it, each planet turns on a small circle, the epicycle, whose centre in turn revolves around the Earth. With circles upon circles I predict eclipses and positions with great accuracy. Fourteen hundred years later, one Copernicus will put the Sun at the centre. Perhaps he's right.
+
+@725e9bd4
+Sabeu que la Terra és rodona?
+Do you know the Earth is round?
+
+@bf5e2867
+És clar! Els grecs ho saben des de fa segles: en els eclipsis de lluna, l'ombra de la Terra és sempre circular, i els vaixells desapareixen pel buc abans que pel pal. Eratòstenes en va mesurar la mida amb ombres a Siena i Alexandria. I a la meva Geografia hi ha vuit mil llocs amb la seva longitud i latitud.
+Of course! The Greeks have known it for centuries: in lunar eclipses the Earth's shadow is always circular, and ships disappear hull first, mast last. Eratosthenes measured its size with shadows at Syene and Alexandria. And my Geography has eight thousand places with their longitude and latitude.
+
+@8a63dfbc
+Quin lloc ocupa la Terra a l'univers de Ptolemeu?
+What place does the Earth hold in Ptolemy's universe?
+
+@4c2628e7
+El centre, immòbil, amb els astres girant al seu voltant
+The centre, motionless, with the heavens revolving around it
+
+@a0ac7883
+Gira al voltant del Sol
+It revolves around the Sun
+
+@3440eec2
+És plana i sura sobre l'oceà
+It is flat and floats on the ocean
+
+@55ba9c3c
+No. En el model de Ptolemeu, la Terra és immòbil al centre de l'univers.
+No. In Ptolemy's model, the Earth is motionless at the centre of the universe.
+
+@07174320
+Zoroastre (en el somni)
+Zoroaster (in the dream)
+
+@a3f1ae5d
+Profeta persa
+Persian prophet
+
+@b9cd7c90
+Zoroastre o Zaratustra, profeta de l'antic Iran de data molt discutida (entre el 1500 i el 600 aC), va ensenyar la lluita entre el bé, Ahura Mazda, i el mal, Angra Mainyu, i la llibertat de l'ésser humà per triar el bé amb bons pensaments, bones paraules i bones obres. Els grecs el consideraven mestre dels mags i de l'astrologia.
+Zoroaster or Zarathustra, prophet of ancient Iran of much-debated date (between 1500 and 600 BC), taught the struggle between good, Ahura Mazda, and evil, Angra Mainyu, and the freedom of human beings to choose the good with good thoughts, good words and good deeds. The Greeks regarded him as master of the magi and of astrology.
+
+@039544b0
+Pau amb tu. Sostinc el cel i les seves estrelles. Els grecs em diuen Zoroastre i creuen que vaig inventar l'astrologia; els mags de Pèrsia guarden els meus himnes. En el teu temps, el Gran Rei Artaxerxes acaba de dictar la pau als grecs. Veus? Fins i tot a la pintura de Rafael, Pèrsia és al costat de Grècia.
+Peace be with you. I hold up the sky and its stars. The Greeks call me Zoroaster and think I invented astrology; the magi of Persia keep my hymns. In your time, the Great King Artaxerxes has just dictated peace to the Greeks. You see? Even in Raphael's painting, Persia stands beside Greece.
+
+@c3d27369
+Que el món és un combat entre la veritat i la mentida, entre Ahura Mazda, el Senyor Savi, i l'esperit destructor. Cada ésser humà tria de quin costat és, amb bons pensaments, bones paraules i bones obres. A la fi dels temps, el bé vencerà. Per això honorem el foc, que és pur.
+That the world is a battle between truth and the lie, between Ahura Mazda, the Wise Lord, and the destructive spirit. Each human being chooses which side to be on, with good thoughts, good words and good deeds. At the end of time, good will win. That is why we honour fire, which is pure.
+
+@692131b8
+Per què ets entre els filòsofs grecs?
+Why are you among the Greek philosophers?
+
+@6755b894
+Perquè els grecs m'admiren: diuen que Pitàgores va aprendre dels mags, i Plató va voler viatjar a Pèrsia per conèixer-los. A l'Acadèmia parlaran de mi; el deixeble de Plató, Hermodor, escriurà sobre els mags. Rafael em posa aquí, amb l'esfera celeste, com a símbol de la saviesa d'Orient.
+Because the Greeks admire me: they say Pythagoras learned from the magi, and Plato wanted to travel to Persia to meet them. At the Academy they will talk about me; Plato's pupil Hermodorus will write about the magi. Raphael puts me here, with the celestial sphere, as a symbol of the wisdom of the East.
+
+@6c4dee52
+Segons Zoroastre, en què consisteix el món?
+According to Zoroaster, what is the world?
+
+@820fc873
+En una lluita entre el bé i el mal en què cada persona tria
+A struggle between good and evil in which each person chooses
+
+@2a68e88b
+En una il·lusió dels sentits
+An illusion of the senses
+
+@41c4811b
+En una combinació de quatre elements
+A combination of four elements
+
+@df00be5b
+No. Zoroastre va ensenyar la lluita entre Ahura Mazda (el bé) i l'esperit destructor (el mal), i la llibertat humana per triar.
+No. Zoroaster taught the struggle between Ahura Mazda (good) and the destructive spirit (evil), and human freedom to choose.
+
+@e31f3f62
+Hipàtia (en el somni)
+Hypatia (in the dream)
+
+@97ba9457
+Filòsofa i matemàtica d'Alexandria
+Philosopher and mathematician of Alexandria
+
+@9ab73c43
+Hipàtia (c. 355-415 dC) va ensenyar filosofia neoplatònica, matemàtiques i astronomia a Alexandria, va comentar Diofant i Ptolemeu i va ser consellera de les autoritats de la ciutat. Va ser assassinada per una torba de cristians el 415, enmig de lluites polítiques. Que aquesta figura del fresc sigui ella és una identificació moderna i discutida.
+Hypatia (c. 355-415 AD) taught Neoplatonic philosophy, mathematics and astronomy in Alexandria, wrote commentaries on Diophantus and Ptolemy and advised the city's authorities. She was murdered by a Christian mob in 415, amid political struggles. That this figure in the fresco is her is a modern, disputed identification.
+
+@290bf7e5
+Em mires perquè sóc l'única que et mira a tu. Alguns diuen que sóc Hipàtia, d'Alexandria; d'altres, que sóc un jove noble d'Urbino. Rafael no ho va deixar escrit. Si sóc Hipàtia, vaig ensenyar Plató i Ptolemeu vuit segles després de tu. I en vaig morir.
+You look at me because I'm the only one looking at you. Some say I'm Hypatia, of Alexandria; others, a young nobleman of Urbino. Raphael didn't write it down. If I am Hypatia, I taught Plato and Ptolemy eight centuries after you. And I died for it.
+
+@e1dbdc17
+Què ensenyaves?
+What did you teach?
+
+@2ba5190f
+Matemàtiques, astronomia i la filosofia de Plató, tal com l'entenien Plotí i els seus deixebles: que tot procedeix de l'U, del Bé, i que l'ànima hi pot tornar amb la raó. Alumnes pagans i cristians venien a escoltar-me. Un d'ells va arribar a bisbe. El meu pare, Teó, i jo vam revisar els Elements d'Euclides.
+Mathematics, astronomy and Plato's philosophy, as Plotinus and his followers understood it: that all comes from the One, the Good, and that the soul can return to it through reason. Pagan and Christian pupils came to hear me. One of them became a bishop. My father, Theon, and I revised Euclid's Elements.
+
+@33555f99
+L'any 415 de la vostra era, Alexandria estava dividida entre el prefecte, Orestes, que era amic meu, i el bisbe, Ciril. Va córrer el rumor que jo impedia la seva reconciliació. Una torba de cristians em va treure del carro, em va arrossegar a una església i em va matar. Segles després em van convertir en símbol de la raó davant del fanatisme.
+In the year 415 of your era, Alexandria was divided between the prefect, Orestes, who was my friend, and the bishop, Cyril. A rumour spread that I was blocking their reconciliation. A Christian mob dragged me from my carriage, hauled me into a church and killed me. Centuries later they made me a symbol of reason against fanaticism.
+
+@c405fe9f
+Per què és dubtosa la presència d'Hipàtia al fresc?
+Why is Hypatia's presence in the fresco doubtful?
+
+@76990aa6
+Perquè és una identificació moderna i cap document de l'època no la confirma
+Because it is a modern identification and no document of the time confirms it
+
+@8f37f3b2
+Perquè Rafael va escriure que era una altra persona
+Because Raphael wrote that it was someone else
+
+@4190924c
+Perquè Hipàtia era persa
+Because Hypatia was Persian
+
+@e0121549
+No. La identificació d'aquesta figura amb Hipàtia és moderna; Rafael no va deixar cap indicació.
+No. The identification of this figure with Hypatia is modern; Raphael left no indication.
+
+@eb2aeb87
+Epicur (en el somni)
+Epicurus (in the dream)
+
+@553c6a0f
+Epicur de Samos (341-270 aC) va fundar a Atenes el Jardí, una escola oberta també a dones i esclaus. Va ensenyar que la felicitat és el plaer entès com a absència de dolor al cos (aponia) i de torbació a l'ànima (ataràxia), que s'aconsegueix amb una vida senzilla, l'amistat i el coneixement de la natura, feta d'àtoms, per no tenir por dels déus ni de la mort.
+Epicurus of Samos (341-270 BC) founded the Garden in Athens, a school open also to women and slaves. He taught that happiness is pleasure understood as absence of pain in the body (aponia) and of disturbance in the soul (ataraxia), achieved through a simple life, friendship and knowledge of nature, made of atoms, so as not to fear the gods or death.
+
+@d9575e60
+Salut, amic. M'han coronat de pàmpols: creuen que el plaer que ensenyo és el del vi. Res d'això: una mica de pa, aigua, formatge quan n'hi ha, i bons amics en un jardí. Naixerà a Samos d'aquí a quaranta-cinc anys un tal Epicur. Mentrestant, gaudeix del somni.
+Good health, friend. They've crowned me with vine leaves: they think the pleasure I teach is that of wine. Not at all: a little bread, water, cheese when there is some, and good friends in a garden. One Epicurus will be born on Samos forty-five years from now. Meanwhile, enjoy the dream.
+
+@af2eab9f
+No el dels banquets, que porta mal de cap l'endemà. El plaer és no patir: no tenir gana, ni fred, ni por. Amb pa i aigua sóc tan feliç com Zeus. Hi ha desitjos naturals i necessaris, com menjar; naturals i no necessaris, com les menges; i vans, com la fama. Qui els sap distingir viu en pau.
+Not that of banquets, which brings a headache next day. Pleasure is not suffering: not being hungry, cold or afraid. With bread and water I'm as happy as Zeus. There are desires natural and necessary, like eating; natural and unnecessary, like delicacies; and empty, like fame. Whoever can tell them apart lives in peace.
+
+@42ba27a6
+Per què no tenir por de la mort?
+Why not fear death?
+
+@eeee1167
+Perquè la mort no és res per a nosaltres: mentre existim, ella no hi és, i quan ella hi és, nosaltres ja no existim. Tot està fet d'àtoms que se separen. I els déus, si existeixen, viuen feliços i no s'ocupen de nosaltres. Així que no tinguis por: viu bé i amb amics.
+Because death is nothing to us: while we exist, it is not here, and when it is here, we no longer exist. Everything is made of atoms that come apart. And the gods, if they exist, live happily and don't concern themselves with us. So don't be afraid: live well and with friends.
+
+@46dfaff2
+Per a Epicur, què és la felicitat?
+For Epicurus, what is happiness?
+
+@ce40ad9f
+L'absència de dolor al cos i de torbació a l'ànima
+The absence of pain in the body and of disturbance in the soul
+
+@041d2cbc
+Menjar i beure sense mesura
+Eating and drinking without measure
+
+@30f22a3f
+Obtenir la fama i el poder
+Gaining fame and power
+
+@6f50b001
+No. Epicur entenia el plaer com a absència de dolor (aponia) i de torbació (ataràxia), amb una vida senzilla.
+No. Epicurus understood pleasure as absence of pain (aponia) and of disturbance (ataraxia), with a simple life.
+
+@94cba722
+Giorgio Vasari, Vides, vida de Rafael
+Giorgio Vasari, Lives, life of Raphael
+
+@7ccb1e4f
+El somni és una llicència del joc.
+The dream is a licence of the game.
+
+@23db7af4
+Plató, República VII 514a-517a (la caverna) i Fedó 74a-75d (l'igual en si)
+Plato, Republic VII 514a-517a (the cave) and Phaedo 74a-75d (the equal itself)
+
+@a884131c
+J. Annas, Introducción a la República de Platón (1981)
+J. Annas, An Introduction to Plato's Republic (1981)
+
+@4fb9a193
+El 386 Plató encara no havia escrit la República.
+In 386 Plato had not yet written the Republic.
+
+@570306fe
+Aristòtil, Metafísica I 9 i Ètica a Nicòmac I-II
+Aristotle, Metaphysics I 9 and Nicomachean Ethics I-II
+
+@1c6e603f
+J. L. Ackrill, La filosofía de Aristóteles (1981)
+J. L. Ackrill, Aristotle the Philosopher (1981)
+
+@32ee4aa6
+«Amic de Plató, però més amic de la veritat» és una formulació medieval d'una idea de l'Ètica a Nicòmac I 6.
+«Plato is my friend, but truth is a better friend» is a medieval formulation of an idea in the Nicomachean Ethics I 6.
+
+@398c328e
+Plató, Apologia, Teetet 149a-151d (la llevadora) i Laques 190e-192b (el valor)
+Plato, Apology, Theaetetus 149a-151d (the midwife) and Laches 190e-192b (courage)
+
+@062e328b
+=
+=
+
+@d25ec363
+Plató, Banquet 215a-222b
+Plato, Symposium 215a-222b
+
+@f9ceb7ea
+Tucídides VI-VIII
+Thucydides VI-VIII
+
+@f585f978
+Plutarc, Alcibíades
+Plutarch, Alcibiades
+
+@04050dc1
+=
+=
+
+@55233a9d
+Aristòtil, Metafísica I 5
+Aristotle, Metaphysics I 5
+
+@6302d681
+Diògenes Laerci VIII 1-50
+Diogenes Laertius VIII 1-50
+
+@dc571f48
+Xenòfanes, fr. 7 (el gosset)
+Xenophanes, fr. 7 (the puppy)
+
+@f69dd88b
+Heràclit, fr. 12, 49a, 51, 53, 60 i 91 Diels-Kranz
+Heraclitus, fr. 12, 49a, 51, 53, 60 and 91 Diels-Kranz
+
+@c86a4388
+=
+=
+
+@2e4ea544
+Diògenes Laerci VI 20-81 (les anècdotes)
+Diogenes Laertius VI 20-81 (the anecdotes)
+
+@777e5c5d
+=
+=
+
+@c43d2b56
+Les anècdotes de Diògenes es van recollir segles després i moltes són llegendàries.
+Diogenes' anecdotes were collected centuries later and many are legendary.
+
+@fc55526d
+Euclides, Elements I (definicions i postulats)
+Euclid, Elements I (definitions and postulates)
+
+@0b66f8a0
+Procle, Comentari a Euclides 68 (no hi ha camí reial)
+Proclus, Commentary on Euclid 68 (there is no royal road)
+
+@30a0819c
+=
+=
+
+@a08d1946
+La inscripció de l'Acadèmia («que no entri ningú que no sàpiga geometria») apareix en autors tardans.
+The Academy inscription («let no one ignorant of geometry enter») appears in late authors.
+
+@879b6c84
+Ptolemeu, Almagest I-III i Geografia
+Ptolemy, Almagest I-III and Geography
+
+@e26eab9b
+=
+=
+
+@3ecb38af
+Avesta, Gathes
+Avesta, Gathas
+
+@7f7a707b
+Diògenes Laerci, pròleg 2 i 8 (Hermodor i els mags)
+Diogenes Laertius, prologue 2 and 8 (Hermodorus and the magi)
+
+@73045f5b
+=
+=
+
+@b297b320
+Sòcrates Escolàstic, Història eclesiàstica VII 15
+Socrates Scholasticus, Ecclesiastical History VII 15
+
+@7297f151
+Sinesi de Cirene, Cartes
+Synesius of Cyrene, Letters
+
+@c4d5656c
+M. Dzielska, Hipàtia d'Alexandria (1995)
+M. Dzielska, Hypatia of Alexandria (1995)
+
+@e5e2d65d
+La identificació d'aquesta figura del fresc amb Hipàtia és moderna.
+The identification of this figure in the fresco with Hypatia is modern.
+
+@479e00fd
+Epicur, Carta a Meneceu (Diògenes Laerci X 121-135)
+Epicurus, Letter to Menoeceus (Diogenes Laertius X 121-135)
+
+@39537467
+=
+=
