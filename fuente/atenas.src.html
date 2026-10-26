@@ -4870,7 +4870,10 @@ const GLOSS=[
 ['Clístenes',['clístenes'],'Reformador del 508 que creó las diez tribus y el Consejo de los Quinientos: el inicio de la democracia.'],
 ['Isócrates',['isócrates'],'Maestro de retórica que dirige una escuela en Atenas y defiende la unión de los griegos contra Persia.'],
 ];
-let GL_IDX=new Map();GLOSS.forEach((e,i)=>e[1].forEach(v=>GL_IDX.set(v.toLowerCase(),i)));
+// En catalán e inglés las variantes en minúsculas sin acentos no se traducen: se indexa también el término
+function glIndex(){const m=new Map();GLOSS.forEach((e,i)=>e[1].forEach(v=>m.set(v.toLowerCase(),i)));
+  if(LANG!=='es')GLOSS.forEach((e,i)=>{const k=e[0].toLowerCase();if(!m.has(k))m.set(k,i);});return m;}
+let GL_IDX=glIndex();
 let GL_RE=new RegExp('(?<![\\p{L}\\p{N}])('+[...GL_IDX.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![\\p{L}\\p{N}])','giu');
 
 // glosario del modo Roma: sustituye al de Atenas en romaSetup()
@@ -5011,7 +5014,7 @@ const ROMA_GLOSS=[
 ['Sabinas',['sabinas','sabinos'],'Pueblo vecino de Roma. Según la leyenda, Rómulo raptó a sus mujeres para poblar la ciudad.'],
 ['Gíaros',['gíaros'],'Isla rocosa y sin agua del Egeo, lugar de destierro.']
 ];
-function rebuildGloss(){GL_IDX=new Map();GLOSS.forEach((e,i)=>e[1].forEach(v=>GL_IDX.set(v.toLowerCase(),i)));
+function rebuildGloss(){GL_IDX=glIndex();
   GL_RE=new RegExp('(?<![\\p{L}\\p{N}])('+[...GL_IDX.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![\\p{L}\\p{N}])','giu');}
 
 
