@@ -50,6 +50,13 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Doble salto:** Espacio otra vez en el aire (`jump()`, `player.jumps`).
 - **Ratón:** la cámara gira con solo mover el ratón; con un clic se captura el puntero y gira sin límite. Sin captura, el cursor en el borde izquierdo o derecho sigue girando.
 
+### En curso: catalán e inglés (plan acordado con la usuaria)
+- **Fase 1:** selector de idioma (es/ca/en) en la pantalla inicial y en el juego, guardado en `localStorage`. Interfaz traducida: textos fijos del HTML, botones, HUD, avisos, diario, plano, biblioteca y nombres de lugares.
+- **Fase 2:** el contenido por bloques (personajes de Atenas, de Roma, «Cuéntame más», biblioteca y fuentes, mitos, clases, latinismos…). Lo que aún no esté traducido se muestra en español. El diálogo libre con Platón debe responder en el idioma elegido.
+- **Diseño previsto:** diccionarios `{texto en español: traducción}` por idioma. Al arrancar, un recorrido profundo sustituye las cadenas de los datos (NPCS, ROMA_NPCS, MORE, SRC, ESSAYS, MYTHS…). Un `MutationObserver` traduce los nodos de texto de la interfaz que coinciden exactamente, con patrones para los textos con números (p. ej. «Lecciones 0/79»). En los textos que se dibujan en canvas (plano, etiquetas `labelSprite`) se aplica la función de traducción directamente.
+- Unos 650.000 caracteres de texto en español en total.
+- **Probar fuera de Windows:** `.claude/launch.json` apunta a un Python de Windows; en otro equipo basta con `python -m http.server 8386` en la raíz y abrir `atenas.html?modo=atenas#debug`. Construir con `python fuente/construir.py`.
+
 ### Novedades de la versión 20: ropa más fiel
 - `personMat(hex,kind,o)` admite variantes de sombreado sobre las mismas piezas: `o.bare='exo'` (exomis: hombro y pecho derechos de color piel), `'chest'` (sin quitón: torso desnudo por encima de 1,02 m y color del manto por debajo) y `o.border` (cenefa de dos franjas a `o.by` m del bajo; colores en `BORDER_C`, al azar en un 30 % de las personas).
 - Opciones de `makePerson`: `exomis` (túnica corta, piernas al aire, sin manga derecha) y `himOnly` (solo himation, sin mangas). Las llevan Manes, Timócrates, Carión, el hilota y el pastor (exomis), Antístenes y Sócrates en el sueño (himation), y en los paseantes de Atenas un 24 % de los hombres (exomis) y un 12 % (himation).
