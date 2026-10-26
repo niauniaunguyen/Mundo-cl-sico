@@ -1,0 +1,1185 @@
+# HOUSE_NPCS: la casa de Calias, el criado y los sofistas
+
+@241806d7
+La casa atenesa (oikía) s'organitzava al voltant d'un pati obert, amb l'altar de Zeus Herkeios i sovint un pou o una cisterna. Els murs eren de tova sobre un sòcol de pedra, amb poques finestres al carrer. L'andró, amb la porta descentrada i la vora del terra preparada per als divans, era la sala on el senyor rebia els convidats; les dones tenien les seves habitacions (gineceu), de vegades al pis de dalt. L'oikos era també la família i els seus béns, esclaus inclosos. Els sofistes donaven sovint les seves lliçons a cases de rics, com la de Cal·lias que descriu Plató al Protàgores.
+The Athenian house (oikía) was arranged around an open courtyard, with the altar of Zeus Herkeios and often a well or a cistern. The walls were mud brick on a stone footing, with few windows onto the street. The andron, with its off-centre door and the floor edge prepared for couches, was the room where the master received his guests; the women had their rooms (gynaikeion), sometimes upstairs. The oikos was also the family and its property, slaves included. Sophists often gave their lessons in rich men's houses, like that of Callias described by Plato in the Protagoras.
+
+@1899fc0d
+Benvingut a casa, amo! Sóc Xàntias. Cal·lias, el teu amfitrió, em mana que et serveixi mentre siguis a Atenes: escombro, compro al mercat, atenc la porta i porto els comptes. Si vols que porti un sofista perquè faci classe aquí, a l'andró, només cal que ho diguis.
+Welcome home, master! I'm Xanthias. Callias, your host, has told me to serve you while you're in Athens: I sweep, shop at the market, mind the door and keep the accounts. If you'd like me to bring a sophist to teach here, in the andron, you only have to say so.
+
+@3dc3eeef
+Aquesta casa és meva?
+Is this house mine?
+
+@1c036dec
+Mentre siguis a Atenes, sí. Però de debò és de Cal·lias. Un foraster no pot ser amo de cases ni de terres a l'Àtica, tret que l'Assemblea li concedeixi aquest privilegi, que en diuen énktesis; fins i tot els metecs més rics viuen de lloguer. Per això Cal·lias te la deixa. És molt afeccionat als savis: fa anys, a la seva altra casa, s'hi van reunir alhora Protàgores, Hípias i Pròdic, i mitja Atenes va anar a escoltar-los.
+While you're in Athens, yes. But really it's Callias's. A foreigner can't own houses or land in Attica unless the Assembly grants him that privilege, which they call enktesis; even the richest metics rent. That's why Callias lends it to you. He's very fond of wise men: years ago, at his other house, Protagoras, Hippias and Prodicus all gathered at once, and half of Athens went to hear them.
+
+@9f5918d1
+Com és una casa atenesa?
+What is an Athenian house like?
+
+@d84963d5
+Com aquesta: per fora, un mur gairebé cec, amb una porta i alguna finestra alta, perquè no es vegin les dones ni s'hi colin els lladres. Per dins, tot dóna al pati: el pòrtic del fons, on es treballa a l'ombra; l'andró, per als banquets; el magatzem i la cuina; i a dalt, per una escala de fusta, els dormitoris i la cambra de les dones. Els murs són de tova: un lladre pot obrir-hi un forat amb un pic. Per això als lladres els diem «foradaparets».
+Like this one: from outside, an almost blind wall, with a door and the odd high window, so the women can't be seen and thieves can't get in. Inside, everything opens onto the courtyard: the portico at the back, where you work in the shade; the andron, for banquets; the storeroom and the kitchen; and upstairs, by a wooden staircase, the bedrooms and the women's quarters. The walls are mud brick: a thief can make a hole with a pick. That's why we call burglars «wall-diggers».
+
+@a0d77e16
+Com era una classe de sofistes en una casa?
+What was a sophists' class in a house like?
+
+@a30e293e
+T'explico el que vaig veure a casa de Cal·lias, quan jo era noi. Al pòrtic passejava Protàgores, parlant, i darrere el seguia un cor d'oients, estrangers que havia portat de cada ciutat; quan ell es girava, tots s'obrien als costats i tornaven a posar-se darrere, com en una dansa. Al davant, Hípias, assegut en una butaca alta, responia preguntes sobre els astres. I en una cambreta que Cal·lias feia servir de magatzem, Pròdic, ajagut i embolicat en mantes, parlava amb una veu tan greu que retrunyia i no s'entenia res. Plató ho ha escrit igual, gairebé paraula per paraula.
+I'll tell you what I saw at Callias's house when I was a boy. Protagoras was walking in the portico, talking, and behind him followed a chorus of listeners, foreigners he had brought from every city; when he turned round, they all parted to the sides and fell in behind him again, as in a dance. Opposite, Hippias, seated on a high chair, answered questions about the stars. And in a little room Callias used as a storeroom, Prodicus, lying down and wrapped in blankets, spoke in a voice so deep that it boomed and you couldn't understand a thing. Plato has written it just like that, almost word for word.
+
+@de82cb6c
+Què era l'andró d'una casa grega?
+What was the andron of a Greek house?
+
+@500591d5
+La sala on el senyor rebia els convidats i celebrava banquets
+The room where the master received guests and held banquets
+
+@fb1a3b23
+La cambra de les dones
+The women's quarters
+
+@f8670d7e
+El magatzem del gra
+The grain store
+
+@3657b713
+No. L'andró era la sala dels homes: allà el senyor rebia els convidats, ajaguts en divans, per als banquets. Les dones tenien el seu propi espai, el gineceu.
+No. The andron was the men's room: there the master received his guests, reclining on couches, for banquets. The women had their own space, the gynaikeion.
+
+@e709c9bf
+distingir paraules i la faula d'Hèracles
+distinguishing words and the fable of Heracles
+
+@07486e58
+Pròdic de Ceos (c. 465-després del 399) va ser sofista i ambaixador de la seva illa a Atenes. Es va fer famós per la «correcció dels noms»: distingir amb precisió paraules que semblen sinònimes, com discutir i barallar-se, o alegrar-se i gaudir. Cobrava una dracma per una conferència breu i cinquanta per la completa. La seva faula d'Hèracles a la cruïlla, entre el Vici i la Virtut, la coneixem per Xenofont (Memorables II 1). Sòcrates l'apreciava i li enviava alumnes.
+Prodicus of Ceos (c. 465-after 399) was a sophist and his island's ambassador to Athens. He became famous for the «correctness of names»: precisely distinguishing words that seem synonymous, like disputing and quarrelling, or rejoicing and enjoying. He charged one drachma for a short lecture and fifty for the full one. His fable of Heracles at the crossroads, between Vice and Virtue, is known to us through Xenophon (Memorabilia II 1). Socrates thought well of him and sent him pupils.
+
+@49e221b8
+Salut, jove amfitrió, i gràcies pel vi tebi; tinc la gola delicada, saps? Sóc Pròdic, de Ceos. Aquests nois vénen a sentir-me parlar de l'exactitud de les paraules. No és el mateix escoltar que sentir, ni parlar que dir: ja ho veuràs.
+Greetings, young host, and thank you for the warm wine; I have a delicate throat, you know. I am Prodicus, of Ceos. These boys come to hear me speak about the exactness of words. Listening is not the same as hearing, nor speaking the same as saying: you'll see.
+
+@44515fde
+Quant cobres?
+How much do you charge?
+
+@70c29feb
+Depèn. Per una dracma dono una mostra: mitja hora del que sé. Per cinquanta dracmes, el curs complet sobre la correcció dels noms, que deixa qualsevol parlant com cal. Sòcrates diu, rient, que ell només va poder pagar la d'una dracma, i que per això no sap la veritat sobre els noms. Ho diu per fer-me la guitza, però m'envia alumnes.
+It depends. For one drachma I give a sample: half an hour of what I know. For fifty drachmas, the complete course on the correctness of names, which leaves anyone speaking properly. Socrates says, laughing, that he could only afford the one-drachma lecture, and that's why he doesn't know the truth about names. He says it to annoy me, but he sends me pupils.
+
+@6b3f6769
+Per a què serveix distingir paraules?
+What is the use of distinguishing words?
+
+@6725ff7d
+Per pensar amb claredat. Si a l'Assemblea un diu «valor» i un altre entén «temeritat», discuteixen sense saber de què. Si un jutge confon «voler» amb «desitjar», condemna malament. Les paraules són com les monedes: si no saps quina és de plata i quina de coure, t'enganyen. Abans de discutir, cal posar-se d'acord en els noms.
+To think clearly. If in the Assembly one man says «courage» and another understands «rashness», they argue without knowing about what. If a judge confuses «wanting» with «desiring», he condemns wrongly. Words are like coins: if you don't know which is silver and which is copper, you get cheated. Before arguing, you must agree on the names.
+
+@a0ba3657
+Què penses dels déus?
+What do you think of the gods?
+
+@8527f69f
+Penso, i ho dic en veu baixa, que els primers homes van anomenar déus les coses que els eren útils: el sol, els rius, les fonts. Al pa li van dir Demèter; al vi, Dionís; al foc, Hefest. I després van honrar com a déus els qui van descobrir el conreu i els oficis. Hi ha qui diu que això és impietat. Jo dic que és gratitud.
+I think, and I say it quietly, that the first men called gods the things that were useful to them: the sun, the rivers, the springs. Bread they called Demeter; wine, Dionysus; fire, Hephaestus. And then they honoured as gods those who discovered farming and the crafts. Some say that is impiety. I say it is gratitude.
+
+@fb0432dc
+Per què era famós Pròdic de Ceos?
+What was Prodicus of Ceos famous for?
+
+@ef87b11f
+Per distingir amb exactitud paraules que semblen sinònimes
+For precisely distinguishing words that seem synonymous
+
+@ddf4e990
+Per inventar l'alfabet
+For inventing the alphabet
+
+@3065beee
+Per guanyar a Olímpia
+For winning at Olympia
+
+@da7c1708
+No. Pròdic era famós per la «correcció dels noms»: distingir amb precisió paraules semblants, com discutir i barallar-se.
+No. Prodicus was famous for the «correctness of names»: precisely distinguishing similar words, like disputing and quarrelling.
+
+@079627c1
+Pròdic es recolza al divan, s'arregla la manta i escura la gola. Els nois callen. «Per on comencem?»
+Prodicus reclines on the couch, adjusts his blanket and clears his throat. The boys fall silent. «Where shall we begin?»
+
+@38a0c966
+Pròdic assenteix a poc a poc: «Bé. Has distingit cada cosa amb el seu nom. Això val més d'una dracma».
+Prodicus nods slowly: «Good. You have distinguished each thing by its name. That is worth more than a drachma».
+
+@3732a31e
+Així es fa una classe amb un sofista a casa: el mestre, convidat per l'amo, s'acomoda a l'andró; els alumnes, nois de famílies riques de catorze a divuit anys, seuen als divans; els seus pedagogs esperen al costat de la porta. No hi ha tauletes: s'escolta, es pregunta, es respon i es memoritza. Pròdic sempre comença igual: «Abans de res, apreneu a distingir els noms».
+This is how a class with a sophist at home goes: the teacher, invited by the owner, settles in the andron; the pupils, boys of rich families aged fourteen to eighteen, sit on the couches; their paidagogoi wait by the door. There are no tablets: you listen, ask, answer and memorise. Prodicus always begins the same way: «First of all, learn to distinguish names».
+
+@10e534e8
+«Mireu: discutir no és el mateix que barallar-se. Els amics discuteixen, amb bona voluntat; els enemics es barallen. Alegrar-se no és el mateix que gaudir: un s'alegra en aprendre alguna cosa, amb la ment; gaudeix en menjar o beure, amb el cos. Estimar no és el mateix que lloar: estimem de cor; lloem amb paraules, de vegades sense sentir-ho.»
+«Look: disputing is not the same as quarrelling. Friends dispute, with goodwill; enemies quarrel. Rejoicing is not the same as enjoying: one rejoices in learning something, with the mind; one enjoys eating or drinking, with the body. Esteeming is not the same as praising: we esteem from the heart; we praise with words, sometimes without feeling it.»
+
+@d047dd79
+Un noi, Critòbul, aixeca la mà: «Mestre, i voler i desitjar?». Pròdic somriu: «Desitjar és trobar a faltar el que no tens; voler és triar. El desig doble és l'amor, l'eros; l'amor doble és la bogeria». Els alumnes riuen, i ho anoten mentalment. Plató es burlarà d'aquestes distincions; però són el començament de l'estudi dels sinònims.
+A boy, Critobulus, raises his hand: «Master, and wanting and desiring?». Prodicus smiles: «Desiring is missing what you don't have; wanting is choosing. Double desire is love, eros; double love is madness». The pupils laugh, and make a mental note. Plato will mock these distinctions; but they are the beginning of the study of synonyms.
+
+@d56fa2e4
+Segons Pròdic, quina diferència hi ha entre discutir i barallar-se?
+According to Prodicus, what is the difference between disputing and quarrelling?
+
+@161fe4ae
+Els amics discuteixen amb bona voluntat; els enemics es barallen
+Friends dispute with goodwill; enemies quarrel
+
+@572bb2e6
+No hi ha cap diferència
+There is no difference
+
+@11a13455
+Discutir és d'esclaus i barallar-se de ciutadans
+Disputing is for slaves and quarrelling for citizens
+
+@7b50b691
+Pròdic distingia entre discutir (amphisbeteîn), propi d'amics, i barallar-se (erízein), propi d'enemics.
+Prodicus distinguished between disputing (amphisbeteîn), proper to friends, and quarrelling (erízein), proper to enemies.
+
+@e6623ecc
+Què és «alegrar-se» per a Pròdic, davant de «gaudir»?
+What is «rejoicing» for Prodicus, as opposed to «enjoying»?
+
+@26602d2a
+Un goig de la ment, com en aprendre
+A joy of the mind, as in learning
+
+@557c5ed9
+Un plaer del cos, com en menjar
+A pleasure of the body, as in eating
+
+@e07acec8
+El mateix que gaudir
+The same as enjoying
+
+@64d897d4
+Alegrar-se (euphraínesthai) és de la ment; gaudir (hédesthai), del cos.
+Rejoicing (euphraínesthai) belongs to the mind; enjoying (hédesthai), to the body.
+
+@d92e8415
+On solia donar les seves lliçons un sofista?
+Where did a sophist usually give his lessons?
+
+@340fab50
+A cases de rics, gimnasos i llocs públics, cobrant als alumnes
+In rich men's houses, gymnasia and public places, charging the pupils
+
+@bdc6f447
+A escoles públiques pagades per la ciutat
+In public schools paid for by the city
+
+@243103ce
+Només als temples
+Only in temples
+
+@2b31b129
+No hi havia escoles públiques de sofistes: feien conferències i cursos de pagament a cases particulars, com la de Cal·lias, i a gimnasos.
+There were no public schools of sophists: they gave paid lectures and courses in private houses, like Callias's, and in gymnasia.
+
+@06633894
+Pròdic recita la seva obra més famosa, que porta per totes les ciutats: «Quan Hèracles passava de nen a jove, l'edat en què es decideix quin camí seguir a la vida, es va asseure a pensar en un lloc solitari. I se li van acostar dues dones altes».
+Prodicus recites his most famous work, which he carries from city to city: «When Heracles was passing from boyhood to youth, the age when one decides which road to take in life, he sat down to think in a lonely place. And two tall women came up to him».
+
+@68397aba
+«Una era bella, pintada, mirant a tot arreu: era el Vici, encara que deia que es deia Felicitat. Li va prometre el camí més curt i agradable: menjar, beure, dormir, estimar sense esforç, aprofitar-se de la feina dels altres. L'altra, senzilla, amb la mirada baixa i vestida de blanc, era la Virtut: \"No t'enganyaré: res de bo no concedeixen els déus sense esforç. Si vols que la terra doni fruit, conrea-la; si vols amics, serveix-los; si vols que la ciutat t'honori, ajuda-la\".»
+«One was beautiful, painted, glancing everywhere: she was Vice, though she said her name was Happiness. She promised him the shortest and most pleasant road: eating, drinking, sleeping, loving without effort, profiting from other people's work. The other, plain, with lowered gaze and dressed in white, was Virtue: \"I will not deceive you: the gods grant nothing good without effort. If you want the earth to bear fruit, till it; if you want friends, serve them; if you want the city to honour you, help it\".»
+
+@df48a3f6
+Hèracles va triar el camí difícil de la Virtut. Pròdic pregunta als alumnes què haurien triat, i cadascú ho ha de justificar amb un discurs breu. Així s'ensenyava: amb un model ben construït (una epídeixis o exhibició), que després els alumnes imitaven i discutien. Xenofont posa aquesta història en boca de Sòcrates; durant segles es repetirà a les escoles i en pintures.
+Heracles chose the hard road of Virtue. Prodicus asks the pupils what they would have chosen, and each must justify it with a short speech. That was how teaching worked: with a well-built model (an epideixis, or display), which the pupils then imitated and discussed. Xenophon puts this story in Socrates' mouth; for centuries it will be repeated in schools and in paintings.
+
+@b36a18ee
+Entre quines dues figures ha de triar Hèracles a la faula de Pròdic?
+Between which two figures must Heracles choose in Prodicus' fable?
+
+@c01ff02b
+El Vici i la Virtut
+Vice and Virtue
+
+@b1dddc16
+Atena i Afrodita
+Athena and Aphrodite
+
+@8e68e7bd
+La Guerra i la Pau
+War and Peace
+
+@a7042e36
+Dues dones: el Vici, que es fa dir Felicitat, i la Virtut.
+Two women: Vice, who calls herself Happiness, and Virtue.
+
+@aa410483
+Què li promet la Virtut a Hèracles?
+What does Virtue promise Heracles?
+
+@7cff38b7
+Que el que és bo només s'aconsegueix amb esforç
+That good things are only won with effort
+
+@4f1bc043
+Plaers sense feina
+Pleasures without work
+
+@6c7ea1a9
+La immortalitat immediata
+Immediate immortality
+
+@07a499ea
+La Virtut no enganya: els déus no donen res de bo sense esforç.
+Virtue does not deceive: the gods give nothing good without effort.
+
+@3c13ee97
+Què era una epídeixis?
+What was an epideixis?
+
+@51b50b5c
+Un discurs d'exhibició que el sofista oferia com a model
+A display speech the sophist offered as a model
+
+@8dda9a63
+Un examen escrit
+A written exam
+
+@0f925e36
+Una cursa del pentatló
+A pentathlon race
+
+@28f15763
+L'epídeixis era una exhibició pública d'oratòria, sovint per atreure alumnes.
+The epideixis was a public display of oratory, often to attract pupils.
+
+@f7913a08
+l'art de la memòria i el saber de tot
+the art of memory and knowing everything
+
+@f3dbd376
+Hípias d'Elis (c. 460-després del 399), sofista i ambaixador de la seva ciutat, presumia de dominar totes les arts: astronomia, geometria, aritmètica, música, gramàtica, genealogies d'herois i fundacions de ciutats. Tenia una memòria prodigiosa i ensenyava tècniques per recordar. Explicaven que a Olímpia es va presentar amb tot el que portava fet per ell mateix. Va recopilar la llista de vencedors olímpics. Plató se'n burla a l'Hípias major i l'Hípias menor, i al Protàgores li atribueix l'oposició entre la llei, «tirana dels homes», i la natura.
+Hippias of Elis (c. 460-after 399), sophist and ambassador of his city, boasted of mastering every art: astronomy, geometry, arithmetic, music, grammar, genealogies of heroes and foundations of cities. He had a prodigious memory and taught techniques for remembering. It was said that at Olympia he appeared wearing nothing that he had not made himself. He compiled the list of Olympic victors. Plato mocks him in the Greater Hippias and the Lesser Hippias, and in the Protagoras attributes to him the opposition between law, «tyrant of men», and nature.
+
+@64e8807b
+Per Zeus Olímpic, quina casa tan agradable! Hípias, d'Elis. Veus aquest anell? L'he fet jo. I el segell, i les sandàlies, i aquest mantell, i el cinturó, que és com els de Pèrsia però millor. Pregunta'm el que vulguis: astres, nombres, ritmes, herois, fundacions de ciutats. No hi ha pregunta que no sàpiga respondre.
+By Olympian Zeus, what a pleasant house! Hippias, of Elis. See this ring? I made it. And the seal, and the sandals, and this cloak, and the belt, which is like the Persian ones but better. Ask me anything you like: stars, numbers, rhythms, heroes, foundations of cities. There is no question I cannot answer.
+
+@405c3ab0
+De debò ho saps tot?
+Do you really know everything?
+
+@1bc15e8e
+Gairebé. A Olímpia em vaig presentar davant de tots els grecs amb tot el que portava a sobre fet amb les meves mans, i a més amb poemes èpics, tragèdies, ditirambes i discursos en prosa de collita pròpia. Vaig respondre qualsevol pregunta que em van fer durant dies, i ningú no em va guanyar mai en res. Et sembla poc?
+Almost. At Olympia I appeared before all the Greeks with everything I wore made by my own hands, and with epic poems, tragedies, dithyrambs and prose speeches of my own besides. For days I answered every question put to me, and nobody ever beat me at anything. Does that seem little to you?
+
+@be41c2aa
+Quant has guanyat?
+How much have you earned?
+
+@2aea568e
+Més que dos sofistes qualssevol junts. A Sicília, tot i que Protàgores hi havia estat abans, vaig guanyar més de cent cinquanta mines en poc temps, i només en un poblet, Ínic, més de vint. Els espartans no em paguen, això sí: no els ho permeten les seves lleis. Però els encanta escoltar-me explicar genealogies d'herois i fundacions de ciutats, com als nens els contes de les àvies.
+More than any two sophists put together. In Sicily, though Protagoras had been there before me, I earned over a hundred and fifty minas in a short time, and in one little village, Inycus, over twenty. The Spartans don't pay me, mind: their laws don't allow it. But they love hearing me tell genealogies of heroes and foundations of cities, the way children love grandmothers' tales.
+
+@a462932d
+Què és més fort, la llei o la natura?
+Which is stronger, law or nature?
+
+@deeebd55
+Us diré el que vaig dir a casa de Cal·lias: tots els que sou aquí sou parents i conciutadans per natura, no per llei. El semblant és parent del semblant. Però la llei, que és tirana dels homes, obliga a moltes coses contra la natura. Cada ciutat té lleis diferents i les canvia quan vol. La natura és la mateixa a Elis i a Pèrsia.
+I'll tell you what I said at Callias's house: all of you here are kinsmen and fellow citizens by nature, not by law. Like is kin to like. But law, the tyrant of men, compels many things against nature. Every city has different laws and changes them when it pleases. Nature is the same in Elis and in Persia.
+
+@d67fdd92
+De què presumia Hípias d'Elis?
+What did Hippias of Elis boast of?
+
+@4efe7dd8
+De saber de totes les arts i de fer-se ell mateix la roba i l'anell
+Of knowing every art and making his own clothes and ring
+
+@c86f1eb3
+De no saber res
+Of knowing nothing
+
+@3b22fe34
+De no cobrar als alumnes
+Of not charging his pupils
+
+@7985ed9a
+No. Hípias presumia de saber-ho tot i de portar només el que ell mateix havia fet, anell inclòs.
+No. Hippias boasted of knowing everything and of wearing only what he had made himself, ring included.
+
+@05d05439
+Hípias seu a la butaca més alta, com a casa de Cal·lias. «Pregunteu, nois. O millor: escolteu i després us pregunto jo.»
+Hippias sits in the highest chair, as at Callias's house. «Ask away, boys. Or better: listen, and then I'll ask you.»
+
+@cf4665c3
+Hípias aplaudeix: «Excel·lent! Gairebé tan bé com jo a la teva edat. Bé, no tant».
+Hippias applauds: «Excellent! Almost as good as I was at your age. Well, not quite».
+
+@ec272f2d
+Hípias proposa un repte als alumnes: «Digueu-me cinquanta noms, els que vulgueu». Els nois els diuen, desordenats. Hípias els repeteix tots, en el mateix ordre, sense equivocar-se. Els alumnes es queden bocabadats. Això diuen que feia de debò, ja de vell.
+Hippias sets the pupils a challenge: «Tell me fifty names, any you like». The boys call them out, in no order. Hippias repeats them all, in the same order, without a mistake. The pupils are left open-mouthed. They say he really did this, even in old age.
+
+@14ae9d2e
+«El secret no és del tot meu», explica. «El va inventar Simònides, el poeta. Era en un banquet i va sortir un moment; el sostre es va enfonsar i els cadàvers van quedar irreconeixibles. Ell els va identificar tots recordant on seia cadascú. Així va descobrir que la memòria funciona amb llocs.»
+«The secret isn't entirely mine», he explains. «Simonides the poet invented it. He was at a banquet and stepped out for a moment; the roof fell in and the bodies were unrecognisable. He identified them all by remembering where each one had been sitting. That's how he discovered that memory works with places.»
+
+@493e7b8b
+«Imagineu una casa que conegueu bé, aquesta mateixa: la porta, el pati, l'altar, el pou, l'andró. Poseu a cada lloc una imatge cridanera del que voleu recordar: a la porta, un lleó per al primer argument; al costat del pou, una espasa per al segon. Després recorreu la casa amb la ment.» Els oradors faran servir aquest mètode durant segles per aprendre's discursos llarguíssims.
+«Imagine a house you know well, this very one: the door, the courtyard, the altar, the well, the andron. Put in each place a striking image of what you want to remember: at the door, a lion for the first argument; by the well, a sword for the second. Then walk through the house in your mind.» Orators will use this method for centuries to learn enormously long speeches.
+
+@38770585
+Segons la tradició, qui va inventar el mètode dels llocs per recordar?
+According to tradition, who invented the method of places for remembering?
+
+@0b3221de
+Simònides
+Simonides
+
+@4745f06e
+Simònides va identificar els morts d'un banquet recordant on seia cadascú.
+Simonides identified the dead at a banquet by remembering where each one sat.
+
+@11bd86f0
+En col·locar imatges del que es vol recordar en llocs d'un indret conegut
+Placing images of what you want to remember in the spots of a familiar place
+
+@623b13fd
+En repetir cent vegades la mateixa frase
+Repeating the same sentence a hundred times
+
+@d0b25371
+En escriure-ho tot en tauletes
+Writing everything down on tablets
+
+@88b4e2a1
+S'imagina un recorregut conegut i es col·loca a cada lloc una imatge.
+You imagine a familiar route and place an image in each spot.
+
+@8f0ab3e5
+Per a què servia sobretot una bona memòria a l'Atenes clàssica?
+What was a good memory mainly for in classical Athens?
+
+@c0b84fac
+Per pronunciar discursos sense llegir-los a l'Assemblea i als tribunals
+To deliver speeches without reading them in the Assembly and the courts
+
+@876b2ea3
+Per aprovar exàmens escrits
+To pass written exams
+
+@103aa168
+Per portar la comptabilitat dels temples
+To keep the temples' accounts
+
+@a51fb66b
+Els discursos es pronunciaven de memòria; llegir en públic estava mal vist.
+Speeches were delivered from memory; reading in public was frowned upon.
+
+@23b4fb42
+Hípias repassa amb els alumnes les seves matèries: l'aritmètica (nombres parells, senars, primers), la geometria (diuen que va descobrir una corba per dividir un angle en tres parts), l'astronomia, la música i els seus ritmes, la gramàtica (el valor de les lletres i les síl·labes), i la història: genealogies d'herois i la llista de vencedors olímpics, que ell mateix va recopilar per poder datar els esdeveniments.
+Hippias goes over his subjects with the pupils: arithmetic (even, odd and prime numbers), geometry (they say he discovered a curve to divide an angle into three parts), astronomy, music and its rhythms, grammar (the value of letters and syllables), and history: genealogies of heroes and the list of Olympic victors, which he compiled himself so that events could be dated.
+
+@6334221c
+Un dels alumnes, que ha escoltat Sòcrates, li pregunta: «Hípias, què és el bell?». Hípias respon de seguida: «Fàcil! Una noia bella». «I una euga bella? I una olla bella?» «Doncs l'or, que embelleix tot el que toca.» «I per què Fídias va fer d'ivori els ulls de la seva Atena?»
+One of the pupils, who has listened to Socrates, asks him: «Hippias, what is the beautiful?». Hippias answers at once: «Easy! A beautiful girl». «And a beautiful mare? And a beautiful pot?» «Well then, gold, which makes beautiful everything it touches.» «Then why did Phidias make the eyes of his Athena of ivory?»
+
+@0f9a2265
+La classe mostra el xoc entre dues maneres de saber: la del sofista, que sap moltes coses i posa exemples, i la de Sòcrates, que busca què tenen en comú tots els exemples: la definició. Plató ho explica a l'Hípias major, que acaba amb una frase cèlebre: «El que és bell és difícil».
+The class shows the clash between two ways of knowing: the sophist's, who knows many things and gives examples, and Socrates', who looks for what all the examples have in common: the definition. Plato tells it in the Greater Hippias, which ends with a famous phrase: «Beautiful things are difficult».
+
+@b10d7575
+Quina llista famosa va recopilar Hípias?
+What famous list did Hippias compile?
+
+@74b62b8f
+La dels vencedors dels Jocs Olímpics
+That of the victors at the Olympic Games
+
+@41ba11d7
+La dels arconts d'Esparta
+That of the archons of Sparta
+
+@89810d74
+La dels vaixells de la Ilíada
+That of the ships in the Iliad
+
+@26f26d61
+La llista de vencedors olímpics permetia datar els esdeveniments per Olimpíades.
+The list of Olympic victors made it possible to date events by Olympiads.
+
+@361a60d1
+Quan Hípias respon «una noia bella» a «què és el bell?», quin error comet segons Sòcrates?
+When Hippias answers «a beautiful girl» to «what is the beautiful?», what mistake does he make according to Socrates?
+
+@424eb260
+Dóna un exemple en lloc d'una definició
+He gives an example instead of a definition
+
+@eddebaad
+Diu una cosa falsa
+He says something false
+
+@92e361ef
+Respon massa a poc a poc
+He answers too slowly
+
+@20951a71
+Sòcrates busca el que és comú a totes les coses belles, no un cas concret.
+Socrates is looking for what all beautiful things have in common, not a particular case.
+
+@16d8357c
+Amb quina frase acaba l'Hípias major?
+With what phrase does the Greater Hippias end?
+
+@b8d1a782
+«El que és bell és difícil»
+«Beautiful things are difficult»
+
+@bb02def8
+«Només sé que no sé res»
+«I only know that I know nothing»
+
+@d712b93b
+«L'home és la mesura de totes les coses»
+«Man is the measure of all things»
+
+@82727a39
+«El que és bell és difícil» era un proverbi grec que tanca el diàleg.
+«Beautiful things are difficult» was a Greek proverb that closes the dialogue.
+
+@11576533
+l'Encomi d'Helena i parlar sense papers
+the Encomium of Helen and speaking without notes
+
+@8ebc2a1d
+Gòrgias de Leontins (c. 485-c. 380) va enlluernar els atenesos el 427 com a ambaixador de la seva ciutat, amb un estil ple d'antítesis, frases d'igual llargada i finals que rimen. Sostenia que la paraula (logos) és «un gran sobirà» que actua sobre l'ànima com els fàrmacs sobre el cos; el seu Encomi d'Helena defensa Helena amb aquest argument. El seu deixeble Alcidamant d'Elea, actiu a Atenes a començaments del segle IV, va escriure Sobre els sofistes, on defensa la improvisació davant dels discursos escrits i memoritzats.
+Gorgias of Leontini (c. 485-c. 380) dazzled the Athenians in 427 as his city's ambassador, with a style full of antitheses, phrases of equal length and rhyming endings. He held that speech (logos) is «a great lord» that acts on the soul as drugs act on the body; his Encomium of Helen defends Helen with that argument. His pupil Alcidamas of Elaea, active in Athens in the early fourth century, wrote On the Sophists, defending improvisation against written, memorised speeches.
+
+@ee55e560
+Salut. Alcidamant, d'Elea, a l'Eòlida. Vaig ser deixeble del gran Gòrgias de Leontins, que encara viu a Tessàlia, amb més de cent anys i el cap clar. Ell em va ensenyar que la paraula és un gran sobirà: amb un cos petitíssim i invisible, realitza les obres més divines. Avui, nois, us ho demostraré.
+Greetings. Alcidamas, of Elaea, in Aeolis. I was a pupil of the great Gorgias of Leontini, who still lives in Thessaly, over a hundred years old and clear-headed. He taught me that speech is a great lord: with the smallest, most invisible body it achieves the most divine works. Today, boys, I'll prove it to you.
+
+@bb22e625
+Qui és Gòrgias?
+Who is Gorgias?
+
+@be4af298
+El més gran orador del seu temps. Va arribar a Atenes com a ambaixador de Leontins, a Sicília, fa quaranta anys, i va parlar a l'Assemblea d'una manera que ningú no havia sentit mai: frases simètriques, contrastos, rimes, com si fos poesia en prosa. Els atenesos van quedar encisats. Va guanyar tants diners que va dedicar a Delfos una estàtua seva d'or. I va escriure un tractat que diu: res no existeix; si existís, no el podríem conèixer; i si el coneguéssim, no el podríem comunicar.
+The greatest orator of his time. He came to Athens as ambassador of Leontini, in Sicily, forty years ago, and spoke in the Assembly as nobody had ever heard: symmetrical phrases, contrasts, rhymes, like poetry in prose. The Athenians were spellbound. He earned so much money that he dedicated a gold statue of himself at Delphi. And he wrote a treatise that says: nothing exists; if it existed, we could not know it; and if we knew it, we could not communicate it.
+
+@4567eee0
+Per què prefereixes improvisar?
+Why do you prefer to improvise?
+
+@bf7f0be5
+Perquè la vida no avisa. A l'Assemblea o en un judici passen coses que no esperaves, i el qui només sap recitar el que va escriure a casa es queda mut. El bon orador aprofita el moment oportú, el kairós. Els discursos escrits són com estàtues: boniques, però immòbils. Isòcrates escriu molt bé, ho reconec; però si l'interromps, es perd.
+Because life gives no warning. In the Assembly or at a trial things happen you didn't expect, and the man who can only recite what he wrote at home is struck dumb. The good orator seizes the opportune moment, the kairos. Written speeches are like statues: pretty, but motionless. Isocrates writes very well, I admit; but interrupt him and he's lost.
+
+@7892c651
+És perillosa la retòrica?
+Is rhetoric dangerous?
+
+@bf7b6d95
+Com un ganivet: serveix al metge i a l'assassí. Gòrgias deia que ell convencia els malalts de prendre's la medicina millor que el seu germà, que era metge. Però també que el mestre no en té la culpa si l'alumne fa mal ús del que aprèn, igual que el mestre de lluita no en té la culpa si el seu alumne pega al seu pare. Plató no hi està d'acord, és clar.
+Like a knife: it serves the doctor and the murderer. Gorgias said he persuaded patients to take their medicine better than his brother, who was a doctor. But also that the teacher is not to blame if the pupil misuses what he learns, just as the wrestling master is not to blame if his pupil beats his father. Plato disagrees, of course.
+
+@ad84793e
+Què defensava Gòrgias a l'Encomi d'Helena?
+What did Gorgias argue in the Encomium of Helen?
+
+@55c5d7fb
+Que Helena no era culpable, perquè podia haver actuat per voluntat dels déus, per la força, per la persuasió o per amor
+That Helen was not guilty, because she may have acted by the will of the gods, by force, by persuasion or out of love
+
+@1dcf2cb6
+Que Helena mereixia la mort
+That Helen deserved death
+
+@842419d8
+Que Helena no va existir mai
+That Helen never existed
+
+@80bd4359
+No. Gòrgias demostrava que Helena era innocent en qualsevol dels quatre casos: déus, força, persuasió o amor.
+No. Gorgias showed that Helen was innocent in any of the four cases: gods, force, persuasion or love.
+
+@0d8975a1
+Alcidamant s'alça enmig de l'andró, com un actor. «Un orador no seu mai. Escolteu.»
+Alcidamas stands up in the middle of the andron, like an actor. «An orator never sits. Listen.»
+
+@ad44e07d
+Alcidamant fa una reverència: «L'has comprès com un llamp i l'has respost com un tro!». Els alumnes riuen de l'estil gorgià.
+Alcidamas bows: «You grasped it like lightning and answered it like thunder!». The pupils laugh at the Gorgianic style.
+
+@dbad7c84
+Alcidamant explica l'exercici preferit del seu mestre: defensar l'indefensable. «Qui és més odiada que Helena, la que va causar la guerra de Troia? Doncs Gòrgias la defensa, i guanya.» Així s'entrenaven els alumnes: elogiar qui tothom critica, o criticar qui tothom admira.
+Alcidamas explains his master's favourite exercise: defending the indefensible. «Who is more hated than Helen, who caused the Trojan War? Yet Gorgias defends her, and wins.» That was how pupils trained: praising someone everyone criticises, or criticising someone everyone admires.
+
+@88d3feba
+L'argument té quatre casos. Helena se'n va anar a Troia o per voluntat dels déus i del destí, i ningú no pot resistir-se als déus; o raptada per la força, i aleshores és víctima; o convençuda per la paraula, i la paraula domina l'ànima com els fàrmacs el cos; o enamorada, i l'amor és un déu o una malaltia. En els quatre casos, és innocent.
+The argument has four cases. Helen went to Troy either by the will of the gods and of fate, and no one can resist the gods; or carried off by force, and then she is a victim; or persuaded by speech, and speech rules the soul as drugs rule the body; or in love, and love is a god or an illness. In all four cases she is innocent.
+
+@03aa1cd7
+Gòrgias acaba dient que ha escrit el discurs «com a elogi d'Helena i com a joc per a mi». La classe serveix per aprendre l'estructura (dividir tots els casos possibles i refutar-los un per un) i per pensar: es pot defensar qualsevol cosa amb paraules? Això és bo o perillós? Els alumnes discuteixen.
+Gorgias ends by saying he wrote the speech «as praise of Helen and as a game for myself». The class serves to learn the structure (dividing all possible cases and refuting them one by one) and to think: can anything be defended with words? Is that good or dangerous? The pupils argue.
+
+@107f0476
+Quants casos examina Gòrgias per defensar Helena?
+How many cases does Gorgias examine to defend Helen?
+
+@4f6895a8
+Quatre: els déus, la força, la persuasió i l'amor
+Four: the gods, force, persuasion and love
+
+@7dc16124
+Un: que va ser raptada
+One: that she was abducted
+
+@eb14524a
+Dos: culpable o innocent
+Two: guilty or innocent
+
+@d50575e1
+Déus i destí, força, paraula persuasiva i amor.
+Gods and fate, force, persuasive speech and love.
+
+@7b55c3e5
+Amb què compara Gòrgias el poder de la paraula sobre l'ànima?
+What does Gorgias compare the power of speech over the soul to?
+
+@2680cf7d
+Amb el dels fàrmacs sobre el cos
+That of drugs over the body
+
+@cb413ce5
+Amb el de la pluja sobre els camps
+That of rain over the fields
+
+@60379a8e
+Amb el de les armes a la guerra
+That of weapons in war
+
+@a6596d9e
+La paraula pot alegrar, espantar o curar l'ànima com els fàrmacs el cos.
+Speech can gladden, frighten or heal the soul as drugs do the body.
+
+@edcb087e
+Com anomena Gòrgias el seu propi discurs al final?
+What does Gorgias call his own speech at the end?
+
+@dc1f59bf
+Un joc
+A game
+
+@d77f6a3e
+Una llei
+A law
+
+@7c1acd3a
+Una pregària
+A prayer
+
+@37b485b6
+Diu que el va escriure com a elogi d'Helena i com a joc (paígnion) per a ell mateix.
+He says he wrote it as praise of Helen and as a game (paignion) for himself.
+
+@04413f35
+«Per parlar bé cal sonar bé», diu Alcidamant. Les figures de Gòrgias són tres. L'antítesi: oposar idees («van néixer mortals, van morir immortals»). L'isòcolon: frases de la mateixa llargada, que avancen com soldats en fila. I l'homeotelèuton: que les frases acabin amb el mateix so, gairebé rimant.
+«To speak well you must sound well», says Alcidamas. Gorgias' figures are three. Antithesis: setting ideas against each other («they were born mortal, they died immortal»). Isocolon: phrases of the same length, advancing like soldiers in a row. And homoeoteleuton: phrases ending with the same sound, almost rhyming.
+
+@d6f09ac6
+Ho prova en català, perquè ho entenguis: «Va ser valent a la guerra, prudent a la terra; temut pels enemics, estimat pels amics». Els alumnes ho repeteixen i riuen: sona a cançó. Els atenesos al principi van quedar fascinats; després van començar a burlar-se d'un estil tan recarregat.
+He tries it in English, so you'll follow: «Brave in the fight, wise in the night; feared by his foes, loved by those close». The pupils repeat it and laugh: it sounds like a song. At first the Athenians were fascinated; later they began to mock such an ornate style.
+
+@7fe32edb
+Després, la improvisació: Alcidamant dóna un tema a cada alumne («És millor el camp o la ciutat?», «Elogi del mosquit») i li deixa un moment per pensar. Després ha de parlar sense papers, buscant el kairós, el moment oportú, i adaptant-se a les reaccions dels altres. Qui es queda en blanc, paga el sopar.
+Then, improvisation: Alcidamas gives each pupil a topic («Is the country or the city better?», «In praise of the mosquito») and allows a moment to think. Then he must speak without notes, seeking the kairos, the opportune moment, and adapting to the others' reactions. Whoever goes blank pays for dinner.
+
+@6c45b67c
+«Van néixer mortals, van morir immortals». Quina figura és?
+«They were born mortal, they died immortal». What figure is it?
+
+@69103855
+Una antítesi
+An antithesis
+
+@62a22116
+Una metàfora
+A metaphor
+
+@87374790
+Una pregunta retòrica
+A rhetorical question
+
+@497e0a52
+Oposa dues idees contràries: mortal i immortal.
+It opposes two contrary ideas: mortal and immortal.
+
+@61202292
+Què és l'isòcolon?
+What is isocolon?
+
+@fc7aefd8
+Una sèrie de frases de la mateixa llargada
+A series of phrases of the same length
+
+@d6708679
+Una paraula repetida al principi
+A word repeated at the beginning
+
+@a1a3f2b6
+Un discurs improvisat
+An improvised speech
+
+@bdb83c0a
+Frases paral·leles d'igual llargada, molt típiques de Gòrgias.
+Parallel phrases of equal length, very typical of Gorgias.
+
+@0f04890c
+Què significa kairós per a un orador?
+What does kairos mean for an orator?
+
+@6f419a1b
+El moment oportú
+The opportune moment
+
+@91af1769
+La veu greu
+A deep voice
+
+@1c4363c4
+El públic del teatre
+The theatre audience
+
+@e9d8de91
+Aprofitar el moment oportú era la clau de la improvisació.
+Seizing the opportune moment was the key to improvisation.
+
+@bf6e64b1
+paranys de paraules i defensar les dues parts
+word traps and arguing both sides
+
+@aa08a000
+Eutidem i el seu germà Dionisodor, de Quios, van ser mestres de lluita amb armes i d'oratòria judicial abans de fer-se, ja grans, erístics: especialistes a refutar qualsevol resposta, vertadera o falsa, jugant amb els dobles sentits de les paraules. Plató els ridiculitza a l'Eutidem. Protàgores havia ensenyat que sobre cada qüestió hi ha dos discursos oposats, i un text anònim cap al 400, els Discursos dobles (Dissoi logoi), exercita els alumnes a defensar les dues parts. Aristòtil estudiarà aquests paranys a les Refutacions sofístiques.
+Euthydemus and his brother Dionysodorus, of Chios, were teachers of fighting in armour and of courtroom oratory before becoming, late in life, eristics: specialists in refuting any answer, true or false, by playing on the double meanings of words. Plato ridicules them in the Euthydemus. Protagoras had taught that on every question there are two opposing arguments, and an anonymous text from around 400, the Double Arguments (Dissoi logoi), trains pupils to argue both sides. Aristotle will study these traps in the Sophistical Refutations.
+
+@020a00ff
+Benvingut! Eutidem, de Quios. El meu germà Dionisodor és amb altres clients, però jo valc per dos. Abans ensenyàvem a lluitar amb armes i a defensar-se als tribunals; ara ensenyem la lluita més difícil: la de les paraules. Responguis el que responguis, noi, et refutaré. Comencem?
+Welcome! Euthydemus, of Chios. My brother Dionysodorus is with other clients, but I'm worth two. We used to teach fighting in armour and how to defend yourself in court; now we teach the hardest fight of all: the fight of words. Whatever you answer, boy, I'll refute you. Shall we begin?
+
+@dfddeb9d
+La virtut, i més de pressa que ningú. I, sobretot, a vèncer en qualsevol discussió. Fixa't: qui aprèn, els qui saben o els qui no saben? Si dius «els qui saben», per a què aprenen? Si dius «els qui no saben», com aprendran el que no entenen? Responguis el que responguis, perds. Això ensenyem.
+Virtue, and faster than anyone. And, above all, how to win any argument. Look: who learns, those who know or those who don't? If you say «those who know», why do they learn? If you say «those who don't», how will they learn what they don't understand? Whatever you answer, you lose. That's what we teach.
+
+@f710389c
+Això és honrat?
+Is that honest?
+
+@ddf5ebda
+Honrat? És útil. Als tribunals guanya qui deixa l'altre sense resposta, no qui té raó. N'hi ha que ens diuen xarlatans; Sòcrates va venir a veure'ns al Liceu i s'ho va passar d'allò més bé, encara que després va dir que la nostra saviesa era com aquells jocs en què es treu la cadira a algú que s'hi va a asseure. Però va venir, eh?
+Honest? It's useful. In court the man who leaves the other speechless wins, not the man who's right. Some call us charlatans; Socrates came to see us at the Lyceum and had a wonderful time, though afterwards he said our wisdom was like those games where you pull the chair out from under someone about to sit. But he came, didn't he?
+
+@e840eff2
+Qui va ser Protàgores?
+Who was Protagoras?
+
+@d8b5e70e
+El primer que es va anomenar a si mateix sofista i va cobrar per ensenyar: cent mines per curs, una fortuna. Era d'Abdera. Pèricles li va encarregar les lleis de la colònia de Túrios. Deia que l'home és la mesura de totes les coses, que dels déus no pot saber si existeixen, i que sobre cada assumpte hi ha dos discursos oposats. Va morir fa uns trenta anys, en un naufragi, segons diuen, fugint d'Atenes.
+The first man to call himself a sophist and charge for teaching: a hundred minas a course, a fortune. He was from Abdera. Pericles commissioned him to write the laws of the colony of Thurii. He said man is the measure of all things, that about the gods he cannot know whether they exist, and that on every matter there are two opposing arguments. He died some thirty years ago, in a shipwreck, they say, fleeing Athens.
+
+@6d5d0a2f
+Què deia Protàgores sobre cada qüestió?
+What did Protagoras say about every question?
+
+@51cad3b6
+Que sobre cada assumpte hi ha dos discursos oposats
+That on every matter there are two opposing arguments
+
+@7a366655
+Que només hi ha una veritat, revelada pels déus
+That there is only one truth, revealed by the gods
+
+@c672c57c
+Que és millor callar
+That it is better to keep quiet
+
+@21a4b1c7
+No. Protàgores ensenyava que sobre cada assumpte hi ha dos arguments contraris, i que l'orador ha de saber defensar-los tots dos.
+No. Protagoras taught that on every matter there are two contrary arguments, and that the orator must be able to defend both.
+
+@96fd51ba
+Eutidem es frega les mans. «Compte amb el que respongueu, nois: cada paraula és un parany.»
+Euthydemus rubs his hands. «Careful what you answer, boys: every word is a trap.»
+
+@808bf9ac
+Eutidem arronsa les espatlles: «Vaja, no he pogut amb tu. Segur que has estudiat amb Sòcrates».
+Euthydemus shrugs: «Well, I couldn't beat you. You must have studied with Socrates».
+
+@4a18b0e3
+Eutidem proposa els seus jocs preferits, els mateixos que Plató explica a l'Eutidem. «Tens un gos?» «Sí.» «I té cadells?» «Sí.» «Per tant, el teu gos és pare.» «Sí.» «I és teu.» «Sí.» «Per tant és el teu pare, i els cadells són els teus germans.» Els alumnes protesten, però no saben explicar on és el truc.
+Euthydemus proposes his favourite games, the same ones Plato tells in the Euthydemus. «Do you have a dog?» «Yes.» «And does it have puppies?» «Yes.» «So your dog is a father.» «Yes.» «And it's yours.» «Yes.» «So it's your father, and the puppies are your brothers.» The pupils protest, but can't explain where the trick lies.
+
+@fe50d733
+El truc és a les paraules amb dos sentits o que canvien de funció. «Teu» vol dir «de la teva propietat» a «el teu gos», però «el teu pare» indica parentiu. Un altre: «Qui aprèn, el savi o l'ignorant?». Aprendre pot ser «adquirir un coneixement» o «comprendre el que t'expliquen»: el sofista salta d'un sentit a l'altre.
+The trick lies in words with two meanings or that change function. «Yours» means «your property» in «your dog», but «your father» indicates kinship. Another: «Who learns, the wise or the ignorant?». Learning can mean «acquiring knowledge» or «understanding what you're told»: the sophist jumps from one sense to the other.
+
+@1d69d024
+I el més agosarat: «Ningú no pot mentir, perquè qui parla diu alguna cosa, i el que és alguna cosa existeix; per tant diu el que és, és a dir, la veritat». La classe ensenya a descobrir els sofismes: buscar la paraula ambigua i preguntar «en quin sentit?». Plató i, més tard, Aristòtil convertiran aquests jocs en el començament de la lògica.
+And the boldest: «No one can lie, because whoever speaks says something, and what is something exists; so he says what is, that is, the truth». The class teaches how to uncover sophisms: find the ambiguous word and ask «in what sense?». Plato and, later, Aristotle will turn these games into the beginning of logic.
+
+@d59c1c09
+«El teu gos és pare i és teu: per tant és el teu pare». On és el parany?
+«Your dog is a father and it's yours: so it's your father». Where is the trap?
+
+@6bbe4950
+En fer servir «teu» primer com a possessió i després com a parentiu
+In using «yours» first as possession and then as kinship
+
+@0cdef7d3
+En què els gossos no tenen cadells
+In that dogs don't have puppies
+
+@8d4bb011
+No hi ha parany: és correcte
+There's no trap: it's correct
+
+@76bb9171
+La paraula canvia de sentit entre les dues premisses.
+The word changes meaning between the two premises.
+
+@fea44817
+Com s'anomena l'art de discutir per guanyar, sense que importi la veritat?
+What is the art of arguing to win, regardless of the truth, called?
+
+@2a533e64
+Erística
+Eristic
+
+@5669f4a0
+Dialèctica
+Dialectic
+
+@4bb34a54
+Geometria
+Geometry
+
+@c4e2f1a7
+Erística ve d'éris, «disputa».
+Eristic comes from eris, «strife».
+
+@7dca59da
+Quina és la millor defensa contra un sofisma?
+What is the best defence against a sophism?
+
+@f43091e3
+Preguntar en quin sentit es fa servir cada paraula
+Asking in what sense each word is used
+
+@bf678084
+Respondre sempre que sí
+Always answering yes
+
+@c9ffe822
+Callar i marxar
+Keeping quiet and leaving
+
+@5089a8ed
+La majoria dels sofismes juguen amb paraules ambigües.
+Most sophisms play on ambiguous words.
+
+@2168ec5d
+«Protàgores deia que sobre cada assumpte hi ha dos discursos oposats», recorda Eutidem, i treu un llibret que passa de mà en mà, els Discursos dobles: «La malaltia és dolenta per als malalts, però bona per als metges. La mort és dolenta per als qui moren, però bona per als qui venen taüts». El bé i el mal, depenen del punt de vista?
+«Protagoras said that on every matter there are two opposing arguments», Euthydemus recalls, and brings out a little book passed from hand to hand, the Double Arguments: «Illness is bad for the sick, but good for doctors. Death is bad for those who die, but good for those who sell coffins». Do good and bad depend on the point of view?
+
+@8ead8c3e
+Protàgores també deia: «L'home és la mesura de totes les coses, de les que són en tant que són i de les que no són en tant que no són». Si el vent em sembla fred a mi i temperat a tu, per a mi és fred i per a tu, temperat. I prometia fer més fort l'argument més feble. Aristòfanes se'n va burlar a Els núvols, amb l'Argument Just i l'Argument Injust barallant-se en escena.
+Protagoras also said: «Man is the measure of all things, of those that are, that they are, and of those that are not, that they are not». If the wind seems cold to me and mild to you, for me it is cold and for you, mild. And he promised to make the weaker argument the stronger. Aristophanes mocked this in The Clouds, with the Just Argument and the Unjust Argument fighting on stage.
+
+@e6c9bd3f
+Exercici: Eutidem divideix els alumnes en dos bàndols. Tema: «És bona la riquesa?». Uns han de defensar que sí i altres que no, i després canviar de bàndol. Així s'entrenaven els futurs polítics i advocats: conèixer els arguments del contrari. La pregunta que queda surant a l'andró és la que farà Sòcrates: i la veritat, on queda?
+Exercise: Euthydemus splits the pupils into two sides. Topic: «Is wealth good?». Some must argue yes and others no, and then switch sides. That was how future politicians and advocates trained: knowing the opponent's arguments. The question left hanging in the andron is the one Socrates will ask: and the truth, where does that leave it?
+
+@350686b6
+Què significa «l'home és la mesura de totes les coses»?
+What does «man is the measure of all things» mean?
+
+@d6de8d28
+Que les coses són per a cadascú tal com li semblen
+That things are for each person as they seem to him
+
+@d76410da
+Que l'home és més alt que els animals
+That man is taller than the animals
+
+@9cde3b09
+Que cal mesurar-ho tot amb el regle
+That everything must be measured with a ruler
+
+@87f88151
+Per a Protàgores, el coneixement depèn de qui percep i jutja.
+For Protagoras, knowledge depends on who perceives and judges.
+
+@489408f0
+Segons els Discursos dobles, la malaltia és bona per a…
+According to the Double Arguments, illness is good for…
+
+@81092b34
+els metges
+doctors
+
+@223b8fbc
+els malalts
+the sick
+
+@28a5b51a
+els atletes
+athletes
+
+@e5b545b5
+El bé i el mal canvien segons per a qui.
+Good and bad change depending on for whom.
+
+@4ae82e05
+Quina comèdia d'Aristòfanes es burla de «fer més fort l'argument més feble»?
+Which comedy of Aristophanes mocks «making the weaker argument the stronger»?
+
+@35e58733
+Els núvols
+The Clouds
+
+@a4970476
+Les granotes
+The Frogs
+
+@e7ba7421
+Lisístrata
+Lysistrata
+
+@722d4e32
+A Els núvols, l'Argument Injust venç el Just.
+In The Clouds, the Unjust Argument defeats the Just.
+
+@4b688ccd
+Plató, Protàgores 314e-316a (la casa de Cal·lias)
+Plato, Protagoras 314e-316a (Callias's house)
+
+@14ded155
+Xenofont, Econòmic 9 (la distribució de la casa)
+Xenophon, Oeconomicus 9 (the layout of the house)
+
+@20e7c031
+Lísias I 9-10 (una casa amb pis alt per a les dones)
+Lysias I 9-10 (a house with an upper floor for the women)
+
+@aa47478c
+=
+=
+
+@2d2fd466
+W. Hoepfner i E.-L. Schwandner, Haus und Stadt im klassischen Griechenland (1994)
+W. Hoepfner and E.-L. Schwandner, Haus und Stadt im klassischen Griechenland (1994)
+
+@bcab790f
+Xàntias és un personatge inventat. La casa segueix la planta de les cases ateneses i d'Olint del segle IV. Cal·lias, fill d'Hipònic, va existir i era famós per rebre els sofistes; deixar una casa al jugador és una llicència del joc.
+Xanthias is an invented character. The house follows the plan of fourth-century houses in Athens and Olynthus. Callias, son of Hipponicus, existed and was famous for hosting sophists; lending a house to the player is a licence of the game.
+
+@ee23844e
+Plató, Protàgores 315d i 337a-c; Cràtil 384b; Apologia 19e
+Plato, Protagoras 315d and 337a-c; Cratylus 384b; Apology 19e
+
+@e5921fba
+Xenofont, Memorables II 1.21-34 (Hèracles a la cruïlla)
+Xenophon, Memorabilia II 1.21-34 (Heracles at the crossroads)
+
+@4a993c6d
+Sext Empíric, Contra els matemàtics IX 18 (els déus)
+Sextus Empiricus, Against the Mathematicians IX 18 (the gods)
+
+@c2f6c2cb
+=
+=
+
+@30ed3ae1
+A. Melero, Sofistas: testimonios y fragmentos (Gredos, 1996)
+A. Melero, Sofistas: testimonios y fragmentos (Gredos, 1996)
+
+@b17e02e5
+Les dates de Pròdic són incertes: encara era viu el 399. El joc el fa fer classe el 386.
+Prodicus' dates are uncertain: he was still alive in 399. The game has him teaching in 386.
+
+@7134547d
+Plató, Hípias major 281a-286a i 289e-304e; Hípias menor 368b-d; Protàgores 315c i 337c-d
+Plato, Greater Hippias 281a-286a and 289e-304e; Lesser Hippias 368b-d; Protagoras 315c and 337c-d
+
+@19759c5f
+Xenofont, Memorables IV 4
+Xenophon, Memorabilia IV 4
+
+@0eb3b7f2
+Ciceró, Sobre l'orador III 127 (la memòria)
+Cicero, On the Orator III 127 (memory)
+
+@23b8b895
+=
+=
+
+@8609f94f
+Les xifres del que va guanyar surten de l'Hípias major de Plató, que se'n burla. La «trisectriu» que se li atribueix podria ser d'un altre Hípias.
+The figures for his earnings come from Plato's Greater Hippias, which mocks him. The «trisectrix» attributed to him may belong to another Hippias.
+
+@cc931aa3
+Gòrgias, Encomi d'Helena (fr. 11 DK)
+Gorgias, Encomium of Helen (fr. 11 DK)
+
+@bab10767
+Alcidamant, Sobre els sofistes
+Alcidamas, On the Sophists
+
+@edfc43d7
+Diodor XII 53 (l'ambaixada de Gòrgias, 427)
+Diodorus XII 53 (Gorgias' embassy, 427)
+
+@18997d0f
+Plató, Gòrgias 456b
+Plato, Gorgias 456b
+
+@09c7160f
+=
+=
+
+@c4664887
+Les dates d'Alcidamant són poc precises; el joc el situa a Atenes el 386. L'exemple d'estil gorgià en català és del joc.
+Alcidamas' dates are imprecise; the game places him in Athens in 386. The example of Gorgianic style in English is the game's.
+
+@124b5bcd
+Plató, Eutidem (275d-277c, 298d-e: el gos)
+Plato, Euthydemus (275d-277c, 298d-e: the dog)
+
+@641131da
+Discursos dobles (Dissoi logoi), 1
+Double Arguments (Dissoi logoi), 1
+
+@d4953b05
+Protàgores, fr. 1 i 4 DK; Diògenes Laerci IX 50-56
+Protagoras, fr. 1 and 4 DK; Diogenes Laertius IX 50-56
+
+@1eff0b34
+Aristòfanes, Els núvols 889-1104
+Aristophanes, The Clouds 889-1104
+
+@c32bca61
+=
+=
+
+@08af25c4
+Plató situa l'Eutidem cap al 407; que Eutidem continués ensenyant el 386 és una llicència.
+Plato sets the Euthydemus around 407; having Euthydemus still teaching in 386 is a licence.
+
+@59af1cdf
+Què és la llar?
+What is the hearth?
+
+@e82ef03a
+El foc de la casa, l'hestia, sagrat com la deessa que porta el seu nom. Quan neix un nen, al cinquè dia, el portem corrents al voltant de la llar: així entra a la família. Quan arriba una esclava nova, com vaig arribar jo, la fan seure al costat de la llar i li tiren figues i nous pel cap. Des d'aleshores és de la casa.
+The fire of the house, the hestia, sacred like the goddess who bears its name. When a child is born, on the fifth day we carry it running round the hearth: that's how it joins the family. When a new slave arrives, as I did, they sit her by the hearth and shower figs and nuts over her head. From then on she belongs to the house.
+
+@f2ee6911
+Quins déus protegeixen la casa?
+Which gods protect the house?
+
+@0b423a61
+Zeus Herkeios, el del clos, en aquell altar del pati, on l'amo sacrifica; Zeus Ktesios, el dels béns, que viu en una gerra al magatzem amb oli, aigua i fruits; Apol·lo Agyieus, el dels camins, en aquell pilar de la porta; i Hermes a l'herma, que espanta els mals esperits i els lladres. Bé, els lladres no sempre.
+Zeus Herkeios, of the enclosure, at that altar in the courtyard, where the master sacrifices; Zeus Ktesios, of possessions, who lives in a jar in the storeroom with oil, water and fruit; Apollo Agyieus, of the roads, in that pillar by the door; and Hermes in the herm, who scares off evil spirits and thieves. Well, not always the thieves.
+
+@0fa1a2ab
+On són les dones de la casa?
+Where are the women of the house?
+
+@cb8c6ea9
+Al gineceu, les seves habitacions, sovint al pis de dalt. Allà filen, teixeixen, crien els nens i governen les esclaves. Un home que no sigui de la família no hi entra. En un judici famós, un marit va explicar que havia canviat la seva dona al pis de baix perquè donés el pit al nen sense baixar l'escala, i així ella rebia el seu amant sense que ell se n'assabentés.
+In the gynaikeion, their quarters, often upstairs. There they spin, weave, raise the children and manage the slave women. A man who isn't family doesn't go in. In a famous trial, a husband told how he had moved his wife downstairs so she could nurse the baby without using the stairs, and so she received her lover without his knowing.
+
+@55c3e3b5
+Quins mobles hi ha?
+What furniture is there?
+
+@5c79845d
+Pocs: divans, tauletes de tres potes que es fiquen a sota, tamborets, cadires amb respatller per a les senyores, arques per a la roba i la vaixella, i un teler. No hi ha armaris: es penja tot a les parets, en ganxos. A la nit, llànties de fang amb oli d'oliva i ble de lli. Les cases riques tenen brasers de bronze per a l'hivern.
+Not much: couches, three-legged tables that slide underneath them, stools, chairs with backs for the ladies, chests for clothes and tableware, and a loom. There are no cupboards: everything hangs on hooks on the walls. At night, clay lamps with olive oil and a linen wick. Rich houses have bronze braziers for winter.
+
+@aa4da234
+Quant val una casa?
+How much is a house worth?
+
+@768d45c3
+Depèn del barri. Una casa petita en un barri pobre, cinc-centes dracmes; una de bona, com aquesta, tres o cinc mines; les grans dels rics, més de cent. El lloguer d'un habitatge modest pot ser de cent dracmes l'any. I hi ha cases de veïns, les synoikíai, on viuen diverses famílies, amb una sola entrada. El que més es gasta és en aigua: si no hi ha pou, cal comprar-la o anar a la font.
+It depends on the neighbourhood. A small house in a poor district, five hundred drachmas; a good one, like this, three to five minas; the big houses of the rich, over a hundred. The rent of a modest dwelling might be a hundred drachmas a year. And there are tenement houses, the synoikiai, where several families live, with a single entrance. The biggest expense is water: if there's no well, you have to buy it or go to the fountain.
+
+@05313b2f
+Què és ser ambaixador de Ceos?
+What does being ambassador of Ceos mean?
+
+@234bed8a
+Ceos és una illa petita, a prop de l'Àtica, i m'envia sovint a Atenes a defensar els seus afers davant del Consell. Així em va conèixer la gent. Vaig parlar tan bé davant del Consell que em van demanar que fes conferències, i vaig començar a cobrar. Ser ambaixador i mestre alhora m'obre moltes portes: les dels rics, sobretot.
+Ceos is a small island near Attica, and it often sends me to Athens to plead its affairs before the Council. That's how people came to know me. I spoke so well before the Council that they asked me to give lectures, and I began to charge. Being ambassador and teacher at once opens many doors to me: rich men's doors, above all.
+
+@207b7684
+Què penses de la mort?
+What do you think of death?
+
+@caa19980
+Que no ens ha de preocupar: mentre vivim, la mort no existeix; quan morim, ja no existim nosaltres. No afecta ni els vius ni els morts. També he escrit sobre els mals de la vida, des del plor del nadó fins a les penes de la vellesa. N'hi ha que diuen que això és molt trist per a un home amb tanta gana.
+That it shouldn't trouble us: while we live, death does not exist; when we die, we no longer exist. It touches neither the living nor the dead. I have also written about the ills of life, from the newborn's crying to the sorrows of old age. Some say that's very gloomy for a man with such an appetite.
+
+@8fe80bb6
+Per què t'admirava Sòcrates?
+Why did Socrates admire you?
+
+@fa1ccb16
+Perquè em prenc seriosament les paraules, i ell també. Es deia a si mateix deixeble meu, mig en broma. Quan un jove no li servia per a la seva conversa, me l'enviava. Deia que jo era un home «savi de sobres, i diví». Encara que, coneixent-lo, potser es reia de mi. Mai no se sabia, amb Sòcrates.
+Because I take words seriously, and so did he. He called himself my pupil, half in jest. When a young man was no use for his conversation, he sent him to me. He said I was a man «exceedingly wise, and divine». Though, knowing him, perhaps he was laughing at me. You never knew with Socrates.
+
+@c7724b6a
+Què pensen de tu els còmics?
+What do the comic poets think of you?
+
+@26608d97
+Aristòfanes em va posar a Els núvols com l'únic savi de veritat, davant de Sòcrates, a qui tractava de xarlatà; em va salvar per la meva «saviesa i bon judici». En una altra comèdia diuen que em van corrompre els llibres o la xerrameca. Que riguin: al teatre de Dionís, sortir en una comèdia és com tenir una estàtua.
+Aristophanes put me in The Clouds as the only truly wise man, as against Socrates, whom he treated as a charlatan; he spared me for my «wisdom and good judgement». In another comedy they say books or chatter corrupted me. Let them laugh: in the theatre of Dionysus, appearing in a comedy is like having a statue.
+
+@a69531a3
+Com s'ha de viure?
+How should one live?
+
+@2ea17b0d
+Amb esforç, com Hèracles. Treballar el cos perquè obeeixi la ment, conrear la terra, servir els amics i la ciutat. Triar el que és útil abans que el que és agradable. Per això la riquesa només és bona per a qui la sap fer servir: en mans d'un neci, és un mal. Igual que una bona flauta en mans d'algú que no la sap tocar.
+With effort, like Heracles. Train the body to obey the mind, till the land, serve your friends and your city. Choose the useful before the pleasant. That's why wealth is only good for whoever knows how to use it: in a fool's hands, it's an evil. Like a fine flute in the hands of someone who can't play it.
+
+@125ccd62
+Què fas a Olímpia?
+What do you do at Olympia?
+
+@3a62ec82
+Sóc d'Elis, la ciutat que organitza els Jocs. Cada quatre anys em presento al santuari de Zeus i ofereixo conferències a qui en vulgui: sobre qualsevol tema, responent qualsevol pregunta. Mig món grec m'hi ha escoltat. També he estudiat les llistes antigues per saber qui va guanyar cada Olimpíada des del principi, des de Corebos.
+I'm from Elis, the city that runs the Games. Every four years I appear at the sanctuary of Zeus and offer lectures to anyone who wants them: on any subject, answering any question. Half the Greek world has heard me there. I've also studied the old lists to find out who won every Olympiad from the beginning, from Coroebus.
+
+@a9fea619
+Quines ambaixades has fet?
+What embassies have you been on?
+
+@c7862c2b
+Moltíssimes. Elis m'envia més que a ningú, a Esparta sobretot, perquè sóc qui millor sap jutjar i transmetre el que diuen les ciutats. Mentre sóc d'ambaixada, aprofito per fer lliçons i guanyo diners; després torno carregat de regals. És un bon ofici, si es té memòria.
+Very many. Elis sends me more than anyone, to Sparta above all, because I'm the best at judging and conveying what cities say. While on embassy I take the chance to give lessons and earn money; then I come home laden with gifts. It's a good trade, if you have a memory.
+
+@b58e80a9
+Què expliques als espartans?
+What do you tell the Spartans?
+
+@d17271d6
+No els interessen els astres ni la geometria: molts no saben comptar. Els agrada sentir genealogies d'herois i d'homes, i com es van fundar les ciutats antigues: l'arqueologia, en dic jo. Per a ells vaig escriure un diàleg en què Nèstor aconsella Neoptòlem, el fill d'Aquil·les, sobre les ocupacions que fan famós un jove.
+They aren't interested in the stars or geometry: many can't count. They like hearing genealogies of heroes and men, and how the ancient cities were founded: archaeology, I call it. For them I wrote a dialogue in which Nestor advises Neoptolemus, Achilles' son, on the pursuits that make a young man famous.
+
+@04668506
+Qui és millor, Aquil·les o Odisseu?
+Who is better, Achilles or Odysseus?
+
+@d5dfa01f
+Aquil·les, sens dubte: sincer i senzill. Odisseu és astut i mentider. Això vaig dir davant de Sòcrates, i em va demostrar que qui menteix a consciència és millor que qui menteix sense voler, perquè almenys sap la veritat. Em va fer un embolic. No hi estic d'acord, però no vaig saber respondre-li. És l'únic que m'ha deixat sense paraules.
+Achilles, without a doubt: sincere and simple. Odysseus is cunning and a liar. That's what I said in front of Socrates, and he proved to me that the man who lies knowingly is better than the one who lies unwillingly, because at least he knows the truth. He tied me in knots. I don't agree, but I couldn't answer him. He's the only one who has ever left me speechless.
+
+@84fe6a3d
+Què és l'autarquia d'Hípias?
+What is Hippias' self-sufficiency?
+
+@7e237ac9
+Bastar-se a si mateix en tot: per això vaig aprendre a fer-me les sabates, el mantell, l'anell. Un savi no ha de dependre de ningú. A més, quin anunci millor de la meva saviesa que la meva pròpia roba? Antístenes, el del Cinosarges, també parla de bastar-se a si mateix, però ell ho fa sense anell. I gairebé sense sabates.
+Being sufficient to oneself in everything: that's why I learned to make my own shoes, my cloak, my ring. A wise man should depend on no one. Besides, what better advertisement of my wisdom than my own clothes? Antisthenes, the one at the Cynosarges, also talks of self-sufficiency, but he does it without a ring. And almost without shoes.
+
+@ccf0f4c3
+Què és l'Epitafi de Gòrgias?
+What is Gorgias' Epitaph?
+
+@be1610ee
+Un discurs fúnebre per als atenesos morts a la guerra, ple del seu estil: «Què els faltava a aquests homes del que han de tenir els homes? I què tenien del que no han de tenir?». Gòrgias jugava amb els oposats: morts i vius, mortals i immortals. Els atenesos, que tenen els seus propis discursos fúnebres, l'admiraven i el criticaven alhora.
+A funeral speech for the Athenians who died in war, full of his style: «What did these men lack of what men ought to have? And what did they have of what they ought not to have?». Gorgias played with opposites: dead and living, mortal and immortal. The Athenians, who have their own funeral speeches, admired and criticised it at the same time.
+
+@dfca84bb
+Què és l'Odissea d'Alcidamant?
+What is Alcidamas' Odysseus?
+
+@ba87d7a8
+Un exercici que vaig escriure: Odisseu acusa Palamedes de traïció, com en el mite. Gòrgias havia escrit la defensa de Palamedes; jo vaig escriure l'acusació. Així aprenen els alumnes: un cas, dos discursos. I he escrit un llibre sobre Homer i Hesíode, amb un concurs imaginari entre els dos poetes. Va guanyar Hesíode, per cantar la pau i no la guerra.
+An exercise I wrote: Odysseus accuses Palamedes of treason, as in the myth. Gorgias had written the defence of Palamedes; I wrote the accusation. That's how pupils learn: one case, two speeches. And I've written a book on Homer and Hesiod, with an imaginary contest between the two poets. Hesiod won, for singing of peace and not of war.
+
+@37cea9a7
+Què penses dels discursos escrits?
+What do you think of written speeches?
+
+@0736e5de
+Que tenen la seva utilitat: es poden polir, publicar, llegir. Però un orador que només sap llegir discursos és com un atleta que només s'entrena contra ombres. I no s'ha de confondre escriure amb parlar: qui escriu bé no sempre parla bé. El pitjor és aprendre de memòria un discurs aliè i recitar-lo com un actor sense màscara.
+That they have their uses: they can be polished, published, read. But an orator who can only read speeches is like an athlete who only trains against shadows. And writing mustn't be confused with speaking: the man who writes well doesn't always speak well. The worst is learning someone else's speech by heart and reciting it like an actor without a mask.
+
+@d1c3098c
+Què és la naturalesa humana per a vosaltres?
+What is human nature for you?
+
+@5258488e
+Gòrgias i els sofistes pensem que les lleis de cada ciutat són convencions, diferents a cada lloc. N'hi ha que van més enllà i diuen que la natura no fa ningú esclau, que tots els homes neixen lliures. És una idea perillosa en una ciutat amb tants esclaus. Però les idees, com els ocells, volen on volen.
+Gorgias and we sophists think the laws of each city are conventions, different everywhere. Some go further and say that nature makes no one a slave, that all men are born free. It's a dangerous idea in a city with so many slaves. But ideas, like birds, fly where they please.
+
+@ba683a84
+Quin va ser el secret de la llarga vida de Gòrgias?
+What was the secret of Gorgias' long life?
+
+@d5e08daf
+Li van preguntar com havia arribat tan vell amb la ment tan clara, i va respondre: «Mai no he fet res per plaer». Va menjar poc, va beure poc, no es va casar i es va dedicar sempre a la paraula. Quan ja estava molt feble i algú li va preguntar com es trobava, va dir: «El son comença a lliurar-me al seu germà», la mort.
+He was asked how he had reached such an age with so clear a mind, and answered: «I have never done anything for pleasure». He ate little, drank little, never married and devoted himself always to speech. When he was very weak and someone asked how he was, he said: «Sleep is beginning to hand me over to his brother», death.
+
+@e152bca1
+Com ensenyàveu a lluitar?
+How did you teach fighting?
+
+@bf39f6d8
+El meu germà i jo vam començar com a mestres d'hoplomàquia, la lluita amb armes, i de tàctica: com ha de formar un general els seus homes. Cobràvem bé. Després vam aprendre oratòria judicial, per defensar-se als tribunals i escriure discursos per a altres. Finalment, l'erística, que és la lluita més completa: amb ella pots vèncer qualsevol.
+My brother and I started as teachers of hoplomachy, fighting in armour, and of tactics: how a general should draw up his men. We were well paid. Then we learned courtroom oratory, to defend yourself in court and write speeches for others. Finally, eristic, the most complete fight of all: with it you can beat anyone.
+
+@c8a8c5b5
+Què és un sofista?
+What is a sophist?
+
+@38e26c50
+Sofista ve de sophós, savi. Al principi, sofista era qualsevol savi o poeta. Protàgores va ser el primer a anomenar-se així i a cobrar per ensenyar. Ara molta gent ho fa servir com a insult, per culpa de Sòcrates i els seus amics: diuen que venem la saviesa com els mercaders venen menjar, sense saber si és bo. Nosaltres diem que la feina es paga.
+Sophist comes from sophos, wise. At first, a sophist was any wise man or poet. Protagoras was the first to call himself that and charge for teaching. Now many people use it as an insult, thanks to Socrates and his friends: they say we sell wisdom the way merchants sell food, without knowing whether it's good. We say work gets paid.
+
+@96c69396
+Per què cobràveu tant?
+Why did you charge so much?
+
+@01319059
+Perquè ensenyem el que la ciutat no ensenya: a parlar a l'Assemblea i als tribunals, que és on es decideix tot a Atenes. Un jove que sap parlar pot arribar a dirigir la ciutat. Protàgores cobrava cent mines, però deixava que l'alumne, si no n'estava content, jurés en un temple quant creia que valien les seves lliçons i pagués això.
+Because we teach what the city doesn't: how to speak in the Assembly and the courts, which is where everything in Athens is decided. A young man who can speak may end up leading the city. Protagoras charged a hundred minas, but let a pupil who wasn't satisfied swear in a temple what he thought the lessons were worth, and pay that.
+
+@0ff4fad4
+Què va passar amb el llibre de Protàgores sobre els déus?
+What happened to Protagoras' book on the gods?
+
+@ae1f77b0
+Començava: «Sobre els déus no puc saber si existeixen o no, ni quina forma tenen; moltes coses ho impedeixen: la foscor de l'assumpte i la brevetat de la vida». Diuen que els atenesos el van acusar d'impietat, van cremar els seus llibres a l'Àgora i ell va haver de marxar. Per això els sofistes, a Atenes, preferim parlar de paraules i no de déus.
+It began: «About the gods I cannot know whether they exist or not, nor what form they have; many things prevent it: the obscurity of the subject and the shortness of life». They say the Athenians accused him of impiety, burned his books in the Agora and he had to leave. That's why we sophists in Athens prefer to talk about words, not gods.
+
+@c4030540
+Què és la paradoxa d'Aquil·les i la tortuga?
+What is the paradox of Achilles and the tortoise?
+
+@55556dc8
+Una de Zenó d'Elea, el deixeble de Parmènides. Aquil·les, el més ràpid, corre darrere d'una tortuga que surt amb avantatge. Quan arriba on era la tortuga, ella ja ha avançat una mica; quan arriba a aquest nou punt, ella ha avançat una altra mica, i així sempre: no l'atrapa mai. Tots sabem que l'atrapa, però on falla el raonament? Amb aquestes paradoxes els nois aprenen a desconfiar dels arguments massa bonics.
+One of Zeno of Elea's, Parmenides' pupil. Achilles, the fastest, runs after a tortoise that has a head start. When he reaches where the tortoise was, it has already moved on a little; when he reaches that new point, it has moved on a little more, and so on forever: he never catches it. We all know he does, but where does the reasoning fail? With paradoxes like these the boys learn to distrust arguments that are too pretty.
