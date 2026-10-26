@@ -2,8 +2,10 @@
 # en tiempo de ejecución, se sustituyan por la traducción del idioma elegido.
 #   'texto'              -> _t(ID,'texto')
 #   `Lecciones ${a}/${b}` -> _tt(ID,["Lecciones ","/",""],a,b)     (clave del diccionario: «Lecciones {0}/{1}»)
-# Los diccionarios están en fuente/i18n/<idioma>/*.json como {"texto en español": "traducción"}.
-# Uso como herramienta:  python fuente/i18n.py pendientes ca   -> fuente/i18n/pendientes_ca.json (lo que falta)
+# Los diccionarios están en fuente/i18n/*.txt (formato descrito en load_dicts); no_traducir.lst lista
+# las claves de literales del código que no son texto. Herramientas:
+#   python fuente/i18n.py pendientes [grupo …]  -> fuente/i18n/pendientes.md (lo que falta, agrupado)
+#   python fuente/i18n.py huerfanas             -> entradas que ya no corresponden a ningún texto
 import json, re, sys, pathlib
 
 KEYWORDS_BEFORE_REGEX = {'return', 'typeof', 'case', 'do', 'else', 'in', 'of', 'new', 'delete', 'void', 'throw', 'instanceof', 'yield', 'await'}
@@ -314,7 +316,8 @@ if __name__ == '__main__':
         # (con la clave @ para los textos largos): python fuente/i18n.py pendientes [grupo ...]
         want = set(sys.argv[2:])
         dicts, hashed = load_dicts()
-        def done(k): return all(k in dicts[lg] or hkey(k) in hashed[lg] for lg in LANGS)
+        skip = set(re.findall(r'^(@[0-9a-f]{8})', (RAIZ / 'fuente' / 'i18n' / 'no_traducir.lst').read_text(encoding='utf-8'), re.M))
+        def done(k): return hkey(k) in skip or all(k in dicts[lg] or hkey(k) in hashed[lg] for lg in LANGS)
         out = {}; seen = set()
         for t in html_texts(html[:a]):
             if not done(t) and t not in seen: out.setdefault('_html', []).append(t); seen.add(t)
