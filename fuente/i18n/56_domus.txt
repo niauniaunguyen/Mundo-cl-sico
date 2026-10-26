@@ -1,0 +1,188 @@
+# La domus visitable del Celio
+@cba0355a
+Filer
+Phileros
+
+@46aad815
+Atriense, esclau encarregat de la casa
+Atriensis, slave in charge of the house
+
+@c54327d7
+Vida quotidiana
+Daily life
+
+@f480811a
+La domus romana
+The Roman domus
+
+@c9041d45
+A la domus del Celi, al costat de l'impluvi
+In the domus on the Caelian, beside the impluvium
+
+@60816ec5
+La domus era la casa unifamiliar de les famílies benestants. Des del carrer s'hi entrava per les fauces a l'atri, amb el seu compluvi i el seu impluvi, al voltant del qual s'obrien els cubicles, les ales i el tablinum de l'amo. Darrere, el peristil, un jardí envoltat de pòrtics, donava llum a les estances més privades: el triclini, on se sopava estirat, els dormitoris i la cuina. Les parets es pintaven al fresc i els terres es cobrien de mosaics. A la casa hi vivia la família en el sentit romà: el pare, l'esposa, els fills, els esclaus i els lliberts. A Roma, la majoria de la gent no vivia en domus, sinó en pisos de lloguer a les ínsules.
+The domus was the single-family house of well-off families. From the street you entered through the fauces into the atrium, with its compluvium and impluvium, around which opened the cubicula, the alae and the owner's tablinum. Behind it, the peristyle, a garden surrounded by porticoes, gave light to the most private rooms: the triclinium, where people dined reclining, the bedrooms and the kitchen. The walls were painted in fresco and the floors covered with mosaics. The house was home to the family in the Roman sense: the father, his wife, the children, the slaves and the freedmen. In Rome most people did not live in a domus but in rented flats in the insulae.
+
+@3faee9a7
+Salve. Sóc Filer, l'atriense: l'esclau que cuida la casa del meu amo, Luci Cecili Ruf. Obro i tanco, vigilo els altres esclaus i que ningú no toqui l'arca. Si vols, t'ensenyo la casa. Al meu amo li encanta que l'admirin.
+Salve. I'm Phileros, the atriensis: the slave who looks after my master's house, Lucius Caecilius Rufus. I open and lock up, I keep an eye on the other slaves and make sure nobody touches the strongbox. If you like, I'll show you round. My master loves people to admire it.
+
+@282423f5
+Què és la salutatio?
+What is the salutatio?
+
+@4888aeb5
+Cada matí, en sortir el sol, els clients del meu amo fan cua al carrer, amb la toga posada, per saludar-lo aquí, a l'atri. Ell els rep per ordre d'importància, escolta les seves peticions i els dona la sportula, unes monedes o menjar. A canvi, ells l'acompanyen al Fòrum i l'aplaudeixen quan parla. Com més clients, més important sembla el patró. Marcial es queixa als seus epigrames de com n'és d'humiliant.
+Every morning at sunrise my master's clients queue in the street, in their togas, to greet him here in the atrium. He receives them in order of importance, listens to their requests and gives them the sportula, a few coins or some food. In return they escort him to the Forum and applaud when he speaks. The more clients, the more important the patron looks. Martial complains in his epigrams about how humiliating it is.
+
+@076c0768
+Qui viu en aquesta casa?
+Who lives in this house?
+
+@4e06893c
+La família, en el sentit romà: l'amo, que és el paterfamilias i mana sobre tothom; la seva esposa, els seus fills i la mare vídua de l'amo; i uns trenta esclaus: cuiners, porters, perruqueres, un secretari grec, el mestre dels nens, la dida. I alguns lliberts, que continuen vivint i treballant aquí. Els pisos de dalt i les botigues els lloguem a altres famílies.
+The family, in the Roman sense: the master, who is the paterfamilias and has authority over everyone; his wife, his children and the master's widowed mother; and some thirty slaves: cooks, doorkeepers, hairdressers, a Greek secretary, the children's tutor, the nurse. And a few freedmen, who still live and work here. The upper floors and the shops we rent out to other families.
+
+@b94500f4
+Tots els romans viuen així?
+Do all Romans live like this?
+
+@c9f3d071
+Ca! A Roma hi ha unes dues mil domus i més de quaranta mil blocs de pisos, les ínsules. La majoria de la gent viu de lloguer, en una o dues habitacions, sense cuina ni aigua, amb por dels incendis i dels esfondraments. Els poetes es queixen que a Roma es dorm malament i es paga car. Aquesta casa és un luxe de molt pocs.
+Not at all! In Rome there are about two thousand domus and more than forty thousand blocks of flats, the insulae. Most people rent one or two rooms, with no kitchen and no water, afraid of fires and collapses. The poets complain that in Rome you sleep badly and pay dearly. This house is a luxury for very few.
+
+@8463514d
+Com es deia l'estany de l'atri que recollia l'aigua de pluja?
+What was the name of the basin in the atrium that collected rainwater?
+
+@66a21df1
+L'impluvi
+The impluvium
+
+@f9b1c072
+El peristil
+The peristyle
+
+@7eede6fd
+El triclini
+The triclinium
+
+@13127949
+No. L'impluvi és l'estany de l'atri; el compluvi, l'obertura de la teulada per on entra la pluja.
+No. The impluvium is the basin in the atrium; the compluvium is the opening in the roof through which the rain falls.
+
+@f24cbb66
+Vitruvi, Sobre l'arquitectura VI 3-7
+Vitruvius, On Architecture 6.3-7
+
+@3ab14c57
+Marcial III 7 i IV 8 (la salutatio)
+Martial 3.7 and 4.8 (the salutatio)
+
+@56833831
+Polibi VI 53 (les imatges dels avantpassats)
+Polybius 6.53 (the images of the ancestors)
+
+@6dbaf763
+Juvenal, Sàtires III (la vida a les ínsules)
+Juvenal, Satires 3 (life in the insulae)
+
+@3624fc57
+P. Allison, Pompeian Households (2004)
+P. Allison, Pompeian Households (2004)
+
+@add33526
+Filer i el seu amo són inventats. La casa segueix el model de les domus de Pompeia i Herculà, de les quals se'n conserven moltes més que de Roma. Les xifres de domus i ínsules de Roma vénen dels Regionaris del segle IV.
+Phileros and his master are invented. The house follows the model of the domus of Pompeii and Herculaneum, many more of which survive than in Rome. The figures for domus and insulae in Rome come from the fourth-century Regionaries.
+
+@a631a15c
+Domus del Celi
+Domus on the Caelian
+
+@4d2ab88f
+Les fauces: «Compte amb el gos»
+The fauces: "Beware of the dog"
+
+@daf2fcf0
+Per aquest passadís estret, les fauces, s'hi entra des del carrer. A un costat, a la seva cambreta, hi viu el porter (ostiarius), sovint encadenat a la porta, amb un gos. A terra, un mosaic avisa: CAVE CANEM, «compte amb el gos». A Pompeia n'hi ha un d'igual a la casa del Poeta Tràgic. Als costats de l'entrada, la casa lloga dues botigues (tabernae) que donen al carrer.
+Through this narrow passage, the fauces, you enter from the street. To one side, in his little room, lives the doorkeeper (ostiarius), often chained to the door, with a dog. On the floor a mosaic warns: CAVE CANEM, "beware of the dog". In Pompeii there is one just like it in the House of the Tragic Poet. On either side of the entrance the house rents out two shops (tabernae) facing the street.
+
+@974983a1
+L'atri i l'impluvi
+The atrium and the impluvium
+
+@00bbfd39
+El cor de la casa. La teulada s'inclina cap a dins i deixa al mig una obertura, el compluvi, per on entren la llum i la pluja; l'aigua cau a l'impluvi, l'estany de marbre, i es guarda en una cisterna. Aquí rep l'amo cada matí els seus clients a la salutatio. Al costat de l'impluvi hi ha la taula de marbre (cartibulum), i en un racó, l'arca de ferro i bronze amb els diners de la família, a la vista de tothom.
+The heart of the house. The roof slopes inwards and leaves an opening in the middle, the compluvium, through which light and rain come in; the water falls into the impluvium, the marble basin, and is stored in a cistern. Here every morning the master receives his clients at the salutatio. Beside the impluvium stands the marble table (cartibulum), and in a corner the iron-and-bronze strongbox with the family's money, in full view of everyone.
+
+@2e2e45d3
+El larari
+The lararium
+
+@a13ecdc3
+L'altar dels déus de la casa. Pintats a la paret: els dos Lars, joves que ballen amb una banya per beure a la mà, i al mig el Geni de l'amo, amb la toga sobre el cap, fent un sacrifici; a sota, una serp, guardiana de la casa. Cada dia se'ls ofereix encens, vi o una part del menjar, i a les festes, garlandes.
+The altar of the household gods. Painted on the wall: the two Lares, young men dancing with drinking horns in their hands, and between them the Genius of the master, with his toga over his head, making a sacrifice; below, a snake, guardian of the house. Every day they are offered incense, wine or part of the meal, and on feast days, garlands.
+
+@0b3dd4f0
+Les ales i els avantpassats
+The alae and the ancestors
+
+@e14759fd
+En aquestes ales, obertes a l'atri, les famílies nobles guarden en armaris les màscares de cera dels seus avantpassats que van ocupar magistratures, amb els noms i els càrrecs escrits a sota. Als funerals, actors se les posen perquè els morts il·lustres acompanyin el difunt. Polibi en va quedar impressionat: «No hi ha espectacle més bell per a un jove ambiciós».
+In these alae, open to the atrium, noble families keep in cupboards the wax masks of those ancestors who held office, with their names and posts written underneath. At funerals actors wear them so that the illustrious dead escort the deceased. Polybius was impressed: "There is no finer sight for an ambitious young man."
+
+@16a38144
+El cubicle
+The cubiculum
+
+@7a9929af
+Els dormitoris són petits, foscos i sense finestres al carrer: un llit de fusta amb matalàs de llana, un arcó i una llàntia d'oli. Les parets es pinten amb plafons clars. Els romans rics hi passen poc temps: serveixen per dormir, per guardar coses i, de vegades, per rebre un amic en privat.
+Bedrooms are small, dark and without windows onto the street: a wooden bed with a wool mattress, a chest and an oil lamp. The walls are painted with light panels. Rich Romans spend little time in them: they are for sleeping, for keeping things and, sometimes, for receiving a friend in private.
+
+@c2ec9332
+El tablinum
+The tablinum
+
+@64018cb7
+Entre l'atri i el peristil hi ha el despatx de l'amo, el tablinum, obert per davant i per darrere: des de la porta del carrer es veu tota la casa en filera, una vista pensada per impressionar. Aquí es guarden els comptes i els documents de la família, i l'amo atén els seus negocis. Una cortina o uns paravents de fusta el tanquen quan cal.
+Between the atrium and the peristyle is the master's office, the tablinum, open at front and back: from the street door you can see the whole house in a line, a view designed to impress. Here the family's accounts and documents are kept and the master deals with his business. A curtain or wooden screens close it off when needed.
+
+@cb961df2
+Les pintures de les parets
+The wall paintings
+
+@c36e5892
+Les parets estan pintades al fresc amb l'estil de moda, que els historiadors anomenaran «quart estil»: sòcol fosc, grans plafons vermells, negres o grocs amb una petita escena al centre, i entre ells arquitectures fantàstiques, fines com de joguina. Els colors són cars: el vermell cinabri ve de les mines d'Hispània. El pintor Fàbul va decorar així la Domus Aurea de Neró.
+The walls are painted in fresco in the fashionable style that historians will call the "Fourth Style": a dark dado, large red, black or yellow panels with a small scene in the middle, and between them fantastic architecture, as delicate as a toy. The colours are expensive: cinnabar red comes from the mines of Hispania. The painter Fabullus decorated Nero's Domus Aurea this way.
+
+@415ae4e0
+Els terres
+The floors
+
+@0113b6cf
+Cada estança té el seu terra: mosaics de tessel·les blanques i negres amb dibuixos geomètrics a l'atri i al tablinum, terres d'opus signinum (calç i maó picat, vermellós, amb tessel·les blanques incrustades) a les habitacions de servei i als pòrtics, i al triclini, un emblema de colors al centre, fet amb tessel·les diminutes, com un quadre de pedra.
+Each room has its own floor: black-and-white mosaics with geometric patterns in the atrium and the tablinum, opus signinum floors (lime and crushed brick, reddish, inlaid with white tesserae) in the service rooms and the porticoes, and in the triclinium a coloured emblema in the middle, made of tiny tesserae, like a painting in stone.
+
+@aa9260cb
+Darrere, la part més privada de la casa: un jardí envoltat de columnes, a la manera grega. Hi ha parterres amb bardisses de boix, roses, llorer i herbes, una font amb una estàtua i, de vegades, ocelleres. Les habitacions del voltant s'obren als pòrtics per tenir llum i aire. Aquí passeja la família, juguen els nens i se sopa a l'estiu.
+Behind, the most private part of the house: a garden surrounded by columns, in the Greek manner. There are beds with box hedges, roses, laurel and herbs, a fountain with a statue and sometimes aviaries. The surrounding rooms open onto the porticoes for light and air. Here the family strolls, the children play and people dine in summer.
+
+@00d9e973
+El menjador. Tres llits en forma de U al voltant d'una taula: els comensals mengen estirats sobre el colze esquerre, tres a cada llit, i el lloc d'honor és el del llit del centre. Els esclaus serveixen pel costat obert. Un sopar amb convidats té entrants (gustatio), diversos plats principals i postres, amb vi barrejat amb aigua. Les dones de la família també s'estiren.
+The dining room. Three couches in a U shape around a table: the diners eat reclining on their left elbow, three to a couch, and the place of honour is on the middle couch. The slaves serve from the open side. A dinner with guests has starters (gustatio), several main courses and dessert, with wine mixed with water. The women of the family recline too.
+
+@93c44fad
+La cuina i la latrina
+The kitchen and the latrine
+
+@7076b9d9
+Una cuina petita i plena de fum: un fogó d'obra on es cuina sobre trespeus amb carbó o llenya, un forn per al pa, àmfores d'oli i de vi i olles de fang. Al costat, la latrina, connectada a la claveguera o a un pou negre. Aquí hi treballen els esclaus de la casa; els amos gairebé no hi entren.
+A small, smoky kitchen: a masonry hearth where food is cooked on trivets over charcoal or wood, an oven for bread, amphorae of oil and wine and clay pots. Next to it, the latrine, connected to the sewer or to a cesspit. The household slaves work here; the owners hardly ever come in.
+
+@149b9590
+Escala i tabernes
+Stairs and shops
+
+@060d1196
+L'escala puja als pisos de dalt, els cenacula, que l'amo lloga amb entrada pròpia. Les dues botigues de la façana també es lloguen: una taverna de vi i menjar calent i un taller. Les cases dels rics estan envoltades de negocis i de veïns pobres: a Roma, rics i pobres viuen paret per paret.
+The stairs lead to the upper floors, the cenacula, which the owner rents out with their own entrance. The two shops on the façade are rented too: a tavern selling wine and hot food, and a workshop. The houses of the rich are surrounded by businesses and poor neighbours: in Rome, rich and poor live wall to wall.

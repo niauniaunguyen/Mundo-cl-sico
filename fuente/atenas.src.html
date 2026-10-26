@@ -3001,8 +3001,8 @@ function destHouses(I,cx,cz,n,spread,roman,opt){opt=opt||{};let k=0;const G={H_d
     const h0=terrainH(x,z);if(h0<1.4)continue;if(Math.abs(terrainH(x+7,z)-terrainH(x-7,z))+Math.abs(terrainH(x,z+7)-terrainH(x,z-7))>4)continue;
     if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<(f.reserve?0:f.r+8):Math.abs(x-f.x)<(f.w||0)/2+9&&Math.abs(z-f.z)<(f.d||0)/2+9))continue;
     const a=(opt.a||0)+(R()<0.5?0:Math.PI/2)+rr(-0.06,0.06);
-    if(roman&&GLB.ok&&GLB.parts.H_insa_brick){const kd=R()<0.6?'H_dom':'H_insb',B=kd==='H_dom'?[18,30]:[16,14];const gy=minGround(x,z,B[0],B[1],a);
-      G[kd].push({x,y:gy,z,a,sx:1,sy:kd==='H_dom'?1:rr(0.6,0.8),sz:1,cw:new THREE.Color(pick(walls)),cp:new THREE.Color(pick(walls)),cr:new THREE.Color(pick(roofs))});addBox(x,z,B[0],B[1],a);footprints.push({x,z,w:B[0],d:B[1],a,c:'#cdb994',house:true});}
+    if(roman&&GLB.ok&&GLB.parts.H_insa_brick){const kd=R()<0.6?'H_dom':'H_insb',B=kd==='H_dom'?[26,42]:[16,14];const gy=minGround(x,z,B[0],B[1],a);
+      G[kd].push({x,y:gy,z,a,sx:kd==='H_dom'?1.45:1,sy:kd==='H_dom'?1.2:rr(0.6,0.8),sz:kd==='H_dom'?1.4:1,cw:new THREE.Color(pick(walls)),cp:new THREE.Color(pick(walls)),cr:new THREE.Color(pick(roofs))});addBox(x,z,B[0],B[1],a);footprints.push({x,z,w:B[0],d:B[1],a,c:'#cdb994',house:true});}
     else courtyardHouse(x,z,a,rr(9,13),rr(9,12),rr(3.2,4),R()<0.15);
     k++;}
   for(const kd in G)placeModules(kd,G[kd],{far:1200,cell:320});}
@@ -4568,7 +4568,16 @@ const ROMA_DEST_NPCS=[
   ['¿Qué pasó en la última guerra?','Los romanos exigieron a mis antepasados rehenes, luego las armas, y por último que abandonaran la ciudad y vivieran lejos del mar. Se negaron y resistieron tres años. En el 146 entró Escipión Emiliano: seis días de combates calle por calle y un incendio que lo arrasó todo. Los supervivientes, unos cincuenta mil, fueron vendidos como esclavos. Durante un siglo aquí no hubo nada.'],
   ['¿Todavía se habla púnico?','En mi casa, sí, con mi madre. En el foro, latín. En Leptis y en otras ciudades de la provincia se ponen inscripciones en las dos lenguas, y algunas todavía tienen sufetes, como la vieja Cartago. Los dioses tampoco se han ido del todo: Baal Hammón es ahora Saturno, y Tanit es la diosa Celeste. Cambiamos los nombres y seguimos rezando.'],
   ['¿De qué vive Cartago?','Del trigo. África y Egipto alimentan a Roma: Flavio Josefo calcula que África la alimenta ocho meses al año. Los grandes propietarios, y el emperador, tienen aquí fincas inmensas; el trigo baja a la costa y sale en las naves de la anona hacia Ostia. También vendemos aceite, cerámica roja y fieras para los juegos.']],
- quiz:{q:'¿Quién tomó y destruyó Cartago en el 146 a.C.?',a:['Escipión Emiliano','Escipión el Africano','Julio César'],ko:'No. Fue Escipión Emiliano, nieto adoptivo del Africano, que había vencido a Aníbal en Zama en el 202.'}}
+ quiz:{q:'¿Quién tomó y destruyó Cartago en el 146 a.C.?',a:['Escipión Emiliano','Escipión el Africano','Julio César'],ko:'No. Fue Escipión Emiliano, nieto adoptivo del Africano, que había vencido a Aníbal en Zama en el 202.'}},
+{id:'filero',name:'Filero',title:'Atriense, esclavo encargado de la casa',glyph:'Φ',look:RT('#c9b48b',{beard:false,toga:false,hair:'#5b4532'}),
+ cat:'Vida cotidiana',lesson:'La domus romana',where:'En la domus del Celio, junto al impluvio',
+ summary:'La domus era la casa unifamiliar de las familias acomodadas. Desde la calle se entraba por las fauces al atrio, con su compluvio y su impluvio, alrededor del cual se abrían los cubículos, las alas y el tablino del dueño. Detrás, el peristilo, un jardín rodeado de pórticos, daba luz a las estancias más privadas: el triclinio, donde se cenaba recostado, los dormitorios y la cocina. Las paredes se pintaban al fresco y los suelos se cubrían de mosaicos. En la casa vivía la familia en sentido romano: el padre, la esposa, los hijos, los esclavos y los libertos. En Roma, la mayoría de la gente no vivía en domus, sino en pisos de alquiler en las ínsulas.',
+ intro:'Salve. Soy Filero, el atriense: el esclavo que cuida la casa de mi amo, Lucio Cecilio Rufo. Abro y cierro, vigilo a los demás esclavos y que nadie toque el arca. Si quieres, te enseño la casa. A mi amo le encanta que la admiren.',
+ topics:[
+  ['¿Qué es la salutatio?','Cada mañana, al amanecer, los clientes de mi amo hacen cola en la calle, con la toga puesta, para saludarlo aquí, en el atrio. Él los recibe por orden de importancia, escucha sus peticiones y les da la sportula, unas monedas o comida. A cambio, ellos lo acompañan al Foro y lo aplauden cuando habla. Cuantos más clientes, más importante parece el patrono. Marcial se queja en sus epigramas de lo humillante que es.'],
+  ['¿Quién vive en esta casa?','La familia, en sentido romano: el dueño, que es el paterfamilias y manda sobre todos; su esposa, sus hijos y la madre viuda del dueño; y unos treinta esclavos: cocineros, porteros, peluqueras, un secretario griego, el maestro de los niños, la nodriza. Y algunos libertos, que siguen viviendo y trabajando aquí. Los pisos de arriba y las tiendas los alquilamos a otras familias.'],
+  ['¿Todos los romanos viven así?','¡Qué va! En Roma hay unas dos mil domus y más de cuarenta mil bloques de pisos, las ínsulas. La mayoría de la gente vive de alquiler, en una o dos habitaciones, sin cocina ni agua, con miedo a los incendios y a los derrumbes. Los poetas se quejan de que en Roma se duerme mal y se paga caro. Esta casa es un lujo de muy pocos.']],
+ quiz:{q:'¿Cómo se llamaba el estanque del atrio que recogía el agua de lluvia?',a:['El impluvio','El peristilo','El triclinio'],ko:'No. El impluvio es el estanque del atrio; el compluvio, la abertura del tejado por la que entra la lluvia.'}}
 ];
 const ROMA_DEST_SRC={
  numerio:{a:['Plinio el Joven, Cartas VI 16 y VI 20','Suetonio, Tito 8.3-4','Dion Casio LXVI 21-24','Tácito, Anales XIV 17 (la riña del 59) y XV 22 (el terremoto del 62)'],m:['M. Beard, Pompeya (2009)','G. Stefani (ed.), I giorni di Pompei (2019)'],n:['Numerio es inventado. Las cartas de Plinio se escribirán hacia el 106.']},
@@ -4586,6 +4595,7 @@ const ROMA_DEST_SRC={
  pedania:{a:['Plinio el Viejo, Historia natural XIV 71','Marcial I 26','Digesto L 15.8 (la inmunidad de Barcino)'],m:['V. Revilla, Producción cerámica, viticultura y propiedad rural en Hispania Tarraconensis (1995)'],n:['Pedania es inventada.']},
  dionisia:{a:['Estrabón III 4.8','Livio XXI 60 y XXXIV 9'],m:['P. Cabrera y C. Sánchez (eds.), Los griegos en España (2000)'],n:['Dionisia es inventada.']},
  atilio:{a:['César, La guerra civil I 37-87','Polibio X 18 y Livio XXVIII 24-34 (Indíbil y Mandonio)','Horacio, Epístolas I 20.13'],m:['A. Goldsworthy, César (2006)'],n:['Atilio es inventado.']},
+ filero:{a:['Vitruvio, Sobre la arquitectura VI 3-7','Marcial III 7 y IV 8 (la salutatio)','Polibio VI 53 (las imágenes de los antepasados)','Juvenal, Sátiras III (la vida en las ínsulas)'],m:['A. Wallace-Hadrill, Houses and Society in Pompeii and Herculaneum (1994)','P. Allison, Pompeian Households (2004)'],n:['Filero y su amo son inventados. La casa sigue el modelo de las domus de Pompeya y Herculano, de las que se conservan muchas más que de Roma. Las cifras de domus e ínsulas de Roma vienen de los Regionarios del siglo IV.']},
  himilcon:{a:['Apiano, Libia 74-135','Polibio XXXVIII 19-22','Plutarco, Catón el Viejo 26-27','Flavio Josefo, La guerra de los judíos II 383','Estrabón XVII 3.14-15'],m:['S. Lancel, Carthage (1995)','R. Miles, Carthage Must Be Destroyed (2010)'],n:['Himilcón es inventado.','Sobre la sal: R. T. Ridley, «To Be Taken with a Pinch of Salt: The Destruction of Carthage», Classical Philology 81 (1986).']},
  tito_cornelio:{a:['Dion Casio LIII 26 y LV 23','Higino Gromático, en el Corpus agrimensorum'],m:['J. M. Álvarez Martínez, Augusta Emerita (varios)','L. Keppie, The Making of the Roman Army (1984)'],n:['Tito Cornelio es inventado.']}
 };
@@ -4796,7 +4806,8 @@ const RFLATS=[
  [60,-165,200,95,1.0,0.2],     // foros imperiales
  [40,355,320,78,1.0,0.12],     // Circo Máximo
  [480,-128,78,62,8,0.32],      // terraza de las Termas de Tito
- [-430,120,90,70,1.2,0.4]      // Foro Boario y Velabro
+ [-430,120,90,70,1.2,0.4],     // Foro Boario y Velabro
+ [600,359,16,34,31.6,0.3]      // la domus visitable del Celio
 ];
 function romaH(x,z){
   let h=1.8+(fbm(x*0.006,z*0.006)-0.45)*5;
@@ -5050,6 +5061,133 @@ function crane(x,z,a){const g=grp(x,terrainH(x,z),z,a);const l1=box(0.35,13,0.35
 function romaArrive(I,label,who){const a=I.arrive;arriero(I.id,a.x+3,a.z+3,-Math.PI/2,who);PORTS[I.id+(I.sea?'_n':'')]={x:a.x-4,z:a.z,yaw:-Math.PI/2,label};}
 const HISP_DRIVER={name:'Lucio Valerio',sub:'Cochero · caminos de Hispania',role:'el cochero',look:{chiton:'#9a8462',short:true,noHimation:true,hair:'#2a1a12'}};
 function vineyard(x,z,w,d){const g=new THREE.BoxGeometry(0.5,1.1,0.5);g.translate(0,0.55,0);for(let i=0;i<w/2.5;i++)for(let j=0;j<d/3;j++){const px=x-w/2+i*2.5,pz=z-d/2+j*3;piece('vid',g,lam('#5e7a3a'),px,terrainH(px,pz),pz,0,1,rr(0.8,1.2),1);}}
+// ============================================================ ROMA: la domus visitable del Celio
+// Una casa de atrio y peristilo a tamaño real (28 × 64 m), con sus estancias, pinturas del cuarto estilo y mosaicos.
+// Coordenadas locales: x de -14 a 14; la fachada da a la calle en z = +31 y el fondo está en z = -33.
+const DOMUS={x:600,z:360,y:31.6,H:6};
+const DOMUS_PAINT={rojo:['#9e2a1e','#7a1c14','#e9dcc0'],amarillo:['#d9a43a','#a87a22','#efe4c8'],negro:['#1e1a18','#3a2a22','#e9dcc0'],blanco:['#ece4d2','#c9b48b','#f3eee2']};
+// pintura mural del cuarto estilo: zócalo oscuro, paneles de color con una viñeta y franjas de arquitecturas fingidas; arriba, zona clara
+function domusWallTex(kind){const P=DOMUS_PAINT[kind];return canvasTex(256,384,(x,W,H)=>{
+  x.fillStyle=P[2];x.fillRect(0,0,W,H);
+  const zz=H*5/6;x.fillStyle=kind==='negro'?'#3a1410':'#2a1a14';x.fillRect(0,zz,W,H-zz);x.strokeStyle='#c9a24a';x.lineWidth=2;x.strokeRect(10,zz+8,W-20,H-zz-16);   // zócalo
+  for(let i=0;i<5;i++){x.fillStyle='#4f6a3a';x.beginPath();x.ellipse(30+i*50,zz+30,6,12,0.3,0,TAU);x.fill();}
+  x.fillStyle=P[0];x.fillRect(36,H*0.3,W-72,H*0.52);x.strokeStyle=P[1];x.lineWidth=6;x.strokeRect(40,H*0.3+4,W-80,H*0.52-8);   // panel central
+  x.strokeStyle='#efe2c0';x.lineWidth=1.5;x.strokeRect(50,H*0.3+14,W-100,H*0.52-28);
+  x.fillStyle='#efe2c0';x.beginPath();x.ellipse(W/2,H*0.56,14,20,0,0,TAU);x.fill();x.fillStyle=P[1];x.beginPath();x.ellipse(W/2,H*0.56,9,15,0,0,TAU);x.fill();   // viñeta
+  for(const s of[0,W-36]){x.fillStyle=kind==='negro'?'#2a2420':'#efe6d0';x.fillRect(s,H*0.3,36,H*0.52);x.fillStyle='#c9a24a';x.fillRect(s+15,H*0.3+6,5,H*0.52-12);for(let k=0;k<6;k++){x.fillStyle='#7a5a2a';x.fillRect(s+11,H*0.32+k*30,13,3);}}   // candelabros
+  x.fillStyle=P[1];x.fillRect(0,H*0.27,W,H*0.03);
+  x.strokeStyle='#8a6a4a';x.lineWidth=2;for(let i=0;i<4;i++){x.beginPath();x.moveTo(i*64+8,H*0.25);x.lineTo(i*64+8,H*0.05);x.stroke();}   // zona alta: columnillas
+  x.strokeStyle='#5f7a3a';x.lineWidth=3;x.beginPath();for(let i=0;i<=W;i+=8)x.lineTo(i,H*0.12+Math.sin(i/20)*10);x.stroke();});}   // guirnalda
+function domusFloorTex(kind){return canvasTex(256,256,(x,W,H)=>{
+  if(kind==='bn'){x.fillStyle='#efe9da';x.fillRect(0,0,W,H);x.fillStyle='#1e1a18';for(let i=0;i<8;i++)for(let j=0;j<8;j++)if((i+j)%2)x.fillRect(i*32+8,j*32+8,16,16);x.strokeStyle='#1e1a18';x.lineWidth=4;x.strokeRect(2,2,W-4,H-4);}
+  else if(kind==='signinum'){x.fillStyle='#a8624a';x.fillRect(0,0,W,H);x.fillStyle='#f3eee2';for(let i=0;i<10;i++)for(let j=0;j<10;j++)x.fillRect(i*25.6+11,j*25.6+11,4,4);}
+  else if(kind==='tierra'){x.fillStyle='#8a7a5a';x.fillRect(0,0,W,H);for(let i=0;i<400;i++){x.fillStyle=R()<0.5?'#7a6a4a':'#9a8a6a';x.fillRect(R()*W,R()*H,3,3);}}
+  else if(kind==='emblema'){x.fillStyle='#efe9da';x.fillRect(0,0,W,H);x.strokeStyle='#1e1a18';x.lineWidth=6;x.strokeRect(10,10,W-20,H-20);x.strokeRect(24,24,W-48,H-48);
+    x.fillStyle='#3a6f8a';x.fillRect(70,70,W-140,H-140);for(let i=0;i<6;i++){x.fillStyle=['#c9a24a','#e8a040','#c96a4a'][i%3];x.beginPath();x.ellipse(95+(i%3)*33,100+Math.floor(i/3)*55,13,6,i*0.6,0,TAU);x.fill();}}
+  else if(kind==='cave'){x.fillStyle='#efe9da';x.fillRect(0,0,W,H);x.fillStyle='#1e1a18';x.lineWidth=4;x.strokeRect(6,6,W-12,H-12);
+    x.beginPath();x.moveTo(50,170);x.lineTo(70,120);x.lineTo(150,115);x.lineTo(180,95);x.lineTo(205,100);x.lineTo(200,120);x.lineTo(180,125);x.lineTo(175,170);x.lineTo(160,170);x.lineTo(155,135);x.lineTo(90,140);x.lineTo(80,170);x.closePath();x.fill();
+    x.fillStyle='#a8392b';x.fillRect(175,108,20,4);x.font='bold 30px Georgia, serif';x.textAlign='center';x.fillStyle='#1e1a18';x.fillText('CAVE CANEM',W/2,220);}});}
+function domusMat(kind,len,h){const t=domusWallTex(kind).clone();t.needsUpdate=true;t.repeat.set(Math.max(1,Math.round(len/4)),1);t.wrapS=THREE.RepeatWrapping;return new THREE.MeshLambertMaterial({map:t});}
+const DOMUS_EXT=()=>lam('#e6dcc6'),DOMUS_ENL=()=>lam('#e9dfca');
+// muro de A a B (locales) con huecos: doors = [[t0,t1,dintel]] medidos desde A; L e I = acabados a la izquierda y a la derecha según se va de A a B
+function domusWall(ax,az,bx,bz,L,Rk,doors){const D=DOMUS,H=D.H,T=0.45,len=Math.hypot(bx-ax,bz-az),dx=(bx-ax)/len,dz=(bz-az)/len,ang=-Math.atan2(dz,dx);
+  const mk=(k,l,h)=>k==='ext'?DOMUS_EXT():k==='enl'?DOMUS_ENL():domusMat(k,l,h);
+  const seg=(t0,t1,y0,y1)=>{const l=t1-t0;if(l<0.05)return;const cx=ax+dx*(t0+t1)/2,cz=az+dz*(t0+t1)/2,end=lam('#e6dcc6');
+    const m=new THREE.Mesh(new THREE.BoxGeometry(l,y1-y0,T),[end,end,end,end,mk(L,l,y1-y0),mk(Rk,l,y1-y0)]);m.position.set(D.x+cx,D.y+(y0+y1)/2,D.z+cz);m.rotation.y=ang;m.castShadow=true;m.receiveShadow=true;scene.add(m);
+    if(y0<0.1)addSeg(D.x+ax+dx*t0,D.z+az+dz*t0,D.x+ax+dx*t1,D.z+az+dz*t1,0.3);};
+  let t=0;for(const d of(doors||[]).slice().sort((a,b)=>a[0]-b[0])){seg(t,d[0],0,H);if(d[2]<H)seg(d[0],d[1],d[2],H);t=d[1];}seg(t,len,0,H);}
+function domusFloor(x0,z0,x1,z1,kind,rep){const D=DOMUS,t=domusFloorTex(kind);t.repeat.set(rep?(x1-x0)/rep:1,rep?(z1-z0)/rep:1);const m=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,z1-z0),new THREE.MeshLambertMaterial({map:t}));
+  m.rotation.x=-Math.PI/2;m.position.set(D.x+(x0+x1)/2,D.y+0.04,D.z+(z0+z1)/2);m.receiveShadow=true;scene.add(m);}
+// tejado: losa de tejas inclinada (tx, tz = inclinación en x y en z)
+function domusRoof(x0,z0,x1,z1,y,tx,tz){const D=DOMUS,m=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,0.3,z1-z0),[lam('#b0563a'),lam('#b0563a'),lam('#b0563a'),lam('#5a4330'),lam('#b0563a'),lam('#b0563a')]);
+  m.position.set(D.x+(x0+x1)/2,D.y+y,D.z+(z0+z1)/2);m.rotation.set(tx||0,0,tz||0);m.castShadow=true;scene.add(m);}
+function domusBox(w,h,d,col,x,y,z,ry){const D=DOMUS,b=box(w,h,d,typeof col==='string'?lam(col):col,D.x+x,D.y+y,D.z+z);if(ry)b.rotation.y=ry;return b;}
+function buildDomus(){
+  const D=DOMUS,W=(x,z)=>[D.x+x,D.z+z];
+  footprints.push({x:D.x,z:D.z-1,w:28,d:64,a:0,c:'#cdb994',name:'Domus del Celio',reserve:true});
+  // suelos
+  domusFloor(-1.5,23,1.5,31,'cave');domusFloor(-8,5,8,23,'bn',2);domusFloor(-5,-5,5,5,'bn',1.5);domusFloor(-8,-5,-5,5,'bn',2);domusFloor(-14,5,-8,23,'signinum',2);domusFloor(8,5,14,23,'signinum',2);
+  domusFloor(-14,-5,-8,5,'signinum',2);domusFloor(5,-5,14,5,'bn',2);domusFloor(-14,-25,14,-5,'signinum',2.5);domusFloor(-7,-33,7,-25,'emblema');domusFloor(-14,-33,-7,-25,'bn',2);domusFloor(7,-33,14,-25,'tierra',3);
+  domusFloor(-14,23,-5,31,'tierra',3);domusFloor(5,23,14,31,'tierra',3);domusFloor(-5,23,-1.5,31,'tierra',3);domusFloor(1.5,23,5,31,'tierra',3);
+  {const g=new THREE.Mesh(new THREE.PlaneGeometry(18,11),lam('#6f8a4a'));g.rotation.x=-Math.PI/2;g.position.set(D.x,D.y+0.06,D.z-15);scene.add(g);}   // jardín
+  // muros exteriores
+  domusWall(-14,31,14,31,'ext','enl',[[0.5,8.5,3.8],[12.5,15.5,3.6],[19.5,27.5,3.8]]);
+  domusWall(-14,31,-14,23,'enl','ext');domusWall(-14,23,-14,5,'blanco','ext');domusWall(-14,5,-14,-5,'blanco','ext');domusWall(-14,-5,-14,-25,'amarillo','ext');domusWall(-14,-25,-14,-33,'negro','ext');
+  domusWall(14,-33,14,-25,'enl','ext');domusWall(14,-25,14,-5,'amarillo','ext');domusWall(14,-5,14,5,'amarillo','ext');domusWall(14,5,14,23,'blanco','ext');domusWall(14,23,14,31,'enl','ext');
+  domusWall(14,-33,7,-33,'ext','enl');domusWall(7,-33,-7,-33,'ext','rojo');domusWall(-7,-33,-14,-33,'ext','negro');
+  // fachada: tabernas, celda del portero, escalera y fauces
+  domusWall(-14,23,-5,23,'enl','blanco');domusWall(-5,23,-1.5,23,'enl','rojo');domusWall(1.5,23,5,23,'enl','rojo');domusWall(5,23,14,23,'enl','blanco');
+  domusWall(-1.5,31,-1.5,23,'negro','enl',[[3,4.6,2.4]]);domusWall(1.5,23,1.5,31,'negro','enl');domusWall(-5,31,-5,23,'enl','enl');domusWall(5,23,5,31,'enl','enl');
+  // atrio, cubículos y alas
+  domusWall(-8,23,-8,11,'rojo','blanco',[[3,4.6,2.6],[9,10.6,2.6]]);domusWall(8,11,8,23,'rojo','blanco',[[1.4,3,2.6],[7.4,9,2.6]]);
+  domusWall(-14,16,-8,16,'blanco','blanco');domusWall(8,16,14,16,'blanco','blanco');domusWall(-14,11,-8,11,'blanco','rojo');domusWall(8,11,14,11,'blanco','rojo');
+  domusWall(-14,5,-8,5,'rojo','blanco');domusWall(5,5,14,5,'rojo','amarillo');
+  // tablino, andron, cubículo y biblioteca
+  domusWall(-5,5,-5,-5,'negro','rojo');domusWall(-8,5,-8,-5,'rojo','blanco',[[4.2,5.8,2.6]]);domusWall(5,-5,5,5,'negro','amarillo');
+  domusWall(-14,-5,-8,-5,'blanco','amarillo');domusWall(-5,-5,5,-5,'negro','amarillo',[[2,8,3.6]]);domusWall(5,-5,14,-5,'amarillo','amarillo',[[4,5.6,2.6]]);
+  // fondo: cubículo del dueño, triclinio y cocina
+  domusWall(-14,-25,-7,-25,'amarillo','negro',[[3,4.6,2.6]]);domusWall(-7,-25,7,-25,'amarillo','rojo',[[4,10,4]]);domusWall(7,-25,14,-25,'amarillo','enl',[[2,3.6,2.6]]);
+  domusWall(-7,-25,-7,-33,'rojo','negro');domusWall(7,-33,7,-25,'rojo','enl');
+  // puerta de la calle, abierta
+  for(const s of[-1,1]){const b=domusBox(1.4,3.4,0.15,M.wood,s*1.4,1.7,30.2,s*0.9);}
+  // atrio: impluvio, mesa, arca, lararío
+  {for(const[w,d,x,z]of[[6.6,0.3,0,11],[6.6,0.3,0,17],[0.3,6,-3.15,14],[0.3,6,3.15,14]]){domusBox(w,0.3,d,M.marble,x,0.15,z);}
+   const w=new THREE.Mesh(new THREE.PlaneGeometry(6,6),new THREE.MeshPhongMaterial({color:'#4f8fa8',shininess:90}));w.rotation.x=-Math.PI/2;w.position.set(D.x,D.y+0.12,D.z+14);scene.add(w);addBox(D.x,D.z+14,6.6,6.6,0);
+   domusBox(2.4,0.9,1,M.marble,0,0.45,9.4);addBox(D.x,D.z+9.4,2.4,1,0);   // cartibulum
+   domusBox(1.4,1,0.9,lam('#6b4a2e'),-6.6,0.5,7);for(const y of[0.2,0.8])domusBox(1.45,0.08,0.95,lam('#b07a3a'),-6.6,y,7);addBox(D.x-6.6,D.z+7,1.4,0.9,0);   // arca
+   {const lx=7,lz=21.6;domusBox(2.2,1.2,0.8,M.marble,lx,0.6,lz);domusBox(2.2,1.6,0.25,new THREE.MeshLambertMaterial({map:canvasTex(128,96,(x,W,H)=>{x.fillStyle='#e9dcc0';x.fillRect(0,0,W,H);x.fillStyle='#a8392b';for(const s of[22,106]){x.fillRect(s-5,22,10,40);x.beginPath();x.arc(s,16,7,0,TAU);x.fill();}
+     x.fillStyle='#efe6d4';x.fillRect(58,24,12,44);x.beginPath();x.arc(64,18,6,0,TAU);x.fill();x.strokeStyle='#4f6a3a';x.lineWidth=5;x.beginPath();for(let i=0;i<=W;i+=6)x.lineTo(i,84+Math.sin(i/9)*5);x.stroke();})}),lx,2,lz+0.95);
+    domusBox(2.6,0.3,1,M.marble,lx,2.95,lz);addBox(D.x+lx,D.z+lz,2.2,0.8,0);}
+   // armario de las imágenes de los antepasados, en el ala
+   {domusBox(3,2.2,0.6,lam('#5a4330'),-11,1.1,5.6);for(let i=0;i<4;i++){const h=new THREE.Mesh(new THREE.SphereGeometry(0.16,10,8),lam('#d8cbb4'));h.position.set(D.x-12.1+i*0.75,D.y+1.6,D.z+5.95);scene.add(h);}}}
+  // cubículos: camas, arcones, lucernas
+  for(const[x,z]of[[-11,19.5],[-11,13.5],[11,19.5],[11,13.5],[-11,0],[-10.5,-29]]){domusBox(1.1,0.55,2.2,lam('#6b4a2e'),x,0.28,z);domusBox(1,0.15,2,lam('#c9b48b'),x,0.62,z);domusBox(0.9,0.12,0.35,lam('#a8392b'),x,0.72,z-0.85);addBox(D.x+x,D.z+z,1.1,2.2,0);}
+  // tablino: mesa con tablillas y rollos
+  {domusBox(2.6,0.9,1.2,lam('#5a4330'),0,0.45,0);for(let i=0;i<4;i++){const r=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.06,0.5,8),lam('#e7dcc4'));r.rotation.z=Math.PI/2;r.position.set(D.x-0.8+i*0.5,D.y+0.97,D.z);scene.add(r);}addBox(D.x,D.z,2.6,1.2,0);}
+  // biblioteca: estantes con rollos
+  for(const x of[7.5,11.5]){domusBox(3,3,0.6,lam('#5a4330'),x,1.5,4.4);for(let k=0;k<4;k++)for(let i=0;i<8;i++){const r=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.07,0.4,6),lam(k%2?'#e7dcc4':'#d8c9a3'));r.rotation.x=Math.PI/2;r.position.set(D.x+x-1.2+i*0.34,D.y+0.5+k*0.7,D.z+4.1);scene.add(r);}addBox(D.x+x,D.z+4.4,3,0.6,0);}
+  // peristilo: columnas, seto, fuente con estatua
+  for(let i=0;i<7;i++)for(const z of[-9.5,-20.5]){const[x2,z2]=W(-9+i*3,z);addColumn(x2,D.y,z2,0.3,4.2,0,'doric');addCirc(x2,z2,0.35);}
+  for(let i=1;i<4;i++)for(const x of[-9.5,9.5]){const[x2,z2]=W(x,-9.5-i*2.75);addColumn(x2,D.y,z2,0.3,4.2,0,'doric');addCirc(x2,z2,0.35);}
+  for(const[w,d,x,z]of[[17,0.5,0,-10.3],[17,0.5,0,-19.7],[0.5,9,-8.7,-15],[0.5,9,8.7,-15]])domusBox(w,0.6,d,lam('#3f5a2a'),x,0.3,z);
+  {domusBox(3,0.5,3,M.marble,0,0.25,-15);const w=new THREE.Mesh(new THREE.PlaneGeometry(2.6,2.6),new THREE.MeshPhongMaterial({color:'#4f8fa8',shininess:90}));w.rotation.x=-Math.PI/2;w.position.set(D.x,D.y+0.52,D.z-15);scene.add(w);statue(D.x,D.y+0.5,D.z-15,0,1,'bronze');addBox(D.x,D.z-15,3,3,0);}
+  for(let i=0;i<10;i++){const x=rr(-7.5,7.5),z=rr(-19,-11);if(Math.abs(x)<2.5&&Math.abs(z+15)<2.5)continue;const s=new THREE.Mesh(new THREE.SphereGeometry(rr(0.4,0.8),10,8),lam(pick(['#4f6b3a','#5f7a3a','#3f5a2a'])));s.position.set(D.x+x,D.y+0.4,D.z+z);s.castShadow=true;scene.add(s);}
+  // triclinio: tres lechos alrededor de una mesa
+  {for(const[w,d,x,z]of[[5,1.4,0,-31.6],[1.4,4,-3.6,-29],[1.4,4,3.6,-29]]){domusBox(w,0.7,d,lam('#6b4a2e'),x,0.35,z);domusBox(w-0.1,0.18,d-0.1,lam('#a8392b'),x,0.79,z);addBox(D.x+x,D.z+z,w,d,0);}
+   const t=new THREE.Mesh(new THREE.CylinderGeometry(0.8,0.8,0.7,20),M.marble);t.position.set(D.x,D.y+0.35,D.z-29);scene.add(t);addCirc(D.x,D.z-29,0.8);}
+  // cocina: fogón, horno, ánforas; letrina en el rincón
+  {domusBox(3,1,1.2,lam('#a8624a'),10.5,0.5,-32.2);addBox(D.x+10.5,D.z-32.2,3,1.2,0);const f=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));f.scale.set(0.8,1,1);f.position.set(D.x+10.5,D.y+1.3,D.z-32.2);scene.add(f);
+   const o=new THREE.Mesh(new THREE.SphereGeometry(0.9,14,10,0,TAU,0,Math.PI/2),lam('#8a6a4a'));o.position.set(D.x+8.2,D.y+1,D.z-32);scene.add(o);domusBox(1.8,1,1.6,lam('#a8624a'),8.2,0.5,-32);addBox(D.x+8.2,D.z-32,1.8,1.6,0);
+   for(let i=0;i<4;i++){const a=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.12,0.9,10),lam('#b8734a'));a.position.set(D.x+13.3,D.y+0.45,D.z-29+i*0.6);scene.add(a);}
+   domusBox(1.4,0.5,1.2,M.limestone,13,0.25,-26.2);}
+  // escalera de madera a los pisos de arriba (cenacula) y mostradores de las tabernas
+  for(let i=0;i<12;i++)domusBox(3,0.18,0.5,lam('#6b4a2e'),3.3,0.2+i*0.42,24+i*0.55);
+  for(const x of[-9.5,9.5]){domusBox(6,1,0.8,M.limestone,x,0.5,29.6);addBox(D.x+x,D.z+29.6,6,0.8,0);for(let i=0;i<3;i++){const a=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.25,0.3,10),lam('#8a6a4a'));a.position.set(D.x+x-1.6+i*1.6,D.y+0.9,D.z+29.6);scene.add(a);}}
+  // tejados (el atrio, con el compluvio abierto sobre el impluvio)
+  const H=D.H;domusRoof(-14.2,23,14.2,31.6,H+0.3,0.06,0);
+  domusRoof(-8,17,8,23,H-0.1,-0.11,0);domusRoof(-8,5,8,11,H-0.1,0.11,0);domusRoof(-8,11,-3,17,H-0.1,0,-0.13);domusRoof(3,11,8,17,H-0.1,0,0.13);
+  domusRoof(-14.2,5,-8,23,H+0.2,0,0.05);domusRoof(8,5,14.2,23,H+0.2,0,-0.05);domusRoof(-14.2,-5,14.2,5,H+0.2,0,0);
+  domusRoof(-14.2,-9.5,14.2,-4.8,(H+4.3)/2,-0.35,0);domusRoof(-14.2,-25.2,14.2,-20.5,(H+4.3)/2,0.35,0);domusRoof(-14.2,-20.5,-9.5,-9.5,(H+4.3)/2,0,-0.35);domusRoof(9.5,-20.5,14.2,-9.5,(H+4.3)/2,0,0.35);
+  domusRoof(-14.2,-33.6,14.2,-25,H+0.3,0.05,0);
+  // estelas
+  const S=(id,n,l,t,x,z,r)=>{const[x2,z2]=W(x,z);place(id,n,l,t,x2,z2,r||0);};
+  S('domus_fauces','Las fauces: «Cuidado con el perro»','FAVCES','Por este pasillo estrecho, las fauces, se entra desde la calle. A un lado, en su cuartito, vive el portero (ostiarius), a menudo encadenado a la puerta, con un perro. En el suelo, un mosaico avisa: CAVE CANEM, «cuidado con el perro». En Pompeya hay uno igual en la casa del Poeta Trágico. A los lados de la entrada, la casa alquila dos tiendas (tabernae) que dan a la calle.',2.4,27,Math.PI/2);
+  S('domus_atrio','El atrio y el impluvio','ATRIVM','El corazón de la casa. El tejado se inclina hacia dentro y deja en medio una abertura, el compluvio, por la que entran la luz y la lluvia; el agua cae en el impluvio, el estanque de mármol, y se guarda en una cisterna. Aquí recibe el dueño cada mañana a sus clientes en la salutatio. Junto al impluvio está la mesa de mármol (cartibulum), y en un rincón, el arca de hierro y bronce con el dinero de la familia, a la vista de todos.',4.2,9,0);
+  S('domus_lararium','El larario','LARARIVM','El altar de los dioses de la casa. Pintados en la pared: los dos Lares, jóvenes que bailan con un cuerno de beber en la mano, y en medio el Genio del dueño, con la toga sobre la cabeza, haciendo un sacrificio; abajo, una serpiente, guardiana de la casa. Cada día se les ofrece incienso, vino o una parte de la comida, y en las fiestas, guirnaldas.',5.2,20.6,Math.PI);
+  S('domus_alas','Las alas y los antepasados','IMAGINES','En estas alas, abiertas al atrio, las familias nobles guardan en armarios las máscaras de cera de sus antepasados que ocuparon magistraturas, con sus nombres y cargos escritos debajo. En los funerales, actores las llevan puestas para que los muertos ilustres acompañen al difunto. Polibio quedó impresionado: «No hay espectáculo más hermoso para un joven ambicioso».',-10.5,8.2,0);
+  S('domus_cubiculo','El cubículo','CVBICVLVM','Los dormitorios son pequeños, oscuros y sin ventanas a la calle: una cama de madera con colchón de lana, un arcón y una lucerna de aceite. Las paredes se pintan con paneles claros. Los romanos ricos pasan poco tiempo en ellos: sirven para dormir, para guardar cosas y, a veces, para recibir a un amigo en privado.',-11,16.8,Math.PI);
+  S('domus_tablino','El tablino','TABLINVM','Entre el atrio y el peristilo está el despacho del dueño, el tablino, abierto por delante y por detrás: desde la puerta de la calle se ve toda la casa en fila, una vista pensada para impresionar. Aquí se guardan las cuentas y los documentos de la familia, y el dueño atiende sus negocios. Una cortina o unos biombos de madera lo cierran cuando hace falta.',3.8,2.6,0);
+  S('domus_pinturas','Las pinturas de las paredes','PICTVRAE','Las paredes están pintadas al fresco con el estilo de moda, que los historiadores llamarán «cuarto estilo»: zócalo oscuro, grandes paneles rojos, negros o amarillos con una pequeña escena en el centro, y entre ellos arquitecturas fantásticas, finas como de juguete. Los colores son caros: el rojo cinabrio viene de las minas de Hispania. El pintor Fábulo decoró así la Domus Aurea de Nerón.',-4.2,-1.8,Math.PI/2);
+  S('domus_mosaicos','Los suelos','PAVIMENTA','Cada estancia tiene su suelo: mosaicos de teselas blancas y negras con dibujos geométricos en el atrio y el tablino, suelos de opus signinum (cal y ladrillo machacado, rojizo, con teselas blancas incrustadas) en las habitaciones de servicio y los pórticos, y en el triclinio, un emblema de colores en el centro, hecho con teselas diminutas, como un cuadro de piedra.',-2.6,-27.2,Math.PI);
+  S('domus_peristilo','El peristilo','PERISTYLIVM','Detrás, la parte más privada de la casa: un jardín rodeado de columnas, a la manera griega. Hay arriates con setos de boj, rosas, laurel y hierbas, una fuente con una estatua y, a veces, pajareras. Las habitaciones de alrededor se abren a los pórticos para tener luz y aire. Aquí pasea la familia, juegan los niños y se cena en verano.',6.5,-11.5,Math.PI);
+  S('domus_triclinio','El triclinio','TRICLINIVM','El comedor. Tres lechos en forma de U alrededor de una mesa: los comensales comen recostados sobre el codo izquierdo, tres en cada lecho, y el lugar de honor es el del lecho del centro. Los esclavos sirven por el lado abierto. Una cena de invitados tiene entrantes (gustatio), varios platos principales y postre, con vino mezclado con agua. Las mujeres de la familia también se recuestan.',-5.4,-26.4,Math.PI);
+  S('domus_cocina','La cocina y la letrina','CVLINA','Una cocina pequeña y llena de humo: un fogón de obra donde se cocina sobre trébedes con carbón o leña, un horno para el pan, ánforas de aceite y de vino y ollas de barro. Al lado, la letrina, conectada a la cloaca o a un pozo negro. Aquí trabajan los esclavos de la casa; los dueños apenas entran.',8.6,-26.6,Math.PI);
+  S('domus_cenacula','Escalera y tabernas','CENACVLA','La escalera sube a los pisos de arriba, los cenacula, que el dueño alquila con entrada propia. Las dos tiendas de la fachada también se alquilan: una taberna de vino y comida caliente y un taller. Las casas de los ricos están rodeadas de negocios y de vecinos pobres: en Roma, ricos y pobres viven pared con pared.',3.4,22.4,Math.PI);
+  NPC_POS.filero=[D.x-4.6,D.z+16,Math.PI/2];
+  // la cola de clientes de la salutatio, en la calle
+  for(let i=0;i<5;i++){const c=makePerson({chiton:'#efe9dc',toga:true,himation:'#f3eee2',hair:pick(['#2b1f17','#5b4532','#8d8a85']),beard:R()<0.4});const px=D.x+1+(i%2?1:-1)*0.6,pz=D.z+33+i*1.3;c.position.set(px,terrainH(px,pz),pz);c.rotation.y=Math.PI;scene.add(c);addCirc(px,pz,0.35);}
+}
+
 // ------------------------------------------------------------ ROMA: relieve de los destinos
 function defineRomaDests(){
   const G=id=>ISLANDS.find(I=>I.id===id);
@@ -5605,9 +5743,8 @@ function romaOutskirts(){
   {const cx=-60,cz=900,gy=romaH(cx,cz)-0.3,g=grp(cx,gy,cz,0);const py=new THREE.Mesh(new THREE.ConeGeometry(21.2,37,4),lam('#e6dccb'));py.rotation.y=Math.PI/4;py.position.y=18.5;py.castShadow=true;g.add(py);addBox(cx,cz,30,30,0);footprints.push({x:cx,z:cz,w:30,d:30,a:0,c:'#efe7d8',name:'Pirámide de Cestio'});}
   // templo del Divino Claudio en el Celio y domus del patrono
   romanTemple({x:420,z:262,rot:-Math.PI/2,W:22,L:34,pod:3,gy:romaH(420,262)-0.2,colD:1.2,colH:11,nW:6,deep:2,peri:true,name:'Templo del Divino Claudio'});
-  // domus del patrono en el Celio, con su cola de clientes
-  {const x=600,z=360;if(GLB.ok)placeModules('H_dom',[{x,y:minGround(x,z,18,30,0),z,a:0,sx:1.2,sy:1,sz:1,cp:new THREE.Color('#efe2c8'),cr:new THREE.Color('#b0563a')}],{far:1600});addBox(x,z,21.6,30,0);footprints.push({x,z,w:22,d:30,a:0,c:'#cdb994'});
-   for(let i=0;i<5;i++){const c=makePerson({chiton:'#efe9dc',toga:true,himation:'#f3eee2',hair:pick(['#2b1f17','#5b4532','#8d8a85']),beard:R()<0.4});const px=x+1+(i%2?1:-1)*0.6,pz=z+19+i*1.3;c.position.set(px,romaH(px,pz),pz);c.rotation.y=Math.PI;scene.add(c);addCirc(px,pz,0.35);}}
+  // la domus visitable del Celio, con su cola de clientes
+  buildDomus();
   // campiña: campos, viñas, olivares y pinos
   const tr=buildCountryside(-1550,1300,-1500,1300,{grove:'olive'});
   for(let i=0;i<420;i++){const x=rr(-1550,1300),z=rr(-1500,1300);if(romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+18||roadDist(x,z)<5||fieldAt(x,z))continue;tr.push({x,z,kind:R()<0.55?'pine':(R()<0.5?'cypress':'olive')});}
@@ -5633,14 +5770,14 @@ function romaCity(){
       const h=romaH(x,z),sl=Math.abs(romaH(x+11,z)-romaH(x-11,z))+Math.abs(romaH(x,z+9)-romaH(x,z-9));if(sl>7||h<0.4)continue;
       const hill=h>16,r=R();let k=hill?(r<0.55?'H_dom':r<0.85?'H_insb':'H_insa'):(r<0.5?'H_insa':r<0.88?'H_insb':'H_dom');
       if(Math.hypot((x+80)/1000,(z+150)/850)>0.82&&k==='H_insa')k='H_insb';
-      const B=k==='H_insa'?[22,16]:k==='H_insb'?[16,14]:[18,30],a=-D.a+(R()<0.5?0:Math.PI)+(k==='H_dom'&&R()<0.5?Math.PI/2:0);
+      const B=k==='H_insa'?[22,16]:k==='H_insb'?[16,14]:[26,42],a=-D.a+(R()<0.5?0:Math.PI)+(k==='H_dom'&&R()<0.5?Math.PI/2:0);
       const w=B[0],d=B[1];if(!freeR(x,z,Math.max(w,d)/2+1))continue;if(R()<0.06)continue;
       const gy=minGround(x,z,w,d,a);markR(x,z,w,d,a);
-      G[k].push({x,y:gy,z,a,sx:1,sy:k==='H_dom'?1:rr(0.85,1.08),sz:1,cw:new THREE.Color(pick(cw)),cp:new THREE.Color(pick(cp)),cr:new THREE.Color(pick(cr))});
+      G[k].push({x,y:gy,z,a,sx:k==='H_dom'?1.45:1,sy:k==='H_dom'?1.2:rr(0.85,1.08),sz:k==='H_dom'?1.4:1,cw:new THREE.Color(pick(cw)),cp:new THREE.Color(pick(cp)),cr:new THREE.Color(pick(cr))});
       addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:k==='H_dom'?'#cdb994':'#b98a6c',house:true});n++;
       if(R()<0.06)TORCH_SPOTS.push(toW(w*0.3,d/2+1,x,z,a));}}
   if(GLB.ok&&GLB.parts.H_insa_brick){for(const k in G)placeModules(k,G[k],{far:1150,cell:320});}
-  else{const geo=new THREE.BoxGeometry(1,1,1);geo.translate(0,0.5,0);const it=[];for(const k in G)for(const b of G[k]){const B=k==='H_insa'?[22,14,16]:k==='H_insb'?[16,11,14]:[18,7,30];const q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),b.a);it.push({m:new THREE.Matrix4().compose(new THREE.Vector3(b.x,b.y-1,b.z),q,new THREE.Vector3(B[0],B[1]+1,B[2])),c:b.cw});}chunked(geo,WHITE_M,it,{far:1500});}
+  else{const geo=new THREE.BoxGeometry(1,1,1);geo.translate(0,0.5,0);const it=[];for(const k in G)for(const b of G[k]){const B=k==='H_insa'?[22,14,16]:k==='H_insb'?[16,11,14]:[26,8.4,42];const q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),b.a);it.push({m:new THREE.Matrix4().compose(new THREE.Vector3(b.x,b.y-1,b.z),q,new THREE.Vector3(B[0],B[1]+1,B[2])),c:b.cw});}chunked(geo,WHITE_M,it,{far:1500});}
   // jardines de Mecenas en el Esquilino y pinos sueltos en los huecos de la ciudad
   const tr=[];for(let i=0;i<2600;i++){const x=rr(-1080,920),z=rr(-1000,800);if(!romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+12||roadDist(x,z)<4)continue;const gm=Math.hypot(x-700,z+330)<160,sl=Math.abs(romaH(x+4,z)-romaH(x-4,z))+Math.abs(romaH(x,z+4)-romaH(x,z-4));if(!gm&&sl<2.2&&R()<0.8)continue;if(!gm&&sl>=2.2&&R()<0.25)continue;
     if(!freeR(x,z,4))continue;tr.push({x,z,kind:gm?pick(['pine','cypress','plane']):pick(['pine','pine','cypress','plane'])});}
