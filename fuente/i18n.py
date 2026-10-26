@@ -273,7 +273,7 @@ def build(html):
         ids[k] = len(ids)
         for lg, v in zip(LANGS, vals): tables[lg].append(v)
     texts = html_texts(html[:a])
-    statics = {lg: {t: dicts[lg][t] for t in texts if dicts[lg].get(t)} for lg in LANGS}
+    statics = {lg: {t: dicts[lg].get(t) or hashed[lg].get(hkey(t)) for t in texts if dicts[lg].get(t) or hashed[lg].get(hkey(t))} for lg in LANGS}   # clave literal o @hash
     payload = json.dumps({'tr': tables, 'html': statics}, ensure_ascii=False, separators=(',', ':'))
     payload = payload.replace('</', '<\\/')
     code2 = rewrite(code, nodes, ids, lambda nd: idlike(code, nd))

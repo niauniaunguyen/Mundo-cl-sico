@@ -1,0 +1,541 @@
+# Minijuego del mar (el sueño de Ulises), esferas de sueño, episodios míticos y el sueño de Cnosos
+@87b0f809
+← Anterior
+← Previous
+
+@29f559a6
+Continuar · E
+Continue · E
+
+@202075ec
+Despertar · Esc
+Wake up · Esc
+
+@a080357a
+El somni d'Ulisses
+The dream of Odysseus
+
+@9be8c6a5
+Tapar-se les orelles
+Cover your ears
+
+@be0dfb28
+Minijoc: la nau d'Ulisses vista des de dalt
+Minigame: Odysseus's ship seen from above
+
+@666ac60a
+Esquerra
+Left
+
+@13b8c9dd
+Dreta
+Right
+
+@6eafa0a5
+<h2>El somni d'Ulisses</h2>
+<h2>The dream of Odysseus</h2>
+
+@59d64446
+<p>Mentre navegueu, Hagnó us explica com Ulisses va passar per davant de l'illa de les sirenes i entre Escil·la i Caribdis. Amb el gronxament de la nau t'adorms a coberta… i somies que ets un dels seus companys.</p>
+<p>As you sail, Hagnon tells the passengers how Odysseus sailed past the island of the Sirens and between Scylla and Charybdis. Rocked by the ship, you fall asleep on deck… and dream that you are one of his companions.</p>
+
+@e605d83b
+Governa la nau amb els botons <b>◀</b> i <b>▶</b>. Mantén premut <b>Tapar-se les orelles</b> quan cantin les sirenes: no les sentiràs, però amb les mans a les orelles no pots governar, i el corrent t'arrossega cap a les seves roques.
+Steer the ship with the <b>◀</b> and <b>▶</b> buttons. Hold <b>Cover your ears</b> while the Sirens sing: you won't hear them, but with your hands over your ears you can't steer, and the current drags you towards their rocks.
+
+@857e6ba7
+Governa la nau amb <b>A</b> i <b>D</b> (o les fletxes). Mantén premut <b>Espai</b> per tapar-te les orelles quan cantin les sirenes: no les sentiràs, però amb les mans a les orelles no pots governar, i el corrent t'arrossega cap a les seves roques.
+Steer the ship with <b>A</b> and <b>D</b> (or the arrow keys). Hold <b>Space</b> to cover your ears while the Sirens sing: you won't hear them, but with your hands over your ears you can't steer, and the current drags you towards their rocks.
+
+@d18f372f
+<p>A l'estret, les ombres vermelles a l'aigua avisen d'on mossegaran els caps d'Escil·la. A l'altra banda, no deixis que t'engoleixi el remolí de Caribdis.</p>
+<p>In the strait, red shadows on the water warn you where Scylla's heads are about to bite. On the other side, don't let the whirlpool of Charybdis swallow you.</p>
+
+@5eb30a33
+<p class="src">Homer, Odissea XII 39-54, 73-126 i 158-259. Al poema, Ulisses tapa amb cera les orelles dels seus companys i es fa lligar al pal per sentir el cant sense perill.</p>
+<p class="src">Homer, Odyssey XII 39-54, 73-126 and 158-259. In the poem, Odysseus stops his companions' ears with wax and has himself tied to the mast so that he can hear the song safely.</p>
+
+@8f4348a8
+<div class="startbtns"><button class="primary" id="seaGo">Somiar · Enter</button><button class="ghost" id="seaNo">Continuar el viatge sense somiar · Esc</button></div>
+<div class="startbtns"><button class="primary" id="seaGo">Dream · Enter</button><button class="ghost" id="seaNo">Go on without dreaming · Esc</button></div>
+
+@88b058c5
+Governa amb ◀ i ▶. Evita les roques.
+Steer with ◀ and ▶. Avoid the rocks.
+
+@8fe1f901
+Governa amb A i D (o amb les fletxes). Evita les roques.
+Steer with A and D (or the arrow keys). Avoid the rocks.
+
+@abf0fe6a
+Un company es llança a l'aigua, encisat pel cant, i neda cap a les sirenes.
+A companion, bewitched by the song, jumps into the sea and swims towards the Sirens.
+
+@13c2d88f
+Caribdis s'empassa la nau! Gira i gira dins el remolí fins que el mar la torna, i perdeu dos companys. Torna-ho a provar.
+Charybdis swallows the ship! It spins round and round in the whirlpool until the sea spits it out, and you lose two companions. Try again.
+
+@b3d06775
+La nau s'estavella contra la roca de les sirenes, entre ossos de mariners. Un company cau al mar.
+The ship crashes into the Sirens' rock, among the bones of sailors. A companion falls into the sea.
+
+@6b4e1ef6
+El buc topa amb una roca! Un company cau al mar.
+The hull strikes a rock! A companion falls into the sea.
+
+@c9945911
+Un cap d'Escil·la arrabassa un company de la coberta.
+One of Scylla's heads snatches a companion from the deck.
+
+@e739d77f
+Se sent un cant dolcíssim… Mantén premut «Tapar-se les orelles».
+A very sweet song can be heard… Hold «Cover your ears».
+
+@5195e623
+Se sent un cant dolcíssim… Mantén premut Espai per tapar-te les orelles.
+A very sweet song can be heard… Hold Space to cover your ears.
+
+@9105ba9e
+L'estret: a l'esquerra, la cova d'Escil·la; a la dreta, el remolí de Caribdis.
+The strait: on the left, Scylla's cave; on the right, the whirlpool of Charybdis.
+
+@ac3ccda0
+Mar obert. El somni s'esvaeix…
+Open sea. The dream fades…
+
+@7ea9fe37
+Orelles tapades
+Ears covered
+
+@1fae6ebd
+Has passat sense perdre ningú: millor que Ulisses, a qui Escil·la va arrabassar sis companys.
+You got through without losing anyone: better than Odysseus, from whom Scylla snatched six companions.
+
+@abad44a9
+"Has passat amb "
+"You got through with "
+
+@484952a5
+" de 6 companys. A l'Odissea, Escil·la se n'endú sis."
+" of 6 companions. In the Odyssey, Scylla takes six."
+
+@d479ca8c
+" Hagnó, divertit, et dona 3 òbols per la història."
+" Hagnon, amused, gives you 3 obols for the story."
+
+@d39e2e11
+Et despertes a coberta. Ja es veu terra.
+You wake up on deck. Land is in sight.
+
+@da43994c
+Et despertes sobresaltat. Hagnó riu: «Només era un somni. Ulisses també va perdre tots els seus companys, però va arribar a Ítaca».
+You wake with a start. Hagnon laughs: «It was only a dream. Odysseus lost all his companions too, but he reached Ithaca».
+
+@d9e437b9
+Ja es veu terra.
+Land is in sight.
+
+@a301b9d9
+Et despertes abans d'hora. Ja es veu terra.
+You wake up early. Land is in sight.
+
+@13c29675
+Companys
+Companions
+
+@eca3401e
+Encís
+Spell
+
+# Esferas de sueño
+@335719f3
+Esfera de somni
+Dream sphere
+
+@f0ebf1c8
+Esfera de somni · moment mític
+Dream sphere · mythical moment
+
+@58cd502c
+" · ja l'has somiat"
+" · already dreamed"
+
+@68aa734c
+"<p>Una esfera de llum sura a l'aire, tèbia com l'alè d'algú adormit. A dins s'hi mouen ombres: "
+"<p>A sphere of light floats in the air, warm as the breath of someone asleep. Shadows move inside it: "
+
+@1f3ce4d1
+</p><p class="sub">És un mite, no història: el que explicaven els antics sobre el seu propi passat.</p>
+</p><p class="sub">This is myth, not history: what the ancients told about their own past.</p>
+
+@eb316d72
+Tornar-ho a somiar
+Dream it again
+
+@2e34e45f
+Tocar l'esfera i somiar
+Touch the sphere and dream
+
+@b0e21748
+Ara no
+Not now
+
+@a3fdd700
+Toques l'esfera…
+You touch the sphere…
+
+@b032d699
+Un somni del que explicaven els antics: no és història, sinó mite.
+A dream of what the ancients told: not history, but myth.
+
+@9265212c
+Despertar · E
+Wake up · E
+
+@bd1ca6ce
+<span class="label">Moment mític reviscut</span><br>
+<span class="label">Mythical moment relived</span><br>
+
+@26720173
+"Tocar l'esfera: "
+"Touch the sphere: "
+
+# Rómulo y Remo
+@cc361c49
+dos nens en una cistella a la riba del Tíber, una lloba, voltors sobre dos turons, una arada que dibuixa un cercle.
+two babies in a basket on the bank of the Tiber, a she-wolf, vultures above two hills, a plough tracing a circle.
+
+@9a099f67
+Númitor, rei d'Alba Longa, ha estat destronat pel seu germà Amuli. La seva filla, Rea Sílvia, obligada a ser vestal perquè no tingui fills, dona a llum dos bessons; diu que el seu pare és el déu Mart. Amuli mana llançar-los al Tíber. Però el riu va crescut: la cistella queda encallada a la riba, al costat d'una figuera.
+Numitor, king of Alba Longa, has been overthrown by his brother Amulius. His daughter, Rhea Silvia, forced to become a Vestal so that she will have no children, gives birth to twins; she says their father is the god Mars. Amulius orders them thrown into the Tiber. But the river is in flood: the basket is left stranded on the bank, beside a fig tree.
+
+@fd85b2d4
+Una lloba que baixava de les muntanyes a beure sent el plor i els dona de mamar, tan mansa que els llepa la cara. Així els troba Fàustul, el pastor del rei, que se'ls emporta a la seva cabana i els cria amb la seva dona, Larència. Livi explica també una altra versió: que els pastors anomenaven Larència «lloba», lupa, una paraula que en llatí també volia dir prostituta.
+A she-wolf coming down from the hills to drink hears them crying and suckles them, so gentle that she licks their faces. There they are found by Faustulus, the king's herdsman, who takes them to his hut and raises them with his wife, Larentia. Livy also gives another explanation: that the shepherds called Larentia «she-wolf», lupa, a Latin word that also meant prostitute.
+
+@6a03a00f
+Ja adults, els bessons tornen el tron al seu avi Númitor i decideixen fundar una ciutat allà on van ser criats. Però, com que són bessons, ningú no pot decidir per l'edat qui ha de manar. Demanen als déus un senyal, pels auguris: Ròmul es col·loca al Palatí; Rem, a l'Aventí. A trenc d'alba, observen el cel.
+Grown up, the twins restore the throne to their grandfather Numitor and decide to found a city where they were raised. But since they are twins, age cannot decide who should rule. They ask the gods for a sign through the auspices: Romulus takes his place on the Palatine; Remus, on the Aventine. At dawn, they watch the sky.
+
+@6c2c4075
+Rem veu primer les aus: sis voltors. Els seus partidaris ho celebren.
+Remus sees the birds first: six vultures. His supporters celebrate.
+
+@94e3dacc
+Tot just s'ha anunciat l'auguri quan a Ròmul se li apareixen dotze. Cada bàndol proclama rei el seu: uns, perquè el seu cap va veure les aus abans; els altres, perquè el seu en va veure més. Les paraules es converteixen en cops.
+The omen has just been announced when twelve appear to Romulus. Each side hails its own leader as king: one because he saw the birds first, the other because he saw more. Words turn into blows.
+
+@7a040983
+Segons la versió més coneguda, Ròmul funda la ciutat al Palatí. A la manera etrusca, traça el seu límit sagrat, el pomeri, amb una arada de rella de bronze tirada per un bou i una vaca blancs, de manera que la terra caigui cap a dins. On vol obrir una porta, aixeca l'arada i deixa la terra sense solcar.
+According to the best-known version, Romulus founds the city on the Palatine. In the Etruscan manner, he marks its sacred boundary, the pomerium, with a bronze-tipped plough drawn by a white ox and a white cow, so that the earth falls inwards. Where he wants a gate, he lifts the plough and leaves the ground unfurrowed.
+
+@899d0e7e
+Les muralles tot just comencen a aixecar-se. Rem, per burlar-se del seu germà, salta per sobre: «Això és el que ha de protegir la teva ciutat?».
+The walls are only just rising. Remus, to mock his brother, jumps over them: «Is this what will protect your city?».
+
+@13e476c1
+Ròmul, enfurismat, el mata i exclama: «Així mori qualsevol altre que salti les meves muralles». Livi recull també una altra versió: que Rem va caure en la baralla entre els dos bàndols, després dels auguris. En totes dues, Ròmul queda com a únic rei.
+Romulus, enraged, kills him and cries: «So perish anyone else who leaps over my walls». Livy also records another version: that Remus fell in the brawl between the two sides after the auspices. Either way, Romulus is left as sole king.
+
+@b009aa6a
+Així la ciutat va prendre el nom del seu fundador: Roma. La data tradicional, calculada per Varró al segle I aC, és el 21 d'abril del 753 aC, el dia de les Parílies, la festa dels pastors. Al Palatí els arqueòlegs han trobat cabanes del segle VIII aC i restes d'una muralla de la mateixa època, la interpretació de la qual es discuteix.<p class="sub">Fonts: Livi, Des de la fundació de la ciutat I 3-7; Plutarc, Vida de Ròmul 3-11; Dionís d'Halicarnàs, Antiguitats romanes I 76-88; Ovidi, Fastos IV 807-862.</p>
+And so the city took its founder's name: Rome. The traditional date, calculated by Varro in the 1st century BC, is 21 April 753 BC, the day of the Parilia, the shepherds' festival. On the Palatine, archaeologists have found 8th-century BC huts and the remains of a wall of the same period, whose interpretation is debated.<p class="sub">Sources: Livy, From the Founding of the City I 3-7; Plutarch, Life of Romulus 3-11; Dionysius of Halicarnassus, Roman Antiquities I 76-88; Ovid, Fasti IV 807-862.</p>
+
+# La muerte de Rómulo
+@3fb41af1
+La mort de Ròmul
+The death of Romulus
+
+@e9bb9e34
+un rei davant el seu exèrcit, una tempesta sobtada, un núvol, un tron buit i un home que assegura haver vist un déu.
+a king before his army, a sudden storm, a cloud, an empty throne and a man who claims to have seen a god.
+
+@e7d8bfa2
+Trenta-set anys després de fundar Roma, Ròmul passa revista al seu exèrcit al Camp de Mart, a la vora de l'estany de la Cabra. Els senadors l'envolten; els soldats formen en files.
+Thirty-seven years after founding Rome, Romulus is reviewing his army on the Field of Mars, beside the Goat's Marsh. The senators surround him; the soldiers stand in ranks.
+
+@695d267e
+De sobte esclata una tempesta: trons, foscor, un xàfec violent. El cel es tanca com si fos de nit.
+Suddenly a storm breaks: thunder, darkness, a violent downpour. The sky closes in as if it were night.
+
+@2f13e902
+Un núvol espès embolcalla el rei i l'amaga a la vista de tothom.
+A thick cloud envelops the king and hides him from everyone's sight.
+
+@5a42ecb0
+Quan torna la llum, el tron és buit. Els senadors que eren al seu costat diuen que una tempesta l'ha arrabassat al cel. El poble, primer mut de por, l'aclama com a déu, fill d'un déu.
+When the light returns, the throne is empty. The senators who stood beside him say that a whirlwind has carried him up to heaven. The people, at first struck dumb with fear, hail him as a god, son of a god.
+
+@9f756afd
+Livi explica que ja aleshores corria una altra versió, en veu baixa: que els senadors l'havien esquarterat amb les seves pròpies mans.
+Livy says that even then another version went round in whispers: that the senators had torn him apart with their own hands.
+
+@f21336b0
+Dies després, Pròcul Juli, un home respectat, es presenta a l'assemblea: a trenc d'alba, Ròmul ha baixat del cel i se li ha aparegut, més alt i més bell que mai.
+Days later, Proculus Julius, a respected man, comes before the assembly: at dawn, Romulus came down from heaven and appeared to him, taller and more beautiful than ever.
+
+@f646e2a4
+«Vés i anuncia als romans que els déus volen que la meva Roma sigui la capital del món. Que conreïn l'art de la guerra i sàpiguen, i ensenyin als seus fills, que cap poder humà no podrà resistir les armes romanes». Dit això, va pujar al cel.
+«Go and tell the Romans that the gods wish my Rome to be the capital of the world. Let them cultivate the art of war, and know, and teach their children, that no human power can resist Roman arms». With these words he rose up to heaven.
+
+@a73c8185
+Ròmul va ser venerat com el déu Quirí, amb un temple al turó del Quirinal. Els historiadors moderns hi veuen un relat de divinització que podria haver influït en la manera d'explicar la de Juli Cèsar: Livi escriu en temps d'August, a qui agradava presentar-se com un nou Ròmul. Ja a l'Antiguitat, el mateix Livi deixa veure els seus dubtes.<p class="sub">Fonts: Livi I 16; Plutarc, Vida de Ròmul 27-28; Ovidi, Fastos II 475-512; Ciceró, Sobre la república II 17-20.</p>
+Romulus was worshipped as the god Quirinus, with a temple on the Quirinal hill. Modern historians see here a tale of deification that may have shaped the way Julius Caesar's was told: Livy writes under Augustus, who liked to present himself as a new Romulus. Even in antiquity, Livy himself lets his doubts show.<p class="sub">Sources: Livy I 16; Plutarch, Life of Romulus 27-28; Ovid, Fasti II 475-512; Cicero, On the Republic II 17-20.</p>
+
+# Las sabinas
+@bb90731d
+Les sabines
+The Sabine women
+
+@7fd3899b
+dos exèrcits l'un davant l'altre en una vall pantanosa i unes dones que corren entre les llances amb els fills en braços.
+two armies facing each other in a marshy valley, and women running between the spears with their children in their arms.
+
+@379c6697
+La nova Roma té homes, però poques dones, i els pobles veïns no volen casar les seves filles amb aquells nouvinguts. Ròmul organitza unes festes en honor de Neptú i, enmig dels jocs, els romans rapten les filles dels seus convidats sabins. És el «rapte de les sabines», que els romans explicaven com un fet fundacional.
+The new Rome has men but few women, and the neighbouring peoples refuse to marry their daughters to these upstarts. Romulus holds a festival in honour of Neptune and, in the middle of the games, the Romans carry off the daughters of their Sabine guests. This is the «rape of the Sabine women», which the Romans told as one of their founding events.
+
+@00634472
+Els sabins, manats pel seu rei Tit Taci, marxen contra Roma. Tarpeia, filla del cap de la ciutadella del Capitoli, els obre la porta a canvi, diu la llegenda, del «que porten al braç esquerre»: pensava en els seus braçalets d'or, però els sabins la van aixafar amb els escuts. Des d'aleshores, els traïdors eren estimbats des de la roca Tarpeia.
+The Sabines, led by their king Titus Tatius, march on Rome. Tarpeia, daughter of the commander of the Capitoline citadel, opens the gate to them in exchange, says the legend, for «what they wear on their left arms»: she meant their gold bracelets, but the Sabines crushed her under their shields. From then on, traitors were thrown from the Tarpeian Rock.
+
+@d10a839b
+La batalla es lliura a la vall pantanosa entre el Capitoli i el Palatí, on més endavant hi haurà el Fòrum. Els romans reculen; Ròmul promet un temple a Júpiter Estàtor, «el que atura la fugida», si els seus resisteixen. El sabí Meci Curci s'enfonsa amb el seu cavall al pantà: segons una de les explicacions, d'aquí ve el nom del Lacus Curtius.
+The battle is fought in the marshy valley between the Capitoline and the Palatine, where the Forum will later stand. The Romans fall back; Romulus vows a temple to Jupiter Stator, «he who stops the flight», if his men hold firm. The Sabine Mettius Curtius sinks into the marsh with his horse: according to one explanation, that is where the name of the Lacus Curtius comes from.
+
+@35c68d61
+Llavors les sabines, amb els cabells deslligats i la roba esquinçada, es llancen entre les llances. Porten en braços els fills que han tingut a Roma. Supliquen als seus pares i als seus marits que no es taquin amb la sang de sogres i gendres: «Si us pesa aquest parentiu, gireu la ira contra nosaltres: preferim morir abans que viure vídues o òrfenes».
+Then the Sabine women, hair loose and clothes torn, rush between the spears. In their arms they carry the children they have had in Rome. They beg their fathers and their husbands not to stain themselves with the blood of fathers-in-law and sons-in-law: «If this kinship weighs on you, turn your anger against us: we would rather die than live as widows or orphans».
+
+@17935218
+Els dos exèrcits abaixen les armes. Silenci. Els caps s'avancen i fan la pau: romans i sabins formaran un sol poble, amb Ròmul i Tit Taci com a reis. Livi explica que, en agraïment, les cúries de Roma van rebre els noms d'aquelles dones.<p class="sub">Fonts: Livi I 9-13; Plutarc, Vida de Ròmul 14-19; Ovidi, Fastos III 199-234. Molts estudiosos veuen en la llegenda el record de la fusió de pobles llatins i sabins a la Roma primitiva.</p>
+The two armies lower their weapons. Silence. The leaders step forward and make peace: Romans and Sabines will become one people, with Romulus and Titus Tatius as kings. Livy says that, in gratitude, the curiae of Rome were named after those women.<p class="sub">Sources: Livy I 9-13; Plutarch, Life of Romulus 14-19; Ovid, Fasti III 199-234. Many scholars see in the legend the memory of the merging of Latin and Sabine peoples in early Rome.</p>
+
+# Horacio Cocles
+@ac2e7294
+Horaci Cocles al pont
+Horatius Cocles at the bridge
+
+@07852bf1
+un pont de fusta sobre el Tíber, un exèrcit etrusc i un sol home que no recula.
+a wooden bridge over the Tiber, an Etruscan army and a single man who will not give way.
+
+@c87114f3
+Fa pocs anys que els romans han expulsat el seu darrer rei, Tarquini el Superb. Porsenna, rei etrusc de Clusium, marxa contra Roma per tornar-li el tron. Pren el Janícul, el turó de l'altra riba del Tíber, i els romans fugen pel pont Sublici, un pont de fusta sense ni un clau de ferro.
+Only a few years ago the Romans drove out their last king, Tarquin the Proud. Porsenna, the Etruscan king of Clusium, marches on Rome to give him back his throne. He takes the Janiculum, the hill on the far bank of the Tiber, and the Romans flee across the Sublician Bridge, a wooden bridge without a single iron nail.
+
+@d95c8765
+Horaci Cocles, el «borni», que guarda l'entrada del pont, s'hi planta al davant. Crida als qui fugen que tallin el pont a la seva esquena, amb ferro, amb foc, com puguin: ell aturarà l'enemic mentrestant. Al seu costat s'hi queden dos companys, Spuri Larci i Tit Hermini.
+Horatius Cocles, «the one-eyed», who guards the bridgehead, stands his ground in front of it. He shouts to those fleeing to cut down the bridge behind him, with iron, with fire, any way they can: he will hold off the enemy in the meantime. Two companions stay at his side, Spurius Lartius and Titus Herminius.
+
+@604a3ff0
+Quan el pont és a punt de caure, mana als altres dos que es posin a resguard. Sol, desafia els etruscs: els anomena esclaus de reis. Les llances se li claven a l'escut; ell no es mou.
+When the bridge is about to fall, he orders the other two back to safety. Alone, he challenges the Etruscans, calling them slaves of kings. Their spears stick in his shield; he does not move.
+
+@e0846dfa
+Amb un estrèpit, el pont s'enfonsa. Horaci prega: «Pare Tiberí, rep amb favor aquestes armes i aquest soldat». I es llança al riu, armat, i el travessa nedant sota una pluja de dards.
+With a crash, the bridge collapses. Horatius prays: «Father Tiberinus, receive these arms and this soldier with favour». And he leaps into the river in full armour and swims across under a hail of missiles.
+
+@555a77ba
+Arriba sa i estalvi a la riba romana. En agraïment, la ciutat li va dedicar una estàtua al Comici i tanta terra com pogués envoltar amb l'arada en un dia. Polibi, en canvi, explica que Horaci es va ofegar al riu: el relat heroic es va anar embellint amb el temps.<p class="sub">Fonts: Livi II 10; Polibi VI 55; Plutarc, Vida de Publícola 16. La data tradicional és el 508 aC.</p>
+He reaches the Roman bank safe and sound. In gratitude, the city set up a statue of him in the Comitium and gave him as much land as he could plough round in a day. Polybius, by contrast, says that Horatius drowned in the river: the heroic story grew finer with time.<p class="sub">Sources: Livy II 10; Polybius VI 55; Plutarch, Life of Publicola 16. The traditional date is 508 BC.</p>
+
+# Atenea y Poseidón
+@74493391
+Atena i Posidó
+Athena and Poseidon
+
+@684f69e9
+una roca alta sobre una plana, un trident que colpeja la pedra, una llavor i un rei que mira.
+a high rock above a plain, a trident striking the stone, a seed and a king looking on.
+
+@689f6b9a
+En temps de Cècrops, el primer rei de l'Àtica, a qui representaven meitat home, meitat serp, els déus es repartien les ciutats. Atena i Posidó volen tots dos la mateixa: la ciutat de la roca alta. Per decidir-ho, cadascun oferirà un regal.
+In the time of Cecrops, the first king of Attica, who was shown as half man, half serpent, the gods were dividing the cities among themselves. Athena and Poseidon both want the same one: the city of the high rock. To decide, each will offer a gift.
+
+@4dd7fa5e
+Posidó colpeja la roca amb el seu trident i fa brollar dalt de l'Acròpoli una font. Però l'aigua és salada, aigua de mar: els atenesos l'anomenaven el «mar d'Erecteu».
+Poseidon strikes the rock with his trident and makes a spring gush out on top of the Acropolis. But the water is salty, sea water: the Athenians called it the «sea of Erechtheus».
+
+@c87ba0d9
+Atena, en canvi, planta a la roca la primera olivera: aliment, oli per al llum, per al cos i per a la cuina, fusta. Un regal per viure en pau.
+Athena instead plants the first olive tree on the rock: food, oil for the lamp, for the body and for cooking, timber. A gift for living in peace.
+
+@5dc012dd
+Segons Apol·lodor, els dotze déus fan de jutges i Cècrops testimonia que Atena va plantar primer la seva olivera: la ciutat és per a ella i es dirà Atenes. Posidó, furiós, inunda la plana de Tria, a prop d'Eleusis.
+According to Apollodorus, the twelve gods act as judges and Cecrops bears witness that Athena planted her olive first: the city is hers and will be called Athens. Poseidon, furious, floods the Thriasian plain near Eleusis.
+
+@eccf22d3
+Molts segles després, Varró va explicar una altra versió: van votar els habitants, homes i dones. Les dones eren una més que els homes i va guanyar Atena. Per calmar Posidó, els homes van castigar les dones: des d'aleshores no votarien, i els fills ja no durien el nom de la mare.
+Many centuries later, Varro told another version: the inhabitants voted, men and women alike. There was one more woman than men, and Athena won. To appease Poseidon, the men punished the women: from then on they would not vote, and children would no longer bear their mother's name.
+
+@4b4a464d
+A l'Acròpoli del teu temps, al costat de l'Erecteion, encara s'ensenyen les marques del trident a la roca i l'olivera sagrada. Heròdot explica que, quan els perses van cremar l'Acròpoli el 480, l'endemà l'olivera ja havia tret un brot d'un colze. La disputa està esculpida al frontó oest del Partenó.<p class="sub">Fonts: Apol·lodor, Biblioteca III 14.1; Heròdot VIII 55; Pausànias I 24.5 i 26.5; Sant Agustí, La ciutat de Déu XVIII 9 (la versió de Varró).</p>
+On the Acropolis of your time, beside the Erechtheion, people still show the marks of the trident in the rock and the sacred olive tree. Herodotus says that when the Persians burned the Acropolis in 480, by the next day the olive had already put out a shoot a cubit long. The contest is carved on the west pediment of the Parthenon.<p class="sub">Sources: Apollodorus, Library III 14.1; Herodotus VIII 55; Pausanias I 24.5 and 26.5; Saint Augustine, The City of God XVIII 9 (Varro's version).</p>
+
+# El juicio de Orestes
+@f4970f14
+El judici d'Orestes
+The trial of Orestes
+
+@6f6d36d6
+un home perseguit per unes figures fosques, una deessa, dues urnes i un vot que ho decideix tot.
+a man pursued by dark figures, a goddess, two urns and a vote that decides everything.
+
+@5746a169
+Agamèmnon va tornar de Troia i la seva esposa, Clitemnestra, el va matar. Anys després, el seu fill Orestes, per ordre d'Apol·lo, va venjar el pare matant la mare. Des d'aleshores el persegueixen les Erínies, les deesses de la venjança de la sang, velles com el món. Orestes fuig fins a Atenes i s'abraça a l'estàtua d'Atena.
+Agamemnon came home from Troy and his wife, Clytemnestra, killed him. Years later, their son Orestes, on Apollo's orders, avenged his father by killing his mother. Ever since, the Erinyes, the goddesses who avenge spilt blood, old as the world, have pursued him. Orestes flees to Athens and clings to the statue of Athena.
+
+@f510f0af
+Atena no vol jutjar sola un cas tan greu. Reuneix els millors ciutadans d'Atenes i funda un tribunal al turó d'Ares, l'Areòpag: el primer tribunal per jutjar homicidis. Així ho explica Èsquil a Les Eumènides.
+Athena does not want to judge so grave a case alone. She gathers the best citizens of Athens and founds a court on the hill of Ares, the Areopagus: the first court to try homicide. So Aeschylus tells it in The Eumenides.
+
+@2e615c30
+Les Erínies acusen: Orestes va vessar la sang de la seva mare, i aquesta sang no es renta. Apol·lo el defensa: ell li va manar venjar el pare, i el crim de Clitemnestra va ser pitjor.
+The Erinyes accuse: Orestes spilled his mother's blood, and that blood cannot be washed away. Apollo defends him: he himself ordered him to avenge his father, and Clytemnestra's crime was worse.
+
+@ceddeffa
+Els jutges tiren els seus còdols a les urnes: una per condemnar, l'altra per absoldre. Es compten. Hi ha empat. Llavors Atena dona el seu vot: per l'absolució. Des d'aleshores, a Atenes, l'empat absol l'acusat: en diuen «el vot d'Atena».
+The judges drop their pebbles into the urns: one to condemn, the other to acquit. They are counted. It is a tie. Then Athena casts her vote: for acquittal. Ever since, in Athens, a tied vote acquits the accused: they call it «the vote of Athena».
+
+@755fc757
+Les Erínies amenacen d'enverinar la terra. Atena les convenç: tindran un santuari sota l'Areòpag i seran honorades per la ciutat com les Eumènides, les «benèvoles», les Venerables. L'obra acaba amb una processó amb torxes i mantells de porpra.<p class="sub">Font: Èsquil, Les Eumènides (estrenada el 458 aC). L'Areòpag existia de debò: a la teva època encara jutja els homicidis. La cova de les Venerables és al seu vessant.</p>
+The Erinyes threaten to poison the land. Athena wins them over: they will have a sanctuary beneath the Areopagus and be honoured by the city as the Eumenides, the «Kindly Ones», the Venerable Goddesses. The play ends with a procession with torches and purple robes.<p class="sub">Source: Aeschylus, The Eumenides (first staged in 458 BC). The Areopagus was real: in your day it still tries homicide cases. The cave of the Venerable Goddesses is on its slope.</p>
+
+# El caballo de Troya
+@ec288274
+El cavall de Troia
+The Trojan Horse
+
+@202e2592
+unes naus que s'allunyen, un cavall de fusta enorme davant unes muralles i una nit de foc.
+ships sailing away, a huge wooden horse before the walls and a night of fire.
+
+@e341ea17
+Després de deu anys de guerra, un matí els troians treuen el cap per les muralles: el campament grec és desert i les naus s'allunyen. A la platja hi ha quedat un enorme cavall de fusta.
+After ten years of war, one morning the Trojans look out from their walls: the Greek camp is deserted and the ships are sailing away. On the beach stands a huge wooden horse.
+
+@591c9156
+Els troians surten a veure'l. Uns volen llançar-lo al mar o cremar-lo; d'altres, portar-lo a la ciutat com a ofrena a Atena. Laocoont, sacerdot, corre cridant: «Temo els grecs fins i tot quan porten regals». I li clava una llança al ventre: a dins ressona el buit.
+The Trojans come out to see it. Some want to throw it into the sea or burn it; others, to bring it into the city as an offering to Athena. Laocoon, a priest, runs up shouting: «I fear the Greeks even when they bring gifts». And he drives a spear into its belly: the hollow inside echoes.
+
+@8ec21e00
+Uns pastors porten un grec que s'ha deixat capturar: Sinó. Explica que els grecs han construït el cavall per a Atena i que l'han fet tan gran perquè no passi per les portes: si entra a Troia, la ciutat serà invencible. Llavors dues serps surten del mar i maten Laocoont i els seus fills. Els troians ho prenen per un càstig dels déus.
+Some shepherds bring in a Greek who has let himself be captured: Sinon. He says that the Greeks built the horse for Athena and made it so big that it would not fit through the gates: if it enters Troy, the city will be invincible. Then two serpents come out of the sea and kill Laocoon and his sons. The Trojans take it as a punishment from the gods.
+
+@73a59d76
+Obren una bretxa a la muralla i arrosseguen el cavall fins a la ciutat, entre cants i garlandes. Quatre vegades s'atura al llindar i sonen les armes dins el seu ventre; ningú no se n'adona.
+They break open a gap in the wall and drag the horse into the city, amid songs and garlands. Four times it halts on the threshold and the weapons clash inside its belly; nobody notices.
+
+@2c0909d4
+Aquella nit, mentre la ciutat dorm després de la festa, Sinó obre el ventre del cavall. Baixen per una corda Ulisses, Menelau, Neoptòlem i els altres. Maten els sentinelles i obren les portes a l'exèrcit, que ha tornat en silenci des de l'illa de Tènedos.
+That night, while the city sleeps after the feast, Sinon opens the horse's belly. Down a rope come Odysseus, Menelaus, Neoptolemus and the rest. They kill the sentries and open the gates to the army, which has returned in silence from the island of Tenedos.
+
+@dc669440
+Troia crema. Així explica el final de la guerra Virgili a l'Eneida, i abans l'Odissea, en el cant de Demòdoc. La Ilíada, en canvi, acaba abans, amb el funeral d'Hèctor: no parla del cavall. Molts estudiosos pensen que el cavall podria ser el record d'una màquina de setge, o d'un terratrèmol: Posidó era el déu dels cavalls i dels terratrèmols.<p class="sub">Fonts: Homer, Odissea IV 271-289 i VIII 492-520; Virgili, Eneida II; Apol·lodor, Epítom 5.14-23.</p>
+Troy burns. This is how Virgil tells the end of the war in the Aeneid, and before him the Odyssey, in the song of Demodocus. The Iliad, by contrast, ends earlier, with Hector's funeral: it does not mention the horse. Many scholars think the horse may be the memory of a siege engine, or of an earthquake: Poseidon was the god of horses and of earthquakes.<p class="sub">Sources: Homer, Odyssey IV 271-289 and VIII 492-520; Virgil, Aeneid II; Apollodorus, Epitome 5.14-23.</p>
+
+# Cnosos
+@dc01d8de
+El palau de Minos i el laberint
+The palace of Minos and the labyrinth
+
+@3ee16e4e
+columnes vermelles, un pati ple de gent, un toro pintat i uns passadissos foscos que no s'acaben mai.
+red columns, a courtyard full of people, a painted bull and dark corridors that never end.
+
+@377b1e3c
+Somni: el palau de Minos
+Dream: the palace of Minos
+
+@dfcf2b01
+El palau de Minos
+The palace of Minos
+
+@dc842c01
+Ets dins d'un somni: el palau de Cnossos tal com podria haver estat cap al 1600-1450 aC, mil dos-cents anys abans del teu viatge, segons les reconstruccions dels arqueòlegs. Era un conjunt enorme d'unes mil estances en diverses plantes al voltant d'un pati central, amb magatzems, tallers, santuaris i sales de reunió, sense muralles. Les seves columnes de fusta, pintades de vermell, s'estrenyen cap avall. El mite en feia el palau del rei Minos.
+You are inside a dream: the palace of Knossos as it may have looked around 1600-1450 BC, twelve hundred years before your journey, following archaeologists' reconstructions. It was a huge complex of about a thousand rooms on several floors around a central court, with storerooms, workshops, shrines and halls, and no walls. Its wooden columns, painted red, taper downwards. Myth made it the palace of King Minos.
+
+@96629331
+El salt del toro
+Bull-leaping
+
+@63c27b1d
+Els frescos de Cnossos mostren joves que agafen un toro per les banyes i salten per sobre del seu llom: un ritu o un esport que potser se celebrava en aquest mateix pati. Les banyes de pedra que coronen les teulades, les «banyes de consagració», eren un símbol sagrat. Alguns pensen que el mite del Minotaure va néixer del record d'aquests jocs amb toros.
+The frescoes of Knossos show young people grasping a bull by the horns and vaulting over its back: a rite or a sport that may have taken place in this very court. The stone horns crowning the roofs, the «horns of consecration», were a sacred symbol. Some think the myth of the Minotaur arose from the memory of these bull games.
+
+@c3b29316
+La sala del tron
+The throne room
+
+@7fe07fc5
+Un seient de guix amb el respatller ondulat, entre bancs de pedra i grius pintats, animals amb cos de lleó i cap d'àguila. És el tron més antic d'Europa. No sabem si s'hi asseia un rei, una reina o una sacerdotessa: els cretencs de l'edat del bronze escrivien en una llengua, el lineal A, que encara no s'ha desxifrat.
+A gypsum seat with a wavy back, between stone benches and painted griffins, beasts with a lion's body and an eagle's head. It is the oldest throne in Europe. We do not know whether a king, a queen or a priestess sat on it: Bronze Age Cretans wrote in a script, Linear A, that has still not been deciphered.
+
+@e2ce9e4f
+L'entrada del laberint
+The entrance to the labyrinth
+
+@bfe8cf3e
+Segons el mite, l'arquitecte Dèdal va construir per a Minos un laberint del qual ningú no sabia sortir, per tancar-hi el Minotaure, el fill monstruós de la reina Pasífae i d'un toro. Cada nou anys, Atenes havia d'enviar set nois i set noies per alimentar-lo. Teseu va venir amb ells per matar-lo. Ariadna, la filla de Minos, enamorada d'ell, li va donar un cabdell de fil per trobar el camí de tornada. Entra: el fil vermell s'anirà descabdellant al teu pas. La paraula «laberint» potser ve de labrys, la destral doble, un símbol que es repeteix al palau.
+According to myth, the architect Daedalus built Minos a labyrinth from which no one could find the way out, to shut up the Minotaur, the monstrous son of Queen Pasiphae and a bull. Every nine years, Athens had to send seven youths and seven maidens to feed it. Theseus came with them to kill it. Ariadne, Minos's daughter, who had fallen in love with him, gave him a ball of thread to find his way back. Go in: the red thread will unwind as you walk. The word «labyrinth» may come from labrys, the double axe, a symbol that recurs throughout the palace.
+
+@ea7f3337
+Toca aquesta estela per despertar al costat de les ruïnes de Cnossos, l'any 386 aC.
+Touch this stele to wake up beside the ruins of Knossos, in the year 386 BC.
+
+@5349d76a
+Les ruïnes s'aixequen, les columnes es tenyeixen de vermell i el palau de Minos torna a ser ple de gent.
+The ruins rise, the columns turn red and the palace of Minos is full of people again.
+
+@955b6ba7
+Tornes a ser entre murs enrunats i cabres.
+You are back among tumbled walls and goats.
+
+@a4b47295
+Cnossos va ser destruït cap al 1375 aC; els grecs de la teva època només en veuen les ruïnes.
+Knossos was destroyed around 1375 BC; the Greeks of your day see only its ruins.
+
+@d80bdf53
+L'arqueòleg Arthur Evans excavarà Cnossos el 1900 i en reconstruirà una part del palau.
+The archaeologist Arthur Evans will excavate Knossos in 1900 and rebuild part of the palace.
+
+@6d0ca29d
+Busca l'entrada del laberint, al nord del pati. Ariadna t'hi espera amb el cabdell.
+Look for the entrance to the labyrinth, north of the court. Ariadne is waiting there with the ball of thread.
+
+@903773aa
+Ariadna et posa el cabdell a la mà: el fil vermell marcarà el camí de tornada.
+Ariadne puts the ball of thread in your hand: the red thread will mark the way back.
+
+@e9f18edf
+<span class="label">Has sortit del laberint</span><br>Com Teseu, gràcies al fil d'Ariadna.
+<span class="label">You are out of the labyrinth</span><br>Like Theseus, thanks to Ariadne's thread.
+
+@6721fda3
+El Minotaure
+The Minotaur
+
+@4402dbcd
+Asterió, fill de Pasífae · el centre del laberint
+Asterion, son of Pasiphae · the centre of the labyrinth
+
+@5e9bc856
+<p>Al centre del laberint, entre ossos, s'alça una figura enorme: cos d'home, cap de toro. Esbufega. Els seus ulls brillen a la penombra. Els cretencs l'anomenaven Asterió, «l'estelat».</p>
+<p>In the centre of the labyrinth, among bones, a huge figure rises: the body of a man, the head of a bull. It snorts. Its eyes gleam in the half-light. The Cretans called it Asterion, «the starry one».</p>
+
+@76089127
+Lluitar amb els punys, com Teseu
+Fight with your fists, like Theseus
+
+@542672b0
+<p>La lluita és breu i terrible. Segons Apol·lodor, Teseu va matar el Minotaure a cops de puny; als vasos atenesos apareix gairebé sempre travessant-lo amb una espasa. La bèstia cau.</p><p>Ara has de sortir. Segueix el fil vermell d'Ariadna fins a l'entrada.</p>
+<p>The fight is short and terrible. According to Apollodorus, Theseus killed the Minotaur with his fists; on Athenian vases he is nearly always shown running it through with a sword. The beast falls.</p><p>Now you must get out. Follow Ariadne's red thread back to the entrance.</p>
+
+@57afe7d0
+<span class="n">1</span><span>Seguir el fil</span>
+<span class="n">1</span><span>Follow the thread</span>
+
+@52da719f
+Fugir
+Run away

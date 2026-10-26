@@ -212,6 +212,35 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 #voyage .vs{color:var(--clay-soft);font-size:1.05rem}
 #voyage .vf{color:var(--muted);font-style:italic}
 @media (prefers-reduced-motion:reduce){#voyage{transition:none}}
+#epi{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(760px,calc(100% - 32px));padding:14px 18px;z-index:5;max-height:48vh;overflow:auto}
+#epi .eh{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+#epi .et{font-family:var(--f-display);color:var(--clay-soft);letter-spacing:.05em;font-size:1.05rem}
+#epi .en{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+#epi .ex{margin:8px 0 12px;line-height:1.55;color:var(--bone)}
+#epi .ex .sub{font-size:.85rem;color:var(--muted);font-style:italic;margin:8px 0 0}
+#epi .eo{display:flex;gap:10px;flex-wrap:wrap}
+#epi .eo button{padding:8px 14px}
+#epi .eo button[disabled]{opacity:.4;cursor:default}
+#epiNext{background:var(--clay);color:var(--glaze);border:none;font-family:var(--f-display);letter-spacing:.04em}
+#epiFlash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+#epiFlash.go{animation:epflash .6s ease-out}
+@keyframes epflash{0%{opacity:.8}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){#epiFlash.go{animation:none}}
+#sea{position:absolute;inset:0;z-index:7;background:#0f3a52;overflow:hidden}
+#seaC{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#seaHud{position:absolute;top:calc(64px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(620px,calc(100% - 32px));text-align:center;pointer-events:none}
+#seaHud .sh-t{font-family:var(--f-display);color:var(--bone);font-size:1.2rem;letter-spacing:.05em;text-shadow:0 2px 6px #000}
+#seaHud .sh-m{margin-top:6px;color:var(--bone);font-size:1rem;min-height:1.4em;text-shadow:0 1px 4px #000,0 0 12px #000}
+#seaIntro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(580px,calc(100% - 32px));padding:20px 22px;max-height:calc(100% - 32px);overflow:auto}
+#seaIntro h2{font-family:var(--f-display);font-weight:400;color:var(--bone);margin:0 0 10px;font-size:1.6rem}
+#seaIntro p{margin:0 0 10px;line-height:1.5}
+#seaIntro .src{font-size:.85rem;color:var(--muted);font-style:italic}
+#seaGo{background:var(--clay);color:var(--glaze);border:none;padding:12px 22px;font-family:var(--f-display);font-size:1.05rem;letter-spacing:.06em}
+#seaBtns{position:absolute;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;gap:12px;padding:0 16px}
+#seaBtns button{min-width:64px;height:58px;background:rgba(22,16,12,.75);border:1px solid rgba(217,135,74,.6);font-family:var(--f-display);font-size:1rem;color:var(--bone);touch-action:none;user-select:none;-webkit-user-select:none}
+#seaBtns #seaEar{flex:0 1 230px}
+#seaBtns button.on{background:rgba(217,135,74,.5)}
+#seaSkip{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(14px + env(safe-area-inset-top,0px));padding:8px 12px;font-size:.85rem}
 @media (max-width:640px){#keys{display:none}#stats{padding:8px 10px}#objective{max-width:200px}}
 @media (prefers-reduced-motion:reduce){#toast div{animation:none}#zone{transition:none}}
 </style>
@@ -230,8 +259,8 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
     <div id="cross"></div>
     <div id="prompt" hidden></div>
     <div id="toast"></div>
-    <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · J diario · M plano · B biblioteca · T hora · N sonido</div>
-    <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
+    <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · F antorcha · J diario · M plano · B biblioteca · T hora · N sonido</div>
+    <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bTorch"><kbd>F</kbd>Antorcha</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
     <canvas id="mini" width="220" height="220" aria-label="Minimapa"></canvas>
   </div>
 
@@ -285,10 +314,17 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
   <div id="stage" class="panel" hidden><div class="st"></div><div class="sx"></div></div>
   <div id="voyage" hidden><div class="vin"><div class="meander"></div><div class="vt"></div><div class="vs"></div><div class="vf"></div></div></div>
 
+  <div id="epiFlash"></div>
+  <div id="epi" class="panel" hidden><div class="meander"></div><div class="eh"><span class="et" id="epiT"></span><span class="en" id="epiN"></span></div><div class="ex" id="epiX" aria-live="polite"></div><div class="eo"><button id="epiPrev" class="ghost">← Anterior</button><button id="epiNext">Seguir · E</button><button id="epiExit" class="ghost">Despertar · Esc</button></div></div>
+  <div id="sea" hidden><canvas id="seaC" aria-label="Minijuego: el barco de Ulises visto desde arriba"></canvas>
+    <div id="seaHud" hidden><div class="sh-t">El sueño de Ulises</div><div class="sh-m" id="seaMsg" aria-live="polite"></div></div>
+    <div id="seaBtns" hidden><button id="seaL" aria-label="Izquierda">◀</button><button id="seaEar">Taparse los oídos</button><button id="seaR" aria-label="Derecha">▶</button></div>
+    <button id="seaSkip" class="ghost">Despertar · Esc</button>
+    <div id="seaIntro" class="panel"></div></div>
   <div id="touch" hidden>
     <div id="joy"><div id="knob"></div></div>
     <div id="tbtns">
-      <button id="tTalk">Hablar</button><button id="tJump">Saltar</button><button id="tHorse">Caballo</button><button id="tView">Vista</button>
+      <button id="tTalk">Hablar</button><button id="tJump">Saltar</button><button id="tHorse">Caballo</button><button id="tView">Vista</button><button id="tTorch">Antorcha</button>
       <button id="tJournal">Diario</button><button id="tMap">Plano</button><button id="tLib">Biblioteca</button><button id="tTime">Hora</button>
     </div>
   </div>
@@ -2953,7 +2989,7 @@ function buildIslands(){
      if(R()<0.55){const h=rr(0.6,2.4),l=9;box(9,h+1,0.8,wm,cx,gy+h/2-0.5,cz+4.5);addSeg(cx-4.5,cz+4.5,cx+4.5,cz+4.5,0.4);}}
    for(let i=0;i<7;i++){const cx=p.x-18+i*6,cz=p.z-9.5;if(R()<0.35)continue;const c=new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.3,3.6,14),lam('#9a2f22'));c.position.set(cx,gy+1.8,cz);c.castShadow=true;scene.add(c);const k=new THREE.Mesh(new THREE.CylinderGeometry(0.62,0.5,0.4,14),lam('#1f1a16'));k.position.set(cx,gy+3.8,cz);scene.add(k);addCirc(cx,cz,0.5);}
    footprints.push({x:p.x,z:p.z,w:90,d:90,a:0,c:'#cdbf9f',name:'Cnosos'});
-   NPC_POS.creta=[p.x+2,p.z,0];
+   NPC_POS.creta=[p.x+2,p.z,0];buildKnossosDream(C);
    place('cnosos','Ruinas de Cnosos','ΚΝΩΣΟΣ','Restos de muros muy antiguos junto a la ciudad de Cnosos. Los cretenses del siglo IV los relacionaban con el rey Minos y su laberinto. Hoy sabemos que eran un palacio de la Edad del Bronce, destruido hacia el 1375 a.C., con patios, almacenes y columnas rojas que se estrechan hacia abajo.',p.x+8,p.z+6,0);
    const cv=C.cave;caveMouth(cv.x,cv.z,Math.PI);place('cueva_zeus','Cueva de Zeus','ΑΝΤΡΟΝ ΔΙΟΣ','Una de las grutas donde, según los cretenses, Rea escondió a Zeus recién nacido. Los curetes danzaban golpeando sus escudos para que Cronos no oyera el llanto. Se veneraban así la cueva del monte Ida y la del monte Dicte; ambas recibían ofrendas desde la Edad del Bronce.',cv.x,cv.z+8,0);
    for(let i=0;i<8;i++)courtyardHouse(p.x+rr(50,90),p.z+rr(-40,40),R()<0.5?0:Math.PI/2,rr(9,12),rr(9,12),3.4,false);
@@ -3215,7 +3251,7 @@ const player={x:-490,z:-410,feet:0,vy:0,yaw:-2.27,pitch:0.02,grounded:true,eye:1
 if(hot&&hot.data&&hot.data.player)Object.assign(player,hot.data.player);
 if(hot&&hot.snapshot)hot.snapshot(()=>({state,player:{x:player.x,z:player.z,yaw:player.yaw,pitch:player.pitch}}));
 const keys={};
-let ui='start'; // start | play | dialog | journal | map | end
+let ui='start'; // start | play | dialog | journal | map | voyage | sea | episode | end
 const isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
 const joy={x:0,y:0};
 
@@ -3345,7 +3381,7 @@ function readSign(s){
   $('dGlyph').textContent='𐅃';$('dGlyph').textContent=pl.greek.charAt(0);setName(pl.name);$('dTitle').textContent=pl.greek;
   $('dBody').innerHTML='<p>'+pl.text+'</p>';
   if(!state.places.includes(pl.id)){state.places.push(pl.id);save();updateStats();toast('<span class="label">Lugar descubierto</span><br>'+pl.name);s.mk.visible=false;}
-  const o=$('dOpts');o.innerHTML='';if(pl.go){const g2=document.createElement('button');g2.className='quiz';g2.innerHTML='<span class="n">1</span><span>'+(pl.go==='sueno'?'Dormir y soñar':'Despertar')+'</span>';g2.onclick=()=>dreamTravel(pl.go);o.appendChild(g2);}const b=document.createElement('button');b.innerHTML='<span class="n">'+(pl.go?2:1)+'</span><span>Seguir</span>';b.onclick=closeDialog;o.appendChild(b);
+  const o=$('dOpts');o.innerHTML='';if(pl.go){const g2=document.createElement('button');g2.className='quiz';g2.innerHTML='<span class="n">1</span><span>'+(pl.go==='sueno'?'Dormir y soñar':'Despertar')+'</span>';g2.onclick=()=>/^cnosos/.test(pl.go)?knossosTravel(pl.go):dreamTravel(pl.go);o.appendChild(g2);}const b=document.createElement('button');b.innerHTML='<span class="n">'+(pl.go?2:1)+'</span><span>Seguir</span>';b.onclick=closeDialog;o.appendChild(b);
   $('dialog').hidden=false;setTimeout(()=>b.focus({preventScroll:true}),30);
 }
 const BARKS=['En las Apaturias presento a mi hijo a la fratría. Ya he comprado la oveja.','Mi suegra dice que el niño se parece a mí. Mi mujer dice que se parece a su padre. Paz en casa.','Si no le enseñas un oficio a tu hijo, luego no estará obligado a mantenerte de viejo. Lo dice la ley.','¿Has visto pasar a la canéfora? Es la hija del arconte, nada menos.','Esta noche hay boda. Si te dan nueces y higos, cógelos: traen suerte.','A mi esclavo le dejo quedarse con un óbolo de cada dracma que gana. Dentro de diez años se habrá comprado la libertad.','El metronomo me ha multado por la balanza. ¡Por Hermes, si estaba casi bien!','Préstame veinte dracmas, como en un éranos de amigos. Te las devuelvo cuando llegue el barco.','¿Has oído? Dicen que el Gran Rey se ha quedado con toda Jonia.','¡Doce óbolos por una anguila del Copais! Esto es un robo.','Mañana hay Asamblea. Habrá que madrugar para cobrar los tres óbolos.','Mi hijo quiere estudiar con ese Platón. Yo le digo que aprenda un oficio.','Cuidado con los cambistas de la mesa del rincón: pesan con la mano.','Por Heracles, qué calor hace ya en Muniquión.','¿Vas al teatro en las Dionisias? Mi primo es corego este año.','Dicen que en el Pireo ha atracado un barco con trigo del Ponto.','Salud, forastero. ¿Buscas el Ágora? Estás en ella.','Mi vecino ha sido sorteado para el Consejo. Ahora se cree Pericles.'];
@@ -3390,10 +3426,186 @@ function sail(from,to,land){
   const v=$('voyage');v.querySelector('.vt').textContent=land?'De camino a '+(to==='atenas'?'Atenas':ISLANDS.find(I=>I.id===to).name):'Navegando hacia '+destName(to);v.classList.toggle('land',!!land);
   v.querySelector('.vs').textContent=daysOf(from,to).charAt(0).toUpperCase()+daysOf(from,to).slice(1)+'. '+(paid?'Pagas '+f+' óbolos.':(land?'Pagas el viaje cargando ánforas en el carro.':'Pagas el pasaje ayudando a la tripulación con las velas.'));
   v.querySelector('.vf').textContent=land?pick(LAND_FACTS):pick(VOY_FACTS);v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
-  setTimeout(()=>{const P=PORTS[land&&to==='atenas'?'atenas_n':to];player.x=P.x;player.z=P.z;player.feet=floorAt(P.x,P.z);player.camY=player.feet+player.eye;player.vy=0;player.yaw=P.yaw;player.pitch=0;curZone=null;
+  const arrive=()=>{const P=PORTS[land&&to==='atenas'?'atenas_n':to];player.x=P.x;player.z=P.z;player.feet=floorAt(P.x,P.z);player.camY=player.feet+player.eye;player.vy=0;player.yaw=P.yaw;player.pitch=0;curZone=null;
     clock.h=(clock.h+(to==='egina'||from==='egina'?5:10))%24;updateSky();
-    v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';},700);},3400);
+    v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';},700);};
+  if(!land&&seaEligible(from,to))setTimeout(()=>seaIntro(arrive),2400);   // en alta mar, el sueño de Ulises
+  else setTimeout(arrive,3400);
 }
+// ============================================================ minijuego de navegación: el sueño de Ulises (Odisea XII)
+// Unidades: x de -1 a 1 a lo ancho; la distancia recorrida (pos) en las mismas unidades.
+const SEAG={on:false};
+function seaEligible(from,to){return MODE==='atenas'&&from!=='egina'&&to!=='egina';}
+function seaCourse(){
+  const rk=(k,x,d,r)=>{const pts=[];for(let i=0;i<9;i++)pts.push(0.72+Math.random()*0.4);return{k,x,d,r,pts,hit:false};};
+  return{len:17.6,s0:10.8,s1:16.2,chary:{x:0.5,d:13.7},scyl:{d:12.9},
+    objs:[rk('rock',-0.45,2.1,0.12),rk('rock',0.48,3.0,0.14),rk('siren',0.62,4.6,0.15),rk('rock',-0.3,5.9,0.11),rk('siren',-0.6,6.8,0.15),rk('rock',0.28,7.9,0.12),rk('siren',0.56,8.9,0.15),rk('rock',-0.62,9.6,0.1)]};
+}
+function bankL(d){const C=SEAG.c;if(!C)return-1.6;const a=sstep(clamp((d-C.s0+0.8)/0.8,0,1))*sstep(clamp((C.s1+0.8-d)/0.8,0,1));return lerp(-1.6,-0.8,a)-0.05*Math.sin(d*9)*a-0.03*Math.sin(d*23)*a;}
+function bankR(d){const C=SEAG.c;if(!C)return 1.6;const a=sstep(clamp((d-C.s0+0.8)/0.8,0,1))*sstep(clamp((C.s1+0.8-d)/0.8,0,1));return lerp(1.6,0.98,a)+0.04*Math.sin(d*7+1)*a+0.03*Math.sin(d*19)*a;}
+function seaIntro(arrive){
+  ui='sea';releasePointer();Object.assign(SEAG,{on:false,arrive,intro:true});
+  const s=$('sea');s.hidden=false;$('seaIntro').hidden=false;$('seaBtns').hidden=true;$('seaHud').hidden=true;seaResize();
+  $('seaIntro').innerHTML='<h2>El sueño de Ulises</h2>'+
+    '<p>Mientras navegáis, Hagnón os cuenta cómo Ulises pasó junto a la isla de las sirenas y entre Escila y Caribdis. Con el vaivén del barco te quedas dormido en cubierta… y sueñas que eres uno de sus compañeros.</p>'+
+    '<p>'+(isTouch?'Gobierna el barco con los botones <b>◀</b> y <b>▶</b>. Mantén pulsado <b>Taparse los oídos</b> cuando canten las sirenas: no las oirás, pero con las manos en las orejas no puedes gobernar, y la corriente te arrastra hacia sus rocas.':'Gobierna el barco con <b>A</b> y <b>D</b> (o las flechas). Mantén pulsado <b>Espacio</b> para taparte los oídos cuando canten las sirenas: no las oirás, pero con las manos en las orejas no puedes gobernar, y la corriente te arrastra hacia sus rocas.')+'</p>'+
+    '<p>En el estrecho, las sombras rojas en el agua avisan de dónde van a morder las cabezas de Escila. Al otro lado, no dejes que te trague el remolino de Caribdis.</p>'+
+    '<p class="src">Homero, Odisea XII 39-54, 73-126 y 158-259. En el poema, Ulises tapa con cera los oídos de sus compañeros y se hace atar al mástil para oír el canto sin peligro.</p>'+
+    '<div class="startbtns"><button class="primary" id="seaGo">Soñar · Enter</button><button class="ghost" id="seaNo">Seguir el viaje sin soñar · Esc</button></div>';
+  $('seaGo').onclick=seaStart;$('seaNo').onclick=()=>seaEnd('skip');
+  setTimeout(()=>{const b=$('seaGo');b&&b.focus({preventScroll:true});},30);
+  seaDraw(0);
+}
+function seaStart(){
+  Object.assign(SEAG,{on:true,intro:false,c:seaCourse(),pos:-0.6,x:0,vx:0,crew:6,charm:0,song:0,ear:false,kL:false,kR:false,t:0,cT:0,sT:1.5,atk:[],msg:'',msgT:0,hint:0,shake:0,lost:0,fx:[],noteT:0,mi:0});
+  $('seaIntro').hidden=true;$('seaBtns').hidden=false;$('seaHud').hidden=false;
+  seaSay(isTouch?'Gobierna con ◀ y ▶. Evita las rocas.':'Gobierna con A y D (o con las flechas). Evita las rocas.',4);
+  seaAudio(true);
+}
+function seaSay(m,t){SEAG.msg=m;SEAG.msgT=t||2.6;$('seaMsg').innerHTML=m;}
+function seaLose(n,m){SEAG.crew=Math.max(0,SEAG.crew-n);SEAG.lost+=n;SEAG.shake=0.5;seaSay(m,3);seaThump();if(SEAG.crew<=0)setTimeout(()=>{if(SEAG.on)seaEnd('fail');},900);}
+function seaTick(dt){
+  if(!SEAG.on){return;}
+  const C=SEAG.c;SEAG.t+=dt;if(SEAG.crew<=0){seaDraw(dt);return;}
+  // sirenas: cuanto más cerca, más fuerte el canto
+  let song=0,sx=0;for(const o of C.objs)if(o.k==='siren'){const s=clamp(1-Math.hypot(o.x-SEAG.x,o.d-SEAG.pos)/1.25,0,1);if(s>song){song=s;sx=o.x;}}
+  SEAG.song=song;const ear=SEAG.ear;
+  let inp=ear?0:(SEAG.kR?1:0)-(SEAG.kL?1:0);
+  if(!ear&&song>0)inp*=1-0.55*song;
+  SEAG.vx+=(inp*0.78-SEAG.vx)*Math.min(1,dt*5);
+  if(song>0){const dir=Math.sign(sx-SEAG.x);SEAG.x+=dir*0.2*song*dt;                       // la corriente lleva hacia la roca
+    if(!ear){SEAG.vx+=dir*1.1*song*dt;SEAG.charm+=song*dt*0.55;}}
+  if(ear||song===0)SEAG.charm=Math.max(0,SEAG.charm-dt*0.32);
+  if(SEAG.charm>=1){SEAG.charm=0.25;SEAG.vx=-Math.sign(sx-SEAG.x)*0.5;seaLose(1,'Un compañero se lanza al agua, hechizado por el canto, y nada hacia las sirenas.');}
+  SEAG.x+=SEAG.vx*dt;
+  // Caribdis: sorbe el mar y lo vomita, tres veces al día; aquí, cada siete segundos
+  let speed=0.42;SEAG.cT=(SEAG.cT+dt)%7;const sorbe=SEAG.cT<4.6;
+  {const c=C.chary,dx=c.x-SEAG.x,dy=c.d-SEAG.pos,d=Math.hypot(dx,dy)||1e-3;if(d<1.15){const f=1-d/1.15;
+     if(sorbe){SEAG.x+=dx/d*0.62*f*dt;SEAG.pos+=dy/d*0.3*f*dt;}else{SEAG.x-=dx/d*0.3*f*dt;}
+     if(sorbe&&d<0.13){seaLose(2,'¡Caribdis se traga el barco! Gira y gira en el remolino hasta que el mar lo devuelve, y perdéis a dos compañeros. Vuelve a intentarlo.');SEAG.pos=C.s0-0.3;SEAG.x=-0.15;SEAG.vx=0;SEAG.atk=[];return;}}}
+  SEAG.pos+=speed*dt;
+  // límites: las orillas del estrecho
+  const L=bankL(SEAG.pos)+0.07,R=bankR(SEAG.pos)-0.07;if(SEAG.x<L){SEAG.x=L;SEAG.vx=Math.max(0,SEAG.vx);}if(SEAG.x>R){SEAG.x=R;SEAG.vx=Math.min(0,SEAG.vx);}
+  SEAG.x=clamp(SEAG.x,-0.95,0.95);
+  // rocas
+  for(const o of C.objs){if(o.hit)continue;const d=Math.hypot(o.x-SEAG.x,o.d-SEAG.pos);if(d<o.r+0.05){o.hit=true;SEAG.vx=-Math.sign(o.x-SEAG.x||1)*0.7;seaLose(1,o.k==='siren'?'El barco se estrella contra la roca de las sirenas, entre huesos de marineros. Un compañero cae al mar.':'¡El casco golpea una roca! Un compañero cae al mar.');}}
+  // Escila: seis cabezas que salen de la cueva y muerden donde va a pasar el barco
+  if(SEAG.pos>C.s0+0.2&&SEAG.pos<C.s1-0.4){SEAG.sT-=dt;if(SEAG.sT<0){SEAG.sT=1.5+Math.random()*0.9;
+      const tx=clamp(SEAG.x+SEAG.vx*0.9+(Math.random()-0.5)*0.16,bankL(SEAG.pos+0.45)+0.1,0.3);SEAG.atk.push({x:tx,d:SEAG.pos+0.42*1.05,t:0});}}
+  for(const a of SEAG.atk){a.t+=dt;if(a.t>1.05&&!a.done){a.done=true;if(Math.hypot(a.x-SEAG.x,a.d-SEAG.pos)<0.14)seaLose(1,'Una cabeza de Escila arrebata a un compañero de la cubierta.');}}
+  SEAG.atk=SEAG.atk.filter(a=>a.t<1.5);
+  // avisos por tramos
+  if(SEAG.hint===0&&SEAG.pos>3.5){SEAG.hint=1;seaSay(isTouch?'Se oye un canto dulcísimo… Mantén pulsado «Taparse los oídos».':'Se oye un canto dulcísimo… Mantén pulsado Espacio para taparte los oídos.',4);}
+  if(SEAG.hint===1&&SEAG.pos>C.s0-0.8){SEAG.hint=2;seaSay('El estrecho: a la izquierda, la cueva de Escila; a la derecha, el remolino de Caribdis.',4.5);}
+  if(SEAG.hint===2&&SEAG.pos>C.s1+0.4){SEAG.hint=3;seaSay('Mar abierto. El sueño se desvanece…',3);}
+  SEAG.msgT-=dt;if(SEAG.msgT<0&&SEAG.msg){SEAG.msg='';$('seaMsg').innerHTML=SEAG.ear?'Oídos tapados':'';}
+  if(!SEAG.msg)$('seaMsg').innerHTML=SEAG.ear?'Oídos tapados':'';
+  SEAG.shake=Math.max(0,SEAG.shake-dt);
+  seaAudioTick(dt);
+  if(SEAG.pos>=C.len)return seaEnd('win');
+  seaDraw(dt);
+}
+function seaEnd(res){
+  const was=SEAG.on;SEAG.on=false;SEAG.intro=false;seaAudio(false);$('sea').hidden=true;
+  const v=$('voyage');
+  if(res==='win'){const first=!state.seen.odisea;if(first){state.seen.odisea=1;state.obols+=3;save();updateStats();sfxCoin();}
+    v.querySelector('.vs').innerHTML=(SEAG.crew===6?'Has pasado sin perder a nadie: mejor que Ulises, a quien Escila arrebató seis compañeros.':'Has pasado con '+SEAG.crew+' de 6 compañeros. En la Odisea, Escila se lleva a seis.')+(first?' Hagnón, divertido, te da 3 óbolos por la historia.':'');
+    v.querySelector('.vf').textContent='Despiertas en cubierta. Ya se ve tierra.';}
+  else if(res==='fail'){v.querySelector('.vs').textContent='Despiertas sobresaltado. Hagnón se ríe: «Solo era un sueño. Ulises también perdió a todos sus compañeros, pero llegó a Ítaca».';v.querySelector('.vf').textContent='Ya se ve tierra.';}
+  else if(was){v.querySelector('.vf').textContent='Te despiertas antes de tiempo. Ya se ve tierra.';}
+  setTimeout(SEAG.arrive,res==='skip'&&!was?900:3200);
+}
+function seaResize(){const cv=$('seaC');if(!cv)return;const dpr=Math.min(2,window.devicePixelRatio||1);cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;SEAG.cx=cv.getContext('2d');SEAG.cx.setTransform(dpr,0,0,dpr,0,0);SEAG.W=innerWidth;SEAG.H=innerHeight;SEAG.U=Math.min(SEAG.W*0.46,SEAG.H*0.5,460);SEAG.sy=SEAG.H*0.74;}
+window.addEventListener('resize',()=>{if(!$('sea').hidden){seaResize();seaDraw(0);}});
+const _fr=v=>v-Math.floor(v),_hs=(a,b)=>_fr(Math.sin(a*12.9898+b*78.233)*43758.5453);
+function seaDraw(dt){
+  const x=SEAG.cx;if(!x)return;const W=SEAG.W,H=SEAG.H,U=SEAG.U,C=SEAG.c,pos=SEAG.on?SEAG.pos:0,t=SEAG.t||performance.now()/1000;
+  const sh=SEAG.shake?(Math.random()-0.5)*14*SEAG.shake:0,sw=SEAG.on&&!SEAG.ear?Math.sin(t*1.7)*SEAG.song*10:0;
+  x.save();x.translate(sh+sw,sh*0.6);
+  const X=v=>W/2+v*U,Y=d=>SEAG.sy-(d-pos)*U;
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#0f3a52');g.addColorStop(1,'#1d5a73');x.fillStyle=g;x.fillRect(-30,-30,W+60,H+60);
+  // olas
+  const st=0.16,i0=Math.floor((pos-(H-SEAG.sy)/U)/st)-1,i1=Math.ceil((pos+SEAG.sy/U)/st)+1;x.strokeStyle='rgba(225,240,245,0.16)';x.lineWidth=2;x.beginPath();
+  for(let i=i0;i<=i1;i++){const y=Y(i*st);for(let k=0;k<6;k++){const xx=_hs(i,k)*W+Math.sin(t*0.9+i+k)*8;x.moveTo(xx,y);x.quadraticCurveTo(xx+11,y-5,xx+22,y);}}x.stroke();
+  if(!C){x.restore();return;}
+  // orillas del estrecho
+  const dTop=pos+SEAG.sy/U+0.2,dBot=pos-(H-SEAG.sy)/U-0.2;
+  if(dTop>C.s0-1&&dBot<C.s1+1){
+    for(const side of[-1,1]){x.beginPath();x.moveTo(side<0?-40:W+40,Y(dBot));for(let d=dBot;d<=dTop;d+=0.04)x.lineTo(X(side<0?bankL(d):bankR(d)),Y(d));x.lineTo(side<0?-40:W+40,Y(dTop));x.closePath();
+      x.fillStyle=side<0?'#4a3f35':'#6a5c49';x.fill();x.strokeStyle='rgba(240,248,250,0.45)';x.lineWidth=3;x.stroke();}
+    // cueva de Escila
+    {const d=C.scyl.d,cx=X(bankL(d))-U*0.06,cy=Y(d);x.fillStyle='#120d0a';x.beginPath();x.ellipse(cx,cy,U*0.09,U*0.13,0,0,TAU);x.fill();
+     for(let k=0;k<6;k++){const a=k/6*TAU+t*0.7;x.fillStyle='#d94a2a';x.beginPath();x.arc(cx+Math.cos(a)*U*0.04,cy+Math.sin(a)*U*0.07,2.2,0,TAU);x.fill();}}
+    // la higuera sobre la roca de Caribdis
+    {const d=C.chary.d+0.25,tx=X(bankR(d))+U*0.08,ty=Y(d);x.fillStyle='#4a3424';x.fillRect(tx-3,ty-2,6,18);x.fillStyle='#3f6a3a';x.beginPath();x.arc(tx,ty-6,U*0.06,0,TAU);x.fill();}
+    // Caribdis
+    {const c=C.chary,cx=X(c.x),cy=Y(c.d),R=U*0.34,sorbe=SEAG.cT<4.6;const rg=x.createRadialGradient(cx,cy,2,cx,cy,R);rg.addColorStop(0,sorbe?'#03121c':'#5d8ea0');rg.addColorStop(1,'rgba(29,90,115,0)');x.fillStyle=rg;x.beginPath();x.arc(cx,cy,R,0,TAU);x.fill();
+     x.strokeStyle=sorbe?'rgba(220,240,245,0.5)':'rgba(255,255,255,0.75)';x.lineWidth=2;const rot=SEAG.t*(sorbe?3.2:-1.2);
+     for(let k=0;k<5;k++){x.beginPath();for(let s=0;s<=40;s++){const u=s/40,a=rot+k/5*TAU+u*5,r=R*(sorbe?(1-u):u)*0.95;x[s?'lineTo':'moveTo'](cx+Math.cos(a)*r,cy+Math.sin(a)*r*0.8);}x.stroke();}}
+  }
+  // rocas y sirenas
+  for(const o of C.objs){const y=Y(o.d);if(y<-80||y>H+80)continue;const cx=X(o.x),r=o.r*U;
+    x.strokeStyle='rgba(240,248,250,0.4)';x.lineWidth=3;x.beginPath();x.arc(cx,y,r*1.18+Math.sin(t*2+o.d)*2,0,TAU);x.stroke();
+    x.beginPath();o.pts.forEach((q,i)=>{const a=i/o.pts.length*TAU;x[i?'lineTo':'moveTo'](cx+Math.cos(a)*r*q,y+Math.sin(a)*r*q);});x.closePath();x.fillStyle='#5f554b';x.fill();
+    x.fillStyle='#857868';x.beginPath();x.arc(cx-r*0.2,y-r*0.25,r*0.45,0,TAU);x.fill();
+    if(o.k==='siren'){x.fillStyle='#e9e1cf';for(let k=0;k<5;k++){x.fillRect(cx+(_hs(o.d,k)-0.5)*r*1.4,y+(_hs(k,o.d)-0.1)*r*0.8,6,2);}   // huesos
+      for(const s of[-1,1]){const fl=Math.sin(t*6+s)*0.5;x.save();x.translate(cx+s*r*0.42,y-r*0.12);x.scale(U/280,U/280);
+        x.fillStyle='#b98d55';x.beginPath();x.ellipse(0,6,9,12,0,0,TAU);x.fill();
+        x.beginPath();x.moveTo(-6,2);x.lineTo(-22,-6+fl*10);x.lineTo(-8,12);x.closePath();x.fill();x.beginPath();x.moveTo(6,2);x.lineTo(22,-6+fl*10);x.lineTo(8,12);x.closePath();x.fill();
+        x.fillStyle='#e2b48c';x.beginPath();x.arc(0,-8,6,0,TAU);x.fill();x.fillStyle='#3a2418';x.beginPath();x.arc(0,-10,6,Math.PI,TAU);x.fill();x.restore();}
+      const s=clamp(1-Math.hypot(o.x-SEAG.x,o.d-SEAG.pos)/1.25,0,1);
+      if(s>0){x.font='bold '+Math.round(18+8*s)+'px serif';for(let k=0;k<5;k++){const u=_fr(t*0.45+k/5),nx=lerp(cx,X(SEAG.x),u)+Math.sin(t*3+k)*14,ny=lerp(y,SEAG.sy,u);x.fillStyle='rgba(255,214,150,'+(s*(1-u)*(SEAG.ear?0.35:1)).toFixed(2)+')';x.fillText(k%2?'♪':'♫',nx,ny);}}}
+  }
+  // ataques de Escila: aviso en el agua y mordisco
+  for(const a of SEAG.atk){const ax=X(a.x),ay=Y(a.d);
+    if(a.t<1.05){const k=a.t/1.05;x.fillStyle='rgba(150,25,20,'+(0.15+0.35*k).toFixed(2)+')';x.beginPath();x.arc(ax,ay,U*(0.2-0.08*k),0,TAU);x.fill();x.strokeStyle='rgba(255,120,90,0.7)';x.lineWidth=2;x.beginPath();x.arc(ax,ay,U*(0.2-0.08*k),0,TAU);x.stroke();}
+    else{const d=C.scyl.d,cx=X(bankL(d))-U*0.04,cy=Y(d);x.strokeStyle='#4f6a44';x.lineWidth=U*0.045;x.lineCap='round';x.beginPath();x.moveTo(cx,cy);x.quadraticCurveTo((cx+ax)/2,Math.min(cy,ay)-U*0.35,ax,ay);x.stroke();
+      x.fillStyle='#5d7a50';x.beginPath();x.ellipse(ax,ay,U*0.05,U*0.065,0,0,TAU);x.fill();x.fillStyle='#f3ead8';for(let k=-2;k<=2;k++){x.beginPath();x.moveTo(ax+k*U*0.016,ay+U*0.02);x.lineTo(ax+k*U*0.016+3,ay+U*0.055);x.lineTo(ax+k*U*0.016+6,ay+U*0.02);x.fill();}
+      x.fillStyle='#ffcf3a';x.beginPath();x.arc(ax-U*0.02,ay-U*0.02,2.5,0,TAU);x.arc(ax+U*0.02,ay-U*0.02,2.5,0,TAU);x.fill();}}
+  // el barco: una nave negra con vela y remos
+  if(SEAG.on||SEAG.intro){const bx=X(SEAG.on?SEAG.x:0),by=SEAG.sy,L=U*0.2,B=U*0.065;x.save();x.translate(bx,by);x.rotate((SEAG.vx||0)*0.45);
+    x.strokeStyle='rgba(240,248,250,0.5)';x.lineWidth=2;x.beginPath();x.moveTo(-B*0.9,L*0.45);x.lineTo(-B*1.6,L*1.3);x.moveTo(B*0.9,L*0.45);x.lineTo(B*1.6,L*1.3);x.stroke();
+    const oa=Math.sin(t*4)*0.35;x.strokeStyle='#8a6a48';x.lineWidth=2;for(let k=0;k<5;k++){const oy=-L*0.15+k*L*0.12;for(const s of[-1,1]){x.beginPath();x.moveTo(s*B*0.8,oy);x.lineTo(s*B*2.1,oy+Math.sin(oa+k*0.2)*L*0.12*s*s);x.stroke();}}
+    x.fillStyle='#231d19';x.beginPath();x.moveTo(0,-L*0.62);x.quadraticCurveTo(B*1.25,-L*0.1,B*0.8,L*0.5);x.lineTo(-B*0.8,L*0.5);x.quadraticCurveTo(-B*1.25,-L*0.1,0,-L*0.62);x.fill();
+    x.fillStyle='#6b4a2e';x.beginPath();x.moveTo(0,-L*0.45);x.quadraticCurveTo(B*0.9,-L*0.05,B*0.6,L*0.42);x.lineTo(-B*0.6,L*0.42);x.quadraticCurveTo(-B*0.9,-L*0.05,0,-L*0.45);x.fill();
+    x.fillStyle='#e7dcc4';x.fillRect(-B*1.5,-L*0.08,B*3,L*0.09);x.fillStyle='#9a3f2f';x.fillRect(-B*1.5,-L*0.045,B*3,L*0.02);
+    const n=SEAG.on?SEAG.crew:6;x.fillStyle='#d9b48a';for(let k=0;k<n;k++){x.beginPath();x.arc((k%2?1:-1)*B*0.35,L*0.05+Math.floor(k/2)*L*0.11,3.2,0,TAU);x.fill();}
+    x.restore();}
+  x.restore();
+  // hechizo de las sirenas: viñeta rosada y marcadores
+  if(SEAG.on){if(SEAG.song>0&&!SEAG.ear){const vg=x.createRadialGradient(W/2,H/2,Math.min(W,H)*0.3,W/2,H/2,Math.max(W,H)*0.7);vg.addColorStop(0,'rgba(230,120,160,0)');vg.addColorStop(1,'rgba(230,120,160,'+(0.45*SEAG.song).toFixed(2)+')');x.fillStyle=vg;x.fillRect(0,0,W,H);}
+    const px=16,py=Math.max(70,SEAG.H*0.1);x.fillStyle='rgba(22,16,12,0.72)';x.fillRect(px-8,py-22,196,60);
+    x.font='14px Georgia,serif';x.fillStyle='#f1e8d8';x.fillText('Compañeros',px,py-4);for(let k=0;k<6;k++){x.fillStyle=k<SEAG.crew?'#d9874a':'rgba(241,232,216,0.2)';x.beginPath();x.arc(px+104+k*14,py-9,5,0,TAU);x.fill();}
+    x.fillStyle='#f1e8d8';x.fillText('Hechizo',px,py+24);x.fillStyle='rgba(241,232,216,0.2)';x.fillRect(px+70,py+14,104,10);x.fillStyle='#e07aa0';x.fillRect(px+70,py+14,104*clamp(SEAG.charm,0,1),10);
+    const pr=clamp(SEAG.pos/C.len,0,1);x.fillStyle='rgba(241,232,216,0.25)';x.fillRect(W-10,60,4,H-160);x.fillStyle='#d9874a';x.fillRect(W-12,60+(H-160)*(1-pr)-4,8,8);}
+}
+function seaKey(e,down){
+  if(SEAG.intro){if(!down)return;if(e.code==='Enter'||e.code==='Space'){e.preventDefault();seaStart();}else if(e.code==='Escape')seaEnd('skip');return;}
+  if(!SEAG.on)return;e.preventDefault();
+  if(e.code==='KeyA'||e.code==='ArrowLeft')SEAG.kL=down;else if(e.code==='KeyD'||e.code==='ArrowRight')SEAG.kR=down;else if(e.code==='Space'){SEAG.ear=down;$('seaEar').classList.toggle('on',down);}
+  else if(e.code==='Escape'&&down)seaEnd('skip');
+}
+function seaHold(id,set){const b=$(id);const on=v=>e=>{e.preventDefault();if(SEAG.on)set(v);b.classList.toggle('on',v&&SEAG.on);};
+  b.addEventListener('pointerdown',on(true));for(const ev of['pointerup','pointerleave','pointercancel'])b.addEventListener(ev,on(false));b.addEventListener('contextmenu',e=>e.preventDefault());}
+seaHold('seaL',v=>SEAG.kL=v);seaHold('seaR',v=>SEAG.kR=v);seaHold('seaEar',v=>SEAG.ear=v);
+$('seaSkip').onclick=()=>{if(SEAG.on||SEAG.intro)seaEnd('skip');};
+// sonido: canto de dos voces con vibrato, y el rugido del remolino
+function seaAudio(on){
+  if(!on){const a=SEAG.au;SEAG.au=null;if(a){try{const n=AUD.ctx.currentTime;a.g.gain.setTargetAtTime(0,n,0.1);a.wg.gain.setTargetAtTime(0,n,0.1);setTimeout(()=>{try{a.o1.stop();a.o2.stop();a.lfo.stop();a.src.stop();}catch(e){}},500);}catch(e){}}return;}
+  if(!aOK())return;const c=AUD.ctx;
+  const g=c.createGain();g.gain.value=0;const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3000;g.connect(lp).connect(AUD.master);
+  const o1=c.createOscillator(),o2=c.createOscillator();o1.type='sine';o2.type='triangle';const g2=c.createGain();g2.gain.value=0.3;o1.connect(g);o2.connect(g2).connect(g);
+  const lfo=c.createOscillator(),lg=c.createGain();lfo.frequency.value=5.2;lg.gain.value=5;lfo.connect(lg);lg.connect(o1.frequency);lg.connect(o2.frequency);
+  const src=c.createBufferSource();src.buffer=AUD.noise;src.loop=true;const wf=c.createBiquadFilter();wf.type='lowpass';wf.frequency.value=260;const wg=c.createGain();wg.gain.value=0;src.connect(wf).connect(wg).connect(AUD.master);
+  o1.start();o2.start();lfo.start();src.start();SEAG.au={g,lp,o1,o2,lfo,src,wg};
+}
+const SEA_MEL=[0,3,7,12,10,7,8,5,3,2,0,-2];
+function seaAudioTick(dt){const a=SEAG.au;if(!a||!aOK())return;const n=AUD.ctx.currentTime;
+  SEAG.noteT-=dt;if(SEAG.noteT<0){SEAG.noteT=0.48+Math.random()*0.25;SEAG.mi=(SEAG.mi+1)%SEA_MEL.length;const f=440*Math.pow(2,SEA_MEL[SEAG.mi]/12);a.o1.frequency.setTargetAtTime(f,n,0.06);a.o2.frequency.setTargetAtTime(f*1.5,n,0.06);}
+  a.g.gain.setTargetAtTime(SEAG.song*(SEAG.ear?0.015:0.08),n,0.12);a.lp.frequency.setTargetAtTime(SEAG.ear?320:3200,n,0.1);
+  const c=SEAG.c.chary,d=Math.hypot(c.x-SEAG.x,c.d-SEAG.pos);a.wg.gain.setTargetAtTime(clamp(1-d/1.6,0,1)*(SEAG.cT<4.6?0.35:0.15),n,0.2);}
+function seaThump(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;const s=c.createBufferSource();s.buffer=AUD.noise;const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=180;s.connect(f).connect(envGain(t,0.5,0.01,0.45));s.start(t,Math.random());s.stop(t+0.6);}
+
 
 // ============================================================ mitos en piedra
 function openRelief(o){
@@ -5959,6 +6171,451 @@ function dreamTravel(to){
     v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';},700);},2600);
 }
 
+// ============================================================ esferas de sueño: momentos míticos
+// Cada esfera flota junto a un lugar; al tocarla se monta un escenario muy por encima de la ciudad (a 3000 m, donde
+// la niebla oculta el mundo) y una cámara guiada recorre el episodio en escenas que se avanzan con E o Enter.
+const EPI={cur:null,S:null,beat:0,t:0,spheres:[],cp:new THREE.Vector3(),ct:new THREE.Vector3(),snap:true,ret:null,saveH:10};
+const EPI_TEX=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');const g=x.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(235,245,255,1)');g.addColorStop(0.3,'rgba(150,190,255,0.55)');g.addColorStop(1,'rgba(120,150,255,0)');x.fillStyle=g;x.fillRect(0,0,64,64);return new THREE.CanvasTexture(c);})();
+function epiDone(E){return!!(state.seen&&state.seen['ep:'+E.id]);}
+function buildSpheres(){
+  for(const E of EPISODES){if(E.mode!==MODE)continue;const p=E.at&&E.at();if(!p)continue;const[x,z]=freeSpot(p[0],p[1]);const gy=floorAt(x,z);
+    const g=grp(x,gy+1.7,z,0);
+    const core=new THREE.Mesh(new THREE.SphereGeometry(0.42,24,16),new THREE.MeshBasicMaterial({color:0xbfd8ff,transparent:true,opacity:0.5,depthWrite:false,fog:false}));g.add(core);
+    const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(0.2,1),new THREE.MeshBasicMaterial({color:0xffffff,wireframe:true,transparent:true,opacity:0.8,fog:false}));g.add(inner);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(0.62,0.015,6,48),new THREE.MeshBasicMaterial({color:0xd9e6ff,transparent:true,opacity:0.7,fog:false}));g.add(ring);
+    const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:EPI_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,fog:false}));halo.scale.set(2.6,2.6,1);g.add(halo);
+    const lb=labelSprite(E.name,'Esfera de sueño');lb.position.y=1.05;lb.visible=false;g.add(lb);
+    EPI.spheres.push({kind:'sphere',data:E,x,z,g,core,inner,ring,halo,lb,gy});
+    if(epiDone(E))core.material.color.set(0x9fb0c8);}
+}
+// un sitio libre cerca (sin muros, sin agua)
+function freeSpot(x,z){for(let r=0;r<40;r+=2)for(let k=0;k<(r?12:1);k++){const a=k/12*TAU,px=x+Math.cos(a)*r,pz=z+Math.sin(a)*r;if(floorAt(px,pz)<-0.5)continue;const q={x:px,z:pz};resolve(q,1.2);if(Math.hypot(q.x-px,q.z-pz)<0.01)return[px,pz];}return[x,z];}
+function updateSpheres(dt,t){
+  for(const s of EPI.spheres){const d=Math.hypot(s.x-player.x,s.z-player.z);s.g.visible=d<220;if(!s.g.visible)continue;s.lb.visible=d<14;
+    s.g.position.y=s.gy+1.7+Math.sin(t*1.4+s.x)*0.12;s.inner.rotation.y=t*0.9;s.inner.rotation.x=t*0.5;s.ring.rotation.x=1.2+Math.sin(t*0.7)*0.3;s.ring.rotation.y=t*0.6;
+    const f=1+Math.sin(t*2.3+s.z)*0.08;s.halo.scale.set(2.6*f,2.6*f,1);}
+}
+function openSphere(s){
+  const E=s.data,done=epiDone(E);dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent='Ο';setName(E.name);$('dTitle').textContent='Esfera de sueño · momento mítico'+(done?' · ya lo has soñado':'');
+  $('dBody').innerHTML='<p>Una esfera de luz flota en el aire, tibia como el aliento de alguien dormido. Dentro se mueven sombras: '+E.teaser+'</p><p class="sub">Es un mito, no historia: lo que contaban los antiguos sobre su propio pasado.</p>';
+  const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
+  add(done?'Volver a soñarlo':'Tocar la esfera y soñar',()=>epiStart(E),'quiz');add('Ahora no',closeDialog);
+  $('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
+}
+// ------------------------------------------------------------ escenario
+function stageKit(E){
+  const ox=player.x,oz=player.z,oy=3000,g=grp(ox,oy,oz,0);
+  const S={ox,oy,oz,g,a:{},
+    ground(col,r){const m=new THREE.Mesh(new THREE.CircleGeometry(r||900,48),lam(col||'#7d8a52'));m.rotation.x=-Math.PI/2;m.receiveShadow=true;g.add(m);return m;},
+    hill(x,z,r,h,col){const m=new THREE.Mesh(new THREE.SphereGeometry(1,24,12,0,TAU,0,Math.PI/2),lam(col||'#7b8a4e'));m.scale.set(r,h,r*0.8);m.position.set(x,0,z);m.receiveShadow=true;m.castShadow=true;g.add(m);return m;},
+    water(x,z,w,d,a){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshPhongMaterial({color:'#3f7a8a',shininess:80}));m.rotation.x=-Math.PI/2;m.rotation.z=a||0;m.position.set(x,0.05,z);g.add(m);return m;},
+    tree(x,z,s,col){const t=new THREE.Group();t.position.set(x,0,z);const tr=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.25,3,6),lam('#5a4330'));tr.position.y=1.5;t.add(tr);
+      const c=new THREE.Mesh(new THREE.SphereGeometry(1.8,10,8),lam(col||'#4f6b3a'));c.position.y=3.6;c.scale.y=0.8;c.castShadow=true;t.add(c);t.scale.setScalar(s||1);g.add(t);return t;},
+    person(o,x,z,r){const p=makePerson(Object.assign({noVary:true},o));p.position.set(x,0,z);p.rotation.y=r||0;g.add(p);return p;},
+    box(w,h,d,col,x,y,z){return box(w,h,d,typeof col==='string'?lam(col):col,x,y,z,g);},
+    beast(kind,x,z,r){return makeBeast(kind,g,x,z,r);},
+    bird(){const b=new THREE.Group(),m=lam('#2a2420');const bd=new THREE.Mesh(new THREE.SphereGeometry(0.25,8,6),m);bd.scale.set(0.8,0.6,1.6);b.add(bd);
+      const wg=new THREE.BoxGeometry(1.4,0.04,0.45);wg.translate(0.7,0,0);const l=new THREE.Mesh(wg,m),r2=new THREE.Mesh(wg,m);r2.rotation.y=Math.PI;b.add(l);b.add(r2);b.userData.w=[l,r2];g.add(b);return b;}};
+  return S;
+}
+// animales sencillos: lobo, buey, vaca, caballo, toro
+function makeBeast(kind,parent,x,z,r){const b=new THREE.Group();b.position.set(x,0,z);b.rotation.y=r||0;parent.add(b);
+  if(kind==='caballo'&&GLB.ok){b.userData.legs=animalGLB('A_horse',b,'#d8cfc0','#6b5a48');return b;}
+  const big=kind!=='lobo',col=lam(kind==='lobo'?'#6b5d4f':kind==='vaca'?'#d8cbb4':kind==='toro'?'#2a2220':'#8a6a4a'),dk=lam(kind==='lobo'?'#3e342b':'#2e2420');
+  const L=big?2.1:1.1,H=big?1.5:0.75,W=big?0.85:0.34;
+  box(W,H*0.55,L,col,0,H*0.78,0,b);
+  const hd=box(W*0.62,H*0.36,big?0.62:0.42,col,0,H*1.02,L/2+(big?0.25:0.18),b);if(kind==='lobo'){box(0.16,0.14,0.26,dk,0,H*0.97,L/2+0.48,b);for(const s of[-1,1])box(0.07,0.14,0.05,dk,s*0.08,H*1.24,L/2+0.16,b);}
+  if(kind==='buey'||kind==='vaca'||kind==='toro'){for(const s of[-1,1]){const h=new THREE.Mesh(new THREE.ConeGeometry(0.07,0.5,6),lam('#e9e0cc'));h.position.set(s*0.34,H*1.22,L/2+0.2);h.rotation.z=-s*1.0;b.add(h);}}
+  const legs=[];for(const[px,pz]of[[-1,-1],[1,-1],[-1,1],[1,1]]){const lg=new THREE.Group();lg.position.set(px*W*0.36,H*0.55,pz*L*0.38);const m=box(W*0.2,H*0.55,W*0.2,dk,0,-H*0.27,0,lg);b.add(lg);legs.push(lg);}
+  const tl=box(0.08,0.08,big?0.7:0.5,dk,0,H*0.85,-L/2-0.25,b);tl.rotation.x=kind==='lobo'?0.7:1.2;
+  b.userData.legs=legs;return b;}
+function walkLegs(b,ph,amp){const l=b.userData.legs;if(!l)return;l.forEach((g,i)=>{g.rotation.x=Math.sin(ph+(i%2?Math.PI:0)+(i>1?Math.PI:0))*amp;});}
+// mover a alguien de A a B entre los instantes t0 y t1, balanceando brazos o patas
+function walkTo(o,a,b,t0,t1,t){const k=clamp((t-t0)/(t1-t0),0,1);o.position.x=lerp(a[0],b[0],k);o.position.z=lerp(a[1],b[1],k);
+  if(k>0&&k<1){o.rotation.y=Math.atan2(b[0]-a[0],b[1]-a[1]);const ar=o.userData.arms;if(ar){ar[0].rotation.x=Math.sin(t*7)*0.4;ar[1].rotation.x=-Math.sin(t*7)*0.4;}walkLegs(o,t*8,0.5);}
+  else{const ar=o.userData.arms;if(ar&&!o.userData.pose){ar[0].rotation.x*=0.9;ar[1].rotation.x*=0.9;}}return k;}
+function epiFlash(){const f=$('epiFlash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go');sfxThunder();}
+function sfxThunder(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime+0.15;const s=c.createBufferSource();s.buffer=AUD.noise;const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=140;s.connect(f).connect(envGain(t,0.7,0.05,2.2));s.start(t,Math.random());s.stop(t+2.6);}
+// ------------------------------------------------------------ desarrollo
+function epiStart(E){
+  closeDialog();ui='voyage';releasePointer();if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}
+  if(E.walk)return E.walk();
+  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent='Tocas la esfera…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent='Un sueño de lo que contaban los antiguos: no es historia, sino mito.';
+  v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
+  setTimeout(()=>{EPI.ret={x:player.x,z:player.z,yaw:player.yaw,feet:player.feet};EPI.saveH=clock.h;
+    const S=stageKit(E);EPI.S=S;EPI.cur=E;E.build(S);EPI.beat=-1;EPI.snap=true;$('hud').hidden=true;$('epi').hidden=false;ui='episode';epiBeat(0);
+    v.classList.remove('show');setTimeout(()=>{v.hidden=true;},700);},1800);
+}
+function epiBeat(i){const E=EPI.cur;if(!E)return;if(i<0)return;if(i>=E.beats.length)return epiEnd(true);
+  const prev=EPI.beat;EPI.beat=i;EPI.t=0;const B=E.beats[i];if(B.cut||prev<0)EPI.snap=true;if(B.enter)B.enter(EPI.S);
+  clock.h=B.h!==undefined?B.h:E.h;updateSky();
+  $('epiT').textContent=E.name;$('epiN').textContent=(i+1)+' / '+E.beats.length;$('epiX').innerHTML=B.txt;
+  $('epiNext').innerHTML=i===E.beats.length-1?'Despertar · E':'Seguir · E';$('epiPrev').disabled=i===0;
+}
+function epiTick(dt,t){
+  const E=EPI.cur,S=EPI.S;if(!E||!S)return;const B=E.beats[EPI.beat];EPI.t+=dt;
+  const k=sstep(clamp(EPI.t/(B.d||10),0,1)),c0=B.camf?B.camf(EPI.t,S):B.cam,c1=B.camf?c0:(B.cam2||B.cam);
+  const px=S.ox+lerp(c0[0],c1[0],k),py=S.oy+lerp(c0[1],c1[1],k),pz=S.oz+lerp(c0[2],c1[2],k),tx=S.ox+lerp(c0[3],c1[3],k),ty=S.oy+lerp(c0[4],c1[4],k),tz=S.oz+lerp(c0[5],c1[5],k);
+  if(EPI.snap){EPI.cp.set(px,py,pz);EPI.ct.set(tx,ty,tz);EPI.snap=false;}else{const a=1-Math.exp(-dt*2.2);EPI.cp.lerp(_v3a.set(px,py,pz),a);EPI.ct.lerp(_v3a.set(tx,ty,tz),a);}
+  camera.position.copy(EPI.cp);camera.lookAt(EPI.ct);
+  if(B.upd)B.upd(EPI.t,dt,S);if(E.upd)E.upd(t,dt,S);
+  clock.h=B.h!==undefined?B.h:E.h;STARS.visible=!B.storm;if(B.storm)SKY.uniforms.glow.value=0;
+  player.x=S.ox;player.z=S.oz;player.feet=S.oy;player.vy=0;player.camY=S.oy+1.6;
+  sun.position.set(S.ox+LIGHTDIR.x*250,S.oy+LIGHTDIR.y*250,S.oz+LIGHTDIR.z*250);sun.target.position.set(S.ox,S.oy,S.oz);
+  skyMesh.position.copy(camera.position);STARS.position.copy(camera.position);
+}
+const _v3a=new THREE.Vector3();
+function epiEnd(complete){
+  const E=EPI.cur,S=EPI.S;if(!E)return;EPI.cur=null;EPI.S=null;
+  scene.remove(S.g);
+  $('epi').hidden=true;ui='voyage';STARS.visible=true;
+  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent='Despiertas…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent='';v.hidden=false;v.classList.add('show');
+  const R=EPI.ret;player.x=R.x;player.z=R.z;player.yaw=R.yaw;player.feet=floorAt(R.x,R.z);player.camY=player.feet+player.eye;player.pitch=0;clock.h=(EPI.saveH+0.25)%24;updateSky();
+  setTimeout(()=>{v.classList.remove('show');setTimeout(()=>{v.hidden=true;$('hud').hidden=false;ui='play';
+    if(complete)epiReward(E);},700);},1100);
+}
+function epiReward(E){if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2;save();updateStats();sfxCoin();
+  const s=EPI.spheres.find(q=>q.data===E);if(s)s.core.material.color.set(0x9fb0c8);
+  const n=EPISODES.filter(e=>e.mode===MODE).length,d=EPISODES.filter(e=>e.mode===MODE&&epiDone(e)).length;
+  toast('<span class="label">Momento mítico revivido</span><br>'+E.name+' · +2'+(MODE==='roma'?' sestercios':' óbolos')+' · '+d+' / '+n);}
+function epiKey(e){
+  if(e.code==='KeyE'||e.code==='Enter'||e.code==='Space'||e.code==='ArrowRight'){e.preventDefault();epiBeat(EPI.beat+1);}
+  else if(e.code==='ArrowLeft'||e.code==='Backspace'){e.preventDefault();epiBeat(EPI.beat-1);}
+  else if(e.code==='Escape')epiEnd(false);
+}
+$('epiNext').onclick=()=>{if(ui==='episode')epiBeat(EPI.beat+1);};$('epiPrev').onclick=()=>{if(ui==='episode')epiBeat(EPI.beat-1);};$('epiExit').onclick=()=>{if(ui==='episode')epiEnd(false);};
+
+// ------------------------------------------------------------ los episodios
+function plXZ(id,dx,dz){const p=PLACES.find(q=>q.id===id);return p?[p.x+(dx||0),p.z+(dz||0)]:null;}
+function hillY(H,x,z){const u=(x-H[0])/H[2],v=(z-H[1])/(H[2]*0.8),q=1-u*u-v*v;return q>0?H[3]*Math.sqrt(q):0;}
+function onHill(o,H,x,z){o.position.set(x,hillY(H,x,z),z);return o;}
+function flock(S,n,c,r){const a=[];for(let i=0;i<n;i++){const b=S.bird();b.visible=false;b.userData.i=i;a.push(b);}return{a,c,r,n};}
+function flyFlock(F,t,on){for(const b of F.a){b.visible=on;if(!on)continue;const i=b.userData.i,an=t*0.55+i/F.n*TAU,rr2=F.r*(0.75+0.25*Math.sin(i*1.7));
+  b.position.set(F.c[0]+Math.cos(an)*rr2,F.c[1]+Math.sin(t*0.8+i)*1.6+(i%3)*1.2,F.c[2]+Math.sin(an)*rr2);b.rotation.y=-an;b.rotation.z=0.25;
+  const w=Math.sin(t*5+i)*0.35;b.userData.w[0].rotation.z=w;b.userData.w[1].rotation.z=-w;}}
+function rainSys(S){const n=1800,p=new Float32Array(n*3);for(let i=0;i<n;i++){p[i*3]=(Math.random()-0.5)*120;p[i*3+1]=Math.random()*50;p[i*3+2]=(Math.random()-0.5)*120;}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));const m=new THREE.Points(g,new THREE.PointsMaterial({color:0x9aaabb,size:0.07,transparent:true,opacity:0.6}));m.visible=false;S.g.add(m);
+  m.userData.tick=dt=>{const a=g.attributes.position.array;for(let i=0;i<n;i++){a[i*3+1]-=dt*28;if(a[i*3+1]<0)a[i*3+1]+=50;}g.attributes.position.needsUpdate=true;};return m;}
+function glowSprite(S,x,y,z,s,col){const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:EPI_TEX,color:col||0xffffff,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));sp.position.set(x,y,z);sp.scale.set(s,s,1);S.g.add(sp);return sp;}
+function fireSprite(S,x,y,z,s){const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));sp.position.set(x,y,z);sp.scale.set(s,s*1.3,1);S.g.add(sp);return sp;}
+function armUp(p,l,r){const a=p.userData.arms;if(!a)return;p.userData.pose=1;if(l!==null&&l!==undefined)a[0].rotation.x=l;if(r!==null&&r!==undefined)a[1].rotation.x=r;}
+function fall(p,k){p.rotation.x=-Math.PI/2*sstep(clamp(k,0,1));p.position.y=0.25*sstep(clamp(k,0,1));}
+function olive(S,x,z,s){if(GLB.ok){const o=glbPart('T_olive');if(o){const g=new THREE.Group();g.add(o);g.position.set(x,0,z);g.scale.setScalar(s||1);S.g.add(g);return g;}}return S.tree(x,z,s||1,'#7d8a62');}
+const ROM={chiton:'#e6dccb',himation:'#9a3f2f',hair:'#3b2a1e',short:true,noHimation:true};
+const EPISODES=[
+// ---------------------------------------------------------------- Roma
+{id:'romulo_remo',mode:'roma',name:'Rómulo y Remo',at:()=>plXZ('ro_hercules',-18,10),h:9,
+ teaser:'dos niños en una cesta a la orilla del Tíber, una loba, buitres sobre dos colinas, un arado que dibuja un círculo.',
+ build(S){S.ground('#7d8a52');S.water(-80,0,34,700);
+   const PAL=[20,-10,45,20],AVE=[-30,95,40,18];S.hill(PAL[0],PAL[1],PAL[2],PAL[3]);S.hill(AVE[0],AVE[1],AVE[2],AVE[3],'#86915a');S.hill(-30,-120,35,22,'#7b8a4e');
+   S.box(4,3,3,'#1a1410',-26,1.2,-12);S.tree(-40,-5,1.2,'#4a6b34');for(let i=0;i<10;i++)S.tree(rr(-150,150),rr(-220,-150),rr(0.8,1.4));
+   const A=S.a;A.PAL=PAL;A.AVE=AVE;A.basket=S.box(1.1,0.4,0.7,'#a8864f',-64,0.25,-6);
+   A.kids=[S.person({chiton:'#efe6d4',skin:'#e0b896',hair:'#5a3a22'},-40.5,-7,0),S.person({chiton:'#efe6d4',skin:'#e0b896',hair:'#5a3a22'},-40.5,-8,0)];for(const k of A.kids){k.scale.setScalar(0.32);k.rotation.x=-Math.PI/2;k.position.y=0.12;}
+   A.wolf=S.beast('lobo',-62,40,Math.PI);A.faust=S.person({chiton:'#8a7a5a',himation:'#5a4a3a',beard:true,hair:'#3a2a1e',staff:true,noHimation:true},-10,40,0);
+   A.rom=S.person(Object.assign({},ROM,{himation:'#b0402f'}),0,0,0);A.rem=S.person(Object.assign({},ROM,{chiton:'#d9cbb0',himation:'#3f5a7a'}),0,0,0);
+   A.fr=[];for(let i=0;i<4;i++)A.fr.push(S.person(Object.assign({},ROM,{chiton:pick(['#d8ccb4','#cdbf9f','#e6dccb'])}),0,0,0));
+   A.v6=flock(S,6,[AVE[0],AVE[3]+22,AVE[1]],12);A.v12=flock(S,12,[PAL[0],PAL[3]+24,PAL[1]],16);
+   A.ox=[S.beast('buey',0,0,0),S.beast('vaca',0,0,0)];A.plough=S.box(0.2,0.2,3.2,'#6b4a2e',0,0.6,0);
+   A.furrow=[];for(let i=0;i<96;i++){const a=i/96*TAU,f=S.box(0.9,0.12,3.5,'#4a3424',PAL[0]+Math.cos(a)*52,0.03,PAL[1]+Math.sin(a)*52);f.rotation.y=-a;f.visible=false;A.furrow.push(f);}
+   A.wall=S.box(1.2,1.3,26,'#8a7a62',PAL[0]-55,0.65,PAL[1]);A.wall.visible=false;},
+ beats:[
+  {h:9,cam:[-74,3,-20,-64,0.4,-6],cam2:[-71,2.2,-14,-64,0.3,-6],d:12,txt:'Numitor, rey de Alba Longa, ha sido destronado por su hermano Amulio. Su hija, Rea Silvia, obligada a ser vestal para que no tenga hijos, da a luz a dos gemelos; dice que su padre es el dios Marte. Amulio manda arrojarlos al Tíber. Pero el río va crecido: la cesta queda varada en la orilla, junto a una higuera.',
+   enter(S){const A=S.a;A.basket.visible=true;A.wolf.position.set(-62,0,40);A.faust.position.set(-10,0,40);for(const k of A.kids){k.visible=false;}for(const p of[A.rom,A.rem,...A.fr])p.visible=false;A.ox.forEach(o=>o.visible=false);A.plough.visible=false;A.wall.visible=false;A.furrow.forEach(f=>f.visible=false);},
+   upd(t,dt,S){S.a.basket.position.y=0.25+Math.sin(t*2)*0.06;S.a.basket.rotation.y=Math.sin(t*0.7)*0.2;}},
+  {h:10,cam:[-52,3,6,-42,0.5,-5],cam2:[-46,1.6,-1,-41,0.3,-7],d:12,txt:'Una loba que bajaba de los montes a beber oye el llanto y les da de mamar, tan mansa que les lame la cara. Así los encuentra Fáustulo, el pastor del rey, que se los lleva a su cabaña y los cría con su mujer, Larentia. Livio cuenta también otra explicación: que a Larentia los pastores la llamaban «loba», lupa, una palabra que en latín significaba también prostituta.',
+   enter(S){const A=S.a;A.basket.visible=false;A.kids.forEach(k=>k.visible=true);A.faust.position.set(-10,0,40);},
+   upd(t,dt,S){const A=S.a;walkTo(A.wolf,[-62,40],[-42,-3.5],0,5,t);if(t>5)A.wolf.rotation.y=-Math.PI/2+Math.sin(t)*0.1;walkTo(A.faust,[-10,40],[-34,-2],6,11,t);}},
+  {h:7,cut:true,cam:[-125,38,25,-5,12,40],cam2:[-118,42,40,-5,14,42],d:12,txt:'Ya adultos, los gemelos devuelven el trono a su abuelo Numitor y deciden fundar una ciudad allí donde fueron criados. Pero, como son gemelos, nadie puede decidir por la edad quién debe mandar. Piden a los dioses una señal, por los augurios: Rómulo se sitúa en el Palatino; Remo, en el Aventino. Al alba, observan el cielo.',
+   enter(S){const A=S.a;A.kids.forEach(k=>k.visible=false);A.wolf.visible=false;A.faust.visible=false;A.rom.visible=A.rem.visible=true;onHill(A.rom,A.PAL,20,-8);A.rom.rotation.y=Math.PI*0.75;onHill(A.rem,A.AVE,-28,93);A.rem.rotation.y=Math.PI;
+     A.fr.forEach((f,i)=>{f.visible=true;if(i<2)onHill(f,A.PAL,16+i*3,-3);else onHill(f,A.AVE,-33+i,98);});armUp(A.rom,null,-0.4);armUp(A.rem,null,-0.4);},
+   upd(t,dt,S){flyFlock(S.a.v6,t,false);flyFlock(S.a.v12,t,false);}},
+  {h:7.3,cam:[-55,26,135,-30,22,95],cam2:[-60,30,128,-30,26,95],d:10,txt:'Remo ve primero las aves: seis buitres. Sus partidarios lo celebran.',
+   upd(t,dt,S){flyFlock(S.a.v6,t,true);flyFlock(S.a.v12,t,false);armUp(S.a.rem,null,-2.6);}},
+  {h:7.6,cam:[-30,30,40,20,26,-10],cam2:[-22,34,30,20,28,-10],d:10,txt:'Acaba de anunciarse el augurio cuando a Rómulo se le aparecen doce. Cada bando proclama rey al suyo: unos, porque su jefe vio las aves antes; los otros, porque el suyo vio más. Las palabras se convierten en golpes.',
+   upd(t,dt,S){flyFlock(S.a.v6,t,true);flyFlock(S.a.v12,t,true);armUp(S.a.rom,null,-2.6);}},
+  {h:9,cut:true,cam:[-60,12,30,20,2,-10],d:14,camf(t,S){const a=Math.PI*0.55+clamp(t/14,0,1)*TAU*0.8,P=S.a.PAL;return[P[0]+Math.cos(a)*74,9,P[1]+Math.sin(a)*74,P[0]+Math.cos(a)*50,1,P[1]+Math.sin(a)*50];},
+   txt:'Según la versión más conocida, Rómulo funda la ciudad en el Palatino. Al modo etrusco, traza su límite sagrado, el pomerio, con un arado de reja de bronce tirado por un buey y una vaca blancos, de modo que la tierra caiga hacia dentro. Donde quiere abrir una puerta, levanta el arado y deja la tierra sin surcar.',
+   enter(S){const A=S.a;flyFlock(A.v6,0,false);flyFlock(A.v12,0,false);A.fr.forEach(f=>f.visible=false);A.rem.visible=false;A.ox.forEach(o=>o.visible=true);A.plough.visible=true;A.rom.userData.pose=0;},
+   upd(t,dt,S){const A=S.a,P=A.PAL,k=clamp(t/14,0,1),a=Math.PI*0.55+k*TAU*0.8;const at=(da,r)=>[P[0]+Math.cos(a-da)*r,P[1]+Math.sin(a-da)*r];
+     A.ox.forEach((o,i)=>{const p=at(0,52+(i?-1.2:1.2));o.position.set(p[0],0,p[1]);o.rotation.y=-a;walkLegs(o,t*6,0.4);});
+     const pp=at(0.07,52);A.plough.position.set(pp[0],0.6,pp[1]);A.plough.rotation.y=-a;const rp=at(0.11,52);A.rom.position.set(rp[0],0,rp[1]);A.rom.rotation.y=-a+Math.PI;
+     A.furrow.forEach((f,i)=>{const fa=i/96*TAU;let d=fa-Math.PI*0.55;if(d<0)d+=TAU;f.visible=d<a-Math.PI*0.55-0.05&&!(d>0.9&&d<1.05)&&!(d>3.3&&d<3.45);});}},
+  {h:16,cut:true,cam:[-40,3,10,-34,1.2,-10],cam2:[-38,2.6,8,-32,1.2,-10],d:10,txt:'Los muros apenas empiezan a levantarse. Remo, para burlarse de su hermano, salta por encima de ellos: «¿Esto es lo que va a proteger tu ciudad?».',
+   enter(S){const A=S.a;A.ox.forEach(o=>o.visible=false);A.plough.visible=false;A.furrow.forEach(f=>f.visible=true);A.wall.visible=true;A.rem.visible=true;A.rom.visible=true;A.rom.position.set(-20,0,-6);A.rom.rotation.y=-Math.PI/2;A.rem.rotation.set(0,Math.PI/2,0);A.rom.userData.pose=0;
+     A.fr.forEach((f,i)=>{f.visible=i<2;f.position.set(-22+i*2,0,-9-i);f.rotation.y=-Math.PI/2;});},
+   upd(t,dt,S){const A=S.a,k=walkTo(A.rem,[-52,-10],[-28,-10],1,5,t);A.rem.position.y=k>0.6&&k<0.82?Math.sin((k-0.6)/0.22*Math.PI)*1.9:0;A.rem.rotation.y=Math.PI/2;}},
+  {h:16.5,cam:[-34,3.2,4,-27,0.8,-9],d:10,txt:'Rómulo, encolerizado, lo mata y exclama: «Así muera cualquier otro que salte mis murallas». Livio recoge también otra versión: que Remo cayó en la pelea entre los dos bandos, después de los augurios. En ambas, Rómulo queda como único rey.',
+   enter(S){const A=S.a;A.rem.position.set(-28,0,-10);A.rem.rotation.set(0,Math.PI/2,0);},
+   upd(t,dt,S){const A=S.a;armUp(A.rom,null,t<1.2?-2.4:-0.3);if(t>1.2)fall(A.rem,(t-1.2)/1.2);}},
+  {h:17.6,cut:true,cam:[-150,60,90,20,14,-10],cam2:[-140,52,70,20,16,-10],d:16,txt:'Así la ciudad tomó el nombre de su fundador: Roma. La fecha tradicional, calculada por Varrón en el siglo I a.C., es el 21 de abril del 753 a.C., el día de las Parilia, la fiesta de los pastores. En el Palatino los arqueólogos han encontrado cabañas del siglo VIII a.C. y restos de una muralla de la misma época, cuya interpretación se discute.<p class="sub">Fuentes: Livio, Desde la fundación de la ciudad I 3-7; Plutarco, Vida de Rómulo 3-11; Dionisio de Halicarnaso, Antigüedades romanas I 76-88; Ovidio, Fastos IV 807-862.</p>',
+   enter(S){S.a.wall.visible=true;}}]},
+{id:'muerte_romulo',mode:'roma',name:'La muerte de Rómulo',at:()=>[-760,-660],h:10,
+ teaser:'un rey ante su ejército, una tormenta repentina, una nube, un trono vacío y un hombre que asegura haber visto a un dios.',
+ build(S){S.ground('#7f8c55');S.water(36,24,44,26);for(let i=0;i<14;i++){const m=S.box(0.15,rr(1.2,2),0.15,'#6b7a40',36+rr(-24,24),0.6,24+rr(-14,14));}
+   const A=S.a;S.box(7,1.2,7,'#cdbf9f',0,0.6,0);A.rom=S.person({chiton:'#efe6d4',himation:'#7a2a3a',hair:'#3b2a1e',beard:true,attrs:['G_wreath','G_scepter']},0,0,0);A.rom.position.y=1.2;A.rom.rotation.y=0;
+   A.sold=[];for(let r=0;r<4;r++)for(let c=0;c<7;c++){const p=S.person({chiton:'#c9b48b',soldier:true,short:true,hair:'#3b2a1e'},-12+c*4,16+r*3.2,Math.PI);A.sold.push(p);}
+   A.sen=[];for(let i=0;i<7;i++){const p=S.person({chiton:'#efe6d4',toga:true,hair:pick(['#8d8a85','#3e2c1f','#5b4532']),beard:true},-9+i*3,-6-Math.abs(i-3)*0.6,0);A.sen.push(p);}
+   A.cloud=new THREE.Group();for(let i=0;i<14;i++){const c=new THREE.Mesh(new THREE.SphereGeometry(rr(1.4,2.6),12,10),new THREE.MeshBasicMaterial({color:'#5d626e',transparent:true,opacity:0.92}));c.position.set(rr(-2.5,2.5),rr(0.5,5),rr(-2.5,2.5));A.cloud.add(c);}S.g.add(A.cloud);A.cloud.visible=false;
+   A.rain=rainSys(S);A.proc=S.person({chiton:'#efe6d4',toga:true,hair:'#3b2a1e',beard:true},-60,-50,Math.PI*0.75);
+   A.god=S.person({chiton:'#fff4dc',himation:'#c9a24a',hair:'#3b2a1e',beard:true,glow:'#ffd27a',attrs:['G_wreath'],scale:1.25},-64,-54,-Math.PI/4);A.halo=glowSprite(S,0,0,0,7,0xffe2a8);A.halo.visible=false;
+   for(let i=0;i<8;i++)S.tree(rr(-140,140),rr(-160,-110),rr(0.8,1.3));S.hill(-140,-40,60,30,'#7b8a4e');},
+ beats:[
+  {h:10,cam:[24,10,46,0,2,4],cam2:[30,9,40,0,2,2],d:12,txt:'Treinta y siete años después de fundar Roma, Rómulo pasa revista a su ejército en el Campo de Marte, junto a la laguna de la Cabra. Los senadores lo rodean; los soldados forman en filas.',
+   enter(S){const A=S.a;A.rom.visible=true;A.cloud.visible=false;A.rain.visible=false;A.god.visible=false;A.halo.visible=false;A.proc.visible=false;A.sold.forEach(p=>{p.userData.pose=0;});}},
+  {h:19.4,storm:true,cam:[14,6,34,0,3,0],cam2:[10,5,26,0,3,0],d:10,txt:'De pronto estalla una tormenta: truenos, oscuridad, un aguacero violento. El cielo se cierra como si fuera de noche.',
+   enter(S){S.a.rain.visible=true;S.a.ft=0.5;},upd(t,dt,S){const A=S.a;A.rain.userData.tick(dt);A.ft-=dt;if(A.ft<0){A.ft=1.6+Math.random()*2.5;epiFlash();}}},
+  {h:19.5,storm:true,cam:[8,4,14,0,3,0],d:10,txt:'Una nube espesa envuelve al rey y lo oculta a la vista de todos.',
+   enter(S){const A=S.a;A.cloud.visible=true;A.cloud.position.set(0,1.2,0);A.cloud.scale.setScalar(0.01);A.rom.visible=true;},
+   upd(t,dt,S){const A=S.a;A.rain.userData.tick(dt);A.cloud.scale.setScalar(Math.max(0.01,sstep(clamp(t/4,0,1))));A.cloud.rotation.y=t*0.3;if(t>4.2)A.rom.visible=false;if(t>6){A.cloud.position.y=1.2+(t-6)*4;}A.ft-=dt;if(A.ft<0){A.ft=2+Math.random()*2;epiFlash();}}},
+  {h:9,cut:true,cam:[18,8,36,0,2,0],cam2:[22,9,40,0,2,0],d:12,txt:'Cuando vuelve la luz, el trono está vacío. Los senadores que estaban a su lado dicen que una tempestad lo ha arrebatado al cielo. El pueblo, primero mudo de miedo, lo aclama como dios, hijo de un dios.',
+   enter(S){const A=S.a;A.cloud.visible=false;A.rain.visible=false;A.rom.visible=false;A.sold.forEach((p,i)=>{if(i%2)armUp(p,-2.6,-2.6);});}},
+  {h:9.2,cam:[-4,3,8,0,1.6,-6],d:10,txt:'Livio cuenta que ya entonces corría otra versión, en voz baja: que los senadores lo habían despedazado con sus propias manos.',
+   enter(S){S.a.sen.forEach((p,i)=>{p.rotation.y=Math.atan2(-p.position.x,-p.position.z)*0.5;});}},
+  {h:6.5,cut:true,cam:[-50,2.5,-40,-62,2.5,-52],cam2:[-53,2,-44,-63,3.5,-53],d:12,txt:'Días después, Próculo Julio, un hombre respetado, se presenta en la asamblea: al amanecer, Rómulo ha bajado del cielo y se le ha aparecido, más alto y más hermoso que nunca.',
+   enter(S){const A=S.a;A.proc.visible=true;A.proc.position.set(-60,-0.45,-50);A.god.visible=true;A.halo.visible=true;},
+   upd(t,dt,S){const A=S.a,y=lerp(14,0,sstep(clamp(t/6,0,1)));A.god.position.set(-64,y,-54);A.halo.position.set(-64,y+1.6,-54);A.halo.scale.setScalar(7+Math.sin(t*2));}},
+  {h:6.7,cam:[-53,2,-44,-64,4,-54],cam2:[-52,1.6,-45,-64,14,-54],d:12,txt:'«Ve y anuncia a los romanos que los dioses quieren que mi Roma sea la capital del mundo. Que cultiven el arte de la guerra y sepan, y enseñen a sus hijos, que ningún poder humano podrá resistir a las armas romanas». Dicho esto, subió al cielo.',
+   upd(t,dt,S){const A=S.a,y=Math.max(0,(t-5)*2.4);A.god.position.y=y;A.halo.position.y=y+1.6;armUp(A.god,null,-2.6);}},
+  {h:17,cut:true,cam:[40,20,60,0,4,0],cam2:[50,26,70,0,6,0],d:16,txt:'Rómulo fue venerado como el dios Quirino, con un templo en la colina del Quirinal. Los historiadores modernos ven aquí un relato de divinización que pudo influir en el modo en que se contó la de Julio César: Livio escribe en tiempos de Augusto, que gustaba de presentarse como un nuevo Rómulo. Ya en la Antigüedad, el propio Livio deja ver sus dudas.<p class="sub">Fuentes: Livio I 16; Plutarco, Vida de Rómulo 27-28; Ovidio, Fastos II 475-512; Cicerón, Sobre la república II 17-20.</p>',
+   enter(S){const A=S.a;A.god.visible=false;A.halo.visible=false;A.proc.visible=false;}}]},
+{id:'sabinas',mode:'roma',name:'Las sabinas',at:()=>plXZ('ro_curtius',6,8)||[20,10],h:11,
+ teaser:'dos ejércitos frente a frente en un valle pantanoso y unas mujeres que corren entre las lanzas con sus hijos en brazos.',
+ build(S){S.ground('#7d8a52');const CAP=[-70,0,40,26],PAL=[60,40,45,20];S.hill(CAP[0],CAP[1],CAP[2],CAP[3]);S.hill(PAL[0],PAL[1],PAL[2],PAL[3]);S.water(0,-30,30,20);
+   const A=S.a;A.CAP=CAP;A.rom=[];A.sab=[];for(let i=0;i<9;i++){A.rom.push(S.person({chiton:'#c9b48b',soldier:true,short:true},14+(i%3)*2.5,-10+Math.floor(i/3)*0+(i-4)*2.6,-Math.PI/2));A.sab.push(S.person({chiton:'#9a8a6a',himation:'#6a4a2a',spear:true,beard:true,helmet:'attic'},-14-(i%3)*2.5,(i-4)*2.6,Math.PI/2));}
+   A.romulus=S.person({chiton:'#efe6d4',himation:'#7a2a3a',beard:true,soldier:true,short:true},10,0,-Math.PI/2);A.tatius=S.person({chiton:'#d8c9a8',himation:'#4a3a6a',beard:true,spear:true,helmet:'attic',hair:'#8d8a85'},-10,0,Math.PI/2);
+   A.wom=[];for(let i=0;i<8;i++){const w=S.person({chiton:pick(['#e6d6c2','#efe8da','#d8c4a8']),himation:pick(['#8a4a5a','#5a6a8a','#b07a3a','#6a7a4a']),female:true,hair:pick(['#3b2a1e','#6b4a24','#2a1a12'])},0,0,0);A.wom.push(w);}
+   A.kids=[];for(let i=0;i<3;i++){const k=S.person({chiton:'#efe6d4',hair:'#5a3a22'},0,0,0);k.scale.setScalar(0.55);A.kids.push(k);}
+   A.tarp=S.person({chiton:'#efe6d4',himation:'#c9a24a',female:true,hair:'#6b4a24'},0,0,0);for(let i=0;i<10;i++)S.tree(rr(-160,160),rr(80,140),rr(0.8,1.3));},
+ beats:[
+  {h:11,cam:[-6,6,34,0,1.5,8],cam2:[0,5,30,0,1.5,8],d:12,txt:'La nueva Roma tiene hombres, pero pocas mujeres, y los pueblos vecinos no quieren casar a sus hijas con aquellos advenedizos. Rómulo organiza unas fiestas en honor de Neptuno y, en medio de los juegos, los romanos raptan a las hijas de sus invitados sabinos. Es el «rapto de las sabinas», que los romanos contaban como un hecho fundacional.',
+   enter(S){const A=S.a;A.kids.forEach(k=>k.visible=false);A.tarp.visible=false;[...A.sab,A.tatius].forEach(p=>p.visible=false);A.romulus.visible=true;A.romulus.position.set(4,0,6);A.romulus.rotation.y=Math.PI;
+     A.wom.forEach((w,i)=>{w.visible=true;w.position.set(-8+(i%4)*2.2,0,8+Math.floor(i/4)*2.2);w.rotation.y=0.6;});A.rom.forEach((p,i)=>{p.visible=true;p.position.set(6+(i%3)*2.4,0,10+Math.floor(i/3)*2.4);p.rotation.y=-1.2;});}},
+  {h:12,cut:true,cam:[-40,27,26,-58,23,8],cam2:[-43,28,22,-59,23.5,8],d:12,txt:'Los sabinos, mandados por su rey Tito Tacio, marchan contra Roma. Tarpeya, hija del jefe de la ciudadela del Capitolio, les abre la puerta a cambio, dice la leyenda, de «lo que llevan en el brazo izquierdo»: pensaba en sus brazaletes de oro, pero los sabinos la aplastaron con sus escudos. Desde entonces, a los traidores se los despeñaba desde la roca Tarpeya.',
+   enter(S){const A=S.a;A.wom.forEach(w=>w.visible=false);A.rom.forEach(p=>p.visible=false);A.romulus.visible=false;A.tarp.visible=true;onHill(A.tarp,A.CAP,-60,8);A.tarp.rotation.y=Math.PI/2;A.sab.forEach((p,i)=>{p.visible=i<5;if(i<5)onHill(p,A.CAP,-38-i*1.5,14+i*2);p.rotation.y=-Math.PI/2;});}},
+  {h:14,cut:true,cam:[0,5,26,0,1.5,0],cam2:[4,4.5,22,0,1.5,0],d:12,txt:'La batalla se libra en el valle pantanoso entre el Capitolio y el Palatino, donde más tarde estará el Foro. Los romanos retroceden; Rómulo promete un templo a Júpiter Estátor, «el que detiene la huida», si los suyos resisten. El sabino Mecio Curcio se hunde con su caballo en el pantano: según una de las explicaciones, de ahí viene el nombre del Lacus Curtius.',
+   enter(S){const A=S.a;A.tarp.visible=false;[...A.rom,...A.sab].forEach((p,i)=>{p.visible=true;p.rotation.x=0;});A.romulus.visible=A.tatius.visible=true;A.rom.forEach((p,i)=>p.position.set(14+(i%3)*2.5,0,(Math.floor(i/3)-1)*3.2+(i%3)*0.8));A.sab.forEach((p,i)=>p.position.set(-14-(i%3)*2.5,0,(Math.floor(i/3)-1)*3.2+(i%3)*0.8));A.sab.forEach(p=>p.rotation.y=Math.PI/2);},
+   upd(t,dt,S){const A=S.a,k=Math.sin(t*1.3)*0.5+0.5;A.rom.forEach((p,i)=>{p.position.x=13+(i%3)*2.5-k*3;});A.sab.forEach((p,i)=>{p.position.x=-13-(i%3)*2.5+k*3;armUp(p,null,-1.2-Math.sin(t*4+i)*0.8);});A.romulus.position.x=9-k*3;A.tatius.position.x=-9+k*3;armUp(A.romulus,null,-1.5-Math.sin(t*4)*0.8);}},
+  {h:14.3,cam:[0,3.5,18,0,1.5,0],cam2:[2,3,14,0,1.5,0],d:12,txt:'Entonces las sabinas, con el pelo suelto y la ropa desgarrada, se lanzan entre las lanzas. Llevan en brazos a los hijos que han tenido en Roma. Suplican a sus padres y a sus maridos que no se manchen con la sangre de suegros y yernos: «Si os pesa este parentesco, volved la ira contra nosotras: preferimos morir antes que vivir viudas o huérfanas».',
+   enter(S){const A=S.a;A.wom.forEach((w,i)=>{w.visible=true;});A.kids.forEach(k=>k.visible=true);A.rom.forEach((p,i)=>p.position.x=13+(i%3)*2.5);A.sab.forEach((p,i)=>p.position.x=-13-(i%3)*2.5);},
+   upd(t,dt,S){const A=S.a;A.wom.forEach((w,i)=>{walkTo(w,[(i-3.5)*3,40],[(i%2?-2.5:2.5),(i-3.5)*2.2],0,4+i*0.2,t*1.6);if(t>3)armUp(w,-1.8,-1.8);});A.kids.forEach((k,i)=>{const w=A.wom[i*2];k.position.set(w.position.x+0.5,0,w.position.z+0.6);k.rotation.y=w.rotation.y;});}},
+  {h:15,cam:[18,10,26,0,1.5,0],cam2:[24,12,30,0,1.5,0],d:12,txt:'Los dos ejércitos bajan las armas. Silencio. Los jefes se adelantan y hacen la paz: romanos y sabinos formarán un solo pueblo, con Rómulo y Tito Tacio como reyes. Livio cuenta que, en agradecimiento, las curias de Roma recibieron los nombres de aquellas mujeres.<p class="sub">Fuentes: Livio I 9-13; Plutarco, Vida de Rómulo 14-19; Ovidio, Fastos III 199-234. Muchos estudiosos ven en la leyenda el recuerdo de la fusión de pueblos latinos y sabinos en la Roma primitiva.</p>',
+   enter(S){const A=S.a;[...A.rom,...A.sab].forEach(p=>armUp(p,0,0));A.wom.forEach(w=>armUp(w,0,0));A.romulus.position.set(1.4,0,-4);A.tatius.position.set(-1.4,0,-4);A.romulus.rotation.y=-Math.PI/2;A.tatius.rotation.y=Math.PI/2;},
+   upd(t,dt,S){const A=S.a;armUp(A.romulus,null,-1.3);armUp(A.tatius,null,-1.3);}}]},
+{id:'cocles',mode:'roma',name:'Horacio Cocles en el puente',at:()=>plXZ('ro_emporio',-10,-20)||plXZ('ro_isla',20,40),h:12,
+ teaser:'un puente de madera sobre el Tíber, un ejército etrusco y un solo hombre que no retrocede.',
+ build(S){S.ground('#7d8a52');S.water(0,0,700,40);S.hill(0,95,70,28,'#7b8a4e');
+   const A=S.a;A.deck=[];for(let i=0;i<8;i++){const d=S.box(5,0.5,6,'#7a5a3a',0,2.4,-21+i*6);A.deck.push(d);for(const s of[-1,1])S.box(0.4,5,0.4,'#5a4330',s*2.2,0,-21+i*6);}
+   A.hor=S.person({chiton:'#c9b48b',soldier:true,short:true},0,0,0);A.mates=[S.person({chiton:'#c9b48b',soldier:true,short:true},0,0,0),S.person({chiton:'#c9b48b',soldier:true,short:true},0,0,0)];
+   A.axe=[];for(let i=0;i<4;i++)A.axe.push(S.person({chiton:'#d8ccb4',short:true,noHimation:true},(i%2?1.2:-1.2),2.65,-14-i*1.3));
+   A.etr=[];for(let i=0;i<12;i++)A.etr.push(S.person({chiton:'#8a5a3a',himation:'#3a2a1a',spear:true,helmet:'attic',beard:true},(i%6-2.5)*3,0,32+Math.floor(i/6)*4));
+   A.porsena=S.person({chiton:'#efe6d4',himation:'#6a2a5a',beard:true,attrs:['G_wreath']},0,0,44);for(let i=0;i<8;i++)S.tree(rr(-150,150),rr(60,140),rr(0.8,1.3));},
+ beats:[
+  {h:12,cam:[40,18,-60,0,2,10],cam2:[30,16,-50,0,2,10],d:12,txt:'Hace pocos años que los romanos han expulsado a su último rey, Tarquinio el Soberbio. Porsena, rey etrusco de Clusio, marcha contra Roma para devolverle el trono. Toma el Janículo, la colina de la otra orilla del Tíber, y los romanos huyen por el puente Sublicio, un puente de madera sin un solo clavo de hierro.',
+   enter(S){const A=S.a;A.deck.forEach((d,i)=>{d.position.set(0,2.4,-21+i*6);d.rotation.set(0,0,0);d.visible=true;});A.hor.position.set(0,2.65,18);A.hor.rotation.set(0,0,0);A.mates[0].position.set(-1.6,2.65,17);A.mates[1].position.set(1.6,2.65,17);A.mates.forEach(m=>{m.visible=true;m.rotation.y=0;});}},
+  {h:12.3,cam:[5,5,8,0,2.6,20],cam2:[3,4.5,10,0,2.6,24],d:12,txt:'Horacio Cocles, el «tuerto», que guarda la entrada del puente, se planta delante. Grita a los que huyen que corten el puente a sus espaldas, con hierro, con fuego, como puedan: él contendrá al enemigo mientras tanto. A su lado se quedan dos compañeros, Espurio Larcio y Tito Herminio.',
+   upd(t,dt,S){S.a.axe.forEach((p,i)=>armUp(p,-2.2+Math.sin(t*6+i)*1.2,-2.2+Math.sin(t*6+i)*1.2));}},
+  {h:12.6,cam:[-10,4,28,0,2.6,18],d:12,txt:'Cuando el puente está a punto de caer, manda a los otros dos que se pongan a salvo. Solo, desafía a los etruscos: los llama esclavos de reyes. Las lanzas se le clavan en el escudo; él no se mueve.',
+   upd(t,dt,S){const A=S.a;A.mates.forEach((m,i)=>{walkTo(m,[i?1.6:-1.6,17],[i?1.6:-1.6,-24],0,4,t);m.position.y=2.65;});A.axe.forEach((p,i)=>armUp(p,-2.2+Math.sin(t*6+i)*1.2,-2.2+Math.sin(t*6+i)*1.2));A.etr.forEach((p,i)=>{p.position.z=lerp(32,24,sstep(clamp(t/6,0,1)))+Math.floor(i/6)*4;});}},
+  {h:13,cam:[24,6,4,0,2,10],d:12,txt:'Con un estruendo, el puente se hunde. Horacio reza: «Padre Tiberino, recibe con favor estas armas y a este soldado». Y se arroja al río, armado, y lo cruza a nado bajo una lluvia de dardos.',
+   enter(S){S.a.mates.forEach(m=>m.visible=false);},
+   upd(t,dt,S){const A=S.a;A.deck.forEach((d,i)=>{if(i<6){const k=sstep(clamp((t-1-i*0.15)/1.5,0,1));d.position.y=2.4-k*3;d.rotation.z=k*(i%2?0.4:-0.4);}});
+     const k=clamp((t-3.5)/6,0,1);A.hor.position.set(0,t<3.5?2.65:lerp(2.65,-0.9,clamp((t-3.5)*2,0,1)),lerp(18,-26,k));A.hor.rotation.y=Math.PI;}},
+  {h:14,cut:true,cam:[14,6,-46,0,1,-30],d:12,txt:'Llega sano y salvo a la orilla romana. En agradecimiento, la ciudad le dedicó una estatua en el Comicio y tanta tierra como pudiera rodear con el arado en un día. Polibio, en cambio, cuenta que Horacio se ahogó en el río: el relato heroico se fue embelleciendo con el tiempo.<p class="sub">Fuentes: Livio II 10; Polibio VI 55; Plutarco, Vida de Publícola 16. La fecha tradicional es el 508 a.C.</p>',
+   enter(S){const A=S.a;A.hor.position.set(0,0,-30);A.hor.rotation.y=0;armUp(A.hor,null,-2.6);}}]},
+// ---------------------------------------------------------------- Atenas
+{id:'atenea_poseidon',mode:'atenas',name:'Atenea y Poseidón',at:()=>{const f=footprints.find(f=>/Erecteion/.test(f.name||''));return f?[f.x+14,f.z+10]:[20,10];},h:10,
+ teaser:'una roca alta sobre una llanura, un tridente que golpea la piedra, una semilla y un rey que mira.',
+ build(S){const A=S.a;const pl=new THREE.Mesh(new THREE.CircleGeometry(900,40),lam('#a39a6e'));pl.rotation.x=-Math.PI/2;pl.position.y=-40;S.g.add(pl);
+   const rock=new THREE.Mesh(new THREE.CylinderGeometry(70,82,40,14),lam('#b9ab8d'));rock.position.y=-20;rock.receiveShadow=true;S.g.add(rock);const top=new THREE.Mesh(new THREE.CircleGeometry(70,14),lam('#c4b494'));top.rotation.x=-Math.PI/2;top.position.y=0.01;top.receiveShadow=true;S.g.add(top);
+   const sea=new THREE.Mesh(new THREE.PlaneGeometry(2000,800),new THREE.MeshPhongMaterial({color:'#3a6f8a',shininess:60}));sea.rotation.x=-Math.PI/2;sea.position.set(0,-39,-700);S.g.add(sea);
+   A.pos=S.person({chiton:'#d8e4ee',himation:'#2f5f8a',hair:'#4a5a6a',beard:true,beardC:'#5a6a7a',glow:'#9fd0ff',attrs:['G_trident'],scale:1.35},-8,0,0.6);
+   A.ath=S.person({chiton:'#efe6d4',himation:'#c9a24a',female:true,hair:'#5a3a22',glow:'#ffe2a0',helmet:'attic',attrs:['G_aegis','P_spear','P_spearhead','P_shield'],scale:1.35},8,0,-0.6);
+   A.cec=S.person({chiton:'#e6dccb',himation:'#6a7a3a',hair:'#d8d0c2',beard:true,beardC:'#e0d8cc',staff:true},0,-14,0);
+   A.gods=[];[['#fff4dc','#7a5a2a',true,['G_thunderbolt_hand']],['#efe6d4','#8a3a5a',false,['G_diadem']],['#fff4dc','#c9a24a',false,['G_lyre']],['#e9dfc8','#3f6a9a',false,['G_petasos','G_caduceus_hand']]].forEach((g2,i)=>{A.gods.push(S.person({chiton:g2[0],himation:g2[1],beard:g2[2],female:i===1,glow:'#ffe8b0',attrs:g2[3],hair:'#3b2a1e'},-9+i*6,22,Math.PI));});
+   A.spring=new THREE.Mesh(new THREE.CircleGeometry(3,24),new THREE.MeshPhongMaterial({color:'#4f8fa8',shininess:90}));A.spring.rotation.x=-Math.PI/2;A.spring.position.set(-9,0.05,-3);S.g.add(A.spring);
+   A.spray=[];for(let i=0;i<14;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(0.12,6,4),new THREE.MeshBasicMaterial({color:0xcfefff}));d.position.set(-9,0,-3);S.g.add(d);A.spray.push(d);}
+   A.olive=olive(S,9,-3,1.4);A.flood=new THREE.Mesh(new THREE.CircleGeometry(900,40),new THREE.MeshPhongMaterial({color:'#3f7a96',transparent:true,opacity:0.85,shininess:80}));A.flood.rotation.x=-Math.PI/2;A.flood.position.y=-39;S.g.add(A.flood);},
+ beats:[
+  {h:9,cam:[0,5,-30,0,2,0],cam2:[0,6,-26,0,2.5,4],d:12,txt:'En tiempos de Cécrope, el primer rey del Ática, a quien representaban mitad hombre, mitad serpiente, los dioses se repartían las ciudades. Atenea y Poseidón quieren las dos la misma: la ciudad de la roca alta. Para decidir, cada uno ofrecerá un regalo.',
+   enter(S){const A=S.a;A.spring.scale.setScalar(0.01);A.spray.forEach(d=>d.visible=false);A.olive.scale.setScalar(0.01);A.flood.position.y=-39.5;A.pos.userData.pose=0;}},
+  {h:9.3,cam:[-16,3,-10,-8,2,0],cam2:[-14,2.2,-8,-9,0.8,-3],d:10,txt:'Poseidón golpea la roca con su tridente y hace brotar en lo alto de la Acrópolis un manantial. Pero el agua es salada, agua de mar: los atenienses la llamaban el «mar del Erecteo».',
+   upd(t,dt,S){const A=S.a;armUp(A.pos,null,t<1.5?-2.8:-0.8);const k=sstep(clamp((t-1.6)/2,0,1));A.spring.scale.setScalar(Math.max(0.01,k));
+     if(t>1.6&&t<2.2&&!A.fl){A.fl=1;epiFlash();}if(t<1)A.fl=0;A.spray.forEach((d,i)=>{d.visible=t>1.6;const q=((t*1.4+i/14)%1);d.position.set(-9+Math.cos(i*2.4)*q*1.6,Math.sin(q*Math.PI)*3,-3+Math.sin(i*2.4)*q*1.6);});}},
+  {h:9.6,cam:[16,3,-10,9,2.5,-3],cam2:[18,4,-14,9,3,-3],d:10,txt:'Atenea, en cambio, planta en la roca el primer olivo: alimento, aceite para la lámpara, para el cuerpo y para la cocina, madera. Un regalo para vivir en paz.',
+   enter(S){S.a.spray.forEach(d=>d.visible=false);},upd(t,dt,S){const A=S.a;armUp(A.ath,-1.2,null);A.olive.scale.setScalar(Math.max(0.01,sstep(clamp((t-1)/5,0,1))*1.4));}},
+  {h:10,cam:[0,9,-36,0,3,8],d:12,txt:'Según Apolodoro, los doce dioses hacen de jueces y Cécrope da testimonio de que Atenea plantó primero su olivo: la ciudad es para ella y se llamará Atenas. Poseidón, furioso, inunda la llanura de Triasia, junto a Eleusis.',
+   enter(S){S.a.olive.scale.setScalar(1.4);},upd(t,dt,S){const A=S.a;A.flood.position.y=lerp(-39.5,-30,sstep(clamp((t-4)/5,0,1)));armUp(A.cec,null,-1.6);}},
+  {h:10.5,cam:[30,14,-40,0,2,0],cam2:[36,16,-46,0,2,0],d:14,txt:'Muchos siglos después, Varrón contó otra versión: votaron los habitantes, hombres y mujeres. Las mujeres eran una más que los hombres y ganó Atenea. Para calmar a Poseidón, los hombres castigaron a las mujeres: desde entonces no votarían, y los hijos ya no llevarían el nombre de la madre.',
+   upd(t,dt,S){S.a.flood.position.y=-30;}},
+  {h:16,cut:true,cam:[-40,18,-50,0,2,0],cam2:[-46,22,-58,0,2,0],d:16,txt:'En la Acrópolis de tu tiempo, junto al Erecteion, se enseñan todavía las huellas del tridente en la roca y el olivo sagrado. Heródoto cuenta que, cuando los persas quemaron la Acrópolis en el 480, al día siguiente el olivo ya había echado un brote de un codo. La disputa está esculpida en el frontón oeste del Partenón.<p class="sub">Fuentes: Apolodoro, Biblioteca III 14.1; Heródoto VIII 55; Pausanias I 24.5 y 26.5; San Agustín, La ciudad de Dios XVIII 9 (la versión de Varrón).</p>',
+   enter(S){S.a.flood.position.y=-39.5;}}]},
+{id:'orestes',mode:'atenas',name:'El juicio de Orestes',at:()=>[AREO.x+10,AREO.z+16],h:15,
+ teaser:'un hombre perseguido por unas figuras oscuras, una diosa, dos urnas y un voto que lo decide todo.',
+ build(S){S.ground('#b5a682');const A=S.a;const rock=S.box(40,2,26,'#a89878',0,-0.9,0);
+   A.ath=S.person({chiton:'#efe6d4',himation:'#c9a24a',female:true,hair:'#5a3a22',glow:'#ffe2a0',helmet:'attic',attrs:['G_aegis','P_spear','P_spearhead','P_shield'],scale:1.25},0,0,-8);
+   A.ore=S.person({chiton:'#d8ccb4',himation:'#5a4a3a',hair:'#3a2a1e',beard:true},-3,0,1);A.apo=S.person({chiton:'#fff4dc',himation:'#c9a24a',glow:'#fff0b0',attrs:['G_lyre'],hair:'#c9a24a'},-6,0,0);
+   A.eri=[];A.eum=[];for(let i=0;i<3;i++){A.eri.push(S.person({chiton:'#1a1414',himation:'#2a1a1a',female:true,skin:'#6a7a6a',hair:'#111111'},5+i*1.6,0,1+i));A.eum.push(S.person({chiton:'#efe6d4',himation:'#9a1f2a',female:true,hair:'#3a2a1e'},5+i*1.6,0,1+i));}
+   A.jur=[];for(let i=0;i<10;i++){const a=Math.PI*(0.15+0.7*i/9);A.jur.push(S.person({chiton:'#e8dfcc',himation:pick(['#4f6a7d','#8a5a3a','#6a7a4a','#7a4a5a']),beard:true,hair:pick(['#8d8a85','#3e2c1f'])},Math.cos(a)*11,0,4+Math.sin(a)*7,0));}
+   A.jur.forEach(p=>p.rotation.y=Math.atan2(-p.position.x,-p.position.z+2));
+   A.urn=[S.box(1,1.2,1,'#a8532f',-1.2,0.6,-3),S.box(1,1.2,1,'#5a4a3a',1.2,0.6,-3)];
+   const acro=S.box(160,30,60,'#b9ab8d',40,15,-120);for(let i=0;i<8;i++)S.box(1.6,10,1.6,'#efe7d8',10+i*7,35,-110);},
+ beats:[
+  {h:15,cam:[0,6,24,0,1.5,0],cam2:[4,5,20,0,1.5,0],d:12,txt:'Agamenón volvió de Troya y su esposa, Clitemnestra, lo mató. Años después, su hijo Orestes, por orden de Apolo, vengó a su padre matando a su madre. Desde entonces lo persiguen las Erinias, las diosas de la venganza de la sangre, viejas como el mundo. Orestes huye hasta Atenas y se abraza a la estatua de Atenea.',
+   enter(S){const A=S.a;A.eri.forEach(e=>e.visible=true);A.eum.forEach(e=>e.visible=false);A.ath.userData.pose=0;}},
+  {h:15.3,cam:[0,3,6,0,2,-8],d:10,txt:'Atenea no quiere juzgar sola un caso tan grave. Reúne a los mejores ciudadanos de Atenas y funda un tribunal en la colina de Ares, el Areópago: el primer tribunal para juzgar homicidios. Así lo cuenta Esquilo en Las Euménides.'},
+  {h:15.6,cam:[10,3,8,5,1.6,1],d:10,txt:'Las Erinias acusan: Orestes derramó la sangre de su madre, y esa sangre no se lava. Apolo lo defiende: él le mandó vengar a su padre, y el crimen de Clitemnestra fue peor.',
+   upd(t,dt,S){S.a.eri.forEach((e,i)=>armUp(e,null,-1.4-Math.sin(t*3+i)*0.4));armUp(S.a.apo,null,-1.3);}},
+  {h:16,cam:[0,8,10,0,1,-3],d:12,txt:'Los jueces echan sus guijarros en las urnas: una para condenar, otra para absolver. Se cuentan. Hay empate. Entonces Atenea da su voto: por la absolución. Desde entonces, en Atenas, el empate absuelve al acusado: lo llaman «el voto de Atenea».',
+   upd(t,dt,S){armUp(S.a.ath,null,t>4?-2.6:-0.3);if(t>4.2&&!S.a.fl){S.a.fl=1;epiFlash();}if(t<1)S.a.fl=0;}},
+  {h:17.5,cut:true,cam:[6,4,18,4,1.6,2],cam2:[8,5,22,4,2,2],d:14,txt:'Las Erinias amenazan con envenenar la tierra. Atenea las convence: tendrán un santuario bajo el Areópago y serán honradas por la ciudad como las Euménides, las «benévolas», las Venerables. La obra termina con una procesión con antorchas y mantos de púrpura.<p class="sub">Fuente: Esquilo, Las Euménides (estrenada en el 458 a.C.). El Areópago existía de verdad: en tu época sigue juzgando los homicidios. La cueva de las Venerables está en su ladera.</p>',
+   enter(S){const A=S.a;A.eri.forEach(e=>e.visible=false);A.eum.forEach(e=>e.visible=true);A.ore.visible=false;}}]},
+{id:'caballo_troya',mode:'atenas',name:'El caballo de Troya',at:()=>plXZ('murallas_troya',14,14)||plXZ('ilion_templo',20,20),h:9,
+ teaser:'unas naves que se alejan, un caballo de madera enorme ante unas murallas y una noche de fuego.',
+ build(S){S.ground('#b8a77a');const A=S.a;const sea=new THREE.Mesh(new THREE.PlaneGeometry(2000,600),new THREE.MeshPhongMaterial({color:'#3a6f8a',shininess:60}));sea.rotation.x=-Math.PI/2;sea.position.set(0,0.06,420);S.g.add(sea);
+   A.wall=[];for(let i=-6;i<=6;i++){if(i===0)continue;A.wall.push(S.box(10,12,4,'#b09a76',i*10,6,-40));}for(const s of[-1,1])S.box(6,16,6,'#a08a66',s*8,8,-40);A.gate=S.box(6,8,1,'#5a4330',0,4,-39);for(let i=0;i<5;i++)S.box(14,8,10,'#c4b494',rr(-40,40),12,-60-i*12);
+   const H=new THREE.Group(),wd=lam('#8a6a42'),dk=lam('#5a4330');box(5,4,11,wd,0,8,0,H);for(const[px,pz]of[[-1.8,-4],[1.8,-4],[-1.8,4],[1.8,4]])box(1.2,6,1.2,wd,px,3,pz,H);const nk=box(2.6,6,2.6,wd,0,12,6,H);nk.rotation.x=0.5;box(2.4,2.4,5,wd,0,15.2,8.4,H);box(0.6,2.6,4,dk,0,16.2,6.5,H);box(6,0.8,13,dk,0,0.4,0,H);
+   for(const s of[-1,1])for(const z of[-5,5]){const w=new THREE.Mesh(new THREE.CylinderGeometry(1,1,0.5,14),dk);w.rotation.z=Math.PI/2;w.position.set(s*3.2,1,z);H.add(w);}A.horse=H;S.g.add(H);
+   A.ships=[];for(let i=0;i<6;i++){const sh=new THREE.Group();box(3,1.4,14,lam('#2a2420'),0,0.4,0,sh);box(0.2,8,0.2,M.wood,0,4,0,sh);const sl=box(6,4,0.1,lam('#e7dcc4'),0,6,0.2,sh);S.g.add(sh);A.ships.push(sh);}
+   A.tro=[];for(let i=0;i<10;i++)A.tro.push(S.person({chiton:pick(['#e6dccb','#d8c4a8','#c9b48b']),himation:pick(['#8a3a2a','#3a5a7a','#6a4a7a','#7a6a3a']),beard:R()<0.6,hair:'#3b2a1e'},0,0,0));
+   A.lao=S.person({chiton:'#efe6d4',himation:'#2a2a4a',beard:true,hair:'#8d8a85'},0,0,0);A.spear=S.box(0.08,0.08,3.2,'#6b4a2e',0,0,0);
+   A.sin=S.person({chiton:'#bfae8a',himation:'#6a5a3a',beard:true,hair:'#3a2a1e',noHimation:true},0,0,0);
+   A.gr=[];for(let i=0;i<6;i++)A.gr.push(S.person({chiton:'#8a5a3a',spear:true,beard:true},0,0,0));A.fires=[];for(let i=0;i<9;i++){const f=fireSprite(S,rr(-40,40),rr(8,22),-48-rr(0,30),rr(10,18));f.visible=false;A.fires.push(f);}},
+ beats:[
+  {h:8,cam:[30,10,60,0,6,20],cam2:[20,9,40,0,6,10],d:12,txt:'Tras diez años de guerra, una mañana los troyanos se asoman a las murallas: el campamento griego está desierto y las naves se alejan. En la playa ha quedado un enorme caballo de madera.',
+   enter(S){const A=S.a;A.horse.position.set(0,0,30);A.horse.rotation.y=Math.PI;A.ships.forEach((s,i)=>s.position.set(-50+i*20,0,140+i%2*10));A.gate.visible=true;A.wall.forEach(w=>w.visible=true);A.tro.forEach(p=>p.visible=false);A.lao.visible=A.spear.visible=A.sin.visible=false;A.gr.forEach(p=>p.visible=false);A.fires.forEach(f=>f.visible=false);},
+   upd(t,dt,S){S.a.ships.forEach((s,i)=>{s.position.z=140+i%2*10+t*8;});}},
+  {h:10,cut:true,cam:[14,4,48,0,4,30],d:12,txt:'Los troyanos salen a verlo. Unos quieren arrojarlo al mar o quemarlo; otros, llevarlo a la ciudad como ofrenda a Atenea. Laocoonte, sacerdote, corre gritando: «Temo a los griegos incluso cuando traen regalos». Y le clava una lanza en el vientre: dentro resuena el hueco.',
+   enter(S){const A=S.a;A.ships.forEach(s=>s.visible=false);A.tro.forEach((p,i)=>{p.visible=true;p.position.set(-14+(i%5)*6,0,36+Math.floor(i/5)*6);p.rotation.y=Math.atan2(-p.position.x,30-p.position.z);});A.lao.visible=true;A.lao.position.set(8,0,40);A.lao.rotation.y=Math.atan2(-8,-10);A.spear.visible=true;},
+   upd(t,dt,S){const A=S.a,k=clamp((t-3)/0.8,0,1);armUp(A.lao,null,t<3?-2.8:-0.6);A.spear.position.set(lerp(8,2.2,k),lerp(2.4,7,k),lerp(40,32,k));A.spear.rotation.set(0.4,-0.6,0);if(k>=1&&!A.fl){A.fl=1;sfxThunder();}if(t<1)A.fl=0;}},
+  {h:11,cam:[-14,4,46,0,2,36],d:12,txt:'Unos pastores traen a un griego que se ha dejado capturar: Sinón. Cuenta que los griegos han construido el caballo para Atenea y que lo han hecho tan grande para que no quepa por las puertas: si entra en Troya, la ciudad será invencible. Entonces dos serpientes salen del mar y matan a Laocoonte y a sus hijos. Los troyanos lo toman por un castigo de los dioses.',
+   enter(S){const A=S.a;A.spear.visible=false;A.sin.visible=true;A.sin.position.set(-6,0,40);A.sin.rotation.y=Math.PI*0.8;A.lao.visible=false;}},
+  {h:15,cut:true,cam:[40,12,10,0,6,-20],cam2:[34,14,4,0,6,-26],d:14,txt:'Abren una brecha en la muralla y arrastran el caballo hasta la ciudad, entre cantos y guirnaldas. Cuatro veces se detiene en el umbral y suenan las armas en su vientre; nadie se da cuenta.',
+   enter(S){const A=S.a;A.sin.visible=false;A.gate.visible=false;A.wall.forEach(w=>{if(Math.abs(w.position.x)<12)w.visible=false;});A.tro.forEach((p,i)=>{p.visible=i<8;});},
+   upd(t,dt,S){const A=S.a,k=sstep(clamp(t/12,0,1));A.horse.position.z=lerp(30,-28,k);A.tro.forEach((p,i)=>{p.position.set((i%2?-4:4)+(i%4<2?0:2),0,A.horse.position.z+8+Math.floor(i/2)*2);p.rotation.y=Math.PI;armUp(p,-1.4,-1.4);walkLegs(p,t*6,0.3);});}},
+  {h:20.2,cut:true,cam:[18,7,-6,0,7,-30],d:12,txt:'Esa noche, mientras la ciudad duerme tras la fiesta, Sinón abre el vientre del caballo. Bajan por una cuerda Ulises, Menelao, Neoptólemo y los demás. Matan a los centinelas y abren las puertas al ejército, que ha vuelto en silencio desde la isla de Ténedos.',
+   enter(S){const A=S.a;A.horse.position.z=-28;A.tro.forEach(p=>p.visible=false);A.gr.forEach((p,i)=>{p.visible=true;});},
+   upd(t,dt,S){S.a.gr.forEach((p,i)=>{const k=clamp((t-i*0.8)/2,0,1);p.position.set(3+i*1.2,lerp(8,0,k),-28+i*0.8);p.rotation.y=Math.PI/2;});}},
+  {h:20.9,cam:[40,24,40,0,10,-40],cam2:[50,28,50,0,12,-40],d:16,txt:'Troya arde. Así cuenta el final de la guerra Virgilio en la Eneida, y antes la Odisea, en el canto de Demódoco. La Ilíada, en cambio, termina antes, con el funeral de Héctor: no habla del caballo. Muchos estudiosos piensan que el caballo pudo ser el recuerdo de una máquina de asedio, o de un terremoto: Poseidón era el dios de los caballos y de los terremotos.<p class="sub">Fuentes: Homero, Odisea IV 271-289 y VIII 492-520; Virgilio, Eneida II; Apolodoro, Epítome 5.14-23.</p>',
+   enter(S){S.a.fires.forEach(f=>f.visible=true);},upd(t,dt,S){S.a.fires.forEach((f,i)=>{const q=1+Math.sin(t*7+i)*0.1;f.scale.set(14*q,18*q,1);});}}]},
+{id:'cnosos',mode:'atenas',name:'El palacio de Minos y el laberinto',at:()=>plXZ('cnosos',8,6),walk:()=>knossosTravel('cnosos_sueno'),
+ teaser:'columnas rojas, un patio lleno de gente, un toro pintado y unos pasillos oscuros que no acaban nunca.'},
+];
+
+// ------------------------------------------------------------ el sueño de Cnosos: el palacio de Minos tal como lo imaginan los arqueólogos, y el laberinto del mito
+// Escenario permanente a 800 m de altura, sobre el mar al sur de Creta; se llega por la esfera de las ruinas.
+const KNOS={x:0,z:0,y:800,on:false,thread:null,tp:[],slain:false,mino:null,maze:null,won:false};
+function buildKnossosDream(C){
+  const X=C.x,Z=C.z+C.R*2.2,Y=KNOS.y;Object.assign(KNOS,{x:X,z:Z});
+  const g=grp(X,Y,Z,0),pave=lam('#d9cdb2'),gyp=lam('#e6dccb'),ochre=lam('#d8b483'),red=lam('#9a2f22'),blk=lam('#1f1a16'),wall=lam('#e3d2b0');
+  box(150,2,170,lam('#cdbf9f'),0,-1,0,g);addPlat(X,Z,150,170,0,Y);
+  for(const[a,b,c,d]of[[-75,-85,75,-85],[75,-85,75,85],[75,85,-75,85],[-75,85,-75,-85]]){addSeg(X+a,Z+b,X+c,Z+d,0.4);}
+  for(const[w,d,x,z]of[[150,0.6,0,-84.7],[150,0.6,0,84.7],[0.6,170,-74.7,0],[0.6,170,74.7,0]])box(w||0.6,1,d,gyp,x,0.5,z,g);
+  // patio central (50 x 25) enlosado, orientado norte-sur como el de Cnosos
+  box(25,0.1,50,lam('#efe6d4'),0,0.05,25,g);
+  const col=(x,z,h)=>{const c=new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.3,h,14),red);c.position.set(x,h/2,z);c.castShadow=true;g.add(c);const k=new THREE.Mesh(new THREE.CylinderGeometry(0.6,0.48,0.42,14),blk);k.position.set(x,h+0.2,z);g.add(k);box(1.3,0.3,1.3,blk,x,h+0.55,z,g);addCirc(X+x,Z+z,0.45);};
+  const horns=(x,y,z,s)=>{const h=new THREE.Group();h.position.set(x,y,z);h.scale.setScalar(s||1);box(1.6,0.5,0.5,gyp,0,0.25,0,h);for(const k of[-1,1]){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.25,1,8),gyp);c.position.set(k*0.62,0.95,0);c.rotation.z=-k*0.25;h.add(c);}g.add(h);};
+  // alas del palacio: bloques macizos de dos plantas con columnatas hacia el patio
+  const wing=(cx,cz,w,d,h,mat)=>{box(w,h,d,mat,cx,h/2,cz,g);box(w+0.6,0.5,d+0.6,lam('#8a5a3a'),cx,h+0.25,cz,g);addBox(X+cx,Z+cz,w,d,0);for(let i=0;i<Math.floor(w/6);i++)horns(cx-w/2+3+i*6,h+0.5,cz+(cz<30?-d/2+0.6:d/2-0.6)*0,0.9);};
+  wing(-25,36,22,28,9,wall);wing(25,25,22,50,7,ochre);wing(-20,-8,16,10,8,wall);wing(20,-8,16,10,8,wall);wing(-20,56,16,8,6,ochre);wing(20,56,16,8,6,ochre);
+  for(let i=0;i<7;i++){col(12.8,4+i*7.4,4.6);if(i<5)col(-12.8,24+i*6,5.4);}
+  // fachada con fresco del salto del toro (en el muro oeste del patio)
+  const bull=canvasTex(512,256,(x)=>{x.fillStyle='#5f8fb0';x.fillRect(0,0,512,256);x.fillStyle='#d8b483';x.fillRect(0,0,512,18);x.fillRect(0,238,512,18);
+    for(let i=0;i<16;i++){x.fillStyle=i%2?'#1f1a16':'#9a2f22';x.fillRect(i*32,4,16,10);x.fillRect(i*32+16,242,16,10);}
+    x.fillStyle='#efe6d4';x.beginPath();x.ellipse(250,150,120,48,0,0,TAU);x.fill();x.fillStyle='#4a3424';for(const[a,b]of[[180,130],[300,160],[230,170]]){x.beginPath();x.ellipse(a,b,22,14,0.3,0,TAU);x.fill();}
+    x.fillStyle='#efe6d4';x.fillRect(150,185,16,50);x.fillRect(190,185,16,50);x.fillRect(300,185,16,50);x.fillRect(335,185,16,50);x.beginPath();x.ellipse(375,118,38,26,-0.4,0,TAU);x.fill();
+    x.strokeStyle='#efe6d4';x.lineWidth=7;x.beginPath();x.moveTo(390,100);x.quadraticCurveTo(420,50,445,70);x.moveTo(365,98);x.quadraticCurveTo(380,40,410,45);x.stroke();
+    x.fillStyle='#9a4a2a';x.beginPath();x.ellipse(250,70,40,12,-0.2,0,TAU);x.fill();x.beginPath();x.arc(212,78,10,0,TAU);x.fill();
+    x.fillStyle='#f3e5c8';x.beginPath();x.ellipse(110,150,10,34,0.2,0,TAU);x.fill();x.beginPath();x.arc(110,108,10,0,TAU);x.fill();x.beginPath();x.ellipse(440,150,10,34,-0.2,0,TAU);x.fill();x.beginPath();x.arc(440,108,10,0,TAU);x.fill();});
+  const fr=new THREE.Mesh(new THREE.PlaneGeometry(12,6),new THREE.MeshLambertMaterial({map:bull}));fr.position.set(-13.95,4.2,36);fr.rotation.y=Math.PI/2;g.add(fr);
+  // sala del trono: un hueco en el ala oeste con el trono de yeso y grifos pintados
+  const grif=canvasTex(512,256,(x)=>{x.fillStyle='#9a2f22';x.fillRect(0,0,512,256);x.strokeStyle='#efe6d4';x.lineWidth=4;for(let i=0;i<10;i++){x.beginPath();x.moveTo(i*52,256);x.quadraticCurveTo(i*52+26,180,i*52+52,256);x.stroke();}
+    for(const s of[-1,1]){x.save();x.translate(256+s*120,120);x.scale(s,1);x.fillStyle='#e8d7a8';x.beginPath();x.ellipse(0,20,70,30,0,0,TAU);x.fill();x.beginPath();x.ellipse(60,-20,18,30,0.4,0,TAU);x.fill();x.fillStyle='#4a6a8a';x.beginPath();x.moveTo(70,-48);x.lineTo(96,-60);x.lineTo(80,-30);x.fill();
+      x.fillStyle='#e8d7a8';for(const lx of[-50,-30,30,45])x.fillRect(lx,40,9,40);x.fillStyle='#9a2f22';x.beginPath();x.arc(-10,10,7,0,TAU);x.arc(20,25,7,0,TAU);x.fill();x.restore();}});
+  box(12,0.1,10,lam('#d8cbb4'),-25,0.12,8,g);box(0.6,7,10,wall,-31,3.5,8,g);addSeg(X-31,Z+3,X-31,Z+13,0.4);box(12,7,0.6,wall,-25,3.5,3,g);addSeg(X-31,Z+3,X-19,Z+3,0.4);box(12,7,0.6,wall,-25,3.5,13,g);addSeg(X-31,Z+13,X-19,Z+13,0.4);
+  box(12,0.6,10.6,lam('#8a5a3a'),-25,7.3,8,g);
+  const gm=new THREE.Mesh(new THREE.PlaneGeometry(10,4),new THREE.MeshLambertMaterial({map:grif}));gm.position.set(-30.65,3.4,8);gm.rotation.y=Math.PI/2;g.add(gm);
+  const th=new THREE.Group();th.position.set(-30,0,8);th.rotation.y=Math.PI/2;box(1.2,0.5,0.9,gyp,0,0.25,0,th);box(1.2,1.6,0.25,gyp,0,1.0,-0.4,th);const tc=new THREE.Mesh(new THREE.CylinderGeometry(0.6,0.6,0.25,16,1,false,0,Math.PI),gyp);tc.rotation.x=Math.PI/2;tc.position.set(0,1.8,-0.4);th.add(tc);g.add(th);addBox(X-30,Z+8,1,1.4,0);
+  for(const s of[-1,1])box(0.7,0.5,3,gyp,-30.3,0.25,8+s*3,g);
+  // gran pithos y almacenes
+  for(let i=0;i<6;i++){const p=new THREE.Mesh(PGEO.jar,lam('#b07a4a'));p.scale.setScalar(3.4);p.position.set(-40+i*3,0,64);g.add(p);}
+  // el laberinto, al norte del palacio (z negativas): 9 x 9 celdas de 5 m, sin techo para que se vea el cielo del sueño
+  const N=9,CS=5,LX=0,LZ=-50,R0=mulberry32(1913);const L0x=LX-N*CS/2,L0z=LZ-N*CS/2;
+  const cell=(i,j)=>({i,j,v:false,w:[true,true,true,true]});const grid=[];for(let i=0;i<N;i++){grid.push([]);for(let j=0;j<N;j++)grid[i].push(cell(i,j));}
+  const DIRS=[[0,-1,0,2],[1,0,1,3],[0,1,2,0],[-1,0,3,1]];
+  const st=[grid[4][N-1]];grid[4][N-1].v=true;while(st.length){const c=st[st.length-1];const nb=DIRS.map(d=>[d,grid[c.i+d[0]]&&grid[c.i+d[0]][c.j+d[1]]]).filter(q=>q[1]&&!q[1].v);
+    if(!nb.length){st.pop();continue;}const[d,n]=nb[Math.floor(R0()*nb.length)];c.w[d[2]]=false;n.w[d[3]]=false;n.v=true;st.push(n);}
+  for(let i=3;i<=5;i++)for(let j=3;j<=5;j++){const c=grid[i][j];if(i<5)c.w[1]=grid[i+1][j].w[3]=false;if(j<5)c.w[2]=grid[i][j+1].w[0]=false;}   // la sala central
+  for(let k=0;k<4;k++){const i=1+Math.floor(R0()*7),j=1+Math.floor(R0()*7),d=Math.floor(R0()*4),D=DIRS[d],n=grid[i+D[0]]&&grid[i+D[0]][j+D[1]];if(n){grid[i][j].w[d]=false;n.w[D[3]]=false;}}   // algunos bucles
+  grid[4][N-1].w[2]=false;
+  const mz=new THREE.MeshPhongMaterial({color:'#8a745c',shininess:4}),mzT=lam('#5a4a3a'),H=5.2;   // Phong: la luz de la antorcha se calcula por píxel, no solo en las esquinas de cada muro
+  const wallSeg=(x0,z0,x1,z1)=>{const L=Math.hypot(x1-x0,z1-z0)+0.6,m=box(x0===x1?0.6:L,H,x0===x1?L:0.6,mz,(x0+x1)/2,H/2,(z0+z1)/2,g);addSeg(X+x0,Z+z0,X+x1,Z+z1,0.35);};
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++){const c=grid[i][j],x0=L0x+i*CS,z0=L0z+j*CS;if(c.w[0])wallSeg(x0,z0,x0+CS,z0);if(c.w[3])wallSeg(x0,z0,x0,z0+CS);if(i===N-1&&c.w[1])wallSeg(x0+CS,z0,x0+CS,z0+CS);if(j===N-1&&c.w[2])wallSeg(x0,z0+CS,x0+CS,z0+CS);}
+  {const S2=N*CS+0.6,h0=3*CS;for(const[w,d,x,z]of[[S2,(S2-h0)/2,0,-(S2+h0)/4],[S2,(S2-h0)/2,0,(S2+h0)/4],[(S2-h0)/2,h0,-(S2+h0)/4,0],[(S2-h0)/2,h0,(S2+h0)/4,0]])box(w,0.4,d,mzT,LX+x,H+0.2,LZ+z,g);}   // techo: el laberinto está en penumbra; solo la sala del centro se abre al cielo
+  box(N*CS,0.1,N*CS,new THREE.MeshPhongMaterial({color:'#7a6a56',shininess:2}),LX,0.06,LZ,g);
+  for(const s of[-1,1]){box(1.2,6.2,1.2,blk,LX+s*2.2,3.1,L0z+N*CS+0.3,g);horns(LX+s*2.2,6.2,L0z+N*CS+0.3,0.7);}box(5.6,0.8,1.2,blk,LX,6.6,L0z+N*CS+0.3,g);
+  KNOS.maze={x0:X+L0x,z0:Z+L0z,size:N*CS,cx:X+LX,cz:Z+LZ,ex:X+LX,ez:Z+L0z+N*CS+2};
+  // el hilo de Ariadna: una línea que se va soltando a tu paso dentro del laberinto
+  const tg=new THREE.BufferGeometry();tg.setAttribute('position',new THREE.BufferAttribute(new Float32Array(3*4000),3));tg.setDrawRange(0,0);
+  KNOS.thread=new THREE.Line(tg,new THREE.LineBasicMaterial({color:0xd8282a}));KNOS.thread.frustumCulled=false;scene.add(KNOS.thread);
+  // Ariadna en la entrada, con el ovillo; el Minotauro en la sala central
+  const ar=makePerson({chiton:'#efe6d4',himation:'#2f6a8a',female:true,hair:'#2a1a12',noVary:true});ar.position.set(X+LX+4.5,Y,Z+L0z+N*CS+4);ar.rotation.y=Math.PI*1.15;scene.add(ar);
+  const ball=new THREE.Mesh(new THREE.SphereGeometry(0.11,10,8),lam('#c42a2a'));ball.position.set(0.12,-0.36,0.12);if(ar.userData.arms){ar.userData.arms[1].add(ball);ar.userData.arms[1].rotation.x=-0.9;}
+  const mi=makePerson({chiton:'#3a2a20',skin:'#4a3426',hair:'#2a1a12',short:true,noHimation:true,noVary:true,scale:1.35});
+  const hd=new THREE.Group();hd.position.set(0,1.86,0.04);mi.add(hd);const hm=lam('#3a281c');box(0.34,0.36,0.42,hm,0,0,0,hd);box(0.26,0.22,0.24,lam('#2a1d14'),0,-0.08,0.27,hd);
+  for(const s of[-1,1]){const h=new THREE.Mesh(new THREE.ConeGeometry(0.05,0.42,6),lam('#e9e0cc'));h.position.set(s*0.27,0.2,0);h.rotation.z=-s*1.1;hd.add(h);box(0.12,0.06,0.04,hm,s*0.22,0.05,-0.05,hd);}
+  for(const s of[-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.03,6,4),new THREE.MeshBasicMaterial({color:0xff6a2a}));e.position.set(s*0.09,0.05,0.215);hd.add(e);}
+  for(let k=0;k<14;k++){const b=box(rr(0.3,0.7),0.07,0.07,lam('#e9e1cf'),LX+rr(-5,5),0.15,LZ+rr(-5,5),g);b.rotation.y=R()*3;}   // huesos
+  mi.position.set(X+LX,Y,Z+LZ);scene.add(mi);KNOS.mino=mi;KNOS.mino0=[X+LX,Z+LZ];addCirc(X+LX,Z+LZ,0.9);
+  footprints.push({x:X,z:Z,w:150,d:170,a:0,c:'#efe7d8',name:'Sueño: el palacio de Minos',reserve:true});
+  // estelas
+  place('kn_patio','El palacio de Minos','ΚΝΩΣΟΣ','Estás dentro de un sueño: el palacio de Cnosos tal como pudo ser hacia el 1600-1450 a.C., mil doscientos años antes de tu viaje, siguiendo las reconstrucciones de los arqueólogos. Era un enorme conjunto de unas mil estancias en varias plantas alrededor de un patio central, con almacenes, talleres, santuarios y salas de reunión, sin murallas. Sus columnas de madera, pintadas de rojo, se estrechan hacia abajo. El mito lo hacía palacio del rey Minos.',X+4,Z+44,Math.PI);
+  place('kn_toro','El salto del toro','ΤΑΥΡΟΚΑΘΑΨΙΑ','Los frescos de Cnosos muestran a jóvenes que agarran a un toro por los cuernos y saltan por encima de su lomo: un rito o un deporte que quizá se celebraba en este mismo patio. Los cuernos de piedra que coronan los tejados, los «cuernos de consagración», eran un símbolo sagrado. Algunos piensan que el mito del Minotauro nació del recuerdo de estos juegos con toros.',X-11,Z+33,-Math.PI/2);
+  place('kn_trono','La sala del trono','ΘΡΟΝΟΣ','Un asiento de yeso con respaldo ondulado, entre bancos de piedra y grifos pintados, animales con cuerpo de león y cabeza de águila. Es el trono más antiguo de Europa. No sabemos si se sentaba en él un rey, una reina o una sacerdotisa: los cretenses de la Edad del Bronce escribían en una lengua, el lineal A, que todavía no se ha descifrado.',X-22,Z+11,-Math.PI/2);
+  place('kn_laberinto','La entrada del laberinto','ΛΑΒΥΡΙΝΘΟΣ','Según el mito, el arquitecto Dédalo construyó para Minos un laberinto del que nadie sabía salir, para encerrar al Minotauro, el hijo monstruoso de la reina Pasífae y de un toro. Cada nueve años, Atenas debía enviar siete muchachos y siete muchachas para alimentarlo. Teseo vino con ellos para matarlo. Ariadna, la hija de Minos, enamorada de él, le dio un ovillo de hilo para encontrar el camino de vuelta. Entra: el hilo rojo se irá soltando a tu paso. La palabra «laberinto» quizá venga de labrys, el hacha doble, un símbolo que se repite en el palacio.',X+LX-4.5,Z+L0z+N*CS+5,Math.PI);
+  place('kn_salida','Despertar','ΕΓΡΗΓΟΡΣΙΣ','Toca esta estela para despertar junto a las ruinas de Cnosos, en el año 386 a.C.',X+8,Z+78,Math.PI);PLACES[PLACES.length-1].go='cnosos';
+}
+function knossosTravel(to){
+  closeDialog();ui='voyage';if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}
+  const v=$('voyage');v.classList.add('land');const dream=to==='cnosos_sueno';
+  v.querySelector('.vt').textContent=dream?'Tocas la esfera…':'Despiertas…';
+  v.querySelector('.vs').textContent=dream?'Las ruinas se levantan, las columnas se tiñen de rojo y el palacio de Minos vuelve a estar lleno de gente.':'Vuelves a estar entre muros derruidos y cabras.';
+  v.querySelector('.vf').textContent=dream?'Cnosos fue destruido hacia el 1375 a.C.; los griegos de tu época solo ven sus ruinas.':'El arqueólogo Arthur Evans excavará Cnosos en 1900 y reconstruirá parte del palacio.';
+  v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
+  setTimeout(()=>{if(dream){player.x=KNOS.x;player.z=KNOS.z+70;player.yaw=0;KNOS.slain=false;KNOS.tp=[];KNOS.thread.geometry.setDrawRange(0,0);const m=KNOS.mino;m.rotation.set(0,0,0);m.position.set(KNOS.mino0[0],KNOS.y,KNOS.mino0[1]);KNOS.inMaze=false;}
+    else{const s=EPI.spheres.find(q=>q.data.id==='cnosos');const p=s?[s.x+3,s.z+3]:plXZ('cnosos',4,4);player.x=p[0];player.z=p[1];player.yaw=Math.PI;}
+    player.feet=floorAt(player.x,player.z);player.camY=player.feet+player.eye;player.vy=0;player.pitch=0;curZone=null;KNOS.on=dream;
+    v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';if(dream)toast('Busca la entrada del laberinto, al norte del patio. Ariadna te espera allí con el ovillo.');},700);},2600);
+}
+function inMaze(x,z){const M2=KNOS.maze;return M2&&player.feet>KNOS.y-5&&x>M2.x0&&x<M2.x0+M2.size&&z>M2.z0&&z<M2.z0+M2.size;}
+let knosRoar=0;
+function updateKnossos(dt,t){
+  if(!KNOS.maze||!KNOS.on)return;const m=KNOS.mino,M2=KNOS.maze;
+  const inside=inMaze(player.x,player.z);
+  if(inside){const tp=KNOS.tp,last=tp[tp.length-1];if(!last||Math.hypot(player.x-last[0],player.z-last[1])>0.6){if(tp.length<3999){tp.push([player.x,player.z]);const a=KNOS.thread.geometry.attributes.position;a.setXYZ(tp.length-1,player.x,KNOS.y+0.12,player.z);a.needsUpdate=true;KNOS.thread.geometry.setDrawRange(0,tp.length);}}
+    if(!KNOS.inMaze){KNOS.inMaze=true;if(!KNOS.slain&&!KNOS.told){KNOS.told=true;toast('Ariadna te pone el ovillo en la mano: el hilo rojo marcará el camino de vuelta.');}}}
+  else if(KNOS.inMaze){KNOS.inMaze=false;if(KNOS.slain&&player.z>M2.z0+M2.size-1&&!KNOS.won){KNOS.won=true;setTimeout(()=>{KNOS.won=false;},4000);
+      toast('<span class="label">Has salido del laberinto</span><br>Como Teseo, gracias al hilo de Ariadna.');const E=EPISODES.find(e=>e.id==='cnosos');if(E)epiReward(E);}}
+  if(!KNOS.slain){const d=Math.hypot(player.x-m.position.x,player.z-m.position.z);
+    m.rotation.y=Math.atan2(player.x-m.position.x,player.z-m.position.z)*(d<14?1:0)+(d<14?0:Math.sin(t*0.4)*0.6);
+    if(m.userData.arms){m.userData.arms[0].rotation.x=-0.3+Math.sin(t*1.7)*0.15;m.userData.arms[1].rotation.x=-0.3-Math.sin(t*1.7)*0.15;}
+    knosRoar-=dt;if(inside&&knosRoar<0&&d<40){knosRoar=6+Math.random()*6;sfxRoar(clamp(1-d/40,0.15,1));}
+    if(d<4.2&&ui==='play')minotaurEncounter();}
+}
+function sfxRoar(v){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;const o=c.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(95,t);o.frequency.exponentialRampToValueAtTime(55,t+1.4);const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=420;o.connect(f).connect(envGain(t,0.18*v,0.15,1.3));o.start(t);o.stop(t+1.6);
+  const s=c.createBufferSource();s.buffer=AUD.noise;const f2=c.createBiquadFilter();f2.type='bandpass';f2.frequency.value=300;s.connect(f2).connect(envGain(t,0.12*v,0.1,1.2));s.start(t,Math.random());s.stop(t+1.5);}
+function minotaurEncounter(){
+  dlg={n:null};ui='dialog';releasePointer();sfxRoar(1);
+  $('dGlyph').textContent='Μ';setName('El Minotauro');$('dTitle').textContent='Asterión, hijo de Pasífae · el centro del laberinto';
+  $('dBody').innerHTML='<p>En el centro del laberinto, entre huesos, se alza una figura enorme: cuerpo de hombre, cabeza de toro. Resopla. Sus ojos brillan en la penumbra. Los cretenses lo llamaban Asterión, «el estrellado».</p>';
+  const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
+  add('Luchar con los puños, como Teseo',()=>{KNOS.slain=true;epiFlash();const m=KNOS.mino;m.rotation.x=-Math.PI/2;m.position.y=KNOS.y+0.3;
+    $('dBody').innerHTML='<p>La lucha es breve y terrible. Según Apolodoro, Teseo mató al Minotauro a puñetazos; en los vasos atenienses aparece casi siempre atravesándolo con una espada. La bestia cae.</p><p>Ahora tienes que salir. Sigue el hilo rojo de Ariadna hasta la entrada.</p>';
+    o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Seguir el hilo</span>';b.onclick=closeDialog;o.appendChild(b);b.focus({preventScroll:true});},'quiz');
+  add('Huir',()=>{closeDialog();const M2=KNOS.maze;const tp=KNOS.tp;const p=tp.length>8?tp[tp.length-8]:[M2.ex,M2.ez];player.x=p[0];player.z=p[1];});
+  $('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
+}
+
 // ------------------------------------------------------------ «Cuéntame más»: cinco temas más por personaje (Atenas: política y sociedad)
 const MORE={};
 Object.assign(MORE,{
@@ -7021,10 +7678,34 @@ function buildAvatar(){
   const hp=hands.map(h=>h.getWorldPosition(new THREE.Vector3()).applyMatrix4(inv));const mouth=new THREE.Vector3(0,1.72,1.38);
   const rg=new THREE.BufferGeometry().setFromPoints([hp[0],mouth,hp[1]]);const reins=new THREE.Line(rg,new THREE.LineBasicMaterial({color:'#3a2414'}));g.add(reins);reins.position.set(0,-0.8,-0.02);
 }
+// ------------------------------------------------------------ antorcha de mano (F): la luz está siempre en la escena, apagada, para no recompilar los materiales al encenderla
+const TORCH={on:false,g:null,light:null,fl:null,hint:false};
+function buildHandTorch(){
+  const L=new THREE.PointLight(0xffa04a,0,34,1.3);scene.add(L);TORCH.light=L;
+  const g=new THREE.Group();const st=new THREE.Mesh(new THREE.CylinderGeometry(0.022,0.032,0.6,6),lam('#4a3324'));st.position.y=-0.24;g.add(st);
+  const hd=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.034,0.14,7),lam('#2a1d14'));hd.position.y=0.11;g.add(hd);
+  const fl=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,fog:false}));fl.position.y=0.3;fl.scale.set(0.24,0.36,1);g.add(fl);TORCH.fl=fl;
+  g.visible=false;scene.add(g);TORCH.g=g;
+}
+function toggleTorch(){if(ui!=='play'||!TORCH.g)return;TORCH.on=!TORCH.on;TORCH.hint=true;
+  toast(TORCH.on?'Enciendes una antorcha de teas de pino untadas de resina. Pulsa <b>F</b> para apagarla.':'Apagas la antorcha.');}
+const _tv=new THREE.Vector3();
+function updateTorch(dt,t){
+  if(!TORCH.g)return;const on=TORCH.on&&(ui==='play'||ui==='dialog');TORCH.g.visible=on;
+  if(!TORCH.hint&&ui==='play'&&DAYF<0.25){TORCH.hint=true;toast('Se ha hecho de noche. Pulsa <b>'+(isTouch?'Antorcha':'F')+'</b> para encender una antorcha.');}
+  if(!on){TORCH.light.intensity=0;return;}
+  const f=1+Math.sin(t*11)*0.07+Math.sin(t*27+1.3)*0.05+Math.sin(t*4.1)*0.04;
+  if(AVATAR.view3&&!MOUNT.riding){const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
+    TORCH.g.position.set(player.x+rx*0.34+fx*0.28,player.feet+1.45,player.z+rz*0.34+fz*0.28);TORCH.g.rotation.set(0,0,0);}
+  else{camera.updateMatrixWorld();_tv.set(0.36,-0.34,-0.95);camera.localToWorld(_tv);TORCH.g.position.copy(_tv);TORCH.g.quaternion.copy(camera.quaternion);TORCH.g.rotateX(0.35);TORCH.g.rotateZ(-0.25);}
+  TORCH.fl.scale.set(0.24*f,0.36*f,1);
+  TORCH.g.getWorldPosition(_tv);TORCH.light.position.set(_tv.x,_tv.y+0.45,_tv.z);
+  TORCH.light.intensity=(1.25+0.9*(1-DAYF))*f;
+}
 function toggleView(){AVATAR.view3=!AVATAR.view3;toast(AVATAR.view3?'Vista en tercera persona. Pulsa <b>V</b> para volver.':'Vista en primera persona.');}
 function updateAvatar(dt,t){
   const moved=AVATAR.lx===null?0:Math.hypot(player.x-AVATAR.lx,player.z-AVATAR.lz);AVATAR.lx=player.x;AVATAR.lz=player.z;
-  const w=AVATAR.walk;if(w){w.visible=AVATAR.view3&&!MOUNT.riding&&ui!=='start';
+  const w=AVATAR.walk;if(w){w.visible=AVATAR.view3&&!MOUNT.riding&&ui!=='start'&&ui!=='episode';
     if(w.visible){w.position.set(player.x,player.feet,player.z);w.rotation.y=player.yaw+Math.PI;const v=moved/Math.max(dt,1e-3);AVATAR.ph+=dt*(v>0.3?7:0);
       const a=w.userData.arms;if(a){const s=v>0.3?Math.sin(AVATAR.ph)*0.45:0;a[0].rotation.x=s;a[1].rotation.x=-s;}w.position.y+=v>0.3?Math.abs(Math.sin(AVATAR.ph))*0.05:0;}}
   if(AVATAR.rider){AVATAR.rider.visible=MOUNT.riding;for(const h of AVATAR.riderHead)h.visible=AVATAR.view3;}
@@ -7271,6 +7952,8 @@ window.addEventListener('keydown',e=>{
   if(e.target&&e.target.tagName==='INPUT'){if(e.code==='Escape')closeModals();return;}
   if(ui==='library'){if(e.code==='KeyB'||e.code==='Escape')closeModals();return;}
   if(ui==='start'){if(e.code==='Enter'&&!$('go').disabled)startGame();return;}
+  if(ui==='sea'){seaKey(e,true);return;}
+  if(ui==='episode'){epiKey(e);return;}
   if(ui==='dialog'){const n=parseInt(e.key,10);if(n>=1&&n<=9){const b=$('dOpts').querySelectorAll('button')[n-1];if(b){b.click();e.preventDefault();}}if(e.code==='Escape'){closeDialog();}return;}
   if(ui==='journal'){if(e.code==='KeyJ'||e.code==='Escape')closeModals();return;}
   if(ui==='map'){if(e.code==='KeyM'||e.code==='Escape')closeModals();return;}
@@ -7284,10 +7967,11 @@ window.addEventListener('keydown',e=>{
   if(e.code==='KeyN')toggleSound();
   if(e.code==='KeyH')callHorse();
   if(e.code==='KeyV')toggleView();
+  if(e.code==='KeyF')toggleTorch();
 });
 window.addEventListener('pointerdown',()=>{if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();});
-window.addEventListener('keyup',e=>{if(KMAP[e.code])keys[KMAP[e.code]]=false;});
-window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false;});
+window.addEventListener('keyup',e=>{if(ui==='sea')seaKey(e,false);if(KMAP[e.code])keys[KMAP[e.code]]=false;});
+window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false;SEAG.kL=SEAG.kR=SEAG.ear=false;});
 
 // táctil
 if(isTouch){
@@ -7309,10 +7993,10 @@ let focus=null;
 function findFocus(){
   const ay=aimYaw(),fx=-Math.sin(ay),fz=-Math.cos(ay);let best=null,bs=0;
   const test=(o,x,z,range)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>range)return;const dot=(dx*fx+dz*fz)/(d||1);if(dot<0.35&&d>1.2)return;const sc=dot*2-d/range;if(!best||sc>bs){best=o;bs=sc;}};
-  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
+  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else bark(focus);}
+function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -7321,7 +8005,7 @@ window.addEventListener('resize',resize);
 function tryMove(nx,nz){
   const p={x:nx,z:nz};resolve(p,0.35);
   if(p.x<8000){p.x=clamp(p.x,INNER.x-INNER.size/2+20,INNER.x+INNER.size/2-20);p.z=clamp(p.z,INNER.z-INNER.size/2+20,INNER.z+INNER.size/2-20);}
-  else{const I=islandOf(p.x),w=I.R*1.38;p.x=clamp(p.x,I.x-w,I.x+w);p.z=clamp(p.z,I.z-w,I.z+w);}
+  else if(player.feet<400){const I=islandOf(p.x),w=I.R*1.38;p.x=clamp(p.x,I.x-w,I.x+w);p.z=clamp(p.z,I.z-w,I.z+w);}
   const hN=floorAt(p.x,p.z);
   if(hN-player.feet>0.65)return false;
   if(MODE==='roma'&&hN<-1.2)return false;   // el Tíber no se cruza a pie: hay que buscar un puente
@@ -7334,6 +8018,7 @@ let last=performance.now(),zt=0,ft=0,ct=0,skyT=0,cullT=1,mt=0;
 function frame(now){
   requestAnimationFrame(frame);
   const dt=Math.min(0.05,(now-last)/1000);last=now;const t=now/1000;
+  if(ui==='sea'){seaTick(dt);return;}
   crossT+=dt;if(crossT>0.1){crossT=0;placeCross();}   // el punto de mira vuelve al centro (y el cursor reaparece) fuera del juego
   if(ui!=='start'){clock.h=(clock.h+dt*clock.speed)%24;skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}
   if(ui==='play'){
@@ -7351,7 +8036,10 @@ function frame(now){
   const targetY=player.feet+player.eye+(MOUNT.riding?Math.abs(Math.sin(MOUNT.ph))*Math.min(0.07,MOUNT.v*0.004):0);player.camY=player.camY?lerp(player.camY,targetY,1-Math.exp(-dt*18)):targetY;
   if(freeAim()&&mouseIn){const ex=lastMX/innerWidth;if(ex<0.05)player.yaw+=dt*1.8*(1-ex/0.05);else if(ex>0.95)player.yaw-=dt*1.8*((ex-0.95)/0.05);}
   updateAvatar(dt,t);placeCamera();
+  updateTorch(dt,t);
   sun.position.set(player.x+LIGHTDIR.x*250,player.camY+LIGHTDIR.y*250,player.z+LIGHTDIR.z*250);skyMesh.position.copy(camera.position);STARS.position.copy(camera.position);sun.target.position.set(player.x,player.camY,player.z);
+  if(ui==='episode')epiTick(dt,t);
+  updateSpheres(dt,t);if(MODE==='atenas')updateKnossos(dt,t);
 
   // personajes
   for(const n of npcObjs){const d=Math.hypot(n.x-player.x,n.z-player.z);n.lb.visible=d<14;
@@ -7388,7 +8076,7 @@ function frame(now){
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='captain'?(focus.mode==='tierra'?'Hablar con Lisicles, el arriero':'Hablar con Hagnón, el armador'):'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?(focus.mode==='tierra'?'Hablar con Lisicles, el arriero':'Hablar con Hagnón, el armador'):'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?'Caballo':'H')+'</kbd>Montar el caballo';p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -7417,7 +8105,7 @@ $('tLib').onclick=()=>{if(ui==='play')openLibrary();};
 $('tTime').onclick=()=>{if(ui==='play')advanceTime();};
 $('bHorse').onclick=()=>{if(ui==='play')callHorse();};
 $('tHorse').onclick=()=>{if(ui==='play')callHorse();};
-$('bView').onclick=()=>{if(ui==='play')toggleView();};$('tView').onclick=()=>{if(ui==='play')toggleView();};
+$('bView').onclick=()=>{if(ui==='play')toggleView();};$('bTorch').onclick=()=>toggleTorch();$('tTorch').onclick=()=>toggleTorch();$('tView').onclick=()=>{if(ui==='play')toggleView();};
 $('bEra').onclick=()=>{location.href=location.pathname+langQuery()+(location.hash==='#debug'?'#debug':'');};
 $('bBack').onclick=()=>{location.href=location.pathname+langQuery()+(location.hash==='#debug'?'#debug':'');};
 initGloss();
@@ -7428,6 +8116,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
+  buildHandTorch();buildSpheres();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -7447,6 +8136,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

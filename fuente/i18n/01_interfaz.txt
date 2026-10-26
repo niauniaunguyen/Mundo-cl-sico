@@ -10,9 +10,9 @@ Atenas · primavera del 386 a.C.
 Atenes · primavera del 386 aC
 Athens · spring of 386 BC
 
-WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · J diario · M plano · B biblioteca · T hora · N sonido
-WASD moure't · Ratolí mirar · Maj córrer · Espai saltar (dues vegades: doble salt) · E parlar/llegir · H cavall · V vista · J diari · M plànol · B biblioteca · T hora · N so
-WASD move · Mouse look · Shift run · Space jump (twice: double jump) · E talk/read · H horse · V view · J journal · M map · B library · T time · N sound
+WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · F antorcha · J diario · M plano · B biblioteca · T hora · N sonido
+WASD moure't · Ratolí mirar · Maj córrer · Espai saltar (dues vegades: doble salt) · E parlar/llegir · H cavall · V vista · F torxa · J diari · M plànol · B biblioteca · T hora · N so
+WASD move · Mouse look · Shift run · Space jump (twice: double jump) · E talk/read · H horse · V view · F torch · J journal · M map · B library · T time · N sound
 
 Caballo
 Cavall
