@@ -1,0 +1,797 @@
+# SRC: fuentes y notas de los personajes de Atenas
+
+@f122bb59
+Plató, Teetet 160e (l'amfidròmia)
+Plato, Theaetetus 160e (the amphidromia)
+
+@bebf8cf3
+Aristòfanes, Ocells 494 i 922-923 (la festa del desè dia)
+Aristophanes, Birds 494 and 922-923 (the tenth-day feast)
+
+@5f9d5aa6
+Iseu VIII 19-20 i Andòcides I 125-127 (presentació a la fratria a les Apatúries)
+Isaeus VIII 19-20 and Andocides I 125-127 (presentation to the phratry at the Apaturia)
+
+@0a1c91a2
+Llei dels Demotiònides, IG II² 1237 (votació de la fratria)
+Law of the Demotionidai, IG II² 1237 (vote of the phratry)
+
+@99b9b166
+Homer, Odissea XIX 467-490 (Euriclea, la dida d'Odisseu)
+Homer, Odyssey XIX 467-490 (Eurycleia, Odysseus' nurse)
+
+@1d043bae
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 2.11-2.16 i 3.3
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 2.11-2.16 and 3.3
+
+@fb2748bd
+=
+=
+
+@cbb5c79d
+=
+=
+
+@94207f91
+Glícera és inventada. L'exposició de nounats està testimoniada, però la seva freqüència és molt discutida.
+Glycera is invented. The exposure of newborns is attested, but how common it was is much debated.
+
+@dac9c561
+Iseu III i VIII (proves de matrimoni amb testimonis)
+Isaeus III and VIII (proof of marriage with witnesses)
+
+@0060ec49
+Demòstenes XLVI 18 (fórmula de l'engýesis)
+Demosthenes XLVI 18 (formula of the engyesis)
+
+@fe324e26
+Plutarc, Soló 20 (el codony) i Preceptes conjugals 1
+Plutarch, Solon 20 (the quince) and Advice to the Bride and Groom 1
+
+@93ccf9d6
+Tucídides II 15.5 (l'aigua de Cal·líroe per als banys nupcials)
+Thucydides II 15.5 (the water of Callirrhoe for bridal baths)
+
+@504893b5
+Xenofont, Econòmic 7 (la jove esposa)
+Xenophon, Oeconomicus 7 (the young wife)
+
+@512b4140
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 2.13 i 4.4
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 2.13 and 4.4
+
+@aeeb6606
+=
+=
+
+@e28efc01
+=
+=
+
+@829ff804
+Nicareta és inventada. L'ordre dels ritus dels tres dies es reconstrueix amb fonts d'èpoques diferents.
+Nicarete is invented. The order of the three days' rites is reconstructed from sources of different periods.
+
+@38be3f37
+Plató, Protàgores 325c-326c (lletres, música i gimnàstica)
+Plato, Protagoras 325c-326c (letters, music and gymnastics)
+
+@2ae07fc8
+Aristòfanes, Núvols 961-983 (l'educació antiga)
+Aristophanes, Clouds 961-983 (the old education)
+
+@08ff75a6
+Tucídides VII 29.5 (una escola a Micalessos)
+Thucydides VII 29.5 (a school at Mycalessus)
+
+@69339058
+Xenofont, Constitució dels lacedemonis 2 i Plutarc, Licurg 16-18 (l'agogé)
+Xenophon, Constitution of the Lacedaemonians 2 and Plutarch, Lycurgus 16-18 (the agoge)
+
+@8741519c
+Aristòtil, Constitució dels atenesos 42 (l'efebia del segle IV)
+Aristotle, Constitution of the Athenians 42 (the fourth-century ephebeia)
+
+@ad9f8d42
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 3.1-3.3
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 3.1-3.3
+
+@cf426280
+H.-I. Marrou, Història de l'educació a l'Antiguitat (1948)
+H.-I. Marrou, A History of Education in Antiquity (1948)
+
+@42513282
+=
+=
+
+@b8373506
+Cal·lias és inventat. L'efebia obligatòria de dos anys es va organitzar cap al 335; abans hi havia una formació militar menys regulada. La frase de Menandre (fr. 702 K-Th) és posterior al 386.
+Callias is invented. The compulsory two-year ephebeia was organised around 335; before that there was less regulated military training. Menander's line (fr. 702 K-Th) is later than 386.
+
+@d918d40c
+Aristòfanes, Lisístrata 16-19 i 492-497; Assemblea de dones; Les Tesmofòries
+Aristophanes, Lysistrata 16-19 and 492-497; Assemblywomen; Women at the Thesmophoria
+
+@a046c7c8
+Plató, Lleis 805e (les dones guarden els diners)
+Plato, Laws 805e (women keep the money)
+
+@65d1c5be
+Lísias I 6-20 (la casa i el gineceu)
+Lysias I 6-20 (the house and the women's quarters)
+
+@701c8dfb
+Xenofont, Econòmic 7-10 (l'esposa com a administradora; contra el maquillatge)
+Xenophon, Oeconomicus 7-10 (the wife as manager; against make-up)
+
+@f4d922c3
+Demòstenes LIX 16 i 122 (llei contra els falsos matrimonis amb estrangers)
+Demosthenes LIX 16 and 122 (law against false marriages with foreigners)
+
+@5f3e03cd
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 4 (La mujer griega)
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 4 (La mujer griega)
+
+@04a5bc67
+=
+=
+
+@22e5e8d7
+=
+=
+
+@8e8ef6db
+=
+=
+
+@a96c51ca
+Mírrina és inventada. Els «170 dies de festa» són una estimació moderna; el grau de llibertat de moviment de les ateneses es discuteix.
+Myrrhine is invented. The «170 festival days» are a modern estimate; how freely Athenian women could move about is debated.
+
+@d21800b7
+Homer, Ilíada I 37-42 (pregària de Crises) i I 447-474 (un sacrifici complet)
+Homer, Iliad I 37-42 (Chryses' prayer) and I 447-474 (a complete sacrifice)
+
+@80306158
+Hesíode, Teogonia 535-616 (Prometeu i el repartiment)
+Hesiod, Theogony 535-616 (Prometheus and the division)
+
+@5ba8010d
+Aristòfanes, Pau 937-1126 i Ocells 848-903 (sacrificis en escena)
+Aristophanes, Peace 937-1126 and Birds 848-903 (sacrifices on stage)
+
+@aa9a0f04
+Plató, Fedó 118a (el gall per a Asclepi)
+Plato, Phaedo 118a (the cock for Asclepius)
+
+@dbb6fd70
+Èsquines I 23 (purificació de l'Assemblea)
+Aeschines I 23 (purification of the Assembly)
+
+@8f17ca88
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 5.4-5.5
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 5.4-5.5
+
+@d6fab24f
+W. Burkert, Homo necans (1972) i Religió grega (1977)
+W. Burkert, Homo Necans (1972) and Greek Religion (1977)
+
+@69cb121e
+=
+=
+
+@2b5abadc
+=
+=
+
+@f423cf9c
+Carió és inventat. Al joc el sacrifici es fa al costat de l'Altar dels Dotze Déus, que era sobretot un lloc d'asil; els sacrificis públics es feien en molts altars de la ciutat.
+Carion is invented. In the game the sacrifice takes place by the Altar of the Twelve Gods, which was mainly a place of asylum; public sacrifices were made at many altars around the city.
+
+@0cdbb5d6
+Aristòtil, Constitució dels atenesos 51 (agorànoms, metrònoms i guardians del blat)
+Aristotle, Constitution of the Athenians 51 (agoranomoi, metronomoi and grain guardians)
+
+@8d82673d
+Lísias XXII (contra els venedors de blat; les cinquanta cistelles)
+Lysias XXII (against the grain dealers; the fifty baskets)
+
+@0e467851
+Demòstenes XXXIV 37 i XXXV 50 (el blat ha d'anar al Pireu)
+Demosthenes XXXIV 37 and XXXV 50 (grain must go to the Piraeus)
+
+@cbe0b0a8
+Andòcides I 133-134 (arrendament d'impostos)
+Andocides I 133-134 (tax farming)
+
+@6b2596e9
+Teofrast, fr. 21 (la compravenda)
+Theophrastus, fr. 21 (buying and selling)
+
+@276e9a24
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 8.1-8.4
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 8.1-8.4
+
+@01c7da36
+=
+=
+
+@197fb4f9
+=
+=
+
+@58974f3a
+Aristó és inventat. Els pesos oficials s'han trobat a la zona de la Tolos.
+Ariston is invented. The official weights were found in the area of the Tholos.
+
+@8d122d31
+Demòstenes XXXV 10-13 (un contracte de préstec marítim)
+Demosthenes XXXV 10-13 (a maritime loan contract)
+
+@d44549cc
+Demòstenes XXXII 4-8 (el frau dels marsellesos)
+Demosthenes XXXII 4-8 (the Massaliots' fraud)
+
+@24c06936
+Demòstenes XXXVI (el banc de Pasió)
+Demosthenes XXXVI (Pasion's bank)
+
+@5bf6413b
+Horoi de l'Àtica, IG II² 2642-2775
+Horoi of Attica, IG II² 2642-2775
+
+@ed608235
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 8.4
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 8.4
+
+@a16fa7b6
+=
+=
+
+@fd1deaa4
+=
+=
+
+@7d59efb3
+Ctesó és inventat. Els contractes conservats són de mitjan segle IV, però el préstec marítim era més antic.
+Cteson is invented. The surviving contracts are from the mid-fourth century, but the maritime loan was older.
+
+@a641c23c
+Diògenes Laerci IV 1-5 (vida d'Espeusip)
+Diogenes Laertius IV 1-5 (life of Speusippus)
+
+@d9da99b3
+Aristòtil, Ètica a Nicòmac VII 1153b i X 1173a (Espeusip sobre el plaer)
+Aristotle, Nicomachean Ethics VII 1153b and X 1173a (Speusippus on pleasure)
+
+@467da880
+Aristòtil, Metafísica VII 1028b i XIV 1091a (els seus principis)
+Aristotle, Metaphysics VII 1028b and XIV 1091a (his principles)
+
+@faadad70
+Epícrates, fr. 10 K-A (paròdia de les classificacions de l'Acadèmia: la carabassa)
+Epicrates, fr. 10 K-A (parody of the Academy's classifications: the pumpkin)
+
+@3493ef2b
+=
+=
+
+@fe424ebd
+=
+=
+
+@7363343c
+El 386 Espeusip tindria uns vint anys; el seu paper en els primers anys de l'Acadèmia no està documentat.
+In 386 Speusippus would have been about twenty; his role in the Academy's first years is undocumented.
+
+@ccefab41
+Plató, Teetet 142a-148b (retrat del jove Teetet i els incommensurables)
+Plato, Theaetetus 142a-148b (portrait of the young Theaetetus and the incommensurables)
+
+@e534c19b
+Escoli a Euclides, Elements X (Teetet i els irracionals) i XIII (els cinc sòlids)
+Scholium to Euclid, Elements X (Theaetetus and the irrationals) and XIII (the five solids)
+
+@1f58d841
+Procle, Comentari a Euclides I, p. 66-67 Friedlein
+Proclus, Commentary on Euclid I, p. 66-67 Friedlein
+
+@34127f9b
+Suda, s.v. Theaitetos
+Suda, s.v. Theaitetos
+
+@a24c96b6
+=
+=
+
+@7f0cc7f7
+=
+=
+
+@c8b7d95f
+La data de naixement (c. 415) es dedueix del diàleg de Plató; el 386 tindria uns trenta anys. La seva relació amb l'Acadèmia és probable, no segura.
+His date of birth (c. 415) is deduced from Plato's dialogue; in 386 he would have been about thirty. His connection with the Academy is probable, not certain.
+
+@93444dca
+Iseu, Discursos (dotze conservats, tots sobre herències)
+Isaeus, Speeches (twelve surviving, all on inheritance)
+
+@2b2460cb
+Demòstenes, Discursos 43-44 (casos d'herència)
+Demosthenes, Speeches 43-44 (inheritance cases)
+
+@38bb3915
+Aristòtil, Constitució dels atenesos 56.6 (l'arconte i els orfes i les epicleres)
+Aristotle, Constitution of the Athenians 56.6 (the archon, orphans and heiresses)
+
+@8c269609
+Dionís d'Halicarnàs, Sobre Iseu
+Dionysius of Halicarnassus, On Isaeus
+
+@0abb4826
+=
+=
+
+@0b867e5d
+=
+=
+
+@9e5eecb6
+Les dates dels discursos d'Iseu van aproximadament del 389 al 344; la seva vida es coneix malament.
+Isaeus' speeches date roughly from 389 to 344; his life is poorly known.
+
+@3c0e2814
+Xenofont, Hel·lèniques VI 2.39 i VI 3.10-17 (discurs de Cal·lístrat a Esparta, 371)
+Xenophon, Hellenica VI 2.39 and VI 3.10-17 (Callistratus' speech at Sparta, 371)
+
+@5fb2d0bf
+IG II² 34 i 43 (aliances i decret de la Segona Lliga, 384-377)
+IG II² 34 and 43 (alliances and decree of the Second League, 384-377)
+
+@50c6a7fe
+Demòstenes XXI 218 i Èsquines II 124 (al·lusions)
+Demosthenes XXI 218 and Aeschines II 124 (allusions)
+
+@a74e9d58
+Plutarc, Demòstenes 5 (el jove Demòstenes escolta Cal·lístrat)
+Plutarch, Demosthenes 5 (the young Demosthenes hears Callistratus)
+
+@71c540c8
+=
+=
+
+@865601a4
+=
+=
+
+@06fe9d4b
+La seva carrera documentada comença cap al 392-390; la seva importància el 386 és una conjectura raonable.
+His documented career begins around 392-390; his importance in 386 is a reasonable conjecture.
+
+@efa65537
+Hipòtesi III del Plutus d'Aristòfanes (Araros presenta les últimes obres del seu pare)
+Hypothesis III to Aristophanes' Wealth (Araros presents his father's last plays)
+
+@9176f1c7
+Escoli a Plató, Apologia 19c
+Scholium to Plato, Apology 19c
+
+@0b2b0879
+Suda, s.v. Araros
+Suda, s.v. Araros
+
+@87535cea
+Fragments d'Araros a Kassel-Austin, PCG II
+Fragments of Araros in Kassel-Austin, PCG II
+
+@029b75cd
+=
+=
+
+@1a9d6b09
+Segons la tradició, Aristòfanes va fer presentar al públic el seu fill amb el Còcal, cap al 387; les dates són insegures.
+According to tradition, Aristophanes had his son introduced to the public with the Cocalus, around 387; the dates are uncertain.
+
+@c98a3591
+Antífanes, fr. 189 K-A, Poíesis (Ateneu VI 222a-223a: la comèdia ho té més difícil que la tragèdia)
+Antiphanes, fr. 189 K-A, Poiesis (Athenaeus VI 222a-223a: comedy has it harder than tragedy)
+
+@bc3f3c82
+Suda, s.v. Antiphanes (comença a estrenar cap al 385)
+Suda, s.v. Antiphanes (begins staging plays around 385)
+
+@a0d484f1
+Ateneu, El banquet dels savis (cita centenars de fragments)
+Athenaeus, The Learned Banqueters (quotes hundreds of fragments)
+
+@b971f789
+=
+=
+
+@d4fc113e
+=
+=
+
+@6888216c
+El fragment sobre la tragèdia és autèntic; l'escena d'Antífanes al teatre és inventada.
+The fragment on tragedy is genuine; the scene of Antiphanes in the theatre is invented.
+
+@b1354675
+Xenofont, Hel·lèniques IV 5.11-18 (la mora espartana destruïda al Lequeu, 390)
+Xenophon, Hellenica IV 5.11-18 (the Spartan mora destroyed at Lechaeum, 390)
+
+@9d4ace72
+Diodor XV 44 (reformes dels peltastes)
+Diodorus XV 44 (reforms of the peltasts)
+
+@52d901e8
+Corneli Nepot, Ifícrates
+Cornelius Nepos, Iphicrates
+
+@1dce5d94
+Plutarc, Moralia 187a-b (dites d'Ifícrates)
+Plutarch, Moralia 187a-b (sayings of Iphicrates)
+
+@0f0e8134
+=
+=
+
+@3650b737
+=
+=
+
+@09d00885
+Després de la Pau del Rei, Ifícrates va servir com a mercenari a Tràcia; és possible que no fos al Pireu el 386. Diodor atribueix les seves reformes a una època posterior.
+After the King's Peace, Iphicrates served as a mercenary in Thrace; he may not have been in the Piraeus in 386. Diodorus dates his reforms later.
+
+@f7d63353
+Xenofont, Hel·lèniques V 1.10-13 (Cabries a Egina, 388)
+Xenophon, Hellenica V 1.10-13 (Chabrias at Aegina, 388)
+
+@c4b4f67f
+Corneli Nepot, Cabries
+Cornelius Nepos, Chabrias
+
+@dc58d83c
+Diodor XV 29 i 32-33 (la posició amb el genoll a terra; Egipte)
+Diodorus XV 29 and 32-33 (the kneeling stance; Egypt)
+
+@3e22bd53
+Demòstenes XX 75-86 (honors a Cabries)
+Demosthenes XX 75-86 (honours for Chabrias)
+
+@42f33fd9
+=
+=
+
+@65aa3e35
+=
+=
+
+@966f18e7
+Després de la Pau del Rei, Cabries va marxar a Xipre i Egipte com a mercenari; la seva presència a Atenes el 386 és una llicència.
+After the King's Peace, Chabrias went to Cyprus and Egypt as a mercenary; his presence in Athens in 386 is a licence.
+
+@b02eb8c2
+Diògenes Laerci II 65-104 (Aristip i els cirenaics)
+Diogenes Laertius II 65-104 (Aristippus and the Cyrenaics)
+
+@816d5652
+Xenofont, Memorables II 1 i III 8 (converses amb Sòcrates)
+Xenophon, Memorabilia II 1 and III 8 (conversations with Socrates)
+
+@4a70ed4d
+Heròdot IV 150-205 (fundació de Cirene i els Batíades)
+Herodotus IV 150-205 (the founding of Cyrene and the Battiads)
+
+@bfe1ae3c
+Píndar, Pítiques IV-V (per a Arcesilau IV)
+Pindar, Pythians IV-V (for Arcesilas IV)
+
+@68312a0a
+=
+=
+
+@72c81da6
+=
+=
+
+@48c1bb0e
+No sabem on vivia Aristip el 386; la tradició el situa a Atenes, Siracusa i Cirene. La genealogia batíada és la d'Heròdot; el fundador argonauta Eufem prové de Píndar.
+We don't know where Aristippus lived in 386; tradition places him in Athens, Syracuse and Cyrene. The Battiad genealogy is Herodotus'; the Argonaut founder Euphemus comes from Pindar.
+
+@63d2c979
+Heròdot VI 51-60 (els dos reis) i VII 204, VIII 131 (genealogies)
+Herodotus VI 51-60 (the two kings) and VII 204, VIII 131 (genealogies)
+
+@f6678d96
+Xenofont, Hel·lèniques III 3.1-4 (successió d'Agesilau)
+Xenophon, Hellenica III 3.1-4 (the succession of Agesilaus)
+
+@f6f9be9b
+Xenofont, Constitució dels lacedemonis 13-15
+Xenophon, Constitution of the Lacedaemonians 13-15
+
+@232a9821
+Plutarc, Agesilau i Lisandre
+Plutarch, Agesilaus and Lysander
+
+@fc820ec7
+=
+=
+
+@d9658c67
+=
+=
+
+@717693ff
+Tèlecle és un personatge inventat. Les primeres generacions de totes dues dinasties són llegendàries i les seves llistes no coincideixen en totes les fonts.
+Teleclus is an invented character. The first generations of both dynasties are legendary and their lists don't agree in all the sources.
+
+@e03cc1c9
+Heròdot V 22 i VIII 137-139 (origen argiu de la dinastia)
+Herodotus V 22 and VIII 137-139 (Argive origin of the dynasty)
+
+@59c9b21f
+Tucídides II 99-100 (Arquelau)
+Thucydides II 99-100 (Archelaus)
+
+@7c5cc215
+Diodor XIV 89 i 92 (Amintes III expulsat i restaurat)
+Diodorus XIV 89 and 92 (Amyntas III expelled and restored)
+
+@46b99796
+Plató, Gòrgias 471a-d (crims d'Arquelau)
+Plato, Gorgias 471a-d (Archelaus' crimes)
+
+@1f18e5cd
+=
+=
+
+@e268b2ff
+=
+=
+
+@1d505c91
+Bàlacre és un personatge inventat. La llista de reis entre Arquelau i Amintes III (399-393) és confusa a les fonts.
+Balacrus is an invented character. The list of kings between Archelaus and Amyntas III (399-393) is confused in the sources.
+
+@49d7eb6a
+Tucídides VI 3-5 (fundació de Siracusa)
+Thucydides VI 3-5 (the founding of Syracuse)
+
+@eb31d901
+Heròdot VII 153-167 (Geló)
+Herodotus VII 153-167 (Gelon)
+
+@075d5868
+Diodor XIII-XV (Dionís I)
+Diodorus XIII-XV (Dionysius I)
+
+@c9e5bbdc
+Plató, Carta VII (Dionís i Dió)
+Plato, Seventh Letter (Dionysius and Dion)
+
+@36205f37
+Diògenes Laerci III 18-21 (Plató venut com a esclau)
+Diogenes Laertius III 18-21 (Plato sold as a slave)
+
+@afb82a5d
+=
+=
+
+@757868e8
+Hícetes és inventat. El viatge de Plató a Siracusa (c. 388-387) i la seva venda com a esclau poden ser en part llegendaris.
+Hicetas is invented. Plato's journey to Syracuse (c. 388-387) and his sale as a slave may be partly legendary.
+
+@3b2e0838
+Isòcrates, Evàgores 12-40 (elogi i genealogia)
+Isocrates, Evagoras 12-40 (praise and genealogy)
+
+@318df927
+Xenofont, Hel·lèniques IV 8.24 i V 1.10
+Xenophon, Hellenica IV 8.24 and V 1.10
+
+@81a5449d
+Diodor XIV 98 i XV 2-9 (guerra amb Pèrsia)
+Diodorus XIV 98 and XV 2-9 (war with Persia)
+
+@248613dc
+IG I³ 113 (honors atenesos a Evàgores)
+IG I³ 113 (Athenian honours for Evagoras)
+
+@453165d1
+=
+=
+
+@d3e3ec12
+Timarc és inventat. La descendència de Teucre és la versió oficial de la casa d'Evàgores; l'Evàgores d'Isòcrates és de cap al 370.
+Timarchus is invented. Descent from Teucer is the official version of Evagoras' house; Isocrates' Evagoras dates from around 370.
+
+@10942ca1
+Heròdot VII 6 i 130, IX 58 (els Alèuades)
+Herodotus VII 6 and 130, IX 58 (the Aleuadae)
+
+@3980c2c5
+Píndar, Pítica X (per a Tòrax, un Alèuada)
+Pindar, Pythian X (for Thorax, one of the Aleuadae)
+
+@63779147
+Aristòtil, fr. 497-498 Rose (organització d'Aleues)
+Aristotle, fr. 497-498 Rose (Aleuas' organisation)
+
+@e98c4609
+Xenofont, Hel·lèniques VI 1 (Jàson de Feres)
+Xenophon, Hellenica VI 1 (Jason of Pherae)
+
+@7a7cedde
+Plató, Menó 70a-b
+Plato, Meno 70a-b
+
+@4cfaa9d8
+=
+=
+
+@edbf2778
+=
+=
+
+@2390cf5e
+Eudic és inventat. La genealogia dels Alèuades és molt incompleta; Jàson de Feres arriba al poder després del 386.
+Eudicus is invented. The genealogy of the Aleuadae is very incomplete; Jason of Pherae comes to power after 386.
+
+@a68e1f73
+Plutarc, Pirros 1 (genealogia dels reis molossos)
+Plutarch, Pyrrhus 1 (genealogy of the Molossian kings)
+
+@d55fa897
+Tucídides II 80 (Molossos)
+Thucydides II 80 (Molossians)
+
+@af07fea2
+Diodor XV 13 (Àlcetes, protegit de Dionís)
+Diodorus XV 13 (Alcetas, Dionysius' protégé)
+
+@42aab903
+Eurípides, Andròmaca 1243-1252 (Molossos, fill de Neoptòlem)
+Euripides, Andromache 1243-1252 (Molossus, son of Neoptolemus)
+
+@75885bf1
+Pausànias I 11
+Pausanias I 11
+
+@37eb9406
+=
+=
+
+@cbaefa1c
+=
+=
+
+@3a706c15
+Sabirt és inventat. La descendència de Neoptòlem és llegendària.
+Sabyrtus is invented. Descent from Neoptolemus is legendary.
+
+@4d8a3a6d
+Plató, Apologia 26d-e (els llibres d'Anaxàgores es compren a l'orquestra per una dracma)
+Plato, Apology 26d-e (Anaxagoras' books bought in the orchestra for a drachma)
+
+@949a0412
+Xenofont, Memorables IV 2.1-10 (Eutidem i la seva col·lecció de llibres)
+Xenophon, Memorabilia IV 2.1-10 (Euthydemus and his book collection)
+
+@ffcb399f
+Xenofont, Anàbasi VII 5.14 (llibres com a mercaderia)
+Xenophon, Anabasis VII 5.14 (books as merchandise)
+
+@21aff704
+Aristòfanes, Granotes 52-53 i 1114 (llegir i tenir llibres)
+Aristophanes, Frogs 52-53 and 1114 (reading and owning books)
+
+@b4192542
+Ateneu I 3a (grans biblioteques privades)
+Athenaeus I 3a (great private libraries)
+
+@bae1fe4f
+=
+=
+
+@111c2560
+R. Pfeiffer, Història de la filologia clàssica (1968)
+R. Pfeiffer, History of Classical Scholarship (1968)
+
+@c0624069
+=
+=
+
+@d6f7a2a6
+El 386 no hi havia biblioteques públiques a Atenes; les primeres grans col·leccions (Aristòtil, Alexandria) són posteriors. Per això el «bibliotecari» del joc és un llibreter de l'Àgora. Demofont és inventat.
+In 386 there were no public libraries in Athens; the first great collections (Aristotle, Alexandria) came later. That's why the game's «librarian» is a bookseller in the Agora. Demophon is invented.
+
+@85e5b156
+Heròdot VII 43 (Xerxes sacrifica mil bous a Atena Ilíade)
+Herodotus VII 43 (Xerxes sacrifices a thousand oxen to Athena of Ilion)
+
+@4499433e
+Homer, Ilíada XX 215-240 (genealogia de Dàrdanos a Príam) i XXI 441-457
+Homer, Iliad XX 215-240 (genealogy from Dardanus to Priam) and XXI 441-457
+
+@cbdfbf7f
+Homer, Odissea XXIV 71-84 (tomba d'Aquil·les)
+Homer, Odyssey XXIV 71-84 (the tomb of Achilles)
+
+@dc54ebf2
+Xenofont, Hel·lèniques I 1.4 (Míndar sacrifica a Ílion, 411)
+Xenophon, Hellenica I 1.4 (Mindarus sacrifices at Ilion, 411)
+
+@e29267ad
+=
+=
+
+@8207ca8e
+=
+=
+
+@a304163e
+Ideu és inventat. La identificació de la Troia homèrica amb Hisarlik (Troia VI-VIIa) és la més acceptada, però la historicitat de la guerra es discuteix.
+Idaeus is invented. Identifying Homeric Troy with Hisarlik (Troy VI-VIIa) is the most widely accepted view, but the historicity of the war is debated.
+
+@b844c7a8
+Eneas el Tàctic 31.24 (les donzelles que entren d'amagat a Ílion)
+Aeneas Tacticus 31.24 (the maidens who slip secretly into Ilion)
+
+@1e0cdafe
+Estrabó XIII 1.40
+Strabo XIII 1.40
+
+@fd4b17df
+Licòfron, Alexandra 1141-1173
+Lycophron, Alexandra 1141-1173
+
+@9add7ec6
+IG IX².3 706 (acord locri sobre les donzelles, c. 300-250)
+IG IX².3 706 (Locrian agreement on the maidens, c. 300-250)
+
+@9b46a430
+=
+=
+
+@c4b64be7
+=
+=
+
+@84179813
+Peribea és inventada. El costum està testimoniat al segle IV i després; el seu origen i la seva continuïtat es discuteixen.
+Periboea is invented. The custom is attested in the fourth century and later; its origin and continuity are debated.
+
+@ee488171
+Corneli Nepot, Epaminondes
+Cornelius Nepos, Epaminondas
+
+@4c26ee2e
+Plutarc, Pelòpides 3-4 (amistat amb Pelòpides; Mantinea, 385)
+Plutarch, Pelopidas 3-4 (friendship with Pelopidas; Mantinea, 385)
+
+@bdac5bc3
+Diodor XV 39 i 50-88
+Diodorus XV 39 and 50-88
+
+@fe069e13
+Pausànias IX 13-15
+Pausanias IX 13-15
+
+@2c831598
+=
+=
+
+@c9d6e47a
+=
+=
+
+@7d95fe62
+El 386 Epaminondes tenia uns trenta-cinc anys i encara no havia destacat; l'hegemonia tebana comença amb Leuctra (371). La genealogia cadmea és la tradició mítica dels «sembrats».
+In 386 Epaminondas was about thirty-five and had not yet made his mark; the Theban hegemony begins with Leuctra (371). The Cadmean genealogy is the mythical tradition of the «Sown Men».
+
+@f457ef82
+Plutarc, Pelòpides
+Plutarch, Pelopidas
