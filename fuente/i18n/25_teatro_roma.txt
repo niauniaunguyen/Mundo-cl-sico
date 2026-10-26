@@ -1,0 +1,369 @@
+# updateRomaTheatre: el teatro de Roma y sus espectadores
+
+@30c1750f
+" · escena "
+" · scene "
+
+@8a34e5de
+Publi Ovidi Nasó (43 aC-17/18 dC) va ser el poeta més brillant de l'època d'August: va escriure poemes d'amor (Amors, Art d'estimar), les Heroides, els Fastos sobre el calendari romà i les Metamorfosis, uns dos-cents cinquanta mites de transformacions encadenats en quinze llibres. El 8 dC August el va desterrar a Tomis, a la vora del mar Negre, per «un poema i un error»; allà va escriure les Tristes i les Pòntiques, i allà va morir.
+Publius Ovidius Naso (43 BC-AD 17/18) was the most brilliant poet of Augustus' age: he wrote love poems (Amores, The Art of Love), the Heroides, the Fasti on the Roman calendar and the Metamorphoses, some two hundred and fifty myths of transformation linked together in fifteen books. In AD 8 Augustus exiled him to Tomis, on the shore of the Black Sea, for «a poem and a mistake»; there he wrote the Tristia and the Letters from Pontus, and there he died.
+
+@2d828634
+Per Venus, una altra comèdia de vells avars! Em dic Aurèlia. Vinc al teatre perquè hi ha tothom, però jo prefereixo Ovidi. Em sé de memòria mig llibre de les Metamorfosis. L'has llegit? Seu, que abans que tornin els actors t'explico una cosa.
+By Venus, another comedy about miserly old men! My name is Aurelia. I come to the theatre because everyone's here, but I prefer Ovid. I know half a book of the Metamorphoses by heart. Have you read it? Sit down, and before the actors come back I'll tell you something.
+
+@4a542f6f
+Què són les Metamorfosis?
+What are the Metamorphoses?
+
+@72a9515e
+Quinze llibres en vers amb més de dos-cents mites, des del caos del principi del món fins a Cèsar convertit en estrella. Tots tracten de cossos que canvien de forma: Dafne es converteix en llorer fugint d'Apol·lo, Narcís en flor, Aracne en aranya per desafiar Minerva, Ícar cau al mar quan el sol li fon la cera de les ales. I Ovidi els enllaça tots, l'un darrere l'altre, com si fos una sola història. Acaba dient que, mentre es llegeixi, viurà.
+Fifteen books of verse with over two hundred myths, from the chaos at the beginning of the world to Caesar turned into a star. All are about bodies changing shape: Daphne turns into a laurel fleeing Apollo, Narcissus into a flower, Arachne into a spider for challenging Minerva, Icarus falls into the sea when the sun melts the wax of his wings. And Ovid links them all, one after another, as if it were a single story. He ends by saying that, as long as he is read, he will live.
+
+@a49e570f
+Per què el van desterrar?
+Why was he exiled?
+
+@392f0947
+Ningú no ho sap del tot. Ell mateix va escriure que el van perdre «un poema i un error». El poema seria l'Art d'estimar, que ensenyava a seduir just quan August aprovava lleis per protegir el matrimoni. L'error… diuen que va veure alguna cosa que no havia de veure a casa de l'emperador; potser alguna cosa relacionada amb Júlia, la néta d'August, desterrada el mateix any. El van enviar a Tomis, al mar Negre, entre bàrbars que no parlaven llatí.
+No one knows for sure. He himself wrote that «a poem and a mistake» ruined him. The poem would be The Art of Love, which taught seduction just as Augustus was passing laws to protect marriage. The mistake… they say he saw something he shouldn't have in the emperor's house; perhaps something to do with Julia, Augustus' granddaughter, exiled the same year. They sent him to Tomis, on the Black Sea, among barbarians who spoke no Latin.
+
+@2f0ea257
+Què va escriure al desterrament?
+What did he write in exile?
+
+@6e59bba5
+Cartes en vers, les Tristes i les Pòntiques, suplicant tornar. Descriu el fred, el Danubi glaçat pel qual passen els carros, els getes amb fletxes enverinades, que no l'entenen. Diu que fins i tot n'ha après la llengua. August va morir sense perdonar-lo, i Tiberi tampoc no ho va fer. Va morir allà, fa més de seixanta anys. És el més trist que he llegit mai, i tot i així no puc deixar de llegir-ho.
+Letters in verse, the Tristia and the Letters from Pontus, begging to return. He describes the cold, the frozen Danube with carts crossing it, the Getae with poisoned arrows, who don't understand him. He says he has even learned their language. Augustus died without pardoning him, and Tiberius didn't either. He died there, more than sixty years ago. It's the saddest thing I've ever read, and still I can't stop reading it.
+
+@37025f52
+On va desterrar August Ovidi?
+Where did Augustus exile Ovid?
+
+@cd1999ca
+A Tomis, a la vora del mar Negre
+To Tomis, on the shore of the Black Sea
+
+@b3c9addc
+A l'illa de Capri
+To the island of Capri
+
+@25ed53e9
+A Alexandria, a Egipte
+To Alexandria, in Egypt
+
+@2bda2595
+No. El 8 dC August va desterrar Ovidi a Tomis (l'actual Constança, a Romania), a la vora del mar Negre, on va morir.
+No. In AD 8 Augustus exiled Ovid to Tomis (modern Constanța, in Romania), on the shore of the Black Sea, where he died.
+
+@29947f12
+Titus Livi (59 aC-17 dC), nascut a Patavium (Pàdua), va escriure en 142 llibres la història de Roma des de la seva fundació (Ab urbe condita) fins al 9 aC. Se'n conserven 35. Al pròleg diu que la història serveix per veure exemples del que cal imitar i del que cal evitar. August el tractava com un amic, encara que l'anomenava «pompeià» per la seva simpatia per la República. Gràcies a ell coneixem la major part de les llegendes de la Roma antiga.
+Titus Livius (59 BC-AD 17), born in Patavium (Padua), wrote in 142 books the history of Rome from its founding (Ab urbe condita) down to 9 BC. Thirty-five survive. In his preface he says history is useful for seeing examples of what to imitate and what to avoid. Augustus treated him as a friend, though he called him a «Pompeian» for his sympathy towards the Republic. Thanks to him we know most of the legends of early Rome.
+
+@0f1629d4
+Salve. Luci Vibi, de Patavium, la mateixa ciutat que Titus Livi, el més gran historiador de Roma. El meu avi el va conèixer de vell, quan va tornar a morir a la seva terra. Aquestes comèdies estan bé, però si vols històries de debò, pregunta'm per Livi.
+Salve. Lucius Vibius, of Patavium, the same town as Titus Livius, Rome's greatest historian. My grandfather knew him in his old age, when he came home to die. These comedies are fine, but if you want real stories, ask me about Livy.
+
+@8f0394f0
+Què va escriure Titus Livi?
+What did Livy write?
+
+@ee2faa07
+La història sencera de Roma, des de l'arribada d'Enees fins als temps d'August: cent quaranta-dos llibres. Hi va treballar més de quaranta anys. Comença amb un pròleg famós: diu que no sap si val la pena, però que el millor de conèixer la història és tenir davant dels ulls exemples de tota mena, per imitar el que és bo i evitar el que és vergonyós. I confessa que, mentre escriu sobre el passat, s'oblida dels mals del seu temps.
+The whole history of Rome, from the arrival of Aeneas to the times of Augustus: a hundred and forty-two books. He worked on it for over forty years. It begins with a famous preface: he says he doesn't know whether it's worth it, but that the best thing about knowing history is having examples of every kind before your eyes, to imitate the good and avoid the shameful. And he confesses that, while writing about the past, he forgets the ills of his own time.
+
+@90b8aecc
+Explica'm una de les seves històries
+Tell me one of his stories
+
+@d838c607
+La d'Hannibal, que és la millor part. Hannibal va travessar els Alps amb elefants, a l'hivern, amb neu, i va baixar a Itàlia. Va vèncer al Trasimè i a Cannes, on van morir en un sol dia desenes de milers de romans. Livi explica que Hannibal va enviar a Cartago munts d'anells d'or dels cavallers morts. I tot i així Roma no es va rendir: quan Hannibal va acampar a les portes de la ciutat, el terreny on hi havia el seu campament es va vendre a Roma, i se'n va pagar el preu complet.
+Hannibal's, which is the best part. Hannibal crossed the Alps with elephants, in winter, in the snow, and came down into Italy. He won at Lake Trasimene and at Cannae, where tens of thousands of Romans died in a single day. Livy says Hannibal sent heaps of gold rings from the dead knights to Carthage. And yet Rome didn't give in: when Hannibal camped at the city's gates, the land his camp stood on was sold in Rome, and fetched its full price.
+
+@95c80b71
+I com era Livi?
+And what was Livy like?
+
+@c33322f3
+Un home de províncies que mai no va fer política, cosa rara en un historiador romà. August l'apreciava i el deixava escriure amb llibertat, encara que l'anomenava «pompeià» perquè lloava els defensors de la República. Hi ha una anècdota que m'encanta: un home de Gades, a Hispània, va viatjar fins a Roma només per veure Livi, el va mirar i se'n va tornar a casa sense visitar res més. Així era la seva fama.
+A provincial who never went into politics, rare in a Roman historian. Augustus valued him and let him write freely, though he called him a «Pompeian» because he praised the defenders of the Republic. There's an anecdote I love: a man from Gades, in Hispania, travelled all the way to Rome just to see Livy, looked at him and went home without visiting anything else. Such was his fame.
+
+@c411868d
+De què tracta la gran obra de Titus Livi?
+What is Livy's great work about?
+
+@d8a1b07a
+De la història de Roma des de la seva fundació, en 142 llibres
+The history of Rome from its founding, in 142 books
+
+@08509354
+De la vida dels dotze primers emperadors
+The lives of the first twelve emperors
+
+@1affd1ed
+De la guerra de les Gàl·lies explicada per Cèsar
+The Gallic War told by Caesar
+
+@cda8609e
+No. Titus Livi va escriure Ab urbe condita, la història de Roma des de la seva fundació, en 142 llibres, dels quals se'n conserven 35.
+No. Livy wrote Ab urbe condita, the history of Rome from its founding, in 142 books, of which 35 survive.
+
+@9589aebb
+La comèdia romana adaptava comèdies gregues, sobretot de Menandre, amb personatges grecs amb mantell (palliata). Plaute (c. 254-184 aC) va escriure moltes comèdies, de les quals se'n conserven 21, plenes de cançons, jocs de paraules i esclaus astuts. Terenci (c. 190-159 aC), un antic esclau de Cartago, va escriure sis comèdies més refinades i realistes. En època imperial el públic preferia el mim i la pantomima, però les comèdies antigues es continuaven llegint a les escoles i de vegades es reposaven.
+Roman comedy adapted Greek comedies, especially Menander's, with Greek characters in cloaks (palliata). Plautus (c. 254-184 BC) wrote many comedies, of which 21 survive, full of songs, wordplay and cunning slaves. Terence (c. 190-159 BC), a former slave from Carthage, wrote six more refined and realistic comedies. In imperial times audiences preferred mime and pantomime, but the old comedies were still read in schools and sometimes revived.
+
+@d2bb27d7
+Ah, un espectador! Sóc Ambivi, i porto el nom de Luci Ambivi Turpió, el gran actor que va estrenar les comèdies de Terenci fa gairebé dos-cents cinquanta anys. La meva companyia reposa avui els clàssics. No és fàcil: la gent d'ara prefereix el mim i la pantomima, però un bon esclau de Plaute encara fa riure qualsevol.
+Ah, a spectator! I'm Ambivius, and I bear the name of Lucius Ambivius Turpio, the great actor who staged Terence's comedies nearly two hundred and fifty years ago. My company is reviving the classics today. It isn't easy: people nowadays prefer mime and pantomime, but a good Plautine slave still makes anyone laugh.
+
+@c35c2a04
+Qui era Plaute?
+Who was Plautus?
+
+@e42f49d0
+Un umbre que va arribar a Roma, va treballar al teatre, va perdre els seus diners en negocis i, diuen, va haver de treballar en un molí de farina, on escrivia les seves comèdies. Se n'hi atribuïen unes cent trenta, i el savi Varró en va acceptar vint-i-una com a segures. Agafa comèdies gregues i les omple d'acudits, cançons i insults enginyosos. El seu gran personatge és l'esclau llest que enganya el seu amo i ho arregla tot, com Tranió a La comèdia del fantasma.
+An Umbrian who came to Rome, worked in the theatre, lost his money in business and, they say, had to work in a flour mill, where he wrote his comedies. About a hundred and thirty were attributed to him, and the scholar Varro accepted twenty-one as genuine. He takes Greek comedies and fills them with jokes, songs and witty insults. His great character is the clever slave who tricks his master and fixes everything, like Tranio in The Haunted House.
+
+@0fbb673e
+I Terenci?
+And Terence?
+
+@d21eed45
+Un esclau africà, de Cartago, a qui el seu amo, un senador, va educar i alliberar. Va morir jove en un viatge a Grècia. Va escriure només sis comèdies, més tranquil·les i elegants que les de Plaute, amb personatges que pensen i dubten. Seva és la frase que tothom cita: «Sóc home, i res d'humà no m'és aliè». A l'escola s'aprèn llatí amb ell. Però ja li costava omplir el teatre en vida: La sogra va fracassar dues vegades.
+An African slave, from Carthage, whose master, a senator, educated and freed him. He died young on a journey to Greece. He wrote only six comedies, quieter and more elegant than Plautus', with characters who think and hesitate. His is the line everyone quotes: «I am human, and nothing human is alien to me». In school you learn Latin with him. But even in his lifetime he struggled to fill the theatre: The Mother-in-Law failed twice.
+
+@379a7749
+Com es fa una funció?
+How is a performance put on?
+
+@55598ba2
+Els actors som tots homes, també els que fan de dones, i gairebé tots esclaus o llibertos. Portem màscara, perruca i el mantell grec. Un tocador de tíbia, la flauta doble, acompanya les parts cantades. L'escenari representa un carrer amb dues o tres cases, i tot passa davant de les portes. Abans calia muntar teatres de fusta; des de Pompeu tenim teatres de pedra. I al final, sempre el mateix: «Aplaudiu!».
+We actors are all men, even those who play women, and nearly all slaves or freedmen. We wear masks, wigs and the Greek cloak. A tibia player, on the double pipe, accompanies the sung parts. The stage shows a street with two or three houses, and everything happens in front of the doors. Theatres used to be built of wood each time; since Pompey we've had stone theatres. And at the end, always the same: «Applaud!».
+
+@063dbaa4
+D'on treien els arguments Plaute i Terenci?
+Where did Plautus and Terence get their plots?
+
+@7907c36b
+De comèdies gregues, sobretot de Menandre, que adaptaven al llatí
+From Greek comedies, especially Menander's, which they adapted into Latin
+
+@ca60873f
+De la història dels reis de Roma
+From the history of the kings of Rome
+
+@a3937ade
+Dels mites etruscs
+From Etruscan myths
+
+@2bde68c8
+No. Plaute i Terenci adaptaven comèdies gregues (l'anomenada comèdia nova, sobretot de Menandre), amb personatges grecs que vestien el mantell o pallium.
+No. Plautus and Terence adapted Greek comedies (the so-called New Comedy, especially Menander's), with Greek characters wearing the cloak or pallium.
+
+@31ac7ed8
+Ovidi, Metamorfosis I 1-4 i XV 871-879
+Ovid, Metamorphoses I 1-4 and XV 871-879
+
+@8c02785f
+Ovidi, Tristes II 207 («un poema i un error») i III 10 (el Danubi glaçat)
+Ovid, Tristia II 207 («a poem and a mistake») and III 10 (the frozen Danube)
+
+@848880db
+Ovidi, Pòntiques
+Ovid, Letters from Pontus
+
+@51c607f0
+=
+=
+
+@01af6215
+Aurèlia és inventada. La causa del desterrament d'Ovidi continua sense conèixer-se.
+Aurelia is invented. The reason for Ovid's exile is still unknown.
+
+@60b45113
+Titus Livi, pròleg; XXI 32-38 (Hannibal als Alps); XXIII 12 (els anells de Cannes); XXVI 11 (el camp d'Hannibal venut a Roma)
+Livy, preface; XXI 32-38 (Hannibal in the Alps); XXIII 12 (the rings of Cannae); XXVI 11 (Hannibal's camp sold in Rome)
+
+@fa018b78
+Tàcit, Annals IV 34 (August l'anomenava pompeià)
+Tacitus, Annals IV 34 (Augustus called him a Pompeian)
+
+@a176c10f
+Plini el Jove, Cartes II 3.8 (l'home de Gades)
+Pliny the Younger, Letters II 3.8 (the man from Gades)
+
+@a7365b05
+=
+=
+
+@8d968863
+J. D. Chaplin i C. S. Kraus (eds.), Livy (2009)
+J. D. Chaplin and C. S. Kraus (eds.), Livy (2009)
+
+@d6af4df4
+Luci Vibi és inventat.
+Lucius Vibius is invented.
+
+@efc72a38
+Terenci, pròlegs de La sogra; L'home que es castiga a si mateix 77 («Homo sum, humani nihil a me alienum puto»)
+Terence, prologues to The Mother-in-Law; The Self-Tormentor 77 («Homo sum, humani nihil a me alienum puto»)
+
+@133202cb
+Aule Gel·li, Nits àtiques III 3 (Plaute i el molí; les obres autèntiques segons Varró)
+Aulus Gellius, Attic Nights III 3 (Plautus and the mill; the genuine plays according to Varro)
+
+@585021e9
+Suetoni, Vida de Terenci
+Suetonius, Life of Terence
+
+@34dcdbea
+Horaci, Epístoles II 1.170-176
+Horace, Epistles II 1.170-176
+
+@cf63c4f9
+=
+=
+
+@e6302517
+=
+=
+
+@2f5142cb
+Ambivi és inventat; pren el nom de l'actor Luci Ambivi Turpió. Al segle I dC les comèdies de Plaute i Terenci es representaven poc: el públic preferia el mim i la pantomima.
+Ambivius is invented; he takes his name from the actor Lucius Ambivius Turpio. In the first century AD the comedies of Plautus and Terence were rarely staged: audiences preferred mime and pantomime.
+
+@d2f2dcbe
+El teatre va arribar a Roma des d'Etrúria i des de les ciutats gregues del sud d'Itàlia. El 240 aC Livi Andrònic, un grec de Tàrent, va presentar la primera tragèdia i la primera comèdia en llatí. Durant dos segles les obres es van representar en escenaris de fusta que es desmuntaven després dels jocs: el Senat desconfiava dels teatres permanents.
+Theatre reached Rome from Etruria and from the Greek cities of southern Italy. In 240 BC Livius Andronicus, a Greek from Tarentum, staged the first tragedy and the first comedy in Latin. For two centuries plays were performed on wooden stages taken down after the games: the Senate mistrusted permanent theatres.
+
+@8ea0f4c8
+La comèdia palliata, amb personatges i escenaris grecs, adaptava la comèdia nova grega, sobretot Menandre. Plaute (c. 254-184 aC) la va omplir de música, jocs de paraules i esclaus trapelles; se'n conserven 21 obres. Terenci (c. 190-159 aC), un antic esclau cartaginès, va escriure sis comèdies de to més contingut, amb diàlegs acurats i personatges plens de matisos.
+The palliata comedy, with Greek characters and settings, adapted Greek New Comedy, especially Menander. Plautus (c. 254-184 BC) filled it with music, wordplay and scheming slaves; 21 of his plays survive. Terence (c. 190-159 BC), a former Carthaginian slave, wrote six more restrained comedies, with careful dialogue and finely shaded characters.
+
+@494bd15b
+Pompeu va construir el primer teatre de pedra el 55 aC; el van seguir el de Balb i el de Marcel. Al joc, el Teatre de Pompeu reposa comèdies de Plaute (L'olla, La comèdia del fantasma i Els Menecmes) i el de Marcel, de Terenci (Els germans, La sogra i Formió).
+Pompey built the first stone theatre in 55 BC; those of Balbus and Marcellus followed. In the game, the Theatre of Pompey revives comedies by Plautus (The Pot of Gold, The Haunted House and The Menaechmi) and that of Marcellus, by Terence (The Brothers, The Mother-in-Law and Phormio).
+
+@f7f56395
+Al segle I dC, però, el que més agradava eren el mim (escenes còmiques sense màscara, amb actrius) i la pantomima (un ballarí que representava un mite amb gestos, acompanyat de música i cor). Les comèdies de Plaute i Terenci es llegien a les escoles i només de vegades es reposaven. Que el joc les posi en escena el mateix dia és una llicència.
+In the first century AD, though, what people liked best were mime (comic scenes without masks, with actresses) and pantomime (a dancer acting out a myth with gestures, accompanied by music and chorus). The comedies of Plautus and Terence were read in schools and only occasionally revived. Having them staged on the same day is a licence of the game.
+
+@2a583a56
+Titus Livi VII 2 (els orígens del teatre a Roma)
+Livy VII 2 (the origins of theatre in Rome)
+
+@82968264
+Horaci, Epístoles II 1
+Horace, Epistles II 1
+
+@ade01fb1
+Tàcit, Annals XIV 20 (el teatre de Pompeu)
+Tacitus, Annals XIV 20 (the theatre of Pompey)
+
+@3f8ffe0f
+La companyia i el calendari de funcions són inventats.
+The company and the performance schedule are invented.
+
+@0f1115a3
+Titus Macci Plaute (c. 254-184 aC), el gran autor de comèdies de Roma: 21 obres conservades, plenes de cançons i esclaus astuts.
+Titus Maccius Plautus (c. 254-184 BC), Rome's great comic playwright: 21 surviving plays, full of songs and cunning slaves.
+
+@a57eb162
+Publi Terenci Àfer (c. 190-159 aC), antic esclau de Cartago, autor de sis comèdies refinades. «Sóc home, i res d'humà no m'és aliè».
+Publius Terentius Afer (c. 190-159 BC), a former slave from Carthage, author of six refined comedies. «I am human, and nothing human is alien to me».
+
+@52c01036
+Menandre
+Menander
+
+@412d5b02
+Poeta còmic d'Atenes (342-291 aC), mestre de la comèdia nova grega, que Plaute i Terenci van adaptar.
+Comic poet of Athens (342-291 BC), master of Greek New Comedy, which Plautus and Terence adapted.
+
+@4e12a3a0
+Palliata
+Palliata
+
+@3e4cda40
+Comèdia romana d'argument i personatges grecs, vestits amb el mantell grec o pallium.
+Roman comedy with Greek plot and characters, dressed in the Greek cloak or pallium.
+
+@7894f3e0
+Paràsit
+Parasite
+
+@dde56728
+paràsit
+parasite
+
+@5a73a815
+paràsits
+parasites
+
+@5cf002bc
+Personatge de comèdia que viu de menjar de franc a casa d'altres a canvi d'afalacs i favors.
+Comedy character who lives by eating free at other people's houses in exchange for flattery and favours.
+
+@b03d802b
+Mim
+Mime
+
+@2e78a308
+El mim: escenes còmiques sense màscara, amb actrius. La pantomima: un ballarí que representava un mite amb gestos. Eren els espectacles preferits del segle I.
+Mime: comic scenes without masks, with actresses. Pantomime: a dancer who acted out a myth with gestures. They were the favourite shows of the first century.
+
+@b1969286
+Tíbia
+Tibia
+
+@62b1aaff
+La flauta doble de llengüeta, equivalent a l'aulós grec, que acompanyava les parts cantades de les comèdies.
+The double reed pipe, equivalent to the Greek aulos, which accompanied the sung parts of comedies.
+
+@7816eeb3
+Plaudite
+Plaudite
+
+@3234c663
+«Aplaudiu!»: la petició amb què acabaven les comèdies romanes.
+«Applaud!»: the request with which Roman comedies ended.
+
+@073b3b60
+Tomis
+Tomis
+
+@9fce2045
+Ciutat grega a la vora del mar Negre (l'actual Constança, a Romania), on va morir desterrat Ovidi.
+Greek city on the shore of the Black Sea (modern Constanța, in Romania), where Ovid died in exile.
+
+@176306fb
+Patavium
+Patavium
+
+@8a438c46
+Pàdua, al nord d'Itàlia, pàtria de Titus Livi.
+Padua, in northern Italy, Livy's home town.
+
+@6daf42a4
+Hannibal
+Hannibal
+
+@d73999bc
+hannibal
+hannibal
+
+@099653eb
+General cartaginès que va travessar els Alps i va derrotar els romans a Cannes (216 aC), a la segona guerra púnica.
+Carthaginian general who crossed the Alps and defeated the Romans at Cannae (216 BC), in the Second Punic War.
+
+@3efb897a
+Ab urbe condita
+Ab urbe condita
+
+@f2ce8bd0
+ab urbe condita
+ab urbe condita
+
+@c85cb5c0
+«Des de la fundació de la ciutat»: el títol de la història de Roma de Titus Livi.
+«From the founding of the city»: the title of Livy's history of Rome.
