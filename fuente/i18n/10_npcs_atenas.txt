@@ -1372,3 +1372,2463 @@ What are incommensurables?
 @fccb5b71
 Dibuixa un quadrat i la seva diagonal. Hi ha alguna mesura, per petita que sigui, que hi càpiga un nombre exacte de vegades en el costat i també en la diagonal? No. Per molt que divideixis, mai no coincideixen: costat i diagonal són incommensurables. El meu mestre Teodor va demostrar que passa el mateix amb els costats dels quadrats d'àrea 3, 5, 6… fins a 17. Jo busco la regla general.
 Draw a square and its diagonal. Is there any measure, however small, that fits an exact number of times into the side and also into the diagonal? No. However finely you divide, they never match: side and diagonal are incommensurable. My teacher Theodorus showed that the same happens with the sides of squares of area 3, 5, 6… up to 17. I'm looking for the general rule.
+
+@38348006
+I els cinc sòlids?
+And the five solids?
+
+@95b4afce
+Hi ha cossos que tenen totes les cares iguals i regulars: el tetraedre, de quatre triangles; el cub; l'octaedre, de vuit triangles; el dodecaedre, de dotze pentàgons; i l'icosaedre, de vint triangles. Només existeixen aquests cinc, i intento demostrar-ho i saber com inscriure'ls en una esfera. Plató diu que amb ells estan fets el foc, la terra, l'aire, l'aigua i el cosmos sencer.
+There are solids whose faces are all equal and regular: the tetrahedron, of four triangles; the cube; the octahedron, of eight triangles; the dodecahedron, of twelve pentagons; and the icosahedron, of twenty triangles. Only those five exist, and I'm trying to prove it and to work out how to inscribe them in a sphere. Plato says fire, earth, air, water and the whole cosmos are made of them.
+
+@6e6425bc
+Per a què serveix tot això?
+What is all this for?
+
+@d25996e2
+Plató diria que per apartar l'ànima del que canvia i acostumar-la a allò etern. Jo diria que perquè és bell i perquè és veritat per sempre: la diagonal d'aquest quadrat serà incommensurable amb el seu costat demà i d'aquí a mil anys.
+Plato would say: to turn the soul away from what changes and accustom it to the eternal. I would say: because it is beautiful and because it is true for ever. The diagonal of this square will be incommensurable with its side tomorrow and a thousand years from now.
+
+@ec1ef165
+Per què la diagonal d'un quadrat és «incommensurable» amb el seu costat?
+Why is the diagonal of a square «incommensurable» with its side?
+
+@e785cba1
+Perquè no existeix cap unitat comuna que mesuri exactament totes dues
+Because there is no common unit that measures both exactly
+
+@3940e36f
+Perquè la diagonal és sempre el doble del costat
+Because the diagonal is always twice the side
+
+@1e03a3e6
+Perquè no es pot dibuixar amb regle
+Because it cannot be drawn with a ruler
+
+@543b2567
+No. Vol dir que no hi ha cap mesura comuna, per petita que sigui, que hi càpiga un nombre exacte de vegades en el costat i en la diagonal.
+No. It means there is no common measure, however small, that fits an exact number of times into both the side and the diagonal.
+
+@7c3b09c7
+Iseu escrivia discursos per a plets d'herència. A Atenes els fills homes legítims heretaven a parts iguals; qui no en tenia podia adoptar un hereu, sovint per testament. La filla sense germans (epíclera) no heretava en propietat: transmetia l'herència i s'havia de casar amb el parent més proper. Els plets eren freqüents perquè el patrimoni familiar ho era tot.
+Isaeus wrote speeches for inheritance suits. In Athens legitimate sons inherited in equal shares; a man without sons could adopt an heir, often by will. A daughter without brothers (an epikleros) did not inherit outright: she passed the estate on and had to marry her closest kinsman. Lawsuits were common because the family estate was everything.
+
+@a6d51d3b
+Si algú de la teva família ha mort sense fills, vine a veure'm: Iseu, per servir-te. Lísias escriu per a tota mena de casos; jo m'he especialitzat en herències. I creu-me, no em falta feina: a Atenes res no enfronta més els parents que un bon camp d'oliveres.
+If someone in your family has died without children, come and see me: Isaeus, at your service. Lysias writes for every kind of case; I specialise in inheritances. And believe me, I'm never short of work: in Athens nothing sets relatives against each other like a good olive grove.
+
+@974de40e
+Qui hereta?
+Who inherits?
+
+@cedb513d
+Els fills homes legítims, a parts iguals. Les filles reben un dot quan es casen, però no hereten. Si un home no té fills homes, en pot adoptar un, en vida o per testament, i aquest fill adoptiu hereta; normalment és un nebot o un parent. Si no hi ha testament, l'herència va als parents més propers per línia paterna, fins als fills dels cosins.
+Legitimate sons, in equal shares. Daughters receive a dowry when they marry, but they don't inherit. If a man has no sons, he can adopt one, during his life or by will, and the adopted son inherits; usually it's a nephew or a relative. If there's no will, the estate goes to the closest relatives on the father's side, as far as the children of cousins.
+
+@e597e755
+Què és una epíclera?
+What is an epikleros?
+
+@f51fea2a
+La filla que es queda sense germans quan mor el seu pare. No és la propietària de l'herència: va «amb l'herència», això vol dir epíkleros. El seu parent més proper, un oncle o un cosí, té dret a casar-s'hi i administrar els béns fins que tinguin un fill, que serà l'hereu. De vegades fins i tot es dissol un matrimoni anterior. Així la casa del pare no s'extingeix.
+The daughter left without brothers when her father dies. She doesn't own the estate: she goes «with the estate», that's what epikleros means. Her closest kinsman, an uncle or a cousin, has the right to marry her and manage the property until they have a son, who will be the heir. Sometimes an earlier marriage is even dissolved. That way the father's house does not die out.
+
+@8140b6be
+Per què hi ha tants plets?
+Why are there so many lawsuits?
+
+@811aa4d2
+Perquè ningú no apunta els casaments ni els naixements en un registre. Va ser legítim aquell matrimoni? El testament és autèntic o falsificat? El difunt estava en el seu seny, o algú el va enganyar? Cal cridar testimonis: els membres de la fratria que van veure presentar el nen, els veïns que van assistir al casament… i convèncer centenars de jurats.
+Because nobody records weddings or births in a register. Was that marriage legitimate? Is the will genuine or forged? Was the deceased of sound mind, or did someone trick him? You have to call witnesses: the members of the phratry who saw the child presented, the neighbours who attended the wedding… and persuade hundreds of jurors.
+
+@fb699ddf
+Què era una epíclera a Atenes?
+What was an epikleros in Athens?
+
+@40f2d7cf
+La filla sense germans que transmetia l'herència i s'havia de casar amb el seu parent més proper
+The brotherless daughter who passed on the estate and had to marry her closest kinsman
+
+@f20699af
+Una sacerdotessa encarregada dels testaments
+A priestess in charge of wills
+
+@7df84735
+La vídua que heretava tots els béns del marit
+The widow who inherited all her husband's property
+
+@f31dd69c
+No. L'epíclera era la filla sense germans: no heretava en propietat, sinó que transmetia l'herència casant-se amb el seu parent més proper.
+No. The epikleros was the brotherless daughter: she did not inherit outright but passed on the estate by marrying her closest kinsman.
+
+@ec18cff4
+A la democràcia atenesa no hi havia govern ni partits: els polítics més influents, els rhétores, sovint no tenien càrrec i actuaven proposant decrets a l'Assemblea. A canvi corrien riscos: qui proposava un decret contrari a les lleis podia ser acusat d'il·legalitat (graphé paranómon) i multat. Cal·lístrat, nebot d'Agírrios, va ser un dels grans oradors de les dècades següents.
+In the Athenian democracy there was no government and there were no parties: the most influential politicians, the rhetores, often held no office and acted by proposing decrees in the Assembly. In return they ran risks: whoever proposed a decree contrary to the laws could be indicted for illegality (graphe paranomon) and fined. Callistratus, Agyrrhius' nephew, was one of the great orators of the following decades.
+
+@1192ea67
+Salut. Cal·lístrat, d'Afidna. El meu oncle Agírrios és qui us paga per anar a l'Assemblea; no m'ho agraeixis a mi. Jo sóc dels que parlen des de la tribuna. Ara la pau ens lliga les mans, però algun dia Atenes tornarà a tenir aliats al mar, i hi vull ser quan passi.
+Greetings. Callistratus, of Aphidna. My uncle Agyrrhius is the one who pays you to attend the Assembly; don't thank me. I'm one of those who speak from the platform. Right now the peace ties our hands, but one day Athens will have allies at sea again, and I want to be there when it happens.
+
+@3cb9d388
+Quin càrrec tens?
+What office do you hold?
+
+@b7e675f0
+Cap, i no em cal. A Atenes no hi ha govern: hi ha Assemblea. Qui convenç el poble amb bones propostes té més poder que qualsevol arconte sortejat. Ens diuen rhétores, oradors, o demagogs si no els queiem bé. Els estrategs manen a la guerra, però les decisions les pren el poble, i el poble el convenç qui parla millor.
+None, and I don't need one. Athens has no government: it has an Assembly. Whoever wins the people over with good proposals has more power than any archon chosen by lot. They call us rhetores, orators, or demagogues if they dislike us. The generals command in war, but the people make the decisions, and the people are won over by whoever speaks best.
+
+@ffe666f0
+Quins riscos corres?
+What risks do you run?
+
+@d043bebe
+Molts. Si proposo un decret que va contra les lleis, qualsevol em pot acusar d'il·legalitat, la graphé paranómon. Si el tribunal em condemna, el decret s'anul·la i pago una multa, de vegades enorme. I si el poble canvia d'opinió, em pot desterrar o una cosa pitjor. Pregunta-ho a les famílies dels generals de les Arginuses, condemnats a mort després d'una victòria.
+Many. If I propose a decree that goes against the laws, anyone can indict me for illegality, the graphe paranomon. If the court convicts me, the decree is annulled and I pay a fine, sometimes a huge one. And if the people change their minds, they can exile me or worse. Ask the families of the generals of Arginusae, sentenced to death after a victory.
+
+@debb2a64
+Què vol Atenes ara?
+What does Athens want now?
+
+@e02030c5
+Recuperar forces sense trencar la pau del Rei. Aliances defensives amb les illes, respectant la seva autonomia, com mana la pau: res de tributs com en temps de l'imperi, que va ser el que ens va fer odiar. Ja hi ha converses amb Quios. Amb bones finances i una flota, Atenes tornarà a ser respectada.
+To regain strength without breaking the King's Peace. Defensive alliances with the islands, respecting their autonomy, as the peace requires: no tribute as in the days of the empire, which is what made us hated. There are already talks with Chios. With sound finances and a fleet, Athens will be respected again.
+
+@4dd4ec33
+Quin risc corria un polític atenès que proposava un decret contrari a les lleis?
+What risk did an Athenian politician run if he proposed a decree contrary to the laws?
+
+@b3264bff
+Ser acusat d'il·legalitat (graphé paranómon) i multat
+Being indicted for illegality (graphe paranomon) and fined
+
+@a9317a2a
+Perdre automàticament la ciutadania
+Automatically losing his citizenship
+
+@efa808e5
+Ser jutjat per l'Areòpag i executat
+Being tried by the Areopagus and executed
+
+@4cae70fc
+No. Podia ser acusat mitjançant la graphé paranómon; si el condemnaven, el decret s'anul·lava i pagava una multa.
+No. He could be indicted by a graphe paranomon; if convicted, the decree was annulled and he paid a fine.
+
+@b1e48b05
+A començaments del segle IV la comèdia atenesa va canviar: menys atacs personals als polítics, més paròdia de mites i escenes de la vida quotidiana, i un cor cada vegada més reduït, que cantava interludis sense relació amb la trama. Araros, fill d'Aristòfanes, va presentar dues de les últimes obres del seu pare abans d'estrenar les seves.
+At the start of the fourth century Athenian comedy changed: fewer personal attacks on politicians, more parody of myths and scenes of everyday life, and an ever smaller chorus, singing interludes unconnected with the plot. Araros, son of Aristophanes, staged two of his father's last plays before putting on his own.
+
+@c39083e9
+Busques el meu pare? Està cansat; ja no puja tant al teatre. Sóc Araros. Fa poc vaig presentar com a productor dues comèdies seves, Còcal i Eolosicó, perquè el públic em conegués. Ara em toca escriure les meves. I no és fàcil ser fill d'Aristòfanes.
+Looking for my father? He's tired; he doesn't come up to the theatre as much. I'm Araros. Recently I staged two of his comedies as producer, Cocalus and Aeolosicon, so that the audience would get to know me. Now it's my turn to write my own. And it isn't easy being Aristophanes' son.
+
+@1582fe81
+Com ha canviat la comèdia?
+How has comedy changed?
+
+@aa723886
+En temps del meu pare es treia a escena Cleó o Sòcrates amb el seu nom, i el cor s'adreçava al públic a la paràbasi. Ara gairebé ningú no s'hi atreveix: després de la guerra i dels Trenta, la ciutat és més susceptible. Així que fem paròdia de mites i expliquem embolics de cuiners, heteres i vells avars. I el cor, en moltes còpies, ja només apareix com a «cant del cor» entre escena i escena.
+In my father's day you put Cleon or Socrates on stage by name, and the chorus addressed the audience in the parabasis. Now hardly anyone dares: after the war and the Thirty, the city is touchier. So we parody myths and tell tangled tales of cooks, hetairai and miserly old men. And the chorus, in many copies, now appears only as «song of the chorus» between one scene and the next.
+
+@3848810a
+Què és Eolosicó?
+What is Aeolosicon?
+
+@f1725193
+Una paròdia de l'Èol d'Eurípides barrejada amb Sicó, un cuiner famós. Imagina't el rei dels vents ficat a la cuina. Els mites donen molt de joc: déus golafres, herois covards, Zeus enamorat fent el ridícul. El públic coneix les històries, i això ens ajuda a riure-nos-en.
+A parody of Euripides' Aeolus mixed up with Sicon, a famous cook. Imagine the king of the winds stuck in the kitchen. Myths offer lots of scope: greedy gods, cowardly heroes, Zeus in love making a fool of himself. The audience knows the stories, and that helps us laugh at them.
+
+@b0dd31e1
+Qui paga tot això?
+Who pays for all this?
+
+@462de601
+El corego, un ciutadà ric a qui toca finançar el cor. Abans era un honor molt cobejat; ara, amb la ciutat empobrida, de vegades costa trobar-ne, i alguna vegada s'han nomenat dos coregos per a una mateixa obra. L'arconte tria els poetes que competeixen, i uns jutges sortejats decideixen el guanyador.
+The choregos, a rich citizen whose turn it is to fund the chorus. It used to be a highly sought honour; now, with the city poorer, they're sometimes hard to find, and once or twice two choregoi have been appointed for the same play. The archon chooses the competing poets, and judges chosen by lot decide the winner.
+
+@eff2e4b1
+Què va canviar en la comèdia atenesa a començaments del segle IV?
+What changed in Athenian comedy at the start of the fourth century?
+
+@50e3d7f1
+Menys sàtira política directa i més paròdia mitològica i vida quotidiana
+Less direct political satire and more mythological parody and everyday life
+
+@54054520
+Es va prohibir l'ús de màscares
+Masks were banned
+
+@1463570f
+Les obres es van passar a representar només a Delfos
+Plays were performed only at Delphi
+
+@4a946316
+No. L'anomenada comèdia mitjana va reduir els atacs personals i el paper del cor, i va preferir la paròdia mitològica i les escenes quotidianes.
+No. So-called Middle Comedy cut back personal attacks and the role of the chorus, and preferred mythological parody and everyday scenes.
+
+@72cc57b9
+Antífanes va començar a estrenar comèdies cap al 385 i en va arribar a escriure centenars. En un fragment famós es queixa que la tragèdia ho té fàcil: el públic ja coneix el mite, i n'hi ha prou de dir «Èdip» perquè tothom sàpiga la història, mentre que el poeta còmic ho ha d'inventar tot, noms, situacions i desenllaç.
+Antiphanes began staging comedies around 385 and went on to write hundreds. In a famous fragment he complains that tragedy has it easy: the audience already knows the myth, and you need only say «Oedipus» for everyone to know the story, while the comic poet must invent everything: names, situations and ending.
+
+@5dbb8bfb
+Estic a punt d'estrenar la meva primera comèdia! Sóc Antífanes. Diuen que la meva família va venir de fora, d'Esmirna o de Rodes, però jo sóc d'aquí, del teatre. Vine, seu. Saps que n'és d'injust, l'ofici de poeta còmic?
+I'm about to put on my first comedy! I'm Antiphanes. They say my family came from abroad, from Smyrna or Rhodes, but I'm from here, from the theatre. Come, sit down. Do you know how unfair the comic poet's trade is?
+
+@99d113cd
+Per què dius que és injust?
+Why do you say it is unfair?
+
+@823d96b5
+Perquè els tràgics ho tenen facilíssim! Les històries ja les coneix tothom abans que parlin. Dius «Èdip» i tothom sap la resta: el seu pare Laios, la seva mare Iocasta, les seves filles, el que va fer i el que li passarà. I quan ja no saben com acabar, treuen un déu amb la grua i llestos. Nosaltres ho hem d'inventar tot: noms nous, el que va passar abans, la situació, el final. I si falla un sol detall, ens xiulen.
+Because the tragedians have it so easy! Everyone already knows the stories before they open their mouths. Say «Oedipus» and everyone knows the rest: his father Laius, his mother Jocasta, his daughters, what he did and what will happen to him. And when they can't think how to end it, they bring on a god with the crane and that's that. We have to invent everything: new names, what happened before, the situation, the ending. And if a single detail goes wrong, they hiss us off.
+
+@9d4ff13a
+Què fas amb els mites?
+What do you do with the myths?
+
+@c1e76072
+Els poso potes enlaire: un heroi afamat, una deessa gelosa com una veïna, un banquet de déus amb cuiner. Però també escric sobre gent d'aquí: el peixater que roba en el pes, el paràsit que menja de franc, l'hetera espavilada, el soldat fanfarró. La comèdia d'ara mira menys l'Assemblea i més les cases.
+I turn them upside down: a starving hero, a goddess as jealous as a neighbour, a banquet of gods with a cook. But I also write about people from here: the fishmonger who cheats on the weight, the parasite who eats for free, the clever hetaira, the boastful soldier. Comedy today looks less at the Assembly and more into people's houses.
+
+@4c034f8d
+Quantes obres penses escriure?
+How many plays do you plan to write?
+
+@4ddaad16
+Totes les que pugui. Si els déus em donen una vida llarga, centenars. El secret? Escoltar el mercat. La millor comèdia és a l'Àgora, entre les parades de peix.
+As many as I can. If the gods grant me a long life, hundreds. The secret? Listen to the market. The best comedy is in the Agora, among the fish stalls.
+
+@be8b1860
+Segons Antífanes, per què és més fàcil escriure tragèdies que comèdies?
+According to Antiphanes, why is it easier to write tragedy than comedy?
+
+@6005e960
+Perquè el públic ja coneix els mites que expliquen els tràgics
+Because the audience already knows the myths the tragedians tell
+
+@71374e32
+Perquè les tragèdies són més curtes
+Because tragedies are shorter
+
+@346054bc
+Perquè els tràgics no necessiten cor
+Because tragedians don't need a chorus
+
+@9790e529
+No. Antífanes es queixava que el tràgic explica mites que el públic ja coneix, mentre que el còmic ho ha d'inventar tot.
+No. Antiphanes complained that the tragedian tells myths the audience already knows, while the comic poet must invent everything.
+
+@323564c0
+Ifícrates, fill d'un sabater, es va fer famós en destruir amb peltastes, infanteria lleugera armada amb javelines i un escut petit, una unitat espartana al Lequeu (390). Al segle IV els exèrcits grecs van dependre cada vegada més de mercenaris professionals. Després de la pau, Ifícrates va servir el rei traci Cotis, amb la filla del qual es va casar.
+Iphicrates, a shoemaker's son, became famous by destroying a Spartan unit at Lechaeum (390) with peltasts, light infantry armed with javelins and a small shield. In the fourth century Greek armies relied more and more on professional mercenaries. After the peace, Iphicrates served the Thracian king Cotys, whose daughter he married.
+
+@f5b65e07
+Em mires com si fos un aristòcrata. El meu pare feia sabates, saps? Sóc Ifícrates. Amb els meus peltastes vaig donar als espartans la lliçó del Lequeu. Ara que hi ha pau la ciutat no em necessita, així que me'n vaig a Tràcia: el rei Cotis paga bé qui sap fer la guerra.
+You look at me as if I were an aristocrat. My father made shoes, you know. I'm Iphicrates. With my peltasts I taught the Spartans the lesson of Lechaeum. Now that there's peace the city doesn't need me, so I'm off to Thrace: King Cotys pays well for men who know how to make war.
+
+@22edcddf
+Què és un peltasta?
+What is a peltast?
+
+@c74688d0
+Un soldat lleuger, com els tracis: un escut petit de vímet i cuir, la pelte, javelines i una espasa, sense cuirassa pesada. Corre més que un hoplita. Al Lequeu vam deixar que els espartans avancessin, els vam llançar javelines, ens retiràvem quan carregaven i tornàvem a atacar. Hi van caure uns dos-cents cinquanta espartans. Ningú s'ho creia.
+A light soldier, like the Thracians: a small shield of wicker and leather, the pelte, javelins and a sword, no heavy breastplate. He runs faster than a hoplite. At Lechaeum we let the Spartans advance, threw javelins at them, fell back when they charged and came back to attack again. About two hundred and fifty Spartans fell. Nobody could believe it.
+
+@26566417
+Per què tants mercenaris?
+Why so many mercenaries?
+
+@9b971ff9
+Perquè la guerra s'ha tornat un ofici. Els ciutadans tenen camps i tallers; no poden passar anys lluny de casa. Els mercenaris, sí: arcadis, tracis, cretencs amb els seus arcs. Els Deu Mil de Xenofont van demostrar què val un exèrcit professional. El dolent és que lluiten per qui paga, i quan no hi ha paga, saquegen.
+Because war has become a trade. Citizens have fields and workshops; they can't spend years away from home. Mercenaries can: Arcadians, Thracians, Cretans with their bows. Xenophon's Ten Thousand showed what a professional army is worth. The trouble is they fight for whoever pays, and when there's no pay, they plunder.
+
+@85c7735f
+No t'avergonyeix el teu origen?
+Aren't you ashamed of your origins?
+
+@f1e74fce
+Per què? Un descendent d'Harmodi, el tiranicida, em va retreure que el meu pare era sabater. Li vaig respondre: «El meu llinatge comença amb mi; el teu s'acaba amb tu». En la democràcia un val pel que fa, no pels seus avis. Bé, això diuen.
+Why should I be? A descendant of Harmodius, the tyrannicide, threw it in my face that my father was a shoemaker. I answered: «My line begins with me; yours ends with you». In a democracy a man is worth what he does, not what his grandfathers did. Well, so they say.
+
+@b274a447
+Què eren els peltastes?
+What were peltasts?
+
+@843e5ac9
+Infanteria lleugera amb escut petit (pelte) i javelines
+Light infantry with a small shield (pelte) and javelins
+
+@b7bfdf7e
+Genets amb armadura pesada
+Horsemen in heavy armour
+
+@5398d906
+Remers de les trirrems
+Rowers on the triremes
+
+@4b877a96
+No. Els peltastes eren soldats lleugers, amb un escut petit anomenat pelte i javelines, que fustigaven la infanteria pesant.
+No. Peltasts were light troops, with a small shield called a pelte and javelins, who harassed the heavy infantry.
+
+@c9d66065
+Cabries va derrotar el 388 els espartans a Egina amb una emboscada i després va portar deu trirrems i peltastes a Xipre, en ajuda d'Evàgores de Salamina, enfrontat a Pèrsia. La Pau del Rei va obligar Atenes a abandonar el seu aliat. Com altres generals del segle IV, Cabries va servir després el faraó egipci Àcoris.
+In 388 Chabrias defeated the Spartans on Aegina with an ambush and then took ten triremes and peltasts to Cyprus to help Evagoras of Salamis, who was at war with Persia. The King's Peace forced Athens to abandon her ally. Like other fourth-century generals, Chabrias later served the Egyptian pharaoh Achoris.
+
+@68a45b42
+Cabries, fill de Ctèsip. Acabo de tornar de Xipre i ja em pregunten quan me'n torno a anar. La pau és bona per als mercaders, no per als generals. A Egipte, el faraó Àcoris busca homes que sàpiguen lluitar contra els perses. Potser hi aniré.
+Chabrias, son of Ctesippus. I've only just got back from Cyprus and already they're asking when I'm leaving again. Peace is good for merchants, not for generals. In Egypt, Pharaoh Achoris is looking for men who know how to fight the Persians. Perhaps I'll go.
+
+@b77e394d
+Què va passar a Egina?
+What happened on Aegina?
+
+@6a78bdee
+Fa dos anys els espartans feien servir Egina per atacar els nostres vaixells. Vaig desembarcar de nit, vaig amagar els meus homes en una fondalada a prop d'un santuari d'Hèracles i vaig deixar que els espartans perseguissin la nostra infanteria lleugera. Quan van passar, vam sortir de l'emboscada. Hi va morir el seu comandant, Gorgopas, i molts dels seus.
+Two years ago the Spartans were using Aegina to attack our ships. I landed at night, hid my men in a hollow near a shrine of Heracles and let the Spartans chase our light infantry. When they had passed, we sprang the ambush. Their commander, Gorgopas, was killed, and many of his men.
+
+@820fa9d5
+Què feies a Xipre?
+What were you doing in Cyprus?
+
+@d105971f
+Ajudar Evàgores, el rei de Salamina, el nostre amic: va donar refugi a Conó després d'Egospòtams, i Atenes el va fer ciutadà. Evàgores vol tot Xipre i lluita contra el Gran Rei. Però la pau diu que Xipre és del Rei, i Atenes ho ha jurat. Així que ens vam retirar i vam deixar sol Evàgores. No és el més gloriós que he fet.
+Helping Evagoras, the king of Salamis, our friend: he gave Conon refuge after Aegospotami, and Athens made him a citizen. Evagoras wants all of Cyprus and is fighting the Great King. But the peace says Cyprus belongs to the King, and Athens has sworn to it. So we withdrew and left Evagoras on his own. Not the most glorious thing I've done.
+
+@7793aece
+Per què vas a Egipte?
+Why are you going to Egypt?
+
+@669fc635
+Egipte s'ha alliberat de Pèrsia, i el seu faraó necessita oficials grecs. Els generals atenesos, sense guerra a casa, serveixen reis estrangers: Ifícrates a Tràcia, jo potser a Egipte. La ciutat guanya amics i nosaltres, plata. Fins que el Gran Rei es queixi i Atenes ens faci tornar.
+Egypt has freed itself from Persia, and its pharaoh needs Greek officers. Athenian generals, with no war at home, serve foreign kings: Iphicrates in Thrace, perhaps me in Egypt. The city gains friends and we gain silver. Until the Great King complains and Athens calls us back.
+
+@24f87234
+A qui va ajudar Cabries a Xipre?
+Whom did Chabrias help in Cyprus?
+
+@a3b1a288
+A Evàgores, rei de Salamina, enfrontat a Pèrsia
+Evagoras, king of Salamis, at war with Persia
+
+@0e44fbef
+Al sàtrapa persa de Cària
+The Persian satrap of Caria
+
+@7bb15122
+Als espartans d'Agesilau
+Agesilaus' Spartans
+
+@7236dfa9
+No. Cabries va ajudar Evàgores de Salamina, aliat d'Atenes, en la seva guerra contra el rei de Pèrsia.
+No. Chabrias helped Evagoras of Salamis, an ally of Athens, in his war against the king of Persia.
+
+@1cb914b9
+Aristip de Cirene, deixeble de Sòcrates, sostenia que el bé és el plaer del moment, gaudit sense deixar-se dominar per ell, i va ser el primer socràtic que va cobrar per ensenyar. La seva ciutat, Cirene, a Líbia, va ser fundada cap al 631 per colons de Tera dirigits per Batos; la dinastia dels Batíades, que alternava els noms de Batos i Arcesilau, va regnar vuit generacions, fins a mitjan segle V.
+Aristippus of Cyrene, a disciple of Socrates, held that the good is the pleasure of the moment, enjoyed without letting oneself be ruled by it, and he was the first Socratic to charge for teaching. His city, Cyrene, in Libya, was founded around 631 by settlers from Thera led by Battus; the Battiad dynasty, alternating the names Battus and Arcesilaus, ruled for eight generations, until the mid-fifth century.
+
+@6d1c7a1a
+Atenes! Sempre hi torno. Sóc Aristip, de Cirene. Vaig ser deixeble de Sòcrates, com aquest Plató, encara que ell i jo no ens suportem. Vinc de Siracusa, del palau de Dionís: bon menjar, bon vi i un tirà que paga els filòsofs perquè el diverteixin. Què més es pot demanar?
+Athens! I always come back. I'm Aristippus, of Cyrene. I was a disciple of Socrates, like that Plato, though he and I can't stand each other. I've come from Syracuse, from Dionysius' palace: good food, good wine and a tyrant who pays philosophers to amuse him. What more could one ask?
+
+@82371452
+Que el bé és el plaer, el d'ara, no el de demà, que no sabem si arribarà. Però compte: cal posseir el plaer, no ser posseït per ell. Quan em retreuen que freqüento l'hetera Lais, responc: «Jo tinc Lais; Lais no em té a mi». Sòcrates ensenyava gratis; jo cobro. Per què no, si tots els oficis cobren?
+That the good is pleasure, the pleasure of now, not of tomorrow, which may never come. But mind: you must possess pleasure, not be possessed by it. When they reproach me for keeping company with the hetaira Lais, I answer: «I have Lais; Lais does not have me». Socrates taught for nothing; I charge. Why not, when every trade charges?
+
+@efc4e43a
+Qui governava Cirene?
+Who ruled Cyrene?
+
+@2f0aa8cc
+Durant gairebé dos segles, els Batíades. La meva ciutat la va fundar Batos, que va venir de l'illa de Tera perquè l'oracle de Delfos li va ordenar fundar una ciutat a Líbia. Es deia que descendia d'Eufem, un dels argonautes. Els seus descendents es van dir sempre Batos o Arcesilau, alternant. Delfos els va concedir quatre Batos i quatre Arcesilaus, i que no en passessin. I així va ser: l'últim, Arcesilau IV, va morir cap al 440, i des d'aleshores Cirene no té reis.
+For almost two centuries, the Battiads. My city was founded by Battus, who came from the island of Thera because the oracle of Delphi ordered him to found a city in Libya. He was said to descend from Euphemus, one of the Argonauts. His descendants were always called Battus or Arcesilaus, in turn. Delphi granted them four Battuses and four Arcesilauses, and no more. And so it was: the last, Arcesilaus IV, died around 440, and since then Cyrene has had no kings.
+
+@b7af86b4
+Com van ser aquells reis?
+What were those kings like?
+
+@7197166f
+De tot. Batos II, el Feliç, va portar molts colons. Arcesilau II, el Cruel, es va barallar amb els seus germans. Batos III era coix, i Delfos va enviar un savi, Demònax, per repartir el poder. Arcesilau IV va guanyar la cursa de carros a Delfos, i Píndar li va escriure dues odes. Després, el poble es va cansar de reis.
+All sorts. Battus II, the Fortunate, brought many settlers. Arcesilaus II, the Cruel, quarrelled with his brothers. Battus III was lame, and Delphi sent a wise man, Demonax, to share out the power. Arcesilaus IV won the chariot race at Delphi, and Pindar wrote him two odes. After that, the people grew tired of kings.
+
+@bcdbe81e
+Eufem
+Euphemus
+
+@af13b412
+argonauta, fill de Posidó
+Argonaut, son of Poseidon
+
+@559b5084
+Píndar en fa descendir els fundadors
+Pindar traces the founders back to him
+
+@a61085d5
+Polimnest
+Polymnestus
+
+@41facde8
+noble de Tera
+nobleman of Thera
+
+@1220af46
+Frònima, filla del rei Etearc d'Oaxos (Creta)
+Phronime, daughter of King Etearchus of Oaxus (Crete)
+
+@a1c1d594
+Batos I
+Battus I
+
+@2b114936
+funda Cirene, c. 631
+founds Cyrene, c. 631
+
+@09d889d6
+Arcesilau I
+Arcesilaus I
+
+@9d5d9ee1
+Batos II el Feliç
+Battus II the Fortunate
+
+@fc209581
+Arcesilau II el Cruel
+Arcesilaus II the Cruel
+
+@a1af19eb
+Èrix
+Eryxo
+
+@f3c8d78e
+Batos III el Coix
+Battus III the Lame
+
+@5d775ade
+reformes de Demònax
+reforms of Demonax
+
+@c935af40
+Arcesilau III
+Arcesilaus III
+
+@6a53e861
+Ferètima, que va governar pel seu fill i va demanar ajuda a Pèrsia
+Pheretime, who ruled for her son and asked Persia for help
+
+@6cb0ee4c
+Batos IV
+Battus IV
+
+@cf439483
+Arcesilau IV
+Arcesilaus IV
+
+@1f91c4f5
+cantat per Píndar; fi de la dinastia cap al 440
+sung by Pindar; end of the dynasty around 440
+
+@7314be53
+Què va profetitzar l'oracle de Delfos als reis Batíades de Cirene?
+What did the oracle of Delphi prophesy to the Battiad kings of Cyrene?
+
+@d4d38fe6
+Que regnarien quatre Batos i quatre Arcesilaus, i no més
+That four Battuses and four Arcesilauses would reign, and no more
+
+@4deb23eb
+Que Cirene seria destruïda per un terratrèmol
+That Cyrene would be destroyed by an earthquake
+
+@43c23e5f
+Que un Batos conqueriria Egipte
+That a Battus would conquer Egypt
+
+@5ae43e42
+No. Segons Heròdot, Delfos els va concedir quatre Batos i quatre Arcesilaus: vuit generacions de reis.
+No. According to Herodotus, Delphi granted them four Battuses and four Arcesilauses: eight generations of kings.
+
+@91a8cb0c
+Esparta tenia dos reis alhora, de dues famílies que deien descendir d'Hèracles a través dels bessons Eurístenes i Procles: els Agíades i els Euripòntides. Manaven l'exèrcit i tenien funcions religioses, però els cinc èfors, escollits cada any, vigilaven la seva conducta. El 386 regnaven Agesípolis I i Agesilau II, que havia arribat al tron desplaçant Leotíquides, de qui es deia que era fill d'Alcibíades.
+Sparta had two kings at once, from two families that claimed descent from Heracles through the twins Eurysthenes and Procles: the Agiads and the Eurypontids. They commanded the army and had religious duties, but the five ephors, elected every year, kept watch on their conduct. In 386 the kings were Agesipolis I and Agesilaus II, who had come to the throne by displacing Leotychidas, said to be the son of Alcibiades.
+
+@c0d010b7
+Lacó, i de poques paraules. Tèlecles, enviat d'Esparta. Espero el Consell dels atenesos. Aquí parlen molt. Vols saber qui mana a Esparta? T'ho diré. Breument.
+Laconian, and a man of few words. Teleclus, envoy of Sparta. I am waiting for the Athenian Council. They talk a lot here. You want to know who rules in Sparta? I'll tell you. Briefly.
+
+@22f27fe0
+Per què teniu dos reis?
+Why do you have two kings?
+
+@3f581f8f
+Aristodem, descendent d'Hèracles, va conquerir Lacònia amb els heraclides. Va morir i va deixar dos bessons, Eurístenes i Procles. Ni la mare sabia quin havia nascut primer. Delfos va dir: que regnin tots dos. Des d'aleshores, dues cases: els Agíades, per Agis, fill d'Eurístenes, i els Euripòntides, per Eurípont, nét de Procles. Dos reis. Es vigilen.
+Aristodemus, a descendant of Heracles, conquered Laconia with the Heraclids. He died and left twins, Eurysthenes and Procles. Not even their mother knew which was born first. Delphi said: let both reign. Since then, two houses: the Agiads, from Agis, son of Eurysthenes, and the Eurypontids, from Eurypon, grandson of Procles. Two kings. They watch each other.
+
+@4372d1fb
+Qui regna ara?
+Who reigns now?
+
+@f8285ec4
+Agesípolis, dels Agíades. Jove. El seu pare, Pausànias, és desterrat a Tegea. I Agesilau, dels Euripòntides. Catorze anys de rei. Guerra a Àsia, victòria a Coronea. És coix. Hi havia un oracle contra un «regnat coix», però Lisandre va dir que es referia a Leotíquides, el fill de la dona d'Agis: deien que era d'Alcibíades. Va regnar Agesilau.
+Agesipolis, of the Agiads. Young. His father, Pausanias, is in exile at Tegea. And Agesilaus, of the Eurypontids. Fourteen years king. War in Asia, victory at Coronea. He's lame. There was an oracle against a «lame reign», but Lysander said it meant Leotychidas, the son of Agis' wife: they said he was Alcibiades'. Agesilaus reigned.
+
+@d1340885
+Com educeu els nens?
+How do you raise your children?
+
+@ee213292
+L'Estat. Als set anys deixen la mare i van a les rajades, amb els de la seva edat. Descalços. Un sol mantell tot l'any. Poc menjar: si tenen gana, que robin. Si els enxampen, fuet; no per robar, sinó per maldestres. El nadó l'examinen els ancians: si és feble, no es cria. Vosaltres pagueu un esclau perquè acompanyi els vostres fills. Nosaltres no confiem a un esclau el més important.
+The state does. At seven they leave their mothers and go into the herds, with boys their own age. Barefoot. One cloak all year round. Little food: if they're hungry, let them steal. If they're caught, the whip; not for stealing, but for clumsiness. A newborn is examined by the elders: if it's weak, it isn't raised. You pay a slave to escort your sons. We don't entrust the most important thing to a slave.
+
+@065881df
+Qui mana de veritat?
+Who really rules?
+
+@7fc61697
+Els reis, a la guerra. A casa, els cinc èfors, escollits cada any. Cada mes els reis juren respectar les lleis, i els èfors juren sostenir-los si les compleixen. La Gerúsia, vint-i-vuit ancians i els dos reis, prepara les lleis. L'Assemblea crida sí o no. Res de pedretes.
+The kings, in war. At home, the five ephors, elected every year. Every month the kings swear to respect the laws, and the ephors swear to uphold them if they do. The Gerousia, twenty-eight elders and the two kings, prepares the laws. The Assembly shouts yes or no. No pebbles.
+
+@48540622
+Hèracles
+Heracles
+
+@9f42d0fc
+fill de Zeus i Alcmena
+son of Zeus and Alcmene
+
+@716f4c92
+Deianira
+Deianira
+
+@d9fb9691
+Hil·los
+Hyllus
+
+@f23ff952
+Íole
+Iole
+
+@fe3abc8b
+Aristodem
+Aristodemus
+
+@9175ba40
+conquereix Lacònia
+conquers Laconia
+
+@a736974b
+Argia
+Argeia
+
+@dd4a6bf6
+Eurístenes
+Eurysthenes
+
+@2ab658f0
+bessó; casa dels Agíades
+twin; house of the Agiads
+
+@0b255a56
+Agis I
+Agis I
+
+@cec8d83f
+Anaxàndrides II
+Anaxandridas II
+
+@29431ead
+l'únic espartà amb dues esposes alhora
+the only Spartan with two wives at once
+
+@58fdc13e
+la seva segona esposa, filla de Prinetades
+his second wife, daughter of Prinetadas
+
+@8befa08b
+Cleòmenes I
+Cleomenes I
+
+@9252ffee
+rei c. 520-490
+king c. 520-490
+
+@aba25951
+Gorgo
+Gorgo
+
+@8a638387
+esposa de Leònides
+wife of Leonidas
+
+@e1499440
+la seva primera esposa, una neboda seva
+his first wife, a niece of his
+
+@8429af1e
+Dorieu
+Dorieus
+
+@586f3658
+mor a Sicília
+dies in Sicily
+
+@21cff32a
+Leònides I
+Leonidas I
+
+@6d0d0244
+Termòpiles, 480
+Thermopylae, 480
+
+@14ae9c27
+Gorgo, la seva neboda
+Gorgo, his niece
+
+@cfc9428c
+Plistarc
+Pleistarchus
+
+@cf60d6e5
+Cleòmbrot
+Cleombrotus
+
+@c65d9d83
+Pausànias
+Pausanias
+
+@baf1486f
+regent, vencedor a Platea (479)
+regent, victor at Plataea (479)
+
+@e56ecb90
+Plistoànax
+Pleistoanax
+
+@430cd9c7
+rei; desterrat el 395
+king; exiled in 395
+
+@95696a9f
+Agesípolis I
+Agesipolis I
+
+@7b0a8b15
+rei 395-380
+king 395-380
+
+@72ec5c77
+Cleòmbrot I
+Cleombrotus I
+
+@9ac9441d
+rei 380-371; mor a Leuctra
+king 380-371; dies at Leuctra
+
+@8b74d729
+Procles
+Procles
+
+@fefcfe17
+bessó; casa dels Euripòntides
+twin; house of the Eurypontids
+
+@7873c31a
+Soos
+Soos
+
+@cdee3190
+Eurípont
+Eurypon
+
+@171e6e21
+Leotíquides II
+Leotychidas II
+
+@1735379d
+vencedor a Mícale, 479
+victor at Mycale, 479
+
+@f807678b
+Zeuxídam
+Zeuxidamus
+
+@b5fe98a3
+Arquídam II
+Archidamus II
+
+@ab38b096
+rei 469-427
+king 469-427
+
+@c429b371
+Lampito
+Lampito
+
+@483dac59
+Agis II
+Agis II
+
+@3b587b9e
+rei 427-400
+king 427-400
+
+@18920824
+Timea
+Timaea
+
+@28d7e4c7
+Leotíquides
+Leotychidas
+
+@d7a2a43c
+exclòs del tron: es deia que era fill d'Alcibíades
+excluded from the throne: he was said to be the son of Alcibiades
+
+@94f0cb34
+Eupòlia
+Eupolia
+
+@a01d373d
+Agesilau II
+Agesilaus II
+
+@163e3963
+rei des del 400
+king since 400
+
+@ddaf29f1
+Per què Esparta tenia dos reis?
+Why did Sparta have two kings?
+
+@e476298d
+Perquè les dues cases descendien de dos bessons heraclides, Eurístenes i Procles
+Because the two houses descended from two Heraclid twins, Eurysthenes and Procles
+
+@28074732
+Perquè un governava la ciutat i l'altre el port
+Because one ruled the city and the other the port
+
+@61223dfb
+Perquè s'escollien cada any per sorteig
+Because they were chosen by lot every year
+
+@c74de69a
+No. Segons la tradició, les dues cases reials descendien dels bessons Eurístenes i Procles, fills de l'heraclida Aristodem.
+No. According to tradition, the two royal houses descended from the twins Eurysthenes and Procles, sons of the Heraclid Aristodemus.
+
+@827b299c
+Els reis de Macedònia, els Argèades, deien descendir de Tèmenos, heraclida rei d'Argos: tres germans del seu llinatge haurien fugit al nord, i un d'ells, Perdicas, va fundar el regne. Alexandre I va demostrar aquesta ascendència per competir a Olímpia. El 386 regnava Amintes III, assetjat pels il·liris i per la lliga d'Olint. El seu fill Filip, futur vencedor a Queronea, naixeria cap al 382.
+The kings of Macedon, the Argeads, claimed descent from Temenus, the Heraclid king of Argos: three brothers of his line were said to have fled north, and one of them, Perdiccas, founded the kingdom. Alexander I proved this ancestry in order to compete at Olympia. In 386 Amyntas III was king, hard pressed by the Illyrians and by the league of Olynthus. His son Philip, the future victor of Chaeronea, would be born around 382.
+
+@e77f3762
+Bàlacre, de Pel·la. El meu rei, Amintes, m'envia a veure si Atenes vol fusta per als seus vaixells. A Macedònia tenim els millors pins i avets de Grècia, i vosaltres sense ells no teniu flota. Aquí alguns ens diuen bàrbars. Però els nostres reis descendeixen d'Hèracles, igual que els d'Esparta.
+Balacrus, of Pella. My king, Amyntas, has sent me to see whether Athens wants timber for her ships. In Macedon we have the best pines and firs in Greece, and you have no fleet without them. Some here call us barbarians. But our kings descend from Heracles, just like Sparta's.
+
+@a2a0184b
+D'on vénen els vostres reis?
+Where do your kings come from?
+
+@d878a24b
+D'Argos. Tèmenos, heraclida, va ser rei d'Argos. Tres germans del seu llinatge, Gavanes, Aèrop i Perdicas, van fugir a Il·líria i després a Macedònia, on van servir de pastors un rei local. Ell els va fer fora, i van acabar quedant-se el regne. Perdicas va ser el primer rei. Per això ens diuen Argèades o Temènides. Ho explica el vostre Heròdot.
+From Argos. Temenus, a Heraclid, was king of Argos. Three brothers of his line, Gauanes, Aeropus and Perdiccas, fled to Illyria and then to Macedon, where they served a local king as herdsmen. He drove them out, and they ended up taking the kingdom. Perdiccas was the first king. That's why we're called Argeads or Temenids. Your Herodotus tells the story.
+
+@75595380
+Sou grecs?
+Are you Greeks?
+
+@19fe1211
+Quan Alexandre, el primer d'aquest nom, va voler córrer a Olímpia, els jutges van dubtar: els jocs eren només per a grecs. Ell va demostrar que la seva família venia d'Argos i el van deixar córrer. Els nostres reis parlen grec i acullen poetes grecs: el rei Arquelau va convidar Eurípides, que va escriure a Macedònia Les bacants i hi va morir. El poble, això sí, parla a la seva manera.
+When Alexander, the first of that name, wanted to run at Olympia, the judges hesitated: the games were for Greeks only. He proved that his family came from Argos and they let him run. Our kings speak Greek and welcome Greek poets: King Archelaus invited Euripides, who wrote his Bacchae in Macedon and died there. The common people, mind you, speak in their own way.
+
+@b629bb9a
+Com li va al rei Amintes?
+How is King Amyntas faring?
+
+@d0ebddfb
+Malament i bé. Fa uns anys els il·liris el van fer fora del regne, i va haver de tornar amb ajuda dels tessalis. Ara els d'Olint, a la Calcídica, s'estan quedant les nostres ciutats. Però té fills amb la reina Eurídice, i la família creix. Si algun surt espavilat, Macedònia donarà que parlar.
+Badly and well. A few years ago the Illyrians drove him out of the kingdom, and he had to come back with Thessalian help. Now the Olynthians, in Chalcidice, are taking our cities. But he has sons by Queen Eurydice, and the family is growing. If one of them turns out clever, Macedon will give people something to talk about.
+
+@35e72947
+Tèmenos
+Temenus
+
+@47b8c7bc
+heraclida, rei d'Argos
+Heraclid, king of Argos
+
+@f9d52e52
+Perdicas I
+Perdiccas I
+
+@e89b4d41
+fundador del regne
+founder of the kingdom
+
+@bd59dad5
+Argeu
+Argaeus
+
+@849b7898
+Filip I
+Philip I
+
+@71d341b5
+Aèrop I
+Aeropus I
+
+@9932435b
+Àlcetes
+Alcetas
+
+@926d361c
+Amintes I
+Amyntas I
+
+@8ef94b0f
+Alexandre I
+Alexander I
+
+@f11d393f
+competeix a Olímpia; c. 498-454
+competes at Olympia; c. 498-454
+
+@0db15f40
+Perdicas II
+Perdiccas II
+
+@f1ac1d9e
+Símique, una esclava (segons Plató)
+Simiche, a slave woman (according to Plato)
+
+@a1b1aeda
+Arquelau
+Archelaus
+
+@1fcd0654
+413-399; acull Eurípides
+413-399; welcomes Euripides
+
+@60e0214d
+Amintes
+Amyntas
+
+@f1001e1b
+Arrideu
+Arrhidaeus
+
+@c7336155
+Amintes III
+Amyntas III
+
+@6de447cf
+rei des del 393
+king since 393
+
+@6ce715b9
+Eurídice, de la casa reial dels lincestes
+Eurydice, of the royal house of Lyncestis
+
+@6785a743
+Alexandre II
+Alexander II
+
+@92570ad9
+Perdicas III
+Perdiccas III
+
+@43486825
+Eurínoe
+Eurynoe
+
+@120ef3a2
+Filip II
+Philip II
+
+@e880f43a
+naixerà cap al 382
+will be born around 382
+
+@b59c2930
+Gígea
+Gygaea
+
+@931769c1
+Menelau
+Menelaus
+
+@8025138c
+De qui deien descendir els reis de Macedònia?
+From whom did the kings of Macedon claim descent?
+
+@8dc6dc86
+De Tèmenos, rei heraclida d'Argos
+From Temenus, Heraclid king of Argos
+
+@83788029
+D'Aquil·les, pel seu fill Neoptòlem
+From Achilles, through his son Neoptolemus
+
+@c297f3a8
+De Cadme, fundador de Tebes
+From Cadmus, founder of Thebes
+
+@2bd67ec4
+No. Els Argèades deien descendir de Tèmenos, heraclida d'Argos, i així van justificar el seu dret a competir a Olímpia.
+No. The Argeads claimed descent from Temenus, the Heraclid of Argos, and so justified their right to compete at Olympia.
+
+@c341a49b
+Siracusa, fundada el 733 per corintis dirigits per Àrquies, va ser governada pels tirans Dinomènides (Geló, Hieró) després de la victòria d'Himera (480), i després per una democràcia que va derrotar Atenes el 413. Des del 405 la domina Dionís I, que es va presentar com a salvador davant de Cartago. Es va casar el mateix dia amb Doris de Locres i amb Aristòmaca, germana de Dió, l'amic de Plató.
+Syracuse, founded in 733 by Corinthians led by Archias, was ruled by the Deinomenid tyrants (Gelon, Hieron) after the victory at Himera (480), and then by a democracy that defeated Athens in 413. Since 405 it has been ruled by Dionysius I, who presented himself as its saviour against Carthage. On the same day he married both Doris of Locri and Aristomache, sister of Dion, Plato's friend.
+
+@9ab08e97
+Blat de Sicília, el millor del mar. Hícetes, de Siracusa, per servir-te. No em miris així: ja sé que fa vint-i-set anys els vostres soldats van morir a les nostres pedreres. Ara tot és comerç. I si vols saber qui mana a Siracusa, la resposta és senzilla: Dionís. Sempre Dionís.
+Sicilian wheat, the best on the sea. Hicetas, of Syracuse, at your service. Don't look at me like that: I know that twenty-seven years ago your soldiers died in our quarries. Now it's all trade. And if you want to know who rules Syracuse, the answer is simple: Dionysius. Always Dionysius.
+
+@2398ab1d
+Qui va fundar Siracusa?
+Who founded Syracuse?
+
+@d6b7a973
+Corintis, fa més de tres-cents anys, amb Àrquies, de la família dels Baquíades, que deien descendir d'Hèracles. Van ocupar l'illa d'Ortígia, on brolla la font Aretusa: una nimfa que va fugir per sota el mar des d'Olímpia, perseguida pel riu Alfeu. Siracusa ha crescut tant que avui és la ciutat més gran del món grec.
+Corinthians, more than three hundred years ago, with Archias, of the Bacchiad family, who claimed descent from Heracles. They occupied the island of Ortygia, where the spring of Arethusa rises: a nymph who fled under the sea from Olympia, pursued by the river Alpheus. Syracuse has grown so much that today it is the largest city in the Greek world.
+
+@5e876e75
+Qui van ser els Dinomènides?
+Who were the Deinomenids?
+
+@8bed6bfa
+Els fills de Dinòmenes: Geló, Hieró, Polízel i Trasibul. Geló va vèncer els cartaginesos a Himera, el mateix any que vosaltres a Salamina. Hieró va omplir la seva cort de poetes: Píndar, Simònides, Baquílides; fins i tot Èsquil hi va estrenar una obra. Però Trasibul era cruel, i el poble el va fer fora. Va arribar la democràcia, la que us va derrotar.
+The sons of Deinomenes: Gelon, Hieron, Polyzelus and Thrasybulus. Gelon defeated the Carthaginians at Himera, the same year you won at Salamis. Hieron filled his court with poets: Pindar, Simonides, Bacchylides; even Aeschylus staged a play there. But Thrasybulus was cruel, and the people drove him out. Democracy came, the one that defeated you.
+
+@7327993f
+I Dionís?
+And Dionysius?
+
+@0ca9843f
+Era un escrivent, fill d'un tal Hermòcrit, que es va fer general a la guerra contra Cartago i després tirà. Fa gairebé vint anys que mana. Es va casar el mateix dia amb dues dones: Doris, de Locres, i Aristòmaca, filla d'Hiparí i germana de Dió. Escriu tragèdies, molt dolentes, diuen, encara que ningú no li ho diu. Fa poc va rebre el vostre Plató, i van acabar malament; n'hi ha que diuen que el va fer vendre com a esclau.
+He was a clerk, son of one Hermocritus, who became a general in the war against Carthage and then tyrant. He has ruled for almost twenty years. He married two women on the same day: Doris, of Locri, and Aristomache, daughter of Hipparinus and sister of Dion. He writes tragedies, very bad ones, they say, though nobody tells him so. Recently he received your Plato, and it ended badly; some say he had him sold as a slave.
+
+@3ca51a62
+Siracusa
+Syracuse
+
+@c5e1e16c
+fundada per Àrquies de Corint el 733; dues famílies diferents, sense parentiu
+founded by Archias of Corinth in 733; two different families, unrelated
+
+@0c90ca14
+Dinòmenes
+Deinomenes
+
+@756c6bc3
+de Gela
+of Gela
+
+@fdb89401
+Geló
+Gelon
+
+@13ddd99a
+tirà 485-478; Himera, 480
+tyrant 485-478; Himera, 480
+
+@c15908b8
+Damarete, filla de Teró d'Àgrigent
+Damarete, daughter of Theron of Acragas
+
+@ca1fe511
+Hieró I
+Hieron I
+
+@001b3665
+478-467; cort de poetes
+478-467; court of poets
+
+@5ecfcbe9
+Polízel
+Polyzelus
+
+@f49a8638
+Trasibul
+Thrasybulus
+
+@6a8f0545
+expulsat el 466
+expelled in 466
+
+@286b1083
+Hermòcrit
+Hermocritus
+
+@af114f9a
+Dionís I
+Dionysius I
+
+@91d7f2c9
+tirà des del 405; es va casar amb dues dones el mateix dia
+tyrant since 405; married two women on the same day
+
+@8d281c8f
+Doris de Locres
+Doris of Locri
+
+@64e14cf4
+Dionís II
+Dionysius II
+
+@a6b42f90
+tirà des del 367
+tyrant from 367
+
+@af4b55f5
+Aristòmaca, germana de Dió
+Aristomache, sister of Dion
+
+@ad6223f0
+Hiparí
+Hipparinus
+
+@f89f24ed
+Niseu
+Nysaeus
+
+@2defaad3
+Arete
+Arete
+
+@0263059a
+casada amb Dió
+married to Dion
+
+@e3a67b9b
+Sofròsine
+Sophrosyne
+
+@5523ee0e
+Com va arribar Dionís I al poder a Siracusa?
+How did Dionysius I come to power in Syracuse?
+
+@bb3dc2ec
+Com a general a la guerra contra Cartago, i després es va fer tirà
+As a general in the war against Carthage, and then he made himself tyrant
+
+@445f0312
+Va heretar el tron dels Dinomènides
+He inherited the throne of the Deinomenids
+
+@3efc8017
+El van escollir rei els corintis
+The Corinthians elected him king
+
+@5197ff1e
+No. Dionís era d'origen modest; va ascendir com a general a la guerra contra Cartago i es va fer tirà el 405.
+No. Dionysius was of humble origins; he rose as a general in the war against Carthage and made himself tyrant in 405.
+
+@f47d770f
+Salamina de Xipre deia haver estat fundada per Teucre, fill de Telamó i nét d'Èac, després de la guerra de Troia. El seu rei Evàgores (411-374) es presentava com a hereu d'aquest llinatge; va ser amic d'Atenes, que li va concedir la ciutadania, i va acollir Conó després d'Egospòtams. La Pau del Rei va lliurar Xipre a Pèrsia, i Evàgores es va quedar sol en la seva guerra contra el Gran Rei.
+Salamis in Cyprus claimed to have been founded by Teucer, son of Telamon and grandson of Aeacus, after the Trojan War. Its king Evagoras (411-374) presented himself as the heir of that line; he was a friend of Athens, which granted him citizenship, and he gave Conon refuge after Aegospotami. The King's Peace handed Cyprus to Persia, and Evagoras was left alone in his war against the Great King.
+
+@b0441445
+Vinc de Salamina. No la d'aquí al costat: la de Xipre, la gran. Em dic Timarc i serveixo el rei Evàgores. Vaig venir a demanar ajuda a Atenes, i Atenes m'ha ensenyat el text de la pau: Xipre és del Gran Rei. Així pagueu els amics.
+I come from Salamis. Not the one next door: the one in Cyprus, the big one. My name is Timarchus and I serve King Evagoras. I came to ask Athens for help, and Athens showed me the text of the peace: Cyprus belongs to the Great King. That's how you repay your friends.
+
+@c5287f98
+Qui va fundar la vostra Salamina?
+Who founded your Salamis?
+
+@4d5948d5
+Teucre, l'arquer, germà d'Àiax. Quan va tornar de Troia sense el seu germà, el seu pare Telamó, rei de la Salamina d'aquí, el va desterrar. Teucre va navegar fins a Xipre i va fundar una nova Salamina amb el nom de la seva pàtria. Els seus descendents, els Teúcrides, hi van regnar. I com que Telamó era fill d'Èac, el nostre rei descendeix de Zeus.
+Teucer, the archer, brother of Ajax. When he came back from Troy without his brother, his father Telamon, king of the Salamis here, banished him. Teucer sailed to Cyprus and founded a new Salamis named after his homeland. His descendants, the Teucrids, reigned there. And since Telamon was a son of Aeacus, our king descends from Zeus.
+
+@6a888acb
+Qui és Evàgores?
+Who is Evagoras?
+
+@b1809f57
+Un Teúcrida que va retornar el tron a la seva família. Un fenici s'havia apoderat de Salamina; Evàgores, amb uns pocs homes, va entrar de nit per una porta petita i va prendre el palau. Des d'aleshores ha fet de Salamina una ciutat grega en escriptura, monedes i costums. Va acollir el vostre Conó després d'Egospòtams, i amb la seva ajuda Conó va destruir la flota espartana a Cnidos.
+A Teucrid who gave the throne back to his family. A Phoenician had seized Salamis; Evagoras, with a handful of men, got in by night through a small gate and took the palace. Since then he has made Salamis a Greek city in its writing, coins and customs. He took in your Conon after Aegospotami, and with his help Conon destroyed the Spartan fleet at Cnidus.
+
+@95a32c3a
+Què passarà ara?
+What will happen now?
+
+@6b199ec8
+Guerra. El Gran Rei té les mans lliures i vindrà amb una gran flota. Evàgores compta amb el faraó d'Egipte i amb el que pugui reunir, i aguantarà el que pugui. Atenes ens va enviar deu trirrems amb Cabries, i ara es retira. El vostre Isòcrates diu que admira el meu rei. Que ho escrigui: les paraules són l'únic que ens doneu.
+War. The Great King has his hands free and will come with a great fleet. Evagoras is counting on the pharaoh of Egypt and whatever he can muster, and he'll hold out as long as he can. Athens sent us ten triremes under Chabrias, and now she's pulling out. Your Isocrates says he admires my king. Let him write it down: words are all you give us.
+
+@345d959b
+Egina, nimfa
+Aegina, a nymph
+
+@ae213fed
+Èac
+Aeacus
+
+@a20e2d41
+rei d'Egina
+king of Aegina
+
+@24e995d9
+Endeis
+Endeis
+
+@cafe4047
+Telamó
+Telamon
+
+@33dc8eb7
+rei de Salamina
+king of Salamis
+
+@256320e3
+Peribea (o Eribea)
+Periboea (or Eriboea)
+
+@62708c25
+Àiax
+Ajax
+
+@9091e2d8
+Hesíone, filla de Laomedont de Troia
+Hesione, daughter of Laomedon of Troy
+
+@a0f874c6
+Teucre
+Teucer
+
+@5ab3debc
+funda Salamina de Xipre
+founds Salamis in Cyprus
+
+@479d494e
+reis teúcrides
+Teucrid kings
+
+@9c4c9f2f
+Evàgores I
+Evagoras I
+
+@1e47d965
+rei 411-374; ciutadà atenès
+king 411-374; Athenian citizen
+
+@57fced71
+Nícocles
+Nicocles
+
+@a3c35abc
+futur rei
+future king
+
+@ac29c7ce
+Pnitàgores
+Pnytagoras
+
+@9911c058
+Peleu
+Peleus
+
+@e9f7aa5d
+germà de Telamó
+brother of Telamon
+
+@e4c6fc46
+De quin heroi deien descendir els reis de Salamina de Xipre?
+From which hero did the kings of Salamis in Cyprus claim descent?
+
+@f66cb3c8
+De Teucre, fill de Telamó i nét d'Èac
+From Teucer, son of Telamon and grandson of Aeacus
+
+@0536f6dd
+De Perseu, fill de Dànae
+From Perseus, son of Danae
+
+@22457dac
+D'Odisseu, rei d'Ítaca
+From Odysseus, king of Ithaca
+
+@7e71bf54
+No. Els reis de Salamina de Xipre es deien descendents de Teucre, que va fundar la ciutat en tornar de Troia.
+No. The kings of Salamis in Cyprus claimed to descend from Teucer, who founded the city on his return from Troy.
+
+@1f39ca16
+A Tessàlia manaven grans famílies aristocràtiques, com els Alèuades de Larissa, que deien descendir d'Hèracles a través de Tèssal, epònim del país, i d'Àleues el Roig, que va organitzar la regió en quatre districtes. Els Alèuades van donar suport a Xerxes el 480 i van encarregar a Píndar la seva primera oda conservada. A començaments del segle IV, els tirans de Feres els disputaven el poder; poc després, Jàson de Feres dominaria Tessàlia.
+In Thessaly great aristocratic families held power, such as the Aleuadae of Larissa, who claimed descent from Heracles through Thessalus, who gave the country its name, and from Aleuas the Red, who organised the region into four districts. The Aleuadae supported Xerxes in 480 and commissioned Pindar's earliest surviving ode. In the early fourth century the tyrants of Pherae contested their power; soon afterwards Jason of Pherae would dominate Thessaly.
+
+@b9042820
+Has vist mai cavalls com aquests? Tessalis, de les planes de Larissa. Èudic, per servir-te. Els venc als genets d'Atenes, que paguen bé i munten malament. A la meva terra els cavalls són dels nobles, i els nobles de veritat són els Alèuades, descendents d'Hèracles.
+Have you ever seen horses like these? Thessalians, from the plains of Larissa. Eudicus, at your service. I sell them to the horsemen of Athens, who pay well and ride badly. In my country horses belong to the nobles, and the true nobles are the Aleuadae, descendants of Heracles.
+
+@c04271ee
+Qui són els Alèuades?
+Who are the Aleuadae?
+
+@ef8fe544
+La gran família de Larissa. Descendeixen de Tèssal, fill d'Hèracles, que va donar nom a Tessàlia. El seu avantpassat més famós és Àleues el Roig: va dividir Tessàlia en quatre districtes i va fixar quants genets i hoplites havia d'aportar cada lot de terra. Tenia tant de cabell roig que fins i tot d'això parlen les llegendes.
+The great family of Larissa. They descend from Thessalus, son of Heracles, who gave Thessaly its name. Their most famous ancestor is Aleuas the Red: he divided Thessaly into four districts and fixed how many horsemen and hoplites each allotment of land had to provide. He had so much red hair that even the legends talk about it.
+
+@a8a72f4c
+És veritat que van ajudar els perses?
+Is it true they helped the Persians?
+
+@7a7b766b
+Sí, i no ho amaguen. Els fills d'Àleues, Tòrax i els seus germans, van convidar Xerxes i li van obrir Tessàlia: creien que guanyarien els perses. Es van equivocar. Però Tòrax també va encarregar a un jove Píndar una oda per celebrar una victòria a Delfos. Els Alèuades sempre van saber triar poetes, encara que no sempre aliats.
+Yes, and they don't hide it. The sons of Aleuas, Thorax and his brothers, invited Xerxes in and opened Thessaly to him: they thought the Persians would win. They were wrong. But Thorax also commissioned a young Pindar to write an ode celebrating a victory at Delphi. The Aleuadae always knew how to pick poets, if not always allies.
+
+@c806e94d
+Qui mana ara a Tessàlia?
+Who rules Thessaly now?
+
+@e6e4c381
+Això voldríem saber tots. A Larissa continuen els Alèuades; a Feres, un tirà, Licofró, vol dominar tota Tessàlia, i diuen que un tal Jàson, d'aquella ciutat, és l'home més capaç que hi ha. Per cert, el vostre Gòrgias, el sofista, viu a Larissa: té més de cent anys i continua ensenyant els nobles a parlar.
+That's what we'd all like to know. In Larissa the Aleuadae still hold on; in Pherae a tyrant, Lycophron, wants to rule all Thessaly, and they say a certain Jason from that city is the ablest man alive. By the way, your Gorgias, the sophist, lives in Larissa: he's over a hundred and still teaching the nobles how to speak.
+
+@ba4158e7
+Calcíope
+Chalciope
+
+@aef8ab7b
+Tèssal
+Thessalus
+
+@a5ea087c
+epònim de Tessàlia
+eponym of Thessaly
+
+@b35eafbe
+Àleues el Roig
+Aleuas the Red
+
+@668a2077
+organitza Tessàlia en quatre districtes (segle VI)
+organises Thessaly into four districts (6th century)
+
+@93ff0634
+Tòrax
+Thorax
+
+@3fe99ab2
+encarrega a Píndar la Pítica X (498); dona suport a Xerxes
+commissions Pindar's Pythian 10 (498); supports Xerxes
+
+@1d1124ae
+Eurípil
+Eurypylus
+
+@0411c57e
+Trasideu
+Thrasydaeus
+
+@7f82329c
+Medi de Larissa
+Medius of Larissa
+
+@247a9499
+cap al 395
+around 395
+
+@f9999c67
+De qui deien descendir els Alèuades de Larissa?
+From whom did the Aleuadae of Larissa claim descent?
+
+@04a57676
+D'Hèracles, a través de Tèssal
+From Heracles, through Thessalus
+
+@56de2200
+De Posidó, a través de Pèlias
+From Poseidon, through Pelias
+
+@45a8d7c2
+Dels perses que van arribar amb Xerxes
+From the Persians who came with Xerxes
+
+@e9f44ba6
+No. Els Alèuades es deien descendents d'Hèracles a través de Tèssal, epònim de Tessàlia.
+No. The Aleuadae claimed to descend from Heracles through Thessalus, eponym of Thessaly.
+
+@23789baf
+Els reis dels molossos, a l'Epir, deien descendir de Neoptòlem, fill d'Aquil·les, que s'hi hauria instal·lat després de la guerra de Troia amb Andròmaca; del seu fill Molós prendria nom el poble. El rei Tarripas es va educar a Atenes. El seu fill Àlcetes I, expulsat del tron, va ser restaurat cap al 385 amb ajuda de Dionís de Siracusa. D'aquesta família naixerà Olímpia, la mare d'Alexandre el Gran.
+The kings of the Molossians, in Epirus, claimed descent from Neoptolemus, son of Achilles, who was said to have settled there after the Trojan War with Andromache; the people took their name from his son Molossus. King Tharyps was educated in Athens. His son Alcetas I, driven from the throne, was restored around 385 with the help of Dionysius of Syracuse. From this family Olympias, the mother of Alexander the Great, will be born.
+
+@b3474432
+Vinc de les muntanyes de l'Epir, on hi ha Dodona, l'oracle més antic dels grecs: allà Zeus parla en la remor d'una alzina. Sóc Sabirt, molós. Els atenesos van ser bons amb el nostre rei Tarripas, que es va educar aquí. Per això vinc a demanar que no oblideu el seu fill.
+I come from the mountains of Epirus, home of Dodona, the oldest oracle of the Greeks: there Zeus speaks in the rustling of an oak. I am Sabyrtus, a Molossian. The Athenians were good to our king Tharyps, who was educated here. That's why I've come to ask you not to forget his son.
+
+@01f282d2
+De qui descendeixen els vostres reis?
+From whom do your kings descend?
+
+@8588fced
+D'Aquil·les. El seu fill Neoptòlem, a qui també anomenem Pirros pel seu cabell rogenc, va tornar de Troia amb Andròmaca, la vídua d'Hèctor, com a captiva. Es va instal·lar a l'Epir, i el seu fill amb Andròmaca, Molós, va donar nom al nostre poble. Per això als nostres reis els diuen Eàcides: Aquil·les era nét d'Èac. El vostre Eurípides ho explica a la seva Andròmaca.
+From Achilles. His son Neoptolemus, whom we also call Pyrrhus for his reddish hair, came back from Troy with Andromache, Hector's widow, as his captive. He settled in Epirus, and his son by Andromache, Molossus, gave our people its name. That's why our kings are called Aeacids: Achilles was the grandson of Aeacus. Your Euripides tells it in his Andromache.
+
+@38e0358b
+Qui va ser Tarripas?
+Who was Tharyps?
+
+@4799bf55
+El nostre rei quan era un nen, durant la vostra gran guerra amb Esparta. Els molossos el van enviar a Atenes per educar-se, i va tornar amb costums grecs, lleis, lletres i amics atenesos. Va canviar els molossos més que cap rei abans.
+Our king when he was a boy, during your great war with Sparta. The Molossians sent him to Athens to be educated, and he came back with Greek customs, laws, letters and Athenian friends. He changed the Molossians more than any king before him.
+
+@9d5a1e91
+I el seu fill Àlcetes?
+And his son Alcetas?
+
+@64ebed87
+El van fer fora del tron, i ara és a Siracusa, amb el tirà Dionís. Es diu que Dionís li vol retornar el regne amb ajuda dels il·liris, per tenir un aliat a aquesta banda del mar. No m'agrada barrejar-hi il·liris, però un rei és un rei. Si torna, potser la casa d'Aquil·les encara donarà grans reis i reines.
+They drove him from the throne, and now he's in Syracuse, with the tyrant Dionysius. They say Dionysius wants to give him back his kingdom with the help of the Illyrians, to have an ally on this side of the sea. I don't like mixing Illyrians into this, but a king is a king. If he returns, perhaps the house of Achilles will still produce great kings and queens.
+
+@eee77164
+Tetis, deessa del mar
+Thetis, goddess of the sea
+
+@275837fe
+Aquil·les
+Achilles
+
+@15b827c5
+Deidamia, filla del rei d'Esciros
+Deidamia, daughter of the king of Scyros
+
+@4a2f7e6e
+Neoptòlem (Pirros)
+Neoptolemus (Pyrrhus)
+
+@6e73d6e0
+Andròmaca, vídua d'Hèctor, la seva captiva
+Andromache, Hector's widow, his captive
+
+@a6bbc02e
+Molós
+Molossus
+
+@cf18ba25
+epònim dels molossos
+eponym of the Molossians
+
+@977ad83f
+Tarripas
+Tharyps
+
+@4b0653c5
+educat a Atenes
+educated in Athens
+
+@b4e803f9
+Àlcetes I
+Alcetas I
+
+@902da1fd
+desterrat; restaurat cap al 385
+exiled; restored around 385
+
+@ad362ed1
+Neoptòlem I
+Neoptolemus I
+
+@cb69d824
+Olímpia
+Olympias
+
+@e46c3ba4
+mare d'Alexandre el Gran; naixerà cap al 375
+mother of Alexander the Great; will be born around 375
+
+@0cbff6ac
+Alexandre I de l'Epir
+Alexander I of Epirus
+
+@fa81ebc8
+Arribas
+Arybbas
+
+@1e36650e
+De quin heroi deien descendir els reis molossos de l'Epir?
+From which hero did the Molossian kings of Epirus claim descent?
+
+@2c2557f8
+De Neoptòlem, fill d'Aquil·les
+From Neoptolemus, son of Achilles
+
+@5b5c3034
+D'Hèracles, pel seu fill Hil·los
+From Heracles, through his son Hyllus
+
+@902fa347
+De Teseu, rei d'Atenes
+From Theseus, king of Athens
+
+@b0bfd465
+No. Els reis molossos, els Eàcides, es deien descendents de Neoptòlem, fill d'Aquil·les i besnét d'Èac.
+No. The Molossian kings, the Aeacids, claimed descent from Neoptolemus, son of Achilles and great-grandson of Aeacus.
+
+@c3f71738
+A l'Atenes del 386 no hi havia biblioteques públiques: hi havia col·leccions privades i llibreters que venien rotlles de papir a l'Àgora. Els mites no tenien un text sagrat: es coneixien per Homer i Hesíode, pels poetes lírics, per la tragèdia i per la tradició oral, i cada autor els explicava a la seva manera. Per això un mateix mite té versions diferents, de vegades contradictòries.
+In the Athens of 386 there were no public libraries: there were private collections and booksellers who sold papyrus rolls in the Agora. The myths had no sacred text: they were known from Homer and Hesiod, the lyric poets, tragedy and oral tradition, and each author told them his own way. That's why the same myth has different, sometimes contradictory, versions.
+
+@15ff5c1c
+Passa, passa, mira sense por. Sóc Demofont, llibreter. Aquí tinc Homer, Hesíode, Píndar, les tragèdies d'Eurípides, fins i tot el llibre d'Anaxàgores, que es venia per una dracma. A Atenes no hi ha cap lloc on es guardin tots els llibres; potser algun dia. Mentrestant, la meva parada és el que s'hi assembla més. I si no saps llegir, t'explico els mites jo mateix.
+Come in, come in, have a look, don't be shy. I'm Demophon, bookseller. Here I have Homer, Hesiod, Pindar, the tragedies of Euripides, even the book of Anaxagoras that used to sell for a drachma. In Athens there's no place where all the books are kept; perhaps one day. Meanwhile, my stall is the nearest thing. And if you can't read, I'll tell you the myths myself.
+
+@bde176c4
+On s'escriuen els mites?
+Where are the myths written down?
+
+@de3b982b
+A molts llocs i a cap. Homer canta la guerra de Troia i el retorn d'Odisseu; Hesíode, l'origen dels déus i dels homes. Píndar explica mites per lloar els atletes. Els tràgics els porten a escena, i cadascun els canvia: l'Èdip d'Homer continua regnant després de saber la veritat; el de Sòfocles s'arrenca els ulls. No hi ha un llibre sagrat que digui quina és la versió veritable.
+In many places and in none. Homer sings of the Trojan War and the return of Odysseus; Hesiod, of the origin of gods and men. Pindar tells myths to praise athletes. The tragedians put them on stage, and each one changes them: Homer's Oedipus goes on reigning after learning the truth; Sophocles' puts out his own eyes. There is no sacred book that says which version is the true one.
+
+@fb272484
+Hi ha biblioteques a Atenes?
+Are there libraries in Athens?
+
+@cf2e309c
+No com t'imagines. Alguns rics tenen molts llibres: Eurípides va reunir una bona col·lecció, i Eutidem, el jove que conversava amb Sòcrates, presumia dels seus. Al Metroon es guarden els documents de la ciutat, no la poesia. Els llibres es copien a mà, rotlle a rotlle, i es venen aquí. Gairebé tothom llegeix en veu alta, o escolta com llegeix un altre.
+Not as you imagine them. Some rich men own many books: Euripides built up a good collection, and Euthydemus, the young man who used to talk with Socrates, was proud of his. The Metroon keeps the city's documents, not poetry. Books are copied by hand, roll by roll, and sold here. Almost everyone reads aloud, or listens to someone else reading.
+
+@4211f234
+Com es fa un llibre?
+How is a book made?
+
+@37fdfbfa
+Amb papir d'Egipte, que arriba pel Pireu. S'enganxen els fulls en una tira llarga, s'escriu en columnes amb tinta de sutge i una canya esmolada, i s'enrotlla. Un bon copista triga dies a copiar una tragèdia, i s'equivoca; per això dues còpies no són mai iguals. Per llegir, desenrotlles amb una mà i enrotlles amb l'altra.
+With papyrus from Egypt, which comes in through Piraeus. The sheets are glued into a long strip, you write in columns with soot ink and a sharpened reed, and you roll it up. A good copyist takes days to copy a tragedy, and makes mistakes; that's why no two copies are ever the same. To read, you unroll with one hand and roll up with the other.
+
+@b2ca14a0
+Per què un mateix mite grec té versions diferents?
+Why does the same Greek myth have different versions?
+
+@55e29524
+Perquè no hi havia un text sagrat: cada poeta, ciutat i època l'explicava a la seva manera
+Because there was no sacred text: each poet, city and era told it its own way
+
+@81063148
+Perquè els llibreters canviaven els finals per vendre més
+Because booksellers changed the endings to sell more
+
+@7994aef8
+Perquè els sacerdots prohibien escriure'ls
+Because the priests forbade writing them down
+
+@b51375af
+No. Els mites es transmetien de moltes maneres, i poetes, ciutats i èpoques els explicaven de manera diferent; no hi havia una versió oficial.
+No. Myths were passed on in many ways, and poets, cities and eras told them differently; there was no official version.
+
+@d852ba9a
+Al segle IV, sobre el turó de l'antiga Troia hi havia una petita ciutat grega, Ílion, amb un temple d'Atena on Xerxes va sacrificar mil bous el 480. Els seus habitants ensenyaven als visitants les ruïnes i les tombes dels herois. Segons la tradició, la guerra va durar deu anys i va acabar amb l'engany del cavall. L'arqueologia ha trobat al turó diverses ciutats superposades; la Troia destruïda cap al 1200 aC és la candidata més probable a la del mite.
+In the fourth century, on the hill of ancient Troy stood a small Greek city, Ilion, with a temple of Athena where Xerxes sacrificed a thousand oxen in 480. Its inhabitants showed visitors the ruins and the tombs of the heroes. According to tradition, the war lasted ten years and ended with the trick of the horse. Archaeology has found several cities built one on top of another on the hill; the Troy destroyed around 1200 BC is the likeliest candidate for the Troy of myth.
+
+@17f3db17
+Benvingut a Ílion, estranger. Trepitges la terra de Príam. Avui som una ciutat petita, de colons eolis, però tots els que passen per l'Hel·lespont volen veure Troia. Fins i tot el rei Xerxes va pujar a aquest turó i va sacrificar mil bous a Atena abans de passar a Europa.
+Welcome to Ilion, stranger. You tread the land of Priam. Today we're a small city of Aeolian settlers, but everyone who passes through the Hellespont wants to see Troy. Even King Xerxes climbed this hill and sacrificed a thousand oxen to Athena before crossing into Europe.
+
+@3f7b32b7
+Com va començar la guerra?
+How did the war begin?
+
+@97795f43
+Paris, fill de Príam, va ser hoste del rei Menelau a Esparta i es va endur la seva esposa, Helena, amb els seus tresors. Els grecs van jurar venjar l'ofensa: Agamèmnon, germà de Menelau, va reunir mil naus a Àulida. Els déus es van dividir: Hera, Atena i Posidó amb els grecs; Afrodita, Apol·lo i Ares amb nosaltres. Deu anys va durar el setge. Mira aquella plana: allà, vora l'Escamandre, acampaven les naus gregues.
+Paris, son of Priam, was the guest of King Menelaus in Sparta and carried off his wife, Helen, with her treasures. The Greeks swore to avenge the insult: Agamemnon, Menelaus' brother, gathered a thousand ships at Aulis. The gods took sides: Hera, Athena and Poseidon with the Greeks; Aphrodite, Apollo and Ares with us. The siege lasted ten years. Look at that plain: there, by the Scamander, the Greek ships were beached.
+
+@5bd9d102
+Com va caure Troia?
+How did Troy fall?
+
+@6c89674a
+Per un engany. Els grecs van fingir que se n'anaven i van deixar un enorme cavall de fusta, dedicat a Atena. A dins s'amagaven Odisseu, Menelau i els millors guerrers. Laocoont ens va advertir, i Cassandra, la filla de Príam, també, però ningú no la creia mai: era el seu càstig. Vam ficar el cavall a la ciutat i aquella nit els grecs en van sortir, van obrir les portes i la van incendiar. Príam va morir al costat de l'altar de Zeus.
+By a trick. The Greeks pretended to leave and left behind a huge wooden horse, dedicated to Athena. Inside hid Odysseus, Menelaus and the best warriors. Laocoon warned us, and so did Cassandra, Priam's daughter, but nobody ever believed her: that was her punishment. We dragged the horse into the city and that night the Greeks came out, opened the gates and set the city on fire. Priam died beside the altar of Zeus.
+
+@4ff271cc
+Què en queda, d'aquella Troia?
+What is left of that Troy?
+
+@ebb35b25
+Els grans murs de pedra que, segons diuen, van aixecar Posidó i Apol·lo per al rei Laomedont. I les tombes: la d'Aquil·les i Pàtrocle, vora el cap Sigeu, i la d'Àiax al Reteu. Els mariners els ofereixen libacions en passar. Nosaltres guardem al temple armes que, diuen, són d'aquella guerra.
+The great stone walls that, they say, Poseidon and Apollo raised for King Laomedon. And the tombs: Achilles' and Patroclus' by Cape Sigeum, and Ajax's at Rhoeteum. Sailors pour libations to them as they pass. In the temple we keep weapons that, they say, are from that war.
+
+@a743617e
+Electra, filla d'Atlas
+Electra, daughter of Atlas
+
+@934b6e8c
+Dàrdan
+Dardanus
+
+@05a6e672
+funda Dardània
+founds Dardania
+
+@99da5e7c
+Batiea, filla del riu Escamandre
+Batea, daughter of the river Scamander
+
+@90addf75
+Erictoni
+Erichthonius
+
+@302660c7
+Astíoque
+Astyoche
+
+@f8aceb93
+Tros
+Tros
+
+@3bdd3503
+d'ell, els troians
+from him, the Trojans
+
+@4384a1e2
+Cal·lírroe
+Callirrhoe
+
+@61ef29ba
+Ilos
+Ilus
+
+@1dbb5770
+funda Ílion
+founds Ilion
+
+@4709604d
+Eurídice
+Eurydice
+
+@2d4656f2
+Laomedont
+Laomedon
+
+@70f36e22
+Posidó i Apol·lo li construeixen els murs
+Poseidon and Apollo build his walls
+
+@fa6d8545
+Estrimo
+Strymo
+
+@3b77fa32
+Hesíone
+Hesione
+
+@475e00de
+esposa de Telamó
+wife of Telamon
+
+@83f59012
+Príam
+Priam
+
+@4491237f
+rei durant la guerra
+king during the war
+
+@e0e1f4e1
+Hècuba
+Hecuba
+
+@efbb072b
+Hèctor
+Hector
+
+@e841cbe2
+Andròmaca
+Andromache
+
+@2f094ed3
+Astíanax
+Astyanax
+
+@22390ad1
+Paris
+Paris
+
+@8941832a
+Enone; després, Helena
+Oenone; later, Helen
+
+@1361124e
+Cassandra
+Cassandra
+
+@325ac875
+Políxena
+Polyxena
+
+@5642a23f
+Hèlen
+Helenus
+
+@1577256f
+Deífob
+Deiphobus
+
+@2077ee8a
+Assàrac
+Assaracus
+
+@79708779
+Hieromnèmone
+Hieromneme
+
+@98b80aa6
+Capis
+Capys
+
+@057b39d5
+Temiste
+Themiste
+
+@82cb247f
+Anquises
+Anchises
+
+@ddb6b649
+la deessa Afrodita
+the goddess Aphrodite
+
+@9b8e24cb
+Enees
+Aeneas
+
+@4183072b
+Creüsa, filla de Príam
+Creusa, daughter of Priam
+
+@b4751ae9
+Ganimedes
+Ganymede
+
+@973011bb
+raptat per Zeus
+carried off by Zeus
+
+@e82bcd65
+Com van aconseguir els grecs entrar a Troia, segons el mite?
+How did the Greeks get into Troy, according to the myth?
+
+@8aa30b54
+Amagats en un cavall de fusta que els troians van ficar a la ciutat
+Hidden in a wooden horse that the Trojans brought into the city
+
+@e99fed61
+Excavant un túnel sota els murs
+By digging a tunnel under the walls
+
+@537e2404
+Subornant Príam amb or
+By bribing Priam with gold
+
+@d90e3114
+No. Segons la tradició, els grecs es van amagar en un cavall de fusta que els troians van introduir a la ciutat.
+No. According to tradition, the Greeks hid in a wooden horse that the Trojans brought into the city.
+
+@9a148ffe
+Segons la tradició, Àiax fill d'Oileu, de la Lòcrida, va arrencar Cassandra de l'estàtua d'Atena durant el saqueig de Troia. Per expiar aquell sacrilegi, els locris enviaven a Ílion cada any dues donzelles nobles, que entraven en secret al temple i servien la deessa vestides amb humilitat. El costum està testimoniat al segle IV per Enees el Tàctic i en inscripcions posteriors.
+According to tradition, Ajax son of Oileus, from Locris, dragged Cassandra away from the statue of Athena during the sack of Troy. To atone for that sacrilege, the Locrians sent two noble maidens to Ilion every year, who entered the temple in secret and served the goddess in humble dress. The custom is attested in the fourth century by Aeneas Tacticus and in later inscriptions.
+
+@3b46c954
+No t'acostis gaire: si em veuen els d'Ílion, tenen dret a apedregar-me. Em dic Peribea, vinc de la Lòcrida. Cada any, dues noies de la meva terra venim aquí a servir Atena. Entrem de nit, per un camí amagat, i si arribem al temple, ja som a salvament.
+Don't come too close: if the people of Ilion see me, they have the right to stone me. My name is Periboea, I come from Locris. Every year two girls from my land come here to serve Athena. We come in at night, by a hidden path, and once we reach the temple, we're safe.
+
+@9a0503d9
+Per què ets aquí?
+Why are you here?
+
+@6e15a4ee
+Pel que va fer Àiax, el fill d'Oileu, un heroi de la meva terra. Quan Troia queia, Cassandra es va abraçar a l'estàtua d'Atena demanant protecció, i Àiax la'n va arrencar per la força, tan fort que l'estàtua va caure. Atena no el va perdonar: va enfonsar el seu vaixell en tornar, i Posidó el va ofegar. I a nosaltres, els locris, ens va imposar aquest càstig durant mil anys.
+Because of what Ajax, son of Oileus, a hero of my land, did. When Troy was falling, Cassandra clung to the statue of Athena begging for protection, and Ajax dragged her away by force, so roughly that the statue fell. Athena did not forgive him: she sank his ship on the way home, and Poseidon drowned him. And on us, the Locrians, she laid this punishment for a thousand years.
+
+@a13ec3f9
+Com és el teu servei?
+What does your service involve?
+
+@cb9f4a99
+Vestim una túnica senzilla, anem descalces i amb el cabell curt. Escombrem i rentem el temple, i no ens podem acostar a l'estàtua ni sortir de nit. Servim un any, i després n'arriben unes altres dues. Si alguna vegada una de nosaltres mor aquí, cremem el seu cos amb fusta d'arbres sense fruit i llancem els ossos al mar.
+We wear a plain tunic, go barefoot and keep our hair short. We sweep and wash the temple, and we may not go near the statue or go out at night. We serve for a year, and then two others arrive. If one of us ever dies here, we burn her body with wood from fruitless trees and throw the bones into the sea.
+
+@1e20e94d
+És veritat que us persegueixen?
+Is it true they chase you?
+
+@a66e7254
+És part del ritu. Quan arribem, els d'Ílion surten a buscar-nos amb pedres i pals, com si fóssim enemigues. Per això els nostres ens porten de nit i ens deixen en un lloc amagat de la costa. Alguns diuen que és només un joc, una representació. Jo t'asseguro que, quan corres a les fosques cap al temple, no sembla un joc.
+It's part of the rite. When we arrive, the people of Ilion come out to look for us with stones and sticks, as if we were enemies. That's why our people bring us at night and leave us at a hidden spot on the coast. Some say it's only a game, a performance. I assure you that when you're running in the dark towards the temple, it doesn't feel like a game.
+
+@60b33468
+Per què enviaven els locris donzelles a servir Atena a Ílion?
+Why did the Locrians send maidens to serve Athena at Ilion?
+
+@7f096c12
+Per expiar el sacrilegi d'Àiax, que va arrencar Cassandra de l'estàtua de la deessa
+To atone for the sacrilege of Ajax, who dragged Cassandra from the goddess's statue
+
+@62ed8078
+Per pagar un tribut als perses
+To pay tribute to the Persians
+
+@5c83470e
+Perquè Atena havia nascut a la Lòcrida
+Because Athena had been born in Locris
+
+@c5c81cc6
+No. Era l'expiació del sacrilegi d'Àiax fill d'Oileu, que va arrencar Cassandra de l'estàtua d'Atena durant el saqueig de Troia.
+No. It was atonement for the sacrilege of Ajax son of Oileus, who dragged Cassandra from the statue of Athena during the sack of Troy.
+
+@ff3b5520
+El 386 Tebes acabava de perdre la seva Lliga Beòcia: la Pau del Rei, imposada per Esparta, va obligar a dissoldre-la en nom de l'autonomia de les ciutats. Epaminondes, de família noble però pobra, format en la filosofia pitagòrica per Lisis de Tarent, era aleshores un home d'uns trenta anys sense càrrecs. Quinze anys després venceria Esparta a Leuctra (371) i obriria el breu període d'hegemonia tebana (371-362).
+In 386 Thebes had just lost its Boeotian League: the King's Peace, imposed by Sparta, forced it to dissolve in the name of the cities' autonomy. Epaminondas, of a noble but poor family, trained in Pythagorean philosophy by Lysis of Tarentum, was then a man of about thirty holding no office. Fifteen years later he would defeat Sparta at Leuctra (371) and open the brief period of Theban hegemony (371-362).
+
+@72213757
+Benvingut a Tebes, la ciutat de les set portes. Sóc Epaminondes. No tinc càrrec ni riquesa: només els meus llibres, la meva lira i el meu mestre, Lisis, un pitagòric de Tarent que viu a casa del meu pare. Si busques la glòria de Tebes, has arribat en mal moment: Esparta ens ha pres la nostra lliga.
+Welcome to Thebes, the city of seven gates. I am Epaminondas. I have no office and no wealth: only my books, my lyre and my teacher, Lysis, a Pythagorean from Tarentum who lives in my father's house. If you're looking for the glory of Thebes, you've come at a bad time: Sparta has taken our league away from us.
+
+@8ccbc048
+Què ha passat amb Tebes?
+What has happened to Thebes?
+
+@069ad439
+Fins fa uns mesos, Tebes encapçalava la Lliga Beòcia: totes les ciutats de Beòcia unides, amb un consell comú i un exèrcit comú. Vam lluitar contra Esparta al costat d'Atenes, Argos i Corint. Però la Pau del Rei diu que cada ciutat ha de ser autònoma, i Agesilau la va fer servir com un martell: o dissolíem la lliga o venia amb el seu exèrcit. La vam dissoldre. Ara Platea i Orcomen ens miren per sobre l'espatlla.
+Until a few months ago, Thebes led the Boeotian League: all the cities of Boeotia united, with a common council and a common army. We fought against Sparta alongside Athens, Argos and Corinth. But the King's Peace says every city must be autonomous, and Agesilaus used it like a hammer: either we dissolved the league or he would come with his army. We dissolved it. Now Plataea and Orchomenus look down their noses at us.
+
+@7ca02da4
+Qui va fundar Tebes?
+Who founded Thebes?
+
+@d0d502e2
+Cadme, el fenici, que buscava la seva germana Europa. Va seguir una vaca fins aquí, va matar el drac d'Ares i en va sembrar les dents: d'elles van néixer els Espartos, els «sembrats», avantpassats de les famílies nobles. Cadme va fortificar aquest turó, la Cadmea. Els seus descendents van ser reis: Polidor, Làbdac, Laios, Èdip… una família desgraciada, com saps per les vostres tragèdies.
+Cadmus, the Phoenician, who was searching for his sister Europa. He followed a cow here, killed the dragon of Ares and sowed its teeth: from them sprang the Spartoi, the «sown men», ancestors of the noble families. Cadmus fortified this hill, the Cadmea. His descendants were kings: Polydorus, Labdacus, Laius, Oedipus… an ill-fated family, as you know from your tragedies.
+
+@435a0711
+Què esperes del futur?
+What do you hope for from the future?
+
+@edcc1f14
+No ho sé. Lisis m'ensenya que cal governar-se un mateix abans de governar els altres, i que l'amistat és una forma de justícia. El meu amic Pelòpides, que és ric i valent, diu que algun dia Tebes serà lliure dels espartans. Si arriba aquell dia, vull estar preparat. Mentrestant, estudio, toco l'aulós i m'exercito al gimnàs.
+I don't know. Lysis teaches me that you must govern yourself before you govern others, and that friendship is a form of justice. My friend Pelopidas, who is rich and brave, says that one day Thebes will be free of the Spartans. If that day comes, I want to be ready. Meanwhile I study, play the aulos and train in the gymnasium.
+
+@67296ea3
+Agènor
+Agenor
+
+@31ff22a0
+rei de Tir
+king of Tyre
+
+@726e6fc1
+Telefassa
+Telephassa
+
+@10bf7156
+Europa
+Europa
+
+@66dccf05
+raptada per Zeus
+carried off by Zeus
+
+@1f000962
+Fènix
+Phoenix
+
+@e1f3341f
+Cílix
+Cilix
+
+@2e4b8848
+Cadme
+Cadmus
+
+@9b334b69
+funda Tebes
+founds Thebes
+
+@6f3dc1ab
+Harmonia, filla d'Ares i Afrodita
+Harmonia, daughter of Ares and Aphrodite
+
+@12846287
+Polidor
+Polydorus
+
+@bc1b9a25
+Nicteis
+Nycteis
+
+@7347dbc8
+Làbdac
+Labdacus
+
+@c7fb0add
+Laios
+Laius
+
+@28da976f
+Iocasta, filla de Meneceu
+Jocasta, daughter of Menoeceus
+
+@71828585
+Iocasta, la seva pròpia mare
+Jocasta, his own mother
+
+@6f9c6ac1
+Etèocles
+Eteocles
+
+@7dee74fd
+Polinices
+Polynices
+
+@9526b494
+Argia, filla d'Adrast
+Argeia, daughter of Adrastus
+
+@533e2b44
+Antígona
+Antigone
+
+@36269cfc
+Ismene
+Ismene
+
+@b404680b
+Sèmele
+Semele
+
+@806df8d8
+Àgave
+Agave
+
+@1f3536d1
+Equíon, un dels espartos
+Echion, one of the Spartoi
+
+@a7e877ed
+Penteu
+Pentheus
+
+@67c026ed
+esquarterat per les bacants
+torn apart by the Bacchants
+
+@f10c580b
+Ino
+Ino
+
+@b316c9aa
+Atamant
+Athamas
+
+@35936b96
+Learc
+Learchus
+
+@f6d6e85a
+Melicertes
+Melicertes
+
+@557d0878
+Autònoe
+Autonoe
+
+@33dcd5f7
+Aristeu
+Aristaeus
+
+@c2a111b5
+Acteó
+Actaeon
+
+@01bdcad2
+Què va obligar Tebes el 386 a dissoldre la Lliga Beòcia?
+What forced Thebes to dissolve the Boeotian League in 386?
+
+@35733f06
+La Pau del Rei, que exigia l'autonomia de cada ciutat i que Esparta va fer complir
+The King's Peace, which required the autonomy of every city and which Sparta enforced
+
+@bd162f63
+Una derrota davant d'Atenes a Marató
+A defeat by Athens at Marathon
+
+@3357cdfa
+Una decisió de l'oracle de Delfos
+A ruling by the oracle of Delphi
+
+@bffac894
+No. La Pau del Rei exigia l'autonomia de totes les ciutats, i Esparta la va fer servir per obligar Tebes a dissoldre la Lliga Beòcia.
+No. The King's Peace required the autonomy of every city, and Sparta used it to force Thebes to dissolve the Boeotian League.
+
+@cf661f4a
+Abans de la Pau del Rei, la Lliga Beòcia era un estat federal: onze districtes, cadascun amb un beotarca i seixanta consellers, i un exèrcit comú. A Tebes s'enfrontaven dues faccions: la d'Ismènias, enemiga d'Esparta, i la de Leontíades, partidària seva. Pelòpides, ric i amic inseparable d'Epaminondes, seria un dels grans líders tebans de les dècades següents.
+Before the King's Peace, the Boeotian League was a federal state: eleven districts, each with a boeotarch and sixty councillors, and a common army. In Thebes two factions were at odds: that of Ismenias, hostile to Sparta, and that of Leontiades, on her side. Pelopidas, rich and Epaminondas' inseparable friend, would be one of the great Theban leaders of the following decades.
+
+@df25b373
+Pelòpides, fill d'Hipocle. Sóc ric, i no me n'avergonyeixo: ho gasto en els meus amics. El meu amic Epaminondes no accepta res, ni un mantell nou. Tossut com una mula beòcia. Si has vingut a conèixer Tebes, deixa que t'expliqui com ens governàvem abans que Esparta hi fiqués el nas.
+Pelopidas, son of Hippoclus. I'm rich, and I'm not ashamed of it: I spend it on my friends. My friend Epaminondas won't accept anything, not even a new cloak. Stubborn as a Boeotian mule. If you've come to get to know Thebes, let me tell you how we governed ourselves before Sparta stuck its nose in.
+
+@b3e6b789
+Com era la Lliga Beòcia?
+What was the Boeotian League like?
+
+@be4f264b
+Beòcia estava dividida en onze districtes. Cadascun escollia un beotarca, una mena de general, i enviava seixanta consellers al consell federal, que es reunia aquí, a la Cadmea, en quatre seccions. Tebes, amb els seus aliats, tenia quatre districtes: gairebé la meitat. L'exèrcit comú era temible: la millor infanteria i la millor cavalleria de Grècia, després de l'espartana.
+Boeotia was divided into eleven districts. Each elected a boeotarch, a sort of general, and sent sixty councillors to the federal council, which met here on the Cadmea in four sections. Thebes, with its allies, held four districts: almost half. The common army was formidable: the best infantry and the best cavalry in Greece, after Sparta's.
+
+@d9aa86ed
+Qui mana ara a Tebes?
+Who rules Thebes now?
+
+@603d199e
+Dos bàndols s'odien. Ismènias i els seus volen una Tebes forta i lliure d'Esparta; van ser ells els qui van acceptar l'or persa per començar l'última guerra. Leontíades i els seus prefereixen obeir Esparta a canvi de manar a casa. Ara, amb la pau, els de Leontíades aixequen el cap. No m'agrada com acabarà això.
+Two factions hate each other. Ismenias and his people want a strong Thebes, free of Sparta; they were the ones who took Persian gold to start the last war. Leontiades and his people prefer to obey Sparta in exchange for ruling at home. Now, with the peace, Leontiades' men are raising their heads. I don't like how this is going to end.
+
+@e065d6e4
+Què feu Epaminondes i tu?
+What do you and Epaminondas do?
+
+@cdaff911
+Entrenem, cacem, discutim. Ell parla de filosofia; jo, de cavalls. Esparta ens exigeix soldats per a les seves campanyes, i potser haurem de lluitar al seu costat, que és el que més ràbia em fa. Però si algun dia cal lluitar contra ella, sé amb qui vull ser a primera fila.
+We train, we hunt, we argue. He talks philosophy; I talk horses. Sparta demands soldiers from us for her campaigns, and we may have to fight at her side, which is what galls me most. But if one day we have to fight against her, I know who I want beside me in the front rank.
+
+@e9368221
+Com s'organitzava la Lliga Beòcia abans del 386?
+How was the Boeotian League organised before 386?
+
+@5b60c93d
+En onze districtes amb beotarques i un consell federal
+In eleven districts with boeotarchs and a federal council
+
+@94a25476
+Com una monarquia amb rei a Tebes
+As a monarchy with a king in Thebes
+
+@4229ab26
+Com una colònia d'Atenes
+As a colony of Athens
+
+@1be0e1bc
+No. La Lliga Beòcia era federal: onze districtes, cadascun amb el seu beotarca i els seus consellers en un consell comú.
+No. The Boeotian League was federal: eleven districts, each with its boeotarch and its councillors in a common council.
+
+@9f67badc
+L'oikos era alhora la casa, la família i la hisenda: la parella, els seus fills, els parents acollits, els esclaus, els animals i la terra. El pare decidia si es criava un nadó; si l'acceptava, el portava corrent al voltant de la llar (amfidròmia) cap al cinquè dia i li posava nom a la festa del desè dia, sovint el de l'avi. A les Apatúries el presentava a la seva fratria jurant que era fill legítim de pare i mare atenesos: així es garantia que algun dia seria ciutadà i hereu. Els nens es criaven entre dones fins als set anys, amb la mare i la dida.
+The oikos was at once the house, the family and the estate: the couple, their children, relatives taken in, slaves, animals and land. The father decided whether a newborn would be raised; if he accepted it, he carried it running around the hearth (the amphidromia) around the fifth day and named it at the feast on the tenth day, often after its grandfather. At the Apatouria he presented it to his phratry, swearing it was the legitimate child of an Athenian father and mother: that guaranteed it would one day be a citizen and heir. Children were brought up among women until the age of seven, with the mother and the wet nurse.
+
+@5a8d378f
+El sents plorar? És el nen de la casa, que va néixer fa sis dies. Ahir el seu pare el va portar en braços al voltant del foc de la llar, i jo, que l'he criat des de la primera nit, vaig plorar més que la mare. Sóc Glícera. Em van portar de Tràcia de petita; ara sóc més d'aquesta casa que ningú.
+Do you hear him crying? It's the baby of the house, born six days ago. Yesterday his father carried him in his arms around the hearth fire, and I, who've nursed him since the first night, cried more than his mother. I'm Glycera. They brought me from Thrace as a little girl; now I belong to this house more than anyone.
+
+@978b0933
+Què és això de córrer al voltant del foc?
+What is this running around the fire?
+
+@5e1fb5dd
+L'amfidròmia. Cap al cinquè o sisè dia, si el pare ha decidit criar el nen, el pren en braços i corre al voltant de la llar, l'altar del pati on crema el foc de la casa. Des d'aquell moment el nen pertany a l'oikos. Abans es purifica la casa, perquè un part taca com una mort: hi ha sang, i els déus no volen sang a prop.
+The amphidromia. Around the fifth or sixth day, if the father has decided to raise the child, he takes it in his arms and runs around the hearth, the altar in the courtyard where the household fire burns. From that moment the child belongs to the oikos. First the house is purified, because a birth pollutes like a death: there's blood, and the gods don't want blood nearby.
+
+@f5695172
+I si el pare no el vol?
+And if the father doesn't want it?
+
+@894d37ef
+Pot no criar-lo. L'exposen: el deixen en una gerra o en una cistella, en un lloc per on passi gent, esperant que algú el reculli, com a fill o com a esclau. Passa més amb les nenes i amb els nens malalts, o quan ja hi ha massa boques. No em preguntis més sobre això, que em poso trista.
+He may choose not to raise it. It's exposed: left in a pot or a basket somewhere people pass, in the hope that someone will take it in, as a child or as a slave. It happens more with girls and with sickly babies, or when there are already too many mouths. Don't ask me more about that, it makes me sad.
+
+@aed2afea
+Quan li posen nom?
+When is it named?
+
+@adcd6aae
+El desè dia hi ha festa, la dekate: vénen els parents, es fa un sacrifici i un àpat, i el pare anuncia el nom. Al primogènit se li sol posar el nom de l'avi patern; mai el del pare, perquè el nom del pare ja va darrere: «Tal, fill de Tal altre». I quan sigui gran, hi anirà també el seu demos: «Tal, fill de Tal altre, d'Acarnes».
+On the tenth day there's a feast, the dekate: the relatives come, there's a sacrifice and a meal, and the father announces the name. The firstborn is usually named after his paternal grandfather; never after his father, because the father's name already comes after: «So-and-so, son of Such-and-such». And when he's grown up, his deme goes on too: «So-and-so, son of Such-and-such, of Acharnae».
+
+@32c0f1db
+Què és la fratria?
+What is the phratry?
+
+@71ff4ae5
+Una germandat de famílies veïnes, molt antiga. A la festa de les Apatúries, a la tardor, el pare presenta el nen davant de tots els membres, al costat de l'altar de Zeus Fratri, i jura que és fill seu i d'una dona atenesa. Els fratres poden votar en contra si sospiten alguna cosa. Si l'accepten, ja hi ha testimonis que el nen és legítim, i podrà heretar la casa i ser ciutadà. Als setze anys s'hi tornarà a presentar, ja amb el cabell tallat com a ofrena.
+A very old brotherhood of neighbouring families. At the festival of the Apatouria, in autumn, the father presents the child before all the members, beside the altar of Zeus Phratrios, and swears it is his son by an Athenian woman. The phrateres can vote against him if they suspect something. If they accept the child, there are witnesses that he is legitimate, and he'll be able to inherit the house and be a citizen. At sixteen he'll be presented again, with his hair cut off as an offering.
+
+@373d61ff
+Com és la vida d'un nen aquí?
+What is a child's life like here?
+
+@728e39b2
+Fins als set anys, nens i nenes són amb nosaltres, les dones: juguen a tabes, amb nines, baldufes, carretons; escolten les històries de l'àvia, les faules d'Isop i els mites. Després el nen va a l'escola amb el seu pedagog, i la nena es queda a casa aprenent a filar, a teixir, a portar els comptes del rebost… i moltes també a llegir.
+Until they're seven, boys and girls stay with us women: they play with knucklebones, dolls, spinning tops, little carts; they listen to granny's stories, Aesop's fables and the myths. After that the boy goes to school with his paidagogos, and the girl stays home learning to spin, to weave, to keep the larder accounts… and many learn to read as well.
+
+@59ea3a5c
+I tu, què seràs quan el nen creixi?
+And what will become of you when the child grows up?
+
+@82dd8556
+El que han estat totes les dides: de la casa fins que em mori. Les dides plorem als enterraments dels nens que hem criat com si fossin nostres, i els amos ho saben. Algunes reben la llibertat, però, a la meva edat, on aniria? Lliure i sola és pitjor que esclava i amb sostre.
+What every wet nurse has been: part of the house until I die. We nurses weep at the funerals of the children we raised as if they were our own, and the masters know it. Some are given their freedom, but at my age, where would I go? Free and alone is worse than a slave with a roof over her head.
+
+@2f1ca55b
+Què feia un pare atenès a la festa de les Apatúries amb el seu fill nadó?
+What did an Athenian father do with his newborn son at the festival of the Apatouria?
+
+@55fcac97
+El presentava a la seva fratria jurant que era fill legítim de pare i mare atenesos
+He presented him to his phratry, swearing he was the legitimate son of an Athenian father and mother
+
+@8cc2e73a
+L'inscrivia com a ciutadà a l'Assemblea
+He registered him as a citizen in the Assembly
+
+@e5d20fc6
+El portava al temple perquè el bategés un sacerdot
+He took him to the temple to be baptised by a priest
+
+@5d1cdb8e
+No. A les Apatúries el pare presentava el nen davant la seva fratria, una germandat de famílies, i jurava que era el seu fill legítim; així hi havia testimonis que podria heretar i ser ciutadà.
+No. At the Apatouria the father presented the child to his phratry, a brotherhood of families, and swore he was his legitimate son; that way there were witnesses that he could inherit and be a citizen.
+
+@181f4a37
+El matrimoni era un acord entre dues cases, sense intervenció de la ciutat ni dels sacerdots. Començava amb l'engýesis, un compromís que el nuvi pactava amb el pare o tutor de la núvia amb una encaixada de mans, fixant el dot, que s'havia de retornar si hi havia divorci. Les noies es casaven entre els catorze i els divuit anys; els homes, cap als trenta. El casament durava tres dies: bany nupcial, banquet i, en fer-se fosc, el seguici que portava en carro la núvia fins a la seva nova casa, a la llum de les torxes. Com que no hi havia registres, la publicitat de la festa servia per tenir testimonis.
+Marriage was an agreement between two houses, without involving the city or the priests. It began with the engyesis, a betrothal the groom made with the bride's father or guardian with a handshake, fixing the dowry, which had to be returned in case of divorce. Girls married between fourteen and eighteen; men, around thirty. The wedding lasted three days: bridal bath, banquet and, at nightfall, the procession that took the bride by cart to her new home by torchlight. Since there were no registers, the publicity of the celebration provided witnesses.
+
+@680f67f3
+Ai, foraster, quin dia! Avui casem la meva filla Filé. Aquesta tarda la porten a casa del seu marit, en carro, amb les torxes enceses: si et quedes fins al capvespre, veuràs passar el seguici. Jo portaré la torxa darrere, com fan les mares. Sóc Nicàreta.
+Oh, stranger, what a day! Today we're marrying off my daughter Phile. This afternoon they take her to her husband's house, by cart, with the torches lit: if you stay until dusk, you'll see the procession pass. I'll carry the torch behind, as mothers do. I'm Nicarete.
+
+@483fa0cb
+Com es va acordar el casament?
+How was the marriage arranged?
+
+@f0a633b7
+El meu marit i el nuvi es van donar la mà davant de testimonis: això és l'engýesis. «Et dono la meva filla per engendrar fills legítims, amb un dot de vint mines.» I ell va acceptar. No cal escriure res ni que vingui cap magistrat ni sacerdot: és un afer entre dues cases. Això sí, el dot és de la meva filla: si un dia se separen, ell l'haurà de retornar sencer.
+My husband and the groom shook hands in front of witnesses: that's the engyesis. «I give you my daughter for the begetting of legitimate children, with a dowry of twenty minas.» And he accepted. Nothing needs to be written down and no magistrate or priest needs to come: it's a matter between two houses. Mind you, the dowry belongs to my daughter: if they ever separate, he'll have to give it all back.
+
+@445cbcd9
+Quina edat té la teva filla?
+How old is your daughter?
+
+@9aff72f8
+Quinze anys, la bona edat. Les noies es casen entre els catorze i els divuit; els homes, cap als trenta, quan ja tenen amb què mantenir una casa. El nuvi en té trenta-un. Al principi fa una mica de por, però la meva sogra em va ensenyar la casa i ens vam entendre bé. Així serà també amb la meva filla.
+Fifteen, the right age. Girls marry between fourteen and eighteen; men around thirty, when they can afford to keep a house. The groom is thirty-one. At first it's a bit frightening, but my mother-in-law showed me the house and we got on well. It'll be the same with my daughter.
+
+@90037bc8
+Què es fa en aquests tres dies?
+What happens over these three days?
+
+@5e51ac16
+Ahir la meva filla va oferir a Àrtemis les seves joguines i un ble de cabell: deixa de ser una nena. Avui al matí s'ha banyat amb aigua portada en processó de la font de Cal·lírroe, en una gerra especial, el lutròfor. Després, el banquet a casa nostra, amb ella coberta pel vel. En caure la tarda s'aixeca el vel davant del nuvi, i surten en carro, amb el padrí, cap a la seva nova casa. Demà els parents portaran regals.
+Yesterday my daughter offered Artemis her toys and a lock of her hair: she stops being a child. This morning she bathed in water brought in procession from the Callirrhoe spring, in a special vessel, the loutrophoros. Then the banquet at our house, with her covered by the veil. As evening falls the veil is lifted before the groom, and they set off by cart, with the best man, to her new home. Tomorrow the relatives will bring gifts.
+
+@317fd0a4
+Com va vestida la núvia?
+How is the bride dressed?
+
+@7485b76a
+Amb un vestit de color safrà, un vel i una corona. L'hem pentinada i perfumada com Afrodita. N'hi ha que es posen blanc de plom a la cara i vermell a les galtes per estar més blanques i més boniques: jo no l'hi deixo, que aquest blanc espatlla la pell i fins i tot fa emmalaltir.
+In a saffron-coloured dress, a veil and a crown. We've combed and perfumed her like Aphrodite. Some put white lead on their faces and red on their cheeks to look paler and prettier: I won't let her, that white ruins the skin and even makes you ill.
+
+@d6f62f31
+I en arribar a la casa del nuvi?
+And on arriving at the groom's house?
+
+@4eb3801f
+Allà espera la mare d'ell amb torxes. Porten la meva filla al costat de la llar i li tiren per sobre nous, figues seques i dàtils, com als esclaus nous, perquè la casa sigui pròspera. Li donen a menjar un codony, com mana la llei de Soló. I després, a l'alcova, mentre els amics canten l'himeneu davant de la porta.
+His mother waits there with torches. They take my daughter to the hearth and shower her with nuts, dried figs and dates, as they do with new slaves, so that the house will prosper. They give her a quince to eat, as Solon's law prescribes. And then to the bedchamber, while the friends sing the wedding song outside the door.
+
+@a1af52ba
+Per què tanta festa?
+Why so much celebration?
+
+@3f9ca5e8
+Perquè ningú no apunta els casaments en cap registre. Si un dia algú diu que el meu nét no és legítim, qui el defensarà? Els qui van veure passar el seguici i van menjar al banquet. Per això el nuvi oferirà també un banquet a la seva fratria. I gairebé tothom prefereix casar-se a l'hivern, al mes de Gamelió, el dels casaments de Zeus i Hera; nosaltres no podíem esperar.
+Because nobody records weddings in any register. If someday someone says my grandson isn't legitimate, who will stand up for him? Those who saw the procession pass and ate at the banquet. That's why the groom will also give a banquet for his phratry. And almost everyone prefers to marry in winter, in the month of Gamelion, the month of the wedding of Zeus and Hera; we couldn't wait.
+
+@d99bbc21
+Qui havia d'intervenir perquè un matrimoni atenès fos vàlid?
+Who had to take part for an Athenian marriage to be valid?
+
+@4d9b2450
+Només les dues famílies: era un acord privat amb testimonis, sense magistrats ni sacerdots
+Only the two families: it was a private agreement before witnesses, with no magistrates or priests
+
+@f09d630c
+Un sacerdot d'Hera al temple
+A priest of Hera in the temple
+
+@dbf345bc
+L'arconte, que l'inscrivia en un registre públic
+The archon, who entered it in a public register
+
+@f51e1394
+No. El matrimoni era un acord entre dues cases, segellat amb una encaixada de mans davant de testimonis; no hi intervenien ni sacerdots ni magistrats, i no hi havia registre.
+No. Marriage was an agreement between two houses, sealed with a handshake before witnesses; neither priests nor magistrates took part, and there was no register.
+
+@886e88c6
+L'educació atenesa era privada i la pagava cada família; cap llei no obligava a anar a l'escola. Des dels set anys el nen anava amb el seu pedagog, un esclau que l'acompanyava i el vigilava, al mestre de lletres (grammatistés), al de lira (kitharistés) i al de gimnàstica (paidotribés). S'aprenia a llegir cantant l'alfabet i copiant en tauletes de cera, i es memoritzaven sentències i versos d'Homer, el gran mestre moral. Les nenes aprenien a casa, i moltes sabien llegir. A Esparta, en canvi, l'Estat s'enduia els nens als set anys.
+Athenian education was private and each family paid for it; no law required children to go to school. From the age of seven a boy went with his paidagogos, a slave who escorted and watched over him, to the teacher of letters (grammatistes), the lyre teacher (kitharistes) and the trainer (paidotribes). Reading was learned by chanting the alphabet and copying onto wax tablets, and pupils memorised maxims and verses of Homer, the great moral teacher. Girls learned at home, and many could read. In Sparta, by contrast, the state took boys away at seven.
+
+@1047a122
+Silenci! Alfa, beta, gamma… un altre cop, tots junts! Perdona, foraster. Sóc Càl·lias, mestre de lletres. Aquesta és la meva escola: un pati, uns tamborets i una dotzena de nois que preferirien estar jugant a tabes.
+Quiet! Alpha, beta, gamma… again, all together! Excuse me, stranger. I'm Callias, teacher of letters. This is my school: a courtyard, a few stools and a dozen boys who'd rather be playing knucklebones.
+
+@737c91c1
+Qui són aquests esclaus que esperen?
+Who are those slaves waiting there?
+
+@1ad1364a
+Els pedagogs. Cada noi de bona família ve amb el seu, que li porta la tauleta i la lira, el vigila pel carrer i a casa li fa repassar. Molts són esclaus vells i de confiança, que ja no serveixen per a feines dures. Però compte a menystenir-los: un bon pedagog ensenya el noi a comportar-se més que jo.
+The paidagogoi. Every boy from a good family comes with his own, who carries his tablet and his lyre, watches over him in the street and makes him revise at home. Many are old, trusted slaves no longer fit for heavy work. But don't look down on them: a good paidagogos teaches a boy manners more than I do.
+
+@74d93548
+Com ensenyes a llegir?
+How do you teach reading?
+
+@95f92d59
+Primer cantem les lletres, com una cançó. Després les síl·labes: «ba, be, bi»… Escriuen en tauletes de cera amb un punxó i esborren amb l'altra punta. Després, paraules, frases, i finalment versos d'Homer i sentències dels savis: «Coneix-te a tu mateix», «Res en excés». Els millors s'aprenen cants sencers de la Ilíada.
+First we sing the letters, like a song. Then the syllables: «ba, be, bi»… They write on wax tablets with a stylus and rub out with the other end. Then words, sentences, and at last verses of Homer and the sayings of the wise: «Know thyself», «Nothing in excess». The best learn whole books of the Iliad by heart.
+
+@a41651fb
+Què més aprenen?
+What else do they learn?
+
+@7387ed90
+A la tarda van al kitharistés, que els ensenya a tocar la lira i a cantar els poetes, i a la palestra, amb el paidotribés, a córrer, saltar i lluitar. Un home que no sap cantar en un banquet queda com un pagerol. Així és l'educació: lletres, música i gimnàstica. Als catorze, la majoria ho deixa; només els rics continuen amb sofistes o amb mestres com Isòcrates.
+In the afternoon they go to the kitharistes, who teaches them to play the lyre and sing the poets, and to the palaestra, with the paidotribes, to run, jump and wrestle. A man who can't sing at a banquet looks like a bumpkin. That's education: letters, music and gymnastics. At fourteen most of them stop; only the rich go on with sophists or with teachers like Isocrates.
+
+@b4edaa1c
+És obligatori venir?
+Is it compulsory to come?
+
+@e6ad119e
+No. L'escola la paga cada pare: uns òbols al mes, i en algunes festes em porten un regal. Els pobres hi envien els fills poc temps o gens, i els posen a treballar al taller. Però a Atenes gairebé tots els ciutadans saben llegir una mica: cal per llegir les lleis exposades i els noms de l'ostracisme.
+No. Each father pays for the school: a few obols a month, and at some festivals they bring me a present. The poor send their sons for a short time or not at all, and put them to work in the workshop. But in Athens almost every citizen can read a little: you need to, to read the laws on display and the names for ostracism.
+
+@4aee46b9
+I les nenes?
+And the girls?
+
+@e58c53ad
+No vénen a la meva escola, però moltes aprenen a casa, amb la mare o amb un mestre: llegir, escriure, portar els comptes del rebost, de vegades tocar la lira. Han de governar una casa sencera. Menandre farà dir a un personatge que ensenyar lletres a una dona és donar verí a una escurçó; és un acudit d'un vell rondinaire, no el que pensa la gent.
+They don't come to my school, but many learn at home, from their mother or a tutor: reading, writing, keeping the larder accounts, sometimes playing the lyre. They have a whole house to run. Menander will have a character say that teaching a woman letters is giving poison to a viper; that's the joke of a grumpy old man, not what people think.
+
+@a866eb03
+I després de l'escola?
+And after school?
+
+@d518f868
+Als divuit anys els inscriuen al seu demos i s'entrenen com a soldats. D'aquí a uns cinquanta anys la ciutat organitzarà dos anys de servei obligatori, l'efebia. A Esparta és una altra cosa: als set anys l'Estat s'enduu els nens, els agrupa en ramats, els fa anar descalços, amb un sol mantell tot l'any i poc menjar, perquè aprenguin a robar sense que els enxampin.
+At eighteen they are enrolled in their deme and train as soldiers. In about fifty years' time the city will organise two years of compulsory service, the ephebeia. In Sparta it's another matter: at seven the state takes the boys, groups them in herds, makes them go barefoot, with one cloak all year and little food, so they learn to steal without being caught.
+
+@de408e8c
+Qui pagava l'escola d'un nen atenès cap al 386?
+Who paid for an Athenian boy's schooling around 386?
+
+@d7b1486f
+La seva família: l'educació era privada i no obligatòria
+His family: education was private and not compulsory
+
+@12968de2
+La ciutat, que mantenia escoles públiques
+The city, which ran public schools
+
+@3ab325d7
+Els sacerdots d'Atena
+The priests of Athena
+
+@5a8c64db
+No. A Atenes l'educació era privada: cada família pagava el mestre, i cap llei no obligava a anar a l'escola.
+No. In Athens education was private: each family paid the teacher, and no law required attending school.
+
+@9bc9b1c8
+Les ciutadanes no votaven ni jutjaven, perquè aquests drets anaven units al servei militar, però tenien un paper públic fonamental en la religió: Atenes celebrava uns 170 dies de festa l'any, i en molts les dones eren protagonistes, com a sacerdotesses, canèfores o en festes només femenines com les Tesmofòries. Governaven l'oikos, sortien a la font, al mercat, a les tombes, al teatre i a ajudar-se en parts i casaments. No vivien tancades, encara que s'esperava que no anessin soles. Des de la llei de Pèricles (451), només els fills de pare i mare atenesos eren ciutadans.
+Citizen women did not vote or sit on juries, because those rights went with military service, but they had a vital public role in religion: Athens held about 170 festival days a year, and in many of them women played the leading part, as priestesses, kanephoroi or at women-only festivals like the Thesmophoria. They ran the oikos, and went out to the fountain, the market, the tombs, the theatre, and to help one another at births and weddings. They did not live shut away, though they were expected not to go about alone. Since Pericles' law (451), only the children of an Athenian father and mother were citizens.
+
+@8cfd8694
+Bon dia. Si busques aigua, posa't a la cua: a aquesta hora venim totes. La font és la nostra àgora, foraster: aquí ens assabentem de qui es casa, qui està de part i qui s'ha barallat amb la sogra. Sóc Mirrina, dona de Càrmides, de Colitos.
+Good morning. If you want water, join the queue: we all come at this hour. The fountain is our agora, stranger: here we find out who's getting married, who's in labour and who's fallen out with her mother-in-law. I'm Myrrhine, wife of Charmides, of Collytus.
+
+@5c599bcc
+No hauríeu de ser a casa?
+Shouldn't you be at home?
+
+@1e796706
+I qui porta l'aigua? El meu marit? Anem a la font, al mercat si cal, a les tombes dels nostres morts, a les festes, al teatre, a casa d'una veïna que està de part. El que no està ben vist és anar sola a tot arreu, ni ficar-se a les reunions dels homes. A casa, el gineceu és nostre: allà no hi entra cap home que no sigui de la família.
+And who fetches the water? My husband? We go to the fountain, to the market if need be, to the tombs of our dead, to the festivals, to the theatre, to a neighbour's house when she's giving birth. What's frowned upon is going everywhere alone, or meddling in the men's meetings. At home, the women's quarters are ours: no man who isn't family comes in there.
+
+@e1e4a937
+Què feu a casa?
+What do you do at home?
+
+@837149fa
+Governar-la. Jo porto les claus del rebost, els comptes, els esclaus, el filat i el teixit, la criança dels nens. Plató diu que a Grècia els homes lliuren els diners a les seves dones, i Lisístrata, la de la comèdia, deia que, si sabem portar una casa, podem portar el tresor de la ciutat. Al teatre reien… però s'ho pensaven.
+Run it. I keep the keys to the larder, the accounts, the slaves, the spinning and weaving, the raising of the children. Plato says that in Greece men hand their money over to their wives, and Lysistrata, the one in the comedy, said that if we can run a house we can run the city's treasury. In the theatre they laughed… but they thought about it.
+
+@3bc762b4
+Quin paper teniu a les festes?
+What part do you play in the festivals?
+
+@6e9a5369
+Un de molt gran: la ciutat celebra uns cent setanta dies de festa l'any. Hi ha sacerdotesses tan importants com la d'Atena Polias. A les processons, les noies de bona família porten la cistella sagrada: són les canèfores. I a la tardor, a les Tesmofòries, les casades acampem tres dies al santuari de Demèter, sense cap home, perquè la terra i les dones siguin fecundes.
+A very large one: the city celebrates about a hundred and seventy festival days a year. There are priestesses as important as Athena Polias'. In the processions, girls from good families carry the sacred basket: they're the kanephoroi. And in autumn, at the Thesmophoria, we married women camp for three days in Demeter's sanctuary, without a single man, so that the earth and women may be fertile.
+
+@6e3856fe
+Què portes a la cara?
+What do you have on your face?
+
+@193b7470
+Res, per Àrtemis. Algunes veïnes es posen blanc de plom, perquè es diu que com més blanca és una dona, més femenina, i vermell als llavis i a les galtes. Aristòfanes se'n burla. Però aquest blanc et menja la pell; per això surten tapades amb el mantell i l'ombrel·la, perquè no les toqui el sol.
+Nothing, by Artemis. Some of the neighbours put on white lead, because they say the paler a woman is the more feminine, and red on the lips and cheeks. Aristophanes makes fun of them. But that white eats your skin; that's why they go out wrapped in their cloaks and with parasols, to keep the sun off.
+
+@1e95d3d4
+I les dones que no són ateneses?
+And women who are not Athenian?
+
+@3a72b26b
+Ho tenen pitjor. Des de la llei de Pèricles, només és ciutadà el fill de pare i mare atenesos. Així que la filla d'un meteco ric, per molt educada que sigui, no es pot casar amb un atenès: com a molt, viure amb ell com a concubina. Moltes acaben d'heteres, tocant als banquets. I les estrangeres no poden ser sacerdotesses ni entrar a les Tesmofòries.
+They have it worse. Since Pericles' law, only the son of an Athenian father and mother is a citizen. So the daughter of a rich metic, however well brought up, can't marry an Athenian: at most she can live with him as a concubine. Many end up as hetairai, playing at banquets. And foreign women can't be priestesses or take part in the Thesmophoria.
+
+@285d70a0
+Hereten alguna cosa les dones?
+Do women inherit anything?
+
+@e929df86
+El dot, que és com si fos nostre: si el marit ens repudia, l'ha de retornar. I si un pare mor sense fills homes, la filla es queda l'herència, però s'ha de casar amb el parent més proper del seu pare, perquè la casa no es perdi: és l'epíclera. Aquest Iseu, el de l'Àgora, es guanya la vida amb aquests plets.
+The dowry, which is as good as ours: if our husband divorces us, he has to give it back. And if a father dies without sons, the daughter keeps the inheritance, but she has to marry her father's closest relative so the house isn't lost: she's the epikleros. That Isaeus in the Agora makes his living from those lawsuits.
+
+@895cf0a5
+En quin àmbit públic tenien les ateneses un paper destacat?
+In which public sphere did Athenian women play a prominent role?
+
+@c8f6912e
+La religió: sacerdocis, processons i festes com les Tesmofòries
+Religion: priesthoods, processions and festivals like the Thesmophoria
+
+@87040144
+L'Assemblea, on votaven les casades
+The Assembly, where married women voted
+
+@f0f684ac
+Els tribunals, com a jutgesses
+The courts, as judges
+
+@787e5fd3
+No. Les dones no votaven ni jutjaven, però tenien un gran paper públic en la religió: sacerdocis, processons i festes femenines com les Tesmofòries.
+No. Women did not vote or sit on juries, but they had a major public role in religion: priesthoods, processions and women's festivals like the Thesmophoria.
+
+@9ce8e98c
+El sacrifici cruent (thysía) era el centre de la religió cívica: un àpat compartit amb els déus. Després de purificar-se amb aigua i coronar-se, els participants acompanyaven la víctima, sense defecte i guarnida, fins a l'altar. Se la ruixava amb aigua i ordi, se li tallaven uns pèls, el sacerdot resava amb els braços alçats i el carnisser (mágeiros) la degollava entre el crit ritual de les dones. Les cuixes embolicades en greix es cremaven perquè el fum pugés als déus; la carn es rostia i es repartia. Per a molts era una de les poques ocasions de menjar carn. Als déus celestes se'ls oferien animals blancs; als subterranis, negres, i la víctima es cremava sencera.
+Blood sacrifice (thysia) was the heart of civic religion: a meal shared with the gods. After purifying themselves with water and putting on garlands, the participants escorted the victim, unblemished and decorated, to the altar. It was sprinkled with water and barley, a few hairs were cut from it, the priest prayed with arms raised and the butcher (mageiros) cut its throat amid the women's ritual cry. The thigh bones wrapped in fat were burned so the smoke would rise to the gods; the meat was roasted and shared out. For many it was one of the few chances to eat meat. The gods of the sky were offered white animals; the gods below, black ones, and the victim was burned whole.
+
+@44e1f23a
+Has vist el sacrifici d'aquest matí? Una ovella sense taca, per als Dotze Déus. Jo sóc Carió, mágeiros: degollo, especejo i rosteixo la carn. A la comèdia sempre sortim com a xerraires i lladres de carn. Calúmnies. Gairebé totes.
+Did you see this morning's sacrifice? A spotless ewe, for the Twelve Gods. I'm Carion, mageiros: I slaughter, joint and roast the meat. In comedy we always come out as chatterboxes and meat thieves. Slander. Mostly.
+
+@7a6d6d7c
+Com és un sacrifici?
+What is a sacrifice like?
+
+@793ffced
+A l'alba. Tots ens rentem les mans amb aigua lustral i ens coronem. Al davant va la canèfora, una noia amb la cistella: a dins, l'ordi i, amagat, el ganivet. Darrere, la víctima, amb cintes, i el flautista. Es ruixa l'animal: si sacseja el cap, vol dir que sí. Es tira ordi al foc, se li tallen uns pèls del front i el sacerdot resa. Llavors actuo jo, i les dones llancen el crit, l'ololygé.
+At dawn. We all wash our hands in lustral water and put on garlands. In front goes the kanephoros, a girl with the basket: inside are the barley and, hidden, the knife. Behind comes the victim, with ribbons, and the piper. The animal is sprinkled: if it shakes its head, it's saying yes. Barley is thrown on the fire, a few hairs are cut from its forehead and the priest prays. Then it's my turn, and the women raise the cry, the ololyge.
+
+@3e0800ee
+Com es resa a un déu?
+How do you pray to a god?
+
+@8d3d988c
+Dret, amb roba neta, els braços alçats al cel, o cap a la terra si és un déu de sota. Primer se'l crida per tots els seus noms. Després se li recorda el que li has donat: «Si alguna vegada vaig cremar per a tu cuixes de toro…». I després se li demana: «…concedeix-me això». Dono perquè donis: així ho fa Crises a la Ilíada. Si el déu compleix, se li paga el que se li ha promès.
+Standing, in clean clothes, arms raised to the sky, or towards the earth if it's a god below. First you call him by all his names. Then you remind him of what you've given him: «If ever I burned bulls' thighs for you…». And then you ask: «…grant me this». I give so that you may give: that's how Chryses does it in the Iliad. If the god delivers, you pay what you promised.
+
+@703f12b6
+I la carn?
+And the meat?
+
+@391e5b6f
+Els ossos de les cuixes, embolicats en greix, es cremen a l'altar per als déus: el fum puja al cel. Les entranyes es rosteixen en asts i les tasten els primers. La resta l'especejo jo i es reparteix. Prometeu va enganyar Zeus perquè els homes ens quedéssim la carn, i des d'aleshores es fa així. Per a molts pobres, la carn dels sacrificis públics és l'única que tasten.
+The thigh bones, wrapped in fat, are burned on the altar for the gods: the smoke rises to heaven. The innards are roasted on spits and the first participants taste them. The rest I joint and it's shared out. Prometheus tricked Zeus so that we humans would keep the meat, and it's been done that way ever since. For many poor people, the meat from public sacrifices is the only meat they ever taste.
+
+@bde02cd5
+Cada déu vol un animal diferent?
+Does each god want a different animal?
+
+@58f1e7ba
+Més o menys. A Posidó, toros; a Atena, vaques; a Àrtemis i a Afrodita, cabres; a Demèter, truges; a Asclepi, galls: l'últim que va demanar Sòcrates va ser que paguessin un gall a Asclepi. Mascles per als déus i femelles per a les deesses. Blancs per als de dalt; negres per als de sota i els morts, i a aquests se'ls crema la víctima sencera, sense banquet.
+More or less. Poseidon gets bulls; Athena, cows; Artemis and Aphrodite, goats; Demeter, sows; Asclepius, cockerels: the last thing Socrates asked for was that a cock be paid to Asclepius. Males for gods and females for goddesses. White for those above; black for those below and for the dead, and for those the victim is burned whole, with no banquet.
+
+@9a771e16
+Per què tanta aigua i tanta purificació?
+Why so much water and purification?
+
+@44f47502
+Per la impuresa, el míasma. La sang, un part o un mort taquen, encara que no hagis fet res de dolent, i un impur allunya l'ajuda dels déus. Per això es purifica tot: la víctima, els fidels, l'altar… fins i tot l'Assemblea comença amb el sacrifici d'un garrí i la seva sang ruixada al voltant dels seients.
+Because of impurity, miasma. Blood, a birth or a corpse pollute, even if you've done nothing wrong, and an impure person drives away the gods' help. That's why everything is purified: the victim, the worshippers, the altar… even the Assembly begins with the sacrifice of a piglet and its blood sprinkled around the seats.
+
+@d9128b78
+S'endevina el futur amb les víctimes?
+Can the future be read in the victims?
+
+@22f8d562
+Els endevins miren el fetge: si és sencer, llis i ben format, el déu accepta; si té defectes, mal assumpte. Abans d'una batalla els generals no es mouen sense sacrificar i mirar les entranyes. Jo només sé si la carn és bona, que no és poc.
+The seers look at the liver: if it's whole, smooth and well formed, the god accepts; if it's flawed, that's bad news. Before a battle generals won't move without sacrificing and examining the innards. All I know is whether the meat is good, which is no small thing.
+
+@03f072ad
+Què es cremava per als déus en un sacrifici als Olímpics?
+What was burned for the gods in a sacrifice to the Olympians?
+
+@610a802f
+Els ossos de les cuixes embolicats en greix; la carn es repartia i es menjava
+The thigh bones wrapped in fat; the meat was shared out and eaten
+
+@119e0a68
+Tot l'animal, sense que ningú en mengés
+The whole animal, with nobody eating any
+
+@5826d81a
+Només la sang, que es vessava al foc
+Only the blood, which was poured on the fire
+
+@7bd837d6
+No. En els sacrificis als déus celestes es cremaven els ossos de les cuixes embolicats en greix i la carn es compartia en un banquet; només als déus subterranis se'ls cremava la víctima sencera.
+No. In sacrifices to the gods of the sky the thigh bones wrapped in fat were burned and the meat was shared at a banquet; only for the gods below was the victim burned whole.
+
+@f772f414
+A l'Àgora venien els kápeloi, minoristes amb poca fama, mentre que els émporoi es dedicaven al gran comerç marítim. La ciutat no fixava els preus en general, però vigilava el mercat amb magistrats escollits per sorteig: els agoranoms vetllaven perquè les mercaderies no estiguessin adulterades; els metronoms, pels pesos i mesures, comparats amb els patrons oficials; i els guardians del blat, pel preu del gra, la farina i el pa, perquè Atenes depenia del blat importat. El comerç pagava impostos, i un pròxen defensava a la ciutat els interessos dels forasters de la seva polis.
+In the Agora the kapeloi sold their goods, retailers of poor repute, while the emporoi engaged in the great sea trade. The city did not generally fix prices, but it policed the market with magistrates chosen by lot: the agoranomoi made sure goods were not adulterated; the metronomoi checked weights and measures against the official standards; and the grain guardians watched the price of grain, flour and bread, because Athens depended on imported wheat. Trade paid taxes, and a proxenos looked after the interests in the city of visitors from his polis.
+
+@d3f9653d
+Ei, tu, el del peix! Aquesta balança, l'has comparada amb els pesos de la ciutat? Ja m'ho semblava. Perdona, foraster: sóc Aristó, un dels deu metronoms d'aquest any, sortejat com tots. Vetllo perquè ningú no robi amb la balança.
+Hey, you, the fish man! Have you checked that balance against the city's weights? I thought not. Forgive me, stranger: I'm Ariston, one of this year's ten metronomoi, chosen by lot like everyone. I make sure nobody cheats with the scales.
+
+@d270fbcf
+Qui vigila el mercat?
+Who polices the market?
+
+@4965c10a
+Tres juntes de deu, sortejades cada any: els agoranoms, que vigilen que no es vengui res adulterat ni podrit; nosaltres, els metronoms, que comprovem pesos i mesures; i els guardians del blat, que vigilen el preu del gra, de la farina i del pa, i el pes de les fogasses. Els pesos i mesures oficials són guardats a la Tolos; qui vulgui pot venir a comparar els seus.
+Three boards of ten, chosen by lot every year: the agoranomoi, who see that nothing adulterated or rotten is sold; us metronomoi, who check weights and measures; and the grain guardians, who watch the price of grain, flour and bread, and the weight of the loaves. The official weights and measures are kept in the Tholos; anyone can come and compare their own.
+
+@f2e4ab1f
+Per què tant de compte amb el blat?
+Why so much care over grain?
+
+@74aafcc5
+Perquè l'Àtica no dona blat per a tothom. El portem del Pont, d'Egipte, de Sicília. Si el pa puja, hi ha fam i revoltes. Hi ha lleis molt dures: un comerciant atenès no pot portar blat a cap port que no sigui el Pireu, i els revenedors no poden acaparar més de cinquanta cistelles. Diuen que fa poc es va jutjar uns revenedors per això; Lísias en va escriure el discurs.
+Because Attica doesn't grow enough grain for everyone. We bring it from the Pontus, from Egypt, from Sicily. If bread goes up, there's hunger and riots. There are very strict laws: an Athenian merchant may not take grain to any port but Piraeus, and resellers may not hoard more than fifty baskets. They say some resellers were tried for that not long ago; Lysias wrote the speech.
+
+@01b44b95
+Qui són els que venen aquí?
+Who are the people selling here?
+
+@3eaf0bdf
+Kápeloi, botiguers: venen verdura, peix, vi, oli, el que produeixen o compren a altres. Tenen mala fama: a la comèdia, dir a algú «botiguer» o «adober» és un insult. Els émporoi, els grans comerciants del mar, tenen més diners, però tampoc no tenen bona fama entre els qui viuen de la seva terra. I molts dels uns i dels altres són metecs.
+Kapeloi, shopkeepers: they sell vegetables, fish, wine, oil, what they produce or buy from others. They have a bad name: in comedy, calling someone a «shopkeeper» or a «tanner» is an insult. The emporoi, the great sea traders, have more money, but they don't enjoy a good name either among those who live off their land. And many of both kinds are metics.
+
+@043ff904
+Paguen impostos?
+Do they pay taxes?
+
+@bacafbe4
+Els metecs paguen la seva taxa anual, i els qui venen a l'Àgora sense ser atenesos, una altra per la parada. Al Pireu es cobra un impost sobre tot el que entra i surt per mar: una cinquantena part, el dos per cent. La ciutat arrenda aquests impostos a recaptadors, que avancen els diners i després cobren el que poden.
+Metics pay their yearly tax, and those who sell in the Agora without being Athenian pay another for their stall. At Piraeus a tax is charged on everything that comes in and goes out by sea: a fiftieth, two per cent. The city farms these taxes out to collectors, who advance the money and then collect what they can.
+
+@9a14c8a9
+I si un estranger té un problema?
+And if a foreigner has a problem?
+
+@e0f24fe6
+Busca el pròxen de la seva ciutat: un atenès que representa aquí els interessos d'una altra polis, com un hoste oficial. Els de Corint tenen el seu, els de Tebes el seu… El pròxen els allotja, els presenta i els defensa si tenen un plet. Per a nosaltres, qui maltracta un foraster ofèn Zeus Xeni, protector dels hostes.
+He looks for his city's proxenos: an Athenian who represents another polis's interests here, a sort of official host. The Corinthians have theirs, the Thebans theirs… The proxenos puts them up, introduces them and defends them if they have a lawsuit. For us, whoever mistreats a stranger offends Zeus Xenios, protector of guests.
+
+@133c6329
+Com es compra i es ven?
+How do people buy and sell?
+
+@807ca9fc
+De paraula, davant de testimonis, pagant i lliurant alhora si és possible. Si et refies i pagues abans, tu sabràs. Per a coses importants es deixa una paga i senyal, un avançament. Les terres no es registren enlloc, i vendre la terra dels teus pares està mal vist, encara que es pot fer.
+By word of mouth, before witnesses, paying and handing over at the same time if possible. If you trust the other man and pay first, that's your lookout. For important things you leave a deposit, an advance. Land isn't registered anywhere, and selling your forefathers' land is frowned upon, though it can be done.
+
+@b9bd3a79
+Què feien els metronoms de l'Àgora?
+What did the metronomoi of the Agora do?
+
+@6e96ddeb
+Comprovar que els pesos i mesures dels venedors eren correctes
+Check that the sellers' weights and measures were correct
+
+@25bc5f2f
+Fixar el preu de totes les mercaderies
+Fix the price of all goods
+
+@0c84f2a4
+Cobrar el lloguer de les parades per al rei
+Collect stall rents for the king
+
+@9f4a299f
+No. Els metronoms, sortejats cada any, comprovaven els pesos i mesures dels venedors comparant-los amb els patrons oficials.
+No. The metronomoi, chosen by lot each year, checked the sellers' weights and measures against the official standards.
+
+@7d3abe19
+El comerç marítim es finançava amb el préstec marítim (nautikós tókos): un prestador avançava diners al propietari del vaixell o de la càrrega; si el vaixell tornava, cobrava el capital amb un interès molt alt, que podia arribar al 30 % segons el risc; si s'enfonsava, no cobrava res. Funcionava com una assegurança, i es prestava a fraus. Entre amics es feien préstecs sense interès (éranos); els préstecs normals cobraven una dracma per mina al mes (12 % l'any). Quan la terra garantia un deute, el creditor hi posava una fita (hóros). Els bancs, com el de Pasió, vivien sobretot del canvi de moneda.
+Sea trade was financed by the maritime loan (nautikos tokos): a lender advanced money to the owner of the ship or the cargo; if the ship came back, he got his capital back with very high interest, up to 30% depending on the risk; if it sank, he got nothing. It worked as insurance, and lent itself to fraud. Between friends there were interest-free loans (eranos); ordinary loans charged a drachma per mina a month (12% a year). When land secured a debt, the creditor set up a marker stone (horos) on it. Banks, like Pasion's, lived mainly on money-changing.
+
+@c88b4ed4
+Aquell d'allà és el meu vaixell: quaranta passes de buc, vi de Quios a l'anada i blat del Pont a la tornada, si els déus volen. Sóc Ctesó, naviliera. Bé: naviliera amb diners prestats, com tots.
+That one there is my ship: forty paces of hull, Chian wine on the way out and wheat from the Pontus on the way back, gods willing. I'm Cteson, shipowner. Well: shipowner on borrowed money, like all of us.
+
+@f36074f4
+Com es paga un viatge així?
+How is a voyage like that paid for?
+
+@b5b8f71a
+Amb un préstec marítim. Un ric del Pireu m'avança tres mil dracmes per a la càrrega. Si torno, li retorno els diners i un interès del vint o del trenta per cent, segons la ruta i l'estació. Si m'enfonso, no li dec res: el mar es queda els seus diners. Per això de vegades envia un home seu a bord, per vigilar.
+With a maritime loan. A rich man in Piraeus advances me three thousand drachmas for the cargo. If I come back, I repay the money and twenty or thirty per cent interest, depending on the route and the season. If I sink, I owe him nothing: the sea keeps his money. That's why he sometimes sends one of his men on board to keep an eye on things.
+
+@0c09b033
+No hi ha qui faci trampes?
+Doesn't anyone cheat?
+
+@7bdd6c66
+Moltes! S'explica de dos marsellesos que van demanar préstecs sobre una càrrega que no existia i després van intentar enfonsar el vaixell en alta mar per no pagar. Un d'ells es va llançar a l'aigua fugint i es va ofegar. D'altres demanen dos préstecs amb la mateixa càrrega. Per això els contractes s'escriuen, es deixen en mans d'un amic i se signen davant de testimonis.
+Plenty! They tell of two men from Massalia who took out loans on a cargo that didn't exist and then tried to sink the ship on the high seas so as not to pay. One of them jumped into the water to escape and drowned. Others take out two loans on the same cargo. That's why contracts are written down, left with a friend and signed before witnesses.
+
+@b52c8b8e
+I els préstecs normals?
+And ordinary loans?
+
+@19798cf9
+Entre amics, l'éranos: es reuneixen diners entre uns quants i es presten sense interès, i qui els rep els torna quan pot. Si vas a un prestador, el normal és una dracma per mina al mes: el dotze per cent l'any. I si el que poses de garantia és la teva terra, el creditor hi clava una fita de pedra, un horos, amb el que deus. Fora de les muralles en veuràs.
+Between friends, the eranos: several people pool their money and lend it without interest, and whoever gets it pays it back when he can. If you go to a moneylender, the usual rate is a drachma per mina a month: twelve per cent a year. And if what you pledge is your land, the creditor plants a stone marker on it, a horos, with what you owe. You'll see them outside the walls.
+
+@4e09c1a4
+Per a què serveixen, doncs, els banquers?
+What are bankers for, then?
+
+@dc9f9198
+Sobretot per canviar moneda: cada ciutat encunya la seva, i aquí arriben monedes de Corint, d'Egina, darics d'or perses, estàters de Cízic… El banquer pesa, prova, canvia i es queda una mica. També guarda dipòsits i paga a qui tu li diguis. Pasió, el de l'Àgora, va començar com a esclau en una d'aquestes taules.
+Mainly for changing money: every city strikes its own, and coins arrive here from Corinth, from Aegina, Persian gold darics, staters of Cyzicus… The banker weighs, tests, changes and keeps a little. He also holds deposits and pays whoever you tell him to. Pasion, the one in the Agora, started as a slave at one of those tables.
+
+@e4b97c7f
+Es navega tot l'any?
+Do you sail all year round?
+
+@abbf88ad
+No. De la primavera a la tardor; a l'hivern el mar és «tancat». Es viatja de dia i, si es pot, a prop de la costa. I quan et fas ric amb dos o tres bons viatges, el més llest és deixar de navegar i fer-te prestador: qui arrisca els seus diners a terra dorm millor que qui arrisca la vida al mar.
+No. From spring to autumn; in winter the sea is «closed». You travel by day and, if you can, close to the coast. And when you've got rich from two or three good voyages, the smart thing is to stop sailing and become a lender: the man who risks his money on land sleeps better than the man who risks his life at sea.
+
+@ce4d45f5
+Què passava amb un préstec marítim si el vaixell s'enfonsava?
+What happened to a maritime loan if the ship sank?
+
+@9ec55fd3
+El prestatari no devia res: el prestador perdia els seus diners
+The borrower owed nothing: the lender lost his money
+
+@a1ea87c2
+S'havia de retornar amb el doble d'interès
+It had to be repaid with double interest
+
+@07437912
+El pagava la ciutat d'Atenes
+The city of Athens paid it
+
+@ad96ee44
+No. En el préstec marítim, si el vaixell es perdia, el prestatari no havia de retornar res; per això l'interès era tan alt, com una assegurança.
+No. With a maritime loan, if the ship was lost the borrower did not have to repay anything; that's why the interest was so high, like insurance.
