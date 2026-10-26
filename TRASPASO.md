@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 30). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 31). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -49,6 +49,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Punto de mira:** sin captura del puntero, el punto de mira (`#cross`) sigue al cursor (la flecha del sistema se oculta) y E apunta a lo que hay bajo él (`aimYaw`).
 - **Doble salto:** Espacio otra vez en el aire (`jump()`, `player.jumps`).
 - **Ratón:** la cámara gira con solo mover el ratón; con un clic se captura el puntero y gira sin límite. Sin captura, el cursor en el borde izquierdo o derecho sigue girando.
+
+### Novedades de la versión 31: cultos de Oriente en Roma
+- **Iseo y Serapeo del Campo de Marte** (`romaIseum`, dentro de `romaCampus`): patio entre pórticos con obeliscos, esfinges, pilono, templo de Isis y exedra de Serapis; una procesión de fieles con sistros y el sacerdote con el agua del Nilo recorre el patio (`ROMA.isiacs`, en `updateRome`). Personaje: Sarapión, sacerdote de Isis (`sarapion`, inventado).
+- **Templo de la Gran Madre en el Palatino** (`romaMagnaMater`, junto a la cabaña de Rómulo), con tres galos que bailan con tambores (`ROMA.galli`). Personaje: Licinia, devota (`licinia`, inventada).
+- **Sinagoga del Trastévere** (en `romaQuarters`), inspirada en la de Ostia, con la menorá sobre la puerta y una pila. Personaje: Débora, tejedora judía (`debora`, inventada), que completa a Junia (cristianos) y a Flavio Josefo.
+- Ensayo «Dioses venidos de Oriente» (Gran Madre, Isis y Serapis, judíos y cristianos, Diosa Siria, Ma-Belona y por qué no hay Mitra todavía), dos fechas en la cronología, siete términos en el glosario, la zona «Iseo y Serapeo» y cuatro estelas. El Panteón ya dice que el incendio de este año lo ha dañado, como el ensayo de contexto.
 
 ### Novedades de la versión 30: la boda romana
 - **Pomponia, la pronuba** (`pomponia` en `ROMA_DEST_NPCS`, inventada), a la puerta de la **casa de los Valerios** (`DOMUS_NOVIA`, `buildDomusNovia`: la misma planta que la domus del Celio, 130 m al oeste en la misma calle, con otras pinturas; `buildDomus(true)` la construye sin estelas ni personajes). Enseña «La boda romana» (esponsales, días buenos y malos, divorcio) y ofrece asistir a la boda (`n.wedding`).
