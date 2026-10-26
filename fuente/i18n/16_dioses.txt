@@ -1,0 +1,597 @@
+# GODS: dioses por los caminos (los G_* son nombres internos de piezas: no traducir)
+
+@c837b817
+=
+=
+
+@b29404ce
+=
+=
+
+@c2b02eb8
+=
+=
+
+@844cf0bd
+=
+=
+
+@b81e0e52
+=
+=
+
+@7cb66841
+=
+=
+
+@43785f4f
+=
+=
+
+@d6c5138f
+=
+=
+
+@9ac542ac
+=
+=
+
+@fe85bd24
+=
+=
+
+@6c8355fa
+=
+=
+
+@27f27674
+=
+=
+
+@54ec4309
+=
+=
+
+@5a3069f9
+=
+=
+
+@8fa2d469
+Per fi algú que mira per on va! Hermes, per servir-te, o per servir-me de tu, ja ho veurem. Guardo els camins, els mercats, els heralds i, si m'apures, els lladres. Les cruïlles són meves: aquí s'hi creuen els vius, els morts i les notícies.
+At last, someone who watches where he's going! Hermes, at your service, or you at mine, we'll see. I guard roads, markets, heralds and, if you push me, thieves. Crossroads are mine: here the living, the dead and the news all cross paths.
+
+@9a884abc
+És veritat que vas robar el teu germà el dia que vas néixer?
+Is it true you robbed your brother on the day you were born?
+
+@6b56117c
+Vaig néixer a l'alba, al migdia ja tocava la lira i a la nit li vaig robar cinquanta vaques a Apol·lo. Les vaig portar caminant enrere perquè les petjades enganyessin qualsevol. Quan em va enxampar, li vaig regalar la lira que havia fet amb una tortuga. Se li va passar l'enuig a l'instant. Moralitat: un bon regal val més que una bona excusa.
+I was born at dawn, by noon I was playing the lyre and that night I stole fifty cows from Apollo. I drove them backwards so the tracks would fool anyone. When he caught me, I gave him the lyre I'd made from a tortoise. His anger vanished at once. Moral: a good gift is worth more than a good excuse.
+
+@e803c7c5
+Per què hi ha hermes a totes les portes?
+Why are there herms at every door?
+
+@85b7bf13
+Perquè els atenesos són llestos: un pilar amb la meva cara i ningú no s'equivoca de camí ni se li cola un mal esperit a casa. Fa trenta anys, la nit abans que salpés la flota cap a Sicília, algú va mutilar gairebé totes les hermes de la ciutat. Hi va haver pànic, denúncies, execucions… i l'expedició va acabar en desastre. No dic que fos cosa meva. Tampoc no dic que no.
+Because Athenians are clever: a pillar with my face and no one takes the wrong road or lets an evil spirit slip into the house. Thirty years ago, the night before the fleet sailed for Sicily, someone mutilated nearly every herm in the city. There was panic, accusations, executions… and the expedition ended in disaster. I'm not saying it was my doing. I'm not saying it wasn't.
+
+@fdaeff5d
+Què fas amb els morts?
+What do you do with the dead?
+
+@ffdce0ca
+Els acompanyo fins a la barca de Caront. Per això us posen un òbol a la boca: el barquer cobra, com tothom. És l'únic viatge en què ningú no em demana descompte.
+I escort them to Charon's boat. That's why they put an obol in your mouth: the ferryman charges, like everyone. It's the only journey on which nobody asks me for a discount.
+
+@413109bd
+Parla amb Hagnó, l'armador del Pireu.
+Talk to Hagnon, the shipowner in the Piraeus.
+
+@5c480b75
+Tinc un encàrrec per a Hagnó, l'armador del Pireu: que salpi amb el vent del nord i no abans, o perdrà la càrrega al cap Súnion. Jo li podria portar en un sospir, però tinc cent encàrrecs més de Zeus. Tu tens cames, i si no, xiula a un cavall! Vés a parlar-hi.
+I have a message for Hagnon, the shipowner in the Piraeus: he's to sail with the north wind and not before, or he'll lose his cargo off Cape Sounion. I could take it in a heartbeat, but I have a hundred other errands from Zeus. You have legs, and if not, whistle for a horse! Go and talk to him.
+
+@79e02a46
+Encara no has vist Hagnó? Segueix la carretera entre els Murs Llargs fins al Pireu. Els vaixells no esperen, i jo tampoc.
+Haven't you seen Hagnon yet? Follow the road between the Long Walls to the Piraeus. Ships don't wait, and neither do I.
+
+@d14830cc
+Li ho has dit? Perfecte! Ara sap una cosa que els altres armadors no saben, i vendrà el seu vi abans que ningú. Així és el comerç, estimat: la informació val més que la càrrega. Té, t'ho has guanyat. I no diguis a ningú d'on ho has tret.
+You told him? Perfect! Now he knows something the other shipowners don't, and he'll sell his wine before anyone. That's trade, my dear: information is worth more than cargo. Here, you've earned it. And don't tell anyone where you got it.
+
+@294d5d16
+Compte amb el forn, que és a punt. Sóc Hefest. Sí, el coix. El que va fer el tron d'or de la meva mare, l'armadura d'Aquil·les i la xarxa amb què vaig enxampar la meva dona amb Ares. No m'agraden els discursos; m'agrada la feina ben feta.
+Careful with the furnace, it's just right. I'm Hephaestus. Yes, the lame one. The one who made my mother's golden throne, Achilles' armour and the net in which I caught my wife with Ares. I don't like speeches; I like work well done.
+
+@3cd415d9
+Per què vas coix?
+Why do you limp?
+
+@55c86f4a
+Hera em va llençar de l'Olimp en néixer perquè li vaig semblar lleig. Una altra vegada Zeus em va llençar per defensar-la. Vaig caure un dia sencer, fins a Lemnos. Des d'aleshores camino així. A canvi els vaig enviar un tron preciós, del qual ningú no es podia aixecar. Em van haver d'emborratxar perquè l'alliberés. Ja ho veus: el rancor també es forja.
+Hera threw me off Olympus when I was born because she thought me ugly. Another time Zeus threw me off for defending her. I fell a whole day, down to Lemnos. I've walked like this ever since. In return I sent them a beautiful throne nobody could get up from. They had to get me drunk to make me release her. You see: resentment can be forged too.
+
+@670d73f9
+Què hi fas aquí, entre els terrissers?
+What are you doing here among the potters?
+
+@365e8e2b
+Els terrissers, els ferrers i els bronzistes són la meva gent. A les Calquees, a la tardor, els artesans ens honoren a Atena i a mi junts: ella hi posa la idea i jo el foc. Allà dalt, sobre l'Àgora, hi ha el nostre temple, envoltat de tallers. És l'únic lloc de la ciutat on fa olor de carbó i de respecte.
+Potters, smiths and bronze-workers are my people. At the Chalkeia, in autumn, the craftsmen honour Athena and me together: she supplies the idea and I the fire. Up there, above the Agora, is our temple, surrounded by workshops. It's the only place in the city that smells of charcoal and respect.
+
+@6b44cd60
+És veritat que vas fer la primera dona?
+Is it true you made the first woman?
+
+@6e4bf253
+Pandora, sí, amb fang i aigua, per encàrrec de Zeus. Atena la va vestir, Afrodita li va donar gràcia i Hermes, aquell xerraire, li va posar la curiositat. Després va obrir la gerra i en van sortir tots els mals. Jo només vaig fer la figura. Les instruccions no eren meves.
+Pandora, yes, from clay and water, on Zeus' orders. Athena dressed her, Aphrodite gave her grace and Hermes, that chatterbox, gave her curiosity. Then she opened the jar and all the evils came out. I only made the figure. The instructions weren't mine.
+
+@2f7905bf
+Visita l'Hefestèon, sobre l'Àgora, i llegeix-ne l'estela.
+Visit the Hephaisteion, above the Agora, and read its stele.
+
+@cc8ef09b
+Fa anys que no pujo al meu temple; amb aquesta cama, el turó se'm fa llarg. Puja tu a l'Hefestèon, sobre l'Àgora, i digues-me si les estàtues de bronze d'Alcàmenes encara brillen o si els atenesos les tenen plenes de caques de colom.
+I haven't been up to my temple in years; with this leg, the hill feels long. You go up to the Hephaisteion, above the Agora, and tell me whether Alcamenes' bronze statues still shine or whether the Athenians have let the pigeons cover them.
+
+@380e1742
+L'Hefestèon és al turó a l'oest de l'Àgora. No té pèrdua: és el temple amb més columnes de tota la plaça.
+The Hephaisteion is on the hill west of the Agora. You can't miss it: it's the temple with the most columns on the whole square.
+
+@0a71f37d
+Brillen? Bé. Alcàmenes sabia el que feia: em va fer dret, sense dissimular la coixesa, però amb dignitat. Té. I si mai necessites un bon ganivet, vés a qualsevol farga i digues que hi vas de part meva.
+They shine? Good. Alcamenes knew what he was doing: he made me standing, not hiding the limp, but with dignity. Here. And if you ever need a good knife, go to any forge and say I sent you.
+
+@c247abc8
+Benvingut al camí d'Eleusis, estranger. Per aquí passa cada tardor la processó dels iniciats. Sóc Demèter. Tot el pa que menges a Atenes l'he fet créixer jo, encara que els atenesos prefereixen portar-lo del Pont.
+Welcome to the road to Eleusis, stranger. Every autumn the procession of initiates passes this way. I am Demeter. All the bread you eat in Athens I made grow, though the Athenians prefer to bring it from the Pontus.
+
+@090f4d1c
+Què li va passar a la teva filla?
+What happened to your daughter?
+
+@962d8252
+Hades es va endur la meva filla Core sota terra mentre collia flors. La vaig buscar nou dies amb torxes, sense menjar ni rentar-me. Mentre jo plorava, res no creixia: els homes morien de gana i els déus es quedaven sense sacrificis. Al final Zeus va cedir, però ella havia menjat sis grans de magrana al regne dels morts. Per això passa una part de l'any a baix, amb mi enfadada, i a això en dieu hivern.
+Hades carried my daughter Kore off beneath the earth while she was picking flowers. I searched nine days with torches, without eating or washing. While I wept, nothing grew: men starved and the gods went without sacrifices. In the end Zeus gave way, but she had eaten six pomegranate seeds in the realm of the dead. So she spends part of the year below, with me angry, and that you call winter.
+
+@84e57af5
+Què passa als Misteris?
+What happens at the Mysteries?
+
+@d8e09573
+No t'ho explicaré. Ni a tu ni a ningú. Fa uns anys van condemnar Alcibíades per parodiar-los en un banquet. Només et diré això: qui els ha vist no té por de la mort igual que abans. Si en vols saber més, fes-te iniciar.
+I won't tell you. Not you, not anyone. Some years ago they condemned Alcibiades for parodying them at a banquet. I'll tell you only this: whoever has seen them doesn't fear death the way he did before. If you want to know more, be initiated.
+
+@f9c68c05
+Com van aprendre els homes a conrear?
+How did men learn to farm?
+
+@fffa5434
+Li ho vaig ensenyar a Triptòlem, el fill del rei d'Eleusis, en agraïment per la seva hospitalitat quan jo vagava disfressada de vella. Li vaig donar un carro tirat per serps alades i llavors per repartir per tota la terra. Per això els atenesos diuen que el blat va néixer a l'Àtica. Els agrada creure que tot va néixer a l'Àtica.
+I taught Triptolemus, son of the king of Eleusis, in thanks for his hospitality when I wandered disguised as an old woman. I gave him a chariot drawn by winged serpents and seed to scatter over the whole earth. That's why the Athenians say wheat was born in Attica. They like to think everything was born in Attica.
+
+@12e0c2f8
+Visita l'Eleusinion de la ciutat, al sud-est de l'Àgora.
+Visit the city Eleusinion, south-east of the Agora.
+
+@e929a204
+Dins de la ciutat, al peu de l'Acròpolis, tinc un petit santuari: l'Eleusinion. Allà es guarden els objectes sagrats abans de la processó. Vés-hi i comprova que els meus sacerdots el tenen en ordre. Jo no puc entrar a la ciutat sense que la collita se'n ressenti.
+Inside the city, at the foot of the Acropolis, I have a small sanctuary: the Eleusinion. The sacred objects are kept there before the procession. Go and check that my priests keep it in order. I can't enter the city without the harvest feeling it.
+
+@4c0388f4
+L'Eleusinion és pujant per la Via Panatenaica, entre l'Àgora i l'Acròpolis.
+The Eleusinion is up the Panathenaic Way, between the Agora and the Acropolis.
+
+@f3c7af45
+Gràcies. Que no et falti mai el pa a taula. I quan vegis una espiga, recorda que algú va plorar nou dies perquè creixés.
+Thank you. May you never lack bread on your table. And when you see an ear of wheat, remember that someone wept for nine days so it could grow.
+
+@7adfd3b2
+Aquestes oliveres són meves: les moríai, filles de la primera olivera que vaig plantar a l'Acròpolis. El seu oli es dona com a premi a les meves Panatenees. Arrencar-ne una es castiga amb el desterrament. Sóc Atena, i aquesta ciutat porta el meu nom per alguna cosa. Pregunta, però pregunta bé.
+These olive trees are mine: the moriai, daughters of the first olive I planted on the Acropolis. Their oil is given as a prize at my Panathenaia. Uprooting one is punished with exile. I am Athena, and this city bears my name for a reason. Ask, but ask well.
+
+@a3b0805f
+Com vas guanyar Atenes?
+How did you win Athens?
+
+@11bb58a0
+Posidó va colpejar la roca amb el trident i en va fer brollar una font d'aigua salada. Molt espectacular, i molt inútil. Jo vaig plantar una olivera: oli, fusta, menjar, llum. Els atenesos van triar bé. Posidó va inundar la plana de ràbia; encara avui s'enfada quan se'n recorda.
+Poseidon struck the rock with his trident and made a spring of salt water gush out. Very spectacular, and very useless. I planted an olive tree: oil, wood, food, light. The Athenians chose well. Poseidon flooded the plain in rage; he still gets angry when he remembers.
+
+@6e4f21f5
+Què en penses, dels atenesos?
+What do you think of the Athenians?
+
+@8cbeb9d1
+Me'ls estimo, però em desesperen. Són capaços d'aixecar el Partenó i de condemnar Sòcrates. Voten una guerra un dia i se'n penedeixen l'endemà. Tenen la millor flota del món i la van perdre per supèrbia. Tot i així, aquí es discuteix, es pensa i s'aprèn com enlloc més. Per això encara sóc aquí.
+I love them, but they drive me to despair. They can raise the Parthenon and condemn Socrates. They vote for a war one day and regret it the next. They had the best fleet in the world and lost it through arrogance. Even so, here people argue, think and learn as nowhere else. That's why I'm still here.
+
+@deb41df3
+És veritat que vas néixer del cap de Zeus?
+Is it true you were born from Zeus' head?
+
+@200000f6
+Armada i cridant. El meu pare s'havia empassat la meva mare, Metis, la prudència, per por que tingués un fill més fort que ell. Li feia tant de mal el cap que Hefest l'hi va obrir amb una destral. Des d'aleshores Zeus pensa una mica millor. Jo sóc la seva millor idea.
+Armed and shouting. My father had swallowed my mother, Metis, prudence, for fear she would bear a son stronger than him. His head ached so much that Hephaestus split it open with an axe. Since then Zeus thinks a little better. I am his best idea.
+
+@4c3ea684
+Visita l'olivera d'Atena, al costat de l'Erectèon, a l'Acròpolis.
+Visit Athena's olive tree, by the Erechtheion, on the Acropolis.
+
+@940972f8
+Quan els perses van cremar l'Acròpolis, fa més d'un segle, la meva olivera va cremar. L'endemà ja tenia un brot nou d'un colze de llarg. Puja a l'Acròpolis, busca la meva olivera al costat de l'Erectèon i digues-me si encara és verda. Aprendràs alguna cosa sobre aquesta ciutat.
+When the Persians burned the Acropolis, more than a century ago, my olive tree burned. The next day it already had a new shoot a cubit long. Go up to the Acropolis, find my olive tree by the Erechtheion and tell me if it's still green. You'll learn something about this city.
+
+@d9c31817
+L'olivera és al Pandrosèon, el pati a l'oest de l'Erectèon, a l'Acròpolis.
+The olive tree is in the Pandroseion, the courtyard west of the Erechtheion, on the Acropolis.
+
+@d56cbf78
+Encara és verda, és clar. Aquesta és la lliçó: Atenes la poden cremar, assetjar o derrotar, i torna a brotar. Ho va fer després dels perses i ho ha fet després dels Trenta. Té, i recorda que la intel·ligència també és una forma de valor.
+Still green, of course. That's the lesson: Athens can be burned, besieged or defeated, and it sprouts again. It did after the Persians and it has after the Thirty. Here, and remember that intelligence is also a form of courage.
+
+@37fd930c
+Salutacions, mortal. Aquest gimnàs porta el meu nom: Apol·lo Lici, el dels llops. Sóc el déu de la música, de la llum i de la profecia. Ja sabia que vindries. També sé què preguntaràs, però m'agrada sentir-vos-ho dir.
+Greetings, mortal. This gymnasium bears my name: Apollo Lykeios, of the wolves. I am the god of music, light and prophecy. I knew you would come. I also know what you'll ask, but I like to hear you say it.
+
+@5f140e54
+Què vol dir «coneix-te a tu mateix»?
+What does «know thyself» mean?
+
+@599ad9a3
+És escrit a l'entrada del meu temple a Delfos, al costat de «res en excés». Vol dir que ets mortal i no un déu. Sòcrates ho va entendre a la seva manera: quan la meva Pítia va dir que ningú no era més savi que ell, es va passar la vida intentant demostrar que m'equivocava. Al final va entendre que la seva saviesa consistia a saber que no sabia res. No m'equivoco mai, però m'encanta que ho intentin.
+It is written at the entrance to my temple at Delphi, next to «nothing in excess». It means you are mortal and not a god. Socrates understood it his own way: when my Pythia said no one was wiser than he, he spent his life trying to prove me wrong. In the end he understood that his wisdom lay in knowing that he knew nothing. I'm never wrong, but I love it when they try.
+
+@807d0c4c
+És veritat això de Màrsias?
+Is the story of Marsyas true?
+
+@77ad8845
+Un sàtir va trobar la flauta doble que Atena havia llençat i va gosar desafiar-me. Guanyava qui toqués millor tocant l'instrument a l'inrevés. Amb la lira es pot; amb l'aulós, no. El vaig penjar d'un pi i el vaig escorxar. Sí, va ser cruel. La música és harmonia, i l'harmonia exigeix mesura. També en els càstigs, suposo.
+A satyr found the double pipe Athena had thrown away and dared to challenge me. Whoever played best with the instrument upside down would win. With the lyre you can; with the aulos, you can't. I hung him from a pine and flayed him. Yes, it was cruel. Music is harmony, and harmony demands measure. In punishments too, I suppose.
+
+@f828c5a9
+On vas néixer?
+Where were you born?
+
+@3856c2a2
+A Delos, una illa que surava a la deriva perquè Hera havia prohibit a tota terra ferma acollir la meva mare, Leto. Ella es va agafar a una palmera i em va donar a llum al costat del llac sagrat. Des d'aleshores l'illa està quieta, i ningú no hi pot néixer ni morir. Els atenesos la van purificar fa quaranta anys: en van treure totes les tombes. Molt considerats.
+On Delos, an island that drifted adrift because Hera had forbidden all solid ground to take in my mother, Leto. She clung to a palm tree and gave birth to me beside the sacred lake. Since then the island has stood still, and no one may be born or die there. The Athenians purified it forty years ago: they removed all the graves. Very considerate.
+
+@06e1a877
+Viatja a Delos (en vaixell des del Pireu).
+Travel to Delos (by ship from the Piraeus).
+
+@73442dc0
+Vés a Delos, la meva illa. Busca la palmera de la meva mare al costat del llac sagrat i escolta els cignes. Qui no ha vist Delos no ha vist la llum de l'Egeu. Hagnó, al Pireu, t'hi portarà per una dracma.
+Go to Delos, my island. Find my mother's palm tree by the sacred lake and listen to the swans. Whoever hasn't seen Delos hasn't seen the light of the Aegean. Hagnon, in the Piraeus, will take you for a drachma.
+
+@9a508e78
+Delos t'espera al centre de les Cíclades. El vaixell surt del Pireu.
+Delos awaits you in the middle of the Cyclades. The ship leaves from the Piraeus.
+
+@ba59fe84
+L'has vista, oi? La llum de Delos no s'assembla a cap altra. Té aquest pagament i una profecia gratis: viuràs més del que creus i aprendràs menys del que vols. Així és per a tothom.
+You've seen it, haven't you? The light of Delos is like no other. Take this payment and a free prophecy: you will live longer than you think and learn less than you want. So it is for everyone.
+
+@56f022f0
+Quiet. Anaves a trepitjar un niu. Sóc Àrtemis. Aquí, a Agres, al costat de l'Ilisos, em diuen Agrotera, la caçadora. No m'agraden les ciutats ni els homes que parlen massa. Tu tens cara d'escoltar, així que et concedeixo un moment.
+Stop. You were about to step on a nest. I am Artemis. Here, at Agrai, by the Ilissos, they call me Agrotera, the huntress. I don't like cities or men who talk too much. You look like a listener, so I'll grant you a moment.
+
+@e9d2bb13
+Què és això de les 500 cabres?
+What's this about the 500 goats?
+
+@53806af8
+Abans de Marató, els atenesos em van prometre una cabra per cada persa mort. En van morir tants que no hi havia prou cabres a l'Àtica. Així que vam pactar-ne cinc-centes l'any. Encara me les porten, cada estiu, aquí mateix. És l'única cosa en què els atenesos són puntuals.
+Before Marathon, the Athenians promised me a goat for every Persian killed. So many died that there weren't enough goats in Attica. So we agreed on five hundred a year. They still bring them to me, every summer, right here. It's the only thing Athenians are punctual about.
+
+@625dfb02
+Què fan les nenes a Bràuron?
+What do the girls do at Brauron?
+
+@ca50e1bb
+Abans de casar-se, algunes nenes ateneses em serveixen a Bràuron: en diuen óssos. Corren nues, juguen, aprenen els ritus. És el seu últim temps lliure abans de ser esposes. Jo no em vaig casar mai. Li vaig demanar al meu pare ser verge per sempre, i tenir arc i fletxes com el meu germà. M'ho va concedir tot.
+Before they marry, some Athenian girls serve me at Brauron: they're called bears. They run naked, play, learn the rites. It's their last free time before becoming wives. I never married. I asked my father to let me stay a virgin forever, and have a bow and arrows like my brother. He granted me everything.
+
+@56cacc77
+És veritat això d'Acteó?
+Is the story of Actaeon true?
+
+@cfd1b0c4
+Em va veure banyant-me nua en una font. El vaig convertir en cérvol i els seus propis gossos el van esquarterar. Exagerat? Potser. Però va entendre, encara que tard, que hi ha coses que no es miren.
+He saw me bathing naked in a spring. I turned him into a stag and his own dogs tore him apart. Excessive? Perhaps. But he understood, if too late, that there are things you don't look at.
+
+@f11d1ad6
+Visita el santuari d'Àrtemis Brauronia, a l'Acròpolis.
+Visit the sanctuary of Artemis Brauronia, on the Acropolis.
+
+@f4e32aa8
+A l'Acròpolis tinc un santuari, el d'Àrtemis Brauronia. Allà les dones deixen els vestits de les que van morir de part, i els de les que van sobreviure. Vés-hi, mira'ls i pensa en elles. Ningú no se'n recorda, d'aquelles dones.
+On the Acropolis I have a sanctuary, that of Artemis Brauronia. There women leave the clothes of those who died in childbirth, and of those who survived. Go, look at them and think of them. No one remembers those women.
+
+@65e5c1fa
+El Brauronion és a l'Acròpolis, just després dels Propileus, a la dreta.
+The Brauronion is on the Acropolis, just past the Propylaia, on the right.
+
+@96f8930f
+L'has vist. Bé. Els homes expliquen les seves batalles; aquelles dones en van lliurar una altra, i moltes la van perdre. Té, i respecta sempre els animals i les parteres: tots dos són sota el meu arc.
+You've seen it. Good. Men tell of their battles; those women fought another, and many lost it. Here, and always respect animals and women in childbirth: both are under my bow.
+
+@8a99097e
+Oh, quina alegria, una visita. Aquí em diuen Afrodita dels Jardins. Els atenesos vénen a aquest racó de l'Ilisos a declarar-se, a lamentar-se o a amagar-se de les seves dones. I tu, a què vens? No responguis: ja ho noto.
+Oh, how lovely, a visitor. Here they call me Aphrodite of the Gardens. Athenians come to this corner of the Ilissos to declare their love, to lament or to hide from their wives. And what brings you? Don't answer: I can tell.
+
+@74021ed1
+Com vas néixer?
+How were you born?
+
+@9bc3b2d0
+Hesíode diu que vaig néixer de l'escuma del mar, quan Cronos va llençar al mar el que li havia tallat al seu pare Urà. Homer diu que sóc filla de Zeus i Dione. A mi m'agrada més la versió de l'escuma: és més poètica i no li dec res a ningú.
+Hesiod says I was born from the sea foam, when Cronus threw into the sea what he had cut from his father Uranus. Homer says I'm the daughter of Zeus and Dione. I prefer the foam version: it's more poetic and I owe nothing to anyone.
+
+@740ae2df
+Què va passar amb la poma?
+What happened with the apple?
+
+@23bafee6
+Al casament de Peleu i Tetis, la Discòrdia va llançar una poma d'or amb una inscripció: «per a la més bella». Hera, Atena i jo la vam reclamar. Zeus, que no és ruc, va passar el problema a un pastor troià, Paris. Hera li va oferir poder; Atena, victòria. Jo li vaig oferir la dona més bella del món. Va guanyar la millor oferta. El problema és que Helena ja estava casada… i després va venir la guerra. No va ser culpa meva. Bé, no del tot.
+At the wedding of Peleus and Thetis, Strife threw down a golden apple with an inscription: «for the fairest». Hera, Athena and I all claimed it. Zeus, no fool, passed the problem to a Trojan shepherd, Paris. Hera offered him power; Athena, victory. I offered him the most beautiful woman in the world. The best offer won. The trouble is that Helen was already married… and then came the war. It wasn't my fault. Well, not entirely.
+
+@da139ae6
+Estàs casada?
+Are you married?
+
+@71867bd6
+Amb Hefest. Zeus em va casar amb el més lleig dels déus per evitar baralles. Va funcionar a mitges. Ares és una altra història: més guapo, menys llest. Hefest ens va enxampar amb una xarxa invisible i va cridar tots els déus perquè ho veiessin. Els déus van riure. Hermes va dir que no li importaria ser al lloc d'Ares. Típic.
+To Hephaestus. Zeus married me to the ugliest of the gods to avoid quarrels. It half worked. Ares is another story: better-looking, less clever. Hephaestus caught us in an invisible net and called all the gods to come and see. The gods laughed. Hermes said he wouldn't mind being in Ares' place. Typical.
+
+@b415dad9
+Viatja a Troia (Ílion) en vaixell des del Pireu.
+Travel to Troy (Ilion) by ship from the Piraeus.
+
+@013b78e3
+Vés a Troia. Passeja per les muralles on Helena mirava els grecs i on Paris va triar. Després torna i digues-me si encara val la pena una ciutat per amor. Jo crec que sí. Atena creu que no. Desempata'ns.
+Go to Troy. Walk the walls where Helen watched the Greeks and where Paris made his choice. Then come back and tell me whether a city is still worth it for love. I think so. Athena thinks not. Break the tie.
+
+@b8086947
+Troia és a l'altra banda de l'Egeu. Hagnó, l'armador del Pireu, hi va.
+Troy is on the other side of the Aegean. Hagnon, the shipowner in the Piraeus, sails there.
+
+@9f40c7a2
+Ho veus? Deu anys de guerra, una ciutat en ruïnes, i tot i així tothom continua cantant aquella història. Això és l'amor: un desastre que ningú no vol oblidar. Té, i que tinguis sort amb qui tu ja saps.
+You see? Ten years of war, a city in ruins, and still everyone keeps singing that story. That's love: a disaster nobody wants to forget. Here, and good luck with you-know-who.
+
+@05d50d00
+Un foraster! Has begut? No hi fa res, ja beuràs. Sóc Dionís. Vinc d'Eleuteres, a la frontera: d'allà van portar els atenesos la meva vella estàtua de fusta, i per això celebren les Dionísies. El vi, el teatre, la bogeria sagrada… tot això és meu. I també el que hi ha darrere de les màscares.
+A stranger! Have you been drinking? Never mind, you will. I'm Dionysus. I come from Eleutherae, on the border: from there the Athenians brought my old wooden statue, and that's why they celebrate the Dionysia. Wine, theatre, sacred madness… all that is mine. And what lies behind the masks, too.
+
+@1d94b447
+Per què el teatre és teu?
+Why is the theatre yours?
+
+@17e3ba1b
+Perquè al teatre deixeu de ser vosaltres mateixos. Un sabater es posa una màscara i és Agamèmnon; un ciutadà canta al cor i plora per Troia. Aquest és el meu do: sortir d'un mateix. Va començar amb cants a les meves festes i els atenesos ho van convertir en tragèdia. Per això les obres es fan a la meva festa i al meu teatre.
+Because in the theatre you stop being yourselves. A cobbler puts on a mask and is Agamemnon; a citizen sings in the chorus and weeps for Troy. That's my gift: getting outside yourself. It began with songs at my festivals and the Athenians turned it into tragedy. That's why the plays are staged at my festival and in my theatre.
+
+@b797c91b
+Què els passa als qui no et reconeixen?
+What happens to those who don't recognise you?
+
+@05e34b0b
+Pregunta-ho a Penteu, el rei de Tebes. Em va tancar, es va burlar de les meves bacants i les va voler espiar. La seva pròpia mare, posseïda per mi, el va esquarterar creient que era un lleó. Eurípides ho explica a Les bacants; aquesta nit la representen. No sóc cruel: només sóc el que es nega. I el que es nega, torna.
+Ask Pentheus, king of Thebes. He locked me up, mocked my bacchants and tried to spy on them. His own mother, possessed by me, tore him apart thinking he was a lion. Euripides tells it in The Bacchae; they're performing it tonight. I'm not cruel: I'm only what gets denied. And what gets denied comes back.
+
+@33e0b309
+És veritat això d'Ariadna?
+Is the story of Ariadne true?
+
+@4f8e01cb
+Teseu la va abandonar adormida a Naxos després que ella el salvés del laberint. Típic atenès: molt heroi, molt desagraït. Jo la vaig trobar plorant a la platja i m'hi vaig casar. Li vaig regalar una corona que ara brilla al cel. Si vas a Naxos, brinda per ella.
+Theseus abandoned her asleep on Naxos after she had saved him from the labyrinth. Typical Athenian: very heroic, very ungrateful. I found her weeping on the beach and married her. I gave her a crown that now shines in the sky. If you go to Naxos, drink to her.
+
+@8bab19ed
+=
+=
+
+@88c1f2a8
+=
+=
+
+@e94e3737
+=
+=
+
+@6dc52791
+Assisteix a una funció al teatre de Dionís (seu a les grades mentre es representa una obra).
+Attend a performance at the theatre of Dionysus (sit in the seats while a play is on).
+
+@9d5a4f6e
+Avui reposen tres tragèdies d'Eurípides al meu teatre. Vés a veure'n una. Seu a les grades, escolta el cor i no te'n vagis abans del final. Et prometo que en sortiràs essent una mica un altre.
+Today they're reviving three tragedies by Euripides in my theatre. Go and see one. Sit in the seats, listen to the chorus and don't leave before the end. I promise you'll come out a little someone else.
+
+@e2800d9b
+Les funcions són al matí (Medea, de 8 a 11), a la tarda (Les troianes, de 14 a 17) i a la nit (Les bacants, de 20 a 23). Prem T per deixar passar les hores.
+Performances are in the morning (Medea, 8 to 11), the afternoon (The Trojan Women, 14 to 17) and at night (The Bacchae, 20 to 23). Press T to let the hours pass.
+
+@13ccf844
+Has plorat? Has sentit por? Aleshores has estat amb mi. Té, i la pròxima vegada que beguis vi, barreja'l amb aigua, com els civilitzats… o no. Ja m'entens.
+Did you cry? Did you feel fear? Then you've been with me. Here, and next time you drink wine, mix it with water, like civilised people… or don't. You know what I mean.
+
+@e24c222a
+Ha! Un terrícola s'acosta al mar. Sóc Posidó, el que sacseja la terra. Des d'aquesta platja del Falèron va salpar Teseu cap a Creta, i fins aquí arriba el meu alè quan m'enfado. Has vingut a resar abans d'embarcar-te? Fas bé.
+Ha! A landlubber comes to the sea. I am Poseidon, the earth-shaker. From this beach at Phaleron Theseus sailed for Crete, and my breath reaches here when I'm angry. Have you come to pray before you embark? Wise of you.
+
+@94b175b4
+Encara estàs enfadat per haver perdut Atenes?
+Are you still angry about losing Athens?
+
+@f64f93b6
+Enfadat? Jo vaig fer brollar una font a la roca de l'Acròpolis! I què van triar? Un arbret! Vaig inundar la plana d'Eleusis de pura indignació. Ara els atenesos em rendeixen culte a l'Erectèon, al costat d'ella, i viuen del mar. Del mar, entens? La seva flota, el seu comerç, el seu blat… tot viatja sobre mi. Vaig guanyar jo, encara que no ho sàpiguen.
+Angry? I made a spring gush from the rock of the Acropolis! And what did they choose? A little tree! I flooded the Eleusinian plain out of sheer indignation. Now the Athenians worship me in the Erechtheion, next to her, and they live off the sea. The sea, you understand? Their fleet, their trade, their grain… it all travels on me. I won, even if they don't know it.
+
+@e54aee59
+Per què tremolen les terres?
+Why does the earth shake?
+
+@55157270
+Perquè colpejo el terra amb el trident. Fa quaranta anys, a Esparta, un terratrèmol va matar milers de persones i els ilotes es van revoltar. Els espartans encara tremolen quan ho recorden. I fan bé.
+Because I strike the ground with my trident. Forty years ago, in Sparta, an earthquake killed thousands and the helots revolted. The Spartans still tremble when they remember it. And well they might.
+
+@77a8efe1
+Què tens contra Odisseu?
+What do you have against Odysseus?
+
+@84ea8e6f
+Va deixar cec el meu fill Polifem! Li va clavar una estaca encesa a l'ull i després se'n va burlar cridant-li el seu nom des del vaixell. Deu anys el vaig tenir donant voltes pel mar. Si hagués tancat la boca, hauria arribat a casa en una setmana. Lliçó: no et burlis mai del fill d'un déu des d'un vaixell.
+He blinded my son Polyphemus! He drove a burning stake into his eye and then mocked him, shouting his name from the ship. I kept him wandering the sea for ten years. If he'd kept his mouth shut, he'd have been home in a week. Lesson: never mock a god's son from a ship.
+
+@5519f852
+Busca a l'Erectèon les marques del trident i el mar d'Erecteu.
+Find the trident marks and the sea of Erechtheus in the Erechtheion.
+
+@53a1dc5e
+A l'Erectèon, sota el pòrtic nord, queden les marques del meu trident a la roca, i a dins hi ha un pou d'aigua salada: el mar d'Erecteu. Quan bufa el vent del sud, se senten les onades. Vés a veure-ho i digues-me si els atenesos ho cuiden com es mereix.
+In the Erechtheion, under the north porch, the marks of my trident remain in the rock, and inside there's a well of salt water: the sea of Erechtheus. When the south wind blows, you can hear the waves. Go and see it and tell me whether the Athenians look after it as it deserves.
+
+@cb54c0c4
+Busca el pòrtic nord de l'Erectèon, a l'Acròpolis: allà hi ha un forat al sostre perquè es vegin les marques des del cel.
+Find the north porch of the Erechtheion, on the Acropolis: there's a hole in the roof so the marks can be seen from the sky.
+
+@ce6b83e2
+L'has sentit, el mar dalt de la roca? Això és meu, encara que el temple sigui d'ella. Té, i quan t'embarquis, aboca una mica de vi al mar. Em recordaré de tu.
+Did you hear it, the sea on top of the rock? That's mine, even if the temple is hers. Here, and when you embark, pour a little wine into the sea. I'll remember you.
+
+@19cd4987
+Inclina't una mica, mortal. Així, millor. Sóc Hera, esposa de Zeus i reina de l'Olimp. Aquí, al Falèron, els atenesos em van aixecar un altar. Protegeixo els matrimonis, cosa que a casa meva, ja ho veus, no sempre ha servit de gaire.
+Bow a little, mortal. That's better. I am Hera, wife of Zeus and queen of Olympus. Here, at Phaleron, the Athenians raised an altar to me. I protect marriages, which in my own house, as you see, hasn't always done much good.
+
+@9cc3004b
+Per què persegueixes les amants de Zeus?
+Why do you persecute Zeus' lovers?
+
+@7545f241
+I què volies que fes? Aplaudir? Io, Sèmele, Alcmena, Leto… cada vegada que el meu espòs s'avorreix, es converteix en toro, en cigne o en pluja d'or. Jo no el puc castigar a ell; és el rei. Així que castigo el que puc. No és just, ho sé. El matrimoni tampoc no ho és sempre.
+And what did you want me to do? Applaud? Io, Semele, Alcmene, Leto… every time my husband gets bored, he turns into a bull, a swan or a shower of gold. I can't punish him; he's the king. So I punish what I can. It isn't fair, I know. Neither is marriage, always.
+
+@b528758a
+Què passa amb Hèracles?
+What about Heracles?
+
+@9b4e10d2
+El seu nom vol dir «glòria d'Hera». Irònic, oi? És fill de Zeus i d'Alcmena. Li vaig enviar serps al bressol i bogeria a la maduresa. Ell ho va superar tot i al final va pujar a l'Olimp. Ens hem reconciliat: està casat amb la meva filla Hebe. A les famílies passen aquestes coses.
+His name means «glory of Hera». Ironic, isn't it? He's the son of Zeus and Alcmene. I sent snakes to his cradle and madness in his prime. He overcame it all and in the end rose to Olympus. We've made up: he's married to my daughter Hebe. These things happen in families.
+
+@12d2ae28
+Com és un casament atenès?
+What is an Athenian wedding like?
+
+@46ff2365
+La núvia ofereix les seves joguines a Àrtemis, es banya amb aigua de la font sagrada i al capvespre viatja en carro a casa del nuvi, amb torxes, cants d'himeneu i flautes. La sogra l'espera amb una torxa a la porta. Us caseu a l'hivern, al mes de Gamelió, que és el meu mes. Però avui mateix hi ha un casament a la ciutat.
+The bride offers her toys to Artemis, bathes in water from the sacred spring and at dusk rides in a cart to the groom's house, with torches, wedding songs and pipes. The mother-in-law waits at the door with a torch. You marry in winter, in the month of Gamelion, which is my month. But there's a wedding in the city this very day.
+
+@9d68898e
+Acompanya el seguici nupcial a la ciutat, al capvespre (entre les 18 i les 20 h), a l'est de l'Eleusinion.
+Accompany the wedding procession in the city at dusk (between 18 and 20 h), east of the Eleusinion.
+
+@e777afa4
+Aquesta tarda, al capvespre, una noia es casa a la ciutat. El seu seguici passarà a l'est de l'Eleusinion. Acosta't al carro de la núvia i acompanya-la un tros. Que una deessa vegi a través dels teus ulls com comença un matrimoni, abans que s'espatlli.
+This evening, at dusk, a girl is getting married in the city. Her procession will pass east of the Eleusinion. Go up to the bride's cart and walk with her a while. Let a goddess see through your eyes how a marriage begins, before it goes wrong.
+
+@5b23190d
+El seguici surt entre les 18 i les 20 h, a l'est de l'Eleusinion. Prem T si vols que passin les hores.
+The procession sets off between 18 and 20 h, east of the Eleusinion. Press T if you want the hours to pass.
+
+@25e31909
+Anava contenta? Les núvies sempre semblen contentes al carro. Tant de bo li duri. Té, i si algun dia et cases, sacrifica al meu altar: d'alguna manera, tots els matrimonis passen per mi.
+Was she happy? Brides always look happy in the cart. I hope it lasts. Here, and if you ever marry, sacrifice at my altar: one way or another, every marriage passes through me.
+
+@419e87cd
+Així que ets tu el foraster que recorre la meva ciutat preferida… bé, una d'elles. Sóc Zeus. Des d'aquest vessant veig l'Acròpolis, el mar i els afers de tothom. No t'espantis pel llamp: avui estic de bon humor.
+So you're the stranger touring my favourite city… well, one of them. I am Zeus. From this slope I see the Acropolis, the sea and everyone's business. Don't be frightened by the thunderbolt: I'm in a good mood today.
+
+@c92584a1
+Per què protegeixes els estrangers?
+Why do you protect foreigners?
+
+@1fc442a4
+Perquè qualsevol estranger podria ser jo disfressat. Així que més val que us tracteu bé. Em diuen Zeus Xenios, el protector dels hostes: qui trenca l'hospitalitat m'ofèn a mi. Paris ho va fer en robar Helena de casa del seu amfitrió, i ja saps com va acabar Troia.
+Because any foreigner might be me in disguise. So you'd better treat each other well. They call me Zeus Xenios, protector of guests: whoever breaks hospitality offends me. Paris did it when he stole Helen from his host's house, and you know how Troy ended.
+
+@05d4f5b2
+Què passa amb el temple gegant sense acabar?
+What about the giant unfinished temple?
+
+@4bcb04cb
+L'Olimpièon. El van començar els fills de Pisístrat, els tirans, cap al 520: el temple més gran de Grècia. Quan els van fer fora, la democràcia el va deixar a mitges perquè li recordava els tirans. Així que fa cent trenta anys que espero una teulada. Els déus tenim paciència, però no infinita.
+The Olympieion. The sons of Peisistratus, the tyrants, began it around 520: the biggest temple in Greece. When they were thrown out, the democracy left it half-built because it reminded them of the tyrants. So I've been waiting a hundred and thirty years for a roof. We gods are patient, but not infinitely.
+
+@b4090dde
+És cert això de Prometeu?
+Is the story of Prometheus true?
+
+@d9e6a31f
+Va robar el foc de l'Olimp i el va donar als homes. El vaig encadenar a una roca i la meva àliga li menja el fetge cada dia. Sí, és dur. Però el foc en mans dels homes… mira: amb ell feu pa, ceràmica i bronze, i també incendieu ciutats. Ja veurem qui tenia raó.
+He stole fire from Olympus and gave it to men. I chained him to a rock and my eagle eats his liver every day. Yes, it's harsh. But fire in men's hands… look: with it you make bread, pottery and bronze, and you also burn cities. We'll see who was right.
+
+@07c429f8
+Visita l'Olimpièon, el temple inacabat de Zeus.
+Visit the Olympieion, Zeus' unfinished temple.
+
+@04d7d551
+Vés a l'Olimpièon, al sud-est de l'Acròpolis. Posa't entre aquelles columnes a mig fer i mira que gran podria haver estat. Després torna i digues-me si els atenesos mereixen que els continuï enviant la pluja.
+Go to the Olympieion, south-east of the Acropolis. Stand among those half-built columns and see how great it could have been. Then come back and tell me whether the Athenians deserve that I keep sending them rain.
+
+@2094754c
+L'Olimpièon és al sud-est de l'Acròpolis, al costat del riu Ilisos.
+The Olympieion is south-east of the Acropolis, by the river Ilissos.
+
+@b737e409
+Gran, eh? Algun dia algú l'acabarà… d'aquí a uns quants segles, potser un emperador estranger. T'ho dic jo, que ho sé. Té, i sigues bon hoste a tot arreu. Mai no saps qui tens al davant.
+Big, eh? Someday someone will finish it… in a few centuries, perhaps a foreign emperor. Take it from me, I know. Here, and be a good guest everywhere. You never know who's in front of you.
+
+@00f5ae9a
+Què mires? Sóc Ares. Sí, aquell Ares. El que els poetes pinten com un bèstia. M'agrada estar al costat d'aquestes muralles: fan olor de pedra nova i de guerra per venir. Els atenesos les han reconstruïdes amb or persa. Amb or persa! Ni vergonya no els queda.
+What are you looking at? I'm Ares. Yes, that Ares. The one the poets paint as a brute. I like being by these walls: they smell of new stone and wars to come. The Athenians have rebuilt them with Persian gold. Persian gold! They haven't even any shame left.
+
+@493ae2e5
+Per què el turó del tribunal porta el teu nom?
+Why does the hill of the court bear your name?
+
+@969d6e0e
+Perquè vaig ser el primer acusat de la història. Halirroti, fill de Posidó, va violar la meva filla Alcipe al costat d'una font. El vaig matar, és clar. Posidó em va portar a judici davant dels déus en aquell turó, i em van absoldre. Des d'aleshores s'hi jutgen els homicidis: l'Areòpag. Fixa't quina ironia: el déu de la guerra, fundador dels tribunals.
+Because I was the first defendant in history. Halirrhothius, son of Poseidon, raped my daughter Alcippe by a spring. I killed him, of course. Poseidon took me to trial before the gods on that hill, and I was acquitted. Since then homicides have been tried there: the Areopagus. See the irony: the god of war, founder of the courts.
+
+@1d24fb06
+T'agrada la guerra?
+Do you like war?
+
+@958bef40
+M'agrada la veritat. A la guerra ningú no menteix: o tens valor o no en tens. A l'Assemblea, en canvi, tothom parla de pau i vota la guerra; després envien altres a morir. Els espartans m'entenen: abans de la batalla em sacrifiquen un gos, i després no recules. Els atenesos prefereixen Atena. Doncs molt bé.
+I like the truth. In war nobody lies: either you have courage or you don't. In the Assembly, on the other hand, everyone talks of peace and votes for war; then they send others to die. The Spartans understand me: before battle they sacrifice a dog to me, and then they don't retreat. The Athenians prefer Athena. Very well then.
+
+@dc6a07ec
+És cert que et va ferir un mortal?
+Is it true a mortal wounded you?
+
+@5712017f
+Diomedes, a Troia, amb l'ajuda d'Atena, que sempre és pel mig. Em va clavar la llança al ventre i vaig cridar com deu mil homes. Vaig tornar a l'Olimp i el meu propi pare em va dir que era el més odiós dels déus. Famílies.
+Diomedes, at Troy, with the help of Athena, who's always in the way. He drove his spear into my belly and I roared like ten thousand men. I went back to Olympus and my own father told me I was the most hateful of the gods. Families.
+
+@7ad7193d
+Puja a l'Areòpag, el turó d'Ares, al costat de l'Acròpolis.
+Climb the Areopagus, the hill of Ares, beside the Acropolis.
+
+@cd7c7751
+Puja al meu turó, l'Areòpag, i mira des d'allà l'Acròpolis. Allà dalt es va jutjar Orestes per matar la seva mare, i Atena va desempatar a favor seu. Sempre ella. Vés-hi i sent què és ser al lloc on es decideix si algú viu o mor.
+Climb my hill, the Areopagus, and look at the Acropolis from there. Up there Orestes was tried for killing his mother, and Athena cast the deciding vote in his favour. Always her. Go and feel what it is to stand where it's decided whether someone lives or dies.
+
+@b6d6d050
+L'Areòpag és el turó rocós al nord-oest de l'Acròpolis, davant dels Propileus.
+The Areopagus is the rocky hill north-west of the Acropolis, facing the Propylaia.
+
+@38936d89
+Has sentit el pes? Allà no hi ha glòria, només justícia. I la justícia, creu-me, també és una forma de guerra. Té. I si mai has de lluitar, que sigui de cara.
+Did you feel the weight? There's no glory there, only justice. And justice, believe me, is also a kind of war. Here. And if you ever have to fight, do it face to face.
