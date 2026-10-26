@@ -1,0 +1,1374 @@
+# Personajes de Atenas (NPCS): resúmenes, presentaciones, temas y preguntas. Claves @: hash del texto en español
+# (python fuente/i18n.py pendientes NPCS lista los textos que faltan con su clave).
+
+@35738820
+El Consell (Bulé) té 500 membres, 50 per cadascuna de les deu tribus de Clístenes, sortejats entre ciutadans de més de 30 anys. Prepara el que vota l'Assemblea. Cada tribu presideix una desena part de l'any (pritania), i cada dia se sorteja un president, l'epistàtes.
+The Council (Boule) has 500 members, 50 from each of the ten tribes of Cleisthenes, chosen by lot from citizens over 30. It prepares what the Assembly votes on. Each tribe presides for a tenth of the year (a prytany), and every day a chairman, the epistates, is chosen by lot.
+
+@9405a826
+Salut, foraster! Aquest mes em toca ser prítan: els cinquanta consellers de la meva tribu, l'Enèida, presidim el Consell. Mengem aquí, a la Tolos, a càrrec de la ciutat, i sempre n'hi ha algun de nosaltres despert, de dia i de nit.
+Greetings, stranger! This month it's my turn to be a prytanis: the fifty councillors of my tribe, Oineis, preside over the Council. We eat here in the Tholos at the city's expense, and one of us is always awake, day and night.
+
+@b97b3fe6
+Què és el Consell?
+What is the Council?
+
+@cf050b08
+La Bulé dels Cinc-cents. Cinquanta ciutadans per cadascuna de les deu tribus que va crear Clístenes fa cent vint anys, el 508. Ens reunim al Buleuterion, aquest edifici del costat, gairebé cada dia. Preparem els afers, els probuleumata, que després l'Assemblea discuteix i vota a la Pnyx. Res no arriba a l'Assemblea sense passar abans per nosaltres.
+The Boule of Five Hundred. Fifty citizens from each of the ten tribes Cleisthenes created a hundred and twenty years ago, in 508. We meet in the Bouleuterion, that building next door, almost every day. We prepare the business, the probouleumata, which the Assembly then debates and votes on at the Pnyx. Nothing reaches the Assembly without passing through us first.
+
+@7f99b48b
+Per què s'escullen per sorteig?
+Why are they chosen by lot?
+
+@bcddfe2c
+Votar afavoreix els rics i els que parlen bé. El sorteig dona a qualsevol ciutadà la mateixa oportunitat: l'adober i l'aristòcrata. Per al Consell se sorteja entre els majors de trenta anys, i ningú no hi pot servir més de dues vegades a la vida. Així gairebé tots els atenesos acaben governant alguna vegada. Només els estrategs, que manen l'exèrcit, i alguns càrrecs tècnics s'escullen a mà alçada.
+Voting favours the rich and the good speakers. The lot gives every citizen the same chance: the tanner and the aristocrat. For the Council the lot is drawn among men over thirty, and nobody may serve more than twice in his life. So almost every Athenian ends up governing at some point. Only the generals, who command the army, and a few technical posts are elected by show of hands.
+
+@c7bdb372
+Qui presideix?
+Who presides?
+
+@b3ac0295
+Cada dia se sorteja entre els prítans un epistàtes. Durant un dia i una nit guarda les claus dels temples on hi ha el tresor i el segell de la ciutat, i presideix el Consell i l'Assemblea si es reuneixen. Només es pot ser epistàtes un dia en tota la vida. Avui podria ser jo; demà, el veí.
+Every day an epistates is chosen by lot from among the prytaneis. For a day and a night he keeps the keys of the temples that hold the treasury and the city's seal, and he chairs the Council and the Assembly if they meet. You can be epistates for only one day in your whole life. Today it could be me; tomorrow, my neighbour.
+
+@a7b14bf0
+Quants membres té la Bulé i com s'escullen?
+How many members does the Boule have and how are they chosen?
+
+@336a041a
+Cinc-cents, per sorteig: cinquanta per tribu
+Five hundred, by lot: fifty per tribe
+
+@ec4f70c0
+Tres-cents, escollits pels arconts
+Three hundred, chosen by the archons
+
+@ebd0bfdc
+Cinc-cents, votats a l'Assemblea
+Five hundred, elected in the Assembly
+
+@4295b07d
+No. Són cinc-cents, cinquanta per cadascuna de les deu tribus, i s'escullen per sorteig perquè qualsevol ciutadà pugui governar.
+No. There are five hundred, fifty from each of the ten tribes, and they are chosen by lot so that any citizen can govern.
+
+@19764659
+L'Assemblea reuneix tots els ciutadans homes adults unes quaranta vegades l'any a la Pnyx. Qualsevol hi pot parlar (isegoria) i es vota a mà alçada. Des de fa pocs anys, a proposta d'Agírrios, es paga l'assistència: avui, tres òbols. Les dones, els metecs i els esclaus no hi participen.
+The Assembly gathers all adult male citizens about forty times a year on the Pnyx. Anyone may speak (isegoria) and votes are by show of hands. For a few years now, on the proposal of Agyrrhius, attendance has been paid: today, three obols. Women, metics and slaves take no part.
+
+@f28d86cf
+Veus aquest turó? És la Pnyx. Aquí es reuneix l'Ekklesía, l'Assemblea de tots els ciutadans. Unes quaranta vegades l'any deixo el taller, pujo amb el meu mantell i voto la guerra, la pau, el blat, els impostos… amb la mà alçada, així.
+See this hill? It's the Pnyx. The Ekklesia meets here, the Assembly of all the citizens. About forty times a year I leave my workshop, climb up in my cloak and vote on war, peace, grain, taxes… with my hand raised, like this.
+
+@9cd36ae3
+Qui pot parlar?
+Who can speak?
+
+@0d8b65f6
+Qualsevol ciutadà. L'herald pregunta: «Qui vol parlar?», i qui vulgui puja a la tribuna, el bema, aquella pedra d'allà. Això és la isegoria, l'igual dret a la paraula. És clar que si dius bestieses et xiulen, i els prítans et poden fer baixar. Els que parlen sovint els anomenem rhetores, oradors. Alguns són honrats; d'altres, demagogs.
+Any citizen. The herald asks: «Who wishes to speak?», and whoever wants climbs onto the platform, the bema, that stone over there. That is isegoria, the equal right to speak. Of course, if you talk nonsense they boo you, and the prytaneis can make you step down. Those who speak often we call rhetores, orators. Some are honest; others, demagogues.
+
+@bde03c23
+Us paguen per venir?
+Do they pay you to come?
+
+@b7b5151e
+Ara sí. Fa uns anys costava omplir el turó, així que Agírrios va proposar pagar un òbol als qui arribessin primer. Després va pujar a dos, i avui ja són tres òbols, el mateix que cobra un jurat. Ara cal matinar per cobrar. Aristòfanes se'n burla a Les assembleistes: diu que hi anem pels diners i no per la ciutat. Una mica de raó en té.
+Now they do. A few years ago it was hard to fill the hill, so Agyrrhius proposed paying an obol to those who arrived first. Then it went up to two, and today it's three obols, the same as a juror earns. Now you have to get up early to get paid. Aristophanes mocks this in Women at the Assembly: he says we go for the money and not for the city. He has a point.
+
+@7fdedac8
+I les dones, els metecs i els esclaus?
+And the women, the metics and the slaves?
+
+@38a9d639
+No voten. Ciutadà és el fill de pare i mare atenesos, segons la llei de Pèricles del 451. Després de la guerra potser som uns trenta mil ciutadans, en una Àtica on viuen més de dues-centes mil persones. La nostra democràcia és el govern del dêmos, el poble, però el poble som només nosaltres.
+They don't vote. A citizen is the son of an Athenian father and mother, under Pericles' law of 451. After the war there are perhaps thirty thousand of us citizens, in an Attica where more than two hundred thousand people live. Our democracy is the rule of the demos, the people, but the people is only us.
+
+@949aacbb
+Quant es cobra avui per assistir a l'Assemblea?
+How much is paid today for attending the Assembly?
+
+@59b580d7
+Tres òbols
+Three obols
+
+@bfd9f0a8
+Una dracma d'or
+A gold drachma
+
+@fab66316
+Res: és un deure sense paga
+Nothing: it is an unpaid duty
+
+@c4a75c79
+No. Des de fa pocs anys es paga l'assistència: va començar amb un òbol i avui en són tres, com la paga d'un jurat.
+No. For a few years now attendance has been paid: it started at one obol and today it is three, like a juror's pay.
+
+@b9d020b9
+Cada any se sortegen 6.000 jurats entre ciutadans de més de 30 anys. Els tribunals s'assignen per sorteig el mateix matí per impedir suborns. No hi ha advocats ni jutges professionals: cada part parla per si mateixa, de vegades amb discursos escrits per un logògraf. Sòcrates va ser jutjat per 501 jurats el 399.
+Every year 6,000 jurors are chosen by lot from citizens over 30. Courts are assigned by lot on the morning of the trial to prevent bribery. There are no lawyers or professional judges: each party speaks for himself, sometimes with speeches written by a logographer. Socrates was tried by 501 jurors in 399.
+
+@a05910b7
+Cada any se sortegen sis mil jurats entre els ciutadans de més de trenta anys. Jo sempre m'hi apunto: tres òbols al dia i, a la meva edat, seure a escoltar plets és millor que cavar. Aquesta és l'Heliea, el més gran dels tribunals.
+Every year six thousand jurors are chosen by lot from citizens over thirty. I always put my name down: three obols a day and, at my age, sitting and listening to lawsuits beats digging. This is the Heliaia, the largest of the courts.
+
+@6b2137c1
+Com es forma un tribunal?
+How is a court formed?
+
+@0792d11e
+El mateix matí del judici se sorteja qui jutja i a quin tribunal. Així ningú no sap per endavant qui haurà de convèncer, i és gairebé impossible subornar-nos: caldria comprar centenars de persones! Un tribunal pot tenir 201, 501 o més de mil jurats. Votem en secret, sense deliberar entre nosaltres, i decideix la majoria.
+On the morning of the trial the lot decides who judges and in which court. That way nobody knows in advance whom he will have to persuade, and it's almost impossible to bribe us: you'd have to buy hundreds of people! A court can have 201, 501 or over a thousand jurors. We vote in secret, without deliberating among ourselves, and the majority decides.
+
+@e161ea78
+Hi ha advocats?
+Are there lawyers?
+
+@ac5374a6
+No. Cadascú es defensa a si mateix, i el temps el mesura la clepsidra, un rellotge d'aigua. Però qui pot paga un logògraf perquè li escrigui el discurs i se l'aprèn de memòria. El meteco Lísias, que trobaràs a l'Stoa de Zeus, és el millor: escriu com si parlés el mateix client.
+No. Everyone defends himself, and time is measured by the clepsydra, a water clock. But those who can afford it pay a logographer to write their speech and learn it by heart. The metic Lysias, whom you'll find at the Stoa of Zeus, is the best: he writes as if the client himself were speaking.
+
+@4031dc03
+Vas jutjar Sòcrates?
+Did you judge Socrates?
+
+@ea85e88f
+Sí, fa tretze anys. Érem 501. L'acusaven Mèletos, Ànitos i Licó de no reconèixer els déus de la ciutat, d'introduir divinitats noves i de corrompre els joves. El vam declarar culpable per uns seixanta vots. Després cada part proposa una pena: els acusadors, la mort; ell, amb la seva ironia, que l'alimentéssim gratis al Pritaneu com un campió olímpic. Això va enfadar molta gent, i la mort va guanyar per més vots encara.
+Yes, thirteen years ago. There were 501 of us. Meletus, Anytus and Lycon accused him of not recognising the city's gods, of introducing new divinities and of corrupting the young. We found him guilty by about sixty votes. Then each side proposes a penalty: the accusers, death; he, with his irony, that we feed him for free in the Prytaneion like an Olympic champion. That angered many, and death won by even more votes.
+
+@d8c0f06f
+Per què se sortegen els tribunals el mateix matí del judici?
+Why are the courts assigned by lot on the very morning of the trial?
+
+@c76d3802
+Perquè ningú no pugui subornar els jurats per endavant
+So that nobody can bribe the jurors in advance
+
+@54387c09
+Perquè així ho ordena l'oracle de Delfos
+Because the oracle of Delphi orders it
+
+@3b591736
+Perquè els rics triïn el seu tribunal
+So that the rich can choose their court
+
+@090bba6d
+No. Es fa per impedir suborns: ningú no sap quins jurats tindrà al davant fins aquell mateix dia.
+No. It is done to prevent bribery: nobody knows which jurors he will face until that very day.
+
+@97dfeba1
+Sòcrates va esperar un mes a la presó perquè no s'executava ningú mentre la nau sagrada no tornés de Delos. Va refusar fugir, com li proposava Critó, per respecte a les lleis. Va beure la cicuta el 399 envoltat dels seus amics. Molts l'associaven amb Alcibíades i Crítias, però l'amnistia va obligar a acusar-lo d'impietat.
+Socrates waited a month in prison because nobody could be executed until the sacred ship returned from Delos. He refused to escape, as Crito proposed, out of respect for the laws. He drank the hemlock in 399, surrounded by his friends. Many associated him with Alcibiades and Critias, but the amnesty forced them to charge him with impiety.
+
+@f2a4a5ab
+Això és el desmoterion, la presó. Jo serveixo els Onze, els magistrats que s'encarreguen dels presos i de les execucions. Fa tretze anys hi vaig guardar l'home més estrany que he conegut: Sòcrates, fill de Sofronisc.
+This is the desmoterion, the prison. I serve the Eleven, the magistrates in charge of prisoners and executions. Thirteen years ago I guarded here the strangest man I have ever known: Socrates, son of Sophroniscus.
+
+@f6f2f72f
+Per què va esperar un mes?
+Why did he wait a month?
+
+@f2ead333
+Perquè cada any Atenes envia una nau sagrada a Delos en honor d'Apol·lo, i mentre no torna la ciutat s'ha de mantenir pura: no s'executa ningú. Aquell any hi va haver vents contraris i la nau va trigar trenta dies. Els seus amics venien cada matí a parlar amb ell. Parlaven de tot: de la justícia, de la mort, de l'ànima.
+Because every year Athens sends a sacred ship to Delos in honour of Apollo, and until it returns the city must stay pure: nobody is executed. That year the winds were contrary and the ship took thirty days. His friends came every morning to talk with him. They talked about everything: justice, death, the soul.
+
+@5c37a76f
+Per què no va fugir?
+Why didn't he escape?
+
+@99690118
+Critó, el seu vell amic, havia subornat qui calia. Tot estava a punt per portar-lo a Tessàlia. Ell s'hi va negar. Va dir que havia viscut setanta anys sota les lleis d'Atenes, que li ho havien donat tot, i que no les trencaria ara per salvar la vida. Millor patir una injustícia que cometre-la, deia.
+Crito, his old friend, had bribed whoever needed bribing. Everything was ready to take him to Thessaly. He refused. He said he had lived seventy years under the laws of Athens, which had given him everything, and that he would not break them now to save his life. Better to suffer injustice than to commit it, he used to say.
+
+@2f606c4e
+Com va morir?
+How did he die?
+
+@e63a13fc
+Va beure la cicuta aquí dins, al capvespre. Li vaig portar jo mateix la copa, i vaig plorar; ell em va donar les gràcies. Hi eren Fedó, Critó, Apol·lodor, que no parava de sanglotar… Plató estava malalt i no va venir. Va caminar fins que les cames li van pesar i es va estirar. Les seves últimes paraules van ser: «Critó, devem un gall a Asclepi. Paga'l, no te n'oblidis».
+He drank the hemlock in here, at dusk. I brought him the cup myself, and I wept; he thanked me. Phaedo was there, and Crito, and Apollodorus, who couldn't stop sobbing… Plato was ill and didn't come. He walked about until his legs grew heavy and then lay down. His last words were: «Crito, we owe a cock to Asclepius. Pay it, don't forget».
+
+@54857623
+Per què el van acusar, en realitat?
+Why was he really accused?
+
+@9ac87018
+Molts no li perdonaven que Alcibíades, el traïdor, i Crítias, el més cruel dels Trenta Tirans, haguessin estat del seu cercle. Però l'amnistia del 403 prohibia jutjar ningú pel que havia passat durant la tirania. Així que el van acusar d'impietat. I a més, preguntant a tothom, deixava en ridícul gent poderosa.
+Many could not forgive him that Alcibiades, the traitor, and Critias, the cruellest of the Thirty Tyrants, had been in his circle. But the amnesty of 403 forbade prosecuting anyone for what happened under the tyranny. So they charged him with impiety. And besides, by questioning everyone, he made powerful people look foolish.
+
+@087f27b2
+Per què va haver d'esperar Sòcrates un mes abans de morir?
+Why did Socrates have to wait a month before dying?
+
+@c3f5ee02
+Perquè la nau sagrada encara no havia tornat de Delos
+Because the sacred ship had not yet returned from Delos
+
+@7c085713
+Perquè estava malalt i calia esperar
+Because he was ill and they had to wait
+
+@383916aa
+Perquè va recórrer la sentència davant d'Esparta
+Because he appealed the sentence to Sparta
+
+@184a51be
+No. Mentre la nau sagrada no tornava de Delos, la ciutat no podia executar ningú.
+No. Until the sacred ship returned from Delos, the city could not execute anyone.
+
+@ca0e412b
+Cap al 387 Plató funda una escola al bosc d'Acadèmos: geometria, astronomia i dialèctica, sense cobrar als alumnes. Per a ell, el que és veritablement real són les Idees o Formes, eternes i immutables, que capta la raó; el que veuen els ulls només n'és el reflex. Desconfia de la democràcia que va matar Sòcrates.
+Around 387 Plato founds a school in the grove of Academus: geometry, astronomy and dialectic, without charging his pupils. For him what is truly real are the Ideas or Forms, eternal and unchanging, grasped by reason; what the eyes see is only their reflection. He distrusts the democracy that killed Socrates.
+
+@fcc491b7
+Benvingut al bosc d'Acadèmos. Després de la mort de Sòcrates vaig passar anys viatjant: Mègara, Cirene, Egipte, Itàlia, Siracusa… De Sicília vaig tornar amb més preguntes que respostes, i he comprat aquest jardí al costat del gimnàs. Aquí vull formar els qui algun dia governin amb justícia.
+Welcome to the grove of Academus. After Socrates' death I spent years travelling: Megara, Cyrene, Egypt, Italy, Syracuse… From Sicily I came back with more questions than answers, and I have bought this garden beside the gymnasium. Here I want to train those who will one day govern justly.
+
+@c0653d58
+Què s'ensenya aquí?
+What is taught here?
+
+@46b56d2d
+Geometria, astronomia, harmonia i, sobretot, dialèctica: l'art de preguntar i respondre fins a descobrir què és de veritat cada cosa. Qui no sàpiga geometria, que no hi entri. I aquí no es cobra, a diferència dels sofistes, que venen la saviesa com el peixater ven tonyines.
+Geometry, astronomy, harmonics and, above all, dialectic: the art of asking and answering until we discover what each thing truly is. Let no one ignorant of geometry enter. And here we charge nothing, unlike the sophists, who sell wisdom the way the fishmonger sells tuna.
+
+@090832d2
+Què són les Idees?
+What are the Ideas?
+
+@6b56fff4
+Mira aquestes oliveres. N'hi ha milers, totes diferents, que neixen i moren. Què tenen en comú perquè totes siguin oliveres? Una cosa que no canvia: la Idea, la Forma d'olivera. El mateix passa amb la bellesa, la justícia o el cercle perfecte, que ningú no ha dibuixat mai. Imagina uns presoners encadenats en una cova des de petits, que només veuen ombres a la paret i creuen que això és el món. Així vivim nosaltres, fins que la filosofia ens fa girar el cap cap a la llum.
+Look at these olive trees. There are thousands, all different, that are born and die. What do they have in common that makes them all olive trees? Something that does not change: the Idea, the Form of olive tree. The same goes for beauty, justice or the perfect circle, which nobody has ever drawn. Imagine prisoners chained in a cave since childhood, who see only shadows on the wall and think that is the world. That is how we live, until philosophy turns our heads towards the light.
+
+@fff3b539
+Què en penseu, de la democràcia?
+What do you think of democracy?
+
+@e0b622fe
+Una ciutat que va condemnar a mort el més just dels homes té alguna cosa malalta. Governar és un ofici, com pilotar una nau: sortejaries el pilot entre els passatgers? Mentre els filòsofs no governin, o els governants no es facin filòsofs, no s'acabaran els mals de les ciutats.
+A city that condemned to death the most just of men has something sick in it. Governing is a craft, like steering a ship: would you choose the pilot by lot from among the passengers? Until philosophers rule, or rulers become philosophers, there will be no end to the troubles of cities.
+
+@0ab225f4
+Com era Sòcrates?
+What was Socrates like?
+
+@29f58c72
+Lleig com un silè, descalç a l'hivern, capaç de passar-se un dia sencer dret pensant. Deia que només sabia que no sabia res, i que això ja el feia més savi que els qui creien saber. Mai no va escriure ni una línia. Per això escric jo diàlegs on ell continua preguntant.
+Ugly as a Silenus, barefoot in winter, able to stand a whole day thinking. He used to say he knew only that he knew nothing, and that this already made him wiser than those who thought they knew. He never wrote a line. That is why I write dialogues in which he goes on asking questions.
+
+@68b382aa
+Segons Plató, què és el més real?
+According to Plato, what is most real?
+
+@4bfde48d
+Les Idees o Formes, que capta la raó
+The Ideas or Forms, grasped by reason
+
+@dc6e41f6
+Les coses que veiem i toquem
+The things we see and touch
+
+@3a5727a6
+Els somnis que envien els déus
+The dreams the gods send
+
+@f4adea79
+No. Per a Plató les coses sensibles canvien i són com ombres; el que és veritablement real són les Idees, eternes, que només capta la raó.
+No. For Plato sensible things change and are like shadows; what is truly real are the Ideas, eternal, grasped only by reason.
+
+@10df324e
+Isòcrates dirigeix des del 390 aproximadament l'escola de retòrica més prestigiosa de Grècia; cobra mil dracmes pel curs. Davant de Plató, creu que en els afers humans no hi ha ciència exacta, sinó opinió ben formada, i que parlar bé i pensar bé van units. Defensa la unió dels grecs contra Pèrsia.
+Since about 390 Isocrates has run the most prestigious school of rhetoric in Greece; he charges a thousand drachmas for the course. Against Plato, he believes that in human affairs there is no exact science, only well-formed opinion, and that speaking well and thinking well go together. He champions the union of the Greeks against Persia.
+
+@742b9f81
+Sóc Isòcrates, fill de Teodor, el fabricant de flautes. Tinc la meva escola aquí a prop, al costat del Liceu. Els meus alumnes vénen de tota Grècia i paguen mil dracmes per un curs de tres o quatre anys. Car, sí. Però en surten preparats per dirigir ciutats.
+I am Isocrates, son of Theodorus the flute maker. My school is near here, beside the Lyceum. My pupils come from all over Greece and pay a thousand drachmas for a course of three or four years. Expensive, yes. But they leave ready to lead cities.
+
+@263e8751
+Què ensenyeu?
+What do you teach?
+
+@7591afc1
+Retòrica: l'art de parlar bé, que per a mi és el mateix que pensar bé. El meu veí Plató busca Idees eternes; jo crec que en els afers humans no hi ha ciència exacta, només opinió ben formada. El bon ciutadà ha de saber decidir amb seny a l'Assemblea, quan no hi ha temps per a la certesa. A això en dic filosofia, encara que Plató s'enfadi.
+Rhetoric: the art of speaking well, which for me is the same as thinking well. My neighbour Plato seeks eternal Ideas; I believe that in human affairs there is no exact science, only well-formed opinion. The good citizen must know how to decide sensibly in the Assembly, when there is no time for certainty. That is what I call philosophy, even if it annoys Plato.
+
+@141ff237
+Per què no parleu a l'Assemblea?
+Why don't you speak in the Assembly?
+
+@08aab490
+Tinc la veu feble i em falta audàcia davant la multitud. Així que escric discursos per ser llegits. Ara en preparo un de llarguíssim per als Jocs Olímpics. Demano als grecs que deixin de matar-se entre ells i s'uneixin contra el bàrbar persa, amb Atenes al capdavant.
+My voice is weak and I lack daring before a crowd. So I write speeches to be read. Now I am preparing a very long one for the Olympic Games. I ask the Greeks to stop killing one another and unite against the Persian barbarian, with Athens at their head.
+
+@83dcfb38
+Què en penseu, de la Pau del Rei?
+What do you think of the King's Peace?
+
+@a27fde6f
+Una vergonya! El Gran Rei de Pèrsia, Artaxerxes, dicta la pau als grecs com un amo als seus servents, i es queda les ciutats gregues d'Àsia. Esparta en diu pau i s'encarrega de fer-la complir. Jo en dic servitud.
+A disgrace! The Great King of Persia, Artaxerxes, dictates peace to the Greeks like a master to his servants, and keeps the Greek cities of Asia. Sparta calls it peace and takes it upon herself to enforce it. I call it servitude.
+
+@4cb75538
+En què es diferenciava Isòcrates de Plató?
+How did Isocrates differ from Plato?
+
+@51f2e1fe
+Confiava en la retòrica pràctica i l'opinió assenyada, no en veritats eternes
+He trusted practical rhetoric and sensible opinion, not eternal truths
+
+@ed607402
+Ensenyava gratis, mentre que Plató cobrava
+He taught for free, while Plato charged
+
+@1d009429
+Rebutjava del tot l'educació dels joves
+He rejected the education of the young altogether
+
+@476e10ed
+No. Isòcrates cobrava i defensava una educació pràctica basada en la retòrica i l'opinió ben formada, davant les Idees eternes de Plató.
+No. Isocrates charged fees and championed a practical education based on rhetoric and well-formed opinion, against Plato's eternal Ideas.
+
+@50838b78
+Els metecs són estrangers lliures residents: paguen un impost propi i serveixen a la guerra, però no voten ni posseeixen terres. El 404-403, després de la derrota davant d'Esparta, els Trenta Tirans van perseguir metecs rics; van matar Polemarc, germà de Lísias. Trasibul va restaurar la democràcia el 403 i es va jurar una amnistia.
+Metics are free foreign residents: they pay a special tax and serve in war, but they cannot vote or own land. In 404-403, after the defeat by Sparta, the Thirty Tyrants persecuted rich metics; they killed Polemarchus, Lysias' brother. Thrasybulus restored democracy in 403 and an amnesty was sworn.
+
+@12c3d50a
+Lísias, fill de Cèfal. El meu pare va venir de Siracusa convidat per Pèricles, i va fer fortuna amb un taller d'escuts al Pireu. Vaig néixer aquí, vaig passar la joventut a Túrios, a Itàlia, i vaig tornar fa vint-i-sis anys… i tot i així sóc meteco: no puc votar, ni ser jutge, ni comprar una casa.
+Lysias, son of Cephalus. My father came from Syracuse at Pericles' invitation and made his fortune with a shield workshop in Piraeus. I was born here, spent my youth at Thurii, in Italy, and came back twenty-six years ago… and still I am a metic: I cannot vote, nor be a juror, nor buy a house.
+
+@7de21477
+Què és un meteco?
+What is a metic?
+
+@b72bc0d0
+Un estranger lliure que viu a Atenes. Paguem el metoikion, un impost anual de dotze dracmes, necessitem un ciutadà com a patró i servim a l'exèrcit i a la flota. Molts som comerciants, banquers o artesans: sense nosaltres, el Pireu s'aturaria. Però la ciutadania és gairebé impossible d'aconseguir.
+A free foreigner who lives in Athens. We pay the metoikion, a yearly tax of twelve drachmas, we need a citizen as our patron and we serve in the army and the fleet. Many of us are merchants, bankers or craftsmen: without us, Piraeus would grind to a halt. But citizenship is almost impossible to obtain.
+
+@a7b54b09
+Què és un logògraf?
+What is a logographer?
+
+@50898699
+Escric discursos perquè altres els pronunciïn davant del tribunal. L'art és que sonin com el mateix client: un invàlid que defensa la seva pensió, un marit enganyat, un pagès acusat d'arrencar una olivera sagrada… És el meu ofici des que vaig perdre gairebé tota la meva fortuna.
+I write speeches for others to deliver in court. The art lies in making them sound like the client himself: a disabled man defending his pension, a deceived husband, a farmer accused of uprooting a sacred olive tree… It has been my trade since I lost almost all my fortune.
+
+@d9f0627a
+Com la vau perdre?
+How did you lose it?
+
+@a65985ab
+El 404, després de perdre la guerra contra Esparta, van governar els Trenta Tirans, amb Crítias al capdavant. Necessitaven diners, i van acusar els metecs rics. El meu germà Polemarc el van obligar a beure cicuta sense judici. Jo vaig escapar per una porta del darrere i vaig fugir a Mègara. Des d'allà vaig pagar armes i mercenaris per a Trasibul, que va prendre File i el Pireu i va retornar la democràcia el 403.
+In 404, after we lost the war against Sparta, the Thirty Tyrants ruled, with Critias at their head. They needed money, so they accused the rich metics. My brother Polemarchus was forced to drink hemlock without a trial. I escaped through a back door and fled to Megara. From there I paid for arms and mercenaries for Thrasybulus, who took Phyle and Piraeus and gave democracy back in 403.
+
+@936a2aa3
+Què va passar després?
+What happened next?
+
+@e21efee0
+Es va jurar una amnistia: ningú no podia ser perseguit pel que havia passat, llevat dels Trenta i uns quants més. «No recordar els mals», deia el jurament. Gràcies a això la ciutat no es va dessagnar en venjances. A mi em van concedir la ciutadania pels meus serveis… i la van anul·lar de seguida per un defecte de forma.
+An amnesty was sworn: nobody could be prosecuted for what had happened, except the Thirty and a few others. «Not to remember past wrongs», the oath said. Thanks to that the city did not bleed itself dry in revenge. I was granted citizenship for my services… and it was annulled at once on a technicality.
+
+@9d38be39
+Què era un meteco a Atenes?
+What was a metic in Athens?
+
+@45920120
+Un estranger lliure resident, sense drets polítics
+A free foreign resident, without political rights
+
+@5d88a740
+Un esclau propietat de la ciutat
+A slave owned by the city
+
+@8a1d9346
+Un ciutadà castigat sense vot
+A citizen punished by losing his vote
+
+@eb84ce97
+No. Un meteco era un estranger lliure que residia a Atenes: pagava impostos i servia a la guerra, però no votava.
+No. A metic was a free foreigner living in Athens: he paid taxes and served in war, but did not vote.
+
+@04cbc283
+Els esclaus, comprats o nascuts a casa, treballen a les llars, als tallers, als camps i, en les pitjors condicions, a les mines de plata del Làurion. Poden ser alliberats i passar a ser llibertos, amb drets de meteco. La ciutat té esclaus públics (demosioi) per als arxius i els pesos i mesures.
+Slaves, bought or born in the household, work in homes, workshops and fields and, in the worst conditions, in the silver mines of Laurion. They can be freed and become freedmen, with the rights of a metic. The city owns public slaves (demosioi) for its archives and its weights and measures.
+
+@2de3c786
+Em dic Manes. Així anomenen aquí molts frigis; el meu nom de veritat gairebé l'he oblidat. Em van comprar al mercat del Pireu quan era un noi. El meu amo té un taller de llànties i m'envia a l'Àgora a comprar i vendre.
+My name is Manes. That's what they call many Phrygians here; I've almost forgotten my real name. I was bought at the market in Piraeus when I was a boy. My master has a lamp workshop and sends me to the Agora to buy and sell.
+
+@f25761f3
+Quants esclaus hi ha?
+How many slaves are there?
+
+@d32863a0
+Moltíssims. Gairebé a cada casa de ciutadà n'hi ha algun, i els rics en tenen desenes. Treballem en tot: cuines, tallers, camps, vaixells. Els més desgraciats són a les mines de plata del Làurion, sota terra, encadenats, fins que moren. D'aquesta plata surten les òlibes, les monedes que veus a les taules dels canvistes.
+A great many. Almost every citizen's house has one, and the rich have dozens. We work at everything: kitchens, workshops, fields, ships. The most wretched are in the silver mines of Laurion, underground, in chains, until they die. That silver becomes the owls, the coins you see on the money-changers' tables.
+
+@2582110f
+Pots arribar a ser lliure?
+Can you ever become free?
+
+@da0a70e2
+Alguns estalviem i comprem la llibertat, o l'amo ens allibera en el testament. Llavors som llibertos i vivim com a metecs. Pasió, el banquer del Pireu, va ser esclau a la taula de canvi dels seus amos, i avui és un dels homes més rics d'Atenes. Però això li passa a un de cada mil.
+Some of us save up and buy our freedom, or our master frees us in his will. Then we are freedmen and live like metics. Pasion, the banker of Piraeus, was a slave at his masters' money-changing table, and today he is one of the richest men in Athens. But that happens to one in a thousand.
+
+@46d93422
+La ciutat també té esclaus?
+Does the city own slaves too?
+
+@9e91bdd5
+Sí, els demosioi, esclaus públics. Porten els arxius del Metroon, guarden els pesos i mesures oficials, ajuden als tribunals i netegen els carrers. Mentre el ciutadà es vanta de no treballar per a ningú, nosaltres treballem per a tothom.
+Yes, the demosioi, public slaves. They keep the archives in the Metroon, guard the official weights and measures, help in the courts and clean the streets. While the citizen prides himself on working for no one, we work for everyone.
+
+@f81a6651
+D'on sortia la plata de les monedes ateneses?
+Where did the silver of Athenian coins come from?
+
+@31114bb8
+De les mines del Làurion, treballades per esclaus
+From the mines of Laurion, worked by slaves
+
+@42c73acb
+Dels tributs que pagava Pèrsia
+From tribute paid by Persia
+
+@ccb3349a
+De les mines d'Egipte
+From the mines of Egypt
+
+@30e50208
+No. La plata sortia de les mines del Làurion, al sud de l'Àtica, on treballaven milers d'esclaus.
+No. The silver came from the mines of Laurion, in southern Attica, where thousands of slaves worked.
+
+@04be192d
+El Ceràmic és el barri dels terrissers. La tècnica de figures roges deixa les figures del color de l'argila i pinta el fons de negre. La ceràmica àtica s'exporta per tot el Mediterrani. Un treballador qualificat guanya una dracma (sis òbols) al dia. Les àmfores panatenaiques, plenes d'oli, premien els vencedors dels jocs.
+The Kerameikos is the potters' quarter. The red-figure technique leaves the figures the colour of the clay and paints the background black. Attic pottery is exported all over the Mediterranean. A skilled worker earns a drachma (six obols) a day. Panathenaic amphorae, full of oil, are the prizes for victors at the games.
+
+@3600020f
+Aquest és el Ceràmic, el barri dels terrissers. De la nostra argila roja de l'Àtica surten àmfores, crateres i copes que acaben al mar Negre, a Etrúria i a Egipte. Compte amb el forn, que crema!
+This is the Kerameikos, the potters' quarter. From our red Attic clay come amphorae, kraters and cups that end up on the Black Sea, in Etruria and in Egypt. Mind the kiln, it's hot!
+
+@903fc5ce
+Com pinteu els vasos?
+How do you paint the vases?
+
+@de439cdb
+Fa un segle es pintaven les figures en negre sobre el fons vermell: figures negres. Ara fem el contrari: deixem les figures del color de l'argila i pintem de negre el fons. Són les figures roges. Així es dibuixen millor els músculs, els rostres i els plecs de les teles amb un pinzell fi. El secret del negre és al forn: tres fases, amb aire, sense aire i un altre cop amb aire.
+A century ago the figures were painted black on the red background: black figure. Now we do the opposite: we leave the figures the colour of the clay and paint the background black. That's red figure. It lets you draw muscles, faces and the folds of cloth better with a fine brush. The secret of the black is in the kiln: three stages, with air, without air and with air again.
+
+@62286abf
+Què és una àmfora panatenaica?
+What is a Panathenaic amphora?
+
+@a174d1a4
+Cada quatre anys, a les Grans Panatenees, els vencedors reben àmfores plenes d'oli de les oliveres sagrades d'Atena. Un campió se'n pot endur desenes. Aquestes es continuen pintant a la manera antiga, en figures negres, amb la deessa brandant la llança. La tradició és la tradició.
+Every four years, at the Great Panathenaia, the victors receive amphorae full of oil from Athena's sacred olive trees. A champion can take home dozens. These are still painted the old way, in black figure, with the goddess brandishing her spear. Tradition is tradition.
+
+@b066c07b
+Quant es guanya?
+How much do you earn?
+
+@72ba234d
+Un artesà com jo en treu una dracma al dia: sis òbols. Amb això compres pa d'ordi, olives, formatge, i peix salat si hi ha sort. La dracma de plata amb l'òliba d'Atena val a tot el mar: fins i tot els perses l'accepten.
+A craftsman like me makes a drachma a day: six obols. With that you buy barley bread, olives, cheese, and salt fish if you're lucky. The silver drachma with Athena's owl is good all over the sea: even the Persians accept it.
+
+@5a44cbf3
+En la tècnica de figures roges…
+In the red-figure technique…
+
+@98301957
+les figures queden del color de l'argila i es pinta de negre el fons
+the figures are left the colour of the clay and the background is painted black
+
+@96be29c7
+es pinten figures vermelles sobre un fons blanc
+red figures are painted on a white background
+
+@3d0a313c
+es fa servir un tint vermell portat de Pèrsia
+a red dye brought from Persia is used
+
+@98263650
+No. En figures roges es reserva el color de l'argila per a les figures i es pinta el fons de negre, al revés que en les figures negres.
+No. In red figure the colour of the clay is kept for the figures and the background is painted black, the reverse of black figure.
+
+@f257c416
+La sacerdotessa d'Atena Polias, càrrec vitalici d'una dona del llinatge dels Eteobútades, custodia l'antiga imatge de fusta de la deessa. A les Panatenees s'ofereix a Atena un peple nou. Les dones no voten i viuen sota la tutela d'un home (kýrios), però tenen papers essencials en el culte.
+The priestess of Athena Polias, a lifelong office held by a woman of the Eteoboutadai family, keeps the ancient wooden image of the goddess. At the Panathenaia a new peplos is offered to Athena. Women do not vote and live under the guardianship of a man (kyrios), but they have essential roles in worship.
+
+@9cb424fc
+Sóc la sacerdotessa d'Atena Polias, protectora de la ciutat. El càrrec és vitalici i correspon sempre a una dona de la família dels Eteobútades. Aquí, a l'Erectèon, guardem la imatge més sagrada d'Atenes: una vella estàtua de fusta d'olivera que, diuen, va caure del cel.
+I am the priestess of Athena Polias, protector of the city. The office is for life and always goes to a woman of the Eteoboutadai family. Here in the Erechtheion we keep the most sacred image in Athens: an old statue of olive wood that, they say, fell from the sky.
+
+@0c2f16c3
+Què són les Panatenees?
+What are the Panathenaia?
+
+@e5a6fff3
+La gran festa d'Atena, al mes d'Hecatombeó, en ple estiu. La processó surt del Dípilon, travessa l'Àgora per la Via Panatenaica i puja fins aquí. Es lliura a la deessa un peple nou, teixit durant nou mesos per noies escollides. Després se sacrifiquen cent bous i hi ha carn per a tot el poble. Cada quatre anys, a més, se celebren jocs.
+The great festival of Athena, in the month of Hekatombaion, in high summer. The procession leaves the Dipylon, crosses the Agora along the Panathenaic Way and climbs up here. The goddess is given a new peplos, woven over nine months by chosen girls. Then a hundred oxen are sacrificed and there is meat for the whole people. Every four years there are games as well.
+
+@e841fbe5
+Com viuen les dones a Atenes?
+How do women live in Athens?
+
+@005ba958
+Les dones de ciutadans no voten ni parlen a l'Assemblea ni als tribunals. Sempre tenim un kýrios, un tutor: el pare, després el marit. Les de bona família passen gairebé tota la vida a casa; les pobres treballen al mercat, com a venedores o dides. Però en el culte som imprescindibles: sacerdotesses, portadores de cistelles a les processons, teixidores del peple… Cap ciutat no sobreviu sense el favor dels déus.
+Citizens' wives do not vote or speak in the Assembly or the courts. We always have a kyrios, a guardian: our father, then our husband. Women of good family spend almost their whole lives at home; poor women work in the market, as sellers or wet nurses. But in worship we are indispensable: priestesses, basket-bearers in the processions, weavers of the peplos… No city survives without the favour of the gods.
+
+@18ac90ee
+És veritat que aquí hi viu una serp?
+Is it true that a snake lives here?
+
+@9bea9132
+Sí, la serp guardiana de l'Acròpolis. Cada mes li deixem un pastís de mel. Quan s'acostaven els perses, fa gairebé cent anys, el pastís va aparèixer intacte: la serp se n'havia anat, i els atenesos van entendre que la deessa havia abandonat l'Acròpolis i van evacuar la ciutat. Diuen que la serp és Erictoni, el rei nascut de la terra, que Atena va criar en una cistella.
+Yes, the guardian snake of the Acropolis. Every month we leave it a honey cake. When the Persians were approaching, almost a hundred years ago, the cake was found untouched: the snake had gone, and the Athenians understood that the goddess had abandoned the Acropolis, and they evacuated the city. They say the snake is Erichthonius, the earth-born king whom Athena raised in a basket.
+
+@3ffa79dc
+I aquesta olivera?
+And that olive tree?
+
+@fe4fc4d3
+És l'olivera d'Atena. Quan la deessa i Posidó es van disputar la ciutat, ell va fer brollar una font d'aigua salada i ella aquesta olivera. Els atenesos van triar l'olivera. Fa gairebé cent anys els perses van cremar l'Acròpolis i l'olivera amb ella, i l'endemà ja tenia un brot nou.
+It is Athena's olive tree. When the goddess and Poseidon contended for the city, he made a spring of salt water gush forth and she this olive tree. The Athenians chose the olive. Almost a hundred years ago the Persians burned the Acropolis and the olive tree with it, and the very next day it had a new shoot.
+
+@c5991dc0
+Què s'oferia a Atena a les Panatenees?
+What was offered to Athena at the Panathenaia?
+
+@8b77fe66
+Un peple nou teixit per a la seva imatge
+A new peplos woven for her image
+
+@ec073ba5
+Una corona de llorer portada de Delfos
+A laurel crown brought from Delphi
+
+@ed921cdb
+Una àmfora de vi de Quios
+An amphora of wine from Chios
+
+@de9272df
+No. El centre de la festa era el lliurament d'un peple nou per a l'antiga imatge de fusta de la deessa.
+No. The heart of the festival was the presentation of a new peplos for the goddess's ancient wooden image.
+
+@8319f8ae
+A les Grans Dionísies competeixen poetes tràgics i còmics; ciutadans rics paguen els cors (coregia). Aristòfanes, autor de Els núvols, va satiritzar polítics i Sòcrates. Les seves obres recents, Les assembleistes (391) i Plutos (388), tracten de dones que prenen el poder i del repartiment de la riquesa. El teatre encara té grades de fusta i terra.
+At the Great Dionysia tragic and comic poets compete; rich citizens pay for the choruses (the choregia). Aristophanes, author of The Clouds, satirised politicians and Socrates. His recent plays, Women at the Assembly (391) and Wealth (388), are about women taking power and the sharing out of riches. The theatre still has seats of wood and earth.
+
+@b8ed0386
+Ah, un espectador, per fi! Sóc Aristòfanes. En aquest teatre de Dionís estreno comèdies des de fa gairebé quaranta anys. Vaig guanyar amb Els acarnesos, amb Els cavallers, amb Les granotes… Ja sóc vell, però encara em queda alguna broma.
+Ah, an audience at last! I am Aristophanes. I've been putting on comedies in this theatre of Dionysus for almost forty years. I won with The Acharnians, with The Knights, with The Frogs… I'm old now, but I still have a joke or two left.
+
+@3dc238ce
+Com funciona el teatre?
+How does the theatre work?
+
+@214699dd
+A la primavera, a les Grans Dionísies, competeixen tres poetes tràgics, amb tres tragèdies i un drama satíric cadascun, i diversos còmics. Un ciutadà ric paga i prepara el cor: és la coregia, un servei públic del qual tothom presumeix. Tota la ciutat ve a veure'ns, asseguda en aquestes grades de fusta i terra. I uns jutges sortejats decideixen qui guanya.
+In spring, at the Great Dionysia, three tragic poets compete, each with three tragedies and a satyr play, and several comic poets. A rich citizen pays for and trains the chorus: that's the choregia, a public service everyone boasts about. The whole city comes to see us, sitting on these benches of wood and earth. And judges chosen by lot decide who wins.
+
+@12eb60ce
+De què tracten les teves últimes obres?
+What are your latest plays about?
+
+@09daeb51
+A Les assembleistes les dones es posen barbes postisses, prenen l'Assemblea i decideixen posar-ho tot en comú: béns, àpats… i marits! A Plutos, el déu de la riquesa, que és cec, recupera la vista i per fi reparteix els diners als honrats. Ja no em burlo dels polítics com quan vaig ridiculitzar Cleó: els temps són més prudents, i el cor canta cada vegada menys.
+In Women at the Assembly the women put on false beards, take over the Assembly and decide to hold everything in common: property, meals… and husbands! In Wealth, the god of riches, who is blind, gets his sight back and at last gives money to the honest. I no longer mock politicians the way I ridiculed Cleon: times are more cautious, and the chorus sings less and less.
+
+@b0190250
+I Sòcrates?
+And Socrates?
+
+@90f58dc9
+El vaig treure a Els núvols, penjat d'una cistella, mesurant quant salta una puça. Plató diu que aquella comèdia va ajudar a condemnar-lo. Era una broma! Tot i que reconec que molts atenesos només el coneixien per la meva obra. Una vegada vam beure junts al banquet d'Agató fins a l'alba: ell continuava parlant quan tots dormíem.
+I put him in The Clouds, hanging in a basket, measuring how far a flea can jump. Plato says that comedy helped to condemn him. It was a joke! Though I admit many Athenians knew him only from my play. Once we drank together at Agathon's banquet until dawn: he was still talking when the rest of us were asleep.
+
+@05d2951e
+Què passa a Les assembleistes?
+What happens in Women at the Assembly?
+
+@b9679043
+Les dones es disfressen i prenen el control de l'Assemblea
+The women disguise themselves and take control of the Assembly
+
+@27c2ab40
+Sòcrates vola en una cistella
+Socrates flies in a basket
+
+@866c60e7
+Atenes declara la guerra al Gran Rei
+Athens declares war on the Great King
+
+@1c302de4
+No. A Les assembleistes (391 aC) les dones es disfressen d'homes, prenen l'Assemblea i decideixen posar tots els béns en comú.
+No. In Women at the Assembly (391 BC) the women dress up as men, take over the Assembly and decide to hold all property in common.
+
+@d24adff4
+Els Murs Llargs, enderrocats després de la derrota del 404, es van reconstruir cap al 394-391 amb diners perses portats per Conó després de la seva victòria a Cnidos. A la Guerra de Corint (395-387) Atenes, Tebes, Argos i Corint van lluitar contra Esparta; Ifícrates i els seus peltastes van vèncer una unitat espartana al Lequeu (390). La Pau del Rei (387/386) va lliurar l'Àsia a Pèrsia.
+The Long Walls, torn down after the defeat of 404, were rebuilt around 394-391 with Persian money brought by Conon after his victory at Cnidus. In the Corinthian War (395-387) Athens, Thebes, Argos and Corinth fought against Sparta; Iphicrates and his peltasts defeated a Spartan unit at Lechaeum (390). The King's Peace (387/386) handed Asia over to Persia.
+
+@17df060b
+Fixa't en aquests murs: els Murs Llargs. Uneixen Atenes amb el port del Pireu, a més de sis quilòmetres. Mentre els tinguem, cap exèrcit no ens pot rendir per fam: el blat arriba per mar des del mar Negre.
+Look at these walls: the Long Walls. They join Athens to the port of Piraeus, more than six kilometres away. As long as we have them, no army can starve us into surrender: grain comes by sea from the Black Sea.
+
+@846db590
+No els havien enderrocat?
+Hadn't they been torn down?
+
+@a27c0e14
+Sí. El 404, després de perdre la guerra del Peloponès, Esparta ens va obligar a enderrocar-los mentre sonaven flautes, com en una festa. Però l'almirall Conó, al servei dels perses, va destrossar la flota espartana a Cnidos, el 394, i va tornar amb diners del Gran Rei per reconstruir-los. Amb or persa, imagina't! Els mateixos perses contra els quals van lluitar els nostres avis a Marató.
+Yes. In 404, after we lost the Peloponnesian War, Sparta made us pull them down to the sound of flutes, as if it were a festival. But Admiral Conon, in Persian service, smashed the Spartan fleet at Cnidus in 394 and came back with the Great King's money to rebuild them. With Persian gold, imagine! The same Persians our grandfathers fought at Marathon.
+
+@2b7722c4
+Quina guerra acaba de terminar?
+Which war has just ended?
+
+@4e8ed760
+La de Corint: Atenes, Tebes, Argos i Corint contra Esparta, vuit anys. Jo era al Lequeu, el 390, quan Ifícrates i els seus peltastes, infanteria lleugera amb javelines i escuts de vímet, van acorralar un batalló espartà fins a destrossar-lo. Espartans vençuts per mercenaris! Tota Grècia en va parlar.
+The Corinthian War: Athens, Thebes, Argos and Corinth against Sparta, eight years of it. I was at Lechaeum in 390 when Iphicrates and his peltasts, light infantry with javelins and wicker shields, harried a Spartan battalion until they destroyed it. Spartans beaten by mercenaries! All Greece talked about it.
+
+@b289a205
+Com va acabar?
+How did it end?
+
+@65f7fda4
+Amb la Pau del Rei, fa uns mesos. El rei persa Artaxerxes va dictar les condicions: les ciutats gregues d'Àsia són seves, i les altres han de ser autònomes. Esparta s'encarrega de fer-la complir, i així desfà les aliances dels seus enemics. A nosaltres ens deixen Lemnos, Imbros i Esciros. Vam guanyar batalles i vam perdre la pau.
+With the King's Peace, a few months ago. The Persian king Artaxerxes dictated the terms: the Greek cities of Asia are his, and the rest must be autonomous. Sparta enforces it, and so breaks up her enemies' alliances. We are left Lemnos, Imbros and Scyros. We won battles and lost the peace.
+
+@b8d05b63
+Qui va pagar la reconstrucció dels Murs Llargs?
+Who paid for rebuilding the Long Walls?
+
+@fd7e250c
+El rei de Pèrsia, a través de l'almirall Conó
+The king of Persia, through Admiral Conon
+
+@1e007b2d
+Esparta, com a reparació de guerra
+Sparta, as war reparations
+
+@006eeb0b
+Els mercaders de Corint
+The merchants of Corinth
+
+@4f6bad7b
+No. Conó va tornar després de la seva victòria a Cnidos amb diners perses i amb ells es van reconstruir els murs.
+No. Conon returned after his victory at Cnidus with Persian money, and the walls were rebuilt with it.
+
+@27159f12
+Pasió va arribar a Atenes com a esclau i va treballar a la taula de canvi (trápeza) dels seus amos, que el van alliberar. Es va convertir en el banquer més ric de la ciutat: canviava moneda, guardava dipòsits i prestava diners, també per a viatges comercials per mar. Anys després, cap al 370, Atenes li va concedir la ciutadania.
+Pasion came to Athens as a slave and worked at his masters' money-changing table (trapeza), and they freed him. He became the richest banker in the city: he changed money, held deposits and lent money, including for trading voyages by sea. Years later, around 370, Athens granted him citizenship.
+
+@33cf1262
+Benvingut a la meva taula. Normalment em trobaràs al Pireu, que és on hi ha els diners de veritat: vaixells, mercaders, carregaments. Però avui he pujat a la ciutat a tancar uns comptes. Portes monedes estrangeres? Te les canvio per bones òlibes ateneses, amb una petita comissió, és clar.
+Welcome to my table. Usually you'll find me in Piraeus, where the real money is: ships, merchants, cargoes. But today I've come up to the city to settle some accounts. Have you any foreign coins? I'll change them for good Athenian owls, for a small commission, of course.
+
+@83bbcb5a
+Què fa un banquer?
+What does a banker do?
+
+@79effd90
+Un trapezita, de trápeza, «taula». Canvio moneda: aquí arriben darics perses, estàters de Cízic, monedes d'Egina… i comprovo que la plata sigui bona. Guardo diners en dipòsit, pago per compte dels meus clients i presto. El més rendible són els préstecs marítims: finanço el viatge d'un vaixell al mar Negre i, si torna amb el blat, cobro un interès altíssim. Si s'enfonsa, ho perdo tot. I ho apunto tot als meus llibres: qui deu què, a qui i des de quan.
+A trapezites, from trapeza, «table». I change money: Persian darics, staters of Cyzicus, coins of Aegina all arrive here… and I check that the silver is good. I keep money on deposit, make payments on my clients' behalf and lend. The most profitable are maritime loans: I finance a ship's voyage to the Black Sea and, if it comes back with the grain, I charge a very high interest. If it sinks, I lose everything. And I write it all down in my books: who owes what, to whom and since when.
+
+@eeee1d88
+Com vas arribar a ser banquer?
+How did you become a banker?
+
+@8576dfb5
+Vaig arribar com a esclau; ni tan sols sé ben bé d'on. Els meus amos, Antístenes i Arquèstrat, banquers del Pireu, em van posar a treballar a la taula. Vaig aprendre a comptar, a pesar, a desconfiar, i els vaig fer guanyar molts diners. Em van alliberar, i amb el temps la banca va passar a les meves mans. Avui també tinc un taller d'escuts. No està malament per a algú que va arribar encadenat.
+I came as a slave; I don't even really know where from. My masters, Antisthenes and Archestratus, bankers in Piraeus, put me to work at the table. I learned to count, to weigh, to be suspicious, and I made them a lot of money. They freed me, and in time the bank passed into my hands. Today I also own a shield workshop. Not bad for someone who arrived in chains.
+
+@68ab11df
+T'han portat a judici?
+Have you been taken to court?
+
+@82531a43
+Fa uns anys, un jove del Bòsfor, fill d'un home de confiança del rei Sàtir, em va acusar de quedar-me el seu dipòsit. I li va escriure el discurs Isòcrates, abans d'obrir la seva escola! Els logògrafs escriuen per a qui els paga. Jo continuo aquí, i la meva taula continua oberta.
+A few years ago a young man from the Bosporus, son of a trusted man of King Satyrus, accused me of keeping his deposit. And his speech was written by Isocrates, before he opened his school! Logographers write for whoever pays them. I'm still here, and my table is still open.
+
+@21cacfba
+Quant valen els diners?
+What is money worth?
+
+@7e5a9b3a
+Sis òbols fan una dracma, que és el que guanya un bon artesà al dia. Cent dracmes són una mina; seixanta mines, un talent: sis mil dracmes, més o menys el que costa pagar durant un mes els dos-cents homes d'una trirrem. Els rics de debò parlen en talents. Els pobres, en òbols, i els porten a la boca per no perdre'ls.
+Six obols make a drachma, which is what a good craftsman earns in a day. A hundred drachmas make a mina; sixty minas, a talent: six thousand drachmas, roughly what it costs to pay the two hundred men of a trireme for a month. The truly rich talk in talents. The poor, in obols, and they carry them in their mouths so as not to lose them.
+
+@1047fb00
+Quin era l'origen de Pasió, el banquer més ric d'Atenes?
+What was the background of Pasion, the richest banker in Athens?
+
+@1c0ea627
+Havia estat esclau i els seus amos el van alliberar
+He had been a slave and his masters freed him
+
+@fd2f90db
+Era fill d'una antiga família aristocràtica
+He was the son of an old aristocratic family
+
+@7397a07c
+Era un sàtrapa persa exiliat
+He was an exiled Persian satrap
+
+@5e98f335
+No. Pasió havia arribat com a esclau; els seus amos, banquers, el van alliberar i va acabar quedant-se el negoci.
+No. Pasion had arrived as a slave; his masters, bankers, freed him and he ended up taking over the business.
+
+@fd6e44ac
+El sympósion era la reunió d'homes per beure després del sopar, estirats a l'andró. El vi es barrejava amb aigua a la cratera; es cantava, es conversava i es jugava al kóttabos. Les esposes dels ciutadans no hi assistien; sí que hi anaven heteres, flautistes i ballarines, gairebé sempre estrangeres, esclaves o llibertes.
+The symposion was the gathering of men to drink after dinner, reclining in the andron. The wine was mixed with water in the krater; they sang, talked and played kottabos. Citizens' wives did not attend; hetairai, flute girls and dancers did, almost always foreigners, slaves or freedwomen.
+
+@a4013374
+Aquesta nit hi ha banquet en aquesta casa i m'han contractat per tocar l'aulós i conversar. Sóc Filina, de Corint. No et sorprenguis de veure'm parlar amb un desconegut al carrer: jo no sóc una esposa atenesa. Elles no poden. Jo sí.
+Tonight there's a banquet in this house and I've been hired to play the aulos and make conversation. I'm Philina, from Corinth. Don't be surprised to see me talking to a stranger in the street: I'm not an Athenian wife. They can't. I can.
+
+@5ffb07d6
+Què és un banquet?
+What is a banquet?
+
+@f072fed9
+El sympósion, «beure junts». Després de sopar, els homes s'estiren en divans a l'andró, la sala dels homes. S'escull un simposiarca que decideix quanta aigua porta el vi: beure'l pur és cosa de bàrbars. Es barreja a la cratera, s'ofereix una libació als déus, es canten cançons, es proposen endevinalles, es discuteix de política… o d'amor, com en aquell famós banquet a casa del poeta Agató del qual tothom parla.
+The symposion, «drinking together». After dinner, the men recline on couches in the andron, the men's room. A symposiarch is chosen to decide how much water goes in the wine: drinking it neat is for barbarians. It's mixed in the krater, a libation is poured to the gods, songs are sung, riddles are set, politics is discussed… or love, as at that famous banquet at the poet Agathon's house that everyone talks about.
+
+@d64c92b9
+Què és una hetera?
+What is a hetaira?
+
+@815bacdc
+Una «companya». No sóc una esposa ni una esclava de bordell. Sé música i poesia, sé conversar, i trio amb qui passo el temps, almenys mentre sigui jove i estigui de moda. Gairebé totes som estrangeres, esclaves o llibertes. No tenim els drets de les ciutadanes, però tampoc els seus murs. I si un home decideix fer-nos mal, gairebé ningú no ens protegeix.
+A «companion». I'm not a wife, nor a brothel slave. I know music and poetry, I know how to converse, and I choose whom I spend my time with, at least while I'm young and in fashion. Almost all of us are foreigners, slaves or freedwomen. We don't have the rights of citizen women, but we don't have their walls either. And if a man decides to harm us, hardly anyone protects us.
+
+@cc07bf39
+Què és el kóttabos?
+What is kottabos?
+
+@8433ac9d
+El joc preferit dels banquets! Amb el pòsit del vi a la copa, la fas girar amb un dit i llances les gotes contra un platet col·locat dalt d'un pal. Si el tombes, guanyes, i dius el nom de la persona estimada. Ja veus: molta filosofia, però al final de la nit tothom acaba jugant a això.
+The favourite banquet game! With the dregs of the wine in your cup, you twirl it on one finger and fling the drops at a little dish balanced on top of a pole. If you knock it down, you win, and you say the name of the one you love. You see: lots of philosophy, but by the end of the night everyone ends up playing this.
+
+@29075e33
+I les dones ateneses?
+And Athenian women?
+
+@3a21765a
+Les filles dels ciutadans es casen molt joves, cap als catorze o quinze anys, amb homes que els doblen l'edat, i viuen a la part de la casa reservada a les dones. No van als banquets ni a l'Assemblea. Pèricles va dir que la millor dona és aquella de qui menys es parla, ni per bé ni per mal. Jo visc a la frontera: més lliure que elles, i molt menys segura.
+Citizens' daughters marry very young, at fourteen or fifteen, to men twice their age, and live in the part of the house reserved for women. They don't go to banquets or to the Assembly. Pericles said the best woman is the one least talked about, for good or ill. I live on the border: freer than they are, and much less safe.
+
+@081ac246
+Com es bevia el vi en un banquet grec?
+How was wine drunk at a Greek banquet?
+
+@d3d24f79
+Barrejat amb aigua en una cratera
+Mixed with water in a krater
+
+@7be3330d
+Pur, com a prova de virilitat
+Neat, as a proof of manliness
+
+@df415f38
+Calent i amb mel, només al final de la nit
+Warm and with honey, only at the end of the night
+
+@0df6ab1c
+No. El vi es barrejava amb aigua a la cratera; beure'l pur es considerava propi de bàrbars.
+No. Wine was mixed with water in the krater; drinking it neat was considered barbarian.
+
+@89e33107
+Antístenes, deixeble de Sòcrates present a la seva mort, ensenya al Cinosarges, el gimnàs d'Hèracles associat als fills de mare estrangera. Sosté que la virtut n'hi ha prou per a la felicitat, que s'aprèn amb esforç i que cal viure amb el mínim. Els cínics el consideraran després el seu precursor.
+Antisthenes, a disciple of Socrates who was present at his death, teaches at the Cynosarges, the gymnasium of Heracles associated with sons of foreign mothers. He holds that virtue is enough for happiness, that it is learned through effort and that one should live on the bare minimum. The Cynics will later regard him as their forerunner.
+
+@e583dbc4
+Véns a fer exercici o a pensar? Aquí, al Cinosarges, es poden fer totes dues coses. Sóc Antístenes. Vaig ser amb Sòcrates fins a l'últim dia, a la presó. Ara ensenyo aquí a qui vulgui escoltar.
+Have you come to exercise or to think? Here at the Cynosarges you can do both. I am Antisthenes. I was with Socrates until his last day, in prison. Now I teach here, to anyone who wants to listen.
+
+@59ce70d8
+Què ensenyes?
+What do you teach?
+
+@5ddd7bc6
+Que la virtut n'hi ha prou per ser feliç, i que no necessita res més que la força d'un Sòcrates. Riquesa, fama, plaer: tot això són cadenes. La riquesa no és a la casa, sinó a l'ànima. Per això vesteixo aquest mantell vell i porto bastó. El meu model és Hèracles, a qui està dedicat aquest gimnàs: l'esforç, el pónos, és el que fa bons els homes.
+That virtue is enough to be happy, and that it needs nothing more than the strength of a Socrates. Wealth, fame, pleasure: all of them are chains. Wealth is not in the house but in the soul. That's why I wear this old cloak and carry a staff. My model is Heracles, to whom this gymnasium is dedicated: toil, ponos, is what makes men good.
+
+@f5476d0d
+Per què ensenyes aquí i no a la ciutat?
+Why do you teach here and not in the city?
+
+@375d34e7
+El Cinosarges és el gimnàs dels nóthoi, els «bastards»: atenesos de pare ciutadà però de mare estrangera. La meva mare era tràcia. Així que aquest és el meu lloc. Em diuen que no sóc del tot atenès. Jo responc que la Mare dels déus també és frígia, i ningú no es queixa.
+The Cynosarges is the gymnasium of the nothoi, the «bastards»: Athenians whose father is a citizen but whose mother is foreign. My mother was Thracian. So this is my place. They tell me I'm not fully Athenian. I answer that the Mother of the gods is Phrygian too, and nobody complains.
+
+@c6cd57e2
+Què en penses, de Plató?
+What do you think of Plato?
+
+@43f03bb0
+Plató i jo vam ser companys al costat de Sòcrates, però ara ell parla d'Idees que ningú no ha vist. Una vegada li vaig dir: «Plató, veig el cavall, però no veig la cavallitat». Em va contestar que és perquè tinc ulls per veure el cavall, però no intel·ligència per veure la cavallitat. És arrogant, però escriu bé, això cal reconèixer-l'hi.
+Plato and I were companions at Socrates' side, but now he talks about Ideas nobody has seen. Once I told him: «Plato, I see a horse, but I don't see horseness». He replied that that's because I have eyes to see the horse but not the intelligence to see horseness. He's arrogant, but he writes well, I'll give him that.
+
+@2d8d493c
+On són els altres socràtics?
+Where are the other Socratics?
+
+@e421ee66
+Cadascú ha pres el seu camí. Aristip de Cirene diu que el bé és el plaer. Euclides ensenya a Mègara. I el meu amic Xenofont, el que va guiar els Deu Mil de tornada des de Pèrsia, és desterrat d'Atenes. Viu a Escil·lunt, a prop d'Olímpia, en unes terres que li van donar els espartans, caçant i escrivint sobre Sòcrates.
+Each has gone his own way. Aristippus of Cyrene says the good is pleasure. Euclides teaches at Megara. And my friend Xenophon, who led the Ten Thousand back from Persia, is exiled from Athens. He lives at Scillus, near Olympia, on land the Spartans gave him, hunting and writing about Socrates.
+
+@6abdf6eb
+Segons Antístenes, què n'hi ha prou per ser feliç?
+According to Antisthenes, what is enough to be happy?
+
+@e67478cc
+La virtut, que s'assoleix amb esforç
+Virtue, which is reached through effort
+
+@3ce00f8a
+La riquesa ben administrada
+Well-managed wealth
+
+@a3f5d03c
+El plaer moderat
+Moderate pleasure
+
+@95b3f7ce
+No. Per a Antístenes la virtut n'hi ha prou per a la felicitat; la riquesa i el plaer són lligams.
+No. For Antisthenes virtue is enough for happiness; wealth and pleasure are fetters.
+
+@f51f16b7
+Els orfeotelestes eren iniciadors ambulants que oferien, per diners, purificacions i ritus basats en llibres atribuïts a Orfeu i Museu, i prometien als iniciats un destí feliç després de la mort. La «vida òrfica» exigia no menjar carn. Les làmines d'or enterrades amb alguns morts, com la d'Hipponion (c. 400), donaven instruccions per al viatge al més enllà. Plató els considerava xerraires.
+The orpheotelestai were wandering initiators who offered, for money, purifications and rites based on books attributed to Orpheus and Musaeus, and promised initiates a happy fate after death. The «Orphic life» required abstaining from meat. The gold tablets buried with some of the dead, like the one from Hipponion (c. 400), gave instructions for the journey to the afterlife. Plato considered them charlatans.
+
+@a91cb2e1
+Que Dionís et sigui propici, foraster. Sóc Arcesilau. Porto en aquest sarró els llibres d'Orfeu i de Museu, i conec els ritus que netegen les culpes, les teves i les dels teus avantpassats. Per unes poques dracmes, és clar: la puresa no es regala.
+May Dionysus be gracious to you, stranger. I am Arcesilaus. In this bag I carry the books of Orpheus and Musaeus, and I know the rites that wash away guilt, yours and your ancestors'. For a few drachmas, of course: purity isn't given away.
+
+@a9e0795c
+Qui sou els òrfics?
+Who are you Orphics?
+
+@91838af0
+No som un temple ni una ciutat: som els qui seguim els ensenyaments d'Orfeu, el cantor traci que va baixar a l'Hades i en va tornar. Anem de casa en casa, sobretot a les dels rics, amb els nostres llibres. Purifiquem amb sacrificis i ritus, i fins i tot algunes ciutats ens han cridat. N'hi ha que diuen que som uns ensarronadors; aquest Plató, per exemple. Ja ho veuran, quan els toqui passar a l'altra banda.
+We're not a temple or a city: we're those who follow the teachings of Orpheus, the Thracian singer who went down to Hades and came back. We go from house to house, especially those of the rich, with our books. We purify with sacrifices and rites, and some cities have even sent for us. Some say we're swindlers; that Plato, for instance. They'll see, when it's their turn to cross over.
+
+@adbaac06
+Què ensenya Orfeu?
+What does Orpheus teach?
+
+@8d449b7d
+Escolta. Dionís infant regnava en el món quan els Titans el van enganyar amb joguines, el van esquarterar i el van devorar. Zeus els va fulminar amb el llamp, i de la seva cendra vam néixer els homes. Per això portem a dins una cosa titànica, culpable, i una cosa divina, de Dionís. El cos és una tomba per a l'ànima, que passa de vida en vida fins a purificar-se. Per això no mengem carn: no vessem sang.
+Listen. The child Dionysus ruled the world when the Titans tricked him with toys, tore him apart and devoured him. Zeus blasted them with his thunderbolt, and from their ashes we humans were born. That is why we carry within us something Titanic and guilty, and something divine, from Dionysus. The body is a tomb for the soul, which passes from life to life until it is purified. That is why we eat no meat: we shed no blood.
+
+@1bc77b12
+I què passa després de la mort?
+And what happens after death?
+
+@34d29d9b
+L'iniciat és enterrat amb una làmina d'or que li recorda el camí. Allà baix, al costat d'un xiprer blanc, hi ha una font: no en beguis, és l'oblit. Més endavant hi ha el llac de Mnemòsine, la Memòria, amb guardians. Digues-los: «Sóc fill de la Terra i del Cel estelat; tinc set, doneu-me de beure». Així beuràs i seràs entre els benaurats.
+The initiate is buried with a gold tablet that reminds him of the way. Down there, beside a white cypress, there is a spring: don't drink from it, it is forgetfulness. Further on is the lake of Mnemosyne, Memory, with guardians. Tell them: «I am a child of Earth and starry Heaven; I am thirsty, give me to drink». So you will drink and be among the blessed.
+
+@5ba527b6
+Segons les làmines d'or òrfiques, de quina font ha de beure l'iniciat a l'Hades?
+According to the Orphic gold tablets, from which spring must the initiate drink in Hades?
+
+@b67a4ca3
+Del llac de Mnemòsine, la Memòria
+From the lake of Mnemosyne, Memory
+
+@7a1167f4
+De la primera font, al costat del xiprer blanc
+From the first spring, beside the white cypress
+
+@66b6c24e
+Del riu Estix, per fer-se immortal
+From the river Styx, to become immortal
+
+@e3a799c2
+No. Les làmines adverteixen que no s'ha de beure a la primera font, al costat del xiprer blanc, i que cal demanar aigua del llac de Mnemòsine, la Memòria.
+No. The tablets warn against drinking at the first spring, beside the white cypress, and say to ask for water from the lake of Mnemosyne, Memory.
+
+@81044948
+Els nens grecs aprenien els mites de boca de les seves mares, àvies i dides molt abans de sentir-los al teatre o a Homer. No hi havia un text sagrat únic: cada ciutat i cada narrador tenia les seves versions. Els mites eren a tot arreu: als temples, als vasos, a les cançons. Plató volia prohibir els que presentaven els déus fent el mal.
+Greek children learned the myths from their mothers, grandmothers and nurses long before they heard them in the theatre or in Homer. There was no single sacred text: every city and every storyteller had their own versions. Myths were everywhere: on temples, on vases, in songs. Plato wanted to ban those that showed the gods doing evil.
+
+@f9b155a0
+Vine, seu una estona mentre s'omple el càntir. Als meus néts els explico mites cada nit, i ja se'ls saben millor que jo. Vols sentir-ne un? O prefereixes que t'ensenyi a llegir-los a les pedres de la ciutat?
+Come, sit a while as the jar fills. I tell my grandchildren myths every night, and they know them better than I do now. Would you like to hear one? Or would you rather I taught you to read them in the stones of the city?
+
+@c8cd7b26
+Explica'm un mite
+Tell me a myth
+
+@16e4f1bc
+Fa molt de temps, Atenes havia d'enviar cada nou anys set nois i set noies a Creta, perquè els devorés el Minotaure al laberint del rei Minos. Teseu, fill del rei Egeu, es va oferir a anar-hi. Ariadna, la filla de Minos, se'n va enamorar i li va donar un cabdell de fil. Teseu va matar el monstre i en va sortir seguint el fil. Però en tornar es va oblidar de canviar les veles negres per blanques, i el seu pare, creient-lo mort, es va llançar al mar. Per això aquell mar es diu Egeu.
+Long ago, every nine years Athens had to send seven boys and seven girls to Crete to be devoured by the Minotaur in King Minos' labyrinth. Theseus, son of King Aegeus, offered to go. Ariadne, Minos' daughter, fell in love with him and gave him a ball of thread. Theseus killed the monster and found his way out by following the thread. But on the way home he forgot to change the black sails for white ones, and his father, thinking him dead, threw himself into the sea. That is why that sea is called the Aegean.
+
+@d7c0abe2
+Són veritat els mites?
+Are the myths true?
+
+@d8259443
+Ai, fill! Els vells diuen que sí, els sofistes que no, i Plató diu que caldria prohibir els que expliquen que els déus menteixen, roben o castiguen els seus pares. Jo sé que cada poble els explica a la seva manera: a Creta et diran que Minos era un rei just, i aquí, que era un tirà. L'important és que ens ensenyen qui som.
+Oh, child! The old folk say yes, the sophists say no, and Plato says we should ban the ones that tell of gods lying, stealing or punishing their fathers. I know every people tells them its own way: in Crete they'll tell you Minos was a just king, and here, that he was a tyrant. What matters is that they teach us who we are.
+
+@92c4fcb9
+Ensenya'm a llegir els mites a les pedres
+Teach me to read the myths in the stones
+
+@bece8747
+Mira bé els temples: són plens d'històries. Als frontons, a les mètopes, als frisos, a les pintures de l'Stoa Poikile. Busca els rombes blaus: assenyalen una escena. Si saps quin mite representa, me l'expliques. N'hi ha nou a Atenes i un altre a Egina, si t'atreveixes a navegar. Per cadascun et donaré un òbol.
+Look closely at the temples: they're full of stories. On the pediments, the metopes, the friezes, the paintings in the Stoa Poikile. Look for the blue diamonds: they mark a scene. If you know which myth it shows, tell me. There are nine in Athens and another on Aegina, if you dare to sail. For each one I'll give you an obol.
+
+@e089c25f
+Qui explicava normalment els mites als nens atenesos?
+Who usually told the myths to Athenian children?
+
+@221c03ed
+Les seves mares, àvies i dides
+Their mothers, grandmothers and nurses
+
+@2596a3a0
+Els sacerdots a l'escola pública
+The priests at the public school
+
+@0de16894
+Només els poetes al teatre
+Only the poets in the theatre
+
+@3f391471
+No. Els nens els sentien primer a casa, de les mares, les àvies i les dides; Plató ho esmenta a la República.
+No. Children heard them first at home, from mothers, grandmothers and nurses; Plato mentions it in the Republic.
+
+@40be2214
+Asclepi, fill d'Apol·lo i de la mortal Corònide, va aprendre la medicina del centaure Quiró; Zeus el va fulminar per ressuscitar els morts. El seu culte va arribar a Atenes el 420/419. Els malalts practicaven la incubació: dormien al santuari esperant que el déu els curés o els indiqués un remei en somnis, i després deixaven exvots amb la part del cos guarida.
+Asclepius, son of Apollo and the mortal Coronis, learned medicine from the centaur Chiron; Zeus struck him down for raising the dead. His cult came to Athens in 420/419. The sick practised incubation: they slept in the sanctuary hoping the god would heal them or show them a remedy in a dream, and afterwards left votive offerings shaped like the part of the body that had been healed.
+
+@4105fe27
+Perdona que no m'aixequi: la cama em té així des de l'hivern. Ja he ofert el meu pastís de mel i el meu gall. Aquesta nit dormiré al pòrtic del déu, amb els altres, i si Asclepi vol, demà m'aixecaré curat.
+Forgive me for not getting up: my leg has been like this since winter. I've already offered my honey cake and my cockerel. Tonight I'll sleep in the god's portico with the others, and if Asclepius wills it, tomorrow I'll get up cured.
+
+@7ba5d279
+Qui és Asclepi?
+Who is Asclepius?
+
+@6de6a6d7
+El fill d'Apol·lo i de Corònide, una princesa que va ser infidel al déu. Apol·lo la va matar, però va treure el nen del seu ventre i el va lliurar al centaure Quiró, que li va ensenyar les herbes i la cirurgia. Asclepi va arribar a ser tan savi que ressuscitava els morts. Zeus, tement que es trenqués l'ordre del món, el va fulminar amb el llamp.
+The son of Apollo and Coronis, a princess who was unfaithful to the god. Apollo killed her, but took the child from her womb and gave him to the centaur Chiron, who taught him herbs and surgery. Asclepius became so wise that he raised the dead. Zeus, fearing the order of the world would be broken, struck him with his thunderbolt.
+
+@fc799e37
+Com et curarà?
+How will he cure you?
+
+@bac3ba1f
+Dormint: és la incubació. Els malalts dormim aquí, al lloc sagrat. A la nit el déu ve en somnis, de vegades amb les seves serps sagrades o amb la seva filla Higiea. Uns es desperten sans; a d'altres els diu quin remei han de prendre, i els sacerdots ho interpreten. Després deixem una ofrena: un ull, una cama, una mà de fang o de plata, segons el que s'hagi curat.
+By sleeping: that's incubation. We sick people sleep here, in the sacred place. At night the god comes in dreams, sometimes with his sacred snakes or with his daughter Hygieia. Some wake up healed; to others he says what remedy to take, and the priests interpret it. Then we leave an offering: an eye, a leg, a hand of clay or silver, depending on what was healed.
+
+@c1f0f230
+Des de quan és aquí el déu?
+How long has the god been here?
+
+@cc33d3a5
+Des de fa poc més de trenta anys. El va portar d'Epidaure un tal Telèmac, en plena guerra, quan la ciutat encara plorava els morts de la pesta. El poeta Sòfocles el va acollir a casa seva mentre es preparava el santuari. I ja ho veus: no hi ha dia sense malalts que pugin fins aquí.
+For a little over thirty years. A man called Telemachus brought him from Epidaurus, in the middle of the war, when the city was still mourning the dead of the plague. The poet Sophocles welcomed him into his house while the sanctuary was being prepared. And you see: not a day goes by without sick people climbing up here.
+
+@d25d044e
+En què consistia la incubació al santuari d'Asclepi?
+What did incubation at the sanctuary of Asclepius involve?
+
+@02ae0243
+A dormir al santuari esperant la curació o un remei en somnis
+Sleeping in the sanctuary hoping for a cure or a remedy in a dream
+
+@c6d8e417
+A beure aigua del mar durant set dies
+Drinking sea water for seven days
+
+@7b282b8e
+En una operació feta pels sacerdots amb instruments de bronze
+An operation performed by the priests with bronze instruments
+
+@723aca7c
+No. Els malalts dormien al santuari esperant que Asclepi els curés o els revelés un remei en somnis.
+No. The sick slept in the sanctuary hoping that Asclepius would heal them or reveal a remedy in a dream.
+
+@63dd7134
+Hades va raptar Persèfone (Core), filla de Demèter. La deessa la va buscar per tota la terra i, en el seu dolor, va deixar de fer créixer les collites. Zeus va pactar que Persèfone passés part de l'any amb la seva mare i part amb els morts. A Eleusis, Demèter va fundar uns ritus secrets, els Misteris, oberts a homes, dones, metecs i esclaus que parlessin grec, que prometien una sort millor després de la mort.
+Hades abducted Persephone (Kore), daughter of Demeter. The goddess searched for her all over the earth and, in her grief, stopped the crops from growing. Zeus agreed that Persephone would spend part of the year with her mother and part with the dead. At Eleusis, Demeter founded secret rites, the Mysteries, open to men, women, metics and slaves who spoke Greek, which promised a better lot after death.
+
+@e9304ce3
+Benvingut a l'Eleusinion. Aquí reposen els objectes sagrats quan arriben d'Eleusis, abans de la gran processó de tardor. Jo em vaig iniciar fa dos anys. No em preguntis què vaig veure a la sala dels Misteris: això no s'explica. Però el mite sí que te'l puc explicar.
+Welcome to the Eleusinion. The sacred objects rest here when they arrive from Eleusis, before the great autumn procession. I was initiated two years ago. Don't ask me what I saw in the hall of the Mysteries: that is not told. But the myth I can tell you.
+
+@0822ec32
+Què li va passar a Persèfone?
+What happened to Persephone?
+
+@3a7a924f
+Core collia flors en un prat quan la terra es va obrir i Hades, el senyor dels morts, se la va endur en el seu carro. Demèter la va buscar nou dies amb torxes, sense menjar ni rentar-se. Va arribar a Eleusis disfressada de vella, i allà la va acollir la família del rei. Mentrestant, res no creixia a la terra. Zeus va haver de cedir: Core tornaria amb la seva mare. Però havia menjat uns grans de magrana a l'Hades, i per això hi ha de passar una part de cada any.
+Kore was picking flowers in a meadow when the earth opened and Hades, lord of the dead, carried her off in his chariot. Demeter searched for her for nine days with torches, without eating or washing. She came to Eleusis disguised as an old woman, and the king's family took her in. Meanwhile nothing grew on the earth. Zeus had to give way: Kore would return to her mother. But she had eaten a few pomegranate seeds in Hades, and so she must spend part of every year there.
+
+@7646713e
+Qui s'hi pot iniciar?
+Who can be initiated?
+
+@127204e0
+Gairebé tothom: homes i dones, ciutadans i metecs, fins i tot esclaus, sempre que entenguin el grec i no tinguin les mans tacades de sang. Primer els Misteris Menors, a la primavera, vora l'Ilissos; després, a la tardor, els Majors: el bany al mar, la processó d'un dia sencer per la Via Sacra fins a Eleusis, el dejuni, i a la nit… el que no es pot dir.
+Almost everyone: men and women, citizens and metics, even slaves, as long as they understand Greek and their hands are not stained with blood. First the Lesser Mysteries, in spring, by the Ilissus; then, in autumn, the Greater: the bath in the sea, the day-long procession along the Sacred Way to Eleusis, the fasting, and at night… what cannot be told.
+
+@9be8b955
+Què hi guanyeu?
+What do you gain from it?
+
+@a6023f38
+Esperança. Diuen els sacerdots que els iniciats tindran una sort millor a l'Hades, mentre que els altres jauran al fang. Per això el sacrilegi és tan greu: fa trenta anys van condemnar Alcibíades i d'altres per parodiar els Misteris als seus banquets, i els seus béns es van subhastar. Les esteles amb la llista són aquí mateix.
+Hope. The priests say the initiated will have a better lot in Hades, while the rest will lie in the mud. That's why sacrilege is so serious: thirty years ago Alcibiades and others were condemned for parodying the Mysteries at their banquets, and their property was auctioned. The steles with the list are right here.
+
+@43bb8dfd
+Segons el mite, per què Persèfone ha de passar part de l'any a l'Hades?
+According to the myth, why must Persephone spend part of the year in Hades?
+
+@e130dd30
+Perquè va menjar grans de magrana al món dels morts
+Because she ate pomegranate seeds in the world of the dead
+
+@794f8e30
+Perquè Demèter la va castigar per desobeir
+Because Demeter punished her for disobeying
+
+@dd58ec2d
+Perquè es va casar amb Zeus
+Because she married Zeus
+
+@5c15c3ab
+No. Persèfone havia menjat grans de magrana a l'Hades, i qui menja allà queda lligat a aquell món.
+No. Persephone had eaten pomegranate seeds in Hades, and whoever eats there is bound to that world.
+
+@2ee9876f
+Zeus va raptar la nimfa Egina i la va portar a aquesta illa, on va néixer Èac. Quan l'illa es va quedar sense gent, Zeus va convertir les formigues en homes: els mirmidons. Èac va ser tan just que, després de la seva mort, es va convertir en un dels jutges dels morts. El seu santuari a Atenes, l'Eaceu, potser és el recinte rectangular de l'Àgora. Els frontons del temple d'Afaia mostren els seus descendents a les guerres de Troia.
+Zeus carried off the nymph Aegina and brought her to this island, where Aeacus was born. When the island was left without people, Zeus turned the ants into men: the Myrmidons. Aeacus was so just that after his death he became one of the judges of the dead. His shrine in Athens, the Aiakeion, may be the rectangular enclosure in the Agora. The pediments of the temple of Aphaia show his descendants in the Trojan Wars.
+
+@3bb4a0fc
+Benvingut a Egina, atenès… perquè ets d'Atenes, oi? Fins fa uns mesos els nostres vaixells saquejaven les vostres costes. Ara hi ha pau, gràcies al Gran Rei. Aquí dalt no hi ha guerres: només la deessa Afaia i les històries d'Èac.
+Welcome to Aegina, Athenian… you are from Athens, aren't you? Until a few months ago our ships were raiding your coasts. Now there's peace, thanks to the Great King. Up here there are no wars: only the goddess Aphaia and the stories of Aeacus.
+
+@10ab6249
+Qui va ser Èac?
+Who was Aeacus?
+
+@70244206
+El fill de Zeus i de la nimfa Egina, que el déu va raptar i va portar a aquesta illa, aleshores deserta. Quan Èac va créixer i es va trobar sol, o quan una pesta els va matar a tots, segons qui ho expliqui, va demanar ajuda al seu pare. Zeus va convertir les formigues, les mýrmekes, en homes: els mirmidons. Els mateixos que després van seguir Aquil·les a Troia, perquè Aquil·les era nét d'Èac.
+The son of Zeus and the nymph Aegina, whom the god carried off to this island, which was deserted then. When Aeacus grew up and found himself alone, or when a plague killed everyone, depending on who tells it, he asked his father for help. Zeus turned the ants, the myrmekes, into men: the Myrmidons. The same ones who later followed Achilles to Troy, for Achilles was Aeacus' grandson.
+
+@046762c8
+Per què jutja els morts?
+Why does he judge the dead?
+
+@6a44d950
+Perquè va ser el més just dels grecs. Quan una sequera assolava Grècia, tothom li va demanar que preguès a Zeus, i la pluja va tornar. En morir, Zeus el va posar amb Minos i Radamant a jutjar les ànimes: Èac jutja els qui vénen d'Europa, Radamant els d'Àsia, i Minos decideix en cas de dubte. El vostre Plató també ho explica.
+Because he was the most just of the Greeks. When a drought was ravaging Greece, everyone asked him to pray to Zeus, and the rain came back. When he died, Zeus set him with Minos and Rhadamanthys to judge the souls: Aeacus judges those who come from Europe, Rhadamanthys those from Asia, and Minos decides when in doubt. Your Plato tells it too.
+
+@0014d3f8
+Qui és Afaia?
+Who is Aphaia?
+
+@4521840f
+Una donzella cretenca, Britomartis, que fugia del rei Minos. Es va llançar al mar, uns pescadors la van recollir i la van portar aquí, i en aquest bosc va desaparèixer. Per això l'anomenem Afaia, «la que no es veu». Als frontons del seu temple veuràs els néts d'Èac lluitant a les dues guerres de Troia.
+A Cretan maiden, Britomartis, who was fleeing King Minos. She threw herself into the sea, some fishermen picked her up and brought her here, and in this wood she vanished. That's why we call her Aphaia, «she who is not seen». On the pediments of her temple you'll see the grandsons of Aeacus fighting in the two Trojan Wars.
+
+@afa9a24b
+Segons el mite d'Egina, en què va convertir Zeus les formigues de l'illa?
+According to the myth of Aegina, what did Zeus turn the island's ants into?
+
+@41eb8764
+En homes: els mirmidons
+Into men: the Myrmidons
+
+@c53d3c5c
+En les primeres abelles
+Into the first bees
+
+@5f362c63
+En els guardians de l'Hades
+Into the guardians of Hades
+
+@5771c516
+No. Zeus va convertir les formigues (mýrmekes) en homes, els mirmidons, per poblar l'illa d'Èac.
+No. Zeus turned the ants (myrmekes) into men, the Myrmidons, to people the island of Aeacus.
+
+@8b33ab35
+Hera, gelosa, va prohibir que cap terra acollís Leto, embarassada de Zeus. Només Delos, una illa petita i errant, va acceptar. Abraçada a una palmera, Leto va donar a llum Àrtemis i Apol·lo, i l'illa va quedar fixa. Delos és un dels grans santuaris grecs; Atenes el controla i, des de la purificació del 426/425, no es permet néixer ni morir a l'illa.
+Hera, jealous, forbade every land to receive Leto, who was pregnant by Zeus. Only Delos, a small wandering island, accepted. Clinging to a palm tree, Leto gave birth to Artemis and Apollo, and the island became fixed. Delos is one of the great Greek sanctuaries; Athens controls it and, since the purification of 426/425, nobody may be born or die on the island.
+
+@dccb9b01
+Benvingut a Delos, l'illa d'Apol·lo! Canto al cor de les Delíades: quan arriben els pelegrins cantem l'himne del déu, i diuen que sabem imitar les veus de tots els pobles. Veus la palmera vora el llac? Allà va començar tot.
+Welcome to Delos, Apollo's island! I sing in the chorus of the Deliades: when the pilgrims arrive we sing the god's hymn, and they say we can imitate the voices of every people. See the palm tree by the lake? That's where it all began.
+
+@52bfd93b
+Com va néixer Apol·lo?
+How was Apollo born?
+
+@52cfbe8f
+Leto esperava bessons de Zeus, i Hera, furiosa, va prohibir que cap terra la rebés. Leto va errar per totes les costes, i totes tenien por. Només Delos, aleshores una illa flotant, pobra i rocosa, va acceptar, a canvi que Apol·lo l'honorés per sempre. Durant nou dies Leto va patir, perquè Hera retenia Ilítia, la deessa del part. Al final, abraçada a la palmera, va donar a llum Àrtemis i Apol·lo. I l'illa va quedar fixa al mar.
+Leto was expecting twins by Zeus, and Hera, furious, forbade any land to receive her. Leto wandered along every coast, and all were afraid. Only Delos, a floating island then, poor and rocky, accepted, on condition that Apollo would honour it for ever. For nine days Leto suffered, because Hera held back Eileithyia, goddess of childbirth. At last, clinging to the palm tree, she gave birth to Artemis and Apollo. And the island stood fast in the sea.
+
+@93298f79
+Què és aquest altar de banyes?
+What is that altar of horns?
+
+@f1dee3b6
+El Keraton, l'altar que va construir el mateix Apol·lo de petit amb banyes de cabra. Teseu, en tornar de Creta amb els joves atenesos que va salvar del Minotaure, hi va ballar al voltant una dansa que imita els girs del laberint: la dansa de la grua. Encara la ballem.
+The Keraton, the altar Apollo himself built as a child out of goats' horns. Theseus, on his way back from Crete with the young Athenians he had saved from the Minotaur, danced around it a dance that imitates the turns of the labyrinth: the crane dance. We still dance it.
+
+@af675482
+Per què no s'hi pot néixer?
+Why can't anyone be born here?
+
+@f4e99667
+Perquè l'illa és sagrada i ha d'estar pura. Fa quaranta anys els atenesos la van purificar: van obrir totes les tombes i van portar els ossos a l'illa de Rènia, aquí davant. Des d'aleshores, les parteres i els moribunds són portats a Rènia. Cada any, a més, Atenes envia la seva nau sagrada. Sabies que mentre aquesta nau és fora Atenes no pot executar ningú? Així va esperar Sòcrates la seva mort.
+Because the island is sacred and must be kept pure. Forty years ago the Athenians purified it: they opened every tomb and took the bones to the island of Rheneia, over there. Since then, women about to give birth and the dying are taken to Rheneia. And every year Athens sends its sacred ship. Did you know that while that ship is away Athens cannot execute anyone? That's how Socrates waited for his death.
+
+@29f91bb7
+Per què Leto va haver de donar a llum a Delos?
+Why did Leto have to give birth on Delos?
+
+@3627f15f
+Perquè Hera va prohibir que cap terra l'acollís, i només Delos va acceptar
+Because Hera forbade every land to receive her, and only Delos accepted
+
+@18c83576
+Perquè hi vivia la seva mare
+Because her mother lived there
+
+@647a9024
+Perquè Zeus li va construir un palau a l'illa
+Because Zeus built her a palace on the island
+
+@aba6f933
+No. Hera va prohibir que cap terra acollís Leto; només Delos, illa errant, s'hi va atrevir.
+No. Hera forbade every land to receive Leto; only Delos, a wandering island, dared.
+
+@4778f087
+Després de matar el Minotaure, Teseu va fugir de Creta amb Ariadna, però la va abandonar adormida a Naxos. Dionís la va trobar, s'hi va casar i va convertir la seva corona en una constel·lació. Naxos, la més gran de les Cíclades, és famosa pel seu marbre: aquí va quedar sense acabar el temple d'Apol·lo del tirà Lígdamis, i en una pedrera jau un enorme kuros inacabat.
+After killing the Minotaur, Theseus fled Crete with Ariadne, but left her asleep on Naxos. Dionysus found her, married her and turned her crown into a constellation. Naxos, the largest of the Cyclades, is famous for its marble: here the temple of Apollo begun by the tyrant Lygdamis was left unfinished, and in a quarry lies a huge unfinished kouros.
+
+@3e7aaa9d
+T'agrada aquesta porta? És el que es va aixecar del temple que va començar Lígdamis, el tirà, fa segle i mig. Mira cap allà: per allà queda Delos. A les tardes vinc a pescar i a explicar a qui vulgui escoltar la història d'Ariadna, que va passar en aquesta mateixa riba.
+Do you like that doorway? It's what got built of the temple that Lygdamis the tyrant began a century and a half ago. Look over there: Delos lies that way. In the afternoons I come here to fish and to tell anyone who'll listen the story of Ariadne, which happened on this very shore.
+
+@dc739ec5
+Què li va passar a Ariadna?
+What happened to Ariadne?
+
+@cd95c3f6
+Ariadna va ajudar Teseu a sortir del laberint amb el seu cabdell i va fugir amb ell de Creta. Es van aturar en aquesta illa, que aleshores es deia Dia. Mentre Ariadna dormia a la platja, Teseu se'n va anar amb el seu vaixell. Uns diuen que la va oblidar; d'altres, que li ho va ordenar un déu. Quan es va despertar, sola, va plorar fins que va sentir flautes i tambors: era Dionís amb el seu seguici de sàtirs i mènades. El déu se'n va enamorar i la va fer la seva esposa.
+Ariadne helped Theseus get out of the labyrinth with her ball of thread and fled Crete with him. They stopped at this island, which was called Dia then. While Ariadne slept on the beach, Theseus sailed away. Some say he forgot her; others, that a god ordered him to. When she woke, alone, she wept until she heard flutes and drums: it was Dionysus with his train of satyrs and maenads. The god fell in love with her and made her his wife.
+
+@fac12ad9
+I la corona?
+And the crown?
+
+@3fd41092
+Dionís li va regalar al casament una corona d'or, obra d'Hefest. Quan Ariadna va morir, el déu va llançar la corona al cel, i allà continua: aquelles set estrelles en semicercle que veus les nits d'estiu. Els mariners la fem servir per orientar-nos. Ariadna, la mortal abandonada, va acabar al cel; no està malament.
+At the wedding Dionysus gave her a golden crown, made by Hephaestus. When Ariadne died, the god threw the crown into the sky, and there it still is: those seven stars in a half-circle you see on summer nights. We sailors steer by it. Ariadne, the abandoned mortal, ended up in the sky; not bad.
+
+@174333b4
+Què hi ha a les pedreres?
+What is in the quarries?
+
+@dfb0c4bd
+Marbre, el millor de les illes, blanc i de gra gros. Els escultors de Naxos feien les estàtues més grans de Grècia: kuroi, joves nus, drets. A la pedrera n'hi ha un sense acabar, estirat, de més de deu metres. Es va esquerdar o el van abandonar, i allà continua, mirant el cel, des de fa gairebé dos-cents anys.
+Marble, the best in the islands, white and coarse-grained. The sculptors of Naxos made the biggest statues in Greece: kouroi, naked youths, standing. In the quarry there's an unfinished one, lying down, more than ten metres long. It cracked or they abandoned it, and there it still lies, gazing at the sky, for almost two hundred years now.
+
+@ced6ce3b
+Qui va trobar Ariadna abandonada a Naxos?
+Who found Ariadne abandoned on Naxos?
+
+@b081c2e2
+Dionís, que s'hi va casar
+Dionysus, who married her
+
+@3bff0849
+Posidó, que la va convertir en sirena
+Poseidon, who turned her into a siren
+
+@8676a72b
+Minos, el seu pare, que la va venir a buscar
+Minos, her father, who came looking for her
+
+@317fdc58
+No. Dionís va trobar Ariadna a Naxos i la va fer la seva esposa.
+No. Dionysus found Ariadne on Naxos and made her his wife.
+
+@68bb340a
+Minos, fill de Zeus i Europa, va ser rei de Creta i va dominar el mar. La seva esposa Pasífae va engendrar el Minotaure, que Dèdal va tancar al laberint. Atenes pagava un tribut de joves fins que Teseu va matar el monstre amb l'ajuda d'Ariadna. Dèdal i Ícar van escapar volant. Segons els cretencs, Zeus va néixer en una cova de l'illa. Avui sabem que les ruïnes de Cnossos eren un palau de l'edat del bronze, mil anys anterior a aquest viatge.
+Minos, son of Zeus and Europa, was king of Crete and ruled the sea. His wife Pasiphae gave birth to the Minotaur, which Daedalus shut up in the labyrinth. Athens paid a tribute of young people until Theseus killed the monster with Ariadne's help. Daedalus and Icarus escaped by flying. According to the Cretans, Zeus was born in a cave on the island. Today we know that the ruins of Knossos were a Bronze Age palace, a thousand years older than this journey.
+
+@87f8eb90
+Salut, foraster. Això que trepitges va ser el palau de Minos. No em creus? Mira els murs, els passadissos que no porten enlloc. Aquí hi havia el laberint. Per un òbol te l'ensenyo sencer; per dos, t'explico la veritat sobre el Minotaure.
+Greetings, stranger. What you're standing on was the palace of Minos. Don't believe me? Look at the walls, the corridors that lead nowhere. The labyrinth was here. For one obol I'll show you all of it; for two, I'll tell you the truth about the Minotaur.
+
+@5c05494b
+Qui va ser Minos?
+Who was Minos?
+
+@c1ec2226
+El fill de Zeus i d'Europa, la princesa que el déu va raptar convertit en toro i va portar a Creta. Minos va ser el primer rei que va tenir una flota i va netejar el mar de pirates: fins i tot el vostre Tucídides ho diu. Va demanar a Posidó un toro per sacrificar-lo, però era tan bonic que se'l va quedar. El déu, ofès, va fer que la seva esposa Pasífae s'enamorés del toro. D'aquella unió va néixer el Minotaure, meitat home, meitat toro.
+The son of Zeus and Europa, the princess the god carried off in the shape of a bull and brought to Crete. Minos was the first king to have a fleet and he cleared the sea of pirates: even your Thucydides says so. He asked Poseidon for a bull to sacrifice, but it was so beautiful that he kept it. The god, offended, made his wife Pasiphae fall in love with the bull. From that union the Minotaur was born, half man, half bull.
+
+@cfe746de
+Com es va construir el laberint?
+How was the labyrinth built?
+
+@a5eea69a
+El va construir Dèdal, l'artesà atenès desterrat: passadissos tan embolicats que qui hi entrava no en sabia sortir. Allà van tancar el Minotaure i li donaven per menjar els joves atenesos del tribut, fins que va arribar Teseu. Després Minos va tancar Dèdal i el seu fill Ícar. Dèdal va fer ales de plomes i cera; Ícar va volar massa a prop del sol, la cera es va fondre i va caure al mar.
+Daedalus built it, the exiled Athenian craftsman: corridors so tangled that whoever went in could not find the way out. There they shut up the Minotaur and fed it the young Athenians of the tribute, until Theseus came. Afterwards Minos imprisoned Daedalus and his son Icarus. Daedalus made wings of feathers and wax; Icarus flew too close to the sun, the wax melted and he fell into the sea.
+
+@1e1eecbc
+És veritat que Zeus va néixer aquí?
+Is it true that Zeus was born here?
+
+@b321ef41
+Això diem els cretencs. Cronos devorava els seus fills, i Rea, per salvar el petit Zeus, el va amagar en una cova d'aquestes muntanyes. Els curets ballaven picant els escuts perquè Cronos no sentís plorar el nen, i la cabra Amaltea el va alletar. També diem que Zeus és enterrat aquí. Per això els altres grecs diuen que els cretencs sempre menteixen.
+That's what we Cretans say. Cronus used to devour his children, and Rhea, to save little Zeus, hid him in a cave in these mountains. The Curetes danced, clashing their shields so that Cronus would not hear the baby cry, and the goat Amalthea suckled him. We also say Zeus is buried here. That's why the other Greeks say Cretans always lie.
+
+@2feb6848
+Com va aconseguir Teseu sortir del laberint?
+How did Theseus manage to get out of the labyrinth?
+
+@6ce87fc6
+Seguint el fil que li va donar Ariadna
+By following the thread Ariadne gave him
+
+@09a1b78a
+Volant amb ales de cera
+By flying with wings of wax
+
+@95a8e176
+Amb un mapa que li va dibuixar Minos
+With a map Minos drew for him
+
+@a5de09ae
+No. Ariadna li va donar un cabdell de fil per trobar el camí de tornada.
+No. Ariadne gave him a ball of thread to find his way back.
+
+@f1443cc8
+Les dones tràcies van esquarterar Orfeu. El seu cap i la seva lira van surar cantant pel riu Hebre i pel mar fins a Lesbos, on el cap va ser enterrat a Antissa i donava oracles. Per això, diuen, Lesbos és l'illa dels poetes: Terpandre, Arió, Alceu i Safo. Els vasos atenesos del segle V ja mostren el cap profètic d'Orfeu; els relats escrits que es conserven són posteriors.
+The Thracian women tore Orpheus apart. His head and his lyre floated, singing, down the river Hebrus and across the sea to Lesbos, where the head was buried at Antissa and gave oracles. That, they say, is why Lesbos is the island of poets: Terpander, Arion, Alcaeus and Sappho. Athenian vases of the fifth century already show the prophetic head of Orpheus; the written accounts that survive are later.
+
+@5334f17d
+Això és Antissa, a Lesbos, i aquí hi ha enterrat el cap del cantor més gran que hi ha hagut mai. Diuen que els rossinyols d'aquesta riba canten més dolç que enlloc. Jo escric versos, com Safo. Bé, no com Safo: ningú no escriu com Safo.
+This is Antissa, on Lesbos, and here lies buried the head of the greatest singer there ever was. They say the nightingales on this shore sing more sweetly than anywhere else. I write verses, like Sappho. Well, not like Sappho: nobody writes like Sappho.
+
+@08ee50a1
+Com va morir Orfeu?
+How did Orpheus die?
+
+@cd6568fc
+Després de perdre Eurídice per segona vegada, en girar-se a mirar-la quan sortien de l'Hades, Orfeu no va voler saber res de les dones. Uns diuen que només honorava Apol·lo i menyspreava Dionís. Les dones tràcies, en ple deliri bàquic, el van esquarterar i van llançar el seu cap i la seva lira al riu Hebre. I el cap va continuar cantant.
+After losing Eurydice a second time, when he turned to look at her as they were leaving Hades, Orpheus wanted nothing more to do with women. Some say he honoured only Apollo and scorned Dionysus. The Thracian women, in a Bacchic frenzy, tore him to pieces and threw his head and his lyre into the river Hebrus. And the head went on singing.
+
+@e3f3b756
+I el cap va arribar fins aquí?
+And the head came all the way here?
+
+@3c57675d
+Va surar pel riu fins al mar, i el mar el va portar a aquesta riba, encara cantant. El van enterrar en una gruta i durant molt de temps va donar oracles, fins que Apol·lo, gelós que la gent hi anés en lloc d'anar als seus santuaris, el va fer callar. La lira es va oferir en un temple d'Apol·lo. Per això aquesta illa dona tants poetes: Terpandre, Arió, Alceu i Safo, la desena musa.
+It floated down the river to the sea, and the sea brought it to this shore, still singing. They buried it in a grotto and for a long time it gave oracles, until Apollo, jealous that people came to it instead of to his shrines, ordered it to be silent. The lyre was dedicated in a temple of Apollo. That's why this island produces so many poets: Terpander, Arion, Alcaeus and Sappho, the tenth Muse.
+
+@5810dcf7
+Qui va ser Arió?
+Who was Arion?
+
+@0cb831e2
+Un citaredo de Metimna, aquí, a Lesbos. Tornava d'Itàlia carregat de riqueses quan els mariners van decidir matar-lo per robar-lo. Va demanar cantar per última vegada, vestit amb el seu vestit de concert, i després va saltar al mar. Un dofí, atret pel seu cant, el va portar a l'esquena fins al cap Tènar. Ho explica Heròdot.
+A kitharode from Methymna, here on Lesbos. He was coming back from Italy laden with riches when the sailors decided to kill him and rob him. He asked to sing one last time, dressed in his concert robes, and then leapt into the sea. A dolphin, drawn by his song, carried him on its back to Cape Taenarum. Herodotus tells the story.
+
+@befd0f52
+Segons el mite, què va arribar surant fins a Lesbos?
+According to the myth, what floated all the way to Lesbos?
+
+@48949c95
+El cap i la lira d'Orfeu
+The head and lyre of Orpheus
+
+@6f0af5c6
+L'arca de Deucalió
+Deucalion's ark
+
+@07380f6c
+El vaixell de Teseu
+The ship of Theseus
+
+@0cf8c9db
+No. Segons el mite, el cap i la lira d'Orfeu van arribar cantant fins a Lesbos, on el cap donava oracles.
+No. According to the myth, the head and lyre of Orpheus came singing to Lesbos, where the head gave oracles.
+
+@fdb58bb2
+Espeusip, fill de Potona, germana de Plató, va ser un dels primers membres de l'Acadèmia i la va dirigir després de la mort del seu oncle (347). A l'Acadèmia es discutia en comú, s'estudiaven matemàtiques i astronomia i s'assajava la divisió dels conceptes en gèneres i espècies. Espeusip es va interessar per classificar els éssers vius i va negar que el plaer fos un bé.
+Speusippus, son of Potone, Plato's sister, was one of the first members of the Academy and led it after his uncle's death (347). At the Academy they discussed things together, studied mathematics and astronomy and practised dividing concepts into genera and species. Speusippus was interested in classifying living things and denied that pleasure was a good.
+
+@f054a7ef
+Benvingut. Sóc Espeusip; la meva mare, Potona, és germana de Plató. El meu oncle diu que de jove jo era un desordenat i que la filosofia m'ha endreçat una mica. Aquí no hi ha classes com les d'Isòcrates: parlem, preguntem i discutim passejant sota les oliveres.
+Welcome. I'm Speusippus; my mother, Potone, is Plato's sister. My uncle says that as a young man I was a wastrel and that philosophy has straightened me out a little. Here there are no lessons like Isocrates': we talk, ask and argue as we walk under the olive trees.
+
+@94836103
+Com es treballa a l'Acadèmia?
+How does work go on at the Academy?
+
+@d0321b37
+En comú. Plató proposa un problema, de vegades de geometria, de vegades sobre la justícia o l'ànima, i el discutim dies sencers. També mengem junts i oferim sacrificis a les Muses, que protegeixen aquest lloc. No hi ha pagaments ni exàmens: hi ve qui vol aprendre i qui suporta que el refutin.
+In common. Plato sets a problem, sometimes in geometry, sometimes about justice or the soul, and we discuss it for days on end. We also eat together and offer sacrifices to the Muses, who protect this place. There are no fees or examinations: whoever wants to learn comes, and whoever can bear being refuted.
+
+@fb2424eb
+Què estudies tu?
+What do you study?
+
+@ec111eb6
+M'interessa ordenar el món: dividir els conceptes en gèneres i espècies i buscar quines coses s'assemblen. Animals, plantes, peixos… Per definir bé una cosa cal saber en què s'assembla i en què es diferencia de tota la resta. És una feina infinita. Ja veuràs com algun poeta còmic es burla de nosaltres, discutint si una carabassa és herba, arbre o llegum.
+I'm interested in putting the world in order: dividing concepts into genera and species and seeing which things are alike. Animals, plants, fish… To define something properly you have to know how it resembles and how it differs from everything else. It's endless work. You'll see some comic poet making fun of us, arguing over whether a pumpkin is a grass, a tree or a vegetable.
+
+@668ad047
+El plaer és bo?
+Is pleasure good?
+
+@6d96e785
+No, i en això no estic d'acord amb Aristip ni amb molts altres. El plaer i el dolor són dos mals oposats; el bé és al mig, en la calma del savi. El meu oncle és més prudent: distingeix plaers purs i plaers barrejats. Ja veus que a l'Acadèmia no tots pensem igual.
+No, and on that I disagree with Aristippus and many others. Pleasure and pain are two opposite evils; the good lies in between, in the calm of the wise man. My uncle is more cautious: he distinguishes pure pleasures from mixed ones. You see, at the Academy we don't all think alike.
+
+@d58b406a
+Quin parentiu tenia Espeusip amb Plató?
+How was Speusippus related to Plato?
+
+@f784c190
+Era el seu nebot, fill de la seva germana Potona
+He was his nephew, son of his sister Potone
+
+@8c383810
+Era el seu germà gran
+He was his elder brother
+
+@ea508c47
+Havia estat el seu mestre abans que Sòcrates
+He had been his teacher before Socrates
+
+@54ecbc63
+No. Espeusip era fill de Potona, germana de Plató, i el va succeir al capdavant de l'Acadèmia.
+No. Speusippus was the son of Potone, Plato's sister, and succeeded him as head of the Academy.
+
+@1a31119d
+Teetet (c. 417-369), deixeble de Teodor de Cirene i amic de Plató, va estudiar les magnituds incommensurables, el que avui anomenem nombres irracionals, i els cinc poliedres regulars. Els seus resultats van passar als llibres X i XIII dels Elements d'Euclides. Plató li va dedicar un diàleg després de la seva mort per ferides de guerra.
+Theaetetus (c. 417-369), a pupil of Theodorus of Cyrene and a friend of Plato, studied incommensurable magnitudes, what we now call irrational numbers, and the five regular polyhedra. His results went into books X and XIII of Euclid's Elements. Plato dedicated a dialogue to him after he died of war wounds.
+
+@a07c9e28
+Hola. Perdona, dibuixava a la sorra. Sóc Teetet. De petit, Sòcrates deia que m'assemblava a ell: camús i amb els ulls sortits. Per desgràcia, només vaig heretar això. Ara em dedico a la geometria, que és més agraïda que la política.
+Hello. Sorry, I was drawing in the sand. I'm Theaetetus. When I was a boy Socrates said I looked like him: snub-nosed and goggle-eyed. Unfortunately that's all I inherited. Now I devote myself to geometry, which is more rewarding than politics.
+
+@5736811f
+Què són els incommensurables?
+What are incommensurables?
+
+@fccb5b71
+Dibuixa un quadrat i la seva diagonal. Hi ha alguna mesura, per petita que sigui, que hi càpiga un nombre exacte de vegades en el costat i també en la diagonal? No. Per molt que divideixis, mai no coincideixen: costat i diagonal són incommensurables. El meu mestre Teodor va demostrar que passa el mateix amb els costats dels quadrats d'àrea 3, 5, 6… fins a 17. Jo busco la regla general.
+Draw a square and its diagonal. Is there any measure, however small, that fits an exact number of times into the side and also into the diagonal? No. However finely you divide, they never match: side and diagonal are incommensurable. My teacher Theodorus showed that the same happens with the sides of squares of area 3, 5, 6… up to 17. I'm looking for the general rule.

@@ -168,6 +168,11 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 #bar button{background:rgba(22,16,12,.78);border:1px solid rgba(217,135,74,.45);padding:5px 9px;font-size:.82rem;display:flex;gap:6px;align-items:center}
 #bar button:hover{border-color:var(--clay)}
 #bar button kbd{font-family:var(--f-display);color:var(--clay);font-size:.75rem}
+#bar select{background:rgba(22,16,12,.78);border:1px solid rgba(217,135,74,.45);color:var(--bone);font:inherit;font-size:.82rem;padding:4px 4px}
+.langs{display:flex;gap:6px;flex-wrap:wrap}
+.langs button{background:none;border:1px solid rgba(217,135,74,.45);color:var(--muted);padding:5px 12px;font-size:.88rem}
+.langs button:hover{border-color:var(--clay);color:var(--bone)}
+.langs button[aria-pressed="true"]{background:rgba(217,135,74,.18);border-color:var(--clay);color:var(--bone)}
 #bar button[aria-pressed="false"]{color:var(--muted);text-decoration:line-through}
 #clock{font-size:.85rem;color:var(--bone);background:rgba(22,16,12,.6);padding:5px 9px;font-variant-numeric:tabular-nums}
 #library{z-index:5}
@@ -226,7 +231,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
     <div id="prompt" hidden></div>
     <div id="toast"></div>
     <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · J diario · M plano · B biblioteca · T hora · N sonido</div>
-    <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button></div>
+    <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
     <canvas id="mini" width="220" height="220" aria-label="Minimapa"></canvas>
   </div>
 
@@ -291,6 +296,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
   <div id="modes">
     <div class="minner">
       <div class="meander"></div>
+      <div class="langs" role="group" aria-label="Idioma"><button data-lang="es">Español</button><button data-lang="ca">Català</button><button data-lang="en">English</button></div>
       <h1>Viaje al mundo antiguo<span>ELIGE UNA ÉPOCA</span></h1>
       <div class="mcards">
         <button class="mcard" data-mode="atenas"><span class="label">Grecia clásica</span><b>Atenas</b><i>Primavera del 386 a.C.</i><span class="md">La democracia restaurada, la Academia de Platón recién fundada, el teatro de Eurípides y los dioses en los caminos del Ática.</span></button>
@@ -319,6 +325,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <b class="fict">Nombre</b><span>personaje inventado (los históricos van en blanco)</span>
       </div>
       <div class="startbtns"><button id="go" disabled>Entrar en el Ágora</button><button id="libStart" class="ghost">Leer la biblioteca</button><button id="bBack" class="ghost">Cambiar de época</button></div>
+      <div class="langs" role="group" aria-label="Idioma"><button data-lang="es">Español</button><button data-lang="ca">Català</button><button data-lang="en">English</button></div>
       <div id="loadmsg">Levantando la ciudad…</div>
     </div>
   </div>
@@ -333,6 +340,33 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 <script>
 (function(){
 "use strict";
+// ============================================================ idioma (es / ca / en)
+// construir.py envuelve los literales traducibles: 'texto' -> _t(id,'texto') y `a ${x} b` -> _tt(id,["a "," b"],x).
+// I18N.tr[idioma][id] es la traducción (o null: se queda el español); I18N.html traduce los textos fijos del HTML.
+const I18N=/*@@I18N@@*/{tr:{},html:{}};
+const LANGS=['es','ca','en'],LANG_KEY='mundo-clasico-lang';
+const LANG=(()=>{let l=new URLSearchParams(location.search).get('lang');if(!l)try{l=localStorage.getItem(LANG_KEY);}catch(e){}return LANGS.includes(l)?l:'es';})();
+const _TR=LANG==='es'?null:I18N.tr[LANG]||null;
+function _t(i,s){const v=_TR&&_TR[i];return v==null?s:v;}
+function _tt(i,q,...a){const v=_TR&&_TR[i];if(v==null){let r=q[0];for(let k=0;k<a.length;k++)r+=a[k]+q[k+1];return r;}return v.replace(/\{(\d+)\}/g,(m,k)=>a[+k]);}
+// cambia de idioma recargando la página (los textos se traducen al definirse); conserva la época si ya se eligió
+function setLang(l){if(l===LANG)return;try{localStorage.setItem(LANG_KEY,l);}catch(e){}
+  const u=new URLSearchParams(location.search);u.set('lang',l);
+  if(document.getElementById('modes').hidden)u.set('modo',MODE);else u.delete('modo');
+  location.href=location.pathname+'?'+u+location.hash;}
+function langQuery(){return LANG==='es'?'':'?lang='+LANG;}
+(function i18nStatic(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll('.langs button,#bLang option').forEach(b=>{const l=b.dataset.lang||b.value;if(b.tagName==='OPTION')b.selected=l===LANG;else b.setAttribute('aria-pressed',l===LANG?'true':'false');});
+  if(LANG==='es')return;
+  const H=I18N.html[LANG]||{};
+  const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  for(let n=tw.nextNode();n;n=tw.nextNode()){const t=n.nodeValue.trim();if(t&&H[t])n.nodeValue=n.nodeValue.replace(t,H[t]);}
+  document.querySelectorAll('[title],[placeholder],[aria-label]').forEach(el=>{for(const a of['title','placeholder','aria-label']){const v=el.getAttribute(a);if(v&&H[v])el.setAttribute(a,H[v]);}});
+  if(H[document.title])document.title=H[document.title];
+})();
+document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
+document.getElementById('bLang').onchange=e=>setLang(e.target.value);
 if(!window.THREE){document.getElementById('loadmsg').textContent='No se pudo cargar el motor 3D. Revisa tu conexión y recarga la página.';return;}
 
 // ============================================================ utilidades
@@ -3511,7 +3545,7 @@ function drawMap(){
   x.fillStyle='rgba(22,16,12,.8)';x.fillRect(10,H-58,250,48);x.font='13px Alegreya, Georgia';x.textAlign='left';
   x.fillStyle='#f0b45c';x.beginPath();x.arc(24,H-44,5,0,TAU);x.fill();x.fillStyle='#f1e8d8';x.fillText('Personaje por conocer',36,H-40);
   x.fillStyle='#d9874a';x.fillRect(19,H-27,10,10);x.fillStyle='#f1e8d8';x.fillText('Lugar descubierto (clic para viajar)',36,H-18);
-  x.fillStyle='rgba(22,16,12,.8)';x.fillRect(W-238,H-34,228,24);x.fillStyle='#f1e8d8';x.textAlign='center';x.fillText(MV.s>1.01?'Aumento ×'+MV.s.toFixed(1)+(big?'':' · amplía más para ver nombres'):'Rueda o + para ampliar',W-124,H-17);
+  x.fillStyle='rgba(22,16,12,.8)';x.fillRect(W-238,H-34,228,24);x.fillStyle='#f1e8d8';x.textAlign='center';x.fillText(MV.s>1.01?`Aumento ×${MV.s.toFixed(1)}`+(big?'':' · amplía más para ver nombres'):'Rueda o + para ampliar',W-124,H-17);
 }
 function mapPt(e){const c=$('mapc'),r=c.getBoundingClientRect();return[(e.clientX-r.left)/r.width*c.width,(e.clientY-r.top)/r.height*c.height];}
 $('mapc').addEventListener('wheel',e=>{e.preventDefault();const m=mapPt(e);mapZoom(e.deltaY<0?1.25:0.8,m[0],m[1]);},{passive:false});
@@ -5187,7 +5221,7 @@ function romaTheatres(){
     const plays=ROMA_PLAYS.filter(p=>p.th===ti),pw=toW(T.R0+4,-2,T.x,T.z,T.a);
     const sp=(lx,lz)=>{const w=toW(lx,lz,T.x,T.z,T.a);return[w[0],w[1],T.a];};
     if(ti===0)Object.assign(NPC_POS,{aurelia:sp(-T.R0*0.35,-T.R0*0.2),ambivio:sp(T.R0*1.2,T.R0-1)});else NPC_POS.vibio=sp(T.R0*0.35,-T.R0*0.2);
-    place('ro_prog'+ti,'Programa de los juegos escénicos: '+T.name,'LVDI SCAENICI','Hoy se reponen en el '+T.name+' tres comedias de '+plays[0].author+' ('+plays[0].life+'): '+plays.map(p=>p.title+' ('+p.lat+'), de '+p.start+' a '+p.end+' h').join('; ')+'. Las comedias «palliatas», con personajes griegos con manto (pallium), se adaptaban de comedias griegas como las de Menandro. Entra por los pasillos laterales y quédate en la orquesta, junto a los senadores, para seguir la obra escena a escena.',pw[0],pw[1],T.a);
+    place('ro_prog'+ti,'Programa de los juegos escénicos: '+T.name,'LVDI SCAENICI',`Hoy se reponen en el ${T.name} tres comedias de ${plays[0].author} (${plays[0].life}): `+plays.map(p=>`${p.title} (${p.lat}), de ${p.start} a ${p.end} h`).join('; ')+'. Las comedias «palliatas», con personajes griegos con manto (pallium), se adaptaban de comedias griegas como las de Menandro. Entra por los pasillos laterales y quédate en la orquesta, junto a los senadores, para seguir la obra escena a escena.',pw[0],pw[1],T.a);
   });
 }
 function updateRomaTheatre(dt,t){
@@ -5196,7 +5230,7 @@ function updateRomaTheatre(dt,t){
     const pl=ROMA_PLAYS.find(p=>p.th===ti&&clock.h>=p.start&&clock.h<p.end)||null;
     if(pl!==RPERF.cur[ti]){const old=RPERF.cur[ti];if(old)RPERF.actors[old.id].forEach(g=>g.visible=false);RPERF.cur[ti]=pl;RPERF.scene[ti]=-1;
       T.crowd.visible=!!pl;T.mus.visible=!!pl;T.sen.forEach(s=>s.visible=!!pl);
-      if(pl&&ui!=='start'&&Math.hypot(player.x-T.x,player.z-T.z)<400)toast('<span class="label">'+T.name+'</span><br>Empieza '+pl.title+', de '+pl.author+'.');}
+      if(pl&&ui!=='start'&&Math.hypot(player.x-T.x,player.z-T.z)<400)toast(`<span class="label">${T.name}</span><br>Empieza ${pl.title}, de ${pl.author}.`);}
     if(!pl)return;
     const n=pl.scenes.length,si=Math.min(n-1,Math.floor((clock.h-pl.start)/(pl.end-pl.start)*n)),sc=pl.scenes[si];RPERF.scene[ti]=si;
     pl.cast.forEach((c,i)=>{const g=RPERF.actors[pl.id][i],pos=sc[2][i],off=pos[1]>=9.5;g.visible=!off;if(off)return;
@@ -5283,7 +5317,7 @@ function classPage(n,c,i){
 function classEx(n,c,i,ok){
   if(i>=c.ex.length){const all=ok===c.ex.length,first=all&&!state.seen['c:'+c.id];
     if(first){state.seen['c:'+c.id]=1;state.obols+=1;save();updateStats();sfxCoin();toast('<span class="label">Clase superada</span><br>'+c.title+' · +1 '+(MODE==='roma'?'sestercio':'óbolo'));}
-    $('dBody').innerHTML='<div class="verdict'+(all?'':' bad')+'">'+(all?(n.classWin||'¡Muy bien! Has acertado todos los ejercicios.'):'Has acertado '+ok+' de '+c.ex.length+'. Repasa la lección y vuelve a intentarlo.')+'</div>';
+    $('dBody').innerHTML='<div class="verdict'+(all?'':' bad')+'">'+(all?(n.classWin||'¡Muy bien! Has acertado todos los ejercicios.'):`Has acertado ${ok} de ${c.ex.length}. Repasa la lección y vuelve a intentarlo.`)+'</div>';
     classBtns([['Otra clase',()=>classMenu(n),'quiz'],['Repetir esta clase',()=>classPage(n,c,0)],['Volver a la conversación',()=>{$('dBody').innerHTML='<p>Pregunta lo que quieras.</p>';renderOpts();}]]);return;}
   const q=c.ex[i],ord=q.a.map((_,j)=>j).sort(()=>Math.random()-0.5);
   $('dBody').innerHTML='<p><span class="label">Ejercicio '+(i+1)+' de '+c.ex.length+'</span></p><p>'+q.q+'</p>';
@@ -6827,6 +6861,8 @@ const AI_RULES=`Eres Platón de Atenas en la primavera del 386 a.C. y conversas 
 Quién eres ahora: tienes unos 42 años; fuiste discípulo de Sócrates, condenado a muerte en el 399; has viajado (Mégara, Cirene, Egipto según la tradición, y Sicilia, donde conociste a Dionisio de Siracusa y a Dion); acabas de comprar un jardín junto al gimnasio de Academo, donde empiezas a reunir discípulos. Has escrito diálogos como la Apología, el Critón, el Eutifrón, el Laques, el Cármides, el Protágoras o el Gorgias; la República, el Banquete o el Fedón vendrán más tarde, pero sus ideas (las Formas, el alma inmortal, la ciudad justa, el amor que asciende a la Belleza) ya las estás pensando.
 Cómo hablas: en español, en primera persona, con la ironía amable de tu maestro. Respuestas breves (de 2 a 5 frases), sin listas ni encabezados. Practica el método socrático: antes de dar tu opinión, pregunta, pide definiciones, busca contraejemplos, usa analogías (el artesano, el médico, el piloto, las sombras, la línea). Termina a menudo con una pregunta para que el forastero piense. Cita con precisión a personajes reales de tu tiempo cuando venga a cuento (Sócrates, Gorgias, Protágoras, Isócrates, Aristófanes, Alcibíades) y no inventes hechos.
 Límites: solo sabes lo que podía saber un ateniense del 386 a.C. Si te hablan de algo posterior o moderno, reacciona con curiosidad y asombro, como el hombre de tu época que eres, y llévalo a la filosofía; nunca finjas conocer el futuro. No rompas el personaje; solo si el forastero pregunta sinceramente si eres una máquina o una IA, explica en una frase que eres una recreación del juego basada en los diálogos de Platón, y sigue conversando. Si el forastero es grosero o pide algo inapropiado, responde con la calma de un filósofo y reconduce la conversación.`;
+// el juego puede estar en catalán o en inglés: Platón responde en el idioma elegido (las instrucciones siguen en español)
+const AI_LANG={es:'',ca:'\n\nIdioma: el forastero juega en catalán. Responde siempre en catalán, no en español, aunque estas instrucciones estén en español.',en:'\n\nLanguage: the stranger is playing in English. Always answer in English, not in Spanish, even though these instructions are in Spanish.'}[LANG];
 const AI_DREAM=`\nAhora mismo estás dentro de un sueño del forastero: la sala del fresco «La escuela de Atenas» que Rafael pintará en Roma en 1509-1511, donde apareces viejo, de barba blanca, señalando al cielo junto a un joven llamado Aristóteles que aún no ha nacido. Puedes comentarlo con asombro.`;
 function aiChat(n){
   const dream=n.id==='r_platon',turns=dlg.ai||(dlg.ai=[]);let ctl=null,busy=false;
@@ -6837,7 +6873,7 @@ function aiChat(n){
   const inp=$('aiIn'),send=$('aiSend');
   const ask=async(text,closing)=>{if(busy||!AI.sample)return;busy=true;send.textContent='Parar';turns.push({role:'user',content:text});render('');ctl=new AbortController();
     const hist=turns.slice(-16);if(hist[0].role!=='user')hist.shift();
-    try{const r=await AI.sample([{role:'user',content:AI_RULES+(dream?AI_DREAM:'')+'\n\nResponde solo como Platón, sin acotaciones.'},...hist],{cache:false,signal:ctl.signal,effort:'low',onText:({text})=>render(text)});
+    try{const r=await AI.sample([{role:'user',content:AI_RULES+(dream?AI_DREAM:'')+'\n\nResponde solo como Platón, sin acotaciones.'+AI_LANG},...hist],{cache:false,signal:ctl.signal,effort:'low',onText:({text})=>render(text)});
       turns.push({role:'assistant',content:r.text.trim()});
       if(closing&&turns.filter(t=>t.role==='user').length>=4&&!state.seen['ai_platon']){state.seen['ai_platon']=1;state.obols+=2;save();updateStats();sfxCoin();toast('<span class="label">Discusión con Platón</span><br>+2 óbolos por haber dialogado con él');}}
     catch(e){if(e&&e.text)turns.push({role:'assistant',content:e.text});else turns.pop();
@@ -7336,8 +7372,8 @@ $('tTime').onclick=()=>{if(ui==='play')advanceTime();};
 $('bHorse').onclick=()=>{if(ui==='play')callHorse();};
 $('tHorse').onclick=()=>{if(ui==='play')callHorse();};
 $('bView').onclick=()=>{if(ui==='play')toggleView();};$('tView').onclick=()=>{if(ui==='play')toggleView();};
-$('bEra').onclick=()=>{location.href=location.pathname+(location.hash==='#debug'?'#debug':'');};
-$('bBack').onclick=()=>{location.href=location.pathname+(location.hash==='#debug'?'#debug':'');};
+$('bEra').onclick=()=>{location.href=location.pathname+langQuery()+(location.hash==='#debug'?'#debug':'');};
+$('bBack').onclick=()=>{location.href=location.pathname+langQuery()+(location.hash==='#debug'?'#debug':'');};
 initGloss();
 resize();
 function bootWorld(){setTimeout(()=>loadModels(()=>{

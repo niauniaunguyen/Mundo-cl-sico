@@ -1,0 +1,1387 @@
+# Interfaz del juego. Bloques de tres líneas: español (o @clave), catalán, inglés; «=» = igual que en español.
+# Una línea entre comillas dobles se lee como cadena JSON (espacios al principio o al final).
+
+# ---------------------------------------------------------------- HTML fijo
+Atenas, 386 a.C.
+Atenes, 386 aC
+Athens, 386 BC
+
+Atenas · primavera del 386 a.C.
+Atenes · primavera del 386 aC
+Athens · spring of 386 BC
+
+WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · J diario · M plano · B biblioteca · T hora · N sonido
+WASD moure't · Ratolí mirar · Maj córrer · Espai saltar (dues vegades: doble salt) · E parlar/llegir · H cavall · V vista · J diari · M plànol · B biblioteca · T hora · N so
+WASD move · Mouse look · Shift run · Space jump (twice: double jump) · E talk/read · H horse · V view · J journal · M map · B library · T time · N sound
+
+Caballo
+Cavall
+Horse
+
+Vista
+Vista
+View
+
+Biblioteca
+Biblioteca
+Library
+
+Diario
+Diari
+Journal
+
+Plano
+Plànol
+Map
+
+Hora
+Hora
+Time
+
+Sonido
+So
+Sound
+
+Época
+Època
+Era
+
+Glosario
+Glossari
+Glossary
+
+Palabras de este diálogo
+Paraules d'aquest diàleg
+Words in this dialogue
+
+Diario de viaje
+Diari de viatge
+Travel journal
+
+Cerrar · J
+Tancar · J
+Close · J
+
+Lecciones
+Lliçons
+Lessons
+
+Lugares
+Llocs
+Places
+
+Mitos
+Mites
+Myths
+
+Dioses
+Déus
+Gods
+
+Cronología
+Cronologia
+Timeline
+
+Plano de Atenas
+Plànol d'Atenes
+Map of Athens
+
+Rueda o + para ampliar, arrastra para moverte; clic en un lugar descubierto para viajar.
+Roda o + per ampliar, arrossega per moure't; clic en un lloc descobert per viatjar-hi.
+Wheel or + to zoom in, drag to move around; click a discovered place to travel there.
+
+Cerrar · M
+Tancar · M
+Close · M
+
+Toda la información histórica del juego, con sus fuentes antiguas y estudios modernos.
+Tota la informació històrica del joc, amb les fonts antigues i els estudis moderns.
+All the historical information in the game, with its ancient sources and modern studies.
+
+Cerrar · B
+Tancar · B
+Close · B
+
+Hablar
+Parlar
+Talk
+
+Saltar
+Saltar
+Jump
+
+Español
+=
+=
+
+Català
+=
+=
+
+English
+=
+=
+
+Viaje al mundo antiguo
+Viatge al món antic
+A journey to the ancient world
+
+ELIGE UNA ÉPOCA
+TRIA UNA ÈPOCA
+CHOOSE AN ERA
+
+Grecia clásica
+Grècia clàssica
+Classical Greece
+
+Atenas
+Atenes
+Athens
+
+Primavera del 386 a.C.
+Primavera del 386 aC
+Spring of 386 BC
+
+La democracia restaurada, la Academia de Platón recién fundada, el teatro de Eurípides y los dioses en los caminos del Ática.
+La democràcia restaurada, l'Acadèmia de Plató acabada de fundar, el teatre d'Eurípides i els déus pels camins de l'Àtica.
+Democracy restored, Plato's Academy newly founded, the theatre of Euripides and the gods on the roads of Attica.
+
+Imperio romano
+Imperi romà
+Roman Empire
+
+Roma
+Roma
+Rome
+
+Año 80 d.C.
+Any 80 dC
+AD 80
+
+Tito inaugura el Anfiteatro Flavio. Pasea por el Foro, el Palatino y el Campo de Marte, y conversa con Marcial, Quintiliano, Flavio Josefo o Epicteto.
+Titus inaugura l'Amfiteatre Flavi. Passeja pel Fòrum, el Palatí i el Camp de Mart, i conversa amb Marcial, Quintilià, Flavi Josep o Epictet.
+Titus opens the Flavian Amphitheatre. Stroll through the Forum, the Palatine and the Campus Martius, and talk with Martial, Quintilian, Flavius Josephus or Epictetus.
+
+En las dos épocas puedes llamar a tu caballo (H), cambiar de vista (V) y orientarte con el minimapa. El progreso de cada época se guarda por separado.
+En totes dues èpoques pots cridar el teu cavall (H), canviar de vista (V) i orientar-te amb el minimapa. El progrés de cada època es desa per separat.
+In both eras you can call your horse (H), switch view (V) and find your way with the minimap. Progress in each era is saved separately.
+
+PRIMAVERA DEL 386 a.C.
+PRIMAVERA DEL 386 aC
+SPRING OF 386 BC
+
+Hace trece años la ciudad condenó a Sócrates. La democracia, restaurada tras la tiranía de los Treinta, vuelve a reunirse en la Pnyx. Los Muros Largos se han reconstruido con oro persa, y hace unos meses el Gran Rey dictó la paz a los griegos. En un jardín junto al gimnasio de Academo, un tal Platón ha empezado a reunir discípulos.
+Fa tretze anys la ciutat va condemnar Sòcrates. La democràcia, restaurada després de la tirania dels Trenta, torna a reunir-se a la Pnyx. Els Murs Llargs s'han reconstruït amb or persa, i fa uns mesos el Gran Rei va dictar la pau als grecs. En un jardí al costat del gimnàs d'Acadèmos, un tal Plató ha començat a reunir deixebles.
+Thirteen years ago the city condemned Socrates. Democracy, restored after the tyranny of the Thirty, meets again on the Pnyx. The Long Walls have been rebuilt with Persian gold, and a few months ago the Great King dictated peace to the Greeks. In a garden beside the gymnasium of Academus, a certain Plato has begun to gather disciples.
+
+Dicen que fuera de las murallas, en los caminos y las orillas, a veces se aparecen los dioses. Se los reconoce por el brillo de su piel.
+Diuen que fora de les muralles, pels camins i les ribes, de vegades s'apareixen els déus. Se'ls reconeix per la brillantor de la pell.
+They say that outside the walls, on the roads and along the shores, the gods sometimes appear. You can tell them by the glow of their skin.
+
+Llegas como forastero al Ágora. Habla con quienes encuentres, lee las inscripciones y aprende cómo vive, gobierna y piensa la ciudad. Cada lección que superes te dará tres óbolos, la paga diaria de un jurado.
+Arribes a l'Àgora com a foraster. Parla amb qui trobis, llegeix les inscripcions i aprèn com viu, governa i pensa la ciutat. Cada lliçó que superis et donarà tres òbols, la paga diària d'un jurat.
+You arrive in the Agora as a stranger. Talk to whoever you meet, read the inscriptions and learn how the city lives, governs and thinks. Each lesson you pass earns you three obols, a juror's daily pay.
+
+caminar (Shift para correr, Espacio para saltar; pulsa otra vez en el aire para el doble salto)
+caminar (Maj per córrer, Espai per saltar; torna-hi a l'aire per fer el doble salt)
+walk (Shift to run, Space to jump; press again in mid-air for a double jump)
+
+Ratón
+Ratolí
+Mouse
+
+mirar alrededor con solo moverlo (con un clic se captura y gira sin límite)
+mirar al voltant només movent-lo (amb un clic es captura i gira sense límit)
+look around just by moving it (click to capture it and turn freely)
+
+hablar con alguien o leer una estela
+parlar amb algú o llegir una estela
+talk to someone or read a stele
+
+llamar a tu caballo, montarlo (triple de velocidad) y desmontar · vista en primera o tercera persona
+cridar el teu cavall, muntar-hi (triple de velocitat) i desmuntar · vista en primera o tercera persona
+call your horse, mount it (triple speed) and dismount · first- or third-person view
+
+diario de lo aprendido · plano de la ciudad
+diari del que has après · plànol de la ciutat
+journal of what you have learned · map of the city
+
+biblioteca con todas las fuentes · dejar pasar unas horas · sonido
+biblioteca amb totes les fonts · deixar passar unes hores · so
+library with all the sources · let a few hours pass · sound
+
+Nombre
+Nom
+Name
+
+personaje inventado (los históricos van en blanco)
+personatge inventat (els històrics van en blanc)
+invented character (historical ones are in white)
+
+Entrar en el Ágora
+Entrar a l'Àgora
+Enter the Agora
+
+Leer la biblioteca
+Llegir la biblioteca
+Read the library
+
+Cambiar de época
+Canviar d'època
+Change era
+
+Levantando la ciudad…
+Aixecant la ciutat…
+Raising the city…
+
+Vista en primera persona de Atenas
+Vista en primera persona d'Atenes
+First-person view of Athens
+
+Idioma
+Idioma
+Language
+
+Minimapa
+Minimapa
+Minimap
+
+Glosario del diálogo
+Glossari del diàleg
+Dialogue glossary
+
+Ampliar
+Ampliar
+Zoom in
+
+Reducir
+Reduir
+Zoom out
+
+Centrar en mí
+Centrar en mi
+Centre on me
+
+Ver todo
+Veure-ho tot
+Show everything
+
+Índice de la biblioteca
+Índex de la biblioteca
+Library index
+
+Buscar: Sócrates, trigo, Pnyx…
+Cerca: Sòcrates, blat, Pnyx…
+Search: Socrates, wheat, Pnyx…
+
+Buscar en la biblioteca
+Cercar a la biblioteca
+Search the library
+
+# ---------------------------------------------------------------- avisos y HUD
+No se pudo cargar el motor 3D. Revisa tu conexión y recarga la página.
+No s'ha pogut carregar el motor 3D. Revisa la connexió i torna a carregar la pàgina.
+The 3D engine could not be loaded. Check your connection and reload the page.
+
+noche cerrada
+nit tancada
+dead of night
+
+alba
+alba
+dawn
+
+mañana
+matí
+morning
+
+ágora llena
+àgora plena
+busy agora
+
+mediodía
+migdia
+midday
+
+tarde
+tarda
+afternoon
+
+atardecer
+capvespre
+dusk
+
+noche
+nit
+night
+
+"Lecciones "
+"Lliçons "
+"Lessons "
+
+"Lugares "
+"Llocs "
+"Places "
+
+" óbolos"
+" òbols"
+" obols"
+
+" sestercios"
+" sestercis"
+" sesterces"
+
+"Mitos "
+"Mites "
+"Myths "
+
+"Favores "
+"Favors "
+"Favours "
+
+"Siguiente: pide a "
+"Següent: demana a "
+"Next: ask "
+
+" que te lleve a un juicio · "
+" que et porti a un judici · "
+" to take you to a trial · "
+
+"Siguiente: "
+"Següent: "
+"Next: "
+
+Has completado todas las lecciones. Sigue explorando.
+Has completat totes les lliçons. Continua explorant.
+You have completed all the lessons. Keep exploring.
+
+" · personaje histórico"
+" · personatge històric"
+" · historical character"
+
+" · personaje inventado"
+" · personatge inventat"
+" · invented character"
+
+"Cuéntame más ("
+"Explica-me'n més ("
+"Tell me more ("
+
+" temas escuchados)"
+" temes escoltats)"
+" topics heard)"
+
+Contratar a otro sofista o despedirlo
+Contractar un altre sofista o acomiadar-lo
+Hire another sophist or dismiss him
+
+Contratar a un sofista para una clase en casa
+Contractar un sofista per a una classe a casa
+Hire a sophist for a lesson at home
+
+Muéstrame el árbol genealógico
+Mostra'm l'arbre genealògic
+Show me the family tree
+
+"Asistir a una clase ("
+"Assistir a una classe ("
+"Attend a class ("
+
+" superadas)"
+" superades)"
+" passed)"
+
+Discutir libremente con Platón (diálogo con IA)
+Discutir lliurement amb Plató (diàleg amb IA)
+Debate freely with Plato (AI dialogue)
+
+"Explícame un latinismo (tengo "
+"Explica'm un llatinisme (en tinc "
+"Explain a Latin expression to me (I have "
+
+" en mis tablillas)"
+" a les meves tauletes)"
+" on my tablets)"
+
+"Cuéntame un mito (tengo "
+"Explica'm un mite (en tinc "
+"Tell me a myth (I have "
+
+" en mis rollos)"
+" als meus rotlles)"
+" in my scrolls)"
+
+Quiero volver a hacer de jurado
+Vull tornar a fer de jurat
+I want to serve on a jury again
+
+Quiero ser jurado hoy: llévame a un juicio
+Vull ser jurat avui: porta'm a un judici
+I want to be a juror today: take me to a trial
+
+Ponme a prueba: ¿lo he entendido?
+Posa'm a prova: ho he entès?
+Test me: have I understood?
+
+Ponme a prueba (mejor después de escuchar)
+Posa'm a prova (millor després d'escoltar)
+Test me (better after listening)
+
+Despedirse
+Acomiadar-se
+Say goodbye
+
+¿Qué más quieres saber?
+Què més vols saber?
+What else would you like to know?
+
+Veo que te interesa. Puedo contarte muchas más cosas; elige.
+Veig que t'interessa. Et puc explicar moltes més coses; tria.
+I see you are interested. I can tell you many more things; choose.
+
+Volver a la conversación
+Tornar a la conversa
+Back to the conversation
+
+<p>Pregunta lo que quieras.</p>
+<p>Pregunta el que vulguis.</p>
+<p>Ask whatever you like.</p>
+
+"<span class=\"gw\">con "
+"<span class=\"gw\">amb "
+"<span class=\"gw\">with "
+
+<div class="treekey">Cada generación aparece más sangrada que la anterior. ∞ indica el cónyuge o la madre; «con…» agrupa a los hijos de cada esposa. En cursiva, los personajes míticos; en color, quien gobierna en el 386. Los puntos suspensivos indican generaciones omitidas.</div><div class="treebox"><ul class="tree root">
+<div class="treekey">Cada generació apareix més sagnada que l'anterior. ∞ indica el cònjuge o la mare; «amb…» agrupa els fills de cada esposa. En cursiva, els personatges mítics; en color, qui governa el 386. Els punts suspensius indiquen generacions omeses.</div><div class="treebox"><ul class="tree root">
+<div class="treekey">Each generation is indented further than the one before. ∞ marks the spouse or the mother; «with…» groups the children of each wife. In italics, mythical figures; in colour, whoever rules in 386. Ellipses mark omitted generations.</div><div class="treebox"><ul class="tree root">
+
+"Árbol genealógico que explica "
+"Arbre genealògic que explica "
+"Family tree explained by "
+
+<span class="n">1</span><span>Volver a la conversación</span>
+<span class="n">1</span><span>Tornar a la conversa</span>
+<span class="n">1</span><span>Back to the conversation</span>
+
+<p>Tengo los mitos ordenados por temas, como los rollos de mis estantes. ¿Cuál quieres?</p>
+<p>Tinc els mites ordenats per temes, com els rotlles dels meus prestatges. Quin vols?</p>
+<p>I keep the myths sorted by subject, like the scrolls on my shelves. Which one would you like?</p>
+
+Volver
+Tornar
+Back
+
+Otros temas
+Altres temes
+Other subjects
+
+"<p class=\"sub\">Dónde leerlo: "
+"<p class=\"sub\">On llegir-lo: "
+"<p class=\"sub\">Where to read it: "
+
+. Está también en la Biblioteca (B).</p>
+. També és a la Biblioteca (B).</p>
+. It is also in the Library (B).</p>
+
+Otro mito de este tema
+Un altre mite d'aquest tema
+Another myth on this subject
+
+<p><span class="label">Pregunta</span><br>
+<p><span class="label">Pregunta</span><br>
+<p><span class="label">Question</span><br>
+
+</span><span>Mejor vuelvo a escuchar</span>
+</span><span>Millor torno a escoltar</span>
+</span><span>I'd better listen again</span>
+
+<span class="label">Lección aprendida</span><br>
+<span class="label">Lliçó apresa</span><br>
+<span class="label">Lesson learned</span><br>
+
+" · +3 sestercios"
+" · +3 sestercis"
+" · +3 sesterces"
+
+" · +3 óbolos"
+" · +3 òbols"
+" · +3 obols"
+
+Exacto. Toma tres sestercios: más o menos la paga diaria de un legionario.
+Exacte. Pren tres sestercis: més o menys la paga diària d'un legionari.
+Exactly. Take three sesterces: roughly a legionary's daily pay.
+
+Exacto. Toma tres óbolos: lo que cobra un jurado por un día de servicio.
+Exacte. Pren tres òbols: el que cobra un jurat per un dia de servei.
+Exactly. Take three obols: what a juror earns for a day's service.
+
+</p><p class="sub">Las fuentes de esta lección están en la Biblioteca (B).</p>
+</p><p class="sub">Les fonts d'aquesta lliçó són a la Biblioteca (B).</p>
+</p><p class="sub">The sources for this lesson are in the Library (B).</p>
+
+Ya conoces Roma
+Ja coneixes Roma
+Now you know Rome
+
+" sestercios en la bolsa"
+" sestercis a la bossa"
+" sesterces in your purse"
+
+<p>Has hablado con poetas, filósofos e historiadores, con un gladiador liberado y un auriga, con una vestal, un augur y una cristiana, con libertos ricos y clientes pobres. Ahora conoces la Roma del año 80: una ciudad de un millón de habitantes, capital de un imperio inmenso, gobernada por un solo hombre pero llena de voces distintas.</p><p>Dentro de un año, Tito morirá con cuarenta y un años, y su hermano Domiciano gobernará con mano dura. Pero eso todavía no lo sabe nadie.</p>
+<p>Has parlat amb poetes, filòsofs i historiadors, amb un gladiador alliberat i un auriga, amb una vestal, un àugur i una cristiana, amb llibertos rics i clients pobres. Ara coneixes la Roma de l'any 80: una ciutat d'un milió d'habitants, capital d'un imperi immens, governada per un sol home però plena de veus diferents.</p><p>D'aquí a un any, Titus morirà amb quaranta-un anys, i el seu germà Domicià governarà amb mà dura. Però això encara no ho sap ningú.</p>
+<p>You have spoken with poets, philosophers and historians, with a freed gladiator and a charioteer, with a Vestal, an augur and a Christian woman, with rich freedmen and poor clients. Now you know the Rome of AD 80: a city of a million people, capital of a vast empire, ruled by one man yet full of different voices.</p><p>In a year's time Titus will die at forty-one, and his brother Domitian will rule with an iron hand. But nobody knows that yet.</p>
+
+<span class="n">1</span><span>Seguir explorando la ciudad</span>
+<span class="n">1</span><span>Continuar explorant la ciutat</span>
+<span class="n">1</span><span>Keep exploring the city</span>
+
+Has completado tu paideia
+Has completat la teva paideia
+You have completed your paideia
+
+" óbolos en la bolsa"
+" òbols a la bossa"
+" obols in your purse"
+
+<p>Has hablado con políticos y jurados, con un esclavo, un meteco y un banquero que fue esclavo, con una sacerdotisa y una hetera, con un poeta, un soldado y tres maestros rivales, y has votado en un juicio. Ahora conoces la Atenas del 386: una democracia herida pero viva, que paga a sus ciudadanos por gobernar, que excluye a la mayoría de sus habitantes y que acaba de ver nacer la Academia.</p><p>Dentro de cuarenta y ocho años, en Queronea, Filipo de Macedonia pondrá fin a la independencia de las ciudades griegas. Pero eso todavía no lo sabe nadie.</p>
+<p>Has parlat amb polítics i jurats, amb un esclau, un meteco i un banquer que havia estat esclau, amb una sacerdotessa i una hetera, amb un poeta, un soldat i tres mestres rivals, i has votat en un judici. Ara coneixes l'Atenes del 386: una democràcia ferida però viva, que paga els seus ciutadans per governar, que exclou la majoria dels seus habitants i que acaba de veure néixer l'Acadèmia.</p><p>D'aquí a quaranta-vuit anys, a Queronea, Filip de Macedònia posarà fi a la independència de les ciutats gregues. Però això encara no ho sap ningú.</p>
+<p>You have spoken with politicians and jurors, with a slave, a metic and a banker who was once a slave, with a priestess and a hetaira, with a poet, a soldier and three rival teachers, and you have voted at a trial. Now you know the Athens of 386: a wounded but living democracy that pays its citizens to govern, that shuts out most of its inhabitants and that has just seen the Academy born.</p><p>Forty-eight years from now, at Chaeronea, Philip of Macedon will put an end to the independence of the Greek cities. But nobody knows that yet.</p>
+
+<span class="label">Lugar descubierto</span><br>
+<span class="label">Lloc descobert</span><br>
+<span class="label">Place discovered</span><br>
+
+Dormir y soñar
+Dormir i somiar
+Sleep and dream
+
+Despertar
+Despertar
+Wake up
+
+</span><span>Seguir</span>
+</span><span>Continuar</span>
+</span><span>Continue</span>
+
+el Pireo (Atenas)
+el Pireu (Atenes)
+Piraeus (Athens)
+
+Armador · capitán de un mercante · personaje inventado
+Armador · capità d'un mercant · personatge inventat
+Shipowner · captain of a merchantman · invented character
+
+<p>Salud. Mi barco es un mercante redondo, de vela: nada de remeros como en las trirremes. Llevo vino, aceite y cerámica, y pasajeros, si no se marean. ¿Adónde quieres ir?</p>
+<p>Salut. El meu vaixell és un mercant rodó, de vela: res de remers com a les trirrems. Porto vi, oli i ceràmica, i passatgers, si no es maregen. On vols anar?</p>
+<p>Greetings. My ship is a round-hulled merchantman under sail: no rowers like on the triremes. I carry wine, oil and pottery, and passengers, if they don't get seasick. Where do you want to go?</p>
+
+" (pagarás trabajando a bordo)"
+" (pagaràs treballant a bord)"
+" (you'll pay by working on board)"
+
+¿Cuánto cuesta el pasaje?
+Quant costa el passatge?
+How much is the fare?
+
+<p>Barato. De Egina al Pireo cobro dos óbolos, como todo el mundo. A las Cícladas, una dracma; a Lesbos, una y media; a Creta, dos dracmas. Hasta desde Egipto o el mar Negro se cobran solo dos dracmas, con mujer, hijos y equipaje. Lo dice Platón, que se queja de que el piloto que te salva la vida cobra menos que un maestro de retórica. Si no tienes dinero, ayudarás con las velas.</p>
+<p>Barat. D'Egina al Pireu cobro dos òbols, com tothom. A les Cíclades, una dracma; a Lesbos, una i mitja; a Creta, dues dracmes. Fins i tot des d'Egipte o el mar Negre només es cobren dues dracmes, amb dona, fills i equipatge. Ho diu Plató, que es queixa que el pilot que et salva la vida cobra menys que un mestre de retòrica. Si no tens diners, ajudaràs amb les veles.</p>
+<p>Cheap. From Aegina to Piraeus I charge two obols, like everyone else. To the Cyclades, a drachma; to Lesbos, one and a half; to Crete, two drachmas. Even from Egypt or the Black Sea they charge only two drachmas, wife, children and luggage included. Plato says so, complaining that the pilot who saves your life earns less than a teacher of rhetoric. If you have no money, you'll help with the sails.</p>
+
+¿Es peligroso navegar?
+És perillós navegar?
+Is sailing dangerous?
+
+<p>Navegamos de primavera a otoño, de día y cerca de la costa si se puede; en invierno el mar está cerrado. Hay tormentas, rocas y piratas. Hasta hace unos meses, los corsarios de Egina asaltaban a todo barco ateniense. Ahora, con la Paz del Rey, el mar está más tranquilo. Más o menos.</p>
+<p>Naveguem de primavera a tardor, de dia i a prop de la costa si es pot; a l'hivern el mar és tancat. Hi ha tempestes, roques i pirates. Fins fa uns mesos, els corsaris d'Egina assaltaven tots els vaixells atenesos. Ara, amb la Pau del Rei, el mar està més tranquil. Més o menys.</p>
+<p>We sail from spring to autumn, by day and close to the coast when we can; in winter the sea is closed. There are storms, rocks and pirates. Until a few months ago the privateers of Aegina attacked every Athenian ship. Now, with the King's Peace, the sea is calmer. More or less.</p>
+
+"De camino a "
+"De camí a "
+"On the road to "
+
+"Navegando hacia "
+"Navegant cap a "
+"Sailing to "
+
+"Pagas "
+"Pagues "
+"You pay "
+
+" óbolos."
+" òbols."
+" obols."
+
+Pagas el viaje cargando ánforas en el carro.
+Pagues el viatge carregant àmfores al carro.
+You pay for the journey by loading amphorae onto the cart.
+
+Pagas el pasaje ayudando a la tripulación con las velas.
+Pagues el passatge ajudant la tripulació amb les veles.
+You pay your passage by helping the crew with the sails.
+
+"Mito en piedra · "
+"Mite en pedra · "
+"Myth in stone · "
+
+Seguir
+Continuar
+Continue
+
+</p><p><span class="label">¿Qué mito representa?</span></p>
+</p><p><span class="label">Quin mite representa?</span></p>
+</p><p><span class="label">Which myth does it show?</span></p>
+
+Mirar más tarde
+Mirar-ho més tard
+Look later
+
+<span class="n">1</span><span>Seguir</span>
+<span class="n">1</span><span>Continuar</span>
+<span class="n">1</span><span>Continue</span>
+
+<span class="label">Mito reconocido</span><br>
+<span class="label">Mite reconegut</span><br>
+<span class="label">Myth recognised</span><br>
+
+" · +1 óbolo"
+" · +1 òbol"
+" · +1 obol"
+
+<span class="label">Has reconocido todos los mitos</span><br>Eunice te da 5 óbolos más.
+<span class="label">Has reconegut tots els mites</span><br>L'Eunice et dona 5 òbols més.
+<span class="label">You have recognised every myth</span><br>Eunice gives you 5 more obols.
+
+</div><p class="sub">Las fuentes están en la Biblioteca (B), sección Mitos.</p>
+</div><p class="sub">Les fonts són a la Biblioteca (B), secció Mites.</p>
+</div><p class="sub">The sources are in the Library (B), Myths section.</p>
+
+</p><div class="verdict bad">No es ese. Fíjate otra vez en los detalles, o pregunta a Eunice, la abuela de la fuente.</div>
+</p><div class="verdict bad">No és aquest. Torna a fixar-te en els detalls, o pregunta a l'Eunice, l'àvia de la font.</div>
+</p><div class="verdict bad">That's not it. Look at the details again, or ask Eunice, the grandmother at the fountain.</div>
+
+<span class="n">2</span><span>Volver a intentarlo</span>
+<span class="n">2</span><span>Tornar-ho a provar</span>
+<span class="n">2</span><span>Try again</span>
+
+Ficha que condena (eje hueco)
+Fitxa que condemna (eix buit)
+Token to condemn (hollow axle)
+
+Ficha que absuelve (eje macizo)
+Fitxa que absol (eix massís)
+Token to acquit (solid axle)
+
+Continuar
+Continuar
+Continue
+
+Volver a escuchar lo anterior
+Tornar a escoltar el que s'ha dit
+Hear the previous part again
+
+Salir del tribunal
+Sortir del tribunal
+Leave the court
+
+Recuento de votos
+Recompte de vots
+Vote count
+
+"Tu ficha: "
+"La teva fitxa: "
+"Your token: "
+
+" votos para condenar y "
+" vots per condemnar i "
+" votes to condemn and "
+
+" para absolver\"><span style=\"width:"
+" per absoldre\"><span style=\"width:"
+" to acquit\"><span style=\"width:"
+
+" condenan</span><span style=\"width:"
+" condemnen</span><span style=\"width:"
+" condemn</span><span style=\"width:"
+
+" absuelven</span></div>"
+" absolen</span></div>"
+" acquit</span></div>"
+
+Los vendedores de trigo son condenados.
+Els venedors de blat són condemnats.
+The grain dealers are condemned.
+
+Los vendedores de trigo son absueltos.
+Els venedors de blat són absolts.
+The grain dealers are acquitted.
+
+</b> Este resultado es una simulación: <b>no sabemos cómo terminó el juicio real</b>. Solo se conserva el discurso de la acusación, escrito por Lisias hacia el 386 (discurso 22).</p>
+</b> Aquest resultat és una simulació: <b>no sabem com va acabar el judici real</b>. Només es conserva el discurs de l'acusació, escrit per Lísias cap al 386 (discurs 22).</p>
+</b> This outcome is a simulation: <b>we do not know how the real trial ended</b>. Only the prosecution speech survives, written by Lysias around 386 (speech 22).</p>
+
+<p>Lo que el caso muestra es muy real: Atenas dependía del trigo importado, los comerciantes eran metecos sin derechos políticos y la ira popular estuvo a punto de saltarse el procedimiento, porque parte del Consejo quería ejecutarlos sin juicio. Las fuentes están en la Biblioteca (B).</p>
+<p>El que el cas mostra és ben real: Atenes depenia del blat importat, els comerciants eren metecs sense drets polítics i la ira popular va estar a punt de saltar-se el procediment, perquè part del Consell els volia executar sense judici. Les fonts són a la Biblioteca (B).</p>
+<p>What the case shows is very real: Athens depended on imported grain, the merchants were metics without political rights, and popular anger almost overrode due process, because part of the Council wanted to execute them without trial. The sources are in the Library (B).</p>
+
+<span class="n">1</span><span>Salir del tribunal</span>
+<span class="n">1</span><span>Sortir del tribunal</span>
+<span class="n">1</span><span>Leave the court</span>
+
+"Mito en piedra: "
+"Mite en pedra: "
+"Myth in stone: "
+
+Mitología griega
+Mitologia grega
+Greek mythology
+
+Sobre el juego
+Sobre el joc
+About the game
+
+<div class="empty">Nada coincide con la búsqueda.</div>
+<div class="empty">No hi ha res que coincideixi amb la cerca.</div>
+<div class="empty">Nothing matches your search.</div>
+
+<h5>Fuentes antiguas</h5><ul class="src">
+<h5>Fonts antigues</h5><ul class="src">
+<h5>Ancient sources</h5><ul class="src">
+
+<h5>Estudios modernos</h5><ul class="src">
+<h5>Estudis moderns</h5><ul class="src">
+<h5>Modern studies</h5><ul class="src">
+
+<h5>Precisiones y dudas</h5>
+<h5>Precisions i dubtes</h5>
+<h5>Clarifications and doubts</h5>
+
+"<span class=\"label\">Mitología griega · "
+"<span class=\"label\">Mitologia grega · "
+"<span class=\"label\">Greek mythology · "
+
+</h3><div class="meta">Te lo cuenta Demofonte, el librero del Ágora.</div><p>
+</h3><div class="meta">T'ho explica Demofont, el llibreter de l'Àgora.</div><p>
+</h3><div class="meta">Told to you by Demophon, the bookseller of the Agora.</div><p>
+
+<span class="label">Mito en piedra</span><h3>
+<span class="label">Mite en pedra</span><h3>
+<span class="label">Myth in stone</span><h3>
+
+Ya lo has reconocido en el juego.
+Ja l'has reconegut al joc.
+You have already recognised it in the game.
+
+Aún no lo has reconocido en el juego.
+Encara no l'has reconegut al joc.
+You have not yet recognised it in the game.
+
+"<span class=\"label\">Lugar · "
+"<span class=\"label\">Lloc · "
+"<span class=\"label\">Place · "
+
+Ya has leído su estela en el juego.
+Ja n'has llegit l'estela al joc.
+You have already read its stele in the game.
+
+Aún no has encontrado su estela en el juego.
+Encara no n'has trobat l'estela al joc.
+You have not yet found its stele in the game.
+
+"Personaje inventado. "
+"Personatge inventat. "
+"Invented character. "
+
+"Personaje histórico. "
+"Personatge històric. "
+"Historical character. "
+
+Lección superada.
+Lliçó superada.
+Lesson passed.
+
+Lección pendiente.
+Lliçó pendent.
+Lesson pending.
+
+" Dónde: "
+" On: "
+" Where: "
+
+"Lo que cuenta "
+"El que explica "
+"What is told by "
+
+Las intervenciones del juicio
+Les intervencions del judici
+The speeches at the trial
+
+"Pasan unas horas: "
+"Passen unes hores: "
+"A few hours pass: "
+
+"\">Leer más y ver las fuentes</button></div>"
+"\">Llegir-ne més i veure'n les fonts</button></div>"
+"\">Read more and see the sources</button></div>"
+
+"Habla con "
+"Parla amb "
+"Talk to "
+
+" y supera su pregunta."
+" i supera la seva pregunta."
+" and answer their question."
+
+"\">Ver las fuentes</button></div>"
+"\">Veure les fonts</button></div>"
+"\">See the sources</button></div>"
+
+<div class="entry locked"><span class="label">Sin descubrir</span><h3>
+<div class="entry locked"><span class="label">Per descobrir</span><h3>
+<div class="entry locked"><span class="label">Undiscovered</span><h3>
+
+</h3><p>Busca su estela (el rombo dorado) y pulsa E para leerla.</p></div>
+</h3><p>Busca'n l'estela (el rombe daurat) i prem E per llegir-la.</p></div>
+</h3><p>Find its stele (the golden diamond) and press E to read it.</p></div>
+
+<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Busca los rombos azules junto a frontones, metopas, frisos y pinturas, y pulsa E para identificar el mito. Eunice, la abuela de la fuente del sureste del Ágora, te explica el juego.</p><div class="entries">
+<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Busca els rombes blaus al costat de frontons, mètopes, frisos i pintures, i prem E per identificar el mite. L'Eunice, l'àvia de la font del sud-est de l'Àgora, t'explica el joc.</p><div class="entries">
+<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Look for the blue diamonds beside pediments, metopes, friezes and paintings, and press E to identify the myth. Eunice, the grandmother at the fountain in the south-east of the Agora, explains the game.</p><div class="entries">
+
+<div class="entry"><span class="label">Mito reconocido</span><h3>
+<div class="entry"><span class="label">Mite reconegut</span><h3>
+<div class="entry"><span class="label">Myth recognised</span><h3>
+
+<div class="entry locked"><span class="label">Por reconocer</span><h3>
+<div class="entry locked"><span class="label">Per reconèixer</span><h3>
+<div class="entry locked"><span class="label">Not yet recognised</span><h3>
+
+</h3><p>Busca el rombo azul y descubre qué mito representa.</p></div>
+</h3><p>Busca el rombe blau i descobreix quin mite representa.</p></div>
+</h3><p>Find the blue diamond and discover which myth it shows.</p></div>
+
+<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Los dioses se aparecen fuera de las murallas, junto a los lugares de su culto. Se los reconoce por el brillo de su piel. Cada uno te puede pedir un favor.</p><div class="entries">
+<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Els déus s'apareixen fora de les muralles, al costat dels llocs del seu culte. Se'ls reconeix per la brillantor de la pell. Cadascun et pot demanar un favor.</p><div class="entries">
+<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">The gods appear outside the walls, near the places where they are worshipped. You can tell them by the glow of their skin. Each of them may ask you a favour.</p><div class="entries">
+
+<div class="entry locked"><span class="label">Sin encontrar</span><h3>
+<div class="entry locked"><span class="label">Per trobar</span><h3>
+<div class="entry locked"><span class="label">Not yet found</span><h3>
+
+"</h3><p>Dicen que se le ha visto "
+"</h3><p>Diuen que se l'ha vist "
+"</h3><p>They say they have been seen "
+
+Favor concedido
+Favor concedit
+Favour granted
+
+"Encargo cumplido: vuelve a hablar con "
+"Encàrrec complert: torna a parlar amb "
+"Task done: speak again with "
+
+Encargo en curso
+Encàrrec en curs
+Task in progress
+
+Aún no le has preguntado si necesita algo
+Encara no li has preguntat si necessita res
+You have not yet asked if they need anything
+
+Has cumplido su encargo.
+Has complert el seu encàrrec.
+You have completed their task.
+
+" y pregúntale si puedes hacer algo por él o por ella."
+" i pregunta-li si pots fer res per ell o per ella."
+" and ask whether you can do something for them."
+
+" a.C.</span><div>"
+" aC</span><div>"
+" BC</span><div>"
+
+Licabeto
+Licabet
+Lycabettus
+
+Colina de las Musas
+Turó de les Muses
+Hill of the Muses
+
+Pireo (barco a las islas)
+Pireu (vaixell a les illes)
+Piraeus (ship to the islands)
+
+Plano de Roma
+Plànol de Roma
+Map of Rome
+
+"Plano de "
+"Plànol de "
+"Map of "
+
+Personaje por conocer
+Personatge per conèixer
+Character not yet met
+
+Lugar descubierto (clic para viajar)
+Lloc descobert (clic per viatjar-hi)
+Place discovered (click to travel)
+
+" · amplía más para ver nombres"
+" · amplia més per veure'n els noms"
+" · zoom in further to see names"
+
+Rueda o + para ampliar
+Roda o + per ampliar
+Wheel or + to zoom in
+
+"Viajas a: "
+"Viatges a: "
+"Travelling to: "
+
+# ---------------------------------------------------------------- viajes por tierra
+Arriero · caminos de Grecia · personaje inventado
+Traginer · camins de Grècia · personatge inventat
+Muleteer · roads of Greece · invented character
+
+<p>Salud, forastero. Llevo cerámica de Atenas por los caminos de Grecia y vuelvo con lo que encuentro: anguilas del Copais, lana de Arcadia, hierro de Laconia. Si quieres, te subes al carro. Hasta Tebas son dos días; hasta Micenas, tres; hasta Esparta, una semana.</p>
+<p>Salut, foraster. Porto ceràmica d'Atenes pels camins de Grècia i torno amb el que trobo: anguiles del Copais, llana d'Arcàdia, ferro de Lacònia. Si vols, puja al carro. Fins a Tebes hi ha dos dies; fins a Micenes, tres; fins a Esparta, una setmana.</p>
+<p>Greetings, stranger. I carry Athenian pottery along the roads of Greece and come back with whatever I find: eels from Lake Copais, wool from Arcadia, iron from Laconia. Hop on the cart if you like. It's two days to Thebes, three to Mycenae and a week to Sparta.</p>
+
+"Viajar a "
+"Viatjar a "
+"Travel to "
+
+" (pagarás cargando ánforas)"
+" (pagaràs carregant àmfores)"
+" (you'll pay by loading amphorae)"
+
+¿Cómo están las cosas por Grecia?
+Com van les coses per Grècia?
+How are things in Greece?
+
+<p>Con la paz del Rey, los espartanos mandan en toda Grecia. Han obligado a disolver la liga de las ciudades beocias y quieren reconstruir Platea; en Tebas hay dos bandos, los amigos de Esparta y los que no la soportan. En Esparta, el rey Agesilao está contento. En Micenas no queda nadie a quien le importe: solo piedras y cabras.</p>
+<p>Amb la pau del Rei, els espartans manen a tota Grècia. Han obligat a dissoldre la lliga de les ciutats beòcies i volen reconstruir Platea; a Tebes hi ha dos bàndols, els amics d'Esparta i els que no la suporten. A Esparta, el rei Agesilau està content. A Micenes no queda ningú a qui li importi: només pedres i cabres.</p>
+<p>With the King's Peace, the Spartans rule all of Greece. They have forced the league of Boeotian cities to dissolve and want to rebuild Plataea; in Thebes there are two factions, Sparta's friends and those who can't stand her. In Sparta, King Agesilaus is pleased. In Mycenae there's nobody left to care: only stones and goats.</p>
+
+¿Es seguro el camino?
+És segur el camí?
+Is the road safe?
+
+<p>Hacia Tebas, en el Citerón hay fortines atenienses y alguna vez bandidos; dormimos en Eleuteras, donde nació el culto de Dioniso. Hacia el Peloponeso hay que cruzar las Rocas Escironias, donde según el mito Teseo mató al bandido Escirón, y luego el Istmo. En Arcadia, cuidado con los lobos.</p>
+<p>Cap a Tebes, al Citeró hi ha fortins atenesos i de vegades bandolers; dormim a Eleuteres, on va néixer el culte de Dionís. Cap al Peloponès cal travessar les Roques Escirònides, on segons el mite Teseu va matar el bandoler Escíron, i després l'Istme. A l'Arcàdia, compte amb els llops.</p>
+<p>Towards Thebes, on Mount Cithaeron there are Athenian forts and now and then bandits; we sleep at Eleutherae, where the cult of Dionysus was born. Towards the Peloponnese you must cross the Scironian Rocks, where in the myth Theseus killed the bandit Sciron, and then the Isthmus. In Arcadia, beware of the wolves.</p>
+
+# ---------------------------------------------------------------- Roma: pantalla de inicio
+Roma, 80 d.C.
+Roma, 80 dC
+Rome, AD 80
+
+Roma · año 80 d.C.
+Roma · any 80 dC
+Rome · AD 80
+
+Roma<span>AÑO 80 d.C.</span>
+Roma<span>ANY 80 dC</span>
+Rome<span>AD 80</span>
+
+Entrar en el Foro
+Entrar al Fòrum
+Enter the Forum
+
+Buscar: Marcial, termas, Tíber…
+Cerca: Marcial, termes, Tíber…
+Search: Martial, baths, Tiber…
+
+# ---------------------------------------------------------------- clases
+"<p><span class=\"label\">Clases · "
+"<p><span class=\"label\">Classes · "
+"<p><span class=\"label\">Classes · "
+
+" superadas</span></p><p>"
+" superades</span></p><p>"
+" passed</span></p><p>"
+
+¿Qué quieres aprender hoy?
+Què vols aprendre avui?
+What would you like to learn today?
+
+Hacer los ejercicios
+Fer els exercicis
+Do the exercises
+
+Volver a las clases
+Tornar a les classes
+Back to the classes
+
+<span class="label">Clase superada</span><br>
+<span class="label">Classe superada</span><br>
+<span class="label">Class passed</span><br>
+
+¡Muy bien! Has acertado todos los ejercicios.
+Molt bé! Has encertat tots els exercicis.
+Very good! You got every exercise right.
+
+Otra clase
+Una altra classe
+Another class
+
+Repetir esta clase
+Repetir aquesta classe
+Repeat this class
+
+"<p><span class=\"label\">Ejercicio "
+"<p><span class=\"label\">Exercici "
+"<p><span class=\"label\">Exercise "
+
+"Correcto. "
+"Correcte. "
+"Correct. "
+
+"No. "
+"No. "
+"No. "
+
+Siguiente
+Següent
+Next
+
+# ---------------------------------------------------------------- tu casa
+<p><span class="label">Contratar a un sofista</span></p><p>Puedo mandar recado a cualquiera de estos maestros que están en la ciudad. Vendrá con unos cuantos alumnos de buena familia, que no se pierden una lección así, y os esperará en el andrón. Lo que cobran, amo, mejor no lo pienses: Calias corre con los gastos.</p>
+<p><span class="label">Contractar un sofista</span></p><p>Puc enviar un missatge a qualsevol d'aquests mestres que són a la ciutat. Vindrà amb uns quants alumnes de bona família, que no es perden una lliçó així, i us esperarà a l'andró. El que cobren, amo, millor no t'ho miris: en Càl·lias paga les despeses.</p>
+<p><span class="label">Hire a sophist</span></p><p>I can send word to any of these teachers who are in the city. He will come with a few pupils from good families, who never miss a lesson like that, and wait for you in the andron. As for what they charge, master, better not to think about it: Callias is paying.</p>
+
+" (ya está en casa)"
+" (ja és a casa)"
+" (already at home)"
+
+" ha llegado</span><br>Te espera en el andrón, al fondo del patio, con los alumnos."
+" ha arribat</span><br>T'espera a l'andró, al fons del pati, amb els alumnes."
+" has arrived</span><br>He is waiting for you in the andron, at the back of the courtyard, with the pupils."
+
+Despedir al sofista (los alumnos se marchan)
+Acomiadar el sofista (els alumnes se'n van)
+Dismiss the sophist (the pupils leave)
+
+<p>Como mandes. Ya se van; el andrón vuelve a estar tranquilo.</p>
+<p>Com manis. Ja se'n van; l'andró torna a estar tranquil.</p>
+<p>As you wish. They are leaving; the andron is quiet again.</p>
+
+<p>¿Algo más, amo?</p>
+<p>Res més, amo?</p>
+<p>Anything else, master?</p>
+
+# ---------------------------------------------------------------- Rafael
+"\" alt=\"La escuela de Atenas, de Rafael\">"
+"\" alt=\"L'escola d'Atenes, de Rafael\">"
+"\" alt=\"The School of Athens, by Raphael\">"
+
+</div><div class="rf-info" id="rfInfo">Toca un punto del cuadro.</div>
+</div><div class="rf-info" id="rfInfo">Toca un punt del quadre.</div>
+</div><div class="rf-info" id="rfInfo">Tap a point on the painting.</div>
+
+<i>(La imagen del fresco no está disponible en esta copia.)</i>
+<i>(La imatge del fresc no està disponible en aquesta còpia.)</i>
+<i>(The image of the fresco is not available in this copy.)</i>
+
+# ---------------------------------------------------------------- caballo, vista, dioses
+Silbas. A lo lejos se oye un galope.
+Xiules. De lluny se sent un galop.
+You whistle. A gallop sounds in the distance.
+
+Montas a caballo: vas al triple de velocidad (Shift para galopar). Pulsa <b>
+Muntes a cavall: vas al triple de velocitat (Maj per galopar). Prem <b>
+You mount the horse: you move at triple speed (Shift to gallop). Press <b>
+
+</b> para bajar.
+</b> per baixar.
+</b> to dismount.
+
+El caballo ha llegado. Pulsa <b>
+El cavall ha arribat. Prem <b>
+The horse has arrived. Press <b>
+
+</b> para montar.
+</b> per muntar.
+</b> to mount.
+
+Vista en tercera persona. Pulsa <b>V</b> para volver.
+Vista en tercera persona. Prem <b>V</b> per tornar.
+Third-person view. Press <b>V</b> to go back.
+
+Vista en primera persona.
+Vista en primera persona.
+First-person view.
+
+"<span class=\"label\">Una presencia divina</span><br>Algo brilla "
+"<span class=\"label\">Una presència divina</span><br>Alguna cosa brilla "
+"<span class=\"label\">A divine presence</span><br>Something is shining "
+
+" · dios del Olimpo"
+" · déu de l'Olimp"
+" · Olympian god"
+
+¿Puedo hacer algo por ti?
+Puc fer alguna cosa per tu?
+Can I do something for you?
+
+"</p><div class=\"verdict\">Encargo de "
+"</p><div class=\"verdict\">Encàrrec de "
+"</p><div class=\"verdict\">Task from "
+
+<span class="label">Encargo divino</span><br>
+<span class="label">Encàrrec diví</span><br>
+<span class="label">Divine task</span><br>
+
+Sobre tu encargo…
+Sobre el teu encàrrec…
+About your task…
+
+He cumplido tu encargo
+He complert el teu encàrrec
+I have done your task
+
+"</p><div class=\"verdict\">Favor de "
+"</p><div class=\"verdict\">Favor de "
+"</p><div class=\"verdict\">Favour of "
+
+" óbolos</div>"
+" òbols</div>"
+" obols</div>"
+
+<span class="label">Favor divino</span><br>
+<span class="label">Favor diví</span><br>
+<span class="label">Divine favour</span><br>
+
+"<span class=\"label\">Encargo cumplido</span><br>Vuelve con "
+"<span class=\"label\">Encàrrec complert</span><br>Torna amb "
+"<span class=\"label\">Task done</span><br>Go back to "
+
+") para contárselo."
+") per explicar-l'hi."
+") to tell them."
+
+# ---------------------------------------------------------------- avisos en pantalla
+"Hablar con "
+"Parlar amb "
+"Talk to "
+
+"Leer: "
+"Llegir: "
+"Read: "
+
+"Observar: "
+"Observar: "
+"Look at: "
+
+Hablar con Lisicles, el arriero
+Parlar amb Lisicles, el traginer
+Talk to Lysicles, the muleteer
+
+Hablar con Hagnón, el armador
+Parlar amb Hagnó, l'armador
+Talk to Hagnon, the shipowner
+
+Escuchar
+Escoltar
+Listen
+
+</kbd>Montar el caballo
+</kbd>Muntar el cavall
+</kbd>Mount the horse
+
+Busca a las personas con un rombo <b>!</b> sobre la cabeza y las estelas con un rombo dorado. Pulsa <b>J</b> para ver tu diario y <b>M</b> para el plano.
+Busca les persones amb un rombe <b>!</b> sobre el cap i les esteles amb un rombe daurat. Prem <b>J</b> per veure el teu diari i <b>M</b> per al plànol.
+Look for people with a <b>!</b> diamond above their heads and for steles with a golden diamond. Press <b>J</b> for your journal and <b>M</b> for the map.
+
+"Algo falló al construir la ciudad: "
+"Alguna cosa ha fallat en construir la ciutat: "
+"Something went wrong while building the city: "
+
+"Tu progreso anterior se ha recuperado: "
+"S'ha recuperat el teu progrés anterior: "
+"Your previous progress has been restored: "
+
+" lecciones y "
+" lliçons i "
+" lessons and "
+
+La ciudad está lista.
+La ciutat és a punt.
+The city is ready.
+
+# ---------------------------------------------------------------- diálogo con Platón (IA)
+<p><span class="label">Discusión libre con Platón · con Claude</span></p>
+<p><span class="label">Discussió lliure amb Plató · amb Claude</span></p>
+<p><span class="label">Free debate with Plato · with Claude</span></p>
+
+<p class="sub">Pregúntale lo que quieras: sobre la justicia, el alma, el amor, la política, Sócrates… Platón responde como en el 386 a.C. Cada respuesta usa tu cuenta de Claude.</p>
+<p class="sub">Pregunta-li el que vulguis: sobre la justícia, l'ànima, l'amor, la política, Sòcrates… Plató respon com el 386 aC. Cada resposta fa servir el teu compte de Claude.</p>
+<p class="sub">Ask him whatever you like: about justice, the soul, love, politics, Socrates… Plato answers as in 386 BC. Each answer uses your Claude account.</p>
+
+Tú
+Tu
+You
+
+"<p><b>Platón:</b> "
+"<p><b>Plató:</b> "
+"<p><b>Plato:</b> "
+
+…pensando…
+…pensant…
+…thinking…
+
+Parar
+Aturar
+Stop
+
+<span class="label">Discusión con Platón</span><br>+2 óbolos por haber dialogado con él
+<span class="label">Discussió amb Plató</span><br>+2 òbols per haver dialogat amb ell
+<span class="label">Debate with Plato</span><br>+2 obols for having talked with him
+
+No has permitido que el juego use Claude, así que Platón calla. Puedes cambiarlo en los permisos del artefacto.
+No has permès que el joc faci servir Claude, així que Plató calla. Ho pots canviar als permisos de l'artefacte.
+You have not allowed the game to use Claude, so Plato is silent. You can change this in the artifact's permissions.
+
+Claude no está disponible en esta cuenta.
+Claude no està disponible en aquest compte.
+Claude is not available on this account.
+
+Platón necesita descansar un poco: has hecho muchas preguntas seguidas. Inténtalo dentro de un rato.
+Plató necessita descansar una mica: has fet moltes preguntes seguides. Torna-ho a provar d'aquí a una estona.
+Plato needs a little rest: you have asked many questions in a row. Try again in a while.
+
+Platón prefiere no responder a eso. Prueba con otra pregunta.
+Plató prefereix no respondre a això. Prova amb una altra pregunta.
+Plato would rather not answer that. Try another question.
+
+Se ha interrumpido la conversación. Vuelve a intentarlo.
+S'ha interromput la conversa. Torna-ho a provar.
+The conversation was interrupted. Try again.
+
+Enviar
+Enviar
+Send
+
+# ---------------------------------------------------------------- sueño de Rafael
+Sueño: la escuela de Atenas
+Somni: l'escola d'Atenes
+Dream: the School of Athens
+
+Estás dentro de un sueño: la sala que Rafael pintó en el Vaticano en 1509-1511, con los sabios de dos mil años reunidos en una misma escalinata. Habla con ellos. Cuando quieras, toca esta estela para despertar bajo los olivos de la Academia.
+Ets dins d'un somni: la sala que Rafael va pintar al Vaticà el 1509-1511, amb els savis de dos mil anys reunits en una mateixa escalinata. Parla amb ells. Quan vulguis, toca aquesta estela per despertar sota les oliveres de l'Acadèmia.
+You are inside a dream: the room Raphael painted in the Vatican in 1509-1511, with the sages of two thousand years gathered on the same flight of steps. Talk to them. Whenever you like, touch this stele to wake up under the olive trees of the Academy.
+
+Los olivos de Academo
+Les oliveres d'Acadèmos
+The olive trees of Academus
+
+Bajo los olivos sagrados del bosque de Academo, donde Platón pasea con sus discípulos, se está bien a la sombra. Dicen que quien duerme aquí sueña con los sabios del pasado y del futuro. Toca esta estela para dormir y soñar con «La escuela de Atenas», el fresco que Rafael pintará dentro de diecinueve siglos.
+Sota les oliveres sagrades del bosc d'Acadèmos, on Plató passeja amb els seus deixebles, s'hi està bé a l'ombra. Diuen que qui dorm aquí somia amb els savis del passat i del futur. Toca aquesta estela per dormir i somiar amb «L'escola d'Atenes», el fresc que Rafael pintarà d'aquí a dinou segles.
+Under the sacred olive trees of the grove of Academus, where Plato walks with his disciples, the shade is pleasant. They say whoever sleeps here dreams of the sages of the past and the future. Touch this stele to sleep and dream of «The School of Athens», the fresco Raphael will paint nineteen centuries from now.
+
+Te quedas dormido…
+T'adorms…
+You fall asleep…
+
+Despiertas…
+Et despertes…
+You wake up…
+
+Bajo los olivos de Academo, el rumor de las hojas te adormece.
+Sota les oliveres d'Acadèmos, la remor de les fulles t'adorm.
+Under the olive trees of Academus, the rustle of the leaves lulls you to sleep.
+
+El sol se filtra entre los olivos. ¿Ha sido solo un sueño?
+El sol es filtra entre les oliveres. Només ha estat un somni?
+The sun filters through the olive trees. Was it only a dream?
+
+Rafael pintó «La escuela de Atenas» en 1509-1511, diecinueve siglos después de tu viaje.
+Rafael va pintar «L'escola d'Atenes» el 1509-1511, dinou segles després del teu viatge.
+Raphael painted «The School of Athens» in 1509-1511, nineteen centuries after your journey.
+
+Platón enseñará en la Academia hasta su muerte, en el 348/347 a.C.
+Plató ensenyarà a l'Acadèmia fins a la seva mort, el 348/347 aC.
+Plato will teach at the Academy until his death in 348/347 BC.
+
+# ---------------------------------------------------------------- teatro
+"<span class=\"label\">Teatro de Dioniso</span><br>Empieza "
+"<span class=\"label\">Teatre de Dionís</span><br>Comença "
+"<span class=\"label\">Theatre of Dionysus</span><br>Now starting: "
+
+", de Eurípides."
+", d'Eurípides."
+", by Euripides."
+
+" · Eurípides ("
+" · Eurípides ("
+" · Euripides ("
+
+" a.C.) · escena "
+" aC) · escena "
+" BC) · scene "
+
+<span class="label">Cortejo nupcial</span><br>Al este del Eleusinion, una novia viaja en carro a su nueva casa entre antorchas.
+<span class="label">Seguici nupcial</span><br>A l'est de l'Eleusinion, una núvia viatja en carro cap a la seva nova casa entre torxes.
+<span class="label">Wedding procession</span><br>East of the Eleusinion, a bride rides in a cart to her new home among torches.
+
+"Programa de los juegos escénicos: "
+"Programa dels jocs escènics: "
+"Programme of the stage games: "
+
+". Las comedias «palliatas», con personajes griegos con manto (pallium), se adaptaban de comedias griegas como las de Menandro. Entra por los pasillos laterales y quédate en la orquesta, junto a los senadores, para seguir la obra escena a escena."
+". Les comèdies «pal·liates», amb personatges grecs amb mantell (pallium), s'adaptaven de comèdies gregues com les de Menandre. Entra pels passadissos laterals i queda't a l'orquestra, al costat dels senadors, per seguir l'obra escena a escena."
+". The «palliatae» comedies, with Greek characters in cloaks (pallium), were adapted from Greek comedies such as Menander's. Come in through the side passages and stay in the orchestra, beside the senators, to follow the play scene by scene."
+
+Hoy se reponen en el {0} tres comedias de {1} ({2}): 
+Avui es tornen a representar al {0} tres comèdies de {1} ({2}): 
+Today the {0} is reviving three comedies by {1} ({2}): 
+
+{0} ({1}), de {2} a {3} h
+{0} ({1}), de {2} a {3} h
+{0} ({1}), from {2} to {3} h
+
+<span class="label">{0}</span><br>Empieza {1}, de {2}.
+<span class="label">{0}</span><br>Comença {1}, de {2}.
+<span class="label">{0}</span><br>Now starting: {1}, by {2}.
+
+Aumento ×{0}
+Augment ×{0}
+Zoom ×{0}
+
+Has acertado {0} de {1}. Repasa la lección y vuelve a intentarlo.
+N'has encertat {0} de {1}. Repassa la lliçó i torna-ho a provar.
+You got {0} out of {1} right. Review the lesson and try again.
+
+condenar
+condemnar
+condemn
+
+absolver
+absoldre
+acquit
+
+<p>Tito, hijo de Vespasiano, es emperador desde hace un año. El Vesubio acaba de sepultar Pompeya, y Roma, que se reconstruye aún del incendio de Nerón, celebra cien días de juegos para inaugurar el Anfiteatro Flavio.</p><p>Llegas al Foro Romano. Habla con poetas, filósofos, senadores, gladiadores, libertos y vestales; lee las inscripciones y aprende cómo vive, gobierna y piensa la mayor ciudad del mundo. Cada lección que superes te dará tres sestercios.</p>
+<p>Titus, fill de Vespasià, és emperador des de fa un any. El Vesuvi acaba de sepultar Pompeia, i Roma, que encara es reconstrueix de l'incendi de Neró, celebra cent dies de jocs per inaugurar l'Amfiteatre Flavi.</p><p>Arribes al Fòrum Romà. Parla amb poetes, filòsofs, senadors, gladiadors, llibertos i vestals; llegeix les inscripcions i aprèn com viu, governa i pensa la ciutat més gran del món. Cada lliçó que superis et donarà tres sestercis.</p>
+<p>Titus, son of Vespasian, has been emperor for a year. Vesuvius has just buried Pompeii, and Rome, still rebuilding after Nero's fire, is celebrating a hundred days of games to open the Flavian Amphitheatre.</p><p>You arrive in the Roman Forum. Talk with poets, philosophers, senators, gladiators, freedmen and Vestals; read the inscriptions and learn how the greatest city in the world lives, governs and thinks. Each lesson you pass earns you three sesterces.</p>
+
+<div class="aibox" style="display:flex;gap:6px;flex-wrap:wrap;width:100%"><input id="aiIn" type="text" maxlength="500" placeholder="Escribe tu pregunta o tu argumento…" style="flex:1;min-width:200px;padding:8px;font:inherit;background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.25);border-radius:6px"><button id="aiSend" class="quiz">Enviar</button><button id="aiEnd">Terminar la discusión</button><button id="aiBack">Volver</button></div>
+<div class="aibox" style="display:flex;gap:6px;flex-wrap:wrap;width:100%"><input id="aiIn" type="text" maxlength="500" placeholder="Escriu la teva pregunta o el teu argument…" style="flex:1;min-width:200px;padding:8px;font:inherit;background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.25);border-radius:6px"><button id="aiSend" class="quiz">Enviar</button><button id="aiEnd">Acabar la discussió</button><button id="aiBack">Tornar</button></div>
+<div class="aibox" style="display:flex;gap:6px;flex-wrap:wrap;width:100%"><input id="aiIn" type="text" maxlength="500" placeholder="Write your question or your argument…" style="flex:1;min-width:200px;padding:8px;font:inherit;background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.25);border-radius:6px"><button id="aiSend" class="quiz">Send</button><button id="aiEnd">End the debate</button><button id="aiBack">Back</button></div>
+
+(El forastero tiene que irse. Despídete de él en dos o tres frases, resumiendo con generosidad lo que habéis pensado juntos.)
+(El foraster se n'ha d'anar. Acomiada't d'ell en dues o tres frases, resumint amb generositat el que heu pensat junts.)
+(The stranger has to leave. Say goodbye to him in two or three sentences, generously summing up what you have thought through together.)
+
+# puntos cardinales de la brújula (CDIRS)
+SO
+SO
+SW
+
+O
+O
+W
+
+NO
+NO
+NW
