@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 26). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 27). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -49,6 +49,10 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Punto de mira:** sin captura del puntero, el punto de mira (`#cross`) sigue al cursor (la flecha del sistema se oculta) y E apunta a lo que hay bajo él (`aimYaw`).
 - **Doble salto:** Espacio otra vez en el aire (`jump()`, `player.jumps`).
 - **Ratón:** la cámara gira con solo mover el ratón; con un clic se captura el puntero y gira sin límite. Sin captura, el cursor en el borde izquierdo o derecho sigue girando.
+
+### Novedades de la versión 27: Maratón
+- **Maratón** (`maraton` en `GREECE_DESTS`, bloque en `buildGreece2`): por tierra con Lisicles. Tiene el Soros, el túmulo de los plateenses, el trofeo de mármol, el santuario de Heracles, la marisma y el demo. El personaje es Hegesias (`hegesias`, inventado), nieto de un combatiente.
+- **Esfera histórica «La batalla de Maratón»** (`hist:true`): con ese campo, la esfera dice «momento histórico» en lugar de «mito». Tiene siete escenas: el desembarco, Filípides, el consejo de Milcíades y Calímaco, la carga a la carrera, el envolvimiento del centro persa, la lucha en las naves y el Soros.
 
 ### Novedades de la versión 26: Grecia continental, Italia, Hispania, dioses de Roma y el Mediterráneo
 - **Polis de Grecia continental y del Peloponeso** (Atenas; `GREECE_DESTS`, `defineGreece2`, `buildGreece2`, `greekArrive`): Mégara, Corinto, Platea, Delfos, Argos, Epidauro, Mantinea y Olimpia, por tierra con Lisicles. Cada una tiene estelas, aldeanos con frases, casas y un personaje con lección (`GREECE_NPCS2`): Euclides de Mégara (histórico), Nicandro, Eutíades, Teodoro, Dionisodoro, Sóstrato, Calias y Aristarco. Todo está fechado en el 386 (paz del Rey, fin de la unión de Corinto y Argos, Platea reconstruida, Mantinea a punto de ser disuelta, los Zanes del 388…).
