@@ -1,0 +1,173 @@
+# ROMA_VERRIO_CLASSES, buildMycenae, TRIAL_STEPS
+
+@473a58d4
+El gramàtic llegeix el text en veu alta (lectio), amb la pausa i l'entonació correctes; després l'explica vers a vers (enarratio): les paraules rares, els mites, la geografia, la història; corregeix els errors de les còpies (emendatio) i al final en jutja el valor (iudicium).
+The grammarian reads the text aloud (lectio), with the right pauses and intonation; then explains it line by line (enarratio): rare words, myths, geography, history; corrects the copyists' errors (emendatio) and finally judges its worth (iudicium).
+
+@5f8a190d
+Virgili ja és un clàssic de l'escola, com Homer per als grecs: els nens l'aprenen de memòria i a les parets de Pompeia s'hi han escrit els seus versos. L'Eneida comença: «Arma virumque cano», «Canto les armes i l'home que, el primer, des de les costes de Troia…». Aquest home és Enees.
+Virgil is already a school classic, as Homer is for the Greeks: children learn him by heart and his lines have been scrawled on the walls of Pompeii. The Aeneid begins: «Arma virumque cano», «I sing of arms and the man who first, from the shores of Troy…». That man is Aeneas.
+
+@556cc8b0
+Qui és «l'home» del primer vers de l'Eneida?
+Who is «the man» in the first line of the Aeneid?
+
+@63ed241f
+Enees, que va fugir de Troia i va arribar a Itàlia.
+Aeneas, who fled Troy and reached Italy.
+
+@0b85a59d
+Com s'anomena l'explicació del text vers a vers?
+What is the line-by-line explanation of the text called?
+
+@cd2f9b09
+=
+=
+
+@afd6ccd4
+=
+=
+
+@6c14b215
+=
+=
+
+@8249818c
+=
+=
+
+@86aca161
+Els gramàtics divideixen la llengua en vuit parts de l'oració: nom, pronom, verb, participi, adverbi, preposició, conjunció i interjecció. El llatí no té article, com el grec, i per això hi afegim la interjecció.
+Grammarians divide language into eight parts of speech: noun, pronoun, verb, participle, adverb, preposition, conjunction and interjection. Latin has no article, unlike Greek, so we add the interjection.
+
+@b718ab00
+El nom canvia la terminació segons la seva funció a la frase: és la declinació. Rosa, rosae, rosae, rosam, rosa, rosa: nominatiu, genitiu, datiu, acusatiu, vocatiu i ablatiu. Remmi Palèmon, el gramàtic més famós de l'època de Claudi, ho ensenyava així; era tan vanitós que deia que les lletres havien nascut amb ell i moririen amb ell.
+A noun changes its ending according to its function in the sentence: that's declension. Rosa, rosae, rosae, rosam, rosa, rosa: nominative, genitive, dative, accusative, vocative and ablative. Remmius Palaemon, the most famous grammarian of Claudius' time, taught it this way; he was so vain he said letters had been born with him and would die with him.
+
+@7758a021
+Quantes parts de l'oració distingeixen els gramàtics llatins?
+How many parts of speech do Latin grammarians distinguish?
+
+@f8a41f19
+Vuit
+Eight
+
+@8454fa8b
+Nom, pronom, verb, participi, adverbi, preposició, conjunció i interjecció.
+Noun, pronoun, verb, participle, adverb, preposition, conjunction and interjection.
+
+@46b0acc7
+Què és la declinació?
+What is declension?
+
+@0ec8cdd1
+El canvi de la terminació del nom segons la seva funció
+The change in a noun's ending according to its function
+
+@4c7c0173
+L'accent de les paraules
+The accent of words
+
+@50e5235a
+La forma dels verbs en passat
+The form of verbs in the past
+
+@e230edb0
+Rosa, rosae, rosam… segons el cas.
+Rosa, rosae, rosam… according to case.
+
+@028bae5a
+Un romà culte és bilingüe. Quintilià aconsella començar pel grec, perquè el llatí s'aprèn igualment a casa i al carrer. Molts nens rics tenen dides i pedagogs grecs i parlen grec abans que llatí.
+An educated Roman is bilingual. Quintilian advises starting with Greek, because Latin will be learned at home and in the street anyway. Many rich children have Greek nurses and tutors and speak Greek before Latin.
+
+@4b18f5ef
+Per això el gramàtic ensenya les dues literatures: primer Homer, després Virgili; Menandre i Terenci; Hesíode i Horaci. I en grec s'escriu la filosofia, la medicina, la ciència. L'emperador Claudi va escriure en grec una història dels etruscs i una altra de Cartago.
+That's why the grammarian teaches both literatures: first Homer, then Virgil; Menander and Terence; Hesiod and Horace. And philosophy, medicine and science are written in Greek. The emperor Claudius wrote a history of the Etruscans and another of Carthage in Greek.
+
+@e0104e70
+Segons Quintilià, per quina llengua havien de començar els nens?
+According to Quintilian, which language should children start with?
+
+@f876177f
+Pel grec
+Greek
+
+@b00f22ef
+Per l'etrusc
+Etruscan
+
+@073b9002
+Només pel llatí
+Latin only
+
+@953bd115
+Institució oratòria I 1.12: el llatí s'aprèn igualment.
+Institutes of Oratory I 1.12: Latin is learned anyway.
+
+@215f813c
+Quin autor grec llegien primer els alumnes del gramàtic?
+Which Greek author did the grammarian's pupils read first?
+
+@71cbdaa4
+Homer era la base de l'educació literària grega i romana.
+Homer was the foundation of Greek and Roman literary education.
+
+@5d016740
+L'entrada principal de la ciutadella, de cap al 1250 aC: dos brancals i una llinda de més de vint tones, i a sobre un relleu triangular amb dos lleons (o lleones) que recolzen les potes en un altar a banda i banda d'una columna. Els caps, que miraven el visitant, s'han perdut. És l'escultura monumental més antiga de Grècia; ja era vella quan Homer cantava Agamèmnon.
+The main entrance to the citadel, from about 1250 BC: two jambs and a lintel of over twenty tonnes, and above it a triangular relief of two lions (or lionesses) resting their paws on an altar either side of a column. Their heads, which faced the visitor, are lost. It is the oldest monumental sculpture in Greece; it was already old when Homer sang of Agamemnon.
+
+@f6a06960
+Dins de la porta, un recinte circular de lloses de pedra envolta unes tombes antiquíssimes, marcades amb esteles amb relleus de carros i espirals. Els micènics el van respectar com un lloc sagrat dels seus avantpassats. Gairebé 2.300 anys després, el 1876, Heinrich Schliemann hi trobarà màscares d'or i creurà haver vist el rostre d'Agamèmnon.
+Inside the gate, a circle of stone slabs surrounds very ancient graves, marked by stelai with reliefs of chariots and spirals. The Mycenaeans respected it as a sacred place of their ancestors. Almost 2,300 years later, in 1876, Heinrich Schliemann will find gold masks here and believe he has seen the face of Agamemnon.
+
+@ae67eca0
+Al cim, entre herbes i cabres, queden els fonaments del palau i la gran sala del tron, el mègaron, amb la seva llar rodona i les bases de quatre columnes. Aquí la tradició situava la casa d'Atreu i del seu fill Agamèmnon, el rei que va dirigir els grecs contra Troia i que, en tornar, va ser assassinat per la seva esposa Clitemnestra. Argos va arrasar Micenes el 468 aC i en va deportar els habitants.
+At the top, among grass and goats, lie the foundations of the palace and the great throne room, the megaron, with its round hearth and the bases of four columns. Tradition placed here the house of Atreus and his son Agamemnon, the king who led the Greeks against Troy and who, on his return, was murdered by his wife Clytemnestra. Argos razed Mycenae in 468 BC and deported its people.
+
+@0ebed846
+Una tomba de cúpula (tholos) de cap al 1250 aC, excavada al vessant: un corredor de 36 metres entre murs de carreus porta a una porta de més de cinc metres, amb una llinda d'unes 120 tones. A dins, una cúpula de pedra de 13 metres d'alt, feta amb filades que es van tancant. Els grecs l'anomenen «tresor» perquè creuen que els reis hi guardaven les seves riqueses; la tradició l'atribueix a Atreu o a Agamèmnon.
+A domed tomb (tholos) of about 1250 BC, cut into the hillside: a 36-metre passage between ashlar walls leads to a doorway over five metres high, with a lintel of some 120 tonnes. Inside, a stone dome 13 metres high, built of courses that gradually close in. The Greeks call it a «treasury» because they believe kings kept their riches here; tradition attributes it to Atreus or Agamemnon.
+
+@6dd9ab78
+Segons el mite, Perseu, el que va matar la Gorgona, va fundar Micenes: el nom vindria del pom (mykes) de la seva espasa, que li va caure aquí, o d'un bolet sota el qual va trobar aigua. Els micènics portaven l'aigua d'aquesta font a la ciutadella per un túnel secret, per resistir els setges. Segons la llegenda, els Cíclops van construir les muralles, perquè cap home no podria moure aquelles pedres.
+According to myth, Perseus, who killed the Gorgon, founded Mycenae: the name would come from the pommel (mykes) of his sword, which fell off here, or from a mushroom under which he found water. The Mycenaeans brought water from this spring into the citadel by a secret tunnel, to withstand sieges. According to legend, the Cyclopes built the walls, because no man could move those stones.
+
+@752b05e1
+Els d'Argos ens deixen conrear aquí. Les pedres no els interessen.
+The Argives let us farm here. They're not interested in the stones.
+
+@223cb96e
+De nit no pujo a la ciutadella: diuen que s'hi sent Clitemnestra.
+At night I don't go up to the citadel: they say you can hear Clytemnestra.
+
+@1b66e37f
+Algun viatger ve a veure la porta dels lleons. Li ensenyo la tomba per un òbol.
+The odd traveller comes to see the Lion Gate. I show him the tomb for an obol.
+
+@76a5b1bc
+El gran santuari d'Hera de l'Argòlida, entre Micenes i Argos. El temple vell va cremar el 423, quan la sacerdotessa Criseida es va adormir al costat d'una llàntia; aquest temple nou, d'Eupòlem d'Argos, guarda una gran estàtua d'Hera d'or i ivori feta per Policlet, asseguda en un tron, amb una magrana i un ceptre rematat per un cucut. Aquí, segons la tradició, els grecs van jurar lleialtat a Agamèmnon abans de partir cap a Troia.
+The great sanctuary of Hera in the Argolid, between Mycenae and Argos. The old temple burned in 423, when the priestess Chrysis fell asleep beside a lamp; this new temple, by Eupolemus of Argos, holds a great gold-and-ivory statue of Hera by Polyclitus, seated on a throne, with a pomegranate and a sceptre topped by a cuckoo. Here, according to tradition, the Greeks swore loyalty to Agamemnon before setting out for Troy.
+
+@6b21ed30
+Ciutadans jurats: avui sou cinc-cents u, sortejats aquest mateix matí. Es jutja diversos venedors de blat, metecs, acusats d'haver comprat més blat del que permet la llei. Parlarà primer l'acusació i després la defensa; l'aigua de la clepsidra mesurarà el temps de cadascú. Al final votareu en secret, sense deliberar entre vosaltres.
+Citizen jurors: today you are five hundred and one, chosen by lot this very morning. Several grain dealers, metics, are on trial, accused of buying more grain than the law allows. The prosecution will speak first, then the defence; the water clock will measure each one's time. At the end you will vote in secret, without conferring among yourselves.
+
+@20c16578
+Jutges: molts s'han estranyat que jo, membre del Consell, acusi aquests homes. Us diré per què. Quan els prítanes van presentar l'assumpte davant del Consell, alguns estaven tan indignats que els volien lliurar sense judici als Onze perquè els executessin. Jo m'hi vaig oposar: em va semblar terrible acostumar el Consell a una cosa així, i vaig proposar que fossin jutjats d'acord amb les lleis. Per això sóc aquí: perquè, si són culpables, paguin després d'un judici.
+Judges: many have been surprised that I, a member of the Council, should accuse these men. I'll tell you why. When the prytaneis brought the matter before the Council, some were so indignant that they wanted to hand them over without trial to the Eleven for execution. I opposed it: it seemed terrible to me to accustom the Council to such a thing, and I proposed that they be tried according to the laws. That's why I'm here: so that, if they are guilty, they pay after a trial.
+
+@7c630745
+La llei és clara: cap venedor de blat no pot comprar més de cinquanta cistelles alhora. Els vaig preguntar davant del Consell si n'havien comprat més, i ho van reconèixer. Ara diuen que ho van fer per consell dels magistrats, que Ànit els va recomanar comprar junts per no pujar els uns contra els altres. Però Ànit els va aconsellar no fer pujar el preu, no acaparar. I els magistrats d'aquest any neguen haver-los dit res.
+The law is clear: no grain dealer may buy more than fifty baskets at a time. I asked them before the Council whether they had bought more, and they admitted it. Now they say they did it on the magistrates' advice, that Anytus recommended they buy together so as not to bid against one another. But Anytus advised them not to drive up the price, not to hoard. And this year's magistrates deny having told them anything.
+
+@1fc32aad
+Mireu com actuen: quan arriba una mala notícia, que s'han perdut naus al mar, que els espartans les han capturades, que es tanquen els mercats, són els primers a saber-ho, o a inventar-ho, i apugen el preu una dracma en un sol dia. S'alegren de les nostres desgràcies. Ens tenen assetjats en temps de pau. Si els condemneu, els altres comerciants seran més honrats; si els absoleu, els donareu permís per fer el que vulguin. Us demano la pena de mort.
+See how they behave: when bad news comes, that ships have been lost at sea, that the Spartans have captured them, that the markets are closing, they're the first to know it, or to invent it, and they raise the price a drachma in a single day. They rejoice at our misfortunes. They keep us under siege in peacetime. If you condemn them, the other traders will be more honest; if you acquit them, you'll give them leave to do as they please. I ask for the death penalty.
+
+@5c7dab3a
+Ciutadans: som metecs i fa anys que portem blat del Pireu a la ciutat, també durant la guerra, quan ningú no s'hi volia arriscar. Vam comprar junts perquè Ànit, que era magistrat, ens va aconsellar no competir entre nosaltres perquè el preu no es disparés. No vam amagar el blat: el vam vendre. Si ens condemneu a mort per seguir el consell d'un magistrat, qui voldrà portar pa a Atenes demà?<br><br><i>(Aquest discurs és una reconstrucció. Només es conserva el de l'acusació; els arguments surten del que el mateix acusador diu que al·legaven.)</i>
+Citizens: we are metics and for years we've been bringing grain from the Piraeus to the city, even during the war, when no one wanted to take the risk. We bought together because Anytus, who was a magistrate, advised us not to compete with one another so the price wouldn't soar. We didn't hide the grain: we sold it. If you sentence us to death for following a magistrate's advice, who will want to bring bread to Athens tomorrow?<br><br><i>(This speech is a reconstruction. Only the prosecution's survives; the arguments come from what the accuser himself says they claimed.)</i>
+
+@e5b0f97f
+Et donen dues fitxes de vot: una per condemnar i una altra per absoldre. Una va a l'urna que compta; l'altra, a la de descart. Ningú no veurà quina tries. Què votes?
+You are given two voting tokens: one to condemn and one to acquit. One goes into the urn that counts; the other into the discard urn. No one will see which you choose. How do you vote?

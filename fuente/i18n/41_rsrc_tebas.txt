@@ -1,0 +1,193 @@
+# RSRC (fuentes de los relieves) y buildThebes
+
+@19c124fe
+Pausànias I 24.5
+Pausanias I 24.5
+
+@4108bce5
+Píndar, Olímpica VII 35-38
+Pindar, Olympian VII 35-38
+
+@a02cdaab
+Himne homèric XXVIII, a Atena
+Homeric Hymn XXVIII, to Athena
+
+@2116a6b9
+=
+=
+
+@7fe5074d
+Les figures centrals es van perdre; l'escena es coneix per Pausànias i per les figures de les cantonades.
+The central figures are lost; the scene is known from Pausanias and the corner figures.
+
+@0043f710
+Apol·lodor, Biblioteca III 14.1
+Apollodorus, Library III 14.1
+
+@96aaf642
+=
+=
+
+@d175e21a
+Apol·lodor, Biblioteca I 6.1-2 (la Gigantomàquia)
+Apollodorus, Library I 6.1-2 (the Gigantomachy)
+
+@f415a083
+=
+=
+
+@e6359c75
+Les mètopes est estan molt malmeses; les identificacions són modernes.
+The east metopes are badly damaged; the identifications are modern.
+
+@40f8cf30
+Homer, Ilíada I 262-268 i Odissea XXI 295-304
+Homer, Iliad I 262-268 and Odyssey XXI 295-304
+
+@9316b8e0
+Ovidi, Metamorfosis XII 210-535
+Ovid, Metamorphoses XII 210-535
+
+@b0a16f83
+=
+=
+
+@8783371c
+=
+=
+
+@7e5f21a4
+=
+=
+
+@597e4fa0
+La interpretació del fris es discuteix; la lectura com a processó de les Panatenees és la tradicional.
+The interpretation of the frieze is debated; reading it as the Panathenaic procession is the traditional view.
+
+@6cb899be
+Apol·lodor, Biblioteca II 5 (treballs d'Hèracles)
+Apollodorus, Library II 5 (labours of Heracles)
+
+@2138a5d3
+Plutarc, Vida de Teseu 8-11
+Plutarch, Life of Theseus 8-11
+
+@4d23bb87
+Baquílides, Ditirambe 18
+Bacchylides, Dithyramb 18
+
+@89308083
+Només es van esculpir les mètopes de la façana est i les quatre primeres de cada costat llarg.
+Only the metopes of the east façade and the first four on each long side were sculpted.
+
+@cb7c8f40
+Pausànias I 15.3
+Pausanias I 15.3
+
+@6e2be15e
+Plutarc, Vida de Teseu 35.5 (Teseu vist a Marató)
+Plutarch, Life of Theseus 35.5 (Theseus seen at Marathon)
+
+@f1922186
+=
+=
+
+@f8618d8c
+Les pintures s'han perdut; les coneixem per la descripció de Pausànias, del segle II dC.
+The paintings are lost; we know them from Pausanias' description, of the second century AD.
+
+@d8d4d066
+Pausànias I 3.1
+Pausanias I 3.1
+
+@09fd32a3
+Plutarc, Vida de Teseu 10 (Escirò)
+Plutarch, Life of Theseus 10 (Sciron)
+
+@c7545488
+Hesíode, Teogonia 986-987 (Eos i Cèfal)
+Hesiod, Theogony 986-987 (Eos and Cephalus)
+
+@55348df4
+=
+=
+
+@b7797686
+Plató, Banquet 179d (Orfeu només rep un fantasma d'Eurídice)
+Plato, Symposium 179d (Orpheus receives only a phantom of Eurydice)
+
+@5244d80c
+Eurípides, Alcestis 357-362
+Euripides, Alcestis 357-362
+
+@5ae1ed42
+Virgili, Geòrgiques IV 453-527 (versió posterior, amb la mirada enrere)
+Virgil, Georgics IV 453-527 (later version, with the backward glance)
+
+@f00006f2
+=
+=
+
+@29ac432e
+El relleu es coneix per còpies romanes (Nàpols, Louvre, Villa Albani); la seva procedència d'un altar de l'Àgora és una hipòtesi.
+The relief is known from Roman copies (Naples, Louvre, Villa Albani); its origin in an altar of the Agora is a hypothesis.
+
+@a1329d4d
+La versió en què Orfeu perd Eurídice per mirar enrere apareix per escrit més tard; les fonts antigues varien.
+The version in which Orpheus loses Eurydice by looking back appears in writing later; the ancient sources vary.
+
+@fd8e67eb
+Píndar, Nemea III 36-42 i Ístmica VI 27-35 (Telamó amb Hèracles a Troia)
+Pindar, Nemean III 36-42 and Isthmian VI 27-35 (Telamon with Heracles at Troy)
+
+@f2620463
+Homer, Ilíada (Àiax i Teucre)
+Homer, Iliad (Ajax and Teucer)
+
+@70a12cf2
+Les escultures originals són avui a la Gliptoteca de Munic.
+The original sculptures are now in the Glyptothek in Munich.
+
+@a946e8b7
+Restes d'un palau molt antic dalt de la Cadmea. Els tebans hi ensenyen la cambra nupcial de Sèmele, la filla de Cadme, a qui Zeus va fulminar amb el seu llamp quan ella li va demanar de veure'l en tota la seva esplendor. Els arqueòlegs han trobat a la Cadmea un palau micènic de l'Edat del Bronze.
+Remains of a very ancient palace at the top of the Cadmea. The Thebans show here the bridal chamber of Semele, Cadmus' daughter, whom Zeus struck down with his thunderbolt when she asked to see him in all his glory. Archaeologists have found a Mycenaean Bronze Age palace on the Cadmea.
+
+@b19baa90
+L'acròpolis de Tebes, fortificada segons el mite per Cadme. Aquí hi ha els edificis de govern, els temples més antics i les cases de les famílies nobles. Quatre anys després de la teva visita, el 382, un general espartà l'ocuparà a traïció amb l'ajuda dels tebans partidaris d'Esparta.
+The acropolis of Thebes, fortified according to myth by Cadmus. Here are the government buildings, the oldest temples and the houses of noble families. Four years after your visit, in 382, a Spartan general will seize it by treachery with the help of pro-Spartan Thebans.
+
+@13aa278e
+Tebes és famosa per les seves set portes, que Èsquil anomena a Els set contra Tebes: Electra, Prètide, Neïta, Crenea, Hipsista, Ogígia i Homolòide. Davant d'elles van lluitar els set caps que acompanyaven Polinices contra el seu germà Etèocles. El seu nombre i els seus noms eren motiu d'orgull, tot i que els estudiosos discuteixen on era cadascuna.
+Thebes is famous for its seven gates, which Aeschylus names in Seven against Thebes: Electra, Proetid, Neitan, Crenaean, Hypsistan, Ogygian and Homoloid. Before them fought the seven chiefs who came with Polynices against his brother Eteocles. Their number and names were a source of pride, though scholars debate where each one stood.
+
+@4904219c
+Al costat de la porta Electra, els tebans ensenyen les ruïnes de la casa d'Amfitrió, on va néixer Hèracles: fill de Zeus, que va prendre l'aparença d'Amfitrió per unir-se a la seva esposa Alcmena. Per això Hèracles és el gran heroi de Tebes.
+By the Electra gate, the Thebans show the ruins of the house of Amphitryon, where Heracles was born: son of Zeus, who took on Amphitryon's appearance to lie with his wife Alcmene. That's why Heracles is the great hero of Thebes.
+
+@700304d9
+La font sagrada de Tebes. Segons el mite, Dirce, esposa del rei Licos, va maltractar Antíope, mare dels bessons Amfíon i Zetos; quan aquests van créixer, la van lligar a un toro salvatge i la van llançar aquí. Amfíon va construir després les muralles de Tebes: les pedres es movien soles al so de la seva lira.
+The sacred spring of Thebes. According to myth, Dirce, wife of King Lycus, mistreated Antiope, mother of the twins Amphion and Zethus; when they grew up, they tied her to a wild bull and threw her in here. Amphion later built the walls of Thebes: the stones moved by themselves to the sound of his lyre.
+
+@1ed1dd99
+Aquí va viure Píndar (c. 518-438), el gran poeta de les odes per als vencedors dels jocs. La seva casa es respecta com un lloc gairebé sagrat. Mig segle després de la teva visita, quan Alexandre el Gran arrasi Tebes el 335, ordenarà respectar només aquesta casa.
+Here lived Pindar (c. 518-438), the great poet of odes for victors at the games. His house is respected as an almost sacred place. Half a century after your visit, when Alexander the Great razes Thebes in 335, he will order this house alone to be spared.
+
+@d98c7f46
+Santuari d'Apol·lo Ismeni, en un turó al costat del riu Ismè. Aquí es consultava el déu i es dedicaven trípodes; Heròdot hi va veure trípodes amb inscripcions en «lletres cadmees», que va atribuir als temps d'Èdip i Laios.
+Sanctuary of Apollo Ismenios, on a hill by the river Ismenus. The god was consulted here and tripods were dedicated; Herodotus saw tripods with inscriptions in «Cadmean letters», which he attributed to the time of Oedipus and Laius.
+
+@f1f655fb
+Des de la pau, els de Platea ens miren per sobre de l'espatlla.
+Since the peace, the Plataeans look down their noses at us.
+
+@fa1d417f
+Els espartans demanen soldats per a les seves guerres. I qui ens defensa dels espartans?
+The Spartans ask for soldiers for their wars. And who defends us from the Spartans?
+
+@68243b65
+Aquí va néixer Hèracles. I Dionís. Quina ciutat pot dir el mateix?
+Heracles was born here. And Dionysus. What other city can say that?
+
+@8c653149
+Píndar era d'aquí. Escrivia millor que tots els vostres poetes junts.
+Pindar was from here. He wrote better than all your poets put together.
