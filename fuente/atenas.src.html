@@ -2841,7 +2841,8 @@ const GREECE_DESTS=[
  {id:'epidauro',name:'Epidauro',gr:'ΕΠΙΔΑΥΡΟΣ',sub:'El santuario de Asclepio, adonde los enfermos acuden a soñar con el dios.',R:420,H:16,seed:12.1,days:'tres días de camino por el Istmo y los montes de la Argólide',fare:5,dir:[-1,0],land:true,step:8},
  {id:'mantinea',name:'Mantinea',gr:'ΜΑΝΤΙΝΕΙΑ',sub:'La ciudad democrática de Arcadia, en una llanura alta rodeada de montes.',R:440,H:10,seed:12.7,days:'cinco días de camino por el Istmo, Argos y los montes de Arcadia',fare:6,dir:[-1,0],land:true,step:8},
  {id:'olimpia',name:'Olimpia',gr:'ΟΛΥΜΠΙΑ',sub:'El santuario de Zeus en la Élide, donde cada cuatro años se celebran los Juegos.',R:480,H:10,seed:13.3,days:'ocho o nueve días de camino por el Istmo, Arcadia y la Élide',fare:9,dir:[-1,0],land:true,step:8},
- {id:'maraton',name:'Maratón',gr:'ΜΑΡΑΘΩΝ',sub:'La llanura junto al mar donde los atenienses vencieron a los persas hace ciento cuatro años.',R:460,H:6,seed:13.9,days:'un día de camino rodeando el Pentélico',fare:2,dir:[-1,0],land:true,step:8,coast:[1,0],coastAt:0.4}
+ {id:'maraton',name:'Maratón',gr:'ΜΑΡΑΘΩΝ',sub:'La llanura junto al mar donde los atenienses vencieron a los persas hace ciento cuatro años.',R:460,H:6,seed:13.9,days:'un día de camino rodeando el Pentélico',fare:2,dir:[-1,0],land:true,step:8,coast:[1,0],coastAt:0.4},
+ {id:'termopilas',name:'Termópilas',gr:'ΘΕΡΜΟΠΥΛΑΙ',sub:'El paso estrecho entre el monte y el mar donde murieron Leónidas y los trescientos.',R:460,H:6,seed:14.5,days:'cuatro días de camino por Beocia, la Fócide y la Lócride',fare:5,dir:[-1,0],land:true,step:8,coast:[0,1],coastAt:0.12}
 ];
 const ISLANDS=[
  {id:'egina',name:'Egina',gr:'ΑΙΓΙΝΑ',sub:'La isla de Éaco, en el golfo Sarónico, frente al Pireo.',R:330,H:75,seed:1.3,days:'medio día de navegación con buen viento',fare:2,dir:[-1,0.15]},
@@ -2911,7 +2912,7 @@ function makeShip(x,z,ang){
 }
 // muelle con barco y armador; d = dirección hacia el mar
 function buildPort(key,label,sx,sz,dx,dz,who){
-  const W=who||(MODE==='roma'?{name:'Lucio Ancario',sub:'Naviero · nave a Hispania',role:'el naviero',look:{chiton:'#c9b48b',short:true,noHimation:true,hair:'#3a2a1e'}}:{name:'Hagnón',sub:'Armador · barco a las islas',role:'el armador'});
+  const W=who||(MODE==='roma'?{name:'Lucio Ancario',sub:'Naviero · naves a Hispania y a África',role:'el naviero',look:{chiton:'#c9b48b',short:true,noHimation:true,hair:'#3a2a1e'}}:{name:'Hagnón',sub:'Armador · barco a las islas',role:'el armador'});
   const ang=Math.atan2(dx,dz),len=44,lx=-dz,lz=dx,cx=sx+dx*(len/2-8),cz=sz+dz*(len/2-8);
   const q=box(8,10,len,M.limestone,cx,1.7-5,cz);q.rotation.y=ang;addPlat(cx,cz,8,len,ang,1.7);
   for(let k=6;k<len-10;k+=8){const bx=sx+dx*k+lx*3.6,bz=sz+dz*k+lz*3.6;box(0.4,0.7,0.4,M.stone,bx,2.05,bz);}
@@ -3519,7 +3520,7 @@ function openVoyage(c){
 }
 function openRomaVoyage(c){
   dlg={n:null};ui='dialog';releasePointer();
-  $('dGlyph').textContent='N';setName(c.data.name,true);$('dTitle').textContent='Naviero · nave de carga a Hispania · personaje inventado';
+  $('dGlyph').textContent='N';setName(c.data.name,true);$('dTitle').textContent='Naviero · naves de carga a Hispania y a África · personaje inventado';
   $('dBody').innerHTML=c.port==='atenas'?'<p>Salud. Mi barca baja por el Tíber hasta Portus, el gran puerto que construyó Claudio junto a Ostia. Allí embarcas en mi nave, una oneraria que vuelve a Hispania con vajilla, vidrio y telas, y trae aceite, vino y salazones. ¿Adónde quieres ir?</p>':'<p>Salud. Volvemos a Italia con ánforas de vino y de aceite. Si quieres, te llevo a Portus, junto a Ostia, o a otro puerto de la costa.</p>';
   renderVoyOpts(c);$('dialog').hidden=false;
 }
@@ -3890,7 +3891,7 @@ const MV={s:1,cx:0,cz:0,moved:false,pinch:0};const MAPHI={};
 function mapVB(){const w=(MB.x1-MB.x0)/MV.s,h=(MB.z1-MB.z0)/MV.s;return{x0:MV.cx-w/2,z0:MV.cz-h/2,w,h};}
 function mapV(x,z,W,H){const v=mapVB();return[(x-v.x0)/v.w*W,(z-v.z0)/v.h*H];}
 function mapClamp(){MV.s=clamp(MV.s,1,8);const w=(MB.x1-MB.x0)/MV.s/2,h=(MB.z1-MB.z0)/MV.s/2;MV.cx=clamp(MV.cx,MB.x0+w,MB.x1-w);MV.cz=clamp(MV.cz,MB.z0+h,MB.z1-h);}
-function mapZoom(f,mx,my){if(MED.on)return;const c=$('mapc');if(mx==null){mx=c.width/2;my=c.height/2;}const v=mapVB(),wx=v.x0+mx/c.width*v.w,wz=v.z0+my/c.height*v.h;
+function mapZoom(f,mx,my){if(MED.on)return medZoom(f,mx,my);const c=$('mapc');if(mx==null){mx=c.width/2;my=c.height/2;}const v=mapVB(),wx=v.x0+mx/c.width*v.w,wz=v.z0+my/c.height*v.h;
   MV.s=clamp(MV.s*f,1,8);const v2=mapVB();MV.cx=wx-(mx/c.width-0.5)*v2.w;MV.cz=wz-(my/c.height-0.5)*v2.h;mapClamp();drawMap();}
 function openMap(){ui='map';releasePointer();document.querySelector('#map h2').textContent=regionOf(player.x)==='atenas'?(MODE==='roma'?'Plano de Roma':'Plano de Atenas'):'Plano de '+islandOf(player.x).name;$('map').hidden=false;
   MB=regionBounds(regionOf(player.x));MV.s=1;MV.cx=(MB.x0+MB.x1)/2;MV.cz=(MB.z0+MB.z1)/2;setMed(false);}
@@ -3932,6 +3933,7 @@ $('mapc').addEventListener('pointerdown',e=>{$('mapc').setPointerCapture(e.point
 $('mapc').addEventListener('pointermove',e=>{if(!MPTR.has(e.pointerId))return;const c=$('mapc'),m=mapPt(e),o=MPTR.get(e.pointerId);MPTR.set(e.pointerId,m);
   if(MPTR.size===2){const [a,b]=[...MPTR.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(MV.pinch)mapZoom(d/MV.pinch,(a[0]+b[0])/2,(a[1]+b[1])/2);MV.pinch=d;MV.moved=true;return;}
   const dx=m[0]-o[0],dy=m[1]-o[1];if(Math.abs(dx)+Math.abs(dy)>2)MV.moved=true;
+  if(MED.on){if(MV.moved&&MED.v.s>1.01){MED.v.cx-=dx/MED.v.s;MED.v.cy-=dy/MED.v.s;medClamp(c.width,c.height);drawMap();}return;}
   if(MV.moved&&MV.s>1.01){const v=mapVB();MV.cx-=dx/c.width*v.w;MV.cz-=dy/c.height*v.h;mapClamp();drawMap();}});
 const mapUp=e=>{MPTR.delete(e.pointerId);if(MPTR.size<2)MV.pinch=0;};
 $('mapc').addEventListener('pointerup',mapUp);$('mapc').addEventListener('pointercancel',mapUp);
@@ -3944,11 +3946,11 @@ $('mapc').addEventListener('click',e=>{
     player.yaw=Math.atan2(player.x-best.x,player.z-best.z);closeModals();toast('Viajas a: '+best.data.name);}
 });
 $('mapIn').onclick=()=>mapZoom(1.5);$('mapOut').onclick=()=>mapZoom(1/1.5);
-$('mapMe').onclick=()=>{if(MV.s<3)MV.s=3;MV.cx=player.x;MV.cz=player.z;mapClamp();drawMap();};
-$('mapAll').onclick=()=>{MV.s=1;mapClamp();drawMap();};
+$('mapMe').onclick=()=>{if(MED.on){const pos=medHere(),c=$('mapc'),B=medBase(c.width,c.height);if(!pos)return;if(MED.v.s<3)MED.v.s=3;MED.v.cx=(pos[0]-MED.lon0)*B.k;MED.v.cy=B.oy+(MED.lat1-pos[1])*B.ky;medClamp(c.width,c.height);drawMap();return;}if(MV.s<3)MV.s=3;MV.cx=player.x;MV.cz=player.z;mapClamp();drawMap();};
+$('mapAll').onclick=()=>{if(MED.on){medReset();drawMap();return;}MV.s=1;mapClamp();drawMap();};
 // ============================================================ el Mediterráneo entero (botón del plano)
 // Costas muy simplificadas en [longitud, latitud]; se dibuja en proyección equirrectangular. Cada época tiene sus pueblos y ciudades.
-const MED={on:false,lon0:-10,lon1:42,lat0:28.5,lat1:48,cache:{}};
+const MED={on:false,lon0:-10,lon1:42,lat0:28.5,lat1:48,v:null};
 const MED_SEA=[[-5.6,36],[-4.4,36.7],[-2.5,36.8],[-2,36.7],[-1,37.6],[-0.5,38.3],[0.2,38.7],[-0.3,39.5],[0,40],[0.9,40.7],[1.25,41.1],[2.2,41.4],[3.3,42.3],[3,42.7],[3.5,43.3],[4.8,43.4],[5.4,43.3],[5.9,43.1],[7.3,43.7],[8.9,44.4],[9.8,44.1],[10.3,43.5],[10.5,42.9],[11.2,42.4],[11.8,42.1],[12.3,41.7],[13,41.2],[13.6,41.2],[14.2,40.8],[14.3,40.6],[14.8,40.6],[15,40.4],[15.3,40],[15.8,39.5],[16,38.7],[15.65,38.1],[15.9,37.95],[16.05,37.92],[16.6,38.4],[17.15,39.1],[16.6,39.6],[16.5,40.1],[17.2,40.47],[17.9,40.3],[18.35,39.8],[18.5,40.15],[17.95,40.65],[16.85,41.13],[16.1,41.9],[15.6,41.95],[15,42],[14.2,42.47],[13.5,43.6],[12.57,44.07],[12.3,44.4],[12.5,44.95],[12.3,45.4],[13.4,45.75],[13.75,45.6],[13.6,45.2],[13.9,44.8],[14.3,45.3],[15.2,44.2],[16.4,43.5],[17.6,42.9],[18.1,42.65],[18.7,42.4],[19.4,41.85],[19.45,41.3],[19.4,40.45],[20,39.7],[20.2,39.5],[20.75,38.95],[21.1,38.4],[21.7,38.35],[22.4,38.25],[22.9,38.2],[22.95,37.95],[22.4,38.1],[21.8,38.15],[21.3,37.95],[21.6,37.6],[21.65,36.9],[21.7,36.8],[21.95,36.8],[22.1,37],[22.48,36.38],[22.55,36.75],[23.2,36.43],[23.05,36.9],[22.8,37.55],[23.15,37.3],[23.4,37.4],[23.4,37.75],[23.05,37.92],[23.35,38],[23.55,38.03],[23.62,37.94],[24.02,37.65],[24.05,38],[23.95,38.25],[23.6,38.45],[22.9,38.9],[23,39.1],[22.95,39.35],[23.3,39.15],[23.1,39.5],[22.6,40],[22.6,40.5],[22.95,40.6],[23.3,40.25],[23.7,39.95],[23.75,40.25],[24.4,40.15],[23.9,40.4],[24.4,40.93],[25,40.95],[25.5,40.87],[25.9,40.85],[26,40.75],[26.6,40.6],[26.1,40.35],[26.2,40.05],[26.15,39.95],[26.1,39.5],[26.35,39.5],[26.95,39.55],[26.7,39.3],[26.8,38.9],[26.75,38.65],[27.1,38.45],[26.3,38.35],[26.6,38.1],[27.3,37.95],[27.2,37.65],[27.25,37.5],[27.42,37.04],[27.4,36.68],[28.1,36.8],[28.3,36.75],[29.1,36.6],[29.6,36.2],[30.4,36.2],[30.7,36.9],[31.4,36.75],[32,36.5],[32.8,36.05],[33.6,36.2],[34,36.3],[34.6,36.8],[34.9,36.9],[35.7,36.6],[36.15,36.85],[36.15,36.6],[35.8,36.2],[35.8,35.5],[35.9,35],[35.65,34.12],[35.5,33.9],[35.37,33.56],[35.2,33.27],[34.9,32.5],[34.75,32.05],[34.45,31.5],[32.55,31.05],[31.8,31.5],[30.4,31.45],[29.9,31.2],[29,30.85],[27.2,31.35],[25.1,31.6],[23.95,32.1],[23,32.6],[21.95,32.9],[21,32.8],[20.05,32.1],[19.8,31],[19.2,30.25],[18,30.8],[16.6,31.2],[15.2,32.3],[14.3,32.65],[13.2,32.9],[12.5,32.8],[11.5,33.2],[10.9,33.7],[10.1,33.9],[10.75,34.75],[11.1,35.2],[10.65,35.85],[11.05,37.05],[10.3,36.85],[10.05,37.05],[9.85,37.3],[8.7,36.95],[7.75,36.9],[6.9,37.1],[5.9,36.85],[5.1,36.75],[3.05,36.75],[2.2,36.6],[0.1,35.85],[-0.65,35.7],[-2.1,35.1],[-2.95,35.3],[-4.3,35.2],[-5.3,35.9],[-5.8,35.8]];
 const MED_ATL=[[-5.8,35.8],[-6.2,35],[-6.8,34],[-7.6,33.6],[-8.5,33.2],[-9.3,32.5],[-9.8,31],[-9.6,30.4],[-10,29.5],[-10,28],[-13,28],[-13,49],[-1,49],[-1.5,47.5],[-2.2,47.1],[-1.2,46],[-1.5,44.5],[-1.8,43.4],[-3.8,43.45],[-5.8,43.6],[-7.7,43.75],[-8.4,43.4],[-9.3,42.9],[-8.9,42.1],[-8.7,41.15],[-8.9,40.2],[-9.5,38.8],[-9.2,38.7],[-8.8,38.4],[-9,37],[-7.9,37],[-7,37.2],[-6.3,36.5],[-6,36.1]];
 const MED_BLACK=[[29.1,41.2],[28,41.65],[27.9,42.6],[27.95,43.2],[28.6,43.8],[28.65,44.17],[29.6,45.2],[30.2,45.85],[31.9,46.6],[33,46.1],[32.5,45.4],[33.4,44.6],[34.4,44.5],[35.4,45],[36.5,45.3],[36.9,45.2],[37.3,44.7],[38.1,44.4],[39.7,43.6],[41,43],[41.65,42.15],[41.6,41.6],[39.7,41],[38.4,40.95],[37.6,41.1],[36.6,41.35],[35.8,41.7],[35.1,42],[34,41.95],[33.3,42],[32.3,41.8],[31.4,41.3],[30.3,41.2]];
@@ -3969,9 +3971,9 @@ const MED_RIV=[[[31.2,30],[31.25,29]],[[12.4,44.95],[11.6,44.95],[10.3,45.05],[9
  [[-6.3,36.8],[-6,37.4],[-4.8,37.9],[-3.5,38]],[[38.8,30],[38.4,36.3],[38.9,40]],[[40,36.5],[41.5,35]]];
 // dónde estás: la ciudad de partida y cada destino
 const MED_POS={atenas:[23.73,37.98],egina:[23.43,37.75],delos:[25.27,37.4],naxos:[25.38,37.1],creta:[25.16,35.3],lesbos:[26.55,39.1],troya:[26.24,39.96],tebas:[23.32,38.32],esparta:[22.43,37.08],micenas:[22.76,37.73],
-  megara:[23.35,38],corinto:[22.93,37.9],platea:[23.27,38.22],delfos:[22.5,38.48],argos:[22.72,37.63],epidauro:[23.08,37.6],mantinea:[22.4,37.62],olimpia:[21.63,37.64],maraton:[23.97,38.15]};
+  megara:[23.35,38],corinto:[22.93,37.9],platea:[23.27,38.22],delfos:[22.5,38.48],argos:[22.72,37.63],epidauro:[23.08,37.6],mantinea:[22.4,37.62],olimpia:[21.63,37.64],maraton:[23.97,38.15],termopilas:[22.54,38.8]};
 const MED_POS_RO={atenas:[12.48,41.89],campania:[14.25,40.84],apulia:[17.94,40.64],lucania:[15,40.42],samnium:[14.62,41.43],picenum:[13.58,42.85],umbria:[12.57,44.06],etruria:[11.76,42.25],aemilia:[10.92,44.65],liguria:[8.93,44.41],
-  venetia:[10.99,45.44],transpadana:[9.08,45.81],tarraco:[1.25,41.12],barcino:[2.17,41.38],emporiae:[3.12,42.13],ilerda:[0.62,41.62],emerita:[-6.34,38.92]};
+  venetia:[10.99,45.44],transpadana:[9.08,45.81],tarraco:[1.25,41.12],barcino:[2.17,41.38],emporiae:[3.12,42.13],ilerda:[0.62,41.62],emerita:[-6.34,38.92],cartago:[10.32,36.85]};
 // pueblos y estados: [nombre, lon, lat, tamaño, color]; ciudades: [nombre, lon, lat, importancia (2 capital, 1 grande, 0 otra)]
 const MED_INFO={
  atenas:{title:'El Mediterráneo hacia el 386 a.C.',
@@ -3984,7 +3986,8 @@ const MED_INFO={
   cities:[['Atenas',23.73,37.98,2],['Esparta',22.43,37.08,2],['Tebas',23.32,38.32,1],['Corinto',22.93,37.9,1],['Siracusa',15.29,37.07,2],['Cartago',10.32,36.85,2],['Tiro',35.2,33.27,1],['Sidón',35.37,33.56,0],
    ['Sardes',28.04,38.48,1],['Mileto',27.28,37.53,0],['Éfeso',27.34,37.94,0],['Rodas',28.22,36.44,0],['Bizancio',28.98,41.01,1],['Olbia',31.9,46.69,0],['Panticapeo',36.47,45.35,0],['Sinope',35.15,42.03,0],
    ['Cirene',21.86,32.82,1],['Menfis',31.25,29.85,1],['Naucratis',30.6,30.9,0],['Massalia',5.37,43.3,1],['Emporion',3.12,42.13,0],['Gadir',-6.29,36.53,1],['Roma',12.48,41.89,0],['Tarento',17.24,40.47,1],
-   ['Neápolis',14.25,40.84,0],['Pela',22.52,40.75,0],['Útica',10.06,37.06,0],['Cnosos',25.16,35.3,0],['Mitilene',26.55,39.1,0],['Halicarnaso',27.42,37.04,0],['Salamina de Chipre',33.9,35.18,0]]},
+   ['Neápolis',14.25,40.84,0],['Pela',22.52,40.75,0],['Útica',10.06,37.06,0],['Cnosos',25.16,35.3,0],['Mitilene',26.55,39.1,0],['Halicarnaso',27.42,37.04,0],['Salamina de Chipre',33.9,35.18,0],
+   ['Argos',22.72,37.63,-1],['Delfos',22.5,38.48,-1],['Olimpia',21.63,37.64,-1],['Mégara',23.35,38,-1],['Platea',23.27,38.22,-1],['Maratón',23.97,38.15,-1],['Termópilas',22.54,38.8,-1],['Epidauro',23.08,37.6,-1],['Mantinea',22.4,37.62,-1],['Micenas',22.76,37.73,-1],['Egina',23.43,37.72,-1],['Delos',25.27,37.4,-1],['Naxos',25.38,37.1,-1],['Troya',26.24,39.96,-1],['Calcis',23.6,38.46,-1],['Corcira',19.92,39.62,-1],['Agrigento',13.58,37.31,-1],['Selinunte',12.82,37.58,-1],['Crotona',17.12,39.08,-1],['Regio',15.65,38.11,-1]]},
  roma:{title:'El Mediterráneo en el año 80 d.C.',
   note:'Bajo el emperador Tito, Roma gobierna todas las costas: los romanos lo llaman «nuestro mar», Mare Nostrum. Más allá de las fronteras quedan los partos, los germanos, los dacios, los sármatas y los pueblos del desierto.',
   peoples:[['IMPERIO ROMANO',16,47.2,17,'#8a2a1e'],['HISPANIA TARRACONENSE',-3,41.2,11,'#8a2a1e'],['BÉTICA',-4.6,37.7,11,'#8a2a1e'],['Lusitania',-7.6,39.9,11,'#8a2a1e',1],['GALIA NARBONENSE',3.2,44.4,11,'#8a2a1e'],
@@ -3997,43 +4000,51 @@ const MED_INFO={
    ['Emerita Augusta',-6.34,38.92,1],['Gades',-6.29,36.53,1],['Narbo',3.0,43.18,1],['Massilia',5.37,43.3,0],['Lugdunum',4.83,45.76,1],['Aquileia',13.37,45.77,1],['Mediolanum',9.19,45.46,0],['Pompeya (sepultada)',14.49,40.75,0],
    ['Siracusa',15.29,37.07,0],['Tesalónica',22.94,40.64,1],['Bizancio',28.98,41.01,0],['Nicomedia',29.92,40.77,0],['Pérgamo',27.18,39.12,0],['Esmirna',27.14,38.42,0],['Tarso',34.9,36.92,0],['Cesarea',34.9,32.5,1],
    ['Jerusalén (destruida en el 70)',35.23,31.78,0],['Leptis Magna',14.29,32.64,0],['Cirene',21.86,32.82,0],['Gortina',24.95,35.06,0],['Rodas',28.22,36.44,0],['Sinope',35.15,42.03,0],['Trapezunte',39.72,41.0,0],['Tomis',28.65,44.17,0],
-   ['Panticapeo',36.47,45.35,0],['Cesarea de Mauretania',2.19,36.61,0],['Tingis',-5.8,35.78,0],['Carthago Nova',-0.98,37.6,0],['Brundisium',17.94,40.64,0],['Neápolis',14.25,40.84,0],['Ancira',32.86,39.93,0],['Damasco',36.3,33.51,0]]}};
-function medProj(W,H){const k=W/(MED.lon1-MED.lon0),ky=k/Math.cos(38*Math.PI/180),mh=(MED.lat1-MED.lat0)*ky,oy=Math.max(54,(H-mh)/2-10);return{P:(lo,la)=>[(lo-MED.lon0)*k,oy+(MED.lat1-la)*ky],oy,mh,k};}
-function buildMed(W,H){
-  const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');const {P,oy,mh,k}=medProj(W,H);
+   ['Panticapeo',36.47,45.35,0],['Cesarea de Mauretania',2.19,36.61,0],['Tingis',-5.8,35.78,0],['Carthago Nova',-0.98,37.6,0],['Brundisium',17.94,40.64,0],['Neápolis',14.25,40.84,0],['Ancira',32.86,39.93,0],['Damasco',36.3,33.51,0],
+   ['Ostia',12.29,41.75,-1],['Tarquinii',11.76,42.25,-1],['Mutina',10.92,44.65,-1],['Genua',8.93,44.41,-1],['Verona',10.99,45.44,-1],['Comum',9.08,45.81,-1],['Ariminum',12.57,44.06,-1],['Asculum',13.58,42.85,-1],['Saepinum',14.62,41.43,-1],['Paestum',15,40.42,-1],['Capua',14.25,41.08,-1],['Puteoli',14.12,40.82,-1],['Ravenna',12.2,44.42,-1],['Barcino',2.17,41.38,-1],['Emporiae',3.12,42.13,-1],['Ilerda',0.62,41.62,-1],['Utica',10.06,37.06,-1],['Hippo Regius',7.75,36.9,-1],['Hispalis',-5.99,37.39,-1],['Caesaraugusta',-0.88,41.65,-1]]}};
+// MED.v: vista ampliada (s = aumento; cx, cy = centro en coordenadas del mapa sin ampliar)
+function medBase(W,H){const k=W/(MED.lon1-MED.lon0),ky=k/Math.cos(38*Math.PI/180),mh=(MED.lat1-MED.lat0)*ky,oy=Math.max(54,(H-mh)/2-10);return{k,ky,mh,oy};}
+function medProj(W,H){const B=medBase(W,H),v=MED.v||{s:1,cx:W/2,cy:B.oy+B.mh/2},s=v.s;
+  return{oy:B.oy,mh:B.mh,k:B.k*s,s,P:(lo,la)=>[((lo-MED.lon0)*B.k-v.cx)*s+W/2,(B.oy+(MED.lat1-la)*B.ky-v.cy)*s+B.oy+B.mh/2]};}
+function medClamp(W,H){const B=medBase(W,H),v=MED.v;v.s=clamp(v.s,1,6);const hw=W/2/v.s,hh=B.mh/2/v.s;v.cx=clamp(v.cx,hw,W-hw);v.cy=clamp(v.cy,B.oy+hh,B.oy+B.mh-hh);}
+function medReset(){const c=$('mapc'),B=medBase(c.width,c.height);MED.v={s:1,cx:c.width/2,cy:B.oy+B.mh/2};}
+function medZoom(f,mx,my){const c=$('mapc'),W=c.width,H=c.height,B=medBase(W,H),v=MED.v;if(mx==null){mx=W/2;my=B.oy+B.mh/2;}
+  const bx=(mx-W/2)/v.s+v.cx,by=(my-(B.oy+B.mh/2))/v.s+v.cy;v.s=clamp(v.s*f,1,6);v.cx=bx-(mx-W/2)/v.s;v.cy=by-(my-(B.oy+B.mh/2))/v.s;medClamp(W,H);drawMap();}
+function medHere(){const r=regionOf(player.x);return(MODE==='roma'?MED_POS_RO:MED_POS)[r];}
+function drawMed(){
+  const c=$('mapc'),W=c.width,H=c.height,x=c.getContext('2d');if(!MED.v)medReset();const {P,oy,mh,k,s}=medProj(W,H);
   x.fillStyle='#2a2018';x.fillRect(0,0,W,H);x.save();x.beginPath();x.rect(0,oy,W,mh);x.clip();
   x.fillStyle='#d8c9a3';x.fillRect(0,oy,W,mh);
   const poly=(pts,fill,stroke)=>{x.beginPath();pts.forEach((p,i)=>{const q=P(p[0],p[1]);i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]);});x.closePath();x.fillStyle=fill;x.fill();if(stroke){x.strokeStyle=stroke;x.lineWidth=1.2;x.stroke();}};
   const SEA='#86a9ac',COAST='#6a5a44';
-  for(const s of[MED_SEA,MED_ATL,MED_BLACK,MED_AZOV,MED_MARM])poly(s,SEA,COAST);
-  {const a=P(26.2,40.05),b=P(26.6,40.35),d=P(29.1,41.2),e=P(28.98,41.01);x.strokeStyle=SEA;x.lineWidth=3;x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.moveTo(d[0],d[1]);x.lineTo(e[0],e[1]);x.stroke();}   // estrechos
-  for(const s of MED_ISL)poly(s,'#d8c9a3',COAST);
+  for(const q of[MED_SEA,MED_ATL,MED_BLACK,MED_AZOV,MED_MARM])poly(q,SEA,COAST);
+  {const a=P(26.2,40.05),b=P(26.6,40.35),d=P(29.1,41.2),e=P(28.98,41.01);x.strokeStyle=SEA;x.lineWidth=3*Math.sqrt(s);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.moveTo(d[0],d[1]);x.lineTo(e[0],e[1]);x.stroke();}   // estrechos
+  for(const q of MED_ISL)poly(q,'#d8c9a3',COAST);
   for(const d of MED_DOT){const q=P(d[0],d[1]);x.fillStyle='#d8c9a3';x.strokeStyle=COAST;x.lineWidth=1;x.beginPath();x.arc(q[0],q[1],Math.max(1.8,d[2]*k),0,TAU);x.fill();x.stroke();}
   x.strokeStyle='#7f9ea4';x.lineWidth=1.4;for(const r of MED_RIV){x.beginPath();r.forEach((p,i)=>{const q=P(p[0],p[1]);i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]);});x.stroke();}
   // rejilla suave de meridianos y paralelos
-  x.strokeStyle='rgba(90,74,58,.12)';x.lineWidth=1;for(let lo=-10;lo<=40;lo+=10){const a=P(lo,MED.lat0),b=P(lo,MED.lat1);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke();}for(let la=30;la<=45;la+=5){const a=P(MED.lon0,la),b=P(MED.lon1,la);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke();}
+  x.strokeStyle='rgba(90,74,58,.12)';x.lineWidth=1;for(let lo=-10;lo<=40;lo+=(s>2.5?5:10)){const a=P(lo,MED.lat0),b=P(lo,MED.lat1);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke();}for(let la=30;la<=45;la+=5){const a=P(MED.lon0,la),b=P(MED.lon1,la);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke();}
   const I=MED_INFO[MODE];
-  x.textAlign='center';for(const p of I.peoples){const q=P(p[1],p[2]);x.font='italic '+p[3]+'px Alegreya, Georgia, serif';x.lineWidth=3;x.strokeStyle='rgba(216,201,163,.85)';const t=p[5]?p[0].toUpperCase():p[0];x.strokeText(t,q[0],q[1]);x.fillStyle=p[4];x.fillText(t,q[0],q[1]);}
-  const used=[];for(const ct of I.cities.slice().sort((a,b)=>b[3]-a[3])){const q=P(ct[1],ct[2]),r=ct[3]===2?5:ct[3]===1?3.6:2.6;
+  x.textAlign='center';for(const p of I.peoples){const q=P(p[1],p[2]);x.font='italic '+Math.round(p[3]*Math.min(1.6,1+(s-1)*0.15))+'px Alegreya, Georgia, serif';x.lineWidth=3;x.strokeStyle='rgba(216,201,163,.85)';const t=p[5]?p[0].toUpperCase():p[0];x.strokeText(t,q[0],q[1]);x.fillStyle=p[4];x.fillText(t,q[0],q[1]);}
+  // ampliado se ven más ciudades (las de importancia -1, que son los destinos del juego y otras menores)
+  const used=[];for(const ct of I.cities.slice().sort((a,b)=>b[3]-a[3])){if(ct[3]<0&&s<2)continue;const q=P(ct[1],ct[2]);if(q[0]<-40||q[0]>W+40||q[1]<oy-40||q[1]>oy+mh+40)continue;const r=ct[3]===2?5:ct[3]===1?3.6:ct[3]===0?2.6:2.2;
     x.fillStyle=ct[3]===2?'#a8392b':'#16100c';x.strokeStyle='#f1e8d8';x.lineWidth=1.2;x.beginPath();x.arc(q[0],q[1],r,0,TAU);x.fill();x.stroke();
     x.font=(ct[3]===2?'bold 14px':ct[3]===1?'bold 12px':'11px')+' Alegreya, Georgia, serif';const w=x.measureText(ct[0]).width;
     let pos=null;for(const[dx,dy,al]of[[r+3,4,'left'],[-r-3,4,'right'],[0,-r-4,'center'],[0,r+12,'center']]){const x0=al==='left'?q[0]+dx:al==='right'?q[0]+dx-w:q[0]-w/2,y0=q[1]+dy-10;
       if(!used.some(u=>x0<u[0]+u[2]&&x0+w>u[0]&&y0<u[1]+12&&y0+12>u[1])){pos=[dx,dy,al,x0,y0];break;}}
-    if(!pos){if(ct[3]===0)continue;pos=[r+3,4,'left',q[0]+r+3,q[1]-6];}used.push([pos[3],pos[4],w]);
+    if(!pos){if(ct[3]<=0)continue;pos=[r+3,4,'left',q[0]+r+3,q[1]-6];}used.push([pos[3],pos[4],w]);
     x.textAlign=pos[2];x.lineWidth=3;x.strokeStyle='rgba(241,232,216,.9)';x.strokeText(ct[0],q[0]+pos[0],q[1]+pos[1]);x.fillStyle='#16100c';x.fillText(ct[0],q[0]+pos[0],q[1]+pos[1]);}
+  {const pos=medHere();if(pos){const q=P(pos[0],pos[1]);x.fillStyle='#a8392b';x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.moveTo(q[0],q[1]-3);x.lineTo(q[0]+6,q[1]-15);x.lineTo(q[0]-6,q[1]-15);x.closePath();x.fill();x.stroke();}}
   x.restore();x.strokeStyle='#d9874a';x.lineWidth=2;x.strokeRect(1,oy,W-2,mh);
   x.textAlign='left';x.fillStyle='#f1e8d8';x.font='bold 20px Alegreya, Georgia, serif';x.fillText(I.title,14,oy-18);
+  if(s>1.01){x.textAlign='right';x.font='13px Alegreya, Georgia, serif';x.fillStyle='#e8dcc4';x.fillText(`Aumento ×${s.toFixed(1)}`,W-14,oy-18);x.textAlign='left';}
   // nota histórica al pie, en varias líneas
   x.font='14px Alegreya, Georgia, serif';x.fillStyle='#e8dcc4';const words=I.note.split(' ');let line='',y=oy+mh+24;for(const wd of words){const t=line?line+' '+wd:wd;if(x.measureText(t).width>W-28){x.fillText(line,14,y);y+=19;line=wd;}else line=t;}if(line)x.fillText(line,14,y);
   y+=26;x.font='13px Alegreya, Georgia, serif';x.fillStyle='#a8392b';x.beginPath();x.arc(20,y-4,5,0,TAU);x.fill();x.fillStyle='#e8dcc4';x.fillText(MODE==='roma'?'Capital o gran ciudad':'Gran potencia o ciudad principal',32,y);
   x.fillStyle='#16100c';x.strokeStyle='#f1e8d8';x.beginPath();x.arc(250,y-4,3.4,0,TAU);x.fill();x.stroke();x.fillStyle='#e8dcc4';x.fillText('Otra ciudad',260,y);
   x.fillStyle='#a8392b';x.beginPath();x.moveTo(380,y-12);x.lineTo(386,y);x.lineTo(374,y);x.closePath();x.fill();x.fillStyle='#e8dcc4';x.fillText('Estás aquí',394,y);
-  return c;
 }
-function drawMed(){const c=$('mapc'),W=c.width,H=c.height,x=c.getContext('2d');const key=MODE+W;if(!MED.cache[key])MED.cache[key]=buildMed(W,H);x.drawImage(MED.cache[key],0,0);
-  const r=regionOf(player.x),pos=(MODE==='roma'?MED_POS_RO:MED_POS)[r];if(!pos)return;const {P}=medProj(W,H),q=P(pos[0],pos[1]);
-  x.fillStyle='#a8392b';x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.moveTo(q[0],q[1]-3);x.lineTo(q[0]+6,q[1]-15);x.lineTo(q[0]-6,q[1]-15);x.closePath();x.fill();x.stroke();}
-function setMed(on){MED.on=on;$('mapMed').textContent=on?'Volver al plano':'Mediterráneo';$('mapZoom').hidden=on;$('mapHint').hidden=on;
+function setMed(on){MED.on=on;$('mapMed').textContent=on?'Volver al plano':'Mediterráneo';if(on)medReset();
   document.querySelector('#map h2').textContent=on?'El Mediterráneo':regionOf(player.x)==='atenas'?(MODE==='roma'?'Plano de Roma':'Plano de Atenas'):'Plano de '+islandOf(player.x).name;drawMap();}
 $('mapMed').onclick=()=>setMed(!MED.on);
 
@@ -4548,7 +4559,16 @@ const ROMA_DEST_NPCS=[
   ['¿Cómo era el servicio de tu abuelo?','Veinte años en la legión, marchando con treinta kilos a la espalda, construyendo campamentos cada noche y luchando en montañas donde los cántabros se escondían como lobos. Augusto fijó los años de servicio y creó una caja especial para pagar a los veteranos al licenciarse: tierras o una buena suma de dinero. Mi abuelo eligió la tierra. Mi padre dice que fue lo más listo que hizo.'],
   ['¿Cómo se repartieron las tierras?','Los agrimensores trazaron la cuadrícula y sortearon los lotes. El territorio de la colonia era tan grande que quedaron zonas sin repartir; aún hay pleitos por ellas. Los que no eran veteranos, los lusitanos de la zona, se quedaron con lo peor o trabajaron para los colonos. Así se hacen las colonias, ¿no?'],
   ['¿Qué hay en la ciudad?','De todo, como en Roma: foro, templos, termas, un teatro que pagó Agripa, el yerno de Augusto, y un anfiteatro al lado. Y el puente sobre el Anas, larguísimo. Somos la capital de Lusitania, así que el gobernador vive aquí, con sus soldados, sus escribas y sus pleitos.']],
- quiz:{q:'¿Para quiénes fundó Augusto Emerita Augusta?',a:['Para los veteranos licenciados de sus legiones','Para los comerciantes griegos','Para los esclavos liberados de Roma'],ko:'No. Emerita se fundó en el 25 a.C. para los veteranos (eméritos) de las legiones V Alauda y X Gemina.'}}
+ quiz:{q:'¿Para quiénes fundó Augusto Emerita Augusta?',a:['Para los veteranos licenciados de sus legiones','Para los comerciantes griegos','Para los esclavos liberados de Roma'],ko:'No. Emerita se fundó en el 25 a.C. para los veteranos (eméritos) de las legiones V Alauda y X Gemina.'}},
+{id:'himilcon',name:'Gayo Julio Himilcón',title:'Comerciante de trigo, de familia púnica',glyph:'H',look:RT('#c9b48b',{beard:true,hair:'#1a1410'}),
+ cat:'Historia',lesson:'Cartago, de ciudad púnica a colonia romana',where:'En Carthago, junto al puerto',
+ summary:'Cartago, fundada por colonos fenicios de Tiro hacia el 814 a.C. según la tradición, dominó el Mediterráneo occidental y luchó contra Roma en tres guerras púnicas (264-241, 218-201 y 149-146 a.C.). En la tercera, Escipión Emiliano la tomó y la arrasó, y su territorio se convirtió en la provincia de África. Un siglo después, César y Augusto fundaron sobre las ruinas la colonia romana de Cartago, que llegó a ser una de las mayores ciudades del Imperio y el puerto del trigo africano para Roma. La lengua y algunos cultos púnicos sobrevivieron siglos.',
+ intro:'Salud, forastero. Gayo Julio Himilcón, comerciante de trigo. Sí, Himilcón, como los almirantes de la antigua Cartago: mi familia es púnica desde hace siglos, y ciudadana romana desde mi abuelo. Mando a Roma más trigo del que te puedes imaginar.',
+ topics:[
+  ['¿Qué pasó en la última guerra?','Los romanos exigieron a mis antepasados rehenes, luego las armas, y por último que abandonaran la ciudad y vivieran lejos del mar. Se negaron y resistieron tres años. En el 146 entró Escipión Emiliano: seis días de combates calle por calle y un incendio que lo arrasó todo. Los supervivientes, unos cincuenta mil, fueron vendidos como esclavos. Durante un siglo aquí no hubo nada.'],
+  ['¿Todavía se habla púnico?','En mi casa, sí, con mi madre. En el foro, latín. En Leptis y en otras ciudades de la provincia se ponen inscripciones en las dos lenguas, y algunas todavía tienen sufetes, como la vieja Cartago. Los dioses tampoco se han ido del todo: Baal Hammón es ahora Saturno, y Tanit es la diosa Celeste. Cambiamos los nombres y seguimos rezando.'],
+  ['¿De qué vive Cartago?','Del trigo. África y Egipto alimentan a Roma: Flavio Josefo calcula que África la alimenta ocho meses al año. Los grandes propietarios, y el emperador, tienen aquí fincas inmensas; el trigo baja a la costa y sale en las naves de la anona hacia Ostia. También vendemos aceite, cerámica roja y fieras para los juegos.']],
+ quiz:{q:'¿Quién tomó y destruyó Cartago en el 146 a.C.?',a:['Escipión Emiliano','Escipión el Africano','Julio César'],ko:'No. Fue Escipión Emiliano, nieto adoptivo del Africano, que había vencido a Aníbal en Zama en el 202.'}}
 ];
 const ROMA_DEST_SRC={
  numerio:{a:['Plinio el Joven, Cartas VI 16 y VI 20','Suetonio, Tito 8.3-4','Dion Casio LXVI 21-24','Tácito, Anales XIV 17 (la riña del 59) y XV 22 (el terremoto del 62)'],m:['M. Beard, Pompeya (2009)','G. Stefani (ed.), I giorni di Pompei (2019)'],n:['Numerio es inventado. Las cartas de Plinio se escribirán hacia el 106.']},
@@ -4566,6 +4586,7 @@ const ROMA_DEST_SRC={
  pedania:{a:['Plinio el Viejo, Historia natural XIV 71','Marcial I 26','Digesto L 15.8 (la inmunidad de Barcino)'],m:['V. Revilla, Producción cerámica, viticultura y propiedad rural en Hispania Tarraconensis (1995)'],n:['Pedania es inventada.']},
  dionisia:{a:['Estrabón III 4.8','Livio XXI 60 y XXXIV 9'],m:['P. Cabrera y C. Sánchez (eds.), Los griegos en España (2000)'],n:['Dionisia es inventada.']},
  atilio:{a:['César, La guerra civil I 37-87','Polibio X 18 y Livio XXVIII 24-34 (Indíbil y Mandonio)','Horacio, Epístolas I 20.13'],m:['A. Goldsworthy, César (2006)'],n:['Atilio es inventado.']},
+ himilcon:{a:['Apiano, Libia 74-135','Polibio XXXVIII 19-22','Plutarco, Catón el Viejo 26-27','Flavio Josefo, La guerra de los judíos II 383','Estrabón XVII 3.14-15'],m:['S. Lancel, Carthage (1995)','R. Miles, Carthage Must Be Destroyed (2010)'],n:['Himilcón es inventado.','Sobre la sal: R. T. Ridley, «To Be Taken with a Pinch of Salt: The Destruction of Carthage», Classical Philology 81 (1986).']},
  tito_cornelio:{a:['Dion Casio LIII 26 y LV 23','Higino Gromático, en el Corpus agrimensorum'],m:['J. M. Álvarez Martínez, Augusta Emerita (varios)','L. Keppie, The Making of the Roman Army (1984)'],n:['Tito Cornelio es inventado.']}
 };
 
@@ -5000,7 +5021,8 @@ const ROMA_DESTS=[
  {id:'barcino',name:'Barcino',gr:'HISPANIA CITERIOR · BARCINO',sub:'Una pequeña colonia amurallada de Augusto, entre viñas, junto al mar.',R:440,H:8,seed:28.3,days:'cuatro o cinco días de navegación',fare:20,coast:[0,1],coastAt:0.4,sea:true,net:'hisp'},
  {id:'emporiae',name:'Emporiae',gr:'HISPANIA CITERIOR · EMPORIAE',sub:'La vieja colonia griega donde desembarcaron los Escipiones.',R:420,H:6,seed:28.9,days:'tres o cuatro días de navegación, siguiendo la costa de la Galia',fare:18,coast:[0,1],coastAt:0.35,sea:true,net:'hisp'},
  {id:'ilerda',name:'Ilerda',gr:'HISPANIA CITERIOR · ILERDA',sub:'La ciudad de los ilergetes, sobre una colina junto al río Sicoris.',R:420,H:8,seed:29.5,days:'en barco hasta Tarraco y tres días de camino',ldays:'tres días de camino desde Tarraco, tierra adentro',fare:23,lfare:3,net:'hisp'},
- {id:'emerita',name:'Emerita Augusta',gr:'LVSITANIA · EMERITA AVGVSTA',sub:'La colonia de los veteranos de Augusto, capital de Lusitania, junto al río Anas.',R:480,H:6,seed:30.1,days:'en barco hasta Tarraco y unas tres semanas de camino',ldays:'unas tres semanas de camino por las calzadas de la Meseta',fare:32,lfare:12,net:'hisp'}
+ {id:'emerita',name:'Emerita Augusta',gr:'LVSITANIA · EMERITA AVGVSTA',sub:'La colonia de los veteranos de Augusto, capital de Lusitania, junto al río Anas.',R:480,H:6,seed:30.1,days:'en barco hasta Tarraco y unas tres semanas de camino',ldays:'unas tres semanas de camino por las calzadas de la Meseta',fare:32,lfare:12,net:'hisp'},
+ {id:'cartago',name:'Carthago',gr:'AFRICA PROCONSVLARIS · CARTHAGO',sub:'La Cartago romana, capital de África, sobre las ruinas de la ciudad púnica.',R:520,H:10,seed:30.7,days:'dos o tres días de navegación desde Ostia, con buen viento',fare:16,coast:[1,0],coastAt:0.3,sea:true,net:'afr'}
 ];
 ROMA_DESTS.forEach(I=>{I.dir=[-1,0];I.land=true;I.step=8;I.green=true;if(!I.net)I.net='it';});
 const ROMA_LAND_FACTS=['Cada mil pasos, un miliario de piedra indica la distancia hasta Roma.','Las calzadas tienen capas de piedra y grava bajo las losas; algunas durarán dos mil años.','En las posadas del camino se cambia de mulas, se come mal y se duerme peor.','Los correos del emperador recorren hasta cincuenta millas al día cambiando de caballos.','Junto a las calzadas, a la salida de cada ciudad, se alinean las tumbas.'];
@@ -5044,6 +5066,7 @@ function defineRomaDests(){
   {const I=G('liguria');I.blobs.push({x:I.x,z:I.z-330,R:300,H:180},{x:I.x+300,z:I.z-120,R:160,H:80});I.town=pad(I,-30,60,60,0,4);I.town.house=true;}
   {const I=G('venetia');I.blobs.push({x:I.x+160,z:I.z-140,R:90,H:26});I.thea=pad(I,160,-120,30);I.town=pad(I,-20,40,110,0,4);I.town.house=true;I.arena=pad(I,-150,140,70,0,4);}
   {const I=G('transpadana');I.lake={x:I.x+120,z:I.z-40,rx:110,rz:420};for(let i=0;i<5;i++)I.blobs.push({x:I.x-200+i*160,z:I.z-I.R*1.05,R:220,H:200+60*Math.sin(i)});I.town=pad(I,-110,120,90,0,4);I.town.house=true;I.villa=pad(I,-20,-120,26,0,4);}
+  {const I=G('cartago');I.blobs.push({x:I.x-60,z:I.z-20,R:130,H:40});I.byrsa=pad(I,-60,-20,60);I.lake={x:I.x+110,z:I.z+150,rx:34,rz:34};I.town=pad(I,-40,110,80,0,4);I.town.house=true;I.tophet=pad(I,90,250,24,0,3);I.amph=pad(I,-280,60,60,0,4);}
   {const I=G('tarraco');I.blobs.push({x:I.x+40,z:I.z-60,R:200,H:34});I.upper=pad(I,40,-110,80);I.lower=pad(I,-40,90,70,0,4);I.lower.house=true;}
   {const I=G('barcino');I.blobs.push({x:I.x+20,z:I.z-30,R:90,H:10},{x:I.x+280,z:I.z+20,R:160,H:80});I.town=pad(I,20,-30,70);I.town.house=true;I.quarry=pad(I,240,40,20);}
   {const I=G('emporiae');I.neap=pad(I,-80,60,40,0,4);I.neap.house=true;I.urbs=pad(I,90,-40,100,0,6);I.urbs.house=true;}
@@ -5216,6 +5239,23 @@ function buildRomaDests(){
    place('murallas_tarraco','Las murallas de los Escipiones','MVRI','Las murallas de la ciudad alta se levantaron en tiempos de la guerra contra Aníbal y se ampliaron poco después: en la base hay bloques enormes sin labrar, sobre los que se construyó con sillares. Los romanos las hicieron con mano de obra de los íberos de la zona.',u.x-90,u.z+10,0);
    NPC_POS.flamen=[u.x+20,u.z-10,0];
    romaVillagers(I,l.x,l.z+10,5,['El gobernador ha vuelto de inspeccionar las minas del norte. Viene de mal humor.','Aquí llegan delegados de todas las ciudades de la provincia, desde Gallaecia hasta Carthago Nova.','El vino de Tarraco se bebe en Roma, aunque allí presuman de su Falerno.','Dicen que el foro nuevo será el más grande de Hispania.']);}
+  // ---------------------------------------- África: Carthago
+  {const I=G('cartago'),b=I.byrsa,t=I.town;
+   romanTemple({x:b.x,z:b.z-30,rot:0,W:20,L:36,pod:4,colD:1.3,colH:11,nW:6,deep:2,name:'Capitolio de Carthago'});forumR(b.x,b.z+16,70,40,'Foro de Carthago');
+   for(let i=0;i<10;i++){const x=b.x+rr(-60,60),z=b.z+rr(70,110);box(rr(3,6),rr(0.6,1.4),rr(3,6),lam('#9a8a6a'),x,terrainH(x,z)+0.3,z);}
+   {const L=I.lake;box(16,2,16,TRAV,L.x,0.6,L.z);addBox(L.x,L.z,16,16,0);box(6,6,8,lam('#d8ccb4'),L.x,4,L.z);for(let i=0;i<24;i++){const a=i/24*TAU;const g=grp(L.x+Math.cos(a)*38,terrainH(L.x+Math.cos(a)*38,L.z+Math.sin(a)*38),L.z+Math.sin(a)*38,-a);box(3,3,8,lam('#cdbf9f'),0,1.5,0,g);}
+    {const sh=shoreAlong(L.x+30,L.z-70,1,0,400);buildPort('cartago','Carthago',sh[0],sh[1],1,0);}}
+   {const q=I.tophet;for(let i=0;i<60;i++){const x=q.x+rr(-20,20),z=q.z+rr(-20,20);box(0.4,rr(0.6,1.2),0.15,lam('#c9bfa9'),x,terrainH(x,z)+0.4,z).rotation.y=rr(-0.3,0.3);}}
+   amphi(I.amph.x,I.amph.z,0,46,36,13,'Anfiteatro de Carthago');
+   destHouses(I,t.x,t.z,40,90,true);
+   place('byrsa','La Byrsa y el Capitolio','BYRSA','La Byrsa fue la ciudadela de la Cartago púnica. Según la leyenda, la reina Dido, huida de Tiro, pidió al rey del lugar tanta tierra como pudiera abarcar una piel de buey; la cortó en tiras finísimas y rodeó con ellas toda la colina. Los romanos allanaron la cima, enterrando bajo el relleno las casas púnicas, y levantaron encima el foro, la basílica y el Capitolio de la colonia.',b.x+30,b.z+44,0);
+   place('puertos_cartago','Los puertos de Cartago','COTHON','Cartago tenía dos puertos unidos: uno rectangular para los mercantes y, detrás, uno circular para la flota de guerra, con una isla en el centro donde vivía el almirante y gradas para unas doscientas veinte naves alrededor. Hoy los usan las naves del trigo: según Flavio Josefo, África alimenta a Roma ocho meses al año.',I.lake.x-40,I.lake.z-30,0);
+   place('delenda','«Cartago debe ser destruida»','DELENDA EST CARTHAGO','Catón el Viejo terminaba todos sus discursos en el Senado con la misma frase: «Además, opino que Cartago debe ser destruida». En el 146 a.C., tras tres años de asedio, Escipión Emiliano tomó la ciudad, la incendió y la arrasó; los supervivientes fueron vendidos como esclavos. Que los romanos sembraran sal en sus campos es un invento moderno: ningún autor antiguo lo dice.',b.x-40,b.z+50,0);
+   place('tofet','El tofet','TOPHET','Junto al puerto está el antiguo recinto sagrado de Baal Hammón y de Tanit, con miles de urnas y estelas. Las urnas guardan huesos quemados de niños pequeños y de animales. Griegos y romanos acusaban a los cartagineses de sacrificar a sus hijos; los historiadores de hoy discuten si todos fueron sacrificios. Los dioses no se han ido: a Baal Hammón lo llaman ahora Saturno, y a Tanit, Celeste.',I.tophet.x+26,I.tophet.z,0);
+   place('colonia_carthago','La colonia de César y Augusto','COLONIA IVLIA CONCORDIA CARTHAGO','Gayo Graco intentó fundar aquí una colonia en el 122 a.C., pero fracasó. Julio César la proyectó y Augusto la fundó, con tres mil colonos y muchos habitantes de los alrededores. Hoy es la capital de la provincia de África, donde reside el procónsul, y una de las ciudades más grandes de Occidente.',t.x+30,t.z+30,0);
+   place('punicos_hoy','Los púnicos de hoy','LINGVA PVNICA','La ciudad es romana, pero en las casas y en el campo muchos siguen hablando la lengua púnica, la de sus abuelos fenicios. En las ciudades de la provincia hay inscripciones en latín y en púnico a la vez, y familias de antiguo nombre fenicio son hoy ciudadanos romanos.',t.x-30,t.z-30,0);
+   NPC_POS.himilcon=[I.lake.x-20,I.lake.z-50,Math.PI];
+   romaVillagers(I,t.x,t.z+10,5,['Mi abuela todavía reza a Tanit, aunque ahora la llame Celeste.','Sale una nave de trigo para Roma casi cada día en verano.','Dicen que Aníbal nació en esta ciudad. Aquí no hablamos mucho de él.','En el anfiteatro dan fieras de verdad: leones de Numidia, no esos gatos de Italia.']);}
   // ---------------------------------------- Hispania: Barcino
   {const I=G('barcino'),t=I.town;
    rectWall(t.x,t.z,130,110,lam('#b5a98e'),6);romanTemple({x:t.x+20,z:t.z-20,rot:0,W:17.5,L:35,pod:3,colD:1.1,colH:9,nW:6,deep:2,peri:true,name:'Templo de Augusto (Barcino)'});
@@ -6776,6 +6816,10 @@ function defineGreece2(){
   {const Mr=G('maraton');Mr.arrive=pad(Mr,-Mr.R*0.72,30,24,0,3);Mr.lake={x:Mr.x+110,z:Mr.z-250,rx:100,rz:70};
    Mr.blobs.push({x:Mr.x-130,z:Mr.z-480,R:300,H:160},{x:Mr.x-470,z:Mr.z+60,R:220,H:120},{x:Mr.x-300,z:Mr.z+380,R:200,H:90});
    Mr.soros=pad(Mr,30,30,24,0,3);Mr.plat=pad(Mr,-150,-70,16,0,3);Mr.trop=pad(Mr,70,-150,8,0,3);Mr.herak=pad(Mr,-240,140,20);Mr.town=pad(Mr,-200,-150,60,0,4);Mr.town.house=true;}
+  {const T=G('termopilas');T.arrive=pad(T,-T.R*0.72,20,24,0,3);
+   for(let i=0;i<6;i++)T.blobs.push({x:T.x-500+i*200,z:T.z-330-(i%2)*40,R:280,H:230+40*Math.sin(i*1.7)});
+   T.anth=pad(T,-210,10,40,0,3);T.spring=pad(T,-70,0,18,0,2.5);T.wall=pad(T,70,5,30,0,3);T.kol=pad(T,120,-10,26,0,3);T.anop=pad(T,190,-40,10,0,3.5);T.town=pad(T,250,15,40,0,3);T.town.house=true;
+   T.blobs.push({x:T.kol.x,z:T.kol.z,R:28,H:9});}
   for(const p of[Me.town,Co.town,Pl.town,Ar.town,Ma.town])p.house=true;   // en el centro de la ciudad sí puede haber casas
 }
 // llegada: el arriero Lisicles también recorre estos caminos
@@ -6900,6 +6944,24 @@ function buildGreece2(){
    place('taller_fidias','El taller de Fidias','ΕΡΓΑΣΤΗΡΙΟΝ','En este edificio, del mismo tamaño que la cella del templo, Fidias y sus ayudantes trabajaron el oro, el marfil y el vidrio de la estatua de Zeus. En el siglo XX los arqueólogos encontrarán aquí moldes de arcilla, herramientas y una taza con una inscripción: «Soy de Fidias».',I.ws.x+12,I.ws.z+18,0);
    greekArrive(I,'Olimpia');NPC_POS.aristarco=[A.x+40,A.z+60,Math.PI];
    islandVillagers(I,A.x+40,A.z+80,5,['Los atletas entrenan un mes entero en Élide antes de los Juegos, bajo la mirada de los jueces.','Nosotros, los eleos, organizamos los Juegos. Y nadie lo hace mejor.','Esas estatuas nuevas de Zeus las han pagado los tramposos.','Si vienes en los Juegos, trae sombrero y agua: aquí en verano se derrite hasta el bronce.']);}
+  // ------------------------------------------------ Termópilas
+  {const I=G('termopilas');
+   {const a=I.anth;temple({name:'Santuario de Deméter Anfictiónide',x:a.x,z:a.z-8,rot:Math.PI/2,W:10,L:18,nW:4,prostyle:true,colD:0.7,colH:5,gy:a.h,cella:{w:8,l:11,door:2.4}});
+    for(let i=0;i<4;i++)box(14,0.6,1.2,M.limestone,a.x,a.h+0.3+i*0.6,a.z+14+i*1.4);
+    place('antela','Antela y la Anfictionía','ΑΝΘΗΛΗ','En la aldea de Antela, a la entrada occidental del paso, está el santuario de Deméter Anfictiónide. Aquí se reúnen cada otoño los delegados de la Anfictionía, la liga de doce pueblos vecinos que administra también el santuario de Delfos (en primavera se reúnen allí). Tienen sus asientos de piedra junto al templo. Heródoto cuenta que el paso, aquí, era tan estrecho que solo cabía un carro.',a.x+16,a.z+6,0);}
+   {const w=I.spring;pool(w.x,w.z,16,10,w.h+0.05);plume(w.x,w.h+0.5,w.z,6,6);
+    place('aguas_calientes','Las puertas calientes','ΘΕΡΜΑ ΛΟΥΤΡΑ','Termópilas significa «las puertas calientes»: aquí brotan manantiales de agua caliente que huele a azufre. Los del lugar los llaman las ollas, y junto a ellos hay un altar de Heracles. Cuentan que Atenea, o Hefesto, hizo brotar estas aguas para que Heracles se bañara después de uno de sus trabajos. El agua deja en el suelo costras blancas.',w.x+12,w.z+8,0);}
+   {const w=I.wall,m=lam('#a8987a');for(let i=0;i<12;i++){const z=w.z-40+i*6;if(i===6)continue;box(2.4,rr(1.4,3),6,m,w.x,terrainH(w.x,z)+0.6,z);addBox(w.x,z,2.4,6,0);}
+    place('muro_focidio','El muro de los focidios','ΦΩΚΙΚΟΝ ΤΕΙΧΟΣ','Hace mucho tiempo, los focidios levantaron aquí un muro para frenar a los tesalios, y desviaron el agua caliente para encharcar el camino. En el 480 el muro estaba medio caído: los griegos de Leónidas lo repararon y se apostaron detrás. El último día salieron a combatir delante de él, donde el paso se ensanchaba.',w.x+10,w.z+10,0);}
+   {const k=I.kol;const g=grp(k.x,terrainH(k.x,k.z)+0.4,k.z,-Math.PI/2),st=M.limestone;box(4,1.6,6,st,0,0.8,0,g);box(1.6,1.4,3.4,st,0,2.3,0,g);box(1.8,1.8,1.4,st,0,2.9,1.9,g);box(1,0.8,0.9,st,0,2.6,2.8,g);for(const[px,pz]of[[-0.6,-1.2],[0.6,-1.2],[-0.6,1.2],[0.6,1.2]])box(0.4,1,0.4,st,px,1.9,pz,g);box(0.25,0.25,1.4,st,0,2.6,-2.2,g).rotation.x=-0.6;
+    for(let i=0;i<3;i++){const sx=k.x-8+i*8;box(1.1,2,0.3,M.marble,sx,terrainH(sx,k.z+10)+1,k.z+10);}
+    place('colono_leon','El león de Leónidas','ΚΟΛΩΝΟΣ','En esta pequeña colina resistieron los últimos griegos, hasta que los persas los acribillaron a flechazos. Encima han puesto un león de piedra en honor de Leónidas, cuyo nombre significa «hijo de león». Al lado, tres estelas con epigramas. El más famoso, atribuido a Simónides, dice: «Extranjero, ve a decir a los lacedemonios que aquí yacemos, obedientes a sus leyes». Los huesos de Leónidas ya no están aquí: cuarenta años después de la batalla los llevaron a Esparta.',k.x+12,k.z+18,0);}
+   {const a=I.anop;for(let i=0;i<20;i++){const px=a.x+i*1.5,pz=a.z-i*4;box(1.2,0.15,2,lam('#b5a582'),px,terrainH(px,pz)+0.1,pz);}
+    place('anopea','El sendero de Anopea','ΑΝΟΠΑΙΑ','Por aquí sube el sendero que rodea el paso por el monte. Lo enseñó a los persas Efialtes, un hombre de la región, a cambio de una recompensa. Los Inmortales lo recorrieron de noche; los mil focidios que lo vigilaban arriba se retiraron a una cumbre y los dejaron pasar. Los anfictiones pusieron precio a la cabeza de Efialtes, que huyó a Tesalia. Años después lo mató un tal Atenades, por otro motivo.',a.x+10,a.z+8,0);}
+   place('mar_termopilas','El mar se alejará','ΚΟΛΠΟΣ ΜΑΛΙΑΚΟΣ','Hoy el golfo Maliaco llega casi al pie del monte, y el paso, en sus puntos más estrechos, deja sitio para un solo carro. Pero el río Esperqueo arrastra tanto barro que la costa avanza año tras año. Dentro de veinticinco siglos, el mar estará a varios kilómetros, y quien venga a ver el campo de batalla encontrará una llanura ancha.',I.spring.x+40,I.spring.z+40,0);
+   place('supervivientes','Los que no murieron','ΤΡΕΣΑΣ','Dos espartanos se salvaron. Aristodemo, enfermo de los ojos, no estuvo en el último combate: en Esparta lo llamaron «el que tembló», nadie le daba fuego ni le hablaba. Un año después, en Platea, luchó como un loco hasta morir, buscando la muerte. Pantites, que había ido de mensajero a Tesalia, volvió y, deshonrado, se ahorcó. Antes de la batalla, cuando alguien dijo que las flechas persas taparían el sol, el espartano Dieneces contestó: «Mejor, así lucharemos a la sombra».',I.kol.x-30,I.kol.z+30,0);
+   destHouses(I,I.town.x,I.town.z,14,50,false);greekArrive(I,'Termópilas');NPC_POS.lampon=[I.anth.x+22,I.anth.z+20,0];
+   islandVillagers(I,I.town.x,I.town.z+10,5,['Los viajeros siempre preguntan por el león. Luego se bañan en las aguas calientes y se van contentos.','Aquí el camino es tan estrecho que dos carros no se cruzan. Hay que esperar.','Mi abuelo decía que Efialtes era de Antícira; otros dicen que de Traquis. Nadie quiere que sea de su pueblo.','En otoño viene la Anfictionía y en Antela no cabe un alma.']);}
   // ------------------------------------------------ Maratón
   {const I=G('maraton'),t=I.town;
    {const b=I.soros;tumulus(b.x,b.z,22,9,'#8f8a5a');for(let i=0;i<10;i++){const a=-0.6+i*0.13;box(0.9,1.8,0.25,M.marble,b.x+Math.cos(a)*25,terrainH(b.x+Math.cos(a)*25,b.z+Math.sin(a)*25)+0.9,b.z+Math.sin(a)*25).rotation.y=-a+Math.PI/2;}
@@ -7492,6 +7554,52 @@ const EPISODES=[
 {id:'cnosos',mode:'atenas',name:'El palacio de Minos y el laberinto',at:()=>plXZ('cnosos',8,6),walk:()=>knossosTravel('cnosos_sueno'),
  teaser:'columnas rojas, un patio lleno de gente, un toro pintado y unos pasillos oscuros que no acaban nunca.'},
 // ---------------------------------------------------------------- Grecia continental y Peloponeso
+{id:'termopilas',mode:'atenas',hist:true,name:'La batalla de las Termópilas',at:()=>plXZ('colono_leon',-14,12),h:9,
+ teaser:'un paso estrecho entre el monte y el mar, hombres que se peinan antes de morir, antorchas en la noche y un león de piedra sobre una colina.',
+ build(S){S.ground('#a8a070');const A=S.a;
+   const sea=new THREE.Mesh(new THREE.PlaneGeometry(2000,400),new THREE.MeshPhongMaterial({color:'#3a6f8a',shininess:60}));sea.rotation.x=-Math.PI/2;sea.position.set(0,0.06,218);S.g.add(sea);
+   A.H=[];for(let i=0;i<8;i++){const H=[-175+i*50,-88-(i%2)*6,55,75+(i%3)*12];A.H.push(H);S.hill(H[0],H[1],H[2],H[3],i%2?'#7b7a50':'#827f55');}
+   A.hy=(x,z)=>Math.max(0,...A.H.map(H=>hillY(H,x,z)));
+   A.wall=[];for(let i=0;i<10;i++){if(i===5)continue;A.wall.push(S.box(1.8,2.6,3.2,'#a8987a',10,1.3,-15+i*3.4));}
+   A.kol=S.hill(22,-6,8,3,'#8f8a5a');S.box(6,1,4,'#cdbf9f',-80,0.5,0);A.xer=S.person({chiton:'#c9a24a',himation:'#7a2a5a',beard:true,hair:'#1a1410',attrs:['G_diadem']},-80,0,Math.PI/2);A.xer.position.y=1;
+   A.gr=[];for(let i=0;i<30;i++){const r=Math.floor(i/10),f=i%10;A.gr.push(S.person({chiton:'#9a2a1e',himation:'#7a1e18',short:true,noHimation:true,beard:true,hair:'#3a2a18',helmet:'attic',attrs:['P_spear','P_spearhead','P_shield']},2+r*1.6,-12+f*2.6,-Math.PI/2));}
+   A.leo=S.person({chiton:'#a8392b',himation:'#6a1a14',beard:true,hair:'#3a2a18',beardC:'#8d8a85',helmet:'attic',attrs:['P_spear','P_spearhead','P_shield']},0.4,0,-Math.PI/2);
+   A.al=[];for(let i=0;i<10;i++)A.al.push(S.person({chiton:pick(['#5a6a7a','#7a6a3a','#4a5a3a']),short:true,noHimation:true,beard:true,hair:'#3b2a1e',helmet:'attic',attrs:['P_spear','P_spearhead','P_shield']},6+(i%2)*2,-12+i*2.6,-Math.PI/2));
+   A.per=[];for(let i=0;i<40;i++){const c=pick(['#6a4a8a','#3a5a7a','#8a6a2a','#7a2a3a','#4a6a4a']);A.per.push(S.person({chiton:c,himation:c,short:true,noHimation:true,beard:true,hair:'#1a1410',spear:true},0,0,Math.PI/2));}
+   A.imm=[];for(let i=0;i<12;i++){const p=S.person({chiton:'#efe6d4',himation:'#2f3f6a',short:true,noHimation:true,beard:true,hair:'#1a1410',spear:true},0,0,0);const f=fireSprite(S,0,0,0,1.2);A.imm.push([p,f]);}
+   A.scout=S.beast('caballo',-35,12,Math.PI/2);A.rider=S.person({chiton:'#6a4a8a',short:true,noHimation:true,beard:true,hair:'#1a1410'},-35,12,Math.PI/2);
+   A.arw=[];for(let i=0;i<30;i++){const a=S.box(0.05,0.05,1.1,'#2a2420',0,0,0);a.visible=false;A.arw.push(a);}
+   A.lion=new THREE.Group();const st=lam('#cdbf9f');box(1.6,1.2,3.2,st,0,1.6,0,A.lion);box(1.8,1.8,1.4,st,0,2.4,1.8,A.lion);for(const[px,pz]of[[-0.6,-1.2],[0.6,-1.2],[-0.6,1.2],[0.6,1.2]])box(0.4,1,0.4,st,px,0.5,pz,A.lion);box(3,0.5,4.4,st,0,0.25,0,A.lion);A.lion.position.set(22,3,-6);A.lion.rotation.y=-Math.PI/2;S.g.add(A.lion);
+   A.persAt=(i,x)=>{const r=Math.floor(i/10),f=i%10;return[x-r*3,-12+f*2.6];};},
+ beats:[
+  {h:9,cam:[-70,40,95,0,0,-10],cam2:[-40,34,85,0,0,-10],d:12,txt:'Verano del 480 a.C. Jerjes, rey de Persia, ha cruzado el Helesponto con el mayor ejército jamás visto: Heródoto habla de millones de hombres, aunque los historiadores de hoy calculan quizá cien o doscientos mil. Para frenarlo, los griegos mandan al rey espartano Leónidas a este paso entre el monte y el mar, con trescientos espartanos y unos seis o siete mil aliados. Reparan el viejo muro de los focidios. Mientras, la flota griega espera a la persa en el cabo Artemisio.',
+   enter(S){const A=S.a;A.lion.visible=false;A.arw.forEach(a=>a.visible=false);A.imm.forEach(([p,f])=>{p.visible=false;f.visible=false;});A.scout.visible=A.rider.visible=false;A.xer.visible=false;
+     A.gr.forEach((p,i)=>{const r=Math.floor(i/10),f=i%10;p.visible=true;p.rotation.set(0,-Math.PI/2,0);p.position.set(2+r*1.6,0,-12+f*2.6);p.userData.pose=0;});A.leo.visible=true;A.leo.rotation.set(0,-Math.PI/2,0);A.leo.position.set(0.4,0,0);A.al.forEach((p,i)=>{p.visible=true;p.position.set(14+(i%2)*2,0,-12+i*2.6);});A.per.forEach(p=>p.visible=false);},
+   upd(t,dt,S){S.a.wall.forEach((w,i)=>w.scale.y=Math.max(0.3,sstep(clamp((t-i*0.6)/3,0,1))));}},
+  {h:11,cut:true,cam:[-30,3,16,2,1.6,0],cam2:[-26,2.8,12,2,1.6,0],d:13,txt:'Jerjes envía a un jinete a espiar. Ve a los espartanos que están delante del muro: unos hacen ejercicio y otros se peinan la larga melena. El rey no lo entiende. Demarato, un rey espartano desterrado que acompaña a Jerjes, se lo explica: «Es su costumbre: cuando van a jugarse la vida, se arreglan el pelo». Jerjes espera cuatro días a que se marchen.',
+   enter(S){const A=S.a;A.wall.forEach(w=>w.scale.y=1);A.scout.visible=A.rider.visible=true;A.rider.position.set(-35,1.2,12);},
+   upd(t,dt,S){const A=S.a;A.gr.forEach((p,i)=>{if(i<10&&i%3===0)armUp(p,-2.6+Math.sin(t*4+i)*0.3,-2.4);else if(i<10&&i%3===1){p.position.y=Math.abs(Math.sin(t*3+i))*0.4;}});}},
+  {h:13,cut:true,cam:[-24,11,36,-12,1,0],cam2:[-20,12,34,-10,1,0],d:13,txt:'Al quinto día, Jerjes manda atacar a los medos y luego a sus mejores tropas, los Inmortales. En el estrecho no pueden aprovechar su número, y sus lanzas son más cortas. Los espartanos fingen huir, se vuelven de golpe y los arrollan. Jerjes, dice Heródoto, saltó tres veces de su trono, temiendo por su ejército.',
+   enter(S){const A=S.a;A.scout.visible=A.rider.visible=false;A.xer.visible=true;A.gr.forEach((p,i)=>{p.userData.pose=0;p.position.y=0;});A.per.forEach((p,i)=>{p.visible=true;p.rotation.set(0,Math.PI/2,0);p.userData.pose=0;});},
+   upd(t,dt,S){const A=S.a,c=(t%6)/6;A.per.forEach((p,i)=>{const[x,z]=A.persAt(i,lerp(-45,-3,Math.min(1,c*2)));const back=c>0.6?(c-0.6)*40:0;p.position.set(x-back,0,z);p.rotation.set(0,c>0.6?-Math.PI/2:Math.PI/2,0);walkLegs(p,t*10+i,0.5);if(i%7===0&&c>0.5)fall(p,(c-0.5)*6);});
+     A.xer.position.y=1+(Math.sin(t*3)>0.9?0.6:0);}},
+  {h:22,cut:true,cam:[-20,28,45,0,12,-55],cam2:[-10,30,45,10,14,-55],d:14,txt:'Al segundo día de combates, un hombre de la región, Efialtes, se presenta ante Jerjes: a cambio de una recompensa, le enseña el sendero de Anopea, que rodea el paso por el monte. Esa misma noche, los Inmortales lo recorren a la luz de las antorchas, guiados por él. Al amanecer, los mil focidios que vigilan la cumbre oyen crujir las hojas de los robles, pero se retiran y los dejan pasar.',
+   enter(S){const A=S.a;A.per.forEach(p=>p.visible=false);A.xer.visible=false;A.imm.forEach(([p,f])=>{p.visible=true;f.visible=true;});},
+   upd(t,dt,S){const A=S.a;A.imm.forEach(([p,f],i)=>{const x=lerp(-110,60,clamp((t-i*0.5)/12,0,1)),z=-48-Math.sin(x*0.04)*6,y=A.hy(x,z);p.position.set(x,y,z);p.rotation.y=Math.PI/2;walkLegs(p,t*7+i,0.4);f.position.set(x+0.4,y+2.2,z+0.3);f.scale.set(1.2+Math.sin(t*9+i)*0.2,1.6,1);});}},
+  {h:6.2,cut:true,cam:[28,6,22,2,1.6,0],cam2:[24,5,18,2,1.6,0],d:13,txt:'Al alba, los vigías bajan corriendo del monte: los persas los están rodeando. Leónidas despide a la mayoría de los aliados para que se salven; él se queda con sus trescientos, porque la ley de Esparta prohíbe abandonar el puesto. Con él se quedan setecientos tespios, por su propia voluntad, y cuatrocientos tebanos. Un oráculo de Delfos había anunciado que Esparta perdería o a un rey o la ciudad.',
+   enter(S){const A=S.a;A.imm.forEach(([p,f])=>{p.visible=false;f.visible=false;});A.leo.rotation.y=Math.PI/2;},
+   upd(t,dt,S){const A=S.a;armUp(A.leo,null,-1.8);A.al.forEach((p,i)=>{if(i<7)walkTo(p,[14+(i%2)*2,-12+i*2.6],[90,-5+i*2],1+i*0.3,9+i*0.3,t);});}},
+  {h:9,cut:true,cam:[-4,9,32,-14,1,0],cam2:[0,10,34,-10,1,0],d:14,txt:'Esta vez salen a combatir delante del muro, donde el paso se ensancha, para matar a cuantos enemigos puedan. Los oficiales persas empujan a latigazos a sus hombres; muchos caen al mar o mueren pisoteados. Leónidas cae luchando, y alrededor de su cuerpo se libra la pelea más dura: cuatro veces rechazan los griegos a los persas. Cuando los Inmortales aparecen por detrás, los últimos se retiran a una pequeña colina, detrás del muro.',
+   enter(S){const A=S.a;A.al.forEach((p,i)=>{if(i<7)p.visible=false;});A.leo.rotation.y=-Math.PI/2;A.per.forEach(p=>{p.visible=true;p.rotation.set(0,Math.PI/2,0);p.position.y=0;p.userData.pose=0;});},
+   upd(t,dt,S){const A=S.a,k=clamp(t/4,0,1);A.gr.forEach((p,i)=>{const r=Math.floor(i/10),f=i%10;const gx=lerp(2,-14,k)+r*1.6;if(t<9)p.position.set(gx,0,-12+f*2.6);else{walkTo(p,[gx,-12+f*2.6],[20+(f%4)*2-3,-9+r*2],9,13,t);}walkLegs(p,t*9+i,0.3);});
+     if(t<9)A.leo.position.set(lerp(0.4,-15.6,k),0,0);if(t>5)fall(A.leo,(t-5)/0.8);
+     A.per.forEach((p,i)=>{const[x,z]=A.persAt(i,-17);p.position.set(x+Math.sin(t*3+i)*0.6,0,z);walkLegs(p,t*8+i,0.3);if(i%6===0&&t>2)fall(p,(t-2-i*0.05));});}},
+  {h:11,cut:true,cam:[34,8,14,21,2,-6],cam2:[32,9,10,21,2,-6],d:13,txt:'En la colina luchan con lo que les queda, con las espadas, con las manos y con los dientes, hasta que los persas los sepultan bajo una lluvia de flechas. Los tebanos se rinden. Los persas han perdido miles de hombres, entre ellos dos hermanos de Jerjes.',
+   enter(S){const A=S.a;A.per.forEach(p=>p.visible=false);A.leo.visible=false;A.gr.forEach((p,i)=>{p.visible=i<14;p.userData.pose=0;p.rotation.set(0,-Math.PI/2+(i%4)*0.8,0);const a=i/14*TAU;p.position.set(22+Math.cos(a)*4,2.4,-6+Math.sin(a)*3);});},
+   upd(t,dt,S){const A=S.a;A.arw.forEach((a,i)=>{const q=((t*1.1+i/30)%1);a.visible=true;a.position.set(lerp(-30,22+(i%5)-2,q),2+Math.sin(q*Math.PI)*16,lerp(-10+(i%7)*3,-6+(i%3)-1,q));a.rotation.x=lerp(-0.8,0.8,q);});
+     A.gr.forEach((p,i)=>{if(i>=14)return;armUp(p,-1.4+Math.sin(t*6+i)*0.6,-1.2);if(t>3+i*0.6){p.rotation.x=-Math.PI/2*sstep(clamp((t-3-i*0.6)/0.8,0,1));}});}},
+  {h:17,cut:true,cam:[40,12,24,20,3,-6],cam2:[46,14,30,20,3,-6],d:16,txt:'Los griegos enterraron a sus muertos donde cayeron y pusieron sobre la colina un león de piedra. La flota, al saber la noticia, se retiró del Artemisio, y Jerjes entró en el Ática y quemó Atenas. Pero semanas después los griegos vencieron en Salamina, y al año siguiente en Platea. El epigrama de Simónides se repetirá durante siglos: «Extranjero, ve a decir a los lacedemonios que aquí yacemos, obedientes a sus leyes».<p class="sub">Fuentes: Heródoto VII 175-239; Diodoro XI 4-11; Estrabón IX 4.16. Heródoto da cifras enormes para el ejército persa; los historiadores de hoy lo creen mucho menor. La respuesta «Ven a cogerlas» («Molón labé») la cuenta Plutarco cinco siglos después.</p>',
+   enter(S){const A=S.a;A.arw.forEach(a=>a.visible=false);A.gr.forEach(p=>p.visible=false);A.al.forEach(p=>p.visible=false);A.lion.visible=true;}}]},
 {id:'maraton',mode:'atenas',hist:true,name:'La batalla de Maratón',at:()=>plXZ('soros',14,10),h:8,
  teaser:'cientos de naves varadas en una playa, un corredor, dos líneas de hombres en una llanura, una carga a la carrera y un túmulo.',
  build(S){S.ground('#9a9a62');const A=S.a;
@@ -7638,6 +7746,52 @@ const EPISODES=[
    enter(S){const A=S.a;A.sick.visible=false;A.ascl.rotation.set(0,0.4,0);A.ascl.position.set(0,0,0);A.ascl.position.y=0;A.snake.forEach(s=>s.visible=true);},
    upd(t,dt,S){snakeCoil(S.a.snake,0.6,0.4,t*0.5,0.2,0.3);}}]},
 // ---------------------------------------------------------------- Italia
+{id:'tercera_punica',mode:'roma',hist:true,name:'La tercera guerra púnica',at:()=>plXZ('delenda',14,10),h:10,
+ teaser:'unos higos frescos en el Senado, una ciudad que entrega sus armas, un puerto redondo, seis días de fuego y un general que llora.',
+ build(S){S.ground('#b8a878');const A=S.a;
+   const sea=new THREE.Mesh(new THREE.PlaneGeometry(800,2000),new THREE.MeshPhongMaterial({color:'#3a6f8a',shininess:60}));sea.rotation.x=-Math.PI/2;sea.position.set(520,0.06,0);S.g.add(sea);
+   A.BY=[0,-10,70,18];S.hill(A.BY[0],A.BY[1],A.BY[2],A.BY[3],'#a89a6a');
+   A.walls=[];for(let i=0;i<40;i++){const a=i/40*TAU;if(Math.cos(a)>0.75)continue;const w=S.box(2,9,10,'#b5a37e',Math.cos(a)*110,4.5,Math.sin(a)*95);w.rotation.y=-a;A.walls.push(w);}
+   A.houses=[];for(let i=0;i<70;i++){const a=R()*TAU,r=rr(22,95),x=Math.cos(a)*r,z=Math.sin(a)*r*0.85;if(x>70&&z>10)continue;const h=rr(6,16);const y=hillY(A.BY,x,z);const b=S.box(rr(5,8),h,rr(5,8),pick(['#d8ccb4','#cdbf9f','#e2d6c0']),x,y+h/2,z);b.userData.h=h;b.userData.y=y;A.houses.push(b);}
+   A.temple=S.box(10,8,16,'#efe6d4',0,A.BY[3]+4,-10);
+   A.cot=new THREE.Mesh(new THREE.RingGeometry(10,24,40),new THREE.MeshPhongMaterial({color:'#3f6f84',shininess:70,side:THREE.DoubleSide}));A.cot.rotation.x=-Math.PI/2;A.cot.position.set(95,0.08,60);S.g.add(A.cot);S.box(18,1.6,18,'#cdbf9f',95,0.8,60);
+   A.chan=S.box(40,0.1,6,'#3f6f84',135,0.08,60);A.mole=S.box(6,1.4,60,'#9a8a6a',170,0.7,60);A.mole.scale.z=0.01;
+   A.shipsC=[];for(let i=0;i<6;i++){const sh=new THREE.Group();box(2.6,1.2,11,lam('#3a2a20'),0,0.4,0,sh);box(0.2,6,0.2,M.wood,0,3,0,sh);sh.position.set(90+(i%3)*6,0,48+Math.floor(i/3)*20);S.g.add(sh);A.shipsC.push(sh);}
+   A.shipsR=[];for(let i=0;i<8;i++){const sh=new THREE.Group();box(3,1.4,14,lam('#2a2420'),0,0.4,0,sh);box(0.2,8,0.2,M.wood,0,4,0,sh);box(6,4,0.1,lam('#c9a24a'),0,6,0.2,sh);sh.position.set(230+(i%4)*16,0,-40+Math.floor(i/4)*60);sh.rotation.y=Math.PI/2;S.g.add(sh);A.shipsR.push(sh);}
+   A.camp=[];for(let i=0;i<10;i++)A.camp.push(S.box(4,2.2,4,'#c9b48b',-200+(i%5)*9,1.1,-20+Math.floor(i/5)*12));
+   A.rom=[];for(let i=0;i<30;i++)A.rom.push(S.person({chiton:'#a8392b',soldier:true,short:true,hair:'#3b2a1e'},0,0,0));
+   A.car=[];for(let i=0;i<20;i++){const fem=i%3===0;A.car.push(S.person({chiton:pick(['#7a2a5a','#d8c4a8','#2f4c86','#6a4a2a']),himation:pick(['#5a2a6a','#8a3a2a','#c9a24a']),female:fem,beard:!fem,hair:'#1a1410'},0,0,0));}
+   A.pile=S.box(8,0.1,8,'#5a5a5a',-150,0.05,0);
+   A.fires=[];for(let i=0;i<20;i++){const f=fireSprite(S,0,0,0,10);f.visible=false;A.fires.push(f);}
+   A.forge=[];for(let i=0;i<5;i++){const f=fireSprite(S,-30+i*14,hillY(A.BY,-30+i*14,30)+1,30,3);f.visible=false;A.forge.push(f);}
+   // el Senado en Roma
+   A.cur=new THREE.Group();A.cur.position.set(-420,0,0);S.g.add(A.cur);box(30,0.4,20,lam('#d8ccb4'),0,0.2,0,A.cur);box(30,10,1,lam('#cdbf9f'),0,5,-10,A.cur);for(const s2 of[-1,1])for(let r=0;r<3;r++)box(26,0.5+r*0.5,1.4,lam('#bfb29a'),0,0.4+r*0.25,s2*(5+r*1.6),A.cur);
+   A.sen=[];for(let i=0;i<14;i++){const p=makePerson({chiton:'#efe6d4',toga:true,hair:pick(['#8d8a85','#3e2c1f','#d8d0c2']),beard:false});const s2=i<7?-1:1;p.position.set(-420-12+(i%7)*4,0.6+0.3*(i%2),s2*(6+(i%2)*1.6));p.rotation.y=s2>0?Math.PI:0;S.g.add(p);A.sen.push(p);}
+   A.cato=S.person({chiton:'#efe6d4',toga:true,hair:'#e0d8cc',beard:false},-420,0.4,0);A.figs=[];for(let i=0;i<3;i++){const f=new THREE.Mesh(new THREE.SphereGeometry(0.09,8,6),lam('#5a2a4a'));f.position.set(0.25+i*0.08,1.25,0.35);A.cato.add(f);A.figs.push(f);}
+   A.sci=S.person({chiton:'#efe6d4',himation:'#a8392b',hair:'#3b2a1e',soldier:'nospear'},-60,0,0);A.pol=S.person({chiton:'#efe6d4',himation:'#2f4c86',hair:'#8d8a85',beard:true},-62,0,0);
+   A.wife=S.person({female:true,chiton:'#efe6d4',himation:'#7a2a5a',hair:'#1a1410'},0,0,0);},
+ beats:[
+  {h:10,cam:[-420,4,13,-420,1.5,0],cam2:[-416,3.4,10,-420,1.4,0],d:13,txt:'Roma, año 150 a.C. Cartago ha perdido dos guerras contra Roma, ha entregado su flota y sus colonias, y paga cada año su indemnización. Pero vuelve a ser rica. El viejo Catón, que la ha visitado, se levanta en el Senado y deja caer unos higos frescos de los pliegues de la toga: «Los cogieron en Cartago hace tres días. Tan cerca está el enemigo». Y termina todos sus discursos, hable de lo que hable, con la misma frase: «Además, opino que Cartago debe ser destruida».',
+   enter(S){const A=S.a;A.rom.forEach(p=>p.visible=false);A.car.forEach(p=>p.visible=false);A.fires.forEach(f=>f.visible=false);A.forge.forEach(f=>f.visible=false);A.sci.visible=A.pol.visible=A.wife.visible=false;A.houses.forEach(b=>{b.visible=true;b.scale.y=1;b.position.y=b.userData.y+b.userData.h/2;});A.temple.visible=true;A.walls.forEach(w=>{w.visible=true;w.scale.y=1;});A.mole.scale.z=0.01;A.chan.visible=false;A.shipsC.forEach(s=>s.visible=true);A.pile.scale.y=1;A.pile.position.y=0.05;},
+   upd(t,dt,S){const A=S.a;armUp(A.cato,null,t>2?-1.4:-0.3);A.figs.forEach((f,i)=>{if(t>4){f.position.y=Math.max(-0.35,1.25-(t-4-i*0.2)*3);f.position.z=0.35+(t-4)*0.2;}});}},
+  {h:9,cut:true,cam:[-120,14,40,-150,1,0],cam2:[-110,12,30,-150,1,0],d:13,txt:'En el 150, Cartago se defiende sin permiso de Roma contra el rey Masinisa de Numidia, aliado de Roma, que le roba tierras desde hace años. Es la excusa. En el 149 desembarca en Útica un ejército consular. Los cartagineses, aterrados, entregan trescientos niños como rehenes y luego, porque se lo exigen, todas sus armas: según Apiano, doscientas mil armaduras y dos mil catapultas.',
+   enter(S){const A=S.a;A.rom.forEach((p,i)=>{p.visible=true;p.rotation.set(0,Math.PI/2,0);p.position.set(-190+(i%6)*3,0,-14+Math.floor(i/6)*3.2);});A.car.forEach((p,i)=>{p.visible=i<10;p.rotation.set(0,-Math.PI/2,0);});},
+   upd(t,dt,S){const A=S.a;A.car.forEach((p,i)=>{if(i>=10)return;const k=((t*0.15+i/10)%1);p.position.set(lerp(-60,-145,k),0,-8+i*1.8);p.rotation.y=-Math.PI/2;walkLegs(p,t*7+i,0.4);armUp(p,-1.2,-1.2);});A.pile.scale.y=1+t*12;A.pile.position.y=A.pile.scale.y*0.05;}},
+  {h:21,cut:true,cam:[-10,10,70,-10,8,20],cam2:[-6,9,62,-10,8,20],d:13,txt:'Entonces llega la última orden: abandonar la ciudad y vivir a diez millas del mar. Para un pueblo de marinos es una condena a muerte. Los cartagineses se niegan. Cierran las puertas y fabrican armas día y noche, en los templos y en las plazas: cada día, ciento cuarenta escudos, trescientas espadas, mil proyectiles. Las mujeres se cortan el pelo para hacer cuerdas para las catapultas.',
+   enter(S){const A=S.a;A.car.forEach((p,i)=>{p.visible=true;p.position.set(-30+(i%5)*14+rr(-2,2),hillY(A.BY,-30+(i%5)*14,32),32+Math.floor(i/5)*2);p.rotation.set(0,0,0);});A.forge.forEach(f=>f.visible=true);},
+   upd(t,dt,S){const A=S.a;A.car.forEach((p,i)=>armUp(p,null,-1.6+Math.sin(t*8+i)*1.1));A.forge.forEach((f,i)=>f.scale.set(3+Math.sin(t*7+i)*0.5,4,1));}},
+  {h:12,cut:true,cam:[200,30,140,100,2,60],cam2:[190,28,120,100,2,60],d:14,txt:'El asedio dura tres años. En el 147, el pueblo romano elige cónsul, aunque no tiene la edad, a Publio Cornelio Escipión Emiliano, nieto adoptivo del vencedor de Aníbal. Escipión cierra el puerto con un enorme dique de piedra. Los cartagineses, en secreto, abren un nuevo canal hacia el mar desde su puerto circular y sacan una flota construida con la madera de sus casas. Llega tarde: no sirve de nada.',
+   enter(S){const A=S.a;A.forge.forEach(f=>f.visible=false);A.car.forEach(p=>p.visible=false);A.rom.forEach(p=>p.visible=false);},
+   upd(t,dt,S){const A=S.a;A.mole.scale.z=Math.max(0.01,sstep(clamp(t/7,0,1)));if(t>7){A.chan.visible=true;A.shipsC.forEach((s,i)=>{s.rotation.y=Math.PI/2;s.position.x=95+(t-7)*8+(i%3)*4;});}}},
+  {h:20,cut:true,cam:[150,40,-120,0,10,0],cam2:[140,36,-110,0,10,0],d:14,txt:'En la primavera del 146, los romanos asaltan el puerto y entran en la ciudad. Desde el ágora suben hacia la ciudadela, la Byrsa, por tres calles de casas de seis pisos. Durante seis días y seis noches se lucha casa por casa, de tejado en tejado; luego Escipión manda incendiarlo todo para abrirse paso.',
+   enter(S){const A=S.a;A.chan.visible=false;A.shipsC.forEach(s=>s.visible=false);A.fires.forEach((f,i)=>{const b=A.houses[i*3%A.houses.length];f.visible=true;f.position.set(b.position.x,b.userData.y+b.userData.h+3,b.position.z);});A.rom.forEach((p,i)=>{p.visible=true;p.rotation.set(0,-Math.PI/2,0);});},
+   upd(t,dt,S){const A=S.a;A.fires.forEach((f,i)=>{const q=1+Math.sin(t*7+i)*0.15;f.scale.set(10*q,13*q,1);});A.rom.forEach((p,i)=>{const k=clamp((t-i*0.15)/12,0,1);p.position.set(lerp(95,25,k)+(i%5)*2,0,lerp(60,10,k)+Math.floor(i/5)*2.5-6);p.position.y=hillY(A.BY,p.position.x,p.position.z);walkLegs(p,t*8+i,0.4);});}},
+  {h:7,cut:true,cam:[30,26,40,0,18,-10],cam2:[26,24,36,0,18,-10],d:14,txt:'Al séptimo día, los que se han refugiado en la Byrsa piden la vida: salen unos cincuenta mil hombres y mujeres, que serán vendidos como esclavos. Novecientos desertores romanos, que no pueden esperar perdón, prenden fuego al templo de Eshmún y mueren dentro. Su jefe, el general cartaginés Asdrúbal, se rinde a los pies de Escipión. Su esposa, desde lo alto del templo, lo llama cobarde y se arroja a las llamas con sus hijos.',
+   enter(S){const A=S.a;A.fires.forEach(f=>f.visible=false);A.fires[0].visible=true;A.fires[0].position.set(0,A.BY[3]+10,-10);A.wife.visible=true;A.wife.position.set(4,A.BY[3]+8,-4);A.rom.forEach(p=>p.visible=false);A.car.forEach((p,i)=>{p.visible=true;p.rotation.set(0,Math.PI/2,0);});},
+   upd(t,dt,S){const A=S.a;A.fires[0].scale.set(14+Math.sin(t*6)*2,18,1);armUp(A.wife,-2.6,-2.6);A.car.forEach((p,i)=>{const k=((t*0.12+i/20)%1);p.position.set(lerp(10,90,k),0,30+(i%4)*2);p.position.y=hillY(A.BY,p.position.x,p.position.z);walkLegs(p,t*6+i,0.3);});}},
+  {h:18,cut:true,cam:[-74,6,26,0,8,0],cam2:[-80,8,30,0,6,0],d:16,txt:'Polibio, el historiador griego, está junto a Escipión cuando mira arder la ciudad. Escipión llora y recita unos versos de Homero: «Llegará un día en que perezca la sagrada Troya». Polibio le pregunta qué quiere decir, y él responde que teme que algún día le ocurra lo mismo a su propia patria. Cartago fue arrasada y su suelo, maldecido; su territorio se convirtió en la provincia de África.<p class="sub">Fuentes: Polibio XXXVIII 19-22; Apiano, Libia 74-135; Plutarco, Catón el Viejo 26-27; Livio, Periocas 48-51. Que los romanos echaran sal sobre la tierra de Cartago es una invención moderna: ningún autor antiguo lo cuenta.</p>',
+   enter(S){const A=S.a;A.fires.forEach((f,i)=>{f.visible=i<12;});A.wife.visible=false;A.car.forEach(p=>p.visible=false);A.sci.visible=A.pol.visible=true;A.sci.position.set(-60,0,0);A.pol.position.set(-62,0,2);A.sci.rotation.y=Math.PI/2;A.pol.rotation.y=Math.PI/2;},
+   upd(t,dt,S){const A=S.a;A.fires.forEach((f,i)=>{const q=1+Math.sin(t*6+i)*0.15;f.scale.set(12*q,15*q,1);});armUp(A.sci,-1.6,null);if(t>8){A.houses.forEach((b,i)=>{const k=sstep(clamp((t-8-(i%10)*0.3)/3,0,1));b.scale.y=Math.max(0.12,1-k);b.position.y=b.userData.y+b.userData.h*b.scale.y/2;});A.temple.visible=false;A.walls.forEach(w=>w.scale.y=Math.max(0.15,1-sstep(clamp((t-9)/3,0,1))));}}}]},
 {id:'sibila',mode:'roma',name:'Eneas y la Sibila de Cumas',at:()=>plXZ('neapolis',12,10),h:10,
  teaser:'una cueva de cien bocas, una profetisa en trance, una rama de oro, un lago negro y un padre que enseña a su hijo el futuro de Roma.',
  build(S){S.ground('#7f8c55');const A=S.a;S.water(0,90,600,80);S.hill(-30,-50,60,30,'#8a8a5a');
@@ -9059,7 +9213,16 @@ const GREECE_NPCS2=[
   ['¿Por qué vinieron los persas aquí?','Por Hipias. Era hijo de Pisístrato, el tirano, y los atenienses lo habían echado veinte años antes. Se refugió con el rey de Persia y le prometió Atenas. Su padre había desembarcado aquí para tomar el poder, y la llanura es buena para la caballería. Además, Atenas había ayudado a los jonios cuando se rebelaron contra Darío, y habían quemado Sardes. Darío no lo olvidó: dicen que mandó a un criado que le repitiera tres veces en cada comida: «Señor, acuérdate de los atenienses».'],
   ['¿Cómo fue la carga?','Eran unos diez mil con los plateenses; los persas, muchos más. Milcíades convenció al polemarca Calímaco de atacar. Alargaron la línea para igualar la de los persas: el centro quedó con pocas filas y las alas, fuertes. Y corrieron hacia el enemigo unos ocho estadios. Heródoto dice que fueron los primeros griegos que atacaron a la carrera y los primeros que no se asustaron al ver la ropa de los medos. Los persas pensaron que estaban locos.'],
   ['¿Y el corredor que llevó la noticia?','El que corrió fue Filípides, antes de la batalla: de Atenas a Esparta, unos mil doscientos estadios, en dos días, para pedir ayuda. Los espartanos no podían salir hasta la luna llena. Después de la batalla no corrió un hombre solo, sino todo el ejército: volvió a marchas forzadas a Atenas, porque la flota persa rodeaba el cabo Sunion para sorprender la ciudad. Cuando los persas llegaron al Falero, los nuestros ya estaban allí, esperándolos.']],
- quiz:{q:'¿Cuántos atenienses murieron en Maratón, según Heródoto?',a:['192','6400','Más de dos mil'],ko:'No. Heródoto da 192 atenienses muertos, frente a 6400 persas.'}}
+ quiz:{q:'¿Cuántos atenienses murieron en Maratón, según Heródoto?',a:['192','6400','Más de dos mil'],ko:'No. Heródoto da 192 atenienses muertos, frente a 6400 persas.'}},
+{id:'lampon',name:'Lampón de Antela',title:'Guardián del santuario de Deméter Anfictiónide',glyph:'Λ',look:{chiton:'#efe6d4',himation:'#6a5a2a',beard:true,hair:'#8d8a85',beardC:'#9a968e',staff:true},
+ cat:'Historia',lesson:'La batalla de las Termópilas',where:'En Antela, junto al santuario de Deméter',
+ summary:'En el verano del 480 a.C., mientras la flota griega esperaba a la persa en el cabo Artemisio, el rey espartano Leónidas defendió el paso de las Termópilas con trescientos espartanos y unos seis o siete mil aliados contra el ejército de Jerjes. Durante dos días rechazó los ataques en el estrecho. Al tercero, los Inmortales lo rodearon por el sendero de Anopea, que les había enseñado Efialtes. Leónidas despidió a la mayoría de los aliados y se quedó con los espartanos, setecientos tespios y cuatrocientos tebanos. Murieron casi todos. La derrota se convirtió en un símbolo de valor y de obediencia a la ley.',
+ intro:'Salud, forastero. Soy Lampón, guardián del santuario de Deméter. Cuando no hay reunión de los anfictiones, mi trabajo consiste en barrer y en contar a los viajeros lo que pasó aquí hace noventa y cuatro años. Todos vienen por lo mismo.',
+ topics:[
+  ['¿Por qué se luchó aquí?','Porque es la única puerta. Para bajar de Tesalia al centro de Grecia, un ejército tiene que pasar entre este monte y el mar, y aquí el camino es tan estrecho que en algunos sitios solo cabe un carro. Con pocos hombres se podía frenar a muchísimos. Y al mismo tiempo la flota griega cerraba el paso por mar en el Artemisio, al norte de Eubea. Si caía uno, caía el otro.'],
+  ['¿De verdad eran solo trescientos?','Trescientos espartanos, escogidos entre los que tenían hijos vivos, para que ninguna familia se extinguiera. Pero con ellos venían unos seis o siete mil aliados del Peloponeso, de Beocia, de Fócide y de Lócride, y los ilotas que servían a los espartanos. El último día se quedaron con Leónidas setecientos tespios, que eligieron morir allí, y cuatrocientos tebanos, que se rindieron al final. De los tespios casi nadie se acuerda. Yo sí.'],
+  ['¿Qué hicieron los persas con Leónidas?','Jerjes, furioso porque aquel puñado de hombres le había costado tantos muertos, mandó cortarle la cabeza y clavarla en un palo. Heródoto dice que los persas solían honrar a los enemigos valientes, y que eso demuestra cuánto odiaba Jerjes a Leónidas. Cuarenta años después, los espartanos se llevaron sus huesos a Esparta, y allí le celebran cada año unos juegos.']],
+ quiz:{q:'¿Quién enseñó a los persas el sendero que rodeaba el paso?',a:['Efialtes, un hombre de la región','Demarato, el rey espartano desterrado','Temístocles'],ko:'No. Fue Efialtes, un malio de la región, que esperaba una recompensa de Jerjes.'}}
 ];
 GREECE_NPCS2.forEach(n=>{NPCS.push(n);LESSONS[n.id]={title:n.lesson,cat:n.cat,summary:n.summary,where:n.where,who:n.name,fict:n.id!=='euclides_megara'};});
 HIST.add('euclides_megara');
@@ -9071,6 +9234,7 @@ Object.assign(SRC,{
  dionisodoro:{a:['Galeno, Sobre las doctrinas de Hipócrates y Platón V 3.15-16 (el Canon)','Filón de Bizancio, Belopoiika 50.5 (la frase sobre los números)','Plinio el Viejo, Historia natural XXXIV 55-56','Heródoto VI 76-83 (Sepea)'],m:['W. G. Moon (ed.), Polykleitos, the Doryphoros, and Tradition (1995)','R. A. Tomlinson, Argos and the Argolid (1972)'],n:['Dionisodoro es inventado.']},
  sostrato:{a:['Píndaro, Pítica III (Asclepio)','Aristófanes, Pluto 653-747 (estrenada en el 388)','Inscripciones de curaciones de Epidauro (IG IV² 1, 121-124)','Hipócrates, Sobre la enfermedad sagrada; Juramento'],m:['E. J. y L. Edelstein, Asclepius (1945)','L. R. LiDonnici, The Epidaurian Miracle Inscriptions (1995)'],n:['Sóstrato es inventado. Las estelas con curaciones son de la segunda mitad del siglo IV.']},
  calias_mantinea:{a:['Jenofonte, Helénicas V 2.1-7','Aristóteles, Política VI 1318b','Tucídides V 64-74'],m:['J. Roy, «Arkadia», en M. H. Hansen y T. H. Nielsen (eds.), An Inventory of Archaic and Classical Poleis (2004)'],n:['Calias es inventado.']},
+ lampon:{a:['Heródoto VII 175-239','Diodoro XI 4-11','Estrabón IX 4.13-17 (Antela y las aguas calientes)','Pausanias III 14.1 (los huesos de Leónidas)'],m:['P. Cartledge, Thermopylae (2006)','J. Lazenby, The Defence of Greece (1993)'],n:['Lampón es inventado.','La respuesta «Ven a cogerlas» («Molón labé»), que Leónidas habría dado a Jerjes cuando le pidió las armas, la cuenta Plutarco cinco siglos después.']},
  hegesias:{a:['Heródoto VI 94-120','Pausanias I 15.3 y I 32.3-7','Cornelio Nepote, Milcíades 4-6','Plutarco, Sobre la gloria de los atenienses 3'],m:['P. Krentz, The Battle of Marathon (2010)','R. A. Billows, Marathon (2010)'],n:['Hegesias es inventado.','La leyenda del corredor que llega a Atenas y muere tras anunciar la victoria aparece mucho después, en Plutarco y Luciano; inspiró la carrera de maratón de los Juegos de 1896.']},
  aristarco:{a:['Pausanias V 8-21 y VI (Olimpia; los Zanes, V 21.2-4)','Píndaro, Olímpicas','Plutarco, Solón 23','Escolios a Píndaro, Olímpica III (la corona)'],m:['J. Swaddling, The Ancient Olympic Games (2015)','F. García Romero, Los Juegos Olímpicos y el deporte en Grecia (1992)'],n:['Aristarco es inventado.']}
 });
