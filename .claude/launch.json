@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "atenas",
+      "runtimeExecutable": "C:/Users/etlr-/AppData/Roaming/uv/python/cpython-3.14.0-windows-x86_64-none/python.exe",
+      "runtimeArgs": ["-m", "http.server", "8386", "--bind", "127.0.0.1"],
+      "port": 8386
+    }
+  ]
+}
