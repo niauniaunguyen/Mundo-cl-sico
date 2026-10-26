@@ -233,7 +233,10 @@ def load_dicts():
                 v = parse_line(l)
                 if v == '': continue
                 tgt = hashed if k.startswith('@') else d
-                tgt[lg][k] = None if v == '=' else v
+                v = None if v == '=' else v
+                if k in tgt[lg] and tgt[lg][k] != v:
+                    print('Aviso: %s (%s) está repetida en %s con otra traducción' % (k[:40], lg, f.name), file=sys.stderr)
+                tgt[lg][k] = v
     return d, hashed
 
 
