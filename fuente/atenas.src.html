@@ -474,7 +474,7 @@ function addFlat(f){FLATS.push(f);const R=Math.max(f.hw,f.hd)*1.42+f.ring+f.blen
 function applyFlats(){
   // alturas de la malla tal como se ve (interpolada entre vértices): la de Atenas o Roma y la de cada isla
   const grids=[];const addGrid=(m,cx,cz,S)=>{if(!m)return;const pos=m.geometry.attributes.position,seg=Math.round(Math.sqrt(pos.count))-1;grids.push({m,pos,x0:cx-S/2,z0:cz-S/2,S,st:S/seg,G:seg+1});};
-  addGrid(terrainInner,INNER.x,INNER.z,INNER.size);if(MODE==='atenas')for(const I of ISLANDS)if(I.mesh)addGrid(I.mesh,I.x,I.z,I.R*2.9);
+  addGrid(terrainInner,INNER.x,INNER.z,INNER.size);for(const I of ISLANDS)if(I.mesh)addGrid(I.mesh,I.x,I.z,I.R*2.9);
   const meshH=(x,z)=>{for(const g of grids){if(x<=g.x0+1||z<=g.z0+1||x>=g.x0+g.S-1||z>=g.z0+g.S-1)continue;const fx=(x-g.x0)/g.st,fz=(z-g.z0)/g.st,ix=Math.floor(fx),iz=Math.floor(fz),u=fx-ix,v=fz-iz,H=(i,j)=>g.pos.getY(i+g.G*j);
     const p=H(ix,iz),q=H(ix,iz+1),r=H(ix+1,iz+1),t=H(ix+1,iz);return u+v<=1?p+u*(t-p)+v*(q-p):r+(1-u)*(q-r)+(1-v)*(t-r);}return null;};
   // piezas de los edificios ya construidos, repartidas en celdas
@@ -503,8 +503,8 @@ function applyFlats(){
 function inCavea(x,z){const dx=x-THEA.x,dz=z-THEA.z;return dz<3&&Math.hypot(dx,dz)<THEA.r1+1;}
 function terrainH(x,z){const h=terrainH0(x,z);return FLATS.length?flatAt(x,z,h):h;}
 function terrainH0(x,z){
-  if(MODE==='roma')return romaH(x,z);
   if(x>8000)return islandH(x,z);
+  if(MODE==='roma')return romaH(x,z);
   const dx=x-THEA.x,dz=z-THEA.z,r=Math.hypot(dx,dz);
   if(r<THEA.r0)return THEA.h0;
   if(dz<3&&r<THEA.r1+1)return THEA.h0+(Math.floor(r-THEA.r0)+1)*THEA.step;
@@ -1091,7 +1091,7 @@ function stoa(o){
       const dw=1.3,sw=(rw-dw)/2;box(sw,wh,0.5,wm,x0+sw/2,0.6+wh/2,zf,g);box(sw,wh,0.5,wm,x0+rw-sw/2,0.6+wh/2,zf,g);seg(x0,zf,x0+sw,zf);seg(x0+rw-sw,zf,x0+rw,zf);box(dw,0.5,0.5,wm,x0+rw/2,0.6+wh-0.25,zf,g);}}
   entablature(g,L,Dd,0.6+colH,colH*0.3,{ia});
   coffered(g,L-0.6,Dd-0.6,0.6+colH+colH*0.12);
-  gableRoof(g,Dd+1.2,L+1.2,0.6+colH+colH*0.3,o.roofH||Dd*0.18,o.roofMat||M.tile,o.tymp||M.marbleShade,true);
+  gableRoof(g,L+1.2,Dd+1.2,0.6+colH+colH*0.3,o.roofH||Dd*0.18,o.roofMat||M.tile,o.tymp||M.marbleShade,true);   // con alongX, primero la medida a lo largo de x (la cumbrera)
   if(o.paintings)o.paintings(g,gy);
   footprints.push({x:o.x,z:o.z,w:L,d:Dd,a,c:'#e4dac6',name:o.name});
   return {g,gy};
@@ -2831,6 +2831,17 @@ function buildTrees(){
 
 // ------------------------------------------------------------ islas (escenarios aparte, lejos de Atenas; se llega en barco)
 const ISL0=12000,ISLD=3000;
+// destinos de Grecia continental y del Peloponeso a los que se llega con Lisicles, el arriero (primavera del 386 a.C.)
+const GREECE_DESTS=[
+ {id:'megara',name:'Mégara',gr:'ΜΕΓΑΡΑ',sub:'La ciudad dórica entre Atenas y el Istmo, con dos colinas por acrópolis.',R:420,H:14,seed:9.1,days:'un día de camino por Eleusis y la costa',fare:2,dir:[-1,0],land:true,step:8},
+ {id:'corinto',name:'Corinto',gr:'ΚΟΡΙΝΘΟΣ',sub:'La rica ciudad del Istmo, con dos puertos y una montaña por acrópolis.',R:480,H:14,seed:9.7,days:'dos días de camino por Mégara y las Rocas Escironias',fare:3,dir:[-1,0],land:true,step:8,coast:[0,-1],coastAt:0.8},
+ {id:'platea',name:'Platea',gr:'ΠΛΑΤΑΙΑΙ',sub:'La pequeña ciudad de Beocia que vuelve a levantarse, al pie del Citerón.',R:420,H:12,seed:10.3,days:'dos días de camino por el paso del Citerón',fare:3,dir:[-1,0],land:true,step:8},
+ {id:'delfos',name:'Delfos',gr:'ΔΕΛΦΟΙ',sub:'El santuario de Apolo en la ladera del Parnaso: el ombligo del mundo.',R:460,H:18,seed:10.9,days:'cuatro o cinco días de camino por Beocia y la Fócide',fare:6,dir:[-1,0],land:true,step:8},
+ {id:'argos',name:'Argos',gr:'ΑΡΓΟΣ',sub:'La vieja rival de Esparta, en la llanura de la Argólide.',R:460,H:12,seed:11.5,days:'tres días de camino por Mégara y el Istmo de Corinto',fare:5,dir:[-1,0],land:true,step:8},
+ {id:'epidauro',name:'Epidauro',gr:'ΕΠΙΔΑΥΡΟΣ',sub:'El santuario de Asclepio, adonde los enfermos acuden a soñar con el dios.',R:420,H:16,seed:12.1,days:'tres días de camino por el Istmo y los montes de la Argólide',fare:5,dir:[-1,0],land:true,step:8},
+ {id:'mantinea',name:'Mantinea',gr:'ΜΑΝΤΙΝΕΙΑ',sub:'La ciudad democrática de Arcadia, en una llanura alta rodeada de montes.',R:440,H:10,seed:12.7,days:'cinco días de camino por el Istmo, Argos y los montes de Arcadia',fare:6,dir:[-1,0],land:true,step:8},
+ {id:'olimpia',name:'Olimpia',gr:'ΟΛΥΜΠΙΑ',sub:'El santuario de Zeus en la Élide, donde cada cuatro años se celebran los Juegos.',R:480,H:10,seed:13.3,days:'ocho o nueve días de camino por el Istmo, Arcadia y la Élide',fare:9,dir:[-1,0],land:true,step:8}
+];
 const ISLANDS=[
  {id:'egina',name:'Egina',gr:'ΑΙΓΙΝΑ',sub:'La isla de Éaco, en el golfo Sarónico, frente al Pireo.',R:330,H:75,seed:1.3,days:'medio día de navegación con buen viento',fare:2,dir:[-1,0.15]},
  {id:'delos',name:'Delos',gr:'ΔΗΛΟΣ',sub:'La isla sagrada de Apolo, en el centro de las Cícladas.',R:230,H:30,seed:2.1,days:'dos días de navegación, con escala en Ceos',fare:6,dir:[-1,0]},
@@ -2840,9 +2851,14 @@ const ISLANDS=[
  {id:'troya',name:'Troya (Ilión)',gr:'ΙΛΙΟΝ',sub:'La pequeña Ilión del siglo IV, sobre las ruinas de la Troya de Homero, junto al Helesponto.',R:420,H:22,seed:5.2,days:'cuatro días de navegación hacia el Helesponto',fare:9,dir:[-1,0.25]},
  {id:'tebas',name:'Tebas',gr:'ΘΗΒΑΙ',sub:'La gran ciudad de Beocia, la de Cadmo, Edipo y Heracles.',R:560,H:18,seed:6.1,days:'dos días de camino por el Citerón, por el paso de Eleuteras',fare:3,dir:[-1,0],land:true},
  {id:'esparta',name:'Esparta',gr:'ΣΠΑΡΤΗ',sub:'La ciudad sin murallas de Licurgo, junto al Eurotas, al pie del Taigeto.',R:600,H:14,seed:7.3,days:'seis o siete días de camino por Mégara, el Istmo de Corinto, la Argólide y Arcadia',fare:8,dir:[-1,0],land:true},
- {id:'micenas',name:'Micenas',gr:'ΜΥΚΗΝΑΙ',sub:'Las ruinas de la ciudad de Agamenón, en la Argólide.',R:520,H:16,seed:8.2,days:'tres días de camino por Mégara y el Istmo de Corinto',fare:5,dir:[-1,0],land:true}
+ {id:'micenas',name:'Micenas',gr:'ΜΥΚΗΝΑΙ',sub:'Las ruinas de la ciudad de Agamenón, en la Argólide.',R:520,H:16,seed:8.2,days:'tres días de camino por Mégara y el Istmo de Corinto',fare:5,dir:[-1,0],land:true},
+ ...GREECE_DESTS
 ];
-ISLANDS.forEach((I,i)=>{I.x=ISL0+i*ISLD;I.z=0;I.pads=[];I.blobs=[];const l=Math.hypot(I.dir[0],I.dir[1]);I.dir=[I.dir[0]/l,I.dir[1]/l];});
+function layoutDests(){ISLANDS.forEach((I,i)=>{I.x=ISL0+i*ISLD;I.z=0;I.pads=[];I.blobs=[];const l=Math.hypot(I.dir[0],I.dir[1]);I.dir=[I.dir[0]/l,I.dir[1]/l];});}
+layoutDests();
+// por mar o por tierra: las islas, por mar; los destinos de tierra firme, por tierra, salvo que digan sea:true
+function bySea(I){return I.sea!==undefined?I.sea:!I.land;}
+function netOf(k){if(k==='atenas')return MODE==='roma'?'it':'gr';const I=ISLANDS.find(x=>x.id===k);return I&&I.net||'gr';}
 const PORTS={},SHIPS=[],captains=[],reliefObjs=[],NPC_POS={};
 const HARBOR={ok:false,x:0,z:0};
 function regionOf(x){if(x<8000)return 'atenas';return ISLANDS[clamp(Math.round((x-ISL0)/ISLD),0,ISLANDS.length-1)].id;}
@@ -2850,6 +2866,8 @@ function islandOf(x){if(x<8000)return null;return ISLANDS[clamp(Math.round((x-IS
 function islandBase(I,x,z){const dx=x-I.x,dz=z-I.z,th=Math.atan2(dz,dx);const R=I.R*(1+0.14*Math.sin(3*th+I.seed)+0.07*Math.sin(7*th+I.seed*2.3));const r=Math.hypot(dx,dz)/R;
   let h=r>1?(I.land?1.2+(r-1)*R*0.6+fbm(x*0.01,z*0.01)*30:1.2-(r-1)*R*0.12):1.2+I.H*Math.pow(1-r,1.5)+(fbm(x*0.012+I.seed,z*0.012)-0.42)*12*Math.min(1,(1-r)*4);
   for(const b of I.blobs){const d=Math.hypot(x-b.x,z-b.z)/b.R;const hb=d>1?1.2-(d-1)*b.R*0.15:1.2+b.H*(1-d*d);if(hb>h)h=hb;}
+  if(I.coast){const px=x-I.x,pz=z-I.z,d=px*I.coast[0]+pz*I.coast[1]-I.R*I.coastAt+Math.sin((px*I.coast[1]-pz*I.coast[0])*0.012+I.seed)*25;if(d>-40)h=Math.min(h,lerp(h,1.2-d*0.09,clamp((d+40)/40,0,1)));}   // costa: el mar en una dirección
+  if(I.lake){const L=I.lake,q=Math.hypot((x-L.x)/L.rx,(z-L.z)/L.rz);if(q<1.3)h=Math.min(h,lerp(-7,h,sstep(clamp((q-0.85)/0.45,0,1))));}   // lago
   return Math.max(h,-9);}
 function islandH(x,z){const I=islandOf(x);let h=islandBase(I,x,z);for(const p of I.pads){const d=Math.hypot(x-p.x,z-p.z);if(d<p.r+18)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/18,0,1)));}return h;}
 function pad(I,lx,lz,r,dh,fixed){const x=I.x+lx,z=I.z+lz;const p={x,z,r,h:fixed!==undefined?fixed:islandBase(I,x,z)+(dh||0)};I.pads.push(p);return p;}
@@ -2863,11 +2881,11 @@ function defineIslandLayout(){
   C.palace=pad(C,-C.R*0.42,-C.R*0.42,70);C.cave=pad(C,60,-40,10);
   L.shrine=pad(L,-L.R*0.86,-70,16,0,2.5);L.temple=pad(L,-L.R*0.72,50,20);
 }
-function buildIslandMesh(I){const S=I.R*2.9,seg=Math.round(S/6);const g=new THREE.PlaneGeometry(S,S,seg,seg);g.rotateX(-Math.PI/2);
+function buildIslandMesh(I){const S=I.R*2.9,seg=Math.round(S/(I.step||6));const g=new THREE.PlaneGeometry(S,S,seg,seg);g.rotateX(-Math.PI/2);
   const pos=g.attributes.position,col=new Float32Array(pos.count*3),c=new THREE.Color(),dry=new THREE.Color('#b9ab86');
   for(let i=0;i<pos.count;i++){const x=pos.getX(i)+I.x,z=pos.getZ(i)+I.z,h=islandH(x,z);pos.setXYZ(i,x,h,z);
     const sl=(Math.abs(islandH(x+2,z)-islandH(x-2,z))+Math.abs(islandH(x,z+2)-islandH(x,z-2)))/4;
-    c.copy(GRASS_C).lerp(GREEN_C,clamp(fbm(x*0.05,z*0.05)*1.6-0.4,0,1));if(I.id!=='lesbos'&&I.id!=='egina'&&I.id!=='tebas'&&I.id!=='esparta')c.lerp(dry,0.45);
+    c.copy(GRASS_C).lerp(GREEN_C,clamp(fbm(x*0.05,z*0.05)*1.6-0.4,0,1));if(!I.green&&I.id!=='lesbos'&&I.id!=='egina'&&I.id!=='tebas'&&I.id!=='esparta')c.lerp(dry,0.45);if(I.tint)I.tint(x,z,h,c);
     if(h<3)c.lerp(SAND_C,clamp((3-h)/2,0,1));c.lerp(ROCK_C,clamp((sl-0.4)*1.6,0,1));if(h<-1)c.set('#8a7d60');
     const v=0.94+hash(x*0.37,z*0.53)*0.1;col[i*3]=c.r*v;col[i*3+1]=c.g*v;col[i*3+2]=c.b*v;}
   g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();const m=new THREE.Mesh(g,terrainMat());m.receiveShadow=true;scene.add(m);I.mesh=m;}
@@ -2891,14 +2909,15 @@ function makeShip(x,z,ang){
   SHIPS.push({g,ph:Math.random()*10});return g;
 }
 // muelle con barco y armador; d = dirección hacia el mar
-function buildPort(key,label,sx,sz,dx,dz){
+function buildPort(key,label,sx,sz,dx,dz,who){
+  const W=who||(MODE==='roma'?{name:'Lucio Ancario',sub:'Naviero · nave a Hispania',role:'el naviero',look:{chiton:'#c9b48b',short:true,noHimation:true,hair:'#3a2a1e'}}:{name:'Hagnón',sub:'Armador · barco a las islas',role:'el armador'});
   const ang=Math.atan2(dx,dz),len=44,lx=-dz,lz=dx,cx=sx+dx*(len/2-8),cz=sz+dz*(len/2-8);
   const q=box(8,10,len,M.limestone,cx,1.7-5,cz);q.rotation.y=ang;addPlat(cx,cz,8,len,ang,1.7);
   for(let k=6;k<len-10;k+=8){const bx=sx+dx*k+lx*3.6,bz=sz+dz*k+lz*3.6;box(0.4,0.7,0.4,M.stone,bx,2.05,bz);}
   makeShip(sx+dx*(len-20)+lx*8.2,sz+dz*(len-20)+lz*8.2,ang);
-  const cpx=sx+dx*(len-26)+lx*2.4,cpz=sz+dz*(len-26)+lz*2.4;const cp=makePerson({chiton:'#c9b48b',himation:'#2f4c6e',beard:true,hair:'#3a2a1e'});cp.position.set(cpx,1.7,cpz);cp.rotation.y=ang+Math.PI/2;scene.add(cp);
-  const lb=labelSprite('Hagnón','Armador · barco a las islas',true);lb.position.y=2.45;lb.visible=false;cp.add(lb);addCirc(cpx,cpz,0.4);
-  captains.push({kind:'captain',port:key,x:cpx,z:cpz,g:cp,lb,data:{name:'Hagnón'}});
+  const cpx=sx+dx*(len-26)+lx*2.4,cpz=sz+dz*(len-26)+lz*2.4;const cp=makePerson(W.look||{chiton:'#c9b48b',himation:'#2f4c6e',beard:true,hair:'#3a2a1e'});cp.position.set(cpx,1.7,cpz);cp.rotation.y=ang+Math.PI/2;scene.add(cp);
+  const lb=labelSprite(W.name,W.sub,true);lb.position.y=2.45;lb.visible=false;cp.add(lb);addCirc(cpx,cpz,0.4);
+  captains.push({kind:'captain',port:key,x:cpx,z:cpz,g:cp,lb,data:{name:W.name,role:W.role}});
   PORTS[key]={x:sx-dx*7,z:sz-dz*7,yaw:Math.atan2(dx,dz),label};
   addTorch(sx-dx*3+lx*5,sz-dz*3+lz*5,2.6);addTorch(sx-dx*3-lx*5,sz-dz*3-lz*5,2.6);
   for(let i=0;i<8;i++){const ax=sx-dx*(4+R()*4)+lx*(6+R()*5),az=sz-dz*(4+R()*4)+lz*(6+R()*5);const am=new THREE.Mesh(PGEO.jar,lam(pick(['#b5603a','#c46a3a'])));am.scale.setScalar(1.6);am.position.set(ax,floorAt(ax,az),az);scene.add(am);}
@@ -2927,6 +2946,71 @@ function islandTrees(list){if(GLB.ok){treesGLB(list.map(p=>({x:p[0],z:p[1],y:ter
   olive.forEach((t,i)=>{const h=terrainH(t[0],t[1]),k=rr(0.8,1.3);q.setFromAxisAngle(up,R()*TAU);p.set(t[0],h,t[1]);s.set(k,k,k);mm.compose(p,q,s);tm.setMatrixAt(i,mm);p.set(t[0],h+2.3*k,t[1]);s.set(k,k*0.75,k);mm.compose(p,q,s);cm.setMatrixAt(i,mm);});
   cyp.forEach((t,i)=>{const h=terrainH(t[0],t[1]),k=rr(0.7,1.3);q.identity();p.set(t[0],h,t[1]);s.set(k,k,k);mm.compose(p,q,s);ym.setMatrixAt(i,mm);});
   [tm,cm,ym].forEach(m=>{m.castShadow=true;scene.add(m);});}
+
+// ============================================================ destinos nuevos (Grecia, Italia, Hispania): piezas comunes
+function DP(I,lx,lz){return[I.x+lx,I.z+lz];}
+// muralla circular con puertas (ángulos) y torres cada «tw» tramos; socle: zócalo de piedra con adobe encima
+function ringWall(cx,cz,r,gates,mat,h,tw,socle){
+  const N=Math.max(36,Math.round(r*TAU/9));
+  for(let i=0;i<N;i++){const t0=i/N*TAU,t1=(i+1)/N*TAU,mid=(t0+t1)/2;if(gates.some(g=>Math.abs(wrapA(mid-g))<4.5/r))continue;
+    const ax=cx+Math.cos(t0)*r,az=cz+Math.sin(t0)*r,bx=cx+Math.cos(t1)*r,bz=cz+Math.sin(t1)*r,len=Math.hypot(bx-ax,bz-az),g0=Math.min(terrainH(ax,az),terrainH(bx,bz)),ry=Math.atan2(bx-ax,bz-az);
+    if(socle){box(2.6,3,len+0.4,socle,(ax+bx)/2,g0+0.5,(az+bz)/2).rotation.y=ry;box(2.2,h-2,len+0.4,mat,(ax+bx)/2,g0+2+(h-2)/2,(az+bz)/2).rotation.y=ry;}
+    else box(2.4,h+3,len+0.4,mat,(ax+bx)/2,g0+h/2-1.5,(az+bz)/2).rotation.y=ry;
+    addSeg(ax,az,bx,bz,1.2);
+    if(tw&&i%tw===0){box(6,h+4,6,socle||mat,ax,terrainH(ax,az)+(h+4)/2-2,az).rotation.y=ry;addCirc(ax,az,3.6);}}
+  for(const g of gates)for(const s of[-1,1]){const t=g+s*5.5/r,x=cx+Math.cos(t)*r,z=cz+Math.sin(t)*r;box(6,h+5,6,socle||mat,x,terrainH(x,z)+(h+5)/2-2,z).rotation.y=-t;addCirc(x,z,3.6);}
+  footprints.push({x:cx,z:cz,r,c:'rgba(0,0,0,0)',noFlat:true,reserve:true});
+}
+// muralla rectangular con una puerta en el centro de cada lado
+function rectWall(cx,cz,w,d,mat,h){
+  const sides=[[[-w/2,-d/2],[w/2,-d/2]],[[w/2,-d/2],[w/2,d/2]],[[w/2,d/2],[-w/2,d/2]],[[-w/2,d/2],[-w/2,-d/2]]];
+  for(const[a,b]of sides){const mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2;for(const[p,q]of[[a,[mx-(b[0]-a[0])*4/Math.hypot(b[0]-a[0],b[1]-a[1]),mz-(b[1]-a[1])*4/Math.hypot(b[0]-a[0],b[1]-a[1])]],[[mx+(b[0]-a[0])*4/Math.hypot(b[0]-a[0],b[1]-a[1]),mz+(b[1]-a[1])*4/Math.hypot(b[0]-a[0],b[1]-a[1])],b]]){
+      const ax=cx+p[0],az=cz+p[1],bx=cx+q[0],bz=cz+q[1],len=Math.hypot(bx-ax,bz-az),g0=Math.min(terrainH(ax,az),terrainH(bx,bz));box(2.2,h+3,len,mat,(ax+bx)/2,g0+h/2-1.5,(az+bz)/2).rotation.y=Math.atan2(bx-ax,bz-az);addSeg(ax,az,bx,bz,1.1);}
+    for(const s of[-1,1]){const tx=cx+mx+s*(b[0]-a[0])*5.5/Math.hypot(b[0]-a[0],b[1]-a[1]),tz=cz+mz+s*(b[1]-a[1])*5.5/Math.hypot(b[0]-a[0],b[1]-a[1]);box(5,h+5,5,mat,tx,terrainH(tx,tz)+(h+5)/2-2,tz);addCirc(tx,tz,3);}}
+  for(const[a]of sides){const x=cx+a[0],z=cz+a[1];box(6,h+4,6,mat,x,terrainH(x,z)+(h+4)/2-2,z);addCirc(x,z,3.5);}
+}
+// teatro griego excavado en la ladera: gradas algo más allá del semicírculo, orquesta circular de tierra batida
+function greekTheatre(x,z,a,R0,R1,name){
+  const gy=terrainH(x,z),steps=Math.max(8,Math.round((R1-R0)/0.85)),N=40,ext=0.18,rise=0.42;
+  const P=(u,k)=>{const t=Math.PI-ext+u*(Math.PI+2*ext);if(k===0)return[Math.cos(t)*R0,0,Math.sin(t)*R0];const s=Math.floor((k-1)/2),e=(k-1)%2;const r=R0+(s+e)*(R1-R0)/steps;return[Math.cos(t)*r,(s+1)*rise,Math.sin(t)*r];};
+  ringMesh(ringGeo(1+steps*2,N,P,null,k=>k%4<2?'#d9cdb4':'#cbbfa4'),x,gy,z,a);
+  const orc=new THREE.Mesh(new THREE.CircleGeometry(R0-0.3,36),lam('#c9b48b'));orc.rotation.x=-Math.PI/2;orc.position.set(x,gy+0.05,z);orc.receiveShadow=true;scene.add(orc);
+  for(let i=0;i<N;i++){const t0=Math.PI-ext+i/N*(Math.PI+2*ext),t1=Math.PI-ext+(i+1)/N*(Math.PI+2*ext);const p=toW(Math.cos(t0)*(R0+0.5),Math.sin(t0)*(R0+0.5),x,z,a),q=toW(Math.cos(t1)*(R0+0.5),Math.sin(t1)*(R0+0.5),x,z,a);addSeg(p[0],p[1],q[0],q[1],0.3);}
+  const g=grp(x,gy,z,a);box(R0*2.2,4,4,M.limestone,0,2,R0+3,g);const sp=toW(0,R0+3,x,z,a);addBox(sp[0],sp[1],R0*2.2,4,a);
+  footprints.push({x,z,r:R1,c:'#d9cdb4',name,noFlat:true});
+}
+// estadio: pista de arena entre dos taludes, con las líneas de salida y llegada de piedra
+function stadiumG(x,z,a,Lg,W,name){
+  const gy=minGround(x,z,W,Lg,a)-0.05,g=grp(x,gy,z,a);
+  box(W,0.3,Lg,lam('#d8c39a'),0,0.12,0,g);for(const e of[-1,1])box(W,0.12,0.6,M.limestone,0,0.32,e*(Lg/2-2),g);
+  for(const s of[-1,1]){const t=box(10,4,Lg+10,lam('#9a9a62'),s*(W/2+5),0.6,0,g);t.rotation.z=s*0.35;const p=toW(s*(W/2+2.5),0,x,z,a);addBox(p[0],p[1],3,Lg+10,a);}
+  addPlat(x,z,W,Lg,a,gy+0.27);footprints.push({x,z,w:W,d:Lg,a,c:'#d8c39a',name,noFlat:true});
+}
+function tumulus(x,z,r,h,col){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,10,0,TAU,0,Math.PI/2),lam(col||'#8f8a5a'));m.scale.y=h/r;m.position.set(x,terrainH(x,z)-0.3,z);m.castShadow=true;m.receiveShadow=true;scene.add(m);addCirc(x,z,r*0.95);return m;}
+function pool(x,z,w,d,y){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshPhongMaterial({color:'#3f7a8a',shininess:80}));m.rotation.x=-Math.PI/2;m.position.set(x,(y!==undefined?y:terrainH(x,z))+0.12,z);scene.add(m);return m;}
+const SMOKE_TEX=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');const g=x.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(120,115,110,0.85)');g.addColorStop(0.6,'rgba(110,105,100,0.4)');g.addColorStop(1,'rgba(100,95,90,0)');x.fillStyle=g;x.fillRect(0,0,64,64);return new THREE.CanvasTexture(c);})();
+const PLUMES=[];
+function plume(x,y,z,n,s){const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);for(let i=0;i<n;i++){const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:SMOKE_TEX,transparent:true,depthWrite:false,opacity:0.8}));sp.userData.ph=i/n;g.add(sp);}PLUMES.push({g,s});return g;}
+function updatePlumes(t){for(const P of PLUMES){if(Math.abs(player.x-P.g.position.x)>2600)continue;for(const sp of P.g.children){const f=(t*0.02+sp.userData.ph)%1;sp.position.set(Math.sin(f*7+sp.userData.ph*9)*P.s*0.6+f*P.s*1.5,f*P.s*4,Math.cos(f*5)*P.s*0.4);const k=P.s*(0.4+f*1.4);sp.scale.set(k,k,1);sp.material.opacity=0.75*(1-f);}}}
+// casas de un destino: griegas con patio o romanas (domus e ínsulas de Blender); evita los solares ocupados
+function destHouses(I,cx,cz,n,spread,roman,opt){opt=opt||{};let k=0;const G={H_dom:[],H_insb:[]},walls=['#e3d8c2','#e9c9a0','#d8b48a','#efe2c8'],roofs=['#b0563a','#a24d33','#bf6a45'];
+  for(let tries=0;tries<n*12&&k<n;tries++){const x=cx+rr(-spread,spread)*(opt.sx||1),z=cz+rr(-spread,spread)*(opt.sz||1);
+    if(opt.inside&&!opt.inside(x,z))continue;if(I.pads.some(p=>p.noHouse!==false&&p.house!==true&&Math.hypot(x-p.x,z-p.z)<p.r+9))continue;
+    const h0=terrainH(x,z);if(h0<1.4)continue;if(Math.abs(terrainH(x+7,z)-terrainH(x-7,z))+Math.abs(terrainH(x,z+7)-terrainH(x,z-7))>4)continue;
+    if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<(f.reserve?0:f.r+8):Math.abs(x-f.x)<(f.w||0)/2+9&&Math.abs(z-f.z)<(f.d||0)/2+9))continue;
+    const a=(opt.a||0)+(R()<0.5?0:Math.PI/2)+rr(-0.06,0.06);
+    if(roman&&GLB.ok&&GLB.parts.H_insa_brick){const kd=R()<0.6?'H_dom':'H_insb',B=kd==='H_dom'?[18,30]:[16,14];const gy=minGround(x,z,B[0],B[1],a);
+      G[kd].push({x,y:gy,z,a,sx:1,sy:kd==='H_dom'?1:rr(0.6,0.8),sz:1,cw:new THREE.Color(pick(walls)),cp:new THREE.Color(pick(walls)),cr:new THREE.Color(pick(roofs))});addBox(x,z,B[0],B[1],a);footprints.push({x,z,w:B[0],d:B[1],a,c:'#cdb994',house:true});}
+    else courtyardHouse(x,z,a,rr(9,13),rr(9,12),rr(3.2,4),R()<0.15);
+    k++;}
+  for(const kd in G)placeModules(kd,G[kd],{far:1200,cell:320});}
+// habitantes con frases sueltas (como islandVillagers), vestidos a la romana
+function romaVillagers(I,cx,cz,n,barks){for(let i=0;i<n;i++){const fem=R()<0.4,x=cx+rr(-16,16),z=cz+rr(-16,16);
+  const g=makePerson(fem?{female:true,chiton:pick(['#e8dfcc','#d7c9ab','#e2c7a0']),himation:pick(['#7a5a3a','#4f6a7d','#8a3f2f','#6a5a7a']),hair:pick(['#3b2a1e','#5b4532','#2a1a12'])}:{short:true,noHimation:true,chiton:pick(['#c9b48b','#a08a62','#d7c9ab','#8a7350']),hair:pick(['#3b2a1e','#5b4532','#2a1a12']),beard:R()<0.2});
+  const p=findFree(x,z,0.8);g.position.set(p[0],floorAt(p[0],p[1]),p[1]);g.rotation.y=R()*TAU;scene.add(g);walkers.push({g,mode:'idle',tx:p[0],tz:p[1],wait:Infinity,speed:0,phase:R()*10,x:p[0],z:p[1],barks});}}
+function destTrees(I,n,kinds){const tr=[];for(let k=0;k<n*4&&tr.length<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+  if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;tr.push({x,z,kind:pick(kinds)});}
+  if(GLB.ok)treesGLB(tr);else islandTrees(tr.map(t=>[t.x,t.z]));}
 function caveMouth(x,z,a){const gy=terrainH(x,z),g=grp(x,gy,z,a);box(4,3.2,3,lam('#1a1512'),0,1.6,-1.2,g);
   for(let i=0;i<9;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(0.9+R()*1.3,0),M.stone);r.position.set(rr(-4.5,4.5),rr(0,4),rr(-2,0.5));g.add(r);}addCirc(x,z-1,2.4);return g;}
 
@@ -3003,7 +3087,7 @@ function buildIslands(){
    place('poetas','La isla de los poetas','ΛΕΣΒΟΣ','Lesbos dio a Grecia algunos de sus grandes músicos y poetas: Terpandro, que según la tradición dio a la lira siete cuerdas; Arión de Metimna; Alceo y Safo de Mitilene, que hacia el 600 escribieron en su dialecto eolio poemas para cantar con la lira. Un epigrama atribuido a Platón llama a Safo la décima musa.',t.x+12,t.z+10,0);
    for(let i=0;i<8;i++)courtyardHouse(t.x+rr(-35,35),t.z+rr(20,60),R()<0.5?0:Math.PI/2,rr(9,12),rr(9,12),3.4,false);
    islandVillagers(L,t.x,t.z+30,4,['¿Has oído cantar a los ruiseñores de Antisa? Dicen que es Orfeo.','Mitilene se ha aliado otra vez con Atenas. Hasta la próxima vez.','Safo era de aquí. Bueno, de Mitilene, pero de aquí.']);}
-  buildTroy();buildThebes();buildSparta();buildMycenae();
+  buildTroy();buildThebes();buildSparta();buildMycenae();buildGreece2();
   islandTrees(treePts.filter(p=>!footprints.some(f=>f.w&&Math.abs(p[0]-f.x)<f.w&&Math.abs(p[1]-f.z)<f.d)));
 }
 function placeReliefs(){
@@ -3026,9 +3110,10 @@ function horse(x,z,a){
   const g=grp(x,terrainH(x,z),z,a),c=lam('#6b4a2e'),dk=lam('#2e2018');g.scale.setScalar(1.5);
   box(0.5,0.55,1.3,c,0,1.05,0,g);for(const[px,pz]of[[-0.17,-0.5],[0.17,-0.5],[-0.17,0.5],[0.17,0.5]])box(0.1,0.8,0.1,dk,px,0.4,pz,g);
   box(0.25,0.6,0.25,c,0,1.5,0.65,g).rotation.x=0.5;box(0.22,0.24,0.55,c,0,1.75,0.9,g);box(0.06,0.5,0.4,dk,0,1.6,0.55,g);box(0.08,0.5,0.08,dk,0,0.95,-0.7,g).rotation.x=0.4;addCirc(x,z,1.1);}
-function arriero(port,x,z,a){const g=makePerson({chiton:'#a08a62',himation:'#6b5a3a',beard:true,hair:'#3a2a1e',staff:true});g.position.set(x,floorAt(x,z),z);g.rotation.y=a;scene.add(g);
-  const lb=labelSprite('Lisicles','Arriero · caminos de Grecia',true);lb.position.y=2.45;lb.visible=false;g.add(lb);addCirc(x,z,0.4);
-  captains.push({kind:'captain',mode:'tierra',port,x,z,g,lb,data:{name:'Lisicles'}});
+function arriero(port,x,z,a,who){const W=who||(MODE==='roma'?{name:'Cayo Fabio',sub:'Cochero · viajes por Italia',role:'el cochero',look:{chiton:'#a08a62',short:true,noHimation:true,hair:'#3a2a1e'}}:{name:'Lisicles',sub:'Arriero · caminos de Grecia',role:'el arriero'});
+  const g=makePerson(W.look||{chiton:'#a08a62',himation:'#6b5a3a',beard:true,hair:'#3a2a1e',staff:true});g.position.set(x,floorAt(x,z),z);g.rotation.y=a;scene.add(g);
+  const lb=labelSprite(W.name,W.sub,true);lb.position.y=2.45;lb.visible=false;g.add(lb);addCirc(x,z,0.4);
+  captains.push({kind:'captain',mode:'tierra',port,x,z,g,lb,data:{name:W.name,role:W.role}});
   const dx=x+Math.cos(a)*2.2,dz=z-Math.sin(a)*2.2;donkey(dx,dz,a);}
 
 // ------------------------------------------------------------ Troya (Ilión) y Tebas
@@ -3390,11 +3475,20 @@ function bark(w){toast('<i>«'+pick(w.barks||BARKS)+'»</i>');}
 // ============================================================ viajes en barco
 const VOY_FACTS=['Los mercantes navegan a vela; las trirremes de guerra, a remo.','Se navega de primavera a otoño; en invierno el mar se considera cerrado.','De noche, si se puede, se fondea en una cala o se sigue la Osa Mayor.','Los marineros vierten vino al mar para que Poseidón les sea favorable.','Un buen día de navegación cubre unos noventa kilómetros con viento favorable.'];
 const LAND_FACTS=['El camino sube por el monte Citerón, donde según el mito fue abandonado Edipo recién nacido.','Los viajeros duermen en posadas o al raso; los ricos van a caballo, los demás a pie o en carro.','Un carro de bueyes recorre unos veinte o treinta kilómetros al día.','En el paso de Eleuteras, la frontera entre el Ática y Beocia, Atenas tiene una fortaleza.'];
-function destName(k){return k==='atenas'?'el Pireo (Atenas)':ISLANDS.find(I=>I.id===k).name;}
-function fareOf(from,to){if(from==='atenas'||to==='atenas'){const I=ISLANDS.find(x=>x.id===(from==='atenas'?to:from));return I.fare;}return Math.max(ISLANDS.find(x=>x.id===from).fare,ISLANDS.find(x=>x.id===to).fare);}
-function daysOf(from,to){const k=from==='atenas'?to:(to==='atenas'?from:to);return ISLANDS.find(x=>x.id===k).days;}
+function destOf(k){return ISLANDS.find(I=>I.id===k);}
+function homeName(){return MODE==='roma'?'Roma':'Atenas';}
+function destName(k){return k==='atenas'?(MODE==='roma'?'Roma (el Emporio)':'el Pireo (Atenas)'):destOf(k).name;}
+function landName(k){return k==='atenas'?homeName():destOf(k).name;}
+// lfare/ldays: precio y duración por tierra desde la ciudad que hace de centro (Tarraco, en Hispania)
+function fareOf(from,to,land){const A=destOf(from),B=destOf(to);if(land&&((A&&A.lfare)||(B&&B.lfare)))return Math.max(A&&A.lfare||0,B&&B.lfare||0);
+  if(from==='atenas'||to==='atenas')return(A||B).fare;return Math.max(A.fare,B.fare);}
+function daysOf(from,to,land){const A=destOf(from),B=destOf(to);if(land&&((B&&B.ldays)||(A&&A.ldays)))return(B&&B.ldays)||A.ldays;const k=from==='atenas'?to:(to==='atenas'?from:to);return destOf(k).days;}
+// destinos por tierra desde un sitio: los de su misma red (Grecia, Italia o Hispania) y la ciudad que hace de centro
+function landDests(here){const n=netOf(here),hub=n==='hisp'?'tarraco':'atenas';return[hub,...ISLANDS.filter(I=>!bySea(I)&&(I.net||'gr')===n).map(I=>I.id)].filter((d,i,a)=>d!==here&&a.indexOf(d)===i);}
+function cur(){return MODE==='roma'?' sestercios':' óbolos';}
 function openLand(c){
-  dlg={n:null};ui='dialog';releasePointer();const here=c.port,dests=['atenas',...ISLANDS.filter(I=>I.land).map(I=>I.id)].filter(d=>d!==here);
+  dlg={n:null};ui='dialog';releasePointer();const here=c.port,dests=landDests(here);
+  if(MODE==='roma')return openRomaLand(c,here,dests);
   $('dGlyph').textContent='Λ';setName('Lisicles',true);$('dTitle').textContent='Arriero · caminos de Grecia · personaje inventado';
   $('dBody').innerHTML='<p>Salud, forastero. Llevo cerámica de Atenas por los caminos de Grecia y vuelvo con lo que encuentro: anguilas del Copais, lana de Arcadia, hierro de Laconia. Si quieres, te subes al carro. Hasta Tebas son dos días; hasta Micenas, tres; hasta Esparta, una semana.</p>';
   const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
@@ -3403,30 +3497,51 @@ function openLand(c){
   add('¿Es seguro el camino?',()=>{$('dBody').innerHTML='<p>Hacia Tebas, en el Citerón hay fortines atenienses y alguna vez bandidos; dormimos en Eleuteras, donde nació el culto de Dioniso. Hacia el Peloponeso hay que cruzar las Rocas Escironias, donde según el mito Teseo mató al bandido Escirón, y luego el Istmo. En Arcadia, cuidado con los lobos.</p>';});
   add('Despedirse',closeDialog);$('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
+// el cochero de Roma (y el de Tarraco): carruajes de alquiler por las calzadas
+function openRomaLand(c,here,dests){
+  const hisp=netOf(here)==='hisp';
+  $('dGlyph').textContent='V';setName(c.data.name,true);$('dTitle').textContent=hisp?'Cochero · caminos de Hispania · personaje inventado':'Cochero · carruajes de alquiler por las calzadas de Italia · personaje inventado';
+  $('dBody').innerHTML=hisp?'<p>Salud, viajero. Llevo gente y equipaje por las calzadas de Hispania en mi raeda, un carro de cuatro ruedas con toldo. Tierra adentro todo está más lejos de lo que parece: a Ilerda son tres días; a Emerita, casi un mes.</p>':'<p>Salud, ciudadano. Tengo una raeda, un carro de cuatro ruedas con toldo, y dos mulas que conocen todas las calzadas de Italia. Si tienes prisa, alquilo también un cisium, más ligero. Cambiamos de mulas en las posadas del camino. ¿Adónde vamos?</p>';
+  const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
+  for(const d of dests){const f=fareOf(here,d,true),can=state.obols>=f;add('Viajar a '+landName(d)+' · '+f+' sestercios'+(can?'':' (pagarás ayudando con las mulas)'),()=>sail(here,d,true),'quiz');}
+  add('¿Cómo se viaja por Italia?',()=>{$('dBody').innerHTML='<p>Por las calzadas: la Apia hacia el sur, la Flaminia hacia el norte, la Aurelia por la costa de Etruria, la Salaria hacia el Adriático. Cada mil pasos hay un miliario que dice cuánto falta. Hacemos unas veinticinco o treinta millas al día. Los correos del emperador cambian de caballos en las mansiones y van mucho más deprisa, pero ese servicio no es para nosotros: solo para quien lleva un permiso oficial.</p>';});
+  add('¿Es seguro el camino?',()=>{$('dBody').innerHTML='<p>Más que antes. Desde Augusto hay puestos de soldados en los caminos y pocos bandidos se atreven cerca de Roma. Lo peor son las posadas: Horacio se quejaba del agua, de los mosquitos y de los posaderos tacaños. Y en invierno, la nieve en los pasos de los Apeninos. Llévate tu propia manta.</p>';});
+  add('Despedirse',closeDialog);$('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
+}
 function openVoyage(c){
   if(c.mode==='tierra')return openLand(c);
+  if(MODE==='roma')return openRomaVoyage(c);
   dlg={n:null};ui='dialog';releasePointer();godEvent('captain');
   $('dGlyph').textContent='Ν';setName('Hagnón',true);$('dTitle').textContent='Armador · capitán de un mercante · personaje inventado';
   $('dBody').innerHTML='<p>Salud. Mi barco es un mercante redondo, de vela: nada de remeros como en las trirremes. Llevo vino, aceite y cerámica, y pasajeros, si no se marean. ¿Adónde quieres ir?</p>';
   renderVoyOpts(c);$('dialog').hidden=false;
 }
+function openRomaVoyage(c){
+  dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent='N';setName(c.data.name,true);$('dTitle').textContent='Naviero · nave de carga a Hispania · personaje inventado';
+  $('dBody').innerHTML=c.port==='atenas'?'<p>Salud. Mi barca baja por el Tíber hasta Portus, el gran puerto que construyó Claudio junto a Ostia. Allí embarcas en mi nave, una oneraria que vuelve a Hispania con vajilla, vidrio y telas, y trae aceite, vino y salazones. ¿Adónde quieres ir?</p>':'<p>Salud. Volvemos a Italia con ánforas de vino y de aceite. Si quieres, te llevo a Portus, junto a Ostia, o a otro puerto de la costa.</p>';
+  renderVoyOpts(c);$('dialog').hidden=false;
+}
 function renderVoyOpts(c){
   const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
-  const dests=['atenas',...ISLANDS.filter(I=>!I.land).map(I=>I.id)].filter(d=>d!==c.port);
-  for(const d of dests){const f=fareOf(c.port,d),can=state.obols>=f;add('Viajar a '+destName(d)+' · '+f+' óbolos'+(can?'':' (pagarás trabajando a bordo)'),()=>sail(c.port,d),'quiz');}
+  const dests=['atenas',...ISLANDS.filter(bySea).map(I=>I.id)].filter(d=>d!==c.port);
+  for(const d of dests){const f=fareOf(c.port,d),can=state.obols>=f;add('Viajar a '+destName(d)+' · '+f+cur()+(can?'':' (pagarás trabajando a bordo)'),()=>sail(c.port,d),'quiz');}
+  if(MODE==='roma'){add('¿Cuánto se tarda?',()=>{$('dBody').innerHTML='<p>Con buen viento, de Ostia a la Hispania Citerior se llega en cuatro días: lo dice Plinio el Viejo, que en paz descanse. Si el viento no ayuda, una semana o dos. A Gades, en el otro extremo, siete días. Solo se navega de primavera a otoño: en invierno el mar está cerrado.</p>';renderVoyOpts(c);});
+    add('¿Qué lleváis en la bodega?',()=>{$('dBody').innerHTML='<p>De Hispania traemos aceite de la Bética, vino de la Tarraconense, garum y salazones, metales de las minas. Llevamos de Italia vajilla roja de Arretium, lámparas, vidrio, tejidos. Las ánforas vacías de aceite acaban en Roma en un monte que crece junto al Emporio: hay tantas que ya es una colina.</p>';renderVoyOpts(c);});
+    add('Despedirse',closeDialog);setTimeout(()=>{const b=$('dOpts').querySelector('button');b&&b.focus({preventScroll:true});},30);return;}
   add('¿Cuánto cuesta el pasaje?',()=>{$('dBody').innerHTML='<p>Barato. De Egina al Pireo cobro dos óbolos, como todo el mundo. A las Cícladas, una dracma; a Lesbos, una y media; a Creta, dos dracmas. Hasta desde Egipto o el mar Negro se cobran solo dos dracmas, con mujer, hijos y equipaje. Lo dice Platón, que se queja de que el piloto que te salva la vida cobra menos que un maestro de retórica. Si no tienes dinero, ayudarás con las velas.</p>';renderVoyOpts(c);});
   add('¿Es peligroso navegar?',()=>{$('dBody').innerHTML='<p>Navegamos de primavera a otoño, de día y cerca de la costa si se puede; en invierno el mar está cerrado. Hay tormentas, rocas y piratas. Hasta hace unos meses, los corsarios de Egina asaltaban a todo barco ateniense. Ahora, con la Paz del Rey, el mar está más tranquilo. Más o menos.</p>';renderVoyOpts(c);});
   add('Despedirse',closeDialog);
   setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function sail(from,to,land){
-  const f=fareOf(from,to),paid=state.obols>=f;if(paid){state.obols-=f;save();updateStats();}
+  const f=fareOf(from,to,land),paid=state.obols>=f;if(paid){state.obols-=f;save();updateStats();}
   $('dialog').hidden=true;dlg=null;ui='voyage';
   if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}   // el caballo se queda en tierra
-  const v=$('voyage');v.querySelector('.vt').textContent=land?'De camino a '+(to==='atenas'?'Atenas':ISLANDS.find(I=>I.id===to).name):'Navegando hacia '+destName(to);v.classList.toggle('land',!!land);
-  v.querySelector('.vs').textContent=daysOf(from,to).charAt(0).toUpperCase()+daysOf(from,to).slice(1)+'. '+(paid?'Pagas '+f+' óbolos.':(land?'Pagas el viaje cargando ánforas en el carro.':'Pagas el pasaje ayudando a la tripulación con las velas.'));
-  v.querySelector('.vf').textContent=land?pick(LAND_FACTS):pick(VOY_FACTS);v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
-  const arrive=()=>{const P=PORTS[land&&to==='atenas'?'atenas_n':to];player.x=P.x;player.z=P.z;player.feet=floorAt(P.x,P.z);player.camY=player.feet+player.eye;player.vy=0;player.yaw=P.yaw;player.pitch=0;curZone=null;
+  const v=$('voyage');v.querySelector('.vt').textContent=land?'De camino a '+landName(to):'Navegando hacia '+destName(to);v.classList.toggle('land',!!land);
+  const dd=daysOf(from,to,land);v.querySelector('.vs').textContent=dd.charAt(0).toUpperCase()+dd.slice(1)+'. '+(paid?(MODE==='roma'?'Pagas '+f+' sestercios.':'Pagas '+f+' óbolos.'):(land?(MODE==='roma'?'Pagas el viaje ayudando con las mulas y los fardos.':'Pagas el viaje cargando ánforas en el carro.'):'Pagas el pasaje ayudando a la tripulación con las velas.'));
+  v.querySelector('.vf').textContent=land?pick(MODE==='roma'?ROMA_LAND_FACTS:LAND_FACTS):pick(MODE==='roma'?ROMA_VOY_FACTS:VOY_FACTS);v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
+  const arrive=()=>{const P=PORTS[land&&to==='atenas'?'atenas_n':(land&&PORTS[to+'_n']?to+'_n':to)];player.x=P.x;player.z=P.z;player.feet=floorAt(P.x,P.z);player.camY=player.feet+player.eye;player.vy=0;player.yaw=P.yaw;player.pitch=0;curZone=null;
     clock.h=(clock.h+(to==='egina'||from==='egina'?5:10))%24;updateSky();
     v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';},700);};
   if(!land&&seaEligible(from,to))setTimeout(()=>seaIntro(arrive),2400);   // en alta mar, el sueño de Ulises
@@ -5849,6 +5964,7 @@ function defineGreeceLayout(){
   Mk.blobs.push({x:Mk.x+40,z:Mk.z-40,R:180,H:42});Mk.cit=pad(Mk,40,-40,64);Mk.pal=pad(Mk,62,-62,20,3);
   Mk.blobs.push({x:Mk.x+120,z:Mk.z-460,R:330,H:230},{x:Mk.x+500,z:Mk.z-80,R:300,H:190});
   Mk.blobs.push({x:Mk.x+130,z:Mk.z+330,R:90,H:20});Mk.hera=pad(Mk,130,330,36);Mk.atreus=pad(Mk,-200,110,22);Mk.hamlet=pad(Mk,-150,-120,30);Mk.arrive=pad(Mk,-330,30,24,0,3);
+  defineGreece2();
 }
 function buildSparta(){
   const S=ISLANDS.find(I=>I.id==='esparta');
@@ -5939,6 +6055,145 @@ function buildMycenae(){
    NPC_POS.calitea=[H.x+24,H.z+6,Math.PI/2];
    place('hereo','El Hereo de Argos','ΗΡΑΙΟΝ','El gran santuario de Hera de la Argólide, entre Micenas y Argos. El templo viejo ardió en el 423, cuando la sacerdotisa Criseida se quedó dormida junto a una lámpara; este templo nuevo, de Eupólemo de Argos, guarda una gran estatua de Hera de oro y marfil hecha por Policleto, sentada en un trono, con una granada y un cetro rematado por un cuco. Aquí, según la tradición, los griegos juraron lealtad a Agamenón antes de partir hacia Troya.',H.x+28,H.z-6,Math.PI/2);}
   {const a=Mk.arrive;arriero('micenas',a.x+3,a.z+3,-Math.PI/2);PORTS.micenas={x:a.x-4,z:a.z,yaw:-Math.PI/2,label:'Micenas'};}
+}
+
+// ------------------------------------------------------------ Grecia continental y Peloponeso: relieve previo
+function defineGreece2(){
+  const G=id=>ISLANDS.find(I=>I.id===id);
+  const Me=G('megara'),Co=G('corinto'),Pl=G('platea'),De=G('delfos'),Ar=G('argos'),Ep=G('epidauro'),Ma=G('mantinea'),Ol=G('olimpia');
+  for(const I of[Me,Co,Pl,De,Ar,Ep,Ma,Ol])I.arrive=pad(I,-I.R*0.72,30,24,0,3);
+  Me.blobs.push({x:Me.x+70,z:Me.z-150,R:85,H:26},{x:Me.x-70,z:Me.z-160,R:75,H:22});Me.town=pad(Me,0,20,60,0,4);Me.fount=pad(Me,90,70,14,0,4);Me.oly=pad(Me,-90,60,18,0,4);Me.sch=pad(Me,40,-50,14,0,4);
+  Co.blobs.push({x:Co.x+20,z:Co.z+280,R:190,H:130},{x:Co.x+70,z:Co.z-70,R:50,H:7});Co.acro=pad(Co,20,280,20);Co.apollo=pad(Co,70,-70,30);Co.town=pad(Co,-40,20,70,0,4);Co.peir=pad(Co,-70,-60,14,0,4);
+  Pl.blobs.push({x:Pl.x,z:Pl.z+400,R:330,H:130});Pl.town=pad(Pl,0,-20,80,0,4);Pl.hera=pad(Pl,80,-90,22,0,4);Pl.altar=pad(Pl,-110,70,14,0,4);Pl.tombs=pad(Pl,-170,170,30,0,4);
+  De.blobs.push({x:De.x,z:De.z-480,R:420,H:300});De.temple=pad(De,0,-40,36);De.treas=pad(De,-50,30,12);De.cast=pad(De,120,30,14);De.stad=pad(De,-40,-150,60);De.col=pad(De,30,10,8);
+  Ar.blobs.push({x:Ar.x-120,z:Ar.z-160,R:120,H:72},{x:Ar.x+80,z:Ar.z-200,R:60,H:22});Ar.lar=pad(Ar,-120,-160,36);Ar.aspis=pad(Ar,80,-200,14);Ar.town=pad(Ar,20,50,80,0,4);Ar.thea=pad(Ar,-50,-70,24);
+  Ep.blobs.push({x:Ep.x-170,z:Ep.z-140,R:110,H:55},{x:Ep.x+200,z:Ep.z+120,R:150,H:60});Ep.mal=pad(Ep,-170,-140,14);Ep.sanct=pad(Ep,20,0,90,0,4);
+  for(let i=0;i<9;i++){const a=i/9*TAU;Ma.blobs.push({x:Ma.x+Math.cos(a)*Ma.R*1.15,z:Ma.z+Math.sin(a)*Ma.R*1.15,R:200,H:90+40*Math.sin(i*2.3)});}Ma.town=pad(Ma,0,0,160,0,4);
+  Ol.blobs.push({x:Ol.x-40,z:Ol.z-230,R:120,H:60});Ol.altis=pad(Ol,0,-10,130,0,4);Ol.stad=pad(Ol,200,-60,110,0,4);Ol.ws=pad(Ol,-170,60,26,0,4);
+  for(const p of[Me.town,Co.town,Pl.town,Ar.town,Ma.town])p.house=true;   // en el centro de la ciudad sí puede haber casas
+}
+// llegada: el arriero Lisicles también recorre estos caminos
+function greekArrive(I,label){const a=I.arrive;arriero(I.id,a.x+3,a.z+3,-Math.PI/2);PORTS[I.id]={x:a.x-4,z:a.z,yaw:-Math.PI/2,label};}
+function buildGreece2(){
+  const G=id=>ISLANDS.find(I=>I.id===id);
+  // ------------------------------------------------ Mégara
+  {const I=G('megara'),t=I.town;
+   ringWall(t.x,t.z,190,[0,Math.PI/2,Math.PI,-Math.PI/2],lam('#b9a986'),7,7);
+   {const f=I.fount;blockBuilding({name:'Fuente de Teágenes',x:f.x,z:f.z-4,rot:0,w:16,d:8,h:5.5,mat:M.limestone});for(let i=0;i<5;i++)addColumn(f.x-6+i*3,f.h,f.z+0.6,0.32,4.2,0,'doric');pool(f.x,f.z+4,14,4,f.h);
+    place('fuente_teagenes','Fuente de Teágenes','ΚΡΗΝΗ ΘΕΑΓΕΝΟΥΣ','A finales del siglo VII, el tirano Teágenes hizo construir esta fuente, que Pausanias todavía admiraba por su tamaño, su decoración y el número de sus columnas. Teágenes fue el suegro de Cilón, el ateniense que intentó hacerse tirano de Atenas ocupando la Acrópolis, hacia el 632: sus partidarios fueron asesinados junto a los altares, y los Alcmeónidas cargaron desde entonces con la maldición.',f.x+12,f.z+6,0);}
+   {const o=I.oly;temple({name:'Olimpieion de Mégara',x:o.x,z:o.z,rot:Math.PI/2,W:13,L:26,nW:6,nL:12,colD:1.1,colH:6.2,gy:o.h,cella:{w:8,l:15,door:2.6}});
+    place('olimpieion_megara','Olimpieion de Mégara','ΟΛΥΜΠΙΕΙΟΝ','El templo de Zeus Olímpico de Mégara. Dentro hay una estatua del dios que no se terminó: el escultor Teocosmo, con ayuda de Fidias, había hecho el rostro de oro y marfil, pero al estallar la guerra del Peloponeso los megarenses gastaron el dinero en la guerra, y el resto del cuerpo se quedó de arcilla y yeso. Detrás del templo aún se ven los bloques de madera que debían recubrirse.',o.x+18,o.z+6,0);}
+   {const s=I.sch;stoa({name:'Pórtico de Euclides',x:s.x,z:s.z,rot:0,len:24,depth:7,colH:4.4,colD:0.55});NPC_POS.euclides_megara=[s.x,s.z+8,Math.PI];
+    place('escuela_megara','La escuela de Mégara','ΜΕΓΑΡΙΚΟΙ','Aquí enseña Euclides de Mégara (no confundir con el matemático Euclides de Alejandría, que nacerá dentro de medio siglo), discípulo de Sócrates. Tras la muerte de Sócrates en el 399, Platón y otros discípulos se refugiaron unos días en su casa. Sus alumnos, los megáricos, son famosos por sus argumentos y sus paradojas.',s.x-16,s.z+8,0);}
+   place('decreto_megara','El decreto megárico','ΨΗΦΙΣΜΑ','Hacia el 432, Atenas prohibió a los megarenses entrar en su Ágora y en los puertos de su imperio. Para una ciudad que vivía del comercio fue la ruina, y el decreto fue una de las causas de la guerra del Peloponeso. Aristófanes se burló del asunto en Los acarnienses: un megarense hambriento intenta vender a sus hijas disfrazadas de cerditos.',t.x-20,t.z+30,0);
+   destHouses(I,t.x,t.z,40,150,false);greekArrive(I,'Mégara');
+   islandVillagers(I,t.x+10,t.z+20,5,['Los atenienses nos cerraron sus puertos y casi nos matan de hambre. Ahora vuelven a comprarnos la lana.','Aquí tejemos las mejores túnicas de trabajo de Grecia: media Atenas va vestida con lana de Mégara.','Euclides dice que el bien es uno solo, aunque lo llamemos sabiduría, dios o inteligencia. Yo prefiero el vino.','Teágenes hizo la fuente; nosotros solo la usamos. Algo es algo.']);}
+  // ------------------------------------------------ Corinto
+  {const I=G('corinto'),t=I.town;
+   {const a=I.apollo;temple({name:'Templo de Apolo de Corinto',x:a.x,z:a.z,rot:Math.PI/2,W:21.5,L:53.8,nW:6,nL:15,colD:1.7,colH:7.2,gy:a.h,cella:{w:13,l:34,door:3,antis:4,antisCols:true}});
+    place('apolo_corinto','Templo de Apolo','ΝΑΟΣ ΑΠΟΛΛΩΝΟΣ','Uno de los templos de piedra más antiguos de Grecia, de hacia el 540 a.C.: seis por quince columnas dóricas, robustas, y cada fuste es un solo bloque de piedra caliza, sin tambores. Desde aquí se ve el golfo de Corinto. Siete de sus columnas seguirán en pie veinticuatro siglos después.',a.x+30,a.z+8,0);}
+   {const c=I.acro;temple({name:'Templo de Afrodita',x:c.x,z:c.z,rot:Math.PI/2,W:8,L:14,nW:4,prostyle:true,colD:0.6,colH:4.4,gy:c.h,cella:{w:7,l:8,door:2.2}});ringWall(c.x,c.z,60,[Math.PI/2],lam('#b5a37e'),6,0);
+    place('acrocorinto','Acrocorinto','ΑΚΡΟΚΟΡΙΝΘΟΣ','La montaña que hace de acrópolis de Corinto, de casi seiscientos metros: desde arriba se ven los dos mares. En lo alto, un templo de Afrodita y una fuente, la Pirene alta. Según el mito, aquí Belerofonte domó a Pegaso, el caballo alado, con un freno de oro que le dio Atenea. Mucho después, el geógrafo Estrabón hablará de mil servidoras de la diosa; los historiadores de hoy dudan de esa cifra.',c.x+8,c.z+30,Math.PI);}
+   {const p=I.peir;blockBuilding({name:'Fuente Pirene',x:p.x,z:p.z-3,rot:0,w:18,d:7,h:4.5,mat:M.limestone});for(let i=0;i<6;i++)box(1.8,2.6,0.2,M.dark,p.x-7.5+i*3,p.h+1.3,p.z+0.6);pool(p.x,p.z+4,16,4,p.h);
+    place('pirene','Fuente Pirene','ΠΕΙΡΗΝΗ','La gran fuente de la ciudad baja, con seis cámaras abiertas a un estanque. Según el mito, Pirene lloró tanto a su hijo, muerto por Ártemis sin querer, que se convirtió en manantial. Los corintios presumen de que su agua es la mejor de Grecia; en ella bebía Pegaso.',p.x+14,p.z+6,0);}
+   stoa({name:'Pórtico del mercado',x:t.x+20,z:t.z-30,rot:0,len:40,depth:9,colH:4.6,colD:0.6});
+   {const sh=shoreAlong(I.x+150,I.z-200,0,-1,400);box(5,0.4,46,M.limestone,sh[0],terrainH(sh[0],sh[1]+20)+0.15,sh[1]+20);for(let i=0;i<14;i++)box(0.25,0.08,0.4,lam('#7a6a50'),sh[0]+(i%2?1.5:-1.5),terrainH(sh[0],sh[1]+4+i*3)+0.4,sh[1]+4+i*3);
+    const cart=grp(sh[0],terrainH(sh[0],sh[1]+30)+0.5,sh[1]+30,0);box(3.2,0.8,9,M.wood,0,0.6,0,cart);for(const s of[-1,1])for(const z2 of[-3,3]){const w=new THREE.Mesh(new THREE.CylinderGeometry(0.6,0.6,0.3,12),M.wood);w.rotation.z=Math.PI/2;w.position.set(s*1.7,0.6,z2);cart.add(w);}addBox(sh[0],sh[1]+30,3.2,9,0);
+    makeShip(sh[0]-60,sh[1]-50,Math.PI/2);
+    place('diolkos','El diolkos','ΔΙΟΛΚΟΣ','Un camino empedrado de unos seis kilómetros cruza el Istmo, desde el puerto del golfo de Corinto hasta el del golfo Sarónico. Por él se arrastran en carros las mercancías, y a veces barcos enteros, para no tener que rodear el Peloponeso por el temido cabo Malea. Lo hizo construir, según la tradición, el tirano Periandro, hacia el 600. Corinto cobra por usarlo: de ahí buena parte de su riqueza.',sh[0]+10,sh[1]+40,0);}
+   place('guerra_corintia','La guerra de Corinto','ΚΟΡΙΝΘΙΑΚΟΣ ΠΟΛΕΜΟΣ','Durante ocho años, desde el 395, Corinto, Atenas, Tebas y Argos lucharon contra Esparta, y gran parte de los combates fueron aquí, en el Istmo. En el 392 Corinto y Argos llegaron a unirse en un solo Estado. La paz del Rey, de este mismo año, obliga a deshacer la unión: vuelven los desterrados partidarios de Esparta, y muchos temen venganzas.',t.x-10,t.z+40,0);
+   destHouses(I,t.x,t.z,45,160,false);greekArrive(I,'Corinto');NPC_POS.nicandro=[t.x+24,t.z-18,Math.PI];
+   islandVillagers(I,t.x+30,t.z+10,5,['«No todos pueden ir a Corinto», dice el refrán. Aquí todo es caro, sobre todo la diversión.','Los barcos pasan el Istmo por el diolkos: sale más barato que rodear el cabo Malea.','Con la paz vuelven los desterrados amigos de Esparta. Mi vecino ya ha cerrado la puerta con tranca.','Nuestros bronces y nuestros vasos se venden en todo el mar, de Sicilia a Asia.']);}
+  // ------------------------------------------------ Platea
+  {const I=G('platea'),t=I.town,wm=lam('#a8987a');
+   for(let i=0;i<48;i++){const t0=i/48*TAU,t1=(i+1)/48*TAU;if(R()<0.35)continue;const r=110,ax=t.x+Math.cos(t0)*r,az=t.z+Math.sin(t0)*r,bx=t.x+Math.cos(t1)*r,bz=t.z+Math.sin(t1)*r,hh=rr(0.6,2.6),len=Math.hypot(bx-ax,bz-az);
+     box(2,hh+2,len,wm,(ax+bx)/2,terrainH(ax,az)+hh/2-1,(az+bz)/2).rotation.y=Math.atan2(bx-ax,bz-az);addSeg(ax,az,bx,bz,1);}
+   destHouses(I,t.x,t.z,22,80,false);
+   for(let i=0;i<6;i++){const x=t.x+rr(-60,60),z=t.z+rr(-60,60);if(!isFree(x,z,6))continue;const g=grp(x,terrainH(x,z),z,R()*3);for(const[px,pz]of[[-4,-4],[4,-4],[-4,4],[4,4]])box(0.2,5,0.2,M.wood,px,2.5,pz,g);box(8.4,0.2,0.2,M.wood,0,4.6,-4,g);box(8.4,0.2,0.2,M.wood,0,4.6,4,g);box(7,1,0.6,lam('#bba98a'),0,0.5,-4,g);box(3,0.8,0.8,lam('#bba98a'),2,0.4,1,g);addBox(x,z,9,9,g.rotation.y);}
+   place('platea_vuelta','Platea vuelve a levantarse','ΠΛΑΤΑΙΑΙ','Platea fue siempre la fiel aliada de Atenas: fue la única ciudad que luchó a su lado en Maratón. En el 427, tras dos años de asedio, espartanos y tebanos la tomaron, ejecutaron a sus defensores y la arrasaron. Los supervivientes recibieron la ciudadanía ateniense. Ahora, con la paz del Rey, los espartanos han decidido reconstruirla, también para debilitar a Tebas. Los plateenses vuelven a casa después de cuarenta años.',t.x+20,t.z+40,0);
+   {const h=I.hera;temple({name:'Templo de Hera de Platea',x:h.x,z:h.z,rot:Math.PI/2,W:13,L:30,nW:6,nL:13,colD:0.95,colH:5.6,gy:h.h,cella:{w:8,l:17,door:2.6}});
+    place('hereo_platea','Templo de Hera','ΗΡΑΙΟΝ','Después de arrasar Platea, los tebanos construyeron aquí, con las piedras de la ciudad, un templo de Hera de cien pies de largo y una gran hospedería para los peregrinos, como cuenta Tucídides. Los plateenses que vuelven tendrán que rezar en el templo que levantaron sus enemigos.',h.x+18,h.z+6,0);}
+   {const a=I.altar;box(6,1.4,4,M.marble,a.x,a.h+0.7,a.z);addBox(a.x,a.z,6,4,0);statue(a.x,a.h+1.4,a.z-1,0,1.2,'bronze');
+    place('eleuterias','Altar de Zeus Liberador','ΖΕΥΣ ΕΛΕΥΘΕΡΙΟΣ','Tras vencer a los persas en el 479, los griegos levantaron aquí un altar a Zeus Liberador e instituyeron las Eleuterias, unas fiestas cada cuatro años en honor de los que murieron por la libertad de Grecia. Los plateenses quedaron encargados de cuidar las tumbas y celebrar cada año un sacrificio por los caídos.',a.x+10,a.z+4,0);}
+   {const b=I.tombs;tumulus(b.x,b.z,9,4);tumulus(b.x+24,b.z-8,8,3.6);tumulus(b.x-20,b.z+12,7,3);
+    place('batalla_platea','La batalla de Platea','ΜΑΧΗ','En esta llanura, en el verano del 479, el ejército griego, de más de cien mil hombres según Heródoto y mandado por el espartano Pausanias, derrotó al ejército persa de Mardonio, que murió en el combate. Fue el final de la invasión de Jerjes. Los muertos de cada ciudad se enterraron en túmulos propios: los de Esparta, los de Atenas, los de Tegea.',b.x+16,b.z-18,0);}
+   greekArrive(I,'Platea');NPC_POS.eutiades=[t.x+12,t.z+12,0];
+   islandVillagers(I,t.x-20,t.z+10,5,['Mi padre nació en Atenas, en el exilio. Yo no había visto nunca esta tierra.','Los tebanos nos miran desde el otro lado del Asopo. No nos quieren aquí.','Cada piedra de este muro la he puesto con mis manos. Y la de al lado, mi hermano.','Dicen que los espartanos nos ayudan. Hace cuarenta años nos degollaron.']);}
+  // ------------------------------------------------ Delfos
+  {const I=G('delfos'),T=I.temple;
+   temple({name:'Templo de Apolo de Delfos',x:T.x,z:T.z,rot:0,W:24,L:58,nW:6,nL:15,colD:1.9,colH:10.4,gy:T.h,roofMat:M.tile,sculpt:9,cella:{w:15,l:36,door:3.6,antis:4,antisCols:true}});
+   {const om=new THREE.Mesh(new THREE.SphereGeometry(0.9,16,12),lam('#cfc4ab'));om.scale.y=1.3;om.position.set(T.x+8,T.h+1.1,T.z+34);scene.add(om);addCirc(T.x+8,T.z+34,1);
+    place('omfalo','El ombligo del mundo','ΟΜΦΑΛΟΣ','Zeus soltó dos águilas, una en cada extremo del mundo, y se encontraron aquí: Delfos es el centro de la tierra. Lo marca esta piedra en forma de huevo, el ómfalo, cubierta con una red de lana. Dentro del templo hay otro, junto al lugar de las profecías.',T.x+12,T.z+36,0);}
+   place('templo_apolo_delfos','El templo de Apolo','ΝΑΟΣ ΑΠΟΛΛΩΝΟΣ','El templo que ves lo reconstruyó a finales del siglo VI la familia ateniense de los Alcmeónidas, que pagó de su bolsillo una fachada de mármol. En el vestíbulo están escritas las máximas de los sabios: «Conócete a ti mismo» y «Nada en exceso». Trece años después de tu visita, en el 373, un terremoto lo derribará y habrá que levantarlo de nuevo.',T.x-14,T.z+36,0);
+   place('pitia','La Pitia','ΠΥΘΙΑ','En lo más hondo del templo, en el ádyton, una mujer de Delfos, la Pitia, se sienta en un trípode y habla en nombre de Apolo. Antes se purifica en la fuente Castalia y quema hojas de laurel. Solo profetiza algunos días al año; los sacerdotes ponen en verso sus respuestas, a menudo ambiguas. Autores muy posteriores hablarán de vapores que salían de una grieta; la ciencia moderna lo sigue discutiendo.',T.x+14,T.z-34,Math.PI);
+   {const c=I.col;const g=grp(c.x,c.h,c.z,0);box(2.2,0.8,2.2,M.limestone,0,0.4,0,g);for(let k=0;k<3;k++){const pts=[];for(let i=0;i<=60;i++){const tt=i/60;pts.push(new THREE.Vector3(Math.cos(tt*TAU*4+k*TAU/3)*0.35,0.8+tt*6,Math.sin(tt*TAU*4+k*TAU/3)*0.35));}const tb=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),80,0.16,6),M.bronze);tb.castShadow=true;g.add(tb);}
+    const tri=new THREE.Mesh(new THREE.CylinderGeometry(1.2,0.5,1,12,1,true),M.gold);tri.position.y=7.3;g.add(tri);for(let k=0;k<3;k++){const l=box(0.08,2.2,0.08,M.gold,Math.cos(k*TAU/3)*0.9,6.6,Math.sin(k*TAU/3)*0.9,g);}addCirc(c.x,c.z,1.4);
+    place('columna_serpientes','La columna de las serpientes','ΤΡΙΠΟΥΣ','Tras la victoria de Platea en el 479, los griegos dedicaron a Apolo un trípode de oro sobre tres serpientes de bronce entrelazadas, fundidas con las armas de los persas. En las serpientes están grabados los nombres de las treinta y una ciudades que lucharon. El regente espartano Pausanias hizo grabar al principio un epigrama solo con su nombre; los espartanos lo borraron. Ocho siglos después, Constantino se llevará la columna a Constantinopla.',c.x+5,c.z+3,0);}
+   {const t=I.treas;blockBuilding({name:'Tesoro de los atenienses',x:t.x,z:t.z,rot:0,w:6.7,d:9.7,h:5.2,mat:M.marble});for(const s of[-1,1])addColumn(t.x+s*1.5,t.h,t.z+5.2,0.3,4.2,0,'doric');
+    place('tesoro_atenienses','Tesoro de los atenienses','ΘΗΣΑΥΡΟΣ ΑΘΗΝΑΙΩΝ','Un pequeño templo de mármol de hacia el 500-490 a.C. donde Atenas guarda sus ofrendas a Apolo. Sus metopas cuentan, frente a frente, los trabajos de Heracles y los de Teseo, el héroe ateniense. Pausanias dirá que se pagó con el botín de Maratón; los arqueólogos no se ponen de acuerdo en la fecha.',t.x+8,t.z+8,0);}
+   {const c=I.cast;pool(c.x,c.z+3,10,5,c.h);for(let i=0;i<8;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(rr(1.5,3),0),M.stone);r.position.set(c.x+rr(-8,8),c.h+rr(0,4),c.z-6+rr(-2,2));scene.add(r);}addSeg(c.x-9,c.z-5,c.x+9,c.z-5,1.5);
+    place('castalia','La fuente Castalia','ΚΑΣΤΑΛΙΑ','El agua que baja de las rocas Fedríades, entre dos paredes de piedra. Aquí se purifican los que vienen a consultar el oráculo, los sacerdotes y la propia Pitia. Los poetas dirán que su agua inspira: por eso las Musas viven en el Parnaso, sobre tu cabeza.',c.x+10,c.z+8,0);}
+   {const s=I.stad;stadiumG(s.x,s.z,Math.PI/2,120,24,'Estadio de Delfos');}
+   greekArrive(I,'Delfos');NPC_POS.teodoro=[T.x+20,T.z+42,Math.PI];
+   islandVillagers(I,T.x-20,T.z+60,5,['Las preguntas de las ciudades pasan antes que las tuyas. Y antes aún, las de quienes tienen el derecho de precedencia.','Si la cabra no tiembla cuando le echan agua fría, la Pitia no habla hoy. Vuelve mañana.','Aquí vienen de todas partes: hasta los reyes de Lidia mandaban oro.','Cada cuatro años, en los Juegos Píticos, se compite en canto con la cítara, no solo en carreras.']);}
+  // ------------------------------------------------ Argos
+  {const I=G('argos'),t=I.town;
+   {const l=I.lar;ringWall(l.x,l.z,34,[Math.PI/2],lam('#a99d84'),6,4);temple({name:'Templo de Zeus Larisio',x:l.x,z:l.z,rot:Math.PI/2,W:8,L:14,nW:4,prostyle:true,colD:0.6,colH:4.4,gy:l.h,cella:{w:7,l:8,door:2.2}});
+    place('larisa','La Larisa','ΛΑΡΙΣΑ','La acrópolis de Argos, un monte cónico con murallas y templos de Zeus y de Atena. Al lado está la colina más baja del Aspis, con el santuario de Apolo, que da oráculos. Según el mito, Argos la fundó Ínaco, el dios del río, y aquí reinaron Dánao, llegado de Egipto con sus cincuenta hijas, y Perseo.',l.x+8,l.z+40,Math.PI);}
+   {const h=I.thea,g=grp(h.x,h.h,h.z,0);for(let i=0;i<14;i++){box(46,0.45,0.85,lam(i%2?'#cfc3aa':'#bfb39a'),0,0.22+i*0.42,-i*0.8,g);}addBox(h.x,h.z-5.6,46,11.6,0);
+    place('teatro_argos','El teatro de las gradas rectas','ΘΕΑΤΡΟΝ','Aquí se reúne la asamblea de Argos: unas gradas rectas talladas en la roca de la ladera, para unas dos mil quinientas personas. El gran teatro curvo que verá quien venga dentro de un siglo todavía no existe. Argos es una democracia desde el siglo V, enemiga de Esparta, que manda en el Peloponeso.',h.x+28,h.z+8,0);}
+   temple({name:'Templo de Apolo Licio',x:t.x+40,z:t.z+40,rot:Math.PI/2,W:11,L:22,nW:6,nL:11,colD:0.85,colH:5.4,cella:{w:7,l:12,door:2.4}});
+   {const x=t.x-40,z=t.z+70;temple({name:'Santuario de Afrodita',x,z,rot:0,W:7,L:12,nW:4,prostyle:true,colD:0.55,colH:4,cella:{w:6,l:7,door:2}});statue(x+8,floorAt(x+8,z+10),z+10,Math.PI,1.1,'marble');
+    place('telesila','Telesila','ΤΕΛΕΣΙΛΛΑ','Delante del santuario de Afrodita hay una estatua de Telesila, una poetisa de Argos. Hacia el 494, cuando el rey espartano Cleómenes mató a casi todos los hombres de la ciudad, ella armó a las mujeres, a los esclavos y a los viejos, y defendió las murallas. Así lo cuenta Pausanias. En la estatua, sus libros están a sus pies y ella se pone un casco.',x+12,z+12,0);}
+   place('policleto','Los broncistas de Argos','ΠΟΛΥΚΛΕΙΤΟΣ','Argos es la ciudad de Policleto, que trabajó hace cincuenta años: escribió un tratado, el Canon, con las proporciones perfectas del cuerpo humano, y lo puso en práctica en una estatua de bronce, el Portador de lanza. Sus discípulos siguen fundiendo bronces para toda Grecia. Suya es también la gran Hera de oro y marfil del Hereo, junto a Micenas.',t.x,t.z+20,0);
+   destHouses(I,t.x,t.z,45,150,false);greekArrive(I,'Argos');NPC_POS.dionisodoro=[t.x+10,t.z+30,Math.PI];
+   islandVillagers(I,t.x+20,t.z-10,5,['Argos ya era reina cuando los espartanos todavía eran pastores.','Danao llegó de Egipto con sus cincuenta hijas, y aquí se quedó.','Se acabó la unión con Corinto. Lo ha mandado el rey de Persia. ¡El rey de Persia!','Mi taller funde bronces para Olimpia y para Delfos. Ven a verlo si quieres saber cómo se hace una estatua.']);}
+  // ------------------------------------------------ Epidauro
+  {const I=G('epidauro'),s=I.sanct;
+   temple({name:'Templo antiguo de Asclepio',x:s.x-20,z:s.z-10,rot:Math.PI/2,W:8,L:15,nW:4,prostyle:true,colD:0.6,colH:4.6,gy:s.h,cella:{w:7,l:9,door:2.2}});
+   box(7,1.2,3,M.marble,s.x-2,s.h+0.6,s.z-10);addBox(s.x-2,s.z-10,7,3,0);
+   stoa({name:'Pórtico de los sueños',x:s.x+10,z:s.z-50,rot:0,len:44,depth:9,colH:4.4,colD:0.55});
+   {const x=s.x+30,z=s.z+20;box(13.2,0.8,24.5,M.limestone,x,s.h+0.4,z);addPlat(x,z,13.2,24.5,0,s.h+0.8);for(let i=0;i<10;i++){box(rr(1.4,2.4),rr(0.8,1.4),rr(1.4,3),M.marble,x+rr(-14,14)+(i%2?16:-16)*0.6,s.h+0.6,z+rr(-14,14));}
+    const cr=grp(x+10,s.h,z-16,0);const l1=box(0.35,12,0.35,M.wood,-2,5.6,0,cr);l1.rotation.z=0.2;const l2=box(0.35,12,0.35,M.wood,2,5.6,0,cr);l2.rotation.z=-0.2;box(0.25,0.25,9,M.wood,0,11,2,cr);addCirc(x+10,z-16,2.2);
+    footprints.push({x,z,w:13.2,d:24.5,a:0,c:'#d8ccb0',name:'Obras del templo nuevo'});
+    place('templo_nuevo','Las obras del templo nuevo','ΝΑΟΣ ΚΑΙΝΟΣ','El santuario crece y los epidaurios preparan un templo nuevo para Asclepio, más grande y de mármol. Las cuentas de la obra, grabadas en piedra, nos dirán que el arquitecto fue Teodoto y que la estatua de oro y marfil del dios la hizo Trasimedes de Paros. Las obras se harán en los años siguientes a tu visita.',x+12,z+14,0);}
+   place('asclepieion','El santuario de Asclepio','ΑΣΚΛΗΠΙΕΙΟΝ','Asclepio, hijo de Apolo, es el dios que cura. Los enfermos llegan de toda Grecia, se purifican, ofrecen un sacrificio y pasan la noche en un pórtico sagrado: el dios se les aparece en sueños y los cura, o les dice qué hacer. Dentro del recinto está prohibido nacer y morir. Desde el 420 el dios tiene también santuario en Atenas, junto al teatro: lo recibió en su casa el poeta Sófocles.',s.x-6,s.z+6,0);
+   place('suenos_epidauro','El pórtico de los sueños','ΕΓΚΟΙΜΗΤΗΡΙΟΝ','Aquí duermen los enfermos sobre pieles de animales sacrificados, esperando el sueño que los cure. Por el santuario se pasean perros y serpientes sagradas, inofensivas: a veces lamen las heridas de los que duermen. Más adelante, en este mismo siglo, se grabarán en estelas los relatos de las curaciones: ciegos que ven, cojos que andan, una mujer embarazada durante cinco años.',s.x+10,s.z-38,0);
+   for(let i=0;i<3;i++){const d=makeBeast('lobo',scene,s.x+rr(-20,20),s.z+rr(-20,10),R()*TAU);d.position.y=s.h;d.scale.setScalar(0.8);}
+   {const m=I.mal;temple({name:'Santuario de Apolo Maleatas',x:m.x,z:m.z,rot:Math.PI/2,W:7,L:12,nW:4,prostyle:true,colD:0.5,colH:4,gy:m.h,cella:{w:6,l:7,door:2}});
+    place('apolo_maleatas','Apolo Maleatas','ΑΠΟΛΛΩΝ ΜΑΛΕΑΤΑΣ','En la colina del Cinortio está el santuario más antiguo de Epidauro, el de Apolo Maleatas. El culto de su hijo Asclepio, abajo en el valle, empezó a su sombra. Los peregrinos hacen ofrendas a los dos.',m.x+10,m.z+10,0);}
+   greekArrive(I,'Epidauro');NPC_POS.sostrato=[s.x-6,s.z-22,0];
+   islandVillagers(I,s.x+20,s.z+40,5,['Duerme en el pórtico y cuéntale al sacerdote lo que sueñes.','Llevo tres noches aquí. Esta noche, seguro que viene el dios.','Prohibido nacer y morir dentro del recinto: a las parturientas y a los moribundos los sacan fuera.','Mi hijo vino ciego de un ojo. Ahora ve. Bueno, un poco.']);}
+  // ------------------------------------------------ Mantinea
+  {const I=G('mantinea'),t=I.town;
+   ringWall(t.x,t.z,150,[0.4,2,3.5,5.1],lam('#a8805a'),8,5,M.limestone);
+   {const pts=[];for(let i=0;i<=30;i++){const tt=i/30;pts.push([t.x+Math.sin(tt*5)*20,t.z-I.R*1.1+tt*I.R*2.2]);}riverRibbon(pts,9);}
+   temple({name:'Templo de Hera de Mantinea',x:t.x+30,z:t.z-30,rot:Math.PI/2,W:10,L:20,nW:6,nL:11,colD:0.75,colH:5,cella:{w:7,l:11,door:2.4}});
+   blockBuilding({name:'Consejo de Mantinea',x:t.x-30,z:t.z-34,rot:0,w:18,d:14,h:5,door:true});
+   place('muralla_mantinea','Las murallas de adobe','ΤΕΙΧΗ','Las murallas de Mantinea son de adobe sobre un zócalo de piedra, y el río Ofis atraviesa la ciudad. Esparta, que manda en el Peloponeso desde la paz del Rey, exige ahora que los mantineos derriben sus murallas, porque los considera poco leales. Dentro de un año, en el 385, el rey Agesípolis represará el río: el agua deshará el adobe y obligará a los mantineos a dispersarse en aldeas. Las murallas de piedra que se ven hoy son de la ciudad refundada en el 370.',t.x+40,t.z+20,0);
+   place('batalla_mantinea','La batalla de Mantinea','ΜΑΧΗ','En el 418, en esta llanura, el ejército espartano del rey Agis derrotó a Argos, Mantinea y Atenas en la mayor batalla de hoplitas de la guerra del Peloponeso. Tucídides la cuenta paso a paso: cómo las líneas se desplazaban hacia la derecha porque cada soldado buscaba cubrirse con el escudo del vecino.',t.x-60,t.z+70,0);
+   place('diotima','Diotima de Mantinea','ΔΙΟΤΙΜΑ','En el Banquete de Platón, Sócrates cuenta que una sacerdotisa de Mantinea, Diotima, le enseñó qué es el amor: un deseo de belleza que empieza por un cuerpo y sube hasta la belleza misma. Nadie sabe si existió o si es una invención de Platón. Platón escribirá ese diálogo en estos mismos años.',t.x+50,t.z-60,0);
+   destHouses(I,t.x,t.z,50,120,false,{inside:(x,z)=>Math.hypot(x-t.x,z-t.z)<135});greekArrive(I,'Mantinea');NPC_POS.calias_mantinea=[t.x-24,t.z-20,0];
+   islandVillagers(I,t.x+10,t.z+30,5,['Los espartanos quieren que derribemos las murallas. ¿Y luego qué, vivir en aldeas como los abuelos?','Aquí votamos todos, pero los cargos los eligen unos pocos. Así nadie deja el campo para ir a la asamblea.','Los arcadios siempre acabamos luchando por otros: los que pagan bien nos contratan.','El Ofis se desborda en primavera. Un día nos va a dar un disgusto.']);}
+  // ------------------------------------------------ Olimpia
+  {const I=G('olimpia'),A=I.altis;
+   temple({name:'Templo de Zeus',x:A.x+20,z:A.z+20,rot:Math.PI/2,W:27.7,L:64.1,nW:6,nL:13,colD:2.2,colH:10.4,gy:A.h,roofMat:M.tile,sculpt:9,cella:{w:16,l:40,door:4,antis:4.5,antisCols:true}});
+   temple({name:'Hereo de Olimpia',x:A.x-60,z:A.z-70,rot:Math.PI/2,W:18.75,L:50,nW:6,nL:16,colD:1.2,colH:5.2,gy:A.h,cella:{w:11,l:32,door:2.8}});
+   {const pl=tumulus(A.x-30,A.z-25,9,2.6,'#8a8a5a');}
+   for(let i=0;i<8;i++){const x=A.x-60+i*14,z=A.z-120;blockBuilding({name:'Tesoro',x,z,rot:0,w:10,d:12,h:4.6,mat:M.limestone});}
+   for(let i=0;i<6;i++){const x=A.x-50+i*12,z=A.z-100,gy=floorAt(x,z);box(1.4,1.6,1.4,M.limestone,x,gy+0.8,z);statue(x,gy+1.6,z,0,1.2,'bronze');addBox(x,z,1.4,1.4,0);}
+   {const lw=lam('#b9aa8a');for(const[x0,z0,x1,z1]of[[-110,-150,110,-150],[110,-150,110,110],[110,110,-110,110],[-110,110,-110,-150]]){const L2=Math.hypot(x1-x0,z1-z0),n=Math.round(L2/20);for(let i=0;i<n;i++){if(i===Math.floor(n/2))continue;const ax=A.x+lerp(x0,x1,i/n),az=A.z+lerp(z0,z1,i/n),bx=A.x+lerp(x0,x1,(i+1)/n),bz=A.z+lerp(z0,z1,(i+1)/n);box(0.8,1.6,Math.hypot(bx-ax,bz-az),lw,(ax+bx)/2,terrainH(ax,az)+0.6,(az+bz)/2).rotation.y=Math.atan2(bx-ax,bz-az);addSeg(ax,az,bx,bz,0.4);}}}
+   {const s=I.stad;stadiumG(s.x,s.z,Math.PI/2,192,30,'Estadio de Olimpia');}
+   {const w=I.ws;blockBuilding({name:'Taller de Fidias',x:w.x,z:w.z,rot:0,w:14.5,d:32,h:12,mat:M.limestone,door:true});}
+   {const pts=[];for(let i=0;i<=30;i++){const tt=i/30;pts.push([A.x-I.R*1.2+tt*I.R*2.4,A.z+230+Math.sin(tt*6)*20]);}riverRibbon(pts,34);}
+   place('zeus_olimpia','El templo de Zeus','ΝΑΟΣ ΔΙΟΣ','El gran templo dórico de Zeus, terminado hacia el 456 por el arquitecto Libón de Élide. En el frontón este, la carrera de carros de Pélope y Enómao; en el oeste, la lucha de lápitas y centauros; en las metopas, los doce trabajos de Heracles. Dentro está sentado el Zeus de oro y marfil que Fidias hizo hacia el 430: tan grande que, si se levantara, rompería el techo.',A.x+20,A.z+60,0);
+   place('hereo_olimpia','El Hereo','ΗΡΑΙΟΝ','El templo de Hera, de hacia el 600, es uno de los más antiguos de Grecia. Al principio sus columnas eran de madera y se han ido cambiando por otras de piedra a medida que se pudrían: por eso no hay dos iguales. Pausanias todavía verá una de roble, siglos después.',A.x-60,A.z-38,0);
+   place('estadio_olimpia','El estadio','ΣΤΑΔΙΟΝ','La pista mide un estadio, seiscientos pies: unos 192 metros. Aquí se corre la carrera más antigua de los Juegos, que se celebran cada cuatro años en honor de Zeus. Los últimos fueron hace dos años, en el 388; los próximos, dentro de dos. Durante los Juegos hay una tregua sagrada en toda Grecia. Los espectadores se sientan en los taludes de tierra; las mujeres casadas no pueden asistir.',I.stad.x-20,I.stad.z+30,0);
+   place('zanes','Los Zanes','ΖΑΝΕΣ','Estas estatuas de bronce de Zeus son nuevas: en los últimos Juegos, en el 388, el boxeador Eupolo de Tesalia sobornó a tres rivales para que se dejaran ganar. Los jueces de Élide les impusieron una multa y con ella se pagaron estas seis estatuas, con inscripciones que avisan de que en Olimpia la victoria se gana con los pies y con la fuerza, no con dinero.',A.x-50,A.z-92,0);
+   place('lisias_olimpia','El discurso de Lisias','ΟΛΥΜΠΙΚΟΣ','En los Juegos del 388, el orador ateniense Lisias pronunció aquí un discurso: pidió a los griegos que dejaran de pelearse entre ellos y se unieran contra el rey de Persia y contra Dionisio, el tirano de Siracusa, que había enviado una embajada con tiendas lujosas. Parte del público, enardecido, asaltó las tiendas.',A.x+60,A.z-40,0);
+   place('taller_fidias','El taller de Fidias','ΕΡΓΑΣΤΗΡΙΟΝ','En este edificio, del mismo tamaño que la cella del templo, Fidias y sus ayudantes trabajaron el oro, el marfil y el vidrio de la estatua de Zeus. En el siglo XX los arqueólogos encontrarán aquí moldes de arcilla, herramientas y una taza con una inscripción: «Soy de Fidias».',I.ws.x+12,I.ws.z+18,0);
+   greekArrive(I,'Olimpia');NPC_POS.aristarco=[A.x+40,A.z+60,Math.PI];
+   islandVillagers(I,A.x+40,A.z+80,5,['Los atletas entrenan un mes entero en Élide antes de los Juegos, bajo la mirada de los jueces.','Nosotros, los eleos, organizamos los Juegos. Y nadie lo hace mejor.','Esas estatuas nuevas de Zeus las han pagado los tramposos.','Si vienes en los Juegos, trae sombrero y agua: aquí en verano se derrite hasta el bronce.']);}
 }
 const GREECE_NPCS=[
 {id:'agesilao',name:'Agesilao',title:'Rey de Esparta',glyph:'Α',look:{chiton:'#a8392b',himation:'#7a2a1e',beard:true,hair:'#8d8a85',beardC:'#9a968e',staff:true},
@@ -8045,7 +8300,7 @@ function frame(now){
   updateTorch(dt,t);
   sun.position.set(player.x+LIGHTDIR.x*250,player.camY+LIGHTDIR.y*250,player.z+LIGHTDIR.z*250);skyMesh.position.copy(camera.position);STARS.position.copy(camera.position);sun.target.position.set(player.x,player.camY,player.z);
   if(ui==='episode')epiTick(dt,t);
-  updateSpheres(dt,t);if(MODE==='atenas')updateKnossos(dt,t);
+  updateSpheres(dt,t);updatePlumes(t);if(MODE==='atenas')updateKnossos(dt,t);
 
   // personajes
   for(const n of npcObjs){const d=Math.hypot(n.x-player.x,n.z-player.z);n.lb.visible=d<14;
@@ -8082,7 +8337,7 @@ function frame(now){
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?(focus.mode==='tierra'?'Hablar con Lisicles, el arriero':'Hablar con Hagnón, el armador'):'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?'Caballo':'H')+'</kbd>Montar el caballo';p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -8142,6 +8397,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
