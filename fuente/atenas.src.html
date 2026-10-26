@@ -36,6 +36,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0
 #stats .t{font-family:var(--f-display);font-size:1.05rem;color:var(--bone);letter-spacing:.04em}
 #stats .row{display:flex;gap:14px;font-size:.88rem;color:var(--clay-soft)}
 #objective{font-size:.85rem;color:var(--muted);max-width:290px;font-style:italic}
+#objective b{font-style:normal;font-weight:600;color:#ecc29a}
 #compass{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(360px,46vw);height:30px;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(22,16,12,.75) 20%,rgba(22,16,12,.75) 80%,transparent)}
 #compass .c{position:absolute;top:5px;transform:translateX(-50%);font-family:var(--f-display);font-size:.9rem;color:var(--bone)}
 #compass .c.minor{color:var(--muted);font-size:.7rem;top:8px}
@@ -282,7 +283,8 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
       <div class="meander"></div>
       <div class="mhead"><h2>Diario de viaje</h2><button class="close" data-close>Cerrar · J</button></div>
       <div class="tabs" role="tablist">
-        <button role="tab" data-tab="lessons" aria-selected="true">Lecciones</button>
+        <button role="tab" data-tab="steps" aria-selected="true">Primeros pasos</button>
+        <button role="tab" data-tab="lessons" aria-selected="false">Lecciones</button>
         <button role="tab" data-tab="places" aria-selected="false">Lugares</button>
         <button role="tab" data-tab="myths" aria-selected="false">Mitos</button>
         <button role="tab" data-tab="gods" aria-selected="false">Dioses</button>
@@ -3333,7 +3335,7 @@ function updateSocial(dt,t){
 // ============================================================ estado y guardado
 let SAVE_KEY='atenas-386-v1';   // cada época guarda su progreso aparte (Roma: roma-80-v1)
 let state;
-function loadState(){state={lessons:[],places:[],obols:0,seen:{},done:false,myths:[]};
+function loadState(){state={lessons:[],places:[],obols:0,seen:{},done:false,myths:[],steps:{}};
   try{const s=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(s&&Array.isArray(s.lessons))state=Object.assign(state,s);}catch(e){}
   if(!Array.isArray(state.myths))state.myths=[];if(!state.gods||!Array.isArray(state.gods.met))state.gods={met:[],q:{}};}
 loadState();
@@ -3352,12 +3354,64 @@ const joy={x:0,y:0};
 
 // ============================================================ HUD
 const $=id=>document.getElementById(id);
+// ------------------------------------------------------------ primeros pasos: diez misiones de iniciación por época
+// Cada una presenta un aspecto distinto (política, lugares, lecciones, plano, religión, mitos o espectáculos, caballo, teatro, vida cotidiana, sueños).
+// ok() comprueba si ya está hecha (con el progreso normal del juego o con state.steps); at() da hacia dónde apunta la brújula.
+const npcAt=id=>{const o=npcObjs.find(n=>n.data.id===id);return o?{x:o.x,z:o.z}:null;};
+const placeAt=id=>{const p=PLACES.find(q=>q.id===id);return p?{x:p.x,z:p.z}:null;};
+const seenAny=id=>!!(state.seen[id]&&state.seen[id].length);
+function nearestSign(){let b=null,bd=1e9;for(const s of signObjs){if(state.places.includes(s.data.id)||regionOf(s.x)!==regionOf(player.x))continue;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d<bd){bd=d;b=s;}}return b;}
+function nearestSphere(){let b=null,bd=1e9;for(const s of EPI.spheres){if(epiDone(s.data))continue;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d<bd){bd=d;b=s;}}return b;}
+const anyDream=()=>EPISODES.some(e=>e.mode===MODE&&epiDone(e));
+function watchingPlay(){if(MODE==='atenas')return!!currentPlay()&&inCavea(player.x,player.z);
+  return!!ROMA.theatres&&ROMA.theatres.some((T,i)=>RPERF.cur[i]&&Math.hypot(player.x-T.x,player.z-T.z)<(i?60:76));}
+const STEPS_ATENAS=[
+ {id:'pritano',cat:'Política',title:'La democracia: habla con un prítano',short:'Eucles, junto a la Tholos, al oeste del Ágora',txt:'Junto a la Tholos, en el lado oeste del Ágora, Eucles preside este mes el Consejo de los Quinientos. Acércate a él (tiene un rombo ! sobre la cabeza), pulsa E y escucha al menos uno de sus temas.',ok:()=>seenAny('pritano'),at:()=>npcAt('pritano')},
+ {id:'estela',cat:'Lugares',title:'Lee una estela',short:'Busca una estela con un rombo dorado y pulsa E',txt:'Las estelas con un rombo dorado explican los edificios y los lugares. Acércate a una y pulsa E: quedará anotada en tu diario, en la pestaña Lugares.',ok:()=>state.places.length>0,at:()=>nearestSign()},
+ {id:'leccion',cat:'Lecciones',title:'Supera tu primera lección',short:'Habla con alguien y elige «Ponme a prueba»',txt:'Después de escuchar a un personaje, elige «Ponme a prueba». Si aciertas la pregunta, la lección se guarda en el diario y ganas tres óbolos.',ok:()=>state.lessons.length>0,at:()=>nextTarget()},
+ {id:'plano',cat:'Orientarse',title:'Mira el plano de Atenas',short:'Pulsa M',txt:'Pulsa M para abrir el plano. Puedes ampliarlo con la rueda o con los botones, y si haces clic en un lugar que ya has descubierto, viajas hasta él.',ok:()=>!!state.steps.map,at:()=>null},
+ {id:'partenon',cat:'Religión y arte',title:'Sube a la Acrópolis',short:'Lee la estela del Partenón, en la Acrópolis',txt:'Sube por los Propileos a la roca sagrada de Atenea y lee la estela del Partenón. Dentro está la gran estatua de oro y marfil de la diosa.',ok:()=>state.places.includes('partenon'),at:()=>placeAt('partenon')},
+ {id:'mito',cat:'Mitos',title:'Reconoce un mito en piedra',short:'Busca un rombo azul junto a un relieve',txt:'Los frontones, metopas y frisos cuentan mitos. Busca un rombo azul junto a un relieve, pulsa E y di qué mito representa. Eunice, la abuela de la fuente del sureste del Ágora, te explica cómo se juega.',ok:()=>state.myths.length>0,at:()=>npcAt('abuela')},
+ {id:'platon',cat:'Filosofía',title:'A caballo hasta la Academia',short:'Pulsa H, cabalga al noroeste y habla con Platón',txt:'Pulsa H para llamar a tu caballo y vuelve a pulsar H para montar. Cabalga hacia el noroeste, fuera de las murallas, hasta el bosque de la Academia, y habla con Platón.',ok:()=>seenAny('platon'),at:()=>npcAt('platon')},
+ {id:'teatro',cat:'Teatro',title:'Una función en el teatro',short:'Siéntate en el teatro de Dioniso durante una tragedia',txt:'En el teatro de Dioniso, en la ladera sur de la Acrópolis, se representan tragedias de Eurípides de 8 a 11, de 14 a 17 y de 20 a 23 h. Siéntate en las gradas mientras dura una. Con T puedes cambiar la hora.',ok:()=>!!state.steps.teatro,at:()=>({x:THEA.x,z:THEA.z})},
+ {id:'fuente',cat:'Vida cotidiana',title:'Charla en la fuente',short:'Habla con Mirrina, en la fuente del sureste del Ágora',txt:'En la fuente del sureste del Ágora, Mirrina y sus vecinas llenan sus cántaros. Habla con ella: te contará cómo es el día a día de una mujer ateniense.',ok:()=>seenAny('aguadora'),at:()=>npcAt('aguadora')},
+ {id:'sueno',cat:'Sueños',title:'Sueña un mito',short:'Toca una esfera de luz y vive el sueño hasta el final',txt:'Las esferas de luz que flotan en algunos lugares te hacen soñar un mito o un momento histórico. Acércate a una, pulsa E y vívelo hasta el final.',ok:anyDream,at:()=>nearestSphere()}
+];
+const STEPS_ROMA=[
+ {id:'tacito',cat:'Política',title:'Un joven senador',short:'Tácito, junto a la Curia, en el Foro',txt:'Junto a la Curia, en el Foro, Tácito acaba de entrar en el Senado. Acércate a él (tiene un rombo ! sobre la cabeza), pulsa E y escucha al menos uno de sus temas.',ok:()=>seenAny('tacito'),at:()=>npcAt('tacito')},
+ {id:'estela',cat:'Lugares',title:'Lee una estela',short:'Busca una estela con un rombo dorado y pulsa E',txt:'Las estelas con un rombo dorado explican los edificios y los lugares. Acércate a una y pulsa E: quedará anotada en tu diario, en la pestaña Lugares.',ok:()=>state.places.length>0,at:()=>nearestSign()},
+ {id:'leccion',cat:'Lecciones',title:'Supera tu primera lección',short:'Habla con alguien y elige «Ponme a prueba»',txt:'Después de escuchar a un personaje, elige «Ponme a prueba». Si aciertas la pregunta, la lección se guarda en el diario y ganas tres sestercios.',ok:()=>state.lessons.length>0,at:()=>nextTarget()},
+ {id:'plano',cat:'Orientarse',title:'Mira el plano de Roma',short:'Pulsa M',txt:'Pulsa M para abrir el plano. Puedes ampliarlo con la rueda o con los botones, y si haces clic en un lugar que ya has descubierto, viajas hasta él.',ok:()=>!!state.steps.map,at:()=>null},
+ {id:'vestal',cat:'Religión',title:'El fuego de Vesta',short:'Habla con la vestal Cornelia, junto al templo de Vesta',txt:'Junto al templo redondo de Vesta, en el Foro, la vestal Cornelia guarda el fuego sagrado de Roma. Habla con ella y escucha al menos uno de sus temas.',ok:()=>seenAny('cornelia'),at:()=>npcAt('cornelia')},
+ {id:'anfiteatro',cat:'Espectáculos',title:'El Anfiteatro Flavio',short:'Lee la estela del anfiteatro, al este del Foro',txt:'Sigue la Vía Sacra hacia el este y lee la estela del gran anfiteatro que Tito acaba de inaugurar con cien días de juegos.',ok:()=>state.places.includes('ro_coliseo'),at:()=>placeAt('ro_coliseo')},
+ {id:'panteon',cat:'Arquitectura',title:'A caballo al Campo de Marte',short:'Pulsa H y cabalga hasta el Panteón',txt:'Pulsa H para llamar a tu caballo y vuelve a pulsar H para montar. Cabalga hacia el noroeste, por la Vía Lata, hasta el Campo de Marte, y lee la estela del Panteón.',ok:()=>state.places.includes('ro_panteon'),at:()=>placeAt('ro_panteon')},
+ {id:'teatro',cat:'Teatro',title:'Una comedia de Plauto o de Terencio',short:'Entra en el teatro de Pompeyo o en el de Marcelo durante una función',txt:'En los teatros de Pompeyo y de Marcelo se representan comedias de 8 a 11, de 12 a 15 y de 16 a 19 h. Entra en uno de ellos mientras dura una función. Con T puedes cambiar la hora.',ok:()=>!!state.steps.teatro,at:()=>{const T=ROMA.theatres;if(!T)return null;return T.reduce((b,q)=>Math.hypot(q.x-player.x,q.z-player.z)<Math.hypot(b.x-player.x,b.z-player.z)?q:b,T[0]);}},
+ {id:'boda',cat:'Vida cotidiana',title:'Una boda romana',short:'Habla con Pomponia, en el Celio, y asiste a la boda',txt:'En el Celio, a la puerta de la casa de los Valerios, Pomponia te invita a la boda de Valeria y Quinto. Asiste a ella hasta el final: verás también cómo es por dentro una domus.',ok:()=>!!state.seen.boda,at:()=>npcAt('pomponia')},
+ {id:'sueno',cat:'Sueños',title:'Sueña un momento histórico',short:'Toca una esfera de luz y vive el sueño hasta el final',txt:'Las esferas de luz que flotan en algunos lugares te hacen soñar un mito o un momento histórico. Acércate a una, pulsa E y vívelo hasta el final.',ok:anyDream,at:()=>nearestSphere()}
+];
+const STEPS=()=>MODE==='roma'?STEPS_ROMA:STEPS_ATENAS;
+const stepsDone=()=>STEPS().filter(s=>s.ok()).length;
+function curStep(){if(!state||state.steps._off)return null;return STEPS().find(s=>!s.ok())||null;}
+function stepFlag(k){if(!state.steps[k]){state.steps[k]=1;save();}}
+// hacia dónde apunta el rombo de la brújula: la misión en curso o, si no hay, la persona más cercana por conocer
+function guideTarget(){const s=curStep();if(s){const p=s.at();if(p)return p;if(!state.steps._off)return null;}return nextTarget();}
+let stepsT=0;
+function stepsTick(dt){
+  if(!state||ui!=='play')return;stepsT+=dt;if(stepsT<0.5)return;stepsT=0;
+  if(!state.steps.teatro&&watchingPlay())stepFlag('teatro');
+  const L=STEPS();for(const s of L){if(state.steps['ok:'+s.id]||!s.ok())continue;state.steps['ok:'+s.id]=1;state.obols+=1;
+    const d=stepsDone();sfxCoin();
+    toast('<span class="label">Primeros pasos · '+d+' / '+L.length+'</span><br>'+s.title+' · +1 '+(MODE==='roma'?'sestercio':'óbolo'));
+    if(d===L.length){state.obols+=5;setTimeout(()=>toast('<span class="label">Primeros pasos completados · +5 '+(MODE==='roma'?'sestercios':'óbolos')+'</span><br>Ya conoces lo básico. Ahora explora por tu cuenta: quedan muchos personajes por conocer, dioses en el campo, viajes por mar y por tierra, esferas de sueño y la biblioteca (B), con ensayos y fuentes.'),2500);}
+    save();updateStats();}
+}
 function updateStats(){
   $('sLessons').textContent='Lecciones '+state.lessons.length+'/'+Object.keys(LESSONS).length;
   $('sPlaces').textContent='Lugares '+state.places.length+'/'+PLACES.length;
   $('sObols').textContent=state.obols+(MODE==='roma'?' sestercios':' óbolos');
   $('sMyths').textContent='Mitos '+state.myths.length+'/'+RELIEFS.length;$('sGods').hidden=!GODS.length;$('sMyths').hidden=MODE!=='atenas';
   $('sGods').textContent='Favores '+godsDone()+'/'+GODS.length;
+  const st=curStep();if(st){$('objective').innerHTML='<b>Primeros pasos '+stepsDone()+'/'+STEPS().length+'</b> · '+st.title+'<br><span class="sub">'+st.short+'</span>';return;}
   const t=nextTarget();$('objective').textContent=t?(state.lessons.includes(t.data.id)?'Siguiente: pide a '+t.data.name+' que te lleve a un juicio · '+LESSONS[t.data.id].where:'Siguiente: '+t.data.name+' · '+LESSONS[t.data.id].where):'Has completado todas las lecciones. Sigue explorando.';
 }
 function npcDone(d){return state.lessons.includes(d.id)&&(!d.event||state.lessons.includes(d.event));}
@@ -3392,7 +3446,7 @@ const CDIRS=[['N',0],['NE',45],['E',90],['SE',135],['S',180],['SO',225],['O',270
 function drawCompass(){
   const el=$('compass'),W=el.clientWidth,fov=110;const head=-player.yaw*180/Math.PI;let h='';
   for(const[l,b]of CDIRS){const d=((b-head+540)%360)-180;if(Math.abs(d)<fov/2)h+='<span class="c'+(l.length>1?' minor':'')+'" style="left:'+(W/2+d/fov*W)+'px">'+l+'</span>';}
-  const t=nextTarget();if(t){const b=Math.atan2(t.x-player.x,-(t.z-player.z))*180/Math.PI;let d=((b-head+540)%360)-180;d=clamp(d,-fov/2+3,fov/2-3);h+='<span class="c obj" style="left:'+(W/2+d/fov*W)+'px">◆</span>';}
+  const t=guideTarget();if(t){const b=Math.atan2(t.x-player.x,-(t.z-player.z))*180/Math.PI;let d=((b-head+540)%360)-180;d=clamp(d,-fov/2+3,fov/2-3);h+='<span class="c obj" style="left:'+(W/2+d/fov*W)+'px">◆</span>';}
   el.innerHTML=h;
 }
 
@@ -3850,12 +3904,15 @@ function advanceTime(){clock.h=(clock.h+3)%24;updateSky();toast('Pasan unas hora
 
 
 // ============================================================ diario
-let jTab='lessons';
+let jTab='steps';
 function openJournal(tab){if(tab)jTab=tab;ui='journal';releasePointer();$('journal').hidden=false;renderJournal();}
 function renderJournal(){
   document.querySelectorAll('#journal .tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===jTab?'true':'false'));
   const el=$('jBody');let h='';
-  if(jTab==='lessons'){h='<div class="entries">'+Object.keys(LESSONS).map(id=>{const L=LESSONS[id],ok=state.lessons.includes(id);return ok?'<div class="entry"><span class="label">'+L.cat+' · <span class="'+(L.fict?'fict':'')+'">'+L.who+'</span></span><h3>'+L.title+'</h3><p>'+L.summary+'</p><button class="linkbtn" data-lib="l:'+id+'">Leer más y ver las fuentes</button></div>':'<div class="entry locked"><span class="label">'+L.cat+'</span><h3>'+L.title+'</h3><p>'+(L.hint||('Habla con '+L.who+' y supera su pregunta.'))+'</p><div class="where">'+L.where+'</div></div>';}).join('')+'</div>';}
+  if(jTab==='steps'){const L=STEPS(),d=stepsDone();h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(d>=L.length?'Has completado los primeros pasos. Ahora explora por tu cuenta: personajes, lugares, dioses, viajes, esferas de sueño y la biblioteca (B).':'Diez misiones para empezar, cada una sobre un aspecto distinto de la ciudad. Puedes hacerlas en cualquier orden; el objetivo de arriba a la izquierda y el rombo ◆ de la brújula te guían hacia la siguiente.')+'</p><div class="entries">'+
+    L.map((s,i)=>'<div class="entry'+(s.ok()?'':' locked')+'"><span class="label">'+(i+1)+' · '+s.cat+(s.ok()?' · hecho ✓':'')+'</span><h3>'+s.title+'</h3><p>'+s.txt+'</p></div>').join('')+'</div>'+
+    (d<L.length?'<p style="margin:14px 0 0"><button class="linkbtn" id="stepsOff">'+(state.steps._off?'Volver a mostrar los primeros pasos':'Ocultar los primeros pasos y explorar libremente')+'</button></p>':'');}
+  else if(jTab==='lessons'){h='<div class="entries">'+Object.keys(LESSONS).map(id=>{const L=LESSONS[id],ok=state.lessons.includes(id);return ok?'<div class="entry"><span class="label">'+L.cat+' · <span class="'+(L.fict?'fict':'')+'">'+L.who+'</span></span><h3>'+L.title+'</h3><p>'+L.summary+'</p><button class="linkbtn" data-lib="l:'+id+'">Leer más y ver las fuentes</button></div>':'<div class="entry locked"><span class="label">'+L.cat+'</span><h3>'+L.title+'</h3><p>'+(L.hint||('Habla con '+L.who+' y supera su pregunta.'))+'</p><div class="where">'+L.where+'</div></div>';}).join('')+'</div>';}
   else if(jTab==='places'){h='<div class="entries">'+PLACES.map(p=>state.places.includes(p.id)?'<div class="entry"><span class="label">'+p.greek+'</span><h3>'+p.name+'</h3><p>'+p.text+'</p><button class="linkbtn" data-lib="p:'+p.id+'">Ver las fuentes</button></div>':'<div class="entry locked"><span class="label">Sin descubrir</span><h3>'+p.name+'</h3><p>Busca su estela (el rombo dorado) y pulsa E para leerla.</p></div>').join('')+'</div>';}
   else if(jTab==='myths'){h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Busca los rombos azules junto a frontones, metopas, frisos y pinturas, y pulsa E para identificar el mito. Eunice, la abuela de la fuente del sureste del Ágora, te explica el juego.</p><div class="entries">'+RELIEFS.map(r=>state.myths.includes(r.id)?'<div class="entry"><span class="label">Mito reconocido</span><h3>'+r.name+'</h3><p>'+r.ok+'</p><button class="linkbtn" data-lib="r:'+r.id+'">Ver las fuentes</button></div>':'<div class="entry locked"><span class="label">Por reconocer</span><h3>'+r.name+'</h3><p>Busca el rombo azul y descubre qué mito representa.</p></div>').join('')+'</div>';}
   else if(jTab==='gods'){h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(MODE==='roma'?'Los dioses se aparecen fuera de la ciudad, en la campiña, junto a los lugares de su culto: los de Grecia, con su nombre romano, y los que solo tiene Roma. Se los reconoce por el brillo de su piel. Cada uno te puede pedir un favor.':'Los dioses se aparecen fuera de las murallas, junto a los lugares de su culto. Se los reconoce por el brillo de su piel. Cada uno te puede pedir un favor.')+'</p><div class="entries">'+GODS.map(d=>{const met=state.gods.met.includes(d.id),q=state.gods.q[d.id];
@@ -3865,6 +3922,7 @@ function renderJournal(){
   else{h='<div class="timeline">'+TIMELINE.map(t=>'<span class="y'+(t[0]==='386'?' now':'')+'">'+t[0]+' a.C.</span><div>'+t[1]+'</div>').join('')+'</div>';}
   el.innerHTML=h;el.scrollTop=0;
   el.querySelectorAll('[data-lib]').forEach(b=>b.onclick=()=>{closeModals();openLibrary(b.dataset.lib);});
+  const so=$('stepsOff');if(so)so.onclick=()=>{state.steps._off=state.steps._off?0:1;save();updateStats();renderJournal();};
 }
 document.querySelectorAll('#journal .tabs button').forEach(b=>b.onclick=()=>{jTab=b.dataset.tab;renderJournal();});
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
@@ -3902,7 +3960,7 @@ function mapV(x,z,W,H){const v=mapVB();return[(x-v.x0)/v.w*W,(z-v.z0)/v.h*H];}
 function mapClamp(){MV.s=clamp(MV.s,1,8);const w=(MB.x1-MB.x0)/MV.s/2,h=(MB.z1-MB.z0)/MV.s/2;MV.cx=clamp(MV.cx,MB.x0+w,MB.x1-w);MV.cz=clamp(MV.cz,MB.z0+h,MB.z1-h);}
 function mapZoom(f,mx,my){if(MED.on)return medZoom(f,mx,my);const c=$('mapc');if(mx==null){mx=c.width/2;my=c.height/2;}const v=mapVB(),wx=v.x0+mx/c.width*v.w,wz=v.z0+my/c.height*v.h;
   MV.s=clamp(MV.s*f,1,8);const v2=mapVB();MV.cx=wx-(mx/c.width-0.5)*v2.w;MV.cz=wz-(my/c.height-0.5)*v2.h;mapClamp();drawMap();}
-function openMap(){ui='map';releasePointer();document.querySelector('#map h2').textContent=regionOf(player.x)==='atenas'?(MODE==='roma'?'Plano de Roma':'Plano de Atenas'):'Plano de '+islandOf(player.x).name;$('map').hidden=false;
+function openMap(){stepFlag('map');ui='map';releasePointer();document.querySelector('#map h2').textContent=regionOf(player.x)==='atenas'?(MODE==='roma'?'Plano de Roma':'Plano de Atenas'):'Plano de '+islandOf(player.x).name;$('map').hidden=false;
   MB=regionBounds(regionOf(player.x));MV.s=1;MV.cx=(MB.x0+MB.x1)/2;MV.cz=(MB.z0+MB.z1)/2;setMed(false);}
 // esfera de sueño en el plano: círculo azul claro con aro; gris azulado si ya se ha soñado
 function sphereIcon(x,q,r,done){const g=x.createRadialGradient(q[0]-r*0.3,q[1]-r*0.3,0,q[0],q[1],r);g.addColorStop(0,'#ffffff');g.addColorStop(1,done?'#8fa0b8':'#7fb2ff');
@@ -10114,6 +10172,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
+  stepsTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -10148,8 +10207,9 @@ function frame(now){
 // ============================================================ arranque
 function startGame(){
   initAudio();
+  for(const s of STEPS())if(s.ok())state.steps['ok:'+s.id]=1;   // lo ya hecho en partidas anteriores cuenta sin recompensa
   $('start').hidden=true;$('hud').hidden=false;if(isTouch)$('touch').hidden=false;ui='play';updateStats();requestPointer();
-  if(!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Busca a las personas con un rombo <b>!</b> sobre la cabeza y las estelas con un rombo dorado. Pulsa <b>J</b> para ver tu diario y <b>M</b> para el plano.'),4500);
+  if(!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.'),4500);
 }
 $('go').onclick=startGame;
 $('libStart').onclick=()=>openLibrary();

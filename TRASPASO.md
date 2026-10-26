@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 31). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 32). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -49,6 +49,11 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Punto de mira:** sin captura del puntero, el punto de mira (`#cross`) sigue al cursor (la flecha del sistema se oculta) y E apunta a lo que hay bajo él (`aimYaw`).
 - **Doble salto:** Espacio otra vez en el aire (`jump()`, `player.jumps`).
 - **Ratón:** la cámara gira con solo mover el ratón; con un clic se captura el puntero y gira sin límite. Sin captura, el cursor en el borde izquierdo o derecho sigue girando.
+
+### Novedades de la versión 32: primeros pasos
+- **Diez misiones de iniciación por época** (`STEPS_ATENAS`, `STEPS_ROMA`, `STEPS()`): política, estelas, lecciones, plano, religión, mitos o espectáculos, caballo, teatro, vida cotidiana y sueños. Cada una tiene `ok()` (se comprueba con el progreso normal del juego o con `state.steps`) y `at()` (hacia dónde apunta el rombo de la brújula).
+- Mientras quedan misiones, el objetivo de arriba a la izquierda muestra la siguiente (`curStep`) y la brújula apunta a su destino (`guideTarget`, en lugar de `nextTarget`). `stepsTick` las comprueba cada medio segundo: +1 moneda por misión y +5 al completarlas. Las banderas nuevas son `state.steps.map` (`openMap`) y `state.steps.teatro` (`watchingPlay`); `ok:<id>` marca las ya recompensadas, y al empezar la partida lo hecho antes cuenta sin recompensa.
+- Pestaña «Primeros pasos» en el diario (la primera, y la que se abre por defecto), con la opción de ocultarlas (`state.steps._off`).
 
 ### Novedades de la versión 31: cultos de Oriente en Roma
 - **Iseo y Serapeo del Campo de Marte** (`romaIseum`, dentro de `romaCampus`): patio entre pórticos con obeliscos, esfinges, pilono, templo de Isis y exedra de Serapis; una procesión de fieles con sistros y el sacerdote con el agua del Nilo recorre el patio (`ROMA.isiacs`, en `updateRome`). Personaje: Sarapión, sacerdote de Isis (`sarapion`, inventado).
