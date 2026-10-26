@@ -3778,6 +3778,9 @@ function mapZoom(f,mx,my){const c=$('mapc');if(mx==null){mx=c.width/2;my=c.heigh
   MV.s=clamp(MV.s*f,1,8);const v2=mapVB();MV.cx=wx-(mx/c.width-0.5)*v2.w;MV.cz=wz-(my/c.height-0.5)*v2.h;mapClamp();drawMap();}
 function openMap(){ui='map';releasePointer();document.querySelector('#map h2').textContent=regionOf(player.x)==='atenas'?(MODE==='roma'?'Plano de Roma':'Plano de Atenas'):'Plano de '+islandOf(player.x).name;$('map').hidden=false;
   MB=regionBounds(regionOf(player.x));MV.s=1;MV.cx=(MB.x0+MB.x1)/2;MV.cz=(MB.z0+MB.z1)/2;drawMap();}
+// esfera de sueño en el plano: círculo azul claro con aro; gris azulado si ya se ha soñado
+function sphereIcon(x,q,r,done){const g=x.createRadialGradient(q[0]-r*0.3,q[1]-r*0.3,0,q[0],q[1],r);g.addColorStop(0,'#ffffff');g.addColorStop(1,done?'#8fa0b8':'#7fb2ff');
+  x.fillStyle=g;x.strokeStyle='#16100c';x.lineWidth=1.5;x.beginPath();x.arc(q[0],q[1],r,0,TAU);x.fill();x.stroke();x.strokeStyle=done?'rgba(143,160,184,.8)':'rgba(127,178,255,.9)';x.lineWidth=1.5;x.beginPath();x.ellipse(q[0],q[1],r*1.7,r*0.6,-0.4,0,TAU);x.stroke();}
 function drawMap(){
   const c=$('mapc'),W=c.width,H=c.height,x=c.getContext('2d');const key=regionOf(player.x);MB=regionBounds(key);if(!MAPC[key])MAPC[key]=buildMapBase(W,H);
   // ampliado: plano en alta resolución (se construye una vez, la primera vez que se amplía)
@@ -3796,8 +3799,10 @@ function drawMap(){
     x.fillStyle='#16100c';x.font='bold 11px Georgia';x.textAlign='center';x.fillText(n.data.glyph,q[0],q[1]+4);if(big)label(n.data.name,q,19);}
   for(const o of godObjs){if(!state.gods.met.includes(o.data.id)||regionOf(o.x)!==regionOf(player.x))continue;const q=P(o.x,o.z);if(!vis(q))continue;x.fillStyle='#ffd27a';x.strokeStyle='#16100c';x.lineWidth=1.5;x.beginPath();
     for(let k=0;k<10;k++){const r=k%2?3.5:8,a=k/10*TAU-Math.PI/2;x.lineTo(q[0]+Math.cos(a)*r,q[1]+Math.sin(a)*r);}x.closePath();x.fill();x.stroke();if(big)label(o.data.name,q,20,'#7a5a1a');}
+  for(const s of EPI.spheres){if(regionOf(s.x)!==regionOf(player.x))continue;const q=P(s.x,s.z);if(!vis(q))continue;sphereIcon(x,q,7,epiDone(s.data));if(big)label(s.data.name,q,20,'#2a4a7a');}
   const q=P(player.x,player.z);const b=-player.yaw;x.save();x.translate(q[0],q[1]);x.rotate(b);x.fillStyle='#a8392b';x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.moveTo(0,-11);x.lineTo(7,8);x.lineTo(0,4);x.lineTo(-7,8);x.closePath();x.fill();x.stroke();x.restore();
-  x.fillStyle='rgba(22,16,12,.8)';x.fillRect(10,H-58,250,48);x.font='13px Alegreya, Georgia';x.textAlign='left';
+  x.fillStyle='rgba(22,16,12,.8)';x.fillRect(10,H-76,250,66);x.font='13px Alegreya, Georgia';x.textAlign='left';
+  sphereIcon(x,[24,H-62],5,false);x.fillStyle='#f1e8d8';x.fillText('Esfera de sueño (momento mítico)',36,H-58);
   x.fillStyle='#f0b45c';x.beginPath();x.arc(24,H-44,5,0,TAU);x.fill();x.fillStyle='#f1e8d8';x.fillText('Personaje por conocer',36,H-40);
   x.fillStyle='#d9874a';x.fillRect(19,H-27,10,10);x.fillStyle='#f1e8d8';x.fillText('Lugar descubierto (clic para viajar)',36,H-18);
   x.fillStyle='rgba(22,16,12,.8)';x.fillRect(W-238,H-34,228,24);x.fillStyle='#f1e8d8';x.textAlign='center';x.fillText(MV.s>1.01?`Aumento ×${MV.s.toFixed(1)}`+(big?'':' · amplía más para ver nombres'):'Rueda o + para ampliar',W-124,H-17);
@@ -7731,6 +7736,7 @@ function drawMini(){
   for(const n of npcObjs)if(!n.hidden)dot(P(n.x,n.z),4.5,state.lessons.includes(n.data.id)?'#6f8a4e':'#f0b45c','#16100c');
   for(const c2 of captains)dot(P(c2.x,c2.z),4,'#2f5a7a','#e9dcc0');
   for(const o of godObjs)if(state.gods.met.includes(o.data.id)||o.g.visible)dot(P(o.x,o.z),5,'#ffe08a','#7a5a1a');
+  for(const s of EPI.spheres){const p=P(s.x,s.z);if(p[0]>-6&&p[1]>-6&&p[0]<W+6&&p[1]<W+6)sphereIcon(x,p,4.5,epiDone(s.data));}
   if(MOUNT.g&&MOUNT.g.visible&&!MOUNT.riding)dot(P(MOUNT.g.position.x,MOUNT.g.position.z),4.5,'#7a4a2a','#f1e8d8');
   x.save();x.translate(W/2,W/2);x.rotate(-player.yaw);x.fillStyle='#a8392b';x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.moveTo(0,-11);x.lineTo(7,8);x.lineTo(0,4);x.lineTo(-7,8);x.closePath();x.fill();x.stroke();x.restore();
   x.restore();

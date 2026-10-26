@@ -539,3 +539,8 @@ Fight with your fists, like Theseus
 @52da719f
 Fugir
 Run away
+
+# Plano
+Esfera de sueño (momento mítico)
+Esfera de somni (moment mític)
+Dream sphere (mythical moment)
