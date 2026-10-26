@@ -2840,7 +2840,8 @@ const GREECE_DESTS=[
  {id:'argos',name:'Argos',gr:'ΑΡΓΟΣ',sub:'La vieja rival de Esparta, en la llanura de la Argólide.',R:460,H:12,seed:11.5,days:'tres días de camino por Mégara y el Istmo de Corinto',fare:5,dir:[-1,0],land:true,step:8},
  {id:'epidauro',name:'Epidauro',gr:'ΕΠΙΔΑΥΡΟΣ',sub:'El santuario de Asclepio, adonde los enfermos acuden a soñar con el dios.',R:420,H:16,seed:12.1,days:'tres días de camino por el Istmo y los montes de la Argólide',fare:5,dir:[-1,0],land:true,step:8},
  {id:'mantinea',name:'Mantinea',gr:'ΜΑΝΤΙΝΕΙΑ',sub:'La ciudad democrática de Arcadia, en una llanura alta rodeada de montes.',R:440,H:10,seed:12.7,days:'cinco días de camino por el Istmo, Argos y los montes de Arcadia',fare:6,dir:[-1,0],land:true,step:8},
- {id:'olimpia',name:'Olimpia',gr:'ΟΛΥΜΠΙΑ',sub:'El santuario de Zeus en la Élide, donde cada cuatro años se celebran los Juegos.',R:480,H:10,seed:13.3,days:'ocho o nueve días de camino por el Istmo, Arcadia y la Élide',fare:9,dir:[-1,0],land:true,step:8}
+ {id:'olimpia',name:'Olimpia',gr:'ΟΛΥΜΠΙΑ',sub:'El santuario de Zeus en la Élide, donde cada cuatro años se celebran los Juegos.',R:480,H:10,seed:13.3,days:'ocho o nueve días de camino por el Istmo, Arcadia y la Élide',fare:9,dir:[-1,0],land:true,step:8},
+ {id:'maraton',name:'Maratón',gr:'ΜΑΡΑΘΩΝ',sub:'La llanura junto al mar donde los atenienses vencieron a los persas hace ciento cuatro años.',R:460,H:6,seed:13.9,days:'un día de camino rodeando el Pentélico',fare:2,dir:[-1,0],land:true,step:8,coast:[1,0],coastAt:0.4}
 ];
 const ISLANDS=[
  {id:'egina',name:'Egina',gr:'ΑΙΓΙΝΑ',sub:'La isla de Éaco, en el golfo Sarónico, frente al Pireo.',R:330,H:75,seed:1.3,days:'medio día de navegación con buen viento',fare:2,dir:[-1,0.15]},
@@ -3968,7 +3969,7 @@ const MED_RIV=[[[31.2,30],[31.25,29]],[[12.4,44.95],[11.6,44.95],[10.3,45.05],[9
  [[-6.3,36.8],[-6,37.4],[-4.8,37.9],[-3.5,38]],[[38.8,30],[38.4,36.3],[38.9,40]],[[40,36.5],[41.5,35]]];
 // dónde estás: la ciudad de partida y cada destino
 const MED_POS={atenas:[23.73,37.98],egina:[23.43,37.75],delos:[25.27,37.4],naxos:[25.38,37.1],creta:[25.16,35.3],lesbos:[26.55,39.1],troya:[26.24,39.96],tebas:[23.32,38.32],esparta:[22.43,37.08],micenas:[22.76,37.73],
-  megara:[23.35,38],corinto:[22.93,37.9],platea:[23.27,38.22],delfos:[22.5,38.48],argos:[22.72,37.63],epidauro:[23.08,37.6],mantinea:[22.4,37.62],olimpia:[21.63,37.64]};
+  megara:[23.35,38],corinto:[22.93,37.9],platea:[23.27,38.22],delfos:[22.5,38.48],argos:[22.72,37.63],epidauro:[23.08,37.6],mantinea:[22.4,37.62],olimpia:[21.63,37.64],maraton:[23.97,38.15]};
 const MED_POS_RO={atenas:[12.48,41.89],campania:[14.25,40.84],apulia:[17.94,40.64],lucania:[15,40.42],samnium:[14.62,41.43],picenum:[13.58,42.85],umbria:[12.57,44.06],etruria:[11.76,42.25],aemilia:[10.92,44.65],liguria:[8.93,44.41],
   venetia:[10.99,45.44],transpadana:[9.08,45.81],tarraco:[1.25,41.12],barcino:[2.17,41.38],emporiae:[3.12,42.13],ilerda:[0.62,41.62],emerita:[-6.34,38.92]};
 // pueblos y estados: [nombre, lon, lat, tamaño, color]; ciudades: [nombre, lon, lat, importancia (2 capital, 1 grande, 0 otra)]
@@ -6772,6 +6773,9 @@ function defineGreece2(){
   Ep.blobs.push({x:Ep.x-170,z:Ep.z-140,R:110,H:55},{x:Ep.x+200,z:Ep.z+120,R:150,H:60});Ep.mal=pad(Ep,-170,-140,14);Ep.sanct=pad(Ep,20,0,90,0,4);
   for(let i=0;i<9;i++){const a=i/9*TAU;Ma.blobs.push({x:Ma.x+Math.cos(a)*Ma.R*1.15,z:Ma.z+Math.sin(a)*Ma.R*1.15,R:200,H:90+40*Math.sin(i*2.3)});}Ma.town=pad(Ma,0,0,160,0,4);
   Ol.blobs.push({x:Ol.x-40,z:Ol.z-230,R:120,H:60});Ol.altis=pad(Ol,0,-10,130,0,4);Ol.stad=pad(Ol,200,-60,110,0,4);Ol.ws=pad(Ol,-170,60,26,0,4);
+  {const Mr=G('maraton');Mr.arrive=pad(Mr,-Mr.R*0.72,30,24,0,3);Mr.lake={x:Mr.x+110,z:Mr.z-250,rx:100,rz:70};
+   Mr.blobs.push({x:Mr.x-130,z:Mr.z-480,R:300,H:160},{x:Mr.x-470,z:Mr.z+60,R:220,H:120},{x:Mr.x-300,z:Mr.z+380,R:200,H:90});
+   Mr.soros=pad(Mr,30,30,24,0,3);Mr.plat=pad(Mr,-150,-70,16,0,3);Mr.trop=pad(Mr,70,-150,8,0,3);Mr.herak=pad(Mr,-240,140,20);Mr.town=pad(Mr,-200,-150,60,0,4);Mr.town.house=true;}
   for(const p of[Me.town,Co.town,Pl.town,Ar.town,Ma.town])p.house=true;   // en el centro de la ciudad sí puede haber casas
 }
 // llegada: el arriero Lisicles también recorre estos caminos
@@ -6896,6 +6900,20 @@ function buildGreece2(){
    place('taller_fidias','El taller de Fidias','ΕΡΓΑΣΤΗΡΙΟΝ','En este edificio, del mismo tamaño que la cella del templo, Fidias y sus ayudantes trabajaron el oro, el marfil y el vidrio de la estatua de Zeus. En el siglo XX los arqueólogos encontrarán aquí moldes de arcilla, herramientas y una taza con una inscripción: «Soy de Fidias».',I.ws.x+12,I.ws.z+18,0);
    greekArrive(I,'Olimpia');NPC_POS.aristarco=[A.x+40,A.z+60,Math.PI];
    islandVillagers(I,A.x+40,A.z+80,5,['Los atletas entrenan un mes entero en Élide antes de los Juegos, bajo la mirada de los jueces.','Nosotros, los eleos, organizamos los Juegos. Y nadie lo hace mejor.','Esas estatuas nuevas de Zeus las han pagado los tramposos.','Si vienes en los Juegos, trae sombrero y agua: aquí en verano se derrite hasta el bronce.']);}
+  // ------------------------------------------------ Maratón
+  {const I=G('maraton'),t=I.town;
+   {const b=I.soros;tumulus(b.x,b.z,22,9,'#8f8a5a');for(let i=0;i<10;i++){const a=-0.6+i*0.13;box(0.9,1.8,0.25,M.marble,b.x+Math.cos(a)*25,terrainH(b.x+Math.cos(a)*25,b.z+Math.sin(a)*25)+0.9,b.z+Math.sin(a)*25).rotation.y=-a+Math.PI/2;}
+    place('soros','El Soros, la tumba de los atenienses','ΣΩΡΟΣ','Este túmulo de unos nueve metros de alto cubre a los 192 atenienses que murieron en la batalla. Lo normal era enterrar a los caídos en el Cerámico, a las puertas de Atenas; a estos, como honor excepcional, se los enterró aquí mismo, en el campo de batalla. Junto al túmulo están las estelas con sus nombres, tribu por tribu. Los de Maratón los honran como a héroes.',b.x+30,b.z+6,0);}
+   {const b=I.plat;tumulus(b.x,b.z,11,4,'#8a8656');
+    place('plateenses_maraton','La tumba de los plateenses','ΠΛΑΤΑΙΕΙΣ','Platea fue la única ciudad que acudió a ayudar a Atenas: llegó con todos sus hombres, unos mil. Sus muertos están enterrados en este segundo túmulo, junto con los esclavos, que lucharon entonces por primera vez al lado de los ciudadanos, como cuenta Pausanias.',b.x+14,b.z+4,0);}
+   {const b=I.trop;box(2.4,1.2,2.4,M.marble,b.x,b.h+0.6,b.z);addColumn(b.x,b.h+1.2,b.z,0.45,7,0,'ionic');statue(b.x,b.h+8.6,b.z,0,1.3,'marble');addBox(b.x,b.z,2.4,2.4,0);
+    place('trofeo_maraton','El trofeo de mármol','ΤΡΟΠΑΙΟΝ','Aquí, donde los persas empezaron a huir, los atenienses levantaron hacia el 460 una columna jónica de mármol blanco coronada por una estatua. Lo normal era colgar en un tronco las armas de los vencidos y dejar que se pudrieran; este trofeo, de piedra, debía durar para siempre. Detrás empieza la gran marisma, donde según Pausanias cayeron muchos persas al huir hacia sus naves.',b.x+10,b.z+8,0);}
+   {const h=I.herak;temple({name:'Santuario de Heracles',x:h.x,z:h.z,rot:Math.PI/2,W:8,L:13,nW:4,prostyle:true,colD:0.55,colH:4.2,gy:h.h,cella:{w:7,l:8,door:2.2}});
+    place('heracleion_maraton','El santuario de Heracles','ΗΡΑΚΛΕΙΟΝ','Aquí acamparon los atenienses los días antes de la batalla, en el recinto sagrado de Heracles, al pie de los montes, cerrando el camino hacia Atenas. Los de Maratón dicen que fueron los primeros griegos en honrar a Heracles como dios, y le celebran unos juegos, las Heracleas.',h.x+16,h.z+6,0);}
+   place('tetrapolis','El demo de Maratón','ΤΕΤΡΑΠΟΛΙΣ','Maratón es un demo del Ática, de la tribu Ayántide. Con Énoe, Probalinto y Tricorinto forma la antigua Tetrápolis: aquí, según el mito, Teseo venció al toro de Maratón. Aquí desembarcó también Pisístrato en el 546 para hacerse tirano de Atenas; por eso su hijo Hipias guio a los persas a esta misma playa cincuenta y seis años después.',t.x+20,t.z+30,0);
+   makeShip(I.x+I.R*0.62,I.z+60,Math.PI/2);
+   destHouses(I,t.x,t.z,18,70,false);greekArrive(I,'Maratón');NPC_POS.hegesias=[I.soros.x+28,I.soros.z-6,-Math.PI/2];
+   islandVillagers(I,t.x+10,t.z+20,5,['De noche, dicen, se oyen en la llanura relinchos de caballos y ruido de combate. Yo no salgo a comprobarlo.','Los de Maratón fuimos los primeros en honrar a Heracles como dios.','Mi bisabuelo luchó en la batalla. Cada vez que lo contaba, había más persas.','Cuando sopla el viento del mar, toda la llanura huele a la marisma.']);}
 }
 const GREECE_NPCS=[
 {id:'agesilao',name:'Agesilao',title:'Rey de Esparta',glyph:'Α',look:{chiton:'#a8392b',himation:'#7a2a1e',beard:true,hair:'#8d8a85',beardC:'#9a968e',staff:true},
@@ -7159,8 +7177,8 @@ function updateSpheres(dt,t){
 }
 function openSphere(s){
   const E=s.data,done=epiDone(E);dlg={n:null};ui='dialog';releasePointer();
-  $('dGlyph').textContent='Ο';setName(E.name);$('dTitle').textContent='Esfera de sueño · momento mítico'+(done?' · ya lo has soñado':'');
-  $('dBody').innerHTML='<p>Una esfera de luz flota en el aire, tibia como el aliento de alguien dormido. Dentro se mueven sombras: '+E.teaser+'</p><p class="sub">Es un mito, no historia: lo que contaban los antiguos sobre su propio pasado.</p>';
+  $('dGlyph').textContent='Ο';setName(E.name);$('dTitle').textContent=(E.hist?'Esfera de sueño · momento histórico':'Esfera de sueño · momento mítico')+(done?' · ya lo has soñado':'');
+  $('dBody').innerHTML='<p>Una esfera de luz flota en el aire, tibia como el aliento de alguien dormido. Dentro se mueven sombras: '+E.teaser+'</p><p class="sub">'+(E.hist?'Esto pasó de verdad: es historia, no mito, aunque la conocemos por lo que contaron los autores antiguos.':'Es un mito, no historia: lo que contaban los antiguos sobre su propio pasado.')+'</p>';
   const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
   add(done?'Volver a soñarlo':'Tocar la esfera y soñar',()=>epiStart(E),'quiz');add('Ahora no',closeDialog);
   $('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
@@ -7203,7 +7221,7 @@ function sfxThunder(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime+0.15;cons
 function epiStart(E){
   closeDialog();ui='voyage';releasePointer();if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}
   if(E.walk)return E.walk();
-  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent='Tocas la esfera…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent='Un sueño de lo que contaban los antiguos: no es historia, sino mito.';
+  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent='Tocas la esfera…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent=E.hist?'Un sueño de algo que pasó de verdad, tal como lo cuentan las fuentes antiguas.':'Un sueño de lo que contaban los antiguos: no es historia, sino mito.';
   v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
   setTimeout(()=>{EPI.ret={x:player.x,z:player.z,yaw:player.yaw,feet:player.feet};EPI.saveH=clock.h;
     const S=stageKit(E);EPI.S=S;EPI.cur=E;E.build(S);EPI.beat=-1;EPI.snap=true;$('hud').hidden=true;$('epi').hidden=false;ui='episode';epiBeat(0);
@@ -7240,7 +7258,7 @@ function epiEnd(complete){
 function epiReward(E){if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2;save();updateStats();sfxCoin();
   const s=EPI.spheres.find(q=>q.data===E);if(s)s.core.material.color.set(0x9fb0c8);
   const n=EPISODES.filter(e=>e.mode===MODE).length,d=EPISODES.filter(e=>e.mode===MODE&&epiDone(e)).length;
-  toast('<span class="label">Momento mítico revivido</span><br>'+E.name+' · +2'+(MODE==='roma'?' sestercios':' óbolos')+' · '+d+' / '+n);}
+  toast('<span class="label">'+(E.hist?'Momento histórico revivido':'Momento mítico revivido')+'</span><br>'+E.name+' · +2'+(MODE==='roma'?' sestercios':' óbolos')+' · '+d+' / '+n);}
 function epiKey(e){
   if(e.code==='KeyE'||e.code==='Enter'||e.code==='Space'||e.code==='ArrowRight'){e.preventDefault();epiBeat(EPI.beat+1);}
   else if(e.code==='ArrowLeft'||e.code==='Backspace'){e.preventDefault();epiBeat(EPI.beat-1);}
@@ -7474,6 +7492,47 @@ const EPISODES=[
 {id:'cnosos',mode:'atenas',name:'El palacio de Minos y el laberinto',at:()=>plXZ('cnosos',8,6),walk:()=>knossosTravel('cnosos_sueno'),
  teaser:'columnas rojas, un patio lleno de gente, un toro pintado y unos pasillos oscuros que no acaban nunca.'},
 // ---------------------------------------------------------------- Grecia continental y Peloponeso
+{id:'maraton',mode:'atenas',hist:true,name:'La batalla de Maratón',at:()=>plXZ('soros',14,10),h:8,
+ teaser:'cientos de naves varadas en una playa, un corredor, dos líneas de hombres en una llanura, una carga a la carrera y un túmulo.',
+ build(S){S.ground('#9a9a62');const A=S.a;
+   const sea=new THREE.Mesh(new THREE.PlaneGeometry(2000,700),new THREE.MeshPhongMaterial({color:'#3a6f8a',shininess:60}));sea.rotation.x=-Math.PI/2;sea.position.set(0,0.06,410);S.g.add(sea);
+   S.hill(-60,-260,170,70,'#7b7a50');S.hill(170,-280,130,55,'#7f7f52');S.hill(-260,-60,120,60,'#7b7a50');
+   const mar=S.water(170,-40,90,70);mar.material=new THREE.MeshPhongMaterial({color:'#4f6a4a',shininess:30});for(let i=0;i<30;i++)S.box(0.15,rr(1.2,2.2),0.15,'#6b7a40',170+rr(-50,50),0.6,-40+rr(-40,40));
+   S.box(6,4,10,'#d8ccb4',-30,2,-125);for(let i=0;i<8;i++)S.tree(rr(-90,30),rr(-170,-130),rr(0.8,1.2),'#5f7a3a');
+   A.ships=[];for(let i=0;i<12;i++){const sh=new THREE.Group();box(3,1.4,14,lam('#2a2420'),0,0.4,0,sh);box(0.2,8,0.2,M.wood,0,4,0,sh);box(6,4,0.1,lam('#e7dcc4'),0,6,0.2,sh);sh.userData.z0=72+(i%3)*9;sh.position.set(-80+i*14,0,sh.userData.z0);S.g.add(sh);A.ships.push(sh);}
+   A.tents=[];for(let i=0;i<8;i++)A.tents.push(S.box(5,2.4,5,pick(['#c9b48b','#b8a27a','#d8c4a8']),-60+i*17,1.2,48+(i%2)*6));
+   A.per=[];for(let i=0;i<30;i++){const c=pick(['#6a4a8a','#3a5a7a','#8a6a2a','#7a2a3a','#4a6a4a']);A.per.push(S.person({chiton:c,himation:c,short:true,noHimation:true,beard:true,hair:'#1a1410',spear:true},-44+i*3,20,Math.PI));}
+   A.gr=[];for(let i=0;i<30;i++)A.gr.push(S.person({chiton:i>=10&&i<20?'#a8532f':'#9a3a2a',short:true,noHimation:true,beard:R()<0.7,hair:'#3b2a1e',helmet:'attic',attrs:['P_spear','P_spearhead','P_shield']},-44+i*3,-90,0));
+   A.cal=S.person({chiton:'#efe6d4',himation:'#8a2a1e',beard:true,hair:'#8d8a85',helmet:'attic'},-7,-97,0.6);A.mil=S.person({chiton:'#efe6d4',himation:'#2f4c86',beard:true,hair:'#5b4532',helmet:'attic'},-5,-97,-0.6);
+   A.run=S.person({chiton:'#d8ccb4',short:true,noHimation:true,hair:'#3b2a1e'},-80,-70,Math.PI/2);
+   A.arw=[];for(let i=0;i<24;i++){const a=S.box(0.05,0.05,1.1,'#2a2420',0,0,0);a.visible=false;A.arw.push(a);}
+   A.spa=[];for(let i=0;i<8;i++)A.spa.push(S.person({chiton:'#a8392b',himation:'#7a1e18',beard:true,hair:'#3a2a18',helmet:'attic',attrs:['P_spear','P_spearhead','P_shield']},-50+(i%4)*3,-30-Math.floor(i/4)*3,Math.PI/2));
+   A.soros=S.hill(10,-20,15,7,'#8f8a5a');},
+ beats:[
+  {h:7,cam:[80,25,170,0,2,50],cam2:[60,22,150,0,2,50],d:12,txt:'Verano del 490 a.C. Seiscientas naves persas, enviadas por el rey Darío y mandadas por Datis y Artafernes, han cruzado el Egeo, han arrasado Eretria, en Eubea, y desembarcan en la bahía de Maratón. Las guía un anciano ateniense: Hipias, hijo del tirano Pisístrato, expulsado de Atenas veinte años antes. La llanura es buena para la caballería y está a un día de camino de Atenas.',
+   enter(S){const A=S.a;A.soros.visible=false;A.spa.forEach(p=>p.visible=false);A.ships.forEach(s=>{s.visible=true;s.position.z=s.userData.z0;});A.tents.forEach(t=>t.visible=true);A.run.visible=false;A.arw.forEach(a=>a.visible=false);
+     A.per.forEach((p,i)=>{p.visible=true;p.rotation.set(0,Math.PI,0);p.position.set(-44+i*3,0,30+(i%3)*4);p.userData.pose=0;});A.gr.forEach((p,i)=>{p.visible=true;p.rotation.set(0,0,0);p.position.set(-44+i*3,0,-130-(i%3)*3);});A.cal.visible=A.mil.visible=true;}},
+  {h:9,cut:true,cam:[-50,8,-50,0,2,-100],cam2:[-44,7,-58,0,2,-100],d:12,txt:'Atenas envía a Esparta a un corredor de oficio, Filípides: recorre unos doscientos cuarenta kilómetros en dos días. Los espartanos prometen ayuda, pero por su ley no pueden salir a campaña hasta la luna llena. Mientras tanto, unos nueve mil hoplitas atenienses marchan a Maratón y acampan en el santuario de Heracles, al pie de los montes. Allí se les une Platea con todos sus hombres, unos mil.',
+   enter(S){const A=S.a;A.run.visible=true;A.gr.forEach((p,i)=>p.position.set(-44+i*3,0,-112-(i%3)*3));},
+   upd(t,dt,S){walkTo(S.a.run,[-80,-75],[60,-75],0,9,t);}},
+  {h:12,cut:true,cam:[-1,2.4,-91,-6,1.7,-97],d:12,txt:'Durante varios días, los dos ejércitos se vigilan. Los diez estrategos atenienses están divididos: cinco quieren esperar a los espartanos; cinco, combatir. Milcíades, que conoce bien a los persas porque gobernó el Quersoneso a las órdenes de Darío, convence al polemarca Calímaco, que tiene el voto decisivo: «De ti depende hacer a Atenas esclava o libre». Calímaco vota por la batalla.',
+   enter(S){S.a.run.visible=false;},upd(t,dt,S){armUp(S.a.mil,null,-1.2+Math.sin(t*2)*0.4);}},
+  {h:7.5,cut:true,cam:[70,18,-80,0,1,-60],cam2:[62,14,8,0,1,4],d:13,txt:'Los atenienses alargan su línea para que los persas, mucho más numerosos, no los rodeen: el centro queda con pocas filas y las alas, fuertes. Calímaco manda el ala derecha; los plateenses forman a la izquierda. A la señal, avanzan corriendo unos ocho estadios. Heródoto dice que fueron los primeros griegos que cargaron a la carrera y que se atrevieron a mirar de frente la ropa de los medos.',
+   enter(S){const A=S.a;A.cal.visible=A.mil.visible=false;A.per.forEach((p,i)=>p.position.set(-44+i*3,0,20));},
+   upd(t,dt,S){const A=S.a,k=clamp(t/11,0,1);A.gr.forEach((p,i)=>{p.position.set(-44+i*3,0,lerp(-90,8,k)-(i>=10&&i<20?0:0));p.rotation.y=0;if(k<1){walkLegs(p,t*12+i,0.6);armUp(p,-0.6+Math.sin(t*12+i)*0.3,null);}});
+     A.per.forEach((p,i)=>{if(i%2)armUp(p,-2.4,-2.4);});
+     A.arw.forEach((a,i)=>{const q=((t*0.9+i/24)%1);a.visible=t<10;const x=-44+(i*37%30)*3;a.position.set(x,2+Math.sin(q*Math.PI)*14,lerp(20,lerp(-90,8,k),q));a.rotation.x=lerp(-0.8,0.8,q);});}},
+  {h:8,cut:true,cam:[0,42,-72,0,0,8],cam2:[0,46,-60,0,0,14],d:14,txt:'En el centro, los persas y los sacas rompen la línea griega y la persiguen tierra adentro. Pero en las alas vencen los atenienses y los plateenses: dejan huir a los enemigos que tienen delante, se vuelven y atacan juntos al centro persa por los dos lados.',
+   enter(S){S.a.arw.forEach(a=>a.visible=false);S.a.per.forEach(p=>p.userData.pose=0);},
+   upd(t,dt,S){const A=S.a,k=clamp(t/12,0,1),e=sstep(clamp((k-0.35)/0.65,0,1));
+     A.gr.forEach((p,i)=>{const w=i<10?-1:i>=20?1:0,bx=-44+i*3;if(!w){p.position.set(bx,0,8-20*Math.min(1,k*1.6));p.rotation.y=0;}else{p.position.set(bx-w*20*e,0,8+10*e-14*e*e);p.rotation.y=w*e*1.4;}walkLegs(p,t*9+i,0.4);});
+     A.per.forEach((p,i)=>{const w=i<10?-1:i>=20?1:0,bx=-44+i*3;if(!w){p.position.set(bx,0,20-26*Math.min(1,k*1.6));p.rotation.y=k>0.7?0:Math.PI;if(k>0.75&&i%3===0)fall(p,(k-0.75)*5);}else{p.position.set(bx,0,20+55*sstep(k));p.rotation.y=0;walkLegs(p,t*12+i,0.6);}});}},
+  {h:9,cut:true,cam:[-60,15,40,20,1,85],cam2:[-50,18,50,20,1,95],d:13,txt:'Los persas huyen hacia las naves; muchos se hunden en la marisma. En la playa se lucha por los barcos: allí muere Calímaco, y Cinegiro, hermano del poeta Esquilo, cae con la mano cortada de un hachazo por agarrarse a la popa de una nave. Los atenienses capturan siete naves; las demás se hacen a la mar.',
+   enter(S){const A=S.a;A.tents.forEach(t=>t.visible=false);A.per.forEach((p,i)=>{p.rotation.set(0,0,0);p.position.set(-44+i*3,0,40);p.userData.pose=0;});A.gr.forEach((p,i)=>{p.rotation.set(0,0,0);p.position.set(-44+i*3,0,20);});},
+   upd(t,dt,S){const A=S.a,k=clamp(t/9,0,1);A.per.forEach((p,i)=>{if(i%4===0&&k>0.4){fall(p,(k-0.4)*4);return;}p.position.z=lerp(40,74,k);walkLegs(p,t*12+i,0.6);});A.gr.forEach((p,i)=>{p.position.z=lerp(20,62,k);walkLegs(p,t*12+i,0.6);});
+     A.ships.forEach((s,i)=>{if(i%5===2)return;s.position.z=s.userData.z0+Math.max(0,t-5)*6;});}},
+  {h:17,cut:true,cam:[-40,20,-70,10,3,-20],cam2:[-50,24,-80,10,3,-20],d:16,txt:'Según Heródoto, murieron 6400 persas y 192 atenienses. La flota persa rodea el cabo Sunion para sorprender a Atenas indefensa, pero el ejército vuelve a marchas forzadas y llega antes, y los persas se retiran. Pasada la luna llena llegan dos mil espartanos: ven los cadáveres, felicitan a los atenienses y se vuelven a casa. A los 192 atenienses los entierran aquí mismo, bajo un gran túmulo, el Soros. Esquilo, que luchó en Maratón, no recordó en su epitafio sus tragedias, sino esta batalla.<p class="sub">Fuentes: Heródoto VI 94-120; Pausanias I 14.5 y I 32.3-7; Cornelio Nepote, Milcíades 4-6. La historia del mensajero que corre de Maratón a Atenas, grita «¡Hemos vencido!» y muere es una leyenda muy posterior (Plutarco, Luciano); inspiró la carrera de maratón de los Juegos de 1896.</p>',
+   enter(S){const A=S.a;A.per.forEach(p=>p.visible=false);A.gr.forEach(p=>p.visible=false);A.ships.forEach(s=>s.visible=false);A.soros.visible=true;A.spa.forEach(p=>p.visible=true);}}]},
 {id:'piton',mode:'atenas',name:'Apolo y la serpiente Pitón',at:()=>plXZ('castalia',10,8),h:8,
  teaser:'una fuente al pie de unas rocas enormes, una serpiente gigantesca enroscada, un arco de plata y un nombre que nace de la podredumbre.',
  build(S){S.ground('#8a8a5a');const A=S.a;
@@ -8991,7 +9050,16 @@ const GREECE_NPCS2=[
   ['¿Qué pruebas hay?','La más antigua es la carrera del estadio, un largo de pista. Luego vinieron la doble carrera y la de fondo, la lucha, el pentatlón (disco, jabalina, salto con pesas, carrera y lucha), el boxeo, el pancracio, en el que vale casi todo, y la carrera con armas. Y en el hipódromo, caballos y cuadrigas: allí gana el propietario, no el auriga. Por eso pudo vencer Cinisca. Los atletas compiten desnudos.'],
   ['¿Qué hacéis los jueces?','Comprobamos que los atletas son griegos y libres y que han entrenado diez meses. Un mes antes de los Juegos los tenemos en Élide, entrenando a nuestra vista. Durante las pruebas castigamos las faltas con la vara. Y si alguien soborna, paga una multa: con la de los últimos Juegos hemos levantado seis estatuas de Zeus, para que nadie lo olvide.'],
   ['¿Cuál es el premio?','Una corona de olivo silvestre, cortada con una hoz de oro por un niño cuyos padres vivan, del árbol que plantó Heracles. Nada más. Pero el vencedor es un héroe en su ciudad: le levantan estatuas, los poetas le escriben odas y, en Atenas, come gratis el resto de su vida en el Pritaneo.']],
- quiz:{q:'¿Qué premio recibían los vencedores en Olimpia?',a:['Una corona de olivo silvestre','Un trípode de oro','Mil dracmas'],ko:'No. En Olimpia el premio era una corona de olivo silvestre; las recompensas materiales las daban después sus ciudades.'}}
+ quiz:{q:'¿Qué premio recibían los vencedores en Olimpia?',a:['Una corona de olivo silvestre','Un trípode de oro','Mil dracmas'],ko:'No. En Olimpia el premio era una corona de olivo silvestre; las recompensas materiales las daban después sus ciudades.'}},
+{id:'hegesias',name:'Hegesias de Maratón',title:'Campesino, nieto de un maratonómaco',glyph:'Η',look:{chiton:'#c9b48b',himation:'#6b5a3a',beard:true,hair:'#8d8a85',beardC:'#9a968e',staff:true},
+ cat:'Historia',lesson:'La batalla de Maratón',where:'En Maratón, junto al Soros',
+ summary:'En el verano del 490 a.C., una expedición persa enviada por Darío, mandada por Datis y Artafernes y guiada por el antiguo tirano Hipias, desembarcó en la llanura de Maratón después de arrasar Eretria. Unos nueve mil atenienses y mil plateenses, bajo el polemarca Calímaco y los diez estrategos, entre ellos Milcíades, atacaron a la carrera con las alas reforzadas a costa del centro. Las alas vencieron y envolvieron al centro persa. Según Heródoto murieron 6400 persas y 192 atenienses. La victoria se convirtió en el gran orgullo de la democracia ateniense.',
+ intro:'Salud, forastero. Soy Hegesias, del demo de Maratón. Mi abuelo luchó aquí, en la tribu Ayántide, en el ala derecha. Lo contaba tantas veces que me sé la batalla mejor que mi propio campo. Pregunta.',
+ topics:[
+  ['¿Por qué vinieron los persas aquí?','Por Hipias. Era hijo de Pisístrato, el tirano, y los atenienses lo habían echado veinte años antes. Se refugió con el rey de Persia y le prometió Atenas. Su padre había desembarcado aquí para tomar el poder, y la llanura es buena para la caballería. Además, Atenas había ayudado a los jonios cuando se rebelaron contra Darío, y habían quemado Sardes. Darío no lo olvidó: dicen que mandó a un criado que le repitiera tres veces en cada comida: «Señor, acuérdate de los atenienses».'],
+  ['¿Cómo fue la carga?','Eran unos diez mil con los plateenses; los persas, muchos más. Milcíades convenció al polemarca Calímaco de atacar. Alargaron la línea para igualar la de los persas: el centro quedó con pocas filas y las alas, fuertes. Y corrieron hacia el enemigo unos ocho estadios. Heródoto dice que fueron los primeros griegos que atacaron a la carrera y los primeros que no se asustaron al ver la ropa de los medos. Los persas pensaron que estaban locos.'],
+  ['¿Y el corredor que llevó la noticia?','El que corrió fue Filípides, antes de la batalla: de Atenas a Esparta, unos mil doscientos estadios, en dos días, para pedir ayuda. Los espartanos no podían salir hasta la luna llena. Después de la batalla no corrió un hombre solo, sino todo el ejército: volvió a marchas forzadas a Atenas, porque la flota persa rodeaba el cabo Sunion para sorprender la ciudad. Cuando los persas llegaron al Falero, los nuestros ya estaban allí, esperándolos.']],
+ quiz:{q:'¿Cuántos atenienses murieron en Maratón, según Heródoto?',a:['192','6400','Más de dos mil'],ko:'No. Heródoto da 192 atenienses muertos, frente a 6400 persas.'}}
 ];
 GREECE_NPCS2.forEach(n=>{NPCS.push(n);LESSONS[n.id]={title:n.lesson,cat:n.cat,summary:n.summary,where:n.where,who:n.name,fict:n.id!=='euclides_megara'};});
 HIST.add('euclides_megara');
@@ -9003,6 +9071,7 @@ Object.assign(SRC,{
  dionisodoro:{a:['Galeno, Sobre las doctrinas de Hipócrates y Platón V 3.15-16 (el Canon)','Filón de Bizancio, Belopoiika 50.5 (la frase sobre los números)','Plinio el Viejo, Historia natural XXXIV 55-56','Heródoto VI 76-83 (Sepea)'],m:['W. G. Moon (ed.), Polykleitos, the Doryphoros, and Tradition (1995)','R. A. Tomlinson, Argos and the Argolid (1972)'],n:['Dionisodoro es inventado.']},
  sostrato:{a:['Píndaro, Pítica III (Asclepio)','Aristófanes, Pluto 653-747 (estrenada en el 388)','Inscripciones de curaciones de Epidauro (IG IV² 1, 121-124)','Hipócrates, Sobre la enfermedad sagrada; Juramento'],m:['E. J. y L. Edelstein, Asclepius (1945)','L. R. LiDonnici, The Epidaurian Miracle Inscriptions (1995)'],n:['Sóstrato es inventado. Las estelas con curaciones son de la segunda mitad del siglo IV.']},
  calias_mantinea:{a:['Jenofonte, Helénicas V 2.1-7','Aristóteles, Política VI 1318b','Tucídides V 64-74'],m:['J. Roy, «Arkadia», en M. H. Hansen y T. H. Nielsen (eds.), An Inventory of Archaic and Classical Poleis (2004)'],n:['Calias es inventado.']},
+ hegesias:{a:['Heródoto VI 94-120','Pausanias I 15.3 y I 32.3-7','Cornelio Nepote, Milcíades 4-6','Plutarco, Sobre la gloria de los atenienses 3'],m:['P. Krentz, The Battle of Marathon (2010)','R. A. Billows, Marathon (2010)'],n:['Hegesias es inventado.','La leyenda del corredor que llega a Atenas y muere tras anunciar la victoria aparece mucho después, en Plutarco y Luciano; inspiró la carrera de maratón de los Juegos de 1896.']},
  aristarco:{a:['Pausanias V 8-21 y VI (Olimpia; los Zanes, V 21.2-4)','Píndaro, Olímpicas','Plutarco, Solón 23','Escolios a Píndaro, Olímpica III (la corona)'],m:['J. Swaddling, The Ancient Olympic Games (2015)','F. García Romero, Los Juegos Olímpicos y el deporte en Grecia (1992)'],n:['Aristarco es inventado.']}
 });
 
