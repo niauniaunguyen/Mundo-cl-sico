@@ -4402,15 +4402,24 @@ const ROMA_ZONES=[
  {id:'termas',name:'Termas de Tito',gr:'THERMAE TITI',sub:'Baños públicos recién inaugurados junto al anfiteatro.',test:(x,z)=>Math.abs(x-480)<80&&Math.abs(z+125)<65},
  {id:'campo',name:'Campo de Marte',gr:'CAMPVS MARTIVS',sub:'La llanura junto al Tíber, llena de teatros, pórticos y monumentos.',test:(x,z)=>x<-300&&x>-1080&&z<-60&&z>-1250&&romaRiverDist(x,z)>60&&x>romaRiverX(z)},
  {id:'isla',name:'Isla Tiberina',gr:'INSVLA TIBERINA',sub:'La isla del dios Esculapio, en medio del río.',test:(x,z)=>inIsla(x,z,12)},
+ {id:'naumaquia',name:'Naumaquia de Augusto',gr:'NAVMACHIA AVGVSTI',sub:'El gran estanque de las batallas navales de espectáculo.',test:(x,z)=>Math.abs(x+870)<140&&Math.abs(z-705)<95},
  {id:'trastevere',name:'Trastévere',gr:'TRANS TIBERIM',sub:'Al otro lado del río: artesanos, marineros, judíos y extranjeros.',test:(x,z)=>x<romaRiverX(z)-40&&z>-200&&z<900},
+ {id:'emporio',name:'Emporio',gr:'EMPORIVM',sub:'El puerto del Tíber y sus almacenes: trigo, aceite, vino y mármol.',test:(x,z)=>x<-200&&x>romaRiverX(z)&&z>480&&z<900&&romaH(x,z)<14},
+ {id:'velabro',name:'Velabro',gr:'VELABRVM',sub:'El valle entre el Capitolio y el Palatino: tiendas de aceite y de comida, almacenes y el Vico Tusco.',test:(x,z)=>Math.hypot((x+160)/120,(z-150)/95)<1},
  {id:'aventino',name:'Aventino',gr:'AVENTINVS',sub:'Colina de templos antiguos y casas de los ricos; abajo, el puerto fluvial.',test:(x,z)=>superD(x,z,-250,580,200,160)<1.05},
  {id:'celio',name:'Celio',gr:'CAELIVS',sub:'Colina de domus aristocráticas, cruzada por el Acueducto Claudio.',test:(x,z)=>superD(x,z,520,330,170,115)<1.05},
+ {id:'horti_mec',name:'Jardines de Mecenas',gr:'HORTI MAECENATIANI',sub:'Los jardines que Mecenas plantó sobre el viejo cementerio del Esquilino; hoy son del emperador.',test:(x,z)=>Math.hypot((x-700)/170,(z+330)/150)<1},
+ {id:'domus_aurea',name:'Casa Dorada',gr:'DOMVS AVREA',sub:'Lo que queda del palacio de Nerón en el Opio.',test:(x,z)=>Math.abs(x-500)<80&&Math.abs(z+236)<34},
  {id:'esquilino',name:'Esquilino',gr:'ESQVILIAE',sub:'Colina de jardines y palacios; aquí estuvo la Casa Dorada de Nerón.',test:(x,z)=>superD(x,z,450,-240,220,130)<1.05},
+ {id:'quirinal',name:'Quirinal',gr:'QVIRINALIS',sub:'Colina de templos antiguos y casas de grandes familias; aquí nació Domiciano.',test:(x,z)=>superD(x,z,-150,-610,230,105)<1.05},
+ {id:'viminal',name:'Viminal',gr:'VIMINALIS',sub:'La colina más pequeña, entre el Quirinal y el Esquilino, cubierta de casas.',test:(x,z)=>superD(x,z,180,-640,160,90)<1.05},
+ {id:'horti_sal',name:'Jardines de Salustio',gr:'HORTI SALLVSTIANI',sub:'Los jardines del historiador Salustio, residencia favorita de Vespasiano.',test:(x,z)=>Math.hypot((x+70)/150,(z+880)/100)<1},
+ {id:'horti_luc',name:'Jardines de Lúculo',gr:'HORTI LVCVLLIANI',sub:'Los jardines del Pincio, la colina de los jardines.',test:(x,z)=>Math.hypot((x+330)/130,(z+930)/90)<1},
  {id:'appia',name:'Vía Apia',gr:'VIA APPIA',sub:'La reina de las calzadas, flanqueada de tumbas.',test:(x,z)=>x>430&&z>480&&Math.abs((z-460)-(x-380)*0.77)<70},
  {id:'ciudad',name:'Calles de Roma',gr:'VRBS',sub:'Una ciudad de un millón de habitantes, ínsulas de pisos y calles estrechas.',test:(x,z)=>romaInUrbs(x,z)},
  {id:'campina',name:'Campiña romana',gr:'AGER ROMANVS',sub:'Huertos, viñas, villas y tumbas a lo largo de las calzadas.',test:()=>true}
 ];
-const ROMA_LABELS=[['Foro Romano',0,-8],['Capitolio',-215,-110],['Palatino',30,175],['Anfiteatro Flavio',400,-30],['Circo Máximo',40,365],['Aventino',-250,520],['Celio',540,300],['Esquilino',480,-300],['Quirinal',-150,-640],['Viminal',160,-600],['Subura',230,-380],['Campo de Marte',-720,-620],['Panteón',-640,-540],['Mausoleo de Augusto',-700,-1130],['Teatro de Marcelo',-370,60],['Isla Tiberina',-520,280],['Trastévere',-820,300],['Termas de Tito',480,-190],['Templo de la Paz',170,-190],['Vía Apia',900,840],['Tíber',-1050,-320]];
+const ROMA_LABELS=[['Foro Romano',0,-8],['Capitolio',-215,-110],['Palatino',30,175],['Anfiteatro Flavio',400,-30],['Circo Máximo',40,365],['Aventino',-250,520],['Celio',540,300],['Esquilino',480,-300],['Quirinal',-150,-640],['Viminal',160,-600],['Subura',230,-380],['Campo de Marte',-720,-620],['Panteón',-640,-540],['Mausoleo de Augusto',-700,-1130],['Teatro de Marcelo',-370,60],['Isla Tiberina',-520,280],['Trastévere',-820,300],['Termas de Tito',480,-190],['Templo de la Paz',170,-190],['Vía Apia',900,840],['Tíber',-1050,-320],['Velabro',-170,150],['Jardines de Mecenas',720,-380],['Jardines de Salustio',-70,-900],['Jardines de Lúculo',-330,-960],['Emporio',-420,690],['Naumaquia de Augusto',-870,640],['Casa Dorada',500,-275],['Vía Lata',-330,-560]];
 
 
 // personajes de los destinos de Italia e Hispania (80 d.C.)
@@ -4829,14 +4838,15 @@ function romaFieldOk(x,z){
   const h=romaH(x,z);if(h<0.5||h>55)return false;
   return Math.abs(romaH(x+4,z)-romaH(x-4,z))+Math.abs(romaH(x,z+4)-romaH(x,z-4))<2.4;
 }
-const RC={pave:new THREE.Color('#a89b82'),street:new THREE.Color('#857559'),basalt:new THREE.Color('#77736c'),sand:new THREE.Color('#c4ab7c'),mud:new THREE.Color('#6d6046'),bank:new THREE.Color('#7f7a55'),tufa:new THREE.Color('#8c7a5c'),garden:new THREE.Color('#6a8442')};
+const RC={pave:new THREE.Color('#a89b82'),street:new THREE.Color('#857559'),basalt:new THREE.Color('#77736c'),sand:new THREE.Color('#c4ab7c'),mud:new THREE.Color('#6d6046'),bank:new THREE.Color('#7f7a55'),tufa:new THREE.Color('#8c7a5c'),garden:new THREE.Color('#6a8442'),urb:new THREE.Color('#8f6a4a')};
 function romaPaved(x,z){return superD(x,z,0,0,118,60)<1||superD(x,z,60,-165,196,92)<1||superD(x,z,480,-128,72,56)<1||superD(x,z,-640,-500,60,60)<1;}
 function romaColor(x,z,h,sl,c,inner){
   c.lerp(RC.garden,0.25);
   {const ft=fieldAt(x,z);if(ft)c.lerp(FIELD_C[ft],0.8);}
   const hill=clamp((h-10)/14,0,1);
-  if(romaInUrbs(x,z))c.lerp(RC.street,0.55*(1-hill*0.7));
-  c.lerp(RC.garden,hill*0.35*(0.6+fbm(x*0.03,z*0.03)));
+  const urb=romaInUrbs(x,z),hq=urb&&romaQuarter(x,z),green=hq&&(hq[4]==='horti'||hq[4]==='open');
+  if(urb&&!green)c.lerp(RC.urb,0.92*(1-hill*0.3));
+  c.lerp(RC.garden,(green?0.5:urb?hill*0.12:hill*0.25)*(0.6+fbm(x*0.03,z*0.03)));
   if(romaPaved(x,z))c.lerp(RC.pave,0.8);
   if(superD(x,z,40,355,300,44)<1||Math.hypot((x-400)/41.5,(z-60)/24)<1)c.lerp(RC.sand,0.9);
   c.lerp(RC.tufa,clamp((sl-0.5)*1.4,0,1)*0.75);if(sl>0.5)c.lerp(RC.garden,clamp((sl-0.5)*0.5,0,0.35)*fbm(x*0.05+3,z*0.05));
@@ -5456,8 +5466,8 @@ function romaRoads(){
   R2('Vía Sacra',5,[[-55,-22],[40,-26],[100,-26],[200,10],[290,52]]);
   R2('Vico Tusco',3.5,[[23,30],[22,84],[-60,98],[-200,112],[-300,140]]);
   R2('Clivo Capitolino',3.5,[[-85,10],[-130,20],[-165,24],[-195,18]]);
-  R2('Argileto',4,[[-42,-40],[-45,-105],[112,-108],[112,-262],[230,-380],[300,-560],[420,-900],[560,-1400]]);
-  R2('Vía Flaminia',5,[[-190,-110],[-320,-380],[-470,-760],[-620,-1180],[-700,-1600]]);
+  R2('Argileto',4,[[-42,-40],[-45,-105],[112,-108],[112,-262],[230,-380]]);
+  R2('Vía Lata',5,[[-190,-110],[-320,-380],[-470,-760]]);
   R2('Vía Apia',5,[[330,180],[440,440],[700,680],[1000,900],[1300,1180]]);
   R2('Vía Ostiense',4.5,[[-200,420],[-260,560],[-180,760],[-80,900],[60,1300]]);
   R2('Puentes de la isla',3.5,[[-300,140],[-440,250],[-520,250],[-600,250],[-760,320],[-950,380]]);
@@ -5466,6 +5476,14 @@ function romaRoads(){
   R2('Calle del Velabro',3.5,[[-90,45],[-200,100],[-300,140],[-440,180],[-470,420],[-470,700]]);
   R2('Clivo de Escauro',3.5,[[300,140],[420,240],[560,300],[800,400]]);
   R2('Calle del Trastévere',3.5,[[-760,620],[-760,320],[-820,0],[-820,-60]]);
+  // calles de los barrios del norte y del este (por su trazado conocido, comprimido como el resto)
+  R2('Vía Flaminia',5,[[-470,-760],[-620,-1180],[-700,-1600]]);
+  R2('Vico Patricio',3.5,[[230,-380],[300,-560],[420,-900],[560,-1400]]);
+  R2('Clivo Suburano',3.5,[[230,-380],[400,-345],[600,-330],[820,-300],[1300,-330]]);
+  R2('Vico Largo',3.5,[[-10,-262],[10,-480],[40,-700],[70,-775]]);
+  R2('Alta Semita',3.5,[[-330,-470],[-200,-590],[-40,-700],[70,-775]]);
+  R2('Vía Salaria',4.5,[[70,-775],[20,-1000],[-40,-1500]]);
+  R2('Vía Nomentana',4.5,[[70,-775],[200,-1000],[380,-1500]]);
 }
 function buildRome(){
   romaRoads();
@@ -5479,6 +5497,7 @@ function buildRome(){
   ROMA_PLACES.forEach(p=>place(p[0],p[1],p[2],p[3],p[4][0],p[4][1],p[5]));
   romaTravel();buildRomaDests();buildGods();
   romaSchools();
+  romaQuarters();
   romaCity();
   romaDecor();
   applyFlats();
@@ -5748,39 +5767,147 @@ function romaOutskirts(){
   // campiña: campos, viñas, olivares y pinos
   const tr=buildCountryside(-1550,1300,-1500,1300,{grove:'olive'});
   for(let i=0;i<420;i++){const x=rr(-1550,1300),z=rr(-1500,1300);if(romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+18||roadDist(x,z)<5||fieldAt(x,z))continue;tr.push({x,z,kind:R()<0.55?'pine':(R()<0.5?'cypress':'olive')});}
-  for(const r of ROADS){if(!/Apia|Flaminia|Ostiense|Labicana/.test(r.name))continue;const p=r.pts;for(let i=0;i<p.length-1;i++){const L=Math.hypot(p[i+1][0]-p[i][0],p[i+1][1]-p[i][1]);for(let d=8;d<L;d+=26){const t=d/L,x=lerp(p[i][0],p[i+1][0],t),z=lerp(p[i][1],p[i+1][1],t),dx=(p[i+1][0]-p[i][0])/L,dz=(p[i+1][1]-p[i][1])/L;for(const s of[-1,1]){const tx=x-dz*s*8,tz=z+dx*s*8;if(!romaInUrbs(tx,tz))tr.push({x:tx,z:tz,kind:r.name.includes('Apia')?'cypress':'pine'});}}}}
+  for(const r of ROADS){if(!/Apia|Flaminia|Ostiense|Labicana|Salaria|Nomentana/.test(r.name))continue;const p=r.pts;for(let i=0;i<p.length-1;i++){const L=Math.hypot(p[i+1][0]-p[i][0],p[i+1][1]-p[i][1]);for(let d=8;d<L;d+=26){const t=d/L,x=lerp(p[i][0],p[i+1][0],t),z=lerp(p[i][1],p[i+1][1],t),dx=(p[i+1][0]-p[i][0])/L,dz=(p[i+1][1]-p[i][1])/L;for(const s of[-1,1]){const tx=x-dz*s*8,tz=z+dx*s*8;if(!romaInUrbs(tx,tz))tr.push({x:tx,z:tz,kind:r.name.includes('Apia')?'cypress':'pine'});}}}}
   if(GLB.ok)treesGLB(tr.filter(t=>isFree(t.x,t.z,2.5)&&!footHit(t.x,t.z,4)));
 }
 function footHit(x,z,m){for(const f of footprints){if(f.r){if(Math.hypot(x-f.x,z-f.z)<f.r+m)return true;continue;}const dx=x-f.x,dz=z-f.z,c=Math.cos(f.a||0),s=Math.sin(f.a||0),lx=dx*c-dz*s,lz=dx*s+dz*c;if(Math.abs(lx)<f.w/2+m&&Math.abs(lz)<f.d/2+m)return true;}return false;}
-// barrios: ínsulas en los valles, domus en las colinas; calles en retícula por distritos
+// ============================================================ ROMA: barrios, densidad y muralla
+// El tejido urbano sigue lo que sabemos por la Forma Urbis (el plano de mármol de época severa), las excavaciones y la maqueta de Gismondi:
+// ínsulas de pisos en manzanas continuas con callejas de 4 a 7 m en los valles (Subura, Velabro, Vía Lata, Trastévere),
+// domus con jardín mezcladas con ínsulas en las colinas (Celio, Aventino, Quirinal), grandes jardines (horti) en el borde de la ciudad,
+// almacenes (horrea) junto al Emporio y lo que queda de la muralla serviana, ya desbordada por la ciudad y medio oculta entre las casas.
+// Los catálogos regionarios del siglo IV cuentan 46.602 ínsulas y 1.790 domus.
+// [cx, cz, rx, rz, tejido, giro de las calles, ínsulas altas]
+const RQUART=[
+ [700,-330,170,150,'horti',0.1],      // jardines de Mecenas, sobre el viejo cementerio del Esquilino
+ [870,-40,120,150,'horti',0],         // jardines de Lamia
+ [-70,-880,150,100,'horti',0.4],      // jardines de Salustio, entre el Quirinal y el Pincio
+ [-330,-930,130,90,'horti',0.2],      // jardines de Lúculo, en el Pincio
+ [-800,-960,330,290,'open',0],        // el norte del Campo de Marte sigue siendo un campo abierto
+ [210,-400,190,170,'dense',1.0,true], // Subura
+ [-160,150,120,95,'dense',0.1],       // Velabro y Vico Tusco
+ [-390,-470,105,330,'dense',-1.16],   // a lo largo de la Vía Lata
+ [-700,-400,280,330,'campus',0],      // centro del Campo de Marte: monumentos, pórticos y algunas ínsulas
+ [-250,590,185,135,'rich',0.15],      // Aventino
+ [520,330,170,115,'rich',0],          // Celio
+ [-150,-610,230,105,'rich',0.6]       // Quirinal
+];
+function romaQuarter(x,z){for(const Q of RQUART)if(Math.hypot((x-Q[0])/Q[2],(z-Q[1])/Q[3])<1)return Q;return null;}
+// muralla serviana (siglo IV a.C.): restos entre las casas, con sus puertas donde la cruzan las calles
+const SERV=[[-470,330],[-415,420],[-410,560],[-380,690],[-300,760],[-150,740],[-60,690],[150,560],[360,480],[440,440],[430,300],[560,190],[600,60],[590,-100],[580,-330],[560,-560],[420,-720],[200,-790],[70,-775],[-150,-720],[-330,-660],[-400,-540],[-300,-330],[-290,-110],[-300,40]];
+const SERV_GATES=[['Porta Trigemina',-455,330],['Porta Raudusculana',-182,750],['Porta Capena',440,440],['Porta Caelimontana',480,258],['Porta Querquetulana',600,50],['Porta Esquilina',583,-330],['Porta Viminalis',362,-738],['Porta Collina',62,-773],['Porta Fontinalis',-300,-330]];
+const TUFA_W=lam('#a69a78');
+function portaServ(x,z,a,name){
+  const W=11,D=5.5,H=10.5,h1=7.6,r=2.5,gy=minGround(x,z,W,D,a)-0.3,g=grp(x,gy,z,a);
+  const sh=new THREE.Shape();sh.moveTo(-W/2,0);sh.lineTo(-W/2,H);sh.lineTo(W/2,H);sh.lineTo(W/2,0);sh.lineTo(r,0);sh.lineTo(r,h1-r);sh.absarc(0,h1-r,r,0,Math.PI,false);sh.lineTo(-r,0);sh.lineTo(-W/2,0);
+  const eg=new THREE.ExtrudeGeometry(sh,{depth:D,bevelEnabled:false,curveSegments:10});eg.translate(0,0,-D/2);const m=new THREE.Mesh(eg,TUFA_W);m.castShadow=m.receiveShadow=true;g.add(m);
+  for(let i=-2;i<=2;i++)box(1.2,1.1,D+0.2,TUFA_W,i*2.3,H+0.55,0,g);   // almenas
+  for(const s of[-1,1]){const p=toW(s*(W/2+r)/2,0,x,z,a);addBox(p[0],p[1],W/2-r,D,a);}
+  footprints.push({x,z,w:W,d:D,a,c:'#8f8467',name});
+}
+function romaQuarters(){
+  // la muralla: tramos de 5 m de sillares de toba; muchos han desaparecido o están metidos en las casas
+  const items=[],col=new THREE.Color(),gaps=[],segs=[];let s=0,gap=null;
+  for(let i=0;i<SERV.length-1;i++){const[ax,az]=SERV[i],[bx,bz]=SERV[i+1],L=Math.hypot(bx-ax,bz-az),n=Math.max(1,Math.round(L/5)),dx=(bx-ax)/L,dz=(bz-az)/L,a=Math.atan2(-dz,dx);
+    for(let k=0;k<n;k++){const t=(k+0.5)/n,x=lerp(ax,bx,t),z=lerp(az,bz,t),l=L/n;s+=l;
+      if(roadDist(x,z)<2.5){if(!gap)gap={s0:s,x0:x,z0:z,a};gap.x1=x;gap.z1=z;continue;}
+      if(gap){gaps.push(gap);gap=null;}
+      if(romaRiverDist(x,z)<romaRiverW(z)+8||footHit(x,z,3))continue;
+      const keep=fbm(s*0.011,7.3)>0.4||(x>380&&z<-300);   // el agger del Esquilino se conserva mejor
+      if(!keep)continue;
+      const p0=toW(-l/2,0,x,z,a),p1=toW(l/2,0,x,z,a),h0=Math.min(terrainH(p0[0],p0[1]),terrainH(p1[0],p1[1])),h1=Math.max(terrainH(p0[0],p0[1]),terrainH(p1[0],p1[1]));
+      const ht=(x>380&&z<-300?9:rr(5,8.5))+(h1-h0);col.set('#a69a78').offsetHSL(0,rr(-0.03,0.03),rr(-0.05,0.04));
+      items.push({m:new THREE.Matrix4().compose(new THREE.Vector3(x,h0-1.5,z),new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),a),new THREE.Vector3(l+0.2,ht+1.5,4)),c:col.clone()});
+      addBox(x,z,l,4,a);segs.push({x,z,w:l,d:4,a,c:'#8f8467',wall:true});}}
+  footprints.push(...segs);chunked(UNIT,WHITE_M,items,{far:1700});
+  for(const G of gaps){const x=(G.x0+G.x1)/2,z=(G.z0+G.z1)/2,n=SERV_GATES.find(q=>Math.hypot(q[1]-x,q[2]-z)<60);if(n)portaServ(x,z,G.a,n[0]);}
+  ROMA.wall={segs:items.length,gates:gaps.length};
+  place('ro_muralla','La muralla serviana','MVRVS SERVII TVLLII','La muralla que, según la tradición, construyó el rey Servio Tulio. Los restos que se ven son del siglo IV a.C., levantados tras el saqueo de los galos (390 a.C.) con grandes sillares de toba amarilla traída de Veyes: unos 11 kilómetros de muro, con un foso y un terraplén (agger) en la llanura del Esquilino, donde no había defensa natural. Hace siglos que Roma no la necesita y la ha desbordado por todas partes: las casas se apoyan en ella o la usan de cantera, y las puertas se han quedado dentro de la ciudad, como arcos en medio de la calle.',575,-300,Math.PI/2);
+  place('ro_insulae','Las ínsulas','INSVLAE','La mayoría de los romanos vive en ínsulas: bloques de pisos de ladrillo y madera de cinco o seis plantas que ocupan manzanas enteras, separadas por callejas estrechas. En la planta baja, tiendas y talleres que dan a la calle; arriba, los pisos: cuanto más alto, más pequeños, más baratos y más peligrosos. No tienen agua corriente ni letrinas, y se cocina con braseros, así que los incendios y los derrumbes son frecuentes. Augusto limitó su altura a unos 70 pies (21 m) y creó los vigiles, bomberos y vigilantes nocturnos. Tras el incendio del 64, Nerón obligó a ensanchar las calles, a dejar patios y a poner pórticos en las fachadas. Los catálogos del siglo IV cuentan unas 46.600 ínsulas y 1.790 domus, aunque quizá cuentan viviendas y no edificios.',156,-294,-2.36);
+  place('ro_regiones','Las catorce regiones','XIV REGIONES','En el 7 a.C. Augusto dividió Roma en catorce regiones, que desbordan la vieja muralla, y estas en 265 barrios (vici), cada uno con su altar de los lares y sus magistrados. Las regiones se numeran; los nombres que conocemos, de catálogos posteriores, salen de un monumento o lugar de cada una: Porta Capena (I), Celio (II), Isis y Serapis (III), Templo de la Paz (IV), Esquilino (V), Alta Semita (VI), Vía Lata (VII), Foro Romano (VIII), Circo Flaminio (IX), Palatino (X), Circo Máximo (XI), Piscina Pública (XII), Aventino (XIII) y Trastévere (XIV). Siete cohortes de vigiles, cada una a cargo de dos regiones, vigilan los incendios.',-191,-132,-1.12);
+  {const G=SERV_GATES.find(q=>q[0]==='Porta Capena');place('ro_capena','Porta Capena','PORTA CAPENA','La puerta de la muralla serviana por la que sale la Vía Apia hacia el sur. Por encima pasa un ramal del acueducto del Agua Marcia, que gotea sobre los que cruzan: por eso hay quien la llama «la puerta mojada». Aquí empiezan los viajes hacia Campania y Brindisi, y aquí se despide a los que parten y se recibe a los generales que vuelven.',G[1]-14,G[2]-14,-0.6);}
+  // horrea: almacenes de dos pisos alrededor de un gran patio, con una sola puerta; trigo, aceite, vino, mármol
+  const HR=[[-405,735,84,62,0.2,'Almacenes de Galba'],[-430,825,62,46,0.2,'Almacenes de Lolio'],[-255,845,60,40,0.35,'Almacenes']];
+  for(const[x,z,W,D,a,name]of HR){const gy=minGround(x,z,W,D,a)-0.3,g=grp(x,gy,z,a),wd=13,h=9.5;
+    const wing=(lx,lz,w,d)=>{box(w,h+3,d,BRICK,lx,(h-3)/2,lz,g);const rf=new THREE.Mesh(GABLE,M.tile);rf.scale.set(w>d?d+0.8:w+0.8,2.6,w>d?w+0.8:d+0.8);if(w>d)rf.rotation.y=Math.PI/2;rf.position.set(lx,h,lz);rf.castShadow=true;g.add(rf);const p=toW(lx,lz,x,z,a);addBox(p[0],p[1],w,d,a);};
+    wing(0,-D/2+wd/2,W,wd);wing(-W/2+wd/2,0,wd,D-2*wd);wing(W/2-wd/2,0,wd,D-2*wd);
+    const fw=(W-7)/2;wing(-W/2+fw/2,D/2-wd/2,fw,wd);wing(W/2-fw/2,D/2-wd/2,fw,wd);
+    box(7.2,2.6,wd,BRICK,0,h-1.3,D/2-wd/2,g);   // dintel sobre la puerta
+    for(let i=0;i<Math.floor((W-2*wd)/5);i++)for(const sd of[-1,1])box(2.2,3.2,0.1,M.dark,-W/2+wd+2.5+i*5,1.6,sd*(D/2-wd)-sd*0.06,g);   // puertas de las celdas al patio
+    footprints.push({x,z,w:W,d:D,a,c:'#b5785e',name});}
+  {const hp=toW(0,37,-405,735,0.2);place('ro_horrea','Los almacenes de Galba','HORREA GALBANA','Los mayores almacenes de Roma, levantados por la familia de los Sulpicios Galbas a finales del siglo II a.C. y hoy propiedad del emperador. Son patios enormes rodeados de cientos de celdas de dos pisos, con una sola puerta vigilada. Guardan el trigo que se reparte gratis a unos doscientos mil ciudadanos, y también aceite, vino y mármol. Detrás crece una colina artificial con los trozos de las ánforas de aceite que no se pueden reutilizar.',hp[0],hp[1],0.2);}
+  // Naumaquia de Augusto en el Trastévere: el estanque de las batallas navales, con su isla y el bosque sagrado alrededor
+  {const N={x:-870,z:705,w:240,d:150},gy=romaH(N.x,N.z),tr=[];
+   for(const[lx,lz,w,d]of[[0,-N.d/2,N.w+3,3],[0,N.d/2,N.w+3,3],[-N.w/2,0,3,N.d+3],[N.w/2,0,3,N.d+3]]){box(w,4,d,TRAV,N.x+lx,gy-0.4,N.z+lz);addBox(N.x+lx,N.z+lz,w,d,0);}
+   const wt=new THREE.Mesh(new THREE.PlaneGeometry(N.w-3,N.d-3),new THREE.MeshPhongMaterial({color:'#4f7d82',shininess:70,specular:'#9ab8b0'}));wt.rotation.x=-Math.PI/2;wt.position.set(N.x,gy+0.9,N.z);wt.receiveShadow=true;scene.add(wt);
+   const isl=new THREE.Mesh(new THREE.CylinderGeometry(16,18,3,24),TUFA_W);isl.position.set(N.x,gy+0.6,N.z);scene.add(isl);addCirc(N.x,N.z,17);
+   {const t=new THREE.Mesh(new THREE.CylinderGeometry(9,9,3.4,20,1,true),TUFA_W);t.material.side=THREE.DoubleSide;t.position.set(N.x,gy+3.6,N.z);scene.add(t);const m=new THREE.Mesh(new THREE.CylinderGeometry(3,3.4,6,12),TRAV);m.position.set(N.x,gy+4.6,N.z);scene.add(m);}
+   box(4,0.6,N.d/2-18,M.wood,N.x,gy+1.3,N.z-N.d/4-9);   // puente a la isla
+   for(const[dx,dz,a]of[[-70,-30,0.3],[-40,40,-0.5],[60,-35,2.6],[80,30,3.4],[20,-55,1.4],[-90,10,1.9]]){const g=grp(N.x+dx,gy+0.2,N.z+dz,a);box(3.2,1.4,15,lam('#6b4a2e'),0,0.5,0,g);box(3.4,0.25,15.4,lam('#8a6340'),0,1.25,0,g);const pr=box(0.5,0.5,2.6,BRONZE2,0,0.2,8.6,g);const mt=box(0.25,7,0.25,M.wood,0,4.5,0,g);box(5,3.6,0.08,lam('#d9cfb2'),0,5.2,0.2,g);for(let i=0;i<6;i++)for(const sd of[-1,1]){const o=box(0.12,0.12,4,M.wood,sd*2.6,0.7,-5+i*2,g);o.rotation.x=0.5;}}
+   for(let i=0;i<70;i++){const t=i/70*TAU,x=N.x+Math.cos(t)*(N.w/2+14)*1.02,z=N.z+Math.sin(t)*(N.d/2+14)*1.05;tr.push({x,z,kind:i%3?'plane':'cypress'});}
+   if(GLB.ok)treesGLB(tr);
+   footprints.push({x:N.x,z:N.z,w:N.w+30,d:N.d+30,a:0,c:'#4f7d82',name:'Naumaquia de Augusto'});
+   place('ro_naumaquia','Naumaquia de Augusto','NAVMACHIA AVGVSTI','Un estanque de unos 540 por 360 metros que Augusto mandó excavar en el 2 a.C. para inaugurar el templo de Marte Vengador. Allí se libró una batalla de espectáculo entre «atenienses» y «persas», con treinta naves con espolón y unos tres mil combatientes, sin contar a los remeros. Lo rodea un bosque sagrado dedicado a sus nietos Gayo y Lucio. Este año, en los juegos de inauguración del anfiteatro, Tito lo ha vuelto a llenar de naves: «atenienses» contra «siracusanos», con asalto a la isla del centro.',N.x+40,N.z-N.d/2-24,0);}
+  // Casa Dorada: el ala del Opio del palacio de Nerón, con su fachada porticada hacia el sur; Vespasiano devolvió al pueblo el resto
+  {const x=500,z=-240,gy=minGround(x,z,140,40,0)-0.3,g=grp(x,gy,z,0);box(140,15,40,PLAST,0,6.5,0,g);addBox(x,z,140,40,0);
+   const r=new THREE.Mesh(new THREE.CylinderGeometry(15,15,6,8),PLAST);r.position.set(0,16,-2);g.add(r);const dm=new THREE.Mesh(new THREE.SphereGeometry(14,20,8,0,TAU,0,Math.PI/2),M.tile);dm.scale.y=0.5;dm.position.set(0,19,-2);g.add(dm);
+   for(let i=0;i<14;i++)box(3,5.4,0.1,M.dark,-62+i*9.6,3.5,20.06,g);
+   porticus(x-70,z+20,x+70,z+20,8,8,'corinthian',1,gy+0.3);
+   footprints.push({x,z:z+4,w:140,d:48,a:0,c:'#e3d8c2',name:'Casa Dorada'});
+   place('ro_domus_aurea','La Casa Dorada','DOMVS AVREA','Después del incendio del 64, Nerón se construyó en el centro de Roma un palacio inmenso, con jardines, viñas, un lago y pabellones con techos de marfil y salas giratorias; en el vestíbulo, su estatua colosal. «Por fin vivo como un hombre», dijo al inaugurarla. Vespasiano devolvió el terreno al pueblo: donde estaba el lago se levanta el anfiteatro, y junto a esta ala del Opio, las termas de Tito. Sus salas pintadas aún se usan. Plinio cuenta que el grupo del Laocoonte está en la casa de Tito; quizá sea aquí.',x-30,z+34,0);}
+}
+// barrios: manzanas de ínsulas, domus en las colinas y jardines, según RQUART; fuera de esas zonas, ínsulas en los valles y barrio mixto en las colinas
 function romaCity(){
-  const OC=8,occ=new Set(),key=(i,j)=>i+','+j;
-  const markR=(x,z,w,d,a)=>{const r=Math.hypot(w,d)/2;for(let i=Math.floor((x-r)/OC);i<=Math.floor((x+r)/OC);i++)for(let j=Math.floor((z-r)/OC);j<=Math.floor((z+r)/OC);j++)occ.add(key(i,j));};
-  const freeR=(x,z,r)=>{for(let i=Math.floor((x-r)/OC);i<=Math.floor((x+r)/OC);i++)for(let j=Math.floor((z-r)/OC);j<=Math.floor((z+r)/OC);j++)if(occ.has(key(i,j)))return false;return true;};
-  for(const f of footprints){if(f.r)markR(f.x,f.z,f.r*2+12,f.r*2+12);else markR(f.x,f.z,f.w+12,f.d+12);}
-  for(const r of RHILLS.slice(0,2))markR(r[0],r[1],r[2]*2,r[3]*2);
-  const G={H_insa:[],H_insb:[],H_dom:[]},cw=['#c4795a','#b8735a','#d19a7a','#a8624a','#c98a6c'],cp=['#e3d8c2','#e9c9a0','#d8b48a','#efe2c8','#c9a27a'],cr=['#b0563a','#a24d33','#bf6a45','#9a4a35'];
-  const districts=[{a:0,x0:-1080,x1:920,z0:-1000,z1:720,trast:false},{a:0.32,x0:-1600,x1:-100,z0:-400,z1:1000,trast:true}];
+  // ocupación del suelo en celdas de 2 m: lo marcado no se puede construir
+  const OC=2,occ=new Set(),key=(i,j)=>(i+4000)*10000+(j+4000);
+  const markRect=(x,z,w,d,a,m)=>{const W=w+2*(m||0),D=d+2*(m||0),nx=Math.ceil(W/1.8),nz=Math.ceil(D/1.8);for(let i=0;i<=nx;i++)for(let j=0;j<=nz;j++){const p=toW(-W/2+W*i/nx,-D/2+D*j/nz,x,z,a);occ.add(key(Math.floor(p[0]/OC),Math.floor(p[1]/OC)));}};
+  const freeRect=(x,z,w,d,a)=>{const W=w-4.4,D=d-4.4,nx=Math.ceil(W/1.8),nz=Math.ceil(D/1.8);for(let i=0;i<=nx;i++)for(let j=0;j<=nz;j++){const p=toW(-W/2+W*i/nx,-D/2+D*j/nz,x,z,a);if(occ.has(key(Math.floor(p[0]/OC),Math.floor(p[1]/OC))))return false;}return true;};
+  for(const f of footprints){if(f.r)markRect(f.x,f.z,f.r*2,f.r*2,0,6);else markRect(f.x,f.z,f.w,f.d,f.a||0,f.wall?1:6);}
+  for(const r of RHILLS.slice(0,2))markRect(r[0],r[1],r[2]*2,r[3]*2,0);
+  markRect(-330,820,90,90,0);   // el monte de ánforas rotas
+  for(const p of PLACES)markRect(p.x,p.z,6,6,0);
+  for(const p of[[-215,555],[232,-402],[-760,330],[-790,-388],[-675,-296],[-36,-90],[215,-176]])markRect(p[0],p[1],8,8,0);   // sitios de personajes
+  const G={H_insa:[],H_insb:[],H_dom:[]},cw=['#c4795a','#b8735a','#d19a7a','#a8624a','#c98a6c'],cp=['#e3d8c2','#e9c9a0','#d8b48a','#efe2c8','#c9a27a'],cr=['#b0563a','#a24d33','#bf6a45','#9a4a35'],tr=[];
+  const SZ={H_insa:[22,16],H_insb:[16,14],H_dom:[26,42]};
   let n=0;
-  for(const D of districts){const ca=Math.cos(D.a),sa=Math.sin(D.a);
-    for(let u=D.x0;u<D.x1;u+=31)for(let v=D.z0;v<D.z1;v+=27){
-      const x=u*ca-v*sa+rr(-1.5,1.5),z=u*sa+v*ca+rr(-1.5,1.5);
-      if(!romaInUrbs(x,z)||inIsla(x,z))continue;if((x<romaRiverX(z))!==D.trast)continue;
-      if(romaRiverDist(x,z)<romaRiverW(z)+22)continue;if(roadDist(x,z)<12)continue;
-      const h=romaH(x,z),sl=Math.abs(romaH(x+11,z)-romaH(x-11,z))+Math.abs(romaH(x,z+9)-romaH(x,z-9));if(sl>7||h<0.4)continue;
-      const hill=h>16,r=R();let k=hill?(r<0.55?'H_dom':r<0.85?'H_insb':'H_insa'):(r<0.5?'H_insa':r<0.88?'H_insb':'H_dom');
-      if(Math.hypot((x+80)/1000,(z+150)/850)>0.82&&k==='H_insa')k='H_insb';
-      const B=k==='H_insa'?[22,16]:k==='H_insb'?[16,14]:[26,42],a=-D.a+(R()<0.5?0:Math.PI)+(k==='H_dom'&&R()<0.5?Math.PI/2:0);
-      const w=B[0],d=B[1];if(!freeR(x,z,Math.max(w,d)/2+1))continue;if(R()<0.06)continue;
-      const gy=minGround(x,z,w,d,a);markR(x,z,w,d,a);
-      G[k].push({x,y:gy,z,a,sx:k==='H_dom'?1.45:1,sy:k==='H_dom'?1.2:rr(0.85,1.08),sz:k==='H_dom'?1.4:1,cw:new THREE.Color(pick(cw)),cp:new THREE.Color(pick(cp)),cr:new THREE.Color(pick(cr))});
-      addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:k==='H_dom'?'#cdb994':'#b98a6c',house:true});n++;
-      if(R()<0.06)TORCH_SPOTS.push(toW(w*0.3,d/2+1,x,z,a));}}
+  // ¿se puede construir aquí? (dentro de la ciudad, en su zona, fuera del río, de las calzadas y de lo ya ocupado, sin demasiada pendiente)
+  const ok=(x,z,w,d,a,Q,trast)=>{
+    if(!romaInUrbs(x,z)||inIsla(x,z,6))return false;if(romaQuarter(x,z)!==Q)return false;if((x<romaRiverX(z))!==trast)return false;
+    if(romaRiverDist(x,z)<romaRiverW(z)+20)return false;
+    let lo=1e9,hi=-1e9;for(const[i,j]of[[-1,-1],[1,-1],[-1,1],[1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const p=toW(i*w/2,j*d/2,x,z,a),h=romaH(p[0],p[1]);lo=Math.min(lo,h);hi=Math.max(hi,h);if(roadDist(p[0],p[1])<2)return false;}
+    if(lo<0.4||hi-lo>(w<20?9:7.5))return false;return freeRect(x,z,w,d,a);};
+  const put=(k,x,z,a,big)=>{const[w,d]=SZ[k],gy=minGround(x,z,w,d,a);markRect(x,z,w,d,a);
+    G[k].push({x,y:gy,z,a,sx:k==='H_dom'?1.45:1,sy:k==='H_dom'?1.2:big?rr(1.02,1.25):rr(0.85,1.08),sz:k==='H_dom'?1.4:1,cw:new THREE.Color(pick(cw)),cp:new THREE.Color(pick(cp)),cr:new THREE.Color(pick(cr))});
+    addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:k==='H_dom'?'#cdb994':'#b98a6c',house:true});n++;
+    if(R()<0.05)TORCH_SPOTS.push(toW(w*0.3,d/2+1,x,z,a));};
+  const garden=(x,z)=>{if(R()<0.7&&freeRect(x,z,5,5,0)&&roadDist(x,z)>3){tr.push({x,z,kind:pick(['pine','cypress','plane','cypress'])});markRect(x,z,3,3,0);}};
+  // una retícula de manzanas girada A alrededor de (cx, cz); cada fila de manzanas se desplaza al azar para que las calles no sean rectas
+  const grid=(cx,cz,rx,rz,A,Q,trast,K0,tall)=>{
+    const P={dense:[66,38],campus:[66,40],mixed:[58,44],auto:[62,40],rich:[46,54],horti:[13,13]}[K0],ext=Math.max(rx,rz)+40;
+    for(let v=-ext;v<ext;v+=P[1]){const off=rr(0,P[0]);for(let u=-ext-off;u<ext;u+=P[0]){
+      const a=A+rr(-0.03,0.03),c=toW(u,v,cx,cz,A);if(Math.hypot((c[0]-cx)/(rx+40),(c[1]-cz)/(rz+40))>1)continue;
+      const L=(x,z)=>toW(x,z,c[0],c[1],a),kind=K0==='auto'?(romaH(c[0],c[1])>16?'mixed':'dense'):K0;
+      if(kind==='horti'){if(R()<0.3)continue;const h=romaH(c[0],c[1]);if(romaQuarter(c[0],c[1])!==Q||!romaInUrbs(c[0],c[1])||roadDist(c[0],c[1])<4||h<0.4)continue;garden(c[0],c[1]);continue;}
+      if(kind==='rich'){const r=R();
+        if(r<0.7){const p=L(0,-4);if(ok(p[0],p[1],26,42,a+Math.PI,Q,trast)){put('H_dom',p[0],p[1],a+Math.PI);for(let i=-1;i<=1;i++){const q=L(i*9,21);garden(q[0],q[1]);}continue;}}
+        if(r<0.9){for(const s of[-1,1]){const p=L(s*8,-18);if(ok(p[0],p[1],16,14,a+Math.PI,Q,trast))put('H_insb',p[0],p[1],a+Math.PI);}for(let i=-1;i<=1;i++){const q=L(i*12,8+R()*10);garden(q[0],q[1]);}continue;}
+        for(let i=0;i<4;i++){const q=L(rr(-20,20),rr(-20,20));garden(q[0],q[1]);}continue;}
+      if(kind==='campus'&&R()<0.55)continue;
+      if((kind==='mixed'&&R()<0.26)||(kind==='dense'&&!tall&&R()<0.04)){const fa=a+(R()<0.5?0:Math.PI);if(ok(c[0],c[1],26,42,fa,Q,trast)){put('H_dom',c[0],c[1],fa);continue;}}
+      if(kind==='mixed'&&R()<0.1)continue;
+      // manzana de ínsulas: dos filas espalda con espalda, con las fachadas (y las tiendas) hacia la calle
+      const pa=(kind==='dense'?(tall?0.8:0.6):kind==='campus'?0.35:0.25)*(!trast&&Math.hypot((c[0]+80)/1000,(c[1]+150)/850)>0.85?0.3:1),len=P[0]-6;
+      for(const s of[-1,1]){let cu=-len/2;while(cu<len/2-8){let k=R()<pa?'H_insa':'H_insb';if(cu+SZ[k][0]>len/2)k='H_insb';const[w,d]=SZ[k];if(cu+w>len/2+2)break;
+        if(R()<0.04){cu+=w;continue;}   // un hueco: patio, solar o placita
+        const p=L(cu+w/2,s*d/2),fa=a+(s<0?Math.PI:0);if(ok(p[0],p[1],w,d,fa,Q,trast))put(k,p[0],p[1],fa,tall);cu+=w;}}}}};
+  for(const Q of RQUART){if(Q[4]==='open')continue;grid(Q[0],Q[1],Q[2],Q[3],Q[5],Q,Q[0]<romaRiverX(Q[1]),Q[4],Q[6]);}
+  // el resto: ínsulas en los valles, barrio mixto en las colinas; el Trastévere con su propia orientación, junto al río
+  grid(-80,-150,1000,850,0,null,false,'auto');grid(-800,300,330,560,0.32,null,true,'auto');
   if(GLB.ok&&GLB.parts.H_insa_brick){for(const k in G)placeModules(k,G[k],{far:1150,cell:320});}
   else{const geo=new THREE.BoxGeometry(1,1,1);geo.translate(0,0.5,0);const it=[];for(const k in G)for(const b of G[k]){const B=k==='H_insa'?[22,14,16]:k==='H_insb'?[16,11,14]:[26,8.4,42];const q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),b.a);it.push({m:new THREE.Matrix4().compose(new THREE.Vector3(b.x,b.y-1,b.z),q,new THREE.Vector3(B[0],B[1]+1,B[2])),c:b.cw});}chunked(geo,WHITE_M,it,{far:1500});}
-  // jardines de Mecenas en el Esquilino y pinos sueltos en los huecos de la ciudad
-  const tr=[];for(let i=0;i<2600;i++){const x=rr(-1080,920),z=rr(-1000,800);if(!romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+12||roadDist(x,z)<4)continue;const gm=Math.hypot(x-700,z+330)<160,sl=Math.abs(romaH(x+4,z)-romaH(x-4,z))+Math.abs(romaH(x,z+4)-romaH(x,z-4));if(!gm&&sl<2.2&&R()<0.8)continue;if(!gm&&sl>=2.2&&R()<0.25)continue;
-    if(!freeR(x,z,4))continue;tr.push({x,z,kind:gm?pick(['pine','cypress','plane']):pick(['pine','pine','cypress','plane'])});}
+  // árboles en las laderas sin construir
+  for(let i=0;i<2200;i++){const x=rr(-1080,920),z=rr(-1000,800);if(!romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+12||roadDist(x,z)<4)continue;const sl=Math.abs(romaH(x+4,z)-romaH(x-4,z))+Math.abs(romaH(x,z+4)-romaH(x,z-4));if(sl<2.2||R()<0.3)continue;
+    if(!freeRect(x,z,8,8,0))continue;tr.push({x,z,kind:pick(['pine','pine','cypress','plane'])});}
   if(GLB.ok)treesGLB(tr.filter(t=>isFree(t.x,t.z,2)));
   ROMA.nHouses=n;ROMA.houses=G;
 }

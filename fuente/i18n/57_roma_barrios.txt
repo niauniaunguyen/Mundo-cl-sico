@@ -1,0 +1,140 @@
+# Roma: barrios, muralla serviana, jardines, almacenes, naumaquia y Casa Dorada
+@f4753129
+Naumàquia d'August
+Naumachia of Augustus
+
+@b34129de
+El gran estany de les batalles navals d'espectacle.
+The great pool for staged naval battles.
+
+@c7984fd6
+Empori
+Emporium
+
+@110cbd0c
+El port del Tíber i els seus magatzems: blat, oli, vi i marbre.
+The Tiber port and its warehouses: grain, oil, wine and marble.
+
+@ba8b7ce5
+Velabre
+Velabrum
+
+@aa95cf4d
+La vall entre el Capitoli i el Palatí: botigues d'oli i de menjar, magatzems i el Vicus Tuscus.
+The valley between the Capitol and the Palatine: oil and food shops, warehouses and the Vicus Tuscus.
+
+@8d3f0fe8
+Jardins de Mecenàs
+Gardens of Maecenas
+
+@fa69d483
+Els jardins que Mecenàs va plantar sobre el vell cementiri de l'Esquilí; ara són de l'emperador.
+The gardens Maecenas planted over the old Esquiline cemetery; they now belong to the emperor.
+
+@39d0e4bf
+El que queda del palau de Neró a l'Oppi.
+What is left of Nero's palace on the Oppian.
+
+@4a2a2701
+Turó de temples antics i cases de grans famílies; aquí va néixer Domicià.
+A hill of ancient temples and houses of great families; Domitian was born here.
+
+@15295741
+El turó més petit, entre el Quirinal i l'Esquilí, cobert de cases.
+The smallest hill, between the Quirinal and the Esquiline, covered in houses.
+
+@12152e91
+Jardins de Sal·lusti
+Gardens of Sallust
+
+@b2253f6d
+Els jardins de l'historiador Sal·lusti, residència preferida de Vespasià.
+The gardens of the historian Sallust, Vespasian's favourite residence.
+
+@6a7b4aef
+Jardins de Lucul·le
+Gardens of Lucullus
+
+@22767050
+Els jardins del Pincio, el turó dels jardins.
+The gardens of the Pincian, the hill of gardens.
+
+@abe90b20
+Via Lata
+Via Lata
+
+@eca74d27
+Vicus Patricius
+Vicus Patricius
+
+@f7aaf211
+Clivus Suburanus
+Clivus Suburanus
+
+@d1f2b48a
+Vicus Longus
+Vicus Longus
+
+@cd3511bf
+Via Salària
+Via Salaria
+
+@862d3a78
+Via Nomentana
+Via Nomentana
+
+@30a01813
+La muralla serviana
+The Servian Wall
+
+@83862e05
+La muralla que, segons la tradició, va construir el rei Servi Tul·li. Les restes que es veuen són del segle IV aC, aixecades després del saqueig dels gals (390 aC) amb grans carreus de tova groga portada de Veïs: uns 11 quilòmetres de mur, amb un fossat i un terraplè (agger) a la plana de l'Esquilí, on no hi havia defensa natural. Fa segles que Roma no la necessita i l'ha desbordada per tot arreu: les cases s'hi recolzen o la fan servir de pedrera, i les portes s'han quedat dins de la ciutat, com arcs enmig del carrer.
+The wall that, according to tradition, King Servius Tullius built. The remains you see date from the 4th century BC, raised after the Gallic sack (390 BC) with large blocks of yellow tuff brought from Veii: about 11 kilometres of wall, with a ditch and an embankment (agger) on the Esquiline plain, where there was no natural defence. Rome has not needed it for centuries and has spilled over it everywhere: houses lean against it or use it as a quarry, and the gates have ended up inside the city, like arches in the middle of the street.
+
+@9cb4fbd8
+La porta de la muralla serviana per on surt la Via Àpia cap al sud. Per sobre hi passa un ramal de l'aqüeducte de l'Aqua Marcia, que degota sobre els qui creuen: per això n'hi ha que l'anomenen «la porta mullada». Aquí comencen els viatges cap a la Campània i Brindisi, i aquí s'acomiada els qui marxen i es rep els generals que tornen.
+The gate in the Servian Wall through which the Via Appia leaves for the south. A branch of the Aqua Marcia aqueduct passes over it and drips on those walking through: that is why some call it "the wet gate". Journeys to Campania and Brundisium start here, and here people say farewell to those who leave and welcome the generals who return.
+
+@d025349c
+Magatzems de Galba
+Warehouses of Galba
+
+@0e65e1bc
+Magatzems de Lol·li
+Warehouses of Lollius
+
+@e810102d
+Els magatzems de Galba
+The warehouses of Galba
+
+@ae3c8ab3
+Els magatzems més grans de Roma, aixecats per la família dels Sulpicis Galba a finals del segle II aC i ara propietat de l'emperador. Són patis enormes envoltats de centenars de cel·les de dos pisos, amb una sola porta vigilada. Guarden el blat que es reparteix gratis a uns dos-cents mil ciutadans, i també oli, vi i marbre. Al darrere creix un turó artificial amb els trossos de les àmfores d'oli que no es poden reutilitzar.
+The largest warehouses in Rome, built by the family of the Sulpicii Galbae at the end of the 2nd century BC and now the emperor's property. They are huge courtyards surrounded by hundreds of two-storey cells, with a single guarded gate. They store the grain handed out free to some two hundred thousand citizens, as well as oil, wine and marble. Behind them grows an artificial hill made of the pieces of oil amphorae that cannot be reused.
+
+@50d488de
+Un estany d'uns 540 per 360 metres que August va fer excavar el 2 aC per inaugurar el temple de Mart Venjador. S'hi va lliurar una batalla d'espectacle entre «atenencs» i «perses», amb trenta naus amb esperó i uns tres mil combatents, sense comptar els remers. L'envolta un bosc sagrat dedicat als seus néts Gai i Luci. Aquest any, en els jocs d'inauguració de l'amfiteatre, Titus l'ha tornat a omplir de naus: «atenencs» contra «siracusans», amb assalt a l'illa del centre.
+A pool about 540 by 360 metres that Augustus had dug in 2 BC to inaugurate the temple of Mars the Avenger. A staged battle was fought there between "Athenians" and "Persians", with thirty ships with rams and some three thousand fighters, not counting the rowers. It is surrounded by a sacred grove dedicated to his grandsons Gaius and Lucius. This year, in the games inaugurating the amphitheatre, Titus has filled it with ships again: "Athenians" against "Syracusans", with an assault on the island in the middle.
+
+@677e9f1a
+La Casa Daurada
+The Golden House
+
+@e15aac58
+Després de l'incendi del 64, Neró es va construir al centre de Roma un palau immens, amb jardins, vinyes, un llac i pavellons amb sostres d'ivori i sales giratòries; al vestíbul, la seva estàtua colossal. «Per fi visc com un home», va dir en inaugurar-la. Vespasià va retornar el terreny al poble: on hi havia el llac s'aixeca l'amfiteatre, i al costat d'aquesta ala de l'Oppi, les termes de Titus. Les seves sales pintades encara es fan servir. Plini explica que el grup del Laocoont és a la casa de Titus; potser és aquí.
+After the fire of 64, Nero built himself an immense palace in the centre of Rome, with gardens, vineyards, a lake and pavilions with ivory ceilings and revolving rooms; in the vestibule stood his colossal statue. "At last I live like a human being," he said when he moved in. Vespasian gave the land back to the people: where the lake was, the amphitheatre now stands, and next to this Oppian wing, the Baths of Titus. Its painted rooms are still in use. Pliny says the Laocoön group stands in the house of Titus; perhaps it is here.
+
+@c43a44c6
+Les ínsules
+The insulae
+
+@f8f3ec47
+La majoria dels romans viu en ínsules: blocs de pisos de maó i fusta de cinc o sis plantes que ocupen illes senceres, separades per carrerons estrets. A la planta baixa, botigues i tallers que donen al carrer; a dalt, els pisos: com més amunt, més petits, més barats i més perillosos. No tenen aigua corrent ni latrines, i es cuina amb braseres, així que els incendis i els esfondraments són freqüents. August en va limitar l'altura a uns 70 peus (21 m) i va crear els vigiles, bombers i vigilants nocturns. Després de l'incendi del 64, Neró va obligar a eixamplar els carrers, a deixar patis i a posar porxos a les façanes. Els catàlegs del segle IV compten unes 46.600 ínsules i 1.790 domus, tot i que potser compten habitatges i no edificis.
+Most Romans live in insulae: brick and timber apartment blocks of five or six storeys that fill whole city blocks, separated by narrow alleys. On the ground floor, shops and workshops opening onto the street; above, the flats: the higher up, the smaller, cheaper and more dangerous. They have no running water or latrines, and people cook on braziers, so fires and collapses are frequent. Augustus limited their height to about 70 feet (21 m) and created the vigiles, firefighters and night watchmen. After the fire of 64, Nero required wider streets, open courtyards and porticoes along the façades. Fourth-century catalogues count some 46,600 insulae and 1,790 domus, although they may be counting dwellings rather than buildings.
+
+@40588ad3
+Les catorze regions
+The fourteen regions
+
+@6bcef18c
+El 7 aC August va dividir Roma en catorze regions, que desborden la vella muralla, i aquestes en 265 barris (vici), cadascun amb el seu altar dels lars i els seus magistrats. Les regions es numeren; els noms que coneixem, de catàlegs posteriors, surten d'un monument o lloc de cadascuna: Porta Capena (I), Celi (II), Isis i Serapis (III), Temple de la Pau (IV), Esquilí (V), Alta Semita (VI), Via Lata (VII), Fòrum Romà (VIII), Circ Flamini (IX), Palatí (X), Circ Màxim (XI), Piscina Pública (XII), Aventí (XIII) i Transtíber (XIV). Set cohorts de vigiles, cadascuna a càrrec de dues regions, vigilen els incendis.
+In 7 BC Augustus divided Rome into fourteen regions, which spill beyond the old wall, and these into 265 neighbourhoods (vici), each with its altar of the Lares and its own magistrates. The regions are numbered; the names we know, from later catalogues, come from a monument or place in each one: Porta Capena (I), Caelian (II), Isis and Serapis (III), Temple of Peace (IV), Esquiline (V), Alta Semita (VI), Via Lata (VII), Roman Forum (VIII), Circus Flaminius (IX), Palatine (X), Circus Maximus (XI), Public Pool (XII), Aventine (XIII) and Across the Tiber (XIV). Seven cohorts of vigiles, each in charge of two regions, keep watch for fires.
