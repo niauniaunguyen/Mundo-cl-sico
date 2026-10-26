@@ -3408,6 +3408,7 @@ function renderOpts(extra){
   if(n.aiChat&&AI.sample)add('Discutir libremente con Platón (diálogo con IA)','quiz',()=>aiChat(n));
   if(n.latinBrowser)add('Explícame un latinismo (tengo '+LATIN.length+' en mis tablillas)','quiz',()=>latinMenu());
   if(n.mythBrowser)add('Cuéntame un mito (tengo '+MYTHS.length+' en mis rollos)','quiz',()=>mythMenu());
+  if(n.wedding)add(state.seen.boda?'Volver a ver la boda de Valeria y Quinto':'Asistir a la boda de Valeria y Quinto (catorce escenas)','quiz',()=>epiStart(ROMA_BODA));
   if(n.event)add(state.lessons.includes(n.event)?'Quiero volver a hacer de jurado':'Quiero ser jurado hoy: llévame a un juicio','quiz',startTrial);
   if(!learned)add(seen.length?'Ponme a prueba: ¿lo he entendido?':'Ponme a prueba (mejor después de escuchar)','quiz',startQuiz);
   add('Despedirse','',closeDialog);
@@ -4586,7 +4587,17 @@ const ROMA_DEST_NPCS=[
   ['¿Qué es la salutatio?','Cada mañana, al amanecer, los clientes de mi amo hacen cola en la calle, con la toga puesta, para saludarlo aquí, en el atrio. Él los recibe por orden de importancia, escucha sus peticiones y les da la sportula, unas monedas o comida. A cambio, ellos lo acompañan al Foro y lo aplauden cuando habla. Cuantos más clientes, más importante parece el patrono. Marcial se queja en sus epigramas de lo humillante que es.'],
   ['¿Quién vive en esta casa?','La familia, en sentido romano: el dueño, que es el paterfamilias y manda sobre todos; su esposa, sus hijos y la madre viuda del dueño; y unos treinta esclavos: cocineros, porteros, peluqueras, un secretario griego, el maestro de los niños, la nodriza. Y algunos libertos, que siguen viviendo y trabajando aquí. Los pisos de arriba y las tiendas los alquilamos a otras familias.'],
   ['¿Todos los romanos viven así?','¡Qué va! En Roma hay unas dos mil domus y más de cuarenta mil bloques de pisos, las ínsulas. La mayoría de la gente vive de alquiler, en una o dos habitaciones, sin cocina ni agua, con miedo a los incendios y a los derrumbes. Los poetas se quejan de que en Roma se duerme mal y se paga caro. Esta casa es un lujo de muy pocos.']],
- quiz:{q:'¿Cómo se llamaba el estanque del atrio que recogía el agua de lluvia?',a:['El impluvio','El peristilo','El triclinio'],ko:'No. El impluvio es el estanque del atrio; el compluvio, la abertura del tejado por la que entra la lluvia.'}}
+ quiz:{q:'¿Cómo se llamaba el estanque del atrio que recogía el agua de lluvia?',a:['El impluvio','El peristilo','El triclinio'],ko:'No. El impluvio es el estanque del atrio; el compluvio, la abertura del tejado por la que entra la lluvia.'}},
+{id:'pomponia',name:'Pomponia',title:'Pronuba de la boda',glyph:'P',look:{female:true,chiton:'#efe6d5',himation:'#8a3f5e',veil:true,hair:'#5b4532'},wedding:true,
+ cat:'Sociedad',lesson:'La boda romana',where:'A la puerta de la casa de los Valerios, en el Celio',
+ summary:'El matrimonio romano era un acuerdo privado: bastaba la voluntad de los dos de vivir como marido y mujer y el consentimiento de los padres. En el siglo I casi todos eran sine manu: la esposa seguía bajo la autoridad de su padre y conservaba sus bienes, y la dote volvía a su familia si había divorcio, que era fácil. La boda tenía ritos muy conocidos: el peinado de seis trenzas y el velo color llama (flammeum), los auspicios, el contrato de la dote, la unión de las manos derechas ante la pronuba, el banquete, el cortejo nocturno a casa del novio con antorchas, nueces y versos fesceninos, y la entrada en la nueva casa: untar las jambas, cruzar el umbral en brazos y recibir el agua y el fuego.',
+ intro:'Salve. Soy Pomponia, y en esta boda soy la pronuba, la matrona que acompaña a la novia. Mañana se casa Valeria, la hija de Marco Valerio, con Quinto, el hijo de Lucio Cecilio Rufo, el de la casa grande de esta misma calle. ¿Quieres venir? Lo verás todo, desde la víspera hasta el día siguiente.',
+ topics:[
+  ['¿Qué hace una pronuba?','Una pronuba es una matrona que solo se ha casado una vez y cuyo marido vive: es un honor y un buen augurio. Uno las manos derechas de los novios, acompaño a la novia a su nueva casa y la llevo hasta el dormitorio. Llevo treinta años casada con el mismo hombre, ¡imagínate!'],
+  ['¿Cómo se acuerda una boda?','Primero, los esponsales: los padres prometen a los hijos, a veces cuando aún son niños, y el novio da a la novia un anillo, que ella lleva en el dedo anular de la mano izquierda; dicen que de ese dedo sale un nervio que va directo al corazón. Las chicas pueden casarse desde los doce años y los chicos desde los catorce, pero en las buenas familias lo normal es que ella tenga quince o dieciocho y él unos veinticinco.'],
+  ['¿Qué día se casa uno?','No uno cualquiera. Hay que evitar las calendas, las nonas, los idus y el día siguiente a cada uno, todo el mes de mayo —«en mayo se casan las malas», dice el refrán— y la primera mitad de junio, mientras se limpia el templo de Vesta. Después del 15 de junio, en cambio, es muy buen momento. Las viudas prefieren los días de fiesta, cuando hay poca gente.'],
+  ['¿Y si el matrimonio sale mal?','Se divorcian, y no es ningún escándalo: basta con que uno de los dos se lo comunique al otro con la fórmula «quédate con tus cosas». El marido devuelve la dote y los hijos se quedan con el padre. Lo que sí está mal visto es no casarse: Augusto castiga con sus leyes a los solteros y a los que no tienen hijos.']],
+ quiz:{q:'¿Qué hacía la pronuba en una boda romana?',a:['Unía las manos derechas de los novios','Leía las entrañas de la víctima','Llevaba la antorcha del cortejo'],ko:'No. Eso lo hacían el auspex y uno de los niños del cortejo. La pronuba, una matrona casada una sola vez, unía las manos derechas de los novios.'}}
 ];
 const ROMA_DEST_SRC={
  numerio:{a:['Plinio el Joven, Cartas VI 16 y VI 20','Suetonio, Tito 8.3-4','Dion Casio LXVI 21-24','Tácito, Anales XIV 17 (la riña del 59) y XV 22 (el terremoto del 62)'],m:['M. Beard, Pompeya (2009)','G. Stefani (ed.), I giorni di Pompei (2019)'],n:['Numerio es inventado. Las cartas de Plinio se escribirán hacia el 106.']},
@@ -4604,6 +4615,7 @@ const ROMA_DEST_SRC={
  pedania:{a:['Plinio el Viejo, Historia natural XIV 71','Marcial I 26','Digesto L 15.8 (la inmunidad de Barcino)'],m:['V. Revilla, Producción cerámica, viticultura y propiedad rural en Hispania Tarraconensis (1995)'],n:['Pedania es inventada.']},
  dionisia:{a:['Estrabón III 4.8','Livio XXI 60 y XXXIV 9'],m:['P. Cabrera y C. Sánchez (eds.), Los griegos en España (2000)'],n:['Dionisia es inventada.']},
  atilio:{a:['César, La guerra civil I 37-87','Polibio X 18 y Livio XXVIII 24-34 (Indíbil y Mandonio)','Horacio, Epístolas I 20.13'],m:['A. Goldsworthy, César (2006)'],n:['Atilio es inventado.']},
+ pomponia:{a:['Catulo, Poemas 61 y 62','Plutarco, Cuestiones romanas 29-31 y 87; Rómulo 15','Festo, s. v. flammeum, hasta caelibaris, cingulum, patrimi, rapi, aqua et igni','Varrón, citado por Nonio (los tres ases)','Plinio el Viejo, Historia natural VIII 194, XVI 75 y XXVIII 135','Ovidio, Fastos V 487-490 y VI 219-234','Gelio II 24 y X 10','Cicerón, Sobre la adivinación I 28'],m:['S. Treggiari, Roman Marriage (1991)','K. K. Hersch, The Roman Wedding: Ritual and Meaning in Antiquity (2010)'],n:['Pomponia, los Valerios y los Cecilios son inventados. Ninguna fuente describe una boda entera: la secuencia se reconstruye con autores de épocas distintas, y cada familia la celebraba a su manera.']},
  filero:{a:['Vitruvio, Sobre la arquitectura VI 3-7','Marcial III 7 y IV 8 (la salutatio)','Polibio VI 53 (las imágenes de los antepasados)','Juvenal, Sátiras III (la vida en las ínsulas)'],m:['A. Wallace-Hadrill, Houses and Society in Pompeii and Herculaneum (1994)','P. Allison, Pompeian Households (2004)'],n:['Filero y su amo son inventados. La casa sigue el modelo de las domus de Pompeya y Herculano, de las que se conservan muchas más que de Roma. Las cifras de domus e ínsulas de Roma vienen de los Regionarios del siglo IV.']},
  himilcon:{a:['Apiano, Libia 74-135','Polibio XXXVIII 19-22','Plutarco, Catón el Viejo 26-27','Flavio Josefo, La guerra de los judíos II 383','Estrabón XVII 3.14-15'],m:['S. Lancel, Carthage (1995)','R. Miles, Carthage Must Be Destroyed (2010)'],n:['Himilcón es inventado.','Sobre la sal: R. T. Ridley, «To Be Taken with a Pinch of Salt: The Destruction of Carthage», Classical Philology 81 (1986).']},
  tito_cornelio:{a:['Dion Casio LIII 26 y LV 23','Higino Gromático, en el Corpus agrimensorum'],m:['J. M. Álvarez Martínez, Augusta Emerita (varios)','L. Keppie, The Making of the Roman Army (1984)'],n:['Tito Cornelio es inventado.']}
@@ -4816,7 +4828,8 @@ const RFLATS=[
  [40,355,320,78,1.0,0.12],     // Circo Máximo
  [480,-128,78,62,8,0.32],      // terraza de las Termas de Tito
  [-430,120,90,70,1.2,0.4],     // Foro Boario y Velabro
- [600,359,16,34,31.6,0.3]      // la domus visitable del Celio
+ [600,359,16,34,31.6,0.3],     // la domus visitable del Celio
+ [470,359,16,34,31.6,0.3]      // la casa de la novia de la boda
 ];
 function romaH(x,z){
   let h=1.8+(fbm(x*0.006,z*0.006)-0.45)*5;
@@ -5112,9 +5125,19 @@ function domusFloor(x0,z0,x1,z1,kind,rep){const D=DOMUS,t=domusFloorTex(kind);t.
 function domusRoof(x0,z0,x1,z1,y,tx,tz){const D=DOMUS,m=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,0.3,z1-z0),[lam('#b0563a'),lam('#b0563a'),lam('#b0563a'),lam('#5a4330'),lam('#b0563a'),lam('#b0563a')]);
   m.position.set(D.x+(x0+x1)/2,D.y+y,D.z+(z0+z1)/2);m.rotation.set(tx||0,0,tz||0);m.castShadow=true;scene.add(m);}
 function domusBox(w,h,d,col,x,y,z,ry){const D=DOMUS,b=box(w,h,d,typeof col==='string'?lam(col):col,D.x+x,D.y+y,D.z+z);if(ry)b.rotation.y=ry;return b;}
-function buildDomus(){
+// la casa de la novia de la boda romana: la misma planta, en la misma calle, con otras pinturas; y la calle libre entre las dos casas para el cortejo
+const DOMUS_NOVIA={x:470,z:360};
+function buildDomusNovia(){
+  const keep={x:DOMUS.x,z:DOMUS.z},P=Object.assign({},DOMUS_PAINT);
+  Object.assign(DOMUS,DOMUS_NOVIA);Object.assign(DOMUS_PAINT,{rojo:P.amarillo,amarillo:P.rojo,negro:['#2f3d33','#1e2a22','#e9dcc0']});
+  buildDomus(true);
+  Object.assign(DOMUS,keep);Object.assign(DOMUS_PAINT,P);
+  footprints.push({x:(DOMUS.x+DOMUS_NOVIA.x)/2,z:DOMUS.z+38,w:DOMUS.x-DOMUS_NOVIA.x+40,d:12,a:0,reserve:true});
+  NPC_POS.pomponia=[DOMUS_NOVIA.x+3.6,DOMUS.z+34,0];
+}
+function buildDomus(copy){
   const D=DOMUS,W=(x,z)=>[D.x+x,D.z+z];
-  footprints.push({x:D.x,z:D.z-1,w:28,d:64,a:0,c:'#cdb994',name:'Domus del Celio',reserve:true});
+  footprints.push({x:D.x,z:D.z-1,w:28,d:64,a:0,c:'#cdb994',name:copy?'Casa de los Valerios':'Domus del Celio',reserve:true});
   // suelos
   domusFloor(-1.5,23,1.5,31,'cave');domusFloor(-8,5,8,23,'bn',2);domusFloor(-5,-5,5,5,'bn',1.5);domusFloor(-8,-5,-5,5,'bn',2);domusFloor(-14,5,-8,23,'signinum',2);domusFloor(8,5,14,23,'signinum',2);
   domusFloor(-14,-5,-8,5,'signinum',2);domusFloor(5,-5,14,5,'bn',2);domusFloor(-14,-25,14,-5,'signinum',2.5);domusFloor(-7,-33,7,-25,'emblema');domusFloor(-14,-33,-7,-25,'bn',2);domusFloor(7,-33,14,-25,'tierra',3);
@@ -5179,6 +5202,7 @@ function buildDomus(){
   domusRoof(-14.2,5,-8,23,H+0.2,0,0.05);domusRoof(8,5,14.2,23,H+0.2,0,-0.05);domusRoof(-14.2,-5,14.2,5,H+0.2,0,0);
   domusRoof(-14.2,-9.5,14.2,-4.8,(H+4.3)/2,-0.35,0);domusRoof(-14.2,-25.2,14.2,-20.5,(H+4.3)/2,0.35,0);domusRoof(-14.2,-20.5,-9.5,-9.5,(H+4.3)/2,0,-0.35);domusRoof(9.5,-20.5,14.2,-9.5,(H+4.3)/2,0,0.35);
   domusRoof(-14.2,-33.6,14.2,-25,H+0.3,0.05,0);
+  if(copy)return;
   // estelas
   const S=(id,n,l,t,x,z,r)=>{const[x2,z2]=W(x,z);place(id,n,l,t,x2,z2,r||0);};
   S('domus_fauces','Las fauces: «Cuidado con el perro»','FAVCES','Por este pasillo estrecho, las fauces, se entra desde la calle. A un lado, en su cuartito, vive el portero (ostiarius), a menudo encadenado a la puerta, con un perro. En el suelo, un mosaico avisa: CAVE CANEM, «cuidado con el perro». En Pompeya hay uno igual en la casa del Poeta Trágico. A los lados de la entrada, la casa alquila dos tiendas (tabernae) que dan a la calle.',2.4,27,Math.PI/2);
@@ -5195,7 +5219,7 @@ function buildDomus(){
   S('domus_cenacula','Escalera y tabernas','CENACVLA','La escalera sube a los pisos de arriba, los cenacula, que el dueño alquila con entrada propia. Las dos tiendas de la fachada también se alquilan: una taberna de vino y comida caliente y un taller. Las casas de los ricos están rodeadas de negocios y de vecinos pobres: en Roma, ricos y pobres viven pared con pared.',3.4,22.4,Math.PI);
   NPC_POS.filero=[D.x-4.6,D.z+16,Math.PI/2];
   // la cola de clientes de la salutatio, en la calle
-  for(let i=0;i<5;i++){const c=makePerson({chiton:'#efe9dc',toga:true,himation:'#f3eee2',hair:pick(['#2b1f17','#5b4532','#8d8a85']),beard:R()<0.4});const px=D.x+1+(i%2?1:-1)*0.6,pz=D.z+33+i*1.3;c.position.set(px,terrainH(px,pz),pz);c.rotation.y=Math.PI;scene.add(c);addCirc(px,pz,0.35);}
+  for(let i=0;i<5;i++){const c=makePerson({chiton:'#efe9dc',toga:true,himation:'#f3eee2',hair:pick(['#2b1f17','#5b4532','#8d8a85']),beard:R()<0.4});const px=D.x+1+(i%2?1:-1)*0.6,pz=D.z+33+i*1.3;c.position.set(px,terrainH(px,pz),pz);c.rotation.y=Math.PI;scene.add(c);addCirc(px,pz,0.35);(ROMA.clients=ROMA.clients||[]).push(c);}
 }
 
 // ------------------------------------------------------------ ROMA: relieve de los destinos
@@ -5763,7 +5787,8 @@ function romaOutskirts(){
   // templo del Divino Claudio en el Celio y domus del patrono
   romanTemple({x:420,z:262,rot:-Math.PI/2,W:22,L:34,pod:3,gy:romaH(420,262)-0.2,colD:1.2,colH:11,nW:6,deep:2,peri:true,name:'Templo del Divino Claudio'});
   // la domus visitable del Celio, con su cola de clientes
-  buildDomus();
+  buildDomus();buildDomusNovia();
+  ROMA.bodaLight=new THREE.PointLight('#ffb070',0,34,1);scene.add(ROMA.bodaLight);   // lámparas de la boda (siempre en la escena, para no recompilar materiales)
   // campiña: campos, viñas, olivares y pinos
   const tr=buildCountryside(-1550,1300,-1500,1300,{grove:'olive'});
   for(let i=0;i<420;i++){const x=rr(-1550,1300),z=rr(-1500,1300);if(romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+18||roadDist(x,z)<5||fieldAt(x,z))continue;tr.push({x,z,kind:R()<0.55?'pine':(R()<0.5?'cypress':'olive')});}
@@ -7511,7 +7536,7 @@ function openSphere(s){
 }
 // ------------------------------------------------------------ escenario
 function stageKit(E){
-  const ox=player.x,oz=player.z,oy=3000,g=grp(ox,oy,oz,0);
+  const o=E.origin?E.origin():[player.x,3000,player.z],ox=o[0],oy=o[1],oz=o[2],g=grp(ox,oy,oz,0);   // origin: escenas en el mundo real (la boda romana)
   const S={ox,oy,oz,g,a:{},
     ground(col,r){const m=new THREE.Mesh(new THREE.CircleGeometry(r||900,48),lam(col||'#7d8a52'));m.rotation.x=-Math.PI/2;m.receiveShadow=true;g.add(m);return m;},
     hill(x,z,r,h,col){const m=new THREE.Mesh(new THREE.SphereGeometry(1,24,12,0,TAU,0,Math.PI/2),lam(col||'#7b8a4e'));m.scale.set(r,h,r*0.8);m.position.set(x,0,z);m.receiveShadow=true;m.castShadow=true;g.add(m);return m;},
@@ -7547,17 +7572,18 @@ function sfxThunder(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime+0.15;cons
 function epiStart(E){
   closeDialog();ui='voyage';releasePointer();if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}
   if(E.walk)return E.walk();
-  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent='Tocas la esfera…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent=E.hist?'Un sueño de algo que pasó de verdad, tal como lo cuentan las fuentes antiguas.':'Un sueño de lo que contaban los antiguos: no es historia, sino mito.';
+  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent=E.vt||'Tocas la esfera…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent=E.vf?E.vf:E.hist?'Un sueño de algo que pasó de verdad, tal como lo cuentan las fuentes antiguas.':'Un sueño de lo que contaban los antiguos: no es historia, sino mito.';
   v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
   setTimeout(()=>{EPI.ret={x:player.x,z:player.z,yaw:player.yaw,feet:player.feet};EPI.saveH=clock.h;
-    const S=stageKit(E);EPI.S=S;EPI.cur=E;E.build(S);EPI.beat=-1;EPI.snap=true;$('hud').hidden=true;$('epi').hidden=false;ui='episode';epiBeat(0);
+    const S=stageKit(E);EPI.S=S;EPI.cur=E;if(E.onStart)E.onStart();E.build(S);EPI.beat=-1;EPI.snap=true;$('hud').hidden=true;$('epi').hidden=false;ui='episode';epiBeat(0);
     v.classList.remove('show');setTimeout(()=>{v.hidden=true;},700);},1800);
 }
 function epiBeat(i){const E=EPI.cur;if(!E)return;if(i<0)return;if(i>=E.beats.length)return epiEnd(true);
   const prev=EPI.beat;EPI.beat=i;EPI.t=0;const B=E.beats[i];if(B.cut||prev<0)EPI.snap=true;if(B.enter)B.enter(EPI.S);
   clock.h=B.h!==undefined?B.h:E.h;updateSky();
+  $('epiExit').innerHTML=E.exitLabel||'Despertar · Esc';
   $('epiT').textContent=E.name;$('epiN').textContent=(i+1)+' / '+E.beats.length;$('epiX').innerHTML=B.txt;
-  $('epiNext').innerHTML=i===E.beats.length-1?'Despertar · E':'Seguir · E';$('epiPrev').disabled=i===0;
+  $('epiNext').innerHTML=i===E.beats.length-1?(E.endLabel||'Despertar · E'):'Seguir · E';$('epiPrev').disabled=i===0;
 }
 function epiTick(dt,t){
   const E=EPI.cur,S=EPI.S;if(!E||!S)return;const B=E.beats[EPI.beat];EPI.t+=dt;
@@ -7574,14 +7600,14 @@ function epiTick(dt,t){
 const _v3a=new THREE.Vector3();
 function epiEnd(complete){
   const E=EPI.cur,S=EPI.S;if(!E)return;EPI.cur=null;EPI.S=null;
-  scene.remove(S.g);
+  scene.remove(S.g);if(E.onEnd)E.onEnd();
   $('epi').hidden=true;ui='voyage';STARS.visible=true;
-  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent='Despiertas…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent='';v.hidden=false;v.classList.add('show');
+  const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent=E.vtEnd||'Despiertas…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent='';v.hidden=false;v.classList.add('show');
   const R=EPI.ret;player.x=R.x;player.z=R.z;player.yaw=R.yaw;player.feet=floorAt(R.x,R.z);player.camY=player.feet+player.eye;player.pitch=0;clock.h=(EPI.saveH+0.25)%24;updateSky();
   setTimeout(()=>{v.classList.remove('show');setTimeout(()=>{v.hidden=true;$('hud').hidden=false;ui='play';
     if(complete)epiReward(E);},700);},1100);
 }
-function epiReward(E){if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2;save();updateStats();sfxCoin();
+function epiReward(E){if(E.reward)return E.reward();if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2;save();updateStats();sfxCoin();
   const s=EPI.spheres.find(q=>q.data===E);if(s)s.core.material.color.set(0x9fb0c8);
   const n=EPISODES.filter(e=>e.mode===MODE).length,d=EPISODES.filter(e=>e.mode===MODE&&epiDone(e)).length;
   toast('<span class="label">'+(E.hist?'Momento histórico revivido':'Momento mítico revivido')+'</span><br>'+E.name+' · +2'+(MODE==='roma'?' sestercios':' óbolos')+' · '+d+' / '+n);}
@@ -7609,6 +7635,164 @@ function armUp(p,l,r){const a=p.userData.arms;if(!a)return;p.userData.pose=1;if(
 function fall(p,k){p.rotation.x=-Math.PI/2*sstep(clamp(k,0,1));p.position.y=0.25*sstep(clamp(k,0,1));}
 function olive(S,x,z,s){if(GLB.ok){const o=glbPart('T_olive');if(o){const g=new THREE.Group();g.add(o);g.position.set(x,0,z);g.scale.setScalar(s||1);S.g.add(g);return g;}}return S.tree(x,z,s||1,'#7d8a62');}
 const ROM={chiton:'#e6dccb',himation:'#9a3f2f',hair:'#3b2a1e',short:true,noHimation:true};
+// ------------------------------------------------------------ la boda romana: escenas en la Roma real
+// Se celebra en las dos domus del Celio: la casa de la novia (DOMUS_NOVIA, x local = BX) y la del novio (la domus visitable, origen de la escena).
+// Usa el motor de las esferas (stageKit, epiBeat, epiTick) con origen en el mundo y con los personajes del mundo ocultos mientras dura.
+const BODA_BX=DOMUS_NOVIA.x-DOMUS.x,BODA_HIDE=['filero','pomponia','cliente'];
+const ROMA_BODA={id:'boda',mode:'roma',name:'La boda de Valeria y Quinto',h:10,
+ origin:()=>[DOMUS.x,DOMUS.y,DOMUS.z],
+ vt:'Pomponia te lleva a casa de los Valerios…',vf:'Una boda reconstruida con lo que cuentan las fuentes antiguas. Cada familia la celebraba a su manera.',vtEnd:'Termina la boda',endLabel:'Terminar · E',exitLabel:'Salir · Esc',
+ onStart(){for(const o of npcObjs)if(BODA_HIDE.includes(o.data.id)){o.hidden=true;o.g.visible=false;}for(const c of ROMA.clients||[])c.visible=false;
+   this.signs=signObjs.filter(s=>Math.abs(s.x-(DOMUS.x+DOMUS_NOVIA.x)/2)<100&&Math.abs(s.z-DOMUS.z)<45&&s.g.visible);for(const s of this.signs)s.g.visible=false;},
+ onEnd(){ROMA.bodaLight.intensity=0;for(const o of npcObjs)if(BODA_HIDE.includes(o.data.id))o.hidden=false;for(const c of ROMA.clients||[])c.visible=true;for(const s of this.signs||[])s.g.visible=true;},
+ reward(){const first=!state.seen.boda;state.seen.boda=1;if(first){state.obols+=3;save();updateStats();sfxCoin();}
+   toast('<span class="label">Boda romana</span><br>Has asistido a la boda de principio a fin'+(first?' · +3 sestercios':'')+'.');},
+ build(S){
+  const B=BODA_BX,A=S.a,T=TOGA_LOOK,P=(k,o)=>{const p=S.person(o,0,0,0);p.visible=false;A[k]=p;return p;};
+  P('nina',{female:true,chiton:'#f3eee2',himation:'#efe9dc',hair:'#4a3020'});
+  {const n=P('novia',{female:true,chiton:'#f3eee2',himation:'#f3eee2',veil:'#e0642a',hair:'#4a3020'});
+   const cr=new THREE.Mesh(new THREE.TorusGeometry(0.13,0.035,6,16),lam('#6f8a3a'));cr.rotation.x=Math.PI/2;cr.position.y=1.86;n.add(cr);
+   for(let i=0;i<6;i++){const f=new THREE.Mesh(new THREE.SphereGeometry(0.03,6,4),lam(i%2?'#e8c23a':'#f3eee2'));f.position.set(Math.cos(i)*0.13,1.88,Math.sin(i)*0.13);n.add(f);}}
+  P('matrona',{female:true,chiton:'#efe6d5',himation:'#3f5a7a',veil:true,hair:'#4a3020'});
+  P('novio',Object.assign({},T,{hair:'#2b1f17'}));
+  P('padre',Object.assign({},T,{hair:'#8d8a85'}));P('madre',{female:true,chiton:'#e8dfcc',himation:'#6a4d7a',veil:true,hair:'#3b2a1e'});
+  P('suegro',Object.assign({},T,{hair:'#9a968e'}));P('suegra',{female:true,chiton:'#efe6d5',himation:'#4f6a7d',veil:true,hair:'#5b4532'});
+  P('pronuba',{female:true,chiton:'#efe6d5',himation:'#8a3f5e',veil:true,hair:'#5b4532'});
+  P('auspex',Object.assign({},T,{veil:'#f3eee2',hair:'#8d8a85'}));
+  P('victimario',{short:true,noHimation:true,chiton:'#c9b48b',hair:'#2b1f17'});
+  P('ornatrix',{female:true,chiton:'#c9b48b',himation:'#a89070',hair:'#2b1f17'});
+  for(let i=1;i<=3;i++)P('nino'+i,{short:true,noHimation:true,chiton:'#f3eee2',hair:pick(['#3b2a1e','#5b4532']),scale:0.64});
+  torchSprite(A.nino1,1.9);
+  for(let i=1;i<=2;i++){const t=P('tib'+i,{short:true,noHimation:true,chiton:i===1?'#a8392b':'#7a5a3a',hair:'#2b1f17'});for(const s of[-1,1]){const f=new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.02,0.5,5),lam('#d8c9a3'));f.position.set(s*0.07,1.38,0.3);f.rotation.x=1.15;f.rotation.z=-s*0.15;t.add(f);}}
+  {const e=P('esc1',{short:true,noHimation:true,chiton:'#a89070',hair:'#3e2c1f'});const c=new THREE.Mesh(new THREE.CylinderGeometry(0.02,0.02,1.1,5),M.wood);c.position.set(0.38,1.35,0.15);e.add(c);const w=new THREE.Mesh(new THREE.SphereGeometry(0.11,8,6),lam('#efe9dc'));w.position.set(0.38,1.9,0.15);e.add(w);}
+  {const e=P('esc2',{short:true,noHimation:true,chiton:'#a89070',hair:'#5b4532'});const c=new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,0.4,5),M.wood);c.position.set(0.38,1.05,0.2);e.add(c);const w=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,0.03,10),lam('#8a6a4a'));w.position.set(0.38,0.9,0.2);e.add(w);}
+  for(let i=1;i<=8;i++){const t=P('t'+i,Object.assign({},T,{hair:pick(['#2b1f17','#5b4532','#8d8a85','#3e2c1f'])}));if(i%3===0)torchSprite(t,2.1);}
+  for(let i=1;i<=4;i++){const g=P('g'+i,{female:true,chiton:pick(['#efe6d5','#e9dcc4','#d8c9a8']),himation:pick(['#8a3f5e','#4f6a7d','#6a4d7a','#a07a3a']),veil:i%2===0,hair:pick(['#2b1f17','#5b4532','#3b2a1e'])});if(i===2)torchSprite(g,2.1);}
+  for(let i=1;i<=3;i++)P('k'+i,{short:true,noHimation:true,chiton:pick(['#d7c9ab','#c9b48b','#a89070']),hair:'#3b2a1e',scale:0.56});
+  // objetos de la escena
+  const O=S.obj={};
+  {const g=new THREE.Group();g.position.set(B+7,0,21.55);S.g.add(g);   // muñecas y toga de niña en el larario de la casa de la novia
+   for(const s of[-1,1]){const d=makePerson({female:true,chiton:s<0?'#d9a43a':'#a8392b',himation:'#efe6d5',hair:'#3b2a1e',scale:0.17,noVary:true});d.position.set(s*0.55,1.2,0);g.add(d);}
+   box(0.5,0.08,0.34,lam('#f3eee2'),0,1.24,0.05,g);box(0.5,0.085,0.06,lam('#6a2a5a'),0,1.245,0.2,g);}
+  O.lampN=fireSprite(S,B+7,1.45,21.3,0.35);O.lampG=fireSprite(S,7,1.45,21.3,0.35);
+  {const g=new THREE.Group();g.position.set(B,0,7.3);S.g.add(g);box(0.7,0.95,0.7,TRAV,0,0.47,0,g);O.altar=g;O.altarF=fireSprite(S,B,1.25,7.3,0.7);}
+  O.sheep=sheep(S.g,B+1.3,6.4);
+  O.tabs=new THREE.Group();O.tabs.position.set(B,0.92,0.1);S.g.add(O.tabs);for(let i=0;i<3;i++){box(0.3,0.04,0.22,lam(i?'#8a6a4a':'#c9a24a'),-0.4+i*0.4,0,0,O.tabs);}
+  O.hasta=new THREE.Group();S.g.add(O.hasta);{const s=new THREE.Mesh(new THREE.CylinderGeometry(0.008,0.008,0.28,5),M.bronze);O.hasta.add(s);const c=new THREE.Mesh(new THREE.ConeGeometry(0.02,0.06,5),M.bronze);c.position.y=0.17;O.hasta.add(c);}
+  O.cake=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.3,0.12,16),lam('#a8743a'));O.cake.position.set(B,0.76,-29);S.g.add(O.cake);
+  {const g=new THREE.Group();g.position.set(-65,0,42.4);S.g.add(g);box(1.6,1.1,1.1,TRAV,0,0.55,0,g);box(1.3,1.3,0.9,lam('#a8392b'),0,1.75,0,g);box(1.6,0.12,1.2,M.tile,0,2.45,0,g);O.comp=g;}   // altar de los lares de la encrucijada
+  O.vittae=new THREE.Group();S.g.add(O.vittae);for(const s of[-1,1])for(let i=0;i<4;i++)box(0.12,0.07,0.5,lam('#f3eee2'),s*1.5,0.9+i*0.35,31.3,O.vittae);
+  box(3.6,0.28,0.3,lam('#5f7a3a'),0,3.95,31.4,O.vittae);for(let i=0;i<7;i++){const f=new THREE.Mesh(new THREE.SphereGeometry(0.07,6,4),lam(i%2?'#c94a3a':'#e8c23a'));f.position.set(-1.5+i*0.5,3.85,31.55);O.vittae.add(f);}
+  {const g=new THREE.Group();g.position.set(0,0,6.3);S.g.add(g);box(2.3,0.55,1.15,lam('#5a3d26'),0,0.28,0,g);box(2.2,0.22,1.05,lam('#a8392b'),0,0.66,0,g);box(0.5,0.15,0.9,lam('#e9dcc0'),-0.85,0.84,0,g);O.lectus=g;}   // lecho genial, frente a la puerta
+  {const g=new THREE.Group();g.position.set(-0.9,0,20.3);S.g.add(g);for(let i=0;i<3;i++){const l=box(0.04,0.9,0.04,BRONZE2,Math.cos(i*2.1)*0.18,0.45,Math.sin(i*2.1)*0.18,g);}const bw=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.18,0.15,12),BRONZE2);bw.position.y=0.95;g.add(bw);O.brasero=g;O.fuego=fireSprite(S,-0.9,1.2,20.3,0.6);}
+  {const g=new THREE.Group();g.position.set(0.9,0,20.3);S.g.add(g);box(0.4,0.85,0.4,M.marble,0,0.42,0,g);const bw=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.2,0.14,14),BRONZE2);bw.position.y=0.92;g.add(bw);const w=new THREE.Mesh(new THREE.CircleGeometry(0.25,14),new THREE.MeshPhongMaterial({color:'#4f8fa8',shininess:90}));w.rotation.x=-Math.PI/2;w.position.y=0.995;g.add(w);O.agua=g;}
+  O.light=ROMA.bodaLight;O.ox=S.ox;O.oy=S.oy;O.oz=S.oz;
+  O.nuts=[];for(let i=0;i<24;i++){const n=new THREE.Mesh(new THREE.SphereGeometry(0.05,6,4),lam('#7a5a3a'));n.visible=false;S.g.add(n);O.nuts.push({m:n,t:-1});}
+ },
+ upd(t,dt,S){   // cada personaje visible pisa el suelo (salvo los recostados); las antorchas parpadean
+  for(const k in S.a){const o=S.a[k];if(!o.visible||o.userData.fixY)continue;o.position.y=floorAt(S.ox+o.position.x,S.oz+o.position.z)-S.oy;}
+  if(S.obj)for(const f of[S.obj.altarF,S.obj.fuego,S.obj.lampN,S.obj.lampG]){if(f.visible){const q=1+Math.sin(t*12+f.id)*0.12;f.scale.set(f.userData.s*q,f.userData.s*1.3*q,1);}}},
+ beats:[]};
+const TOGA_LOOK={toga:true,chiton:'#efe9dc',himation:'#f3eee2'};
+// coloca a los personajes de una escena (los demás, ocultos) y los objetos que se ven en ella
+function bodaLay(S,spec,objs,lt){
+  for(const k in S.a){const o=S.a[k];o.visible=false;o.userData.fixY=false;o.rotation.set(0,0,0);o.rotation.order='XYZ';const ar=o.userData.arms;if(ar){ar[0].rotation.set(0,0,0);ar[1].rotation.set(0,0,0);}o.userData.pose=0;}
+  for(const k in spec){const[x,z,r]=spec[k],o=S.a[k];o.visible=true;o.position.set(x,0,z);o.rotation.y=r||0;}
+  const O=S.obj;for(const k of['lampN','lampG','altar','altarF','sheep','tabs','hasta','cake','vittae','lectus','brasero','fuego','agua'])O[k].visible=!!(objs&&objs.includes(k));
+  if(O.lampN.userData.s===undefined)for(const k of['lampN','lampG','altarF','fuego'])O[k].userData.s=O[k].scale.x;
+  for(const n of O.nuts){n.m.visible=false;n.t=-1;}
+  if(lt){O.light.position.set(O.ox+lt[0],O.oy+lt[1],O.oz+lt[2]);O.light.intensity=lt[3];}else O.light.intensity=0;
+}
+const faceTo=(x,z,tx,tz)=>Math.atan2(tx-x,tz-z);
+// recostado en un lecho: de lado, apoyado en el codo, mirando en la dirección a
+function bodaRecline(S,k,x,z,a){const o=S.a[k];o.visible=true;o.rotation.order='YXZ';o.rotation.set(0,a,1.28);o.position.set(x,1.02,z);o.userData.fixY=true;const ar=o.userData.arms;if(ar)ar[1].rotation.x=-0.9;}
+// el cortejo: recorrido desde la puerta de la novia hasta la del novio
+const BODA_RUTA=[[BODA_BX,29.5],[BODA_BX,37.5],[0,37.5],[0,33]];
+function bodaAt(s){let i=0;for(;i<BODA_RUTA.length-1;i++){const a=BODA_RUTA[i],b=BODA_RUTA[i+1],l=Math.hypot(b[0]-a[0],b[1]-a[1]);if(s<=l||i===BODA_RUTA.length-2){const u=clamp(s/l,0,1);return[lerp(a[0],b[0],u),lerp(a[1],b[1],u),Math.atan2(b[0]-a[0],b[1]-a[1])];}s-=l;}}
+const BODA_CORTEJO=[['nino1',0,0],['novio',-1.5,1.6],['novia',-3.2,0],['nino2',-3.2,-0.75],['nino3',-3.2,0.75],['esc1',-5,-0.6],['esc2',-5,0.6],['pronuba',-6.4,0],['tib1',-8,-0.8],['tib2',-8,0.8],['madre',-9.8,-0.7],['padre',-9.8,0.7],
+  ['t1',-11.6,-0.8],['t2',-11.6,0.8],['g1',-13.2,-0.8],['g2',-13.2,0.8],['t3',-14.8,-0.8],['t4',-14.8,0.8],['g3',-16.4,0],['t5',-18,-0.8],['t6',-18,0.8],['k1',1.8,-1.6],['k2',2.6,1.4],['k3',3.6,-0.4]];
+function bodaCortejo(S,s0,s1,d,t){const k=sstep(clamp(t/d,0,1)),s=lerp(s0,s1,k),moving=k>0&&k<1;
+  {const[x,z]=bodaAt(Math.max(0,s-3)),L=S.obj.light;L.position.set(S.ox+x,floorAt(S.ox+x,S.oz+z)+3.5,S.oz+z);L.intensity=2.4;}
+  for(const[key,back,side]of BODA_CORTEJO){const o=S.a[key];const[x,z,a]=bodaAt(Math.max(0,s+back));o.position.x=x+Math.cos(a)*side;o.position.z=z-Math.sin(a)*side;o.rotation.y=a;
+    const ar=o.userData.arms;if(ar&&!o.userData.pose&&moving){const ph=t*7+back;ar[0].rotation.x=Math.sin(ph)*0.35;ar[1].rotation.x=-Math.sin(ph)*0.35;}}
+  return s;}
+function bodaHead(s){return bodaAt(s);}
+// cámara a una altura sobre el suelo de la calle (el terreno no es llano fuera de las casas)
+function bodaCam(S,x,y,z,tx,ty,tz){const g=q=>floorAt(S.ox+q[0],S.oz+q[1])-S.oy;return[x,g([x,z])+y,z,tx,g([tx,tz])+ty,tz];}
+const B_=BODA_BX;
+ROMA_BODA.beats=[
+ {h:17.4,cam:[B_+7.2,1.75,16.2,B_+7,1.35,21.5],cam2:[B_+7.4,1.65,17.4,B_+7,1.4,21.5],d:12,
+  enter(S){bodaLay(S,{nina:[B_+6.5,20.3,0.35],madre:[B_+4.6,19.4,0.7],padre:[B_+5.2,17.6,0.6],ornatrix:[B_+4,17.4,0.7]},['lampN'],[B_+5,3.2,19,1.6]);},
+  upd(t,dt,S){const n=S.a.nina,k=clamp((t-1)/3,0,1);armUp(n,-0.9*Math.sin(k*Math.PI),-0.9*Math.sin(k*Math.PI));},
+  txt:'<b>La víspera.</b> En casa de su padre, Marco Valerio, Valeria se despide de la niñez. Tiene quince años. Al anochecer deja ante el larario sus muñecas y la toga praetexta, la toga con franja púrpura que llevan los niños, como ofrenda a los Lares de la casa (otros las ofrecen a Venus). Esta noche dormirá con la túnica recta, tejida de una pieza en el telar vertical, y con el pelo recogido en una redecilla amarilla: todo debe ser de buen augurio.'},
+ {h:7.4,cam:[B_-2,1.75,22.3,B_-5,1.55,20],cam2:[B_-2.4,1.7,21.8,B_-5,1.6,20],d:12,
+  enter(S){bodaLay(S,{novia:[B_-5,20,Math.PI/2],ornatrix:[B_-5.75,20,Math.PI/2],madre:[B_-4,18.7,-0.6],pronuba:[B_-3.1,19.1,-1.2]},['hasta'],[B_-3,3.2,18.5,0.9]);armUp(S.a.ornatrix,null,-2.2);},
+  upd(t,dt,S){const h=S.obj.hasta,o=S.a.ornatrix;h.position.set(B_-5.25+Math.sin(t*1.3)*0.05,1.72+o.position.y,20+Math.cos(t*1.3)*0.08);h.rotation.z=1.2;armUp(o,null,-2.0-Math.sin(t*1.3)*0.25);},
+  txt:'<b>El peinado y el vestido.</b> Al amanecer la peinan. Con la hasta caelibaris, una aguja en forma de punta de lanza, le dividen el pelo en seis trenzas (seni crines) sujetas con cintas de lana: el mismo peinado que llevan las vestales. Viste la túnica recta, ceñida con un cinturón de lana atado con el nudo de Hércules, que solo el marido podrá deshacer. Encima, el flammeum, el velo color llama que le cubre la cabeza; en los pies, sandalias de color azafrán, y en la cabeza, una corona de flores que ella misma ha recogido.'},
+ {h:8.3,cam:[B_+4.4,2.2,12.4,B_,1.1,7.0],cam2:[B_+3.6,2.0,11.6,B_,1.1,7.0],d:12,
+  enter(S){bodaLay(S,{auspex:[B_,6.2,0],victimario:[B_+2.1,5.8,-2.2],novia:[B_-3,8.4,Math.PI/2],novio:[B_-3,6.9,Math.PI/2],padre:[B_+3.6,7.4,-Math.PI/2],madre:[B_+4.2,6.4,-1.2],pronuba:[B_-3.7,9.7,2],
+    t1:[B_-6,7.4,Math.PI/2],t2:[B_-6.2,9.4,Math.PI/2],t3:[B_-6,11.4,2.2],t4:[B_+6,7.4,-Math.PI/2],t5:[B_+6.2,9.4,-Math.PI/2],t6:[B_+6,11.4,-2.2],t7:[B_-5,5.6,1],t8:[B_+5,5.6,-1],g1:[B_-5.2,13.2,2.6],g2:[B_+5.2,13.2,-2.6],g3:[B_-4.4,12.2,2.6],g4:[B_+4.4,12.2,-2.6]},['altar','altarF','sheep']);},
+  upd(t,dt,S){const k=Math.sin(clamp((t-1)/5,0,1)*Math.PI);armUp(S.a.auspex,-1.6*k,-1.6*k);},
+  txt:'<b>Los auspicios.</b> Por la mañana llegan los parientes y los amigos. Primero hay que saber si los dioses aprueban la boda. Antes se observaba el vuelo de las aves; ahora, sobre todo, las entrañas de una oveja sacrificada en un altar portátil del atrio. El auspex, con la toga sobre la cabeza, anuncia que las señales son favorables. Cicerón ya se quejaba de que se hacía por pura costumbre, pero nadie se casaría sin ellos.'},
+ {h:8.8,cam:[B_+2.8,2.0,5.6,B_,0.9,0.3],cam2:[B_+2,1.9,4.6,B_,0.9,0.3],d:12,
+  enter(S){bodaLay(S,{padre:[B_-0.9,1.25,Math.PI],novio:[B_+0.9,1.25,Math.PI],t1:[B_+2.4,1.7,-2.4],t2:[B_+3.2,2.6,-2.6],t3:[B_+3.6,3.6,-2.8],t4:[B_-2.6,2,2.5],t5:[B_-3.2,3,2.6],t6:[B_-3.4,4,2.8],t7:[B_+1.6,4.4,Math.PI],t8:[B_-1.4,4.6,Math.PI],suegro:[B_+2.6,0.6,-Math.PI/2]},['tabs']);},
+  upd(t,dt,S){const k=Math.sin(clamp((t-2)/3,0,1)*Math.PI);armUp(S.a.t1,null,-0.9*k);if(t>2&&t<5){S.a.t1.position.x=B_+2.4-k*1.1;S.a.t1.position.z=1.7-k*0.4;}},
+  txt:'<b>Las tablillas nupciales.</b> El padre de la novia y el novio firman las tabulae nuptiales, el contrato que fija la dote que la familia de Valeria entrega al marido y que habrá que devolver si hay divorcio. Los testigos las sellan con sus anillos. Como casi todas las bodas de esta época, es un matrimonio sine manu: Valeria seguirá bajo la autoridad de su padre y conservará sus bienes. Solo algunas viejas familias patricias se casan aún por confarreatio, ofreciendo a Júpiter un pastel de espelta ante el flamen de Júpiter, el pontífice máximo y diez testigos.'},
+ {h:9.2,cam:[B_+1.3,1.75,5.8,B_,1.4,3.0],cam2:[B_+0.7,1.7,5.4,B_,1.4,3.0],d:12,
+  enter(S){bodaLay(S,{novia:[B_-0.48,3,Math.PI/2],novio:[B_+0.48,3,-Math.PI/2],pronuba:[B_,2.25,0],padre:[B_-2.6,5,2.4],madre:[B_-3.4,5.6,2.4],suegro:[B_+2.6,5,-2.4],suegra:[B_+3.4,5.6,-2.4],
+    t1:[B_-2.8,6.8,2.7],t2:[B_+3.4,6.6,-2.7],t3:[B_-4.2,4,2],t4:[B_+4.2,4,-2],g1:[B_-2.4,7.6,2.8],g2:[B_+2.4,7.6,-2.8],g3:[B_-4.6,6.6,2.4],g4:[B_+4.6,6.6,-2.4],t5:[B_-5.4,8,2.4],t6:[B_+5.4,8,-2.4]},[]);},
+  upd(t,dt,S){const k=clamp((t-1)/2,0,1);armUp(S.a.novia,null,-0.85*k);armUp(S.a.novio,null,-0.85*k);armUp(S.a.pronuba,-0.6*k,-0.6*k);
+    if(t>4)for(const g of['t1','t2','g1','g2','t3','t4'])armUp(S.a[g],null,-2.4*Math.abs(Math.sin(t*3+g.length)));},
+  txt:'<b>La unión de las manos.</b> Es el momento central. La pronuba, una matrona casada una sola vez y con el marido vivo, une las manos derechas de los novios: la dextrarum iunctio, que se verá durante siglos en los relieves de los sarcófagos. No hay sacerdote que los case ni registro que firmar: el matrimonio es la voluntad de los dos de vivir juntos como marido y mujer. Los invitados gritan: «¡Feliciter!», «¡Que sea con suerte!».'},
+ {h:13,cam:[B_,2.4,-25.4,B_,0.8,-30],cam2:[B_+1.2,2.3,-25.6,B_,0.8,-30],d:12,
+  enter(S){bodaLay(S,{esc1:[B_-1.6,-26.4,Math.PI],ornatrix:[B_+1.8,-26.3,Math.PI]},['cake']);
+    bodaRecline(S,'novio',B_+0.9,-31.7,0);bodaRecline(S,'novia',B_+2.4,-31.7,0);bodaRecline(S,'padre',B_-0.7,-31.7,0);
+    bodaRecline(S,'madre',B_-3.6,-31,Math.PI/2);bodaRecline(S,'pronuba',B_-3.6,-29.3,Math.PI/2);bodaRecline(S,'suegro',B_+3.6,-27.4,-Math.PI/2);bodaRecline(S,'suegra',B_+3.6,-29.1,-Math.PI/2);S.obj.light.position.set(S.ox+B_,S.oy+3.2,S.oz-28.5);S.obj.light.intensity=1.2;},
+  txt:'<b>El banquete.</b> Después llega la cena nupcial en casa del padre de la novia, con los parientes y los amigos recostados en los lechos del triclinio; los invitados que no caben comen en el atrio y en el peristilo. Al final se reparte el mustaceum, un pastel de harina amasada con mosto y cocido sobre hojas de laurel. Hay quien gasta tanto en estas cenas que una ley de Augusto llegó a fijarles un límite: mil sestercios.'},
+ {h:17.5,cam:[B_+4.2,2.1,16.2,B_,1.4,20.6],cam2:[B_+3.4,2.0,17.2,B_,1.4,21],d:12,
+  enter(S){bodaLay(S,{madre:[B_,19.8,0],novia:[B_,20.35,Math.PI],novio:[B_,21.7,Math.PI],t1:[B_-1.3,22.3,Math.PI],t2:[B_+1.3,22.3,Math.PI],padre:[B_-2.4,18.6,0.8],pronuba:[B_+2.2,18.4,-0.8],g1:[B_-4.6,18.6,1.2],g2:[B_+4.6,18.6,-1.2],t3:[B_-5.2,20.6,1.6],g3:[B_+5.2,20.6,-1.6]},['lampN'],[B_+1.5,3.4,18.5,1.6]);},
+  upd(t,dt,S){const a=S.a;armUp(a.madre,-1.2,-1.2);if(t<5){a.novia.position.z=20.35+Math.max(0,Math.sin(t*2.2))*0.35;armUp(a.novio,-1.0,-1.0);}else{const k=clamp((t-5)/3,0,1);a.novia.position.z=20.35+0.35+k*0.9;a.novio.position.z=21.7+k*1.2;a.madre.position.z=19.8+k*0.3;}},
+  txt:'<b>El rapto fingido.</b> Al anochecer, cuando aparece en el cielo el lucero de la tarde, empieza el cortejo. Antes hay una pequeña comedia: la novia se refugia en los brazos de su madre, y el novio y sus amigos fingen arrancarla de ellos por la fuerza. Los romanos dicen que es un recuerdo del rapto de las sabinas, cuando Rómulo y los primeros romanos se llevaron a sus esposas.'},
+ {h:17.6,d:16,camf(t,S){const s=lerp(0,52,sstep(clamp(t/16,0,1))),[x,z]=bodaHead(Math.max(0,s-4));return bodaCam(S,x+9,3,44,x-1.5,1.3,37.5);},
+  enter(S){const spec={};for(const[k]of BODA_CORTEJO)spec[k]=[B_,30,0];bodaLay(S,spec,[]);bodaCortejo(S,0,52,16,0);},
+  upd(t,dt,S){bodaCortejo(S,0,52,16,t);if(Math.random()<dt*0.35)playAulos();},
+  txt:'<b>El cortejo.</b> Sale el cortejo (deductio) hacia la casa del novio. Abre la marcha un niño con una antorcha de espino blanco encendida en el hogar; otros dos niños, con padre y madre vivos, llevan a la novia de la mano. Detrás, unos esclavos llevan la rueca y el huso: el trabajo de la lana es el símbolo de la buena esposa. Suenan las flautas y todos cantan versos fesceninos, coplas atrevidas y burlonas, y gritan «¡Talasio!», un grito tan antiguo que ya nadie sabe bien qué significa.'},
+ {h:17.7,d:18,camf(t,S){const s=lerp(52,128,sstep(clamp(t/18,0,1))),[x,z]=bodaHead(s);return bodaCam(S,x+7,2.4,32.8,x-2,1.2,38.5);},
+  enter(S){const spec={};for(const[k]of BODA_CORTEJO)spec[k]=[B_,30,0];bodaLay(S,spec,[]);bodaCortejo(S,52,128,18,0);},
+  upd(t,dt,S){bodaCortejo(S,52,128,18,t);const nv=S.a.novio;
+    if(Math.random()<dt*1.6){const n=S.obj.nuts.find(q=>q.t<0);if(n){n.t=0;n.a=[nv.position.x,1.5,nv.position.z];n.b=[nv.position.x+rr(1,4),0.05,nv.position.z+rr(-2.5,2.5)];n.m.visible=true;armUp(nv,null,-2.2);}}
+    else if(nv.userData.pose&&Math.random()<dt*3){nv.userData.pose=0;}
+    for(const n of S.obj.nuts){if(n.t<0)continue;n.t+=dt;const u=Math.min(1,n.t/0.7),gy=floorAt(S.ox+n.b[0],S.oz+n.b[2])-S.oy;n.m.position.set(lerp(n.a[0],n.b[0],u),lerp(n.a[1]+nv.position.y,gy+0.05,u)+Math.sin(u*Math.PI)*1.2,lerp(n.a[2],n.b[2],u));if(n.t>3){n.t=-1;n.m.visible=false;}}
+    for(const k of['k1','k2','k3']){const o=S.a[k];o.rotation.x=0.35+Math.sin(t*4+k.charCodeAt(1))*0.25;}
+    if(Math.random()<dt*0.35)playAulos();},
+  txt:'<b>Nueces y monedas.</b> El novio echa nueces a los niños que siguen el cortejo: las nueces son juguetes de niño, y tirarlas es dejar atrás la infancia. La novia lleva tres ases: uno lo dará a su marido, otro lo dejará en el hogar de su nueva casa para los Lares, y el tercero lo hace sonar ahora, al pasar, en el altar de los Lares de la encrucijada.'},
+ {h:17.75,cam:[2.8,1.9,35.2,0,1.6,31.4],cam2:[2.1,1.85,34.4,0,1.6,31.4],d:12,
+  enter(S){bodaLay(S,{novia:[0,32.5,Math.PI],novio:[0,29.5,0],nino1:[-2.2,34.2,Math.PI],nino2:[-1.4,35,Math.PI],nino3:[-2.8,35.2,Math.PI],pronuba:[-1.6,33.6,2.8],esc1:[-3.4,36,Math.PI],esc2:[-2.4,36.6,Math.PI],tib1:[-4.4,37,2.6],tib2:[3.6,38.6,-2.6],
+    madre:[-0.8,37.6,Math.PI],padre:[0.6,38,Math.PI],t1:[-4.6,38.6,2.6],t2:[4.6,39.6,-2.6],g1:[-2.2,39.4,Math.PI],g2:[2.2,40,Math.PI],t3:[0,40.6,Math.PI],suegro:[-1,27.6,0],suegra:[1,27.4,0]},['vittae'],[1.5,3.6,34,2.6]);},
+  upd(t,dt,S){const n=S.a.novia,k=t%4;armUp(n,k<2?-1.9:-1.2,k<2?-1.2:-1.9);n.rotation.y=Math.PI+(k<2?0.35:-0.35);},
+  txt:'<b>La puerta.</b> La puerta de la nueva casa está adornada con guirnaldas. La novia unta las jambas con aceite o con grasa y les ata cintas de lana; los romanos creen que de ahí viene la palabra uxor, «esposa», de ungere, «untar» (es una etimología equivocada). El novio le pregunta quién es, y ella responde con la vieja fórmula: «Ubi tu Gaius, ego Gaia»: «Donde tú seas Gayo, yo seré Gaya».'},
+ {h:17.8,cam:[2.6,2.0,35.6,0,1.5,30.8],cam2:[2.2,2.0,34.8,0,1.5,30.2],d:10,
+  enter(S){bodaLay(S,{novia:[0,32.4,Math.PI],t1:[-0.62,32.6,Math.PI],t2:[0.62,32.6,Math.PI],novio:[0,27.6,0],pronuba:[-1.8,34.4,2.8],madre:[-1.2,37.4,Math.PI],padre:[0.4,38,Math.PI],nino1:[-2.6,35.2,Math.PI],g1:[-2.8,38.6,Math.PI],g2:[2.8,39.4,Math.PI],suegra:[1.1,26.8,0]},['vittae'],[1.5,3.6,34,2.6]);},
+  upd(t,dt,S){const k=sstep(clamp((t-1.5)/4,0,1)),lift=Math.sin(k*Math.PI)*0.55,z=lerp(32.4,29.6,k);const a=S.a;
+    a.novia.userData.fixY=true;a.novia.position.z=z;a.novia.position.y=floorAt(S.ox,S.oz+z)-S.oy+lift+(k>0?0.15:0);
+    for(const[kk,s]of[['t1',-1],['t2',1]]){a[kk].position.z=z-0.1;a[kk].position.x=s*0.62;armUp(a[kk],-0.9,-0.9);}},
+  txt:'<b>El umbral.</b> La novia no debe pisar el umbral: tropezar en él sería de mal agüero, y además, dicen, es otro recuerdo de las sabinas, que no entraron en casa de sus maridos por su voluntad. Por eso la levantan en brazos y la pasan por encima. El umbral está consagrado a Vesta, la diosa del hogar.'},
+ {h:17.65,cam:[-4.6,2.2,17.4,0,1.3,21],cam2:[-3.6,2.0,16.4,0,1.3,21],d:12,
+  enter(S){bodaLay(S,{novia:[0,21.8,Math.PI],novio:[0,19.5,0],pronuba:[1.5,22.6,-2.6],suegro:[-2.6,19.2,0.9],suegra:[-3.2,20.4,1.2],madre:[2.8,23.4,-2.4],padre:[-1.6,23.8,2.6],t1:[-0.8,25,Math.PI],t2:[0.8,25.4,Math.PI],g1:[0,27,Math.PI],nino1:[2.6,21.4,-2],
+    k1:[3.6,24,-2.2],k2:[3.2,25,-2.4]},['brasero','fuego','agua','lectus','lampG'],[-1,3.2,18.5,3]);},
+  upd(t,dt,S){const a=S.a,k=t%6;armUp(a.novio,k<3?-0.8:0,k<3?0:-0.8);a.novio.rotation.y=k<3?-0.4:0.4;armUp(a.novia,k<3?-0.7:0,k<3?0:-0.7);a.novia.rotation.y=Math.PI+(k<3?-0.4:0.4);
+    const n1=a.nino1;if(t>7){const u=clamp((t-7)/1.2,0,1);armUp(n1,null,-2.6*u);}},
+  txt:'<b>El agua y el fuego.</b> En el atrio, el marido recibe a su esposa con el agua y el fuego (aqua et ignis), los dos elementos de la vida en común, del hogar y de los ritos de la casa, y ella los toca. El niño arroja la antorcha del cortejo a los invitados, que se la disputan porque trae buena suerte. Frente a la puerta está el lecho nupcial (lectus genialis), consagrado al Genio de la familia, que se quedará en el atrio como recuerdo de la boda.'},
+ {h:17.7,cam:[-5,2.2,15.4,4,1.4,19.4],cam2:[-3.8,2.1,16,5,1.4,19.4],d:12,
+  enter(S){bodaLay(S,{novia:[0.6,20.6,Math.PI/2],pronuba:[0.9,19.8,Math.PI/2],suegra:[-0.6,19.6,Math.PI/2],novio:[-2.8,21.4,1.2],t1:[-1,26.4,Math.PI],t2:[0.8,26.6,Math.PI],t3:[0,28,Math.PI],g1:[-0.4,24.6,Math.PI],tib1:[1.2,27.4,Math.PI]},['lectus','lampG'],[3,3.2,17.5,3]);},
+  upd(t,dt,S){const a=S.a;walkTo(a.novia,[0.6,20.6],[7.1,19.4],1,8,t);walkTo(a.pronuba,[0.9,19.8],[6.4,18.6],1.2,8.2,t);walkTo(a.suegra,[-0.6,19.6],[5.4,19.8],1.5,8.5,t);
+    for(const g of['t1','t2','t3'])armUp(a[g],null,-0.4*Math.abs(Math.sin(t*2+g.length)));if(Math.random()<dt*0.3)playAulos();},
+  txt:'<b>El dormitorio.</b> Las pronubas, matronas casadas una sola vez, acompañan a la novia hasta el dormitorio y la encomiendan a Juno, protectora de las esposas. Fuera, los amigos cantan el epitalamio, el canto de bodas, como el que escribió Catulo para la boda de su amigo Manlio Torcuato. El marido deshará el nudo de Hércules: empieza la vida de casados.'},
+ {h:9.5,cam:[4.2,1.85,16.2,7,1.35,21.4],cam2:[4.8,1.8,16.8,7,1.35,21.4],d:12,
+  enter(S){bodaLay(S,{matrona:[7,20.3,0],novio:[5,21.9,1.2],suegro:[4.4,20.8,1.2],suegra:[3.6,21.8,1.3],madre:[2.8,20.6,1.2],padre:[2.2,21.8,1.3]},['lectus','lampG']);},
+  upd(t,dt,S){const k=Math.sin(clamp((t-1)/4,0,1)*Math.PI);armUp(S.a.matrona,-1.4*k,-1.4*k);},
+  txt:'<b>Al día siguiente.</b> La recién casada ya viste como una matrona, con la estola y la palla, y ofrece su primer sacrificio a los Lares y a los Penates de su nueva casa. Por la noche, el marido da una segunda fiesta para los parientes, la repotia. Valeria es ahora la señora de la casa: gobernará a los esclavos, guardará las llaves y tejerá la lana. Pero en Roma, a diferencia de Atenas, saldrá a la calle, irá al teatro y cenará con los invitados de su marido.'}
+];
 // serpientes, carros y Pegaso para las esferas de los destinos
 function epiSnake(S,n,col,sz){const a=[],m=lam(col);for(let i=0;i<n;i++){const s=new THREE.Mesh(new THREE.SphereGeometry((sz||0.9)*(1-i/n*0.7),10,8),m.clone());s.castShadow=true;S.g.add(s);a.push(s);}return a;}
 function snakeCoil(a,cx,cz,t,rise,sc){sc=sc||1;const n=a.length;a.forEach((s,i)=>{const k=i/n,an=k*TAU*2+t*0.3,rd=(0.6+k*3)*sc;s.position.set(cx+Math.cos(an)*rd,s.geometry.parameters.radius+(i<6?(6-i)/6*3*rise*sc:0),cz+Math.sin(an)*rd);});}
@@ -9907,6 +10091,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},ROMA_BODA,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
