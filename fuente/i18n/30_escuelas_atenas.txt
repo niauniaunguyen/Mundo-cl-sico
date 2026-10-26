@@ -1,0 +1,385 @@
+# ATH_SCHOOL_NPCS: el maestro de lira y el paidotriba
+
+@6e7d3e80
+L'educació grega tenia tres parts: lletres, música i gimnàstica. El kitharistés ensenyava a tocar la lira i a cantar els poetes lírics. Plató i el teòric Damó creien que els modes musicals (dori, frigi, lidi…) modelen el caràcter, i que canviar la música d'una ciutat és canviar-ne les lleis. Saber cantar amb la lira en un banquet era senyal de bona educació.
+Greek education had three parts: letters, music and gymnastics. The kitharistes taught boys to play the lyre and sing the lyric poets. Plato and the theorist Damon believed that the musical modes (Dorian, Phrygian, Lydian…) shape character, and that changing a city's music means changing its laws. Being able to sing to the lyre at a banquet was a sign of good breeding.
+
+@4090bded
+Afinem primer… Així no, Hípias, la corda més greu! Salut, foraster. Sóc Lisístrat, mestre de lira. Aquests nois vénen després de les lletres. Aquí aprenen a tocar, a cantar i, sobretot, a tenir ordre a l'ànima. Et vols quedar a una classe?
+Let's tune first… Not like that, Hippias, the lowest string! Greetings, stranger. I'm Lysistratus, lyre teacher. These boys come after their letters. Here they learn to play, to sing and, above all, to keep order in their souls. Would you like to stay for a lesson?
+
+@06a4f113
+Per què s'estudia música?
+Why study music?
+
+@e73ae81d
+Perquè el ritme i l'harmonia entren al més profund de l'ànima, diu Plató. Un noi que aprèn a cantar amb mesura aprèn també a viure amb mesura. A més, un atenès ha de cantar: als cors de les festes, als banquets, als himnes als déus. Si et passen la branca de murtra en un banquet i no saps cantar, quedes com un taujà.
+Because rhythm and harmony sink into the depths of the soul, says Plato. A boy who learns to sing in measure also learns to live in measure. Besides, an Athenian has to sing: in festival choruses, at banquets, in hymns to the gods. If they pass you the myrtle branch at a banquet and you can't sing, you look like a boor.
+
+@ffc16589
+Què és millor, la lira o l'aulós?
+Which is better, the lyre or the aulos?
+
+@307910e0
+Aquí, la lira: la pot tocar un mateix mentre canta. L'aulós, la flauta doble, ocupa la boca i et deforma la cara; diuen que Atena el va llençar per això, i el va recollir el sàtir Màrsias. Alcibíades es negava a tocar-lo de petit. Però l'aulós és indispensable al teatre, als sacrificis i a la palestra, per marcar el ritme del salt.
+Here, the lyre: you can play it yourself while you sing. The aulos, the double pipe, fills your mouth and distorts your face; they say Athena threw it away for that reason, and the satyr Marsyas picked it up. Alcibiades refused to play it as a boy. But the aulos is indispensable in the theatre, at sacrifices and in the palaestra, to mark the rhythm of the jump.
+
+@3766049c
+I els músics nous?
+And the new musicians?
+
+@e1f93595
+Ah, Timoteu de Milet i els altres: afegeixen cordes a la cítara, barregen els modes, fan refilets i efectes com un vaixell en la tempesta. El públic aplaudeix. Als vells com jo ens sembla soroll. Diuen que a Esparta van tallar les cordes de més de la cítara d'un músic que es va atrevir a tocar-hi amb onze.
+Ah, Timotheus of Miletus and the rest: they add strings to the kithara, mix the modes, do trills and effects like a ship in a storm. The audience applauds. To old men like me it sounds like noise. They say that in Sparta they cut the extra strings from the kithara of a musician who dared to play there with eleven.
+
+@f44ea455
+Segons Plató i Damó, per què era important la música en l'educació?
+According to Plato and Damon, why was music important in education?
+
+@65d4b629
+Perquè els ritmes i els modes modelen el caràcter
+Because rhythms and modes shape character
+
+@7e50a814
+Perquè donava diners als músics
+Because it earned musicians money
+
+@ed37fcb6
+Perquè era l'única manera d'aprendre a llegir
+Because it was the only way to learn to read
+
+@2ced1f4e
+No. Plató i Damó pensaven que la música, amb els seus ritmes i modes, forma el caràcter dels joves i fins i tot influeix en les lleis de la ciutat.
+No. Plato and Damon thought that music, with its rhythms and modes, forms the character of the young and even influences the city's laws.
+
+@a93ab5ef
+Tinc tres lliçons per a tu. Agafa una lira de la paret.
+I have three lessons for you. Take a lyre from the wall.
+
+@087a7422
+La lira d'escola es fa amb una closca de tortuga com a caixa, dos braços de banya o fusta, un travesser i set cordes de budell. El mite diu que la va inventar Hermes de petit, el mateix dia que va néixer, amb una tortuga que va trobar a la porta de la cova.
+The school lyre is made with a tortoise shell for a sound box, two arms of horn or wood, a crossbar and seven gut strings. Myth says Hermes invented it as a baby, on the very day he was born, with a tortoise he found at the mouth of his cave.
+
+@9909d985
+Es toca assegut: la mà esquerra polsa o apaga les cordes per darrere, i la dreta les rasca amb el plectre, una pua d'os o banya lligada amb un cordó. La cítara, gran i de fusta, és l'instrument dels professionals als concursos; la lira és per aprendre i per als banquets.
+It's played sitting down: the left hand plucks or damps the strings from behind, and the right strums them with the plectrum, a pick of bone or horn tied on a cord. The kithara, large and wooden, is the professionals' instrument in contests; the lyre is for learning and for banquets.
+
+@4b0ee99e
+De què es fa la caixa de la lira d'escola?
+What is the school lyre's sound box made of?
+
+@91784aa3
+D'una closca de tortuga
+A tortoise shell
+
+@8890e79e
+De bronze
+Bronze
+
+@487af62a
+D'una banya de toro
+A bull's horn
+
+@420fd0af
+Segons l'Himne homèric a Hermes, el déu la va fabricar amb una tortuga.
+According to the Homeric Hymn to Hermes, the god made it from a tortoise.
+
+@a7a7a0fc
+Amb què es rasquen les cordes?
+What are the strings strummed with?
+
+@3fd1ac77
+Amb el plectre, a la mà dreta
+With the plectrum, in the right hand
+
+@9384916e
+Amb un arc, com un violí
+With a bow, like a violin
+
+@b7e93c43
+Amb un martell petit
+With a little hammer
+
+@cc7cce67
+La mà dreta fa servir el plectre; l'esquerra polsa o apaga les cordes.
+The right hand uses the plectrum; the left plucks or damps the strings.
+
+@a2ef661d
+No tota la música és igual. Cada mode (harmonia) és una manera d'ordenar els sons de l'escala, i cadascun té el seu caràcter: el dori és greu i viril, el frigi, entusiasta, propi dels cultes d'èxtasi; el lidi i el mixolidi, tous i planyívols.
+Not all music is the same. Each mode (harmonia) is a way of ordering the notes of the scale, and each has its own character: the Dorian is grave and manly, the Phrygian enthusiastic, fit for ecstatic cults; the Lydian and Mixolydian soft and plaintive.
+
+@6fbf3c3d
+Plató, a la República, diu que en una ciutat ben governada només s'haurien d'ensenyar el dori i el frigi, que imiten la veu del valent i del sensat. I el seu mestre de música, Damó, deia que mai no es canvien els modes de la música sense que canviïn les lleis més importants de la ciutat.
+Plato, in the Republic, says that in a well-governed city only the Dorian and Phrygian should be taught, which imitate the voice of the brave and the sensible. And his music teacher, Damon, said the modes of music are never changed without the city's most important laws changing too.
+
+@28738084
+Quin mode té fama de greu i viril?
+Which mode is known as grave and manly?
+
+@413fb083
+El dori
+The Dorian
+
+@3e90c797
+El lidi
+The Lydian
+
+@20b2821b
+El mixolidi
+The Mixolydian
+
+@dd16def7
+El dori era el mode de la gravetat i el valor.
+The Dorian was the mode of gravity and courage.
+
+@da8fd2cb
+Qui deia que canviar la música canvia les lleis?
+Who said that changing music changes the laws?
+
+@3d2a000b
+Damó, el teòric de la música
+Damon, the music theorist
+
+@a9586e2e
+Soló, el legislador
+Solon, the lawgiver
+
+@bb4f19bf
+El cita Plató a la República (424c).
+Plato quotes him in the Republic (424c).
+
+@e727e65b
+Quan el noi ja sap llegir i tocar, el mestre li ensenya a cantar els poemes dels grans lírics: Simònides, Píndar, Alceu, Anacreont. Així aprèn alhora música, bons costums i elogis dels homes valents, diu Protàgores al diàleg de Plató.
+Once the boy can read and play, the teacher teaches him to sing the poems of the great lyric poets: Simonides, Pindar, Alcaeus, Anacreon. So he learns music, good manners and praise of brave men all at once, says Protagoras in Plato's dialogue.
+
+@19e77612
+A Els núvols, Aristòfanes recorda l'educació antiga: els nois del barri anaven junts i en fila a casa del citarista, encara que nevés, i cantaven velles cançons com «Pal·las, terrible destructora de ciutats», amb l'harmonia dels seus pares. Als banquets, cada convidat canta un escoli, una cançó breu, amb la branca de murtra a la mà.
+In The Clouds, Aristophanes recalls the old education: the boys of the neighbourhood walked together in line to the lyre teacher's house, even in snow, and sang old songs like «Pallas, terrible sacker of cities», in their fathers' mode. At banquets, each guest sings a skolion, a short song, holding the myrtle branch.
+
+@3b21b807
+Què és un escoli?
+What is a skolion?
+
+@50462e4d
+Una cançó breu que cantaven els convidats en un banquet
+A short song sung by guests at a banquet
+
+@f5312bea
+Un tipus de lira
+A kind of lyre
+
+@1b176adb
+Un càstig per als alumnes
+A punishment for pupils
+
+@974f0c46
+Els escolis es cantaven per torns, passant-se una branca de murtra.
+Skolia were sung in turn, passing round a myrtle branch.
+
+@dacd6e66
+Quin d'aquests és un poeta líric que s'aprenia a l'escola?
+Which of these is a lyric poet learned at school?
+
+@942ee0a6
+Píndar
+Pindar
+
+@1d5f2a09
+Tucídides
+Thucydides
+
+@1b365655
+Píndar, Simònides i Alceu eren poetes lírics.
+Pindar, Simonides and Alcaeus were lyric poets.
+
+@da294f78
+El paidotribés ensenyava a la palestra la lluita i els exercicis del pentatló (cursa, salt, disc, javelina i lluita). Els atletes s'entrenaven nus, untats d'oli i pols, que després es treien amb l'estrígil. L'esport preparava per a la guerra i per a les grans competicions panhel·lèniques, com els Jocs Olímpics, i formava part de l'ideal de bellesa i virtut (kalokagathia).
+The paidotribes taught wrestling and the pentathlon events (running, jumping, discus, javelin and wrestling) in the palaestra. Athletes trained naked, oiled and dusted, and afterwards scraped it off with a strigil. Sport prepared men for war and for the great Panhellenic contests, like the Olympic Games, and was part of the ideal of beauty and virtue (kalokagathia).
+
+@a27f4067
+Més avall aquest maluc, Lisis, que et tomba! Salut. Sóc Cleòmac, paidotriba. Aquí, a la palestra, faig homes d'aquests capgrossos: lluita, salt, disc, javelina. Un ciutadà ha d'estar en forma per defensar la seva ciutat amb l'escut. Treu-te el mantell, si vols provar-ho.
+Get that hip lower, Lysis, or he'll throw you! Greetings. I'm Cleomachus, the paidotribes. Here in the palaestra I turn these tadpoles into men: wrestling, jumping, discus, javelin. A citizen has to be fit to defend his city with his shield. Take off your cloak, if you want to try.
+
+@52978e53
+Per què s'entrenen nus?
+Why do they train naked?
+
+@516d8da6
+Sempre ha estat així entre els grecs, i els bàrbars s'escandalitzen. Diuen que a Olímpia un corredor va perdre el tapall i va guanyar, i des d'aleshores tots corren nus. Ens untem amb oli perquè la pell no es cremi i no es perdi la calor, i ens tirem pols a sobre per poder-nos agafar a la lluita.
+It's always been so among the Greeks, and barbarians are shocked. They say a runner at Olympia lost his loincloth and won, and since then everyone runs naked. We oil ourselves so the skin doesn't burn and the heat isn't lost, and we sprinkle dust on top so we can get a grip in wrestling.
+
+@3d475d9a
+Per a la guerra, el primer: un hoplita porta trenta quilos d'armes i ha d'aguantar a la falange. Per a la salut: els metges de l'escola d'Hipòcrates recepten exercici i dieta. I per a la glòria: un vencedor olímpic menja de franc tota la vida al Pritaneu i la seva ciutat li aixeca estàtues.
+For war, first: a hoplite carries thirty kilos of arms and has to hold his place in the phalanx. For health: doctors of the Hippocratic school prescribe exercise and diet. And for glory: an Olympic victor eats free for life in the Prytaneion and his city raises statues to him.
+
+@0be24793
+I les noies?
+And the girls?
+
+@9815fc47
+Aquí, a Atenes, no vénen a la palestra. A Esparta sí: allà les noies corren, lluiten i llancen el disc i la javelina, per tenir fills forts, diuen. Aquí els vells s'escandalitzen que es vegin les cuixes de les espartanes. També hi ha curses de noies a Olímpia, a les festes d'Hera.
+Here in Athens they don't come to the palaestra. In Sparta they do: there girls run, wrestle and throw the discus and javelin, to bear strong children, they say. Here the old men are scandalised that Spartan girls show their thighs. There are also girls' races at Olympia, at the festival of Hera.
+
+@7dbf6df3
+Amb què es treien els atletes l'oli i la pols després de l'exercici?
+What did athletes use to remove the oil and dust after exercise?
+
+@507aeaaf
+Amb l'estrígil, un rascador corbat
+A strigil, a curved scraper
+
+@066a37a1
+Amb aigua de mar i sorra
+Sea water and sand
+
+@de4298e6
+Amb una esponja de llana
+A woollen sponge
+
+@301452af
+No. Feien servir l'estrígil, un rascador corbat de bronze o ferro.
+No. They used the strigil, a curved scraper of bronze or iron.
+
+@cd88a455
+Tres lliçons, i després a suar. Per quina comencem?
+Three lessons, and then we sweat. Which shall we start with?
+
+@77dbeed5
+A la lluita (pále) es guanya tombant el rival tres vegades: una caiguda compta quan toca a terra amb l'esquena, les espatlles o el maluc. Es lluita dret, agafant coll, braços i cintura; estan prohibits els cops i mossegar. El pancraci, en canvi, barreja lluita i cops de puny, i gairebé tot s'hi val.
+In wrestling (pale) you win by throwing your opponent three times: a fall counts when his back, shoulders or hip touch the ground. You wrestle standing, gripping neck, arms and waist; punches and biting are forbidden. The pankration, by contrast, mixes wrestling and punching, and almost anything goes.
+
+@794de760
+Es lluita en un fossat de terra cavada i tova, l'skámma, per no fer-se mal en caure. Els grans lluitadors són famosos: Miló de Crotona va guanyar sis vegades a Olímpia, i es diu que s'entrenava portant a coll un vedell cada dia, fins que va ser un toro.
+You wrestle in a pit of dug, soft earth, the skamma, so as not to get hurt when falling. The great wrestlers are famous: Milo of Croton won six times at Olympia, and they say he trained by carrying a calf on his shoulders every day, until it was a bull.
+
+@b2471275
+Quantes caigudes calen per guanyar a la lluita?
+How many falls are needed to win at wrestling?
+
+@af50fc19
+Una
+One
+
+@fe9f9a42
+Cinc
+Five
+
+@7ec75b81
+El lluitador que tomba tres vegades el rival és el vencedor.
+The wrestler who throws his opponent three times is the winner.
+
+@f9bbeec0
+Què és l'skámma?
+What is the skamma?
+
+@36eeaf43
+El fossat de terra tova on es lluita i se salta
+The pit of soft earth for wrestling and jumping
+
+@50022fbc
+Un tipus de javelina
+A kind of javelin
+
+@48ad3187
+El premi del vencedor
+The winner's prize
+
+@f570a0d7
+Es cavava perquè les caigudes i els salts fossin més suaus.
+It was dug so falls and jumps would be softer.
+
+@e630d31b
+El pentatló reuneix cinc proves: la cursa de l'estadi (a Olímpia, uns 192 metres), el salt de llargada, el disc, la javelina i la lluita. El guanya l'atleta més complet, no el més fort: Aristòtil dirà que els pentatletes són els més bells.
+The pentathlon combines five events: the stadium race (at Olympia, about 192 metres), the long jump, the discus, the javelin and wrestling. The most all-round athlete wins, not the strongest: Aristotle will say pentathletes are the most beautiful.
+
+@cc36e741
+El salt es fa amb halteres, unes peses de pedra o bronze a cada mà: es balancegen endavant en l'impuls i endarrere en caure, per arribar més lluny, al ritme de l'aulós. La javelina es llança amb un ament, una corretja de cuir enrotllada que la fa girar i arribar més lluny.
+The jump is done with halteres, stone or bronze weights in each hand: they are swung forward on take-off and back on landing, to go further, to the rhythm of the aulos. The javelin is thrown with an amentum, a wound leather thong that spins it and carries it further.
+
+@2f076a81
+Per a què servien les halteres?
+What were the halteres for?
+
+@4bdc12b0
+Per saltar més lluny balancejant-les
+To jump further by swinging them
+
+@7f9430ff
+Per lluitar millor
+To wrestle better
+
+@f27fa69c
+Per llançar el disc
+To throw the discus
+
+@6b252a86
+El balanceig de les peses ajudava a guanyar distància en el salt.
+Swinging the weights helped gain distance in the jump.
+
+@2126be69
+Quantes proves té el pentatló?
+How many events are in the pentathlon?
+
+@50e66950
+Cinc: estadi, salt, disc, javelina i lluita
+Five: stadium race, jump, discus, javelin and wrestling
+
+@ffff085c
+Tres: cursa, lluita i boxa
+Three: running, wrestling and boxing
+
+@5b177d08
+Set, una per cada dia dels jocs
+Seven, one for each day of the games
+
+@405dae3f
+Penta- vol dir cinc.
+Penta- means five.
+
+@74ffd082
+En arribar a la palestra, el noi es despulla a l'apodyterion, s'unta d'oli que porta en un flascó rodó, l'aríbal, i es tira pols fina. Després de l'exercici es rasca la barreja d'oli, pols i suor amb l'estrígil, un rascador corbat de bronze, i es renta.
+On reaching the palaestra, the boy undresses in the apodyterion, oils himself from a small round flask, the aryballos, and sprinkles on fine dust. After exercise he scrapes off the mixture of oil, dust and sweat with the strigil, a curved bronze scraper, and washes.
+
+@182bf0fb
+El paidotriba vigila amb una vara forcada a la mà: amb ella corregeix postures i castiga les faltes. Els nois s'entrenen al so de l'aulós, i a la palestra també s'hi conversa: aquí hi venia Sòcrates a parlar amb els joves, com al Càrmides i el Lisis de Plató.
+The paidotribes keeps watch with a forked rod in his hand: with it he corrects postures and punishes fouls. The boys train to the sound of the aulos, and in the palaestra people also talk: Socrates came here to speak with the young men, as in Plato's Charmides and Lysis.
+
+@df595997
+Què és un aríbal?
+What is an aryballos?
+
+@68434418
+Un flascó rodó per a l'oli
+A small round oil flask
+
+@31381a63
+Un tipus de lluita
+A kind of wrestling
+
+@aabd092f
+El vestidor de la palestra
+The palaestra's changing room
+
+@b7291ba2
+L'aríbal es portava penjat del canell amb un cordó.
+The aryballos was carried hanging from the wrist on a cord.
+
+@d15a0683
+Per què es tiraven pols a sobre els lluitadors?
+Why did wrestlers sprinkle dust on themselves?
+
+@4857aaf3
+Per poder-se agafar malgrat l'oli
+To be able to get a grip despite the oil
+
+@164622bc
+Per semblar més morens
+To look more tanned
+
+@6aef6911
+Per un ritu religiós obligatori
+For a compulsory religious rite
+
+@33a9cb56
+La pols treia la relliscada de l'oli a la lluita.
+The dust took away the slipperiness of the oil in wrestling.
