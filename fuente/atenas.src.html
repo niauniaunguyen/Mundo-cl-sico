@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Atenas, 386 a.C.</title>
+<title>Nóstos · Atenas, 386 a.C.</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya:ital,wght@0,400;0,600;1,400&display=swap">
@@ -201,6 +201,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 .note{border-left:3px solid #c79a3a;padding:8px 12px;background:rgba(199,154,58,.1);margin:10px 0;line-height:1.5}
 .linkbtn{background:none;border:none;padding:0;margin-top:10px;color:var(--clay);text-decoration:underline;font-size:.88rem}
 .startbtns{display:flex;gap:10px;flex-wrap:wrap}
+.mtag{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:-6px 0 14px;color:var(--clay-soft)}.mtag .gr{font-family:var(--f-display);letter-spacing:.3em;color:var(--clay)}.mtag i{font-size:.85rem;color:var(--muted)}
 .startmodes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .startmodes button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;text-align:left}
 .startmodes button b{font-family:var(--f-display);font-weight:400;font-size:1.15rem}.startmodes button i{font-size:.82rem;opacity:.85}
@@ -266,7 +267,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
   <div id="hud" hidden>
     <div id="stats">
       <span class="t" id="hudTitle">Atenas · primavera del 386 a.C.</span>
-      <div class="row"><span id="sLessons"></span><span id="sPlaces"></span><span id="sObols"></span><span id="sMyths"></span><span id="sGods"></span></div>
+      <div class="row"><span id="sLessons"></span><span id="sPlaces"></span><span id="sObols"></span><span id="sMyths"></span><span id="sGods"></span><span id="sHorse" hidden></span></div>
       <div id="objective"></div>
     </div>
     <div id="compass"></div>
@@ -351,7 +352,8 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
     <div class="minner">
       <div class="meander"></div>
       <div class="langs" role="group" aria-label="Idioma"><button data-lang="es">Español</button><button data-lang="ca">Català</button><button data-lang="en">English</button></div>
-      <h1>Viaje al mundo antiguo<span>ELIGE UNA ÉPOCA</span></h1>
+      <h1>Nóstos<span>ELIGE UNA ÉPOCA</span></h1>
+      <p class="mtag"><span class="gr">ΝΟΣΤΟΣ</span><span>Viaje al mundo antiguo</span><i>«el regreso a casa», en griego</i></p>
       <div class="mcards">
         <button class="mcard" data-mode="atenas"><span class="label">Grecia clásica</span><b>Atenas</b><i>Primavera del 386 a.C.</i><span class="md">La democracia restaurada, la Academia de Platón recién fundada, el teatro de Eurípides y los dioses en los caminos del Ática.</span></button>
         <button class="mcard roma" data-mode="roma"><span class="label">Imperio romano</span><b>Roma</b><i>Año 80 d.C.</i><span class="md">Tito inaugura el Anfiteatro Flavio. Pasea por el Foro, el Palatino y el Campo de Marte, y conversa con Marcial, Quintiliano, Flavio Josefo o Epicteto.</span></button>
@@ -3567,7 +3569,7 @@ const STEPS_ATENAS=[
  {id:'plano',cat:'Orientarse',title:'Mira el plano de Atenas',short:'Pulsa M',txt:'Pulsa M para abrir el plano. Puedes ampliarlo con la rueda o con los botones, y si haces clic en un lugar que ya has descubierto, viajas hasta él.',ok:()=>!!state.steps.map,at:()=>null},
  {id:'partenon',cat:'Religión y arte',title:'Sube a la Acrópolis',short:'Lee la estela del Partenón, en la Acrópolis',txt:'Sube por los Propileos a la roca sagrada de Atenea y lee la estela del Partenón. Dentro está la gran estatua de oro y marfil de la diosa.',ok:()=>state.places.includes('partenon'),at:()=>placeAt('partenon')},
  {id:'mito',cat:'Mitos',title:'Reconoce un mito en piedra',short:'Busca un rombo azul junto a un relieve',txt:'Los frontones, metopas y frisos cuentan mitos. Busca un rombo azul junto a un relieve, pulsa E y di qué mito representa. Eunice, la abuela de la fuente del sureste del Ágora, te explica cómo se juega.',ok:()=>state.myths.length>0,at:()=>npcAt('abuela')},
- {id:'platon',cat:'Filosofía',title:'A caballo hasta la Academia',short:'Pulsa H, cabalga al noroeste y habla con Platón',txt:'Pulsa H para llamar a tu caballo y vuelve a pulsar H para montar. Cabalga hacia el noroeste, fuera de las murallas, hasta el bosque de la Academia, y habla con Platón.',ok:()=>seenAny('platon'),at:()=>npcAt('platon')},
+ {id:'platon',cat:'Filosofía',title:'A caballo hasta la Academia',short:'Ve al noroeste, a la Academia, y habla con Platón',txt:'Ve al noroeste, fuera de las murallas, hasta el bosque de la Academia, y habla con Platón. Es lejos: si consigues un caballo (Eudico de Larisa, el criador tesalio del Ágora, te dará uno a cambio de un favor), pulsa H para llamarlo y montar.',ok:()=>seenAny('platon'),at:()=>npcAt('platon')},
  {id:'teatro',cat:'Teatro',title:'Una función en el teatro',short:'Siéntate en el teatro de Dioniso durante una tragedia',txt:'En el teatro de Dioniso, en la ladera sur de la Acrópolis, se representan tragedias de Eurípides de 8 a 11, de 14 a 17 y de 20 a 23 h. Siéntate en las gradas mientras dura una. Con T puedes cambiar la hora.',ok:()=>!!state.steps.teatro,at:()=>({x:THEA.x,z:THEA.z})},
  {id:'fuente',cat:'Vida cotidiana',title:'Charla en la fuente',short:'Habla con Mirrina, en la fuente del sureste del Ágora',txt:'En la fuente del sureste del Ágora, Mirrina y sus vecinas llenan sus cántaros. Habla con ella: te contará cómo es el día a día de una mujer ateniense.',ok:()=>seenAny('aguadora'),at:()=>npcAt('aguadora')},
  {id:'sueno',cat:'Sueños',title:'Sueña un mito',short:'Toca una esfera de luz y vive el sueño hasta el final',txt:'Las esferas de luz que flotan en algunos lugares te hacen soñar un mito o un momento histórico. Acércate a una, pulsa E y vívelo hasta el final.',ok:anyDream,at:()=>nearestSphere()}
@@ -3579,7 +3581,7 @@ const STEPS_ROMA=[
  {id:'plano',cat:'Orientarse',title:'Mira el plano de Roma',short:'Pulsa M',txt:'Pulsa M para abrir el plano. Puedes ampliarlo con la rueda o con los botones, y si haces clic en un lugar que ya has descubierto, viajas hasta él.',ok:()=>!!state.steps.map,at:()=>null},
  {id:'vestal',cat:'Religión',title:'El fuego de Vesta',short:'Habla con la vestal Cornelia, junto al templo de Vesta',txt:'Junto al templo redondo de Vesta, en el Foro, la vestal Cornelia guarda el fuego sagrado de Roma. Habla con ella y escucha al menos uno de sus temas.',ok:()=>seenAny('cornelia'),at:()=>npcAt('cornelia')},
  {id:'anfiteatro',cat:'Espectáculos',title:'El Anfiteatro Flavio',short:'Lee la estela del anfiteatro, al este del Foro',txt:'Sigue la Vía Sacra hacia el este y lee la estela del gran anfiteatro que Tito acaba de inaugurar con cien días de juegos.',ok:()=>state.places.includes('ro_coliseo'),at:()=>placeAt('ro_coliseo')},
- {id:'panteon',cat:'Arquitectura',title:'A caballo al Campo de Marte',short:'Pulsa H y cabalga hasta el Panteón',txt:'Pulsa H para llamar a tu caballo y vuelve a pulsar H para montar. Cabalga hacia el noroeste, por la Vía Lata, hasta el Campo de Marte, y lee la estela del Panteón.',ok:()=>state.places.includes('ro_panteon'),at:()=>placeAt('ro_panteon')},
+ {id:'panteon',cat:'Arquitectura',title:'A caballo al Campo de Marte',short:'Ve al Campo de Marte y lee la estela del Panteón',txt:'Ve hacia el noroeste, por la Vía Lata, hasta el Campo de Marte, y lee la estela del Panteón. Si consigues un caballo (Félix, el auriga de los Verdes, te dará uno a cambio de un favor), pulsa H para llamarlo y montar.',ok:()=>state.places.includes('ro_panteon'),at:()=>placeAt('ro_panteon')},
  {id:'teatro',cat:'Teatro',title:'Una comedia de Plauto o de Terencio',short:'Entra en el teatro de Pompeyo o en el de Marcelo durante una función',txt:'En los teatros de Pompeyo y de Marcelo se representan comedias de 8 a 11, de 12 a 15 y de 16 a 19 h. Entra en uno de ellos mientras dura una función. Con T puedes cambiar la hora.',ok:()=>!!state.steps.teatro,at:()=>{const T=ROMA.theatres;if(!T)return null;return T.reduce((b,q)=>Math.hypot(q.x-player.x,q.z-player.z)<Math.hypot(b.x-player.x,b.z-player.z)?q:b,T[0]);}},
  {id:'boda',cat:'Vida cotidiana',title:'Una boda romana',short:'Habla con Pomponia, en el Celio, y asiste a la boda',txt:'En el Celio, a la puerta de la casa de los Valerios, Pomponia te invita a la boda de Valeria y Quinto. Asiste a ella hasta el final: verás también cómo es por dentro una domus.',ok:()=>!!state.seen.boda,at:()=>npcAt('pomponia')},
  {id:'sueno',cat:'Sueños',title:'Sueña un momento histórico',short:'Toca una esfera de luz y vive el sueño hasta el final',txt:'Las esferas de luz que flotan en algunos lugares te hacen soñar un mito o un momento histórico. Acércate a una, pulsa E y vívelo hasta el final.',ok:anyDream,at:()=>nearestSphere()}
@@ -3589,7 +3591,7 @@ const stepsDone=()=>STEPS().filter(s=>s.ok()).length;
 function curStep(){if(!state||state.steps._off)return null;return STEPS().find(s=>!s.ok())||null;}
 function stepFlag(k){if(!state.steps[k]){state.steps[k]=1;save();}}
 // hacia dónde apunta el rombo de la brújula: la misión en curso o, si no hay, la persona más cercana por conocer
-function guideTarget(){if(storyOn())return storyTarget();const s=curStep();if(s){const p=s.at();if(p)return p;if(!state.steps._off)return null;}return nextTarget();}
+function guideTarget(){const ht=horseTarget();if(ht)return ht;if(storyOn())return storyTarget();const s=curStep();if(s){const p=s.at();if(p)return p;if(!state.steps._off)return null;}return nextTarget();}
 let stepsT=0;
 function stepsTick(dt){
   if(!state||ui!=='play')return;stepsT+=dt;if(stepsT<0.5)return;stepsT=0;
@@ -3606,6 +3608,8 @@ function updateStats(){
   $('sObols').textContent=state.obols+(MODE==='roma'?' sestercios':' óbolos');
   $('sMyths').textContent='Mitos '+state.myths.length+'/'+RELIEFS.length;$('sGods').hidden=!GODS.length;$('sMyths').hidden=MODE!=='atenas';
   $('sGods').textContent='Favores '+godsDone()+'/'+GODS.length;
+  {const h=hz();$('sHorse').hidden=!h.own;if(h.own)$('sHorse').textContent='Caballo nv '+h.lvl+' · '+h.xp+'/'+horseNeed(h.lvl);}
+  {const h=hz();if(h.q==='on'||h.q==='caught'){$('objective').innerHTML='<b>Encargo del caballo</b><br><span class="sub">'+(h.q==='on'?'Busca la yegua escapada (rombo ◆)':'Llévale la yegua a '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa'))+'</span>';return;}}
   if(storyOn()){$('objective').innerHTML=storyStatus()+'<br><span class="sub">G: que te lleven · J: capítulos</span>';return;}
   const st=curStep();if(st){$('objective').innerHTML='<b>Primeros pasos '+stepsDone()+'/'+STEPS().length+'</b> · '+st.title+'<br><span class="sub">'+st.short+'</span>';return;}
   const t=nextTarget();$('objective').textContent=t?(state.lessons.includes(t.data.id)?'Siguiente: pide a '+t.data.name+' que te lleve a un juicio · '+LESSONS[t.data.id].where:'Siguiente: '+t.data.name+' · '+LESSONS[t.data.id].where):'Has completado todas las lecciones. Sigue explorando.';
@@ -3670,6 +3674,7 @@ function renderOpts(extra){
   if(n.wedding)add(state.seen.boda?'Volver a ver la boda de Valeria y Quinto':'Asistir a la boda de Valeria y Quinto (catorce escenas)','quiz',()=>epiStart(ROMA_BODA));
   if(n.event)add(state.lessons.includes(n.event)?'Quiero volver a hacer de jurado':'Quiero ser jurado hoy: llévame a un juicio','quiz',startTrial);
   if(!learned)add(seen.length?'Ponme a prueba: ¿lo he entendido?':'Ponme a prueba (mejor después de escuchar)','quiz',startQuiz);
+  if(n.id===HORSE_NPC()&&!hz().own)add(hz().q==='caught'?'Te traigo la yegua':hz().q==='on'?'Sobre la yegua escapada…':'¿Me darías un caballo?','quiz',()=>horseQuest(n));
   add('Despedirse','',closeDialog);
 }
 // «Cuéntame más»: temas extra de cada personaje, que se desbloquean después de escuchar alguno de los normales
@@ -5225,7 +5230,7 @@ function romaSetup(){
   SAVE_KEY='roma-80-v1';loadState();
   GLOSS.length=0;GLOSS.push(...ROMA_GLOSS);rebuildGloss();
   // textos de la interfaz
-  document.title='Roma, 80 d.C.';
+  document.title='Nóstos · Roma, 80 d.C.';
   $('hudTitle').textContent='Roma · año 80 d.C.';
   $('stH1').innerHTML='Roma<span>AÑO 80 d.C.</span>';
   $('stIntro').innerHTML='<p>Tito, hijo de Vespasiano, es emperador desde hace un año. El Vesubio acaba de sepultar Pompeya, y Roma, que se reconstruye aún del incendio de Nerón, celebra cien días de juegos para inaugurar el Anfiteatro Flavio.</p><p>Llegas al Foro Romano. Habla con poetas, filósofos, senadores, gladiadores, libertos y vestales; lee las inscripciones y aprende cómo vive, gobierna y piensa la mayor ciudad del mundo. Cada lección que superes te dará tres sestercios.</p>';
@@ -10120,6 +10125,7 @@ function horseNear(){const g=MOUNT.g;return g&&g.visible&&!MOUNT.riding&&MOUNT.s
 function callHorse(){
   if(ui!=='play'||!MOUNT.g)return;
   if(MOUNT.riding){dismount();return;}
+  if(!hz().own){toast(MODE==='roma'?'Aún no tienes caballo. Félix, el auriga de los Verdes, te dará uno si le haces un favor.':'Aún no tienes caballo. Eudico de Larisa, el criador de caballos tesalio del Ágora, te dará uno si le haces un favor.');return;}
   if(horseNear()){mountHorse();return;}
   let d=35,fx,fz;
   for(;d>4;d-=8){[fx,fz]=findFree(player.x+Math.sin(player.yaw)*d,player.z+Math.cos(player.yaw)*d,1.2);if(floorAt(fx,fz)>-0.5&&Math.abs(floorAt(fx,fz)-player.feet)<25)break;}
@@ -10622,9 +10628,9 @@ window.addEventListener('mousemove',e=>{if(ui!=='play')return;let dx=0,dy=0;
   if(document.pointerLockElement===canvas){dx=e.movementX;dy=e.movementY;}
   else{mouseIn=true;if(lastMX>=0){dx=e.clientX-lastMX;dy=e.clientY-lastMY;}lastMX=e.clientX;lastMY=e.clientY;if(Math.abs(dx)>200||Math.abs(dy)>200)dx=dy=0;placeCross();}
   player.yaw-=dx*0.0024;player.pitch=clamp(player.pitch-dy*0.0024,-1.4,1.4);});
-const KMAP={KeyW:'w',ArrowUp:'w',KeyS:'s',ArrowDown:'s',KeyA:'a',ArrowLeft:'a',KeyD:'d',ArrowRight:'d',ShiftLeft:'run',ShiftRight:'run',Space:'jump'};
+const KMAP={KeyW:'w',ArrowUp:'w',KeyS:'s',ArrowDown:'s',KeyA:'a',ArrowLeft:'a',KeyD:'d',ArrowRight:'d',ShiftLeft:'run',ShiftRight:'run',Space:'jump',KeyC:'down'};
 // salto y doble salto: en el aire se puede dar un segundo impulso (sirve para salir de huecos y subir a bordes altos)
-function jump(){if(ui!=='play')return;if(player.grounded){player.vy=5.2;player.grounded=false;player.jumps=1;}else if((player.jumps||0)<2){player.vy=5.6;player.jumps=2;}}
+function jump(){if(ui!=='play'||FLY.on)return;const k=MOUNT.riding?horseJump():1;if(player.grounded){player.vy=5.2*k;player.grounded=false;player.jumps=1;}else if((player.jumps||0)<2){player.vy=5.6*k;player.jumps=2;}}
 window.addEventListener('keydown',e=>{
   if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();
   if(e.target&&e.target.tagName==='INPUT'){if(e.code==='Escape')closeModals();return;}
@@ -10640,6 +10646,7 @@ window.addEventListener('keydown',e=>{
   if(e.code==='KeyE')interact();
   if(e.code==='Enter'&&NET.room){e.preventDefault();netChatOpen();return;}
   if(e.code==='KeyG'&&storyOn())storyGo();
+  if(e.code==='KeyX')toggleWings();
   if(e.code==='KeyJ')openJournal();
   if(e.code==='KeyM')openMap();
   if(e.code==='KeyB')openLibrary();
@@ -10673,10 +10680,10 @@ let focus=null;
 function findFocus(){
   const ay=aimYaw(),fx=-Math.sin(ay),fz=-Math.cos(ay);let best=null,bs=0;
   const test=(o,x,z,range)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>range)return;const dot=(dx*fx+dz*fz)/(d||1);if(dot<0.35&&d>1.2)return;const sc=dot*2-d/range;if(!best||sc>bs){best=o;bs=sc;}};
-  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
+  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else bark(focus);}
+function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -10703,12 +10710,13 @@ function frame(now){
   if(ui!=='start'){if(ui==='episode')clock.h=(clock.h+dt*clock.speed)%24;else addHours(dt*clock.speed);skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}
   if(ui==='play'){
     let f=(keys.w?1:0)-(keys.s?1:0)-joy.y,s=(keys.d?1:0)-(keys.a?1:0)+joy.x;const L=Math.hypot(f,s);if(L>1){f/=L;s/=L;}
-    const sp=(keys.run?11:4.8)*(MOUNT.riding?3:1)*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
+    const sp=(FLY.on?(keys.run?30:15):(keys.run?11:4.8)*(MOUNT.riding?3*horseMul():1))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
     const mx=(fx*f+rx*s)*sp,mz=(fz*f+rz*s)*sp;
-    if(L>0.01){if(!tryMove(player.x+mx,player.z+mz)){tryMove(player.x+mx,player.z)||tryMove(player.x,player.z+mz);}}
+    const mv=FLY.on?flyMove:tryMove;if(L>0.01){if(!mv(player.x+mx,player.z+mz)){mv(player.x+mx,player.z)||mv(player.x,player.z+mz);}}
   }
   const fl=floorAt(player.x,player.z);
-  player.vy-=16*dt;player.feet+=player.vy*dt;
+  if(FLY.on&&ui!=='play')FLY.on=false;
+  if(FLY.on)player.vy=keys.jump?7:(keys.down?-9:-0.8);else player.vy-=16*dt;player.feet+=player.vy*dt;
   if(player.feet<=fl){player.feet=fl;player.vy=0;player.grounded=true;player.jumps=0;}
   else if(player.grounded&&player.feet-fl<0.6&&player.vy<=0){player.feet=fl;player.vy=0;}
   else player.grounded=false;
@@ -10735,7 +10743,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -10757,7 +10765,7 @@ function frame(now){
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:focus.kind==='story'?'Hablar con '+focus.data.name:'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo')?'Hablar con '+focus.data.name:'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?'Caballo':'H')+'</kbd>Montar el caballo';p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -11227,6 +11235,109 @@ function netTick(dt){const r=NET.room;if(!r)return;NET.t+=dt;
 }
 function storyGo(){const t=storyTarget();if(!t)return;if(Math.hypot(t.x-player.x,t.z-player.z)<120){toast('Ya estás cerca: sigue el rombo ◆ de la brújula.');return;}
   storyTravel(()=>t,6,6);addHours(1);toast('<span class="label">'+(MODE==='roma'?'Un carretero':'Un carretero')+' te lleva</span><br>Pasa una hora de camino.');}
+// ============================================================ el caballo: se gana con un favor y crece recogiendo esferas doradas
+const HORSE_NPC=()=>MODE==='roma'?'auriga':'tesalia';
+function hz(){if(!state.horse||typeof state.horse!=='object')state.horse={own:false,q:'',xp:0,lvl:1};return state.horse;}
+const horseNeed=l=>4+l*2;                       // esferas para pasar del nivel l al siguiente
+const horseMul=()=>1+0.02*(hz().lvl-1);         // +2 % de velocidad por nivel
+const horseJump=()=>1+0.03*(hz().lvl-1);        // y un poco más de impulso al saltar
+const MARE={g:null};
+function horseModel(x,z,coat){const g=grp(x,floorAt(x,z),z,R()*TAU);
+  if(GLB.ok)animalGLB('A_horse',g,coat,'#2e2018');else{const c=lam(coat),dk=lam('#1e140e');box(0.75,0.8,1.95,c,0,1.55,0,g);box(0.35,0.9,0.35,c,0,2.2,0.95,g).rotation.x=0.5;box(0.33,0.36,0.8,c,0,2.6,1.3,g);
+    for(const[px,pz]of[[0.25,0.75],[-0.25,0.75],[0.25,-0.75],[-0.25,-0.75]])box(0.15,1.2,0.15,dk,px,0.6,pz,g);}return g;}
+function mareShow(){const h=hz();if(MARE.g){scene.remove(MARE.g);MARE.g=null;}if(h.q!=='on')return;
+  if(h.mx===undefined){const o=npcAt(HORSE_NPC());if(!o)return;let f=null;
+    for(let k=0;k<30&&!f;k++){const a=R()*TAU,d=130+R()*90,q=findFree(o.x+Math.cos(a)*d,o.z+Math.sin(a)*d,1.2);if(floorAt(q[0],q[1])>-0.5&&regionOf(q[0])===regionOf(o.x)&&Math.abs(floorAt(q[0],q[1])-floorAt(o.x,o.z))<20)f=q;}
+    if(!f)f=findFree(o.x+50,o.z+30,1.2);h.mx=f[0];h.mz=f[1];save();}
+  MARE.g=horseModel(h.mx,h.mz,MODE==='roma'?'#d8cfc0':'#8a6a4a');}
+function horseTarget(){const h=hz();if(h.q==='on'&&h.mx!==undefined)return{x:h.mx,z:h.mz};if(h.q==='caught')return npcAt(HORSE_NPC());return null;}
+function horseQuest(n){const h=hz(),ro=MODE==='roma',o=$('dOpts');
+  const one=(txt,fn)=>{o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);setTimeout(()=>b.focus({preventScroll:true}),30);};
+  if(h.q===''){$('dBody').innerHTML='<p>'+(ro?'¿Un caballo? Yo conduzco cuadrigas para los Verdes, chaval, no vendo jamelgos. Aunque… esta mañana se nos ha escapado una yegua blanca de las cuadras. Si la encuentras antes que los Azules, te regalo un caballo de los nuestros: ya no corre en el circo, pero tiene corazón.':'¿Un caballo? En Tesalia criamos los mejores de Grecia. Pero no se los doy a cualquiera. Al traer a la ciudad a Aura, una yegua joven, se me escapó por las afueras. Encuéntrala y tráemela, y te daré uno de mis potros.')+'</p>';
+    o.innerHTML='';const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">1</span><span>Acepto: buscaré la yegua</span>';
+    b.onclick=()=>{h.q='on';save();mareShow();closeDialog();toast('<span class="label">Encargo</span><br>Busca la yegua escapada: sigue el rombo ◆ de la brújula.');};o.appendChild(b);
+    const c=document.createElement('button');c.innerHTML='<span class="n">2</span><span>Ahora no</span>';c.onclick=()=>renderOpts();o.appendChild(c);return;}
+  if(h.q==='on'){$('dBody').innerHTML='<p>'+(ro?'¿Todavía nada? Es blanca y asustadiza. Sigue el rombo de la brújula.':'¿Aún no la has visto? Es castaña, con una estrella en la frente. Sigue el rombo de la brújula.')+'</p>';one('Voy a buscarla',()=>renderOpts());return;}
+  if(h.q==='caught'){h.q='done';h.own=true;h.xp=0;h.lvl=1;save();updateStats();sfxCoin();
+    $('dBody').innerHTML='<p>'+(ro?'¡La has encontrado! Los Azules se van a morder los puños. Toma: este es Rayo. Es viejo para el circo, pero joven para ti.':'¡Aura! Ven aquí, preciosa. Has cumplido, y un tesalio cumple su palabra: este potro se llama Céfiro.')+'</p><p>'+(ro?'Félix':'Eudico')+' añade: «Aún tiene mucho que aprender. Cuando cabalgues, verás <b>esferas doradas</b> por el camino: pasa a través de ellas. Cada una le da experiencia, y con cada nivel corre un 2 % más rápido y salta un poco más».</p>';
+    one('Gracias',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para llamarlo.');});return;}
+}
+// esferas doradas: solo mientras cabalgas, cada ~60 m aparece una por delante
+const HORBS=[];let horbAcc=0,horbLast=null;
+function horbSpawn(){const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
+  const d=45+R()*35,l=(R()-0.5)*18,f=findFree(player.x+fx*d+rx*l,player.z+fz*d+rz*l,0.8);const fl=floorAt(f[0],f[1]);if(fl<-0.5||Math.abs(fl-player.feet)>15)return;
+  const g=new THREE.Group();g.position.set(f[0],fl+1.4,f[1]);
+  const m=new THREE.Mesh(new THREE.SphereGeometry(0.6,16,12),new THREE.MeshBasicMaterial({color:0xffd860}));g.add(m);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:EPI_TEX,color:0xffc840,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));sp.scale.set(4.2,4.2,1);g.add(sp);
+  scene.add(g);HORBS.push({g,x:f[0],z:f[1],y:fl+1.4,t:R()*6});}
+function horbClear(){for(const o of HORBS)scene.remove(o.g);HORBS.length=0;}
+function horseTick(dt){
+  const h=hz();if(MARE.g&&h.q==='on'){MARE.g.rotation.y+=dt*0.2;
+    if(ui==='play'&&Math.hypot(h.mx-player.x,h.mz-player.z)<4){h.q='caught';save();scene.remove(MARE.g);MARE.g=null;sfxWhistle();
+      toast('<span class="label">¡La tienes!</span><br>Coges la yegua de la brida. Llévasela a '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa')+'.');}}
+  if(!MOUNT.riding){if(HORBS.length)horbClear();horbLast=null;return;}
+  if(horbLast){horbAcc+=Math.hypot(player.x-horbLast.x,player.z-horbLast.z);}horbLast={x:player.x,z:player.z};
+  if(horbAcc>60){horbAcc=0;if(HORBS.length<8)horbSpawn();}
+  for(let i=HORBS.length-1;i>=0;i--){const o=HORBS[i];o.t+=dt;o.g.position.y=o.y+Math.sin(o.t*2.4)*0.25;o.g.children[0].scale.setScalar(1+Math.sin(o.t*5)*0.08);
+    const d=Math.hypot(o.x-player.x,o.z-player.z);
+    if(d<2.8&&Math.abs(o.y-(player.feet+1.4))<3.5){scene.remove(o.g);HORBS.splice(i,1);horseXP();continue;}
+    if(d>230){scene.remove(o.g);HORBS.splice(i,1);}}
+}
+function horseXP(){const h=hz();h.xp++;sfxCoin();
+  if(h.xp>=horseNeed(h.lvl)){h.xp=0;h.lvl++;toast('<span class="label">¡Tu caballo sube al nivel '+h.lvl+'!</span><br>Ahora corre un '+Math.round((horseMul()-1)*100)+' % más rápido y salta más alto.');}
+  save();updateStats();}
+// ============================================================ Dédalo, encerrado en su propio laberinto, y las alas de cera
+// Misión: recoger siete plumas por el palacio del sueño de Cnosos. Premio: alas para volar (X), con el aviso de Ícaro: si subes demasiado, la cera se funde.
+const DAED={g:null,x:0,z:0,lb:null,mk:null,kind:'daedalo',data:{name:'Dédalo',role:'el arquitecto del laberinto'}},FEATHERS=[];
+const FLY={on:false,melt:0,warn:0,ind:null};
+function wz(){if(!state.wings||typeof state.wings!=='object')state.wings={q:'',got:[],own:false};if(!Array.isArray(state.wings.got))state.wings.got=[];return state.wings;}
+function buildDaedalus(){if(MODE!=='atenas'||!KNOS.maze)return;const M2=KNOS.maze,Y=KNOS.y;
+  DAED.x=M2.x0+2.5;DAED.z=M2.z0+2.5;   // en el rincón más apartado del laberinto
+  const g=makePerson({noVary:true,chiton:'#cdbf9f',himation:'#5a4a3a',beard:true,hair:'#bdb6aa',beardC:'#cfc8bc',staff:true});g.position.set(DAED.x,Y,DAED.z);g.rotation.y=Math.PI*0.75;scene.add(g);DAED.g=g;
+  const lb=labelSprite('Dédalo','arquitecto ateniense',false);lb.position.y=2.45;lb.visible=false;g.add(lb);DAED.lb=lb;const mk=markerSprite();mk.position.y=2.95;g.add(mk);DAED.mk=mk;
+  box(1.6,0.9,0.8,lam('#7a5a3a'),M2.x0+1.4,Y+0.45,M2.z0+3.8);   // su mesa de trabajo
+  const spots=[[0,8],[-6,44],[-32,60],[45,-40],[-45,-30],[-10,-40],[60,70]];
+  spots.forEach((s,i)=>{let f=findFree(KNOS.x+s[0],KNOS.z+s[1],0.6);if(Math.abs(floorAt(f[0],f[1])-Y)>1)f=[KNOS.x+(i-3)*3,KNOS.z+20];
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:FEATHER_TEX,transparent:true,depthWrite:false}));sp.scale.set(0.9,1.4,1);sp.position.set(f[0],Y+1.1,f[1]);sp.visible=false;scene.add(sp);
+    FEATHERS.push({i,sp,x:f[0],z:f[1]});});
+  wingsRefresh();}
+const FEATHER_TEX=(()=>{const c=document.createElement('canvas');c.width=64;c.height=128;const x=c.getContext('2d');
+  x.fillStyle='rgba(255,236,170,0.35)';x.beginPath();x.arc(32,64,30,0,TAU);x.fill();
+  x.strokeStyle='#5a4a3a';x.lineWidth=3;x.beginPath();x.moveTo(32,120);x.lineTo(32,12);x.stroke();
+  x.fillStyle='#f3eee2';x.beginPath();x.moveTo(32,12);x.quadraticCurveTo(58,50,34,104);x.quadraticCurveTo(8,50,32,12);x.fill();
+  x.strokeStyle='#c9bfae';x.lineWidth=1;for(let y=24;y<100;y+=7){x.beginPath();x.moveTo(32,y);x.lineTo(50,y-6);x.moveTo(32,y);x.lineTo(14,y-6);x.stroke();}
+  return new THREE.CanvasTexture(c);})();
+function wingsRefresh(){const w=wz();for(const f of FEATHERS)f.sp.visible=w.q==='on'&&!w.got.includes(f.i);if(DAED.mk)DAED.mk.visible=!w.own;}
+function daedalusTalk(){const w=wz();dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent='Δ';setName('Dédalo');$('dTitle').textContent='Arquitecto ateniense, prisionero del rey Minos · personaje mítico';
+  const o=$('dOpts');o.innerHTML='';let k=1;const add=(txt,fn,cls)=>{const b=document.createElement('button');if(cls)b.className=cls;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);};
+  if(w.own){$('dBody').innerHTML='<p>¿Qué tal vuelan mis alas? Recuerda: ni muy bajo, que el mar empapa las plumas, ni muy alto, que el sol derrite la cera. Por el camino de en medio.</p>';add('Despedirse',closeDialog);}
+  else if(w.q===''){$('dBody').innerHTML='<p>¿Un visitante? ¿Y vivo? Soy Dédalo, ateniense, el mejor artesano de la tierra… o eso decían. Yo construí este laberinto para el rey Minos. Y Minos, para que nadie conozca su secreto, me ha encerrado en él con mi hijo Ícaro, que ahora duerme ahí detrás.</p><p>Minos es dueño de la tierra y del mar. Pero no del aire. Las gaviotas dejan caer plumas grandes por todo el palacio. Tráeme siete, y con hilo y cera de abejas te haré unas alas como las nuestras.</p>';
+    add('Te traeré las siete plumas',()=>{w.q='on';save();wingsRefresh();$('dBody').innerHTML='<p>Busca por el patio, junto a las alas del palacio y los almacenes. Brillan un poco al sol. Y date prisa: no sé cuánto tiempo seguirá Minos sin vigilar este rincón.</p>';o.innerHTML='';k=1;add('Ir a buscarlas',closeDialog);},'quiz');
+    add('Despedirse',closeDialog);}
+  else if(w.got.length<FEATHERS.length){$('dBody').innerHTML='<p>Llevas '+w.got.length+' de '+FEATHERS.length+' plumas. Busca por todo el palacio: el patio, los almacenes de las grandes tinajas, los pórticos.</p>';add('Seguir buscando',closeDialog);}
+  else{$('dBody').innerHTML='<p>¡Siete! Mira: las coso por los cañones con hilo de lino, las pequeñas las pego con cera, y las curvo un poco, como las de un ave de verdad. Ya está.</p><p>Escúchame bien, como se lo digo a Ícaro cada día: no vueles demasiado bajo, que la humedad del mar pesa en las plumas, ni demasiado alto, que el sol derrite la cera. Sígueme a mí, por el camino de en medio.</p><p class="sub">Ovidio cuenta que Ícaro, feliz de volar, subió demasiado: la cera se fundió y cayó al mar que hoy lleva su nombre. Dédalo llegó a Sicilia.</p>';
+    add('Ponerse las alas',()=>{w.own=true;w.q='done';save();wingsRefresh();sfxCoin();closeDialog();toast('<span class="label">Alas de cera</span><br>Pulsa <b>X</b> para desplegarlas y volver a plegarlas. Espacio para subir, C para bajar, Shift para planear deprisa. ¡No subas demasiado!');updateStats();});}
+  $('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
+}
+function wingsTick(dt){const w=wz();
+  if(DAED.g){const d=Math.hypot(DAED.x-player.x,DAED.z-player.z);DAED.lb.visible=d<12;if(DAED.mk.visible)DAED.mk.position.y=2.95+Math.sin(performance.now()/500)*0.08;}
+  if(w.q==='on')for(const f of FEATHERS){if(!f.sp.visible)continue;f.sp.position.y=KNOS.y+1.1+Math.sin(performance.now()/400+f.i)*0.15;
+    if(ui==='play'&&Math.hypot(f.x-player.x,f.z-player.z)<2&&Math.abs(player.feet-KNOS.y)<4){w.got.push(f.i);f.sp.visible=false;save();sfxCoin();
+      toast('<span class="label">Pluma '+w.got.length+' de '+FEATHERS.length+'</span><br>'+(w.got.length<FEATHERS.length?'Sigue buscando por el palacio.':'¡Ya las tienes todas! Vuelve al rincón del laberinto donde espera Dédalo.'));}}
+  if(FLY.melt>0){FLY.melt-=dt;if(FLY.melt<=0)toast('Has rehecho la cera de las alas, como te enseñó Dédalo. Pulsa <b>X</b> para volar.');}
+  if(!FLY.on)return;const alt=player.feet-terrainH(player.x,player.z);
+  if(alt>95&&FLY.warn<=0){FLY.warn=6;toast('<span class="label">¡Cuidado!</span><br>Hace calor tan cerca del sol: la cera empieza a ablandarse. Baja un poco.');}FLY.warn-=dt;
+  if(alt>125){FLY.on=false;FLY.melt=30;toast('<span class="label">Como Ícaro</span><br>Has subido demasiado: la cera se derrite y las plumas se sueltan. Caes planeando como puedes…');}
+}
+function toggleWings(){if(ui!=='play')return;const w=wz();if(!w.own)return;
+  if(FLY.melt>0){toast('Las alas aún se están rehaciendo: espera un poco.');return;}
+  if(MOUNT.riding){toast('Baja antes del caballo: no es buena idea volar con él.');return;}
+  FLY.on=!FLY.on;if(FLY.on){player.vy=4;player.grounded=false;toast('Despliegas las alas. Espacio para subir, C para bajar. Pulsa <b>X</b> para plegarlas.');}}
+function flyMove(nx,nz){const fl=floorAt(nx,nz);if(fl>player.feet-0.3)return tryMove(nx,nz);
+  if(nx<8000){nx=clamp(nx,INNER.x-INNER.size/2+20,INNER.x+INNER.size/2-20);nz=clamp(nz,INNER.z-INNER.size/2+20,INNER.z+INNER.size/2-20);}
+  else if(player.feet<400){const I=islandOf(nx),w2=I.R*1.38;nx=clamp(nx,I.x-w2,I.x+w2);nz=clamp(nz,I.z-w2,I.z+w2);}
+  player.x=nx;player.z=nz;return true;}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -11267,7 +11378,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -11287,6 +11398,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

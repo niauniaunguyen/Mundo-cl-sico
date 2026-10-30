@@ -1,11 +1,11 @@
-# Atenas 386 a.C. y Roma 80 d.C. — documento de traspaso
+# Nóstos — Atenas 386 a.C. y Roma 80 d.C. — documento de traspaso
 
 Juego 3D en primera persona para el navegador, en español. Al empezar se elige la época: **Atenas en la primavera del 386 a.C.** o **Roma en el año 80 d.C.** Sirve para aprender política, filosofía, sociedad y mitos.
 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 37). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 38). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,33 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 38: Nóstos, modo Historia, juego en línea, caballo con niveles y alas de Dédalo
+- **Nombre:** el juego se llama ahora **Nóstos** (νόστος, «el regreso a casa»), en el selector de época y en el título de la pestaña.
+- **Tres formas de jugar** en la pantalla de inicio de cada época: **Historia** (`startStory`), **Libre** (la de siempre) y **Libre en línea** (`netJoin`).
+- **Modo Historia** (`STORY_ATENAS`, `STORY_ROMA`; motor en `storyResume`, `playScene`, `storyHook`, `storyTick`):
+  - Son diez capítulos por época, cada uno sobre un ámbito.
+  - Atenas, «La lechuza de bronce»: un padre dado por muerto en la guerra de Corinto.
+  - Roma, «La tablilla de Tercia»: una hermana perdida tras el Vesubio.
+  - Cada paso espera un gesto: hablar con un personaje (`npc`), con un actor propio de la historia (`actor`), leer una estela (`sign`), llegar a un sitio (`go`) o soñar una esfera (`dream`).
+  - Las escenas admiten preguntas (`ask`) y elecciones (`choose`).
+  - Se guarda aparte (`SAVE_KEY` + `-historia`).
+  - En el juego, G hace que te lleven al objetivo y el diario (J) muestra los capítulos.
+- **Libre en línea**:
+  - Usa la capacidad `room`: hay salas con código (`mc-<época>-<código>`) y un máximo de 15 jugadores.
+  - Cada jugador publica su presencia (nombre, color y posición) y se pinta como avatar (`netAvatar`).
+  - El chat va por el tema `chat`, abierto a participantes (`capabilities: {room:{topics:{chat:'interact'}}}`); Intro abre el chat.
+  - Solo funciona en claude.ai y con la página compartida.
+- **Caballo**:
+  - Ya no lo tienes al principio.
+  - Te lo da Eudico de Larisa (Atenas) o el auriga Félix (Roma) si le traes una yegua escapada (`horseQuest`, `mareShow`).
+  - Al cabalgar aparecen esferas doradas cada ~60 m (`horseTick`, `HORBS`). Dan experiencia, y cada nivel suma +2 % de velocidad (`horseMul`) y algo más de salto (`horseJump`).
+  - Se guarda en `state.horse`.
+- **Dédalo y las alas de cera** (solo en Atenas, `buildDaedalus`, `daedalusTalk`):
+  - Dédalo está en el rincón noroeste del laberinto del sueño de Cnosos y pide siete plumas repartidas por el palacio.
+  - Con las alas, X las despliega, Espacio sube, C baja y Shift vuela deprisa (`FLY`, `flyMove`).
+  - Por encima de 125 m la cera se funde y hay que esperar 30 s, como le pasó a Ícaro.
+  - Se guarda en `state.wings`.
 
 ### Novedades de la versión 37: los mapas nuevos con vida y el gabinete de curiosidades
 - **Personajes en los 8 mapas de paso** (opción `npc` de `SIMPLE_GR`/`SIMPLE_RO`; `buildSimple` los coloca junto a la llegada): Tisandro (penesta, Larisa), Teodoto (pintor en Pela), Antis (peleíade, Dodona), Laódoco (cazador, Calidón), Jenias (pescador de Hélice, Egio), Damón (hilota, Itome), Lisímaco (broncista, Calcis) y Melanto (barquero, Regium). Todos inventados, con fuentes en `SRC` / `ROMA_DEST_SRC`.
