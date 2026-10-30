@@ -3462,8 +3462,14 @@ function saveDlg(title,html,opts){const prev=ui;dlg={n:null};ui='dialog';release
   $('dialog').hidden=false;}
 function exportSave(){const txt=saveData(),name=(MODE==='roma'?'roma-80':'atenas-386')+'-dia'+(state.day||1)+'-'+new Date().toISOString().slice(0,10)+'.json';
   saveDlg('Guardar partida','<p>Tu progreso se guarda solo en este navegador. Para llevártelo a otro ordenador o tener una copia, descarga el archivo o copia este texto y guárdalo donde quieras. Se carga con «Cargar partida».</p><textarea id="saveTxt" readonly style="width:100%;height:90px;font-size:.75rem">'+txt.replace(/</g,'&lt;')+'</textarea>',
-   [['Descargar el archivo '+name,()=>{try{const b=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}catch(e){}}],
+   [['Descargar el archivo '+name,()=>offerDownload(name,txt)],
     ['Copiar el texto',()=>{const t=$('saveTxt');t.select();try{navigator.clipboard.writeText(txt).catch(()=>document.execCommand('copy'));}catch(e){try{document.execCommand('copy');}catch(e2){}}toast('Texto de la partida copiado.');}]]);}
+// en la página publicada, las descargas pasan por el visor (capacidad downloads), que pide confirmación; fuera de él, un enlace normal
+async function offerDownload(name,txt){
+  try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
+    if(dl){await dl.save({filename:name,data:txt});toast('<span class="label">Partida guardada</span><br>'+name);return;}}
+  catch(e){if(e&&e.code==='declined')return;toast('No se ha podido descargar el archivo aquí: copia el texto y guárdalo en un documento.');return;}
+  try{const b=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}catch(e){}}
 function loadSaveText(txt){try{const d=JSON.parse(txt);if(d.juego!=='mundo-clasico'||!d.state||!Array.isArray(d.state.lessons))throw 0;
     localStorage.setItem(d.modo==='roma'?'roma-80-v1':'atenas-386-v1',JSON.stringify(d.state));const u=new URL(location.href);u.searchParams.set('modo',d.modo==='roma'?'roma':'atenas');location.href=u.toString();}
   catch(e){alert('Eso no es una partida guardada de este juego.');}}
