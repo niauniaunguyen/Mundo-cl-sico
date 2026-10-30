@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 52). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 53). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,14 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 53: rutas de la Odisea y de la Eneida
+- `TOUR_A`: Cleónimo, rapsoda homérida inventado, junto a la escuela de letras. `TOUR_R`: Sexto Cornelio, gramático inventado, junto a la escuela del gramático. La primera vez la ruta cuesta 30 monedas y da +4 so y +1 kl. Repetirla es gratis. Se guarda en `state.tours`.
+- Paradas con `at` (`stAnchor`): el jugador y el guía se colocan en el punto más llano alrededor (`tourNext`) y se abre un diálogo. Paradas sin `at`: pantalla de mar narrada (`#tourSea`, ui `tour`; Intro o Espacio para seguir).
+  - Odisea: Troya, cinco tramos de mar, Delos (la palmera de Nausícaa), Ítaca, Creta (las mentiras cretenses) y Esparta (el Menelaion).
+  - Eneida: Troya, el Egeo, el estrecho de Regium, la tempestad, la Byrsa de Cartago, Cumas (tumba de Virgilio), el Lacio y el Lupercal.
+- Al terminar o abandonar la ruta, se vuelve al punto de partida. «Quedarme aquí» deja al jugador en la parada.
+- Fallo conocido en Cartago: en el borde de la zona allanada de la ciudad (`I.town`), el relieve visible no coincide con `floorAt`. La parada de Dido se ha llevado al foro de la Byrsa, que es llano.
 
 ### Novedades de la versión 52: nombre y sexo del personaje
 - Al empezar una partida sin `state.pj`, `pjDlg` pide el nombre y si eres hombre o mujer, y lo guarda en `state.pj={name,g:'m'|'f'}`. El tutorial empieza después. El panel del profesorado tiene un atajo «Cambiar de personaje».
