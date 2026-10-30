@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 42). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 43). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,18 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 43: fiestas y ritos
+- **Calendario de fiestas** (`FESTS_ATENAS`, `FESTS_ROMA`):
+  - Hay 19 fiestas en Grecia y 25 en Roma (los días de mercado, la inauguración, la naumaquia y las carreras siguen siendo acontecimientos aparte).
+  - Además de las grandes fiestas cívicas, incluye ritos extraños o mistéricos:
+    - **Grecia:** Panateneas, Misterios de Eleusis, Tesmoforias, Pianepsias, Apaturias, Leneas, Antesterias, Targelias, Plinterias, Bufonias, Arreforias, Adonias, Braurionias, las tíades del Parnaso, la iniciación órfica, Cronias, Diasias y, en Esparta, Carneas y Jacintias.
+    - **Roma:** Saturnales, Lupercales, Parilias, Vestalia, Matronalia, Liberalia, Floralia, Lemurias, Compitalia, Juegos Romanos, Navigium Isidis, Mercuralia, Caballo de Octubre, *Mundus patet*, ritos de Baco (con el escándalo del 186 a.C.), Argeos, Bona Dea, Cerialia, Parentalia, Robigalia, Terminalia, Fontinalia y Regifugium.
+- **Cómo funciona**:
+  - El año religioso va condensado: los días pares libres de otro acontecimiento se celebra la siguiente fiesta del ciclo (`festOfDay`, `baseEvent`, `festNextDay`).
+  - `todayEvent` devuelve la fiesta como si fuera un acontecimiento (`festEvent`), y `evCrowd` pone la multitud en su lugar y un oficiante (`festSpawn`, `FEST_ACT`).
+  - El oficiante explica la fiesta y dos temas, y propone participar en el rito con una pregunta (`festDialog`). Si se acierta, da +3 de piedad, +1 de fama y 2 monedas, y queda anotado en `state.fest`.
+- **Diario**: hay una pestaña nueva, **Fiestas** (`festsHTML`), con el mes real, el dios, el próximo día de celebración en el juego y las fuentes antiguas de las fiestas ya celebradas. La Guía las explica.
 
 ### Novedades de la versión 42: tutorial y barra más limpia
 - **Tutorial de los primeros segundos** (`TUT`, `TUT_STEPS`, `tutStart`, `tutTick`, `tutEnd`):
