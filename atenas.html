@@ -3658,9 +3658,10 @@ function setName(t,fict){const e=$('dName');e.textContent=t;e.className=fict?'fi
 function openDialog(n){
   if(storyHook('npc',n.id))return;
   if(!state.seen['m:'+n.id]){state.seen['m:'+n.id]=1;qAdd(npcQual(n),1);qAdd('kl',1,'Cada vez más gente sabe quién eres.');}
+  discHook(n.id);
   dlg={n,quiz:null};ui='dialog';releasePointer();
   $('dGlyph').textContent=n.glyph;setName(n.name,!HIST.has(n.id));$('dTitle').textContent=n.title+(HIST.has(n.id)?_t(2637,' · personaje histórico'):_t(2638,' · personaje inventado'));
-  $('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();$('dialog').hidden=false;
+  $('dBody').innerHTML='<p>'+n.intro+'</p>'+rivalTaunt(n);renderOpts();$('dialog').hidden=false;
   setTimeout(()=>{const b=$('dOpts').querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function renderOpts(extra){
@@ -3678,6 +3679,8 @@ function renderOpts(extra){
   if(n.event)add(state.lessons.includes(n.event)?_t(2653,'Quiero volver a hacer de jurado'):_t(2654,'Quiero ser jurado hoy: llévame a un juicio'),'quiz',startTrial);
   if(!learned)add(seen.length?_t(2655,'Ponme a prueba: ¿lo he entendido?'):_t(2656,'Ponme a prueba (mejor después de escuchar)'),'quiz',startQuiz);
   if(FRIENDS[n.id]&&FRIENDS[n.id].m===MODE){const a=fz(n.id);add(a.t>=FRIENDS[n.id].e.length?'Charlar con un amigo ('+fGrade(a.p)+')':'Pasar un rato juntos · afinidad '+a.p+'/100','quiz',()=>friendMenu(n));}
+  if(MASTERS[n.id]&&MASTERS[n.id].m===MODE){const d=dz();add(d.grad.includes(n.id)?'Hablar con tu antiguo maestro':d.cur===n.id?'Tu formación como discípulo ('+(d.st===0?'prueba de admisión':'lección '+d.st+' de 4')+')':'Pedir ser su discípulo','quiz',()=>discMenu(n));}
+  for(const mid of discOf()){const M=MASTERS[mid];if(M&&M.debate[n.id]&&!dz().deb[mid+':'+n.id])add('Aceptar el reto: debatir con '+n.name,'quiz',()=>debateMenu(n,mid));}
   if(n.id===HORSE_NPC()&&!hz().own)add(hz().q==='caught'?'Te traigo la yegua':hz().q==='on'?'Sobre la yegua escapada…':'¿Me darías un caballo?','quiz',()=>horseQuest(n));
   add(_t(2657,'Despedirse'),'',closeDialog);
 }
@@ -11372,19 +11375,19 @@ function qualHTML(){const ro=MODE==='roma';
   h+='</div><h3 style="margin:22px 0 10px">'+(ro?'Amicitiae':'Amistades')+'</h3><p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Las personalidades más importantes no regalan su amistad. Pasa tiempo con ellas (como mucho una vez al día), responde como lo haría alguien de su confianza y cultiva las cualidades que valoran. Cada encuentro te descubre algo nuevo de su vida y de lo que saben.</p><div class="entries">';
   for(const id in FRIENDS){const F=FRIENDS[id];if(F.m!==MODE)continue;const n=NPCS.find(x=>x.id===id);if(!n)continue;const a=fz(id),met=state.seen&&state.seen['m:'+id];
     h+='<div class="entry'+(met?'':' locked')+'"><span class="label">'+fGrade(a.p)+'</span><h3>'+(met?n.name:'Sin conocer')+'</h3><div class="qbar"><i style="width:'+a.p+'%"></i></div><p>'+(met?(a.log.length?a.log.map(i=>'· '+F.e[i].h).join('<br>'):'Aún no habéis pasado tiempo juntos.'):'Busca a esta personalidad: '+n.where+'.')+'</p>'+(a.p>=100?'<div class="where">'+F.gift+'</div>':'')+'</div>';}
-  return h+'</div>';}
+  return h+'</div>'+discHTML();}
 // ---- amistades: afinidad 0-100, cinco encuentros que exigen cualidades crecientes; una respuesta torpe solo suma un poco y obliga a volver otro día
 function fz(id){if(!state.friends||typeof state.friends!=='object')state.friends={};if(!state.friends[id])state.friends[id]={p:0,t:0,day:0,log:[]};return state.friends[id];}
 function fGrade(p){const ro=MODE==='roma';return p>=100?(ro?'Amicitia: amistad íntima':'Philía: amistad íntima'):p>=60?'Amistad':p>=40?'Confianza':p>=20?'Trato cordial':p>0?'Conocido':'Desconocido';}
-function fNeed(F,t){const n=NPCS.find(x=>x.id===F.id),k=F.q||npcQual(n);const r=[[k,t+1]];if(t>=2)r.push(['kl',t]);if(t>=3&&F.q2)r.push([F.q2,t]);return r;}
-function friendMenu(n){const F=FRIENDS[n.id],a=fz(n.id),ro=MODE==='roma',o=$('dOpts');
+function fNeed(F,t){const n=NPCS.find(x=>x.id===F.id),k=F.q||npcQual(n),pen=rivalOf(F.id).length?1:0;const r=[[k,t+1+pen]];if(t>=2)r.push(['kl',t+pen]);if(t>=3&&F.q2)r.push([F.q2,t]);return r;}
+function friendMenu(n){const F=FRIENDS[n.id];F.id=n.id;const a=fz(n.id),ro=MODE==='roma',o=$('dOpts');
   const one=(txt,fn)=>{o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);setTimeout(()=>b.focus({preventScroll:true}),30);};
   const head='<p class="sub">Afinidad con '+n.name+': '+a.p+' / 100 · '+fGrade(a.p)+'</p>';
   if(a.t>=F.e.length){$('dBody').innerHTML=head+'<p>'+F.done+'</p>';one(_t(2667,'Volver'),()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
   if(!state.lessons.includes(n.id)){$('dBody').innerHTML=head+'<p>'+n.name+' te mira con cortesía, pero sin interés. Primero demuéstrale que has escuchado lo que enseña: supera su lección («Ponme a prueba»).</p>';one(_t(2667,'Volver'),()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
   if(a.day===state.day){$('dBody').innerHTML=head+'<p>'+(F.busy||'Hoy ya habéis pasado un rato juntos. La amistad no se fuerza: vuelve otro día.')+'</p>';one(_t(2667,'Volver'),()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
-  const miss=fNeed(F,a.t).filter(([k,l])=>qLv(k)<l);
-  if(miss.length){$('dBody').innerHTML=head+'<p>'+n.name+' no te abre todavía esa puerta. Para ganarte más confianza necesitas: '+miss.map(([k,l])=>'<b>'+qName(QUAL.find(q=>q.k===k))+' '+l+'</b> (tienes '+qLv(k)+')').join(', ')+'.</p><p class="sub">Sube tus cualidades en tu ficha (diario, pestaña Ficha).</p>';one(_t(2667,'Volver'),()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
+  const miss=fNeed(F,a.t).filter(([k,l])=>qLv(k)<l);const rv=rivalOf(n.id);
+  if(miss.length){$('dBody').innerHTML=head+(rv.length?'<p>'+n.name+' desconfía de los discípulos de '+npcName(rv[0])+', así que te exige más.</p>':'')+'<p>'+n.name+' no te abre todavía esa puerta. Para ganarte más confianza necesitas: '+miss.map(([k,l])=>'<b>'+qName(QUAL.find(q=>q.k===k))+' '+l+'</b> (tienes '+qLv(k)+')').join(', ')+'.</p><p class="sub">Sube tus cualidades en tu ficha (diario, pestaña Ficha).</p>';one(_t(2667,'Volver'),()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
   const E=F.e[a.t];a.day=state.day;save();
   $('dBody').innerHTML=head+'<p class="sub">'+E.h+'</p>'+E.t.map(x=>'<p>'+x+'</p>').join('')+'<p><b>'+E.q+'</b></p>';
   o.innerHTML='';const opts=E.o.map((x,i)=>[x,i===0]).sort(()=>R()-0.5);
@@ -11686,6 +11689,251 @@ sulpicia:{m:'roma',q:'lo',q2:'so',busy:'Sulpicia está escribiendo. «Los versos
    o:[['Copiarlos, leerlos y citarlos, para que otros los conozcan','«Entonces ya tienen un guardián. Gracias».'],['Nada, lo que se pierde se pierde','«Qué triste pensamiento».'],['Esconderlos','«Escondidos se pierden antes».']]}]}
 };
 
+// ============================================================ discípulos: escuelas, encargos y rivalidades
+// Cada maestro: admisión + cuatro lecciones. Cada paso pide un encargo (task) y termina con una pregunta.
+// Ser discípulo (o haberlo sido) enfría a sus rivales: pierden afinidad, te lanzan pullas, exigen más y te retan a debatir.
+function dz(){if(!state.disc||typeof state.disc!=='object')state.disc={cur:null,st:0,task:0,day:0,grad:[],left:[],deb:{},did:0};return state.disc;}
+const discOf=()=>{const d=dz();return[...d.grad,...(d.cur?[d.cur]:[])];};
+function rivalOf(id){return discOf().filter(m=>MASTERS[m]&&MASTERS[m].rivals.includes(id));}
+function taskOk(T){if(!T)return true;const d=dz();
+  if(T.k==='lesson')return state.lessons.includes(T.id);if(T.k==='place')return state.places.includes(T.id);
+  if(T.k==='qual')return qLv(T.q)>=T.lv;if(T.k==='npc')return d.did===1;return true;}
+function discHook(id){const d=dz();if(!d.cur||!d.task)return;const M=MASTERS[d.cur],S=M.steps[d.st];if(S&&S.task&&S.task.k==='npc'&&S.task.id===id&&d.did!==1){d.did=1;save();setTimeout(()=>toast('<span class="label">Encargo de '+npcName(d.cur)+'</span><br>Hecho. Vuelve con tu maestro.'),600);}}
+const npcName=id=>{const n=NPCS.find(x=>x.id===id);return n?n.name:id;};
+function discMenu(n){const M=MASTERS[n.id],d=dz(),o=$('dOpts'),ro=MODE==='roma';
+  const back=()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();};
+  const one=(txt,fn)=>{o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);setTimeout(()=>b.focus({preventScroll:true}),30);};
+  const head='<p class="sub">'+M.school+'</p>';
+  if(d.grad.includes(n.id)){$('dBody').innerHTML=head+'<p>'+M.grad+'</p>';one(_t(2667,'Volver'),back);return;}
+  if(d.cur&&d.cur!==n.id){$('dBody').innerHTML=head+'<p>'+n.name+' frunce el ceño: «Ya tienes maestro: '+npcName(d.cur)+'. Nadie sirve bien a dos escuelas a la vez. Si un día lo dejas, hablaremos».</p>';one(_t(2667,'Volver'),back);return;}
+  if(!d.cur){const rv=rivalOf(n.id);
+    if(rv.length){$('dBody').innerHTML=head+'<p>'+M.refuse.replace('%',npcName(rv[0]))+'</p>';one(_t(2667,'Volver'),back);return;}
+    const lack=[];if(!state.lessons.includes(n.id))lack.push('superar su lección');if(FRIENDS[n.id]&&fz(n.id).p<40)lack.push('llegar a Confianza en vuestra amistad (afinidad 40)');if(qLv(M.q)<M.lv)lack.push(qName(QUAL.find(q=>q.k===M.q))+' '+M.lv+' (tienes '+qLv(M.q)+')');
+    if(lack.length){$('dBody').innerHTML=head+'<p>'+M.ask+'</p><p class="sub">Para que te acepte como aspirante necesitas: '+lack.join(', ')+'.</p>';one(_t(2667,'Volver'),back);return;}
+    $('dBody').innerHTML=head+'<p>'+M.ask+'</p><p class="sub">Si eres su discípulo, sus rivales ('+M.rivals.map(npcName).join(', ')+') te mirarán con recelo.</p>';
+    o.innerHTML='';const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">1</span><span>Quiero ser tu discípulo</span>';
+    b.onclick=()=>{d.cur=n.id;d.st=0;d.task=1;d.did=0;save();discMenu(n);};o.appendChild(b);const c=document.createElement('button');c.innerHTML='<span class="n">2</span><span>Todavía no</span>';c.onclick=back;o.appendChild(c);return;}
+  // es tu maestro
+  const S=M.steps[d.st],tit=(d.st===0?'Prueba de admisión':'Lección '+d.st+' de '+(M.steps.length-1))+' · '+S.h;
+  if(!taskOk(S.task)){$('dBody').innerHTML=head+'<p class="sub">'+tit+'</p><p><b>Encargo:</b> '+S.task.txt+'</p>';
+    o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Iré a hacerlo</span>';b.onclick=back;o.appendChild(b);
+    const c=document.createElement('button');c.innerHTML='<span class="n">2</span><span>Dejar de ser su discípulo</span>';c.onclick=()=>{d.left.push(n.id);d.cur=null;d.st=0;d.task=0;if(FRIENDS[n.id]){const a=fz(n.id);a.p=Math.max(0,a.p-30);}save();$('dBody').innerHTML='<p>'+M.leave+'</p>';one(_t(2667,'Volver'),back);};o.appendChild(c);return;}
+  if(d.day===state.day){$('dBody').innerHTML=head+'<p>«Ya basta por hoy. Lo aprendido necesita una noche para asentarse. Vuelve mañana».</p>';one(_t(2667,'Volver'),back);return;}
+  d.day=state.day;save();
+  $('dBody').innerHTML=head+'<p class="sub">'+tit+'</p>'+S.t.map(x=>'<p>'+x+'</p>').join('')+'<p><b>'+S.q+'</b></p>';
+  o.innerHTML='';S.o.map((x,i)=>[x,i===0]).sort(()=>R()-0.5).forEach(([x,good],i)=>{const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+x[0]+'</span>';
+    b.onclick=()=>{let msg='<p>'+x[1]+'</p>';
+      if(good){sfxCoin();qAdd(M.q,3);if(d.st===0){qAdd('kl',2);msg+='<div class="curio"><span class="label">Ahora eres discípulo de '+n.name+'</span><p>'+M.admit+'</p></div>';discRivals(n.id);}
+        d.st++;d.task=1;d.did=0;
+        if(d.st>=M.steps.length){d.grad.push(n.id);d.cur=null;d.st=0;d.task=0;qAdd(M.q,6,'Has completado tu formación con '+n.name+'.');qAdd('kl',4);msg+='<div class="curio"><span class="label">'+M.title+'</span><p>'+M.gift+'</p></div>';}
+        else msg+='<p class="sub">Siguiente encargo: '+M.steps[d.st].task.txt+'</p>';}
+      else msg+='<p class="sub">«No. Piénsalo mejor y vuelve otro día».</p>';
+      save();updateStats();$('dBody').innerHTML=head+msg;one(_t(2667,'Volver'),back);};o.appendChild(b);});
+}
+function discRivals(id){const M=MASTERS[id];const names=[];for(const r of M.rivals){if(FRIENDS[r]){const a=fz(r);a.p=Math.max(0,a.p-15);}names.push(npcName(r));}
+  save();setTimeout(()=>toast('<span class="label">Rivalidades</span><br>La noticia corre: '+names.join(' y ')+(names.length>1?' ya saben':' ya sabe')+' de qué escuela eres.'),2500);}
+// el rival: una pulla al saludarte, más exigencia para su amistad y un debate
+function rivalTaunt(n){const rv=rivalOf(n.id);if(!rv.length)return '';const M=MASTERS[rv[0]];return M.taunt[n.id]?'<p class="sub">'+M.taunt[n.id]+'</p>':'';}
+function debateMenu(n,mid){const M=MASTERS[mid],D=M.debate[n.id],d=dz(),key=mid+':'+n.id,o=$('dOpts');
+  $('dBody').innerHTML='<p class="sub">Debate: discípulo de '+npcName(mid)+' contra '+n.name+'</p><p>'+D.t+'</p><p><b>'+D.q+'</b></p>';
+  o.innerHTML='';D.o.map((x,i)=>[x,i===0]).sort(()=>R()-0.5).forEach(([x,good],i)=>{const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+x[0]+'</span>';
+    b.onclick=()=>{d.deb[key]=good?'won':'lost';let msg='<p>'+x[1]+'</p>';
+      if(good){qAdd('lo',3,'Has ganado un debate.');qAdd('kl',2);qAdd(M.q,1);if(FRIENDS[n.id]){const a=fz(n.id);a.p=Math.min(99,a.p+5);}msg+='<p class="sub">'+D.win+'</p>';sfxCoin();}
+      else{if(FRIENDS[n.id]){const a=fz(n.id);a.p=Math.max(0,a.p-5);}msg+='<p class="sub">'+D.lose+'</p>';}
+      save();updateStats();$('dBody').innerHTML=msg;o.innerHTML='';const c=document.createElement('button');c.innerHTML='<span class="n">1</span><span>Volver</span>';c.onclick=()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>'+rivalTaunt(n);renderOpts();};o.appendChild(c);};o.appendChild(b);});
+}
+function discHTML(){const d=dz();const ms=Object.keys(MASTERS).filter(k=>MASTERS[k].m===MODE);
+  let h='<h3 style="margin:22px 0 10px">Escuelas y maestros</h3><p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Puedes ser discípulo de un maestro a la vez. Pide ser aceptado cuando tengas su confianza, supera la prueba de admisión y cuatro lecciones, cada una con un encargo. Sus rivales lo sabrán: te costará más ganarte su amistad, y te retarán a debatir.</p><div class="entries">';
+  for(const id of ms){const M=MASTERS[id],n=NPCS.find(x=>x.id===id);if(!n)continue;const st=d.grad.includes(id)?M.title:d.cur===id?'Discípulo · '+(d.st===0?'prueba de admisión':'lección '+d.st+' de '+(M.steps.length-1)):d.left.includes(id)?'Abandonaste su escuela':'Sin ingresar';
+    h+='<div class="entry'+(d.grad.includes(id)||d.cur===id?'':' locked')+'"><span class="label">'+st+'</span><h3>'+n.name+'</h3><p>'+M.school+'</p>'+(d.cur===id?'<div class="where">Encargo: '+M.steps[d.st].task.txt+(taskOk(M.steps[d.st].task)?' (hecho: vuelve con tu maestro)':'')+'</div>':'<div class="where">Rivales: '+M.rivals.map(npcName).join(', ')+'</div>')+'</div>';}
+  return h+'</div>';}
+// maestros: en cada pregunta, la primera opción es la buena (se barajan)
+const MASTERS={
+platon:{m:'atenas',q:'so',lv:3,school:'La Academia: la búsqueda de lo que es verdad siempre, más allá de lo que vemos.',title:'Académico: discípulo formado de Platón',rivals:['isocrates','antistenes','aristipo'],
+ ask:'«¿Quieres estudiar aquí? No cobro, pero exijo. Primero tendrás que demostrarme que no te asustan los números».',
+ refuse:'«Has aprendido con %. Respeto a cualquiera que busque la verdad, pero tu cabeza ya tiene dueño. No te admitiré».',
+ admit:'Platón te da la mano y te presenta a los demás como «uno de los nuestros». Desde hoy puedes pasear por el jardín de la Academia como en tu casa.',
+ leave:'Platón no se enfada, o no lo parece. «Quien deja la filosofía a medias se queda con las sombras de la cueva». Vuestra amistad se enfría.',
+ grad:'«Ya no te enseño: ahora conversamos. Que es lo único que de verdad se puede hacer entre iguales».',
+ gift:'Platón te nombra miembro de la Academia. Podrás enseñar a los nuevos, y tu Sophía crece mucho.',
+ taunt:{isocrates:'Isócrates sonríe con frialdad: «Ah, el discípulo de Platón. ¿Ya has visto la idea de pan, o todavía comes pan normal?».',antistenes:'Antístenes gruñe: «Otro que busca la caballidad. A ver si encuentras primero un caballo».',aristipo:'Aristipo se ríe: «¿El de la Academia? Pobre. Allí se piensa mucho y se cena poco».'},
+ debate:{isocrates:{t:'Isócrates te reta delante de sus alumnos: «Tu maestro dice que busca la verdad eterna. Yo enseño a decidir bien en los asuntos de la ciudad, donde nada es seguro. ¿Para qué sirve su filosofía?».',q:'¿Qué respondes?',o:[['Sin saber qué es la justicia de verdad, tus decisiones prudentes pueden ser prudentemente injustas','Algunos de sus alumnos murmuran. Isócrates sonríe, pero tarda en contestar.'],['Para nada, la verdad es cosa de dioses','Isócrates asiente encantado: acabas de darle la razón.'],['Para ganar más dinero','Las carcajadas se oyen hasta el Liceo.']],win:'Has ganado el debate. Isócrates no te quiere más, pero te respeta.',lose:'Has perdido el debate y algo de su respeto.'},
+  antistenes:{t:'Antístenes te detiene en la calle: «Platón dice que las cosas son copias de ideas. Yo veo hombres, no la idea de hombre. Demuéstrame que existe».',q:'¿Qué respondes?',o:[['Si no existiera la idea de hombre, no sabrías que tú y yo somos lo mismo: hombres','Antístenes se rasca la barba. «Tramposo. Pero no tonto».'],['Tienes razón, no existe','«Entonces dile a tu maestro que se busque otro discípulo».'],['Las ideas están en el cielo, lo dice Platón y basta','«¿Basta porque lo dice él? Sócrates se avergonzaría de ti».']],win:'Ganas el debate. Antístenes refunfuña, que es su forma de rendirse.',lose:'Pierdes el debate. Antístenes se va riendo.'},
+  aristipo:{t:'Aristipo te invita a vino: «¿Para qué tanto esforzarte por la sabiduría, si la vida es corta? Disfruta de lo que tienes delante».',q:'¿Qué respondes?',o:[['Porque el placer que no se entiende acaba mandando sobre uno; el que sabe, elige','Aristipo levanta la copa. «Bien dicho. Pero brindo igual».'],['Tienes razón, sírveme más','«Este no volverá a la Academia».'],['El placer es siempre malo','«Eso no lo dice ni tu maestro».']],win:'Ganas el debate con elegancia. Aristipo lo celebra como si lo hubiera ganado él.',lose:'Pierdes el debate, y además invitas tú.'}},
+ steps:[
+  {h:'Las cosas iguales y lo Igual',task:{k:'lesson',id:'teeteto',txt:'Demuestra que sabes geometría: supera la lección de Teeteto, el matemático.'},
+   t:['Platón coge dos palos que parecen iguales. «¿Son iguales?». Los mides: uno es un dedo más largo. «Ningún par de cosas es perfectamente igual. Y sin embargo sabes lo que es lo Igual. ¿Dónde lo has visto?».','Esa es su gran idea: además de las cosas que vemos, cambiantes e imperfectas, existen las Ideas o Formas, perfectas y eternas, que solo se captan con la inteligencia.'],
+   q:'«¿Qué conocemos de verdad, según Platón?»',o:[['Las Ideas, que no cambian; de las cosas solo tenemos opiniones','«Eso. Bienvenido a la Academia».'],['Solo lo que vemos y tocamos','«Entonces nunca sabrás qué es un triángulo perfecto».'],['Nada, todo es opinión','«Eso dicen los sofistas. Aquí venimos a ir más allá».']]},
+  {h:'Aprender es recordar',task:{k:'npc',id:'espeusipo',txt:'Habla con Espeusipo, el sobrino de Platón, que organiza la vida de la escuela.'},
+   t:['Platón está escribiendo un diálogo en el que Sócrates hace preguntas a un esclavo que nunca ha estudiado geometría. Sin enseñarle nada, solo preguntando, el muchacho descubre cómo duplicar un cuadrado.','«Si sabía la respuesta sin que nadie se la dijera, es que ya la llevaba dentro. Aprender es recordar lo que el alma vio antes de nacer».'],
+   q:'«¿Qué hace entonces un buen maestro?»',o:[['Preguntar bien, para que el alumno descubra por sí mismo lo que ya sabe','«Como una partera: no da a luz, ayuda a nacer. Así se llamaba Sócrates a sí mismo».'],['Llenar al alumno de datos','«Un alma no es un cántaro».'],['Hacer que memorice los libros','«Los libros no contestan cuando les preguntas».']]},
+  {h:'Las tres partes del alma',task:{k:'place',id:'areopago',txt:'Lee la estela del Areópago, el viejo tribunal de la colina de Ares.'},
+   t:['Platón dibuja un carro tirado por dos caballos: uno noble y obediente, el otro rebelde. El auriga intenta guiarlos.','«Así es el alma: la razón es el auriga; el ánimo, el valor y el orgullo, el caballo noble; los deseos, el caballo rebelde. Y lo mismo pasa en una ciudad: unos piensan, otros defienden y otros producen».'],
+   q:'«¿Cuándo es justa un alma?»',o:[['Cuando cada parte hace lo suyo y la razón, ayudada por el ánimo, guía a los deseos','«Exacto. La justicia es armonía, no castigo».'],['Cuando los deseos mandan, porque son lo más fuerte','«Entonces el carro acabará en un barranco».'],['Cuando no hay deseos','«Sin caballos, el carro no se mueve».']]},
+  {h:'Retórica y cocina',task:{k:'qual',q:'lo',lv:4,txt:'Para discutir de retórica necesitas Lógos 4: habla con oradores y políticos, haz de jurado.'},
+   t:['Platón desconfía de la retórica que enseñan otros. «Es como la cocina: da placer, pero no busca la salud. La verdadera medicina del alma es la filosofía».','«Un orador que solo busca agradar a la multitud es un cocinero de discursos. Un buen orador debería saber primero qué es lo justo, y luego decirlo, aunque no guste».'],
+   q:'«¿Qué diferencia a la retórica de la filosofía, según Platón?»',o:[['La retórica busca convencer; la filosofía, saber la verdad','«Bien. Y solo quien sabe la verdad debería convencer a otros».'],['Ninguna, las dos son lo mismo','«Isócrates estaría encantado contigo. Yo no».'],['La retórica es mejor porque funciona','«También funciona el veneno».']]},
+  {h:'El sol del Bien',task:{k:'place',id:'olivo',txt:'Sube a la Acrópolis y lee la estela del olivo de Atenea.'},
+   t:['En lo alto de la Acrópolis, Platón señala el sol. «Igual que el sol hace que las cosas se vean y crezcan, el Bien hace que las Ideas se puedan conocer. Es lo más alto que se puede aprender».','«Por eso digo que, hasta que los que gobiernan no sean filósofos, o los filósofos gobiernen, las ciudades no dejarán de sufrir».'],
+   q:'«¿Por qué deberían gobernar quienes buscan la sabiduría?»',o:[['Porque solo quien conoce el Bien sabe qué es lo mejor para todos, y no busca el poder por sí mismo','«Has terminado tu formación. Lo demás lo aprenderás preguntando, toda la vida».'],['Porque son más listos y merecen mandar','«No. El que desea mandar es el último que debería hacerlo».'],['No deberían, la filosofía no sirve para eso','«Entonces la cueva seguirá llena».']]}]},
+isocrates:{m:'atenas',q:'lo',lv:3,school:'La escuela del Liceo: hablar y escribir bien para decidir con prudencia sobre los asuntos de la ciudad.',title:'Discípulo formado de Isócrates',rivals:['platon','alcidamante'],
+ ask:'«Mi curso cuesta mil dracmas. A ti te lo dejaré más barato, si demuestras que trabajas. Pero te advierto: aquí se escribe, se corrige y se vuelve a escribir».',
+ refuse:'«¿Vienes de la escuela de %? Allí te habrán enseñado que la retórica es cocina. Ve a cocinar a otra parte».',
+ admit:'Isócrates te sienta entre sus alumnos y te da una tablilla nueva. «Aquí empieza tu trabajo. Y no termina nunca».',
+ leave:'«Otro que se cansa antes de la décima corrección». Isócrates vuelve a sus papeles sin mirarte.',
+ grad:'«Ya no necesitas que corrija tus discursos. Bueno… casi nunca».',
+ gift:'Isócrates te declara discípulo formado y te recomienda a los políticos de la ciudad. Tu Lógos crece mucho.',
+ taunt:{platon:'Platón te mira con pena: «Isócrates te enseñará a decir muy bien cosas que no sabes si son verdad».',alcidamante:'Alcidamante se burla: «¿El de Isócrates? ¿Ya tienes listo el discurso para dentro de diez años?».'},
+ debate:{platon:{t:'Platón te pregunta, muy amable, ante los académicos: «Tu maestro enseña a hablar de la justicia. Dime, ¿qué es la justicia?».',q:'¿Qué respondes?',o:[['En la ciudad nunca tenemos certezas: la prudencia es elegir lo mejor posible con lo que sabemos, y eso se enseña','Platón sonríe: «Respuesta digna de tu maestro. No me convence, pero está bien defendida».'],['Lo que decida la mayoría','«Así condenaron a Sócrates», responde Platón, y todos callan.'],['No lo sé','«Eso es lo primero sensato que oigo de la escuela de Isócrates», y los académicos ríen.']],win:'Ganas el debate. Platón te concede respeto, aunque no razón.',lose:'Pierdes el debate. Los académicos se ríen de tu escuela.'},
+  alcidamante:{t:'Alcidamante dice que los discursos escritos son estatuas sin vida: «El orador de verdad improvisa. Tu maestro se pasa años puliendo frases».',q:'¿Qué respondes?',o:[['Lo escrito se puede pensar y corregir, y llega a quien no estaba presente; improvisar bien también exige haber escrito mucho','Alcidamante abre la boca y la vuelve a cerrar.'],['Tienes razón, escribir no sirve','«Díselo a tu maestro».'],['Improvisar es de vagos','«Y escribir es de miedosos», contesta, y gana la risa del público.']],win:'Ganas el debate. Alcidamante tendrá que improvisar una excusa.',lose:'Pierdes el debate. Alcidamante improvisa mejor que tú.'}},
+ steps:[
+  {h:'Talento, enseñanza y práctica',task:{k:'lesson',id:'lisias',txt:'Lee y entiende a un maestro del estilo: supera la lección de Lisias.'},
+   t:['Isócrates te explica su método: para ser buen orador hacen falta tres cosas. Algo de talento natural, una enseñanza que dé modelos y reglas, y muchísima práctica.','«Los alumnos imitan los buenos discursos, los analizan, escriben los suyos y yo los corrijo. Y vuelta a empezar».'],
+   q:'«¿Cuál de las tres es la más importante?»',o:[['Ninguna basta sola: el talento sin práctica se pierde, y la práctica sin modelos se extravía','«Bien. Ya estás admitido».'],['El talento: con él no hace falta nada más','«He visto talentos perderse por pereza».'],['Las reglas: basta con aprenderlas','«Las reglas sin práctica son una receta sin cocinero».']]},
+  {h:_t(8537,'El momento oportuno'),task:{k:'place',id:'bema',txt:'Ve a la Pnyx y lee la estela de la tribuna de los oradores.'},
+   t:['«En la Asamblea no gana el que tiene razón, sino el que la dice en el momento oportuno y del modo adecuado». A eso los griegos lo llaman kairós, la ocasión, y to prépon, lo que conviene.','«Lo que sirve hoy puede ser ridículo mañana. Por eso no enseño fórmulas: enseño a juzgar».'],
+   q:'«¿Qué es el kairós?»',o:[['El momento justo para decir o hacer algo','«Exacto. Es lo más difícil de enseñar».'],['Un tipo de verso','«No. Aunque también hay que saber cuándo usarlos».'],['La verdad absoluta','«Eso búscalo en la Academia».']]},
+  {h:'Frases como música',task:{k:'npc',id:'iseo',txt:'Habla con Iseo, el logógrafo experto en herencias, que fue alumno de Isócrates.'},
+   t:['Isócrates escribe frases largas y redondas, con partes equilibradas que se responden unas a otras: es lo que llaman el periodo. Evita que una palabra que acaba en vocal choque con otra que empieza por vocal.','«Un discurso escrito debe poder leerse en voz alta como un poema, aunque no tenga verso».'],
+   q:'«¿Por qué cuida tanto el sonido de las frases?»',o:[['Porque un discurso que suena bien se escucha con atención y se recuerda mejor','«Eso. La forma también es argumento».'],['Por presumir','«Hay quien lo hace. Yo no».'],['Porque no importa lo que se dice','«Importa más que nada. Pero sin forma, nadie lo oye».']]},
+  {h:'Griegos por la educación',task:{k:'npc',id:'calistrato',txt:'Habla con Calístrato, el político, para entender la política exterior de Atenas.'},
+   t:['Isócrates te lee un fragmento de su gran discurso: Atenas ha hecho que el nombre de «griego» ya no indique una raza, sino una forma de pensar. Son griegos quienes comparten nuestra educación, no solo nuestra sangre.','Sueña con que las ciudades griegas dejen de pelearse y se unan contra Persia.'],
+   q:'«¿Qué hace griego a alguien, según Isócrates?»',o:[['Compartir la educación y la cultura griegas','«Así es. La paideia nos une más que la sangre».'],['Nacer en Grecia','«Eso pensaban nuestros abuelos».'],['Hablar fuerte','«Eso lo hacen también los bárbaros».']]},
+  {h:'Opinión prudente',task:{k:'qual',q:'kl',lv:4,txt:'Hazte un nombre en la ciudad: alcanza Kléos 4.'},
+   t:['La última lección: «No podemos tener un saber perfecto sobre lo que hay que hacer. Pero podemos tener buenas opiniones, formadas por la experiencia y la reflexión».','«Eso es para mí la filosofía: no especular sobre las estrellas, sino formar hombres capaces de dirigir bien su casa y su ciudad».'],
+   q:'«¿Qué buscas formar en tus alumnos?»',o:[['Buen juicio para actuar bien cuando no hay certezas','«Has terminado. Ve y habla por tu ciudad».'],['Sabios que lo sepan todo','«Eso no existe. Desconfía de quien lo prometa».'],['Oradores que ganen siempre','«Ganar siempre es señal de que algo va mal».']]}]},
+antistenes:{m:'atenas',q:'so',lv:3,school:'El gimnasio de Cinosarges: la virtud basta para ser feliz, y se aprende con esfuerzo.',title:'Discípulo formado de Antístenes',rivals:['platon','aristipo'],
+ ask:'«¿Quieres aprender conmigo? Aquí no hay jardines ni vino. Hay piedras, caminos y un manto. Si aguantas, hablaremos».',
+ refuse:'«¿Tú vienes de la escuela de %? Allí te habrán enseñado a despreciar el esfuerzo o a perderte en las nubes. No».',
+ admit:'Antístenes te da un bastón de olivo. «Ya eres de los que caminan. Ahora aprende a necesitar menos».',
+ leave:'«Era de esperar. El esfuerzo cansa a los que no lo aman». Antístenes ni siquiera se vuelve.',
+ grad:'«Ya no me necesitas. Ni a mí ni a casi nada. Eso es ser libre».',
+ gift:'Antístenes te declara discípulo formado. «No te doy nada: ya tienes lo necesario». Tu Sophía y tu Areté crecen.',
+ taunt:{platon:'Platón te mira el manto raído: «Veo la vanidad de Antístenes por los agujeros de tu manto».',aristipo:'Aristipo se ríe: «¿Del perro de Cinosarges? Toma, cómete un pastel, que se te ve hambriento».'},
+ debate:{platon:{t:'Platón te pregunta: «Tu maestro dice que la virtud basta para ser feliz. Pero ¿qué es la virtud, si no conoces el Bien?».',q:'¿Qué respondes?',o:[['La virtud se demuestra con obras y esfuerzo, no con definiciones; Heracles no definió nada','Platón asiente despacio. «Un buen golpe de bastón».'],['No lo sé, por eso vengo','«Entonces vente a la Academia», y te quedas sin argumento.'],['La virtud es tener poco','«Tener poco también lo tiene un ladrón pobre».']],win:'Ganas el debate. Platón te concede un punto, que viniendo de él es mucho.',lose:'Pierdes el debate. Los académicos te miran con lástima.'},
+  aristipo:{t:'Aristipo te ofrece un pastel: «¿Por qué sufrir? El placer es el bien. Tu maestro se castiga para nada».',q:'¿Qué respondes?',o:[['Quien necesita placeres para ser feliz depende de ellos; yo prefiero no depender de nada','Aristipo se come el pastel, pensativo. «Bueno. Lo siento por ti… pero un poco te admiro».'],['Tienes razón, dame el pastel','«Uno más para mi escuela».'],['El placer es pecado','«¿Pecado? Eso no lo dice ni Antístenes».']],win:'Ganas el debate. Aristipo te invita igualmente al pastel.',lose:'Pierdes el debate, y encima te comes el pastel.'}},
+ steps:[
+  {h:'El esfuerzo es un bien',task:{k:'qual',q:'ar',lv:3,txt:'Antes de hablar, demuestra que aguantas: alcanza Areté 3 corriendo y cabalgando.'},
+   t:['Antístenes te habla del pónos, el esfuerzo. «La gente cree que el esfuerzo es un castigo. Yo digo que es un bien, porque nos hace fuertes y libres».','Su modelo es Heracles, que se ganó la inmortalidad con trabajos durísimos, y el persa Ciro, que se formó con fatigas.'],
+   q:'«¿Por qué es bueno el esfuerzo?»',o:[['Porque fortalece el cuerpo y el carácter y nos hace independientes','«Bien. Has entrado».'],['Porque da dinero','«A veces. Pero no por eso».'],['No es bueno, es necesario','«Necesario y bueno. Las dos cosas».']]},
+  {h:'La libertad está dentro',task:{k:'npc',id:'manes',txt:'Habla con Manes, el esclavo frigio, y escucha cómo vive.'},
+   t:['«¿Quién es más libre: un esclavo que domina sus deseos o un rico al que dominan su gula, su ambición y su miedo?».','Para Antístenes, la verdadera esclavitud es interior. Nadie puede quitarte la virtud una vez que la tienes: es un arma que no se pierde.'],
+   q:'«¿Puede alguien quitarnos la virtud?»',o:[['No: una vez adquirida, no se pierde ni se roba','«Exacto. Es la única riqueza segura».'],['Sí, un tirano puede quitárnoslo todo','«Te quitará el cuerpo, no lo que eres».'],['Sí, el dinero la compra','«La compra quien no la tiene. Y por eso no la tiene».']]},
+  {h:'Bastarse a uno mismo',task:{k:'place',id:'pireo',txt:'Camina hasta el Pireo, como hacía Antístenes cada día para escuchar a Sócrates, y lee su estela.'},
+   t:['«¿Has notado lo poco que necesitabas por el camino? Agua, pan, un manto. Lo demás lo cargamos nosotros».','Esa es la autárkeia, bastarse a uno mismo: no depender de lujos, ni de la opinión de los demás.'],
+   q:'«¿Qué es la autárkeia?»',o:[['Bastarse a uno mismo, necesitando lo mínimo','«Bien. Ya caminas como un sabio».'],['Vivir solo en el monte','«No hace falta irse al monte para eso».'],['Ser rico para no necesitar a nadie','«El rico necesita a mil criados».']]},
+  {h:'Examinar los nombres',task:{k:'npc',id:'maestro',txt:'Habla con Calias, el maestro de primeras letras, sobre cómo se aprende a leer.'},
+   t:['«El principio de la educación es examinar los nombres». Antístenes estudia el significado exacto de las palabras, y lee a Homero así: Ulises es polýtropos, «de muchos giros», porque sabe hablar a cada uno a su manera.','«No es un mentiroso, como dicen algunos: es sabio porque sabe adaptarse».'],
+   q:'«¿Por qué es importante examinar las palabras?»',o:[['Porque si no sabemos bien qué significan, pensamos y discutimos mal','«Eso. Las palabras confusas hacen ideas confusas».'],['No es importante','«Entonces no sabrás ni lo que dices».'],['Para hablar raro y que no te entiendan','«Eso lo hacen los sofistas».']]},
+  {h:'Un solo dios',task:{k:'qual',q:'eu',lv:3,txt:'Antes de hablar de los dioses, cultiva tu piedad: alcanza Eusébeia 3.'},
+   t:['Antístenes te dice algo atrevido, en voz baja: «Según la costumbre hay muchos dioses; según la naturaleza, uno solo». Y ese dios no se parece a nada que podamos ver.','«Respeta los ritos de la ciudad. Pero no creas que a la divinidad se la compra con sacrificios».'],
+   q:'«¿Qué agrada a la divinidad, según Antístenes?»',o:[['Una vida virtuosa, más que los sacrificios caros','«Has terminado. Camina, y necesita poco».'],['Los sacrificios más grandes','«Entonces los ricos serían los más piadosos».'],['Nada, no existe','«No he dicho eso. Escucha mejor».']]}]},
+aristipo:{m:'atenas',q:'kl',lv:3,school:'La escuela de Cirene: el placer del momento es un bien, si uno lo domina en vez de ser dominado.',title:'Discípulo formado de Aristipo',rivals:['antistenes','platon'],
+ ask:'«¿Discípulo mío? Encantado. Cobro, eso sí: fui el primero de los socráticos en cobrar. Sócrates me lo reprochó. Yo le mandé parte del dinero, y no lo aceptó».',
+ refuse:'«¿Has estudiado con %? Te han enseñado a sufrir o a pensar sin disfrutar. Qué pena. Yo no rehabilito a nadie».',
+ admit:'Aristipo te invita a cenar. «Primera lección: disfruta de esta cena. Segunda: no la necesites mañana».',
+ leave:'Aristipo se encoge de hombros. «Vete, vete. El placer de la libertad también es placer».',
+ grad:'«Ya sabes disfrutar sin perderte. Eso es más de lo que saben casi todos los filósofos».',
+ gift:'Aristipo te declara discípulo formado y te regala una copa de plata. «Úsala. Y si la pierdes, no llores». Tu Kléos crece.',
+ taunt:{antistenes:'Antístenes escupe al suelo: «El aprendiz del perfumado. ¿Cuántas cenas te ha costado la filosofía?».',platon:'Platón suspira: «Aristipo te enseñará a gozar del presente, y a no tener futuro».'},
+ debate:{antistenes:{t:'Antístenes te dice: «Tu maestro vive entre lujos. ¿Cómo puede ser libre quien necesita tanto?».',q:'¿Qué respondes?',o:[['Tener no es ser tenido: puede disfrutar de todo y dejarlo sin sufrir','Antístenes gruñe. «Eso habría que verlo». Pero no tiene respuesta.'],['Porque es rico','«Rico y esclavo», responde, y te deja callado.'],['No es libre','«Al menos eres sincero», y te da la espalda.']],win:'Ganas el debate. Antístenes se va gruñendo.',lose:'Pierdes el debate. Antístenes te ofrece un trozo de pan duro, con desprecio.'},
+  platon:{t:'Platón te pregunta: «Si el placer es el bien, ¿es bueno el placer del que hace daño a otro?».',q:'¿Qué respondes?',o:[['Mi maestro busca el placer con medida y buen juicio; el que daña a otros acaba pagándolo con disgustos mayores','Platón concede: «Un placer calculado… al menos usas la cabeza».'],['Sí, todo placer es bueno','Los académicos se escandalizan, con razón.'],['No lo sé','«Entonces tu maestro no te ha enseñado mucho».']],win:'Ganas el debate. Platón te escucha más de lo que esperabas.',lose:'Pierdes el debate. La Academia te mira con desdén.'}},
+ steps:[
+  {h:'El placer del momento',task:{k:'place',id:'mercado',txt:'Pasea por el mercado del Ágora y lee su estela: aprende a mirar lo que te rodea.'},
+   t:['Para Aristipo el bien es el placer, y el único que tenemos seguro es el del momento: el pasado ya no existe y el futuro no ha llegado.','Pero hay un truco: «Tengo, pero no me tienen». Disfrutar sin quedar atrapado.'],
+   q:'«¿Qué significa “tengo, pero no me tienen”?»',o:[['Disfrutar de las cosas sin depender de ellas','«Exacto. Estás admitido».'],['Tenerlo todo','«Tenerlo todo es la mejor forma de que te tenga todo».'],['No tener nada','«Eso es lo de Antístenes. Aquí cenamos».']]},
+  {h:'Adaptarse',task:{k:'npc',id:'mageiros',txt:'Habla con Carión, el carnicero de los sacrificios: aprende a tratar con todo tipo de gente.'},
+   t:['Aristipo ha vivido en la corte del tirano de Siracusa y entre pobres. Sabe comportarse en todas partes. Dicen que una vez el tirano le escupió y él no se enfadó: «Los pescadores aguantan que les salpique el mar para pescar un pez pequeño; yo aguanto esto por pescar uno grande».','«El sabio se adapta a cada lugar, a cada momento y a cada persona, sin perder su juicio».'],
+   q:'«¿Adaptarse es lo mismo que ceder?»',o:[['No: es saber moverse en cada situación sin dejar de ser uno mismo','«Bien. Como Ulises».'],['Sí, siempre hay que ceder','«Entonces serías una veleta».'],['Nunca hay que adaptarse','«Entonces te romperás como una rama seca».']]},
+  {h:'Solo conocemos lo que sentimos',task:{k:'place',id:'teatro',txt:'Ve al teatro de Dioniso y lee su estela: observa cómo reacciona el público.'},
+   t:['Aristipo y los suyos dicen que solo podemos conocer con seguridad nuestras propias sensaciones: si algo nos parece dulce o amargo, blanco o caliente.','«Que dos personas digan “blanco” no significa que vean lo mismo. Cada uno conoce solo lo suyo».'],
+   q:'«¿Qué podemos conocer con seguridad, según los cirenaicos?»',o:[['Nuestras propias sensaciones','«Exacto. El resto es opinión».'],['Las Ideas eternas','«Eso es de la Academia».'],['Todo lo que ven los demás','«No puedes ver con los ojos de otro».']]},
+  {h:'Lo que nada en un naufragio',task:{k:'qual',q:'so',lv:4,txt:'Demuestra que no solo sabes disfrutar: alcanza Sophía 4.'},
+   t:['Aristipo te cuenta que una vez naufragó cerca de Rodas. Llegó a la playa sin nada y vio dibujos de geometría en la arena: «Ánimo, aquí hay huellas de hombres». Fue a la ciudad, habló de filosofía en el gimnasio y le regalaron de todo.','«A los hijos hay que darles lo que nade con ellos si el barco se hunde: la educación».'],
+   q:'«¿Qué riqueza se salva de un naufragio?»',o:[['La educación, que llevamos dentro','«Exacto. Ya casi has terminado».'],['El oro, si lo llevas bien atado','«Te hundirá contigo».'],['Ninguna','«Yo me salvé con la mía».']]},
+  {h:'El dinero',task:{k:'npc',id:'pasion',txt:'Habla con Pasión, el banquero, sobre el dinero.'},
+   t:['Aristipo cobra por enseñar y gasta con alegría. Pero dice: «Mejor que el dinero te sirva a ti, y no tú al dinero».','Te cuenta algo que pocos saben: su hija Arete es filósofa, y algún día enseñará su doctrina a su propio hijo, al que llamarán «el enseñado por su madre».'],
+   q:'«¿Qué relación debe tener el sabio con el dinero?»',o:[['Usarlo para vivir bien, sin vivir para él','«Has terminado. Disfruta, y no te ates a nada».'],['Acumular todo lo posible','«Así mueren los avaros: con el cofre lleno y la vida vacía».'],['Rechazarlo siempre','«Eso es cosa de Antístenes».']]}]},
+musonio:{m:'roma',q:'so',lv:3,school:'El estoicismo de Musonio Rufo: la filosofía es práctica de vida, para hombres y mujeres.',title:'Discípulo formado de Musonio Rufo',rivals:['dion','quintiliano'],
+ ask:'«¿Quieres ser mi alumno? Te advierto: en mi escuela se sale peor de lo que se entra… durante un tiempo. Porque te enseño todo lo que haces mal».',
+ refuse:'«Has aprendido con %. Allí se enseña a brillar con las palabras. Aquí se enseña a vivir. No mezclo las dos cosas».',
+ admit:'Musonio te recibe con un plato sencillo de legumbres. «La filosofía empieza en la mesa».',
+ leave:'Musonio no se inmuta. «He sido desterrado tres veces; un alumno que se va no me quita el sueño».',
+ grad:'«Has aprendido a ejercitarte. A partir de ahora, tu maestro eres tú».',
+ gift:'Musonio te declara discípulo formado y te presenta a sus mejores alumnos, como Epicteto. Tu Sapientia y tu Virtus crecen.',
+ taunt:{dion:'Dion de Prusa se burla: «El alumno del filósofo barbudo. ¿Ya has aprendido a comer lentejas con solemnidad?».',quintiliano:'Quintiliano suspira: «Esos filósofos huyen del Foro y luego critican a los que gobiernan».'},
+ debate:{dion:{t:'Dion de Prusa te reta en público: «Los filósofos son unos holgazanes con barba y manto que critican a todos y no hacen nada. ¿Para qué sirven?».',q:'¿Qué respondes?',o:[['Mi maestro trabaja la tierra con sus manos, enseña a vivir con sencillez y aconseja a quien gobierna; el holgazán es el que solo habla para agradar','Dion se queda serio. Algunos dicen que algún día él mismo será filósofo.'],['Para nada, tienes razón','«Lo ves», dice Dion, y el público aplaude.'],['Para ganar discusiones','«Entonces sois sofistas como yo», y gana la risa.']],win:'Ganas el debate. Dion se marcha pensativo, cosa rara en él.',lose:'Pierdes el debate ante el público de Dion.'},
+  quintiliano:{t:'Quintiliano te dice: «Los filósofos se encierran en su escuela. El que de verdad sirve a Roma es el orador, que defiende a los ciudadanos en el Foro».',q:'¿Qué respondes?',o:[['Un orador sin filosofía no sabe qué es lo justo; mi maestro enseña a ser bueno antes de hablar','Quintiliano sonríe: «Bien. Al fin y al cabo, yo también digo que el orador debe ser un hombre bueno».'],['El Foro es para charlatanes','«Cuidado: tu maestro también ha hablado en el Senado».'],['Tienes razón','«Entonces deja la filosofía y ven a mi escuela».']],win:'Ganas el debate. Quintiliano reconoce que filosofía y elocuencia se necesitan.',lose:'Pierdes el debate. Quintiliano te mira con condescendencia.'}},
+ steps:[
+  {h:'La filosofía es práctica',task:{k:'npc',id:'epicteto',txt:'Habla con Epicteto, el mejor alumno de Musonio.'},
+   t:['«Un médico que sabe medicina pero no cura a nadie no sirve. Lo mismo un filósofo que habla de virtud pero no la practica».','Para Musonio la virtud es como un oficio: se aprende con la teoría y, sobre todo, con el ejercicio diario.'],
+   q:'«¿Qué es más importante, la teoría o la práctica?»',o:[['La práctica, aunque necesita la teoría para saber qué practicar','«Bien. Ya eres de los míos».'],['La teoría','«Saber nadar en un libro no te salva del río».'],['Ninguna','«Entonces, ¿a qué vienes?».']]},
+  {h:'También las mujeres',task:{k:'npc',id:'sulpicia',txt:'Habla con Sulpicia, la poetisa.'},
+   t:['Musonio defiende algo que escandaliza a muchos romanos: las mujeres deben estudiar filosofía igual que los hombres, porque tienen la misma razón y la misma capacidad para la virtud.','«Una mujer que estudia filosofía será mejor administradora, mejor madre, más justa y más valiente».'],
+   q:'«¿Por qué deben estudiar filosofía las mujeres, según Musonio?»',o:[['Porque tienen la misma razón y la misma capacidad para la virtud que los hombres','«Exacto. Los dioses no dieron la razón solo a la mitad».'],['No deben','«Entonces no has entendido nada».'],['Para entretenerse','«No es un pasatiempo, es la vida».']]},
+  {h:'Comer para vivir',task:{k:'npc',id:'termas',txt:'Habla con Secundo, el de las termas, y observa cómo se cuida el cuerpo en Roma.'},
+   t:['«El primer ejercicio de templanza está en la mesa». Musonio come legumbres, verduras, queso y fruta; nada de banquetes de veinte platos.','«Comemos para vivir, no vivimos para comer. El que no domina su estómago no dominará nada».'],
+   q:'«¿Por qué empieza la templanza en la mesa?»',o:[['Porque comer es algo que hacemos cada día, y ahí se entrena el dominio de uno mismo','«Bien. Sigue así».'],['Porque los cocineros son malos','«Algunos sí».'],['No empieza en la mesa','«Pruébalo en un banquete y verás».']]},
+  {h:'Trabajar la tierra, aceptar el destierro',task:{k:'qual',q:'ar',lv:3,txt:'Endurece el cuerpo: alcanza Virtus 3.'},
+   t:['Musonio dice que trabajar la tierra con las propias manos es una vida digna de un filósofo: sana, sencilla y libre.','Ha sido desterrado varias veces, una de ellas a la isla de Gíaros, sin agua. «El destierro no es un mal: el sabio es ciudadano del mundo. Allí cavé un pozo y enseñé a los que vinieron a verme».'],
+   q:'«¿Es el destierro un mal para el sabio?»',o:[['No: puede vivir con virtud en cualquier lugar','«Así es. Mi patria es el mundo».'],['Sí, el peor','«Para el que no sabe vivir consigo mismo».'],['Sí, porque pierde sus bienes','«Los bienes no son lo que somos».']]},
+  {h:'Filosofía para gobernar',task:{k:'npc',id:'tacito',txt:'Habla con Tácito, el joven senador.'},
+   t:['La última lección: «Hasta el que gobierna debe estudiar filosofía. Un emperador sin templanza ni justicia es un peligro para todos».','«Yo he visto a Nerón. Sé de lo que hablo».'],
+   q:'«¿Por qué debe estudiar filosofía quien gobierna?»',o:[['Porque necesita justicia, templanza y sabiduría para gobernar bien a los demás','«Has terminado. Practica cada día».'],['Para hablar mejor en público','«Para eso ya está Quintiliano».'],['No debe: gobernar es mandar','«Así pensaba Nerón».']]}]},
+quintiliano:{m:'roma',q:'lo',lv:3,school:'La escuela de retórica de Quintiliano: el orador como hombre bueno que sabe hablar.',title:'Discípulo formado de Quintiliano',rivals:['dion','musonio'],
+ ask:'«¿Quieres estudiar retórica conmigo? Te aviso: no hay atajos. Gramática, lectura, escritura, memoria, y mucha corrección».',
+ refuse:'«¿Has estudiado con %? Te habrán enseñado vicios que tardaría años en quitarte. Lo siento».',
+ admit:'Quintiliano te da una tablilla. «Escribe. Despacio. Lo rápido viene después».',
+ leave:'«Una lástima. Prometías». Quintiliano vuelve a corregir ejercicios.',
+ grad:'«Ya eres orador. Ahora sé también un hombre bueno, que es lo difícil».',
+ gift:'Quintiliano te declara discípulo formado y te recomienda para hablar en los tribunales. Tu Eloquentia crece mucho.',
+ taunt:{dion:'Dion de Prusa ríe: «El alumno del profesor de gramática. ¿Ya te sabes todas las reglas? Lástima que el público no venga por las reglas».',musonio:'Musonio te mira serio: «Quintiliano te enseñará a hablar. Ojalá te enseñe también a callar».'},
+ debate:{dion:{t:'Dion de Prusa te reta: «El buen orador es el que entusiasma al público. Las reglas de tu maestro son para escolares».',q:'¿Qué respondes?',o:[['Entusiasmar sin reglas ni verdad es un espectáculo; el orador debe convencer de lo justo','Dion aplaude con ironía, pero el público te aplaude a ti.'],['Tienes razón, las reglas aburren','«Bienvenido a mi escuela», dice Dion.'],['El público es ignorante','«Y ese público te va a juzgar», y te abuchean.']],win:'Ganas el debate. Dion admite que tienes talento.',lose:'Pierdes el debate. El público de Dion se ríe.'},
+  musonio:{t:'Musonio te dice: «La retórica enseña a convencer de cualquier cosa. La filosofía enseña qué es lo bueno. ¿Para qué quieres lo primero sin lo segundo?».',q:'¿Qué respondes?',o:[['Mi maestro no enseña a convencer de cualquier cosa: el orador debe ser un hombre bueno, y usar la palabra para lo justo','Musonio asiente: «Si eso enseña, no somos tan distintos».'],['La retórica sirve para ganar','«Ganar, ¿el qué?», pregunta Musonio, y no sabes qué decir.'],['La filosofía es aburrida','«Para los que no la practican», dice, y te deja en evidencia.']],win:'Ganas el debate. Musonio te respeta más que antes.',lose:'Pierdes el debate. Musonio te mira con paciencia, que es peor.'}},
+ steps:[
+  {h:'Las cinco partes del oficio',task:{k:'npc',id:'plinio',txt:'Habla con Plinio, uno de los alumnos de Quintiliano.'},
+   t:['Quintiliano te explica las cinco partes de la retórica: inventio (encontrar qué decir), dispositio (ordenarlo), elocutio (expresarlo bien), memoria (recordarlo) y actio (decirlo con la voz y el gesto).','«La mayoría se fija solo en la tercera. Pero un discurso bien dicho y mal pensado es un vaso dorado vacío».'],
+   q:'«¿Por dónde se empieza un discurso?»',o:[['Por la inventio: encontrar los argumentos','«Bien. Primero pensar, después adornar».'],['Por la elocutio: las palabras bonitas','«Así empiezan los malos alumnos».'],['Por la actio: los gestos','«Primero hay que tener algo que decir».']]},
+  {h:'Leer a los poetas',task:{k:'npc',id:'verrio',txt:'Habla con Tito Verrio, el gramático, sobre cómo se lee a los poetas.'},
+   t:['Antes que el rétor está el gramático: enseña a hablar correctamente y a leer a los poetas, Homero y Virgilio sobre todo, en voz alta y comentándolos.','«El que no ha leído mucho no sabe de dónde sacar palabras ni ejemplos».'],
+   q:'«¿Por qué debe un orador leer poesía?»',o:[['Porque da vocabulario, ejemplos y sensibilidad para las palabras','«Exacto. Virgilio es el mejor maestro de latín».'],['No debe, la poesía es para poetas','«Entonces hablarás como un notario».'],['Para recitar en los banquetes','«También. Pero no solo».']]},
+  {h:'Un palacio en la memoria',task:{k:'place',id:'ro_basilica_julia',txt:'Visita la basílica Julia, donde se celebran los juicios de herencias, y lee su estela.'},
+   t:['Quintiliano te enseña un truco antiguo para memorizar un discurso: imagina una casa que conoces bien. Pon cada parte del discurso en una habitación: la introducción en el vestíbulo, el primer argumento en el atrio…','Al hablar, recorres la casa con la imaginación y vas encontrando cada idea en su lugar. Dicen que lo inventó el poeta Simónides.'],
+   q:'«¿Para qué sirve imaginar los lugares de una casa?»',o:[['Para colocar en ellos las ideas y recordarlas en orden','«Así es. Pruébalo con tu propio discurso».'],['Para decorar el discurso','«No, es para la memoria».'],['Para no ponerse nervioso','«También ayuda, pero no es eso».']]},
+  {h:'La voz y el gesto',task:{k:'npc',id:'ambivio',txt:'Habla con Ambivio, el jefe de una compañía de cómicos.'},
+   t:['El orador debe cuidar la voz, la postura y los gestos. Puede aprender de los actores, pero sin imitarlos del todo.','«El actor finge; el orador debe parecer sincero porque lo es. Si exageras, el juez pensará que mientes».'],
+   q:'«¿Qué puede aprender un orador de los actores?»',o:[['A usar la voz y el gesto, sin caer en el exceso','«Bien. La medida es todo».'],['A fingir','«Eso es lo que no debe hacer».'],['Nada','«Mucho, si sabe mirar».']]},
+  {h:'Un hombre bueno que sabe hablar',task:{k:'qual',q:'kl',lv:4,txt:'Hazte un nombre en Roma: alcanza Fama 4.'},
+   t:['La última lección es la más importante: «Nadie puede ser un orador perfecto si no es un hombre bueno. La elocuencia en manos de un malvado es un arma en manos de un loco».','«Te he enseñado las reglas. La bondad no se enseña con reglas: se elige cada día».'],
+   q:'«¿Qué es el orador perfecto?»',o:[['Un hombre bueno que sabe hablar','«Has terminado. Habla siempre por lo justo».'],['El que gana más juicios','«Eso lo hace también un buen tramposo».'],['El que habla más bonito','«Bonito no es lo mismo que bueno».']]}]},
+dion:{m:'roma',q:'lo',lv:3,school:'La sofística de Dion de Prusa: discursos brillantes para entusiasmar a las multitudes griegas y romanas.',title:'Discípulo formado de Dion de Prusa',rivals:['musonio','quintiliano'],
+ ask:'«¿Discípulo mío? Bien. Pero mi escuela es el público: teatros, plazas, banquetes. Si no sabes entusiasmar a una multitud, no sirves».',
+ refuse:'«¿Has estudiado con %? Te habrán enseñado a aburrir con solemnidad. No, gracias».',
+ admit:'Dion te pone delante de un grupo de curiosos. «Habla de lo que quieras durante un minuto. Si no se van, estás admitido». No se van.',
+ leave:'Dion se encoge de hombros. «Hay muchos más esperando».',
+ grad:'«Ya sabes entusiasmar. Ahora decide para qué: eso yo también lo estoy aprendiendo».',
+ gift:'Dion te declara discípulo formado y te lleva a hablar en un banquete de senadores. Tu Eloquentia y tu Fama crecen.',
+ taunt:{musonio:'Musonio te mira con tristeza: «Dion habla muy bien de nada. Ojalá un día hable bien de algo».',quintiliano:'Quintiliano niega con la cabeza: «Las declamaciones de los sofistas: mucho ruido, poco juicio».'},
+ debate:{musonio:{t:'Musonio te pregunta: «Tu maestro hace discursos sobre el elogio del cabello o de un mosquito. ¿Qué hace eso por el alma de los que escuchan?».',q:'¿Qué respondes?',o:[['Entrena el ingenio y atrae al público; luego ese público puede escuchar cosas serias','Musonio sonríe, sorprendido. «Puede ser. Ojalá llegue esa segunda parte».'],['Nada, pero divierte','«Para divertir ya está el circo».'],['El alma no importa','«Entonces no hay nada más que decir», y se va.']],win:'Ganas el debate. Musonio te concede que el ingenio también puede servir.',lose:'Pierdes el debate frente a Musonio.'},
+  quintiliano:{t:'Quintiliano te dice: «Los sofistas improvisáis sobre temas absurdos. Eso no forma oradores para el Foro».',q:'¿Qué respondes?',o:[['La improvisación y los temas difíciles entrenan la agilidad que luego hace falta en cualquier tribunal','Quintiliano lo piensa. «En eso no te falta razón».'],['El Foro es aburrido','«Y tú también lo serás cuando te juzguen».'],['Los temas absurdos son los mejores','«Así os va», y te quedas sin argumento.']],win:'Ganas el debate. Quintiliano te reconoce agilidad.',lose:'Pierdes el debate. Quintiliano te pone de ejemplo de lo que no hay que hacer.'}},
+ steps:[
+  {h:'El discurso de exhibición',task:{k:'place',id:'ro_rostra',txt:'Ve a los Rostra del Foro y lee su estela: imagina a la multitud.'},
+   t:['Dion te explica la epídeixis, el discurso de exhibición: no se pronuncia para ganar un juicio, sino para mostrar el talento del orador ante un público.','Él mismo ha escrito un elogio del cabello. «Si sabes alabar un pelo, sabrás alabar cualquier cosa».'],
+   q:'«¿Para qué sirve un discurso de exhibición?»',o:[['Para mostrar el talento, entrenar el ingenio y ganarse al público','«Bien. Estás admitido».'],['Para ganar juicios','«No. Eso es otra cosa».'],['Para nada','«Díselo a los miles que vienen a escucharme».']]},
+  {h:'Improvisar',task:{k:'npc',id:'marcial',txt:'Habla con Marcial, el poeta de los epigramas, maestro del ingenio rápido.'},
+   t:['«Un sofista debe poder hablar de cualquier tema que le propongan, en el momento». Dion se prepara con años de lectura para que la improvisación parezca fácil.','«La improvisación es la cosecha de mucha siembra».'],
+   q:'«¿Qué hay detrás de una buena improvisación?»',o:[['Mucha lectura y práctica previas','«Exacto. Lo fácil cuesta años».'],['Talento y nada más','«El talento sin trabajo se agota en dos discursos».'],['Suerte','«La suerte no aguanta una hora delante del público».']]},
+  {h:'Dominar a la multitud',task:{k:'place',id:'ro_coliseo',txt:'Ve al Anfiteatro Flavio y lee su estela: observa cómo ruge una multitud.'},
+   t:['Dion observa al público del anfiteatro. «Cincuenta mil personas que gritan a la vez. Un orador debe saber calmar una multitud así, o encenderla. Es un poder enorme».','«Y peligroso», añade, más serio de lo habitual.'],
+   q:'«¿Por qué es peligroso el poder de mover a la multitud?»',o:[['Porque se puede usar para el bien o para engañar y dañar','«Sí. Empiezo a pensar que la palabra necesita algo más que talento».'],['No es peligroso','«Lo es, créeme».'],['Porque la multitud es tonta','«No es tonta: es apasionada, que es distinto».']]},
+  {h:'Griego en un mundo romano',task:{k:'qual',q:'so',lv:3,txt:'Estudia más: alcanza Sapientia 3.'},
+   t:['Dion es griego de Prusa, en Bitinia. Habla en griego, como casi todos los intelectuales del Imperio, aunque viva en Roma.','«Roma manda; Grecia enseña. Los romanos nos necesitan para sus escuelas, y nosotros a ellos para la paz». Le preocupan las peleas entre ciudades vecinas: la concordia, la homónoia, es su tema favorito.'],
+   q:'«¿Qué es la homónoia?»',o:[['La concordia: que las ciudades y los ciudadanos vivan en armonía','«Bien. Ojalá las ciudades griegas la aprendieran».'],['Un tipo de verso','«No. Aunque suena bien».'],['La obediencia a Roma','«No exactamente: es acuerdo, no sumisión».']]},
+  {h:'Hablar con los poderosos',task:{k:'npc',id:'tacito',txt:'Habla con Tácito, el joven senador.'},
+   t:['Dion tiene amigos en la corte. «El favor de un emperador es como el sol: calienta, pero puede quemar. Hoy estoy bien con los Flavios; mañana, quién sabe».','«Si algún día tengo que huir, me llevaré dos libros: el Fedón de Platón y un discurso de Demóstenes». Empieza a sospechar que la filosofía le hará falta.'],
+   q:'«¿Qué debe recordar un orador que habla ante el poder?»',o:[['Que el favor del poderoso es inestable, y que su palabra debe servir a algo más que a agradar','«Has terminado. Habla bien, y busca de qué».'],['Que hay que adular siempre','«Así se vive bien… hasta que cambia el emperador».'],['Que no hay que hablar nunca','«Entonces, ¿para qué te he enseñado?».']]}]}
+};
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -11746,6 +11994,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

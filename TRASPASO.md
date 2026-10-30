@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 39). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 40). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,33 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 40: discípulos y rivalidades
+- **Maestros** (`MASTERS`, `discMenu`, `state.disc`). Atenas tiene cuatro y Roma tres:
+
+  | Maestro | Época | Rivales |
+  |---|---|---|
+  | Platón | Atenas | Isócrates, Antístenes, Aristipo |
+  | Isócrates | Atenas | Platón, Alcidamante |
+  | Antístenes | Atenas | Platón, Aristipo |
+  | Aristipo | Atenas | Antístenes, Platón |
+  | Musonio Rufo | Roma | Dion de Prusa, Quintiliano |
+  | Quintiliano | Roma | Dion de Prusa, Musonio |
+  | Dion de Prusa | Roma | Musonio, Quintiliano |
+
+- **Cómo se entra:** hay que haber superado su lección, tener nivel en su cualidad y, si está entre las amistades, llegar a Confianza (afinidad 40).
+- **La formación:**
+  - Consta de una prueba de admisión y cuatro lecciones. Cada una tiene un encargo (`task`: superar una lección, leer una estela, hablar con alguien o llegar a un nivel de cualidad) y termina con una pregunta sobre la doctrina.
+  - Hay una sola lección al día, y solo se puede tener un maestro a la vez.
+  - Se puede abandonar al maestro, pero baja mucho la afinidad con él.
+  - Al terminar, se obtiene el título de discípulo formado y un gran impulso a las cualidades.
+- **Rivalidades** (`rivalOf`, `discRivals`, `rivalTaunt`, `debateMenu`). Si eres o fuiste discípulo de alguien, sus rivales:
+  - pierden 15 de afinidad contigo;
+  - te lanzan una pulla al saludarte;
+  - exigen un nivel más para su amistad (`fNeed`);
+  - nunca te aceptan como discípulo;
+  - te retan una vez a debatir. Si ganas el debate con la doctrina de tu maestro, ganas palabra, fama y algo de su respeto; si lo pierdes, baja la afinidad.
+- La ficha del diario muestra las escuelas, tu estado y el encargo en curso.
 
 ### Novedades de la versión 39: cualidades del personaje y amistades
 - **Cinco cualidades** (`QUAL`, `state.qual`), con diez niveles cada una (`QLV`, `qLv`, `qAdd`). Atenas usa los nombres griegos y Roma los latinos:
