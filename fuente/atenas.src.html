@@ -281,7 +281,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
   <div id="journal" class="modal" hidden>
     <div class="panel">
       <div class="meander"></div>
-      <div class="mhead"><h2>Diario de viaje</h2><button class="close" data-close>Cerrar · J</button></div>
+      <div class="mhead"><h2>Diario de viaje</h2><button class="close" id="jSave">Guardar partida</button><button class="close" id="jLoad">Cargar partida</button><button class="close" data-close>Cerrar · J</button></div>
       <div class="tabs" role="tablist">
         <button role="tab" data-tab="steps" aria-selected="true">Primeros pasos</button>
         <button role="tab" data-tab="lessons" aria-selected="false">Lecciones</button>
@@ -362,7 +362,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <b>B · T · N</b><span>biblioteca con todas las fuentes · dejar pasar unas horas · sonido</span>
         <b class="fict">Nombre</b><span>personaje inventado (los históricos van en blanco)</span>
       </div>
-      <div class="startbtns"><button id="go" disabled>Entrar en el Ágora</button><button id="libStart" class="ghost">Leer la biblioteca</button><button id="bBack" class="ghost">Cambiar de época</button></div>
+      <div class="startbtns"><button id="go" disabled>Entrar en el Ágora</button><button id="libStart" class="ghost">Leer la biblioteca</button><button id="loadStart" class="ghost">Cargar partida</button><button id="bBack" class="ghost">Cambiar de época</button></div>
       <div class="langs" role="group" aria-label="Idioma"><button data-lang="es">Español</button><button data-lang="ca">Català</button><button data-lang="en">English</button></div>
       <div id="loadmsg">Levantando la ciudad…</div>
     </div>
@@ -3454,7 +3454,23 @@ function loadState(){state={lessons:[],places:[],obols:0,seen:{},done:false,myth
 loadState();
 const hot=window.claude&&window.claude.hot;
 if(hot&&hot.data&&hot.data.state)state=hot.data.state;
-function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}}
+function save(){if(typeof ui!=='undefined'&&ui==='play'&&player.x<1e6)state.pos={x:+player.x.toFixed(1),z:+player.z.toFixed(1),yaw:+player.yaw.toFixed(2),h:+clock.h.toFixed(2)};try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}}
+// partidas guardadas: el progreso se guarda solo en el navegador; además se puede sacar a un archivo (o copiar como texto) y volver a cargar
+function saveData(){save();return JSON.stringify({juego:'mundo-clasico',modo:MODE,fecha:new Date().toISOString(),state});}
+function saveDlg(title,html,opts){const prev=ui;dlg={n:null};ui='dialog';releasePointer();$('dGlyph').textContent='✎';setName(title);$('dTitle').textContent='Partidas guardadas';$('dBody').innerHTML=html;
+  const o=$('dOpts');o.innerHTML='';let k=1;for(const[t,fn]of opts.concat([['Cerrar',null]])){const b=document.createElement('button');b.innerHTML='<span class="n">'+(k++)+'</span><span>'+t+'</span>';b.onclick=()=>{if(fn)fn();else{$('dialog').hidden=true;dlg=null;ui=prev==='dialog'?'play':prev;}};o.appendChild(b);}
+  $('dialog').hidden=false;}
+function exportSave(){const txt=saveData(),name=(MODE==='roma'?'roma-80':'atenas-386')+'-dia'+(state.day||1)+'-'+new Date().toISOString().slice(0,10)+'.json';
+  saveDlg('Guardar partida','<p>Tu progreso se guarda solo en este navegador. Para llevártelo a otro ordenador o tener una copia, descarga el archivo o copia este texto y guárdalo donde quieras. Se carga con «Cargar partida».</p><textarea id="saveTxt" readonly style="width:100%;height:90px;font-size:.75rem">'+txt.replace(/</g,'&lt;')+'</textarea>',
+   [['Descargar el archivo '+name,()=>{try{const b=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}catch(e){}}],
+    ['Copiar el texto',()=>{const t=$('saveTxt');t.select();try{navigator.clipboard.writeText(txt).catch(()=>document.execCommand('copy'));}catch(e){try{document.execCommand('copy');}catch(e2){}}toast('Texto de la partida copiado.');}]]);}
+function loadSaveText(txt){try{const d=JSON.parse(txt);if(d.juego!=='mundo-clasico'||!d.state||!Array.isArray(d.state.lessons))throw 0;
+    localStorage.setItem(d.modo==='roma'?'roma-80-v1':'atenas-386-v1',JSON.stringify(d.state));const u=new URL(location.href);u.searchParams.set('modo',d.modo==='roma'?'roma':'atenas');location.href=u.toString();}
+  catch(e){alert('Eso no es una partida guardada de este juego.');}}
+function importSave(){
+  saveDlg('Cargar partida','<p>Elige un archivo de partida o pega aquí el texto que copiaste. La partida que tengas ahora en esa época se sustituirá.</p><textarea id="loadTxt" style="width:100%;height:90px;font-size:.75rem" placeholder="Pega aquí el texto de la partida"></textarea>',
+   [['Elegir un archivo…',()=>{const inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json,text/plain';inp.onchange=()=>{const f=inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>loadSaveText(rd.result);rd.readAsText(f);};inp.click();}],
+    ['Cargar el texto pegado',()=>loadSaveText($('loadTxt').value)]]);}
 
 // ============================================================ jugador
 const player={x:-490,z:-410,feet:0,vy:0,yaw:-2.27,pitch:0.02,grounded:true,eye:1.62,camY:0};
@@ -10370,12 +10386,15 @@ function frame(now){
 // ============================================================ arranque
 function startGame(){
   initAudio();
+  if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
+  startGame.done=true;
   for(const s of STEPS())if(s.ok())state.steps['ok:'+s.id]=1;   // lo ya hecho en partidas anteriores cuenta sin recompensa
   $('start').hidden=true;$('hud').hidden=false;if(isTouch)$('touch').hidden=false;ui='play';updateStats();requestPointer();
   if(!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.'),4500);
 }
 $('go').onclick=startGame;
-$('libStart').onclick=()=>openLibrary();
+$('libStart').onclick=()=>openLibrary();$('loadStart').onclick=importSave;$('jSave').onclick=exportSave;$('jLoad').onclick=importSave;
+setInterval(()=>{if(state&&ui==='play')save();},20000);addEventListener('beforeunload',()=>{if(state&&ui==='play')save();});
 $('bLib').onclick=()=>{if(ui==='play')openLibrary();};
 $('bJournal').onclick=()=>{if(ui==='play')openJournal();};
 $('bMap').onclick=()=>{if(ui==='play')openMap();};
