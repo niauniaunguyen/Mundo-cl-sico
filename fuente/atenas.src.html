@@ -66,6 +66,9 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0
 #dialog .curio{margin-top:12px;padding:8px 12px;border-left:3px solid var(--clay);background:rgba(217,135,74,.08)}#dialog .curio p{margin:4px 0}
 #dialog .body{padding:6px 18px 4px;overflow:auto;line-height:1.55;font-size:1.04rem;max-width:68ch}
 #dialog .opts{display:flex;flex-direction:column;gap:6px;padding:10px 18px 16px}
+#dialog .opts{overflow:auto;min-height:0;flex:0 1 auto}#dialog .body{flex:1 0 auto;min-height:110px}
+#dialog .opts:has(button:nth-child(6)){display:grid;grid-template-columns:1fr 1fr;gap:6px 8px}#dialog .opts:has(button:nth-child(6)) button{padding:6px 10px;font-size:.95rem}
+@media (max-width:640px){#dialog .opts:has(button:nth-child(6)){grid-template-columns:1fr}}
 #dialog .opts button{text-align:left;background:rgba(241,232,216,.04);border:1px solid rgba(217,135,74,.28);padding:8px 12px;display:flex;gap:10px;align-items:baseline}
 #dialog .opts button:hover,#dialog .opts button:focus-visible{background:rgba(217,135,74,.18);border-color:var(--clay)}
 #dialog .opts button .n{font-family:var(--f-display);color:var(--clay);min-width:1.2em}
@@ -204,7 +207,10 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 .startbtns{display:flex;gap:10px;flex-wrap:wrap}
 .mtag{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:-6px 0 14px;color:var(--clay-soft)}.mtag .gr{font-family:var(--f-display);letter-spacing:.3em;color:var(--clay)}.mtag i{font-size:.85rem;color:var(--muted)}
 .startmodes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.startmodes button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;text-align:left}
+.startmodes button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;text-align:left;background:rgba(22,16,12,.6);border:1px solid var(--clay);color:var(--bone)}
+.startmodes button:hover:not(:disabled),.startmodes button:focus-visible{background:rgba(217,135,74,.25)}.startmodes button:disabled{opacity:.5}
+.startmodes #go{background:rgba(22,16,12,.6);color:var(--bone);border:1px solid var(--clay);font-family:inherit;font-size:inherit;letter-spacing:0;padding:12px 14px;align-self:stretch}
+.startmodes .rec{background:var(--clay);color:var(--glaze)}.startmodes .rec:hover:not(:disabled){background:#e39a5e}.startmodes .tag{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
 .startmodes button b{font-family:var(--f-display);font-weight:400;font-size:1.15rem}.startmodes button i{font-size:.82rem;opacity:.85}
 @media (max-width:640px){.startmodes{grid-template-columns:1fr}}
 #netPanel{display:flex;flex-direction:column;gap:10px;border:1px solid var(--clay);padding:12px 14px;background:rgba(22,16,12,.6)}
@@ -305,6 +311,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <button role="tab" data-tab="places" aria-selected="false">Lugares</button>
         <button role="tab" data-tab="myths" aria-selected="false">Mitos</button>
         <button role="tab" data-tab="gods" aria-selected="false">Dioses</button>
+        <button role="tab" data-tab="guia" aria-selected="false">Guía</button>
         <button role="tab" data-tab="ficha" aria-selected="false">Ficha</button>
         <button role="tab" data-tab="curios" aria-selected="false">Curiosidades</button>
         <button role="tab" data-tab="time" aria-selected="false">Cronología</button>
@@ -360,7 +367,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <button class="mcard" data-mode="atenas"><span class="label">Grecia clásica</span><b>Atenas</b><i>Primavera del 386 a.C.</i><span class="md">La democracia restaurada, la Academia de Platón recién fundada, el teatro de Eurípides y los dioses en los caminos del Ática.</span></button>
         <button class="mcard roma" data-mode="roma"><span class="label">Imperio romano</span><b>Roma</b><i>Año 80 d.C.</i><span class="md">Tito inaugura el Anfiteatro Flavio. Pasea por el Foro, el Palatino y el Campo de Marte, y conversa con Marcial, Quintiliano, Flavio Josefo o Epicteto.</span></button>
       </div>
-      <p class="mnote">En las dos épocas puedes llamar a tu caballo (H), cambiar de vista (V) y orientarte con el minimapa. El progreso de cada época se guarda por separado.</p>
+      <p class="mnote">En cada época puedes jugar el modo Historia (diez capítulos guiados) o explorar libremente, solo o con tus compañeros. El progreso de cada época y de cada modo se guarda por separado.</p>
     </div>
   </div>
 
@@ -377,12 +384,13 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <b>W A S D</b><span>caminar (Shift para correr, Espacio para saltar; pulsa otra vez en el aire para el doble salto)</span>
         <b>Ratón</b><span>mirar alrededor con solo moverlo (con un clic se captura y gira sin límite)</span>
         <b>E</b><span>hablar con alguien o leer una estela</span>
-        <b>H · V</b><span>llamar a tu caballo, montarlo (triple de velocidad) y desmontar · vista en primera o tercera persona</span>
+        <b>H · V · F</b><span>caballo (lo consigues haciendo un favor a un criador de caballos) · vista en primera o tercera persona · antorcha para la noche</span>
         <b>J · M</b><span>diario de lo aprendido · plano de la ciudad</span>
         <b>B · T · N</b><span>biblioteca con todas las fuentes · dejar pasar unas horas · sonido</span>
+        <b>G · X · Intro</b><span>en el modo Historia, que te lleven al objetivo · alas de Dédalo, si las consigues (C para bajar) · chat en el modo en línea</span>
         <b class="fict">Nombre</b><span>personaje inventado (los históricos van en blanco)</span>
       </div>
-      <div class="startmodes"><button id="goStory" disabled><b>Historia</b><i>Diez capítulos guiados</i></button><button id="go" disabled><b>Libre</b><i>Un jugador, sin conexión</i></button><button id="goNet" disabled><b>Libre en línea</b><i>Hasta 15 jugadores</i></button></div>
+      <div class="startmodes"><button id="goStory" class="rec" disabled><span class="tag">Recomendado para empezar</span><b>Historia</b><i>Diez capítulos guiados, con una historia que recorre la ciudad</i></button><button id="go" disabled><b>Libre</b><i>Explora a tu ritmo, con diez misiones para empezar</i></button><button id="goNet" disabled><b>Libre en línea</b><i>Explora con hasta 15 compañeros</i></button></div>
       <div id="netPanel" hidden><div class="netf"><label>Tu nombre <input id="netName" maxlength="20" autocomplete="off"></label><label>Código de sala <input id="netCode" maxlength="8" autocomplete="off" placeholder="vacío: sala nueva"></label></div><div class="startbtns"><button id="netGo">Entrar en la sala</button><button id="netCancel" class="ghost">Volver</button></div><p id="netMsg"></p><p class="nsub">Todos los jugadores de una sala comparten la misma época y se ven en el mismo mundo. Para jugar juntos, el dueño de esta página debe compartirla con sus compañeros desde el menú Compartir de claude.ai; para escribir en el chat hace falta permiso de participante. Máximo 15 jugadores por sala.</p></div>
       <div class="startbtns"><button id="libStart" class="ghost">Leer la biblioteca</button><button id="loadStart" class="ghost">Cargar partida</button><button id="bBack" class="ghost">Cambiar de época</button></div>
       <div class="langs" role="group" aria-label="Idioma"><button data-lang="es">Español</button><button data-lang="ca">Català</button><button data-lang="en">English</button></div>
@@ -2606,6 +2614,8 @@ function donkey(x,z,a){
 
 // casa con patio: crujía al fondo (a veces con piso alto), ala lateral, muros del patio y puerta a la calle
 function courtyardHouse(x,z,a,w,d,h,two){
+  {const M=Math.max(w,d),hit=(x,z)=>footprints.some(f=>f.house&&Math.abs(f.x-x)<(Math.max(f.w||0,f.d||0)+M)/2+1.2&&Math.abs(f.z-z)<(Math.max(f.w||0,f.d||0)+M)/2+1.2);   // no levantar una casa encima de otra
+   if(hit(x,z)){let ok=false;for(let k=0;k<12&&!ok;k++){const nx=x+(Math.random()-0.5)*22,nz=z+(Math.random()-0.5)*22;if(!hit(nx,nz)&&Math.abs(terrainH(nx,nz)-terrainH(x,z))<1.5&&terrainH(nx,nz)>0.5){x=nx;z=nz;ok=true;}}if(!ok)return;}}
   const gy=minGround(x,z,w,d,a),g=grp(x,gy,z,a),rd=Math.min(5,d*0.42),sw=Math.min(4,w*0.32),wm=lam('#e8dfcc'),sm=M.limestone;
   box(w,h+2,rd,wm,0,h/2-1,-d/2+rd/2,g);box(w+0.1,0.9,rd+0.1,sm,0,0.45,-d/2+rd/2,g);
   if(two)box(w*0.6,2.8,rd,wm,-w*0.2,h+1.4,-d/2+rd/2,g);
@@ -3147,7 +3157,7 @@ function destHouses(I,cx,cz,n,spread,roman,opt){opt=opt||{};let k=0;const G={H_d
     const h0=terrainH(x,z);if(h0<1.4)continue;if(Math.abs(terrainH(x+7,z)-terrainH(x-7,z))+Math.abs(terrainH(x,z+7)-terrainH(x,z-7))>4)continue;
     if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<(f.reserve?0:f.r+8):Math.abs(x-f.x)<(f.w||0)/2+9&&Math.abs(z-f.z)<(f.d||0)/2+9))continue;
     const a=(opt.a||0)+(R()<0.5?0:Math.PI/2)+rr(-0.06,0.06);
-    if(roman&&GLB.ok&&GLB.parts.H_insa_brick){const kd=R()<0.6?'H_dom':'H_insb',B=kd==='H_dom'?[26,42]:[16,14];const gy=minGround(x,z,B[0],B[1],a);
+    if(roman&&GLB.ok&&GLB.parts.H_insa_brick){const kd=R()<0.6?'H_dom':'H_insb',B=kd==='H_dom'?[26,42]:[16,14];{const M=Math.max(B[0],B[1]);if(footprints.some(f=>f.house&&Math.abs(x-f.x)<(Math.max(f.w||0,f.d||0)+M)/2+2&&Math.abs(z-f.z)<(Math.max(f.w||0,f.d||0)+M)/2+2))continue;}const gy=minGround(x,z,B[0],B[1],a);
       G[kd].push({x,y:gy,z,a,sx:kd==='H_dom'?1.45:1,sy:kd==='H_dom'?1.2:rr(0.6,0.8),sz:kd==='H_dom'?1.4:1,cw:new THREE.Color(pick(walls)),cp:new THREE.Color(pick(walls)),cr:new THREE.Color(pick(roofs))});addBox(x,z,B[0],B[1],a);footprints.push({x,z,w:B[0],d:B[1],a,c:'#cdb994',house:true});}
     else courtyardHouse(x,z,a,rr(9,13),rr(9,12),rr(3.2,4),R()<0.15);
     k++;}
@@ -4253,6 +4263,7 @@ function renderJournal(){
     const st=q==='done'?'Favor concedido':q==='ready'?'Encargo cumplido: vuelve a hablar con '+(GODS.find(x=>x.id===d.id).name):q==='on'?'Encargo en curso':'Aún no le has preguntado si necesita algo';
     return '<div class="entry"><span class="label">'+d.gr+' · '+st+'</span><h3>'+d.name+', '+d.title+'</h3><p>'+(q&&q!=='done'?d.quest.goal:q==='done'?'Has cumplido su encargo.':'Habla con '+d.name+' y pregúntale si puedes hacer algo por él o por ella.')+'</p><div class="where">'+d.where[0].toUpperCase()+d.where.slice(1)+'</div></div>';}).join('')+'</div>';}
   else if(jTab==='ficha'){h=qualHTML();}
+  else if(jTab==='guia'){h=guideHTML();}
   else if(jTab==='curios'){const L=curioList(),got=L.filter(c=>(state.curios||[]).includes(c.id)),est=L.filter(c=>c.at&&!got.includes(c)).length,dia=L.filter(c=>!c.at&&!got.includes(c)).length;
     h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Anécdotas, costumbres y rarezas que contaban los propios antiguos. Unas aparecen al leer ciertas estelas; otras te las cuentan al amanecer de cada día. Llevas '+got.length+' de '+L.length+': quedan '+est+' en estelas y '+dia+' por contar. <span class="sub">Seleccionadas a partir de J. C. McKeown, <i>Gabinete de curiosidades griegas</i> (Crítica, 2014), con sus fuentes antiguas.</span></p><div class="entries">'+got.map(c=>'<div class="entry"><span class="label">Curiosidad</span><h3>'+c.h+'</h3><p>'+c.t+'</p><div class="where">'+c.s+'</div></div>').join('')+'</div>';}
   else{h='<div class="timeline">'+TIMELINE.map(t=>'<span class="y'+(t[0]==='386'?' now':'')+'">'+t[0]+' a.C.</span><div>'+t[1]+'</div>').join('')+'</div>';}
@@ -10643,7 +10654,7 @@ window.addEventListener('keydown',e=>{
   if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();
   if(e.target&&e.target.tagName==='INPUT'){if(e.code==='Escape')closeModals();return;}
   if(ui==='library'){if(e.code==='KeyB'||e.code==='Escape')closeModals();return;}
-  if(ui==='start'){if(e.code==='Enter'&&!$('go').disabled&&$('netPanel').hidden)startGame();return;}
+  if(ui==='start'){return;}
   if(ui==='sea'){seaKey(e,true);return;}
   if(ui==='episode'){epiKey(e);return;}
   if(ui==='dialog'){const n=parseInt(e.key,10);if(n>=1&&n<=9){const b=$('dOpts').querySelectorAll('button')[n-1];if(b){b.click();e.preventDefault();}}if(e.code==='Escape'){closeDialog();}return;}
@@ -12044,6 +12055,24 @@ euclides_megara:{m:'atenas',q:'so',lv:3,school:'La escuela de Mégara: el Bien e
    q:'«¿Para qué sirven estas paradojas?»',o:[['Para descubrir dónde fallan nuestras palabras y nuestros razonamientos','«Has terminado. Razona siempre con rigor, y con humildad».'],['Para ganar apuestas en la taberna','«Algunos lo hacen. No es la idea».'],['Para nada, son tonterías','«Las tonterías más serias de toda Grecia».']]}]}
 });
 
+function guideHTML(){const ro=MODE==='roma',mon=ro?'sestercios':'óbolos';
+  const G=[
+   ['Por dónde empezar',storyOn()?'Estás en el modo Historia: sigue el objetivo de arriba a la izquierda y el rombo ◆ de la brújula. Si el objetivo está lejos, pulsa G y te llevarán. En la pestaña Capítulos ves en qué punto estás.':'Haz las diez misiones de Primeros pasos (pestaña Primeros pasos): cada una te enseña una parte del juego. El objetivo aparece arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir.'],
+   ['Hablar y aprender','Acércate a una persona y pulsa E. Elige los temas que te interesen y, cuando hayas escuchado alguno, «Ponme a prueba»: si aciertas, aprendes su lección y ganas 3 '+mon+'. Los nombres en verde son personajes inventados; los blancos, históricos.'],
+   ['Lugares','Las estelas con un rombo dorado explican edificios y lugares. Al leerlas quedan en tu diario (Lugares) y en el plano (M), desde donde puedes viajar a las que ya conoces.'],
+   [ro?'Leyendas':'Mitos en piedra',ro?'En Roma, las leyendas de la ciudad están en los rollos de la biblioteca y en las esferas de sueño.':'Los rombos azules junto a frontones y frisos esconden mitos: obsérvalos (E) y adivina cuál es. Eunice, en la fuente del Ágora, te explica el juego.'],
+   ['Dioses','Fuera de la ciudad, junto a sus santuarios, se aparecen los dioses: se les reconoce por su brillo. Cada uno te pide un favor.'],
+   ['Esferas de sueño','Las esferas de luz te hacen vivir un mito o un momento histórico. Pulsa E o Espacio para avanzar.'],
+   ['Viajar','Hay puertos y caminos para ir a otras ciudades y regiones. En el borde de cada mapa, los caminos señalizados te llevan al mapa vecino, en la dirección real.'],
+   ['Días y fiestas','Cada noche que pasa empieza un día nuevo (T deja pasar unas horas). Algunos días hay acontecimientos: mira el calendario en Primeros pasos. Cada amanecer te cuentan una curiosidad.'],
+   ['Tu ficha','Tienes cinco cualidades ('+QUAL.map(qName).join(', ')+') que suben con lo que haces y, sobre todo, con la gente que conoces. Míralas en la pestaña Ficha.'],
+   ['Amistades','Las grandes personalidades tienen un medidor de afinidad. Elige «Pasar un rato juntos» (una vez al día) y responde como lo haría alguien de su confianza. Cada encuentro pide más nivel en tus cualidades.'],
+   ['Maestros y rivales','Con su confianza, puedes pedir ser discípulo de un maestro: prueba de admisión, cuatro lecciones con encargos y un título. Sus rivales te mirarán mal y te retarán a debatir.'],
+   ['Caballo y alas','Al principio no tienes caballo: '+(ro?'Félix, el auriga de los Verdes,':'Eudico de Larisa, en el Ágora,')+' te dará uno si le haces un favor. Al cabalgar, recoge las esferas doradas para que suba de nivel.'+(ro?'':' En el sueño de Cnosos, Dédalo puede darte unas alas (X para volar).')],
+   ['Biblioteca y fuentes','La biblioteca (B) reúne todas las fuentes antiguas y modernas de lo que ves en el juego. Úsala para ampliar o para hacer trabajos.'],
+   ['Guardar','La partida se guarda sola en tu navegador. Con «Guardar partida» (arriba, en el diario) te descargas una copia para seguir en otro ordenador.']];
+  return '<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Todo lo que puedes hacer en '+(ro?'Roma':'Atenas')+', en pocas líneas.</p><div class="entries">'+G.map(g=>'<div class="entry"><h3>'+g[0]+'</h3><p>'+g[1]+'</p></div>').join('')+'</div>';}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -12104,6 +12133,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

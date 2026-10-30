@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 40). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 41). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 41: más maestros y revisión como alumno
+- **Cuatro maestros más** (`MASTERS`, en `masters2`):
+
+  | Maestro | Época | Rivales |
+  |---|---|---|
+  | Epicteto | Roma | Dion, Marcial |
+  | Frontino | Roma | el augur, Rabirio |
+  | Ifícrates | Atenas | Cabrias, el enviado espartano |
+  | Euclides de Mégara | Atenas | Isócrates, Eutidemo |
+
+- **Revisión de mapeado** (pruebas en `scratchpad/t_reach.js` y `t_overlap.js`):
+  - Se comprobó que todos los personajes, estelas y esferas de las dos épocas (253 en Atenas y 204 en Roma) son alcanzables a pie y tienen sitio delante. No había ninguno encerrado.
+  - Las casas de los pueblos de destino se solapaban hasta 8 m (Atenas) y las domus romanas hasta 19 m. Ahora `courtyardHouse` y `destHouses` desplazan o descartan cualquier casa que caiga encima de otra. Solo quedan casas adosadas de la ciudad, con menos de 2 m de contacto.
+- **Mejoras de claridad**:
+  - Pantalla de inicio:
+    - Los tres modos tienen el mismo estilo y Historia aparece como «Recomendado para empezar».
+    - Cada modo tiene una descripción.
+    - Los controles están al día: el caballo se consigue con una misión, y se explican G, X, C, F e Intro.
+    - Intro ya no arranca el modo Libre sin querer.
+  - Nueva pestaña **Guía** en el diario (`guideHTML`), con todos los sistemas del juego en pocas líneas.
+  - Diálogos: cuando hay seis opciones o más se muestran en dos columnas, y el texto ya no queda tapado.
 
 ### Novedades de la versión 40: discípulos y rivalidades
 - **Maestros** (`MASTERS`, `discMenu`, `state.disc`). Atenas tiene cuatro y Roma tres:
