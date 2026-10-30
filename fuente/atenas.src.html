@@ -34,7 +34,12 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0
 #hud{position:absolute;inset:0;pointer-events:none}
 #stats{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:4px;padding:10px 14px;background:rgba(22,16,12,.72);border-left:2px solid var(--clay);font-variant-numeric:tabular-nums}
 #stats .t{font-family:var(--f-display);font-size:1.05rem;color:var(--bone);letter-spacing:.04em}
-#stats .row{display:flex;gap:14px;font-size:.88rem;color:var(--clay-soft)}
+#stats .row{display:flex;gap:14px;font-size:.88rem;color:var(--clay-soft);align-items:baseline}
+#tut{position:absolute;top:calc(64px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(440px,calc(100% - 32px));background:rgba(22,16,12,.88);border:1px solid var(--clay);padding:12px 16px 10px;text-align:center;z-index:7;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+#tut .tk{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}#tutT{margin:6px 0 8px;line-height:1.45;color:var(--bone)}#tutT b{color:#ecc29a}
+#tut .tdots{display:flex;justify-content:center;gap:6px;margin-bottom:6px}#tut .tdots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)}#tut .tdots i.on{background:var(--clay)}
+#tutSkip{background:none;border:none;color:var(--muted);font-size:.8rem;text-decoration:underline}
+#sProg{background:none;border:none;padding:0;color:var(--clay-soft);text-decoration:underline dotted;text-underline-offset:3px}#sProg:hover{color:var(--bone)}
 #objective{font-size:.85rem;color:var(--muted);max-width:290px;font-style:italic}
 #objective b{font-style:normal;font-weight:600;color:#ecc29a}
 #compass{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(360px,46vw);height:30px;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(22,16,12,.75) 20%,rgba(22,16,12,.75) 80%,transparent)}
@@ -274,7 +279,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
   <div id="hud" hidden>
     <div id="stats">
       <span class="t" id="hudTitle">Atenas · primavera del 386 a.C.</span>
-      <div class="row"><span id="sLessons"></span><span id="sPlaces"></span><span id="sObols"></span><span id="sMyths"></span><span id="sGods"></span><span id="sHorse" hidden></span></div>
+      <div class="row"><span id="sObols"></span><button id="sProg" type="button"></button><span id="sHorse" hidden></span><span id="sLessons" hidden></span><span id="sPlaces" hidden></span><span id="sMyths" hidden></span><span id="sGods" hidden></span></div>
       <div id="objective"></div>
     </div>
     <div id="compass"></div>
@@ -282,6 +287,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
     <div id="cross"></div>
     <div id="prompt" hidden></div>
     <div id="toast"></div>
+    <div id="tut" hidden><div class="tk">Primeros segundos · <span id="tutN"></span></div><div id="tutT"></div><div class="tdots" id="tutD"></div><button id="tutSkip" type="button">Saltar el tutorial</button></div>
     <div id="net" hidden><div><b id="netHead"></b><span id="netState"></span></div><ul id="netPeople"></ul><div id="netLog"></div><input id="netIn" hidden maxlength="200" placeholder="Escribe y pulsa Intro (Esc para cancelar)" autocomplete="off"></div>
     <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · F antorcha · J diario · M plano · B biblioteca · T hora · N sonido</div>
     <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bTorch"><kbd>F</kbd>Antorcha</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
@@ -3618,9 +3624,12 @@ function updateStats(){
   $('sLessons').textContent='Lecciones '+state.lessons.length+'/'+Object.keys(LESSONS).length;
   $('sPlaces').textContent='Lugares '+state.places.length+'/'+PLACES.length;
   $('sObols').textContent=state.obols+(MODE==='roma'?' sestercios':' óbolos');
-  $('sMyths').textContent='Mitos '+state.myths.length+'/'+RELIEFS.length;$('sGods').hidden=!GODS.length;$('sMyths').hidden=MODE!=='atenas';
+  $('sMyths').textContent='Mitos '+state.myths.length+'/'+RELIEFS.length;
   $('sGods').textContent='Favores '+godsDone()+'/'+GODS.length;
-  {const h=hz();$('sHorse').hidden=!h.own;if(h.own)$('sHorse').textContent='Caballo nv '+h.lvl+' · '+h.xp+'/'+horseNeed(h.lvl);}
+  {const L=Object.keys(LESSONS).length,Pl=PLACES.length,My=MODE==='atenas'?RELIEFS.length:0,Go=GODS.length,
+     done=state.lessons.length+state.places.length+(My?state.myths.length:0)+godsDone(),tot=L+Pl+My+Go,pc=tot?Math.floor(done/tot*100):0;
+   const b=$('sProg');b.textContent='Progreso '+pc+' %';b.title='Lecciones '+state.lessons.length+'/'+L+' · Lugares '+state.places.length+'/'+Pl+(My?' · Mitos '+state.myths.length+'/'+My:'')+(Go?' · Favores '+godsDone()+'/'+Go:'')+'. Pulsa para ver tu ficha.';}
+  {const h=hz();$('sHorse').hidden=!(h.own&&MOUNT.riding);if(h.own)$('sHorse').textContent='Caballo nv '+h.lvl+' · '+h.xp+'/'+horseNeed(h.lvl);}
   {const h=hz();if(h.q==='on'||h.q==='caught'){$('objective').innerHTML='<b>Encargo del caballo</b><br><span class="sub">'+(h.q==='on'?'Busca la yegua escapada (rombo ◆)':'Llévale la yegua a '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa'))+'</span>';return;}}
   if(storyOn()){$('objective').innerHTML=storyStatus()+'<br><span class="sub">G: que te lleven · J: capítulos</span>';return;}
   const st=curStep();if(st){$('objective').innerHTML='<b>Primeros pasos '+stepsDone()+'/'+STEPS().length+'</b> · '+st.title+'<br><span class="sub">'+st.short+'</span>';return;}
@@ -4247,7 +4256,7 @@ function advanceTime(){addHours(3);updateSky();toast('Pasan unas horas: '+hourLa
 
 // ============================================================ diario
 let jTab='steps';
-function openJournal(tab){if(tab)jTab=tab;ui='journal';releasePointer();$('journal').hidden=false;renderJournal();}
+function openJournal(tab){if(TUT.on&&TUT.i===4){TUT.journal=true;tab='guia';setTimeout(()=>{sfxCoin();tutEnd(false);},50);}if(tab)jTab=tab;ui='journal';releasePointer();$('journal').hidden=false;renderJournal();}
 function renderJournal(){
   document.querySelectorAll('#journal .tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===jTab?'true':'false'));
   const el=$('jBody');let h='';
@@ -10152,11 +10161,11 @@ function callHorse(){
   toast('Silbas. A lo lejos se oye un galope.');
 }
 function mountHorse(){
-  MOUNT.riding=true;MOUNT.st='ridden';player.eye=2.55;
+  MOUNT.riding=true;MOUNT.st='ridden';player.eye=2.55;updateStats();
   toast('Montas a caballo: vas al triple de velocidad (Shift para galopar). Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para bajar.');
 }
 function dismount(){
-  MOUNT.riding=false;MOUNT.st='idle';player.eye=1.62;
+  MOUNT.riding=false;MOUNT.st='idle';player.eye=1.62;updateStats();
   const rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);const p={x:player.x-rx*1.5,z:player.z-rz*1.5};resolve(p,0.35);
   if(Math.abs(floorAt(p.x,p.z)-player.feet)<0.7){player.x=p.x;player.z=p.z;}
 }
@@ -10702,7 +10711,7 @@ function findFocus(){
   for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else bark(focus);}
+function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -10762,7 +10771,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -12073,15 +12082,34 @@ function guideHTML(){const ro=MODE==='roma',mon=ro?'sestercios':'óbolos';
    ['Guardar','La partida se guarda sola en tu navegador. Con «Guardar partida» (arriba, en el diario) te descargas una copia para seguir en otro ordenador.']];
   return '<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Todo lo que puedes hacer en '+(ro?'Roma':'Atenas')+', en pocas líneas.</p><div class="entries">'+G.map(g=>'<div class="entry"><h3>'+g[0]+'</h3><p>'+g[1]+'</p></div>').join('')+'</div>';}
 
+// ============================================================ tutorial de los primeros segundos (una vez por partida)
+const TUT={on:false,i:0,t:0,y0:0,p0:null,talked:false,journal:false};
+const TUT_STEPS=[
+ {txt:()=>isTouch?'Arrastra el dedo por la pantalla para <b>mirar alrededor</b>.':'Mueve el ratón para <b>mirar alrededor</b>.',ok:()=>Math.abs(player.yaw-TUT.y0)>0.7},
+ {txt:()=>isTouch?'Usa el círculo de abajo a la izquierda para <b>caminar</b>.':'Camina con <b>W A S D</b>. Con Shift corres.',ok:()=>Math.hypot(player.x-TUT.p0.x,player.z-TUT.p0.z)>5},
+ {txt:()=>'Arriba a la izquierda está tu <b>objetivo</b>. El rombo <b>◆</b> de la brújula, arriba en el centro, te dice hacia dónde ir.',ok:()=>performance.now()-TUT.ts>6000},
+ {txt:()=>'Acércate a una persona y pulsa <b>'+(isTouch?'Hablar':'E')+'</b> para <b>hablar</b> con ella.',ok:()=>TUT.talked},
+ {txt:()=>'Pulsa <b>'+(isTouch?'Diario':'J')+'</b> para abrir el <b>diario</b>. En la pestaña <b>Guía</b> está todo lo que puedes hacer.',ok:()=>TUT.journal}];
+function tutStart(){if(state.tut)return;Object.assign(TUT,{on:true,i:0,t:0,ts:performance.now(),y0:player.yaw,p0:{x:player.x,z:player.z},talked:false,journal:false});tutShow();}
+function tutShow(){const S=TUT_STEPS[TUT.i];$('tutN').textContent=(TUT.i+1)+' de '+TUT_STEPS.length;$('tutT').innerHTML=S.txt();
+  $('tutD').innerHTML=TUT_STEPS.map((_,k)=>'<i'+(k<=TUT.i?' class="on"':'')+'></i>').join('');}
+function tutEnd(skip){TUT.on=false;state.tut=1;save();$('tut').hidden=true;
+  if(!skip)toast('<span class="label">¡Ya sabes lo básico!</span><br>'+(storyOn()?'Sigue el objetivo de tu capítulo.':'Empieza por los <b>primeros pasos</b>: los tienes en el diario y arriba a la izquierda.'));}
+function tutTick(dt){if(!TUT.on)return;$('tut').hidden=ui!=='play';if(ui!=='play')return;TUT.t+=dt;
+  if(TUT_STEPS[TUT.i].ok()){sfxCoin();TUT.i++;TUT.t=0;TUT.ts=performance.now();TUT.y0=player.yaw;TUT.p0={x:player.x,z:player.z};if(TUT.i>=TUT_STEPS.length){tutEnd(false);return;}tutShow();}}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
   startGame.done=true;
   for(const s of STEPS())if(s.ok())state.steps['ok:'+s.id]=1;   // lo ya hecho en partidas anteriores cuenta sin recompensa
   $('start').hidden=true;$('hud').hidden=false;if(isTouch)$('touch').hidden=false;ui='play';updateStats();requestPointer();
-  if(!storyOn()&&!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.'),4500);
+  if(!state.tut)setTimeout(tutStart,1200);
+  else if(!storyOn()&&!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.'),4500);
 }
 $('go').onclick=startGame;
+$('tutSkip').onclick=()=>tutEnd(true);
+$('sProg').onclick=()=>{if(ui==='play')openJournal('ficha');};
 $('goStory').onclick=startStory;
 $('goNet').onclick=()=>{$('netPanel').hidden=false;let n='';try{n=localStorage.getItem('mc-net-name')||'';}catch(e){}$('netName').value=n;$('netCode').value='';$('netMsg').textContent='';setTimeout(()=>$('netName').focus(),30);};
 $('netCancel').onclick=()=>{$('netPanel').hidden=true;};
@@ -12133,6 +12161,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

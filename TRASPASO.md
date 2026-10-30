@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 41). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 42). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,17 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 42: tutorial y barra más limpia
+- **Tutorial de los primeros segundos** (`TUT`, `TUT_STEPS`, `tutStart`, `tutTick`, `tutEnd`):
+  - Aparece la primera vez que se entra en cualquier modo; se guarda en `state.tut`.
+  - Tiene cinco pasos que avanzan cuando el jugador hace de verdad la acción: mirar alrededor, caminar unos metros, fijarse 6 segundos en el objetivo y el rombo de la brújula, hablar con alguien (cualquier interacción salvo leer una estela) y abrir el diario.
+  - Al abrir el diario, este muestra la pestaña Guía y el tutorial termina.
+  - Se puede saltar.
+- **Barra de estadísticas reducida**:
+  - Solo muestra las monedas y un único «Progreso N %», que reúne lecciones, lugares, mitos y favores. Al pasar el ratón aparece el detalle, y al pulsarlo se abre la Ficha.
+  - El nivel del caballo solo aparece mientras se cabalga.
+  - Los contadores antiguos (`sLessons`, `sPlaces`, `sMyths`, `sGods`) siguen existiendo, pero ocultos.
 
 ### Novedades de la versión 41: más maestros y revisión como alumno
 - **Cuatro maestros más** (`MASTERS`, en `masters2`):
