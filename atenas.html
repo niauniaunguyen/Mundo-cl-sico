@@ -760,7 +760,7 @@ function loadModels(done){
       for(const o of gl.scene.children){const inv=new THREE.Matrix4().copy(o.matrixWorld).invert(),list=[];
         o.traverse(m=>{if(m.isMesh){m.geometry.computeBoundingSphere();list.push({geo:m.geometry,role:m.material.name,mat:new THREE.Matrix4().multiplyMatrices(inv,m.matrixWorld)});}});
         GLB.parts[o.name]={pos:o.position.clone(),meshes:list};}
-      GLB.ok=!!GLB.parts.P_head;done();},err=>{console.warn('Modelos GLB:',err);done();});
+      GLB.ok=!!GLB.parts.P_head;if(GLB.ok)betterTrees();done();},err=>{console.warn('Modelos GLB:',err);done();});
   }catch(e){console.warn('Modelos GLB:',e);done();}
 }
 // copia de una pieza; roles: {papel: material}. El grupo queda en el pivote de la pieza (hombro, cadera…)
@@ -2866,7 +2866,7 @@ function buildTrees(){
     const T=[];pts.forEach(p=>{if(!p[2]&&fieldAt(p[0],p[1]))return;T.push({x:p[0],z:p[1],kind:R()<0.82?'olive':'cypress',collide:!!p[2]});});   // no dentro de los campos de cultivo
     OLIVE_POS.forEach(s=>T.push({x:s[0],z:s[1],kind:'olive',k:1.5,collide:true}));
     PLANES.forEach(s=>T.push({x:s[0],z:s[1],kind:'plane',k:rr(1.0,1.25),collide:true}));
-    const h2=INNER.size/2-30;T.push(...buildCountryside(INNER.x-h2,INNER.x+h2,INNER.z-h2,INNER.z+h2));
+    const h2=INNER.size/2-30;T.push(...buildCountryside(INNER.x-h2,INNER.x+h2,INNER.z-h2,INNER.z+h2));buildCrops(INNER.x-h2,INNER.x+h2,INNER.z-h2,INNER.z+h2);buildVida(INNER.x-h2,INNER.x+h2,INNER.z-h2,INNER.z+h2);
     treesGLB(T);return;}
   const olive=[],cyp=[];pts.forEach(p=>(R()<0.82?olive:cyp).push(p));
   OLIVE_POS.forEach(s=>olive.push([s[0],s[1],2]));
@@ -6309,7 +6309,7 @@ function romaOutskirts(){
   buildDomus();buildDomusNovia();
   ROMA.bodaLight=new THREE.PointLight('#ffb070',0,34,1);scene.add(ROMA.bodaLight);   // lámparas de la boda (siempre en la escena, para no recompilar materiales)
   // campiña: campos, viñas, olivares y pinos
-  const tr=buildCountryside(-1550,1300,-1500,1300,{grove:'olive'});
+  const tr=buildCountryside(-1550,1300,-1500,1300,{grove:'olive'});buildCrops(-1550,1300,-1500,1300);buildVida(-1550,1300,-1500,1300);
   for(let i=0;i<420;i++){const x=rr(-1550,1300),z=rr(-1500,1300);if(romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+18||roadDist(x,z)<5||fieldAt(x,z))continue;tr.push({x,z,kind:R()<0.55?'pine':(R()<0.5?'cypress':'olive')});}
   for(const r of ROADS){if(!/Apia|Flaminia|Ostiense|Labicana|Salaria|Nomentana/.test(r.name))continue;const p=r.pts;for(let i=0;i<p.length-1;i++){const L=Math.hypot(p[i+1][0]-p[i][0],p[i+1][1]-p[i][1]);for(let d=8;d<L;d+=26){const t=d/L,x=lerp(p[i][0],p[i+1][0],t),z=lerp(p[i][1],p[i+1][1],t),dx=(p[i+1][0]-p[i][0])/L,dz=(p[i+1][1]-p[i][1])/L;for(const s of[-1,1]){const tx=x-dz*s*8,tz=z+dx*s*8;if(!romaInUrbs(tx,tz))tr.push({x:tx,z:tz,kind:r.name.includes(_t(4917,'Apia'))?'cypress':'pine'});}}}}
   if(GLB.ok)treesGLB(tr.filter(t=>isFree(t.x,t.z,2.5)&&!footHit(t.x,t.z,4)));
@@ -10784,7 +10784,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);seasonTick(dt);
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);seasonTick(dt);vidaTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -12844,7 +12844,7 @@ function hudTitleTick(){if(!state)return;const c=calNow(),k=regionName()+'|'+c.s
 let storyHud=false,seasonOn=null;const TERR_MATS=[];
 function applySeason(s){if(seasonOn===s.id)return;seasonOn=s.id;const f=new THREE.Color(s.fol);
   ['foliage','vine'].forEach(r=>{if(WHITE_ROLE[r])WHITE_ROLE[r].color.copy(f);if(ROLE_MAT[r])ROLE_MAT[r].color.set(ROLE_C[r]).multiply(f);});
-  TERR_MATS.forEach(m=>m.color.set(s.ter));}
+  TERR_MATS.forEach(m=>m.color.set(s.ter));cropSeason(s.id);}
 // la primera vez que cambia la estación, alguien te explica quiénes son las Horas
 const HORAS={
  A:{who:'Filis',t:'Vendedora de flores del Ágora',g:'Ω',
@@ -13225,6 +13225,101 @@ function moonAct(o){if(o.act==='volver'){moonBack();return;}const one=bdlg(o.act
   if(o.act==='espejo'){const ro=MODE==='roma',c=cz(),p=pjz();B.innerHTML='<p>Sobre un pozo poco profundo cuelga un espejo enorme. Quien baja al pozo oye todo lo que se dice en la Tierra, y quien se mira en el espejo ve todas las ciudades y todos los pueblos, como si los tuviera delante.</p><p>Te asomas. Ves '+(ro?'Roma, el Foro lleno de gente y el anfiteatro nuevo':'Atenas, el Ágora llena de gente y el Partenón brillando al sol')+(c.st>=3?', y la puerta de tu casa, cerrada':'')+(hz().own?', y a '+horseName()+', tu caballo, que te echa de menos':'')+'. '+(p?'Alguien pronuncia tu nombre, '+p.name+', en una conversación lejana.':'')+'</p><p class="sub">Luciano cuenta que vio a su familia y a toda su patria, pero que no sabe si ellos lo vieron a él. «Quien no me crea, que suba y lo compruebe».</p>';one(_t(2668,'Volver'),closeDialog);$('dialog').hidden=false;return;}
   const N=o.N,seen=new Set();B.innerHTML='<p>'+N.intro+'</p>';const o2=$('dOpts');
   const render=()=>{o2.innerHTML='';N.topics.forEach(([q,a],i)=>{one(q,()=>{seen.add(i);B.innerHTML='<p>'+a+'</p>'+(i===N.topics.length-1||seen.size===N.topics.length?'<p class="sub">Fuente: Luciano de Samósata, Relatos verídicos (o Historia verdadera), libro I.</p>':'');render();},seen.has(i)?'seen':'');});one(_t(2658,'Despedirse'),closeDialog);};render();$('dialog').hidden=false;}
+// ---- árboles mejores (sustituyen a los T_ de Blender), cultivos que cambian con la estación, y vida en el campo: campesinos, yuntas, rebaños y pájaros
+const nz3=(x,y,z)=>{const s=Math.sin(x*12.9898+y*78.233+z*37.719)*43758.5453;return s-Math.floor(s);};
+function blobGeo(r,ws,hs,sq,amp,seed){const g=new THREE.SphereGeometry(r,ws,hs),p=g.attributes.position;
+  for(let i=0;i<p.count;i++){let x=p.getX(i),y=p.getY(i),z=p.getZ(i);const k=1+(nz3(Math.round(x*7)+seed,Math.round(y*7),Math.round(z*7))-0.5)*2*amp;p.setXYZ(i,x*k,y*k*sq,z*k);}g.computeVertexNormals();return g;}
+function limbGeo(r0,r1,h,bend,twist,seed){const g=new THREE.CylinderGeometry(r1,r0,h,6,4,true),p=g.attributes.position;g.translate(0,h/2,0);
+  for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),t=y/h,a=t*twist,c=Math.cos(a),s=Math.sin(a);const k=1+(nz3(i,seed,3)-0.5)*0.25;p.setXYZ(i,(x*c-z*s)*k+bend[0]*t*t,y,(x*s+z*c)*k+bend[1]*t*t);}g.computeVertexNormals();return g;}
+function mergeG(list){let nv=0,ni=0;for(const{g}of list){nv+=g.attributes.position.count;ni+=g.index?g.index.count:g.attributes.position.count;}
+  const pos=new Float32Array(nv*3),nor=new Float32Array(nv*3),idx=new Uint32Array(ni);let ov=0,oi=0;const v=new THREE.Vector3(),nm=new THREE.Matrix3();
+  for(const{g,m}of list){const P=g.attributes.position,N=g.attributes.normal;nm.getNormalMatrix(m);
+    for(let i=0;i<P.count;i++){v.fromBufferAttribute(P,i).applyMatrix4(m);pos.set([v.x,v.y,v.z],(ov+i)*3);v.fromBufferAttribute(N,i).applyMatrix3(nm).normalize();nor.set([v.x,v.y,v.z],(ov+i)*3);}
+    if(g.index)for(let i=0;i<g.index.count;i++)idx[oi++]=g.index.getX(i)+ov;else for(let i=0;i<P.count;i++)idx[oi++]=i+ov;ov+=P.count;}
+  const r=new THREE.BufferGeometry();r.setAttribute('position',new THREE.BufferAttribute(pos,3));r.setAttribute('normal',new THREE.BufferAttribute(nor,3));r.setIndex(new THREE.BufferAttribute(idx,1));r.computeBoundingSphere();return r;}
+const MT=(x,y,z,sx,sy,sz,ry,rz)=>new THREE.Matrix4().compose(new THREE.Vector3(x,y,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(0,ry||0,rz||0)),new THREE.Vector3(sx||1,sy||sx||1,sz||sx||1));
+function betterTrees(){if(!GLB.ok)return;const I=new THREE.Matrix4(),part=(name,meshes)=>{GLB.parts[name]={pos:new THREE.Vector3(),meshes:meshes.map(([geo,role])=>{geo.computeBoundingSphere();return{geo,role,mat:I.clone()};})};};
+  // olivo: tronco retorcido que se abre en tres ramas y copa en racimos plateados
+  {const tr=[{g:limbGeo(0.42,0.28,1.0,[0.15,0.05],1.4,1),m:I}];for(let k=0;k<3;k++){const a=k/3*TAU+0.4;tr.push({g:limbGeo(0.24,0.1,1.3,[Math.cos(a)*0.6,Math.sin(a)*0.6],0.9,k+5),m:MT(0,0.9,0)});}
+   const cr=[];for(let k=0;k<6;k++){const a=k/5*TAU+0.3,d=k<5?0.85:0;cr.push({g:blobGeo(k<5?1.0:1.25,7,6,0.85,0.2,k*7),m:MT(Math.cos(a)*d,2.45+(k%2)*0.3+(k<5?0:0.7),Math.sin(a)*d)});}
+   part('T_olive_trunk',[[mergeG(tr),'bark']]);part('T_olive_crown',[[mergeG(cr),'foliage']]);}
+  // ciprés: una llama oscura y estrecha
+  {const pts=[];for(let i=0;i<=11;i++){const t=i/11,r=0.78*Math.pow(Math.sin(Math.min(1,t*1.15)*Math.PI*0.5+0.0001),0.6)*(1-t)**0.75+0.02;pts.push(new THREE.Vector2(r,0.3+t*7));}
+   const g=new THREE.LatheGeometry(pts,9),p=g.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),k=1+(nz3(Math.round(y*3),Math.round(Math.atan2(z,x)*3),2)-0.5)*0.35;p.setXYZ(i,x*k,y,z*k);}g.computeVertexNormals();
+   part('T_cypress',[[mergeG([{g:limbGeo(0.12,0.1,0.6,[0,0],0,3),m:I},{g,m:I}]),'foliage']]);}
+  // pino piñonero: tronco alto y algo inclinado, copa plana como una sombrilla
+  {const tr=[{g:limbGeo(0.36,0.2,9.2,[1.4,0.4],0.3,4),m:I}],cr=[];for(let k=0;k<6;k++){const a=k/6*TAU,d=k?2.4:0;cr.push({g:blobGeo(k?1.9:2.3,8,5,0.42,0.18,k*3+1),m:MT(1.4+Math.cos(a)*d,9.9+nz3(k,1,1)*0.6,0.4+Math.sin(a)*d)});}
+   part('T_pine_trunk',[[mergeG(tr),'bark']]);part('T_pine_crown',[[mergeG(cr),'foliage']]);}
+  // plátano: tronco grueso, ramas abiertas y copa amplia
+  {const tr=[{g:limbGeo(0.5,0.34,2.6,[0,0],0.4,6),m:I}];for(let k=0;k<3;k++){const a=k/3*TAU;tr.push({g:limbGeo(0.28,0.1,2.8,[Math.cos(a)*1.6,Math.sin(a)*1.6],0.5,k+9),m:MT(0,2.4,0)});}
+   const cr=[];for(let k=0;k<7;k++){const a=k/6*TAU,d=k?2.3:0;cr.push({g:blobGeo(k?1.7:2.2,8,6,0.75,0.2,k*5+2),m:MT(Math.cos(a)*d,5.6+(k%3)*0.6+(k?0:1),Math.sin(a)*d)});}
+   part('T_plane_trunk',[[mergeG(tr),'bark']]);part('T_plane_crown',[[mergeG(cr),'foliage']]);}
+  // arbusto: tres matas bajas
+  {const cr=[];for(let k=0;k<3;k++){const a=k/3*TAU;cr.push({g:blobGeo(0.55,6,4,0.7,0.25,k+20),m:MT(Math.cos(a)*0.45,0.35,Math.sin(a)*0.45)});}part('T_bush',[[mergeG(cr),'foliage']]);}}
+// ---- cultivos: matas de cereal y de hortalizas que se mecen; rastrojo en otoño y brotes en invierno; surcos en la tierra arada
+const CROP={t:{value:0},tall:[],low:[],mats:{}};
+function clumpGeo(h,n,ears,sp){const pos=[],uv=[],idx=[];sp=sp||1;for(let k=0;k<3;k++){const a=k/3*Math.PI+nz3(k,h,7)*0.4,c=Math.cos(a)*sp*0.6,s=Math.sin(a)*sp*0.6,b=pos.length/3,u0=nz3(k,h,8)*0.5;
+    pos.push(-c,0,-s, c,0,s, c,h,s, -c,h,-s);uv.push(u0,0, u0+0.5,0, u0+0.5,1, u0,1);idx.push(b,b+1,b+2,b,b+2,b+3, b,b+2,b+1,b,b+3,b+2);}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();
+  const n2=g.attributes.normal;for(let i=0;i<n2.count;i++)n2.setXYZ(i,0,1,0);return g;}
+function clumpGeoOld(h,n,ears,sp){sp=sp||1;const pos=[],idx=[];for(let k=0;k<n;k++){const a=nz3(k,h,1)*Math.PI,ox=(nz3(k,2,h)-0.5)*sp,oz=(nz3(k,3,h)-0.5)*sp,hh=h*(0.75+nz3(k,4,h)*0.5),w=0.11,c=Math.cos(a)*w,s=Math.sin(a)*w,lean=(nz3(k,5,h)-0.5)*0.3,b=pos.length/3;
+    pos.push(ox-c,0,oz-s, ox+c,0,oz+s, ox+lean,hh,oz+lean*0.5);idx.push(b,b+1,b+2);
+    if(ears){const e=pos.length/3;pos.push(ox+lean-0.04,hh-0.18,oz+lean*0.5, ox+lean+0.04,hh-0.18,oz+lean*0.5, ox+lean,hh+0.08,oz+lean*0.5);idx.push(e,e+1,e+2);}}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;}
+function cropTex(ears,seed){const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');
+  for(let i=0;i<170;i++){const px=nz3(i,seed,1)*512,top=6+nz3(i,seed,2)*44,lean=(nz3(i,seed,3)-0.5)*16,g=150+Math.floor(nz3(i,seed,4)*105);x.strokeStyle='rgb('+g+','+g+','+Math.floor(g*0.9)+')';x.lineWidth=1+nz3(i,seed,5)*1.2;
+    x.beginPath();x.moveTo(px,128);x.quadraticCurveTo(px+lean*0.3,70,px+lean,top);x.stroke();
+    if(ears){x.fillStyle='rgb('+(g+20>255?255:g+20)+','+(g+10>255?255:g+10)+','+Math.floor(g*0.8)+')';x.beginPath();x.ellipse(px+lean,top+6,2,7,lean*0.02,0,TAU);x.fill();}
+    else if(nz3(i,seed,6)<0.35){x.fillStyle='rgb('+g+','+g+','+Math.floor(g*0.85)+')';x.beginPath();x.ellipse(px+lean+4,top+14,5,2.2,0.5,0,TAU);x.fill();}}
+  const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;}
+function cropMat(c,ears,seed){const m=new THREE.MeshLambertMaterial({color:c,side:THREE.FrontSide,map:cropTex(ears,seed||1),alphaTest:0.45,transparent:false});
+  m.onBeforeCompile=sh=>{sh.uniforms.uT=CROP.t;sh.vertexShader='uniform float uT;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n#ifdef USE_INSTANCING\n float ph=instanceMatrix[3][0]*0.13+instanceMatrix[3][2]*0.09;\n#else\n float ph=0.0;\n#endif\n transformed.x+=sin(uT*1.6+ph)*position.y*0.14; transformed.z+=cos(uT*1.2+ph*1.3)*position.y*0.09;');};return m;}
+const CROP_C={pri:['#9fb15a','#6f9448'],ver:['#d6b45c','#9a9a50'],oto:['#c9b07a','#a89a6a'],inv:['#86a254','#7a9a50']};
+function buildCrops(x0,x1,z0,z1){if(!GLB.ok)return;const ca=Math.cos(FCELL.a),sa=Math.sin(FCELL.a),W=(u,v)=>[u*ca-v*sa,u*sa+v*ca],seen=new Set(),cells=[];
+  for(let x=x0;x<x1;x+=30)for(let z=z0;z<z1;z+=30){const f=fieldCell(x,z),key=f.i+','+f.j;if(seen.has(key))continue;seen.add(key);const t=fieldType(f.i,f.j);if(t<1||t>3)continue;const u0=f.i*FCELL.u,v0=f.j*FCELL.v,[cx,cz]=W(u0+FCELL.u/2,v0+FCELL.v/2);if(!fieldOk(cx,cz))continue;cells.push({t,u0,v0});}
+  const nc=cells.filter(c=>c.t<3).length,step=Math.max(1.9,Math.sqrt(nc*FCELL.u*FCELL.v*0.7/45000));
+  const L={1:[],2:[]},LL={1:[],2:[]},fur=[],q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0);
+  for(const c of cells){if(c.t===3){for(let r=3;r<FCELL.v-3;r+=1.3)for(let u=3;u<FCELL.u-6;u+=6){const[x2,z2]=W(c.u0+u+3,c.v0+r);if(!fieldOk(x2,z2))continue;q.setFromAxisAngle(up,-FCELL.a);fur.push({m:new THREE.Matrix4().compose(new THREE.Vector3(x2,terrainH(x2,z2)+0.02,z2),q,new THREE.Vector3(6.1,1,1))});}continue;}
+    for(let r=2.5;r<FCELL.v-2.5;r+=step)for(let u=2.5;u<FCELL.u-2.5;u+=step){const[x2,z2]=W(c.u0+u+(nz3(u,r,1)-0.5)*step*0.5,c.v0+r+(nz3(r,u,2)-0.5)*step*0.5);if(!fieldOk(x2,z2))continue;
+      q.setFromAxisAngle(up,nz3(x2,z2,3)*TAU);const s=0.85+nz3(x2,z2,4)*0.4,m=new THREE.Matrix4().compose(new THREE.Vector3(x2,terrainH(x2,z2)-0.03,z2),q,new THREE.Vector3(s,s,s));L[c.t].push({m});LL[c.t].push({m});}}
+  const s=CROP_C.pri;CROP.mats.t1=cropMat(s[0],true,1);CROP.mats.t2=cropMat(s[1],false,2);CROP.mats.l1=cropMat('#c9b07a',false,3);CROP.mats.l2=cropMat('#86a254',false,4);
+  const add=(geo,mat,items,arr,far)=>{if(!items.length)return;const n0=CHUNKS.length;chunked(geo,mat,items,{far,shadow:false,cell:160});for(let i=n0;i<CHUNKS.length;i++)arr.push(CHUNKS[i]);};
+  const sp=step*1.3;add(clumpGeo(1.0,16,true,sp),CROP.mats.t1,L[1],CROP.tall,320);add(clumpGeo(0.55,13,false,sp),CROP.mats.t2,L[2],CROP.tall,320);
+  add(clumpGeo(0.22,10,false,sp),CROP.mats.l1,LL[1],CROP.low,300);add(clumpGeo(0.16,9,false,sp),CROP.mats.l2,LL[2],CROP.low,300);
+  if(fur.length){const g=new THREE.CylinderGeometry(0.22,0.22,1,3,1);g.rotateZ(Math.PI/2);g.rotateX(Math.PI/6);g.scale(1,0.4,1);g.translate(0,-0.03,0);g.computeVertexNormals();chunked(g,lam('#6a4e36'),fur,{far:420,shadow:false,cell:200});}
+  cropSeason(SEASONS[0].id);}
+function cropSeason(id){const c=CROP_C[id]||CROP_C.pri,tall=id==='pri'||id==='ver';if(CROP.mats.t1){CROP.mats.t1.color.set(c[0]);CROP.mats.t2.color.set(c[1]);CROP.mats.l1.color.set(id==='inv'?'#8aa458':'#c9b07a');CROP.mats.l2.color.set(id==='inv'?'#7a9a50':'#a89a6a');}
+  for(const k of CROP.tall)k.far=tall?320:-1;for(const k of CROP.low)k.far=tall?-1:300;}
+// ---- vida: campesinos, yuntas de bueyes, rebaños con pastor y bandadas de pájaros
+const VIDA={herds:[],teams:[],workers:[],flocks:[]};
+function oxGeo(g,col){const c=lam(col),d=lam('#2a2018'),h=lam('#e8dcc0');const b=new THREE.Mesh(new THREE.SphereGeometry(0.5,10,8),c);b.scale.set(0.9,0.85,1.9);b.position.y=1.15;g.add(b);
+  const hd=box(0.42,0.42,0.55,c,0,1.25,1.05,g);for(const s of[-1,1]){const hn=new THREE.Mesh(new THREE.ConeGeometry(0.05,0.35,5),h);hn.position.set(s*0.26,1.5,1.0);hn.rotation.z=-s*0.9;g.add(hn);}
+  const legs=[];for(const[x,z]of[[-0.25,-0.6],[0.25,-0.6],[-0.25,0.6],[0.25,0.6]]){const l=new THREE.Group();l.position.set(x,0.85,z);const m=new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.07,0.85,6),c);m.position.y=-0.42;l.add(m);box(0.12,0.08,0.14,d,0,-0.84,0,l);g.add(l);legs.push(l);}return legs;}
+function buildVida(x0,x1,z0,z1){VIDA.herds.length=VIDA.teams.length=VIDA.workers.length=0;const ca=Math.cos(FCELL.a),sa=Math.sin(FCELL.a),W=(u,v)=>[u*ca-v*sa,u*sa+v*ca],seen=new Set(),ro=MODE==='roma';
+  for(let x=x0;x<x1;x+=30)for(let z=z0;z<z1;z+=30){const f=fieldCell(x,z),key=f.i+','+f.j;if(seen.has(key))continue;seen.add(key);const t=fieldType(f.i,f.j),h=hash(f.i*5.3+1,f.j*3.7+2),u0=f.i*FCELL.u,v0=f.j*FCELL.v,[cx,cz]=W(u0+FCELL.u/2,v0+FCELL.v/2);
+    if(!fieldOk(cx,cz))continue;
+    if(t===3&&h<0.3&&VIDA.teams.length<10){const g=new THREE.Group();scene.add(g);const L1=new THREE.Group(),L2=new THREE.Group();L1.position.x=-0.75;L2.position.x=0.75;g.add(L1,L2);const legs=[...oxGeo(L1,pick(['#6b4a30','#8a6a4a','#5a4030'])),...oxGeo(L2,pick(['#7a5a3a','#9a7a5a','#4a3424']))];
+      box(2.2,0.12,0.14,lam('#6b4a30'),0,1.55,1.1,g);const pole=box(0.1,0.1,3.2,lam('#6b4a30'),0,1.0,-0.6,g);pole.rotation.x=0.18;box(0.12,0.5,0.7,lam('#5a3a22'),0,0.35,-2.2,g);
+      const man=makePerson({short:true,noHimation:true,chiton:pick(['#cfc2a4','#b9a77f','#d8cdb0']),hair:'#3a2a1e',beard:!ro});man.position.set(0,0,-2.9);g.add(man);
+      VIDA.teams.push({g,legs,u0,v0,W,dir:1,p:nz3(f.i,f.j,1),row:3+Math.floor(h*30)%Math.floor(FCELL.v-6)});}
+    else if((t===1||t===2)&&h<0.16&&VIDA.workers.length<16){const[x2,z2]=W(u0+8+h*40,v0+10+h*25);const m=makePerson({short:true,noHimation:true,chiton:pick(['#cfc2a4','#b9a77f','#d8cdb0','#a89a7a']),hair:pick(['#3a2a1e','#5a4a3a','#8a7a6a']),beard:!ro&&R()<0.6,female:R()<0.25});
+      m.position.set(x2,terrainH(x2,z2),z2);m.rotation.y=R()*TAU;scene.add(m);const tool=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.025,1.4,5),lam('#6b4a30'));tool.position.set(0.3,0.8,0.25);tool.rotation.x=0.9;m.add(tool);VIDA.workers.push({g:m,ph:R()*TAU});}
+    else if(!t&&h>0.9&&VIDA.herds.length<12){const sh=[],n=6+Math.floor(h*60)%6;for(let k=0;k<n;k++){const g=new THREE.Group();scene.add(g);const legs=GLB.ok?animalGLB('A_sheep',g,pick(['#3a3028','#ece6d6'])):[];if(GLB.ok){g.children.forEach(c=>{});}const a=R()*TAU,d=R()*8;g.position.set(cx+Math.cos(a)*d,0,cz+Math.sin(a)*d);g.rotation.y=R()*TAU;sh.push({g,legs,tx:g.position.x,tz:g.position.z,w:R()*4});}
+      const p=makePerson({short:true,noHimation:false,chiton:'#b9a77f',himation:'#6a5a3a',hair:'#4a3a2a',beard:true,staff:true});p.position.set(cx+5,terrainH(cx+5,cz),cz);scene.add(p);VIDA.herds.push({sh,cx,cz,p});}}}
+function birdMesh(col){const g=new THREE.Group(),m=new THREE.MeshLambertMaterial({color:col,side:THREE.DoubleSide});const b=new THREE.Mesh(new THREE.SphereGeometry(0.12,6,4),m);b.scale.set(1,0.8,2.2);g.add(b);
+  const wg=[];for(const s of[-1,1]){const w=new THREE.Mesh(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute([0,0,0.12, s*0.7,0,-0.05, 0,0,-0.2],3)),m);w.geometry.computeVertexNormals();g.add(w);wg.push(w);}return{g,wg};}
+function buildBirds(){VIDA.flocks.length=0;for(let f=0;f<4;f++){const fl={cx:player.x+rr(-150,150),cz:player.z+rr(-150,150),r:rr(25,60),h:rr(28,50),sp:rr(0.15,0.3)*(R()<0.5?-1:1),ph:R()*TAU,b:[]};
+  for(let k=0;k<7;k++){const b=birdMesh(f%2?'#3a3430':'#5a5048');scene.add(b.g);b.o=[rr(-6,6),rr(-2,2),rr(-6,6)];b.fp=R()*TAU;fl.b.push(b);}VIDA.flocks.push(fl);}}
+function vidaTick(dt){CROP.t.value=performance.now()/1000;if(!state)return;const T=CROP.t.value,px=player.x,pz=player.z,near=(x,z,r)=>Math.abs(x-px)<r&&Math.abs(z-pz)<r;
+  for(const w of VIDA.workers)if(near(w.g.position.x,w.g.position.z,200)){w.g.rotation.x=0.25+Math.sin(T*1.5+w.ph)*0.15;}
+  for(const tm of VIDA.teams){const L=FCELL.u-10;tm.p+=dt*0.012*tm.dir;if(tm.p>1){tm.p=1;tm.dir=-1;tm.row=(tm.row+1.3)%(FCELL.v-6);}if(tm.p<0){tm.p=0;tm.dir=1;tm.row=(tm.row+1.3)%(FCELL.v-6);}
+    const[x,z]=tm.W(tm.u0+5+tm.p*L,tm.v0+3+tm.row);tm.g.position.set(x,terrainH(x,z),z);tm.g.rotation.y=-FCELL.a+(tm.dir>0?Math.PI/2:-Math.PI/2);
+    if(near(x,z,200))tm.legs.forEach((l,i)=>l.rotation.x=Math.sin(T*3+i*1.6)*0.35);}
+  for(const H of VIDA.herds){if(!near(H.cx,H.cz,260))continue;for(const s of H.sh){s.w-=dt;const g=s.g;if(s.w<0){s.w=rr(3,9);const a=R()*TAU,d=R()*10;s.tx=H.cx+Math.cos(a)*d;s.tz=H.cz+Math.sin(a)*d;}
+      const dx=s.tx-g.position.x,dz=s.tz-g.position.z,dd=Math.hypot(dx,dz);if(dd>0.3){const v=Math.min(dd,dt*0.6);g.position.x+=dx/dd*v;g.position.z+=dz/dd*v;g.rotation.y=Math.atan2(dx,dz);s.legs.forEach((l,i)=>{if(l)l.rotation.x=Math.sin(T*8+i*Math.PI/2)*0.4;});}
+      else s.legs.forEach(l=>{if(l)l.rotation.x=0;});g.position.y=terrainH(g.position.x,g.position.z)+(GLB.ok?0.62:0);}}
+  for(const fl of VIDA.flocks){if(Math.hypot(fl.cx-px,fl.cz-pz)>420){fl.cx=px+rr(-200,200);fl.cz=pz+rr(-200,200);}fl.ph+=dt*fl.sp;const bx=fl.cx+Math.cos(fl.ph)*fl.r,bz=fl.cz+Math.sin(fl.ph)*fl.r,by=Math.max(terrainH(fl.cx,fl.cz),player.feet)+fl.h;
+    for(const b of fl.b){b.g.position.set(bx+b.o[0],by+b.o[1]+Math.sin(T+b.fp)*0.8,bz+b.o[2]);b.g.rotation.y=fl.ph*(fl.sp>0?1:-1)+(fl.sp>0?Math.PI:0);const fa=Math.sin(T*9+b.fp)*0.6;b.wg[0].rotation.z=fa;b.wg[1].rotation.z=-fa;}}}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -13270,7 +13365,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -13290,6 +13385,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 54). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 55). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,21 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 55: árboles nuevos, cultivos con estaciones y vida en el campo
+- `betterTrees()` se llama al cargar el GLB y sustituye `T_olive_*`, `T_cypress`, `T_pine_*`, `T_plane_*` y `T_bush` por geometría generada por código, con los mismos papeles (bark/foliage), así que `treesGLB` y `placeModules` no cambian.
+  - Funciones: `blobGeo`, que crea masas de copa deformadas con ruido; `limbGeo`, que crea ramas torcidas y curvadas; y `mergeG`, que fusiona las piezas.
+  - Olivo: tronco retorcido con tres ramas y copa en racimos. Ciprés: llama hecha con un torno. Pino piñonero: tronco alto inclinado y copa plana. Plátano: copa amplia.
+- `buildCrops` se llama junto a `buildCountryside` en Atenas (INNER) y en Roma.
+  - En las parcelas de tipo 1 (cereal) y 2 (hortalizas/legumbres) se colocan matas de tres planos cruzados con textura de tallos (`cropTex`, alphaTest). Los planos van duplicados con la normal hacia arriba en lugar de `DoubleSide`, para evitar caras negras. El shader las mece con el viento (uniforme `CROP.t`).
+  - En las de tipo 3 hay surcos (caballones triangulares).
+  - `cropSeason`: en primavera y verano se ven las matas altas, verdes o doradas; en otoño y en invierno, las bajas (rastrojo o brotes). Se alternan con `far` de sus entradas en CHUNKS (−1 las oculta).
+- `buildVida`:
+  - hasta 10 yuntas de bueyes con arado y arador, que recorren los surcos;
+  - 16 campesinos trabajando en los cultivos;
+  - 12 rebaños de 6 a 11 ovejas (`A_sheep`) con pastor, que pastan y se mueven con las patas animadas.
+- `buildBirds`: cuatro bandadas de siete pájaros que vuelan en círculo cerca del jugador y lo siguen. Todo se anima en `vidaTick`, solo cerca del jugador.
+- En el renderizado por software de las pruebas, la versión nueva es entre un 15 % y un 18 % más lenta. Los cultivos solo se dibujan a menos de 320 m.
 
 ### Novedades de la versión 54: barco propio y viaje a la Luna
 - `buildPort` guarda la geometría de cada muelle en `PIERS[key]`. En el muelle principal (`PIERS.atenas`, que también existe en Roma) están:
