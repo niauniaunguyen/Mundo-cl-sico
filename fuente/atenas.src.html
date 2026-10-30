@@ -3571,7 +3571,7 @@ function evCrowd(force){const ev=todayEvent(),on=ev&&clock.h>=ev.h0&&clock.h<ev.
   if(ui==='play'&&Math.hypot(player.x-p.x,player.z-p.z)>200)toast('<span class="label">'+ev.title+'</span><br>'+ev.short);}
 // en el diario: el día, el acontecimiento de hoy y el próximo
 function calendarHTML(){const d=state.day||1,ev=todayEvent();let nx=null,nd=d;for(let k=1;k<=20&&!nx;k++){const sd=state.day;state.day=d+k;const e=todayEvent();state.day=sd;if(e){nx=e;nd=d+k;}}
-  return '<div class="entry" style="margin:0 0 14px"><span class="label">Día '+d+(ev?' · hoy':'')+'</span><h3>'+(ev?ev.title:'Un día corriente')+'</h3><p>'+(ev?ev.txt+' <i>('+ev.h0+' a '+ev.h1+' h)</i>':'Cada noche que pasa empieza un día nuevo. Algunos días hay acontecimientos en la ciudad.')+'</p>'+(nx?'<p class="sub">Próximo acontecimiento: '+nx.title+', el día '+nd+'.</p>':'')+'</div>';}
+  const cn=calNow(d);return '<div class="entry" style="margin:0 0 14px"><span class="label">Día '+d+' · mes de '+cn.mes+' · '+cn.season.n+(ev?' · hoy':'')+'</span><h3>'+(ev?ev.title:'Un día corriente')+'</h3><p>'+(ev?ev.txt+' <i>('+ev.h0+' a '+ev.h1+' h)</i>':'Cada noche que pasa empieza un día nuevo. Algunos días hay acontecimientos en la ciudad.')+'</p>'+(nx?'<p class="sub">Próximo acontecimiento: '+nx.title+', el día '+nd+'.</p>':'')+'</div>';}
 let evT=0;function evTick(dt){evT+=dt;if(evT<1)return;evT=0;if(state)evCrowd(false);const o=FEST_ACT.o;if(o)o.lb.visible=Math.hypot(o.x-player.x,o.z-player.z)<10;}
 // ------------------------------------------------------------ primeros pasos: diez misiones de iniciación por época
 // Cada una presenta un aspecto distinto (política, lugares, lecciones, plano, religión, mitos o espectáculos, caballo, teatro, vida cotidiana, sueños).
@@ -4918,7 +4918,7 @@ const ROMA_DEST_NPCS=[
  intro:'Salud. Soy Hostilia. ¿Hueles? Son las rosas de la segunda floración. Mi familia las cultiva desde hace generaciones y las mandamos a Roma en cestos húmedos, de noche, para que lleguen frescas a los banquetes.',
  topics:[
   ['¿Quiénes construyeron estos templos?','Los griegos de Síbaris, cuando esto se llamaba Posidonia. Luego vinieron los lucanos de las montañas, que hablaban osco y pintaban en sus tumbas guerreros a caballo; ellos también rezaban en estos templos. Y luego llegamos nosotros, los colonos latinos. Los dioses han cambiado de nombre, pero no de casa.'],
-  ['¿Cómo cultiváis las rosas?','Con mucha agua y mucho estiércol, en tierra suelta, y podando en el momento justo. Aquí florecen dos veces al año, en primavera y en otoño: lo dijo Virgilio. Se venden para coronas, para guirnaldas de los dioses, para perfumes y para echar pétalos en los banquetes de los ricos. Ahora, en invierno, hasta las traen de Egipto. ¡Qué tiempos!'],
+  ['¿Cómo cultiváis las rosas?','Con mucha agua y mucho estiércol, en tierra suelta, y podando en el momento justo. Aquí florecen dos veces al año, en primavera y en otoño: lo dijo Virgilio. Se venden para coronas, para guirnaldas de los dioses, para perfumes y para echar pétalos en los banquetes de los ricos. En invierno, hasta las traen de Egipto. ¡Qué tiempos!'],
   ['¿Y los lucanos?','Eran un pueblo guerrero de los montes. Lucharon contra Roma, se aliaron con Pirro y luego con Aníbal. Paestum, en cambio, fue fiel: cuando Aníbal destrozó a los romanos en Cannas, la ciudad envió a Roma copas de oro para ayudar en la guerra. Nos lo enseñaron en la escuela, como si lo hubiéramos pagado nosotros.']],
  quiz:{q:'¿Qué pueblo dominó Posidonia antes de que Roma fundara la colonia de Paestum?',a:['Los lucanos','Los etruscos','Los galos'],ko:'No. Hacia el 400 a.C. la ciudad griega pasó a los lucanos, y en el 273 a.C. Roma fundó la colonia latina.'}},
 {id:'gavio',name:'Gavio',title:'Pastor trashumante',glyph:'G',look:RT('#7a6a50',{beard:true,staff:true}),
@@ -7953,7 +7953,7 @@ const ROLE_TEX={wall:['plaster',5],plaster:['plaster',5],brick:['brick',2.6],roo
 const WHITE_ROLE={},ROLE_MAT={};
 function whiteRole(role){const t=ROLE_TEX[role];if(!t)return WHITE_M;if(!WHITE_ROLE[role])WHITE_ROLE[role]=triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX[t[0]],t[1]);return WHITE_ROLE[role];}
 function roleMat(role){const c=ROLE_C[role]||'#999999',t=ROLE_TEX[role];if(!t)return lam(c);if(!ROLE_MAT[role])ROLE_MAT[role]=triplanar(new THREE.MeshLambertMaterial({color:c}),PTEX[t[0]],t[1]);return ROLE_MAT[role];}
-function terrainMat(){return triplanar(new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'}),PTEX.ground,9,true);}   // tinte cálido: compensa la desaturación del mapeo tonal
+function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'});TERR_MATS.push(m);return triplanar(m,PTEX.ground,9,true);}   // tinte cálido: compensa la desaturación del mapeo tonal
 // materiales de los edificios
 triplanar(M.marble,PTEX.marble,4);triplanar(M.marbleShade,PTEX.marble,4);triplanar(M.stone,PTEX.stone,3);triplanar(M.limestone,PTEX.stone,3);
 triplanar(M.tile,PTEX.tile,3);triplanar(M.wood,PTEX.wood,2);
@@ -10783,7 +10783,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);seasonTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -10909,7 +10909,7 @@ function startStory(){
   state.steps._off=1;if(!state.story||typeof state.story.ch!=='number')state.story={ch:0,st:0,f:{},done:0};state.story.f=state.story.f||{};
   if(!state.pos){const p=stAnchor(STORY[0].start);if(p){const f=findFree(p.x,p.z,0.6);player.x=f[0];player.z=f[1];}}
   npcObjs.forEach(n=>{n.mk.visible=false;});signObjs.forEach(s=>{s.mk.visible=!state.places.includes(s.data.id);});
-  $('hudTitle').textContent=$('hudTitle').textContent.replace(/ · Historia$/,'')+' · Historia';
+  storyHud=true;hudKey='';
   {const t=document.querySelector('#journal [data-tab="steps"]');if(t)t.textContent='Capítulos';}
   startGame();storyResume(state.story.st===0);
 }
@@ -12812,6 +12812,49 @@ function zeusTalk(){const ro=MODE==='roma',Z=ro?'Júpiter':'Zeus';dlg={n:null};u
 function musesHTML(){const mz=muz(),L=MUSAS();return '<h3 style="margin:22px 0 10px">Las nueve Musas</h3><p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Cada Musa espera en el lugar que mejor conviene a su arte. Aprende de las personas que lo cultivan, supera su examen y recibe su don. Con los nueve, busca a Mnemósine'+(state.olyKey?' (ya bebiste de su fuente: sube al Olimpo)':'')+'.</p><div class="entries">'+
   L.map(m=>{const ok=mz.dons[m.id];const p=PLACES.find(q=>'place:'+q.id===m.at);return '<div class="entry'+(ok?'':' locked')+'"><span class="label">'+(ok?'Don recibido ✓':'Musa de '+m.arte)+'</span><h3>'+m.name+'</h3><p>'+(ok?'Te dio '+m.don+'.':'Inspira '+m.arte+'.')+'</p><div class="where">'+(p?'Cerca de: '+p.name:'')+'</div></div>';}).join('')+'</div>';}
 
+// ---- calendario y estaciones: cada cinco días de juego pasa un mes, cada tres meses cambia la estación (empieza en abril)
+const SEASON_DAYS=5;
+const SEASONS=[{id:'pri',n:'primavera',fol:'#ffffff',ter:'#e2c99e'},{id:'ver',n:'verano',fol:'#f2dc96',ter:'#f2cf92'},{id:'oto',n:'otoño',fol:'#e8a060',ter:'#d4b48a'},{id:'inv',n:'invierno',fol:'#a4b2a6',ter:'#c4c4a6'}];   // en invierno llueve: el campo reverdece
+const MESES_A=['Gamelión','Antesterión','Elafebolión','Muniquión','Targelión','Esciroforión','Hecatombeón','Metagitnión','Boedromión','Pianepsión','Memacterión','Posideón'];
+const MESES_R=['Ianuarius','Februarius','Martius','Aprilis','Maius','Iunius','Iulius','Augustus','September','October','November','December'];
+function calNow(d){d=d||(state&&state.day)||1;const m=3+Math.floor((d-1)/SEASON_DAYS),mo=m%12,ro=MODE==='roma';
+  return {mo,mes:(ro?MESES_R:MESES_A)[mo],season:SEASONS[Math.floor(((mo+10)%12)/3)],year:ro?80+Math.floor(m/12):386-Math.floor(m/12)};}
+function regionName(){if(OLYM.built&&player.feet>OLYM.y-50)return 'El Olimpo';const I=islandOf(player.x);return I?I.name:(MODE==='roma'?'Roma':'Atenas');}
+let hudKey='';
+function hudTitleTick(){if(!state)return;const c=calNow(),k=regionName()+'|'+c.season.id+'|'+c.year+'|'+!!storyHud;if(k===hudKey)return;hudKey=k;
+  $('hudTitle').textContent=regionName()+' · '+c.season.n+' del '+(MODE==='roma'?'año '+c.year+' d.C.':c.year+' a.C.')+(storyHud?' · Historia':'');applySeason(c.season);}
+let storyHud=false,seasonOn=null;const TERR_MATS=[];
+function applySeason(s){if(seasonOn===s.id)return;seasonOn=s.id;const f=new THREE.Color(s.fol);
+  ['foliage','vine'].forEach(r=>{if(WHITE_ROLE[r])WHITE_ROLE[r].color.copy(f);if(ROLE_MAT[r])ROLE_MAT[r].color.set(ROLE_C[r]).multiply(f);});
+  TERR_MATS.forEach(m=>m.color.set(s.ter));}
+// la primera vez que cambia la estación, alguien te explica quiénes son las Horas
+const HORAS={
+ A:{who:'Filis',t:'Vendedora de flores del Ágora',g:'Ω',
+  intro:'«¿Lo notas? Ha cambiado el aire. Han pasado por aquí las Horas». Una mujer con un cesto de flores y espigas se para a tu lado. «Soy Filis. Vendo coronas para los sacrificios, así que vivo pendiente de ellas: sin las Horas no tendría nada que vender».',
+  topics:[['¿Quiénes son las Horas?','Las hijas de Zeus y de Temis, la diosa del orden justo. Hesíodo dice que son tres: Eunomía, el buen gobierno; Dike, la justicia; y Eirene, la paz. Cuidan de que todo llegue a su tiempo: las cosechas en la tierra y las leyes en la ciudad. Si las cosas pasan cuando deben pasar, es que las Horas están contentas.'],
+   ['¿Y aquí, en Atenas?','Aquí honramos a dos: Talo, la que hace brotar, y Carpo, la que hace madurar el fruto. Les ofrecemos la carne hervida, no asada, para pedirles que el calor no queme las cosechas y que llueva a su tiempo. Pausanias, que no ha nacido aún, lo apuntará cuando visite la ciudad.'],
+   ['¿Qué hacen en los mitos?','Homero cuenta que guardan las puertas del cielo: abren y cierran la nube espesa que hay en la entrada del Olimpo, para dejar pasar los carros de los dioses. Cuando nació Afrodita del mar, fueron ellas las que la vistieron y la coronaron de oro. Y a Pandora, la primera mujer, la adornaron con flores de primavera.'],
+   ['¿Por qué cambian las estaciones?','Por Perséfone, la hija de Deméter. Hades se la llevó al mundo de los muertos, y su madre, de pena, dejó la tierra sin cosechas. Al final se pactó que la muchacha pasaría una parte del año abajo y otra con su madre. Cuando sube, las Horas traen la primavera; cuando baja, llega el frío.'],
+   ['¿Cuántas estaciones hay?','Los campesinos hablamos de tres o de cuatro: la primavera; el verano, la siega; el otoño, la vendimia; y el invierno, cuando el mar se cierra y se poda. Los poetas cuentan las Horas de muchas maneras: dos, tres, cuatro… Pero el orden es siempre el mismo, y nadie se lo salta. Ni Zeus.']],
+  src:'Hesíodo, Teogonía 901-903 y Trabajos y días 73-75; Ilíada V 749-751; Himno homérico VI a Afrodita; Ateneo XIV 656a (Filócoro); Pausanias IX 35.2'},
+ R:{who:'Aulo',t:'Pintor de frescos',g:'A',
+  intro:'Un hombre con las manos manchadas de colores se aparta de una pared a medio pintar. «Ha cambiado la estación, ¿eh? Justo a tiempo: me han encargado las cuatro Estaciones para un comedor. Soy Aulo, pintor. Mira, te explico a quién estoy pintando».',
+  topics:[['¿Quiénes son las Horas?','Para los griegos, las Horas son las hijas de Júpiter y de Temis, guardianas del orden del mundo: que cada cosa llegue a su tiempo. Nosotros también las llamamos Horas, y en las casas de los ricos las pintamos como cuatro muchachas o cuatro niños: la Primavera con flores, el Verano con espigas, el Otoño con uvas y el Invierno abrigado, con una rama seca o un pato.'],
+   ['¿Por qué cuatro?','Porque el año romano se divide así para el campo, y porque son cuatro también las edades del hombre: niñez, juventud, madurez y vejez. Ovidio, en las Metamorfosis, pone a las cuatro alrededor del trono del Sol: la Primavera coronada de flores, el Verano desnudo con espigas, el Otoño manchado de uva pisada y el Invierno con el pelo blanco y erizado.'],
+   ['¿Y en los mitos?','Homero dice que vigilan las puertas del cielo y abren o cierran la nube que las tapa. Y cuando Proserpina (los griegos dicen Perséfone) fue raptada por Plutón, su madre Ceres dejó la tierra estéril. Desde entonces la hija pasa una parte del año abajo: por eso hay invierno.'],
+   ['¿Qué dicen los poetas?','Horacio tiene una oda muy triste y muy bonita: la nieve se va, vuelve la hierba, el verano empuja a la primavera y el invierno vuelve a todo correr. Las estaciones se recuperan, dice, pero nosotros, cuando bajamos con los muertos, ya no. Por eso hay que aprovechar el día. Yo lo aprovecho pintando. Y cobrando.']],
+  src:'Hesíodo, Teogonía 901-903; Ilíada V 749-751; Ovidio, Metamorfosis II 25-30 y V 385-571; Horacio, Odas IV 7'}};
+function horasTalk(){const H=HORAS[MODE==='roma'?'R':'A'],seen=new Set();dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent=H.g;setName(H.who,true);$('dTitle').textContent=H.t+' · las Horas';const opt=$('dOpts');
+  const render=()=>{opt.innerHTML='';H.topics.forEach(([q,a],i)=>{const b=document.createElement('button');if(seen.has(i))b.className='seen';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+q+'</span>';
+    b.onclick=()=>{seen.add(i);if(seen.size===H.topics.length&&!state.horas.done){state.horas.done=1;qAdd('eu',3);qAdd('so',2);save();updateStats();sfxCoin();}$('dBody').innerHTML='<p>'+a+'</p>'+(seen.size===H.topics.length?'<p class="sub">Fuentes: '+H.src+'.</p>':'');render();};opt.appendChild(b);});
+    const b=document.createElement('button');b.innerHTML='<span class="n">'+(H.topics.length+1)+'</span><span>Despedirse</span>';b.onclick=closeDialog;opt.appendChild(b);};
+  $('dBody').innerHTML='<p>'+H.intro+'</p>';render();$('dialog').hidden=false;}
+let seasonT=0;
+function seasonTick(dt){hudTitleTick();const nw=performance.now();if(nw-seasonT<1000||!state)return;seasonT=nw;const c=calNow();
+  if(!state.horas)state.horas={s:c.season.id};
+  if(state.horas.s!==c.season.id){state.horas.s=c.season.id;state.horas.pend=1;save();toast('<span class="label">Llega el '+c.season.n+'</span><br>Empieza el mes de '+c.mes+'. Los campos y los árboles cambian de color.');}
+  if(state.horas.pend&&ui==='play'&&!state.horas.met){state.horas.pend=0;state.horas.met=1;save();setTimeout(()=>{if(ui==='play')horasTalk();else state.horas.pend=1;},2500);}}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -12875,6 +12918,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

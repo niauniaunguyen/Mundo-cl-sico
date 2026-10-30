@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 48). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 49). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 49: estaciones, las Horas y título según la región
+- Calendario (`calNow`): cada 5 días de juego pasa un mes y cada 15 cambia la estación. La partida empieza en abril (Muniquión en Atenas, Aprilis en Roma). El año avanza en enero: 386→385 a.C. en Atenas y 80→81 d.C. en Roma. El calendario del diario muestra el mes y la estación.
+- `applySeason` tiñe el follaje, las viñas y el terreno (`TERR_MATS`). El efecto es suave, porque olivos y cipreses son de hoja perenne. En verano el campo amarillea y en invierno reverdece con las lluvias.
+- La primera vez que cambia la estación aparece Filis (Atenas, vendedora de coronas) o Aulo (Roma, pintor de frescos) y explica las Horas: Hesíodo, Ilíada V, Talo y Carpo, Ovidio, Horacio IV 7. Al escuchar todos los temas se gana +3 en eu y +2 en so. Estado en `state.horas`.
+- El título de arriba a la izquierda (`hudTitleTick`) muestra la región actual (`islandOf`, o El Olimpo), la estación y el año. En modo Historia se añade « · Historia» (`storyHud`).
 
 ### Novedades de la versión 48: las Musas, Mnemósine y el Olimpo; la estatua de Mégara
 - Zeus y Júpiter ya no aparecen entre los dioses del mundo (`buildGods` los quita de `GODS`).
