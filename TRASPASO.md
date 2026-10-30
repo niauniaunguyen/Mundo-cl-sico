@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 43). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 44). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,19 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 44: las mujeres griegas
+- **Fuente:** *Desperta Ferro Arqueología e Historia* n.º 11, *La mujer en Grecia* (2017), aportado por el usuario. Todo está redactado de nuevo y la revista se cita como referencia moderna.
+- **Ensayo nuevo en la biblioteca** (`mujeres2`, «Mujeres griegas: leyes, ritos y Esparta»): ciudadanía (`politides`), boda y dote, las formas de divorcio, la epiclera frente a Esparta y Gortina, las espartanas, las sacerdotisas (Lisímaca, la llave, la *ololygé*), el luto y sus leyes, y heteras y *pornai*. Completa el ensayo `mujeres` sin repetirlo.
+- **Temas nuevos de conversación** (en «Cuéntame más», objeto `MORE`):
+  - Teano: la duración del sacerdocio y el sacrificio.
+  - Mirrina: la edad de casarse y el divorcio.
+  - Nicareta: cómo se acuerda una boda y los regalos de boda.
+  - Glicera: qué aprenden las niñas.
+  - Cinisca: Gorgo y la herencia de las espartanas.
+- **Curiosidades nuevas:**
+  - En estelas: Lisímaca, la sacerdotisa Crisis de Argos, las leyes contra el llanto, las carreras en honor de Helena y la dedicación de Nicandra de Naxos.
+  - Al amanecer: las leyes de Gortina, el epínetro y el *sakkós*.
 
 ### Novedades de la versión 43: fiestas y ritos
 - **Calendario de fiestas** (`FESTS_ATENAS`, `FESTS_ROMA`):
