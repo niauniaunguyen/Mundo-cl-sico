@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 53). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 54). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,24 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 54: barco propio y viaje a la Luna
+- `buildPort` guarda la geometría de cada muelle en `PIERS[key]`. En el muelle principal (`PIERS.atenas`, que también existe en Roma) están:
+  - el carpintero de ribera: Fanodemo en Atenas, Gayo Fabio Velox en Roma, ambos inventados;
+  - un amarre con poste («Tu barco»);
+  - un barco que solo es visible cuando es tuyo.
+- Estado en `state.barco`. `st`: 0 nada; 1 adelanto de 150 pagado; 2 materiales entregados, a la espera de 3 días; 3 barco propio con nombre (`name`).
+- Materiales (`BARCO.mats`, 20 monedas cada uno):
+  - Atenas: madera de Pela, bronce de Calcis y velas del diolkos de Corinto.
+  - Roma: madera de Genua, pez del estrecho de Regium y lino de Tarraco.
+- Con barco propio, `fareOf` devuelve 0 en los viajes por mar.
+- Desde el amarre, «Navegar más allá de las Columnas de Hércules» abre `moonVoyage`: cuatro pantallas narradas y llegada a la Luna (`buildMoon`, mapa perezoso en X=ISLANDS[0].x, Z=+15000, Y=3200).
+  - En la Luna: cúpula oscura con estrellas, la Tierra en el cielo, cráteres, el palacio de cristal de Endimión, el espejo del pozo, tres hipogipos y selenitas.
+  - Personajes: Luciano (con nota de anacronismo), Endimión (la guerra con Faetón) y un selenita (costumbres).
+  - Volver: una pantalla narrada (la ballena) y llegada al muelle.
+  - La primera visita da +5 kl y +3 so (`state.luna`).
+- `regionName`/`checkZone` reconocen la Luna antes que la casa (Y 3200 > 2400). En el modo `tour`, Intro pulsa el botón `.nx` de `#tourSea`, que también usa la Luna.
+- Panel del profesorado: destinos «La Luna de Luciano» y el carpintero, y atajo «Barco propio».
 
 ### Novedades de la versión 53: rutas de la Odisea y de la Eneida
 - `TOUR_A`: Cleónimo, rapsoda homérida inventado, junto a la escuela de letras. `TOUR_R`: Sexto Cornelio, gramático inventado, junto a la escuela del gramático. La primera vez la ruta cuesta 30 monedas y da +4 so y +1 kl. Repetirla es gratis. Se guarda en `state.tours`.
