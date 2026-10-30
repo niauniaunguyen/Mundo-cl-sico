@@ -201,6 +201,19 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 .note{border-left:3px solid #c79a3a;padding:8px 12px;background:rgba(199,154,58,.1);margin:10px 0;line-height:1.5}
 .linkbtn{background:none;border:none;padding:0;margin-top:10px;color:var(--clay);text-decoration:underline;font-size:.88rem}
 .startbtns{display:flex;gap:10px;flex-wrap:wrap}
+.startmodes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.startmodes button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;text-align:left}
+.startmodes button b{font-family:var(--f-display);font-weight:400;font-size:1.15rem}.startmodes button i{font-size:.82rem;opacity:.85}
+@media (max-width:640px){.startmodes{grid-template-columns:1fr}}
+#netPanel{display:flex;flex-direction:column;gap:10px;border:1px solid var(--clay);padding:12px 14px;background:rgba(22,16,12,.6)}
+#netPanel .netf{display:flex;gap:12px;flex-wrap:wrap}#netPanel label{display:flex;flex-direction:column;gap:4px;font-size:.9rem;color:var(--clay-soft)}
+#netPanel input{background:#16100c;border:1px solid #6b4a2e;color:var(--bone);padding:6px 8px;font:inherit;min-width:160px}
+#netMsg{color:#ecc29a;min-height:1.2em}#netPanel .nsub{font-size:.85rem;color:var(--muted)}
+#net{position:fixed;right:12px;bottom:64px;width:min(270px,70vw);background:rgba(22,16,12,.8);border:1px solid #6b4a2e;padding:8px 10px;font-size:.84rem;color:var(--bone);z-index:6}
+#net ul{list-style:none;margin:6px 0;padding:0;display:flex;flex-wrap:wrap;gap:4px}#net li{border-left:4px solid #888;padding:1px 6px;background:rgba(255,255,255,.05)}
+#netLog div{margin:2px 0;line-height:1.3;word-wrap:break-word}#netLog .sys{color:var(--muted);font-style:italic}#netLog b{color:#ecc29a;font-weight:600}
+#netIn{width:100%;margin-top:6px;background:#16100c;border:1px solid #6b4a2e;color:var(--bone);padding:5px 6px;font:inherit}
+
 .ghost{background:none;border:1px solid var(--clay);color:var(--clay-soft);padding:12px 20px;font-family:var(--f-display);font-size:1rem;letter-spacing:.06em}
 .ghost:hover{background:rgba(217,135,74,.15)}
 .tally{display:flex;height:26px;margin:12px 0 6px;border:1px solid rgba(217,135,74,.4);font-variant-numeric:tabular-nums}
@@ -261,6 +274,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
     <div id="cross"></div>
     <div id="prompt" hidden></div>
     <div id="toast"></div>
+    <div id="net" hidden><div><b id="netHead"></b><span id="netState"></span></div><ul id="netPeople"></ul><div id="netLog"></div><input id="netIn" hidden maxlength="200" placeholder="Escribe y pulsa Intro (Esc para cancelar)" autocomplete="off"></div>
     <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · F antorcha · J diario · M plano · B biblioteca · T hora · N sonido</div>
     <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bTorch"><kbd>F</kbd>Antorcha</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
     <canvas id="mini" width="220" height="220" aria-label="Minimapa"></canvas>
@@ -364,7 +378,9 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <b>B · T · N</b><span>biblioteca con todas las fuentes · dejar pasar unas horas · sonido</span>
         <b class="fict">Nombre</b><span>personaje inventado (los históricos van en blanco)</span>
       </div>
-      <div class="startbtns"><button id="go" disabled>Entrar en el Ágora</button><button id="libStart" class="ghost">Leer la biblioteca</button><button id="loadStart" class="ghost">Cargar partida</button><button id="bBack" class="ghost">Cambiar de época</button></div>
+      <div class="startmodes"><button id="goStory" disabled><b>Historia</b><i>Diez capítulos guiados</i></button><button id="go" disabled><b>Libre</b><i>Un jugador, sin conexión</i></button><button id="goNet" disabled><b>Libre en línea</b><i>Hasta 15 jugadores</i></button></div>
+      <div id="netPanel" hidden><div class="netf"><label>Tu nombre <input id="netName" maxlength="20" autocomplete="off"></label><label>Código de sala <input id="netCode" maxlength="8" autocomplete="off" placeholder="vacío: sala nueva"></label></div><div class="startbtns"><button id="netGo">Entrar en la sala</button><button id="netCancel" class="ghost">Volver</button></div><p id="netMsg"></p><p class="nsub">Todos los jugadores de una sala comparten la misma época y se ven en el mismo mundo. Para jugar juntos, el dueño de esta página debe compartirla con sus compañeros desde el menú Compartir de claude.ai; para escribir en el chat hace falta permiso de participante. Máximo 15 jugadores por sala.</p></div>
+      <div class="startbtns"><button id="libStart" class="ghost">Leer la biblioteca</button><button id="loadStart" class="ghost">Cargar partida</button><button id="bBack" class="ghost">Cambiar de época</button></div>
       <div class="langs" role="group" aria-label="Idioma"><button data-lang="es">Español</button><button data-lang="ca">Català</button><button data-lang="en">English</button></div>
       <div id="loadmsg">Levantando la ciudad…</div>
     </div>
@@ -3573,7 +3589,7 @@ const stepsDone=()=>STEPS().filter(s=>s.ok()).length;
 function curStep(){if(!state||state.steps._off)return null;return STEPS().find(s=>!s.ok())||null;}
 function stepFlag(k){if(!state.steps[k]){state.steps[k]=1;save();}}
 // hacia dónde apunta el rombo de la brújula: la misión en curso o, si no hay, la persona más cercana por conocer
-function guideTarget(){const s=curStep();if(s){const p=s.at();if(p)return p;if(!state.steps._off)return null;}return nextTarget();}
+function guideTarget(){if(storyOn())return storyTarget();const s=curStep();if(s){const p=s.at();if(p)return p;if(!state.steps._off)return null;}return nextTarget();}
 let stepsT=0;
 function stepsTick(dt){
   if(!state||ui!=='play')return;stepsT+=dt;if(stepsT<0.5)return;stepsT=0;
@@ -3590,6 +3606,7 @@ function updateStats(){
   $('sObols').textContent=state.obols+(MODE==='roma'?' sestercios':' óbolos');
   $('sMyths').textContent='Mitos '+state.myths.length+'/'+RELIEFS.length;$('sGods').hidden=!GODS.length;$('sMyths').hidden=MODE!=='atenas';
   $('sGods').textContent='Favores '+godsDone()+'/'+GODS.length;
+  if(storyOn()){$('objective').innerHTML=storyStatus()+'<br><span class="sub">G: que te lleven · J: capítulos</span>';return;}
   const st=curStep();if(st){$('objective').innerHTML='<b>Primeros pasos '+stepsDone()+'/'+STEPS().length+'</b> · '+st.title+'<br><span class="sub">'+st.short+'</span>';return;}
   const t=nextTarget();$('objective').textContent=t?(state.lessons.includes(t.data.id)?'Siguiente: pide a '+t.data.name+' que te lleve a un juicio · '+LESSONS[t.data.id].where:'Siguiente: '+t.data.name+' · '+LESSONS[t.data.id].where):'Has completado todas las lecciones. Sigue explorando.';
 }
@@ -3633,6 +3650,7 @@ function drawCompass(){
 let dlg=null;
 function setName(t,fict){const e=$('dName');e.textContent=t;e.className=fict?'fict':'';}
 function openDialog(n){
+  if(storyHook('npc',n.id))return;
   dlg={n,quiz:null};ui='dialog';releasePointer();
   $('dGlyph').textContent=n.glyph;setName(n.name,!HIST.has(n.id));$('dTitle').textContent=n.title+(HIST.has(n.id)?' · personaje histórico':' · personaje inventado');
   $('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();$('dialog').hidden=false;
@@ -3834,6 +3852,7 @@ function readSign(s){
   if(!state.places.includes(pl.id)){state.places.push(pl.id);save();updateStats();toast('<span class="label">Lugar descubierto</span><br>'+pl.name);s.mk.visible=false;}
   const o=$('dOpts');o.innerHTML='';if(pl.go){const g2=document.createElement('button');g2.className='quiz';g2.innerHTML='<span class="n">1</span><span>'+(pl.go==='sueno'?'Dormir y soñar':'Despertar')+'</span>';g2.onclick=()=>/^cnosos/.test(pl.go)?knossosTravel(pl.go):dreamTravel(pl.go);o.appendChild(g2);}const b=document.createElement('button');b.innerHTML='<span class="n">'+(pl.go?2:1)+'</span><span>Seguir</span>';b.onclick=closeDialog;o.appendChild(b);
   $('dialog').hidden=false;setTimeout(()=>b.focus({preventScroll:true}),30);
+  if(storySignMatch(pl.id)){o.innerHTML='';const c=document.createElement('button');c.className='quiz';c.innerHTML='<span class="n">1</span><span>Seguir la historia</span>';c.onclick=()=>{closeDialog();storyFire();};o.appendChild(c);setTimeout(()=>c.focus({preventScroll:true}),40);}
 }
 const BARKS=['En las Apaturias presento a mi hijo a la fratría. Ya he comprado la oveja.','Mi suegra dice que el niño se parece a mí. Mi mujer dice que se parece a su padre. Paz en casa.','Si no le enseñas un oficio a tu hijo, luego no estará obligado a mantenerte de viejo. Lo dice la ley.','¿Has visto pasar a la canéfora? Es la hija del arconte, nada menos.','Esta noche hay boda. Si te dan nueces y higos, cógelos: traen suerte.','A mi esclavo le dejo quedarse con un óbolo de cada dracma que gana. Dentro de diez años se habrá comprado la libertad.','El metronomo me ha multado por la balanza. ¡Por Hermes, si estaba casi bien!','Préstame veinte dracmas, como en un éranos de amigos. Te las devuelvo cuando llegue el barco.','¿Has oído? Dicen que el Gran Rey se ha quedado con toda Jonia.','¡Doce óbolos por una anguila del Copais! Esto es un robo.','Mañana hay Asamblea. Habrá que madrugar para cobrar los tres óbolos.','Mi hijo quiere estudiar con ese Platón. Yo le digo que aprenda un oficio.','Cuidado con los cambistas de la mesa del rincón: pesan con la mano.','Por Heracles, qué calor hace ya en Muniquión.','¿Vas al teatro en las Dionisias? Mi primo es corego este año.','Dicen que en el Pireo ha atracado un barco con trigo del Ponto.','Salud, forastero. ¿Buscas el Ágora? Estás en ella.','Mi vecino ha sido sorteado para el Consejo. Ahora se cree Pericles.'];
 function bark(w){toast('<i>«'+pick(w.barks||BARKS)+'»</i>');}
@@ -4210,7 +4229,8 @@ function openJournal(tab){if(tab)jTab=tab;ui='journal';releasePointer();$('journ
 function renderJournal(){
   document.querySelectorAll('#journal .tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===jTab?'true':'false'));
   const el=$('jBody');let h='';
-  if(jTab==='steps'){const L=STEPS(),d=stepsDone();h=calendarHTML()+'<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(d>=L.length?'Has completado los primeros pasos. Ahora explora por tu cuenta: personajes, lugares, dioses, viajes, esferas de sueño y la biblioteca (B).':'Diez misiones para empezar, cada una sobre un aspecto distinto de la ciudad. Puedes hacerlas en cualquier orden; el objetivo de arriba a la izquierda y el rombo ◆ de la brújula te guían hacia la siguiente.')+'</p><div class="entries">'+
+  if(jTab==='steps'&&storyOn()){h=storyJournal();}
+  else if(jTab==='steps'){const L=STEPS(),d=stepsDone();h=calendarHTML()+'<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(d>=L.length?'Has completado los primeros pasos. Ahora explora por tu cuenta: personajes, lugares, dioses, viajes, esferas de sueño y la biblioteca (B).':'Diez misiones para empezar, cada una sobre un aspecto distinto de la ciudad. Puedes hacerlas en cualquier orden; el objetivo de arriba a la izquierda y el rombo ◆ de la brújula te guían hacia la siguiente.')+'</p><div class="entries">'+
     L.map((s,i)=>'<div class="entry'+(s.ok()?'':' locked')+'"><span class="label">'+(i+1)+' · '+s.cat+(s.ok()?' · hecho ✓':'')+'</span><h3>'+s.title+'</h3><p>'+s.txt+'</p></div>').join('')+'</div>'+
     (d<L.length?'<p style="margin:14px 0 0"><button class="linkbtn" id="stepsOff">'+(state.steps._off?'Volver a mostrar los primeros pasos':'Ocultar los primeros pasos y explorar libremente')+'</button></p>':'');}
   else if(jTab==='lessons'){h='<div class="entries">'+Object.keys(LESSONS).map(id=>{const L=LESSONS[id],ok=state.lessons.includes(id);return ok?'<div class="entry"><span class="label">'+L.cat+' · <span class="'+(L.fict?'fict':'')+'">'+L.who+'</span></span><h3>'+L.title+'</h3><p>'+L.summary+'</p><button class="linkbtn" data-lib="l:'+id+'">Leer más y ver las fuentes</button></div>':'<div class="entry locked"><span class="label">'+L.cat+'</span><h3>'+L.title+'</h3><p>'+(L.hint||('Habla con '+L.who+' y supera su pregunta.'))+'</p><div class="where">'+L.where+'</div></div>';}).join('')+'</div>';}
@@ -5209,7 +5229,6 @@ function romaSetup(){
   $('hudTitle').textContent='Roma · año 80 d.C.';
   $('stH1').innerHTML='Roma<span>AÑO 80 d.C.</span>';
   $('stIntro').innerHTML='<p>Tito, hijo de Vespasiano, es emperador desde hace un año. El Vesubio acaba de sepultar Pompeya, y Roma, que se reconstruye aún del incendio de Nerón, celebra cien días de juegos para inaugurar el Anfiteatro Flavio.</p><p>Llegas al Foro Romano. Habla con poetas, filósofos, senadores, gladiadores, libertos y vestales; lee las inscripciones y aprende cómo vive, gobierna y piensa la mayor ciudad del mundo. Cada lección que superes te dará tres sestercios.</p>';
-  $('go').textContent='Entrar en el Foro';
   document.querySelector('#journal [data-tab="myths"]').hidden=true;
   $('libQ').placeholder='Buscar: Marcial, termas, Tíber…';
 }
@@ -8090,7 +8109,7 @@ function epiEnd(complete){
   const v=$('voyage');v.classList.add('land');v.querySelector('.vt').textContent=E.vtEnd||'Despiertas…';v.querySelector('.vs').textContent=E.name;v.querySelector('.vf').textContent='';v.hidden=false;v.classList.add('show');
   const R=EPI.ret;player.x=R.x;player.z=R.z;player.yaw=R.yaw;player.feet=floorAt(R.x,R.z);player.camY=player.feet+player.eye;player.pitch=0;clock.h=(EPI.saveH+0.25)%24;updateSky();
   setTimeout(()=>{v.classList.remove('show');setTimeout(()=>{v.hidden=true;$('hud').hidden=false;ui='play';
-    if(complete)epiReward(E);},700);},1100);
+    if(complete){epiReward(E);setTimeout(()=>storyHook('dream',E.id),300);}},700);},1100);
 }
 function epiReward(E){if(E.reward)return E.reward();if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2;save();updateStats();sfxCoin();
   const s=EPI.spheres.find(q=>q.data===E);if(s)s.core.material.color.set(0x9fb0c8);
@@ -10610,7 +10629,7 @@ window.addEventListener('keydown',e=>{
   if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();
   if(e.target&&e.target.tagName==='INPUT'){if(e.code==='Escape')closeModals();return;}
   if(ui==='library'){if(e.code==='KeyB'||e.code==='Escape')closeModals();return;}
-  if(ui==='start'){if(e.code==='Enter'&&!$('go').disabled)startGame();return;}
+  if(ui==='start'){if(e.code==='Enter'&&!$('go').disabled&&$('netPanel').hidden)startGame();return;}
   if(ui==='sea'){seaKey(e,true);return;}
   if(ui==='episode'){epiKey(e);return;}
   if(ui==='dialog'){const n=parseInt(e.key,10);if(n>=1&&n<=9){const b=$('dOpts').querySelectorAll('button')[n-1];if(b){b.click();e.preventDefault();}}if(e.code==='Escape'){closeDialog();}return;}
@@ -10619,6 +10638,8 @@ window.addEventListener('keydown',e=>{
   if(KMAP[e.code]){keys[KMAP[e.code]]=true;e.preventDefault();}
   if(e.code==='Space'&&!e.repeat)jump();
   if(e.code==='KeyE')interact();
+  if(e.code==='Enter'&&NET.room){e.preventDefault();netChatOpen();return;}
+  if(e.code==='KeyG'&&storyOn())storyGo();
   if(e.code==='KeyJ')openJournal();
   if(e.code==='KeyM')openMap();
   if(e.code==='KeyB')openLibrary();
@@ -10652,10 +10673,10 @@ let focus=null;
 function findFocus(){
   const ay=aimYaw(),fx=-Math.sin(ay),fz=-Math.cos(ay);let best=null,bs=0;
   const test=(o,x,z,range)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>range)return;const dot=(dx*fx+dz*fz)/(d||1);if(dot<0.35&&d>1.2)return;const sc=dot*2-d/range;if(!best||sc>bs){best=o;bs=sc;}};
-  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
+  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else bark(focus);}
+function interact(){if(!focus)return;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -10714,7 +10735,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -10736,7 +10757,7 @@ function frame(now){
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:focus.kind==='story'?'Hablar con '+focus.data.name:'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?'Caballo':'H')+'</kbd>Montar el caballo';p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -10747,15 +10768,481 @@ function frame(now){
 }
 
 // ============================================================ arranque
+// ============================================================ MODO HISTORIA
+// Diez capítulos guiados por época (STORY_ATENAS / STORY_ROMA). Cada capítulo: actores propios, pasos y escenas.
+// Paso: {obj, at (ancla del rombo), npc|actor|sign|dream|go(+r)|auto, h (hora), scene:[líneas]}
+// Línea: ['Quién','texto'] · ['','narración'] · {ask,a:[correcta,...],ok,ko} · {choose:[[opción,[líneas],marca]]} · {fn} · {if,then,else}
+let STORY=null,storyActors=[],storyBusy=0;
+const storyOn=()=>!!STORY&&!!state&&!!state.story;
+function stAnchor(a){if(!a)return null;if(typeof a==='function')return a();if(Array.isArray(a))return{x:a[0],z:a[1]};
+  const i=a.indexOf(':'),k=a.slice(0,i),id=a.slice(i+1);if(k==='npc')return npcAt(id);if(k==='place')return placeAt(id);
+  if(k==='actor'){const o=storyActors.find(q=>q.id===id);return o?{x:o.x,z:o.z}:null;}return null;}
+function spawnActor(A){const p=stAnchor(A.at);if(!p)return;const f=findFree(p.x+(A.dx||0),p.z+(A.dz||0),0.6);
+  const g=makePerson(Object.assign({noVary:true},A.look));g.position.set(f[0],floorAt(f[0],f[1]),f[1]);g.rotation.y=A.rot||0;scene.add(g);
+  const lb=labelSprite(A.name,A.title,true);lb.position.y=2.45;lb.visible=false;g.add(lb);const mk=markerSprite();mk.position.y=2.95;mk.visible=false;g.add(mk);
+  storyActors.push({kind:'story',id:A.id,x:f[0],z:f[1],g,lb,mk,data:{name:A.name,role:A.title,glyph:A.glyph||A.name.charAt(0)}});}
+function clearActors(){storyActors.forEach(a=>scene.remove(a.g));storyActors=[];}
+const curChapter=()=>storyOn()?STORY[state.story.ch]||null:null;
+const curStoryStep=()=>{const c=curChapter();return c?c.steps[state.story.st]||null:null;};
+function stepAnchor(s){return s.at||(s.npc?'npc:'+s.npc:s.actor?'actor:'+s.actor:s.sign?'place:'+s.sign:s.go||null);}
+function storyTarget(){const s=curStoryStep();return s?stAnchor(stepAnchor(s)):null;}
+function storyStatus(){const c=curChapter(),s=curStoryStep();if(!c)return '';
+  return '<b>Capítulo '+(state.story.ch+1)+' · '+c.title+'</b><br><span class="sub">'+(s?s.obj:'')+'</span>';}
+function storyMarkers(){const s=curStoryStep();storyActors.forEach(a=>a.mk.visible=!!s&&s.actor===a.id);}
+// abre el capítulo actual: tarjeta de presentación, actores y primer paso
+function storyResume(fresh){
+  clearActors();const c=curChapter();if(!c){storyFinale();return;}
+  (c.actors||[]).forEach(spawnActor);storyMarkers();updateStats();
+  if(fresh||state.story.st===0)storyCard(c);
+}
+function storyCard(c){
+  ui='dialog';dlg={n:null,story:1};releasePointer();
+  $('dGlyph').textContent=String(state.story.ch+1);setName('Capítulo '+(state.story.ch+1)+' de '+STORY.length+' · '+c.cat);$('dTitle').textContent=c.title;
+  $('dBody').innerHTML='<p>'+c.intro+'</p><p class="sub">Objetivo: '+c.steps[0].obj+'</p>';
+  const o=$('dOpts');o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Empezar</span>';
+  b.onclick=()=>{closeDialog();const s=curStoryStep();if(s&&s.auto)storyFire();};o.appendChild(b);$('dialog').hidden=false;setTimeout(()=>b.focus({preventScroll:true}),30);
+}
+// los ganchos del juego preguntan si este gesto es el que espera la historia
+function storyHook(kind,id){
+  const s=curStoryStep();if(!s||storyBusy>performance.now())return false;
+  if((kind==='npc'&&s.npc===id)||(kind==='actor'&&s.actor===id)||(kind==='dream'&&s.dream===id)){storyFire();return true;}
+  return false;}
+function storySignMatch(id){const s=curStoryStep();return !!s&&s.sign===id;}
+let storyT=0;
+function storyTick(dt){
+  if(!storyOn()||ui!=='play')return;storyT+=dt;if(storyT<0.3)return;storyT=0;
+  for(const a of storyActors)a.lb.visible=Math.hypot(a.x-player.x,a.z-player.z)<9;
+  const s=curStoryStep();if(!s||storyBusy>performance.now())return;
+  if(s.go){const p=stAnchor(s.go);if(p&&Math.hypot(p.x-player.x,p.z-player.z)<(s.r||12))storyFire();}
+  else if(s.auto)storyFire();
+}
+function storyFire(){const s=curStoryStep();if(!s)return;if(s.h!==undefined){clock.h=s.h;updateSky();}playScene(s.scene||[],storyNext);}
+// reproduce una escena en el cuadro de diálogo; al terminar llama a done
+function playScene(lines,done){
+  const L=lines.slice();ui='dialog';dlg={n:null,story:1};releasePointer();$('dialog').hidden=false;
+  const btn=(txt,fn,k,cls)=>{const b=document.createElement('button');b.className=cls||'';b.innerHTML='<span class="n">'+k+'</span><span>'+txt+'</span>';b.onclick=fn;$('dOpts').appendChild(b);return b;};
+  const say=(who,txt)=>{$('dGlyph').textContent=who?who.charAt(0):'§';setName(who||'Narración',!!who);$('dTitle').textContent=curChapter()?'Capítulo '+(state.story.ch+1)+' · '+curChapter().title:'';$('dBody').innerHTML='<p>'+txt+'</p>';};
+  const step=()=>{
+    $('dOpts').innerHTML='';const l=L.shift();
+    if(l===undefined){closeDialog();storyBusy=performance.now()+800;done&&done();return;}
+    if(Array.isArray(l)){say(l[0],l[1]);const b=btn(L.length?'Seguir':'Continuar',step,1);setTimeout(()=>b.focus({preventScroll:true}),30);return;}
+    if(l.fn){l.fn();step();return;}
+    if(l.if!==undefined){L.unshift(...((state.story.f[l.if]?l.then:l.else)||[]));step();return;}
+    if(l.choose){say(l.who||'',l.txt||'¿Qué haces?');l.choose.forEach((c,i)=>btn(c[0],()=>{if(c[2])state.story.f[c[2]]=1;save();L.unshift(...(c[1]||[]));step();},i+1,'quiz'));return;}
+    if(l.ask){say(l.who||'',l.ask);const opts=l.a.map((t,i)=>[t,i===0]).sort(()=>R()-0.5);
+      opts.forEach((o,i)=>btn(o[0],()=>{if(o[1]){sfxCoin();L.unshift([l.who||'',l.ok]);step();}else{$('dBody').innerHTML='<p>'+l.ask+'</p><p class="sub">'+l.ko+'</p>';}},i+1,'quiz'));return;}
+  };
+  step();
+}
+function storyNext(){
+  const c=curChapter();if(!c)return;state.story.st++;save();
+  if(state.story.st<c.steps.length){storyMarkers();updateStats();const s=curStoryStep();if(s.auto)setTimeout(storyFire,400);
+    else toast('<span class="label">Capítulo '+(state.story.ch+1)+'</span><br>'+s.obj);return;}
+  // fin del capítulo
+  state.obols+=5;sfxCoin();const done=state.story.ch;state.story.done=Math.max(state.story.done||0,done+1);
+  ui='dialog';dlg={n:null,story:1};releasePointer();
+  $('dGlyph').textContent='✓';setName('Capítulo '+(done+1)+' completado · +5 '+(MODE==='roma'?'sestercios':'óbolos'));$('dTitle').textContent=c.title;
+  $('dBody').innerHTML='<p>'+c.end+'</p><div class="curio"><span class="label">Lo que has aprendido · '+c.cat+'</span><p>'+c.learn+'</p></div>';
+  const o=$('dOpts');o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>'+(done+1<STORY.length?'Seguir con el capítulo '+(done+2):'Ver el final')+'</span>';
+  b.onclick=()=>{closeDialog();state.story.ch=done+1;state.story.st=0;save();storyResume(true);};o.appendChild(b);$('dialog').hidden=false;
+  save();updateStats();setTimeout(()=>b.focus({preventScroll:true}),30);
+}
+function storyFinale(){const F=MODE==='roma'?STORY_FIN_ROMA:STORY_FIN_ATENAS;
+  ui='dialog';dlg={n:null,story:1};releasePointer();$('dGlyph').textContent='Ω';setName('Fin de la historia');$('dTitle').textContent=F.title;
+  $('dBody').innerHTML=F.txt.map(t=>'<p>'+t+'</p>').join('');
+  const o=$('dOpts');o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Seguir explorando libremente</span>';b.onclick=closeDialog;o.appendChild(b);$('dialog').hidden=false;}
+function storyJournal(){const c=state.story;
+  return '<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Modo Historia: '+(MODE==='roma'?'una familia de Herculano tras la erupción del Vesubio':'una familia de Acarnas que espera a un soldado que nunca volvió')+'. Sigue el rombo ◆ de la brújula y el objetivo de arriba a la izquierda.</p><div class="entries">'+
+    STORY.map((ch,i)=>{const ok=i<(c.done||0),cur=i===c.ch;return '<div class="entry'+(ok||cur?'':' locked')+'"><span class="label">Capítulo '+(i+1)+' · '+ch.cat+(ok?' · completado ✓':cur?' · en curso':'')+'</span><h3>'+(ok||cur?ch.title:'Por descubrir')+'</h3><p>'+(ok?ch.learn:cur?(curStoryStep()?curStoryStep().obj:''):'Completa el capítulo anterior.')+'</p></div>';}).join('')+'</div>';}
+// entrar en el modo Historia desde la pantalla de inicio (guarda aparte)
+function startStory(){
+  STORY=MODE==='roma'?STORY_ROMA:STORY_ATENAS;
+  if(!/-historia$/.test(SAVE_KEY)){SAVE_KEY+='-historia';loadState();}
+  state.steps._off=1;if(!state.story||typeof state.story.ch!=='number')state.story={ch:0,st:0,f:{},done:0};state.story.f=state.story.f||{};
+  if(!state.pos){const p=stAnchor(STORY[0].start);if(p){const f=findFree(p.x,p.z,0.6);player.x=f[0];player.z=f[1];}}
+  npcObjs.forEach(n=>{n.mk.visible=false;});signObjs.forEach(s=>{s.mk.visible=!state.places.includes(s.data.id);});
+  $('hudTitle').textContent=$('hudTitle').textContent.replace(/ · Historia$/,'')+' · Historia';
+  {const t=document.querySelector('#journal [data-tab="steps"]');if(t)t.textContent='Capítulos';}
+  startGame();storyResume(state.story.st===0);
+}
+// ---- Historia de Atenas: «La lechuza de bronce»
+function storyTravel(a,dx,dz){const p=stAnchor(a);if(!p)return;const f=findFree(p.x+(dx||8),p.z+(dz||8),0.6);player.x=f[0];player.z=f[1];player.feet=floorAt(f[0],f[1]);player.camY=player.feet+player.eye;player.vy=0;}
+const LK={abuelo:{chiton:'#d8cfc0',himation:'#6b5a3a',beard:true,hair:'#d8d0c2',beardC:'#e0d8cc',staff:true},
+ madre:{female:true,chiton:'#e2d6c0',himation:'#5a6a7a',veil:true,hair:'#5b4532'},
+ traso:{chiton:'#f3eee2',himation:'#7a2a4a',beard:true,hair:'#2b1f17'},
+ padre:{exomis:true,chiton:'#8a7a5a',beard:true,hair:'#4a3a2a',staff:true}};
+const STORY_ATENAS=[
+ {cat:'Política',title:'Una voz en la Asamblea',start:'npc:pritano',
+  intro:'Tienes quince años y vienes de Acarnas, una aldea del Ática a tres horas de camino. Tu padre, Eudemo, murió en la guerra contra Esparta cuando eras niño; al menos, eso te dijeron. Ahora vuestro vecino, el rico Trasónides, quiere quedarse con la tierra de tu abuelo. Tu abuelo te ha traído a la ciudad para pedir ayuda.',
+  actors:[{id:'abuelo',name:'Arquipo',title:'Tu abuelo',look:LK.abuelo,at:'npc:pritano',dx:5,dz:3},{id:'traso',name:'Trasónides',title:'Vuestro vecino',look:LK.traso,at:'place:bema',dx:6,dz:4}],
+  steps:[
+   {obj:'Escucha a tu abuelo',auto:true,h:9,scene:[['','El Ágora hierve de gente: vendedores, esclavos con cántaros, ciudadanos que discuten a la sombra de los pórticos. Tu abuelo se apoya en su bastón, sin aliento.'],
+    ['Arquipo','Ya no tengo piernas para esto. Escúchame bien: Trasónides dice que le debo dos mil dracmas y que, si no le pago antes del verano, la tierra será suya. Esa tierra la plantó mi padre, olivo a olivo.'],
+    ['Arquipo','En esta ciudad nadie es dueño de otro, ni siquiera un rico. Ve a la Tholos, el edificio redondo, y habla con Eucles, el prítano. Él sabrá decirte qué puede hacer un ciudadano pobre contra uno rico.']]},
+   {obj:'Habla con Eucles, el prítano, junto a la Tholos',npc:'pritano',scene:[['Eucles','¿Una disputa por una tierra? Eso lo deciden los tribunales, no yo. Pero antes, muchacho, aprende cómo funciona tu ciudad.'],
+    ['Eucles','Cada año se sortean quinientos consejeros, cincuenta por tribu. Este mes nos toca a los de mi tribu presidir: comemos aquí, en la Tholos, y siempre hay alguno despierto, de día y de noche. Preparamos lo que se votará en la Asamblea.'],
+    {who:'Eucles',ask:'¿Quién puede hablar en la Asamblea de la Pnyx?',a:['Cualquier ciudadano varón adulto que quiera','Solo los ricos que pagan impuestos','Solo los miembros del Consejo'],ok:'Exacto. El heraldo pregunta «¿Quién quiere hablar?», y cualquier ciudadano puede subir a la tribuna: lo llamamos isegoría, igualdad de palabra.',ko:'No. Piensa en lo que pregunta el heraldo: «¿Quién quiere hablar?». No pregunta cuánto dinero tienes.'},
+    ['Eucles','Mañana hay Asamblea. Sube a la Pnyx, la colina al suroeste. Tu vecino Trasónides suele hablar allí: le gusta que lo vean.']]},
+   {obj:'Sube a la colina de la Pnyx y acércate a la tribuna',go:'place:bema',r:20,h:8,scene:[['','Miles de ciudadanos sentados en la ladera. El heraldo alza la voz: «¿Quién quiere hablar?». Sube un hombre de manto granate y anillos de oro. Es Trasónides.'],
+    ['Trasónides','Atenienses: os propongo que la ciudad pague más a los que mantienen las naves. ¡Los ricos sostenemos esta ciudad!'],
+    ['','La gente murmura. Unos aplauden y otros silban. Te dan ganas de subir a la tribuna y decir lo que os hace.'],
+    {choose:[['Intentar subir a la tribuna',[['Un arquero escita','¡Quieto, chaval! Para hablar aquí tienes que tener dieciocho años y estar inscrito en el registro de tu demo. Vuelve dentro de tres años.']],'impulsivo'],['Esperar y observar',[['','Te fijas en cómo habla: sabe cuándo levantar la voz, cuándo hacer reír, cuándo callar. Hablar en público es un arte, y él lo domina.']],'paciente']]}]},
+   {obj:'Habla con Trasónides, junto a la tribuna',actor:'traso',scene:[['Trasónides','Vaya, el nieto de Arquipo. Te pareces a tu padre, ¿lo sabías? Lástima lo que le pasó.'],
+    ['Trasónides','Tu abuelo me pidió dos mil dracmas hace siete años. Yo se las presté, como buen vecino. Tengo el mojón con la deuda clavado en vuestra tierra y testigos. No es nada personal: es la ley.'],
+    ['','Sonríe, pero sus ojos no sonríen. Cuando se va, te das cuenta de que no te ha dicho para qué pidió tu abuelo aquel dinero.']]}],
+  end:'Has visto la democracia ateniense por dentro: ruidosa, abierta y desigual. Cualquiera puede hablar, pero no todos saben hacerlo. Y has descubierto una pregunta que nadie te contesta: ¿para qué necesitaba tu abuelo dos mil dracmas?',
+  learn:'En la Atenas del siglo IV el Consejo de los Quinientos, elegido por sorteo, prepara los asuntos, y la Asamblea de todos los ciudadanos varones adultos los vota en la Pnyx. La isegoría permite hablar a cualquiera, pero las mujeres, los extranjeros (metecos) y los esclavos no participan.'},
+ {cat:'Vida cotidiana y mujeres',title:'Noticias en la fuente',
+  intro:'En Atenas, las noticias no corren por la Asamblea, sino por las fuentes. Allí las mujeres se encuentran cada mañana, llenan sus cántaros y se cuentan lo que los hombres no dicen en público. La prima de tu madre, Mirrina, vive junto a la fuente del Ágora.',
+  actors:[{id:'madre',name:'Filia',title:'Tu madre',look:LK.madre,at:'npc:aguadora',dx:4,dz:4,rot:Math.PI}],
+  steps:[
+   {obj:'Habla con Mirrina, en la fuente del sureste del Ágora',npc:'aguadora',h:7,scene:[['Mirrina','¡Pero si eres el hijo de Filia! Cómo has crecido. Ven, ayúdame con el cántaro, que pesa como un buey.'],
+    ['Mirrina','Una mujer honrada casi no sale de casa, dicen los hombres. Pero ¿quién trae el agua? ¿Quién va a las fiestas de Deméter, a los funerales, a las bodas? Nosotras lo sabemos todo.'],
+    ['Mirrina','Lo del préstamo… Tu abuelo pidió ese dinero en el año en que dijeron que tu padre estaba prisionero en Corinto. Era para pagar su rescate. Trasónides se ofreció a llevarlo él mismo. Volvió diciendo que llegó tarde: que tu padre había muerto.'],
+    {who:'Mirrina',ask:'En una familia ateniense, ¿quién representa legalmente a una mujer?',a:['Su kyrios: el padre, el marido o el pariente varón más cercano','Ella misma, si es mayor de edad','La sacerdotisa de Atenea'],ok:'Así es. Una mujer no puede firmar contratos importantes ni ir a juicio por sí misma: lo hace su kyrios, su «señor» o tutor.',ko:'No. Aunque las mujeres llevan la casa, la ley exige que un hombre de la familia las represente.'}]},
+   {obj:'Lee la estela del mojón del Ágora (horos)',sign:'horos',scene:[['Mirrina','¿Ves ese mojón? Marca el límite del Ágora. En el campo se usan otros parecidos para marcar las deudas: «Horos de la tierra empeñada a Fulano por tantas dracmas». Si no pagas, la tierra pasa al acreedor.'],
+    ['Mirrina','Y mira quién viene por ahí…']]},
+   {obj:'Habla con tu madre, que ha venido a la ciudad',actor:'madre',scene:[['Filia','No podía quedarme en casa esperando. Tu abuelo no duerme. Y yo tampoco.'],
+    ['Filia','Toma. Tu padre talló esta lechuza de bronce antes de irse a la guerra. Dijo que era para ti, para que Atenea te cuidara mientras él no estaba. Yo la he guardado siete años.'],
+    ['','La lechuza cabe en tu mano. Tiene una muesca en un ala, como si alguien la hubiera mordido sin querer.'],
+    {choose:[['Prometerle que descubrirás la verdad',[['Filia','No prometas lo que no depende de ti. Promete solo que volverás.']],''],['Preguntarle si cree que tu padre vive',[['Filia','Cada noche me digo que no. Y cada mañana miro el camino.']],'esperanza']]}]}],
+  end:'Mirrina te ha dado la primera pista: la deuda era el rescate de tu padre, y fue Trasónides quien lo llevó a Corinto. Llevas al cuello la lechuza de bronce.',
+  learn:'La vida de las atenienses giraba en torno al oikos, la casa. No votaban ni podían ir a juicio, y dependían de un kyrios. Pero dirigían el hogar y la economía doméstica, tenían un gran papel en la religión (fiestas, funerales, sacerdocios) y lugares de encuentro propios, como las fuentes.'},
+ {cat:'Economía',title:'El banquero que fue esclavo',
+  intro:'Si Trasónides prestó dinero, quizá quede algún rastro en un banco. El banquero más rico de Atenas, Pasión, empezó su vida como esclavo en esa misma mesa de cambio que hoy es suya.',
+  actors:[{id:'formion',name:'Formión',title:'Esclavo y ayudante de Pasión',look:{chiton:'#c9b48b',short:true,noHimation:true,hair:'#3b2a1e'},at:'place:mercado',dx:5,dz:3}],
+  steps:[
+   {obj:'Habla con Pasión, el banquero',npc:'pasion',scene:[['Pasión','Los bancos guardamos dinero, cambiamos monedas de otras ciudades y prestamos con interés. Y lo apuntamos todo, muchacho. Todo.'],
+    ['Pasión','Ese préstamo no pasó por mi mesa: fue entre vecinos. Pero hay algo extraño… Desde hace tres años, alguien viene cada mes y deposita veinte dracmas a nombre de Arquipo de Acarnas. Nunca deja su nombre. Firma con un dibujo: una lechuza.'],
+    ['','Te tiemblan las manos. Sacas la lechuza de bronce. Pasión la mira largo rato.'],
+    ['Pasión','El dibujo tiene una muesca en el ala, como esta. Habla con Formión, en el mercado: él atiende a ese hombre.']]},
+   {obj:'Lee la estela del mercado del Ágora',sign:'mercado',scene:[
+    {who:'',ask:'¿De dónde sale la plata de las lechuzas, las monedas de Atenas?',a:['De las minas del Laurion, en el sur del Ática','Del tributo de Persia','De Egipto, a cambio de aceite'],ok:'Exacto: las minas del Laurion, donde trabajan miles de esclavos en condiciones durísimas.',ko:'Piensa en el Ática: al sur, cerca del cabo Sunion, hay unas minas famosas.'}]},
+   {obj:'Busca a Formión en el mercado',actor:'formion',scene:[['Formión','¿El de la lechuza? Viene a primera hora. Cojea de la pierna izquierda y huele a cola y a pintura, como los que trabajan en los talleres. Habla poco. Una vez le pregunté su nombre y dijo: «Llámame Doro».'],
+    ['Formión','Yo también soy esclavo, ¿sabes? Mi amo Pasión lo fue. Dice que, si trabajo bien, un día seré libre y quizá dirija el banco. En esta ciudad pasan esas cosas, a veces.']]}],
+  end:'Alguien está pagando en secreto la deuda de tu abuelo, firma con la lechuza que tu padre talló y cojea de la pierna izquierda. No te atreves a decir en voz alta lo que piensas.',
+  learn:'Atenas tenía una economía monetaria avanzada: bancos (trapezai) que cambiaban monedas, guardaban depósitos y prestaban con interés. La plata del Laurion, extraída por esclavos, acuñaba las famosas lechuzas. Algunos esclavos de banqueros, como Pasión, llegaron a ser libres y ricos.'},
+ {cat:'Religión',title:'La ofrenda de la lechuza',
+  intro:'Los atenienses dan las gracias a los dioses con ofrendas: vasos, estatuillas, relieves. En la Acrópolis se guardan miles, y los tesoreros de Atenea apuntan cada una en sus inventarios. Si tu padre volvió vivo, quizá se lo agradeció a la diosa.',
+  steps:[
+   {obj:'Sube a la Acrópolis y lee la estela del olivo de Atenea',sign:'olivo',scene:[['','El olivo sagrado se agita con el viento. Dicen que es el que la diosa hizo brotar cuando ganó Atenas en su disputa con Poseidón.']]},
+   {obj:'Habla con Teano, sacerdotisa de Atenea Polias',npc:'sacerdotisa',scene:[['Teano','La diosa protege a esta ciudad desde antes de que hubiera reyes. Yo cuido su imagen de madera de olivo, la más sagrada, y su lámpara de oro que nunca se apaga.'],
+    ['Teano','¿Una lechuza de bronce? Déjame ver los inventarios… Aquí. Hace tres años, un hombre dedicó una pequeña lechuza de bronce, con un ala mellada. La inscripción dice: «Eudemo de Acarnas, salvado, a Atenea».'],
+    ['','El mundo se detiene. Hace tres años. Tu padre no murió en Corinto. Tu padre volvió. Y no vino a casa.'],
+    ['Teano','Llora si lo necesitas, muchacho. La diosa ha visto llorar a muchos en esta roca.'],
+    {who:'Teano',ask:'¿Qué fiesta celebra cada año el cumpleaños de Atenea con una gran procesión hasta la Acrópolis?',a:['Las Panateneas','Las Dionisias','Las Tesmoforias'],ok:'Sí: en las Panateneas toda la ciudad sube en procesión y le lleva a la diosa un peplo nuevo tejido por muchachas atenienses.',ko:'No. Esa fiesta lleva el nombre de la diosa y de «todos los atenienses».'},
+    {choose:[['Rezar a Atenea por tu padre',[['','Pones la mano en la piedra fría y pides algo muy simple: volver a verlo.']],''],['Preguntar a Teano por qué no volvió a casa',[['Teano','Hay heridas que no se ven. A veces un hombre no vuelve porque cree que ya no es el que se fue.']],'']]}]}],
+  end:'Tu padre está vivo, o lo estaba hace tres años. Volvió de Corinto, dio las gracias a Atenea… y desapareció.',
+  learn:'La religión griega no tenía un libro sagrado ni una iglesia: consistía en ritos, sacrificios, fiestas y ofrendas. Las sacerdotisas, como la de Atenea Polias, tenían un papel público muy importante. Las ofrendas votivas (exvotos) se dedicaban para pedir o agradecer un favor.'},
+ {cat:'Guerra y memoria',title:'Los nombres de los muertos',
+  intro:'Cada año, Atenas entierra en el Cerámico a los caídos en la guerra y graba sus nombres en grandes estelas, ordenados por tribus. Tu padre debería estar en una de ellas.',
+  actors:[{id:'anciana',name:'Arquestrate',title:'Madre de un caído',look:{female:true,chiton:'#2a2420',himation:'#3a3430',veil:true,hair:'#d8d0c2'},at:'place:ceramico',dx:-5,dz:4}],
+  steps:[
+   {obj:'Ve al Cerámico, fuera de la puerta del Dípilon',go:'place:ceramico',r:18,scene:[['','Las tumbas se alinean junto al camino. Hay relieves de jóvenes a caballo, de madres que se despiden de sus hijas, de soldados que se dan la mano.'],
+    ['','En la estela de los caídos del año 394, en la columna de la tribu Eneida, encuentras un nombre: EUDEMO. Lo tocas con los dedos. Lo grabaron porque lo creyeron muerto.']]},
+   {obj:'Habla con la mujer que llora junto a las tumbas',actor:'anciana',scene:[['Arquestrate','Mi hijo también está en esa piedra. Tenía veinte años. Su nombre está ahí, pero su cuerpo se quedó en Corinto.'],
+    ['Arquestrate','Tú al menos tienes una esperanza. Agárrala fuerte. Y si encuentras a tu padre, no le preguntes por qué tardó: abrázalo.']]},
+   {obj:'Habla con Cleótimo, el hoplita veterano',npc:'hoplita',scene:[['Cleótimo','¿Eudemo de Acarnas? ¡Claro que lo recuerdo! Estábamos en la misma fila de la falange, junto al río Nemea, cerca de Corinto. Los espartanos nos rompieron el ala.'],
+    ['Cleótimo','Lo vi caer con una lanza en la pierna. Unos corintios aliados de Esparta se lo llevaron vivo. A los prisioneros que nadie rescata los venden como esclavos. Lo siento, muchacho.'],
+    {who:'Cleótimo',ask:'¿Cómo luchaban los hoplitas griegos?',a:['En falange: filas apretadas, cada uno protegiendo con el escudo al compañero de su izquierda','Cada uno por su cuenta, en duelos','A caballo, con arcos'],ok:'Eso es. La falange solo funciona si nadie huye: por eso el escudo es lo más sagrado del hoplita.',ko:'No. Piensa en el gran escudo redondo, el hoplon: protege también al de al lado.'}]}],
+  end:'Ahora sabes lo que pasó: tu padre cayó herido en la pierna, fue hecho prisionero y, como el rescate nunca llegó, lo vendieron como esclavo.',
+  learn:'Atenas honraba a sus caídos con un funeral público anual, un discurso fúnebre y listas de nombres en el Cerámico. Los hoplitas, ciudadanos que se pagaban su armadura, combatían en falange. En la guerra de Corinto (395-387 a.C.), Atenas, Tebas, Argos y Corinto lucharon contra Esparta.'},
+ {cat:'Esclavitud',title:'Lo que vale un hombre',
+  intro:'En Atenas hay casi tantos esclavos como ciudadanos. Trabajan en las casas, en los talleres, en las minas. Para entender lo que vivió tu padre, tienes que escuchar a uno de ellos.',
+  actors:[{id:'artesano',name:'Calias',title:'Broncista del barrio de Hefesto',look:{exomis:true,chiton:'#7a6a4a',beard:true,hair:'#3b2a1e'},at:'place:hefestion',dx:6,dz:5}],
+  steps:[
+   {obj:'Habla con Manes, el esclavo frigio',npc:'manes',scene:[['Manes','Me trajeron de Frigia cuando tenía diez años. Me compraron en un mercado como se compra una mula. Mi amo no es cruel, pero no soy dueño de mi tiempo, ni de mi nombre: «Manes» es como llaman aquí a todos los frigios.'],
+    ['Manes','Un esclavo que trabaja en un taller puede guardar algo de lo que gana. Si ahorra mucho y su amo acepta, compra su libertad. Entonces es un liberto: libre, pero no ciudadano.'],
+    {who:'Manes',ask:'¿Cómo se convertía en esclavo un griego libre?',a:['Por ser capturado en una guerra, o por los piratas, y no ser rescatado','Por no pagar impuestos','Por suspender en la escuela'],ok:'Así es. La guerra era la gran fábrica de esclavos. Por eso pagar un rescate a tiempo podía salvar una vida.',ko:'No. Piensa en lo que le pasó a tu padre en Corinto.'},
+    ['Manes','¿Un liberto que cojea y huele a cola? Hay un tal Doro que compra bronce y madera en el barrio de Hefesto, junto al templo. Pregunta allí.']]},
+   {obj:'Busca al broncista Calias, junto al templo de Hefesto',actor:'artesano',scene:[['Calias','¿Doro? Me compra hilo de bronce para armar… caras. Eso hace: caras. Es el mejor fabricante de máscaras de teatro que he visto, aunque no quiere que nadie lo sepa.'],
+    ['Calias','Llegó de Corinto en un barco de Ctesón, el naviero del Pireo. Si quieres saber más, pregúntale a él.']]}],
+  end:'Tu padre fue esclavo. Ahora es libre, pero vive escondido con otro nombre y fabrica máscaras para el teatro. Y llegó en un barco del Pireo.',
+  learn:'La esclavitud era normal en el mundo griego. Los esclavos procedían de la guerra, la piratería o el comercio con pueblos «bárbaros». Había esclavos domésticos, artesanos, mineros y públicos. Algunos compraban su libertad y se convertían en libertos, que vivían como metecos, sin derechos de ciudadanía.'},
+ {cat:'Mar y comercio',title:'El cuaderno del naviero',
+  intro:'Atenas vive del mar: por el Pireo entra el trigo del mar Negro que la alimenta y salen el aceite, la cerámica y la plata. Los navieros apuntan pasajeros y mercancías, y un buen naviero nunca olvida una cara.',
+  steps:[
+   {obj:'Ve al Pireo (a pie, a caballo o con el carretero)',go:'place:pireo',r:40,at:'place:pireo',scene:[['','El puerto huele a brea y a pescado. Hay barcos de Egipto, de Sicilia, del mar Negro. Alguien grita precios en cinco lenguas.']]},
+   {obj:'Habla con Ctesón, el naviero',npc:'naucleros',scene:[['Ctesón','¿Doro? Lo traje yo desde el Lequeo, el puerto de Corinto, hace tres años. Venía con la pierna mal curada y la carta de libertad en la mano: lo liberó su amo, un fabricante de máscaras corintio, en su testamento.'],
+    ['Ctesón','¿Y tu familia es de Acarnas? Qué cosa… Hace siete años también llevé a Corinto a un vecino vuestro, Trasónides. Iba a pagar el rescate de un prisionero, decía. Pero en Corinto no fue a ver a ningún prisionero: compró un cargamento entero de vasos corintios y volvió más rico.'],
+    ['','Ahora lo entiendes todo. Trasónides nunca pagó el rescate. Se quedó el dinero de tu abuelo, dijo que tu padre había muerto… y ahora quiere vuestra tierra por la misma deuda.'],
+    {who:'Ctesón',ask:'¿De dónde llega el trigo que alimenta a Atenas?',a:['Sobre todo del mar Negro, por el Bósforo','De Esparta','De las minas del Laurion'],ok:'Eso es. El Ática no produce trigo suficiente; por eso a Atenas le importa tanto dominar el mar.',ko:'No. El Ática es seca y pedregosa: el trigo viene de muy lejos, por mar.'},
+    {choose:[['Ir ahora mismo a buscar a Trasónides',[['Ctesón','Calma. Si lo acusas sin pruebas, el que acabará pagando serás tú. Yo tengo mi cuaderno de pasajeros. Y estoy dispuesto a declarar.']],'impulsivo'],['Pedirle a Ctesón que declare en un juicio',[['Ctesón','Lo haré. Mis cuadernos dicen la verdad, y a mí no me gustan los que se ríen de las familias pobres.']],'paciente']]}]}],
+  end:'Ya sabes la verdad sobre la deuda: Trasónides se quedó el rescate. Tienes un testigo y una prueba. Pero te falta lo más importante: tu padre.',
+  learn:'El Pireo era el gran puerto de Atenas, unido a la ciudad por los Muros Largos. Atenas dependía del trigo importado del mar Negro, Egipto y Sicilia. Los navieros (naukleroi) y los comerciantes (emporoi), a menudo metecos, movían el comercio del Egeo.'},
+ {cat:'Teatro',title:'Detrás de la máscara',
+  intro:'En el teatro de Dioniso los actores llevan máscaras de lino y yeso: el rey, el esclavo, la reina, el dios. Detrás de la escena, alguien las fabrica. Hoy hay función.',
+  actors:[{id:'doro',name:'Doro',title:'Fabricante de máscaras',look:LK.padre,at:'place:teatro',dx:9,dz:-6}],
+  steps:[
+   {obj:'Ve al teatro de Dioniso, en la ladera sur de la Acrópolis',go:'place:teatro',r:30,h:9,scene:[['','Catorce mil personas en las gradas. En la orquesta, el coro canta y baila. Un actor con máscara de anciano llora por un hijo perdido. A tu alrededor, la gente también llora.']]},
+   {obj:'Habla con Aristófanes, el poeta cómico',npc:'aristofanes',scene:[['Aristófanes','Las máscaras son media obra, chaval. Con tres actores tienes que hacer todos los papeles: cambias de máscara y eres otro. ¿El mejor mascarero? Doro, sin duda. Está ahí detrás, entre los decorados. Nunca sale al sol.'],
+    {who:'Aristófanes',ask:'¿Cuántos actores con papel hablado podía haber en una tragedia, además del coro?',a:['Tres','Uno','Veinte'],ok:'Tres: protagonista, deuteragonista y tritagonista. Las máscaras les permitían hacer muchos papeles cada uno.',ko:'Menos de los que crees: por eso hacían falta tantas máscaras.'}]},
+   {obj:'Busca a Doro detrás de la escena',actor:'doro',scene:[['Doro','Aquí no se puede pasar, muchacho. Vuelve a las gradas.'],
+    ['','Te mira. Tú sacas la lechuza de bronce. Él se queda quieto, como una de sus máscaras.'],
+    ['Doro','La muesca del ala… te la hiciste tú, con los dientes, cuando tenías tres años. Tu madre se enfadó muchísimo.'],
+    ['Eudemo','Sí. Soy yo. Soy tu padre.'],
+    ['Eudemo','No me mires así. ¿Qué querías que hiciera? ¿Volver a Acarnas cojo, sin un óbolo, después de cinco años de esclavo? Para tu abuelo, yo morí como un héroe junto al río Nemea. Era mejor así. Por eso pago su deuda en secreto.'],
+    {choose:[['Abrazarlo sin decir nada',[['','Huele a cola y a pintura. Tiembla. Durante un largo rato ninguno de los dos dice nada.'],['Eudemo','Has crecido tanto…']],'abrazo'],['Decirle que lo habéis esperado siete años',[['Eudemo','Lo sé. Cada día lo sabía. Y cada día tenía menos valor para volver.']],'reproche']]},
+    ['Eudemo','Tengo que pensar. Déjame solo. Por favor.']]}],
+  end:'Has encontrado a tu padre. Pero un hombre que se esconde detrás de máscaras no se quita la suya tan fácilmente.',
+  learn:'El teatro griego nació en las fiestas de Dioniso. Cada año se representaban tragedias, comedias y dramas satíricos en un concurso. Los actores, siempre hombres, llevaban máscaras y podían hacer varios papeles. La ciudad pagaba la entrada a los pobres para que nadie se quedara fuera.'},
+ {cat:'Filosofía',title:'¿Es peor sufrir la injusticia o cometerla?',
+  intro:'Tu padre cree que su vergüenza vale más que la verdad. Tú no sabes qué decirle. En el bosque de Academo, fuera de las murallas, un tal Platón ha abierto una escuela para pensar estas cosas despacio.',
+  actors:[{id:'doro',name:'Eudemo',title:'Tu padre',look:LK.padre,at:'place:academia',dx:-8,dz:6}],
+  steps:[
+   {obj:'Ve a la Academia, al noroeste de la ciudad',go:'place:academia',r:30,scene:[['','Olivos, un gimnasio, jóvenes que discuten a la sombra. Nadie grita, como en el Ágora. Aquí se escucha.']]},
+   {obj:'Habla con Platón',npc:'platon',scene:[['Platón','Mi maestro Sócrates decía que es peor cometer una injusticia que sufrirla. El que sufre una injusticia pierde dinero, o salud. El que la comete se estropea por dentro, en el alma.'],
+    ['Platón','Tu padre fue esclavo. ¿Y eso lo hace peor? El alma no se vende en el mercado. El que debería avergonzarse es quien se quedó el rescate, no quien fue vendido.'],
+    {who:'Platón',ask:'Según Sócrates, ¿qué es peor?',a:['Cometer una injusticia','Sufrir una injusticia','Las dos cosas son igual de malas'],ok:'Eso decía Sócrates, y por eso aceptó morir antes que huir de la cárcel saltándose las leyes.',ko:'Piensa en el alma: ¿a quién estropea la injusticia, al que la sufre o al que la hace?'},
+    ['Platón','Por cierto: alguien te ha seguido desde la ciudad. Lleva un rato escuchando detrás de ese olivo.']]},
+   {obj:'Habla con tu padre, junto a los olivos',actor:'doro',scene:[['Eudemo','Lo he oído todo. El filósofo tiene razón, y me ha dolido oírlo de otro antes que de mí mismo.'],
+    ['Eudemo','Trasónides me robó siete años. Y yo le he dejado robarme también la vergüenza. Se acabó. Declararé en el juicio, con mi nombre verdadero.'],
+    {choose:[['Decirle que estás orgulloso de él',[['Eudemo','Calla, que me harás llorar delante de los filósofos.']],''],['Preguntarle si volverá a casa',[['Eudemo','Primero el juicio. Luego… luego tendré que mirar a tu madre a los ojos. Eso me da más miedo que los espartanos.']],'']]}]}],
+  end:'Tu padre va a declarar. Ya no está solo, y tú tampoco.',
+  learn:'Platón fundó la Academia hacia el 387 a.C. junto al gimnasio de Academo. Siguiendo a Sócrates, defendió que la justicia es la salud del alma y que es peor cometer una injusticia que sufrirla (diálogo Gorgias). La filosofía griega buscaba respuestas racionales a cómo vivir bien.'},
+ {cat:'Justicia',title:'Quinientas una piedras',
+  intro:'Hoy se juzga la demanda de Trasónides contra tu abuelo. Los jueces no son profesionales: son ciudadanos sorteados esa misma mañana, cientos de ellos, para que nadie pueda sobornarlos a todos.',
+  actors:[{id:'traso',name:'Trasónides',title:'El acusador',look:LK.traso,at:'place:kleroterion',dx:8,dz:6},{id:'doro',name:'Eudemo',title:'Tu padre',look:LK.padre,at:'place:kleroterion',dx:-6,dz:6},{id:'abuelo',name:'Arquipo',title:'Tu abuelo',look:LK.abuelo,at:'place:kleroterion',dx:-8,dz:4}],
+  steps:[
+   {obj:'Ve a las máquinas de sorteo (kleroterion), en el Ágora',go:'place:kleroterion',r:16,h:7,scene:[['','Los ciudadanos meten sus plaquitas de bronce con su nombre en las ranuras de una piedra. Un funcionario echa bolas blancas y negras por un tubo: las blancas eligen jueces, las negras los mandan a casa.'],
+    {ask:'¿Por qué los atenienses sorteaban a los jueces cada mañana?',a:['Para que nadie supiera de antemano quién juzgaría y fuera imposible sobornarlos','Porque nadie quería ser juez','Para ahorrar dinero'],ok:'Exacto. Además, eran tantos —cientos por tribunal— que comprarlos a todos era imposible.',ko:'Piensa en Trasónides: un hombre rico. ¿Qué podría intentar si supiera quién va a ser juez?'}]},
+   {obj:'Habla con tu abuelo antes del juicio',actor:'abuelo',scene:[['Arquipo','¿Por qué me miras así? ¿Y quién es este hombre cojo que…?'],
+    ['','Tu abuelo se queda sin voz. Deja caer el bastón.'],
+    ['Arquipo','¿Eudemo? ¿Hijo?'],
+    ['Eudemo','Perdóname, padre. Perdóname por todo.'],
+    ['','Tu abuelo no dice nada. Le pone las dos manos en la cara, como cuando era niño, y llora.']]},
+   {obj:'Enfréntate a Trasónides en el juicio',actor:'traso',scene:[['','El agua de la clepsidra empieza a caer: cada parte tiene el mismo tiempo para hablar. Trasónides habla primero. Lo hace bien: deuda, mojón, testigos.'],
+    ['','Luego habláis vosotros. Ctesón lee su cuaderno: Trasónides en Corinto, sin ir a ver a ningún prisionero. Pasión enseña los pagos de la lechuza. Y entonces se levanta un hombre cojo.'],
+    ['Eudemo','Atenienses: mi nombre está grabado en la estela de los caídos del Cerámico. Pero estoy vivo. Me vendieron como esclavo porque el rescate de mi padre nunca llegó a Corinto. Ese hombre lo sabía. Me dio por muerto para quedarse el dinero.'],
+    ['Trasónides','¡Mentira! ¿Quién va a creer a un esclavo?'],
+    ['Eudemo','Un liberto, Trasónides. Y ciudadano de Acarnas, inscrito en mi demo. Pregunta a los de mi tribu: algunos estuvieron junto a mí en la falange.'],
+    {ask:'¿Con qué votan los jueces atenienses?',a:['Con fichas de bronce: la de eje hueco para condenar y la de eje macizo para absolver','Levantando la mano','Escribiendo en una tablilla de cera'],ok:'Así es: cada juez tapa el eje con los dedos para que nadie vea cuál echa en la urna. El voto es secreto.',ko:'Recuerda: el voto es secreto. Se hace con objetos de bronce que se meten en una urna.'},
+    ['','Se cuentan los votos: 402 fichas a vuestro favor, 99 en contra. La demanda de Trasónides queda rechazada, y como no ha conseguido ni la quinta parte de los votos, tendrá que pagar una multa: un óbolo por cada dracma que reclamaba.']]},
+   {obj:'Sube al atardecer junto al olivo de Atenea',go:'place:olivo',r:14,h:19,scene:[['','El sol se pone sobre el golfo. Ahí está tu madre: Mirrina la ha traído corriendo desde la fuente. Ve a tu padre. Se para.'],
+    ['Filia','Siete años, Eudemo.'],['Eudemo','Siete años, Filia.'],
+    ['','No hacen falta más palabras. Tu abuelo se ríe y llora a la vez. Tú sacas la lechuza de bronce y se la pones a tu padre en la mano.'],
+    ['Eudemo','No. Es tuya. Para que Atenea te cuide. Aunque, la verdad, esta vez nos has cuidado tú a nosotros.']]}],
+  end:'La tierra de tu abuelo está a salvo, Trasónides ha sido condenado y tu familia vuelve a estar completa. En los inventarios de Atenea queda una lechuza de bronce que cuenta, sin palabras, toda esta historia.',
+  learn:'Los tribunales populares de Atenas (la Helea) estaban formados por cientos de ciudadanos sorteados. No había abogados ni fiscales: cada parte hablaba por sí misma, con un tiempo medido por la clepsidra, a menudo con discursos escritos por logógrafos como Lisias. El voto era secreto y se decidía por mayoría.'}
+];
+const STORY_FIN_ATENAS={title:'La lechuza de bronce',txt:['Has terminado la historia de Atenas. Con tu familia has recorrido la ciudad entera: la Asamblea y la fuente, el banco y la Acrópolis, las tumbas del Cerámico, el puerto, el teatro, la Academia y los tribunales.',
+ 'Eudemo, Filia, Arquipo, Trasónides y Doro son personajes inventados, pero todo lo que les pasa podía pasar en la Atenas del 386 a.C.: prisioneros de guerra vendidos como esclavos, rescates que no llegaban, nombres grabados por error entre los muertos, libertos que rehacían su vida y jueces sorteados cada mañana.',
+ 'Ahora puedes seguir explorando libremente: quedan muchos personajes, lugares, viajes y sueños por descubrir.']};
+// ---- Historia de Roma: «La tablilla de Tercia»
+const LKR={grato:{chiton:'#f3eee2',toga:true,beard:false,hair:'#8d8a85'},
+ tercia:{female:true,chiton:'#d8c9a8',himation:'#8a5a3a',hair:'#5b4532',scale:0.78},
+ nino:{chiton:'#efe6d4',short:true,noHimation:true,hair:'#3b2a1e',scale:0.8},
+ vigil:{chiton:'#8a3a2a',short:true,noHimation:true,hair:'#2b1f17',beard:true},
+ tito:{chiton:'#f3eee2',toga:true,hair:'#5b4532',glow:false},
+ madre:{female:true,chiton:'#e2d6c0',himation:'#4a5a6a',veil:true,hair:'#5b4532',staff:true},
+ esclavo:{chiton:'#c9b48b',short:true,noHimation:true,hair:'#3b2a1e'}};
+const STORY_ROMA=[
+ {cat:'Sociedad',title:'Una carta de Neápolis',start:'npc:tacito',
+  intro:'Hace unos meses el Vesubio sepultó Pompeya y Herculano. Tú eres de Herculano. Aquella noche tu padre, barquero, ayudó a subir a la gente a las barcas y no volvió. Tu madre quedó herida y vive ahora en Neápolis. Tu hermana pequeña, Tercia, de nueve años, subió a una barca distinta de la tuya y nunca supisteis adónde la llevaron. Llegas a Roma con una carta de tu madre para un senador que fue amigo de la familia.',
+  actors:[{id:'grato',name:'Quinto Vetio Grato',title:'Senador, patrono de tu familia',look:LKR.grato,at:'npc:cliente',dx:6,dz:4,rot:Math.PI}],
+  steps:[
+   {obj:'Lee la carta de tu madre',auto:true,h:7,scene:[['','Roma es enorme: un millón de personas, el ruido de los carros por la noche, el olor del pan y del humo. Despliegas la carta de tu madre, escrita con mano temblorosa.'],
+    ['Carta de tu madre','«Hijo mío: busca a Quinto Vetio Grato. Tu abuelo fue cliente de su padre. En Roma, quien no tiene patrono no tiene a nadie. Pídele que nos ayude a encontrar a Tercia. Y come algo caliente, que te conozco.»'],
+    ['','Por la mañana, a la puerta de las casas de los ricos, se hace cola. Pregunta a alguno de los que esperan.']]},
+   {obj:'Habla con Lucio Fabio, que espera en la salutatio',npc:'cliente',scene:[['Lucio Fabio','¿Que vienes a ver al senador Grato? Ponte a la cola, como todos. Cada mañana los clientes venimos a saludar a nuestro patrono, con la toga bien puesta. Él nos da la espórtula, unas monedas o una cesta de comida, y a cambio lo acompañamos al Foro y lo aplaudimos.'],
+    {who:'Lucio Fabio',ask:'¿Qué recibe el cliente de su patrono en la salutatio?',a:['La espórtula: dinero o comida','Un voto en el Senado','Un sueldo fijo de soldado'],ok:'Eso. Y si tienes un problema con la justicia, el patrono te protege. Al menos en teoría.',ko:'No. Piensa en la «cestita»: eso significa sportula.'}]},
+   {obj:'Habla con el senador Quinto Vetio Grato',actor:'grato',scene:[['Grato','¿Herculano? Terrible, terrible. Toma, muchacho, tu espórtula. Ya veré qué se puede hacer. Vuelve dentro de unas semanas.'],
+    ['','Y ya está. Se da la vuelta y sigue saludando a los demás clientes. Ni siquiera ha abierto la carta de tu madre.'],
+    ['','Un joven que estaba cerca lo ha visto todo. Se te acerca.']]},
+   {obj:'Habla con el joven que te ha visto: Plinio',npc:'plinio',scene:[['Plinio','Perdona que me meta. Me llamo Gayo Plinio. Yo también estuve allí, en Miseno, aquella noche. Mi tío mandaba la flota. Salió con las naves a rescatar a la gente de la costa… y no volvió.'],
+    ['Plinio','Las naves de mi tío recogieron a gente en la playa. Quizá alguien apuntó los nombres. Escribiré a Miseno. Mientras tanto, ve a ver a las vestales: el emperador ha mandado repartir ayuda a los refugiados de Campania, y ellas saben a quién se ha acogido en los templos.'],
+    {choose:[['Darle las gracias y decirle que lo sientes por su tío',[['Plinio','Gracias. Era un hombre que nunca dejaba de leer, ni en el baño. Murió por ir a ayudar. Me gustaría que eso sirviera de algo.']],''],['Preguntarle por qué te ayuda',[['Plinio','Porque si mi tío te hubiera visto, ya estaría ayudándote. Y porque estoy harto de los senadores que no abren las cartas.']],'']]}]}],
+  end:'Tu patrono no te ha hecho caso, pero has encontrado a un amigo inesperado: Plinio, que perdió a su tío en la misma erupción.',
+  learn:'La sociedad romana se basaba en el clientelismo: los clientes saludaban cada mañana a su patrono (salutatio), lo acompañaban en público y recibían a cambio protección y la espórtula. Las relaciones personales importaban más que las instituciones para resolver problemas.'},
+ {cat:'Religión romana',title:'El fuego que nunca se apaga',
+  intro:'En el templo redondo de Vesta arde el fuego sagrado de Roma. Seis sacerdotisas, las vestales, lo cuidan día y noche. Son mujeres muy respetadas: pueden testificar, hacer testamento y hasta salvar a un condenado si se cruzan con él.',
+  steps:[
+   {obj:'Lee la estela del templo de Vesta, en el Foro',sign:'ro_vesta',scene:[['','Dentro del templo no hay estatua: solo el fuego. Si se apagara, sería la peor de las señales para Roma.']]},
+   {obj:'Habla con Cornelia, la vestal',npc:'cornelia',scene:[['Cornelia','Desde la erupción, el emperador Tito ha nombrado comisionados para ayudar a Campania. Los templos han acogido a niños que llegaban solos en barcos de grano o de la flota.'],
+    ['Cornelia','Recuerdo a una niña de Herculano. Se sentaba en la escalinata de este templo y repetía una canción de barqueros. Preguntaba por su hermano. La anotamos en las listas del tesoro del templo de Saturno, como a todos.'],
+    ['Cornelia','Pero un día ya no vino. Lo siento. Busca su nombre en el templo de Saturno.'],
+    {who:'Cornelia',ask:'¿Qué guardan las vestales en el templo de Vesta?',a:['El fuego sagrado de Roma, que no puede apagarse nunca','El tesoro del Estado','Las armas de Rómulo'],ok:'El fuego y algunos objetos sagrados que solo ellas pueden ver. El tesoro está en el templo de Saturno: allí irás ahora.',ko:'Piensa en el nombre de la diosa: Vesta es la diosa del hogar.'}]}],
+  end:'Tercia estuvo aquí, a pocos pasos del fuego de Vesta, cantando la canción de los barqueros de vuestro padre. Está viva. O lo estaba.',
+  learn:'La religión romana era una religión del Estado: sus ritos garantizaban la «paz con los dioses». Las vestales, elegidas de niñas, servían treinta años cuidando el fuego de Vesta, símbolo del hogar de Roma. Tenían privilegios que ninguna otra mujer romana tenía.'},
+ {cat:'Derecho y ciudadanía',title:'Una línea en el registro',
+  intro:'En el templo de Saturno se guarda el tesoro del Estado y muchos registros. Allí se apuntan, entre otras cosas, los nacimientos de los hijos de ciudadanos. Pero los registros también pueden contar mentiras.',
+  actors:[{id:'escriba',name:'Eros',title:'Esclavo público del tesoro',look:LKR.esclavo,at:'place:ro_saturno',dx:6,dz:4}],
+  steps:[
+   {obj:'Lee la estela del templo de Saturno',sign:'ro_saturno'},
+   {obj:'Habla con Eros, el escriba del tesoro',actor:'escriba',scene:[['Eros','¿Una niña de Herculano llamada Tercia? Déjame mirar… Aquí está la lista de los refugiados. Y aquí… vaya.'],
+    ['Eros','Hay una anotación posterior, de una venta: «Una niña campana, llamada Tercia, comprada en Puteoli por Gayo Pompeyo Hermeros, liberto». La tiene registrada como esclava suya.'],
+    ['','Sientes que te falta el aire. Tu hermana, vendida como esclava.'],
+    ['Eros','Si es hija de ciudadanos, eso no vale nada. Pero hay que demostrarlo. Pregunta a un abogado o a un senador joven. Por ahí anda Tácito.']]},
+   {obj:'Habla con Tácito, el joven senador',npc:'tacito',scene:[['Tácito','Un ciudadano nacido libre no puede ser esclavo, aunque alguien lo venda. Se hace un juicio por la libertad, una causa liberalis. Alguien libre tiene que defenderla en su nombre: tú mismo, si eres mayor de edad, o un amigo.'],
+    ['Tácito','Hace poco hubo un caso así en Herculano: una tal Petronia Justa tuvo que demostrar que había nacido libre. La prueba mejor es la declaración de nacimiento. Pero las de vuestra familia se habrán quemado con la ciudad, ¿verdad?'],
+    {who:'Tácito',ask:'Si un ciudadano romano nacido libre es vendido como esclavo, ¿qué dice la ley?',a:['Sigue siendo libre: puede reclamarlo en un juicio por la libertad','Pasa a ser esclavo del comprador','Pierde la ciudadanía para siempre'],ok:'Exacto. La libertad de un ciudadano no se puede comprar ni vender. Pero hay que probarla ante un juez.',ko:'No. En Roma la libertad de nacimiento era algo que no se podía perder por una venta.'},
+    ['Tácito','Primero, averigua quién es ese Hermeros y por qué la compró. A veces la verdad es más complicada que una línea en un registro.']]}],
+  end:'Tercia está registrada como esclava de un liberto rico, Hermeros. La ley está de tu parte, pero necesitarás pruebas.',
+  learn:'Roma distinguía entre ciudadanos, extranjeros (peregrinos), esclavos y libertos. El nacimiento de los hijos de ciudadanos se declaraba oficialmente (professio liberorum). Quien era esclavizado injustamente podía recuperar su libertad mediante una causa liberalis, en la que un hombre libre lo defendía.'},
+ {cat:'Economía y esclavitud',title:'El liberto que compró una niña',
+  intro:'Gayo Pompeyo Hermeros fue esclavo, compró su libertad y ahora es rico gracias al comercio. Muchos senadores lo desprecian por su pasado. Tú ni siquiera sabes si es un villano.',
+  steps:[
+   {obj:'Pregunta por Hermeros a Eutiques, el comerciante del Emporio',npc:'mercader',scene:[['Eutiques','¿Hermeros? Trae vino de Hispania y trigo de Egipto. Empezó con nada: lo vendieron de niño en el mercado de Delos, como a una mercancía. Ahora tiene tres barcos.'],
+    ['Eutiques','Por aquí pasa de todo, muchacho: grano, aceite, mármol… y personas. Después de la erupción aparecieron traficantes que recogían niños perdidos en la costa y los vendían en Puteoli. Una vergüenza.'],
+    {who:'Eutiques',ask:'¿Qué era la annona?',a:['El reparto de trigo gratuito o barato a los ciudadanos de Roma','Un impuesto sobre los esclavos','Una fiesta de la cosecha'],ok:'Eso. Más de doscientos mil romanos reciben trigo de la annona, que llega sobre todo de Egipto y África.',ko:'No. Piensa en lo que necesita una ciudad de un millón de personas para no tener hambre.'}]},
+   {obj:'Habla con Hermeros, el liberto',npc:'hermeros',scene:[['Hermeros','¿Tercia? ¿Eres su hermano? Siéntate. Te contaré la verdad, aunque no me deje en buen lugar.'],
+    ['Hermeros','La vi en Puteoli, en un estrado de venta, con un cartel colgado del cuello. Un traficante iba a llevarla a Oriente. Yo estuve en un estrado así, a su edad. Pagué lo que pedían. No pude dejarla allí.'],
+    ['Hermeros','La apunté como esclava porque era la única manera legal de sacarla de allí. En mi casa estudiaba con mis hijos. Pero hace un mes, cuando llegó la epidemia, se puso enferma. Yo estaba en Ostia. Mi mayordomo tuvo miedo del contagio y… la llevó a la isla del Tíber, con los enfermos.'],
+    ['Hermeros','Cuando volví ya no estaba. No he dormido bien desde entonces.'],
+    {choose:[['Perdonarlo',[['Hermeros','No sé si lo merezco. Pero declararé ante el juez que tu hermana nació libre. Te lo juro por mis Lares.']],'perdon'],['Echarle en cara lo que hizo su mayordomo',[['Hermeros','Tienes razón. En mi casa, la culpa de lo que hacen mis esclavos es mía. Declararé que tu hermana nació libre; es lo mínimo.']],'']]},
+    ['Hermeros','Antes de ir a la isla, pasa por la escuela de mis hijos. Tercia dejó allí algo que querrás ver.']]}],
+  end:'Hermeros no es un villano: es un antiguo esclavo que compró a tu hermana para salvarla, aunque luego le falló. Y Tercia estuvo enferma en la isla del Tíber.',
+  learn:'Roma era una sociedad esclavista. Los esclavos se compraban en grandes mercados como Delos o Puteoli. Muchos libertos, como Hermeros, se hicieron ricos con el comercio, aunque la élite los despreciaba. La annona garantizaba el trigo a la plebe de Roma.'},
+ {cat:'Educación',title:'Lo que escribió Tercia',
+  intro:'Los niños romanos de familias con algo de dinero aprenden a leer, escribir y contar con un maestro de primeras letras, desde los siete años. Escriben en tablillas de cera con un punzón.',
+  actors:[{id:'primo',name:'Primo',title:'Hijo de Hermeros, compañero de Tercia',look:LKR.nino,at:'npc:flavio',dx:4,dz:3}],
+  steps:[
+   {obj:'Habla con Flavio, el maestro de primeras letras',npc:'flavio',scene:[['Flavio','¿El hermano de Tercia? Era la mejor de la clase con los números, y la peor callándose. Se nota que es de familia de barqueros: cantaba remando con los brazos.'],
+    ['Flavio','Olvidó esto aquí. Su tablilla de cera.'],
+    ['','En la cera hay letras torcidas: MATER · FRATER · DOMVS. Y debajo, un dibujo: una montaña que echa humo, el mar, una barca. Y dos figuras pequeñas cogidas de la mano.'],
+    {who:'Flavio',ask:'¿Con qué escriben los niños en la tablilla de cera?',a:['Con un estilo o punzón: la punta escribe y el otro extremo, plano, borra','Con pluma y tinta','Con tiza'],ok:'Así es. La cera se puede alisar y volver a usar mil veces. El papiro es caro y se reserva para lo importante.',ko:'No. Piensa en cómo se borra la cera: hace falta un instrumento con dos extremos distintos.'}]},
+   {obj:'Habla con Primo, el hijo de Hermeros',actor:'primo',scene:[['Primo','Tercia me enseñó a silbar con dos dedos. Dijo que su hermano se lo había enseñado a ella.'],
+    ['Primo','Cuando se la llevaron a la isla, lloraba. Me dijo: «Si viene mi hermano, dile que estoy esperando».'],
+    {choose:[['Enseñarle a Primo el silbido con dos dedos',[['','Silbáis los dos a la vez. Por un momento, es como si Tercia estuviera aquí.']],'silbido'],['Prometerle a Primo que la traerás',[['Primo','¿De verdad? Entonces te espero.']],'']]}]}],
+  end:'Llevas la tablilla de cera de Tercia: un dibujo de vuestra casa antes del volcán. Y sabes que te está esperando.',
+  learn:'La educación romana tenía tres etapas: el maestro de primeras letras (ludi magister), el gramático, que enseñaba literatura griega y latina, y el rétor, que enseñaba a hablar en público. No era obligatoria ni gratuita, y muchas niñas solo hacían la primera etapa.'},
+ {cat:'Medicina',title:'La isla de Esculapio',
+  intro:'En medio del Tíber hay una isla con forma de barco. Allí está el templo de Esculapio, el dios de la medicina, que llegó a Roma hace tres siglos durante una epidemia. Hoy está lleno de enfermos.',
+  steps:[
+   {obj:'Ve a la isla del Tíber y lee su estela',sign:'ro_isla',scene:[['','Hay enfermos tumbados en los pórticos, durmiendo junto al templo con la esperanza de que el dios los cure en sueños. Otros solo esperan.']]},
+   {obj:'Habla con Asclepíades, el médico griego',npc:'medico',scene:[['Asclepíades','Esta epidemia es de las peores que recuerdo. Muchos amos traen aquí a sus esclavos enfermos para no pagar médico. Por eso el emperador Claudio dio una ley: el esclavo abandonado en esta isla que se cure queda libre, y su amo pierde todo derecho sobre él.'],
+    ['Asclepíades','¿Una niña de Herculano con fiebre? Sí, la recuerdo. Se curó. ¡Y gracias a esa ley, es libre ante cualquier juez! La cuidaba una mujer del Trastévere, una tejedora judía. Se la llevó a su casa cuando se curó.'],
+    {who:'Asclepíades',ask:'¿Qué establecía la ley de Claudio sobre los esclavos abandonados en la isla del Tíber?',a:['Si se curaban, quedaban libres','Debían volver con su amo','Pasaban a ser esclavos del templo'],ok:'Eso es. Fue una de las primeras leyes romanas que protegía a los esclavos de la crueldad de sus amos.',ko:'No. El emperador quiso castigar a los amos que abandonaban a sus esclavos enfermos.'},
+    ['Asclepíades','Y tú, muchacho, lávate las manos antes de irte. No me fío de esta fiebre.']]}],
+  end:'Tercia sobrevivió a la epidemia, y además la ley la ha hecho libre. Ahora vive en el Trastévere, con una tejedora judía.',
+  learn:'La medicina romana mezclaba la religión (el culto a Esculapio, sueños curativos en los templos) con la ciencia de los médicos, casi siempre griegos. Suetonio cuenta que en el año 80 hubo en Roma una epidemia gravísima. El emperador Claudio dio la ley que liberaba a los esclavos enfermos abandonados en la isla.'},
+ {cat:'Religiones y comunidades',title:'Una vela encendida en el Trastévere',
+  intro:'Al otro lado del Tíber, en el Trastévere, viven marineros, artesanos y muchos extranjeros: sirios, egipcios, judíos. Cada comunidad tiene sus dioses, sus fiestas y sus costumbres, y Roma, por lo general, las deja vivir.',
+  steps:[
+   {obj:'Busca a Débora, la tejedora, en el Trastévere',npc:'debora',scene:[['Débora','Así que tú eres el hermano. Tercia no paraba de hablar de ti. Pasa, pasa. Hoy es viernes: al ponerse el sol empieza el sábado, el día de descanso. Encenderemos una lámpara.'],
+    ['Débora','Yo vine de Judea hace diez años, después de que las legiones de Tito destruyeran Jerusalén y nuestro Templo. Perdí allí a mi hija, que tendría ahora la edad de Tercia. Cuando la vi sola en la isla, ardiendo de fiebre, no pude dejarla.'],
+    ['Débora','Pero no está aquí. Esta mañana se fue con mi sobrino a llevar telas al mercado del Campo de Marte, junto a los templos de Isis. Y quería ver el anfiteatro nuevo: no habla de otra cosa.'],
+    {who:'Débora',ask:'¿Qué día de la semana descansan los judíos?',a:['El sábado (sabbat), desde la puesta de sol del viernes','El domingo','El primer día de cada mes'],ok:'Así es. A los romanos les parecía muy raro que alguien descansara un día de cada siete; algunos se burlaban, y otros lo imitaban.',ko:'No. El descanso empieza el viernes, cuando se pone el sol.'},
+    {choose:[['Darle las gracias a Débora por cuidar de tu hermana',[['Débora','No me las des. Me ha devuelto algo que creía perdido: las ganas de cantar.']],''],['Preguntarle cómo es vivir en Roma siendo judía',[['Débora','Pagamos un impuesto especial desde la caída de Jerusalén y algunos se ríen de nuestras costumbres. Pero aquí tenemos nuestras sinagogas, nuestros vecinos y nuestro sábado. Se vive.']],'']]}]}],
+  end:'Por un momento, en casa de Débora, has sentido lo que es una familia otra vez. Tercia está muy cerca, en algún lugar entre el anfiteatro y el Campo de Marte.',
+  learn:'Roma acogía muchas religiones: los cultos tradicionales, los de Oriente (Isis, la Gran Madre, Mitra) y comunidades como la judía, numerosa en el Trastévere, o los primeros cristianos. Se toleraban mientras no amenazaran el orden público; tras la guerra de Judea (66-70), los judíos pagaban un impuesto especial.'},
+ {cat:'Espectáculos',title:'Cien días de juegos',
+  intro:'Tito inaugura el Anfiteatro Flavio con cien días de espectáculos: cazas de animales, combates de gladiadores, incluso batallas navales. Cincuenta mil personas llenan las gradas. Encontrar a una niña allí es como buscar un grano de trigo en un granero.',
+  steps:[
+   {obj:'Ve al Anfiteatro Flavio',go:'place:ro_coliseo',r:60,h:11,scene:[['','El ruido es ensordecedor. Cada uno se sienta según su rango: los senadores, abajo, con togas blancas; luego los caballeros, los ciudadanos… y arriba del todo, las mujeres y los esclavos.']]},
+   {obj:'Habla con Prisco, el gladiador liberado',npc:'prisco',scene:[['Prisco','El día de la inauguración luché contra Vero. Estuvimos horas, ninguno caía. El público pidió que nos liberaran a los dos, y Tito nos dio a cada uno la espada de madera de la libertad. El poeta Marcial lo ha escrito en versos.'],
+    ['Prisco','¿Buscas a una niña? Sube conmigo a las gradas de arriba, que desde allí se ve todo… Mira, allí, en el último piso: una cría con un pañuelo rojo silbando con dos dedos.'],
+    ['','Es ella. Gritas su nombre, pero el rugido del público se lo traga. Bajáis las escaleras corriendo y, cuando llegáis, ya no está. La muchedumbre sale como un río.'],
+    {who:'Prisco',ask:'¿Dónde se sentaban las mujeres en el anfiteatro?',a:['En las gradas más altas, separadas de los hombres','En primera fila','No podían entrar'],ok:'Augusto ordenó que cada grupo se sentara en su sitio. Las mujeres, salvo las vestales, iban arriba del todo.',ko:'No. Las leyes de Augusto ordenaban los asientos por rango, y a las mujeres les tocaba lo peor.'},
+    ['Prisco','No te rindas. Si iba al Campo de Marte, la encontrarás allí. Pero date prisa: dicen que se ve humo hacia el norte.']]}],
+  end:'La has visto. Está viva, sana, silbando como le enseñaste. Pero se te ha escapado entre cincuenta mil personas, y hay humo en el cielo.',
+  learn:'Los espectáculos (munera y venationes) eran un regalo del emperador al pueblo y una forma de propaganda. El Anfiteatro Flavio se inauguró en el año 80 con cien días de juegos. Los gladiadores eran en su mayoría esclavos, pero algunos ganaban fama y la libertad, simbolizada por la espada de madera (rudis).'},
+ {cat:'Ciudad y catástrofes',title:'Tres días de fuego',
+  intro:'Es el año 80, y mientras Tito está en Campania ayudando a los refugiados del Vesubio, un incendio terrible arrasa durante tres días el Campo de Marte y el Capitolio: el templo de Isis, el Panteón, el templo de Júpiter… Roma, construida de madera y ladrillo, arde con facilidad.',
+  actors:[{id:'vigil',name:'Décimo',title:'Vigil de la VII cohorte',look:LKR.vigil,at:'place:ro_iseo',dx:8,dz:6},{id:'tercia',name:'Tercia',title:'Tu hermana',look:LKR.tercia,at:'place:ro_panteon',dx:-6,dz:10}],
+  steps:[
+   {obj:'Corre al templo de Isis, en el Campo de Marte',go:'place:ro_iseo',r:30,h:21,scene:[['','El cielo está rojo. Hay humo, gritos, gente que huye con lo que puede cargar. Las llamas salen por el tejado del templo de Isis.']]},
+   {obj:'Habla con Décimo, el vigil',actor:'vigil',scene:[['Décimo','¡Atrás, que se cae el pórtico! Los vigiles hacemos cadenas de cubos desde las fuentes, usamos bombas de agua y, si hace falta, derribamos casas enteras para que el fuego no salte.'],
+    {who:'Décimo',ask:'¿Quiénes eran los vigiles?',a:['Bomberos y vigilantes nocturnos de Roma, creados por Augusto','Los guardaespaldas del emperador','Los sacerdotes que vigilaban el fuego de Vesta'],ok:'Eso somos: siete cohortes de libertos, una por cada dos barrios. Apagamos fuegos y patrullamos de noche.',ko:'No. Piensa en lo que estoy haciendo ahora mismo, con este cubo.'},
+    ['Décimo','¿Una niña? Hay un grupo de niños que se ha refugiado bajo el pórtico del Panteón. ¡Ve, rápido, antes de que llegue el fuego!']]},
+   {obj:'Busca a Tercia junto al Panteón',actor:'tercia',scene:[['','Entre el humo oyes un silbido de dos dedos. Silbas también. Te contesta.'],
+    ['Tercia','¿Eres tú? ¿Eres tú de verdad?'],
+    ['','Se te tira encima tan fuerte que casi os caéis. Huele a humo y a lana. Ha crecido. Tiene una cicatriz pequeña en la frente.'],
+    ['Tercia','Le dije a Primo que vendrías. Se lo dije a todo el mundo. Nadie me creía.'],
+    {choose:[['Enseñarle su tablilla de cera',[['Tercia','¡Mi dibujo! Es nuestra casa. Y ese eres tú, y esa soy yo. ¿Dónde está padre?'],['','No sabes qué contestar. Ella lo entiende en tu silencio y te aprieta la mano. Ya lo hablaréis. Ahora hay que salir de aquí.']],''],['Cogerla en brazos y correr lejos del fuego',[['','Corres con ella hasta el Tíber, donde el aire se puede respirar. Allí, por primera vez en meses, os reís los dos sin motivo.']],'']]}]}],
+  end:'Has encontrado a Tercia. Ya nada os separará… salvo una línea en un registro, que todavía dice que es esclava.',
+  learn:'Roma sufría incendios frecuentes por sus casas de madera y sus calles estrechas. Augusto creó los vigiles, bomberos y policía nocturna. En el año 80 un incendio destruyó gran parte del Campo de Marte y el Capitolio, y ese mismo año hubo además una epidemia: Tito tuvo que hacer frente a tres desastres seguidos.'},
+ {cat:'Poder imperial',title:'Nadie debe irse triste',
+  intro:'Tito ha vuelto de Campania. Cuentan que un día, al darse cuenta de que no había hecho ningún favor a nadie, dijo: «Amigos, he perdido el día». Hoy recibe peticiones en el Palatino. Es tu oportunidad.',
+  actors:[{id:'tito',name:'Tito',title:'Emperador',look:LKR.tito,at:'place:ro_palatino',dx:6,dz:6,rot:Math.PI},{id:'tercia',name:'Tercia',title:'Tu hermana',look:LKR.tercia,at:'place:ro_palatino',dx:-5,dz:8},{id:'madre',name:'Fannia',title:'Tu madre',look:LKR.madre,at:'place:ro_coliseo',dx:12,dz:12}],
+  steps:[
+   {obj:'Habla con el pretoriano Pudente para entrar en el Palatino',npc:'pretoriano',scene:[['Pudente','¿Una petición al emperador? Todo el mundo quiere una. Pero Tito dice que nadie debe irse triste después de hablar con él, así que… pasa. Con respeto, y sin hablar más de la cuenta.'],
+    {who:'Pudente',ask:'¿Qué era la guardia pretoriana?',a:['La guardia personal del emperador, acampada en Roma','La policía de los barrios','Los soldados de las fronteras'],ok:'Así es. Somos nueve cohortes, las mejor pagadas del ejército. Y a veces hemos decidido quién era emperador.',ko:'No. Nuestro nombre viene del «pretorio», la tienda del general.'}]},
+   {obj:'Presenta tu petición al emperador Tito',actor:'tito',scene:[['Tito','Herculano… Estuve allí hace unas semanas. No queda nada en pie. Habla.'],
+    ['','Le cuentas todo: la barca, la venta en Puteoli, Hermeros, la isla, el incendio. Plinio declara que la flota de su tío recogió niños en la costa. Hermeros jura que la compró a un traficante y que nació libre. Y tú le enseñas la tablilla de cera.'],
+    ['Tito','¿Qué pone aquí?'],
+    ['Tercia','Mater, frater, domus. Madre, hermano, casa. Y esa es la montaña antes de estallar.'],
+    {ask:'Tito pregunta: ¿por qué Tercia es libre según la ley, aunque la vendieran?',a:['Porque nació libre, hija de ciudadanos, y además la ley de Claudio libera a los esclavos abandonados enfermos en la isla','Porque el emperador puede hacer lo que quiera','Porque Hermeros es un liberto'],ok:'«Por partida doble», dice Tito, sonriendo. «Nadie puede vender la libertad de un ciudadano, y Claudio ya había decidido sobre los que se abandonan en la isla».',ko:'Recuerda lo que te dijeron Tácito y el médico Asclepíades.'},
+    ['Tito','Que se borre esa venta del registro de Saturno. Tercia, hija de ciudadanos de Herculano, es libre. Y que la comisión de Campania pague a vuestra familia una casa en Neápolis, con los bienes de los que murieron sin herederos.'],
+    ['Tito','Hoy no he perdido el día.']]},
+   {obj:'Ve con Tercia al anfiteatro: alguien os espera',go:'place:ro_coliseo',r:40,h:18,at:'actor:madre',scene:[['','Junto a los arcos del anfiteatro hay una mujer con un bastón y un manto azul. Plinio ha pagado su viaje desde Neápolis.'],
+    ['Tercia','¡Mater!'],
+    ['Fannia','Mis niños. Mis dos niños.'],
+    ['','Tu madre os abraza a los dos. No dice nada más durante un buen rato. Luego mira la tablilla de cera y se ríe entre lágrimas.'],
+    ['Fannia','Tendremos que volver a dibujar la casa. La nueva.']]}],
+  end:'Tercia es libre, tu familia vuelve a estar unida y tenéis una casa nueva en Neápolis. Detrás de vosotros, el anfiteatro sigue rugiendo, como si nada hubiera pasado.',
+  learn:'El emperador concentraba todo el poder, pero se presentaba como «el primer ciudadano» y debía mostrarse generoso: escuchaba peticiones, daba juegos y repartía ayudas. Tito (79-81) fue muy popular por su reacción ante el Vesubio, el incendio y la epidemia; reinó solo dos años.'}
+];
+const STORY_FIN_ROMA={title:'La tablilla de Tercia',txt:['Has terminado la historia de Roma. Buscando a tu hermana has recorrido la ciudad entera: la salutatio de un senador, el templo de Vesta, los registros del tesoro, el Emporio, una escuela, la isla de Esculapio, el Trastévere, el anfiteatro, el incendio del Campo de Marte y el Palatino.',
+ 'Tercia, tu familia, Grato, Hermeros, Débora y Primo son inventados. Tito, Plinio el Joven, Tácito, Prisco y la ley de Claudio son reales, y también lo son la erupción del 79, el incendio y la epidemia del 80, la inauguración del anfiteatro y los juicios por la libertad, como el de Petronia Justa de Herculano.',
+ 'Ahora puedes seguir explorando libremente.']};
+// ============================================================ MODO LIBRE EN LÍNEA (hasta 15 jugadores, capacidad room)
+// Cada sala es un room con nombre «mc-<época>-<código>». Cada jugador publica su presencia (nombre, color, posición)
+// y los demás lo ven como un avatar. El chat va por el tema «chat». Todo lo recibido es de otros: se muestra como texto.
+const NET={room:null,code:'',name:'',color:'',av:new Map(),t:0,sent:'',max:15,log:[]};
+const NET_COLORS=['#a8392b','#2f4c86','#5a8a3a','#c9a24a','#6a4d7a','#2a8a8a','#c96a2a','#8a2a5a','#4a6a2a','#3a3a8a','#8a6a3a','#2a6a8a','#aa4a6a','#6a8a8a','#7a2a1e'];
+const netClean=(s,n)=>String(s||'').replace(/[\u0000-\u001f\u007f-\u009f​-‏‪-‮⁠-⁯]/g,'').trim().slice(0,n);
+function netCode(){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=a[Math.floor(Math.random()*a.length)];return s;}
+async function netJoin(name,code){
+  const msg=t=>{$('netMsg').textContent=t;};
+  NET.name=netClean(name,20)||'Viajero';NET.code=netClean(code,8).toUpperCase().replace(/[^A-Z0-9]/g,'')||netCode();
+  try{localStorage.setItem('mc-net-name',NET.name);}catch(e){}
+  msg('Conectando…');
+  let lobby=null;try{lobby=window.claude&&window.claude.use?await window.claude.use('room'):null;}catch(e){lobby=null;}
+  if(!lobby){msg('El juego en línea solo funciona al abrir esta página en claude.ai, compartida con tus compañeros. Puedes jugar en el modo libre sin conexión.');return false;}
+  let room;try{room=await lobby.join(('mc-'+MODE+'-'+NET.code).toLowerCase());}catch(e){msg('No se ha podido entrar en la sala ('+(e&&e.code||'error')+'). Inténtalo de nuevo.');return false;}
+  await new Promise(r=>setTimeout(r,2500));
+  const others=room.peers().filter(p=>!p.sameTab).length;
+  if(others>=NET.max){await room.leave();msg('La sala '+NET.code+' está llena (máximo '+NET.max+' jugadores). Crea otra sala.');return false;}
+  const used=new Set(room.peers().map(p=>p.presence&&p.presence.c));NET.color=NET_COLORS.find(c=>!used.has(c))||NET_COLORS[Math.floor(Math.random()*NET_COLORS.length)];
+  NET.room=room;
+  room.onPeers(ch=>{for(const p of ch.left)netDrop(p.peer);netList();},()=>{netSay('','Se ha perdido la conexión con la sala.');});
+  room.on('chat',m=>{const p=room.peers().find(q=>q.peer===m.peer);const who=m.sameTab?NET.name:netClean(p&&p.presence&&p.presence.n,20)||'Alguien';netSay(who,netClean(m.data&&m.data.t,200));});
+  room.onConnection(c=>{$('netState').textContent=c?'':' · reconectando…';});
+  netPresence(true);$('net').hidden=false;netList();
+  netSay('','Has entrado en la sala '+NET.code+'. Dile este código a tus compañeros para que entren contigo. Pulsa Intro para escribir en el chat.');
+  return true;
+}
+function netPresence(force){const r=NET.room;if(!r)return;
+  const o={n:NET.name,c:NET.color,x:Math.round(player.x*10)/10,z:Math.round(player.z*10)/10,y:Math.round(player.feet*10)/10,a:Math.round(player.yaw*100)/100};
+  const k=JSON.stringify(o);if(!force&&k===NET.sent)return;NET.sent=k;r.presence(o).catch(()=>{});}
+function netAvatar(p){let a=NET.av.get(p.peer);const pr=p.presence||{};
+  if(!a){const col=NET_COLORS.includes(pr.c)?pr.c:'#6a6a6a';const g=makePerson({noVary:true,chiton:col,himation:'#efe6d4',hair:'#3b2a1e'});scene.add(g);
+    const lb=labelSprite(netClean(pr.n,20)||'Jugador','jugador en línea',false);lb.position.y=2.45;g.add(lb);
+    a={g,lb,x:+pr.x||0,z:+pr.z||0,y:+pr.y||0,yaw:+pr.a||0,n:pr.n};NET.av.set(p.peer,a);g.position.set(a.x,a.y,a.z);}
+  if(pr.n!==a.n){a.n=pr.n;a.g.remove(a.lb);a.lb=labelSprite(netClean(pr.n,20)||'Jugador','jugador en línea',false);a.lb.position.y=2.45;a.g.add(a.lb);}
+  a.tx=+pr.x||0;a.tz=+pr.z||0;a.ty=+pr.y||0;a.tyaw=+pr.a||0;return a;}
+function netDrop(peer){const a=NET.av.get(peer);if(a){scene.remove(a.g);NET.av.delete(peer);}}
+function netList(){const r=NET.room;if(!r)return;const ps=r.peers();
+  $('netHead').textContent='En línea · sala '+NET.code+' · '+ps.length+'/'+NET.max;
+  const ul=$('netPeople');ul.innerHTML='';for(const p of ps){const li=document.createElement('li');const pr=p.presence||{};li.style.borderLeftColor=NET_COLORS.includes(pr.c)?pr.c:'#6a6a6a';li.textContent=(netClean(pr.n,20)||'…')+(p.sameTab?' (tú)':'');ul.appendChild(li);}}
+function netSay(who,txt){if(!txt)return;NET.log.push([who,txt]);if(NET.log.length>7)NET.log.shift();const el=$('netLog');el.innerHTML='';
+  for(const[w,t]of NET.log){const d=document.createElement('div');if(w){const b=document.createElement('b');b.textContent=w+': ';d.appendChild(b);}else d.className='sys';d.appendChild(document.createTextNode(t));el.appendChild(d);}}
+function netChatOpen(){const i=$('netIn');i.hidden=false;i.value='';releasePointer();setTimeout(()=>i.focus(),20);}
+function netTick(dt){const r=NET.room;if(!r)return;NET.t+=dt;
+  if(NET.t>0.12){NET.t=0;netPresence(false);for(const p of r.peers())if(!p.sameTab)netAvatar(p);}
+  const k=Math.min(1,dt*8);for(const a of NET.av.values()){if(a.tx===undefined)continue;a.x+=(a.tx-a.x)*k;a.z+=(a.tz-a.z)*k;a.y+=(a.ty-a.y)*k;
+    let d=a.tyaw-a.yaw;d=Math.atan2(Math.sin(d),Math.cos(d));a.yaw+=d*k;a.g.position.set(a.x,a.y,a.z);a.g.rotation.y=a.yaw+Math.PI;
+    a.lb.visible=Math.hypot(a.x-player.x,a.z-player.z)<40;}
+}
+function storyGo(){const t=storyTarget();if(!t)return;if(Math.hypot(t.x-player.x,t.z-player.z)<120){toast('Ya estás cerca: sigue el rombo ◆ de la brújula.');return;}
+  storyTravel(()=>t,6,6);addHours(1);toast('<span class="label">'+(MODE==='roma'?'Un carretero':'Un carretero')+' te lleva</span><br>Pasa una hora de camino.');}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
   startGame.done=true;
   for(const s of STEPS())if(s.ok())state.steps['ok:'+s.id]=1;   // lo ya hecho en partidas anteriores cuenta sin recompensa
   $('start').hidden=true;$('hud').hidden=false;if(isTouch)$('touch').hidden=false;ui='play';updateStats();requestPointer();
-  if(!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.'),4500);
+  if(!storyOn()&&!state.places.length&&!state.lessons.length)setTimeout(()=>toast('Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.'),4500);
 }
 $('go').onclick=startGame;
+$('goStory').onclick=startStory;
+$('goNet').onclick=()=>{$('netPanel').hidden=false;let n='';try{n=localStorage.getItem('mc-net-name')||'';}catch(e){}$('netName').value=n;$('netCode').value='';$('netMsg').textContent='';setTimeout(()=>$('netName').focus(),30);};
+$('netCancel').onclick=()=>{$('netPanel').hidden=true;};
+$('netGo').onclick=async()=>{$('netGo').disabled=true;const ok=await netJoin($('netName').value,$('netCode').value);$('netGo').disabled=false;if(ok){$('netPanel').hidden=true;startGame();}};
+$('netIn').onkeydown=e=>{e.stopPropagation();if(e.key==='Enter'){e.preventDefault();const t=netClean($('netIn').value,200);$('netIn').hidden=true;$('netIn').value='';
+  if(t&&NET.room)NET.room.emit('chat',{t}).catch(er=>netSay('',er&&er.code==='not_permitted'?'No tienes permiso para escribir en el chat: pide al dueño de la página acceso de participante.':'No se ha podido enviar el mensaje.'));requestPointer();}
+  else if(e.key==='Escape'){$('netIn').hidden=true;requestPointer();}};
 $('libStart').onclick=()=>openLibrary();$('loadStart').onclick=importSave;$('jSave').onclick=exportSave;$('jLoad').onclick=importSave;
 setInterval(()=>{if(state&&ui==='play')save();},20000);addEventListener('beforeunload',()=>{if(state&&ui==='play')save();});
 $('bLib').onclick=()=>{if(ui==='play')openLibrary();};
@@ -10788,7 +11275,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   player.feet=floorAt(player.x,player.z);player.camY=player.feet+player.eye;
   curZone='agora';
   updateSky();
-  $('go').disabled=false;$('loadmsg').textContent=(state.lessons.length||state.places.length)?'Tu progreso anterior se ha recuperado: '+state.lessons.length+' lecciones y '+state.places.length+' lugares.':'La ciudad está lista.';
+  $('go').disabled=false;$('goStory').disabled=false;$('goNet').disabled=false;$('loadmsg').textContent=(state.lessons.length||state.places.length)?'Tu progreso anterior se ha recuperado: '+state.lessons.length+' lecciones y '+state.places.length+' lugares.':'La ciudad está lista.';
   if(hot&&hot.data&&hot.data.state)startGame();
   requestAnimationFrame(frame);
 }),30);}
@@ -10800,6 +11287,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},ROMA_BODA,addHours,newDay,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
