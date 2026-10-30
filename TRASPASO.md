@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 32). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 33). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -49,6 +49,14 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Punto de mira:** sin captura del puntero, el punto de mira (`#cross`) sigue al cursor (la flecha del sistema se oculta) y E apunta a lo que hay bajo él (`aimYaw`).
 - **Doble salto:** Espacio otra vez en el aire (`jump()`, `player.jumps`).
 - **Ratón:** la cámara gira con solo mover el ratón; con un clic se captura el puntero y gira sin límite. Sin captura, el cursor en el borde izquierdo o derecho sigue girando.
+
+### Traducciones en pausa (desde la versión 33)
+- Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 33: días y acontecimientos
+- **Días:** al pasar la medianoche empieza un día nuevo (`state.day`, `addHours`, `newDay`; la tecla T y los viajes también cuentan). El reloj muestra «día N» y, si lo hay, el acontecimiento del día.
+- **Acontecimientos** (`EVENTS_ATENAS`, `EVENTS_ROMA`, `todayEvent`, `evCrowd`): cada uno tiene día, repetición (`every`) o `once`, horas y lugar; ese día aparece una multitud allí (y puestos de mercado en las nundinas) y un aviso al amanecer. Atenas: Asamblea en la Pnyx (día 3, cada 8) y Grandes Dionisias (día 5). Roma: nundinas en el Foro (día 3, cada 8), inauguración del Anfiteatro Flavio (día 5), batalla naval en la naumaquia (día 8, cada 9) y carreras en el Circo Máximo (día 11, cada 9).
+- El diario, en «Primeros pasos», muestra el día, el acontecimiento de hoy con su explicación y el próximo (`calendarHTML`).
 
 ### Novedades de la versión 32: primeros pasos
 - **Diez misiones de iniciación por época** (`STEPS_ATENAS`, `STEPS_ROMA`, `STEPS()`): política, estelas, lecciones, plano, religión, mitos o espectáculos, caballo, teatro, vida cotidiana y sueños. Cada una tiene `ok()` (se comprueba con el progreso normal del juego o con `state.steps`) y `at()` (hacia dónde apunta el rombo de la brújula).

@@ -624,7 +624,7 @@ let DAYF=1;
 const LIGHTDIR=new THREE.Vector3().copy(SUNDIR);
 const CS={dT:new THREE.Color('#5d93c7'),dM:new THREE.Color('#a9c7e0'),dB:new THREE.Color('#e7d9bd'),sT:new THREE.Color('#41639a'),sM:new THREE.Color('#d6a27c'),sB:new THREE.Color('#efb07a'),nT:new THREE.Color('#02050d'),nM:new THREE.Color('#0a1226'),nB:new THREE.Color('#151d33')};
 const _c1=new THREE.Color(),_c2=new THREE.Color();
-function hourLabel(){const h=clock.h;const n=h<5?'noche cerrada':h<7?'alba':h<10?'mañana':h<12.5?'ágora llena':h<15?'mediodía':h<18?'tarde':h<20?'atardecer':'noche';return n+' · ~'+Math.floor(h)+' h';}
+function hourLabel(){const h=clock.h,ev=todayEvent(),dl='día '+((state&&state.day)||1)+(ev?' · '+ev.title:'')+' · ';const n=h<5?'noche cerrada':h<7?'alba':h<10?'mañana':h<12.5?'ágora llena':h<15?'mediodía':h<18?'tarde':h<20?'atardecer':'noche';return dl+n+' · ~'+Math.floor(h)+' h';}
 function updateSky(){
   const a=(clock.h-6)/12*Math.PI;SUNDIR.set(Math.cos(a),Math.sin(a)*0.92,0.38).normalize();
   const e=SUNDIR.y,day=sstep(clamp((e+0.08)/0.32,0,1)),set=clamp(1-Math.abs(e-0.03)/0.22,0,1)*0.85;DAYF=day;
@@ -3335,7 +3335,7 @@ function updateSocial(dt,t){
 // ============================================================ estado y guardado
 let SAVE_KEY='atenas-386-v1';   // cada época guarda su progreso aparte (Roma: roma-80-v1)
 let state;
-function loadState(){state={lessons:[],places:[],obols:0,seen:{},done:false,myths:[],steps:{}};
+function loadState(){state={lessons:[],places:[],obols:0,seen:{},done:false,myths:[],steps:{},day:1};
   try{const s=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(s&&Array.isArray(s.lessons))state=Object.assign(state,s);}catch(e){}
   if(!Array.isArray(state.myths))state.myths=[];if(!state.gods||!Array.isArray(state.gods.met))state.gods={met:[],q:{}};}
 loadState();
@@ -3354,6 +3354,46 @@ const joy={x:0,y:0};
 
 // ============================================================ HUD
 const $=id=>document.getElementById(id);
+// ------------------------------------------------------------ días y acontecimientos
+// Al pasar la medianoche empieza un día nuevo (state.day). Algunos días hay un acontecimiento: un aviso, una multitud en su sitio
+// y una entrada en el diario. 'every' lo repite cada tantos días a partir de 'day'; 'once' solo ocurre ese día.
+function addHours(dh){clock.h+=dh;while(clock.h>=24){clock.h-=24;newDay();}}
+function newDay(){if(!state)return;state.day=(state.day||1)+1;save();const ev=todayEvent();
+  toast('<span class="label">Amanece el día '+state.day+'</span>'+(ev?'<br>Hoy: '+ev.title+'. '+ev.short:''));evCrowd(true);}
+const EVENTS_ATENAS=[
+ {id:'asamblea',day:3,every:8,title:'Asamblea en la Pnyx',short:'Por la mañana, los ciudadanos se reúnen en la colina de la Pnyx.',h0:7,h1:13,at:()=>({x:PNYX.x,z:PNYX.z}),n:60,r:35,
+  txt:'Unas cuarenta veces al año, al amanecer, los ciudadanos suben a la Pnyx para votar a mano alzada leyes, guerras y tratados. Para que no falte quórum, desde hace pocos años se paga a los asistentes: tres óbolos, lo que cobra un trabajador por media jornada. Antes se empujaba a los rezagados con una cuerda teñida de rojo; ahora basta con la paga.'},
+ {id:'dionisias',day:5,once:true,title:'Grandes Dionisias',short:'Procesión de Dioniso y concurso de tragedias en el teatro.',h0:7,h1:20,at:()=>({x:THEA.x,z:THEA.z+30}),n:70,r:30,
+  txt:'La gran fiesta de primavera en honor de Dioniso. Una procesión lleva la estatua del dios al teatro, con toros para el sacrificio y falos de madera; durante días se representan comedias, tragedias y dramas satíricos ante toda la ciudad. Y este año hay una novedad: según las listas de vencedores grabadas en piedra, en el arcontado de Teodoto (387/386 a.C.) se repuso por primera vez una tragedia antigua, junto a las nuevas.'}
+];
+const EVENTS_ROMA=[
+ {id:'nundinas',day:3,every:8,title:'Día de mercado',short:'Las nundinas: campesinos y vendedores llenan el Foro.',h0:7,h1:15,at:()=>({x:0,z:-22}),n:45,r:28,stalls:true,
+  txt:'Cada ocho días (las nundinas, «el noveno día» contando a la romana) los campesinos de los alrededores bajan a la ciudad a vender y comprar. Por tradición, las leyes debían anunciarse durante tres días de mercado antes de votarse, y en las nundinas no se celebraban asambleas.'},
+ {id:'inauguracion',day:5,once:true,title:'Inauguración del Anfiteatro Flavio',short:'Tito abre los juegos de cien días. Todo el mundo va al anfiteatro.',h0:6,h1:19,at:()=>({x:ROMA.col.x,z:ROMA.col.z+108}),n:90,r:45,
+  txt:'Tito inaugura el anfiteatro que empezó su padre con unos juegos de cien días. Según Suetonio, en un solo día se mataron cinco mil fieras de todas clases; Dion Casio cuenta que lucharon grullas y elefantes, que también mujeres mataron fieras y que hubo combates de gladiadores, uno a uno y en grupo. Marcial escribió, probablemente para la ocasión, un librito de epigramas: el Libro de los espectáculos. Desde las gradas, el emperador lanzaba al público bolitas de madera con premios: comida, ropa, vajilla de plata, caballos o esclavos.'},
+ {id:'naumaquia',day:8,every:9,title:'Batalla naval en la naumaquia',short:'En el estanque de Augusto, en el Trastévere, «atenienses» contra «siracusanos».',h0:9,h1:17,at:()=>({x:-870,z:705-95}),n:70,r:40,
+  txt:'Como parte de los juegos, Tito llena de naves el estanque que Augusto mandó excavar en el Trastévere. Según Dion Casio, unos combatientes hicieron de atenienses y otros de siracusanos, como en la guerra del Peloponeso, y los «atenienses» desembarcaron en la isla y tomaron el muro que rodeaba el monumento.'},
+ {id:'carreras',day:11,every:9,title:'Carreras en el Circo Máximo',short:'Las cuatro facciones compiten en el Circo.',h0:8,h1:18,at:()=>{const c=ROMA.circus;return c?{x:c.C.x,z:c.C.z-70}:null;},n:70,r:60,
+  txt:'Las carreras de carros son el espectáculo más popular de Roma: en el Circo Máximo caben unos ciento cincuenta mil espectadores. Corren las cuatro facciones, los blancos, los rojos, los verdes y los azules, y la gente apuesta y discute por ellas con pasión. Según Dion Casio, en los juegos inaugurales de Tito hubo un día de carreras de caballos, entre el de los gladiadores y las fieras y el de la batalla naval.'}
+];
+const EVENTS=()=>MODE==='roma'?EVENTS_ROMA:EVENTS_ATENAS;
+function todayEvent(){if(!state)return null;const d=state.day||1;return EVENTS().find(e=>e.once?d===e.day:d>=e.day&&(d-e.day)%e.every===0)||null;}
+// la multitud del acontecimiento: aparece en su sitio durante sus horas y desaparece después
+const EVC={g:null,id:null};
+function evCrowd(force){const ev=todayEvent(),on=ev&&clock.h>=ev.h0&&clock.h<ev.h1&&ui!=='start';const want=on?ev.id+':'+state.day:null;
+  if(want===EVC.id&&!force)return;if(EVC.g){scene.remove(EVC.g);EVC.g=null;}EVC.id=want;if(!on)return;const p=ev.at();if(!p)return;
+  const g=new THREE.Group();scene.add(g);EVC.g=g;const looks=MODE==='roma'?[{toga:true,chiton:'#efe9dc',himation:'#f3eee2'},{short:true,noHimation:true,chiton:'#a89070'},{short:true,noHimation:true,chiton:'#c9b48b'},{female:true,chiton:'#e2d6c0',himation:'#8a3f5e',veil:true},{female:true,chiton:'#efe6d5',himation:'#4f6a7d'}]
+    :[{chiton:'#e8e0cf',himation:'#6d7b9a',beard:true},{chiton:'#efe6d5',himation:'#8a6a3a',beard:true},{exomis:true,chiton:'#a89070',beard:true},{female:true,chiton:'#e2d6c0',himation:'#8a3f5e'},{chiton:'#d8c9a8',himation:'#4f6a5a'}];
+  for(let i=0;i<ev.n;i++){const a=Math.random()*TAU,d=Math.sqrt(Math.random())*ev.r;let x=p.x+Math.cos(a)*d,z=p.z+Math.sin(a)*d;const q={x,z};resolve(q,0.5);x=q.x;z=q.z;
+    const o=makePerson(Object.assign({hair:pick(['#2b1f17','#3e2c1f','#5b4532','#8d8a85'])},pick(looks)));o.position.set(x,floorAt(x,z),z);o.rotation.y=Math.atan2(p.x-x,p.z-z)+rr(-0.8,0.8);g.add(o);}
+  if(ev.stalls)for(let i=0;i<8;i++){const x=p.x-42+i*12,z=p.z-8,b=new THREE.Group();b.position.set(x,floorAt(x,z),z);g.add(b);box(3.2,0.9,1.4,M.wood,0,0.45,0,b);
+    const aw=box(3.6,0.08,2,lam(pick(['#a8392b','#c9a24a','#4f6a7d','#e9dcc4'])),0,2.3,0.2,b);aw.rotation.x=-0.15;for(const s of[-1,1])box(0.08,2.3,0.08,M.wood,s*1.6,1.15,0.9,b);
+    for(let k=0;k<4;k++){const f=new THREE.Mesh(new THREE.SphereGeometry(0.16,6,4),lam(pick(['#c9302b','#e8b84a','#6f8a3a','#8a5a32'])));f.position.set(-1.2+k*0.8,1.05,0);b.add(f);}}
+  if(ui==='play'&&Math.hypot(player.x-p.x,player.z-p.z)>200)toast('<span class="label">'+ev.title+'</span><br>'+ev.short);}
+// en el diario: el día, el acontecimiento de hoy y el próximo
+function calendarHTML(){const d=state.day||1,ev=todayEvent();let nx=null,nd=d;for(let k=1;k<=20&&!nx;k++){const sd=state.day;state.day=d+k;const e=todayEvent();state.day=sd;if(e){nx=e;nd=d+k;}}
+  return '<div class="entry" style="margin:0 0 14px"><span class="label">Día '+d+(ev?' · hoy':'')+'</span><h3>'+(ev?ev.title:'Un día corriente')+'</h3><p>'+(ev?ev.txt+' <i>('+ev.h0+' a '+ev.h1+' h)</i>':'Cada noche que pasa empieza un día nuevo. Algunos días hay acontecimientos en la ciudad.')+'</p>'+(nx?'<p class="sub">Próximo acontecimiento: '+nx.title+', el día '+nd+'.</p>':'')+'</div>';}
+let evT=0;function evTick(dt){evT+=dt;if(evT<1)return;evT=0;if(state)evCrowd(false);}
 // ------------------------------------------------------------ primeros pasos: diez misiones de iniciación por época
 // Cada una presenta un aspecto distinto (política, lugares, lecciones, plano, religión, mitos o espectáculos, caballo, teatro, vida cotidiana, sueños).
 // ok() comprueba si ya está hecha (con el progreso normal del juego o con state.steps); at() da hacia dónde apunta la brújula.
@@ -3607,7 +3647,7 @@ function sail(from,to,land){
   const dd=daysOf(from,to,land);v.querySelector('.vs').textContent=dd.charAt(0).toUpperCase()+dd.slice(1)+'. '+(paid?(MODE==='roma'?'Pagas '+f+' sestercios.':'Pagas '+f+' óbolos.'):(land?(MODE==='roma'?'Pagas el viaje ayudando con las mulas y los fardos.':'Pagas el viaje cargando ánforas en el carro.'):'Pagas el pasaje ayudando a la tripulación con las velas.'));
   v.querySelector('.vf').textContent=land?pick(MODE==='roma'?ROMA_LAND_FACTS:LAND_FACTS):pick(MODE==='roma'?ROMA_VOY_FACTS:VOY_FACTS);v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
   const arrive=()=>{const P=PORTS[land&&to==='atenas'?'atenas_n':(land&&PORTS[to+'_n']?to+'_n':to)];player.x=P.x;player.z=P.z;player.feet=floorAt(P.x,P.z);player.camY=player.feet+player.eye;player.vy=0;player.yaw=P.yaw;player.pitch=0;curZone=null;
-    clock.h=(clock.h+(to==='egina'||from==='egina'?5:10))%24;updateSky();
+    addHours(to==='egina'||from==='egina'?5:10);updateSky();
     v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';},700);};
   if(!land&&seaEligible(from,to))setTimeout(()=>seaIntro(arrive),2400);   // en alta mar, el sueño de Ulises
   else setTimeout(arrive,3400);
@@ -3900,7 +3940,7 @@ function openLibrary(id){
   uiReturn=ui==='start'?'start':'play';ui='library';releasePointer();$('library').hidden=false;
   if(id)libCur=id;renderLibNav($('libQ').value);showArticle(libCur);
 }
-function advanceTime(){clock.h=(clock.h+3)%24;updateSky();toast('Pasan unas horas: '+hourLabel());}
+function advanceTime(){addHours(3);updateSky();toast('Pasan unas horas: '+hourLabel());}
 
 
 // ============================================================ diario
@@ -3909,7 +3949,7 @@ function openJournal(tab){if(tab)jTab=tab;ui='journal';releasePointer();$('journ
 function renderJournal(){
   document.querySelectorAll('#journal .tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===jTab?'true':'false'));
   const el=$('jBody');let h='';
-  if(jTab==='steps'){const L=STEPS(),d=stepsDone();h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(d>=L.length?'Has completado los primeros pasos. Ahora explora por tu cuenta: personajes, lugares, dioses, viajes, esferas de sueño y la biblioteca (B).':'Diez misiones para empezar, cada una sobre un aspecto distinto de la ciudad. Puedes hacerlas en cualquier orden; el objetivo de arriba a la izquierda y el rombo ◆ de la brújula te guían hacia la siguiente.')+'</p><div class="entries">'+
+  if(jTab==='steps'){const L=STEPS(),d=stepsDone();h=calendarHTML()+'<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(d>=L.length?'Has completado los primeros pasos. Ahora explora por tu cuenta: personajes, lugares, dioses, viajes, esferas de sueño y la biblioteca (B).':'Diez misiones para empezar, cada una sobre un aspecto distinto de la ciudad. Puedes hacerlas en cualquier orden; el objetivo de arriba a la izquierda y el rombo ◆ de la brújula te guían hacia la siguiente.')+'</p><div class="entries">'+
     L.map((s,i)=>'<div class="entry'+(s.ok()?'':' locked')+'"><span class="label">'+(i+1)+' · '+s.cat+(s.ok()?' · hecho ✓':'')+'</span><h3>'+s.title+'</h3><p>'+s.txt+'</p></div>').join('')+'</div>'+
     (d<L.length?'<p style="margin:14px 0 0"><button class="linkbtn" id="stepsOff">'+(state.steps._off?'Volver a mostrar los primeros pasos':'Ocultar los primeros pasos y explorar libremente')+'</button></p>':'');}
   else if(jTab==='lessons'){h='<div class="entries">'+Object.keys(LESSONS).map(id=>{const L=LESSONS[id],ok=state.lessons.includes(id);return ok?'<div class="entry"><span class="label">'+L.cat+' · <span class="'+(L.fict?'fict':'')+'">'+L.who+'</span></span><h3>'+L.title+'</h3><p>'+L.summary+'</p><button class="linkbtn" data-lib="l:'+id+'">Leer más y ver las fuentes</button></div>':'<div class="entry locked"><span class="label">'+L.cat+'</span><h3>'+L.title+'</h3><p>'+(L.hint||('Habla con '+L.who+' y supera su pregunta.'))+'</p><div class="where">'+L.where+'</div></div>';}).join('')+'</div>';}
@@ -10137,7 +10177,7 @@ function frame(now){
   const dt=Math.min(0.05,(now-last)/1000);last=now;const t=now/1000;
   if(ui==='sea'){seaTick(dt);return;}
   crossT+=dt;if(crossT>0.1){crossT=0;placeCross();}   // el punto de mira vuelve al centro (y el cursor reaparece) fuera del juego
-  if(ui!=='start'){clock.h=(clock.h+dt*clock.speed)%24;skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}
+  if(ui!=='start'){if(ui==='episode')clock.h=(clock.h+dt*clock.speed)%24;else addHours(dt*clock.speed);skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}
   if(ui==='play'){
     let f=(keys.w?1:0)-(keys.s?1:0)-joy.y,s=(keys.d?1:0)-(keys.a?1:0)+joy.x;const L=Math.hypot(f,s);if(L>1){f/=L;s/=L;}
     const sp=(keys.run?11:4.8)*(MOUNT.riding?3:1)*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
@@ -10172,7 +10212,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);
+  stepsTick(dt);evTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
