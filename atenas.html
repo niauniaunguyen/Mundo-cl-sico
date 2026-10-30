@@ -3680,11 +3680,11 @@ let dlg=null;
 function setName(t,fict){const e=$('dName');e.textContent=t;e.className=fict?'fict':'';}
 function openDialog(n){
   if(storyHook('npc',n.id))return;
-  if(!state.seen['m:'+n.id]){state.seen['m:'+n.id]=1;qAdd(npcQual(n),1);qAdd('kl',1,'Cada vez más gente sabe quién eres.');}
+  const first=!state.seen['m:'+n.id];if(first){state.seen['m:'+n.id]=1;qAdd(npcQual(n),1);qAdd('kl',1,'Cada vez más gente sabe quién eres.');}
   discHook(n.id);
-  dlg={n,quiz:null};ui='dialog';releasePointer();
+  dlg={n,quiz:null,known:!first};ui='dialog';releasePointer();
   $('dGlyph').textContent=n.glyph;setName(n.name,!HIST.has(n.id));$('dTitle').textContent=n.title+(HIST.has(n.id)?_t(2638,' · personaje histórico'):_t(2639,' · personaje inventado'));
-  $('dBody').innerHTML='<p>'+n.intro+'</p>'+rivalTaunt(n)+(n.fanLine&&n.fanLine()?'<p class="sub">'+n.fanLine()+'</p>':'');renderOpts();$('dialog').hidden=false;
+  $('dBody').innerHTML='<p>'+n.intro+'</p>'+pjGreet(n,first)+rivalTaunt(n)+(n.fanLine&&n.fanLine()?'<p class="sub">'+n.fanLine()+'</p>':'');renderOpts();$('dialog').hidden=false;
   setTimeout(()=>{const b=$('dOpts').querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function renderOpts(extra){
@@ -10194,7 +10194,7 @@ function updateMount(dt){
 // ------------------------------------------------------------ jinete, avatar y vista (V: primera o tercera persona)
 // Montado se ven las piernas, el torso, los brazos y las riendas; en tercera persona, el jinete entero (o el avatar a pie).
 const AVATAR={walk:null,rider:null,riderHead:[],view3:false,ph:0,lx:null,lz:null};
-function playerLook(){return MODE==='roma'?{chiton:'#e9dfcb',himation:'#9a3f2f',hair:'#3b2a1e',beard:false,short:true}:{chiton:'#e8dfcc',himation:'#4f6a7d',hair:'#3b2a1e',beard:true};}
+function playerLook(){if(pjFem())return MODE==='roma'?{female:true,chiton:'#e9dfcb',himation:'#7a3a5e',hair:'#3b2a1e',beard:false}:{female:true,chiton:'#e8dfcc',himation:'#8a5a3a',hair:'#3b2a1e',beard:false};return MODE==='roma'?{chiton:'#e9dfcb',himation:'#9a3f2f',hair:'#3b2a1e',beard:false,short:true}:{chiton:'#e8dfcc',himation:'#4f6a7d',hair:'#3b2a1e',beard:true};}
 function buildAvatar(){
   const L=playerLook();
   AVATAR.walk=makePerson(Object.assign({noVary:true,skin:'#c99a74'},L,MODE==='roma'?{short:true,noHimation:true}:{}));AVATAR.walk.visible=false;scene.add(AVATAR.walk);
@@ -12964,6 +12964,7 @@ function hogarAct(o){const ro=MODE==='roma',c=cz(),d=state.day||1,mon=ro?'sester
   else if(o.act==='recuerdos'){const L=[cnt(state.lessons)+' lecciones aprendidas',cnt(state.places)+' lugares visitados',cnt((state.musas||{}).dons)+' dones de las Musas'];if(typeof hz==='function'&&hz().own)L.push('Tu caballo: '+(hz().name||'sin nombre'));if(state.zeusMet)L.push((ro?'Has hablado con Júpiter':'Has hablado con Zeus')+' en el Olimpo');const fs=Object.values(state.fest||{}).filter(Boolean).length;if(fs)L.push(fs+' fiestas celebradas');
     B.innerHTML='<p>En las estanterías vas guardando recuerdos de tus viajes: una tablilla, una figurilla, una moneda extranjera…</p><ul>'+L.map(x=>'<li>'+x+'</li>').join('')+'</ul>';}
   else if(o.act==='banquete'){const fr=bestFriend(),cost=20;B.innerHTML=ro?'<p>El triclinio tiene tres lechos alrededor de una mesa: caben nueve comensales, tres por lecho, recostados sobre el codo izquierdo. El anfitrión ocupa el lecho del medio.</p>':'<p>El andrón es la sala de los hombres. Aquí se celebra el simposio: después de cenar, recostados en los lechos, los invitados beben vino mezclado con agua, cantan, juegan al cótabo y conversan. Las mujeres de la familia no asisten.</p>';
+    if(!ro&&pjFem())B.innerHTML+='<p class="sub">En Atenas, una mujer no se recostaría en el simposio de su casa: lo presidiría un pariente varón, y ella recibiría a sus amigas en las habitaciones de las mujeres. El juego te deja organizarlo igualmente.</p>';
     if(c.banq===d)B.innerHTML+='<p class="sub">Hoy ya has dado un banquete.</p>';
     else if(state.obols>=cost)one((ro?'Dar una cena':'Celebrar un simposio')+(fr?' e invitar a '+fr.name:'')+' ('+cost+' '+mon+')',()=>{state.obols-=cost;c.banq=d;qAdd('kl',2);qAdd('lo',1);if(fr){const f=fz(fr.id);f.p=Math.min(100,f.p+3);}save();updateStats();sfxCoin();
       B.innerHTML='<p>'+(ro?'Los invitados llegan con sus servilletas (se llevan las sobras envueltas en ellas, es la costumbre). Hay mimos, un lector de poesía y mucha conversación.':'Se elige un rey del banquete, que decide cuánta agua lleva el vino. Hay una flautista, canciones y una larga discusión sobre si es mejor ser justo o parecerlo.')+(fr?' '+fr.name+' se va contento.':'')+'</p>';$('dOpts').innerHTML='';one(_t(2668,'Volver'),closeDialog);},'quiz');
@@ -13003,20 +13004,53 @@ function profeOpen(){if(ui!=='play'&&ui!=='journal')return;if(ui==='journal')clo
   act('Próxima fiesta',()=>{const d=state.day||1;for(let k=d+1;k<d+120;k++)if(festOfDay(k)){state.day=k;break;}const ev=todayEvent();if(ev)clock.h=ev.h0+0.5;updateSky();evCrowd(true);});
   act('+500 '+mon,()=>{state.obols+=500;});
   act(_t(8909,'Caballo'),()=>{hz().own=true;});act('Alas de Dédalo',()=>{wz().own=true;});
-  act('Llave del Olimpo',()=>{state.olyKey=1;});act('Casa propia',()=>{cz().st=3;});
+  act('Cambiar de personaje',()=>{profeClose();setTimeout(()=>pjDlg(),50);});act('Llave del Olimpo',()=>{state.olyKey=1;});act('Casa propia',()=>{cz().st=3;});
   const Lst=profeDests(),q=$('profeQ'),L=$('profeL');let shown=[],sel=0;
   const draw=()=>{const w=norm(q.value).split(/\s+/).filter(Boolean);shown=Lst.filter(d=>{const n=norm(d.t+' '+d.n);return w.every(x=>n.includes(x));}).slice(0,200);sel=Math.min(sel,shown.length-1);
     L.innerHTML='';shown.forEach((d,i)=>{const e=document.createElement('div');e.className='it'+(i===sel?' sel':'');e.innerHTML='<i>'+d.t+'</i><span></span>';e.lastChild.textContent=d.n;e.onclick=()=>profeGo(d);L.appendChild(e);});};
   q.addEventListener('input',()=>{sel=0;draw();});q.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Escape')profeClose();else if(e.key==='Enter'&&shown[sel])profeGo(shown[sel]);else if(e.key==='ArrowDown'){sel=Math.min(shown.length-1,sel+1);draw();e.preventDefault();}else if(e.key==='ArrowUp'){sel=Math.max(0,sel-1);draw();e.preventDefault();}});
   draw();q.focus();}
 function profeClose(){const d=$('profe');if(d)d.remove();if(ui==='profe')ui='play';}
+// ---- tu personaje: nombre y si eres hombre o mujer. Quien ya te conoce te llama por tu nombre, y los textos se adaptan al femenino
+function pjz(){return state&&state.pj&&typeof state.pj==='object'?state.pj:null;}
+const pjFem=()=>{const p=pjz();return !!(p&&p.g==='f');};
+function pjDlg(done){dlg={n:null};ui='dialog';releasePointer();const ro=MODE==='roma';$('dGlyph').textContent='✎';setName('Tu personaje');$('dTitle').textContent=ro?'Llegas a Roma desde muy lejos':'Llegas a Atenas desde muy lejos';
+  const p=pjz()||{name:'',g:''};let g=p.g||'';
+  $('dBody').innerHTML='<p>Antes de entrar en la ciudad, ¿quién eres?</p><p><label>Tu nombre <input id="pjName" maxlength="20" autocomplete="off" style="font:inherit;padding:4px 8px;width:14em"></label></p><p class="sub">Quienes te conozcan te llamarán por tu nombre. '+(ro?'En Roma, las mujeres no votan ni ocupan cargos, pero se mueven por la ciudad, tienen negocios y heredan.':'En la Atenas del siglo IV, las mujeres no votan ni van a la Asamblea, y las de buena familia salen poco de casa. Muchas otras, en cambio, trabajan en el mercado, en las fuentes o en los santuarios.')+' El juego te deja ir a todas partes, y a veces la gente se sorprenderá.</p>';
+  const o=$('dOpts');o.innerHTML='';const inp=$('pjName');inp.value=p.name||'';
+  const fin=()=>{const nm=(inp.value||'').replace(/[<>&"]/g,'').trim().slice(0,20);if(!nm){inp.placeholder='Escribe un nombre';inp.focus();return;}if(!g)return;state.pj={name:nm,g};save();pjAvatar();closeDialog();requestPointer&&requestPointer();
+    toast('<span class="label">'+(g==='f'?'Bienvenida':'Bienvenido')+', '+nm+'</span><br>'+(ro?'Que los dioses te acompañen por Roma.':'Que los dioses te acompañen por Atenas.'));if(done)done();};
+  const mk=(t,v)=>{const b=document.createElement('button');b.innerHTML='<span class="n">'+(o.children.length+1)+'</span><span>'+t+'</span>';b.onclick=()=>{g=v;[...o.children].forEach(x=>x.classList.remove('quiz'));b.classList.add('quiz');};if(g===v)b.classList.add('quiz');o.appendChild(b);};
+  mk('Soy un hombre','m');mk('Soy una mujer','f');
+  const go=document.createElement('button');go.innerHTML='<span class="n">3</span><span>Entrar en la ciudad</span>';go.onclick=fin;o.appendChild(go);
+  inp.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter')fin();});$('dialog').hidden=false;setTimeout(()=>inp.focus(),50);}
+function pjAvatar(){if(!AVATAR.walk)return;const vis=AVATAR.walk.visible;scene.remove(AVATAR.walk);const L=playerLook();
+  AVATAR.walk=makePerson(Object.assign({noVary:true,skin:'#c99a74'},L,MODE==='roma'&&!L.female?{short:true,noHimation:true}:{}));AVATAR.walk.visible=vis;scene.add(AVATAR.walk);
+  if(AVATAR.rider&&L.female&&!AVATAR.riderF){AVATAR.riderF=true;const ro={hair:lam(L.hair),skin:lam('#c99a74'),cloth:lam(L.chiton),eye:lam('#1a120c')};
+    AVATAR.riderHead.slice(2).forEach(m=>{if(m.parent)m.parent.remove(m);});const h=glbPart('P_hair_f',ro);if(h){AVATAR.rider.add(h);AVATAR.riderHead=AVATAR.riderHead.slice(0,2).concat([h]);}else AVATAR.riderHead=AVATAR.riderHead.slice(0,2);}}
+// adapta lo que te dicen: vocativos y concordancias en femenino; y, si ya te conocen, tu nombre en lugar de «forastero»
+const PJ_FEM=[[/\b(B|b)ienvenido\b/g,'$1ienvenida'],[/\b(Eres|eres|Estás|estás|Ya eres|quedas|Quedas) (un |)(meteco|forastero|extranjero|iniciado|invitado|purificado|listo|preparado|seguro|perdido|cansado|equivocado|sorprendido|ciudadano|bienvenido|nuevo discípulo)\b/g,(m,a,b,w)=>a+' '+(b?'una ':'')+({meteco:'meteca',ciudadano:'ciudadana','nuevo discípulo':'nueva discípula'}[w]||w.replace(/o$/,'a'))],
+  [/\b(un|Un) (forastero|extranjero) como tú/g,(m,a,w)=>(a==='Un'?_t(6288,'Una'):'una')+' '+w.replace(/o$/,'a')+' como tú'],[/\bcomo forastero\b/g,'como forastera'],[/\bciudadano romano\b(?=[^.]*\b(eres|ya)\b)/g,'ciudadana romana']];
+const PJ_VOC=/([,¡¿]\s?)(amigo|forastero|extranjero|muchacho|viajero|hijo|chico|romano|griego|ciudadano|joven amigo)(?=[,.!?»;:…])/g;
+const PJ_F={amigo:'amiga',forastero:'forastera',extranjero:'extranjera',muchacho:'muchacha',viajero:'viajera',hijo:'hija',chico:'chica',romano:'romana',griego:'griega',ciudadano:'ciudadana','joven amigo':'joven amiga'};
+function pjKnown(){return !!(dlg&&dlg.n&&dlg.n.id&&dlg.known);}
+function pjText(t){const p=pjz();if(!p)return t;const known=pjKnown();
+  t=t.replace(PJ_VOC,(m,a,w)=>a+(known&&/^(forastero|extranjero|viajero|amigo)$/.test(w)?p.name:p.g==='f'?PJ_F[w]:w));
+  if(p.g==='f')for(const[r,s]of PJ_FEM)t=t.replace(r,s);return t;}
+function pjWalk(el){if(!pjz())return;const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n;while((n=w.nextNode())){const v=pjText(n.data);if(v!==n.data)n.data=v;}}
+function pjInit(){for(const id of['dBody','dOpts'])new MutationObserver(()=>pjWalk($(id))).observe($(id),{childList:true,subtree:true});}
+function pjGreet(n,first){const p=pjz();if(!p)return '';const ro=MODE==='roma';
+  if(first)return '<p class="sub">Te presentas: «Me llamo '+p.name+'». '+(p.g==='f'&&!ro&&!n.look?.female&&R()<0.5?'Te mira con curiosidad: no es habitual que una mujer forastera pregunte tanto. ':'')+'</p>';
+  return '<p class="sub">«¡'+pick(ro?['Salve','Ave','Hola de nuevo']:['Khaîre','Salud','Hola de nuevo'])+', '+p.name+'!»</p>';}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
   startGame.done=true;
   for(const s of STEPS())if(s.ok())state.steps['ok:'+s.id]=1;   // lo ya hecho en partidas anteriores cuenta sin recompensa
   $('start').hidden=true;$('hud').hidden=false;if(isTouch)$('touch').hidden=false;ui='play';updateStats();requestPointer();
-  if(!state.tut)setTimeout(tutStart,1200);
+  if(!pjInit.done){pjInit.done=1;pjInit();}
+  if(!pjz())setTimeout(()=>pjDlg(()=>{if(!state.tut)setTimeout(tutStart,800);}),500);
+  else if(!state.tut)setTimeout(tutStart,1200);
   else if(!storyOn()&&!state.places.length&&!state.lessons.length)setTimeout(()=>toast(_t(9325,'Empieza por los <b>primeros pasos</b>: tu objetivo está arriba a la izquierda y el rombo ◆ de la brújula te indica hacia dónde ir. En el diario (<b>J</b>) tienes la lista completa.')),4500);
 }
 $('go').onclick=startGame;
@@ -13073,6 +13107,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
