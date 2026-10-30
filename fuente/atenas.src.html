@@ -3633,7 +3633,7 @@ function updateStats(){
   {const L=Object.keys(LESSONS).length,Pl=PLACES.length,My=MODE==='atenas'?RELIEFS.length:0,Go=GODS.length,
      done=state.lessons.length+state.places.length+(My?state.myths.length:0)+godsDone(),tot=L+Pl+My+Go,pc=tot?Math.floor(done/tot*100):0;
    const b=$('sProg');b.textContent='Progreso '+pc+' %';b.title='Lecciones '+state.lessons.length+'/'+L+' · Lugares '+state.places.length+'/'+Pl+(My?' · Mitos '+state.myths.length+'/'+My:'')+(Go?' · Favores '+godsDone()+'/'+Go:'')+'. Pulsa para ver tu ficha.';}
-  {const h=hz();$('sHorse').hidden=!(h.own&&MOUNT.riding);if(h.own)$('sHorse').textContent='Caballo nv '+h.lvl+' · '+h.xp+'/'+horseNeed(h.lvl);}
+  {const h=hz();$('sHorse').hidden=!(h.own&&MOUNT.riding);if(h.own)$('sHorse').textContent=horseName()+' · nv '+h.lvl+' · '+h.xp+'/'+horseNeed(h.lvl);}
   {const h=hz();if(h.q==='on'||h.q==='caught'){$('objective').innerHTML='<b>Encargo del caballo</b><br><span class="sub">'+(h.q==='on'?'Busca la yegua escapada (rombo ◆)':'Llévale la yegua a '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa'))+'</span>';return;}}
   if(storyOn()){$('objective').innerHTML=storyStatus()+'<br><span class="sub">G: que te lleven · J: capítulos</span>';return;}
   const st=curStep();if(st){$('objective').innerHTML='<b>Primeros pasos '+stepsDone()+'/'+STEPS().length+'</b> · '+st.title+'<br><span class="sub">'+st.short+'</span>';return;}
@@ -3704,6 +3704,7 @@ function renderOpts(extra){
   if(FRIENDS[n.id]&&FRIENDS[n.id].m===MODE){const a=fz(n.id);add(a.t>=FRIENDS[n.id].e.length?'Charlar con un amigo ('+fGrade(a.p)+')':'Pasar un rato juntos · afinidad '+a.p+'/100','quiz',()=>friendMenu(n));}
   if(MASTERS[n.id]&&MASTERS[n.id].m===MODE){const d=dz();add(d.grad.includes(n.id)?'Hablar con tu antiguo maestro':d.cur===n.id?'Tu formación como discípulo ('+(d.st===0?'prueba de admisión':'lección '+d.st+' de 4')+')':'Pedir ser su discípulo','quiz',()=>discMenu(n));}
   for(const mid of discOf()){const M=MASTERS[mid];if(M&&M.debate[n.id]&&!dz().deb[mid+':'+n.id])add('Aceptar el reto: debatir con '+n.name,'quiz',()=>debateMenu(n,mid));}
+  if(n.id===HORSE_NPC()&&hz().own)add('Cambiar el nombre de '+horseName(),'quiz',()=>horseNameDlg(horseName(),()=>{$('dBody').innerHTML='<p>«'+horseName()+'. Buen nombre. Que corra tanto como suena».</p>';renderOpts();}));
   if(n.id===HORSE_NPC()&&!hz().own)add(hz().q==='caught'?'Te traigo la yegua':hz().q==='on'?'Sobre la yegua escapada…':'¿Me darías un caballo?','quiz',()=>horseQuest(n));
   add('Despedirse','',closeDialog);
 }
@@ -10167,7 +10168,7 @@ function callHorse(){
 }
 function mountHorse(){
   MOUNT.riding=true;MOUNT.st='ridden';player.eye=2.55;updateStats();
-  toast('Montas a caballo: vas al triple de velocidad (Shift para galopar). Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para bajar.');
+  toast('Montas a '+(hz().own?horseName():'caballo')+': vas al triple de velocidad (Shift para galopar). Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para bajar.');
 }
 function dismount(){
   MOUNT.riding=false;MOUNT.st='idle';player.eye=1.62;updateStats();
@@ -10179,7 +10180,7 @@ function updateMount(dt){
   if(M2.riding){sp=Math.hypot(player.x-g.position.x,player.z-g.position.z)/Math.max(dt,1e-3);g.position.set(player.x,player.feet,player.z);g.rotation.y+=wrapA(player.yaw+Math.PI-g.rotation.y)*Math.min(1,dt*10);}
   else if(M2.st==='coming'){M2.tc+=dt;const dx=player.x-g.position.x,dz=player.z-g.position.z,d=Math.hypot(dx,dz);
     if(d<4.8||M2.tc>9){if(d>=4.8){const[fx,fz]=findFree(player.x+Math.sin(player.yaw)*3,player.z+Math.cos(player.yaw)*3,1);g.position.set(fx,floorAt(fx,fz),fz);}
-      M2.st='idle';toast('El caballo ha llegado. Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para montar.');}
+      M2.st='idle';toast((hz().own?horseName():'El caballo')+' ha llegado. Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para montar.');}
     else{const st=Math.min(d-4,11*dt),p={x:g.position.x+dx/d*st,z:g.position.z+dz/d*st};resolve(p,0.6);g.position.set(p.x,floorAt(p.x,p.z),p.z);g.rotation.y+=wrapA(Math.atan2(dx,dz)-g.rotation.y)*Math.min(1,dt*6);sp=11;}}
   else g.position.y=floorAt(g.position.x,g.position.z);
   // patas en diagonal: paso, trote o galope según la velocidad
@@ -10713,10 +10714,10 @@ let focus=null;
 function findFocus(){
   const ay=aimYaw(),fx=-Math.sin(ay),fz=-Math.cos(ay);let best=null,bs=0;
   const test=(o,x,z,range)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>range)return;const dot=(dx*fx+dz*fz)/(d||1);if(dot<0.35&&d>1.2)return;const sc=dot*2-d/range;if(!best||sc>bs){best=o;bs=sc;}};
-  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
+  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const c of CARTERS)test(c,c.x,c.z,4.2);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else bark(focus);}
+function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -10798,7 +10799,7 @@ function frame(now){
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo'||focus.kind==='fest')?'Hablar con '+focus.data.name:'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo'||focus.kind==='fest')?'Hablar con '+focus.data.name:focus.kind==='carro'?'Hablar con '+focus.data.name+', el carretero':'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?'Caballo':'H')+'</kbd>Montar el caballo';p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -11293,8 +11294,14 @@ function horseQuest(n){const h=hz(),ro=MODE==='roma',o=$('dOpts');
   if(h.q==='on'){$('dBody').innerHTML='<p>'+(ro?'¿Todavía nada? Es blanca y asustadiza. Sigue el rombo de la brújula.':'¿Aún no la has visto? Es castaña, con una estrella en la frente. Sigue el rombo de la brújula.')+'</p>';one('Voy a buscarla',()=>renderOpts());return;}
   if(h.q==='caught'){h.q='done';h.own=true;h.xp=0;h.lvl=1;qAdd('kl',2);qAdd('ar',1);save();updateStats();sfxCoin();
     $('dBody').innerHTML='<p>'+(ro?'¡La has encontrado! Los Azules se van a morder los puños. Toma: este es Rayo. Es viejo para el circo, pero joven para ti.':'¡Aura! Ven aquí, preciosa. Has cumplido, y un tesalio cumple su palabra: este potro se llama Céfiro.')+'</p><p>'+(ro?'Félix':'Eudico')+' añade: «Aún tiene mucho que aprender. Cuando cabalgues, verás <b>esferas doradas</b> por el camino: pasa a través de ellas. Cada una le da experiencia, y con cada nivel corre un 2 % más rápido y salta un poco más».</p>';
-    one('Gracias',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para llamarlo.');});return;}
+    one('Ponerle nombre',()=>horseNameDlg(ro?'Rayo':'Céfiro',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para llamar a '+hz().name+'.');}));return;}
 }
+// ponerle (o cambiarle) el nombre al caballo
+function horseName(){return hz().name||(MODE==='roma'?'Rayo':'Céfiro');}
+function horseNameDlg(def,after){const o=$('dOpts');$('dBody').innerHTML='<p>¿Cómo quieres llamar a tu caballo?</p><p><input id="hName" maxlength="20" autocomplete="off" style="background:#16100c;border:1px solid #6b4a2e;color:var(--bone);padding:6px 8px;font:inherit;width:min(260px,100%)"></p><p class="sub">Los griegos y romanos ponían a sus caballos nombres como Bucéfalo («cabeza de buey»), Aura («brisa»), Podargo («pies veloces») o Incitato («impetuoso»).</p>';
+  const i=$('hName');i.value=hz().name||def;o.innerHTML='';const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">1</span><span>Ponerle este nombre</span>';
+  const ok=()=>{const v=(i.value||'').replace(/[<>&"]/g,'').trim().slice(0,20)||def;hz().name=v;save();updateStats();sfxCoin();after&&after();};b.onclick=ok;o.appendChild(b);
+  i.onkeydown=e=>{e.stopPropagation();if(e.key==='Enter'){e.preventDefault();ok();}};setTimeout(()=>{i.focus();i.select();},40);}
 // esferas doradas: solo mientras cabalgas, cada ~60 m aparece una por delante
 const HORBS=[];let horbAcc=0,horbLast=null;
 function horbSpawn(){const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
@@ -11317,7 +11324,7 @@ function horseTick(dt){
     if(d>230){scene.remove(o.g);HORBS.splice(i,1);}}
 }
 function horseXP(){const h=hz();h.xp++;sfxCoin();
-  if(h.xp>=horseNeed(h.lvl)){h.xp=0;h.lvl++;qAdd('ar',2);toast('<span class="label">¡Tu caballo sube al nivel '+h.lvl+'!</span><br>Ahora corre un '+Math.round((horseMul()-1)*100)+' % más rápido y salta más alto.');}
+  if(h.xp>=horseNeed(h.lvl)){h.xp=0;h.lvl++;qAdd('ar',2);toast('<span class="label">¡'+horseName()+' sube al nivel '+h.lvl+'!</span><br>Ahora corre un '+Math.round((horseMul()-1)*100)+' % más rápido y salta más alto.');}
   save();updateStats();}
 // ============================================================ Dédalo, encerrado en su propio laberinto, y las alas de cera
 // Misión: recoger siete plumas por el palacio del sueño de Cnosos. Premio: alas para volar (X), con el aviso de Ícaro: si subes demasiado, la cera se funde.
@@ -12565,6 +12572,36 @@ function convTick(dt){if(!CVG.length)return;const el=$('conv');if(ui!=='play'){i
   if(performance.now()-G.t>dur){G.i++;G.t=performance.now();if(G.i>=L.length){G.i=0;if(!G.heard){G.heard=true;if(!state.convs)state.convs={};if(!state.convs[G.C.tema+':'+G.C.cast[0][0]]){state.convs[G.C.tema+':'+G.C.cast[0][0]]=1;qAdd('so',1);save();}}}}
   const ln=L[G.i];el.hidden=false;$('convH').textContent='Escuchas una conversación · '+G.C.tema;$('convT').innerHTML='';const b=document.createElement('b');b.textContent=G.C.cast[ln[0]][0]+': ';$('convT').appendChild(b);$('convT').appendChild(document.createTextNode(ln[1]));}
 
+// ============================================================ carreteros: en cada salida, por unas monedas te llevan hasta el borde del mapa
+const CARTERS=[];
+const CART_NAMES_A=['Licón','Dáos','Sosias','Mírtilo','Tibio','Jantias','Carión','Escitino'],CART_NAMES_R=['Cayo','Primo','Fausto','Dama','Eros','Félix','Áticus','Hilaro'];
+function buildCarters(){CARTERS.length=0;let k=0;
+  for(const g of GATES_W){let sx,sz;
+    if(g.path&&g.path.length){sx=g.path[0][0];sz=g.path[0][1];}
+    else{const c=MODE==='roma'?{x:0,z:0}:{x:AGORA.x,z:AGORA.z},d=Math.hypot(g.x-c.x,g.z-c.z);sx=c.x+(g.x-c.x)*0.3;sz=c.z+(g.z-c.z)*0.3;if(d<300)continue;}
+    const nx=-g.oz,nz=g.ox,f=findFree(sx+nx*6,sz+nz*6,1.4);const x=f[0],z=f[1],y=floorAt(x,z),a=Math.atan2(g.ox,g.oz);
+    if(Math.hypot(g.x-x,g.z-z)<120)continue;   // si el borde ya está cerca, no hace falta carretero
+    const G=grp(x,y,z,a);const wood=M.wood;box(1.6,0.5,2.6,wood,2.2,0.75,0,G);box(1.7,0.08,2.7,lam('#6b4a2e'),2.2,1.02,0,G);
+    for(const s of[-1,1]){const w=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.12,14),lam('#4a3424'));w.rotation.z=Math.PI/2;w.position.set(2.2+s*0.9,0.55,0.4);G.add(w);}
+    box(0.08,0.08,2.4,wood,1.75,0.7,-2.4,G);box(0.08,0.08,2.4,wood,2.65,0.7,-2.4,G);
+    const names=MODE==='roma'?CART_NAMES_R:CART_NAMES_A,name=names[k++%names.length];
+    const p=makePerson(MODE==='roma'?{short:true,noHimation:true,chiton:'#8a7350',hair:'#3b2a1e',beard:true}:{exomis:true,chiton:'#8a7a5a',beard:true,hair:'#3b2a1e',staff:true});p.position.set(0,0,0);G.add(p);
+    const lb=labelSprite(name,'carretero · hacia '+mapName(g.to),true);lb.position.y=2.45;lb.visible=false;p.add(lb);{const q=toW(2.2,0,x,z,a);addBox(q[0],q[1],2,3,a);}
+    CARTERS.push({kind:'carro',x,z,g:G,lb,gate:g,data:{name,role:'carretero'}});}}
+function carterFare(g){const km=Math.hypot(g.gate.x-g.x,g.gate.z-g.z)/1000;return Math.max(1,Math.round(km*(MODE==='roma'?3:1)));}
+function carterTalk(c){const g=c.gate,ro=MODE==='roma',mon=ro?'sestercios':'óbolos',fare=carterFare(c);dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent='⛟';setName(c.data.name,true);$('dTitle').textContent='Carretero · camino de '+mapName(g.to);
+  $('dBody').innerHTML='<p>'+pick(ro?['¿Vas hacia '+mapName(g.to)+'? Te llevo hasta la última posta del camino, donde empieza la calzada. Así te ahorras la caminata.','Mis mulas conocen el camino mejor que yo. Sube, que te dejo en el límite del territorio en un momento.']:['¿Vas hacia '+mapName(g.to)+'? Te llevo en el carro hasta el final del camino, donde empiezan los montes. Te ahorras el polvo.','Sube, que mi mula no muerde. Te dejo junto al mojón del camino de '+mapName(g.to)+'.'])+'</p><p class="sub">Precio: '+fare+' '+(fare===1?mon.slice(0,-1):mon)+'. Tienes '+state.obols+'.</p>';
+  const o=$('dOpts');o.innerHTML='';let k=1;const add=(t,fn,cl)=>{const b=document.createElement('button');if(cl)b.className=cl;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+t+'</span>';b.onclick=fn;o.appendChild(b);};
+  add('Subir al carro ('+fare+' '+(fare===1?mon.slice(0,-1):mon)+')',()=>{if(state.obols<fare){$('dBody').innerHTML='<p>«Sin dinero no hay carro, amigo. Gánate unas monedas aprendiendo algo por la ciudad y vuelve».</p>';o.innerHTML='';k=1;add('Despedirse',closeDialog);return;}
+    state.obols-=fare;save();updateStats();closeDialog();cartRide(c);},'quiz');
+  add('No, gracias',closeDialog);$('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);}
+function cartRide(c){const g=c.gate;ui='voyage';if(MOUNT.riding)dismount();const v=$('voyage');v.classList.add('land');
+  v.querySelector('.vt').textContent='El carro traquetea camino de '+mapName(g.to);v.querySelector('.vs').textContent=c.data.name+' silba a la mula. El polvo, las piedras, un olivar, un santuario junto al camino…';
+  v.querySelector('.vf').textContent=pick(MODE==='roma'?ROMA_LAND_FACTS:LAND_FACTS);v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
+  setTimeout(()=>{const x=g.x-g.ox*18,z=g.z-g.oz*18;const f=findFree(x,z,0.6);player.x=f[0];player.z=f[1];player.feet=floorAt(f[0],f[1]);player.camY=player.feet+player.eye;player.vy=0;player.yaw=Math.atan2(-g.ox,-g.oz);player.pitch=0;
+    addHours(1);updateSky();curZone=null;v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';toast('<span class="label">'+c.data.name+' te deja en el límite del territorio</span><br>Sigue el camino: un poco más allá está el paso hacia '+mapName(g.to)+'.');},700);},2400);}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -12608,7 +12645,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -12628,6 +12665,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

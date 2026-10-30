@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 46). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 47). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,15 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 47: nombre del caballo y carreteros
+- **Nombre del caballo** (`hz().name`, `horseName`, `horseNameDlg`):
+  - Se le pone nombre al recibirlo, y después se puede cambiar hablando con el criador o con el auriga.
+  - El nombre aparece en los mensajes y en la barra mientras se cabalga. Por defecto se llama Céfiro en Atenas y Rayo en Roma.
+- **Carreteros** (`CARTERS`, `buildCarters`, `carterTalk`, `cartRide`):
+  - Hay uno por cada salida de cada mapa (45 en Grecia y 40 en Roma). En los destinos esperan al inicio del camino de la puerta; en Atenas y Roma, a un 30 % del trayecto entre el centro y la puerta.
+  - Por 1 óbolo o 2–3 sestercios por kilómetro te llevan junto a la puerta hacia el mapa vecino. El viaje cuesta una hora de juego.
+  - No se ponen si la puerta ya está a menos de 120 m.
 
 ### Novedades de la versión 46: conversaciones por la calle
 - **Conversaciones** (`CONVS_ATENAS` con 18 y `CONVS_ROMA` con 14; `buildConvs`, `convTick`): grupos de dos o tres personas charlan cerca del lugar que corresponde a su tema (mercado, Pnyx, teatro, puertos, termas, Foro…).
