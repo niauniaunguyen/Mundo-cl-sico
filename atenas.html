@@ -3664,7 +3664,7 @@ const ZONES=[
   {id:'campo',name:_t(2632,'Campos del Ática'),gr:'ΧΩΡΑ',sub:_t(2633,'Olivares, viñas y caminos entre los demos.'),test:()=>true},
 ];
 let curZone=null;
-function checkZone(){const z=ZONES.find(zn=>zn.test(player.x,player.z));if(z&&z.id!==curZone){curZone=z.id;showZone(z.name,z.gr,z.sub);}}
+function checkZone(){if(OLYM.built&&player.feet>OLYM.y-50){if(curZone!=='olimpo'){curZone='olimpo';showZone('El Olimpo','ΟΛΥΜΠΟΣ','La morada de los dioses');}return;}const z=ZONES.find(zn=>zn.test(player.x,player.z));if(z&&z.id!==curZone){curZone=z.id;showZone(z.name,z.gr,z.sub);}}
 
 // brújula
 const CDIRS=[['N',0],['NE',45],['E',90],['SE',135],['S',180],[_t(2634,'SO'),225],[_t(2635,'O'),270],[_t(2636,'NO'),315]];
@@ -7663,6 +7663,11 @@ function buildGreece2(){
    {const f=I.fount;blockBuilding({name:_t(6658,'Fuente de Teágenes'),x:f.x,z:f.z-4,rot:0,w:16,d:8,h:5.5,mat:M.limestone});for(let i=0;i<5;i++)addColumn(f.x-6+i*3,f.h,f.z+0.6,0.32,4.2,0,'doric');pool(f.x,f.z+4,14,4,f.h);
     place('fuente_teagenes',_t(6658,'Fuente de Teágenes'),'ΚΡΗΝΗ ΘΕΑΓΕΝΟΥΣ',_t(6659,'A finales del siglo VII, el tirano Teágenes hizo construir esta fuente, que Pausanias todavía admiraba por su tamaño, su decoración y el número de sus columnas. Teágenes fue el suegro de Cilón, el ateniense que intentó hacerse tirano de Atenas ocupando la Acrópolis, hacia el 632: sus partidarios fueron asesinados junto a los altares, y los Alcmeónidas cargaron desde entonces con la maldición.'),f.x+12,f.z+6,0);}
    {const o=I.oly;temple({name:_t(6660,'Olimpieion de Mégara'),x:o.x,z:o.z,rot:Math.PI/2,W:13,L:26,nW:6,nL:12,colD:1.1,colH:6.2,gy:o.h,cella:{w:8,l:15,door:2.6}});
+    {// la estatua inacabada de Teocosmo: rostro de oro y marfil, el resto de arcilla y yeso; detrás del templo, los troncos a medio desbastar (Pausanias I 40.4)
+     const sg=grp(o.x,o.h,o.z,Math.PI/2),clay=lam('#c9b8a0');box(3.4,1.2,2.6,clay,0,0.6,-4.2,sg);box(2.4,1.4,1.8,clay,0,1.9,-4.4,sg);
+     const zs=makePerson({noVary:true,chiton:'#d8cdb8',himation:'#b9a588',beard:true,hair:'#d9b44a',beardC:'#d9b44a',skin:'#efe4cc',scale:1.9});zs.position.set(0,1.2,-4.2);zs.rotation.y=0;sg.add(zs);
+     box(1.6,0.12,0.12,lam('#a8957a'),0.9,3.6,-3.6,sg);addCirc(...toW(0,-4.2,o.x,o.z,Math.PI/2),2);
+     for(let k=0;k<4;k++){const lg=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.42,4.5,8),lam('#8a6a4a'));lg.rotation.z=Math.PI/2;lg.position.set(-2+k*1.3,0.4,17+k%2*0.6);sg.add(lg);}}
     place('olimpieion_megara',_t(6660,'Olimpieion de Mégara'),'ΟΛΥΜΠΙΕΙΟΝ',_t(6661,'El templo de Zeus Olímpico de Mégara. Dentro hay una estatua del dios que no se terminó: el escultor Teocosmo, con ayuda de Fidias, había hecho el rostro de oro y marfil, pero al estallar la guerra del Peloponeso los megarenses gastaron el dinero en la guerra, y el resto del cuerpo se quedó de arcilla y yeso. Detrás del templo aún se ven los bloques de madera que debían recubrirse.'),o.x+18,o.z+6,0);}
    {const s=I.sch;stoa({name:_t(6662,'Pórtico de Euclides'),x:s.x,z:s.z,rot:0,len:24,depth:7,colH:4.4,colD:0.55});NPC_POS.euclides_megara=[s.x,s.z+8,Math.PI];
     place('escuela_megara',_t(6663,'La escuela de Mégara'),'ΜΕΓΑΡΙΚΟΙ',_t(6664,'Aquí enseña Euclides de Mégara (no confundir con el matemático Euclides de Alejandría, que nacerá dentro de medio siglo), discípulo de Sócrates. Tras la muerte de Sócrates en el 399, Platón y otros discípulos se refugiaron unos días en su casa. Sus alumnos, los megáricos, son famosos por sus argumentos y sus paradojas.'),s.x-16,s.z+8,0);}
@@ -10585,6 +10590,7 @@ function romaGodSpot(x,z){const h=INNER.size/2-45;x=clamp(x,INNER.x-h,INNER.x+h)
   for(let i=0;i<30&&(romaInUrbs(x,z)||romaRiverDist(x,z)<romaRiverW(z)+14);i++)x+=x<romaRiverX(z)?-8:8;
   for(let i=0;i<12&&roadDist(x,z)<16;i++)z+=6;return findFree(x,z,1.4);}
 function buildGods(){
+  {const zi=GODS.findIndex(d=>d.id==='zeus'||d.id==='iuppiter');if(zi>=0)GODS.splice(zi,1);}   // Zeus/Júpiter solo en el Olimpo
   const C=MODE==='roma'?{x:-80,z:-150}:WALLC;
   for(const d of GODS){const[x,z]=MODE==='roma'?romaGodSpot(...d.at()):outsideSpot(...d.at());
     const g=makePerson(Object.assign({scale:1.28,glow:d.glow||'#ffd27a'},d.look));g.position.set(x,floorAt(x,z),z);g.rotation.y=Math.atan2(C.x-x,C.z-z);g.visible=false;scene.add(g);
@@ -10711,10 +10717,10 @@ let focus=null;
 function findFocus(){
   const ay=aimYaw(),fx=-Math.sin(ay),fz=-Math.cos(ay);let best=null,bs=0;
   const test=(o,x,z,range)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>range)return;const dot=(dx*fx+dz*fz)/(d||1);if(dot<0.35&&d>1.2)return;const sc=dot*2-d/range;if(!best||sc>bs){best=o;bs=sc;}};
-  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const c of CARTERS)test(c,c.x,c.z,4.2);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
+  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const c of CARTERS)test(c,c.x,c.z,4.2);for(const o of MUSE_OBJS)test(o,o.x,o.z,3.6);for(const o of[OLYM.mnemo,OLYM.gate,OLYM.zeus,OLYM.back])if(o)test(o,o.x,o.z,o.kind==='zeus'?5:3.8);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else bark(focus);}
+function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else if(focus.kind==='musa')museTalk(focus);else if(focus.kind==='mnemo')mnemoTalk();else if(focus.kind==='olygate')olyGateTalk();else if(focus.kind==='zeus')zeusTalk();else if(focus.kind==='olyback')olyTravel(false);else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -10796,7 +10802,7 @@ function frame(now){
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='god'?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='sign'?_t(9318,'Leer: ')+focus.data.name:focus.kind==='relief'?_t(9319,'Observar: ')+focus.data.name:focus.kind==='sphere'?_t(9320,'Tocar la esfera: ')+focus.data.name:focus.kind==='captain'?_t(9317,'Hablar con ')+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo'||focus.kind==='fest')?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='carro'?_t(9317,'Hablar con ')+focus.data.name+', el carretero':_t(9321,'Escuchar');p.innerHTML='<kbd>'+(isTouch?_t(9322,'Hablar'):'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='god'?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='sign'?_t(9318,'Leer: ')+focus.data.name:focus.kind==='relief'?_t(9319,'Observar: ')+focus.data.name:focus.kind==='sphere'?_t(9320,'Tocar la esfera: ')+focus.data.name:focus.kind==='captain'?_t(9317,'Hablar con ')+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo'||focus.kind==='fest')?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='carro'?_t(9317,'Hablar con ')+focus.data.name+', el carretero':(focus.kind==='musa'||focus.kind==='mnemo'||focus.kind==='zeus')?_t(9317,'Hablar con ')+focus.data.name:focus.kind==='olygate'?'Examinar el sendero del Olimpo':focus.kind==='olyback'?'Bajar del Olimpo':_t(9321,'Escuchar');p.innerHTML='<kbd>'+(isTouch?_t(9322,'Hablar'):'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?_t(8910,'Caballo'):'H')+_t(9323,'</kbd>Montar el caballo');p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -11407,7 +11413,7 @@ function qualHTML(){const ro=MODE==='roma';
   h+='</div><h3 style="margin:22px 0 10px">'+(ro?'Amicitiae':'Amistades')+'</h3><p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Las personalidades más importantes no regalan su amistad. Pasa tiempo con ellas (como mucho una vez al día), responde como lo haría alguien de su confianza y cultiva las cualidades que valoran. Cada encuentro te descubre algo nuevo de su vida y de lo que saben.</p><div class="entries">';
   for(const id in FRIENDS){const F=FRIENDS[id];if(F.m!==MODE)continue;const n=NPCS.find(x=>x.id===id);if(!n)continue;const a=fz(id),met=state.seen&&state.seen['m:'+id];
     h+='<div class="entry'+(met?'':' locked')+'"><span class="label">'+fGrade(a.p)+'</span><h3>'+(met?n.name:'Sin conocer')+'</h3><div class="qbar"><i style="width:'+a.p+'%"></i></div><p>'+(met?(a.log.length?a.log.map(i=>'· '+F.e[i].h).join('<br>'):'Aún no habéis pasado tiempo juntos.'):'Busca a esta personalidad: '+n.where+'.')+'</p>'+(a.p>=100?'<div class="where">'+F.gift+'</div>':'')+'</div>';}
-  return h+'</div>'+discHTML();}
+  return h+'</div>'+discHTML()+musesHTML();}
 // ---- amistades: afinidad 0-100, cinco encuentros que exigen cualidades crecientes; una respuesta torpe solo suma un poco y obliga a volver otro día
 function fz(id){if(!state.friends||typeof state.friends!=='object')state.friends={};if(!state.friends[id])state.friends[id]={p:0,t:0,day:0,log:[]};return state.friends[id];}
 function fGrade(p){const ro=MODE==='roma';return p>=100?(ro?'Amicitia: amistad íntima':'Philía: amistad íntima'):p>=60?'Amistad':p>=40?'Confianza':p>=20?'Trato cordial':p>0?'Conocido':'Desconocido';}
@@ -12087,6 +12093,7 @@ function guideHTML(){const ro=MODE==='roma',mon=ro?'sestercios':_t(2598,'óbolos
    ['Amistades','Las grandes personalidades tienen un medidor de afinidad. Elige «Pasar un rato juntos» (una vez al día) y responde como lo haría alguien de su confianza. Cada encuentro pide más nivel en tus cualidades.'],
    ['Maestros y rivales','Con su confianza, puedes pedir ser discípulo de un maestro: prueba de admisión, cuatro lecciones con encargos y un título. Sus rivales te mirarán mal y te retarán a debatir.'],
    ['Caballo y alas','Al principio no tienes caballo: '+(ro?'Félix, el auriga de los Verdes,':'Eudico de Larisa, en el Ágora,')+' te dará uno si le haces un favor. Al cabalgar, recoge las esferas doradas para que suba de nivel.'+(ro?'':' En el sueño de Cnosos, Dédalo puede darte unas alas (X para volar).')],
+   ['Las Musas y el Olimpo','Las nueve Musas esperan en los lugares de su arte. Aprende antes de las personas que saben de él y supera su examen para recibir su don. Con los nueve dones, Mnemósine te dará a beber de la Memoria y recordarás el sendero del Olimpo, donde vive '+(ro?_t(4249,'Júpiter'):_t(777,'Zeus'))+'. Lo tienes todo en la pestaña Ficha.'],
    ['Biblioteca y fuentes','La biblioteca (B) reúne todas las fuentes antiguas y modernas de lo que ves en el juego. Úsala para ampliar o para hacer trabajos.'],
    ['Guardar','La partida se guarda sola en tu navegador. Con «Guardar partida» (arriba, en el diario) te descargas una copia para seguir en otro ordenador.']];
   return '<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Todo lo que puedes hacer en '+(ro?_t(2718,'Roma'):_t(2719,'Atenas'))+', en pocas líneas.</p><div class="entries">'+G.map(g=>'<div class="entry"><h3>'+g[0]+'</h3><p>'+g[1]+'</p></div>').join('')+'</div>';}
@@ -12599,6 +12606,209 @@ function cartRide(c){const g=c.gate;ui='voyage';if(MOUNT.riding)dismount();const
   setTimeout(()=>{const x=g.x-g.ox*18,z=g.z-g.oz*18;const f=findFree(x,z,0.6);player.x=f[0];player.z=f[1];player.feet=floorAt(f[0],f[1]);player.camY=player.feet+player.eye;player.vy=0;player.yaw=Math.atan2(-g.ox,-g.oz);player.pitch=0;
     addHours(1);updateSky();curZone=null;v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';toast('<span class="label">'+c.data.name+' te deja en el límite del territorio</span><br>Sigue el camino: un poco más allá está el paso hacia '+mapName(g.to)+'.');},700);},2400);}
 
+// ============================================================ las nueve Musas, Mnemósine y el Olimpo
+// Cada musa: dónde está, qué inspira, con quién hay que haber aprendido (pre: lecciones; hacen falta 2) y examen de 4 preguntas (aprobar con 3).
+// En cada pregunta, la primera respuesta es la correcta (se barajan).
+const MUSAS_ATENAS=[
+ {id:'caliope',name:'Calíope',arte:'la poesía épica',at:'place:ilion_templo',look:{female:true,chiton:'#fff4dc',himation:'#c9a24a',hair:'#5b4532'},pre:['ilion','locria','abuela','creta'],
+  don:'la voz de los rapsodas',dq:'so',
+  q:[['¿Sobre qué trata la Ilíada?',['La cólera de Aquiles en el último año de la guerra de Troya','Toda la guerra de Troya, desde el rapto de Helena','El regreso de Ulises a Ítaca']],
+     ['¿Qué castigo pagaban los locrios por el sacrilegio de Áyax en Troya?',['Enviar cada año a dos doncellas a servir a Atenea en Ilión','Pagar un talento de oro cada año','No participar en los Juegos Olímpicos']],
+     ['¿En qué verso están escritos los poemas homéricos?',['En hexámetro dactílico','En trímetro yámbico','En prosa rítmica']],
+     ['¿Quiénes recitaban los poemas de Homero en las fiestas?',['Los rapsodas','Los coregos','Los arcontes']]]},
+ {id:'clio',name:'Clío',arte:'la historia',at:'place:trofeo_maraton',look:{female:true,chiton:'#efe6d4',himation:'#6a4d7a',hair:'#3b2a1e'},pre:['eutiades','hegesias','lampon','hoplita'],
+  don:'la memoria de los hechos',dq:'so',
+  q:[['¿Quién llevó a los persas por el sendero que rodeaba a los griegos en las Termópilas?',[_t(9076,'Efialtes, un hombre de la región'),_t(9078,'Temístocles'),'Demarato']],
+     ['¿Qué ciudad fue la única que envió tropas para ayudar a Atenas en Maratón?',[_t(2376,'Platea'),_t(2423,'Esparta'),_t(2373,'Corinto')]],
+     ['¿Por qué los espartanos llegaron tarde a Maratón?',['Esperaban a la luna llena por motivos religiosos','Estaban en guerra con Argos','Se perdieron por el camino']],
+     ['¿Quién escribió una gran obra para que no se olvidaran las hazañas de griegos y bárbaros?',['Heródoto de Halicarnaso',_t(5597,'Homero'),_t(6264,'Píndaro')]]]},
+ {id:'erato',name:'Erato',arte:'la poesía amorosa',at:'npc:lesbos',look:{female:true,chiton:'#f3e5e8',himation:'#c96a8a',hair:'#3b2a1e'},pre:['lesbos','filina','citarista','novia'],
+  don:'la lira de los enamorados',dq:'lo',
+  q:[['¿De qué isla era la poetisa Safo?',[_t(2414,'Lesbos'),_t(2405,'Delos'),_t(2411,'Creta')]],
+     ['¿Con qué instrumento se acompañaba la poesía lírica?',[_t(6230,'La lira'),'El aulós de guerra','La trompeta']],
+     ['¿De qué palabra griega viene el nombre de Erato?',['De éros, el amor','De ergon, el trabajo','De eiréne, la paz']],
+     ['¿Dónde se recitaban a menudo los poemas de amor y de vino?',['En el simposio, el banquete','En la Asamblea','En el tribunal']]]},
+ {id:'euterpe',name:'Euterpe',arte:'la música',at:'place:escuela_musica',look:{female:true,chiton:'#e8f0e4',himation:'#5a8a3a',hair:'#5b4532'},pre:['citarista','filina','maestro','paidotribes'],
+  don:'el oído afinado',dq:'so',
+  q:[['¿Qué es el aulós?',['Un instrumento de viento de dos tubos','Una lira grande de concierto','Un tambor de bronce']],
+     ['Según el mito, ¿por qué tiró Atenea el aulós?',['Porque al tocarlo se le hinchaban las mejillas y se veía fea','Porque sonaba mal','Porque se lo robó Hermes']],
+     ['¿Quién inventó la lira, según el mito?',['Hermes, con el caparazón de una tortuga','Apolo, con un arco','Orfeo, con cuerdas de oro']],
+     ['¿Por qué los griegos daban tanta importancia a la música en la educación?',['Creían que educaba el carácter y armonizaba el alma','Porque era obligatoria para ir a la guerra','Porque daba dinero']]]},
+ {id:'melpomene',name:'Melpómene',arte:'la tragedia',at:'place:teatro',look:{female:true,chiton:'#e8e0e8',himation:'#4a2a3a',hair:'#2a1a12'},pre:['aristofanes','antifanes','araros','librero'],
+  don:'la máscara trágica',dq:'lo',
+  q:[['¿En qué fiesta se celebran los grandes concursos de tragedias de Atenas?',['Las Grandes Dionisias','Las Panateneas','Las Tesmoforias']],
+     ['¿Cuántos actores con papel hablado podía haber en escena en una tragedia?',[_t(3315,'Tres'),'Uno',_t(3316,'Doce')]],
+     ['¿Quién escribió Medea y Las troyanas?',['Eurípides','Esquilo','Sófocles']],
+     ['¿Qué presentaba cada poeta trágico en el concurso?',['Tres tragedias y un drama satírico','Una sola tragedia muy larga','Tres comedias']]]},
+ {id:'talia',name:'Talía',arte:'la comedia',at:'place:fuente_teagenes',look:{female:true,chiton:'#fff0d8',himation:'#d9874a',hair:'#5b4532'},pre:['aristofanes','araros','antifanes','ciudadano'],
+  don:'la risa que enseña',dq:'kl',
+  q:[['¿De quién se burlaba Aristófanes en Las nubes?',['De Sócrates y los sofistas','De Pericles','De Esparta']],
+     [_t(7401,'¿Qué es la parábasis?'),['El momento en que el coro habla directamente al público','El final feliz de la comedia','La máscara del protagonista']],
+     ['¿Qué hacen las mujeres en Lisístrata para acabar con la guerra?',['Se ponen de acuerdo para obligar a los hombres a firmar la paz','Toman las armas','Huyen a Esparta']],
+     ['¿En qué fiesta de invierno se hacían concursos de comedia, con pocos extranjeros en la ciudad?',['Las Leneas','Las Panateneas','Las Carneas']]]},
+ {id:'polimnia',name:'Polimnia',arte:'los himnos sagrados',at:'place:templo_apolo_delfos',look:{female:true,chiton:'#f4f4f0',himation:'#9a9a9a',veil:true,hair:'#3b2a1e'},pre:['teodoro','sacerdotisa','iniciada','orfeotelesta'],
+  don:'la palabra que agrada a los dioses',dq:'eu',
+  q:[['¿Qué inscripción se lee en el templo de Apolo en Delfos?',['«Conócete a ti mismo»','«Ama a tu prójimo»','«La paz es el mayor bien»']],
+     ['¿Quién da las respuestas del oráculo de Delfos?',['La Pitia, una sacerdotisa','El rey de Delfos','Un niño elegido por sorteo']],
+     ['¿Qué está prohibido revelar a los iniciados de Eleusis?',['Lo que ven y oyen en los Misterios','Su nombre','La fecha de la fiesta']],
+     [_t(7816,'¿Qué es un peán?'),['Un himno a Apolo, a menudo de victoria o de curación','Un tipo de sacrificio de toros','Una carrera de antorchas']]]},
+ {id:'terpsicore',name:'Terpsícore',arte:'la danza y el coro',at:'place:delos_lago',look:{female:true,chiton:'#f0e8d0',himation:'#2f6a8a',hair:'#5b4532'},pre:['delos','agoge','paidotribes','naxos'],
+  don:'los pies ligeros',dq:'ar',
+  q:[['¿Qué significa originalmente «coro» en griego?',['Danza o grupo de danzantes','Canto fúnebre','Templo']],
+     ['¿Qué danza bailaron Teseo y los jóvenes atenienses en Delos al volver de Creta?',['La danza de la grulla, que imita las vueltas del laberinto','La danza de las espadas','La danza de los sátiros']],
+     ['¿Quiénes cantaban y bailaban en honor de Apolo en Delos?',['El coro de las doncellas Delíades','Los sacerdotes de Zeus','Los atletas olímpicos']],
+     ['¿Qué es la pírrica?',['Una danza con armas, para entrenar a los guerreros','Una danza nupcial','Una danza de pastores']]]},
+ {id:'urania',name:'Urania',arte:'la astronomía',at:'place:academia',look:{female:true,chiton:'#e4ecf8',himation:'#1f3a6a',hair:'#2a1a12'},pre:['teeteto','espeusipo','platon','pitagorico'],
+  don:'la mirada a las estrellas',dq:'so',
+  q:[['¿Qué significa «planeta» en griego?',['Errante, vagabundo','Brillante','Lejano']],
+     ['¿Qué filósofo de Mileto dicen que predijo un eclipse de sol?',['Tales','Anaximandro',_t(7050,'Heráclito')]],
+     ['¿Para qué usaban los campesinos y marineros griegos la salida de las Pléyades?',['Para saber cuándo cosechar y cuándo navegar','Para adivinar el futuro de los reyes','Para elegir a los arcontes']],
+     ['Según los pitagóricos, ¿qué hay detrás del orden del cielo?',['Números y proporciones, como en la música','El capricho de los dioses','Nada, es puro azar']]]}];
+const MUSAS_ROMA=[
+ {id:'caliope',name:'Calíope',arte:'la poesía épica',at:'place:tumba_virgilio',look:{female:true,chiton:'#fff4dc',himation:'#c9a24a',hair:'#5b4532'},pre:['valeria','verrio','quintiliano','vibio'],
+  don:'la voz de los rapsodas',dq:'so',
+  q:[['¿Quién es el protagonista de la Eneida?',['Eneas, el troyano que llegó a Italia',_t(5594,'Rómulo'),_t(5583,'Augusto')]],
+     ['¿Qué quiso hacer Virgilio con la Eneida antes de morir?',['Quemarla, porque no la había terminado','Dedicársela a Cleopatra','Venderla a un librero']],
+     ['¿Quién impidió que la Eneida se perdiera?',[_t(5583,'Augusto'),_t(5580,'Nerón'),_t(4093,'Julio César')]],
+     ['¿En qué verso escribió Virgilio la Eneida, como Homero?',['En hexámetros','En versos saturnios','En prosa']]]},
+ {id:'clio',name:'Clío',arte:'la historia',at:'place:ro_tabularium',look:{female:true,chiton:'#efe6d4',himation:'#6a4d7a',hair:'#3b2a1e'},pre:['tacito','josefo','vibio','plinio'],
+  don:'la memoria de los hechos',dq:'so',
+  q:[['¿De qué ciudad era el historiador Tito Livio?',['Patavium (Padua)',_t(2718,'Roma'),_t(2884,'Cartago')]],
+     ['¿Sobre qué escribió Flavio Josefo su gran obra?',['La guerra de los judíos contra Roma','La fundación de Roma','La conquista de Britania']],
+     ['¿Cómo se titula la historia de Livio?',['Desde la fundación de la ciudad','Los anales del pueblo','La guerra de las Galias']],
+     ['¿Cómo ordenaban los historiadores romanos los acontecimientos?',['Año por año, por los cónsules de cada año','Por emperadores solamente','Por orden alfabético']]]},
+ {id:'erato',name:'Erato',arte:'la poesía amorosa',at:'place:catulo',look:{female:true,chiton:'#f3e5e8',himation:'#c96a8a',hair:'#3b2a1e'},pre:['sulpicia','aurelia','marcial','valeria'],
+  don:'la lira de los enamorados',dq:'lo',
+  q:[['¿Con qué nombre llamaba Catulo a la mujer amada en sus poemas?',['Lesbia','Cintia',_t(371,'Corina')]],
+     ['¿Adónde desterró Augusto al poeta Ovidio?',['A Tomis, junto al mar Negro','A Atenas','A Hispania']],
+     ['¿Qué forma de verso usan los poetas elegíacos romanos?',['El dístico elegíaco','El verso saturnio','El trímetro yámbico']],
+     ['¿Quién escribió versos de amor a su esposo, algo raro en Roma?',[_t(3166,'Sulpicia'),'Livia',_t(3233,'Cornelia')]]]},
+ {id:'euterpe',name:'Euterpe',arte:'la música',at:'place:ro_pompeyo',look:{female:true,chiton:'#e8f0e4',himation:'#5a8a3a',hair:'#5b4532'},pre:['ambivio','licinia','sarapion','termas'],
+  don:'el oído afinado',dq:'so',
+  q:[['¿Qué instrumento hacen sonar los sacerdotes de Isis?',['El sistro, un sonajero de bronce','La trompeta de guerra','El órgano de agua']],
+     ['¿Con qué instrumentos acompañan los galos de la Gran Madre sus procesiones?',['Tímpanos y címbalos','Liras y arpas','Flautas de caña solo']],
+     ['¿Cómo se llama en latín la flauta doble, el aulós de los griegos?',[_t(6179,'Tibia'),'Tuba','Lituus']],
+     ['¿Qué instrumento funciona con agua y aire, y le encantaba a Nerón?',['El órgano hidráulico','La cítara','El cuerno']]]},
+ {id:'melpomene',name:'Melpómene',arte:'la tragedia',at:'place:ro_marcelo',look:{female:true,chiton:'#e8e0e8',himation:'#4a2a3a',hair:'#2a1a12'},pre:['ambivio','quintiliano','verrio','marcial'],
+  don:'la máscara trágica',dq:'lo',
+  q:[['¿Qué filósofo romano escribió tragedias como Medea y Fedra?',[_t(3822,'Séneca'),_t(5604,'Cicerón'),'Lucrecio']],
+     ['¿Cuál fue el primer teatro permanente de piedra en Roma?',['El de Pompeyo','El de Marcelo','El Coliseo']],
+     ['¿Qué espectáculo, con un solo bailarín enmascarado, se ha puesto de moda y desplaza a la tragedia?',['La pantomima','La naumaquia','El mimo de Atela']],
+     ['¿De quién copiaron los romanos la tragedia?',['De los griegos','De los etruscos','De los egipcios']]]},
+ {id:'talia',name:'Talía',arte:'la comedia',at:'place:umbros',look:{female:true,chiton:'#fff0d8',himation:'#d9874a',hair:'#5b4532'},pre:['ambivio','marcial','flavio','hermeros'],
+  don:'la risa que enseña',dq:'kl',
+  q:[['¿De qué región de Italia era Plauto?',['De Umbría, de Sarsina','De Campania','De Hispania']],
+     ['¿De dónde era originalmente Terencio?',['De África, y llegó a Roma como esclavo',_t(4041,'De Atenas'),'De la Galia']],
+     ['¿Qué eran las farsas atelanas?',['Comedias populares de personajes fijos, como el glotón o el viejo tonto','Tragedias sobre reyes','Himnos a Júpiter']],
+     ['¿En qué se inspiraban las comedias de Plauto y Terencio?',['En la comedia nueva griega, como la de Menandro','En la historia de Roma','En los mitos egipcios']]]},
+ {id:'polimnia',name:'Polimnia',arte:'los himnos sagrados',at:'place:ro_apolo',look:{female:true,chiton:'#f4f4f0',himation:'#9a9a9a',veil:true,hair:'#3b2a1e'},pre:['cornelia','augur','sarapion','licinia'],
+  don:'la palabra que agrada a los dioses',dq:'eu',
+  q:[['¿Qué poeta escribió el Canto secular para los Juegos Seculares de Augusto?',['Horacio',_t(3823,'Virgilio'),_t(5600,'Ovidio')]],
+     ['¿Qué sacerdotes bailan con escudos sagrados en marzo cantando un himno tan antiguo que ya nadie lo entiende?',['Los salios','Los augures','Los lupercos']],
+     ['¿Qué hace un augur?',['Interpreta la voluntad de los dioses observando las aves','Sacrifica los toros','Guarda el fuego sagrado']],
+     ['¿Qué ocurre si en un rito romano se comete un error en las palabras?',['Hay que repetirlo desde el principio','No pasa nada','Se castiga al sacerdote con la muerte']]]},
+ {id:'terpsicore',name:'Terpsícore',arte:'la danza y el coro',at:'place:neapolis',look:{female:true,chiton:'#f0e8d0',himation:'#2f6a8a',hair:'#5b4532'},pre:['cornelia','licinia','ambivio','numerio'],
+  don:'los pies ligeros',dq:'ar',
+  q:[['¿Qué sacerdotes romanos recorren la ciudad bailando en marzo con escudos?',['Los salios, sacerdotes de Marte',_t(3235,'Las vestales'),'Los flámines']],
+     ['¿Qué es un pantomimo?',['Un bailarín que cuenta un mito solo con gestos y danza','Un actor cómico que habla mucho','Un cantante de himnos']],
+     ['¿De qué ciudad de Hispania eran famosas las bailarinas con castañuelas?',['Gades (Cádiz)',_t(2973,'Tarraco'),'Emerita']],
+     ['¿Por qué Neápolis es una ciudad especial en Italia?',['Porque es griega y conserva su lengua, sus juegos y sus coros','Porque es la capital del Imperio','Porque allí nació Rómulo']]]},
+ {id:'urania',name:'Urania',arte:'la astronomía',at:'place:ro_obelisco',look:{female:true,chiton:'#e4ecf8',himation:'#1f3a6a',hair:'#2a1a12'},pre:['plinio','frontino','quintiliano','epicteto'],
+  don:'la mirada a las estrellas',dq:'so',
+  q:[['¿Para qué sirve el gran obelisco de Augusto en el Campo de Marte?',['Es la aguja de un enorme reloj de sol','Es una tumba egipcia','Es un faro']],
+     ['¿Quién reformó el calendario con la ayuda del astrónomo Sosígenes?',[_t(4093,'Julio César'),_t(5583,'Augusto'),'Numa']],
+     ['¿A qué deben su nombre los días de la semana que se están extendiendo en Roma?',['A los siete astros errantes: Sol, Luna, Marte, Mercurio, Júpiter, Venus y Saturno','A siete emperadores','A siete colinas']],
+     ['¿En qué libros de su Historia natural trata Plinio el Viejo del cielo y los astros?',['En el segundo, sobre el mundo y los astros','En el último, sobre las piedras','En ninguno']]]}];
+const MNEMO={A:{at:'place:dirce',name:'Mnemósine'},R:{at:'place:ro_capena',name:'Mnemósine'}};
+const OLY_GATE={A:'place:larisa_llanura',R:'place:ro_jupiter'};
+const MUSAS=()=>MODE==='roma'?MUSAS_ROMA:MUSAS_ATENAS;
+const MUSE_OBJS=[];const OLYM={x:0,z:0,y:1600,built:false,zeus:null,gate:null,mnemo:null,back:null};
+function muz(){if(!state.musas||typeof state.musas!=='object')state.musas={dons:{},day:{}};return state.musas;}
+function divineFigure(x,z,look,col,name,sub,scale){const g=makePerson(Object.assign({noVary:true,scale:scale||1.15,glow:col},look));g.position.set(x,floorAt(x,z),z);scene.add(g);
+  const h=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.7,fog:false,color:col}));h.scale.set(3.2,4.2,1);h.position.y=1.05;g.add(h);
+  const lb=labelSprite(name,sub,false);lb.position.y=2.5;lb.visible=false;g.add(lb);const mk=markerSprite();mk.position.y=2.95;g.add(mk);return{g,lb,mk};}
+function buildMusas(){MUSE_OBJS.length=0;
+  for(const m of MUSAS()){const p=stAnchor(m.at);if(!p)continue;const f=findFree(p.x+5,p.z+5,0.8);const F=divineFigure(f[0],f[1],m.look,'#ffe8c8',m.name,'musa de '+m.arte);
+    F.g.rotation.y=R()*TAU;F.mk.visible=!muz().dons[m.id];MUSE_OBJS.push({kind:'musa',x:f[0],z:f[1],g:F.g,lb:F.lb,mk:F.mk,m,data:{name:m.name,role:'musa'}});}
+  const M=MNEMO[MODE==='roma'?'R':'A'],p=stAnchor(M.at);
+  if(p){const f=findFree(p.x+6,p.z-4,0.8);const F=divineFigure(f[0],f[1],{female:true,chiton:'#1f2a4a',himation:'#3a4a7a',veil:true,hair:'#d8d0c2'},'#b8c8ff','Mnemósine','titánide de la memoria, madre de las Musas',1.3);
+    OLYM.mnemo={kind:'mnemo',x:f[0],z:f[1],g:F.g,lb:F.lb,mk:F.mk,data:{name:'Mnemósine',role:'madre de las Musas'}};F.mk.visible=Object.keys(muz().dons).length>=9&&!state.olyKey;}
+  const gp=stAnchor(OLY_GATE[MODE==='roma'?'R':'A']);
+  if(gp){const f=findFree(gp.x-8,gp.z+6,1.2);const g=grp(f[0],floorAt(f[0],f[1]),f[1],0);
+    box(1.2,4,1.2,M.limestone,0,2,0,g);const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.6,fog:false,color:'#fff4c0'}));s.scale.set(4,8,1);s.position.y=4.5;g.add(s);
+    const lb=labelSprite('Sendero del Olimpo','un camino que se pierde entre las nubes',false);lb.position.y=6.4;lb.visible=false;g.add(lb);addCirc(f[0],f[1],0.9);
+    OLYM.gate={kind:'olygate',x:f[0],z:f[1],g,lb,data:{name:'Sendero del Olimpo',role:''}};}}
+// ---- examen de una musa
+function museTalk(o){const m=o.m,mz=muz(),done=mz.dons[m.id];dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent=m.name.charAt(0);setName(m.name);$('dTitle').textContent='Musa de '+m.arte+' · hija de Zeus y de Mnemósine';
+  const opt=$('dOpts');const one=(t,fn,c)=>{const b=document.createElement('button');if(c)b.className=c;b.innerHTML='<span class="n">'+(opt.children.length+1)+'</span><span>'+t+'</span>';b.onclick=fn;opt.appendChild(b);};
+  opt.innerHTML='';
+  if(done){$('dBody').innerHTML='<p>Ya llevas mi don: '+m.don+'. Úsalo bien, mortal. Y cuando reúnas los de mis ocho hermanas, busca a nuestra madre, Mnemósine.</p><p class="sub">Dones reunidos: '+Object.keys(mz.dons).length+' de 9.</p>';one(_t(2657,'Despedirse'),closeDialog);$('dialog').hidden=false;return;}
+  const learned=m.pre.filter(id=>state.lessons.includes(id)),names=m.pre.map(id=>{const n=NPCS.find(x=>x.id===id);return n?n.name:id;});
+  $('dBody').innerHTML='<p>Soy '+m.name+', una de las nueve Musas. Inspiro '+m.arte+'. No regalo mi don a cualquiera: quien lo quiera tendrá que demostrar que sabe de lo mío. Y eso no se aprende de mí, sino de los hombres y mujeres que lo cultivan.</p>'+
+    '<p class="sub">Para pedir el examen, aprende al menos dos lecciones de estas personas: '+names.map((nm,i)=>learned.includes(m.pre[i])?'<b>'+nm+' ✓</b>':nm).join(', ')+'. Llevas '+learned.length+'.</p>';
+  if(learned.length<2){one('Iré a aprender',closeDialog);$('dialog').hidden=false;return;}
+  if(mz.day[m.id]===state.day){$('dBody').innerHTML+='<p>«Ya me has respondido hoy. Vuelve mañana: las Musas no tenemos prisa».</p>';one(_t(2657,'Despedirse'),closeDialog);$('dialog').hidden=false;return;}
+  one('Hacer el examen de '+m.name+' (4 preguntas, hay que acertar 3)',()=>museExam(o),'quiz');one('Todavía no',closeDialog);$('dialog').hidden=false;}
+function museExam(o){const m=o.m,mz=muz();mz.day[m.id]=state.day;save();let i=0,ok=0;const opt=$('dOpts');
+  const ask=()=>{const Q=m.q[i];$('dBody').innerHTML='<p class="sub">Pregunta '+(i+1)+' de '+m.q.length+'</p><p><b>'+Q[0]+'</b></p>';opt.innerHTML='';
+    Q[1].map((t,k)=>[t,k===0]).sort(()=>R()-0.5).forEach(([t,good],k)=>{const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">'+(k+1)+'</span><span>'+t+'</span>';b.onclick=()=>{if(good)ok++;i++;if(i<m.q.length)ask();else end();};opt.appendChild(b);});};
+  const end=()=>{opt.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Despedirse</span>';b.onclick=closeDialog;
+    if(ok>=3){mz.dons[m.id]=1;qAdd(m.dq,5,'El don de '+m.name+' te inspira.');qAdd('kl',2);sfxCoin();o.mk.visible=false;const n=Object.keys(mz.dons).length;
+      $('dBody').innerHTML='<p>Has acertado '+ok+' de '+m.q.length+'. '+m.name+' sonríe y te toca la frente.</p><div class="curio"><span class="label">Don de '+m.name+'</span><p>Recibes '+m.don+'.</p></div><p class="sub">Dones reunidos: '+n+' de 9.'+(n>=9?' Ya los tienes todos: busca a Mnemósine, la madre de las Musas.':'')+'</p>';
+      if(n>=9&&OLYM.mnemo)OLYM.mnemo.mk.visible=true;}
+    else $('dBody').innerHTML='<p>Has acertado '+ok+' de '+m.q.length+'. «No es suficiente. Vuelve a escuchar a quienes saben y regresa mañana».</p>';
+    save();updateStats();opt.appendChild(b);};
+  ask();}
+function mnemoTalk(){const n=Object.keys(muz().dons).length,ro=MODE==='roma';dlg={n:null};ui='dialog';releasePointer();
+  $('dGlyph').textContent='Μ';setName('Mnemósine');$('dTitle').textContent='Titánide de la memoria · madre de las nueve Musas';const opt=$('dOpts');opt.innerHTML='';
+  const one=(t,fn,c)=>{const b=document.createElement('button');if(c)b.className=c;b.innerHTML='<span class="n">'+(opt.children.length+1)+'</span><span>'+t+'</span>';b.onclick=fn;opt.appendChild(b);};
+  if(state.olyKey){$('dBody').innerHTML='<p>Ya recuerdas el camino. Sube por el '+(ro?'Capitolio, donde los romanos honran a Júpiter':'valle de Tesalia, al pie del Olimpo')+', hasta el sendero entre las nubes.</p>';one(_t(2657,'Despedirse'),closeDialog);}
+  else if(n<9){$('dBody').innerHTML='<p>Soy la Memoria. Sin mí no habría cantos, ni historia, ni ciencia: todo se olvidaría. Mis nueve hijas reparten sus dones a quienes aprenden. Tú llevas '+n+' de 9.</p><p>Cuando los tengas todos, vuelve: te daré de beber de mi fuente, y recordarás un camino que los mortales olvidaron.</p>';one(_t(2657,'Despedirse'),closeDialog);}
+  else{$('dBody').innerHTML='<p>Llevas los nueve dones. Mis hijas confían en ti. Bebe de mi fuente.</p><p>Al beber, recuerdas algo que nunca habías vivido: un sendero que sube desde '+(ro?'el Capitolio':'el valle de Tesalia')+' hasta las cumbres del Olimpo, donde viven los dioses.</p><p class="sub">En la Beocia, junto a los oráculos, se decía que había dos fuentes: la del Olvido y la de la Memoria. Los iniciados debían beber de la segunda.</p>';
+    one('Beber del agua de la Memoria',()=>{state.olyKey=1;qAdd('so',5);qAdd('eu',5);save();updateStats();sfxCoin();OLYM.mnemo.mk.visible=false;closeDialog();toast('<span class="label">Agua de la Memoria</span><br>Ya recuerdas el sendero del Olimpo: búscalo '+(ro?'en el Capitolio, junto al templo de Júpiter':'en la llanura de Tesalia, cerca de Larisa')+'.');},'quiz');}
+  $('dialog').hidden=false;}
+// ---- el Olimpo: un palacio sobre las nubes
+function buildOlympus(){if(OLYM.built)return;OLYM.built=true;const I=ISLANDS[0],X=I.x,Z=I.z+6200,Y=OLYM.y;Object.assign(OLYM,{x:X,z:Z});
+  const g=grp(X,Y,Z,0),marble=lam('#f4efe4'),gold=lam('#e0b84a');
+  const cl=new THREE.Mesh(new THREE.CircleGeometry(260,48),new THREE.MeshLambertMaterial({color:'#f6f8fb',transparent:true,opacity:0.95}));cl.rotation.x=-Math.PI/2;cl.position.y=-1.2;g.add(cl);
+  for(let i=0;i<40;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,color:'#ffffff',transparent:true,opacity:0.55,depthWrite:false}));const a=R()*TAU,d=60+R()*190;s.position.set(Math.cos(a)*d,rr(-2,6),Math.sin(a)*d);s.scale.set(rr(20,40),rr(8,14),1);g.add(s);}
+  box(90,2,110,marble,0,-1,0,g);addPlat(X,Z,90,110,0,Y);
+  for(const[a,b,c,d]of[[-45,-55,45,-55],[45,-55,45,55],[45,55,-45,55],[-45,55,-45,-55]])addSeg(X+a,Z+b,X+c,Z+d,0.4);
+  box(40,1.2,56,marble,0,0.6,-20,g);addPlat(X,Z-20,40,56,0,Y+1.2);
+  for(let i=0;i<8;i++)for(const s of[-1,1]){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.8,0.9,14,16),marble);c.position.set(s*17,8.2,-44+i*7.4);g.add(c);addCirc(X+s*17,Z-44+i*7.4,0.9);}
+  box(40,2,58,marble,0,16,-20,g);box(42,0.6,60,gold,0,17.3,-20,g);
+  const th=new THREE.Group();th.position.set(0,1.2,-42);g.add(th);box(4,1,3,gold,0,0.5,0,th);box(4,6,0.6,gold,0,3.5,-1.3,th);box(0.6,2,3,gold,-1.8,1.6,0,th);box(0.6,2,3,gold,1.8,1.6,0,th);
+  for(let i=0;i<11;i++){const a=-1.2+i*0.24,tx=Math.sin(a)*16,tz=-30-Math.cos(a)*10;const t=new THREE.Group();t.position.set(tx,1.2,tz);t.rotation.y=-a;g.add(t);box(2,0.8,1.8,marble,0,0.4,0,t);box(2,3,0.4,marble,0,2,-0.8,t);}
+  const ro=MODE==='roma',zx=X,zz=Z-38.5;const Zf=divineFigure(zx,zz,{chiton:'#fff4dc',himation:ro?'#7a1c3a':'#3a4a8a',beard:true,hair:'#d8d0c2',beardC:'#e8e0d0',attrs:[_t(4252,'G_thunderbolt_hand')]},'#fff0b0',ro?_t(4249,'Júpiter'):_t(777,'Zeus'),ro?'Óptimo Máximo, padre de los dioses':_t(9279,'padre de dioses y hombres'),1.8);
+  Zf.g.rotation.y=0;Zf.g.position.y=OLYM.y+1.2;OLYM.zeus={kind:'zeus',x:zx,z:zz+2.5,g:Zf.g,lb:Zf.lb,mk:Zf.mk,data:{name:ro?_t(4249,'Júpiter'):_t(777,'Zeus'),role:''}};Zf.mk.visible=!state.zeusMet;
+  const bk=grp(X,Y,Z+48,0);box(1,3,1,marble,0,1.5,0,bk);const lb=labelSprite('Bajar del Olimpo','volver al mundo de los mortales',false);lb.position.y=4;lb.visible=false;bk.add(lb);OLYM.back={kind:'olyback',x:X,z:Z+48,g:bk,lb,data:{name:'Bajar del Olimpo',role:''}};}
+function olyTravel(up){ui='voyage';if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}FLY.on=false;const v=$('voyage');v.classList.add('land');
+  v.querySelector('.vt').textContent=up?'Subes por el sendero entre las nubes…':'Bajas del Olimpo…';v.querySelector('.vs').textContent=up?'El aire se vuelve dorado. Ya no se oyen las ciudades.':'Las nubes se abren y vuelves a ver la tierra de los mortales.';v.querySelector('.vf').textContent='';v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
+  setTimeout(()=>{if(up){buildOlympus();player.x=OLYM.x;player.z=OLYM.z+40;player.yaw=0;}else{const G=OLYM.gate;player.x=G.x+3;player.z=G.z+3;}
+    player.feet=floorAt(player.x,player.z);player.camY=player.feet+player.eye;player.vy=0;player.pitch=0;curZone=null;v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';if(up)toast('<span class="label">El Olimpo</span><br>Al fondo del palacio, en su trono, te espera '+(MODE==='roma'?_t(4249,'Júpiter'):_t(777,'Zeus'))+'.');},700);},2600);}
+function olyGateTalk(){dlg={n:null};ui='dialog';releasePointer();$('dGlyph').textContent='Ο';setName('Sendero del Olimpo');$('dTitle').textContent='Un camino que se pierde entre las nubes';const opt=$('dOpts');opt.innerHTML='';
+  const one=(t,fn,c)=>{const b=document.createElement('button');if(c)b.className=c;b.innerHTML='<span class="n">'+(opt.children.length+1)+'</span><span>'+t+'</span>';b.onclick=fn;opt.appendChild(b);};
+  if(!state.olyKey){$('dBody').innerHTML='<p>Un sendero de piedra blanca sube hacia las nubes y se borra. Por más que lo intentas, no recuerdas por dónde sigue. Los mortales olvidaron hace mucho el camino de los dioses.</p><p class="sub">Quizá la Memoria pueda ayudarte. Dicen que solo atiende a quien ha reunido los dones de sus nueve hijas, las Musas.</p>';one(_t(2667,'Volver'),closeDialog);}
+  else{$('dBody').innerHTML='<p>Ahora recuerdas el sendero. Cada piedra está donde la memoria dice que debe estar.</p>';one('Subir al Olimpo',()=>{closeDialog();olyTravel(true);},'quiz');one(_t(7095,'Ahora no'),closeDialog);}
+  $('dialog').hidden=false;}
+function zeusTalk(){const ro=MODE==='roma',Z=ro?_t(4249,'Júpiter'):_t(777,'Zeus');dlg={n:null};ui='dialog';releasePointer();$('dGlyph').textContent=Z.charAt(0);setName(Z);$('dTitle').textContent=ro?'Júpiter Óptimo Máximo · padre de los dioses':'Zeus Olímpico · padre de dioses y hombres';
+  const opt=$('dOpts');const T=ro?[
+   ['¿Por qué te llaman Óptimo Máximo?','Porque soy el mejor y el más grande, y Roma me lo recuerda en cada triunfo: el general vencedor sube al Capitolio vestido como yo, con la cara pintada de rojo, y un esclavo le susurra al oído que es mortal. Este año mi templo del Capitolio ha ardido. No te preocupes: no vivo en él. Vivo aquí, y en cada juramento que los romanos cumplen.'],
+   ['¿Qué esperas de los romanos?','Fides: que cumplan su palabra. Los tratados, los contratos, los juramentos se hacen ante mí. Cuando un romano jura por Júpiter y miente, el rayo es lo de menos: lo peor es que ya nadie confía en él.'],
+   ['¿Eres el mismo que el Zeus de los griegos?','Los romanos me reconocieron en él cuando conocieron a los griegos. Pero yo era Júpiter antes: el dios del cielo de los latinos, el del rayo y la lluvia, el que veneraban los pastores del Lacio. Los nombres cambian; el cielo es el mismo.']]:[
+   ['¿Cómo llegaste a reinar?','Mi padre Crono devoraba a sus hijos para que ninguno lo destronara. Mi madre Rea me escondió en Creta y le dio a él una piedra envuelta en pañales. Crecí, le hice vomitar a mis hermanos y luchamos diez años contra los Titanes. Vencimos, y repartimos el mundo: a Poseidón el mar, a Hades el mundo de abajo, a mí el cielo.'],
+   ['¿Qué esperas de los hombres?','Que respeten a los huéspedes, a los suplicantes y los juramentos. Soy Zeus Xenio, protector de los forasteros: quien cierra la puerta a un viajero me la cierra a mí. Y le di a los hombres la justicia, Dike, para que no vivieran como los peces, que se comen unos a otros.'],
+   ['¿Por qué no se te encuentra por los caminos?','Porque soy el padre, no un vecino. Mis hijos y mis hermanos bajan a la tierra con más gusto. A mí solo llegan quienes han aprendido de verdad: por eso te pedí, a través de mis hijas y de su madre, que recordaras antes de subir.']];
+  const menu=()=>{opt.innerHTML='';let k=1;const add=(t,fn,c)=>{const b=document.createElement('button');if(c)b.className=c;b.innerHTML='<span class="n">'+(k++)+'</span><span>'+t+'</span>';b.onclick=fn;opt.appendChild(b);};
+    T.forEach(t=>add(t[0],()=>{$('dBody').innerHTML='<p>'+t[1]+'</p>';menu();}));
+    if(!state.zeusMet)add('Recibir la bendición de '+Z,()=>{state.zeusMet=1;['so','lo','ar','eu','kl'].forEach(q=>qAdd(q,6));state.obols+=20;save();updateStats();sfxCoin();OLYM.zeus.mk.visible=false;
+      $('dBody').innerHTML='<p>'+Z+' levanta la mano y el cielo retumba sin una nube. «Has aprendido de los hombres, has convencido a mis hijas y has recordado lo que todos olvidaron. Vuelve abajo y enseña lo que sabes: así es como los mortales se acercan a los dioses».</p><div class="curio"><span class="label">Bendición de '+Z+'</span><p>Todas tus cualidades crecen, y recibes veinte '+(ro?'sestercios':_t(2598,'óbolos'))+' de oro del tesoro de los dioses.</p></div>';menu();},'quiz');
+    add(_t(2657,'Despedirse'),closeDialog);};
+  $('dBody').innerHTML='<p>'+(ro?'Así que tú eres el mortal que ha convencido a las nueve Musas. Pocos llegan hasta aquí. Siéntate… no, ahí no: ese es el trono de Juno.':'Así que tú eres el mortal que ha convencido a mis nueve hijas y ha bebido de la Memoria. Pocos llegan hasta aquí. Siéntate… no, ahí no: ese es el trono de Hera.')+'</p>';menu();$('dialog').hidden=false;}
+function musesHTML(){const mz=muz(),L=MUSAS();return '<h3 style="margin:22px 0 10px">Las nueve Musas</h3><p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Cada Musa espera en el lugar que mejor conviene a su arte. Aprende de las personas que lo cultivan, supera su examen y recibe su don. Con los nueve, busca a Mnemósine'+(state.olyKey?' (ya bebiste de su fuente: sube al Olimpo)':'')+'.</p><div class="entries">'+
+  L.map(m=>{const ok=mz.dons[m.id];const p=PLACES.find(q=>'place:'+q.id===m.at);return '<div class="entry'+(ok?'':' locked')+'"><span class="label">'+(ok?'Don recibido ✓':'Musa de '+m.arte)+'</span><h3>'+m.name+'</h3><p>'+(ok?'Te dio '+m.don+'.':'Inspira '+m.arte+'.')+'</p><div class="where">'+(p?'Cerca de: '+p.name:'')+'</div></div>';}).join('')+'</div>';}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -12642,7 +12852,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -12662,6 +12872,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
