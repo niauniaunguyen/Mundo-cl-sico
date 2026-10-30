@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 33). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 34). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,11 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 34: Grecia e Italia a pie
+- **Caminos entre mapas** (`WORLD_LINKS`, `defineGates`, `buildGates`, `gatesTick`, `gateTravel`): cada mapa (la ciudad de partida y cada destino de tierra) se une a sus vecinos reales. La puerta está en el borde del mapa, en la dirección geográfica del vecino según `MED_POS`/`MED_POS_RO` (`bearing`), y dentro de un margen de ±50° busca el paso más llano. Un camino aplanado (pads con `road:true`, que mandan sobre los demás en `islandH`) va desde las afueras del pueblo hasta la puerta; `destHouses` no construye encima. Al llegar a la puerta se camina (unos 5 km por hora de juego, como mucho 30 h) hasta la puerta del mapa vecino que mira hacia el de origen. En la ciudad de partida, las puertas están al final de los caminos (`homeGate`): Atenas, Vía Sacra → Mégara, camino del norte → Platea, noreste → Maratón; Roma, Vía Aurelia → Etruria, Flaminia → Umbría, Salaria → Piceno, Labicana → Samnio, Apia → Campania. El plano marca las salidas («→ destino»).
+- **Mapas nuevos** para completar la red (`SIMPLE_GR`, `SIMPLE_RO`, `defineSimple`, `buildSimple`): Larisa (Tesalia, con caballos), Pela (Macedonia), Dodona (Épiro, encina y calderos), Calidón (Etolia), Egio (Acaya), Itome (Mesenia) y Calcis (Eubea), y en Italia Regium (Brucio). Cada uno tiene pueblo, santuario y una estela. El arriero también llega a ellos.
+- Red de Grecia: Atenas–Mégara–Corinto–Micenas–Argos (–Epidauro, –Mantinea–Esparta–Itome–Olimpia), Corinto–Egio–Olimpia, Mantinea–Olimpia, Atenas–Platea–Tebas (–Calcis, –Delfos–Termópilas–Larisa–Pela/Dodona), Delfos–Calidón–Dodona, Atenas–Maratón. Italia: Roma con Etruria, Umbría, Piceno, Samnio y Campania; Etruria–Liguria/Emilia, Umbría–Piceno/Emilia, Samnio–Campania/Apulia, Campania–Lucania–Regium, Apulia–Lucania, Emilia–Liguria/Transpadana/Venecia, Transpadana–Venecia/Liguria. Las islas, Hispania y África siguen siendo por mar.
 
 ### Novedades de la versión 33: días y acontecimientos
 - **Días:** al pasar la medianoche empieza un día nuevo (`state.day`, `addHours`, `newDay`; la tecla T y los viajes también cuentan). El reloj muestra «día N» y, si lo hay, el acontecimiento del día.
