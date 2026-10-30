@@ -2789,7 +2789,7 @@ function placeNPCs(){
     alfarero:[potX,potZ,0],sacerdotisa:[-3.4,-31,Math.PI/2],aristofanes:[THEA.x+3,THEA.z+4,Math.PI],hoplita:[PG.x+LW_DIR[0]*26,PG.z+LW_DIR[1]*26,0],
     pasion:[...AL(40,-19.6),0],filina:[sympDoor[0],sympDoor[1],Math.atan2(D.ox,D.oz)+Math.PI/2],antistenes:[CYNO.x+2,CYNO.z+1.6,0]
   };
-  Object.assign(pos,{orfeotelesta:[ELEUS.x+21,ELEUS.z+8,Math.PI/2],abuela:[...AL(60,71),0],enfermo:[-37,114,Math.PI/2],iniciada:[ELEUS.x+6,ELEUS.z+12,Math.PI/2]},NPC_POS);
+  Object.assign(pos,{platonakis:[ACADEMY.x+18,ACADEMY.z+32,1.3],orfeotelesta:[ELEUS.x+21,ELEUS.z+8,Math.PI/2],abuela:[...AL(60,71),0],enfermo:[-37,114,Math.PI/2],iniciada:[ELEUS.x+6,ELEUS.z+12,Math.PI/2]},NPC_POS);
   NPCS.forEach(n=>{const[x,z,r]=pos[n.id];const g=makePerson(n.look);const y=floorAt(x,z);g.position.set(x,y,z);g.rotation.y=r;scene.add(g);
     const lb=labelSprite(n.name,n.title,!HIST.has(n.id));lb.position.y=2.45;lb.visible=false;g.add(lb);const mk=markerSprite();mk.position.y=2.95;g.add(mk);
     addCirc(x,z,0.4);npcObjs.push({kind:'npc',data:n,g,lb,mk,x,z,baseRot:r});});
@@ -3681,7 +3681,7 @@ function openDialog(n){
   discHook(n.id);
   dlg={n,quiz:null};ui='dialog';releasePointer();
   $('dGlyph').textContent=n.glyph;setName(n.name,!HIST.has(n.id));$('dTitle').textContent=n.title+(HIST.has(n.id)?' · personaje histórico':' · personaje inventado');
-  $('dBody').innerHTML='<p>'+n.intro+'</p>'+rivalTaunt(n);renderOpts();$('dialog').hidden=false;
+  $('dBody').innerHTML='<p>'+n.intro+'</p>'+rivalTaunt(n)+(n.fanLine&&n.fanLine()?'<p class="sub">'+n.fanLine()+'</p>':'');renderOpts();$('dialog').hidden=false;
   setTimeout(()=>{const b=$('dOpts').querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function renderOpts(extra){
@@ -6464,7 +6464,7 @@ function romaCity(){
 function romaNPCs(){
   const aq=ROMA.aq.reduce((b,p)=>Math.abs(p[0]-600)<Math.abs(b[0]-600)?p:b,ROMA.aq[0]),ax=aq[0]+Math.sin(aq[2])*5,az=aq[1]+Math.cos(aq[2])*5;
   Object.assign(NPC_POS,{
-    marcial:[298,64,-Math.PI/2],quintiliano:[-25,35,Math.PI],josefo:[215,-176,-Math.PI/2],epicteto:[430,-76,0],musonio:[-675,-296,Math.PI/2],
+    marcial:[298,64,-Math.PI/2],quintiliano:[-25,35,Math.PI],josefo:[215,-176,-Math.PI/2],epicteto:[430,-76,0],marcelo:[436,-70,-0.6],musonio:[-675,-296,Math.PI/2],
     frontino:[ax,az,0],plinio:[40,-168,0],tacito:[-56,-40,0],dion:[-790,-388,Math.PI],sulpicia:[-215,555,0],rabirio:[28,214,Math.PI/2],atrecto:[-36,-90,-Math.PI/2],
     prisco:[385,64,-Math.PI/2],cornelia:[89,42,-Math.PI/2],hermeros:[-78,46,Math.PI/2],cliente:[603,390,0],pretoriano:[8,92,Math.PI],auriga:[-200,330,Math.PI/2],
     mercader:[romaRiverX(640)+romaRiverW(640)+16,640,-Math.PI/2],termas:[482,-83,0],vigil:[232,-402,0],augur:[-205,16,0],junia:[-760,330,0],medico:[-508,236,Math.PI/2],
@@ -12469,6 +12469,36 @@ CURIOS.push(
  {id:'c_gortina',m:'a',h:'Las leyes de Gortina',t:'En la ciudad cretense de Gortina se grabó en piedra todo su código de leyes. Allí las mujeres podían heredar y tener bienes propios, y si un padre rechazaba al hijo nacido después de un divorcio, era la madre quien decidía si criarlo.',s:'Código de Gortina (siglo V a.C.)'},
  {id:'c_epinetro',m:'a',h:'Una teja en la rodilla',t:'Para cardar la lana, las mujeres griegas se ponían sobre la rodilla un epínetro, una pieza de barro o de madera con forma de media teja y la superficie rugosa. Los de barro, a menudo pintados con escenas de bodas, eran regalos de boda que luego se ofrecían en santuarios o tumbas.',s:'Epínetro de Eretria (Museo Arqueológico Nacional de Atenas)'},
  {id:'c_sakkos',m:'a',h:'El pelo recogido',t:'En las pinturas de los vasos, las mujeres respetables aparecen con el pelo recogido y a menudo cubierto por un pañuelo, el sakkós. La piel se pinta de blanco, para mostrar que no trabajan al sol, mientras que los hombres aparecen bronceados.',s:'Cerámica ática de figuras negras y rojas'});
+
+// ---- alivio cómico: dos admiradores entusiastas (personajes inventados)
+const FAN_PLATON={id:'platonakis',name:'Platonákis',title:'Admirador número uno de Platón',glyph:'Π',look:{chiton:'#efe6d4',himation:'#2f4c86',beard:true,hair:'#3b2a1e'},
+ cat:'Filosofía',lesson:'Las Ideas de Platón, explicadas por su mayor fan',where:'En la Academia, siempre a dos pasos de Platón',
+ summary:'Para Platón, además de las cosas que vemos, que cambian y nunca son perfectas, existen las Ideas o Formas: modelos perfectos y eternos (la Belleza, la Justicia, lo Igual) que solo se conocen con la razón. Las cosas son copias imperfectas de ellas. Platón expone sus ideas en diálogos en los que casi siempre habla Sócrates, su maestro.',
+ intro:'¡Chsss! No hagas ruido, que el Maestro está pensando. O durmiendo: pone la misma cara. Soy Platonákis. Antes me llamaba Aristónimo, pero me cambié el nombre. ¿Sabes que «Platón» significa «ancho»? Yo como el doble para ir ensanchándome.',
+ topics:[
+  ['¿Por qué te llamas Platonákis?','Porque «-ákis» es un cariño, como decir «Platoncito». Me lo puse yo solo. El Maestro me llama «eso que me sigue». Estoy casi seguro de que es un apodo cariñoso.'],
+  ['¿Qué es la teoría de las Ideas?','¡Mi favorita! Mira: ningún caballo es perfecto, todos cojean un poco o tienen mal genio. Pero en tu cabeza tienes la Idea de Caballo, perfecta y eterna. Las cosas son copias, y las Ideas, los modelos. Yo he visto la Idea de Pan. Bueno, vi un pan buenísimo y me la imaginé. Tenía sésamo. Le pregunté al Maestro si las Ideas llevan sésamo y estuvo suspirando hasta el Dípilon.'],
+  ['¿Qué haces todo el día?','Sigo al Maestro y lo apunto todo en mis tablillas. Todo. Ayer apunté «pásame el aceite». Puede ser el principio de un diálogo. Lo titularé Aceitón, o sobre la grasa.'],
+  ['¿Has leído sus diálogos?','¡Todos! La Apología, el Critón, el Eutifrón, el Gorgias… En casi todos habla Sócrates, y el Maestro no sale nunca. Yo creo que es tímido. Mi diálogo también lo protagoniza Sócrates: se titula Platonákis, o sobre lo bien que habla Platón.'],
+  ['Cuéntame algo de la Academia','Aquí no se cobra, se piensa. Hay jardín, olivos, un gimnasio y mucha geometría. Dicen que el Maestro quiere poner un cartel en la entrada: «Que no entre nadie que no sepa geometría». Yo estoy estudiando a toda prisa. Ya distingo un triángulo de un cuadrado. Casi siempre.']],
+ quiz:{q:'Cuando se pone serio, ¿qué dice Platonákis que son las Ideas de Platón?',a:['Modelos perfectos y eternos de las cosas, que se conocen con la razón','Panes con sésamo','Las opiniones de cada uno'],ko:'«¡No, no! Lo del sésamo era broma… creo. Las Ideas son los modelos perfectos y eternos de las cosas, y se conocen con la razón, no con los ojos».'},
+ fanLine:()=>{const d=dz();if(d.grad.includes('platon'))return '«¡¿El Maestro te ha dado el título de la Academia?! Yo llevo tres años y aún me pregunta cómo me llamo». Platonákis se seca una lágrima con el manto.';if(d.cur==='platon')return '«¿Tú eres el nuevo discípulo del Maestro? ¿Te ha mirado? ¿Te ha hablado? ¿Qué palabras exactas usó? Espera, que lo apunto».';if(d.cur||d.grad.length)return '«¿Estudias con otro maestro? Bueno… no pasa nada. Todos nos equivocamos. Algunos más que otros».';return '';}};
+const FAN_MARCO={id:'marcelo',name:'Marcelo Aurelio',title:'Panadero y estoico entusiasta',glyph:'M',look:{short:true,noHimation:true,chiton:'#e8dfcc',hair:'#5b4532',beard:true},
+ cat:'Filosofía',lesson:'El estoicismo, según un panadero',where:'Cerca de Epicteto, al que sigue a todas partes',
+ summary:'El estoicismo nació en Atenas hacia el 300 a.C., cuando Zenón de Citio enseñaba en el Pórtico Pintado (la Stoa Poikile). Para los estoicos, el único bien es la virtud; hay que vivir de acuerdo con la razón, que gobierna el universo, y distinguir lo que depende de nosotros de lo que no. En Roma tienen grandes maestros, como Séneca, Musonio Rufo y Epicteto, y más adelante el emperador Marco Aurelio (121-180), que escribirá en griego unas reflexiones para sí mismo, las Meditaciones.',
+ intro:'¡Salve! Marcelo Aurelio, estoico y panadero. Primero estoico, luego panadero. Se me ha vuelto a quemar el pan, pero no me afecta: el fuego no depende de mí. Bueno, un poco sí. Pero el disgusto, no.',
+ topics:[
+  ['¿Quién es Marco Aurelio?','¡Mi ídolo! Un emperador filósofo que, en plena guerra contra los germanos, escribe cada noche pensamientos para sí mismo, en griego. Lo veo en sueños. Es verdad que todavía no ha nacido: nacerá dentro de unos cuarenta años. Pero yo ya soy su fan. Hay que adelantarse. Epicteto dice que me preocupe de lo que depende de mí, y que un emperador que no existe no depende de mí.'],
+  ['¿Por qué te llamas así?','Me llamo Marcelo. Lo de Aurelio me lo añadí yo, para parecerme a él. Mi mujer dice que, ya puestos, me cambie el nombre por el del emperador de ahora, Tito, que al menos existe.'],
+  ['¿Qué es el estoicismo?','Lo fundó Zenón en Atenas, enseñando en un pórtico pintado, la Stoa: por eso «estoicos». La idea es sencilla: el único bien es la virtud; la salud, el dinero o la fama no son ni buenos ni malos, son indiferentes. Ayer me robaron la capa y respiré hondo, como un sabio. Luego corrí detrás del ladrón. La virtud también hace ejercicio.'],
+  ['¿Cómo practicas el estoicismo?','Cada mañana, al levantarme, me preparo: «Hoy me encontraré con gente impaciente, desagradecida y maleducada, y no me enfadaré». Luego abro la panadería y, efectivamente, ahí están todos. Pero no me enfado. Mucho.'],
+  ['Dame un consejo estoico','Piensa de vez en cuando que lo que más quieres podría perderse: así lo valorarás más. Yo cada mañana me despido de mi mejor pan como si fuera el último. Luego me lo como, por si acaso.']],
+ quiz:{q:'Según los estoicos (y Marcelo Aurelio, cuando no se distrae), ¿cuál es el único bien verdadero?',a:['La virtud','El pan recién hecho','La fama'],ko:'«¡El pan recién hecho es casi un bien! Pero no: para los estoicos, el único bien es la virtud. La salud, el dinero o la fama son indiferentes».'},
+ fanLine:()=>{const d=dz();if(d.cur==='epicteto'||d.grad.includes('epicteto'))return '«¡¿Eres discípulo de Epicteto?! ¡Pídele que me deje sentarme en primera fila! Del suelo, claro: no tiene sillas».';if(d.cur==='musonio'||d.grad.includes('musonio'))return '«¡Discípulo de Musonio! Dicen que cuando te corrige, lloras. Yo lloro solo de pensarlo. De emoción».';if(d.cur==='dion'||d.grad.includes('dion'))return '«¿Con Dion de Prusa? ¿Ese que se ríe de los filósofos? Tranquilo: no me enfado. Es una prueba que me manda el destino».';return '';}};
+NPCS.push(FAN_PLATON);LESSONS.platonakis={title:FAN_PLATON.lesson,cat:FAN_PLATON.cat,summary:FAN_PLATON.summary,where:FAN_PLATON.where,who:FAN_PLATON.name,fict:true};
+ROMA_NPCS.push(FAN_MARCO);
+Object.assign(SRC,{platonakis:{a:['Platón, Fedón 74a-75d (lo Igual) y República 596a-597d (la idea de cama)','Diógenes Laercio III 4 (el nombre de Platón)'],m:['G. Vlastos, Platonic Studies (1973)'],n:['Platonákis es inventado y cómico: «-ákis» es un diminutivo del griego moderno, una licencia del juego. El cartel sobre la geometría es una tradición tardía.']}});
+ROMA_SRC.marcelo={a:['Diógenes Laercio VII (Zenón y los estoicos)','Epicteto, Manual 1','Marco Aurelio, Meditaciones II 1 (la preparación de cada mañana)','Séneca, Cartas a Lucilio'],m:['P. Hadot, La ciudadela interior (1992)'],n:['Marcelo Aurelio es inventado y cómico. Marco Aurelio nacerá en el 121 y escribirá sus Meditaciones hacia el 170-180: el chiste es que Marcelo dice verlo en sueños.']};
 
 function startGame(){
   initAudio();
