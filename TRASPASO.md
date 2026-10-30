@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 38). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 39). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,37 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 39: cualidades del personaje y amistades
+- **Cinco cualidades** (`QUAL`, `state.qual`), con diez niveles cada una (`QLV`, `qLv`, `qAdd`). Atenas usa los nombres griegos y Roma los latinos:
+
+  | Atenas | Roma | Qué mide |
+  |---|---|---|
+  | Sophía | Sapientia | Saber |
+  | Lógos | Eloquentia | Palabra |
+  | Areté | Virtus | Cuerpo y valor |
+  | Eusébeia | Pietas | Piedad |
+  | Kléos | Fama | Renombre |
+
+- **Cómo suben**:
+  - Conocer a un personaje da +1 a su cualidad y +1 a la fama. La cualidad de cada personaje la decide `npcQual`, según su categoría y la lista `Q_AR`.
+  - Superar su lección da +2 a su cualidad y +1 a la fama.
+  - Las estelas, las curiosidades y los mitos dan sabiduría.
+  - Los sueños dan piedad y sabiduría; los dioses dan piedad.
+  - Hacer de jurado da palabra.
+  - Correr y cabalgar dan areté (`qualTick`), igual que subir de nivel el caballo y conseguir las alas.
+  - Los capítulos de la Historia dan fama.
+- **Efectos**:
+  - La sabiduría da monedas extra en las lecciones.
+  - La areté hace correr más deprisa.
+  - La piedad da una moneda más con los dioses y los sueños.
+  - Además, todas abren las amistades.
+- **Ficha** en el diario (`qualHTML`): muestra las cualidades con su barra y las amistades.
+- **Amistades** (`FRIENDS`, `friendMenu`, `state.friends`):
+  - Hay 8 personalidades por época, con 5 encuentros cada una. Cada encuentro cuenta algo nuevo de su vida y de su saber y termina con una pregunta.
+  - Una buena respuesta da +20 de afinidad y una torpe, +4, sin avanzar.
+  - Cuesta subir: solo hay un encuentro al día por persona, hay que haber superado antes su lección, y cada encuentro exige más nivel en la cualidad de esa persona, en la fama y en una segunda cualidad (`fNeed`).
+  - Al llegar a 100 se alcanza la philía o amicitia, que da un regalo y un gran impulso a las cualidades.
 
 ### Novedades de la versión 38: Nóstos, modo Historia, juego en línea, caballo con niveles y alas de Dédalo
 - **Nombre:** el juego se llama ahora **Nóstos** (νόστος, «el regreso a casa»), en el selector de época y en el título de la pestaña.

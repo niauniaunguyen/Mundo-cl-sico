@@ -62,6 +62,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0
 .glyph{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--clay);color:var(--glaze);font-family:var(--f-display);font-size:1.7rem}
 #dialog h2{font-size:1.35rem;color:var(--bone)}
 #dialog .sub{color:var(--clay-soft);font-size:.9rem;font-style:italic}
+#journal .qbar,.qbar{height:6px;background:rgba(255,255,255,.1);margin:6px 0 8px}.qbar i{display:block;height:100%;background:var(--clay)}
 #dialog .curio{margin-top:12px;padding:8px 12px;border-left:3px solid var(--clay);background:rgba(217,135,74,.08)}#dialog .curio p{margin:4px 0}
 #dialog .body{padding:6px 18px 4px;overflow:auto;line-height:1.55;font-size:1.04rem;max-width:68ch}
 #dialog .opts{display:flex;flex-direction:column;gap:6px;padding:10px 18px 16px}
@@ -304,6 +305,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <button role="tab" data-tab="places" aria-selected="false">Lugares</button>
         <button role="tab" data-tab="myths" aria-selected="false">Mitos</button>
         <button role="tab" data-tab="gods" aria-selected="false">Dioses</button>
+        <button role="tab" data-tab="ficha" aria-selected="false">Ficha</button>
         <button role="tab" data-tab="curios" aria-selected="false">Curiosidades</button>
         <button role="tab" data-tab="time" aria-selected="false">Cronología</button>
       </div>
@@ -3655,6 +3657,7 @@ let dlg=null;
 function setName(t,fict){const e=$('dName');e.textContent=t;e.className=fict?'fict':'';}
 function openDialog(n){
   if(storyHook('npc',n.id))return;
+  if(!state.seen['m:'+n.id]){state.seen['m:'+n.id]=1;qAdd(npcQual(n),1);qAdd('kl',1,'Cada vez más gente sabe quién eres.');}
   dlg={n,quiz:null};ui='dialog';releasePointer();
   $('dGlyph').textContent=n.glyph;setName(n.name,!HIST.has(n.id));$('dTitle').textContent=n.title+(HIST.has(n.id)?' · personaje histórico':' · personaje inventado');
   $('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();$('dialog').hidden=false;
@@ -3674,6 +3677,7 @@ function renderOpts(extra){
   if(n.wedding)add(state.seen.boda?'Volver a ver la boda de Valeria y Quinto':'Asistir a la boda de Valeria y Quinto (catorce escenas)','quiz',()=>epiStart(ROMA_BODA));
   if(n.event)add(state.lessons.includes(n.event)?'Quiero volver a hacer de jurado':'Quiero ser jurado hoy: llévame a un juicio','quiz',startTrial);
   if(!learned)add(seen.length?'Ponme a prueba: ¿lo he entendido?':'Ponme a prueba (mejor después de escuchar)','quiz',startQuiz);
+  if(FRIENDS[n.id]&&FRIENDS[n.id].m===MODE){const a=fz(n.id);add(a.t>=FRIENDS[n.id].e.length?'Charlar con un amigo ('+fGrade(a.p)+')':'Pasar un rato juntos · afinidad '+a.p+'/100','quiz',()=>friendMenu(n));}
   if(n.id===HORSE_NPC()&&!hz().own)add(hz().q==='caught'?'Te traigo la yegua':hz().q==='on'?'Sobre la yegua escapada…':'¿Me darías un caballo?','quiz',()=>horseQuest(n));
   add('Despedirse','',closeDialog);
 }
@@ -3712,7 +3716,7 @@ function startQuiz(){
 }
 function answer(ok){
   const n=dlg.n;
-  if(ok){if(!state.lessons.includes(n.id)){state.lessons.push(n.id);state.obols+=3;save();updateStats();sfxCoin();toast('<span class="label">Lección aprendida</span><br>'+n.lesson+(MODE==='roma'?' · +3 sestercios':' · +3 óbolos'));}
+  if(ok){if(!state.lessons.includes(n.id)){state.lessons.push(n.id);state.obols+=3+Math.max(0,qLv('so')-2);qAdd(npcQual(n),2);qAdd('kl',1);save();updateStats();sfxCoin();toast('<span class="label">Lección aprendida</span><br>'+n.lesson+(MODE==='roma'?' · +3 sestercios':' · +3 óbolos'));}
     $('dBody').innerHTML='<div class="verdict">'+(MODE==='roma'?'Exacto. Toma tres sestercios: más o menos la paga diaria de un legionario.':'Exacto. Toma tres óbolos: lo que cobra un jurado por un día de servicio.')+'</div><p style="margin-top:10px">'+LESSONS[n.id].summary+'</p><p class="sub">Las fuentes de esta lección están en la Biblioteca (B).</p>';
     const mk=npcObjs.find(o=>o.data===n);if(mk)mk.mk.visible=!npcDone(n);}
   else $('dBody').innerHTML='<div class="verdict bad">'+n.quiz.ko+'</div>';
@@ -3846,7 +3850,7 @@ const CURIOS=[
  {id:'c_gladiadores',m:'r',h:'Gladiadores mágicos',t:'Un papiro de magia promete que, si quemas la cabeza de una liebre bajo el dibujo de dos gladiadores, parecerá que cobran vida y luchan.',s:'Papiros mágicos griegos VII 167-186'}
 ];
 function curioList(){const m=MODE==='roma'?'r':'a';return CURIOS.filter(c=>c.at?PLACES.some(p=>p.id===c.at):(c.m==='b'||c.m===m));}
-function curioGot(id){if(!Array.isArray(state.curios))state.curios=[];if(state.curios.includes(id))return false;state.curios.push(id);save();return true;}
+function curioGot(id){if(!Array.isArray(state.curios))state.curios=[];if(state.curios.includes(id))return false;state.curios.push(id);qAdd('so',1);save();return true;}
 function curioDaily(){const L=curioList().filter(c=>!c.at&&!(state.curios||[]).includes(c.id));if(!L.length)return null;const c=pick(L);curioGot(c.id);return c;}
 function curioHTML(c){return '<div class="curio"><span class="label">Curiosidad · '+c.h+'</span><p>'+c.t+'</p><p class="sub">'+c.s+'</p></div>';}
 function readSign(s){
@@ -3854,7 +3858,7 @@ function readSign(s){
   $('dGlyph').textContent='𐅃';$('dGlyph').textContent=pl.greek.charAt(0);setName(pl.name);$('dTitle').textContent=pl.greek;
   $('dBody').innerHTML='<p>'+pl.text+'</p>';
   const cs=CURIOS.filter(c=>c.at===pl.id);if(cs.length){$('dBody').innerHTML+=cs.map(curioHTML).join('');cs.forEach(c=>curioGot(c.id));}
-  if(!state.places.includes(pl.id)){state.places.push(pl.id);save();updateStats();toast('<span class="label">Lugar descubierto</span><br>'+pl.name);s.mk.visible=false;}
+  if(!state.places.includes(pl.id)){state.places.push(pl.id);qAdd('so',1);save();updateStats();toast('<span class="label">Lugar descubierto</span><br>'+pl.name);s.mk.visible=false;}
   const o=$('dOpts');o.innerHTML='';if(pl.go){const g2=document.createElement('button');g2.className='quiz';g2.innerHTML='<span class="n">1</span><span>'+(pl.go==='sueno'?'Dormir y soñar':'Despertar')+'</span>';g2.onclick=()=>/^cnosos/.test(pl.go)?knossosTravel(pl.go):dreamTravel(pl.go);o.appendChild(g2);}const b=document.createElement('button');b.innerHTML='<span class="n">'+(pl.go?2:1)+'</span><span>Seguir</span>';b.onclick=closeDialog;o.appendChild(b);
   $('dialog').hidden=false;setTimeout(()=>b.focus({preventScroll:true}),30);
   if(storySignMatch(pl.id)){o.innerHTML='';const c=document.createElement('button');c.className='quiz';c.innerHTML='<span class="n">1</span><span>Seguir la historia</span>';c.onclick=()=>{closeDialog();storyFire();};o.appendChild(c);setTimeout(()=>c.focus({preventScroll:true}),40);}
@@ -4124,7 +4128,7 @@ function openRelief(o){
 }
 function reliefAnswer(o,ok){
   const r=o.data,o2=$('dOpts');o2.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Seguir</span>';b.onclick=closeDialog;
-  if(ok){if(!state.myths.includes(r.id)){state.myths.push(r.id);state.obols+=1;save();updateStats();sfxCoin();o.mk.visible=false;
+  if(ok){if(!state.myths.includes(r.id)){state.myths.push(r.id);state.obols+=1;qAdd('so',1);save();updateStats();sfxCoin();o.mk.visible=false;
       toast('<span class="label">Mito reconocido</span><br>'+r.name+' · +1 óbolo');
       if(state.myths.length===RELIEFS.length){state.obols+=5;save();updateStats();setTimeout(()=>toast('<span class="label">Has reconocido todos los mitos</span><br>Eunice te da 5 óbolos más.'),1200);}}
     $('dBody').innerHTML='<p>'+r.see+'</p><div class="verdict">'+r.ok+'</div><p class="sub">Las fuentes están en la Biblioteca (B), sección Mitos.</p>';}
@@ -4171,7 +4175,7 @@ function trialVote(condemn){
   $('dBody').innerHTML='<div class="tally" role="img" aria-label="'+c+' votos para condenar y '+a+' para absolver"><span style="width:'+pc+'%;background:#c4553d">'+c+' condenan</span><span style="width:'+(100-pc)+'%;background:#9aa865">'+a+' absuelven</span></div>'+
     '<p><b>'+(c>a?'Los vendedores de trigo son condenados.':'Los vendedores de trigo son absueltos.')+'</b> Este resultado es una simulación: <b>no sabemos cómo terminó el juicio real</b>. Solo se conserva el discurso de la acusación, escrito por Lisias hacia el 386 (discurso 22).</p>'+
     '<p>Lo que el caso muestra es muy real: Atenas dependía del trigo importado, los comerciantes eran metecos sin derechos políticos y la ira popular estuvo a punto de saltarse el procedimiento, porque parte del Consejo quería ejecutarlos sin juicio. Las fuentes están en la Biblioteca (B).</p>';
-  if(!state.lessons.includes('juicio')){state.lessons.push('juicio');state.obols+=3;save();updateStats();sfxCoin();toast('<span class="label">Lección aprendida</span><br>'+LESSONS.juicio.title+' · +3 óbolos');}
+  if(!state.lessons.includes('juicio')){state.lessons.push('juicio');qAdd('lo',3,'Haber juzgado te enseña a pesar las palabras.');state.obols+=3;save();updateStats();sfxCoin();toast('<span class="label">Lección aprendida</span><br>'+LESSONS.juicio.title+' · +3 óbolos');}
   const mk=npcObjs.find(o=>o.data.id==='dicasta');if(mk)mk.mk.visible=!npcDone(mk.data);
   const o=$('dOpts');o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Salir del tribunal</span>';b.onclick=()=>{closeDialog();if(state.lessons.length>=Object.keys(LESSONS).length&&!state.done){state.done=true;save();setTimeout(showEnd,500);}};o.appendChild(b);b.focus({preventScroll:true});
 }
@@ -4245,6 +4249,7 @@ function renderJournal(){
     if(!met)return '<div class="entry locked"><span class="label">Sin encontrar</span><h3>'+d.name+'</h3><p>Dicen que se le ha visto '+d.where+'.</p></div>';
     const st=q==='done'?'Favor concedido':q==='ready'?'Encargo cumplido: vuelve a hablar con '+(GODS.find(x=>x.id===d.id).name):q==='on'?'Encargo en curso':'Aún no le has preguntado si necesita algo';
     return '<div class="entry"><span class="label">'+d.gr+' · '+st+'</span><h3>'+d.name+', '+d.title+'</h3><p>'+(q&&q!=='done'?d.quest.goal:q==='done'?'Has cumplido su encargo.':'Habla con '+d.name+' y pregúntale si puedes hacer algo por él o por ella.')+'</p><div class="where">'+d.where[0].toUpperCase()+d.where.slice(1)+'</div></div>';}).join('')+'</div>';}
+  else if(jTab==='ficha'){h=qualHTML();}
   else if(jTab==='curios'){const L=curioList(),got=L.filter(c=>(state.curios||[]).includes(c.id)),est=L.filter(c=>c.at&&!got.includes(c)).length,dia=L.filter(c=>!c.at&&!got.includes(c)).length;
     h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Anécdotas, costumbres y rarezas que contaban los propios antiguos. Unas aparecen al leer ciertas estelas; otras te las cuentan al amanecer de cada día. Llevas '+got.length+' de '+L.length+': quedan '+est+' en estelas y '+dia+' por contar. <span class="sub">Seleccionadas a partir de J. C. McKeown, <i>Gabinete de curiosidades griegas</i> (Crítica, 2014), con sus fuentes antiguas.</span></p><div class="entries">'+got.map(c=>'<div class="entry"><span class="label">Curiosidad</span><h3>'+c.h+'</h3><p>'+c.t+'</p><div class="where">'+c.s+'</div></div>').join('')+'</div>';}
   else{h='<div class="timeline">'+TIMELINE.map(t=>'<span class="y'+(t[0]==='386'?' now':'')+'">'+t[0]+' a.C.</span><div>'+t[1]+'</div>').join('')+'</div>';}
@@ -8116,7 +8121,7 @@ function epiEnd(complete){
   setTimeout(()=>{v.classList.remove('show');setTimeout(()=>{v.hidden=true;$('hud').hidden=false;ui='play';
     if(complete){epiReward(E);setTimeout(()=>storyHook('dream',E.id),300);}},700);},1100);
 }
-function epiReward(E){if(E.reward)return E.reward();if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2;save();updateStats();sfxCoin();
+function epiReward(E){if(E.reward)return E.reward();if(epiDone(E))return;state.seen['ep:'+E.id]=1;state.obols+=2+(qLv('eu')>=3?1:0);qAdd('eu',1);qAdd('so',1);save();updateStats();sfxCoin();
   const s=EPI.spheres.find(q=>q.data===E);if(s)s.core.material.color.set(0x9fb0c8);
   const n=EPISODES.filter(e=>e.mode===MODE).length,d=EPISODES.filter(e=>e.mode===MODE&&epiDone(e)).length;
   toast('<span class="label">'+(E.hist?'Momento histórico revivido':'Momento mítico revivido')+'</span><br>'+E.name+' · +2'+(MODE==='roma'?' sestercios':' óbolos')+' · '+d+' / '+n);}
@@ -10584,7 +10589,7 @@ function updateGods(dt,t){
 function godsDone(){return GODS.filter(d=>state.gods.q[d.id]==='done').length;}
 function openGod(o){
   const d=o.data;dlg={n:null,god:d};ui='dialog';releasePointer();
-  if(!state.gods.met.includes(d.id)){state.gods.met.push(d.id);save();}
+  if(!state.gods.met.includes(d.id)){state.gods.met.push(d.id);qAdd('eu',1,'Los dioses se fijan en ti.');save();}
   $('dGlyph').textContent=d.glyph;setName(d.name);$('dTitle').textContent=d.gr+' · '+d.title+(d.native?' · divinidad romana':' · dios del Olimpo');
   $('dBody').innerHTML='<p>'+d.intro+'</p>';renderGodOpts(d);$('dialog').hidden=false;
 }
@@ -10594,7 +10599,7 @@ function renderGodOpts(d){
   d.topics.forEach((t,i)=>add(t[0],()=>{state.seen['g:'+d.id]=Array.from(new Set(seen.concat(i)));save();$('dBody').innerHTML='<p>'+t[1]+'</p>';renderGodOpts(d);},seen.includes(i)?'seen':''));
   if(!q)add('¿Puedo hacer algo por ti?',()=>{state.gods.q[d.id]='on';save();$('dBody').innerHTML='<p>'+Q.ask+'</p><div class="verdict">Encargo de '+d.name+': '+Q.goal+'</div>';toast('<span class="label">Encargo divino</span><br>'+Q.goal);renderGodOpts(d);},'quiz');
   else if(q==='on')add('Sobre tu encargo…',()=>{$('dBody').innerHTML='<p>'+Q.wait+'</p><div class="verdict">'+Q.goal+'</div>';renderGodOpts(d);});
-  else if(q==='ready')add('He cumplido tu encargo',()=>{state.gods.q[d.id]='done';state.obols+=Q.reward;save();updateStats();sfxCoin();$('dBody').innerHTML='<p>'+Q.done+'</p><div class="verdict">Favor de '+d.name+' · +'+Q.reward+cur()+'</div>';toast('<span class="label">Favor divino</span><br>'+d.name+' · +'+Q.reward+cur());renderGodOpts(d);},'quiz');
+  else if(q==='ready')add('He cumplido tu encargo',()=>{state.gods.q[d.id]='done';state.obols+=Q.reward+(qLv('eu')>=3?1:0);qAdd('eu',3,'Has cumplido con un dios: tu piedad crece.');save();updateStats();sfxCoin();$('dBody').innerHTML='<p>'+Q.done+'</p><div class="verdict">Favor de '+d.name+' · +'+Q.reward+cur()+'</div>';toast('<span class="label">Favor divino</span><br>'+d.name+' · +'+Q.reward+cur());renderGodOpts(d);},'quiz');
   add('Despedirse',closeDialog);
   setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
@@ -10710,7 +10715,7 @@ function frame(now){
   if(ui!=='start'){if(ui==='episode')clock.h=(clock.h+dt*clock.speed)%24;else addHours(dt*clock.speed);skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}
   if(ui==='play'){
     let f=(keys.w?1:0)-(keys.s?1:0)-joy.y,s=(keys.d?1:0)-(keys.a?1:0)+joy.x;const L=Math.hypot(f,s);if(L>1){f/=L;s/=L;}
-    const sp=(FLY.on?(keys.run?30:15):(keys.run?11:4.8)*(MOUNT.riding?3*horseMul():1))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
+    const sp=(FLY.on?(keys.run?30:15):(keys.run?11:4.8)*(MOUNT.riding?3*horseMul():1+0.01*(qLv('ar')-1)))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
     const mx=(fx*f+rx*s)*sp,mz=(fz*f+rz*s)*sp;
     const mv=FLY.on?flyMove:tryMove;if(L>0.01){if(!mv(player.x+mx,player.z+mz)){mv(player.x+mx,player.z)||mv(player.x,player.z+mz);}}
   }
@@ -10743,7 +10748,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -10847,7 +10852,7 @@ function storyNext(){
   if(state.story.st<c.steps.length){storyMarkers();updateStats();const s=curStoryStep();if(s.auto)setTimeout(storyFire,400);
     else toast('<span class="label">Capítulo '+(state.story.ch+1)+'</span><br>'+s.obj);return;}
   // fin del capítulo
-  state.obols+=5;sfxCoin();const done=state.story.ch;state.story.done=Math.max(state.story.done||0,done+1);
+  state.obols+=5;sfxCoin();const done=state.story.ch;qAdd('kl',2);qAdd(npcQual({cat:c.cat}),2);state.story.done=Math.max(state.story.done||0,done+1);
   ui='dialog';dlg={n:null,story:1};releasePointer();
   $('dGlyph').textContent='✓';setName('Capítulo '+(done+1)+' completado · +5 '+(MODE==='roma'?'sestercios':'óbolos'));$('dTitle').textContent=c.title;
   $('dBody').innerHTML='<p>'+c.end+'</p><div class="curio"><span class="label">Lo que has aprendido · '+c.cat+'</span><p>'+c.learn+'</p></div>';
@@ -11258,7 +11263,7 @@ function horseQuest(n){const h=hz(),ro=MODE==='roma',o=$('dOpts');
     b.onclick=()=>{h.q='on';save();mareShow();closeDialog();toast('<span class="label">Encargo</span><br>Busca la yegua escapada: sigue el rombo ◆ de la brújula.');};o.appendChild(b);
     const c=document.createElement('button');c.innerHTML='<span class="n">2</span><span>Ahora no</span>';c.onclick=()=>renderOpts();o.appendChild(c);return;}
   if(h.q==='on'){$('dBody').innerHTML='<p>'+(ro?'¿Todavía nada? Es blanca y asustadiza. Sigue el rombo de la brújula.':'¿Aún no la has visto? Es castaña, con una estrella en la frente. Sigue el rombo de la brújula.')+'</p>';one('Voy a buscarla',()=>renderOpts());return;}
-  if(h.q==='caught'){h.q='done';h.own=true;h.xp=0;h.lvl=1;save();updateStats();sfxCoin();
+  if(h.q==='caught'){h.q='done';h.own=true;h.xp=0;h.lvl=1;qAdd('kl',2);qAdd('ar',1);save();updateStats();sfxCoin();
     $('dBody').innerHTML='<p>'+(ro?'¡La has encontrado! Los Azules se van a morder los puños. Toma: este es Rayo. Es viejo para el circo, pero joven para ti.':'¡Aura! Ven aquí, preciosa. Has cumplido, y un tesalio cumple su palabra: este potro se llama Céfiro.')+'</p><p>'+(ro?'Félix':'Eudico')+' añade: «Aún tiene mucho que aprender. Cuando cabalgues, verás <b>esferas doradas</b> por el camino: pasa a través de ellas. Cada una le da experiencia, y con cada nivel corre un 2 % más rápido y salta un poco más».</p>';
     one('Gracias',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para llamarlo.');});return;}
 }
@@ -11284,7 +11289,7 @@ function horseTick(dt){
     if(d>230){scene.remove(o.g);HORBS.splice(i,1);}}
 }
 function horseXP(){const h=hz();h.xp++;sfxCoin();
-  if(h.xp>=horseNeed(h.lvl)){h.xp=0;h.lvl++;toast('<span class="label">¡Tu caballo sube al nivel '+h.lvl+'!</span><br>Ahora corre un '+Math.round((horseMul()-1)*100)+' % más rápido y salta más alto.');}
+  if(h.xp>=horseNeed(h.lvl)){h.xp=0;h.lvl++;qAdd('ar',2);toast('<span class="label">¡Tu caballo sube al nivel '+h.lvl+'!</span><br>Ahora corre un '+Math.round((horseMul()-1)*100)+' % más rápido y salta más alto.');}
   save();updateStats();}
 // ============================================================ Dédalo, encerrado en su propio laberinto, y las alas de cera
 // Misión: recoger siete plumas por el palacio del sueño de Cnosos. Premio: alas para volar (X), con el aviso de Ícaro: si subes demasiado, la cera se funde.
@@ -11317,7 +11322,7 @@ function daedalusTalk(){const w=wz();dlg={n:null};ui='dialog';releasePointer();
     add('Despedirse',closeDialog);}
   else if(w.got.length<FEATHERS.length){$('dBody').innerHTML='<p>Llevas '+w.got.length+' de '+FEATHERS.length+' plumas. Busca por todo el palacio: el patio, los almacenes de las grandes tinajas, los pórticos.</p>';add('Seguir buscando',closeDialog);}
   else{$('dBody').innerHTML='<p>¡Siete! Mira: las coso por los cañones con hilo de lino, las pequeñas las pego con cera, y las curvo un poco, como las de un ave de verdad. Ya está.</p><p>Escúchame bien, como se lo digo a Ícaro cada día: no vueles demasiado bajo, que la humedad del mar pesa en las plumas, ni demasiado alto, que el sol derrite la cera. Sígueme a mí, por el camino de en medio.</p><p class="sub">Ovidio cuenta que Ícaro, feliz de volar, subió demasiado: la cera se fundió y cayó al mar que hoy lleva su nombre. Dédalo llegó a Sicilia.</p>';
-    add('Ponerse las alas',()=>{w.own=true;w.q='done';save();wingsRefresh();sfxCoin();closeDialog();toast('<span class="label">Alas de cera</span><br>Pulsa <b>X</b> para desplegarlas y volver a plegarlas. Espacio para subir, C para bajar, Shift para planear deprisa. ¡No subas demasiado!');updateStats();});}
+    add('Ponerse las alas',()=>{w.own=true;w.q='done';qAdd('ar',2);qAdd('kl',2,'Dicen que has volado como Dédalo.');save();wingsRefresh();sfxCoin();closeDialog();toast('<span class="label">Alas de cera</span><br>Pulsa <b>X</b> para desplegarlas y volver a plegarlas. Espacio para subir, C para bajar, Shift para planear deprisa. ¡No subas demasiado!');updateStats();});}
   $('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function wingsTick(dt){const w=wz();
@@ -11338,6 +11343,352 @@ function flyMove(nx,nz){const fl=floorAt(nx,nz);if(fl>player.feet-0.3)return try
   if(nx<8000){nx=clamp(nx,INNER.x-INNER.size/2+20,INNER.x+INNER.size/2-20);nz=clamp(nz,INNER.z-INNER.size/2+20,INNER.z+INNER.size/2-20);}
   else if(player.feet<400){const I=islandOf(nx),w2=I.R*1.38;nx=clamp(nx,I.x-w2,I.x+w2);nz=clamp(nz,I.z-w2,I.z+w2);}
   player.x=nx;player.z=nz;return true;}
+// ============================================================ cualidades del personaje y amistades con las personalidades
+// Cinco cualidades que valoraban los antiguos. Suben al conocer gente, aprender, leer, rezar, cabalgar y cumplir misiones.
+const QUAL=[
+ {k:'so',a:'Sophía',r:'Sapientia',ga:'ΣΟΦΙΑ',d:'Saber y entender. Sube con las lecciones, las estelas, las curiosidades, los mitos y los sueños, y hablando con sabios y maestros.',fx:'Cada nivel desde el 3 añade un óbolo o sestercio a la recompensa de las lecciones.'},
+ {k:'lo',a:'Lógos',r:'Eloquentia',ga:'ΛΟΓΟΣ',d:'La palabra que convence en la Asamblea, el tribunal o el Foro. Sube hablando con políticos, oradores y poetas, y haciendo de jurado.',fx:'Abre las conversaciones más profundas con oradores y políticos.'},
+ {k:'ar',a:'Areté',r:'Virtus',ga:'ΑΡΕΤΗ',d:'La excelencia del cuerpo y el valor, lo que se entrenaba en la palestra o en el campo de Marte. Sube corriendo, cabalgando y tratando con atletas y soldados.',fx:'Cada nivel te hace correr un 1 % más rápido a pie.'},
+ {k:'eu',a:'Eusébeia',r:'Pietas',ga:'ΕΥΣΕΒΕΙΑ',d:'Cumplir con los dioses, la familia y la patria. Sube con los favores de los dioses, los santuarios, los sueños y hablando con sacerdotes.',fx:'Desde el nivel 3, los dioses y los sueños te dan una moneda más.'},
+ {k:'kl',a:'Kléos',r:'Fama',ga:'ΚΛΕΟΣ',d:'Que tu nombre se conozca. Sube con cada persona nueva que conoces, con las misiones y los capítulos, y con las amistades.',fx:'Hace falta para la confianza de las personalidades más importantes.'}];
+const QLV=[0,4,10,18,30,45,65,90,120,160];   // puntos para cada nivel (1-10)
+const qName=q=>MODE==='roma'?q.r:q.a;
+function qz(){if(!state.qual||typeof state.qual!=='object')state.qual={so:0,lo:0,ar:0,eu:0,kl:0,run:0};return state.qual;}
+function qLv(k){const p=qz()[k]||0;let l=1;for(let i=1;i<QLV.length;i++)if(p>=QLV[i])l=i+1;return l;}
+function qAdd(k,n,why){if(!state||!n)return;const Q=qz(),l0=qLv(k);Q[k]=(Q[k]||0)+n;const l1=qLv(k);
+  if(l1>l0){const q=QUAL.find(x=>x.k===k);sfxCoin();setTimeout(()=>toast('<span class="label">'+qName(q)+' · nivel '+l1+'</span><br>'+(why||'Tu '+qName(q)+' crece.')),900);}
+  save();}
+// a qué cualidad suma cada personaje (por su categoría, con algunas excepciones)
+const Q_AR=['hoplita','ificrates','cabrias','agoge','paidotribes','agesilao','cinisca','prisco','auriga','pretoriano','vigil','frontino','tesalia','laodoco'];
+function npcQual(n){if(Q_AR.includes(n.id))return'ar';const c=n.cat||'';
+  if(/Religi|Sueñ/.test(c))return'eu';if(/Pol|Justicia|Derecho|Poder|Teatro/.test(c)||/Oradores|orador|retórica|logógrafo|Político/i.test(n.title||''))return'lo';
+  if(/Filos|Ciencia|Cultura|Histor|Context|Mito|Educa|Medic|Geogra|Arquit/.test(c))return'so';return'kl';}
+// trotar y cabalgar también entrenan
+let qRunLast=null;
+function qualTick(){if(!state||ui!=='play'){qRunLast=null;return;}const p={x:player.x,z:player.z};
+  if(qRunLast&&(keys.run||MOUNT.riding)){const d=Math.hypot(p.x-qRunLast.x,p.z-qRunLast.z);if(d<30){const Q=qz();Q.run=(Q.run||0)+d;if(Q.run>(MOUNT.riding?900:400)){Q.run=0;qAdd('ar',1,MOUNT.riding?'Las horas a caballo te endurecen.':'Correr por la ciudad te pone en forma.');}}}
+  qRunLast=p;}
+function qualHTML(){const ro=MODE==='roma';
+  let h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">'+(ro?'Así te verían los romanos: el elogio que un día podría grabarse al pie de tu estatua.':'Así te vería un ateniense: el elogio que un día podría grabarse al pie de tu estatua.')+' Cada cualidad tiene diez niveles; suben con lo que haces y, sobre todo, con la gente a la que conoces.</p><div class="entries">';
+  for(const q of QUAL){const l=qLv(q.k),p=qz()[q.k]||0,nx=QLV[l]!==undefined?QLV[l]:null,pr=QLV[l-1];const pc=nx===null?100:Math.round((p-pr)/(nx-pr)*100);
+    h+='<div class="entry"><span class="label">'+(ro?q.a+' en griego':q.ga)+'</span><h3>'+qName(q)+' · nivel '+l+'</h3><div class="qbar"><i style="width:'+pc+'%"></i></div><p>'+q.d+'</p><div class="where">'+q.fx+(nx===null?' · Nivel máximo.':' · '+p+' / '+nx+' puntos para el nivel '+(l+1)+'.')+'</div></div>';}
+  h+='</div><h3 style="margin:22px 0 10px">'+(ro?'Amicitiae':'Amistades')+'</h3><p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Las personalidades más importantes no regalan su amistad. Pasa tiempo con ellas (como mucho una vez al día), responde como lo haría alguien de su confianza y cultiva las cualidades que valoran. Cada encuentro te descubre algo nuevo de su vida y de lo que saben.</p><div class="entries">';
+  for(const id in FRIENDS){const F=FRIENDS[id];if(F.m!==MODE)continue;const n=NPCS.find(x=>x.id===id);if(!n)continue;const a=fz(id),met=state.seen&&state.seen['m:'+id];
+    h+='<div class="entry'+(met?'':' locked')+'"><span class="label">'+fGrade(a.p)+'</span><h3>'+(met?n.name:'Sin conocer')+'</h3><div class="qbar"><i style="width:'+a.p+'%"></i></div><p>'+(met?(a.log.length?a.log.map(i=>'· '+F.e[i].h).join('<br>'):'Aún no habéis pasado tiempo juntos.'):'Busca a esta personalidad: '+n.where+'.')+'</p>'+(a.p>=100?'<div class="where">'+F.gift+'</div>':'')+'</div>';}
+  return h+'</div>';}
+// ---- amistades: afinidad 0-100, cinco encuentros que exigen cualidades crecientes; una respuesta torpe solo suma un poco y obliga a volver otro día
+function fz(id){if(!state.friends||typeof state.friends!=='object')state.friends={};if(!state.friends[id])state.friends[id]={p:0,t:0,day:0,log:[]};return state.friends[id];}
+function fGrade(p){const ro=MODE==='roma';return p>=100?(ro?'Amicitia: amistad íntima':'Philía: amistad íntima'):p>=60?'Amistad':p>=40?'Confianza':p>=20?'Trato cordial':p>0?'Conocido':'Desconocido';}
+function fNeed(F,t){const n=NPCS.find(x=>x.id===F.id),k=F.q||npcQual(n);const r=[[k,t+1]];if(t>=2)r.push(['kl',t]);if(t>=3&&F.q2)r.push([F.q2,t]);return r;}
+function friendMenu(n){const F=FRIENDS[n.id],a=fz(n.id),ro=MODE==='roma',o=$('dOpts');
+  const one=(txt,fn)=>{o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>'+txt+'</span>';b.onclick=fn;o.appendChild(b);setTimeout(()=>b.focus({preventScroll:true}),30);};
+  const head='<p class="sub">Afinidad con '+n.name+': '+a.p+' / 100 · '+fGrade(a.p)+'</p>';
+  if(a.t>=F.e.length){$('dBody').innerHTML=head+'<p>'+F.done+'</p>';one('Volver',()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
+  if(!state.lessons.includes(n.id)){$('dBody').innerHTML=head+'<p>'+n.name+' te mira con cortesía, pero sin interés. Primero demuéstrale que has escuchado lo que enseña: supera su lección («Ponme a prueba»).</p>';one('Volver',()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
+  if(a.day===state.day){$('dBody').innerHTML=head+'<p>'+(F.busy||'Hoy ya habéis pasado un rato juntos. La amistad no se fuerza: vuelve otro día.')+'</p>';one('Volver',()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
+  const miss=fNeed(F,a.t).filter(([k,l])=>qLv(k)<l);
+  if(miss.length){$('dBody').innerHTML=head+'<p>'+n.name+' no te abre todavía esa puerta. Para ganarte más confianza necesitas: '+miss.map(([k,l])=>'<b>'+qName(QUAL.find(q=>q.k===k))+' '+l+'</b> (tienes '+qLv(k)+')').join(', ')+'.</p><p class="sub">Sube tus cualidades en tu ficha (diario, pestaña Ficha).</p>';one('Volver',()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});return;}
+  const E=F.e[a.t];a.day=state.day;save();
+  $('dBody').innerHTML=head+'<p class="sub">'+E.h+'</p>'+E.t.map(x=>'<p>'+x+'</p>').join('')+'<p><b>'+E.q+'</b></p>';
+  o.innerHTML='';const opts=E.o.map((x,i)=>[x,i===0]).sort(()=>R()-0.5);
+  opts.forEach(([x,good],i)=>{const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+x[0]+'</span>';
+    b.onclick=()=>{let msg;if(good){a.p=Math.min(100,a.p+20);a.t++;a.log.push(a.t-1);qAdd(F.q||npcQual(n),2);qAdd('kl',1);sfxCoin();msg='<p>'+x[1]+'</p><p class="sub">La afinidad sube a '+a.p+' / 100 · '+fGrade(a.p)+'.</p>';
+        if(a.p>=100){qAdd(F.q||npcQual(n),5,'La amistad de '+n.name+' te hace mejor.');qAdd('kl',5,'Todos saben que eres amigo de '+n.name+'.');msg+='<div class="curio"><span class="label">'+(ro?'Amicitia':'Philía')+' con '+n.name+'</span><p>'+F.gift+'</p></div>';}}
+      else{a.p=Math.min(99,a.p+4);msg='<p>'+x[1]+'</p><p class="sub">No era lo que esperaba de ti. La afinidad apenas sube ('+a.p+' / 100). Vuelve otro día e inténtalo de nuevo.</p>';}
+      save();updateStats();$('dBody').innerHTML=head.replace(/\d+ \/ 100 · [^<]*/,a.p+' / 100 · '+fGrade(a.p))+msg;one('Volver',()=>{$('dBody').innerHTML='<p>'+n.intro+'</p>';renderOpts();});};o.appendChild(b);});
+}
+// cinco encuentros por personalidad; en cada uno, la primera opción es la que se gana su confianza (se barajan al mostrarlas)
+const FRIENDS={
+platon:{m:'atenas',q:'so',q2:'lo',busy:'Platón está escribiendo y no levanta la vista. «Mañana», dice. «Hoy las palabras no me obedecen».',
+ done:'Platón te recibe siempre con una pregunta, nunca con un saludo. Es su forma de decir que eres de casa.',
+ gift:'Platón te regala una copia de su Apología de Sócrates, escrita de su puño y letra, y te deja entrar en el jardín de la Academia cuando quieras.',
+ e:[{h:'Un paseo por el jardín de Academo',t:['Platón te enseña el pequeño jardín que acaba de comprar junto al gimnasio. «Aquí no se cobra, como hacen los sofistas. Aquí se conversa».','Te cuenta que acaba de volver de un largo viaje: estuvo en Tarento con Arquitas, que gobierna su ciudad y es a la vez matemático, y en Siracusa, donde conoció a un joven extraordinario, Dion, cuñado del tirano.'],
+   q:'«¿Por qué crees que un gobernante debería estudiar matemáticas?»',
+   o:[['Porque enseñan a pensar con orden y a buscar lo que es verdad siempre, no solo lo que conviene hoy','«Eso es. Arquitas lo demuestra: gobierna bien porque piensa bien. Vuelve cuando quieras».'],['Para llevar bien las cuentas del tesoro','«También, también… pero eso lo hace cualquier escriba».'],['No hace falta: basta con saber hablar bien','«Eso te lo habrá dicho Isócrates. Hablar bien sin saber de qué hablas es peligroso».']]},
+  {h:'La familia de Platón',t:['Platón habla poco de su familia, pero hoy lo hace. Su madre, Perictíone, desciende de Solón. Sus hermanos mayores, Adimanto y Glaucón, eran jóvenes brillantes que discutían con Sócrates.','Y luego están sus tíos, Critias y Cármides, que formaron parte de los Treinta tiranos. «Me invitaron a gobernar con ellos cuando tenía veintitrés años. Vi lo que hicieron, y aprendí que el poder sin justicia lo pudre todo».'],
+   q:'«¿Debe uno avergonzarse de lo que hicieron sus parientes?»',
+   o:[['Uno no elige a su familia, pero sí qué hace con lo que ha aprendido de sus errores','«Bien dicho. Yo elegí a Sócrates como padre del alma».'],['Sí, la familia es una sola cosa','«Entonces todos estaríamos condenados por algún abuelo. No lo creo».'],['Mejor no hablar de ello','«Callar no cura. Pensar sí».']]},
+  {h:'El último día de Sócrates',t:['Platón te confiesa algo que casi nunca cuenta: no estuvo en la cárcel el día en que Sócrates bebió la cicuta. Estaba enfermo. Lo sabe por lo que le contaron Fedón y los demás.','«Por eso escribo diálogos y no tratados. Para que Sócrates siga preguntando. Él nunca escribió nada: decía que un libro no puede contestarte cuando le preguntas».'],
+   q:'«¿Tiene sentido escribir, entonces?»',
+   o:[['Si lo escrito obliga al lector a seguir pensando, como un diálogo, sí','«Esa es mi apuesta. Un diálogo es una conversación que no se acaba».'],['No: todo debería decirse de palabra','«Entonces Sócrates habría muerto del todo. No me resigno».'],['Sí, para que nadie tenga que pensar más','«Esos libros son los peores: hacen creer que se sabe».']]},
+  {h:'Una imagen que no deja de rondarle',t:['Platón te dibuja en la arena: «Imagina unos prisioneros encadenados en una cueva desde niños, mirando la pared del fondo. Detrás de ellos arde un fuego, y por delante pasan objetos cuyas sombras ven en la pared. Creen que las sombras son el mundo».','«Si uno se soltara y saliera al sol, al principio quedaría ciego. Luego vería las cosas de verdad. Y si volviera a contarlo…»'],
+   q:'«¿Qué crees que le harían los demás prisioneros?»',
+   o:[['Se reirían de él, o algo peor, como le pasó a Sócrates','«Sí. Por eso esta imagen me duele. La escribiré un día, en una obra sobre la justicia».'],['Le darían las gracias y saldrían todos','«Ojalá. Pero la verdad molesta antes de liberar».'],['Nada: no le harían caso','«Ojalá fuera tan inofensivo».']]},
+  {h:'Lo que se busca en la Academia',t:['Platón te enseña una lista de alumnos: su sobrino Espeusipo, el matemático Teeteto, jóvenes de Atenas y de fuera. Quiere formar gobernantes que amen la sabiduría.','Dicen que en la entrada piensa poner un letrero: «Que no entre nadie que no sepa geometría». Él se ríe: «Es una exageración… pero no mucho».'],
+   q:'«Si pudieras aprender una sola cosa aquí, ¿qué elegirías?»',
+   o:[['A distinguir lo que de verdad sé de lo que solo creo saber','«Eso fue lo primero que aprendí de Sócrates. Considérate de la casa».'],['A ganar todas las discusiones','«Para eso hay maestros más caros. Aquí no».'],['A hacerme rico','«Te has equivocado de jardín, amigo».']]}]},
+isocrates:{m:'atenas',q:'lo',q2:'so',busy:'Isócrates está corrigiendo un discurso. «Llevo años con él. Un día más no importa… pero hoy no».',
+ done:'Isócrates te presenta a sus alumnos como «alguien que sabe escuchar, que es la mitad de saber hablar».',
+ gift:'Isócrates te invita a escuchar gratis sus clases, que cuestan mil dracmas, y te regala el borrador de un discurso que lleva años puliendo.',
+ e:[{h:'Un maestro que no habla en público',t:['Isócrates te confiesa su secreto: tiene la voz débil y le aterra la multitud. Nunca ha hablado en la Asamblea. «Por eso enseño a otros a hacerlo, y escribo discursos para que se lean».','Su familia era rica, fabricaba flautas, pero lo perdió casi todo en la guerra. Tuvo que ganarse la vida escribiendo discursos para los tribunales.'],
+   q:'«¿Crees que un hombre tímido puede ser un gran orador?»',
+   o:[['Sí: lo que importa es pensar bien lo que se dice, y eso también se escribe','«Me reconcilias con mi garganta».'],['No: el orador debe imponerse con la voz','«Eso pensaban los que me suspendieron de joven».'],['Da igual, nadie escucha a los oradores','«Si nadie escuchara, Atenas no existiría».']]},
+  {h:'La escuela junto al Liceo',t:['Hace unos años abrió su escuela cerca del Liceo. Cobra mil dracmas por el curso completo, que dura tres o cuatro años. No enseña trucos: enseña a escribir, a pensar la política y a tener buen juicio en lo incierto.','A eso lo llama él filosofía. Platón dice que no lo es. Entre los dos hay una rivalidad cortés… y no tan cortés.'],
+   q:'«Para ti, ¿qué es la filosofía?»',
+   o:[['Lo que te ayuda a decidir bien y a hablar con sentido sobre los asuntos de la ciudad','«Bien. Los de la Academia buscan verdades eternas; yo, decisiones prudentes. Hacen falta las dos».'],['Hablar de cosas que nadie entiende','«No seas cruel con Platón… aunque a veces lo merezca».'],['Un modo de hacerse famoso','«Eso es la sofística, y yo la combato».']]},
+  {h:'Un discurso de diez años',t:['Isócrates te enseña un rollo lleno de correcciones. Es un discurso para todos los griegos que lleva años escribiendo: propone que las ciudades dejen de pelearse entre ellas y se unan contra Persia, con Atenas y Esparta al frente.','«El Gran Rey acaba de imponernos su paz. Es una humillación. Los griegos solo somos fuertes cuando estamos unidos».'],
+   q:'«¿Lo leerías en Olimpia, delante de toda Grecia?»',
+   o:[['Sí: es el único lugar donde están todos los griegos a la vez','«Exacto. Allí lo presentaré, aunque sea por escrito».'],['No: es mejor no molestar al Gran Rey','«Es lo que piensan todos. Por eso nos domina».'],['Solo si me pagan','«Hablas como un logógrafo, no como un ciudadano».']]},
+  {h:'Alumnos que llegan lejos',t:['Su alumno favorito es Timoteo, hijo del almirante Conón, el que reconstruyó los Muros Largos. Isócrates confía en que llegue a general. También tiene alumnos de Chipre, de Sicilia y del mar Negro.','Te enseña cómo trabaja: frases largas, equilibradas, sin choques de vocales. «Un discurso debe sonar como música, pero decir verdades».'],
+   q:'«¿Qué es lo más importante en un buen alumno?»',
+   o:[['La constancia: practicar y corregir cada día','«Eso. El talento sin práctica no llega a nada, y la práctica sin talento llega más lejos de lo que crees».'],['El talento: o se tiene o no','«Entonces mi escuela sobraría».'],['El dinero para pagar el curso','«Ay. Necesario, pero no suficiente».']]},
+  {h:'Pasión, el banquero',t:['Isócrates se ríe: hace unos años escribió un discurso contra Pasión, el banquero, para un joven del Bósforo que le acusaba de quedarse con su dinero. «No sé quién tenía razón. Yo escribía para el que me pagaba».','«Por eso dejé los tribunales. Prefiero enseñar a buscar lo justo que defender a cualquiera».'],
+   q:'«¿Está bien defender en un juicio a alguien que quizá es culpable?»',
+   o:[['Todo acusado merece que alguien le ayude a defenderse, pero no a mentir','«Bien distinguido. Esa línea es la que separa al orador del embaucador».'],['Sí, siempre que paguen','«Así pensaba yo de joven. No me enorgullece».'],['Nunca','«Entonces los inocentes también se quedarían sin ayuda».']]}]},
+lisias:{m:'atenas',q:'lo',q2:'kl',busy:'Lisias tiene tres clientes esperando. «Hoy escribo para otros. Mañana, si quieres, hablamos tú y yo».',
+ done:'Lisias te llama «el único cliente que no me paga y al que escucho con gusto».',
+ gift:'Lisias te enseña su manera de escribir para otros (hablar como habla cada cliente) y te promete escribirte un discurso si un día lo necesitas.',
+ e:[{h:'La casa de Céfalo',t:['Lisias nació en Atenas, pero no es ciudadano: es meteco. Su padre, Céfalo, vino de Siracusa invitado por Pericles. En la casa de su familia, en el Pireo, Sócrates conversaba sobre la justicia.','Tenían el mayor taller de escudos de Atenas, con más de cien esclavos.'],
+   q:'«¿Te parece justo que mi familia, que vive aquí desde hace sesenta años, no pueda votar?»',
+   o:[['No del todo: habéis dado mucho a la ciudad y la ciudad debería reconocerlo','«Gracias. Pocos atenienses lo dicen en voz alta».'],['Las leyes son las leyes','«Sí. Y también se pueden cambiar».'],['Los extranjeros no deberían quejarse','«Pago impuestos, sirvo en la flota y escribo los discursos de los ciudadanos. Me quejo un poco».']]},
+  {h:'El año de los Treinta',t:['Lisias baja la voz. Cuando gobernaron los Treinta tiranos, fueron a por los metecos ricos para robarles. Confiscaron el taller de escudos. Detuvieron a su hermano Polemarco y le obligaron a beber la cicuta, sin juicio.','Lisias escapó por una puerta trasera y huyó a Mégara. Desde allí pagó soldados y escudos para los demócratas que reconquistaron Atenas.'],
+   q:'Te mira esperando una palabra.',
+   o:[['Escucharle en silencio y decirle que su hermano no ha sido olvidado','«Gracias. Escribí un discurso contra uno de sus asesinos. Es lo único que pude hacer por él».'],['Decirle que eso ya pasó y hay que olvidar','«Atenas juró no vengarse, y lo cumplo. Pero olvidar no es lo mismo».'],['Cambiar de tema','Lisias asiente y calla. Quizá no era el día.']]},
+  {h:'Escribir con la voz de otro',t:['El oficio de Lisias es escribir discursos que sus clientes aprenden de memoria y recitan en el tribunal. El secreto está en que suene como ellos: un campesino no habla como un aristócrata.','Te enseña uno que escribió para un hombre con una discapacidad que reclamaba su pensión pública de un óbolo diario: ingenioso, con humor, sencillo.'],
+   q:'«¿Por qué crees que funciona mejor así?»',
+   o:[['Porque los jueces creen más a quien habla con naturalidad que a quien parece haber pagado un discurso','«Exacto. El mejor arte es el que no se nota».'],['Porque así cuesta menos escribirlo','«Al revés: cuesta el doble».'],['Porque los jueces son tontos','«Son ciudadanos como tú. Desconfía de quien desprecia al jurado».']]},
+  {h:'Una ciudadanía de un día',t:['Cuando la democracia volvió, el general Trasíbulo propuso darle la ciudadanía por lo que había hecho. La Asamblea la aprobó… y un tribunal la anuló por un defecto de forma: la propuesta no había pasado antes por el Consejo.','«Fui ateniense unos días. Sigo siéndolo en todo, menos en la piedra donde se graban los nombres».'],
+   q:'«¿Qué aprendiste de este caso sobre las leyes?»',
+   o:[['Que en Atenas importa cómo se hacen las cosas, no solo qué se decide','«Eso. A mí me perjudicó, pero esa regla protege a todos de los decretos precipitados».'],['Que las leyes son injustas','«No todas. Esta solo fue dura».'],['Que hay que saltarse las normas cuando conviene','«Así empezaron los Treinta».']]},
+  {h:'Gritos en Olimpia',t:['Hace dos años, Lisias habló en Olimpia, ante todos los griegos. Pidió que se unieran contra el tirano Dionisio de Siracusa, que había enviado una embajada con tiendas de púrpura y oro.','«Algunos se emocionaron tanto que atacaron las tiendas de los siracusanos. No era mi intención… del todo».'],
+   q:'«¿Debe un orador responder de lo que hace la gente al escucharle?»',
+   o:[['Sí: quien enciende el fuego debe saber hasta dónde puede llegar','«Tienes razón, y me pesa. Las palabras son actos».'],['No: cada uno es responsable de lo suyo','«Es cómodo pensarlo. Yo no lo consigo».'],['Cuanto más escándalo, mejor','«Eso es demagogia, no oratoria».']]}]},
+aristofanes:{m:'atenas',q:'lo',q2:'so',busy:'Aristófanes tose y se envuelve en el manto. «Hoy no estoy para chistes, y eso en mí es grave. Vuelve mañana».',
+ done:'Aristófanes te pone apodos distintos cada día. Dice que solo lo hace con los amigos.',
+ gift:'Aristófanes te regala una máscara cómica de las de su última obra y te cuenta los chistes que el arconte no le dejó representar.',
+ e:[{h:'Las Nubes',t:['Aristófanes te cuenta su comedia más polémica: Las nubes. En ella Sócrates aparecía colgado en un cesto, estudiando las nubes y enseñando a ganar juicios con trampas.','«Era una caricatura de todos los sofistas. Pero años después, en el juicio contra Sócrates, Platón dice que mi obra creó prejuicios contra él. No sé si tiene razón».'],
+   q:'«¿Puede una comedia hacer daño?»',
+   o:[['Sí: la risa también convence, para bien y para mal','«Lo sé. Por eso nunca hice reír sin pensar a quién».'],['No: solo son chistes','«Ojalá. Pero los atenienses votan con la misma cabeza con la que se ríen».'],['Solo si es mala','«Las buenas hacen más daño, créeme».']]},
+  {h:'Pleitos con Cleón',t:['De joven, Aristófanes se burló del político más poderoso de Atenas, Cleón, delante de los extranjeros que venían a las fiestas. Cleón lo llevó ante el Consejo.','«No me callé. Dos años después saqué una comedia entera contra él, Los caballeros. Ningún actor se atrevió a hacer una máscara de Cleón, así que la hice yo mismo».'],
+   q:'«¿Qué debe hacer un poeta cuando el poderoso le amenaza?»',
+   o:[['Seguir diciendo la verdad, con gracia y con valor','«Bien. La comedia existe para que nadie esté por encima de la risa».'],['Callar y esperar a que pase','«Así pasan los años y nunca dices nada».'],['Ponerse de su parte','«Entonces ya no eres poeta, eres pregonero».']]},
+  {h:'Lisístrata',t:['En plena guerra, cuando Atenas estaba agotada, Aristófanes escribió Lisístrata: las mujeres de toda Grecia se ponen de acuerdo para obligar a los hombres a firmar la paz.','«Era una fantasía. Las mujeres atenienses no van a la Asamblea. Pero a veces la comedia dice lo que nadie más se atreve a decir: que la guerra la pagan todos».'],
+   q:'«¿Por qué crees que funcionó en el teatro?»',
+   o:[['Porque, riéndose, los atenienses miraban de frente un deseo de paz que no podían decir en serio','«Exacto. La risa abre puertas que el miedo cierra».'],['Porque las mujeres mandaban de verdad','«No en Atenas, amigo. Por eso era cómico».'],['Porque había batallas','«No había ni una. Ese era el chiste».']]},
+  {h:'Las ranas',t:['Su mayor éxito fueron Las ranas: el dios Dioniso baja al Hades a buscar a un buen poeta trágico y organiza un concurso entre Esquilo y Eurípides. Ganó el primer premio.','Y algo único: el coro aconsejaba perdonar a los ciudadanos que habían perdido sus derechos. A la ciudad le gustó tanto que la obra se volvió a representar.'],
+   q:'«¿Para qué sirve el teatro en una democracia?»',
+   o:[['Para que la ciudad se mire a sí misma, piense y se ría de sus errores','«Si algún día te dedicas al teatro, me sentiré orgulloso».'],['Para entretenerse y olvidar','«Para eso están los banquetes».'],['Para que los ricos presuman de pagar el coro','«También… pero no solo».']]},
+  {h:'Un relevo',t:['Aristófanes está cansado. Hace dos años estrenó Pluto, sobre el dios de la riqueza, que es ciego y por eso reparte el dinero al azar. El coro ya casi no canta: ahora la comedia habla más de la vida corriente que de política.','«Mis próximas obras las presentará mi hijo Araros. Es hora de que él aprenda a recibir los abucheos».'],
+   q:'«¿Qué le dirías a un joven que empieza?»',
+   o:[['Que escuche a la gente de la calle: ahí están los mejores personajes','«Eso mismo le digo a Araros. Pero viniendo de ti suena mejor».'],['Que copie lo que ya funcionó','«El público lo nota enseguida».'],['Que no se meta con nadie','«Entonces que no escriba comedias».']]}]},
+antistenes:{m:'atenas',q:'so',q2:'ar',busy:'Antístenes está en el gimnasio, cargando piedras. «El esfuerzo no espera. Ven mañana».',
+ done:'Antístenes te saluda con un gruñido y un trozo de pan duro. En él, es un abrazo.',
+ gift:'Antístenes te regala su manto viejo y su bastón de caminante: «Con esto tienes todo lo que necesitas».',
+ e:[{h:'Ocho kilómetros cada día',t:['Antístenes vivía en el Pireo y caminaba cada día hasta Atenas para escuchar a Sócrates. Antes había estudiado retórica con Gorgias y tenía alumnos propios, pero lo dejó todo por Sócrates.','«Mis alumnos se enfadaron. Les dije: id con él. Yo voy».'],
+   q:'«¿Merece la pena dejarlo todo por un maestro?»',
+   o:[['Si te enseña a vivir mejor, sí, aunque tengas que andar mucho','«Bien. El esfuerzo es la mejor señal de que algo vale».'],['Solo si es famoso','«Sócrates era famoso por pobre y por pesado».'],['No: hay que quedarse con lo que ya se tiene','«Así nadie aprende nada».']]},
+  {h:'El gimnasio de Cinosarges',t:['Antístenes enseña en el gimnasio de Cinosarges, junto al templo de Heracles. Es el gimnasio de los que no son atenienses por los dos lados: su madre era tracia.','«Los atenienses presumen de haber nacido de la tierra del Ática. También los caracoles y los saltamontes».'],
+   q:'«¿Importa dónde nace uno?»',
+   o:[['Importa más lo que uno hace con su vida que el lugar donde nació','«Exacto. La virtud no tiene patria ni sangre».'],['Sí: los atenienses son superiores','«Lo dice un ateniense, claro».'],['Solo si eres rico','«Riqueza y cuna: los dos falsos dioses de esta ciudad».']]},
+  {h:'Heracles',t:['El héroe de Antístenes es Heracles, no por fuerte sino por esforzado: aceptó trabajos durísimos y no se rindió. El esfuerzo, el pónos, es para él un bien, no un castigo.','«Prefiero volverme loco a sentir placer», dice. Luego se ríe: «Bueno, exagero un poco. Pero solo un poco».'],
+   q:'«¿Es malo el placer?»',
+   o:[['No del todo, pero quien depende de él deja de ser libre','«Eso. Lo que te esclaviza no puede ser bueno».'],['Sí, siempre','«Hasta yo disfruto de un buen pan después de andar. No exageres».'],['No: es lo único que importa','«Hablas como Aristipo. Que te aproveche».']]},
+  {h:'Caballos y caballidad',t:['Antístenes se burla de Platón: «Veo un caballo, Platón, pero no veo la caballidad». Para él, las ideas eternas de Platón son palabras vacías: solo existen las cosas concretas.','Platón, cuentan, le respondió: «Porque tienes ojos para ver el caballo, pero aún no los tienes para ver la idea».'],
+   q:'«¿Quién tiene razón?»',
+   o:[['Los dos ven algo: yo veo caballos, pero también entiendo qué tienen en común','«Hábil. No me das la razón, pero tampoco me la quitas. Eso me gusta más».'],['Platón, sin duda','«Pues vete con él, que su jardín es más bonito».'],['Antístenes, sin duda','«No me des la razón para caerme bien. Eso es adular».']]},
+  {h:'Lo que se necesita',t:['Antístenes vive con un manto doble, un bastón y una alforja. Dice que es el hombre más rico de Atenas, porque no necesita nada de lo que no tiene.','«La virtud basta para ser feliz. Y la virtud se aprende. Lo demás son humos».'],
+   q:'«¿Podrías vivir como yo?»',
+   o:[['Quizá no del todo, pero sí aprender a necesitar menos','«Con eso me conformo. Es más de lo que consiguen casi todos».'],['Nunca, me gustan demasiado mis cosas','«Al menos eres sincero. Pero tus cosas te tienen a ti».'],['Sí, desde mañana mismo','«No prometas a la ligera. Empieza por un día».']]}]},
+pasion:{m:'atenas',q:'kl',q2:'lo',busy:'Pasión tiene la mesa llena de monedas y clientes. «Hoy, negocios. Mañana, conversación».',
+ done:'Pasión te deja sentarte detrás de su mesa de cambio, cosa que no hace ni con sus hijos.',
+ gift:'Pasión te abre una cuenta en su banco con un pequeño depósito «para que aprendas cómo crece el dinero cuando lo cuida alguien honrado».',
+ e:[{h:'Del otro lado de la mesa',t:['Pasión llegó a Atenas como esclavo. Lo compraron dos banqueros del Pireo, Arquéstrato y Antístenes. Empezó cargando sacos de monedas y acabó llevando las cuentas mejor que sus amos.','Lo liberaron, y cuando se retiraron le dejaron el banco.'],
+   q:'«¿Qué crees que me hizo prosperar?»',
+   o:[['La confianza: que la gente supiera que su dinero estaba seguro contigo','«Eso. Un banco no guarda monedas, guarda confianza».'],['La suerte','«La suerte ayuda. Pero la suerte no lleva las cuentas».'],['Ser más listo que los demás','«Hay muchos listos arruinados».']]},
+  {h:'Cómo funciona un banco',t:['Pasión te explica su oficio: cambia monedas de cien ciudades, guarda depósitos, presta a interés (un doce por ciento al año es lo normal) y adelanta dinero a los comerciantes del mar.','Los préstamos marítimos son los más caros: si el barco se hunde, el prestamista lo pierde todo. Por eso cobran mucho más.'],
+   q:'«¿Por qué es justo cobrar más por un préstamo marítimo?»',
+   o:[['Porque el que presta corre un riesgo mucho mayor','«Exacto. El interés es el precio del riesgo».'],['No es justo, es usura','«Sin esos préstamos no llegaría el trigo a Atenas».'],['Porque los marineros son ricos','«Casi nunca. Por eso piden prestado».']]},
+  {h:'Escudos y trirremes',t:['Pasión también tiene un taller de escudos. Ha regalado a la ciudad mil escudos y ha pagado una trirreme de su bolsillo.','«Quiero que mis hijos sean ciudadanos. Atenas da la ciudadanía a pocos, y solo a quien demuestra que la ama más que a su dinero».'],
+   q:'«¿Te parece bien que la ciudadanía se gane con regalos?»',
+   o:[['Si son servicios reales a la ciudad, es una forma de demostrar que se pertenece a ella','«Así lo veo. Pero sé que muchos lo llaman comprarla».'],['Sí, todo se compra','«No. Si todo se comprara, yo ya sería ciudadano».'],['Nunca: solo por nacimiento','«Entonces Atenas pierde a gente valiosa».']]},
+  {h:'Un juicio contra él',t:['Hace unos años, el hijo de un noble del Bósforo acusó a Pasión de quedarse con su depósito. Isócrates le escribió el discurso de acusación. Pasión todavía se acuerda.','«El chico había escondido el dinero para que su padre, preso del rey del Bósforo, no lo perdiera. Luego cambió de versión. Gané… creo».'],
+   q:'«¿Qué es lo más importante para un banquero en un juicio?»',
+   o:[['Tener las cuentas escritas, con fechas y testigos','«Mis libros me salvaron. Lo que no está escrito no existe».'],['Tener amigos poderosos','«Ayuda, pero los jurados odian a los poderosos».'],['Hablar mejor que el acusador','«Contra Isócrates, imposible».']]},
+  {h:'El siguiente esclavo',t:['Pasión señala a Formión, su joven esclavo, que cuenta monedas a toda velocidad. «Me recuerda a mí. Algún día le daré la libertad y quizá el banco».','«Mis hijos no quieren este oficio. Apolodoro solo piensa en política y en barcos. Formión lo lleva en la sangre».'],
+   q:'«¿Debería un banquero dejar su negocio a quien mejor lo hace o a su hijo?»',
+   o:[['A quien mejor lo haga, si así se protege lo que confiaron los clientes','«Pensaré en ello. Es lo que hicieron mis amos conmigo».'],['Siempre al hijo','«La sangre no sabe contar».'],['Venderlo y disfrutar','«Eso hacen los que nunca fueron esclavos».']]}]},
+ificrates:{m:'atenas',q:'ar',q2:'lo',busy:'Ifícrates está entrenando a sus peltastas. «La guerra no avisa. Hoy, maniobras; mañana, si quieres, charla».',
+ done:'Ifícrates te deja marchar al frente de sus peltastas en los ejercicios. Dice que tienes buen paso.',
+ gift:'Ifícrates te regala un par de sus botas ligeras, las «ificrátidas», y un puesto honorario entre sus peltastas.',
+ e:[{h:'Hijo de un zapatero',t:['Ifícrates no es noble: su padre era zapatero. Una vez, un descendiente del tiranicida Harmodio le echó en cara su origen. Él contestó: «Mi linaje empieza conmigo; el tuyo termina contigo».','Ahora es el general más famoso de Atenas.'],
+   q:'«¿Qué hace a un buen general?»',
+   o:[['El entrenamiento, la disciplina y saber cuidar de sus soldados','«Nada de cuna. Bien».'],['Ser de buena familia','«Pues mi padre hacía sandalias».'],['Ser el más fuerte','«El más fuerte cae como cualquiera ante una jabalina».']]},
+  {h:'Los peltastas',t:['Ifícrates manda peltastas: soldados con un escudo pequeño y ligero, jabalinas y una lanza más larga. No forman una falange pesada como los hoplitas: corren, hostigan y desaparecen.','También inventó unas botas fáciles de poner, que ya llevan su nombre.'],
+   q:'«¿Por qué funcionan contra hoplitas?»',
+   o:[['Porque son rápidos: atacan de lejos y los hoplitas, cargados, no pueden alcanzarlos','«Lo has entendido mejor que muchos generales».'],['Porque son más fuertes','«Al revés: son más ligeros».'],['Porque llevan mejores escudos','«Llevan peores. Ese es el truco».']]},
+  {h:'El Lequeo',t:['Hace cuatro años, junto al puerto de Corinto, Ifícrates y sus peltastas atacaron una mora espartana, unos seiscientos hoplitas. Los hostigaron con jabalinas hasta matar a casi la mitad.','Toda Grecia se quedó atónita. Los espartanos, que se creían invencibles, habían sido derrotados por soldados ligeros.'],
+   q:'«¿Qué aprendiste de esta batalla?»',
+   o:[['Que nadie es invencible si el otro piensa una táctica nueva','«Eso es. La costumbre es el peor enemigo de un ejército».'],['Que los espartanos son débiles','«No lo son. Por eso fue tan importante».'],['Que hay que tener más soldados','«Teníamos menos».']]},
+  {h:'Entrenar en tiempos de paz',t:['Ifícrates entrena a sus hombres aunque no haya guerra: marchas, emboscadas falsas, alarmas de noche. «Un ejército que no entrena se ablanda como el pan mojado».','Cuando un soldado se quejó, le dijo: «En la batalla no podrás quejarte».'],
+   q:'«¿Por qué entrenar si hay paz?»',
+   o:[['Porque la paz se defiende mejor cuando los enemigos saben que estás preparado','«Lo has dicho mejor que yo».'],['No hace falta: ya se aprenderá en la guerra','«Allí se aprende muriendo».'],['Para tener a los soldados ocupados','«También… pero no solo».']]},
+  {h:'Un general y su ciudad',t:['Ifícrates sirve a Atenas, pero también ha luchado como mercenario para reyes de Tracia. Dicen que piensa casarse con la hija de un rey tracio.','«Atenas me debe mucho, y yo a ella. Pero un general sin guerra es un zapatero sin cuero».'],
+   q:'«¿Debe un ciudadano luchar para otros reyes?»',
+   o:[['Solo si nunca lo hace contra su ciudad y vuelve cuando ella le llama','«Esa es mi regla. Nunca la he roto».'],['Sí, por dinero se lucha donde sea','«Así hablan los mercenarios sin patria».'],['Nunca','«Entonces muchos atenienses habrían pasado hambre».']]}]},
+epaminondas:{m:'atenas',q:'so',q2:'ar',busy:'Epaminondas está tocando la cítara. «Hoy, música. Mañana, si quieres, filosofía».',
+ done:'Epaminondas te llama «amigo de Tebas». Viniendo de un tebano en Atenas, es mucho decir.',
+ gift:'Epaminondas te regala una lira tebana y te da la palabra (que, en su caso, vale más que un contrato) de recibirte siempre en Tebas.',
+ e:[{h:'Un maestro de Tarento',t:['Epaminondas es de familia noble pero pobre. Su maestro fue un anciano pitagórico, Lisis de Tarento, que vivía en su casa y al que cuidó como a un padre hasta su muerte.','Por él aprendió filosofía, música y a no comer más de lo necesario.'],
+   q:'«¿Qué crees que es lo primero que debe aprender un joven?»',
+   o:[['A dominarse a sí mismo antes de querer mandar a otros','«Así me lo enseñó Lisis».'],['A manejar las armas','«Eso viene después».'],['A tener dinero','«Yo no tengo, y aquí estoy».']]},
+  {h:'Nunca mentir',t:['Epaminondas tiene fama de no mentir nunca, ni siquiera en broma. Sus amigos lo saben y lo aprovechan: si quieren saber la verdad de algo, se lo preguntan a él.','«Una mentira pequeña prepara el camino a una grande».'],
+   q:'«¿Es tan grave una mentira inocente?»',
+   o:[['Quizá no lo es en sí, pero acostumbra a mentir','«Exacto. El hábito hace al hombre».'],['No, todo el mundo miente','«Por eso tan pocos se fían de nadie».'],['Solo si te pillan','«Esa es la moral del ladrón».']]},
+  {h:'Tebas humillada',t:['La Paz del Rey, firmada este año, obliga a disolver la liga de ciudades de Beocia. Esparta ha conseguido así debilitar a Tebas.','Epaminondas habla con calma, pero se le nota la herida: «Tebas tiene buenos soldados y malos hábitos. Algún día aprenderemos a combatir de otra manera».'],
+   q:'«¿Cómo vence una ciudad pequeña a una más fuerte?»',
+   o:[['Con ideas nuevas, unidad y paciencia','«Paciencia, sí. Esa será la más difícil».'],['Con suerte','«No se puede planear con la suerte».'],['Aliándose con Persia','«Eso hacen todos. Y así nos va».']]},
+  {h:'Música y danza',t:['A diferencia de muchos guerreros, Epaminondas toca la cítara, canta y baila bien. Los atenienses se sorprenden: creen que los tebanos solo saben comer y luchar.','«En Atenas nos llaman cerdos de Beocia. Yo prefiero que me conozcan por mi lira».'],
+   q:'«¿Por qué debe un soldado aprender música?»',
+   o:[['Porque la música da armonía al alma y el soldado también necesita templanza','«Pitágoras estaría de acuerdo contigo».'],['No debe','«Entonces será un soldado y nada más».'],['Para animar en los banquetes','«También. Pero no es lo principal».']]},
+  {h:'Pelópidas',t:['Epaminondas te habla de su gran amigo Pelópidas, rico y fogoso, todo lo contrario que él. «Él tiene dinero y no lo guarda; yo no tengo y no lo echo de menos. Por eso nos entendemos».','«Un amigo es otro yo. Daría la vida por él».'],
+   q:'«¿Qué es para ti la amistad?»',
+   o:[['Querer el bien del otro por sí mismo, no por lo que te da','«Esa es la amistad de los buenos. Ya lo eres».'],['Tener a alguien útil','«Eso es negocio, no amistad».'],['Divertirse juntos','«Es parte. Pero se acaba cuando acaba la diversión».']]}]},
+marcial:{m:'roma',q:'lo',q2:'kl',busy:'Marcial está buscando a un patrono que le invite a cenar. «Hoy no tengo tiempo ni denario. Mañana, quizá de lo segundo».',
+ done:'Marcial te ha dedicado un epigrama. Dice que es el primero que escribe gratis.',
+ gift:'Marcial te regala un ejemplar de su librito sobre los espectáculos del anfiteatro, con una dedicatoria escrita a mano.',
+ e:[{h:'De Bílbilis a Roma',t:['Marcial nació en Bílbilis, en Hispania, una ciudad sobre un monte donde se templa el hierro en el río más frío del mundo, según él. Llegó a Roma hace dieciséis años, bajo Nerón.','Lo protegían los Sénecas, que también eran de Hispania. Luego cayeron en desgracia y se quedó sin patronos.'],
+   q:'«¿Echarías de menos tu tierra si vivieras aquí?»',
+   o:[['Sí: Roma lo tiene todo, pero no el sitio donde uno aprendió a mirar','«Lo has dicho tan bien que te lo voy a robar para un epigrama».'],['No: Roma es mejor en todo','«Tú no has subido a mi tercer piso con este calor».'],['Me da igual dónde vivir','«Eso dicen los que nunca se han ido de casa».']]},
+  {h:'Vivir de los patronos',t:['Marcial vive como cliente: cada mañana va a saludar a los ricos con la toga puesta, a cambio de la espórtula. Vive en un tercer piso, cerca del Peral, en el Quirinal. «Sube conmigo y contarás doscientos escalones».','Se queja sin parar, pero se ríe de sí mismo antes que de nadie.'],
+   q:'«¿Por qué crees que me quejo tanto en mis versos?»',
+   o:[['Porque riéndote de tu pobreza la haces más llevadera y retratas cómo vive media Roma','«Eso. La risa es el único lujo barato».'],['Porque eres un desagradecido','«Un poco. Pero los ricos me lo ponen fácil».'],['Para que te den dinero','«También. ¿Funciona? Ni de lejos».']]},
+  {h:'El libro de los espectáculos',t:['Este año Marcial ha escrito un librito sobre la inauguración del anfiteatro de Tito: las cacerías de animales, el combate de Prisco y Vero, las batallas en el agua.','«No me gustan todos los espectáculos. Pero el emperador manda, y el poeta que no celebra lo que el emperador celebra se queda sin cenar».'],
+   q:'«¿Debe un poeta escribir sobre lo que le pide el poder?»',
+   o:[['Puede hacerlo, pero sin dejar de mirar con sus propios ojos','«Es lo que intento, entre líneas. Tú sabrás leerlas».'],['Sí, siempre, es su trabajo','«Entonces sería un pregonero».'],['Nunca','«Muy noble. Y muy hambriento».']]},
+  {h:'El arte del epigrama',t:['Un epigrama es un poema muy corto que termina con una sorpresa, como una picadura. Los griegos los grababan en las tumbas; Marcial los usa para retratar a toda Roma: avaros, gorrones, presumidos, médicos que matan más que curan.','Su regla de oro: «Respetar a las personas, hablar de los vicios». Nunca pone el nombre verdadero de nadie.'],
+   q:'«¿Por qué crees que nunca digo nombres reales?»',
+   o:[['Porque así cualquiera puede reconocerse sin que nadie quede humillado','«Exacto. El que se pica, ajos come».'],['Por miedo a los jueces','«También, no te creas».'],['Porque no conoces a nadie','«Conozco a demasiados, ese es el problema».']]},
+  {h:'Volver algún día',t:['Marcial te confiesa su sueño: volver algún día a Bílbilis, dormir hasta tarde, no ponerse la toga nunca más, cultivar un huerto.','«Roma es como una amante que te arruina. Pero no se la puede dejar fácilmente».'],
+   q:'«¿Me ves volviendo a Hispania?»',
+   o:[['Sí, cuando hayas contado todo lo que Roma tiene que contar','«Entonces me quedan muchos libros. Brindemos por ellos».'],['No, Roma no te dejará','«Eso me temo».'],['Ya deberías haberte ido','«Ay. Lo pienso cada mañana a las seis».']]}]},
+quintiliano:{m:'roma',q:'lo',q2:'so',busy:'Quintiliano está corrigiendo los ejercicios de sus alumnos. «Hoy no. Los errores de treinta muchachos no se corrigen solos».',
+ done:'Quintiliano te pide tu opinión sobre sus alumnos. Dice que eres el único que no le adula.',
+ gift:'Quintiliano te regala sus apuntes sobre cómo educar a un orador desde la cuna, y un asiento en sus clases cuando quieras.',
+ e:[{h:'De Calagurris al Foro',t:['Quintiliano nació en Calagurris, en Hispania. Su padre ya enseñaba retórica. Él vino a Roma con el emperador Galba y se quedó.','Vespasiano le dio algo que nadie había tenido antes: un sueldo pagado por el Estado, cien mil sestercios al año, para enseñar retórica latina.'],
+   q:'«¿Por qué crees que el emperador paga a maestros?»',
+   o:[['Porque una ciudad necesita gente que sepa pensar y hablar bien para gobernarse','«Exacto. Educar es una inversión, no un gasto».'],['Para tener gente que le alabe','«Eso pensarán algunos. No es lo que yo enseño».'],['Para ahorrar a los padres','«Ojalá. Los padres siguen pagando bastante».']]},
+  {h:'Un hombre bueno que sabe hablar',t:['Quintiliano repite la definición del viejo Catón: el orador es «un hombre bueno que sabe hablar». No basta con convencer: hay que ser honrado.','«Un malvado elocuente es más peligroso que un ladrón: el ladrón roba bolsas, el otro roba ciudades».'],
+   q:'«¿Puede un mal hombre ser un gran orador?»',
+   o:[['Puede convencer, pero no es un verdadero orador si le falta la virtud','«Eso es justo lo que pienso».'],['Sí, la elocuencia es solo técnica','«Entonces enseñaría a fabricar armas para cualquiera».'],['No importa, lo que cuenta es ganar','«Así habla un leguleyo».']]},
+  {h:'Contra los azotes',t:['En casi todas las escuelas de Roma se azota a los niños. Quintiliano está en contra: «Es humillante, propio de esclavos, y el niño que se acostumbra a los golpes se endurece y deja de escuchar».','Prefiere el elogio, la competición amable y que el niño aprenda jugando.'],
+   q:'«¿Por qué crees que los azotes no funcionan?»',
+   o:[['Porque enseñan miedo, no ganas de aprender','«Y el miedo se va con el maestro. Las ganas se quedan».'],['Sí funcionan, los niños son vagos','«Los niños son lo que hacemos de ellos».'],['Porque los niños no sienten dolor','«Eso no lo crees ni tú».']]},
+  {h:'Desde la cuna',t:['Quintiliano cree que la educación empieza antes de la escuela: la nodriza debe hablar bien, los padres deben ser cultos, y el niño debe aprender griego y latín desde pequeño.','«No hay que esperar a los siete años. La memoria de un niño es como cera blanda».'],
+   q:'«¿Qué es lo más importante en los primeros años?»',
+   o:[['Lo que el niño oye y ve en casa, porque lo imita todo','«Eso. El primer maestro es el ejemplo».'],['Que aprenda a leer cuanto antes','«Importa, pero sin agobiarlo».'],['Nada: los niños solo juegan','«Jugando aprenden más de lo que crees».']]},
+  {h:'Un alumno llamado Plinio',t:['Entre sus alumnos está el joven Plinio, sobrino del naturalista. «Escribe demasiado adornado, como todos a su edad, pero trabaja como una hormiga».','Quintiliano piensa escribir un día un tratado completo sobre cómo formar a un orador, desde la cuna hasta la vejez.'],
+   q:'«¿Qué consejo le darías a un joven que escribe demasiado adornado?»',
+   o:[['Que primero piense qué quiere decir, y solo después cómo decirlo bonito','«Ese es el orden correcto. Te lo copio para mis alumnos».'],['Que adorne aún más','«Acabaría hablando como un jarrón».'],['Que deje de escribir','«Nunca. Que escriba mucho y corrija más».']]}]},
+josefo:{m:'roma',q:'so',q2:'eu',busy:'Josefo está dictando a un escriba griego. «Mi griego necesita ayuda y mi historia necesita tiempo. Mañana».',
+ done:'Josefo te deja leer sus borradores, cosa que no permite ni a los escribas del emperador.',
+ gift:'Josefo te regala una copia de su Guerra de los judíos, con una nota: «Para quien escuchó sin juzgar».',
+ e:[{h:'Un sacerdote en Roma',t:['Josefo nació en Jerusalén con el nombre de Yosef ben Matityahu, en una familia de sacerdotes. Estudió las escuelas de su pueblo: fariseos, saduceos, esenios.','Ahora vive en Roma, en la antigua casa de Vespasiano, con una pensión del emperador. Por eso se llama Flavio, como la familia imperial.'],
+   q:'«¿Es posible ser fiel a tu pueblo y vivir entre sus vencedores?»',
+   o:[['Es difícil, pero se puede intentar contando su historia con verdad','«Es lo que intento cada día. No siempre lo consigo».'],['No, es una traición','«Muchos de los míos piensan como tú. Lo entiendo».'],['Sí, el dinero lo arregla todo','«El dinero no me devuelve el Templo».']]},
+  {h:'Jotapata',t:['En la guerra contra Roma, Josefo mandó las tropas judías de Galilea. Resistió en Jotapata cuarenta y siete días. Cuando cayó la ciudad, se escondió en una cueva con otros cuarenta hombres que decidieron morir antes que rendirse.','Echaron suertes. Josefo quedó entre los últimos y se entregó a los romanos. Nunca ha dejado de pensar en ello.'],
+   q:'Te mira en silencio, esperando.',
+   o:[['Decirle que no puedes juzgar lo que harías en esa cueva','«Gracias. Es lo más honrado que me han dicho en diez años».'],['Decirle que fue un cobarde','«Quizá. Me lo he dicho muchas veces».'],['Decirle que fue muy listo','«Listo no es la palabra. Vivo, sí».']]},
+  {h:'Una profecía',t:['Ante el general Vespasiano, Josefo le dijo que llegaría a ser emperador. Vespasiano pensó que era un truco para salvarse… hasta que, dos años después, se cumplió. Entonces lo liberó.','Josefo acompañó a Tito en el asedio de Jerusalén e intentó convencer a los defensores de que se rindieran. Le tiraban piedras desde las murallas.'],
+   q:'«¿Por qué crees que nadie me escuchaba desde las murallas?»',
+   o:[['Porque hablabas desde el campamento enemigo, aunque quisieras salvarlos','«Sí. Las mismas palabras, dichas desde otro lugar, son otras palabras».'],['Porque no sabías hablar','«Sé hablar. No sabía estar en dos sitios a la vez».'],['Porque eran tontos','«Eran valientes y desesperados. No tontos».']]},
+  {h:'Escribir la guerra',t:['Josefo escribió su historia de la guerra primero en arameo, para los judíos de Oriente, y luego en griego, para todo el Imperio. Tito la leyó y la aprobó.','«Quiero que los griegos y los romanos sepan que mi pueblo no es bárbaro. Que tenemos leyes, historia y libros más antiguos que los suyos».'],
+   q:'«¿Para qué sirve escribir historia?»',
+   o:[['Para que los que vienen después entiendan lo que pasó y por qué','«Y para que los muertos no se queden sin voz».'],['Para ganar fama','«Algo de eso hay, no te lo niego».'],['Para que el emperador quede bien','«Eso dirán de mí. Espero que se equivoquen».']]},
+  {h:'Lo que vendrá',t:['Josefo prepara una obra enorme: la historia completa de su pueblo, desde la creación del mundo, para los lectores griegos y romanos.','«El Templo ya no existe, pero la Ley sí. Un pueblo que conserva sus libros no desaparece».'],
+   q:'«¿Qué crees que hace que un pueblo sobreviva?»',
+   o:[['Su memoria: sus leyes, sus libros, sus costumbres','«Eso nos ha salvado siempre».'],['Su ejército','«Nuestro ejército fue vencido. Nosotros seguimos aquí».'],['Su riqueza','«La riqueza se la llevó Tito en su desfile».']]}]},
+epicteto:{m:'roma',q:'so',q2:'eu',busy:'Epicteto está escuchando a Musonio Rufo. «Hoy aprendo. Mañana, si quieres, enseño».',
+ done:'Epicteto te saluda con una pregunta: «¿Qué depende hoy de ti?». Es su forma de decir hola.',
+ gift:'Epicteto te enseña su ejercicio de cada mañana (separar lo que depende de ti de lo que no) y te regala su lámpara de barro, la única que tiene.',
+ e:[{h:'Esclavo y filósofo',t:['Epicteto es esclavo de Epafrodito, un liberto que fue secretario de Nerón. Nació en Hierápolis, en Frigia. Su propio nombre, en griego, significa «adquirido».','Su amo le deja asistir a las clases del filósofo estoico Musonio Rufo.'],
+   q:'«¿Puede ser libre un esclavo?»',
+   o:[['En su manera de pensar y de juzgar, sí, aunque no lo sea ante la ley','«Eso dice Musonio, y yo lo compruebo cada día».'],['No, nunca','«Entonces muchos amos tampoco lo son».'],['Solo si se escapa','«Hay cadenas que se llevan dentro, amigo».']]},
+  {h:'La pierna',t:['Epicteto cojea. Cuentan que un día su amo le retorcía la pierna y él le dijo, tranquilo: «Me la vas a romper». Cuando se la rompió, añadió: «¿No te lo había dicho?».','Él no lo cuenta así. Dice solo: «Es mi pierna, no soy yo».'],
+   q:'«¿Por qué digo que mi pierna no soy yo?»',
+   o:[['Porque lo que eres es tu forma de juzgar y de elegir, no tu cuerpo','«Exacto. El cuerpo me lo pueden quitar; mi juicio, no».'],['Porque no te duele','«Duele, y mucho. Pero no me gobierna».'],['Para no dar pena','«No busco pena. Busco claridad».']]},
+  {h:'Lo que depende de ti',t:['La idea central de Epicteto: hay cosas que dependen de nosotros (nuestras opiniones, deseos, decisiones) y cosas que no (el cuerpo, la fama, los bienes, lo que hagan los demás).','«Sufrimos porque queremos controlar lo que no depende de nosotros. Ocúpate de lo tuyo y deja lo demás a los dioses».'],
+   q:'Llueve el día de tu viaje. ¿Qué haría un estoico?',
+   o:[['Aceptar la lluvia, que no depende de él, y decidir bien qué hacer con ella','«Muy bien. Ya eres medio estoico, que es mejor que nada».'],['Enfadarse con el cielo','«El cielo no se entera. Tú sí».'],['Quedarse en la cama llorando','«La cama tampoco depende de ti cuando tienes que viajar».']]},
+  {h:'Musonio, el maestro',t:['Epicteto admira a Musonio Rufo, un romano estoico desterrado varias veces por Nerón. Musonio enseña que también las mujeres deben estudiar filosofía, que hay que vivir con sencillez y trabajar con las manos.','«Cuando Musonio te corrige, te sientes como si hubiera leído tu alma. Algunos salen de su clase llorando».'],
+   q:'«¿Por qué un buen maestro a veces incomoda?»',
+   o:[['Porque te enseña tus errores, y eso duele antes de ayudar','«Exacto. La escuela del filósofo es un hospital, no un teatro».'],['No debería: debe ser agradable','«Entonces sería un adulador».'],['Porque es malvado','«Malvado es el que te deja como estás».']]},
+  {h:'Si algún día soy libre',t:['Epicteto sueña con ser libre y abrir una escuela, muy sencilla, donde enseñar a vivir. «No escribiré libros. Alguien apuntará lo que digo, si vale la pena».','Mira su lámpara de barro: «Tenía una de hierro, y me la robaron. Me compré esta. El ladrón perdió más que yo: perdió su honradez por una lámpara».'],
+   q:'«¿Quién perdió más con el robo?»',
+   o:[['El ladrón: perdió algo que vale más que una lámpara','«Lo has entendido. Ya eres de los míos».'],['Tú, que te quedaste sin lámpara','«Tengo otra. Él no tiene otra honradez».'],['Nadie, era solo una lámpara','«Para él no era solo una lámpara».']]}]},
+plinio:{m:'roma',q:'so',q2:'lo',busy:'Plinio prepara su primer juicio. «Tengo dieciocho años y voy a hablar ante los centunviros. Hoy no duermo, ni charlo».',
+ done:'Plinio te escribe cartas aunque viváis en la misma ciudad. Dice que así practica.',
+ gift:'Plinio te regala uno de los cuadernos de notas de su tío, lleno de extractos de libros, y te promete escribirte siempre.',
+ e:[{h:'La costumbre del tío',t:['Plinio te cuenta cómo trabajaba su tío, el naturalista: se levantaba antes del amanecer, leía mientras comía, en el baño un esclavo le leía en voz alta, y viajando en litera seguía dictando.','Dejó ciento sesenta cuadernos llenos de extractos, con letra diminuta.'],
+   q:'«¿Te parece bien vivir así?»',
+   o:[['Admiro su curiosidad, aunque quizá también hay que saber descansar','«Mi tío diría que descansar es perder el tiempo. Yo empiezo a dudarlo».'],['Es una locura','«Un poco. Pero escribió treinta y siete libros de historia natural».'],['Es perfecto','«Ni yo puedo seguir ese ritmo».']]},
+  {h:'Miseno, aquella tarde',t:['Plinio estaba en Miseno con su madre cuando el Vesubio estalló. Su tío le invitó a ir con él en la flota. Él prefirió quedarse estudiando: estaba copiando un texto de Tito Livio.','«Si hubiera ido, quizá no estaría aquí. Si hubiera ido, quizá él tampoco habría muerto. No lo sabré nunca».'],
+   q:'Plinio se queda callado.',
+   o:[['Decirle que su tío murió intentando salvar a otros, y que eso no se puede reprochar a nadie','«Gracias. Algún día escribiré cómo murió. Para que se sepa».'],['Decirle que debería haber ido','«Lo pienso cada noche. No hace falta que me lo digas».'],['Hablar de otra cosa','Plinio asiente, agradecido o decepcionado, no sabes bien.']]},
+  {h:'Heredero',t:['Su tío lo adoptó en su testamento. Por eso ahora se llama Gayo Plinio Cecilio Segundo y ha heredado sus bienes, sus libros y su nombre.','«Llevar el nombre de un hombre así pesa. Todo el mundo espera que sea como él».'],
+   q:'«¿Debo ser como mi tío?»',
+   o:[['Debes honrarle siendo tú mismo, con lo mejor de lo que te enseñó','«Eso intentaré. Él escribió sobre la naturaleza; yo quizá escriba sobre las personas».'],['Sí, exactamente igual','«Sería una copia. Y peor».'],['No, olvídale','«Nunca».']]},
+  {h:'Primer juicio',t:['Plinio va a defender su primer caso ante el tribunal de los centunviros, que juzga herencias. Son ciento ochenta jueces en la basílica Julia, con el público gritando y aplaudiendo.','«Mi maestro Quintiliano dice que hay que preparar el discurso entero, pero estar dispuesto a cambiarlo todo si el tribunal se aburre».'],
+   q:'«¿Qué me recomiendas?»',
+   o:[['Conocer el caso mejor que nadie: así podrás cambiar el discurso sin perderte','«Eso haré. Trabajar es lo único que sé hacer bien».'],['Contar chistes','«Uno o dos. No más».'],['Hablar muy alto','«Ayuda en la basílica, pero no basta».']]},
+  {h:'Cartas',t:['Plinio te enseña un secreto: guarda copias de sus cartas, corregidas. «Algún día quizá las publique. Una carta bien escrita muestra cómo era un tiempo mejor que una historia».','Escribe a amigos, a maestros, a su esposa futura, a gente que no conoce.'],
+   q:'«¿Qué crees que hace buena una carta?»',
+   o:[['Que suene natural, como una conversación, aunque esté muy pensada','«Eso. Lo difícil es que lo trabajado parezca fácil».'],['Que sea muy larga','«Mis amigos se quejan ya de eso».'],['Que hable solo del que escribe','«Una carta es para el que la lee».']]}]},
+tacito:{m:'roma',q:'lo',q2:'so',busy:'Tácito está en el Senado. «Hoy se debate. Mañana, si quieres, te cuento lo que no se dijo».',
+ done:'Tácito te pide que le cuentes lo que se dice en las calles. Dice que tú lo cuentas sin adornos.',
+ gift:'Tácito te regala unas tablillas con sus notas sobre Britania y te promete que algún día leerás la historia de Roma tal como fue.',
+ e:[{h:'Un senador joven',t:['Tácito tiene unos veinticuatro años. Su familia no es de la vieja nobleza de Roma: viene de las provincias, quizá de la Galia. Ha empezado la carrera de los honores gracias a Vespasiano.','Es uno de los oradores jóvenes más admirados de Roma.'],
+   q:'«¿Qué crees que se necesita para hacer carrera en Roma?»',
+   o:[['Talento, trabajo y saber cuándo hablar y cuándo callar','«Lo último es lo más difícil. Y lo más necesario bajo un emperador».'],['Ser de familia noble','«Eso ayudaba antes. Ahora el emperador elige».'],['Dinero','«Ayuda. No basta».']]},
+  {h:'Agrícola',t:['Hace tres años, Tácito se casó con la hija de Gneo Julio Agrícola, que ahora gobierna Britania. Este mismo año Agrícola ha llevado las legiones hasta el norte de la isla, a tierras donde nunca había llegado un romano.','«Mi suegro es un hombre honrado, cosa rara entre los gobernadores. Algún día escribiré su vida».'],
+   q:'«¿Qué hace a un buen gobernador de provincia?»',
+   o:[['Ser justo con los provinciales y no enriquecerse a su costa','«Eso es lo que más admiro de Agrícola».'],['Conquistar mucho','«Conquistar es fácil. Gobernar lo conquistado, no».'],['Obedecer al emperador en todo','«Necesario. No suficiente».']]},
+  {h:'Lo que dicen los vencidos',t:['Tácito tiene una costumbre extraña para un romano: imagina lo que dirían los enemigos de Roma. Un caudillo britano, piensa, podría decir que los romanos «crean un desierto y lo llaman paz».','«No digo que tenga razón. Digo que un historiador debe escuchar también a los vencidos».'],
+   q:'«¿Por qué escucharlos?»',
+   o:[['Porque solo así se entiende de verdad lo que pasó y lo que cuesta un imperio','«Ese es el oficio. Sin ira y sin parcialidad».'],['No hace falta: Roma siempre tiene razón','«Así escriben los aduladores».'],['Para burlarse de ellos','«Eso no es historia, es teatro».']]},
+  {h:'Los peligros de la palabra',t:['Tácito recuerda los tiempos de Nerón: senadores que perdían la vida por una frase, historiadores cuyos libros se quemaban.','«Con Tito se respira. Pero un buen emperador no garantiza el siguiente. Por eso hay que escribir cuando se pueda».'],
+   q:'«¿Qué protege la libertad de palabra?»',
+   o:[['Leyes y costumbres que no dependan del humor de un solo hombre','«Exacto. Roma lo perdió hace tiempo y no sé si lo recuperará».'],['Un emperador bueno','«Ayuda, pero los emperadores mueren».'],['Callarse','«Callarse protege tu vida, no tu libertad».']]},
+  {h:'Breve y afilado',t:['Tácito te enseña cómo escribe: frases cortas, palabras exactas, ni una de más. «Las frases largas son para los que no tienen prisa. La historia tiene prisa».','Planea escribir la historia de Roma desde Nerón hasta hoy, cuando tenga edad y libertad para hacerlo.'],
+   q:'«¿Qué escribirías tú sobre este año?»',
+   o:[['El volcán, el incendio, la epidemia y cómo respondió Roma','«Un año terrible y generoso a la vez. Lo apunto».'],['Solo los juegos del anfiteatro','«Lo que divierte no siempre es lo que importa».'],['Nada: no pasa nada','«Siempre pasa algo. Hay que saber verlo».']]}]},
+frontino:{m:'roma',q:'ar',q2:'so',busy:'Frontino está midiendo planos con un compás. «Hoy, números. Mañana, historias de guerra».',
+ done:'Frontino te enseña sus planos de acueductos. Dice que nadie más se interesa por las tuberías.',
+ gift:'Frontino te regala una groma pequeña de agrimensor y una tablilla con sus estratagemas favoritas.',
+ e:[{h:'Britania',t:['Frontino gobernó Britania antes que Agrícola. Sometió a los siluros, un pueblo de las montañas del oeste, duro de vencer, en una tierra de bosques y lluvia.','«Allí aprendí que una legión vale lo que valen sus caminos y sus campamentos».'],
+   q:'«¿Por qué son tan importantes los caminos para un ejército?»',
+   o:[['Porque permiten mover tropas y víveres deprisa y mantener lo conquistado','«Roma se conquista con espadas y se conserva con caminos».'],['No lo son, lo importante es la batalla','«Sin caminos no llegas a la batalla».'],['Para que los mercaderes viajen','«También, y eso paga los soldados».']]},
+  {h:'Estratagemas',t:['Frontino colecciona estratagemas: trucos de generales famosos. Cómo Aníbal ató antorchas a los cuernos de dos mil bueyes para escapar de noche; cómo Escipión engañó a los cartagineses.','«Los mejores generales vencen antes de combatir».'],
+   q:'«¿Qué es mejor, ganar por fuerza o por ingenio?»',
+   o:[['Por ingenio: se pierden menos vidas','«Exacto. Las victorias baratas en sangre son las mejores».'],['Por fuerza: es más honroso','«El honor no resucita a los muertos».'],['Da igual mientras ganes','«No del todo: hay trucos que deshonran».']]},
+  {h:'El agua de Roma',t:['A Frontino le apasiona el agua. Roma tiene nueve acueductos que traen agua desde decenas de kilómetros, con una pendiente tan suave que casi no se nota.','«Compara estas obras con las pirámides inútiles o las obras famosas pero ociosas de los griegos». Lo dice medio en broma, medio en serio.'],
+   q:'«¿Por qué los acueductos tienen tan poca pendiente?»',
+   o:[['Para que el agua corra sin parar pero sin romper el canal con su fuerza','«Eso es. Ingeniería es equilibrio».'],['Porque los ingenieros eran perezosos','«Construir así es lo contrario de perezoso».'],['Porque Roma es llana','«Roma tiene siete colinas, amigo».']]},
+  {h:'Los ladrones de agua',t:['Frontino descubre cada día trampas: tuberías ilegales que roban agua pública para huertos y casas de ricos, fontaneros que cobran sobornos.','«El agua es de todos. Robarla es robar a la fuente donde bebe el pobre».'],
+   q:'«¿Cómo lo evitarías?»',
+   o:[['Midiendo bien, inspeccionando y castigando por igual a ricos y pobres','«Eso haría yo si me dejaran».'],['No se puede evitar','«Todo se puede vigilar mejor».'],['Cortando el agua a todos','«Entonces Roma moriría de sed».']]},
+  {h:'Medir la tierra',t:['Frontino te enseña la groma, el instrumento de los agrimensores: una cruz con plomadas que sirve para trazar ángulos rectos. Con ella se dividen los campos de las colonias y se trazan las calles de los campamentos.','«Un campamento romano se monta igual en Britania que en Siria. Así cualquier soldado sabe dónde está su tienda de noche».'],
+   q:'«¿Por qué todos los campamentos son iguales?»',
+   o:[['Para que todos sepan dónde está cada cosa y se pueda montar y defender deprisa','«Orden es fuerza. Has hablado como un tribuno».'],['Por falta de imaginación','«La imaginación, para los poetas».'],['Por casualidad','«En el ejército nada es casualidad».']]}]},
+sulpicia:{m:'roma',q:'lo',q2:'so',busy:'Sulpicia está escribiendo. «Los versos vienen cuando quieren, y hoy han venido. Mañana hablamos».',
+ done:'Sulpicia te lee sus versos antes que a nadie. Dice que tienes buen oído.',
+ gift:'Sulpicia te regala una tablilla con un poema escrito para ti y te presenta a su círculo de amigos poetas.',
+ e:[{h:'Una mujer que firma',t:['Sulpicia escribe poesía y la firma con su nombre. Hay muy pocas mujeres en Roma que lo hagan.','Recuerda a otra Sulpicia, de tiempos de Augusto, sobrina de un gran protector de poetas, que escribió unos pocos poemas que aún se leen.'],
+   q:'«¿Por qué crees que hay tan pocas poetas?»',
+   o:[['Porque a las mujeres se les ha dado menos educación y menos libertad para publicar','«Exacto. No es falta de talento, es falta de puertas».'],['Porque no saben escribir','«Algunas escribimos mejor que muchos senadores».'],['Porque no les interesa','«Pregúntaselo a ellas».']]},
+  {h:'Versos para un marido',t:['Sulpicia escribe sobre el amor en el matrimonio, a su marido Caleno. En Roma se escriben muchos versos de amor, pero casi siempre para amantes, no para esposos.','«Dicen que el amor y el matrimonio no van juntos. Yo escribo para demostrar lo contrario».'],
+   q:'«¿Te parece raro escribir de amor a un esposo?»',
+   o:[['No: el amor que dura también merece versos','«Eso pienso yo».'],['Sí, es aburrido','«Para los que nunca han durado nada».'],['Los versos son solo para los dioses','«Los dioses ya tienen bastantes».']]},
+  {h:'Leer a los griegos',t:['Sulpicia lee a Safo, la poetisa de Lesbos, en griego. «Hace seiscientos años escribió cosas que yo siento hoy. Eso es la poesía: una voz que no envejece».','También lee a Catulo, que imitó a Safo en latín.'],
+   q:'«¿Por qué seguimos leyendo poemas tan antiguos?»',
+   o:[['Porque hablan de cosas que todos sentimos, en cualquier época','«Así es. El corazón no ha cambiado tanto».'],['Por obligación en la escuela','«Por eso muchos los odian. Qué pena».'],['No deberíamos','«Entonces nos quedaríamos muy solos».']]},
+  {h:'Un círculo de poetas',t:['Sulpicia se reúne con otros poetas para leer sus obras en voz alta: en Roma, los libros se presentan así, en lecturas públicas en casas de amigos.','«Si el público bosteza, el poema está mal. Es la crítica más sincera».'],
+   q:'«¿Por qué leer en voz alta antes de publicar?»',
+   o:[['Porque se oye lo que no funciona y los amigos ayudan a corregir','«Exacto. Un poema es música antes que tinta».'],['Para presumir','«También. Pero no solo».'],['No sirve de nada','«Pruébalo y verás».']]},
+  {h:'Lo que queda',t:['Sulpicia se pregunta si sus versos sobrevivirán. «De la otra Sulpicia quedan seis poemas. De Safo, unos pocos. Las mujeres desaparecen de los libros».','«Si alguien lee algún día un solo verso mío, me daré por satisfecha».'],
+   q:'«¿Qué harías para que no se perdieran?»',
+   o:[['Copiarlos, leerlos y citarlos, para que otros los conozcan','«Entonces ya tienen un guardián. Gracias».'],['Nada, lo que se pierde se pierde','«Qué triste pensamiento».'],['Esconderlos','«Escondidos se pierden antes».']]}]}
+};
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -11398,6 +11749,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={get sealed(){return SEALED;},qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
