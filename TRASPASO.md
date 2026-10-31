@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 83 del artefacto; notas de la versión 83). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 84 del artefacto; notas de la versión 84). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,21 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 84: menús con iconos
+
+- **Iconos SVG de trazo, hechos a mano** (clase `.ic`, 24×24, `stroke` = `currentColor`), sin dependencias. Se generaron con `iconos.py`; el SVG está escrito directamente en el HTML.
+- **Barra superior:** solo iconos (`button.ib`). La tecla va en una esquina (`kbd`) y el nombre sale en un globo al pasar el ratón: es `aria-label`, mostrado con CSS `::after`, y se traduce con `i18nStatic`.
+  - La fecha y el acontecimiento del día van en su propia línea, encima.
+  - El icono de sonido muestra si está activado o silenciado (`aria-pressed`).
+  - Botón nuevo `bKeys`: abre la tarjeta de controles.
+- **Botones táctiles** (`#tbtns`): solo iconos grandes.
+- **Diario:**
+  - Las pestañas son iconos; el nombre solo aparece en la pestaña elegida (`.tl`). En el modo Historia, «Capítulos» cambia el `.tl`.
+  - Guardar, cargar y cerrar son iconos.
+- **Plano y biblioteca:** el botón de cerrar es una X. El del Mediterráneo es un globo, que se convierte en plano al cambiar (`setMed`).
+- **Tarjeta de controles:** la barra de texto inferior (`#keys`) es ahora una tarjeta que aparece los primeros 12 s (`keysAutoTick`) y luego con el icono del teclado.
+- **Sin cambios:** las opciones de los diálogos y la pantalla de inicio conservan su texto, porque es contenido.
 
 ### Novedades de la versión 83: game feel
 
