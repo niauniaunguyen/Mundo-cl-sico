@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 72 del artefacto; notas de la versión 72). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 73 del artefacto; notas de la versión 73). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,24 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 73: los fastos, el calendario romano
+
+Basado en N. F. Marqués y J. A. Vizcaíno, *Un año en la antigua Roma* (2018). El texto extraído está en el scratchpad (`anyo_out/libro.txt`, y los encabezados por mes en `anyo_out/meses.txt`). Los textos del juego son propios: el libro se ha usado para elegir los días y comprobar los datos.
+
+- **`FASTI_R`:** los días señalados de cada mes, de 5 a 8 por mes, con fecha real.
+  - En el modo Roma aparecen al principio de la pestaña «Fiestas» del diario (`fastosHTML`), con el mes siguiente.
+  - Al empezar cada mes sale un aviso de las Kalendas (`fastosTick`).
+- **Fiestas en su mes:** `festOfDay` se envuelve en el modo Roma para que las fiestas del ciclo caigan en su mes real (`festMonth` lee el mes del campo `month`). Los meses sin fiesta del ciclo no tienen celebración.
+- **Hora romana en el marcador:** `horaRomana`, de la hora prima a la duodécima, y la noche como vigilias.
+- **Personaje nuevo `scriba`** (Sexto Verrio, escriba de los pontífices, junto a la Regia) con 6 temas:
+  - cómo se cuentan los días (Kalendas, Nonas, Idus, cuenta inclusiva);
+  - el calendario de Rómulo, Numa y César;
+  - los días fastos, nefastos y comiciales y las nundinas;
+  - las horas y el reloj de Catania;
+  - los juegos seculares;
+  - la semana planetaria.
+- **Estela nueva:** `ro_fastos`, «Los fastos y la Regia».
 
 ### Novedades de la versión 72: el Capitolio con su forma real
 
