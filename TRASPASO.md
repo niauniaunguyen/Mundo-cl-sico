@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 81 del artefacto; notas de la versión 81). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 82 del artefacto; notas de la versión 82). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,34 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 82: sacar partido a los diez destinos
+
+Todo está en el módulo «sacar partido», justo antes de `startGame`. El estado se guarda en `state.m386` (`m386z()`). Las opciones de los personajes se añaden con `m386Opts(n,add)`, que se llama en `renderOpts` justo después de `egOpts`.
+
+1. **Comercio por mar (`COM`, `comPrice`, `COM_EV`):**
+   - Se compra a Teocrines (vino), a Protómaco (trigo y atún), a Cleóbula (tierra blanca de Melos, el pigmento) y a Polixena (madera). Se vende a Ctesón, el naviero del Pireo.
+   - Los precios dependen de la estación (`calNow().mo`): el trigo, caro antes de la cosecha y en invierno; el atún, barato en otoño; el vino, caro en las Antesterias y las Dionisias; la madera, cara en primavera.
+   - También dependen de una noticia del puerto que cambia cada día (`comEv`).
+   - Caben 10 bultos con el barco propio y 4 sin él; sin barco se paga 1 óbolo de flete por bulto.
+   - Ctesón explica el préstamo marítimo y la ley del trigo (Demóstenes XXXIV y XXXV; Lisias XXII).
+   - Los precios están simplificados, y el juego lo dice.
+2. **Dos sueños jugables en un lienzo propio** (`mgOpen`; bucle con `requestAnimationFrame` y teclado capturado):
+   - `MG_SAL`, la batalla de Salamina, que se abre desde Carino. Hay que embestir de costado a más de 6 de velocidad. Los remeros se cansan. A los 40 s llega la brisa de Plutarco y las naves persas chocan entre sí. Gana quien hunde 5. Tienes 5 puntos de casco y 150 s, y un 35 % de las naves persas va a por ti.
+   - `MG_ESF`, el buceador hilota de Esfacteria (Tucídides IV 26), que se abre desde Glauco. Faroles de las trirremes, aire limitado y 3 intentos.
+   - La primera victoria da +3 óbolos, Sophía y Areté.
+3. **El diálogo de los melios** (`MELOS_R`, `melosDlg`), desde Cleóbula: dos rondas con tres argumentos reales de los melios y la respuesta de Tucídides, una decisión final (resistir o rendirse), el desenlace y preguntas para pensar. Da +3 Lógos.
+4. **Patrias nuevas para el forastero** (`ORIG.atenas`): Quíos, Rodas, Melos, Bizancio y Corcira, cada una con su próxeno, sus temas, sus frases y su reacción. También monedas nuevas (`FX_COINS`) para ellas y para Samos y Olinto.
+5. **Modo Historia, capítulo 11: «La paz del Rey»** (`STORY_ATENAS.push`), con Eudemo, el padre:
+   - Recorrido: Pireo, Bizancio (Protómaco), Quíos (Teocrines), Éfeso (Glauce) y vuelta al Pireo, viajando con `storyTravel`.
+   - Incluye el texto de la paz (Jenofonte, Helénicas V 1.31) y tres preguntas.
+   - Al final de la historia se menciona el viaje.
+6. **Misiones** (`m386Opts` y objetos `EGX_OBJS` con `act` que empieza por `m:`; `egxAct` los pasa a `m386Act`; `m386Setup` va después de `egxSetup`):
+   - **El escudo de Pilos:** Glauco pide que leas los escudos de la Stoa Poikile.
+   - **Aristeas:** Cleóbula busca a su hermano, vendido de niño, que ahora es alfarero y liberto en el Cerámico.
+   - **Las morías:** Eutifrón pide revisar los 5 olivos sagrados de Decelia, uno de ellos un tocón (Lisias VII).
+   - Cada misión da 6 óbolos y Kléos.
+- **Para las pruebas,** `__d` incluye ahora: `storyResume`, `storyFire`, `curStoryStep`, `regionOf`, `m386z`, `COM`, `comPrice`, `MG`, `MG_SAL`, `MG_ESF`, `mgOpen`, `mgStart`, `ORIG`, `FX_COINS` y `STORY_ATENAS`.
 
 ### Novedades de la versión 81: arreglo de las alas de cera
 
