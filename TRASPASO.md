@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 67 del artefacto; notas de la versión 67). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 68 del artefacto; notas de la versión 68). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,31 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 68: funciones en todos los teatros
+
+- **Sistema genérico:**
+  - `romaTheatres()` / `updateRomaTheatre()` valen ahora para cualquier teatro de `ROMA.theatres`, en ambos modos.
+  - Cada obra de `ROMA_PLAYS` se asocia a su teatro por nombre (`thn`); las antiguas usan `th` 0/1 vía `ROMA_THN`.
+  - `romaTheatres()` es idempotente. Se llama al construir Roma, después de `buildRomaDests()` y, en el modo Atenas, en `bootWorld`.
+  - Opciones nuevas de cada obra: `chorus:{n,c,f,s}` para el coro griego en la orquesta, `dance` para la pantomima y un tercer elemento `true` en `cast` para personajes femeninos.
+  - `THEA_NOTE[nombre]` es la explicación que sale en la estela del programa.
+  - El programa de Pompeyo y Marcelo conserva su texto y su id (`ro_prog0/1`).
+  - `noPlays` ya no tiene efecto.
+- **Modo Roma (dos funciones al día, de 9 a 12 h y de 15 a 18 h):**
+  - **Neápolis:** Menandro en griego, El misántropo y El escudo, con una nota sobre los Sebastá y Nerón.
+  - **Saepinum:** atelanas (Papo derrotado, de Novio; Maco soldado, de Pomponio). Solo quedan los títulos; los argumentos están reconstruidos y se dice.
+  - **Verona:** El que se atormenta a sí mismo, de Terencio, y la pantomima de los trabajos de Hércules.
+  - **Tarraco:** Los cautivos, de Plauto, y un mimo, El cazador de herencias (reconstruido).
+  - **Emerita:** la pantomima Dido abandonada (Eneida IV) y La maroma, de Plauto.
+  - **Carthago Nova:** El cartaginés, de Plauto, con sus versos en púnico, y la pantomima de Perseo y Andrómeda.
+  - **Lugdunum:** Edipo, de Séneca (con la duda de si se representaba o solo se recitaba), y la pantomima El juicio de Paris.
+- **Modo Atenas:**
+  - Nueva función `greekTheatre()`: gradas de tierra y madera, orquesta con thymele, escena de madera con paraskenia y un tablado bajo.
+  - **Pireo:** teatro nuevo con Pluto y Las asambleístas, de Aristófanes (Dionisias del Pireo; Tucídides VIII 93).
+  - **Corinto:** teatro nuevo con Edipo rey (con el mensajero corintio) y el drama satírico El Cíclope.
+  - `fieldOk` no siembra dentro de los teatros.
+- Pendiente: traducir las obras nuevas.
 
 ### Novedades de la versión 67: fidelidad histórica de las polis, de Roma y de las provincias
 

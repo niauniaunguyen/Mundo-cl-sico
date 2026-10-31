@@ -964,6 +964,7 @@ function fieldOk(x,z){
   if(nearRiver(x,z))return false;
   if(insideWalls(x,z,-25))return false;if(roadDist(x,z)<7)return false;
   for(const p of[ACADEMY,LYCEUM,CYNO])if(Math.hypot(x-p.x,z-p.z)<140)return false;
+  for(const T of ROMA.theatres)if(Math.hypot(x-T.x,z-T.z)<T.R1+10)return false;   // teatros griegos de fuera de la ciudad (el del Pireo)
   const h=rawH(x,z);if(h<1||h>70)return false;
   return Math.abs(rawH(x+4,z)-rawH(x-4,z))+Math.abs(rawH(x,z+4)-rawH(x,z-4))<2.4;
 }
@@ -3120,6 +3121,7 @@ function buildHarbor(){
   buildPort('atenas','El Pireo',sx,sz,LW_DIR[0],LW_DIR[1]);
   const lx=-LW_DIR[1],lz=LW_DIR[0];
   stoa({name:'Almacenes del puerto',x:sx-LW_DIR[0]*40+lx*32,z:sz-LW_DIR[1]*40+lz*32,rot:Math.atan2(-lx,-lz),len:40,depth:10,colH:4.4,colD:0.55});
+  {const tx=sx-LW_DIR[0]*95-lx*55,tz=sz-LW_DIR[1]*95-lz*55;greekTheatre({x:tx,z:tz,rot:Math.atan2(LW_DIR[0],LW_DIR[1]),R0:7,R1:26,H:9,name:'Teatro del Pireo'});}
   place('pireo','El Pireo','ΠΕΙΡΑΙΕΥΣ','El gran puerto de Atenas, a unos siete kilómetros de la ciudad y unido a ella por los Muros Largos. Tiene tres puertos naturales: el Cántaro, para el comercio, y Zea y Muniquia, para los barcos de guerra. Sus calles las trazó en cuadrícula Hipódamo de Mileto. Aquí se cambia moneda, se compra trigo del mar Negro y se embarca hacia todo el Mediterráneo. En el juego, el puerto está muy simplificado: solo un muelle con un barco mercante.',sx-LW_DIR[0]*9-lx*6,sz-LW_DIR[1]*9-lz*6,0);
 }
 function lion(x,z,a){const g=grp(x,floorAt(x,z),z,a),m=lam('#ece5d6');box(1.4,0.5,2.6,M.stone,0,0.25,0,g);
@@ -3605,8 +3607,8 @@ const seenAny=id=>!!(state.seen[id]&&state.seen[id].length);
 function nearestSign(){let b=null,bd=1e9;for(const s of signObjs){if(state.places.includes(s.data.id)||regionOf(s.x)!==regionOf(player.x))continue;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d<bd){bd=d;b=s;}}return b;}
 function nearestSphere(){let b=null,bd=1e9;for(const s of EPI.spheres){if(epiDone(s.data))continue;const d=Math.hypot(s.x-player.x,s.z-player.z);if(d<bd){bd=d;b=s;}}return b;}
 const anyDream=()=>EPISODES.some(e=>e.mode===MODE&&epiDone(e));
-function watchingPlay(){if(MODE==='atenas')return!!currentPlay()&&inCavea(player.x,player.z);
-  return!!ROMA.theatres&&ROMA.theatres.some((T,i)=>RPERF.cur[i]&&Math.hypot(player.x-T.x,player.z-T.z)<(i?60:76));}
+function watchingPlay(){if(MODE==='atenas'&&currentPlay()&&inCavea(player.x,player.z))return true;
+  return!!ROMA.theatres&&ROMA.theatres.some((T,i)=>RPERF.cur[i]&&Math.hypot(player.x-T.x,player.z-T.z)<T.R1+14);}
 const STEPS_ATENAS=[
  {id:'pritano',cat:'Política',title:'La democracia: habla con un prítano',short:'Eucles, junto a la Tholos, al oeste del Ágora',txt:'Junto a la Tholos, en el lado oeste del Ágora, Eucles preside este mes el Consejo de los Quinientos. Acércate a él (tiene un rombo ! sobre la cabeza), pulsa E y escucha al menos uno de sus temas.',ok:()=>seenAny('pritano'),at:()=>npcAt('pritano')},
  {id:'estela',cat:'Lugares',title:'Lee una estela',short:'Busca una estela con un rombo dorado y pulsa E',txt:'Las estelas con un rombo dorado explican los edificios y los lugares. Acércate a una y pulsa E: quedará anotada en tu diario, en la pestaña Lugares.',ok:()=>state.places.length>0,at:()=>nearestSign()},
@@ -5517,7 +5519,7 @@ function theatre(o){
   for(const[dx,w]of[[0,3.4],[-R0*0.55,2.6],[R0*0.55,2.6]]){box(w,w*1.7,0.2,M.dark,dx,1.2+w*0.85,R0+1.45,g);box(w+0.8,0.5,0.4,M.marble,dx,1.2+w*1.7+0.25,R0+1.4,g);}   // las tres puertas de la escena
   for(let i=0;i<12;i++){const lx=-sw*0.42+i*sw*0.84/11;for(const lv of[0,1]){const wp=toW(lx,R0+1.2,o.x,o.z,a);addColumn(wp[0],gy+1.2+lv*(H*0.45),wp[1],0.4,H*0.42,a,'corinthian',true);}}
   wseg(o,a,-sw/2,R0+1.5,sw/2,R0+1.5);   // los pasillos laterales (párodos) quedan abiertos: se entra a la orquesta para ver la función
-  if(!o.noPlays)ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name});   // los de fuera de Roma no tienen funciones
+  ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name});   // todos tienen funciones (ROMA_PLAYS, por nombre del teatro)
   footprints.push({x:o.x,z:o.z-R1*0.4,w:R1*2,d:R1*1.2,a,c:'#e4dac6',name:o.name});
   return g;
 }
@@ -6037,7 +6039,7 @@ function buildRome(){
    for(let i=0;i<36;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.6))<0.55)continue;const d=4800+r()*1500,h=200+r()*420;const m=new THREE.Mesh(new THREE.ConeGeometry(900+r()*900,h,10,1),mm);m.position.set(INNER.x+Math.cos(a)*d,h/2-60,INNER.z+Math.sin(a)*d);m.rotation.y=r()*TAU;scene.add(m);}}
   romaForum();romaCapitol();romaPalatine();romaColosseum();romaCircus();romaFora();romaCampus();romaTheatres();romaRiver();romaOutskirts();
   ROMA_PLACES.forEach(p=>place(p[0],p[1],p[2],p[3],p[4][0],p[4][1],p[5]));
-  romaTravel();buildRomaDests();buildGods();
+  romaTravel();buildRomaDests();romaTheatres();buildGods();
   romaSchools();
   romaQuarters();
   romaCity();
@@ -7189,47 +7191,209 @@ const ROMA_PLAYS=[
    ['El secreto de Lemnos','Sorpresa: Fanio es hija de Cremes, que durante años tuvo en secreto otra esposa en la isla de Lemnos. Ahora los viejos quieren que Antifón siga casado con ella… y recuperar el dinero de Formión.',[[0,10],[0,0],[1.5,0.5]]],
    ['Formión gana','Formión se niega a devolver nada y, cuando los viejos intentan arrastrarlo al tribunal, llama a gritos a Nausístrata, la esposa de Cremes, y le cuenta lo de Lemnos. Nausístrata perdona a su marido, pero le hace pagar invitando a Formión a cenar. Plaudite!',[[-1,0],[1,0],[0,10]]]]}
 ];
+// ---- repertorio de los demás teatros (modo Roma: Italia y provincias; modo Atenas: el Pireo y Corinto). Mismo formato que arriba; thn = nombre del teatro
+const THEA_NOTE={
+ _roma:'Las comedias «palliatas», con personajes griegos con manto (pallium), se adaptaban de comedias griegas como las de Menandro. Entra por los pasillos laterales y quédate en la orquesta, junto a los senadores, para seguir la obra escena a escena.',
+ 'Teatro de Neápolis':'Neápolis sigue siendo una ciudad griega: se habla griego en la calle y en este teatro se representan comedias griegas en su lengua original, como las de Menandro (c. 342-290 a.C.), el gran autor de la Comedia Nueva al que imitaron Plauto y Terencio. Cada cuatro años se celebran aquí los Sebastá, unos juegos a la griega fundados en honor de Augusto, con concursos de música, poesía y teatro. Aquí actuó Nerón por primera vez en público, en el 64, y siguió cantando mientras un terremoto sacudía el teatro.',
+ 'Teatro de Saepinum':'Hoy se representan atelanas, las farsas más antiguas de Italia, nacidas entre los oscos de Atella, en Campania: obras cortas, a menudo improvisadas, con cuatro personajes fijos de máscara: Maco, el bobo glotón; Bucón, el fanfarrón charlatán; Papo, el viejo tacaño, y Doseno, el jorobado listo. En tiempos de Sila, Pomponio y Novio las escribieron en latín. Solo nos han llegado sus títulos y versos sueltos: los argumentos que ves aquí están reconstruidos a partir de los títulos, a la manera de las atelanas. En Roma se representan al final de las tragedias, como fin de fiesta.',
+ 'Teatro de Verona':'Por la mañana, una comedia de Terencio; por la tarde, el espectáculo de moda en todo el Imperio: la pantomima. Un solo bailarín, con máscara de boca cerrada, interpreta sin hablar a todos los personajes de un mito, cambiando de máscara, mientras un coro canta la historia y los músicos tocan tibias, címbalos y el scabellum, una tablilla que se pisa para marcar el ritmo. Los grandes pantomimos, como Pílades y Batilo en tiempos de Augusto, son tan famosos que sus seguidores llegan a pelearse en las gradas.',
+ 'Teatro de Tarraco':'Por la mañana, una comedia de Plauto distinta de las demás: sin enamorados ni cortesanas. Por la tarde, un mimo: los actores no llevan máscara, las mujeres actúan (en las demás obras los papeles femeninos los hacen hombres), y se representan escenas de la vida diaria, con muchos chistes y algo de improvisación. El mimo es, con la pantomima, lo que más gusta al público de hoy. Sus textos casi no se han conservado: lo que ves está reconstruido a partir de sus temas habituales.',
+ 'Teatro de Emerita':'Por la mañana, una pantomima basada en el libro IV de la Eneida de Virgilio: los poemas de Virgilio y de Ovidio se bailan en los teatros, y el público se sabe los versos de memoria. Por la tarde, una comedia de Plauto que pasa a la orilla del mar, para una colonia que vive lejos de él.',
+ 'Teatro de Carthago Nova':'En la ciudad que fundaron los cartagineses, una comedia de Plauto con un cartaginés como protagonista: es la única obra latina en la que se oyen frases en púnico, la lengua de Cartago, que todavía hablan algunos ancianos de la ciudad. Por la tarde, una pantomima de héroes y monstruos.',
+ 'Teatro de Lugdunum':'Por la mañana, una tragedia de Séneca, el filósofo de Corduba. No sabemos si sus tragedias se representaban enteras en los teatros o solo se leían en voz alta ante un público escogido, en las recitaciones: aquí, en la capital de las Galias, una compañía se ha atrevido con ella. Habla de una peste, como la que ha sufrido Roma este mismo año. Por la tarde, una pantomima.',
+ 'Teatro del Pireo':'El Pireo celebra cada invierno sus propias Dionisias, organizadas por el demarco, con procesión, sacrificio y concursos de comedia. Este teatro de madera, junto a la colina de Muniquia, ya existía en el 411: Tucídides cuenta que allí se reunieron armados los soldados que se rebelaron contra los Cuatrocientos. Hoy se reponen dos comedias recientes de Aristófanes, ya muy anciano: morirá por estos años. En estas últimas obras el coro casi no habla: canta y baila en los intermedios.',
+ 'Teatro de Corinto':'Corinto tiene teatro desde finales del siglo V, en la ladera junto al ágora: gradas de tierra y madera y una escena de madera. Las tragedias de los grandes poetas atenienses se representan ya por toda Grecia y por Sicilia, llevadas por compañías de actores que viajan de ciudad en ciudad. Hoy se representa una tragedia de Sófocles en la que tiene un papel un mensajero de Corinto, y después, como manda la costumbre, un drama satírico, con un coro de sátiros.'
+};
+ROMA_PLAYS.push(
+ // ---------------- Neápolis: Menandro, en griego
+ {id:'dyskolos',thn:'Teatro de Neápolis',title:'El misántropo',lat:'Dýskolos',author:'Menandro',life:'c. 342-290 a.C.',start:9,end:12,cast:[['Cnemón, el viejo huraño','#6b5a3a'],['Sóstrato · Gorgias','#4f6a7d'],['Sicón, el cocinero · Daos','#a8392b']],
+  scenes:[
+   ['Prólogo de Pan','El dios Pan sale de su gruta, en File, en el campo del Ática, y presenta al vecino: Cnemón, un viejo que odia a todo el mundo, vive solo con su hija y una vieja criada y no saluda a nadie. Su hija, en cambio, honra a las Ninfas, y Pan quiere premiarla: ha hecho que un joven rico, Sóstrato, se enamore de ella.',[[0,10],[0,10],[0,10]]],
+   ['Cnemón ataca','Un esclavo de Sóstrato llega corriendo: se ha acercado a Cnemón y el viejo lo ha echado a pedradas y a terronazos. Sóstrato quiere intentarlo él mismo, pero Cnemón aparece gritando que ojalá fuera Perseo para convertir en piedra a todos los que se le acercan.',[[1.5,0.4],[-1.2,0],[0,10]]],
+   ['El pozo','La criada deja caer el cubo al pozo, y luego la azada. Cnemón baja a sacarlos y se cae dentro. Gorgias, su hijastro, que vive pobremente en la casa de al lado, lo saca con una cuerda, ayudado por Sóstrato, que no deja de mirar a la muchacha.',[[0,0.8],[-1,0],[1.6,0.5]]],
+   ['Nadie basta a sí mismo','Cnemón, magullado, reconoce su error: creía que podía vivir sin nadie, y casi muere solo. Adopta a Gorgias y le encarga casar a su hija; Gorgias se la da a Sóstrato. Pero el cocinero y el esclavo se vengan del viejo: lo sacan en brazos, lo marean a preguntas y se lo llevan a bailar a la fiesta. Es la única comedia de Menandro que conservamos casi entera, gracias a un papiro encontrado en Egipto en el siglo XX.',[[0,0],[-1.5,0.4],[1.5,0.4]]]]},
+ {id:'aspis',thn:'Teatro de Neápolis',title:'El escudo',lat:'Aspís',author:'Menandro',life:'c. 342-290 a.C.',start:15,end:18,cast:[['Daos, el esclavo fiel','#8a7350'],['Esmícrines, el tío avaro','#4a4a3a'],['Querestrato · Cleóstrato','#4f6a7d']],
+  scenes:[
+   ['El escudo abollado','Daos vuelve de la guerra en Licia con el escudo abollado de su joven amo, Cleóstrato, al que cree muerto, y con el botín. Llora por él. Entonces aparece la diosa Fortuna y le cuenta al público un secreto: Cleóstrato está vivo; otro soldado cogió su escudo.',[[0,0],[0,10],[0,10]]],
+   ['El tío avaro','El viejo Esmícrines solo piensa en el botín. Según la ley, como pariente más cercano, puede casarse con la hermana de Cleóstrato, que ahora es la heredera. Le da igual que ella esté prometida a otro joven. Daos, que lo desprecia, le responde con proverbios.',[[-1.2,0],[1.2,0],[0,10]]],
+   ['El muerto fingido','Daos inventa un engaño: el hermano de Esmícrines, Querestrato, fingirá estar muerto, para que su propia hija se convierta en una heredera todavía más rica. Un amigo se disfraza de médico extranjero y habla con un acento griego muy raro que hace reír al público. Esmícrines cae en la trampa y deja en paz a la primera muchacha.',[[0,0.4],[-1.5,0],[1.5,0.6]]],
+   ['Vuelve Cleóstrato','Llega Cleóstrato, vivo. El final del papiro se ha perdido, pero todo apunta a dos bodas y a un tío avaro burlado. Los actores bailan con antorchas y piden a la Victoria, amiga de la risa, que les sea favorable.',[[-1,0],[2,0.6],[0.4,0]]]]},
+ // ---------------- Saepinum: atelanas
+ {id:'pappus',thn:'Teatro de Saepinum',title:'Papo, derrotado en las elecciones',lat:'Pappus praeteritus',author:'Novio',life:'s. I a.C.',start:9,end:12,cast:[['Papo, el viejo','#6b5a3a'],['Maco · Bucón','#a8392b'],['Doseno, el jorobado','#3f7a3a']],
+  scenes:[
+   ['Papo quiere ser edil','El viejo Papo, el más tacaño de la ciudad, ha decidido presentarse a edil. Contrata a Doseno, que presume de saber cómo se ganan las elecciones: hay que sonreír, dar la mano a todos y, sobre todo, invitar a cenar.',[[-1,0],[0,10],[1,0]]],
+   ['La campaña','Bucón va por las calles prometiendo a los votantes trigo, juegos y baños gratis, todo pagado por Papo. Papo, al oírlo, se desmaya. Maco, encargado del banquete electoral, se come él solo la cena de los votantes.',[[0,0],[1.5,0.5],[-1.5,0]]],
+   ['El recuento','Se cuentan los votos: Papo ha perdido. El nuevo edil es… Maco, que ni siquiera se presentaba y estaba dormido debajo de una mesa. Los votantes agradecidos lo han elegido por la cena.',[[-1.5,0],[0,0.4],[1.5,0]]],
+   ['El éxodo','Papo persigue a todos con un bastón alrededor del escenario. Las atelanas acaban así: con carreras, golpes y una canción final. En Roma se usan como fin de fiesta tras las tragedias, el exodium.',[[-2,0.5],[2,0.2],[0,0.8]]]]},
+ {id:'maccus_miles',thn:'Teatro de Saepinum',title:'Maco, soldado',lat:'Maccus miles',author:'Pomponio',life:'s. I a.C.',start:15,end:18,cast:[['Maco','#a8392b'],['Bucón, el centurión fanfarrón','#8a3a2a'],['Papo · Doseno','#6b5a3a']],
+  scenes:[
+   ['Maco se alista','Maco se alista en la legión porque ha oído que a los soldados les dan de comer todos los días. El centurión Bucón le explica la disciplina: marchar veinte millas con cuarenta kilos a la espalda, cavar el foso, montar guardia. Maco pregunta a qué hora es la comida.',[[0,0],[-1.5,0],[0,10]]],
+   ['La instrucción','La instrucción es un desastre: Maco confunde la izquierda y la derecha, se clava su propio pilo y, cuando Bucón grita «¡Formad la tortuga!», se tumba en el suelo boca arriba.',[[0.5,0],[-1.5,0.3],[0,10]]],
+   ['La guardia','De guardia por la noche, Maco se come las provisiones del campamento y se duerme dentro de un tonel. El viejo Papo, vendedor de vino, viene a reclamar lo que se ha bebido. Doseno, el listo, lo convence de que ha sido un fantasma.',[[0,0.6],[0,10],[1.2,0]]],
+   ['El héroe','Por la mañana, los enemigos han huido (en realidad, por el ruido de los ronquidos que salían del tonel). Bucón se atribuye la victoria; Maco, la cena. Todos cantan y bailan el éxodo.',[[-1,0],[1,0],[0,0.6]]]]},
+ // ---------------- Verona: Terencio y una pantomima
+ {id:'heauton',thn:'Teatro de Verona',title:'El que se atormenta a sí mismo',lat:'Heautontimorumenos',author:'Terencio',life:'c. 190-159 a.C.',start:9,end:12,cast:[['Menedemo','#6b5a3a'],['Cremes','#4f6a7d'],['Siro, el esclavo · Clinia','#a07a3a']],
+  scenes:[
+   ['«Soy hombre»','El viejo Menedemo trabaja su campo desde el alba hasta la noche, como un esclavo. Su vecino Cremes le pregunta por qué se castiga así. Menedemo le dice que no se meta en lo que no le importa. Cremes responde con la frase más famosa de Terencio: «Soy hombre, y nada de lo humano me es ajeno».',[[-1,0],[1,0],[0,10]]],
+   ['El hijo perdido','Menedemo confiesa: fue tan duro con su hijo Clinia, enamorado de una muchacha pobre, que el joven se marchó a Asia a servir como soldado. Desde entonces el padre vive como un pobre para castigarse. Cremes le aconseja calma y perdón.',[[-1,0],[1,0],[0,10]]],
+   ['Clinia vuelve','Clinia regresa en secreto y se esconde en casa de Cremes. El esclavo Siro aprovecha el lío para sacarle dinero a Cremes y ayudar al hijo de este, que también está enamorado. Cremes, que tan bien aconsejaba a los demás, no ve lo que pasa en su propia casa.',[[0,10],[-1,0],[1,0.4]]],
+   ['El consejero engañado','Todo se descubre: la muchacha de Clinia resulta ser una hija de Cremes, abandonada al nacer. Menedemo recupera a su hijo y lo deja casarse. Cremes, burlado, se enfada con su hijo, pero acaba perdonándolo. Terencio enseña que es más fácil dar consejos que seguirlos. Plaudite!',[[-1.4,0],[1.2,0],[0,0.6]]]]},
+ {id:'hercules_pant',thn:'Teatro de Verona',title:'Los trabajos de Hércules',lat:'pantomima',author:'un pantomimo y su compañía',life:'según los mitos',dance:true,start:15,end:18,cast:[['El pantomimo (Hércules · Euristeo · Deyanira)','#c9a24a'],['El cantor del coro','#4f6a7d'],['El músico del scabellum','#8a3f5e']],
+  scenes:[
+   ['El león de Nemea','El coro canta: Hera odia a Hércules, hijo de Zeus, y lo obliga a servir al rey Euristeo. El pantomimo, con máscara de héroe, lucha contra un león invisible: lo ahoga con los brazos, porque las flechas no atraviesan su piel. Se pone su piel como manto.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['La Hidra','Cambia de máscara y es la Hidra de Lerna: sus brazos se retuercen como nueve cabezas. Vuelve a ser Hércules y corta cabezas que vuelven a crecer, hasta que su sobrino Yolao quema los cuellos con una antorcha. Los gestos de las manos lo dicen todo: el público aplaude cada cambio.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['Los establos y Cerbero','Con un gesto de excavar, Hércules desvía dos ríos para limpiar en un día los establos de Augías. Luego baja al mundo de los muertos y sube encadenado a Cerbero, el perro de tres cabezas: el bailarín ladra con el cuerpo, sin decir una palabra. Euristeo, aterrado, se esconde en una tinaja.',[[0,0.3],[-2,0.5],[2,0.6]]],
+   ['La túnica y el Eta','Ahora es Deyanira, la esposa celosa, que le envía una túnica teñida con la sangre del centauro Neso creyendo que es un filtro de amor. La túnica abrasa al héroe. En el monte Eta, Hércules se acuesta en una pira; las llamas lo suben al Olimpo, convertido en dios. El coro calla y el bailarín se queda inmóvil, con los brazos al cielo.',[[0,0],[-2,0.5],[2,0.6]]]]},
+ // ---------------- Tarraco: Plauto y un mimo
+ {id:'captivi',thn:'Teatro de Tarraco',title:'Los cautivos',lat:'Captivi',author:'Plauto',life:'c. 254-184 a.C.',start:9,end:12,cast:[['Hegión, el viejo','#6b5a3a'],['Tíndaro · Filócrates','#4f6a7d'],['Ergásilo, el parásito','#3f7a3a']],
+  scenes:[
+   ['Prólogo','El prólogo avisa: esta comedia no es como las otras, no tiene versos sucios ni personajes indecentes. Hegión, un anciano de Etolia, ha perdido a un hijo prisionero de los eleos; para recuperarlo, compra prisioneros eleos y espera cambiarlos por él.',[[0,10],[0,10],[0,10]]],
+   ['El cambio de ropas','Entre los prisioneros hay un noble, Filócrates, y su esclavo Tíndaro. Se intercambian la ropa y el nombre: Hegión cree que el esclavo es el amo, y deja libre al verdadero amo para que vaya a Élide a negociar el canje.',[[-1,0],[1,0],[0,10]]],
+   ['Descubierto','Otro prisionero reconoce a Tíndaro y lo delata. Hegión, furioso, lo condena a las canteras encadenado. Tíndaro no se arrepiente: «Quien muere por la virtud no muere». El público, que sabe más que los personajes, sufre con él.',[[-1,0],[1,0.4],[0,10]]],
+   ['Ergásilo trae la noticia','El parásito Ergásilo, siempre hambriento, llega corriendo del puerto: Filócrates ha cumplido su palabra y vuelve con el hijo de Hegión. Y hay más: Tíndaro es el otro hijo de Hegión, robado de niño por un esclavo. El padre recupera a sus dos hijos. El epílogo pide aplausos para una comedia que hace mejores a los buenos.',[[-1.4,0],[1,0],[0.2,0.5]]]]},
+ {id:'mimo_herencia',thn:'Teatro de Tarraco',title:'El cazador de herencias',lat:'mimus',author:'una compañía de mimos',life:'a la manera de Filistión',start:15,end:18,cast:[['El viejo rico','#6b5a3a'],['El cazador de herencias','#4f6a7d'],['La archimima, la esclava lista','#8a3f5e',true]],
+  scenes:[
+   ['El viejo enfermo','Un viejo rico, sin hijos, se hace el enfermo en la cama. Lo hace a propósito: así todos los que esperan heredar le traen regalos. Su esclava, la archimima, la actriz principal de la compañía, se lo cuenta al público guiñándole un ojo.',[[0,0.6],[0,10],[1.5,0]]],
+   ['Los regalos','Llega el cazador de herencias con un tordo cebado, después con un ánfora de vino, después con un poema en honor del viejo. Cada vez que el viejo tose, el cazador sonríe; cada vez que mejora, se pone triste.',[[0,0.6],[-1.2,0],[1.5,0]]],
+   ['El testamento','El viejo dicta su testamento delante del cazador, que ya se ve rico. La esclava escribe muy despacio y lee en voz alta: «A mi fiel esclava, la libertad y toda mi fortuna. Al cazador de herencias, el tordo que me trajo».',[[0,0.6],[-1.2,0],[1.5,0.2]]],
+   ['La resurrección','El viejo salta de la cama, sano, y baila con su esclava. El cazador huye entre las risas del público. El poeta Horacio y el novelista Petronio se burlaron también de estos cazadores de herencias, un tipo muy conocido en las ciudades del Imperio.',[[-0.5,0],[2,0.6],[0.5,0]]]]},
+ // ---------------- Emerita: pantomima de Dido y Plauto
+ {id:'dido_pant',thn:'Teatro de Emerita',title:'Dido abandonada',lat:'pantomima',author:'un pantomimo y su compañía',life:'según Virgilio, Eneida IV',dance:true,start:9,end:12,cast:[['El pantomimo (Dido · Eneas · Mercurio)','#8a3f5e'],['El cantor del coro','#4f6a7d'],['El tañedor de tibias','#c9a24a']],
+  scenes:[
+   ['La reina de Cartago','El coro canta los versos de Virgilio: Dido, la reina que fundó Cartago, ha acogido a Eneas y a los troyanos náufragos. El pantomimo, con máscara de reina, escucha embelesada el relato de la caída de Troya.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['La tormenta y la cueva','Durante una cacería estalla una tormenta; Dido y Eneas se refugian en una cueva. El bailarín cambia de máscara de la reina al héroe y vuelve a la reina. El coro canta: «Aquel día fue el primero de su muerte».',[[0,0],[-2,0.5],[2,0.6]]],
+   ['Mercurio','Ahora es Mercurio, con el sombrero alado, que baja del cielo y ordena a Eneas partir hacia Italia: su destino es fundar la estirpe de Roma, no reinar en Cartago. Eneas prepara las naves en secreto. Dido lo descubre y le suplica.',[[0,0.4],[-2,0.5],[2,0.6]]],
+   ['La pira','Las naves se alejan. Dido sube a una pira con la espada de Eneas y maldice a los troyanos: entre Cartago y Roma no habrá nunca paz. Así explica Virgilio las guerras púnicas. El bailarín cae despacio y se queda inmóvil; el coro calla.',[[0,0],[-2,0.5],[2,0.6]]]]},
+ {id:'rudens',thn:'Teatro de Emerita',title:'La maroma',lat:'Rudens',author:'Plauto',life:'c. 254-184 a.C.',start:15,end:18,cast:[['Démones, el viejo','#6b5a3a'],['Palestra · Ampelisca','#e6c8b8',true],['Gripo, el pescador · Tracalión','#3f6a7a']],
+  scenes:[
+   ['Prólogo de Arturo','La estrella Arturo cuenta que ha desencadenado una tormenta para castigar a un traficante sin escrúpulos que huía por mar con dos muchachas. El barco ha naufragado junto a la costa de Cirene, frente a la casa del viejo Démones y a un templo de Venus.',[[0,10],[0,10],[0,10]]],
+   ['Las náufragas','Palestra y Ampelisca llegan a la playa, cada una por su lado, empapadas y muertas de miedo. Se encuentran, se abrazan y se refugian en el templo de Venus, donde la sacerdotisa las acoge.',[[0,10],[-0.6,0.3],[0,10]]],
+   ['La maleta y la maroma','El pescador Gripo saca del mar con su red una maleta y sueña con hacerse rico. Tracalión, un esclavo, agarra la maroma de la red y no la suelta: discuten a tirones quién es el dueño de lo que trae el mar.',[[0,10],[0,10],[0,0]]],
+   ['El reconocimiento','En la maleta están los juguetes de Palestra de cuando era niña: así descubre Démones que ella es su hija, robada hace años. El traficante es castigado, Palestra se casa con el joven que la buscaba y Gripo recibe una recompensa. Plaudite!',[[-1,0],[0.5,0],[2,0.6]]]]},
+ // ---------------- Carthago Nova: el cartaginés de Plauto y una pantomima
+ {id:'poenulus',thn:'Teatro de Carthago Nova',title:'El cartaginés',lat:'Poenulus',author:'Plauto',life:'c. 254-184 a.C.',start:9,end:12,cast:[['Hannón, el cartaginés','#7a2a5e'],['Agorastocles · Milfión','#4f6a7d'],['Adelfasia · Anterastila','#e6c8b8',true]],
+  scenes:[
+   ['Las hijas perdidas','En Calidón vive el joven Agorastocles, cartaginés de nacimiento, robado de niño y adoptado por un griego. Está enamorado de Adelfasia, una muchacha que un traficante tiene esclavizada con su hermana. Su esclavo Milfión prepara una trampa legal para liberarlas.',[[0,10],[-1,0],[1.5,0.4]]],
+   ['Llega Hannón','Llega al puerto un viejo cartaginés, Hannón, con túnica larga y pendientes, que recorre el mundo buscando a sus dos hijas robadas. Saluda en su lengua: «Yth alonim ualonuth…». Milfión «traduce» el púnico con disparates y el público se ríe; los estudiosos modernos han conseguido leer esos versos.',[[0,0],[-1.5,0],[0,10]]],
+   ['Parientes','Hannón y Agorastocles descubren que son tío y sobrino. Y entonces Hannón reconoce a las dos muchachas por las señales de cuando eran niñas: son sus hijas. Llora de alegría.',[[0,0],[-1.4,0],[1.4,0]]],
+   ['El final','El traficante es llevado a juicio y pierde todo. Hannón promete a Agorastocles la mano de Adelfasia. Que esta comedia se represente en Carthago Nova tiene su gracia: la escribió Plauto unos veinte años después de que Escipión tomara la ciudad. Plaudite!',[[0,0],[-1.4,0],[1.4,0]]]]},
+ {id:'perseo_pant',thn:'Teatro de Carthago Nova',title:'Perseo y Andrómeda',lat:'pantomima',author:'un pantomimo y su compañía',life:'según los mitos',dance:true,start:15,end:18,cast:[['El pantomimo (Perseo · Medusa · Andrómeda)','#3f6a7a'],['El cantor del coro','#4f6a7d'],['El músico del scabellum','#8a3f5e']],
+  scenes:[
+   ['La Gorgona','El coro canta: Perseo, hijo de Zeus y de Dánae, debe traer la cabeza de Medusa, cuya mirada convierte en piedra. Con sandalias aladas y un escudo pulido como un espejo, el bailarín avanza de espaldas, mirando solo el reflejo.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['La cabeza de Medusa','Cambio de máscara: ahora es Medusa, con serpientes en el pelo, que se retuerce dormida. Perseo corta la cabeza sin mirarla; de la sangre nace Pegaso, el caballo alado.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['Andrómeda en la roca','Volando sobre Etiopía, Perseo ve a una princesa encadenada a una roca junto al mar: Andrómeda, a la que sus padres ofrecen a un monstruo marino para salvar el reino. El bailarín es Andrómeda, con los brazos atados, mirando el mar con terror.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['El monstruo','Perseo baja del cielo, lucha con el monstruo y lo convierte en piedra con la cabeza de Medusa. Libera a Andrómeda y se casa con ella. El coro canta que sus estrellas brillan todavía en el cielo.',[[0,0],[-2,0.5],[2,0.6]]]]},
+ // ---------------- Lugdunum: Séneca y una pantomima
+ {id:'oedipus_sen',thn:'Teatro de Lugdunum',title:'Edipo',lat:'Oedipus',author:'Séneca',life:'c. 4 a.C.-65 d.C.',start:9,end:12,cast:[['Edipo','#7a2a2a'],['Yocasta · Creonte','#3a3a40'],['Tiresias · Manto · el anciano','#8d8a85']],
+  scenes:[
+   ['La peste','Edipo, rey de Tebas, abre la obra con un monólogo sombrío: una peste mata a hombres y animales, los campos están secos, las piras no dan abasto. Teme que la culpa sea suya: un oráculo le dijo que mataría a su padre. Séneca escribe con imágenes duras y frases cortantes, a la manera estoica.',[[0,0],[0,10],[0,10]]],
+   ['El sacrificio de Tiresias','El adivino Tiresias, ciego, y su hija Manto leen las entrañas de un toro y una ternera, como harían los harúspices etruscos: todo sale al revés y anuncia un crimen terrible. Es una escena muy de Séneca: el público romano reconoce sus propios ritos.',[[-1.5,0],[0,10],[1,0]]],
+   ['La voz de Layo','Creonte cuenta que ha visto en un bosque cómo se invocaba al fantasma del rey Layo: el muerto acusó a su asesino, que se sienta en su trono. Edipo no quiere creerlo y acusa a Creonte de conspirar.',[[-1.4,0],[1.2,0],[0,10]]],
+   ['La verdad','Un anciano de Corinto y un pastor cuentan cómo un niño con los pies atravesados fue salvado en el monte: es Edipo. Edipo se arranca los ojos y Yocasta se quita la vida. El coro canta que nadie escapa del destino, y Edipo sale de Tebas llevándose la peste con él. Los estoicos decían que hay que aceptar lo que no depende de nosotros.',[[0,0],[1.6,0.6],[-1.4,0]]]]},
+ {id:'paris_pant',thn:'Teatro de Lugdunum',title:'El juicio de Paris',lat:'pantomima',author:'un pantomimo y su compañía',life:'según los mitos',dance:true,start:15,end:18,cast:[['El pantomimo (Paris · Mercurio · las diosas)','#c9a24a'],['El cantor del coro','#4f6a7d'],['El tañedor de tibias','#8a3f5e']],
+  scenes:[
+   ['La manzana de oro','A la boda de Peleo y Tetis no invitaron a la Discordia, que arrojó entre los invitados una manzana de oro: «Para la más bella». Juno, Minerva y Venus se la disputan. El bailarín es Mercurio, que lleva la manzana volando hasta el monte Ida.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['El pastor del Ida','En el Ida vive un pastor, Paris, que en realidad es hijo del rey de Troya. El bailarín, con gorro frigio y cayado, cuida su rebaño. Mercurio le entrega la manzana: él será el juez.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['Tres promesas','Cada diosa intenta convencerlo. Juno, majestuosa, le promete reinar sobre Asia; Minerva, con casco y lanza, la victoria en la guerra; Venus, la mujer más hermosa del mundo, Helena de Esparta. El pantomimo cambia de máscara y de manera de moverse para cada una: es el número más aplaudido.',[[0,0],[-2,0.5],[2,0.6]]],
+   ['La elección','Paris da la manzana a Venus. Las otras dos diosas se marchan furiosas: de esta elección nacerá la guerra de Troya, y de Troya, Eneas y Roma. El coro termina con un canto a Venus, madre de los romanos.',[[0,0],[-2,0.5],[2,0.6]]]]},
+ // ---------------- modo Atenas: el Pireo (comedias de Aristófanes)
+ {id:'pluto',thn:'Teatro del Pireo',title:'Pluto',lat:'Ploûtos',author:'Aristófanes',life:'c. 446-386 a.C.',start:9,end:12,chorus:{n:12,c:'#8a7350',s:true},cast:[['Crémilo, el campesino','#c9b48b'],['Pluto, el dios ciego · Carión','#c9a24a'],['Pobreza · Hermes','#5a5a60']],
+  scenes:[
+   ['El ciego','El campesino Crémilo y su esclavo Carión siguen a un viejo ciego y harapiento: el oráculo de Delfos le ha dicho que siga al primero que encuentre al salir. El viejo resulta ser Pluto, la Riqueza: Zeus lo dejó ciego para que no pueda distinguir a los honrados de los malvados, y por eso se va siempre con estos.',[[-1,0],[1,0],[0,10]]],
+   ['La Pobreza','Crémilo decide curarle la vista. Aparece entonces una mujer pálida y terrible: la Pobreza. Discute con Crémilo: si todos fueran ricos, nadie trabajaría, nadie haría zapatos ni sembraría trigo; ella es la que obliga a los hombres a esforzarse. Crémilo no se deja convencer y la echa.',[[-1,0],[0,10],[1.2,0]]],
+   ['Una noche en el santuario de Asclepio','Carión cuenta a la mujer de Crémilo la noche que han pasado en un santuario de Asclepio: el sacerdote recogía de noche las ofrendas del altar, y Carión se comió las gachas de una vieja. Luego llegó el dios, y dos serpientes lamieron los ojos de Pluto. ¡Ahora ve!',[[0,10],[0.5,0],[0,10]]],
+   ['Todos honrados, todos ricos','Ahora los honrados son ricos y los malvados, pobres: un sicofanta se queja de que ya nadie lo teme. Hermes llega muerto de hambre, porque los hombres ya no ofrecen sacrificios a los dioses, y pide trabajo. Una procesión con antorchas lleva a Pluto a instalarse en el tesoro de Atenea, en la Acrópolis.',[[-1,0],[1,0.3],[1.6,0.6]]]]},
+ {id:'ecclesiazusae',thn:'Teatro del Pireo',title:'Las asambleístas',lat:'Ekklesiázousai',author:'Aristófanes',life:'c. 446-386 a.C.',start:15,end:18,chorus:{n:12,c:'#6a4d7a',f:true},cast:[['Praxágora','#8a3f5e',true],['Blépiro, su marido · Cremes','#4f6a7d'],['El vecino desconfiado','#8a7350']],
+  scenes:[
+   ['Barbas postizas','Antes del alba, Praxágora reúne a las mujeres de Atenas con los mantos y los bastones de sus maridos y barbas postizas. Ensayan cómo hablar en la asamblea: a una se le escapa jurar por las dos diosas, como las mujeres; a otra, llamar «señoras» al público.',[[0,0],[0,10],[0,10]]],
+   ['En la Pnyx','Blépiro sale de casa envuelto en el vestido de su mujer, porque ella se ha llevado su manto. Cremes vuelve de la asamblea y le cuenta lo ocurrido: un joven muy pálido ha convencido a todos de entregar el gobierno a las mujeres, «lo único que no hemos probado todavía».',[[0,10],[-1,0],[1,0]]],
+   ['El nuevo orden','Praxágora explica su plan: todos los bienes serán comunes, la tierra, el dinero y las casas; se acabarán los pleitos y los robos, porque nadie tendrá nada propio; todos comerán juntos en comidas públicas. Blépiro hace preguntas y ella tiene respuesta para todo. Pocos años después, Platón discutirá ideas parecidas en la República.',[[0,0],[-1.4,0],[0,10]]],
+   ['¿Y si nadie obedece?','Un ciudadano obediente saca sus muebles en procesión para entregarlos; su vecino se ríe y decide esperar a ver qué hacen los demás, pero no se pierde el banquete común. La comedia termina con una invitación a cenar un plato de nombre interminable, la palabra más larga de la lengua griega.',[[0,10],[-1,0],[1.4,0]]]]},
+ // ---------------- modo Atenas: Corinto (Sófocles y un drama satírico)
+ {id:'edipo_rey',thn:'Teatro de Corinto',title:'Edipo rey',lat:'Oidípous týrannos',author:'Sófocles',life:'c. 497-406 a.C.',start:9,end:12,chorus:{n:12,c:'#5a5048'},cast:[['Edipo','#7a2a2a'],['Creonte · Tiresias · Yocasta','#3a3a40'],['El mensajero de Corinto · el pastor','#8a7350']],
+  scenes:[
+   ['La peste de Tebas','Ante el palacio de Tebas, los suplicantes piden ayuda a su rey: una peste arrasa la ciudad. Edipo, que ya la salvó una vez resolviendo el enigma de la Esfinge, ha enviado a Creonte a Delfos. El oráculo responde: hay que expulsar al asesino del antiguo rey, Layo.',[[0,0],[0,10],[0,10]]],
+   ['Tiresias','El adivino ciego Tiresias no quiere hablar. Edipo lo insulta y lo acusa de conspirar con Creonte, hasta que el anciano estalla: «El asesino que buscas eres tú». Edipo, que tiene ojos, no ve; Tiresias, ciego, lo ve todo.',[[-1,0],[1,0],[0,10]]],
+   ['El mensajero de Corinto','Llega un mensajero de Corinto: ha muerto el rey Pólibo, al que Edipo cree su padre. El público de Corinto se agita: es un paisano. Para tranquilizar a Edipo, el mensajero le revela que Pólibo no era su padre: él mismo lo recibió de niño, con los pies atravesados, de manos de un pastor del Citerón.',[[-1,0],[1,0.4],[1.6,0]]],
+   ['La verdad','El viejo pastor, obligado a hablar, confirma lo peor. Yocasta ha comprendido antes y se ha quitado la vida; Edipo se arranca los ojos con sus broches. El coro termina: no llamemos feliz a ningún mortal hasta que haya cruzado el último día de su vida sin sufrir. Aristóteles la pondrá como modelo de tragedia.',[[0,0],[0,10],[1.4,0]]]]},
+ {id:'ciclope',thn:'Teatro de Corinto',title:'El Cíclope',lat:'Kýklops',author:'Eurípides',life:'480-406 a.C.',start:15,end:17,chorus:{n:12,c:'#7a5a3a',s:true},cast:[['Ulises','#4f6a7d'],['Polifemo, el Cíclope','#5a4a3a'],['Sileno','#8d8a85']],
+  scenes:[
+   ['Los sátiros esclavos','Después de la tragedia, la fiesta. Sileno, el viejo compañero de Dioniso, y sus hijos los sátiros, con orejas y colas de caballo, han naufragado en Sicilia y ahora son esclavos del Cíclope Polifemo: cuidan sus ovejas y echan de menos el vino.',[[0,10],[0,10],[0,0]]],
+   ['Llega Ulises','Desembarca Ulises con sus compañeros, buscando comida. Ofrece vino a cambio de queso y corderos. Sileno, que no prueba el vino desde hace años, le vendería todo el rebaño de su amo por un trago.',[[-1,0],[0,10],[1,0]]],
+   ['Polifemo','Vuelve el Cíclope y Sileno echa la culpa a los forasteros. Ulises le pide hospitalidad en nombre de los dioses; Polifemo se ríe: él solo adora a su estómago. Se lleva a la cueva a los compañeros de Ulises para cenárselos.',[[-1.2,0],[1,0],[0.4,0.6]]],
+   ['«Nadie»','Ulises emborracha al Cíclope y le dice que se llama «Nadie». Cuando Polifemo cae dormido, le clava una estaca ardiendo en su único ojo. «¡Nadie me ha cegado!», grita el gigante, y nadie viene a ayudarle. Ulises y los sátiros, libres, se embarcan para volver a servir a Dioniso. Es el único drama satírico que conservamos entero.',[[-1.5,0],[1,0],[0.4,0.6]]]]}
+);
 // los teatros los construye theatre(); aquí, actores con máscara, músico, público y programa
-const RPERF={actors:{},aud:[],cur:[null,null],scene:[-1,-1],tibia:4};
+const RPERF={actors:{},chorus:{},aud:[],cur:{},scene:{},tibia:4,shown:false};
+const ROMA_THN=['Teatro de Pompeyo','Teatro de Marcelo'];
+// romaTheatres() prepara los teatros que aún no tienen público: se llama al construir Roma y otra vez cuando ya están hechos los destinos (y en el modo Atenas para los teatros griegos de fuera de la ciudad)
 function romaTheatres(){
   const mask=(g,c)=>{if(GLB.ok){const ro={mask:lam(c||'#efe5d4'),hair:lam('#2a1a12')};g.add(glbPart('P_mask',ro));g.add(glbPart('P_mask_hair',ro));}};
-  for(const pl of ROMA_PLAYS){const T=ROMA.theatres[pl.th];
-    RPERF.actors[pl.id]=pl.cast.map(([nm,col],i)=>{const g=makePerson({chiton:col,himation:col,female:/Estáfila|Erotia/.test(nm),hair:'#2a1a12'});g.scale.setScalar(1.08);mask(g,i===0?'#e9d8b8':'#efe5d4');g.visible=false;scene.add(g);return g;});}
-  ROMA.theatres.forEach((T,ti)=>{
-    // tañedor de tibia (la doble flauta que acompaña los cantos)
-    const mu=makePerson({chiton:'#e9dfc8',himation:'#8a3f5e',hair:'#3a2a1e'});const mp=toW(T.R0*0.9,T.R0+0.2,T.x,T.z,T.a);mu.position.set(mp[0],T.gy+1.2,mp[1]);mu.rotation.y=T.a+Math.PI;mu.visible=false;scene.add(mu);T.mus=mu;
+  ROMA.theatres.forEach((T,ti)=>{if(T.crowd)return;
+    const plays=ROMA_PLAYS.filter(p=>(p.thn||ROMA_THN[p.th])===T.name);T.plays=plays;
+    T.stageY=T.greek?0.5:1.2;T.stageZ=T.greek?T.R0+0.6:T.R0-1.2;
+    for(const pl of plays){pl.ti=ti;
+      RPERF.actors[pl.id]=pl.cast.map(([nm,col,fem],i)=>{const g=makePerson({chiton:col,himation:col,female:fem||/Estáfila|Erotia/.test(nm),hair:'#2a1a12'});g.scale.setScalar(1.08);mask(g,i===0?'#e9d8b8':'#efe5d4');g.visible=false;scene.add(g);return g;});
+      RPERF.chorus[pl.id]=[];if(pl.chorus)for(let i=0;i<pl.chorus.n;i++){const g=makePerson({chiton:pl.chorus.c,himation:pl.chorus.c,female:!!pl.chorus.f,hair:'#2a1a12',short:!!pl.chorus.s});mask(g,'#e9dcc6');g.visible=false;scene.add(g);RPERF.chorus[pl.id].push(g);}}
+    // tañedor de tibia o de aulós (la doble flauta que acompaña los cantos)
+    const mu=makePerson({chiton:'#e9dfc8',himation:'#8a3f5e',hair:'#3a2a1e'});const mp=toW(T.R0*0.9,T.greek?T.R0*0.7:T.R0+0.2,T.x,T.z,T.a);mu.position.set(mp[0],T.gy+(T.greek?0:1.2),mp[1]);mu.rotation.y=T.a+Math.PI;mu.visible=false;scene.add(mu);T.mus=mu;
     // público en las gradas: solo durante la función
     const geo=new THREE.CylinderGeometry(0.2,0.26,1.15,5);geo.translate(0,0.58,0);const cols=['#efe8da','#e2d6c0','#a8392b','#4f6a7d','#c9a24a','#8a7350','#f4efe4','#6a4d7a'],mats=[],cl=[];
-    const q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),p=new THREE.Vector3(),sc=new THREE.Vector3(1,1,1),steps=24;
+    const q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),p=new THREE.Vector3(),sc=new THREE.Vector3(1,1,1),steps=T.steps||24;
     for(let j=0;j<steps;j++){const r=T.R0+2+(T.R1-T.R0-6)*(j+0.5)/steps,y=1.2+(T.H-6)*(j+1)/steps,n=Math.round(Math.PI*r/1.5);
       for(let i=0;i<n;i++){if(R()<0.4)continue;const t=Math.PI+(i+rr(0.2,0.8))/n*Math.PI,lx=Math.cos(t)*r,lz=Math.sin(t)*r,w=toW(lx,lz,T.x,T.z,T.a);p.set(w[0],T.gy+y,w[1]);q.setFromAxisAngle(up,T.a+Math.atan2(-lx,-lz));mats.push(new THREE.Matrix4().compose(p,q,sc));cl.push(new THREE.Color(pick(cols)));}}
     const im=new THREE.InstancedMesh(geo,WHITE_M,mats.length);mats.forEach((m,i)=>{im.setMatrixAt(i,m);im.setColorAt(i,cl[i]);});im.frustumCulled=false;im.visible=false;scene.add(im);T.crowd=im;
-    // senadores en la orquesta (el sitio reservado al orden senatorial)
-    T.sen=[];for(let i=0;i<8;i++){const t=Math.PI+0.35+i/7*(Math.PI-0.7),r=T.R0*0.55,w=toW(Math.cos(t)*r,Math.sin(t)*r,T.x,T.z,T.a);const s=makePerson({toga:true,chiton:'#efe9dc',himation:'#f3eee2',hair:pick(['#2b1f17','#8d8a85','#5b4532'])});s.position.set(w[0],T.gy,w[1]);s.rotation.y=T.a;s.visible=false;scene.add(s);T.sen.push(s);}
-    const plays=ROMA_PLAYS.filter(p=>p.th===ti),pw=toW(T.R0+4,-2,T.x,T.z,T.a);
+    // senadores (o decuriones, en las colonias) en la orquesta; en los teatros griegos la orquesta es del coro
+    T.sen=[];if(!T.greek)for(let i=0;i<8;i++){const t=Math.PI+0.35+i/7*(Math.PI-0.7),r=T.R0*0.55,w=toW(Math.cos(t)*r,Math.sin(t)*r,T.x,T.z,T.a);const s=makePerson({toga:true,chiton:'#efe9dc',himation:'#f3eee2',hair:pick(['#2b1f17','#8d8a85','#5b4532'])});s.position.set(w[0],T.gy,w[1]);s.rotation.y=T.a;s.visible=false;scene.add(s);T.sen.push(s);}
+    if(!plays.length)return;
+    const pw=toW(T.R0+4,-2,T.x,T.z,T.a);
     const sp=(lx,lz)=>{const w=toW(lx,lz,T.x,T.z,T.a);return[w[0],w[1],T.a];};
-    if(ti===0)Object.assign(NPC_POS,{aurelia:sp(-T.R0*0.35,-T.R0*0.2),ambivio:sp(T.R0*1.2,T.R0-1)});else NPC_POS.vibio=sp(T.R0*0.35,-T.R0*0.2);
-    place('ro_prog'+ti,'Programa de los juegos escénicos: '+T.name,'LVDI SCAENICI',`Hoy se reponen en el ${T.name} tres comedias de ${plays[0].author} (${plays[0].life}): `+plays.map(p=>`${p.title} (${p.lat}), de ${p.start} a ${p.end} h`).join('; ')+'. Las comedias «palliatas», con personajes griegos con manto (pallium), se adaptaban de comedias griegas como las de Menandro. Entra por los pasillos laterales y quédate en la orquesta, junto a los senadores, para seguir la obra escena a escena.',pw[0],pw[1],T.a);
+    if(T.name==='Teatro de Pompeyo')Object.assign(NPC_POS,{aurelia:sp(-T.R0*0.35,-T.R0*0.2),ambivio:sp(T.R0*1.2,T.R0-1)});else if(T.name==='Teatro de Marcelo')NPC_POS.vibio=sp(T.R0*0.35,-T.R0*0.2);
+    const note=THEA_NOTE[T.name]||THEA_NOTE._roma,fmt=p=>/^(pantomima|mimus)$/.test(p.lat)?`${p.title} (${p.lat==='mimus'?'mimo':'pantomima'}, ${p.life}), de ${p.start} a ${p.end} h`:`${p.title} (${p.lat}), de ${p.author} (${p.life}), de ${p.start} a ${p.end} h`;
+    const head=plays.every(p=>p.author===plays[0].author)&&plays.length===3?`Hoy se reponen en el ${T.name} tres comedias de ${plays[0].author} (${plays[0].life}): `+plays.map(p=>`${p.title} (${p.lat}), de ${p.start} a ${p.end} h`).join('; ')+'. ':`Hoy en el ${T.name}: `+plays.map(fmt).join('; ')+'. ';
+    place(ti<2&&!T.greek?'ro_prog'+ti:'prog_'+T.name.toLowerCase().replace(/[^a-z]+/g,'_'),(T.greek?'Programa del teatro: ':'Programa de los juegos escénicos: ')+T.name,T.greek?'ΔΙΔΑΣΚΑΛΙΑΙ':'LVDI SCAENICI',head+note,pw[0],pw[1],T.a);
   });
 }
 function updateRomaTheatre(dt,t){
   const el=$('stage');let shown=false;
-  ROMA.theatres.forEach((T,ti)=>{
-    const pl=ROMA_PLAYS.find(p=>p.th===ti&&clock.h>=p.start&&clock.h<p.end)||null;
-    if(pl!==RPERF.cur[ti]){const old=RPERF.cur[ti];if(old)RPERF.actors[old.id].forEach(g=>g.visible=false);RPERF.cur[ti]=pl;RPERF.scene[ti]=-1;
-      T.crowd.visible=!!pl;T.mus.visible=!!pl;T.sen.forEach(s=>s.visible=!!pl);
+  ROMA.theatres.forEach((T,ti)=>{if(!T.crowd)return;
+    const pl=T.plays.find(p=>clock.h>=p.start&&clock.h<p.end)||null;
+    if(pl!==(RPERF.cur[ti]||null)){const old=RPERF.cur[ti];if(old){RPERF.actors[old.id].forEach(g=>g.visible=false);RPERF.chorus[old.id].forEach(g=>g.visible=false);}RPERF.cur[ti]=pl;RPERF.scene[ti]=-1;
+      T.crowd.visible=!!pl;T.mus.visible=!!pl;T.sen.forEach(s=>s.visible=!!pl);if(pl)RPERF.chorus[pl.id].forEach(g=>g.visible=true);
       if(pl&&ui!=='start'&&Math.hypot(player.x-T.x,player.z-T.z)<400)toast(`<span class="label">${T.name}</span><br>Empieza ${pl.title}, de ${pl.author}.`);}
     if(!pl)return;
+    const far=Math.hypot(player.x-T.x,player.z-T.z)>500;if(far)return;   // lejos no hace falta mover a nadie
     const n=pl.scenes.length,si=Math.min(n-1,Math.floor((clock.h-pl.start)/(pl.end-pl.start)*n)),sc=pl.scenes[si];RPERF.scene[ti]=si;
     pl.cast.forEach((c,i)=>{const g=RPERF.actors[pl.id][i],pos=sc[2][i],off=pos[1]>=9.5;g.visible=!off;if(off)return;
-      const w=toW(pos[0]*2.2,T.R0-1.2+pos[1],T.x,T.z,T.a);if(Math.hypot(w[0]-g.position.x,w[1]-g.position.z)>15)g.position.set(w[0],T.gy+1.2,w[1]);g.position.x+=(w[0]-g.position.x)*Math.min(1,dt*1.5);g.position.z+=(w[1]-g.position.z)*Math.min(1,dt*1.5);g.position.y=T.gy+1.2;
-      g.rotation.y=T.a+Math.PI+Math.sin(t*0.7+i)*0.3;const a=g.userData.arms;if(a){a[1].rotation.x=-0.7+Math.sin(t*2.4+i)*0.5;a[0].rotation.x=Math.sin(t*1.7+i)*0.3;}});
+      const w=toW(pos[0]*2.2,T.stageZ+pos[1],T.x,T.z,T.a);if(Math.hypot(w[0]-g.position.x,w[1]-g.position.z)>15)g.position.set(w[0],T.gy+T.stageY,w[1]);g.position.x+=(w[0]-g.position.x)*Math.min(1,dt*1.5);g.position.z+=(w[1]-g.position.z)*Math.min(1,dt*1.5);g.position.y=T.gy+T.stageY;
+      g.rotation.y=T.a+Math.PI+Math.sin(t*0.7+i)*0.3;const a=g.userData.arms;if(a){const k=pl.dance?1.6:1;a[1].rotation.x=-0.7*k+Math.sin(t*2.4*k+i)*0.5*k;a[0].rotation.x=Math.sin(t*1.7*k+i)*0.3*k;}});
+    RPERF.chorus[pl.id].forEach((g,i,arr)=>{const ang=t*0.15+i/arr.length*TAU,r=T.R0*0.55,w=toW(Math.cos(ang)*r,Math.sin(ang)*r-T.R0*0.1,T.x,T.z,T.a);g.position.set(w[0],T.gy+0.03+Math.abs(Math.sin(t*3+i))*0.08,w[1]);g.rotation.y=T.a+Math.atan2(-Math.sin(ang),Math.cos(ang))+Math.PI/2;
+      const a=g.userData.arms;if(a){a[0].rotation.x=Math.sin(t*2+i)*0.6;a[1].rotation.x=-Math.sin(t*2+i)*0.6;}});
     const a=T.mus.userData.arms;if(a){a[0].rotation.x=a[1].rotation.x=-1.2+Math.sin(t*3)*0.05;}
     const near=Math.hypot(player.x-T.x,player.z-T.z)<T.R1+10;
     if(near&&ui==='play'&&el){shown=true;el.hidden=false;el.querySelector('.st').textContent=pl.title+' ('+pl.lat+') · '+pl.author+' · escena '+(si+1)+' de '+n+': '+sc[0];el.querySelector('.sx').textContent=sc[1];
       RPERF.tibia-=dt;if(RPERF.tibia<0){RPERF.tibia=4+Math.random()*5;playAulos();}}
   });
-  if(!shown&&el&&!el.hidden)el.hidden=true;
+  if(!shown&&RPERF.shown&&el)el.hidden=true;RPERF.shown=shown;
+}
+// teatro griego del siglo IV a.C.: gradas de tierra y madera en la ladera, orquesta redonda para el coro y una escena de madera con tres puertas
+function greekTheatre(o){
+  const a=o.rot||0,gy=terrainH(o.x,o.z),R0=o.R0,R1=o.R1,H=o.H,steps=14,N=36;
+  const P=(u,k)=>{const t=Math.PI+u*Math.PI*0.94+Math.PI*0.03;let r,y;if(k===0){r=R0;y=0;}else if(k===1){r=R0;y=0.6;}else{const s=Math.floor((k-2)/2),e=(k-2)%2;r=R0+2+(R1-R0-6)*(s+e)/steps;y=0.6+(H-6)*(s+1)/steps+0.6;}return[Math.cos(t)*r,y,Math.sin(t)*r];};
+  ringMesh(ringGeo(2+steps*2+1,N,P,null,k=>k%2?'#b89a6a':'#9c7f55'),o.x,gy,o.z,a);
+  const back=ringGeo(2,N,(u,k)=>{const t=Math.PI+u*Math.PI*0.94+Math.PI*0.03;return[Math.cos(t)*(R1-4),k?H+0.6:-2,Math.sin(t)*(R1-4)];},null,()=>'#8a7a5a');ringMesh(back,o.x,gy,o.z,a);
+  for(let i=0;i<N;i++){const t0=Math.PI*1.03+i/N*Math.PI*0.94,t1=Math.PI*1.03+(i+1)/N*Math.PI*0.94;wseg(o,a,Math.cos(t0)*(R1-4),Math.sin(t0)*(R1-4),Math.cos(t1)*(R1-4),Math.sin(t1)*(R1-4),0.6);}
+  const orch=new THREE.Mesh(new THREE.CircleGeometry(R0,36),lam('#cdb993'));orch.rotation.x=-Math.PI/2;orch.position.set(o.x,gy+0.04,o.z);scene.add(orch);
+  box(1.2,0.9,1.2,M.marble,o.x,gy+0.45,o.z);addCirc(o.x,o.z,0.9);   // la thymele, el altar de Dioniso
+  const g=grp(o.x,gy,o.z,a),sw=R0*2.6;box(sw,5.4,4,M.wood,0,2.7,R0+4.3,g);box(sw+1,0.4,4.6,lam('#6a4a2e'),0,5.6,R0+4.3,g);
+  box(sw*0.8,0.5,3,lam('#8a6a44'),0,0.25,R0+0.8,g);   // tablado bajo delante de la escena
+  for(const dx of[-R0*0.6,0,R0*0.6])box(dx?1.8:2.4,3,0.2,M.dark,dx,1.5+0.5,R0+2.25,g);
+  for(const s of[-1,1])box(3,5.4,6,M.wood,s*(sw/2+1.2),2.7,R0+3.3,g);   // paraskenia
+  wseg(o,a,-sw/2-2.7,R0+2.3,sw/2+2.7,R0+2.3);
+  ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name,greek:true,steps});
+  footprints.push({x:o.x,z:o.z-R1*0.4,w:R1*2,d:R1*1.2,a,c:'#b8a07a',name:o.name});
+  {const c=toW(0,R0*0.4,o.x,o.z,a);footprints.push({x:c[0],z:c[1],w:R0*3.4,d:R0*2.6,a,c:'#cdb993',name:o.name});}
+  return g;
 }
 
 // espectadores con quienes hablar: una lectora de Ovidio, un paduano devoto de Tito Livio y el jefe de la compañía
@@ -7734,6 +7898,7 @@ function buildGreece2(){
    place('lequeo_390','Los muros largos y la mora destruida','ΙΦΙΚΡΑΤΗΣ','Unos muros largos unen Corinto con su puerto de Lequeo. En el 392 los espartanos abrieron una brecha en ellos y llegaron al puerto. Dos años después, en el 390, aquí mismo, el ateniense Ifícrates y sus peltastas, soldados ligeros con escudos pequeños y jabalinas, acosaron a una mora espartana, un batallón de unos seiscientos hoplitas, hasta matar a unos doscientos cincuenta. Nadie había visto algo así: tropas ligeras derrotando a los temidos espartanos.',t.x+40,t.z-60,0);
    place('potros','Los potros de Corinto','ΠΩΛΟΙ','Las monedas de plata de Corinto llevan a Pegaso, el caballo alado, y a la letra koppa, la inicial antigua del nombre de la ciudad. Por eso la gente las llama «potros». Se aceptan en todo el Mediterráneo occidental, de Sicilia a Italia, porque Corinto fundó allí colonias como Siracusa.',t.x+24,t.z-40,0);
    place('glauce','Fuente de Glauce','ΓΛΑΥΚΗ','Según el mito, Jasón dejó a Medea para casarse con Glauce, la hija del rey de Corinto. Medea le regaló un vestido envenenado que ardió sobre su cuerpo; la muchacha se arrojó a esta fuente buscando alivio. Cerca está la tumba de los hijos de Medea: los corintios cuentan, como recoge Pausanias, que fueron ellos quienes los mataron, y que Eurípides lo cambió en su tragedia.',t.x-34,t.z-24,0);
+   greekTheatre({x:t.x-70,z:t.z+95,rot:0,R0:8,R1:30,H:10,name:'Teatro de Corinto'});
    destHouses(I,t.x,t.z,45,160,false);greekArrive(I,'Corinto');NPC_POS.nicandro=[t.x+24,t.z-18,Math.PI];
    islandVillagers(I,t.x+30,t.z+10,5,['«No todos pueden ir a Corinto», dice el refrán. Aquí todo es caro, sobre todo la diversión.','Los barcos pasan el Istmo por el diolkos: sale más barato que rodear el cabo Malea.','Con la paz vuelven los desterrados amigos de Esparta. Mi vecino ya ha cerrado la puerta con tranca.','Nuestros bronces y nuestros vasos se venden en todo el mar, de Sicilia a Asia.']);}
   // ------------------------------------------------ Platea
@@ -10855,6 +11020,7 @@ function frame(now){
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
   updatePerformance(dt,t);
+  if(MODE==='atenas'&&ROMA.theatres.length)updateRomaTheatre(dt,t);
   updateSocial(dt,t);
   if(MODE==='roma')updateRome(dt,t);
   // paseantes
@@ -14003,7 +14169,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();if(MODE==='atenas')romaTheatres();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -14023,6 +14189,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={ROMA,RPERF,clock,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
