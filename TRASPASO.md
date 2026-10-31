@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 73 del artefacto; notas de la versión 73). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 74 del artefacto; notas de la versión 74). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,23 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 74: vida urbana, el ritmo del día y escenas públicas
+
+Todo está en el módulo `vu*`, antes de `startGame`.
+
+- **El ritmo del día** (`vuAct(h)`):
+  - Cada paseante tiene un rango fijo `w.rk`. Si supera la actividad de la hora, está en casa (`w.home`): ni se ve ni se mueve.
+  - Roma: noche 12 %, alba 45 %, mañana 100 %, siesta de las horas sexta y séptima 32 %, tarde de termas 72 %, anochecer 50 %.
+  - Atenas: noche 10 %, alba 40 %, ágora llena 100 %, mediodía 55 %, tarde 60 %, anochecer 35 %.
+  - Se actualiza con `performance.now()` cada 1,2 s, porque el tiempo de juego avanza poco en entornos lentos.
+  - Los transeúntes dicen frases según la hora (`VU_BARKS`, `vuBark`, la mitad de las veces).
+- **Escenas** (`vuMake` y `vuScene`): grupos en formación que recorren una polilínea a ciertas horas. Admiten `loop`, `arrive` (llegar y quedarse) y `stop`, y muestran un aviso al acercarse.
+  - **Roma, el pretor:** un pretor con seis lictores y sus fasces, sin hacha dentro de la ciudad, más su séquito. Da vueltas por el Foro de 8 a 12 h.
+  - **Roma, el funeral noble:** flautistas, plañideras, actores con las máscaras de los antepasados, el lecho a hombros y la familia de luto. Va por la Vía Sacra hasta los Rostra (Polibio VI 53), los días con día % 3 == 1, de 9 a 11,5 h.
+  - **Roma, los carros de noche:** carros con mula por las 6 primeras `ROADS`, de 21 a 5 h (la ley de César).
+  - **Atenas, ¡A la Pnyx!:** los días de asamblea, a las 6-8 h, los ciudadanos corren del Ágora a la Pnyx porque solo cobran los primeros. En la Pnyx, dos arqueros escitas.
+  - La cuerda roja **no** se usa: es del 425 a.C. (*Los acarnienses*). En el 386 a.C. ya se pagaba la asistencia (*Las asambleístas*), y el aviso lo explica.
 
 ### Novedades de la versión 73: los fastos, el calendario romano
 
