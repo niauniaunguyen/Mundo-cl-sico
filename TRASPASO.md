@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 86 del artefacto; notas de la versión 86). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 87 del artefacto; notas de la versión 87). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,18 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 87: polvo y la cinemática de la yegua
+
+- **Polvo** (`DUST`, `dustPuff`, `dustGame`, llamado desde `gfTick`):
+  - Nubecillas que salen de detrás de los cascos al galopar (a más de 7 de velocidad) sobre tierra o arena. En arena y desierto son más claras. No salen sobre pavimento, agua ni campos verdes.
+  - Al correr a pie por la arena, una nubecilla de vez en cuando.
+  - Se reutilizan 70 sprites como máximo.
+- **Cinemática de la yegua** (`mareCine`, `cineTick` y `cineEnd`, sustituyen a la desaparición al atraparla):
+  - Bandas negras y subtítulos. La yegua (montada con `mareRig`, que tiene un pivote en las patas traseras) se encabrita y patea con las manos mientras relincha (`sfxNeigh`), cae con un golpe y una nube de polvo (`sfxHoofThud`), se calma, se gira hacia su dueño y se va trotando, levantando polvo.
+  - La cámara la toma de perfil y luego la sigue desde detrás de quien juega.
+  - Dura unos 7 s. Se salta con Esc, Enter, Espacio o tocando la pantalla.
+- **Después:** la yegua se queda junto a Eudico o Félix (`mareShow` con `q='caught'`). El objetivo y el diálogo de entrega dicen que volvió sola.
 
 ### Novedades de la versión 86: interfaz para móvil (vertical y horizontal)
 

@@ -3779,7 +3779,7 @@ function updateStats(){
      done=state.lessons.length+state.places.length+(My?state.myths.length:0)+godsDone(),tot=L+Pl+My+Go,pc=tot?Math.floor(done/tot*100):0;
    const b=$('sProg');b.textContent='Progreso '+pc+' %';b.title='Lecciones '+state.lessons.length+'/'+L+' · Lugares '+state.places.length+'/'+Pl+(My?' · Mitos '+state.myths.length+'/'+My:'')+(Go?' · Favores '+godsDone()+'/'+Go:'')+'. Pulsa para ver tu ficha.';}
   {const h=hz();$('sHorse').hidden=!(h.own&&MOUNT.riding);if(h.own)$('sHorse').textContent=horseName()+' · nv '+h.lvl+' · '+h.xp+'/'+horseNeed(h.lvl);}
-  {const h=hz();if(h.q==='on'||h.q==='caught'){$('objective').innerHTML='<b>Encargo del caballo</b><br><span class="sub">'+(h.q==='on'?'Busca la yegua escapada (rombo ◆)':'Llévale la yegua a '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa'))+'</span>';return;}}
+  {const h=hz();if(h.q==='on'||h.q==='caught'){$('objective').innerHTML='<b>Encargo del caballo</b><br><span class="sub">'+(h.q==='on'?'Busca la yegua escapada (rombo ◆)':'La yegua ha vuelto sola: habla con '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa'))+'</span>';return;}}
   if(storyOn()){$('objective').innerHTML=storyStatus()+'<br><span class="sub">G: que te lleven · J: capítulos</span>';return;}
   const st=curStep();if(st){$('objective').innerHTML='<b>Primeros pasos '+stepsDone()+'/'+STEPS().length+'</b> · '+st.title+'<br><span class="sub">'+st.short+'</span>';return;}
   const t=nextTarget();$('objective').textContent=t?(state.lessons.includes(t.data.id)?'Siguiente: pide a '+t.data.name+' que te lleve a un juicio · '+LESSONS[t.data.id].where:'Siguiente: '+t.data.name+' · '+LESSONS[t.data.id].where):'Has completado todas las lecciones. Sigue explorando.';
@@ -11659,7 +11659,9 @@ const MARE={g:null};
 function horseModel(x,z,coat){const g=grp(x,floorAt(x,z),z,R()*TAU);
   if(GLB.ok)animalGLB('A_horse',g,coat,'#2e2018');else{const c=lam(coat),dk=lam('#1e140e');box(0.75,0.8,1.95,c,0,1.55,0,g);box(0.35,0.9,0.35,c,0,2.2,0.95,g).rotation.x=0.5;box(0.33,0.36,0.8,c,0,2.6,1.3,g);
     for(const[px,pz]of[[0.25,0.75],[-0.25,0.75],[0.25,-0.75],[-0.25,-0.75]])box(0.15,1.2,0.15,dk,px,0.6,pz,g);}return g;}
-function mareShow(){const h=hz();if(MARE.g){scene.remove(MARE.g);MARE.g=null;}if(h.q!=='on')return;
+function mareShow(){const h=hz();if(MARE.g){scene.remove(MARE.g);MARE.g=null;}
+  if(h.q==='caught'){const o=npcAt(HORSE_NPC());if(o){const f=findFree(o.x+3,o.z+2.5,1.2);MARE.g=horseModel(f[0],f[1],MODE==='roma'?'#d8cfc0':'#8a6a4a');}return;}   // ya ha vuelto sola con su dueño
+  if(h.q!=='on')return;
   if(h.mx===undefined){const o=npcAt(HORSE_NPC());if(!o)return;let f=null;
     for(let k=0;k<30&&!f;k++){const a=R()*TAU,d=130+R()*90,q=findFree(o.x+Math.cos(a)*d,o.z+Math.sin(a)*d,1.2);if(floorAt(q[0],q[1])>-0.5&&regionOf(q[0])===regionOf(o.x)&&Math.abs(floorAt(q[0],q[1])-floorAt(o.x,o.z))<20)f=q;}
     if(!f)f=findFree(o.x+50,o.z+30,1.2);h.mx=f[0];h.mz=f[1];save();}
@@ -11672,8 +11674,8 @@ function horseQuest(n){const h=hz(),ro=MODE==='roma',o=$('dOpts');
     b.onclick=()=>{h.q='on';save();mareShow();closeDialog();toast('<span class="label">Encargo</span><br>Busca la yegua escapada: sigue el rombo ◆ de la brújula.');};o.appendChild(b);
     const c=document.createElement('button');c.innerHTML='<span class="n">2</span><span>Ahora no</span>';c.onclick=()=>renderOpts();o.appendChild(c);return;}
   if(h.q==='on'){$('dBody').innerHTML='<p>'+(ro?'¿Todavía nada? Es blanca y asustadiza. Sigue el rombo de la brújula.':'¿Aún no la has visto? Es castaña, con una estrella en la frente. Sigue el rombo de la brújula.')+'</p>';one('Voy a buscarla',()=>renderOpts());return;}
-  if(h.q==='caught'){h.q='done';h.own=true;h.xp=0;h.lvl=1;qAdd('kl',2);qAdd('ar',1);save();updateStats();sfxCoin();
-    $('dBody').innerHTML='<p>'+(ro?'¡La has encontrado! Los Azules se van a morder los puños. Toma: este es Rayo. Es viejo para el circo, pero joven para ti.':'¡Aura! Ven aquí, preciosa. Has cumplido, y un tesalio cumple su palabra: este potro se llama Céfiro.')+'</p><p>'+(ro?'Félix':'Eudico')+' añade: «Aún tiene mucho que aprender. Cuando cabalgues, verás <b>esferas doradas</b> por el camino: pasa a través de ellas. Cada una le da experiencia, y con cada nivel corre un 2 % más rápido y salta un poco más».</p>';
+  if(h.q==='caught'){h.q='done';h.own=true;if(MARE.g){scene.remove(MARE.g);MARE.g=null;}h.xp=0;h.lvl=1;qAdd('kl',2);qAdd('ar',1);save();updateStats();sfxCoin();
+    $('dBody').innerHTML='<p>'+(ro?'¡La yegua ha vuelto sola a las cuadras, y sé que fuiste tú quien la encontró! Los Azules se van a morder los puños. Toma: este es Rayo. Es viejo para el circo, pero joven para ti.':'¡Aura ha vuelto sola, trotando como si nada! Y me ha dicho quién la encontró. Has cumplido, y un tesalio cumple su palabra: este potro se llama Céfiro.')+'</p><p>'+(ro?'Félix':'Eudico')+' añade: «Aún tiene mucho que aprender. Cuando cabalgues, verás <b>esferas doradas</b> por el camino: pasa a través de ellas. Cada una le da experiencia, y con cada nivel corre un 2 % más rápido y salta un poco más».</p>';
     one('Ponerle nombre',()=>horseNameDlg(ro?'Rayo':'Céfiro',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'el botón del caballo':'H')+'</b> para llamar a '+hz().name+'.');}));return;}
 }
 // ponerle (o cambiarle) el nombre al caballo
@@ -11693,8 +11695,7 @@ function horbSpawn(){const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=
 function horbClear(){for(const o of HORBS)scene.remove(o.g);HORBS.length=0;}
 function horseTick(dt){
   const h=hz();if(MARE.g&&h.q==='on'){MARE.g.rotation.y+=dt*0.2;
-    if(ui==='play'&&Math.hypot(h.mx-player.x,h.mz-player.z)<4){h.q='caught';save();scene.remove(MARE.g);MARE.g=null;sfxWhistle();
-      toast('<span class="label">¡La tienes!</span><br>Coges la yegua de la brida. Llévasela a '+(MODE==='roma'?'Félix, el auriga':'Eudico de Larisa')+'.');}}
+    if(ui==='play'&&Math.hypot(h.mx-player.x,h.mz-player.z)<4){h.q='caught';save();sfxWhistle();mareCine();}}
   if(!MOUNT.riding){if(HORBS.length)horbClear();horbLast=null;return;}
   if(horbLast){horbAcc+=Math.hypot(player.x-horbLast.x,player.z-horbLast.z);}horbLast={x:player.x,z:player.z};
   if(horbAcc>60){horbAcc=0;if(HORBS.length<8)horbSpawn();}
@@ -15631,7 +15632,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   if(state){if(GF.obols===null)GF.obols=state.obols;const d=state.obols-GF.obols;if(d!==0){if(d>0)gfFloat('+'+d+' '+(MODE==='roma'?'sestercios':'óbolos'),'#e8c37a');GF.obols=state.obols;}}}
 
 
@@ -15704,6 +15705,69 @@ if(isTouch){document.body.classList.add('tm');
     else if(m==='sound'){initAudio();toggleSound();}else if(m==='cam')gfToggleMotion();else if(m==='era')$('bEra').click();
     else if(m==='full'){const d=document.documentElement;try{if(document.fullscreenElement)document.exitFullscreen();else(d.requestFullscreen||d.webkitRequestFullscreen).call(d);}catch(e){}}});}
 
+// ============================================================ polvo bajo los cascos y la cinemática de la yegua recuperada
+const DUST={pool:[],tex:null,acc:0,stepAcc:0};
+function dustTex(){if(DUST.tex)return DUST.tex;const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d'),g=x.createRadialGradient(32,32,2,32,32,30);g.addColorStop(0,'rgba(255,255,255,.9)');g.addColorStop(0.5,'rgba(255,255,255,.35)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(0,0,64,64);DUST.tex=new THREE.CanvasTexture(c);return DUST.tex;}
+function dustPuff(x,y,z,s,col){let P=DUST.pool.find(p=>!p.on);if(!P){if(DUST.pool.length>=70)return;const m=new THREE.SpriteMaterial({map:dustTex(),transparent:true,depthWrite:false,color:0xd8c49a});P={sp:new THREE.Sprite(m),on:false};scene.add(P.sp);DUST.pool.push(P);}
+  P.on=true;P.t=0;P.life=1.1+Math.random()*0.6;P.s0=(s||1)*(0.5+Math.random()*0.4);P.vx=(Math.random()-0.5)*0.8;P.vz=(Math.random()-0.5)*0.8;P.vy=0.35+Math.random()*0.35;P.a=0.42+Math.random()*0.15;
+  P.sp.material.color.set(col||'#d8c49a');P.sp.position.set(x,y+0.25,z);P.sp.visible=true;}
+function dustTick(dt){for(const P of DUST.pool){if(!P.on)continue;P.t+=dt;const k=P.t/P.life;if(k>=1){P.on=false;P.sp.visible=false;continue;}
+  P.sp.position.x+=P.vx*dt;P.sp.position.z+=P.vz*dt;P.sp.position.y+=P.vy*dt;P.vy*=0.97;const sc=P.s0*(1+k*2.2);P.sp.scale.set(sc,sc,1);P.sp.material.opacity=P.a*(1-k)*(k<0.15?k/0.15:1);}}
+function dustSurfaceOK(x,z){if(inWaterK()<1)return null;const fl=floorAt(x,z),th=terrainH(x,z);if(fl>th+0.05)return null;   // sobre pavimento o tarima, nada
+  const I=player.x>8000?islandOf(x):null;if(I&&I.desert)return'#e2cf9e';if(I&&th<2.6)return'#e0d0a8';if(I&&(I.green||MODE==='roma'))return null;return'#cdb88c';}
+function dustGame(dt){
+  if(MOUNT.riding&&MOUNT.g&&ui==='play'){const v=MOUNT.v||0;if(v>7){const col=dustSurfaceOK(player.x,player.z);if(col){DUST.acc+=dt*v*0.22;while(DUST.acc>1){DUST.acc-=1;const g=MOUNT.g,ry=g.rotation.y,bx=-Math.sin(ry),bz=-Math.cos(ry),sd=(Math.random()-0.5)*0.8;
+      dustPuff(g.position.x+bx*(0.9+Math.random()*0.6)+Math.cos(ry)*sd,floorAt(g.position.x,g.position.z),g.position.z+bz*(0.9+Math.random()*0.6)-Math.sin(ry)*sd,v>18?1.5:1.1,col);}}}}
+  else if(ui==='play'&&!FLY.on&&!BOAT.on&&player.grounded&&keys.run){const sp=Math.hypot(GF.vx,GF.vz);if(sp>7){const col=dustSurfaceOK(player.x,player.z);if(col&&col!=='#cdb88c'){DUST.stepAcc+=dt*sp;if(DUST.stepAcc>2.6){DUST.stepAcc=0;dustPuff(player.x+GF.vx*-0.05,floorAt(player.x,player.z),player.z+GF.vz*-0.05,0.6,col);}}}}
+  dustTick(dt);}
+// ---- el relincho: una voz nasal que sube, tiembla y cae
+function sfxNeigh(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime+0.02;for(const[base,vol,typ]of[[620,0.05,'sawtooth'],[1240,0.018,'square']]){const o=c.createOscillator();o.type=typ;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1500;f.Q.value=2.2;
+   const lfo=c.createOscillator();lfo.frequency.setValueAtTime(11,t);lfo.frequency.linearRampToValueAtTime(16,t+1.2);const lg=c.createGain();lg.gain.value=base*0.09;lfo.connect(lg).connect(o.frequency);
+   o.frequency.setValueAtTime(base*0.8,t);o.frequency.linearRampToValueAtTime(base*1.45,t+0.25);o.frequency.linearRampToValueAtTime(base*1.2,t+0.7);o.frequency.exponentialRampToValueAtTime(base*0.55,t+1.35);
+   const g=c.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+0.06);g.gain.setValueAtTime(vol,t+0.6);g.gain.exponentialRampToValueAtTime(0.0001,t+1.4);o.connect(f).connect(g).connect(AUD.master);o.start(t);o.stop(t+1.45);lfo.start(t);lfo.stop(t+1.45);}
+  gfNoise(t+1.3,'lowpass',500,0.7,0.06,0.05,0.35);}   // el resoplido final
+function sfxHoofThud(){if(!aOK())return;const t=AUD.ctx.currentTime;gfNoise(t,'lowpass',220,0.8,0.25,0.004,0.2);gfNoise(t+0.07,'lowpass',260,0.8,0.18,0.004,0.16);}
+// ---- la yegua con un pivote en las patas traseras para poder encabritarse
+function mareRig(x,z,coat){const g=grp(x,floorAt(x,z),z,0),piv=new THREE.Group(),inner=new THREE.Group();piv.position.z=-0.85;inner.position.z=0.85;piv.add(inner);g.add(piv);
+  let legs=[];if(GLB.ok)legs=animalGLB('A_horse',inner,coat,'#2e2018');else{const c=lam(coat),dk=lam('#1e140e');box(0.75,0.8,1.95,c,0,1.55,0,inner);box(0.33,0.36,0.8,c,0,2.6,1.3,inner);for(const[px,pz]of[[0.25,0.75],[-0.25,0.75],[0.25,-0.75],[-0.25,-0.75]])legs.push(box(0.15,1.2,0.15,dk,px,0.6,pz,inner));}
+  return{g,piv,legs};}
+const CINE={on:false};
+function cineCSS(){if($('cineCSS'))return;const s=document.createElement('style');s.id='cineCSS';s.textContent='#cine{position:fixed;inset:0;z-index:58;pointer-events:auto;cursor:pointer}#cine:before,#cine:after{content:"";position:absolute;left:0;right:0;height:0;background:#000;transition:height .5s ease}#cine:before{top:0}#cine:after{bottom:0}#cine.on:before,#cine.on:after{height:11vh}#cine .cap{position:absolute;left:50%;bottom:calc(11vh + 18px);transform:translateX(-50%);max-width:min(680px,90vw);text-align:center;color:#f1e8d8;font:italic 1.05rem Georgia,serif;text-shadow:0 1px 4px #000;opacity:0;transition:opacity .5s}#cine .cap.on{opacity:1}#cine .sk{position:absolute;right:16px;top:calc(11vh + 10px);font-size:.75rem;color:rgba(241,232,216,.6)}@media (prefers-reduced-motion:reduce){#cine:before,#cine:after,#cine .cap{transition:none}}';document.head.appendChild(s);}
+function cineCap(t){const c=CINE.d&&CINE.d.querySelector('.cap');if(!c)return;c.classList.remove('on');setTimeout(()=>{c.textContent=t;c.classList.add('on');},t?180:0);}
+function mareCine(){const h=hz(),ro=MODE==='roma',nm=ro?'la yegua blanca':'Aura';if(MARE.g){scene.remove(MARE.g);MARE.g=null;}
+  if(MOUNT.riding)dismount();FLY.on=false;cineCSS();
+  const R0=mareRig(h.mx,h.mz,ro?'#d8cfc0':'#8a6a4a'),g=R0.g;
+  // de perfil respecto a quien juega
+  const dx=h.mx-player.x,dz=h.mz-player.z,dl=Math.hypot(dx,dz)||1;g.rotation.y=Math.atan2(-dz/dl,dx/dl);
+  const npc=npcAt(HORSE_NPC());
+  const d=document.createElement('div');d.id='cine';d.innerHTML='<div class="cap"></div><div class="sk">'+(isTouch?'Toca para saltar':'Esc o clic para saltar')+'</div>';document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'));
+  Object.assign(CINE,{on:true,t:0,R:R0,d,npc,phase:0,cam:{x:camera.position.x,y:camera.position.y,z:camera.position.z},ui0:ui});ui='cine';releasePointer();
+  d.onclick=()=>cineEnd();cineCap('Coges la brida. '+(ro?'La yegua':'Aura')+' se asusta…');}
+function cineEnd(){if(!CINE.on)return;CINE.on=false;const h=hz(),ro=MODE==='roma';if(CINE.R)scene.remove(CINE.R.g);CINE.R=null;
+  const d=CINE.d;if(d){d.classList.remove('on');setTimeout(()=>d.remove(),500);}ui='play';mareShow();updateStats();
+  toast('<span class="label">'+(ro?'La yegua vuelve a casa':'Aura vuelve a casa')+'</span><br>Se ha ido trotando con '+(ro?'Félix, el auriga':'Eudico de Larisa')+'. Ve a verle: te espera con tu potro.');}
+function cineTick(dt){if(!CINE.on)return;CINE.t+=dt;const t=CINE.t,R0=CINE.R,g=R0.g,L=R0.legs,ease=k=>k<0?0:k>1?1:k*k*(3-2*k);
+  const fx=Math.sin(g.rotation.y),fz=Math.cos(g.rotation.y),sx=fz,sz=-fx;   // adelante y costado de la yegua
+  let rear=0;
+  if(t>0.35&&!CINE.n){CINE.n=1;sfxNeigh();}
+  if(t<2.2){rear=t<0.4?0:t<0.9?ease((t-0.4)/0.5)*0.85:t<1.6?0.85+Math.sin((t-0.9)*9)*0.05:0.85*(1-ease((t-1.6)/0.45));
+    if(L.length===4){const kick=t>0.5&&t<1.8?Math.sin(t*15):0;L[0].rotation.x=-0.6*Math.min(1,rear/0.5)+kick*0.5;L[1].rotation.x=-0.6*Math.min(1,rear/0.5)-kick*0.5;L[2].rotation.x=rear*0.35;L[3].rotation.x=rear*0.35;}
+    if(t>2.02&&!CINE.th){CINE.th=1;sfxHoofThud();for(let k=0;k<9;k++)dustPuff(g.position.x+fx*1.6+(Math.random()-0.5)*1.4,floorAt(g.position.x,g.position.z),g.position.z+fz*1.6+(Math.random()-0.5)*1.4,1.3);cineCap((MODE==='roma'?'La yegua':'Aura')+' se calma. Te huele la mano… pero quiere volver a casa.');}}
+  else if(t<3.2){if(L.length===4)L.forEach(l=>l.rotation.x*=0.85);
+    const n=CINE.npc;if(n){const want=Math.atan2(n.x-g.position.x,n.z-g.position.z);g.rotation.y+=wrapA(want-g.rotation.y)*Math.min(1,dt*3);}}
+  else{const n=CINE.npc,want=n?Math.atan2(n.x-g.position.x,n.z-g.position.z):g.rotation.y;g.rotation.y+=wrapA(want-g.rotation.y)*Math.min(1,dt*3);
+    const v=Math.min(7,(t-3.2)*5);g.position.x+=Math.sin(g.rotation.y)*v*dt;g.position.z+=Math.cos(g.rotation.y)*v*dt;g.position.y=floorAt(g.position.x,g.position.z)+Math.abs(Math.sin(t*9))*0.06;
+    if(L.length===4){const s=Math.sin(t*9)*0.5;L[0].rotation.x=s;L[3].rotation.x=s;L[1].rotation.x=-s;L[2].rotation.x=-s;}
+    CINE.da=(CINE.da||0)+dt*v*0.5;while(CINE.da>1){CINE.da-=1;const col=dustSurfaceOK(g.position.x,g.position.z);if(col)dustPuff(g.position.x-fx*1.1,floorAt(g.position.x,g.position.z),g.position.z-fz*1.1,1,col);}
+    if(t>3.4&&!CINE.c2){CINE.c2=1;cineCap((MODE==='roma'?'La yegua':'Aura')+' se aleja trotando hacia '+(MODE==='roma'?'Félix':'Eudico')+'.');}}
+  R0.piv.rotation.x=-rear;
+  // cámara: de perfil durante el encabritamiento; luego, desde detrás de quien juega, siguiéndola
+  const tgt=t<3.2?{x:g.position.x+sx*7+fx*1.2,y:floorAt(g.position.x,g.position.z)+1.7,z:g.position.z+sz*7+fz*1.2}:{x:player.x,y:player.camY+0.6,z:player.z};
+  const k=1-Math.exp(-dt*(t<0.6?3:2));CINE.cam.x+=(tgt.x-CINE.cam.x)*k;CINE.cam.y+=(tgt.y-CINE.cam.y)*k;CINE.cam.z+=(tgt.z-CINE.cam.z)*k;
+  camera.position.set(CINE.cam.x,CINE.cam.y,CINE.cam.z);camera.lookAt(g.position.x,floorAt(g.position.x,g.position.z)+1.3+rear*1.2,g.position.z);
+  if(t>7.2)cineEnd();}
+addEventListener('keydown',e=>{if(!CINE.on)return;e.stopImmediatePropagation();e.preventDefault();if(e.code==='Escape'||e.code==='Enter'||e.code==='Space')cineEnd();},true);
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -15769,6 +15833,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
