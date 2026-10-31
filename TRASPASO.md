@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 84 del artefacto; notas de la versión 84). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 85 del artefacto; notas de la versión 85). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,20 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 85: perros callejeros curiosos (en los dos modos)
+
+- **Qué perros son:** los 18 perros que deambulan por la ciudad y los de los diez destinos llevan `F.stray`.
+- **Cómo se comportan** (`dogCurious`, enganchada al principio del bucle de `faunaTick`):
+  - Si estás a menos de 14 m y vas a pie, a veces uno se acerca trotando: ladra (`sfxBark`), se sienta a tu lado mirándote, ladea la cabeza, mueve la cola y gime (`sfxWhine`).
+  - Te sigue entre 18 y 35 s y luego se va. No vuelve hasta pasados entre 70 y 140 s.
+  - Como mucho, dos perros a la vez.
+  - Si montas a caballo, vuelas o te alejas, se van; ante el caballo, ladran.
+- **Si pulsas E** con uno cerca (`dogTalk`, desde `faunaTalk`):
+  - Dejar que te huela: se hace tu amigo y te sigue unos 2,5 minutos. La primera vez da +1 Eusébeia. Sale el perro Argos de la Odisea en el modo Atenas, y los perros fieles de Plinio y Columela en el de Roma.
+  - Darle unas palmadas.
+  - Apartarlo.
+  - Saber qué raza es.
 
 ### Novedades de la versión 84: menús con iconos
 

@@ -14234,7 +14234,7 @@ function figura(x,z,a,look,arms,y){const g=makePerson(Object.assign({noVary:true
 const LK386={pesc:{short:true,noHimation:true,chiton:'#8a7a5a',hair:'#2a2018',beard:true},esc:{short:true,noHimation:true,chiton:'#a08a62',hair:'#3a2a1e'},mujer:{female:true,chiton:'#e2d6c0',himation:'#7a5a3a',hair:'#3b2a1e'},cit:{chiton:'#efe6d4',himation:'#4f6a7d',beard:true,hair:'#4a3a2a'}};
 function vidaComun(I,o){I._vt=[o.trees||140,o.kinds||['olive','cypress','olive','pine']];
   const t=I.town;islandVillagers(I,t.x+rr(-30,30),t.z+rr(-30,30),4,o.barks);
-  for(const[sp,n]of o.fauna||[['dog',2],['hen',4],['goat',3]])for(let k=0;k<n;k++){const x=t.x+rr(-45,45),z=t.z+rr(-45,45);if(isFree(x,z,0.6))faunaAdd(sp,x,z);}}
+  for(const[sp,n]of o.fauna||[['dog',2],['hen',4],['goat',3]])for(let k=0;k<n;k++){const x=t.x+rr(-45,45),z=t.z+rr(-45,45);if(isFree(x,z,0.6))faunaAdd(sp,x,z,sp==='dog'?{F:{stray:true}}:undefined);}}
 function rocaAlargada(x,z,sx,sy,sz,a){const m=new THREE.Mesh(new THREE.SphereGeometry(1,28,12),lam('#6f7350'));m.scale.set(sx,sy,sz);m.rotation.y=a||0;m.position.set(x,-sy*0.25,z);scene.add(m);return m;}
 const VIDA386={
  salamina(I){vidaComun(I,{kinds:['pine','olive','pine','cypress'],barks:['Hoy no sale nadie a pescar: sopla el bóreas.','¿Has visto el túmulo de los muertos de la batalla? Está junto al estrecho.']});
@@ -14349,7 +14349,7 @@ function faunaPose(F,p){const L=F.A.legs;if(p==='lie'){F.A.g.position.y-=0.42*(F
   else if(p==='sit'){if(F.A.body)F.A.body.rotation.x=-0.45;L.forEach((l,i)=>{l.rotation.x=i<2?0.25:-1.2;});}}
 function faunaTick(dt){const T=performance.now()/1000,px=player.x,pz=player.z;FAUNA.cullT=(FAUNA.cullT||0)+dt;const cull=FAUNA.cullT>0.4;if(cull)FAUNA.cullT=0;
   for(const F of FAUNA){const g=F.A.g;if(cull){g.visible=Math.abs(g.position.x-px)<190&&Math.abs(g.position.z-pz)<190;if(F.drv)F.drv.visible=g.visible;}if(!g.visible)continue;
-    const A=F.A;
+    const A=F.A;if(F.stray&&dogCurious(F,dt,T))continue;
     if(F.beh==='follow'&&F.lead){const L=F.lead.g?F.lead.g.position:F.lead;const ox=L.x+(F.ox||1),oz=L.z+(F.oz||1);F.tx=ox;F.tz=oz;F.w=0;}
     if(F.beh==='road'){const rd=F.road;let tp=rd.pts[F.dir>0?F.seg+1:F.seg];const tx=tp[0]+1.8,tz=tp[1]+1.8,dx=tx-g.position.x,dz=tz-g.position.z,d=Math.hypot(dx,dz);
       if(d<0.6){F.seg+=F.dir;if(F.seg<0||F.seg>=rd.pts.length-1){F.dir*=-1;F.seg=clamp(F.seg,0,rd.pts.length-2);}}
@@ -14374,7 +14374,7 @@ function buildFauna(){FAUNA.length=0;if(!GLB.ok||!GLB.parts.A_dog_body)return;co
   const city=()=>{if(ro){const x=rr(-700,500),z=rr(-600,500);return romaInUrbs(x,z)?[x,z]:null;}const a=R()*TAU,d=Math.sqrt(R())*700,x=WALLC.x+Math.cos(a)*d,z=WALLC.z+Math.sin(a)*d;return insideWalls(x,z,10)?[x,z]:null;};
   const pp=id=>{const p=placeAt(id);return p?[p.x,p.z]:null;};
   // perros callejeros, perros guardianes tumbados en las puertas y algún perrito faldero
-  for(const p of faunaArea(18,city)){const q=R(),t=q<0.55?['dog','dog']:q<0.8?['laconian','laconio']:(ro?['umbrian','umbro']:['cretan','cretense']);faunaAdd('dog',p[0],p[1],{model:t[0],info:t[1],c:{coat:pick(FCOL.dog)},s:t[0]==='dog'?rr(0.85,1.1):1,r:25,spd:1.3});}
+  for(const p of faunaArea(18,city)){const q=R(),t=q<0.55?['dog','dog']:q<0.8?['laconian','laconio']:(ro?['umbrian','umbro']:['cretan','cretense']);faunaAdd('dog',p[0],p[1],{model:t[0],info:t[1],c:{coat:pick(FCOL.dog)},s:t[0]==='dog'?rr(0.85,1.1):1,r:25,spd:1.3,F:{stray:true}});}
   for(const p of faunaArea(8,city)){const br=ro&&R()<0.35;faunaAdd('dog',p[0],p[1],{model:'moloss',info:br?'britano':'moloso',c:{coat:br?'#6a4a30':pick(['#2a2018','#3a3028','#5a4a3a'])},beh:'lie'});}
   // cazadores con sus perros por los caminos
   {const rw=walkers.filter(w=>w.mode==='road');for(let k=0;k<Math.min(3,rw.length);k++){const w=rw[k*3%rw.length],t=ro?(k%2?['umbrian','umbro']:['laconian','laconio']):(k%2?['cretan','cretense']:['laconian','laconio']);for(let j=0;j<2;j++)faunaAdd('dog',w.g.position.x+1+j,w.g.position.z+1,{model:t[0],info:t[1],c:{coat:pick(['#a07a4a','#c9a46a','#6b4a2e','#2a2018'])},beh:'follow',F:{lead:w,ox:-0.9+j*1.8,oz:-1.2},spd:1.6});}}
@@ -14425,7 +14425,7 @@ function buildFauna(){FAUNA.length=0;if(!GLB.ok||!GLB.parts.A_dog_body)return;co
   // también en los destinos: perros y gallinas en cada pueblo
   for(const I of ISLANDS){const t=I.town||I.arrive;if(!t)continue;for(let k=0;k<2;k++){const f=findFree(t.x+rr(-30,30),t.z+rr(-30,30),0.6);faunaAdd('dog',f[0],f[1],{c:{coat:pick(FCOL.dog)},r:20,spd:1.2});}
     const f=findFree(t.x+rr(-25,25),t.z+rr(-25,25),0.6);faunaAdd('rooster',f[0],f[1],{beh:'peck',r:4});for(let k=0;k<3;k++)faunaAdd('hen',f[0]+rr(-2,2),f[1]+rr(-2,2),{c:{feather:pick(FCOL.hen)},beh:'peck',r:4,F:{cx:f[0],cz:f[1]}});}}
-function faunaTalk(F){const I=faunaInfo(F.info)||[F.sp,'',''];dlg={n:null};ui='dialog';releasePointer();$('dGlyph').textContent='❦';setName(I[0]);$('dTitle').textContent=MODE==='roma'?'Animales de Roma':'Animales de Atenas';
+function faunaTalk(F){if(F.stray&&F.cur){dogTalk(F);return;}const I=faunaInfo(F.info)||[F.sp,'',''];dlg={n:null};ui='dialog';releasePointer();$('dGlyph').textContent='❦';setName(I[0]);$('dTitle').textContent=MODE==='roma'?'Animales de Roma':'Animales de Atenas';
   $('dBody').innerHTML='<p>'+I[1]+'</p>'+(I[2]?'<p class="sub">Fuentes: '+I[2]+'.</p>':'');const o=$('dOpts');o.innerHTML='';const b=document.createElement('button');b.innerHTML='<span class="n">1</span><span>Seguir mirando</span>';b.onclick=closeDialog;o.appendChild(b);$('dialog').hidden=false;
   state.fauna=state.fauna||{};if(!state.fauna[F.info]){state.fauna[F.info]=1;qAdd('so',1);save();updateStats();}}
 // ============================================================ forastero/a: patria, estatus legal (meteco / ciudadanía), hospitalidad, cuaderno de comparaciones y regreso (nóstos)
@@ -15563,6 +15563,41 @@ function keysToggle(v){const k=$('keys');if(!k)return;k.classList.toggle('show',
 $('bKeys').onclick=()=>keysToggle();
 let keysAuto=0;function keysAutoTick(){if(keysAuto===0&&ui==='play'&&!isTouch){keysAuto=performance.now();keysToggle(true);}else if(keysAuto>0&&performance.now()-keysAuto>12000){keysAuto=-1;keysToggle(false);}}
 
+
+// ---- perros callejeros curiosos: a veces se acercan, te huelen, se sientan moviendo la cola y te siguen un rato
+function sfxBark(n){if(!aOK())return;const c=AUD.ctx;let t=c.currentTime+0.02;for(let i=0;i<(n||1);i++){const o=c.createOscillator();o.type='sawtooth';const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=700;f.Q.value=1.4;o.frequency.setValueAtTime(330+Math.random()*60,t);o.frequency.exponentialRampToValueAtTime(170,t+0.13);o.connect(f).connect(envGain(t,0.05,0.006,0.13));o.start(t);o.stop(t+0.16);gfNoise(t,'bandpass',900,1,0.03,0.005,0.08);t+=0.22+Math.random()*0.1;}}
+function sfxWhine(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime+0.02,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(900,t);o.frequency.linearRampToValueAtTime(1250,t+0.25);o.frequency.linearRampToValueAtTime(800,t+0.5);o.connect(envGain(t,0.018,0.05,0.45));o.start(t);o.stop(t+0.55);}
+function dogEnd(F,cd){F.cur=null;F.friend=false;F.sat=false;F.cd=cd||rr(70,140);F.w=0;if(F.A.body)F.A.body.rotation.x=0;if(F.A.head)F.A.head.rotation.z=0;}
+function dogCurious(F,dt,T){const g=F.A.g,A=F.A,dx=player.x-g.position.x,dz=player.z-g.position.z,d=Math.hypot(dx,dz);
+  if(F.cd===undefined)F.cd=rr(5,40);F.cd-=dt;
+  if(!F.cur){if(F.cd>0||d>14||ui!=='play'||MOUNT.riding||FLY.on||BOAT.on||R()>dt*0.5)return false;
+    if(FAUNA.filter(q=>q.cur&&Math.hypot(q.A.g.position.x-player.x,q.A.g.position.z-player.z)<60).length>=2){F.cd=rr(20,40);return false;}
+    F.cur='come';F.ct=rr(18,35);if(R()<0.6)sfxBark(1+Math.floor(R()*2));}
+  if(MOUNT.riding||FLY.on||BOAT.on||d>40){if(MOUNT.riding&&d<20)sfxBark(2);dogEnd(F);return false;}
+  F.ct-=dt;if(F.ct<=0){dogEnd(F);return false;}
+  const keep=F.friend?2.4:1.7;
+  if(d>keep+0.6){if(F.sat){F.sat=false;if(A.body)A.body.rotation.x=0;}
+    const tx=player.x-dx/d*keep,tz=player.z-dz/d*keep,mx=tx-g.position.x,mz=tz-g.position.z,ml=Math.hypot(mx,mz)||1,v=Math.min(ml,dt*(d>6?3.2:1.5));
+    const nx=g.position.x+mx/ml*v,nz=g.position.z+mz/ml*v;if(isFree(nx,nz,0.3)){g.position.x=nx;g.position.z=nz;}else{g.position.x+=mz/ml*v*0.7;g.position.z-=mx/ml*v*0.7;}
+    g.position.y=floorAt(g.position.x,g.position.z);g.rotation.y+=wrapA(Math.atan2(mx,mz)-g.rotation.y)*Math.min(1,dt*7);
+    F.ph+=v*9/(g.scale.x||1);const s=Math.sin(F.ph);if(A.legs.length===4){A.legs[0].rotation.x=s*0.5;A.legs[3].rotation.x=s*0.5;A.legs[1].rotation.x=-s*0.5;A.legs[2].rotation.x=-s*0.5;}
+    if(A.head){A.head.rotation.x=-0.1;A.head.rotation.z=0;}}
+  else{if(!F.sat){F.sat=true;faunaPose(F,'sit');if(R()<0.35)sfxWhine();}
+    g.rotation.y+=wrapA(Math.atan2(dx,dz)-g.rotation.y)*Math.min(1,dt*4);
+    if(A.head){A.head.rotation.z=Math.sin(T*1.1+F.ph)*0.28;A.head.rotation.y=Math.sin(T*0.6+F.ph)*0.15;A.head.rotation.x=-0.15;}
+    if(d<1.1){g.position.x-=dx/d*dt*0.8;g.position.z-=dz/d*dt*0.8;}}
+  if(A.tail)A.tail.rotation.y=Math.sin(T*(F.sat?16:12)+F.ph)*(F.friend?0.8:0.6);
+  F.obj.x=g.position.x;F.obj.z=g.position.z;return true;}
+function dogTalk(F){const ro=MODE==='roma',one=casaOpen('❦',F.friend?'Tu amigo de cuatro patas':'Un perro curioso',ro?'Animales de Roma':'Animales de Atenas'),B=$('dBody');
+  B.innerHTML=F.friend?'<p>El perro levanta las orejas en cuanto le hablas y mueve la cola. No se separa de ti.</p>':'<p>Un perro de la calle, flaco y con una oreja mordida, se ha acercado a olerte. Ladea la cabeza y te mira, esperando a ver qué haces.</p>';
+  if(!F.friend)one('Agacharte y dejar que te huela la mano',()=>{F.friend=true;F.ct=150;state.fauna=state.fauna||{};const first=!state.fauna.amigo;state.fauna.amigo=1;if(first)qAdd('eu',1);save();sfxWhine();
+    B.innerHTML='<p>Te huele los dedos con cuidado y, de pronto, te da un lametón y se tumba panza arriba. Ya tienes amigo. Te seguirá un buen rato.</p><p class="sub">'+(ro?'Columela recomienda tener perros en el campo y en la casa, y Plinio el Viejo cuenta historias de perros fieles, como el que no se separó del cadáver de su amo, ejecutado en Roma, y nadó tras él por el Tíber.':'En la Odisea, cuando Ulises vuelve a Ítaca disfrazado de mendigo después de veinte años, nadie lo reconoce… salvo su viejo perro Argos, tumbado sobre un montón de estiércol, que levanta las orejas, mueve la cola y muere en ese momento.')+'</p><p class="sub">'+(ro?'Plinio, Historia natural VIII 142-145; Columela VII 12.':'Odisea XVII 290-327.')+'</p>';
+    const o=$('dOpts');o.innerHTML='';one('Seguir paseando',closeDialog);},'quiz');
+  one(F.friend?'Rascarle detrás de las orejas':'Darle unas palmadas',()=>{F.ct=Math.max(F.ct,40);B.innerHTML='<p>Cierra los ojos de gusto y te empuja la mano con el hocico para que no pares.</p>';const o=$('dOpts');o.innerHTML='';one('Seguir paseando',closeDialog);});
+  one(F.friend?'Decirle que se vaya a casa':'Apartarlo',()=>{dogEnd(F,240);B.innerHTML='<p>'+(F.friend?'Te mira un momento, como si no entendiera, y se aleja trotando calle abajo.':'Se aparta con el rabo entre las patas y se va a husmear a otra parte.')+'</p>';const o=$('dOpts');o.innerHTML='';one(_t(2797,'Seguir'),closeDialog);});
+  one('¿Qué perro es?',()=>{const I=faunaInfo(F.info)||['Perro',''];B.innerHTML='<p>'+I[1]+'</p>'+(I[2]?'<p class="sub">Fuentes: '+I[2]+'.</p>':'');const o=$('dOpts');o.innerHTML='';one(_t(2675,'Volver'),()=>dogTalk(F));});
+  one('Dejarlo',closeDialog);}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -15628,6 +15663,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
