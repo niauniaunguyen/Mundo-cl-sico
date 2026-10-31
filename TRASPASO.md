@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 61). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 62). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 62: Aristóteles niño
+- `ARIS_NPC` (id `aristoteles_nino`, escala 0,66) es un personaje del modo Atenas que se considera histórico. Hay que tener en cuenta que es una licencia: nació en el 384, y está señalado en `SRC`.
+- `arisTick` lo cambia de sitio cada 75 s, siempre que el jugador esté a más de 60 m y no esté en un diálogo. `arisMove` elige un sitio entre el alfarero, las yuntas, los campesinos, los rebaños, los caminantes del Ágora y el capitán del Pireo, y lo pone mirando hacia lo que observa.
+- Su presentación (`intro`, que se calcula en el momento) cambia según lo que mira (`ARIS_OBS`): la cocción en tres fases, cuernos y dientes, ovejas y cabras, el barbecho, el «animal político», o los peces y el pulpo.
+- Sus temas anticipan su método empírico; también hay lección y pregunta.
 
 ### Novedades de la versión 61: Asia Menor, Hispania y la Galia
 - **Modo Atenas** (en `ISLANDS`, detrás de `GREECE_DESTS`; red `asia`, con centro en Éfeso):
