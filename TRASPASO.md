@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 89 del artefacto; notas de la versión 89). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 90 del artefacto; notas de la versión 90). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,26 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 90: equivalentes romanos (año 80)
+
+Todo está en el módulo «equivalentes romanos», antes de `startGame`. La época se elige después de cargar el código, así que lo que depende del modo se prepara al usarlo: `comMode()` cambia `COM`, `COM_EV` y `comPrice` la primera vez que se abre el comercio en Roma.
+
+1. **Comercio desde el Emporio:**
+   - Compras: trigo a Himilcón (Cartago), aceite de la Bética a Quinto Fulvio (Corduba), garum a Himilcón de Gades y plomo a Eros (Carthago Nova). Vendes a Tiberio Claudio Eutiques (`mercader`).
+   - Estaciones: mar cerrado en invierno (trigo caro), flotas del trigo en verano, aceituna en invierno.
+   - Noticias del puerto: la flota de Alejandría en Puteoli, los cien días de juegos de Tito, la reconstrucción tras el incendio del 80 (plomo), el garum de moda, piratas, el prefecto de la annona.
+   - Textos según el modo con `comTxt()`: la annona; Josefo, sobre África y Egipto; Claudio, sobre los mercaderes; Vegecio, sobre el mar cerrado.
+2. **Sueños jugables:**
+   - `MG_CIRCO`, desde Félix (`auriga`): tres vueltas al Circo Máximo con cuatro facciones. Hay látigo con cansancio de los caballos, derrapes en las curvas por encima de 14, naufragium al chocar con la spina o el muro a más de 12, y delfines que cuentan las vueltas. El piloto de prueba gana más o menos la mitad de las veces.
+   - `MG_MISENO`, desde Plinio: huir hacia el norte con tu madre de la mano, sacudiéndote la ceniza con Espacio, esquivando las piedras pómez y con una oscuridad creciente (Cartas VI 16 y 20).
+3. **El debate de Claudio sobre los galos** (`CLAUDIO_R`, `claudioDlg`), desde Tácito (Anales XI 23-25; tabla de Lyon). Argumentos reales: Atta Clauso, los senadores de Vienne, los Balbos, Esparta y Atenas frente a Rómulo, los cien años de lealtad, el oro galo. Termina con «Todo lo que hoy se cree antiquísimo fue un día nuevo».
+4. **Patrias** (`ORIG.roma`): Cartago, Gades, Lugdunum y Antioquía, con su estación y su paisano.
+5. **Modo Historia, capítulo 11: «El pan de Roma»,** con Tercia. Recorrido: Emporio, Cartago (Himilcón), Alejandría (Herón) y vuelta. Tres preguntas: Josefo y los 8 meses; Egipto cerrado a los senadores; «pan y circo».
+6. **Misiones** (`m386OptsR`, `m386SetupR`, `m386ActR`):
+   - El tubo de plomo de las Termas de Tito, para Eros.
+   - Las ánforas de los almacenes de Galba, para Quinto Fulvio; habla del monte Testaccio.
+   - El oro de Las Médulas y el tesoro de Saturno, para Pintaio (Plinio XXXIII 78).
 
 ### Novedades de la versión 89: el game feel, también ajustado para Roma
 
