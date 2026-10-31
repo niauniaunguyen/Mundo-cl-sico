@@ -3536,7 +3536,7 @@ function exportSave(){const txt=saveData(),name=(MODE==='roma'?'roma-80':'atenas
 // en la página publicada, las descargas pasan por el visor (capacidad downloads), que pide confirmación; fuera de él, un enlace normal
 async function offerDownload(name,txt){
   try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
-    if(dl){await dl.save({filename:name,data:txt});toast('<span class="label">Partida guardada</span><br>'+name);return;}}
+    if(dl){await dl.save({filename:name,data:txt});toast('<span class="label">'+(/^cuaderno/.test(name)?'Archivo descargado':'Partida guardada')+'</span><br>'+name);return;}}
   catch(e){if(e&&e.code==='declined')return;toast('No se ha podido descargar el archivo aquí: copia el texto y guárdalo en un documento.');return;}
   try{const b=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}catch(e){}}
 function loadSaveText(txt){try{const d=JSON.parse(txt);if(d.juego!=='mundo-clasico'||!d.state||!Array.isArray(d.state.lessons))throw 0;
@@ -4307,7 +4307,7 @@ function renderJournal(){
   else if(jTab==='ficha'){h=qualHTML();}
   else if(jTab==='guia'){h=guideHTML();}
   else if(jTab==='fiestas'){h=festsHTML();}
-  else if(jTab==='fx'){h=fxJournal();}
+  else if(jTab==='fx'){h=fxJournal();setTimeout(()=>{const e=$('fxEnt'),c=$('fxCop');if(e)e.onclick=fxEntregar;if(c)c.onclick=()=>{const t=fxCuadFile();try{navigator.clipboard.writeText(t).then(()=>toast('Cuaderno copiado: pégalo en un correo o en la plataforma de clase.'),()=>toast('No se ha podido copiar.'));}catch(err){toast('No se ha podido copiar.');}};},0);}
   else if(jTab==='curios'){const L=curioList(),got=L.filter(c=>(state.curios||[]).includes(c.id)),est=L.filter(c=>c.at&&!got.includes(c)).length,dia=L.filter(c=>!c.at&&!got.includes(c)).length;
     h='<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Anécdotas, costumbres y rarezas que contaban los propios antiguos. Unas aparecen al leer ciertas estelas; otras te las cuentan al amanecer de cada día. Llevas '+got.length+' de '+L.length+': quedan '+est+' en estelas y '+dia+' por contar. <span class="sub">Seleccionadas a partir de J. C. McKeown, <i>Gabinete de curiosidades griegas</i> (Crítica, 2014), con sus fuentes antiguas.</span></p><div class="entries">'+got.map(c=>'<div class="entry"><span class="label">Curiosidad</span><h3>'+c.h+'</h3><p>'+c.t+'</p><div class="where">'+c.s+'</div></div>').join('')+'</div>';}
   else{h='<div class="timeline">'+TIMELINE.map(t=>'<span class="y'+(t[0]==='386'?' now':'')+'">'+t[0]+' a.C.</span><div>'+t[1]+'</div>').join('')+'</div>';}
@@ -12337,7 +12337,7 @@ function guideHTML(){const ro=MODE==='roma',mon=ro?'sestercios':'óbolos';
    ['Las Musas y el Olimpo','Las nueve Musas esperan en los lugares de su arte. Aprende antes de las personas que saben de él y supera su examen para recibir su don. Con los nueve dones, Mnemósine te dará a beber de la Memoria y recordarás el sendero del Olimpo, donde vive '+(ro?'Júpiter':'Zeus')+'. Lo tienes todo en la pestaña Ficha.'],
    ['Rutas de '+(ro?'la Eneida':'la Odisea'),(ro?'Sexto Cornelio, el gramático, junto a la escuela del gramático, te lleva por la ruta de Eneas, de Troya al Palatino.':'Cleónimo, el rapsoda, junto a la escuela de letras, te lleva por la ruta de Ulises, de Troya a Ítaca.')+' Unas paradas son lugares del mapa, y otras, tramos de mar narrados.'],
    ['Tu barco y la Luna','En el muelle, '+(ro?'Gayo Fabio Velox':'Fanodemo')+', el carpintero de ribera, te construye un barco si le adelantas 150 '+mon+' y le traes tres materiales de otros mapas. Con barco propio, los viajes por mar son gratis… y puedes navegar más allá de las Columnas de Hércules, hasta la Luna que imaginó Luciano de Samósata.'],
-   ['Para el profesorado','Para enseñar el juego en clase, pulsa la tecla º (a la izquierda del 1) y escribe la clave «mentor», el nombre del maestro de Telémaco en la Odisea. Podrás ir al instante a cualquier lugar, persona o región, cambiar la hora y la estación, saltar a la próxima fiesta y conseguir el caballo, las alas, la llave del Olimpo o la casa.'],
+   ['Para el profesorado','Para enseñar el juego en clase, pulsa la tecla º (a la izquierda del 1) y escribe la clave «mentor», el nombre del maestro de Telémaco en la Odisea. Podrás ir al instante a cualquier lugar, persona o región, cambiar la hora y la estación, saltar a la próxima fiesta y conseguir el caballo, las alas, la llave del Olimpo o la casa. Con el botón «Cuadernos de viaje de los alumnos» del mismo panel puedes leer juntas las respuestas de toda la clase a las preguntas «¿Y en tu tierra cómo es?»: cada alumno las entrega desde el Diario, pestaña «Forastero» («Entregar mi cuaderno»), como un archivo de texto que te envía, y tú abres todos los archivos a la vez.'],
    ['Biblioteca y fuentes','La biblioteca (B) reúne todas las fuentes antiguas y modernas de lo que ves en el juego. Úsala para ampliar o para hacer trabajos.'],
    ['Guardar','La partida se guarda sola en tu navegador. Con «Guardar partida» (arriba, en el diario) te descargas una copia para seguir en otro ordenador.']];
   return '<p style="margin:0 0 12px;max-width:68ch;line-height:1.5">Todo lo que puedes hacer en '+(ro?'Roma':'Atenas')+', en pocas líneas.</p><div class="entries">'+G.map(g=>'<div class="entry"><h3>'+g[0]+'</h3><p>'+g[1]+'</p></div>').join('')+'</div>';}
@@ -13249,6 +13249,7 @@ function profeOpen(){if(ui!=='play'&&ui!=='journal')return;if(ui==='journal')clo
   act('+500 '+mon,()=>{state.obols+=500;});
   act('Caballo',()=>{hz().own=true;});act('Alas de Dédalo',()=>{wz().own=true;});
   act('Cambiar de personaje',()=>{profeClose();setTimeout(()=>pjDlg(),50);});act('Llave del Olimpo',()=>{state.olyKey=1;});act('Casa propia',()=>{cz().st=3;});act('Barco propio',()=>{const b=bz();b.st=3;b.name=b.name||barcoDef().def;barcoVis();});
+  {const x=document.createElement('button');x.textContent='Cuadernos de viaje de los alumnos';x.style.borderColor='#d9874a';x.onclick=fxProfeCuadernos;A.appendChild(x);}
   const Lst=profeDests(),q=$('profeQ'),L=$('profeL');let shown=[],sel=0;
   const draw=()=>{const w=norm(q.value).split(/\s+/).filter(Boolean);shown=Lst.filter(d=>{const n=norm(d.t+' '+d.n);return w.every(x=>n.includes(x));}).slice(0,200);sel=Math.min(sel,shown.length-1);
     L.innerHTML='';shown.forEach((d,i)=>{const e=document.createElement('div');e.className='it'+(i===sel?' sel':'');e.innerHTML='<i>'+d.t+'</i><span></span>';e.lastChild.textContent=d.n;e.onclick=()=>profeGo(d);L.appendChild(e);});};
@@ -14326,9 +14327,46 @@ function fxJournal(){const f=fxz(),o=origen(),ro=MODE==='roma',p=pjz();let h='<p
     (f.st==='meteco'?'<h3>'+fxG('Meteco','Meteca')+', residente en Mélite</h3><p>Pagas el metoíkion cada año. No votas ni puedes tener casa sin un decreto de la Asamblea (pregunta a Formión, en la mesa de Pasión).</p>':'<h3>'+fxG('Forastero','Forastera')+' de paso</h3><p>Si te quedas, tienes que inscribirte como meteco: '+(f.prost?'ya tienes prostátes; ve al demarco de Mélite y paga el metoíkion.':'primero habla con tu próxeno para que responda por ti; luego, con el demarco de Mélite.')+'</p>');
   h+='<div class="entry"><span class="label">Tu situación</span>'+st+'</div>';
   const T=Object.entries(f.tes);h+='<div class="entry"><span class="label">'+(ro?'Téseras de hospitalidad':'Sýmbola de hospitalidad')+' · '+T.length+'</span><h3>Tus anfitriones</h3><p>'+(T.length?T.map(([d,t])=>{const I=destOf(d);return (I?I.name:d)+': '+t.who;}).join(' · '):'Todavía ninguno. En cada ciudad que visites, pide hospitalidad a alguien con quien hables: desde allí te conseguirá pasajes a mitad de precio.')+'</p></div>';
-  const Cq=Object.values(f.cuad);h+='<div class="entry"><span class="label">Cuaderno de viaje · '+Cq.length+' de '+Object.keys(FX_COMPARA[MODE]||{}).length+'</span><h3>«¿Y en tu tierra cómo es?»</h3>'+(Cq.length?Cq.map(c=>'<p><b>'+c.q+'</b> <span class="sub">('+c.who+')</span><br>'+c.a+'</p>').join(''):'<p>Algunas personas te preguntarán por las costumbres de tu tierra. Tus respuestas se guardan aquí.</p>')+'</div>';
+  const Cq=Object.values(f.cuad);h+='<div class="entry"><span class="label">Cuaderno de viaje · '+Cq.length+' de '+Object.keys(FX_COMPARA[MODE]||{}).length+'</span><h3>«¿Y en tu tierra cómo es?»</h3>'+(Cq.length?Cq.map(c=>'<p><b>'+c.q+'</b> <span class="sub">('+c.who+')</span><br>'+c.a+'</p>').join(''):'<p>Algunas personas te preguntarán por las costumbres de tu tierra. Tus respuestas se guardan aquí.</p>')+'<p style="margin-top:8px"><button class="linkbtn" id="fxEnt">Entregar mi cuaderno al profesor (descargar)</button> · <button class="linkbtn" id="fxCop">Copiar el texto</button></p></div>';
   h+='<div class="entry"><span class="label">Nóstos</span><h3>El regreso</h3><p>'+(f.nostos?fxEpi(f.nostos):fxNostosOk()?'Ya puedes decidir si vuelves a tu tierra o te quedas: habla con tu paisano.':'Cuando hayas vivido lo suficiente aquí (12 lecciones o tu inscripción '+(ro?'como ciudadano':'como meteco')+'), tu paisano te preguntará si quieres volver.')+'</p></div>';
   return h+'</div>';}
+
+// ---- el cuaderno de viaje para el profesorado: el alumno lo entrega como archivo (Diario › Forastero) y el profesor abre los de toda la clase en su panel
+function fxCuadData(){const out={juego:'mundo-clasico',tipo:'cuaderno',fecha:new Date().toISOString().slice(0,10),modos:[]};
+  for(const[m,key]of[['atenas','atenas-386-v1'],['roma','roma-80-v1']]){let st=null;if(m===MODE)st=state;else try{st=JSON.parse(localStorage.getItem(key)||'null');}catch(e){}
+    if(!st||!st.fx)continue;const f=st.fx,pj=st.pj||{},L=ORIG[m]||[],o=L.find(x=>x.id===pj.o);const fem=pj.g==='f';
+    const est=m==='roma'?(f.ciu?(fem?'ciudadana romana':'ciudadano romano'):(fem?'peregrina':'peregrino')):(f.st==='meteco'?(fem?'meteca':'meteco'):(fem?'forastera':'forastero'));
+    out.modos.push({modo:m,nombre:(m==='roma'&&f.ciu?(fem?'Flavia ':'Tito Flavio '):'')+(pj.name||'(sin nombre)'),patria:o?o.n:'(sin elegir)',estatus:est,lecciones:(st.lessons||[]).length,anfitriones:Object.keys(f.tes||{}).length,nostos:f.nostos||'',respuestas:Object.values(f.cuad||{}).map(c=>({who:c.who,q:c.q,a:c.a}))});}
+  out.alumno=(out.modos[0]&&out.modos[0].nombre)||'(sin nombre)';return out;}
+function fxCuadTxt(d){const ep=k=>k==='volver'?'ha decidido volver a su tierra':k==='quedarse'?'ha decidido quedarse':'aún no ha decidido si vuelve';
+  let t='NÓSTOS · CUADERNO DE VIAJE\n'+d.alumno+' · '+d.fecha+'\n';
+  for(const m of d.modos){t+='\n== '+(m.modo==='roma'?'Roma, 80 d.C.':'Atenas, 386 a.C.')+' ==\n'+m.nombre+', de '+m.patria+' · '+m.estatus+' · '+m.lecciones+' lecciones · '+m.anfitriones+' anfitriones · '+ep(m.nostos)+'\n';
+    if(!m.respuestas.length)t+='(sin respuestas todavía)\n';m.respuestas.forEach((r,i)=>{t+='\n'+(i+1)+'. '+r.q+' ('+r.who+')\n   '+r.a+'\n';});}
+  return t;}
+function fxCuadFile(){const d=fxCuadData();return fxCuadTxt(d)+'\n---DATOS---\n'+JSON.stringify(d);}
+function fxCuadName(){const n=(fxCuadData().alumno||'alumno').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9]+/g,'_');return 'cuaderno_'+n+'.txt';}
+function fxCuadParse(txt){try{const i=txt.indexOf('---DATOS---');const d=JSON.parse(i>=0?txt.slice(i+11):txt);if(d&&d.tipo==='cuaderno'&&Array.isArray(d.modos))return d;}catch(e){}return null;}
+function fxCuadHTML(d){const esc=s=>String(s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));let h='<div style="padding:8px 4px;border-bottom:1px solid #4a3a2c"><b style="color:#ecc29a">'+esc(d.alumno)+'</b> <span class="sub">· entregado el '+esc(d.fecha)+'</span>';
+  for(const m of d.modos){h+='<div class="sub" style="margin-top:6px">'+(m.modo==='roma'?'Roma':'Atenas')+': '+esc(m.nombre)+', de '+esc(m.patria)+' · '+esc(m.estatus)+' · '+m.lecciones+' lecciones · '+m.anfitriones+' anfitriones'+(m.nostos?' · '+(m.nostos==='volver'?'vuelve a casa':'se queda'):'')+'</div>';
+    h+=m.respuestas.length?m.respuestas.map(r=>'<p style="margin:6px 0 0"><i>'+esc(r.q)+'</i> <span class="sub">('+esc(r.who)+')</span><br>'+esc(r.a)+'</p>').join(''):'<p class="sub" style="margin:6px 0 0">Sin respuestas todavía.</p>';}
+  return h+'</div>';}
+const FXCLASE=[];
+function fxProfeCuadernos(){const b=$('profe')&&$('profe').querySelector('.pb');if(!b)return;
+  b.innerHTML='<h2>Cuadernos de viaje</h2><p class="sub">Cada alumno entrega su cuaderno desde el Diario, pestaña «Forastero» («Entregar mi cuaderno»): se descarga un archivo de texto. Ábrelos aquí todos a la vez para leerlos juntos, o pega el texto de uno.</p>'+
+   '<div class="acts"><button id="fxcFile">Abrir archivos de alumnos…</button><button id="fxcPaste">Pegar un cuaderno</button><button id="fxcMine">Ver el de este navegador</button><button id="fxcAll">Descargar todos en un solo archivo</button><button id="fxcClr">Vaciar la lista</button><button id="fxcBack">Volver al panel</button></div>'+
+   '<input id="fxcIn" type="file" accept=".txt,.json,text/plain,application/json" multiple hidden><textarea id="fxcTa" rows="3" hidden placeholder="Pega aquí el texto completo del cuaderno y pulsa «Añadir»" style="width:100%;background:#14100c;color:#f1e8d8;border:1px solid #6a5040;font:inherit"></textarea><div class="acts"><button id="fxcAdd" hidden>Añadir</button></div><div class="list" id="fxcL"></div>';
+  const L=$('fxcL'),draw=()=>{L.innerHTML=FXCLASE.length?FXCLASE.map(fxCuadHTML).join(''):'<p class="sub" style="padding:8px">Todavía no has abierto ningún cuaderno.</p>';};
+  const addD=d=>{const i=FXCLASE.findIndex(x=>x.alumno===d.alumno&&x.fecha===d.fecha);if(i>=0)FXCLASE[i]=d;else FXCLASE.push(d);FXCLASE.sort((a,b)=>a.alumno.localeCompare(b.alumno));draw();};
+  $('fxcFile').onclick=()=>$('fxcIn').click();
+  $('fxcIn').onchange=e=>{let bad=0;const fs=[...e.target.files];let n=fs.length;fs.forEach(f=>{const r=new FileReader();r.onload=()=>{const d=fxCuadParse(String(r.result));if(d)addD(d);else bad++;if(--n===0&&bad)toast(bad+' archivo'+(bad>1?'s no son cuadernos':' no es un cuaderno')+' de Nóstos.');};r.readAsText(f);});e.target.value='';};
+  $('fxcPaste').onclick=()=>{$('fxcTa').hidden=false;$('fxcAdd').hidden=false;$('fxcTa').focus();};
+  $('fxcTa').addEventListener('keydown',e=>e.stopPropagation());
+  $('fxcAdd').onclick=()=>{const d=fxCuadParse($('fxcTa').value);if(!d){toast('Ese texto no es un cuaderno de Nóstos: pega el archivo completo, con la parte «---DATOS---».');return;}addD(d);$('fxcTa').value='';};
+  $('fxcMine').onclick=()=>addD(fxCuadData());
+  $('fxcAll').onclick=()=>{if(!FXCLASE.length){toast('No hay cuadernos abiertos.');return;}offerDownload('cuadernos_de_la_clase.txt',FXCLASE.map(fxCuadTxt).join('\n\n------------------------------------------------\n\n'));};
+  $('fxcClr').onclick=()=>{FXCLASE.length=0;draw();};$('fxcBack').onclick=()=>{profeClose();profeOpen();};
+  draw();}
+function fxEntregar(){offerDownload(fxCuadName(),fxCuadFile());}
 
 function startGame(){
   initAudio();
