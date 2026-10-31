@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 87 del artefacto; notas de la versión 87). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 88 del artefacto; notas de la versión 88). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,34 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 88: game feel 2 (nueve ideas)
+
+Todo está en el módulo «GAME FEEL 2», antes de `startGame`. `gf2Tick` se llama desde `gfTick`.
+
+1. **Caballo vivo** (`horseAlive`):
+   - Cuatro ritmos de cascos según la velocidad (`GAITS`: paso, trote, medio galope y galope), con salpicaduras en el agua y marcas en la arena.
+   - En `audioTick` ya no suena `sfxHoof`.
+   - La cola y la crin se mueven.
+   - Parado, resopla y sacude la crin.
+   - Al frenar de golpe a galope, derrapa con polvo y ruido.
+2. **Animales que reaccionan** (`animalsReact`, `dovesTick`):
+   - Gallinas, gallos, gansos, patos y codornices huyen aleteando y cacareando si corres hacia ellos o vas a caballo. Cabras, ovejas y cerdos se apartan.
+   - Aparecen bandadas de palomas delante de ti, picoteando, y echan a volar al acercarte.
+3. **Huellas** (`MARKS`, `footStep`): pisadas alternas en la arena (y en la tierra de los destinos) y marcas de cascos. Se borran a los 20-28 s; como máximo hay 140.
+4. **Agua:**
+   - Salpicaduras (`splash`, con partículas `PFX` y gravedad) y ondas que se abren (`ripple`) al andar o galopar por el agua.
+   - Espuma en la orilla del mar (`foamTick`): busca la franja de terreno a la altura del mar, hasta 48 m de ti.
+5. **Saludos** (`greetTick`): algunos paseantes levantan la mano y te saludan con un bocadillo de texto («¡Salud!», «¡Salve!»…), como mucho uno por persona cada minuto. Los vendedores del mercado levantan el brazo al pregonar.
+6. **Viento** (`windMat`, `windTick`): las copas de los árboles (papel `foliage`, piezas `T_*`) se mecen en la GPU con rachas. Se inyecta en `placeModules`. Con la tecla K (balanceo desactivado), el viento es más suave.
+7. **Diálogos que se escriben** (`TW`, un `MutationObserver` sobre `#dBody`):
+   - Unos 110 caracteres por segundo en tiempo real; tocar el texto lo completa.
+   - Respeta las etiquetas del texto (glosario, cursivas), y con el balanceo desactivado no se usa.
+   - Nota de lira al abrir cada diálogo.
+8. **Monedas que vuelan** (`coinFly`): de 1 a 6 monedas viajan hasta el contador de óbolos, que late al recibirlas.
+9. **Noche y verano** (`nightTick`):
+   - Luciérnagas que parpadean en las noches de verano (meses 4-7, es decir, de Targelión a Metagitnión), fuera de la ciudad.
+   - Humo de los hogares por la mañana (6-9 h) y al atardecer (18-20:30 h), saliendo de algunas casas. Las casas griegas no tenían chimenea: el humo salía por el tejado.
 
 ### Novedades de la versión 87: polvo y la cinemática de la yegua
 
