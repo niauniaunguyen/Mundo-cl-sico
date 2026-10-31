@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 60). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 61). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,22 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 61: Asia Menor, Hispania y la Galia
+- **Modo Atenas** (en `ISLANDS`, detrás de `GREECE_DESTS`; red `asia`, con centro en Éfeso):
+  - Éfeso, Mileto y Halicarnaso: por mar desde el Pireo, con puerto (`seaPort`) y arriero.
+  - Sardes: por tierra desde Éfeso.
+  - Cada mapa está en `SIMPLE_GR` y tiene un personaje (`ASIA_NPCS`, metido en NPCS y LESSONS al cargar) con lección, temas, pregunta y fuentes. Son Glauce (melisa del Artemision), Areto (cartógrafo de Mileto), Ysaldomo (intérprete cario) y Bagadates (escriba del sátrapa).
+  - Monumentos y lugares: Artemision gigante; leones del puerto de Mileto; fuente Salmacis; en Sardes, el Pactolo (`addRiver`), el palacio del sátrapa, el paraíso, los túmulos lidios y la estela de la lectura de la Paz del Rey.
+- **Modo Roma** (en `ROMA_DESTS`):
+  - Hispania: Gades y Carthago Nova (por mar); Corduba y Las Médulas (por tierra desde Tarraco).
+  - Galia (red `gal`, con centro en Massilia): Massilia (por mar); Nemausus, Lugdunum y Alesia (por tierra).
+  - Monumentos y lugares: piletas de garum en Gades; laguna y teatro en Carthago Nova; el Betis y su puente en Corduba; picos rojos (`tint`) y canal en Las Médulas; puente del Gard (`aqueductBridge`) sobre el Gardon; el Ródano, el Arar y el altar de las Tres Galias en Lugdunum; doble línea de empalizadas en Alesia.
+  - Personajes en `ROMA_DEST_NPCS`; fuentes en `ROMA_DEST_SRC`. El salador de Gades es `himilcon_gades`, porque `himilcon` ya era el comerciante de Cartago.
+- `defineSimple` admite tres opciones nuevas: `arr` (punto de llegada), `lake` y `tint`.
+- `greekArrive` usa `PORTS[id+'_n']` en los mapas que también tienen puerto.
+- `landDests` usa un centro distinto para cada red: hisp → Tarraco, gal → Massilia, asia → Éfeso.
+- Los teatros de provincias deben llevar `noPlays`.
 
 ### Novedades de la versión 60: hermas completas
 - `herm()` añade el falo esquemático, del mismo mármol y a media altura del pilar, como en las hermas reales (la estela «Hermas» ya lo explicaba).
