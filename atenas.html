@@ -11627,7 +11627,7 @@ function daedalusTalk(){const w=wz();dlg={n:null};ui='dialog';releasePointer();
     add(_t(2665,'Despedirse'),closeDialog);}
   else if(w.got.length<FEATHERS.length){$('dBody').innerHTML='<p>Llevas '+w.got.length+' de '+FEATHERS.length+' plumas. Busca por todo el palacio: el patio, los almacenes de las grandes tinajas, los pórticos.</p>';add('Seguir buscando',closeDialog);}
   else{$('dBody').innerHTML='<p>¡Siete! Mira: las coso por los cañones con hilo de lino, las pequeñas las pego con cera, y las curvo un poco, como las de un ave de verdad. Ya está.</p><p>Escúchame bien, como se lo digo a Ícaro cada día: no vueles demasiado bajo, que la humedad del mar pesa en las plumas, ni demasiado alto, que el sol derrite la cera. Sígueme a mí, por el camino de en medio.</p><p class="sub">Ovidio cuenta que Ícaro, feliz de volar, subió demasiado: la cera se fundió y cayó al mar que hoy lleva su nombre. Dédalo llegó a Sicilia.</p>';
-    add('Ponerse las alas',()=>{w.own=true;w.q='done';qAdd('ar',2);qAdd('kl',2,'Dicen que has volado como Dédalo.');save();wingsRefresh();sfxCoin();closeDialog();toast('<span class="label">Alas de cera</span><br>Pulsa <b>X</b> para desplegarlas y volver a plegarlas. Espacio para subir, C para bajar, Shift para planear deprisa. ¡No subas demasiado!');updateStats();});}
+    add('Ponerse las alas',()=>{w.own=true;w.q='done';qAdd('ar',2);qAdd('kl',2,'Dicen que has volado como Dédalo.');save();wingsRefresh();sfxCoin();closeDialog();toast('<span class="label">Alas de cera</span><br>Sal del laberinto y, ya al aire libre, pulsa <b>X</b> para desplegarlas y volver a plegarlas. Espacio para subir, C para bajar, Shift para planear deprisa. ¡No subas demasiado!');updateStats();});}
   $('dialog').hidden=false;setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function wingsTick(dt){const w=wz();
@@ -11636,13 +11636,15 @@ function wingsTick(dt){const w=wz();
     if(ui==='play'&&Math.hypot(f.x-player.x,f.z-player.z)<2&&Math.abs(player.feet-KNOS.y)<4){w.got.push(f.i);f.sp.visible=false;save();sfxCoin();
       toast('<span class="label">Pluma '+w.got.length+' de '+FEATHERS.length+'</span><br>'+(w.got.length<FEATHERS.length?'Sigue buscando por el palacio.':'¡Ya las tienes todas! Vuelve al rincón del laberinto donde espera Dédalo.'));}}
   if(FLY.melt>0){FLY.melt-=dt;if(FLY.melt<=0)toast('Has rehecho la cera de las alas, como te enseñó Dédalo. Pulsa <b>X</b> para volar.');}
-  if(!FLY.on)return;const alt=player.feet-terrainH(player.x,player.z);
+  if(!FLY.on)return;const alt=player.feet-terrainH(player.x,player.z);if(alt>300){FLY.on=false;return;}
   if(alt>95&&FLY.warn<=0){FLY.warn=6;toast('<span class="label">¡Cuidado!</span><br>Hace calor tan cerca del sol: la cera empieza a ablandarse. Baja un poco.');}FLY.warn-=dt;
   if(alt>125){FLY.on=false;FLY.melt=30;toast('<span class="label">Como Ícaro</span><br>Has subido demasiado: la cera se derrite y las plumas se sueltan. Caes planeando como puedes…');}
 }
 function toggleWings(){if(ui!=='play')return;const w=wz();if(!w.own)return;
   if(FLY.melt>0){toast('Las alas aún se están rehaciendo: espera un poco.');return;}
   if(MOUNT.riding){toast('Baja antes del caballo: no es buena idea volar con él.');return;}
+  // el laberinto de Creta y la Gran Pirámide son interiores construidos muy por encima del terreno: allí no se puede volar
+  if(!FLY.on&&player.feet-terrainH(player.x,player.z)>300){toast(Math.abs(player.feet-KNOS.y)<30?'<span class="label">Entre muros</span><br>Aquí dentro, entre los muros del laberinto, no hay sitio para desplegar las alas. Sal al aire libre, como hicieron Dédalo e Ícaro, y vuela desde allí.':'Aquí dentro no hay sitio para desplegar las alas. Sal al aire libre.');return;}
   FLY.on=!FLY.on;if(FLY.on){player.vy=4;player.grounded=false;toast('Despliegas las alas. Espacio para subir, C para bajar. Pulsa <b>X</b> para plegarlas.');}}
 function flyMove(nx,nz){const fl=floorAt(nx,nz);if(fl>player.feet-0.3)return tryMove(nx,nz);
   if(nx<8000){nx=clamp(nx,INNER.x-INNER.size/2+20,INNER.x+INNER.size/2-20);nz=clamp(nz,INNER.z-INNER.size/2+20,INNER.z+INNER.size/2-20);}
