@@ -4891,7 +4891,7 @@ const ROMA_TIMELINE=[
 
 const ROMA_ZONES=[
  {id:'foro',name:'Foro Romano',gr:'FORVM ROMANVM',sub:'El corazón político y religioso de Roma, entre el Capitolio y el Palatino.',test:(x,z)=>Math.abs(x)<120&&Math.abs(z)<65},
- {id:'capitolio',name:'Capitolio',gr:'CAPITOLIVM',sub:'La colina sagrada de Júpiter Óptimo Máximo.',test:(x,z)=>superD(x,z,-215,-35,85,75)<1.05&&romaH(x,z)>20},
+ {id:'capitolio',name:'Capitolio',gr:'CAPITOLIVM',sub:'La colina sagrada de Júpiter Óptimo Máximo.',test:(x,z)=>superD(x,z,-222,-42,72,112)<1.05&&romaH(x,z)>16},
  {id:'palatino',name:'Palatino',gr:'PALATIVM',sub:'La colina de Rómulo y de los palacios de los emperadores.',test:(x,z)=>superD(x,z,20,175,170,100)<1.05&&romaH(x,z)>22},
  {id:'anfiteatro',name:'Anfiteatro Flavio',gr:'AMPHITHEATRVM FLAVIVM',sub:'El anfiteatro que Tito inaugura con cien días de juegos.',test:(x,z)=>Math.hypot((x-400)/120,(z-60)/105)<1},
  {id:'circo',name:'Circo Máximo',gr:'CIRCVS MAXIMVS',sub:'Las carreras de carros, entre el Palatino y el Aventino.',test:(x,z)=>x>-280&&x<360&&z>290&&z<420},
@@ -5307,7 +5307,9 @@ function romaSetup(){
 // Origen en el centro del Foro. x = este, z = sur. Distancias comprimidas (más o menos a la mitad), edificios a tamaño real.
 // Colinas: [cx, cz, rx, rz (meseta), altura, borde (fracción del radio que ocupa la ladera)]
 const RHILLS=[
- [-215,-35,70,55,36,0.65],   // Capitolio
+ [-228,22,52,44,32,0.42],    // Capitolio: el Capitolium (cumbre sur, con el templo de Júpiter)
+ [-218,-108,42,34,38,0.42],  // el Arx (cumbre norte, la más alta, con Juno Moneta y el auguraculum)
+ [-214,-42,38,30,21,0.5],    // el Asylum, la hondonada entre las dos cumbres, tras el Tabularium
  [20,178,150,58,34,0.7],     // Palatino
  [-250,590,170,120,30,0.5],  // Aventino
  [520,330,150,95,28,0.6],    // Celio
@@ -5338,6 +5340,9 @@ const RFLATS=[
  [600,359,16,34,31.6,0.3],     // la domus visitable del Celio
  [470,359,16,34,31.6,0.3]      // la casa de la novia de la boda
 ];
+const CLIVUS=[[-86,4],[-118,7],[-140,12],[-160,19],[-180,27],[-200,30]];
+function clivusAt(x,z){let best=1e9,tt=0,acc=0,tot=0;for(let i=0;i<CLIVUS.length-1;i++)tot+=Math.hypot(CLIVUS[i+1][0]-CLIVUS[i][0],CLIVUS[i+1][1]-CLIVUS[i][1]);
+  for(let i=0;i<CLIVUS.length-1;i++){const a=CLIVUS[i],b=CLIVUS[i+1],dx=b[0]-a[0],dz=b[1]-a[1],L=Math.hypot(dx,dz),u=clamp(((x-a[0])*dx+(z-a[1])*dz)/(L*L),0,1),d=Math.hypot(x-a[0]-u*dx,z-a[1]-u*dz);if(d<best){best=d;tt=(acc+u*L)/tot;}acc+=L;}return{d:best,t:tt};}
 function romaH(x,z){
   let h=1.8+(fbm(x*0.006,z*0.006)-0.45)*5;
   for(const H of RHILLS){const p=plateau(x,z,H[0],H[1],H[2],H[3],H[4],H[5]);if(p>0.01)h=Math.max(h,1.8+p+(fbm(x*0.03+H[0],z*0.03)-0.5)*3*Math.min(1,p/10));}
@@ -5345,6 +5350,7 @@ function romaH(x,z){
   {const e=Math.hypot((x-400)/120,(z-60)/105);if(e<1.5)h=lerp(2,h,sstep(clamp((e-1)/0.5,0,1)));}   // valle del anfiteatro (el antiguo lago de Nerón)
   for(const F of RFLATS){const d=superD(x,z,F[0],F[1],F[2],F[3]);if(d<1+F[5])h=lerp(F[4],h,sstep(clamp((d-1)/F[5],0,1)));}
   {const w=sstep(clamp((-x-420)/110,0,1))*sstep(clamp((-z-40)/120,0,1));if(w>0)h=lerp(h,2.2+(fbm(x*0.01,z*0.01)-0.5)*1.2,w);}   // Campo de Marte
+  if(x<-70&&x>-215&&z>-10&&z<45){const c=clivusAt(x,z);if(c.d<10){const top=1.8+32,hc=lerp(0.6,top,sstep(c.t)*0.25+c.t*0.75);h=lerp(hc,h,sstep(clamp((c.d-4.5)/5,0,1)));}}   // Clivus Capitolinus
   {const rx=romaRiverX(z);if(x<rx){const w=sstep(clamp((rx-x-60)/90,0,1))*(1-sstep(clamp((rx-x-380)/200,0,1)));if(w>0&&z>-300&&z<900)h=lerp(h,2.4,w*0.85);}}   // llanura del Trastévere
   // el cauce del Tíber
   const d=romaRiverDist(x,z),W=romaRiverW(z);
@@ -5359,7 +5365,7 @@ function romaFieldOk(x,z){
   return Math.abs(romaH(x+4,z)-romaH(x-4,z))+Math.abs(romaH(x,z+4)-romaH(x,z-4))<2.4;
 }
 const RC={pave:new THREE.Color('#a89b82'),street:new THREE.Color('#857559'),basalt:new THREE.Color('#77736c'),sand:new THREE.Color('#c4ab7c'),mud:new THREE.Color('#6d6046'),bank:new THREE.Color('#7f7a55'),tufa:new THREE.Color('#8c7a5c'),garden:new THREE.Color('#6a8442'),urb:new THREE.Color('#8f6a4a')};
-function romaPaved(x,z){return superD(x,z,0,0,118,60)<1||superD(x,z,60,-165,196,92)<1||superD(x,z,480,-128,72,56)<1||superD(x,z,-640,-500,60,60)<1;}
+function romaPaved(x,z){if(x<-70&&x>-215&&z>-10&&z<45&&clivusAt(x,z).d<4.2)return true;return superD(x,z,0,0,118,60)<1||superD(x,z,60,-165,196,92)<1||superD(x,z,480,-128,72,56)<1||superD(x,z,-640,-500,60,60)<1;}
 function romaColor(x,z,h,sl,c,inner){
   c.lerp(RC.garden,0.25);
   {const ft=fieldAt(x,z);if(ft)c.lerp(FIELD_C[ft],0.8);}
@@ -5386,7 +5392,7 @@ const ROMA_PLACES=[
  ['ro_basilica_julia','Basílica Julia','BASILICA IVLIA','Una enorme sala de 101 por 49 metros con dos pisos de arcadas, empezada por César y terminada por Augusto. Aquí juzga el tribunal de los centunviros, que se ocupa de las herencias: cuatro salas a la vez, separadas por cortinas. En el pavimento de los pórticos, los ociosos han grabado tableros de juego.',[-25,34],Math.PI],
  ['ro_basilica_emilia','Basílica Emilia','BASILICA AEMILIA','La basílica más antigua que se conserva en el Foro, del 179 a.C., restaurada muchas veces por la familia Emilia. Delante tiene una fila de tiendas (tabernae) de banqueros y cambistas. Plinio el Viejo la contaba entre los tres edificios más bellos del mundo.',[20,-44],0],
  ['ro_tabularium','Tabularium','TABVLARIVM','El archivo del Estado, del 78 a.C., construido en la ladera del Capitolio como un enorme muro de piedra con arcadas. Guarda en tablillas de bronce las leyes y los decretos del Senado. Desde sus galerías se domina todo el Foro.',[-128,-62],Math.PI/2],
- ['ro_jupiter','Templo de Júpiter Óptimo Máximo','IOVI OPTIMO MAXIMO','El templo más sagrado de Roma, en la cima del Capitolio, dedicado a la tríada Júpiter, Juno y Minerva. Fundado en el 509 a.C., ardió en la guerra civil del 69 d.C. y Vespasiano lo reconstruyó; este mismo año, el gran incendio del 80 lo ha vuelto a quemar, y ya se habla de levantarlo otra vez, todavía más rico. Tiene tejas de bronce dorado. Aquí terminan los desfiles triunfales: el general sube con el rostro pintado de rojo, como la estatua del dios.',[-210,14],0],
+ ['ro_jupiter','Templo de Júpiter Óptimo Máximo','IOVI OPTIMO MAXIMO','El templo más sagrado de Roma, en la cima del Capitolio, dedicado a la tríada Júpiter, Juno y Minerva. Fundado en el 509 a.C., ardió en la guerra civil del 69 d.C. y Vespasiano lo reconstruyó; este mismo año, el gran incendio del 80 lo ha vuelto a quemar, y ya se habla de levantarlo otra vez, todavía más rico. Tiene tejas de bronce dorado. Aquí terminan los desfiles triunfales: el general sube con el rostro pintado de rojo, como la estatua del dios.',[-214,58],0],
  ['ro_tarpeya','Roca Tarpeya','SAXVM TARPEIVM','Desde este acantilado del Capitolio se despeñaba a los traidores y asesinos. Tarpeya, hija del comandante de la ciudadela, abrió las puertas a los sabinos a cambio de «lo que llevaban en el brazo izquierdo», pensando en sus brazaletes de oro; los sabinos la aplastaron con sus escudos.',[-270,30],Math.PI],
  ['ro_palatino','El Palatino','PALATIVM','La colina donde, según la leyenda, Rómulo fundó Roma. Aquí vivieron los nobles de la República y, desde Augusto, los emperadores: por eso «palacio» viene de Palatino. Vespasiano prefería vivir en los jardines de Salustio, y Tito, en su casa: los Flavios quieren alejarse del lujo de Nerón. Dentro de pocos años, su hermano Domiciano encargará al arquitecto Rabirio un palacio inmenso en lo alto de la colina.',[60,120],0],
  ['ro_romulo','Cabaña de Rómulo','CASA ROMVLI','Una cabaña de madera, barro y paja que los romanos conservan y reparan desde hace siglos como recuerdo de la casa de Rómulo. Los arqueólogos han encontrado en el Palatino agujeros de postes de cabañas como esta del siglo VIII a.C.',[-100,232],0],
@@ -6099,7 +6105,7 @@ function romaForum(){
    footprints.push({x:cx,z:cz,w:56,d:28,a:0,c:'#e2d6c0',name:'Casa de las Vestales'});
    for(let i=0;i<6;i++){const f=makePerson({female:true,chiton:'#f4efe4',himation:'#f4efe4',veil:'#f4efe4',skin:'#e9dcc8',scale:0.9});f.position.set(cx-18+i*7,romaH(cx,cz)+0.6,cz+(i%2?-10.5:10.5));f.rotation.y=i%2?0:Math.PI;scene.add(f);}}
   // Tabularium: muro de arcadas en la ladera del Capitolio
-  {const gy=romaH(-132,-30)-2,top=romaH(-215,-35)+3,g=grp(-140,gy,-30,Math.PI/2);const w=new THREE.Mesh(new THREE.BoxGeometry(70,top-gy,14),[TUFA,TUFA,TRAV,TRAV,texMat(RTEX.arcade,9,3),TUFA]);w.position.set(0,(top-gy)/2,0);w.castShadow=true;g.add(w);
+  {const gy=romaH(-132,-30)-2,top=romaH(-214,-42)+3,g=grp(-140,gy,-30,Math.PI/2);const w=new THREE.Mesh(new THREE.BoxGeometry(70,top-gy,14),[TUFA,TUFA,TRAV,TRAV,texMat(RTEX.arcade,9,3),TUFA]);w.position.set(0,(top-gy)/2,0);w.castShadow=true;g.add(w);
    addBox(-140,-30,14,70,0);footprints.push({x:-140,z:-30,w:14,d:70,a:0,c:'#bdb29a',name:'Tabularium'});}
   // librería de Atrecto en el Argileto
   {const g=grp(-28,romaH(-28,-90),-90,-Math.PI/2);box(8,5,6,PLAST,0,2.5,-3.2,g);box(8.4,0.3,6.4,M.tile,0,5.1,-3.2,g);for(const s of[-1,1]){box(0.5,3.2,0.5,M.wood,s*3,1.6,0.2,g);box(0.7,0.25,0.7,lam('#efe6d0'),s*3,2.4,0.3,g);}
@@ -6107,10 +6113,11 @@ function romaForum(){
    addBox(-28+3.2,-90,6,8,0);}
 }
 function romaCapitol(){
-  const top=romaH(-215,-35);
-  romanTemple({x:-225,z:-30,rot:0,W:46,L:56,pod:4,gy:top-0.4,colD:1.9,colH:15,nW:6,deep:3,peri:true,roofMat:lam('#c9a24a'),name:'Templo de Júpiter Óptimo Máximo'});
-  romanTemple({x:-215,z:-86,rot:Math.PI/2,W:14,L:20,pod:2.5,gy:romaH(-215,-86)-0.3,colD:0.8,colH:8,nW:4,deep:2,name:'Templo de Juno Moneta'});
-  const tr=[];for(let i=0;i<26;i++){const a=R()*TAU,r=rr(45,75),x=-215+Math.cos(a)*r*1.1,z=-35+Math.sin(a)*r*0.85;if(romaH(x,z)>top-6&&Math.hypot(x+225,z+30)>40)tr.push({x,z,kind:R()<0.6?'pine':'cypress'});}
+  const top=romaH(-228,22);
+  romanTemple({x:-228,z:22,rot:0,W:46,L:56,pod:4,gy:top-0.4,colD:1.9,colH:15,nW:6,deep:3,peri:true,roofMat:lam('#c9a24a'),name:'Templo de Júpiter Óptimo Máximo'});
+  romanTemple({x:-218,z:-108,rot:Math.PI/2,W:14,L:20,pod:2.5,gy:romaH(-218,-108)-0.3,colD:0.8,colH:8,nW:4,deep:2,name:'Templo de Juno Moneta'});
+  const tr=[];for(let i=0;i<40;i++){const a=R()*TAU,r=rr(10,70),x=-220+Math.cos(a)*r*0.8,z=-40+Math.sin(a)*r*1.6;const h=romaH(x,z);if(h>18&&Math.hypot(x+228,z-22)>36&&Math.hypot(x+218,z+108)>16&&Math.abs(x+140)>12&&clivusAt(x,z).d>8)tr.push({x,z,kind:R()<0.6?'pine':'cypress'});}
+  place('ro_clivus','Clivus Capitolinus','CLIVVS CAPITOLINVS','La única calle por la que suben los carros al Capitolio: una cuesta empinada y pavimentada que sale del Foro junto al templo de Saturno y gira hacia la cumbre de Júpiter. Por aquí suben los generales en el triunfo y los cónsules el día que toman posesión. El Capitolio tiene dos cumbres: el Capitolium, al sur, con el templo de Júpiter, y el Arx, la ciudadela, al norte, con el templo de Juno Moneta (donde se acuña la moneda) y el auguraculum, desde donde los augures observan el vuelo de las aves. Entre ambas, la hondonada del Asylum, donde según la leyenda Rómulo acogió a fugitivos para poblar Roma.',-150,24,0);
   if(GLB.ok)treesGLB(tr);
 }
 function romaPalatine(){
@@ -6476,6 +6483,7 @@ function romaCity(){
   let n=0;
   // ¿se puede construir aquí? (dentro de la ciudad, en su zona, fuera del río, de las calzadas y de lo ya ocupado, sin demasiada pendiente)
   const ok=(x,z,w,d,a,Q,trast)=>{
+    if(superD(x,z,-222,-42,70,108)<1.12)return false;   // en el Capitolio no se puede vivir (desde Manlio Capitolino, 384 a.C.)
     if(!romaInUrbs(x,z)||inIsla(x,z,6))return false;if(romaQuarter(x,z)!==Q)return false;if((x<romaRiverX(z))!==trast)return false;
     if(romaRiverDist(x,z)<romaRiverW(z)+20)return false;
     let lo=1e9,hi=-1e9;for(const[i,j]of[[-1,-1],[1,-1],[-1,1],[1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const p=toW(i*w/2,j*d/2,x,z,a),h=romaH(p[0],p[1]);lo=Math.min(lo,h);hi=Math.max(hi,h);if(roadDist(p[0],p[1])<2)return false;}
@@ -6521,7 +6529,7 @@ function romaNPCs(){
     marcial:[298,64,-Math.PI/2],quintiliano:[-25,35,Math.PI],josefo:[215,-176,-Math.PI/2],epicteto:[430,-76,0],marcelo:[436,-70,-0.6],musonio:[-675,-296,Math.PI/2],
     frontino:[ax,az,0],plinio:[40,-168,0],tacito:[-56,-40,0],dion:[-790,-388,Math.PI],sulpicia:[-215,555,0],rabirio:[28,214,Math.PI/2],atrecto:[-36,-90,-Math.PI/2],
     prisco:[385,64,-Math.PI/2],cornelia:[89,42,-Math.PI/2],hermeros:[-78,46,Math.PI/2],cliente:[603,390,0],pretoriano:[8,92,Math.PI],auriga:[-200,330,Math.PI/2],
-    mercader:[romaRiverX(640)+romaRiverW(640)+16,640,-Math.PI/2],termas:[482,-83,0],vigil:[232,-402,0],augur:[-205,16,0],junia:[-760,330,0],medico:[-508,236,Math.PI/2],
+    mercader:[romaRiverX(640)+romaRiverW(640)+16,640,-Math.PI/2],termas:[482,-83,0],vigil:[232,-402,0],augur:[-200,-96,0],junia:[-760,330,0],medico:[-508,236,Math.PI/2],
     sarapion:[-525,-362.5,0],licinia:[-62,230,0.4],debora:[-752,347,-Math.PI/2]
   });
   for(const k in NPC_POS){const p=NPC_POS[k],f=findFree(p[0],p[1],0.6);p[0]=f[0];p[1]=f[1];}
