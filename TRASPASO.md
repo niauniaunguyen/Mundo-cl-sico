@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 90 del artefacto; notas de la versión 90). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 91 del artefacto; notas de la versión 91). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,32 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 91: la granja heredada (en los dos modos)
+
+Todo está en el módulo «LA GRANJA», antes de `startGame`. El estado se guarda en `state.farm` (`farmz()`). La granja se monta con `farmSetup()` y `farmOfferSetup()`, que se llaman después de `m386Setup`. Los objetos son de tipo `egx`, con `act` que empieza por `f:`; `egxAct` los pasa a `farmAct` o, en el caso de la ofrenda, a `farmOffer`. `farmTick` se llama desde `gfTick`.
+
+- **Lugar** (`farmFind`): una zona llana y libre fuera de la ciudad, buscada en anillos alrededor de la Academia (Atenas) o de la vía Apia (Roma). Una estela, `granja`, la marca en el plano, y al pasar a menos de 70 m sale un aviso.
+- **Misión de amistad** (`farmerTalk`; estados de `f.q` del 0 al 5):
+  1. Segar tres parcelas maduras del campesino.
+  2. Llevar las primicias al Eleusinion (Atenas) o al templo de Saturno (Roma).
+  3. Ganarse su amistad (`f.aff` hasta 5 corazones), charlando una vez al día o regalándole vino.
+  4. Recibir la granja. En Atenas, un arriendo vitalicio a través del sobrino, porque un forastero no puede poseer tierra en el Ática. En Roma, un fideicomiso, porque un peregrino no puede recibir legados (Gayo II 285).
+  - Los campesinos: Lamprias, del demo de Colono, cuyo hijo murió en la guerra de Corinto; y Ofelio, veterano de la Legión V, cuyo hijo murió en Judea.
+- **Parcelas:** 8, y 12 con la mejora. Ciclo: sin arar, arada, sembrada y madura; tras cosechar vuelve a «sin arar».
+  - `CROPS` según el modo, con los meses de siembra reales, los días que tardan, si necesitan riego y la cosecha.
+  - De noviembre a marzo llueve (`farmRain`) y no hace falta regar.
+  - Los cultivos con riego solo crecen los días en que se riegan.
+- **Árboles:** aceitunas (noviembre a enero), uvas (agosto y septiembre) e higos (julio y agosto), una vez por temporada.
+- **Animales:** gallinas (huevos por docenas), cabras (leche) y colmenas (miel cada tres días).
+- **Cocina de la casa:** queso con 3 de leche; aceite con 3 aceitunas; mosto con 3 uvas, que en 5 días se hace vino.
+- **Cansancio:** fuerzas 100. Arar cuesta 12 (5 con buey), sembrar 5, regar 4 y cosechar 8. Dormir en la casa avanza hasta las 6 de la mañana siguiente y las recupera.
+- **Almacén:**
+  - Vender todo, a un 50 % más los días de mercado (noumenia o nundinae).
+  - Comprar semillas (1 cada saco).
+  - Mejoras: buey (40), 4 parcelas más (30), colmenas (25), dos gallinas (8) y una cabra (12).
+- **Altar:** ofrecer primicias da +1 de cosecha durante 15 días y Eusébeia.
+- **Libro de la finca y consejo del mes** (`FMES`): Hesíodo, Trabajos y días, en Atenas; Catón, Varrón, Columela y Virgilio en Roma.
 
 ### Novedades de la versión 90: equivalentes romanos (año 80)
 
