@@ -2528,7 +2528,10 @@ function buildSouthSlope(){
 }
 
 // ------------------------------------------------------------ Ágora (disposición según los planos de la Escuela Americana)
-function herm(x,z,a){const g=grp(x,floorAt(x,z),z,a);box(0.32,1.3,0.3,M.marble,0,0.65,0,g);box(0.5,0.12,0.2,M.marble,0,1.15,0,g);const h=new THREE.Mesh(PGEO.head,lam('#efe5d4'));h.scale.setScalar(1.15);h.position.y=1.48;g.add(h);const b=new THREE.Mesh(PGEO.beard,lam('#6b4a2a'));b.position.set(0,1.38,0.08);g.add(b);addCirc(x,z,0.3);}
+function herm(x,z,a){const g=grp(x,floorAt(x,z),z,a);box(0.32,1.3,0.3,M.marble,0,0.65,0,g);box(0.5,0.12,0.2,M.marble,0,1.15,0,g);const h=new THREE.Mesh(PGEO.head,lam('#efe5d4'));h.scale.setScalar(1.15);h.position.y=1.48;g.add(h);const b=new THREE.Mesh(PGEO.beard,lam('#6b4a2a'));b.position.set(0,1.38,0.08);g.add(b);
+  // el falo esquemático, del mismo mármol, a media altura del pilar: protegía y traía buena suerte (y fue lo que se mutiló en el 415)
+  {const f=new THREE.Mesh(new THREE.CylinderGeometry(0.028,0.032,0.13,8),M.marble);f.rotation.x=Math.PI/2-0.45;f.position.set(0,0.63,0.2);g.add(f);const t=new THREE.Mesh(new THREE.SphereGeometry(0.029,8,6),M.marble);t.position.set(0,0.66,0.26);g.add(t);const sc=new THREE.Mesh(new THREE.SphereGeometry(0.045,8,6),M.marble);sc.scale.set(1.2,0.8,0.7);sc.position.set(0,0.57,0.165);g.add(sc);}
+  addCirc(x,z,0.3);}
 function buildAgora(){
   // Stoa Basileios (17,72 x 7,18 m, ocho columnas dóricas)
   {const[x,z]=AL(-100,-112),s=stoa({name:_t(2278,'Stoa Basileios'),x,z,rot:Math.PI/2,len:17.72,depth:7.18,colH:4.4,colD:0.58,nCols:8,inner:'doric',innerN:4});
