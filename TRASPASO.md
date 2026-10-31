@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 55). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 56). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,21 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 56: ríos y geografía (Pausanias I-VI y el Penguin Historical Atlas)
+- Las fuentes se extrajeron en carpetas aisladas: Pausanias desde los epub; el atlas, que es un PDF escaneado sin texto, se consultó por sus páginas de mapas (Esparta y Tebas, 396-362).
+- Atenas (`defineRiversGR`, antes de `buildTrees`):
+  - `traceRiver` traza el Iliso (del Himeto al Falero, al sur del Liceo y junto al Olimpieion) y el Cefiso (de la Academia al mar) buscando el fondo de los valles y sin entrar en las murallas.
+  - `GRIV.grid` (`nearRiver`) impide que haya cultivos, campos (`fieldOk`) o árboles sueltos en las orillas.
+  - El Erídano va por el Cerámico (`polyPts` + `outsideWalls`).
+  - `buildGeoGR` (después de `buildSocial`) dibuja el lecho y el agua (`ribbon`), las cañas y los plátanos (`riverBanks`) y las estelas `iliso`, `eridano` y `cefiso`.
+- Destinos:
+  - Olimpia: el Cladeo y estelas del `cladeo`, el `alfeo` (Aretusa, el monte Tipeo) y el `cronio` (los Básilas).
+  - Argos: el Ínaco, con su cauce casi seco (`inaco`).
+  - Itome: la fuente Clepsidra con su estela (`clepsidra`) y el Pamiso con la suya (`pamiso`).
+  - Corinto: la estela `lequeo` en la orilla norte (Lequeo y Céncreas).
+- El Eurotas, el Escamandro, el Ofis y el Alfeo ya existían como `riverRibbon`.
+- La prueba de accesibilidad pasa: 264 objetivos.
 
 ### Novedades de la versión 55: árboles nuevos, cultivos con estaciones y vida en el campo
 - `betterTrees()` se llama al cargar el GLB y sustituye `T_olive_*`, `T_cypress`, `T_pine_*`, `T_plane_*` y `T_bush` por geometría generada por código, con los mismos papeles (bark/foliage), así que `treesGLB` y `placeModules` no cambian.
