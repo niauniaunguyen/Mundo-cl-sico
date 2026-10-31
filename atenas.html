@@ -1246,18 +1246,21 @@ function faceGeo(browHex,mouth){const F=faceSpots(),k=browHex+(mouth?'m':'');if(
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('normal',new THREE.BufferAttribute(nor,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));return F.geo[k]=g;}
 // o.bare: 'exo' (exomis: hombro y pecho derechos al aire, prendida en el hombro izquierdo) o 'chest' (sin quitón: torso desnudo y el manto
 // envolviendo las piernas, color o.drape); o.border: color de la cenefa, a o.by metros del bajo de la prenda
-function personMat(hex,kind,o){o=o||{};const k=hex+kind+(o.bare||'')+(o.skin||'')+(o.drape||'')+(o.border||'')+(o.by||'');if(PMAT[k])return PMAT[k];const m=new THREE.MeshLambertMaterial({color:hex,vertexColors:true});
+function personMat(hex,kind,o){o=o||{};const k=hex+kind+(o.bare||'')+(o.skin||'')+(o.drape||'')+(o.border||'')+(o.by||'')+(o.clavus||'')+(o.praet?'p':'')+(o.pat||'')+(o.patC||'');if(PMAT[k])return PMAT[k];const m=new THREE.MeshLambertMaterial({color:hex,vertexColors:true});
   const t=kind==='cloth'?personTex().fold:kind==='hair'?personTex().hair:null,sc=kind==='cloth'?2.2:7,base=new THREE.Color(hex);
-  if(t){m.map=t;const mode=(o.bare||'')+(o.border?'b':'');m.customProgramCacheKey=()=>'pm'+kind+mode;m.onBeforeCompile=sh=>{
+  if(t){m.map=t;const mode=(o.bare||'')+(o.border?'b':'')+(o.clavus||'')+(o.praet?'p':'')+(o.pat||'');m.customProgramCacheKey=()=>'pm'+kind+mode;m.onBeforeCompile=sh=>{
     sh.uniforms.pmS={value:sc};const rel=h=>{const c=new THREE.Color(h);c.r/=base.r+0.0001;c.g/=base.g+0.0001;c.b/=base.b+0.0001;return c;};sh.uniforms.pmSkin={value:rel(o.skin||'#c99a74')};
     sh.uniforms.pmDrape={value:rel(o.drape||hex)};
-    sh.uniforms.pmBorder={value:rel(o.border||hex)};sh.uniforms.pmBY={value:o.by||0.05};
+    sh.uniforms.pmBorder={value:rel(o.border||hex)};sh.uniforms.pmBY={value:o.by||0.05};sh.uniforms.pmPur={value:rel(PURPURA)};sh.uniforms.pmPat={value:rel(o.patC||'#7a2a1e')};
     let extra='';
+    if(o.clavus)extra+='if(vOP.y>0.42&&vOP.y<1.62&&abs(abs(vOP.x)-0.085)<'+(o.clavus==='lati'?'0.03':'0.011')+')diffuseColor.rgb*=pmPur;';
+    if(o.praet)extra+='{float dg=vOP.y-(1.3-vOP.x*0.8);if((abs(dg)<0.024&&vOP.y>0.7)||(vOP.y>0.1&&vOP.y<0.155))diffuseColor.rgb*=pmPur;}';
+    if(o.pat)extra+='{vec2 q=vec2(vOP.x+vOP.z,vOP.y)*vec2(24.0,20.0);vec2 f=fract(q+vec2(floor(q.y)*0.5,0.0))-0.5;float d='+(o.pat==='stars'?'abs(f.x)+abs(f.y)':'length(f)')+';if(d<'+(o.pat==='stars'?'0.16':'0.12')+'&&vOP.y<1.42&&vOP.y>0.12)diffuseColor.rgb*=pmPat;}';
     if(o.bare==='exo')extra+='if(vOP.y>1.14&&vOP.x>-0.01+(1.63-vOP.y)*0.72){diffuseColor.rgb=diffuseColor.rgb/max(tc,vec3(0.01))*pmSkin;}';
     if(o.bare==='chest')extra+='if(vOP.y>1.02){diffuseColor.rgb=diffuseColor.rgb/max(tc,vec3(0.01))*pmSkin;}else{diffuseColor.rgb*=pmDrape;}';
     if(o.border)extra+='float bh=vOP.y-pmBY;if((bh>0.03&&bh<0.085)||(bh>0.11&&bh<0.125))diffuseColor.rgb*=pmBorder;';
     sh.vertexShader='varying vec3 vOP;\nvarying vec3 vON;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvOP=transformed;vON=objectNormal;');
-    sh.fragmentShader='uniform float pmS;uniform vec3 pmSkin;uniform vec3 pmDrape;uniform vec3 pmBorder;uniform float pmBY;\nvarying vec3 vOP;\nvarying vec3 vON;\n'+sh.fragmentShader.replace('#include <map_fragment>','vec3 tb=pow(abs(normalize(vON)),vec3(4.0));tb/=(tb.x+tb.y+tb.z);vec3 tc=texture2D(map,vOP.xy*pmS).rgb*tb.z+texture2D(map,vOP.zy*pmS).rgb*tb.x+texture2D(map,vOP.xz*pmS).rgb*tb.y;diffuseColor.rgb*=tc;'+extra);};}
+    sh.fragmentShader='uniform float pmS;uniform vec3 pmSkin;uniform vec3 pmDrape;uniform vec3 pmBorder;uniform float pmBY;uniform vec3 pmPur;uniform vec3 pmPat;\nvarying vec3 vOP;\nvarying vec3 vON;\n'+sh.fragmentShader.replace('#include <map_fragment>','vec3 tb=pow(abs(normalize(vON)),vec3(4.0));tb/=(tb.x+tb.y+tb.z);vec3 tc=texture2D(map,vOP.xy*pmS).rgb*tb.z+texture2D(map,vOP.zy*pmS).rgb*tb.x+texture2D(map,vOP.xz*pmS).rgb*tb.y;diffuseColor.rgb*=tc;'+extra);};}
   return PMAT[k]=m;}
 // cenefas: colores de los bordes tejidos
 const BORDER_C=['#7a2a1e','#2f4a6a','#8a6a2a','#3f5a3a','#2a2018','#6a3a5a'];
@@ -1265,8 +1268,8 @@ function makePersonGLB(c){
   const g=new THREE.Group(),hairC=c.hair||'#3b2a1e',skinC=c.skin||(c.glow?'#e9cba4':PSKIN[Math.floor(Math.random()*PSKIN.length)]);
   // exomis: túnica corta de trabajo con un hombro al aire; himOnly: solo el manto, sin quitón; cenefa en el bajo de algunos vestidos
   const exo=!!c.exomis,him=!!c.himOnly&&!c.female,border=c.border!==undefined?c.border:(!c.glow&&!c.soldier&&!c.toga&&!exo&&Math.random()<0.3?BORDER_C[Math.floor(Math.random()*BORDER_C.length)]:null);
-  const ro={cloth:personMat(c.chiton,'cloth',{bare:exo?'exo':him?'chest':null,skin:skinC,drape:him?(c.himation||c.chiton):null,border:him?null:border,by:(c.short||exo)?0.5:(c.female?0.02:0.05)}),
-    drape:personMat(c.himation||c.chiton,'cloth',c.female&&border?{border,by:0.47}:null),skin:c.glow?glowSkin(skinC,c.glow):personMat(skinC,'skin'),hair:personMat(hairC,'hair'),
+  const ro={cloth:personMat(c.chiton,'cloth',{bare:exo?'exo':him?'chest':null,skin:skinC,drape:him?(c.himation||c.chiton):null,border:him?null:border,by:(c.short||exo)?0.5:(c.female?0.02:0.05),clavus:c.clavus,pat:c.pattern,patC:c.pattern?(c.patC||c.himation||'#7a2a1e'):null}),
+    drape:personMat(c.himation||c.chiton,'cloth',Object.assign(c.female&&border?{border,by:0.47}:{},c.praetexta&&c.toga?{praet:true}:{})),skin:c.glow?glowSkin(skinC,c.glow):personMat(skinC,'skin'),hair:personMat(hairC,'hair'),
     eye:lam(c.glow?'#2a3d6a':'#1a120c'),sandal:lam(c.glow?'#b8862f':'#5a3d26'),mask:lam(c.mask||'#efe5d4'),leaf:lam(c.leaf||ROLE_C.leaf)};
   Object.assign(ro,c.attrRoles||{});
   const add=(n,par,roles)=>{const p=glbPart(n,roles||ro);if(p)(par||g).add(p);return p;};
@@ -1294,7 +1297,7 @@ function makePersonGLB(c){
   if(c.scale)g.scale.setScalar(c.scale);
   // complexión: unos más altos, otros más anchos (no en los niños ni en el propio jugador)
   else if(!c.noVary){const hf=0.95+Math.random()*0.09,wf=0.93+Math.random()*0.13;g.scale.set(wf,hf,wf);}
-  g.userData.arms=arms;
+  dressExtras(g,c,ro);g.userData.arms=arms;
   return g;
 }
 function labelSprite(name,sub,fict){
@@ -2796,14 +2799,14 @@ function placeNPCs(){
     pasion:[...AL(40,-19.6),0],filina:[sympDoor[0],sympDoor[1],Math.atan2(D.ox,D.oz)+Math.PI/2],antistenes:[CYNO.x+2,CYNO.z+1.6,0]
   };
   Object.assign(pos,{platonakis:[ACADEMY.x+18,ACADEMY.z+32,1.3],orfeotelesta:[ELEUS.x+21,ELEUS.z+8,Math.PI/2],abuela:[...AL(60,71),0],enfermo:[-37,114,Math.PI/2],iniciada:[ELEUS.x+6,ELEUS.z+12,Math.PI/2]},NPC_POS);
-  NPCS.forEach(n=>{const[x,z,r]=pos[n.id];const g=makePerson(n.look);const y=floorAt(x,z);g.position.set(x,y,z);g.rotation.y=r;scene.add(g);
+  NPCS.forEach(n=>{const[x,z,r]=pos[n.id];const g=makePerson(dressLook(n.look,n.title));const y=floorAt(x,z);g.position.set(x,y,z);g.rotation.y=r;scene.add(g);
     const lb=labelSprite(n.name,n.title,!HIST.has(n.id));lb.position.y=2.45;lb.visible=false;g.add(lb);const mk=markerSprite();mk.position.y=2.95;g.add(mk);
     addCirc(x,z,0.4);npcObjs.push({kind:'npc',data:n,g,lb,mk,x,z,baseRot:r});});
 }
 function placeWalkers(){
   const looks=[['#e8dfcc','#7a5a3a'],['#d7c9ab','#4f6a7d'],['#efe6d5','#8a3f2f'],['#c9b48b','#5c6b3f'],['#e2d6c0','#a07a3a'],['#a89070','#a89070'],['#f0e9dc','#6a4d7a'],
     ['#ddd0b4','#3f5a4a'],['#e9e0cb','#9a6a2a'],['#cdbb98','#6b4a3a'],['#efe8d8','#2f4a6a'],['#d9c6a2','#7a3a4a']];
-  for(let i=0;i<60;i++){const L=pick(looks);const fem=R()<0.25;const g=makePerson({chiton:L[0],himation:L[1],female:fem,veil:fem&&R()<0.35,...(()=>{if(fem)return{};const r=R();return r<0.24?{exomis:true,chiton:pick(['#b8a27a','#a89070','#8a7a62','#c9b48b','#9a8466'])}:r<0.36?{himOnly:true}:{};})(),carry:fem&&R()<0.4?'hydria':(!fem&&R()<0.15?'amphora':(R()<0.15?'basket':null)),beard:!fem&&R()<0.7,hair:pick(['#2b1f17','#3e2c1f','#5b4532','#8d8a85'])});
+  for(let i=0;i<60;i++){const L=pick(looks);const fem=R()<0.25;const g=makePerson({...(i>=34&&!fem&&R()<0.55?{chlamys:pick(['#7a5a3a','#8a3f2f','#4f6a7d','#6b4a3a','#5c6b3f']),petasos:R()<0.5?'head':'back',noHimation:true}:{}),pattern:fem&&R()<0.35?pick(['spots','stars']):undefined,chiton:L[0],himation:L[1],female:fem,veil:fem&&R()<0.35,...(()=>{if(fem)return{};const r=R();return r<0.24?{exomis:true,chiton:pick(['#b8a27a','#a89070','#8a7a62','#c9b48b','#9a8466'])}:r<0.36?{himOnly:true}:{};})(),carry:fem&&R()<0.4?'hydria':(!fem&&R()<0.15?'amphora':(R()<0.15?'basket':null)),beard:!fem&&R()<0.7,hair:pick(['#2b1f17','#3e2c1f','#5b4532','#8d8a85'])});
     const mode=i<34?'agora':'road';let x,z;
     if(mode==='agora'){x=AG.x+rr(-30,90);z=AG.z+rr(-70,45);}
     else{const rd=ROADS[i%2?0:4];const s=Math.floor(R()*(rd.pts.length-1)),t=R();x=lerp(rd.pts[s][0],rd.pts[s+1][0],t);z=lerp(rd.pts[s][1],rd.pts[s+1][1],t);g.userData.road=rd;g.userData.seg=s;g.userData.dir=R()<0.5?1:-1;}
@@ -6479,7 +6482,7 @@ function romaWalkers(){
   const looks=[{chiton:'#efe9dc',toga:true,himation:'#f3eee2'},{short:true,chiton:'#a89070'},{short:true,chiton:'#c9b48b'},{short:true,chiton:'#8a6a4a'},{short:true,chiton:'#d7c9ab'},
     {female:true,chiton:'#e2d6c0',himation:'#8a3f5e',veil:true},{female:true,chiton:'#efe6d5',himation:'#4f6a7d'},{female:true,chiton:'#d8c9a8',himation:'#6a4d7a',veil:true,carry:'hydria'},{soldier:'nospear',chiton:'#a8392b'},{chiton:'#e9dfc8',himation:'#5c6b5a',beard:true}];
   const boxes=[[-50,110,-45,30],[150,330,-460,-300],[-700,-560,-560,-480],[-520,-380,100,220],[350,460,140,200],[-820,-700,260,420]];
-  for(let i=0;i<78;i++){const L=Object.assign({},pick(looks),{hair:pick(['#2b1f17','#3e2c1f','#5b4532','#8d8a85'])});if(!L.female&&!L.soldier)L.beard=R()<0.25;if(L.short&&R()<0.2)L.carry=pick(['amphora','basket']);
+  for(let i=0;i<78;i++){const L=Object.assign({},pick(looks),{hair:pick(['#2b1f17','#3e2c1f','#5b4532','#8d8a85'])});if(!L.female&&!L.soldier)L.beard=R()<0.25;if(L.toga){L.himation='#ece3c9';const q=R();if(q<0.08){L.praetexta=true;L.clavus='lati';}else if(q<0.2)L.clavus='lati';}else if(L.short&&R()<0.06)L.clavus='angusti';if(L.short&&R()<0.2)L.carry=pick(['amphora','basket']);
     const g=makePerson(L),road=i>=60,b=boxes[i<30?0:i<40?1:i<46?2:i<52?3:i<56?4:5];let x,z;
     if(!road){x=rr(b[0],b[1]);z=rr(b[2],b[3]);[x,z]=findFree(x,z,0.5);}
     else{const rd=ROADS[[0,3,1,7,10][i%5]];const s=Math.floor(R()*(rd.pts.length-1)),t=R();x=lerp(rd.pts[s][0],rd.pts[s+1][0],t);z=lerp(rd.pts[s][1],rd.pts[s+1][1],t);g.userData.road=rd;g.userData.seg=s;g.userData.dir=R()<0.5?1:-1;}
@@ -13455,6 +13458,22 @@ function personLegs(g,short,ro){const root=new THREE.Group();g.add(root);const l
 // amp: 0 quieto … 1 paso normal; ph: fase del paso
 function personWalk(g,ph,amp){const u=g.userData,s=Math.sin(ph)*amp;if(u.legs){const la=u.legAmp||0.42;u.legs[0].rotation.x=-s*la;u.legs[1].rotation.x=s*la;}
   if(u.arms&&!u.armsBusy){u.arms[0].rotation.x=s*0.38;u.arms[1].rotation.x=-s*0.38;}g.rotation.z=Math.sin(ph)*0.025*amp;}
+// ---- vestuario (Th. Hope, Costumes of the Greeks and Romans): clámide con fíbula y pétaso para viajeros, jinetes y pastores; vestidos estampados;
+// en Roma, clavos púrpura (laticlavio de senadores, angusticlavio de caballeros), toga pretexta de magistrados y sacerdotes y toga de color natural
+const PURPURA='#6a1f3a';
+function dressLook(look,title){const L=Object.assign({},look),t=(title||'').toLowerCase(),ro=MODE==='roma';
+  if(!ro){if(!L.female&&!L.soldier&&!L.glow&&/viajer|arriero|mensajer|heraldo|efebo|jinete|criador|caballer|carreter|cazador|pastor|explorador|corredor|enviado/.test(t)){L.chlamys=L.chlamys||L.himation||pick(['#7a5a3a','#8a3f2f','#4f6a7d']);L.petasos=L.petasos||(/pastor|arriero|carreter|criador/.test(t)?'head':'back');L.noHimation=true;}
+    if(L.female&&!L.pattern&&!L.glow&&R()<0.3)L.pattern=R()<0.7?'spots':'stars';}
+  else{if(/cónsul|pretor|edil|magistrad|flamen|pontífice|augur|censor|emperador|sacerdote|arúspice|harúspice/.test(t)){L.praetexta=true;L.clavus='lati';}
+    else if(/senador/.test(t))L.clavus='lati';
+    else if(/caballero|ecuestre|procurador|prefecto|tribuno militar|publicano|naviero/.test(t))L.clavus='angusti';
+    if(L.toga&&!L.himation)L.himation='#ece3c9';}
+  return L;}
+function dressExtras(g,c,ro){
+  if(c.chlamys){const m=personMat(c.chlamys,'cloth',{});const cg=new THREE.CylinderGeometry(0.24,0.33,0.86,14,3,true,Math.PI*0.32,Math.PI*1.22);cg.setAttribute('color',new THREE.Float32BufferAttribute(new Array(cg.attributes.position.count*3).fill(0.92),3));const cl=new THREE.Mesh(cg,m);cl.material=m.clone();cl.material.side=THREE.DoubleSide;cl.position.set(0,1.2,-0.01);cl.castShadow=true;g.add(cl);
+    const br=new THREE.Mesh(new THREE.SphereGeometry(0.03,8,6),lam('#c9a64a'));br.position.set(-0.17,1.55,0.08);g.add(br);}
+  if(c.petasos){const hat=(()=>{const h=new THREE.Group(),f=lam(c.petasosC||pick(['#8a7350','#a08a5a','#6b5a3a']));const b=new THREE.Mesh(new THREE.CylinderGeometry(0.27,0.27,0.02,20),f);b.position.y=1.9;h.add(b);const k=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.12,0.09,14),f);k.position.y=1.95;h.add(k);return h;})();
+    if(c.petasos==='back'){const pv=new THREE.Group();pv.position.set(0,1.5,-0.2);hat.position.y=-1.92;pv.add(hat);pv.rotation.x=-1.45;g.add(pv);const st=new THREE.Mesh(new THREE.CylinderGeometry(0.004,0.004,0.32,4),lam('#5a4028'));st.position.set(0,1.62,-0.1);st.rotation.x=0.5;g.add(st);}else g.add(hat);}}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}

@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 57). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 58). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,20 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 58: vestuario (Th. Hope, Costumes of the Greeks and Romans)
+- El epub se extrajo en una carpeta aislada y solo se usaron datos.
+- `personMat` admite tres opciones nuevas en el sombreado de la tela:
+  - `clavus` ('lati'/'angusti'): franjas púrpura (`PURPURA`) en la túnica;
+  - `praet`: borde púrpura de la toga pretexta, en diagonal sobre el pecho y en el bajo; solo se aplica en `drape` con toga;
+  - `pat` ('spots'/'stars', color `patC`): estampado en los vestidos.
+- `dressExtras` añade la clámide (capa abierta con fíbula dorada en el hombro derecho; lleva un atributo de color porque el material usa colores por vértice) y el pétaso (sombrero de fieltro sin alas; `petasos:'head'` o `'back'`, colgado a la espalda).
+- `dressLook(look,title)` viste a los personajes con nombre según su oficio:
+  - Atenas: viajeros, mensajeros, jinetes, pastores y arrieros llevan clámide y pétaso; algunas mujeres llevan estampado.
+  - Roma: magistrados y sacerdotes llevan pretexta y laticlavio; los senadores, laticlavio; caballeros, procuradores y prefectos, angusticlavio; la toga es de color natural.
+- Caminantes:
+  - Atenas: en los caminos, la mitad de los hombres llevan clámide y pétaso, y un tercio de las mujeres, vestido estampado.
+  - Roma: el 8 % de las togas son pretextas, otro 12 % lleva laticlavio y el 6 % de las túnicas cortas, angusticlavio.
 
 ### Novedades de la versión 57: ríos excavados y navegables, suelo igual a la malla, andar natural
 - **Ríos.** `addRiver(pts,w,opt)` registra cada río en `CARVE` (rejilla de 24 m) y lo excava.
