@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 70 del artefacto; notas de la versión 70). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 71 del artefacto; notas de la versión 71). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 71: el culto doméstico romano
+
+Todo está en el módulo `cult*`, antes de `startGame`. El estado se guarda en `state.culto`: `n`, `ok`, `d`, `foc`, `corF`, `lem` y `avis`.
+
+- **Calendario de los ritos:** cada mes del juego dura 5 días; el 1.º son las Kalendas, el 3.º las Nonas y el 5.º los Idus (`cultDia`).
+- **Larario interactivo** (`CULT_OBJS`, de tipo `culto`, que abre `cultoAct`):
+  - Está en la Domus del Celio (Filero te deja ofrecer como huésped) y en tu casa del Quirinal (la acción `altar` de `hogarAct`).
+  - Hay cinco ofrendas posibles (`CULT_OFR`). En los días de fiesta lo propio es la guirnalda (Catón 143).
+  - El hogar de la cocina (contexto `focus`) permite la porción para los Penates y la corona en los días de fiesta.
+- **Rito de las Lemurias** (`lemuria`, `LEM_PASOS`, Ovidio, Fastos V): 7 pasos.
+  - Solo cuenta de verdad en el mes Maius y a medianoche; en otro momento se puede practicar.
+  - Avisos al empezar febrero (Parentales) y mayo (Lemurias) en `cultTick`.
+- **Personaje nuevo `avia`** (Cecilia Paulina, en la domus) con 7 temas y 7 más en `MORE.avia`:
+  - Lares, Penates, Genio y Juno, Vesta, Manes y Lemures, Parentales y Caristia, y los ritos de paso (bula, lúnula, toga viril).
+  - Lo que se ve en la pintura del larario y las serpientes agathodaímones.
+  - Las figurillas y los lararios de los oficios.
+  - El altar de la cocina y quién dirige los ritos.
+  - Los sueños de los muertos (Cicerón, Sobre la adivinación I 57) y las larvas de los banquetes (Petronio 34).
+- **Estelas nuevas en la domus:** `domus_penates`, `domus_genio`, `domus_lemures`.
+- Las fiestas de Parentalia y Compitalia ya existían: no se han duplicado.
+- **Documentación:** N. F. Marqués González, *¡Que los dioses nos ayuden!* (2021), capítulo «Religión vivida en familia». El texto extraído está en el scratchpad, en `dioses_out/libro.txt`; tiene más capítulos útiles sobre religión pública, adivinación, magia y amuletos.
 
 ### Novedades de la versión 70: cuadernos de viaje para el profesorado
 
