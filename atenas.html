@@ -12747,11 +12747,11 @@ const OLY_GATE={A:'place:larisa_llanura',R:'place:ro_jupiter'};
 const MUSAS=()=>MODE==='roma'?MUSAS_ROMA:MUSAS_ATENAS;
 const MUSE_OBJS=[];const OLYM={x:0,z:0,y:1600,built:false,zeus:null,gate:null,mnemo:null,back:null};
 function muz(){if(!state.musas||typeof state.musas!=='object')state.musas={dons:{},day:{}};return state.musas;}
-function divineFigure(x,z,look,col,name,sub,scale){const g=makePerson(Object.assign({noVary:true,scale:scale||1.15,glow:col},look));g.position.set(x,floorAt(x,z),z);scene.add(g);
+function divineFigure(x,z,look,col,name,sub,scale,skinCol){const g=makePerson(Object.assign({noVary:true,scale:scale||1.15,glow:skinCol||col},look));g.position.set(x,floorAt(x,z),z);scene.add(g);
   const h=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.7,fog:false,color:col}));h.scale.set(3.2,4.2,1);h.position.y=1.05;g.add(h);
   const lb=labelSprite(name,sub,false);lb.position.y=2.5;lb.visible=false;g.add(lb);const mk=markerSprite();mk.position.y=2.95;g.add(mk);return{g,lb,mk};}
 function buildMusas(){MUSE_OBJS.length=0;
-  for(const m of MUSAS()){const p=stAnchor(m.at);if(!p)continue;const f=findFree(p.x+5,p.z+5,0.8);const F=divineFigure(f[0],f[1],m.look,'#ffe8c8',m.name,'musa de '+m.arte);
+  for(const m of MUSAS()){const p=stAnchor(m.at);if(!p)continue;const f=findFree(p.x+5,p.z+5,0.8);const F=divineFigure(f[0],f[1],m.look,'#7fffd4',m.name,'musa de '+m.arte,undefined,'#a6eedc');F.g.traverse(o=>{if(o.isSprite&&o.material.blending===THREE.AdditiveBlending){o.material.opacity=1;o.scale.set(3.8,4.8,1);}});   // las Musas brillan en aguamarina; los dioses, en dorado
     F.g.rotation.y=R()*TAU;F.mk.visible=!muz().dons[m.id];MUSE_OBJS.push({kind:'musa',x:f[0],z:f[1],g:F.g,lb:F.lb,mk:F.mk,m,data:{name:m.name,role:'musa'}});}
   const M=MNEMO[MODE==='roma'?'R':'A'],p=stAnchor(M.at);
   if(p){const f=findFree(p.x+6,p.z-4,0.8);const F=divineFigure(f[0],f[1],{female:true,chiton:'#1f2a4a',himation:'#3a4a7a',veil:true,hair:'#d8d0c2'},'#b8c8ff','Mnemósine','titánide de la memoria, madre de las Musas',1.3);
