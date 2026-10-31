@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 62). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 63). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,18 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 63: la guerra del Peloponeso (Tucídides)
+- Los 4 volúmenes de Tucídides se extrajeron en carpetas aisladas. El azw3 se convirtió con la biblioteca `mobi`, dándole sustitutos mínimos para `loguru` e `imghdr`. Solo se usaron datos, comprobados en el texto.
+- `buildTucGR` (llamada justo después de `buildGeoGR`) añade seis estelas:
+  - `demosion_sema`: el discurso fúnebre;
+  - `peste_430`;
+  - `muros_largos_tuc`: la estrategia de Pericles;
+  - `debate_mitilene`: la segunda trirreme;
+  - `flota_sicilia`;
+  - `tesoro_atenea`.
+- Personaje `nicandro_sicilia` (Nicandro de Acarnas, inventado), veterano de Sicilia, junto a la Stoa Poikile. Lección sobre la guerra según Tucídides; temas: la causa más verdadera, Sicilia, Melos y el final. `nicandro` ya era el comerciante de Corinto.
+- `CONVS_ATENAS` tiene cuatro conversaciones nuevas con el tema «La guerra»: en el Cerámico (la peste), en el Pireo (la flota de Sicilia), en la Pnyx (Mitilene) y en el mercado (Decelia y el asedio).
 
 ### Novedades de la versión 62: Aristóteles niño
 - `ARIS_NPC` (id `aristoteles_nino`, escala 0,66) es un personaje del modo Atenas que se considera histórico. Hay que tener en cuenta que es una licencia: nació en el 384, y está señalado en `SRC`.
