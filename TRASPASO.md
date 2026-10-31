@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 79 del artefacto; notas de la versión 79). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 80 del artefacto; notas de la versión 80). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 80: vida en los diez destinos del 386
+
+Todo está en el módulo `VIDA386`, después del de los diez destinos. Cada función se encadena al `extra` de su entrada en `SIMPLE_GR`.
+
+- **En todos los mapas** (`vidaComun`): vecinos con frases propias, perros, gallinas, cabras, cerdos o gatos (`faunaAdd`), y árboles (`destTrees`).
+  - Los árboles se plantan al final y no crecen a menos de 9 m de ninguna estela (huellas con `reserve:true`, que no salen en el plano).
+  - `o.pads` es una novedad de `defineSimple`: reserva sitios libres de los árboles que se plantan al crear el mapa.
+- **Verdes:** Samos, Quíos, Corcira, Bizancio, Olinto y Pilos llevan `green:true`.
+- **Escenas, cada una con su estela:**
+  - Salamina: pescadores remendando redes.
+  - Melos: telar de pesas junto a Cleóbula.
+  - Samos: procesión al Hereo (las Tonaia).
+  - Quíos: lagar con dos pisadores y un homérida recitando ante su público.
+  - Rodas: dos barcos más en el puerto y púgiles entrenándose con su entrenador.
+  - Corcira: el islote de la «nave de piedra» de los feacios.
+  - Bizancio: atalaya del vigía de los atunes y puesto de pescado.
+  - Olinto: mujeres hilando.
+  - Pilos: Esfacteria (`rocaAlargada`) cerrando la bahía y pescadores hilotas.
+  - Decelia: olivos jóvenes replantados (los olivos sagrados; Lisias VII).
+- **Conversaciones** (`CONVS_ATENAS`), una por mapa: Artemisia en Salamina, los niños vendidos que vuelven a Melos, Pitágoras, el vino, la isla nueva de Rodas, la guerra civil de Corcira, el trigo que espera el viento, la liga de Olinto, los dos mil hilotas desaparecidos (Tucídides IV 80) y la vuelta a casa en Decelia.
+- **Diez curiosidades** (`CURIOS`), leídas en las estelas.
 
 ### Novedades de la versión 79: diez destinos más del 386 a.C. (modo Atenas)
 
