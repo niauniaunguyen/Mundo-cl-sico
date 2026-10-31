@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 68 del artefacto; notas de la versión 68). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 69 del artefacto; notas de la versión 69). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,38 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 69: el protagonista es forastero
+
+Todo está en el módulo `fx*`, insertado antes de `startGame`. El estado se guarda en `state.fx`, que crea `fxz()`: `st` ('xenos'/'meteco'), `prost`, `ciu`, `tes`, `cuad`, `coins`, `nostos` y `warn`.
+
+- **Patria:**
+  - Se elige al crear el personaje (`#pjOrig`) o después, en la pestaña nueva del Diario «Forastero» (`jTab==='fx'`, `fxJournal`). Queda bloqueada cuando ya eres meteco o ciudadano.
+  - Patrias de Atenas (`ORIG.atenas`): Mileto, Siracusa, Tebas, Corinto, Tracia y Náucratis.
+  - Patrias de Roma (`ORIG.roma`): Malaca, Massilia, Alejandría, Atenas, Britania y Lepcis Magna.
+  - Cada patria tiene un paisano con su propia conversación, frases de los transeúntes (un 20 % de `bark`) y una reacción en el primer saludo (`pjGreet`).
+- **El paisano** (`PAISANO`, id `paisano`, el mismo objeto en los dos modos):
+  - Usa getters: su nombre, título y temas dependen de la patria.
+  - Su posición es un getter en `NPC_POS`: en Atenas, junto a Lisias; en Roma, en las estaciones de los municipios, junto al Templo de la Paz.
+  - `fxRelabel()` rehace su etiqueta al cambiar de patria.
+- **Atenas, inscripción como meteco:**
+  - El paisano hace de prostátes. El demarco de Mélite (`DEMARCO`, nuevo personaje) cobra el metoíkion: 72 óbolos, o 36 para las mujeres.
+  - Avisos a los 4 días y aviso del sicofanta a los 10 (`fxTick`).
+  - Para la casa de Formión ahora hace falta ser meteco.
+  - Mensaje en la Pnyx (`fxZone`).
+  - Xenelasía en Esparta: aviso a los 150 s y expulsión hasta la llegada a los 300 s.
+  - Cambistas al llegar a las polis con moneda propia (`FX_COINS`, `fxArrive`): un óbolo y una explicación.
+  - Dato de viaje sobre la pentekosté.
+- **Roma, ciudadanía:**
+  - El duunviro de Malaca (`MALACITANO`, en Corduba) ofrece el camino del derecho latino (Plinio III 30; ley Flavia municipal), por 200 sestercios.
+  - El resultado: «Tito Flavio / Flavia + nombre» (`fxNombre`) y el avatar con toga (`playerLook`).
+  - La vía de la casa (petición al emperador) también da `fx.ciu`, y la ciudadanía por derecho latino desbloquea la compra de la casa.
+- **Hospitalidad:**
+  - Con cualquier personaje de un destino aparece la opción «Pedir hospitalidad», que da un sýmbolon o una tésera.
+  - `fareOf` envuelve a `fareOf0` y cobra la mitad saliendo de una ciudad donde tienes anfitrión.
+- **Cuaderno «¿Y en tu tierra cómo es?»** (`FX_COMPARA`, seis personajes por modo): respuesta libre que se guarda en el diario y termina con la reflexión de Heródoto III 38.
+- **Nóstos:** con 12 lecciones, o al ser meteco o ciudadano, el paisano ofrece volver o quedarse. Hay un epílogo según la patria, el estatus y los anfitriones (`fxEpi`).
+- Pendiente: traducir los textos nuevos; quizá mostrar el cuaderno en el panel del profesor.
 
 ### Novedades de la versión 68: funciones en todos los teatros
 
