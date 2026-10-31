@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 76 del artefacto; notas de la versión 76). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 77 del artefacto; notas de la versión 77). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,29 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 77: Egipto en los dos modos
+
+Todo está en el módulo `eg*`, antes de `startGame`.
+
+- **Red `eg` (`landDests`):** se llega por mar al puerto y desde allí se remonta el Nilo, como viaje «por tierra», hasta Menfis. El centro de la red es `naucratis` en el modo Atenas y `alejandria` en el modo Roma.
+- **Banderas nuevas en los destinos:**
+  - `flat`: el borde del mapa casi no sube (cambio en `islandBase`);
+  - `desert`: sin los árboles por defecto (afecta al bucle de `buildIslands` y a `destTrees` de Roma) y `green` en falso.
+- **Funciones auxiliares:**
+  - `nileX` (el cauce del Nilo) y `egNile` (río ancho con cañas y barcos);
+  - `egTint` (desierto lejos del río, verde cerca);
+  - `egPalms` (palmeras instanciadas con 8 hojas);
+  - `egPyramid`, a tamaño real: 230, 215 y 105 m de lado;
+  - `egStepPyramid`, `egPylon`, `egTemple` (pilono, patio y sala hipóstila) y `egHouses` (casas de adobe de techo plano);
+  - `egSphinx(…,buried)`, `egApis`, `egObelisks` (modelo `B_obelisk`) y `egPier` (muelle en la orilla).
+  - `MED_POS` y `FX_COINS` ampliados.
+- **Modo Atenas (386 a.C.):**
+  - **Náucratis** (`padiset`, escriba e intérprete), con el Nilo, el Helenion, el templo de Apolo de los milesios, el de Afrodita y el recinto egipcio. Estelas: Amasis y el puerto, el regalo del río, el papiro, Hakor contra el Gran Rey, el Helenion y el recinto egipcio.
+  - **Menfis** (`wennefer`, sacerdote de Ptah), con las pirámides, la Esfinge enterrada en la arena hasta el cuello (Heródoto no la menciona), la pirámide escalonada, el templo de Ptah y el buey Apis. Estelas: las pirámides según Heródoto, Ptah, Apis, Saqqara y el embalsamamiento.
+- **Modo Roma (80 d.C.):**
+  - **Alejandría** (`heron`, Herón de Alejandría, histórico, en `ROMA_HIST`), con el Faro de tres pisos y fuego, el Museo y la Biblioteca, el Soma, el Cesareo con dos obeliscos, el Serapeo y el lago Mareotis. Estelas: Faro, Museo, Soma, Cesareo, el trigo de Roma, los judíos y el Faro de cerca.
+  - **Menfis** (`harsiesis`, sacerdote y guía), con la Esfinge desenterrada, su altar y su escalinata, y un nilómetro. Estelas: las pirámides para los viajeros (Plinio), la Esfinge, Tito y el buey Apis (Suetonio, *Tito* 5), el nilómetro y Memnón.
 
 ### Novedades de la versión 76: días de mercado
 
