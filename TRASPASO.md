@@ -53,6 +53,20 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
 
+### Tareas pendientes acordadas
+
+- **Publicar el juego como web para los alumnos** (pendiente de decisión del usuario).
+  - Opción recomendada: conectar el repositorio a Netlify o Cloudflare Pages, que admiten repositorios privados. GitHub Pages exigiría hacerlo público.
+  - Cada vez que se suban cambios a la rama elegida (`main-djww2r` para actualizar al momento, o `main` para revisar antes), la web se actualiza sola.
+  - Lo que hay que preparar en el repositorio:
+    - `index.html` que lleve a `atenas.html`;
+    - un aviso dentro del juego de «hay versión nueva, recarga», que consulte un `version.json` cada pocos minutos;
+    - la configuración del servicio elegido;
+    - una ficha breve para el alumnado sobre guardar y cargar partida.
+  - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
+  - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
+- **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
 ### Novedades de la versión 76: días de mercado
 
 Todo está en el módulo `mkt*`, antes de `startGame`.
