@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 74 del artefacto; notas de la versión 74). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 75 del artefacto; notas de la versión 75). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,26 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 75: oficios con su trabajo, sus pregones y sus sonidos
+
+Todo está en el módulo `ofic*`, antes de `startGame`.
+
+- **Talleres y puestos:** se crean con `oficio({...})` y la lista está en `OFIC`.
+  - Llevan figuras animadas: martillo, pisar en la tina, girar el molino (el burro es el modelo `donkey` de Blender) y brazos.
+  - Al acercarse aparece su nombre; a menos de 9 m, una explicación una vez al día; a menos de 18 m, un pregón cada 30-55 s.
+  - Abren de 6,5 a 18,5 h.
+- **Sonidos sintetizados** (`sfxOficio`): yunque, campana del pescado y rumor del molino.
+- **Roma:**
+  - Subura: panadería con molino de burro y horno (Eurísaces), lavandería y tintorería (bataneros, la orina y el impuesto de Vespasiano, «el dinero no huele»), barbería y herrería.
+  - Foro Boario: taberna de comidas (*thermopolium*).
+  - Junto a las Termas de Tito: vendedor de salchichas (Séneca, Cartas 56).
+- **Atenas, en el Ágora:**
+  - zapatería (Simón y Sócrates);
+  - puestos del pescado (la campana; Estrabón XIV 2.21);
+  - barbería (los chismes; Lisias XXIV 20; Plutarco, *Nicias* 30);
+  - fundición de bronce junto al Hefestion;
+  - panaderas (*Las avispas*).
 
 ### Novedades de la versión 74: vida urbana, el ritmo del día y escenas públicas
 
