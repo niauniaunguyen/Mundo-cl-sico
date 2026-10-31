@@ -42,11 +42,44 @@ def legs2(pfx,hx,hy,ln,r,role='beak'):
         part(pfx+'_leg_'+k,[C(role,(x,0,hy),(x,0,0.02),r,r*0.9),S(role,(x,-0.03,0.01),(r*1.6,r*3.5,r*0.6)),S(role,(x+r*2,-0.02,0.01),(r*1.2,r*2.6,r*0.5),(0,0,0.5)),S(role,(x-r*2,-0.02,0.01),(r*1.2,r*2.6,r*0.5),(0,0,-0.5))],(x,0,hy))
 # ---------------------------------------------------------------- perro (laconio de talla media; moloso y melitense se escalan en el juego)
 part('A_dog_body',[S('coat',(0,0.02,0.55),(0.15,0.36,0.16)),S('coat',(0,-0.24,0.57),(0.17,0.17,0.19)),S('coat',(0,0.26,0.56),(0.14,0.13,0.15)),C('coat',(0,-0.3,0.62),(0,-0.43,0.76),0.085,0.07)])
-part('A_dog_head',[S('coat',(0,-0.5,0.83),(0.085,0.1,0.085)),C('coat',(0,-0.56,0.81),(0,-0.7,0.79),0.055,0.035),S('nose',(0,-0.71,0.795),(0.022,0.02,0.02)),
+part('A_dog_head',[S('coat',(0,-0.5,0.83),(0.085,0.1,0.085)),S('coat',(0,-0.63,0.8),(0.05,0.085,0.042)),S('nose',(0,-0.71,0.795),(0.022,0.02,0.02)),
   S('eye',(0.04,-0.58,0.85),(0.012,0.012,0.012)),S('eye',(-0.04,-0.58,0.85),(0.012,0.012,0.012)),
   S('coat',(0.06,-0.47,0.9),(0.022,0.03,0.055),(0.4,0,0.3)),S('coat',(-0.06,-0.47,0.9),(0.022,0.03,0.055),(0.4,0,-0.3))],(0,-0.43,0.76))
 part('A_dog_tail',[C('coat',(0,0.36,0.62),(0,0.52,0.82),0.03,0.012)],(0,0.36,0.62))
 legs4('A_dog',-0.24,0.28,0.08,0.48,0.46,0.035,'coat','coat',True)
+# ---------------------------------------------------------------- tipos de perro antiguos (cada uno con su propio modelo)
+def dog(pfx,H,bl,bw,bd,chest,head,mz,mw,ears,tail,lr,fluffy=False,dewlap=False):
+    y0=H+0.07;pcs=[S('coat',(0,0.02,y0),(bw,bl,bd)),S('coat',(0,-bl*0.62,y0+0.02),(chest[0],chest[1],chest[2])),S('coat',(0,bl*0.7,y0+0.01),(bw*0.9,bl*0.35,bd*0.9))]
+    nb=(0,-bl*0.8,y0+0.07);nt=(0,-bl*1.05,y0+0.2+head*0.6)
+    pcs.append(C('coat',nb,nt,head*0.9,head*0.75))
+    if dewlap:pcs.append(S('coat',(0,-bl*0.95,y0+0.06),(head*0.7,head*0.6,head*0.8)))
+    if fluffy:
+        for k in range(14):a=k/14*6.283;pcs.append(S('coat',(math.cos(a)*bw*0.95,bl*(-0.6+1.2*(k%7)/6),y0-bd*0.55),(bw*0.45,bl*0.22,bd*0.85)))
+    part(pfx+'_body',pcs)
+    hc=(0,nt[1]-head*0.5,nt[2]+head*0.2)
+    hp=[S('coat',hc,(head,head*1.15,head*0.95)),S('coat',(0,hc[1]-head*0.6-mz*0.5,hc[2]-head*0.22),(mw,mz*0.62,mw*0.85)),S('nose',(0,hc[1]-head*0.62-mz,hc[2]-head*0.27),(mw*0.45,mw*0.4,mw*0.4)),
+        S('eye',(head*0.5,hc[1]-head*0.75,hc[2]+head*0.2),(0.011,0.011,0.011)),S('eye',(-head*0.5,hc[1]-head*0.75,hc[2]+head*0.2),(0.011,0.011,0.011))]
+    for sx in (1,-1):
+        if ears=='erect':hp.append(C('coat',(sx*head*0.55,hc[1]+head*0.1,hc[2]+head*0.6),(sx*head*0.75,hc[1]+head*0.15,hc[2]+head*1.5),head*0.32,0.004,6))
+        elif ears=='drop':hp.append(S('coat',(sx*head*0.95,hc[1]+head*0.05,hc[2]-head*0.1),(head*0.12,head*0.45,head*0.75)))
+        elif ears=='long':hp.append(S('coat',(sx*head*0.95,hc[1]+head*0.05,hc[2]-head*0.55),(head*0.1,head*0.5,head*1.25)))
+        elif ears=='fluffy':hp.append(S('coat',(sx*head*0.9,hc[1]+head*0.1,hc[2]-head*0.35),(head*0.35,head*0.4,head*0.85)))
+    part(pfx+'_head',hp,nb)
+    tb=(0,bl*0.95,y0+0.06)
+    if tail=='saber':tp=[C('coat',tb,(0,bl*1.4,y0+0.32),0.03*lr/0.035,0.012)]
+    elif tail=='curl':tp=[C('coat',tb,(0,bl*1.05,y0+0.25),0.03,0.025),C('coat',(0,bl*1.05,y0+0.25),(0,bl*0.8,y0+0.32),0.025,0.012)]
+    else:tp=[S('coat',(0,bl*0.95,y0+bd*0.9+0.04*k),(0.06,0.09-0.015*k,0.05)) for k in range(4)]
+    part(pfx+'_tail',tp,tb)
+    hy=H;fy=-bl*0.62;by=bl*0.72;hx=bw*0.6
+    for k,x,y in (('fl',hx,fy),('fr',-hx,fy),('bl',hx,by),('br',-hx,by)):
+        lp=[C('coat',(x,y,hy),(x,y,0.04),lr,lr*0.8),S('coat',(x,y-0.02,0.03),(lr*1.15,lr*1.5,lr*0.7))]
+        if fluffy:lp.append(S('coat',(x,y,hy*0.5),(lr*2.2,lr*2.2,hy*0.45)))
+        part(pfx+'_leg_'+k,lp,(x,y,hy))
+dog('A_moloss',0.6,0.42,0.2,0.21,(0.24,0.2,0.24),0.13,0.11,0.075,'drop','saber',0.058,dewlap=True)
+dog('A_laconian',0.6,0.36,0.11,0.12,(0.14,0.16,0.19),0.07,0.2,0.035,'erect','saber',0.028)
+dog('A_cretan',0.5,0.32,0.12,0.13,(0.14,0.15,0.17),0.075,0.15,0.04,'erect','curl',0.03)
+dog('A_melitan',0.12,0.17,0.1,0.1,(0.11,0.1,0.11),0.07,0.06,0.03,'fluffy','plume',0.024,fluffy=True)
+dog('A_umbrian',0.5,0.35,0.14,0.15,(0.16,0.16,0.18),0.09,0.15,0.055,'long','saber',0.035)
 # ---------------------------------------------------------------- gato (más raro en Grecia; en Roma, ya más común)
 part('A_cat_body',[S('coat',(0,0.01,0.24),(0.075,0.19,0.08)),S('coat',(0,-0.12,0.25),(0.08,0.08,0.085))])
 part('A_cat_head',[S('coat',(0,-0.24,0.33),(0.06,0.06,0.055)),S('coat',(0,-0.29,0.315),(0.032,0.03,0.025)),S('nose',(0,-0.315,0.32),(0.008,0.006,0.006)),
