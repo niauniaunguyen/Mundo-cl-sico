@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 85 del artefacto; notas de la versión 85). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 86 del artefacto; notas de la versión 86). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 86: interfaz para móvil (vertical y horizontal)
+
+Todo funciona con `body.tm`, que se activa si hay pantalla táctil (`isTouch`). El código está en el módulo «modo táctil», antes de `startGame`; `tmTick` se llama desde `gfTick`.
+
+- **Pantalla limpia:**
+  - Fuera la barra de iconos, la tarjeta de teclas, el glosario y el aviso «E…».
+  - El panel de arriba a la izquierda es más compacto: el objetivo cabe en una línea y se despliega al tocarlo.
+  - Minimapa pequeño: al tocarlo se abre el plano.
+- **Menú (`#tMenu`, arriba a la derecha):** abre una hoja inferior (`#mSheet`) con iconos grandes y su nombre: diario, plano, biblioteca, hora, vista, antorcha, caballo, sonido, balanceo de cámara, pantalla completa y época. Arriba de la hoja va la fecha.
+- **Joystick flotante:** aparece donde pones el pulgar en la mitad izquierda (`#joyZone`). Llevándolo al borde se corre (`keys.run`).
+- **Botón de acción contextual (`#tTalk`):** un círculo naranja que solo sale cuando hay algo con lo que interactuar. Su icono depende de lo que sea (hablar, leer, mirar, esfera, mano, caballo) y encima aparece el nombre (`#tAName`).
+- **Otros botones:**
+  - Saltar; volando, se mantiene pulsado para subir, y aparece un botón para bajar.
+  - Accesos rápidos que solo salen cuando sirven: caballo, si es tuyo; alas, si las tienes; antorcha, de noche.
+- **Diálogos y ventanas:**
+  - Los controles se ocultan en cuanto no estás jugando (`#touch.off`).
+  - En vertical, el diálogo es una hoja inferior con las opciones en una columna de botones altos.
+  - En horizontal (`max-height:520px`), el diálogo es un panel a la derecha con las opciones en dos columnas.
+  - El diario, el plano y la biblioteca ocupan toda la pantalla, y sus pestañas se desplazan de lado.
+- **Textos:** la pantalla de inicio muestra instrucciones táctiles (`.ctrT`) en lugar de las de teclado. El tutorial y los avisos ya no nombran botones que no existen.
+- **Pruebas:** `scratchpad/tools/mob.js` emula un móvil, con `hasTouch` y `isMobile`, de 390×844 o 844×390.
 
 ### Novedades de la versión 85: perros callejeros curiosos (en los dos modos)
 

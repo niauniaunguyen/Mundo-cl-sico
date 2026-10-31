@@ -306,6 +306,71 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
 #keys .kg kbd{justify-self:end;font-size:.72rem;padding:2px 6px;border-radius:5px;border:1px solid rgba(217,135,74,.5);background:rgba(217,135,74,.1);color:var(--bone)}
 #keys .kg span{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){#bar button.ib,.tabs button{transition:none}#keys.show{animation:none}}
+
+/* ---- modo táctil (móvil y tableta), en vertical y en horizontal */
+#start .ctr.ctrT{display:none}
+body.tm #start .ctr:not(.ctrT){display:none}body.tm #start .ctr.ctrT{display:grid}
+body.tm #bar,body.tm #keys,body.tm #gloss,body.tm #prompt{display:none!important}
+body.tm #stats{font-size:.78rem;padding:6px 10px;max-width:min(62vw,300px);gap:2px;border-radius:0 10px 10px 0}
+body.tm #stats .row{flex-wrap:wrap;gap:6px}
+body.tm #objective{max-width:100%;font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.tm #stats.open #objective{white-space:normal}
+body.tm #compass{top:calc(8px + env(safe-area-inset-top,0px));width:min(240px,40vw);height:26px}
+body.tm #mini{width:96px;height:96px;top:calc(64px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));pointer-events:auto}
+#tMenu{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));width:46px;height:46px;border-radius:14px;background:rgba(22,16,12,.78);border:1px solid rgba(217,135,74,.5);color:var(--bone);display:flex;align-items:center;justify-content:center;pointer-events:auto;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+#tMenu .ic{width:24px;height:24px}
+#joyZone{position:absolute;left:0;bottom:0;width:45%;height:62%;pointer-events:auto;touch-action:none}
+body.tm #joy{opacity:.55;transition:opacity .2s;z-index:2}body.tm #joy.on{opacity:1;transition:none}
+#tbtns{display:block!important;grid-template-columns:none!important;position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));width:180px;height:190px;pointer-events:none}
+#tbtns button.ib{position:absolute;pointer-events:auto;border-radius:50%;background:rgba(22,16,12,.72);border:1.5px solid rgba(217,135,74,.55);color:var(--bone);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.35);touch-action:none}
+#tbtns button.ib:active{transform:scale(.93);background:rgba(217,135,74,.35)}
+#tbtns .tact{right:0;bottom:0;width:84px;height:84px;background:rgba(217,135,74,.85)!important;color:#1a120c!important;border-color:#f3c99a!important;animation:tPop .2s ease-out}
+#tbtns .tact .ic{width:38px;height:38px}
+#tbtns .tjump{right:94px;bottom:6px;width:62px;height:62px}#tbtns .tjump .ic,#tbtns .tdown .ic{width:28px;height:28px}
+#tbtns .tdown{right:94px;bottom:76px;width:56px;height:56px}
+#tQuick{position:absolute;right:4px;bottom:96px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+#tQuick button.ib{position:static;width:50px;height:50px}#tQuick .ic{width:24px;height:24px}
+#tAName{position:absolute;right:0;bottom:92px;max-width:70vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.82rem;color:var(--bone);background:rgba(22,16,12,.8);border:1px solid rgba(217,135,74,.4);padding:4px 10px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .15s}
+#tAName.on{opacity:1}
+#tbtns:has(#tAName.on) #tQuick{bottom:136px}
+@keyframes tPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+#touch.off #tbtns,#touch.off #joy,#touch.off #joyZone,#touch.off #tMenu{display:none!important}
+#mSheet{position:absolute;inset:0;pointer-events:auto;background:rgba(10,7,5,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+#mSheet[hidden]{display:none}
+#mSheet .msh{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;color:var(--bone);font-size:.85rem;text-shadow:0 1px 3px #000}
+#mSheet .msh .ib{width:46px;height:46px;border-radius:14px;background:rgba(22,16,12,.85);border:1px solid rgba(217,135,74,.5);color:var(--bone);display:flex;align-items:center;justify-content:center}
+#mSheet .mgrid{width:100%;max-width:560px;margin:0 auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));background:rgba(22,16,12,.96);border-top:1px solid rgba(217,135,74,.5);border-radius:18px 18px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;animation:mUp .2s ease-out}
+#mSheet .mgrid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(217,135,74,.25);color:var(--bone);font-size:.72rem;line-height:1.1}
+#mSheet .mgrid button:active{background:rgba(217,135,74,.3)}
+#mSheet .mgrid .ic{width:28px;height:28px}
+#mClock{grid-column:1/-1;text-align:center;font-size:.8rem;color:var(--muted);margin:-4px 0 2px}
+#mSheet .mgrid button[aria-pressed="false"]{opacity:.55}
+@keyframes mUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes gfInM{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+body.tm #dialog{left:0;right:0;bottom:0;transform:none;width:auto;max-width:none;max-height:64vh;border-radius:16px 16px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
+body.tm #dialog:not([hidden]){animation:gfInM .2s ease-out}
+body.tm #dialog .opts{grid-template-columns:1fr}
+body.tm #dialog .opts button,body.tm #dOpts button{min-height:46px;font-size:.95rem}
+body.tm .modal{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+body.tm .modal>.panel{width:100%;height:100%;max-height:100%;border-radius:0}
+body.tm .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+body.tm .mhead .ib{width:44px;height:44px}
+body.tm .mhead .ib kbd{display:none}
+body.tm #toast{bottom:auto;top:calc(170px + env(safe-area-inset-top,0px));right:12px;max-width:62vw;font-size:.85rem}
+/* horizontal: pantalla baja */
+@media (orientation:landscape) and (max-height:520px){
+ body.tm #stats{max-width:min(38vw,300px)}body.tm #stats .row:nth-child(2){display:none}
+ body.tm #mini{width:78px;height:78px;top:calc(62px + env(safe-area-inset-top,0px))}
+ body.tm #dialog{left:auto;right:0;width:min(62vw,620px);max-height:100vh;height:100%;border-radius:16px 0 0 16px;display:flex;flex-direction:column}
+ body.tm #dialog .opts{grid-template-columns:1fr 1fr}
+ body.tm #dialog .opts button,body.tm #dOpts button{min-height:40px;font-size:.88rem}
+ #tbtns{transform:scale(.88);transform-origin:right bottom}
+ #joyZone{height:80%}
+ #mSheet .mgrid{grid-template-columns:repeat(6,1fr);max-width:720px;padding-top:12px}
+ #mSheet .mgrid button{padding:8px 4px}
+ body.tm #toast{top:calc(150px + env(safe-area-inset-top,0px))}
+}
+@media (prefers-reduced-motion:reduce){#mSheet .mgrid,#tbtns .tact,body.tm #dialog:not([hidden]){animation:none}}
 </style>
 
 <div id="app">
@@ -396,9 +461,16 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
   <div id="touch" hidden>
     <div id="joy"><div id="knob"></div></div>
     <div id="tbtns">
-      <button id="tTalk" class="ib" aria-label="Hablar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10.5H10L5 19.5v-4H4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></button><button id="tJump" class="ib" aria-label="Saltar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg></button><button id="tHorse" class="ib" aria-label="Caballo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21v-4.5L3.5 14l1.8-3.6 4.2-1.9L11 5l1.6 2.6c3.4.8 6.4 4 6.4 8.4V21"/><path d="M11 5l-.6-2"/><circle cx="9.2" cy="10.6" r=".8" fill="currentColor" stroke="none"/></svg></button><button id="tView" class="ib" aria-label="Vista"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button id="tTorch" class="ib" aria-label="Antorcha"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 22l1-9h2l1 9z"/><path d="M12 2.5c2.2 2.3 3.2 4 3.2 5.7a3.2 3.2 0 0 1-6.4 0c0-1.7 1-3.4 3.2-5.7z"/><path d="M9.3 13h5.4"/></svg></button>
-      <button id="tJournal" class="ib" aria-label="Diario"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H20v14H7.5A2.5 2.5 0 0 0 5 19.5z"/><path d="M5 19.5A2.5 2.5 0 0 0 7.5 22H20v-5"/><path d="M9.5 7.5h6"/></svg></button><button id="tMap" class="ib" aria-label="Plano"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg></button><button id="tLib" class="ib" aria-label="Biblioteca"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h11a2 2 0 0 1 2 2v11"/><path d="M7 4a2 2 0 0 0-2 2v1.5h4V6a2 2 0 0 0-2-2z"/><path d="M9 7.5V18a2 2 0 0 0 2 2h8.5a1.5 1.5 0 0 0 1.5-1.5V17H11"/><path d="M12 9.5h5M12 12.5h5"/></svg></button><button id="tTime" class="ib" aria-label="Hora"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11M6.5 21h11"/><path d="M8 3c0 5 8 5 8 9s-8 4-8 9"/><path d="M16 3c0 5-8 5-8 9s8 4 8 9"/></svg></button>
+      <div id="tAName" aria-live="polite"></div>
+      <button id="tTalk" class="ib tact" aria-label="Interactuar" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M11 10V4.5a1.5 1.5 0 0 1 3 0V11"/><path d="M14 10.5V6a1.5 1.5 0 0 1 3 0v8c0 4-2.5 7-6.5 7-2.7 0-4.4-1.4-5.8-3.6L3 13.6a1.5 1.5 0 0 1 2.5-1.6L8 15"/></svg></button>
+      <button id="tJump" class="ib tjump" aria-label="Saltar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg></button>
+      <button id="tDown" class="ib tdown" aria-label="Bajar" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></button>
+      <div id="tQuick"><button id="tHorse" class="ib" aria-label="Caballo" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21v-4.5L3.5 14l1.8-3.6 4.2-1.9L11 5l1.6 2.6c3.4.8 6.4 4 6.4 8.4V21"/><path d="M11 5l-.6-2"/><circle cx="9.2" cy="10.6" r=".8" fill="currentColor" stroke="none"/></svg></button><button id="tFly" class="ib" aria-label="Alas" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c-2-4-6-6-10-6 1 5 4 8 10 8z"/><path d="M12 12c2-4 6-6 10-6-1 5-4 8-10 8z"/><path d="M12 12v8"/></svg></button><button id="tTorch" class="ib" aria-label="Antorcha" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 22l1-9h2l1 9z"/><path d="M12 2.5c2.2 2.3 3.2 4 3.2 5.7a3.2 3.2 0 0 1-6.4 0c0-1.7 1-3.4 3.2-5.7z"/><path d="M9.3 13h5.4"/></svg></button></div>
+      <button id="tView" hidden></button><button id="tJournal" hidden></button><button id="tMap" hidden></button><button id="tLib" hidden></button><button id="tTime" hidden></button>
     </div>
+    <div id="joyZone"></div>
+    <button id="tMenu" class="ib" aria-label="Menú"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div id="mSheet" hidden><div class="msh"><span></span><button id="mClose" class="ib" aria-label="Cerrar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div><div class="mgrid"><div id="mClock"></div><button data-m="journal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H20v14H7.5A2.5 2.5 0 0 0 5 19.5z"/><path d="M5 19.5A2.5 2.5 0 0 0 7.5 22H20v-5"/><path d="M9.5 7.5h6"/></svg><span>Diario</span></button><button data-m="map"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg><span>Plano</span></button><button data-m="lib"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h11a2 2 0 0 1 2 2v11"/><path d="M7 4a2 2 0 0 0-2 2v1.5h4V6a2 2 0 0 0-2-2z"/><path d="M9 7.5V18a2 2 0 0 0 2 2h8.5a1.5 1.5 0 0 0 1.5-1.5V17H11"/><path d="M12 9.5h5M12 12.5h5"/></svg><span>Biblioteca</span></button><button data-m="time"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11M6.5 21h11"/><path d="M8 3c0 5 8 5 8 9s-8 4-8 9"/><path d="M16 3c0 5-8 5-8 9s8 4 8 9"/></svg><span>Hora</span></button><button data-m="view"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Vista</span></button><button data-m="torch"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 22l1-9h2l1 9z"/><path d="M12 2.5c2.2 2.3 3.2 4 3.2 5.7a3.2 3.2 0 0 1-6.4 0c0-1.7 1-3.4 3.2-5.7z"/><path d="M9.3 13h5.4"/></svg><span>Antorcha</span></button><button data-m="horse"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21v-4.5L3.5 14l1.8-3.6 4.2-1.9L11 5l1.6 2.6c3.4.8 6.4 4 6.4 8.4V21"/><path d="M11 5l-.6-2"/><circle cx="9.2" cy="10.6" r=".8" fill="currentColor" stroke="none"/></svg><span>Caballo</span></button><button data-m="sound"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"/><path d="M16.5 9a4.2 4.2 0 0 1 0 6M19 6.5a7.8 7.8 0 0 1 0 11"/></svg><span>Sonido</span></button><button data-m="cam"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-4 6-4 9 0s6 4 9 0"/><path d="M3 17c3-4 6-4 9 0s6 4 9 0" opacity=".5"/></svg><span>Balanceo</span></button><button data-m="full"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Pantalla completa</span></button><button data-m="era"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-5 9 5z"/><path d="M5.5 9v8.5M10 9v8.5M14 9v8.5M18.5 9v8.5"/><path d="M3 21h18M4 17.5h16"/></svg><span>Época</span></button></div></div>
   </div>
 
   <div id="modes">
@@ -424,6 +496,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
       <p>Dicen que fuera de las murallas, en los caminos y las orillas, a veces se aparecen los dioses. Se los reconoce por el brillo de su piel.</p>
       <p>Llegas como forastero al Ágora. Habla con quienes encuentres, lee las inscripciones y aprende cómo vive, gobierna y piensa la ciudad. Cada lección que superes te dará tres óbolos, la paga diaria de un jurado.</p>
       </div>
+      <div class="ctr ctrT"><b>Pulgar izquierdo</b><span>pon el pulgar en la mitad izquierda y deslízalo para caminar; llévalo al borde para correr</span><b>Pulgar derecho</b><span>arrastra por la pantalla para mirar alrededor</span><b>Mano</b><span>aparece abajo a la derecha cuando puedes hablar, leer o tocar algo</span><b>Flecha</b><span>saltar (dos veces: doble salto); volando, subir</span><b>Menú</b><span>arriba a la derecha: diario, plano, biblioteca, hora y todo lo demás</span></div>
       <div class="ctr">
         <b>W A S D</b><span>caminar (Shift para correr, Espacio para saltar; pulsa otra vez en el aire para el doble salto)</span>
         <b>Ratón</b><span>mirar alrededor con solo moverlo (con un clic se captura y gira sin límite)</span>
@@ -10457,7 +10530,7 @@ function callHorse(){
 }
 function mountHorse(){
   MOUNT.riding=true;MOUNT.st='ridden';player.eye=2.55;updateStats();
-  toast('Montas a '+(hz().own?horseName():'caballo')+': vas al triple de velocidad (Shift para galopar). Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para bajar.');
+  toast('Montas a '+(hz().own?horseName():'caballo')+': vas al triple de velocidad (Shift para galopar). Pulsa <b>'+(isTouch?'el botón del caballo':'H')+'</b> para bajar.');
 }
 function dismount(){
   MOUNT.riding=false;MOUNT.st='idle';player.eye=1.62;updateStats();
@@ -10469,7 +10542,7 @@ function updateMount(dt){
   if(M2.riding){sp=Math.hypot(player.x-g.position.x,player.z-g.position.z)/Math.max(dt,1e-3);g.position.set(player.x,player.feet,player.z);g.rotation.y+=wrapA(player.yaw+Math.PI-g.rotation.y)*Math.min(1,dt*10);}
   else if(M2.st==='coming'){M2.tc+=dt;const dx=player.x-g.position.x,dz=player.z-g.position.z,d=Math.hypot(dx,dz);
     if(d<4.8||M2.tc>9){if(d>=4.8){const[fx,fz]=findFree(player.x+Math.sin(player.yaw)*3,player.z+Math.cos(player.yaw)*3,1);g.position.set(fx,floorAt(fx,fz),fz);}
-      M2.st='idle';toast((hz().own?horseName():'El caballo')+' ha llegado. Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para montar.');}
+      M2.st='idle';toast((hz().own?horseName():'El caballo')+' ha llegado. Pulsa <b>'+(isTouch?'el botón del caballo':'H')+'</b> para montar.');}
     else{const st=Math.min(d-4,11*dt),p={x:g.position.x+dx/d*st,z:g.position.z+dz/d*st};resolve(p,0.6);g.position.set(p.x,floorAt(p.x,p.z),p.z);g.rotation.y+=wrapA(Math.atan2(dx,dz)-g.rotation.y)*Math.min(1,dt*6);sp=11;}}
   else g.position.y=floorAt(g.position.x,g.position.z);
   // patas en diagonal: paso, trote o galope según la velocidad
@@ -10513,7 +10586,7 @@ function toggleTorch(){if(ui!=='play'||!TORCH.g)return;TORCH.on=!TORCH.on;TORCH.
 const _tv=new THREE.Vector3();
 function updateTorch(dt,t){
   if(!TORCH.g)return;const on=TORCH.on&&(ui==='play'||ui==='dialog');TORCH.g.visible=on;
-  if(!TORCH.hint&&ui==='play'&&DAYF<0.25){TORCH.hint=true;toast('Se ha hecho de noche. Pulsa <b>'+(isTouch?'Antorcha':'F')+'</b> para encender una antorcha.');}
+  if(!TORCH.hint&&ui==='play'&&DAYF<0.25){TORCH.hint=true;toast('Se ha hecho de noche. Pulsa <b>'+(isTouch?'el botón de la antorcha':'F')+'</b> para encender una antorcha.');}
   if(!on){TORCH.light.intensity=0;return;}
   const f=1+Math.sin(t*11)*0.07+Math.sin(t*27+1.3)*0.05+Math.sin(t*4.1)*0.04;
   if(AVATAR.view3&&!MOUNT.riding){const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
@@ -11601,7 +11674,7 @@ function horseQuest(n){const h=hz(),ro=MODE==='roma',o=$('dOpts');
   if(h.q==='on'){$('dBody').innerHTML='<p>'+(ro?'¿Todavía nada? Es blanca y asustadiza. Sigue el rombo de la brújula.':'¿Aún no la has visto? Es castaña, con una estrella en la frente. Sigue el rombo de la brújula.')+'</p>';one('Voy a buscarla',()=>renderOpts());return;}
   if(h.q==='caught'){h.q='done';h.own=true;h.xp=0;h.lvl=1;qAdd('kl',2);qAdd('ar',1);save();updateStats();sfxCoin();
     $('dBody').innerHTML='<p>'+(ro?'¡La has encontrado! Los Azules se van a morder los puños. Toma: este es Rayo. Es viejo para el circo, pero joven para ti.':'¡Aura! Ven aquí, preciosa. Has cumplido, y un tesalio cumple su palabra: este potro se llama Céfiro.')+'</p><p>'+(ro?'Félix':'Eudico')+' añade: «Aún tiene mucho que aprender. Cuando cabalgues, verás <b>esferas doradas</b> por el camino: pasa a través de ellas. Cada una le da experiencia, y con cada nivel corre un 2 % más rápido y salta un poco más».</p>';
-    one('Ponerle nombre',()=>horseNameDlg(ro?'Rayo':'Céfiro',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'Caballo':'H')+'</b> para llamar a '+hz().name+'.');}));return;}
+    one('Ponerle nombre',()=>horseNameDlg(ro?'Rayo':'Céfiro',()=>{closeDialog();toast('<span class="label">Ya tienes caballo</span><br>Pulsa <b>'+(isTouch?'el botón del caballo':'H')+'</b> para llamar a '+hz().name+'.');}));return;}
 }
 // ponerle (o cambiarle) el nombre al caballo
 function horseName(){return hz().name||(MODE==='roma'?'Rayo':'Céfiro');}
@@ -12411,10 +12484,10 @@ function guideHTML(){const ro=MODE==='roma',mon=ro?'sestercios':'óbolos';
 const TUT={on:false,i:0,t:0,y0:0,p0:null,talked:false,journal:false};
 const TUT_STEPS=[
  {txt:()=>isTouch?'Arrastra el dedo por la pantalla para <b>mirar alrededor</b>.':'Mueve el ratón para <b>mirar alrededor</b>.',ok:()=>Math.abs(player.yaw-TUT.y0)>0.7},
- {txt:()=>isTouch?'Usa el círculo de abajo a la izquierda para <b>caminar</b>.':'Camina con <b>W A S D</b>. Con Shift corres.',ok:()=>Math.hypot(player.x-TUT.p0.x,player.z-TUT.p0.z)>5},
+ {txt:()=>isTouch?'Pon el pulgar en la mitad izquierda de la pantalla y deslízalo para <b>caminar</b>.':'Camina con <b>W A S D</b>. Con Shift corres.',ok:()=>Math.hypot(player.x-TUT.p0.x,player.z-TUT.p0.z)>5},
  {txt:()=>'Arriba a la izquierda está tu <b>objetivo</b>. El rombo <b>◆</b> de la brújula, arriba en el centro, te dice hacia dónde ir.',ok:()=>performance.now()-TUT.ts>6000},
- {txt:()=>'Acércate a una persona y pulsa <b>'+(isTouch?'Hablar':'E')+'</b> para <b>hablar</b> con ella.',ok:()=>TUT.talked},
- {txt:()=>'Pulsa <b>'+(isTouch?'Diario':'J')+'</b> para abrir el <b>diario</b>. En la pestaña <b>Guía</b> está todo lo que puedes hacer.',ok:()=>TUT.journal}];
+ {txt:()=>'Acércate a una persona y pulsa <b>'+(isTouch?'la mano naranja':'E')+'</b> para <b>hablar</b> con ella.',ok:()=>TUT.talked},
+ {txt:()=>(isTouch?'Abre el <b>menú</b> de arriba a la derecha y toca <b>Diario</b>.':'Pulsa <b>J</b> para abrir el <b>diario</b>.')+' En la pestaña <b>Guía</b> está todo lo que puedes hacer.',ok:()=>TUT.journal}];
 function tutStart(){if(state.tut)return;Object.assign(TUT,{on:true,i:0,t:0,ts:performance.now(),y0:player.yaw,p0:{x:player.x,z:player.z},talked:false,journal:false});tutShow();}
 function tutShow(){const S=TUT_STEPS[TUT.i];$('tutN').textContent=(TUT.i+1)+' de '+TUT_STEPS.length;$('tutT').innerHTML=S.txt();
   $('tutD').innerHTML=TUT_STEPS.map((_,k)=>'<i'+(k<=TUT.i?' class="on"':'')+'></i>').join('');}
@@ -15558,7 +15631,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   if(state){if(GF.obols===null)GF.obols=state.obols;const d=state.obols-GF.obols;if(d!==0){if(d>0)gfFloat('+'+d+' '+(MODE==='roma'?'sestercios':'óbolos'),'#e8c37a');GF.obols=state.obols;}}}
 
 
@@ -15600,6 +15673,36 @@ function dogTalk(F){const ro=MODE==='roma',one=casaOpen('❦',F.friend?'Tu amigo
   one(F.friend?'Decirle que se vaya a casa':'Apartarlo',()=>{dogEnd(F,240);B.innerHTML='<p>'+(F.friend?'Te mira un momento, como si no entendiera, y se aleja trotando calle abajo.':'Se aparta con el rabo entre las patas y se va a husmear a otra parte.')+'</p>';const o=$('dOpts');o.innerHTML='';one('Seguir',closeDialog);});
   one('¿Qué perro es?',()=>{const I=faunaInfo(F.info)||['Perro',''];B.innerHTML='<p>'+I[1]+'</p>'+(I[2]?'<p class="sub">Fuentes: '+I[2]+'.</p>':'');const o=$('dOpts');o.innerHTML='';one('Volver',()=>dogTalk(F));});
   one('Dejarlo',closeDialog);}
+
+
+// ============================================================ modo táctil: acción contextual, joystick flotante, menú en hoja
+const TM={act:null,lastKind:'',lastName:''};
+function tmIcon(k){const m={npc:'talk',god:'talk',story:'talk',captain:'talk',daedalo:'talk',fest:'talk',sign:'scroll',relief:'eye',sphere:'sphere',fauna:'hand',egx:'hand',horse:'horse'};return m[k]||'hand';}
+const TM_IC={talk:'<path d="M4 5h16v10.5H10L5 19.5v-4H4z"/><path d="M8 9.5h8M8 12.5h5"/>',scroll:'<path d="M7 4h11a2 2 0 0 1 2 2v11"/><path d="M7 4a2 2 0 0 0-2 2v1.5h4V6a2 2 0 0 0-2-2z"/><path d="M9 7.5V18a2 2 0 0 0 2 2h8.5a1.5 1.5 0 0 0 1.5-1.5V17H11"/><path d="M12 9.5h5M12 12.5h5"/>',eye:'<path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',sphere:'<circle cx="12" cy="12" r="6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',hand:'<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M11 10V4.5a1.5 1.5 0 0 1 3 0V11"/><path d="M14 10.5V6a1.5 1.5 0 0 1 3 0v8c0 4-2.5 7-6.5 7-2.7 0-4.4-1.4-5.8-3.6L3 13.6a1.5 1.5 0 0 1 2.5-1.6L8 15"/>',horse:'<path d="M6 21v-4.5L3.5 14l1.8-3.6 4.2-1.9L11 5l1.6 2.6c3.4.8 6.4 4 6.4 8.4V21"/><path d="M11 5l-.6-2"/><circle cx="9.2" cy="10.6" r=".8" fill="currentColor" stroke="none"/>'};
+function tmTick(){if(!isTouch)return;const tc=$('touch');if(!tc)return;tc.classList.toggle('off',ui!=='play');if(ui!=='play')return;
+  const b=$('tTalk'),nm=$('tAName');let kind=null,name='';
+  if(focus){kind=focus.kind;name=(focus.data&&focus.data.name)||'';if(kind==='fauna'&&focus.F){const I=faunaInfo(focus.F.info);name=I?I[0]:'';}}
+  else if(typeof horseNear==='function'&&horseNear()&&!MOUNT.riding){kind='horse';name='Montar el caballo';}
+  if(kind!==TM.lastKind){TM.lastKind=kind;b.hidden=!kind;if(kind)b.innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+TM_IC[tmIcon(kind)]+'</svg>';}
+  if(name!==TM.lastName){TM.lastName=name;nm.textContent=name;}nm.classList.toggle('on',!!kind&&!!name);
+  const hs=hz();$('tHorse').hidden=!(hs&&hs.own)||kind==='horse';$('tFly').hidden=!(wz().own);$('tTorch').hidden=!(DAYF<0.3||TORCH.on);$('tDown').hidden=!FLY.on;
+  keys.run=Math.hypot(joy.x,joy.y)>0.93;}
+if(isTouch){document.body.classList.add('tm');
+  const zone=$('joyZone'),jz=$('joy'),kn=$('knob');let zid=null,cx=0,cy=0;const home=()=>{jz.style.left='';jz.style.top='';jz.style.bottom='';jz.classList.remove('on');};
+  zone.addEventListener('touchstart',e=>{if(ui!=='play'||zid!==null)return;const t=e.changedTouches[0];zid=t.identifier;cx=t.clientX;cy=t.clientY;const r=jz.getBoundingClientRect();jz.style.left=(cx-r.width/2)+'px';jz.style.top=(cy-r.height/2)+'px';jz.style.bottom='auto';jz.classList.add('on');e.preventDefault();},{passive:false});
+  zone.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===zid){let dx=t.clientX-cx,dy=t.clientY-cy;const L=Math.hypot(dx,dy),m=52;if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
+  const endZ=e=>{for(const t of e.changedTouches)if(t.identifier===zid){zid=null;joy.x=joy.y=0;kn.style.transform='';home();}};zone.addEventListener('touchend',endZ);zone.addEventListener('touchcancel',endZ);
+  // saltar (y, volando, subir mientras se mantiene) y bajar
+  const hold=(id,k,tap)=>{const el=$(id);el.onclick=null;el.addEventListener('pointerdown',e=>{e.preventDefault();if(FLY.on)keys[k]=true;else if(tap)tap();});for(const ev of['pointerup','pointerleave','pointercancel'])el.addEventListener(ev,()=>{keys[k]=false;});};
+  hold('tJump','jump',()=>jump());hold('tDown','down');
+  $('tFly').onclick=()=>{if(ui==='play')toggleWings();};$('tTalk').onclick=()=>{if(ui!=='play')return;if(focus)interact();else if(horseNear()&&hz().own)mountHorse();};$('tHorse').onclick=()=>{if(ui==='play')callHorse();};$('tTorch').onclick=()=>toggleTorch();$('mini').addEventListener('click',()=>{if(ui==='play')openMap();});
+  $('stats').addEventListener('click',e=>{if(e.target.closest('button'))return;$('stats').classList.toggle('open');});
+  const sheet=$('mSheet'),openS=()=>{if(ui!=='play')return;sheet.hidden=false;ui='sheet';const c=$('clock');$('mClock').textContent=c?c.textContent:'';const sb=sheet.querySelector('[data-m="sound"]');sb.setAttribute('aria-pressed',AUD_ON?'true':'false');sheet.querySelector('[data-m="cam"]').setAttribute('aria-pressed',GF.reduced?'false':'true');},closeS=()=>{sheet.hidden=true;if(ui==='sheet')ui='play';};
+  $('tMenu').onclick=openS;$('mClose').onclick=closeS;sheet.addEventListener('click',e=>{if(e.target===sheet)closeS();});
+  sheet.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{const m=b.dataset.m;closeS();
+    if(m==='journal')openJournal();else if(m==='map')openMap();else if(m==='lib')openLibrary();else if(m==='time')advanceTime();else if(m==='view')toggleView();else if(m==='torch')toggleTorch();else if(m==='horse')callHorse();
+    else if(m==='sound'){initAudio();toggleSound();}else if(m==='cam')gfToggleMotion();else if(m==='era')$('bEra').click();
+    else if(m==='full'){const d=document.documentElement;try{if(document.fullscreenElement)document.exitFullscreen();else(d.requestFullscreen||d.webkitRequestFullscreen).call(d);}catch(e){}}});}
 
 function startGame(){
   initAudio();
