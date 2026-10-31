@@ -292,7 +292,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
     <div id="conv" hidden aria-live="polite"><div id="convH"></div><div id="convT"></div></div>
     <div id="tut" hidden><div class="tk">Primeros segundos · <span id="tutN"></span></div><div id="tutT"></div><div class="tdots" id="tutD"></div><button id="tutSkip" type="button">Saltar el tutorial</button></div>
     <div id="net" hidden><div><b id="netHead"></b><span id="netState"></span></div><ul id="netPeople"></ul><div id="netLog"></div><input id="netIn" hidden maxlength="200" placeholder="Escribe y pulsa Intro (Esc para cancelar)" autocomplete="off"></div>
-    <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · F antorcha · J diario · M plano · B biblioteca · T hora · N sonido</div>
+    <div id="keys">WASD mover · Ratón mirar · Shift correr · Espacio saltar (dos veces: doble salto) · E hablar/leer · H caballo · V vista · F antorcha · J diario · M plano · B biblioteca · T hora · N sonido · K cámara</div>
     <div id="bar"><span id="clock"></span><button id="bHorse"><kbd>H</kbd>Caballo</button><button id="bView"><kbd>V</kbd>Vista</button><button id="bTorch"><kbd>F</kbd>Antorcha</button><button id="bLib"><kbd>B</kbd>Biblioteca</button><button id="bJournal"><kbd>J</kbd>Diario</button><button id="bMap"><kbd>M</kbd>Plano</button><button id="bTime"><kbd>T</kbd>Hora</button><button id="bSound" aria-pressed="true"><kbd>N</kbd>Sonido</button><button id="bEra">Época</button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
     <canvas id="mini" width="220" height="220" aria-label="Minimapa"></canvas>
   </div>
@@ -395,7 +395,7 @@ ul.tree .now .gn{color:var(--clay);font-weight:600}
         <b>W A S D</b><span>caminar (Shift para correr, Espacio para saltar; pulsa otra vez en el aire para el doble salto)</span>
         <b>Ratón</b><span>mirar alrededor con solo moverlo (con un clic se captura y gira sin límite)</span>
         <b>E</b><span>hablar con alguien o leer una estela</span>
-        <b>H · V · F</b><span>caballo (lo consigues haciendo un favor a un criador de caballos) · vista en primera o tercera persona · antorcha para la noche</span>
+        <b>H · V · F · K</b><span>caballo (lo consigues haciendo un favor a un criador de caballos) · vista en primera o tercera persona · antorcha para la noche · balanceo de la cámara (desactívalo si te mareas)</span>
         <b>J · M</b><span>diario de lo aprendido · plano de la ciudad</span>
         <b>B · T · N</b><span>biblioteca con todas las fuentes · dejar pasar unas horas · sonido</span>
         <b>G · X · Intro</b><span>en el modo Historia, que te lleven al objetivo · alas de Dédalo, si las consigues (C para bajar) · chat en el modo en línea</span>
@@ -722,7 +722,7 @@ let aT=0,stepAcc=0,lastPX=null,lastPZ=null,lyreT=6;
 function audioTick(dt){
   const moved=lastPX===null?0:Math.hypot(player.x-lastPX,player.z-lastPZ);lastPX=player.x;lastPZ=player.z;
   if(!aOK())return;
-  if(ui==='play'&&player.grounded&&moved<3){stepAcc+=moved;if(stepAcc>(MOUNT.riding?(keys.run?3.2:1.9):(keys.run?1.3:0.8))){stepAcc=0;if(MOUNT.riding)sfxHoof();else sfxStep(floorAt(player.x,player.z)>terrainH(player.x,player.z)+0.05);}}
+  if(ui==='play'&&player.grounded&&moved<3){stepAcc+=moved;if(stepAcc>(MOUNT.riding?(keys.run?3.2:1.9):(keys.run?1.3:0.8))){stepAcc=0;if(MOUNT.riding)sfxHoof();else gfStep();}}
   aT+=dt;if(aT<0.2)return;const st=aT;aT=0;const now=AUD.ctx.currentTime;
   const ad=Math.hypot(player.x-AGORA.x,player.z-AGORA.z);const crowd=clamp(1-(ad-25)/90,0,1)*(0.15+0.85*DAYF);
   AUD.crowd.gain.setTargetAtTime(0.14*crowd,now,0.6);AUD.crowd2.gain.setTargetAtTime(0.05*crowd*(0.5+Math.random()*0.5),now,0.1);
@@ -10501,8 +10501,8 @@ function updateAvatar(dt,t){
 function placeCamera(){
   const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw);
   if(AVATAR.view3&&ui!=='start'){const back=MOUNT.riding?7.5:5,up=MOUNT.riding?2.0:1.5;let cx=player.x-fx*back,cz=player.z-fz*back,cy=player.camY+up-player.pitch*3;
-    cy=Math.max(cy,floorAt(cx,cz)+0.8);camera.position.set(cx,cy,cz);camera.lookAt(player.x+fx*2,player.camY-0.2+player.pitch*3,player.z+fz*2);}
-  else{const k=MOUNT.riding?0.24:0;camera.position.set(player.x+fx*k,player.camY,player.z+fz*k);camera.rotation.set(player.pitch,player.yaw,0);}
+    cy=Math.max(cy,floorAt(cx,cz)+0.8);camera.position.set(cx,cy,cz);camera.lookAt(player.x+fx*2,player.camY-0.2+player.pitch*3,player.z+fz*2);gfCam(true);}
+  else{const k=MOUNT.riding?0.24:0;camera.position.set(player.x+fx*k,player.camY,player.z+fz*k);camera.rotation.set(player.pitch,player.yaw,0);if(ui!=='start')gfCam(false);}
 }
 
 // ------------------------------------------------------------ minimapa (siempre visible mientras se juega)
@@ -10959,6 +10959,7 @@ window.addEventListener('keydown',e=>{
   if(e.code==='KeyN')toggleSound();
   if(e.code==='KeyH')callHorse();
   if(e.code==='KeyV')toggleView();
+  if(e.code==='KeyK')gfToggleMotion();
   if(e.code==='KeyF')toggleTorch();
 });
 window.addEventListener('pointerdown',()=>{if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();});
@@ -10988,7 +10989,7 @@ function findFocus(){
   for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const c of CARTERS)test(c,c.x,c.z,4.2);for(const o of MUSE_OBJS)test(o,o.x,o.z,3.6);for(const o of[CASA.agent,CASA.door])if(o)test(o,o.x,o.z,3.4);if(TOUR.obj&&!TOUR.on)test(TOUR.obj,TOUR.obj.x,TOUR.obj.z,3.6);if(!BOAT.on)for(const o of BOAT.docks)test(o,o.x,o.z,6);for(const F of FAUNA)if(F.A.g.visible&&Math.abs(F.obj.x-player.x)<4&&Math.abs(F.obj.z-player.z)<4)test(F.obj,F.obj.x,F.obj.z,2.6*Math.max(1,F.A.g.scale.x));for(const o of[BARCO.wright,BARCO.post])if(o)test(o,o.x,o.z,3.2);for(const o of BARCO.mats)test(o,o.x,o.z,3.4);if(player.feet>MOON.y-50)for(const o of MOON.objs)test(o,o.x,o.z,o.act==='espejo'?4.5:3.6);if(player.feet>CASA.Y-50)for(const o of CASA.objs)test(o,o.x,o.z,o.r);if(MODE==='roma')for(const o of CULT_OBJS)test(o,o.x,o.z,o.r);for(const o of EGX_OBJS)if(o.y===undefined||Math.abs(player.feet-o.y)<20)test(o,o.x,o.z,o.r);for(const o of[OLYM.mnemo,OLYM.gate,OLYM.zeus,OLYM.back])if(o)test(o,o.x,o.z,o.kind==='zeus'?5:3.8);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else if(focus.kind==='musa')museTalk(focus);else if(focus.kind==='mnemo')mnemoTalk();else if(focus.kind==='olygate')olyGateTalk();else if(focus.kind==='zeus')zeusTalk();else if(focus.kind==='olyback')olyTravel(false);else if(focus.kind==='casaAgente')casaAgentTalk();else if(focus.kind==='tour')tourTalk();else if(focus.kind==='barca')boatEnter(focus);else if(focus.kind==='fauna')faunaTalk(focus.F);else if(focus.kind==='barcoW')barcoWright();else if(focus.kind==='barcoMat')barcoMat(focus);else if(focus.kind==='barcoMio')barcoMio();else if(focus.kind==='luna')moonAct(focus);else if(focus.kind==='casaPuerta')casaDoor();else if(focus.kind==='hogar')hogarAct(focus);else if(focus.kind==='culto')cultoAct(focus);else if(focus.kind==='egx')egxAct(focus);else bark(focus);}
+function interact(){if(!focus)return;gfPulse();if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else if(focus.kind==='musa')museTalk(focus);else if(focus.kind==='mnemo')mnemoTalk();else if(focus.kind==='olygate')olyGateTalk();else if(focus.kind==='zeus')zeusTalk();else if(focus.kind==='olyback')olyTravel(false);else if(focus.kind==='casaAgente')casaAgentTalk();else if(focus.kind==='tour')tourTalk();else if(focus.kind==='barca')boatEnter(focus);else if(focus.kind==='fauna')faunaTalk(focus.F);else if(focus.kind==='barcoW')barcoWright();else if(focus.kind==='barcoMat')barcoMat(focus);else if(focus.kind==='barcoMio')barcoMio();else if(focus.kind==='luna')moonAct(focus);else if(focus.kind==='casaPuerta')casaDoor();else if(focus.kind==='hogar')hogarAct(focus);else if(focus.kind==='culto')cultoAct(focus);else if(focus.kind==='egx')egxAct(focus);else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -11017,13 +11018,13 @@ function frame(now){
   else if(ui==='play'){
     let f=(keys.w?1:0)-(keys.s?1:0)-joy.y,s=(keys.d?1:0)-(keys.a?1:0)+joy.x;const L=Math.hypot(f,s);if(L>1){f/=L;s/=L;}
     const sp=(FLY.on?(keys.run?30:15):(keys.run?11:4.8)*(MOUNT.riding?3*horseMul():1+0.01*(qLv('ar')-1)))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
-    const wk=inWaterK(),mx=(fx*f+rx*s)*sp*wk,mz=(fz*f+rz*s)*sp*wk;
-    const mv=FLY.on?flyMove:tryMove;if(L>0.01){if(!mv(player.x+mx,player.z+mz)){mv(player.x+mx,player.z)||mv(player.x,player.z+mz);}}
+    const wk=inWaterK(),idt=1/Math.max(dt,1e-4),gv=gfVel((fx*f+rx*s)*sp*wk*idt,(fz*f+rz*s)*sp*wk*idt,dt,L>0.01),mx=gv[0]*dt,mz=gv[1]*dt;   // inercia (game feel)
+    const mv=FLY.on?flyMove:tryMove;if(Math.hypot(mx,mz)>1e-5){if(!mv(player.x+mx,player.z+mz)){const a=mv(player.x+mx,player.z),b=a||mv(player.x,player.z+mz);gfBlock(a,b);}}
   }
   const fl=BOAT.on?BOAT.y:floorAt(player.x,player.z);
   if(FLY.on&&ui!=='play')FLY.on=false;
-  if(FLY.on)player.vy=keys.jump?7:(keys.down?-9:-0.8);else player.vy-=16*dt;player.feet+=player.vy*dt;
-  if(player.feet<=fl){player.feet=fl;player.vy=0;player.grounded=true;player.jumps=0;}
+  if(FLY.on)player.vy+=((keys.jump?7:(keys.down?-9:-0.8))-player.vy)*Math.min(1,dt*3.5);else player.vy-=16*dt;player.feet+=player.vy*dt;
+  if(player.feet<=fl){if(!player.grounded&&player.vy<-5)gfLand(-player.vy);player.feet=fl;player.vy=0;player.grounded=true;player.jumps=0;}
   else if(player.grounded&&player.feet-fl<0.6&&player.vy<=0){player.feet=fl;player.vy=0;}
   else player.grounded=false;
   updateMount(dt);
@@ -11049,7 +11050,7 @@ function frame(now){
   audioTick(dt);
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
-  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);seasonTick(dt);fxTick(dt);cultTick();fastosTick();vuTick(dt);ofTick(dt,performance.now()/1000);mktTick();egxTick();vidaTick(dt);arisTick();faunaTick(dt);
+  stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);seasonTick(dt);fxTick(dt);cultTick();fastosTick();vuTick(dt);ofTick(dt,performance.now()/1000);mktTick();egxTick();vidaTick(dt);gfTick(dt);arisTick();faunaTick(dt);
   cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=!w.home&&Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<180;
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<180;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
@@ -11665,8 +11666,8 @@ const QLV=[0,4,10,18,30,45,65,90,120,160];   // puntos para cada nivel (1-10)
 const qName=q=>MODE==='roma'?q.r:q.a;
 function qz(){if(!state.qual||typeof state.qual!=='object')state.qual={so:0,lo:0,ar:0,eu:0,kl:0,run:0};return state.qual;}
 function qLv(k){const p=qz()[k]||0;let l=1;for(let i=1;i<QLV.length;i++)if(p>=QLV[i])l=i+1;return l;}
-function qAdd(k,n,why){if(!state||!n)return;const Q=qz(),l0=qLv(k);Q[k]=(Q[k]||0)+n;const l1=qLv(k);
-  if(l1>l0){const q=QUAL.find(x=>x.k===k);sfxCoin();setTimeout(()=>toast('<span class="label">'+qName(q)+' · nivel '+l1+'</span><br>'+(why||'Tu '+qName(q)+' crece.')),900);}
+function qAdd(k,n,why){if(!state||!n)return;const Q=qz(),l0=qLv(k);Q[k]=(Q[k]||0)+n;const l1=qLv(k);if(n>0)gfFloat('+'+n+' '+qName(QUAL.find(x=>x.k===k)),'#cfe0a8');
+  if(l1>l0){gfGlow();const q=QUAL.find(x=>x.k===k);sfxCoin();setTimeout(()=>toast('<span class="label">'+qName(q)+' · nivel '+l1+'</span><br>'+(why||'Tu '+qName(q)+' crece.')),900);}
   save();}
 // a qué cualidad suma cada personaje (por su categoría, con algunas excepciones)
 const Q_AR=['hoplita','ificrates','cabrias','agoge','paidotribes','agesilao','cinisca','prisco','auriga','pretoriano','vigil','frontino','tesalia','laodoco'];
@@ -15441,6 +15442,91 @@ function m386Act(o){const m=m386z(),one=casaOpen('◆',o.data.name,o.data.role||
     B.innerHTML=(i===3?'<p>Dentro de la cerca solo queda un tocón negro, quemado. Pero la cerca está entera y nadie lo ha arrancado: sigue siendo de la diosa.</p>':'<p>Un olivo viejo y retorcido, rodeado por una cerca de madera: es una moría, un olivo sagrado de Atenea. Nadie puede cortarlo ni arrancarlo, ni siquiera el dueño de la tierra, y su aceite se entrega para los premios de las Panateneas.</p>')+
       (m.ms_moriai==='on'?'<p class="sub">Olivos revisados: '+m.moriai.length+' de 5.</p>':'<p class="sub">Lisias VII; Aristóteles, Constitución de los atenienses 60.</p>');
     if(m.ms_moriai==='on'&&m.moriai.length>=5){m.ms_moriai='hecho';save();toast('<span class="label">Misión</span><br>Has revisado los cinco. Vuelve con Eutifrón.');}one('Seguir',closeDialog);return;}}
+
+// ============================================================ GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,
+// respuesta visual a cada gesto, gente que reacciona y un peso propio para caballo, vuelo y barca. Todos los números están en GF.k para afinarlos.
+const GF={vx:0,vz:0,ph:0,dip:0,dipV:0,roll:0,fov:70,lastYaw:null,lastT:0,obols:null,
+ k:{accWalk:11,decWalk:14,accHorse:2.6,decHorse:3.4,accFly:1.6,bob:0.045,bobRun:0.06,sway:0.022,fovRun:6,fovHorse:8,fovFly:11,bankFly:0.16,bankHorse:0.05,leanStrafe:0.006,landK:0.028,landMax:0.32},
+ reduced:!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)};
+try{const v=localStorage.getItem('nostos-movcam');if(v==='off')GF.reduced=true;if(v==='on')GF.reduced=false;}catch(e){}
+function gfToggleMotion(){GF.reduced=!GF.reduced;try{localStorage.setItem('nostos-movcam',GF.reduced?'off':'on');}catch(e){}toast(GF.reduced?'Balanceo de cámara desactivado (para quien se marea).':'Balanceo de cámara activado.');}
+// ---- 1. movimiento con inercia
+function gfVel(tx,tz,dt,input){const K=GF.k,a=FLY.on?K.accFly:MOUNT.riding?(input?K.accHorse:K.decHorse):(input?K.accWalk:K.decWalk),k=1-Math.exp(-dt*a);
+  GF.vx+=(tx-GF.vx)*k;GF.vz+=(tz-GF.vz)*k;if(!input&&Math.hypot(GF.vx,GF.vz)<0.05){GF.vx=0;GF.vz=0;}return[GF.vx,GF.vz];}
+function gfBlock(a,b){if(!b){GF.vx*=0.15;GF.vz*=0.15;}else if(!a){GF.vx*=0.6;GF.vz*=0.6;}}
+function gfLand(v){if(v<5)return;const K=GF.k;GF.dipV=Math.min(K.landMax,(v-4)*K.landK)*(FLY.on?0.5:1)*(MOUNT.riding?0.6:1);sfxLand(v);}
+// ---- cámara: balanceo al andar, inclinación en los giros, golpe al aterrizar y campo de visión según la velocidad
+function gfCam(view3){const now=performance.now(),dt=Math.min(0.05,(now-(GF.lastT||now))/1000);GF.lastT=now;const K=GF.k,red=GF.reduced||ui!=='play';
+  const spd=Math.hypot(GF.vx,GF.vz),onFoot=!MOUNT.riding&&!FLY.on&&!BOAT.on;
+  const yr=GF.lastYaw===null?0:wrapA(player.yaw-GF.lastYaw)/Math.max(dt,1e-3);GF.lastYaw=player.yaw;
+  // golpe de aterrizaje: baja rápido y vuelve con un muelle
+  GF.dip+=(GF.dipV-GF.dip)*Math.min(1,dt*30);GF.dipV*=Math.exp(-dt*9);
+  let by=0,bx=0,roll=0;
+  if(onFoot&&player.grounded&&spd>0.3){const stepLen=lerp(0.8,1.3,clamp((spd-4.8)/6.2,0,1));GF.ph+=spd*dt*Math.PI/stepLen;const a=lerp(K.bob,K.bobRun,clamp((spd-4.8)/6.2,0,1))*clamp(spd/4.8,0,1);by=(Math.abs(Math.sin(GF.ph))-0.5)*a*1.4;bx=Math.sin(GF.ph)*K.sway*clamp(spd/4.8,0,1);}
+  else GF.ph*=0.9;
+  if(FLY.on)roll=clamp(-yr*K.bankFly,-0.22,0.22)+Math.sin(now/900)*0.015;
+  else if(MOUNT.riding)roll=clamp(-yr*K.bankHorse,-0.08,0.08);
+  else if(BOAT.on)roll=Math.sin(now/770)*0.03;
+  else{const rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);roll=-(GF.vx*rx+GF.vz*rz)*K.leanStrafe;}
+  GF.roll+=(roll-GF.roll)*Math.min(1,dt*6);
+  if(!red){const rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);camera.position.y+=by-GF.dip;camera.position.x+=rx*bx;camera.position.z+=rz*bx;
+    if(!view3)camera.rotation.z=GF.roll+(BOAT.on?0:0);if(BOAT.on&&!view3)camera.rotation.x+=Math.sin(now/1100)*0.012;}
+  else camera.position.y-=GF.dip*0.4;
+  let fv=70;if(!GF.reduced){if(onFoot&&keys.run&&spd>6.5)fv+=K.fovRun*clamp((spd-6.5)/4,0,1);if(MOUNT.riding)fv+=K.fovHorse*clamp((spd-8)/20,0,1);if(FLY.on)fv+=K.fovFly*clamp((spd-8)/22,0,1);}
+  GF.fov+=(fv-GF.fov)*Math.min(1,dt*4);if(Math.abs(camera.fov-GF.fov)>0.05){camera.fov=GF.fov;camera.updateProjectionMatrix();}}
+// ---- 2. sonido: pasos según el suelo, aterrizajes, ambiente por lugar, estación y hora
+function gfSurface(){if(inWaterK()<1)return'water';const fl=floorAt(player.x,player.z),th=terrainH(player.x,player.z);if(fl>th+0.05)return'stone';
+  if(player.x>8000){const I=islandOf(player.x);if(th<2.6&&!(I&&I.desert))return'sand';if(I&&I.desert)return'sand';if(I&&(I.green||MODE==='roma'))return'grass';return'earth';}
+  if(typeof insideWalls==='function'&&insideWalls(player.x,player.z))return'earth';return MODE==='roma'?'grass':'earth';}
+function gfNoise(t,type,freq,q,peak,att,dec,dest){const c=AUD.ctx,s=c.createBufferSource();s.buffer=AUD.noise;s.playbackRate.value=0.8+Math.random()*0.4;const f=c.createBiquadFilter();f.type=type;f.frequency.value=freq;f.Q.value=q;s.connect(f).connect(envGain(t,peak,att,dec,dest));s.start(t,Math.random()*1.5);s.stop(t+att+dec+0.05);}
+function gfStep(){if(!aOK())return;const t=AUD.ctx.currentTime,k=gfSurface(),v=keys.run?1.25:1;
+  if(k==='stone')gfNoise(t,'bandpass',1900+Math.random()*300,1.3,0.08*v,0.004,0.07);
+  else if(k==='earth')gfNoise(t,'lowpass',650+Math.random()*120,0.7,0.12*v,0.006,0.09);
+  else if(k==='sand'){gfNoise(t,'bandpass',2600,0.5,0.05*v,0.02,0.16);gfNoise(t,'lowpass',400,0.7,0.06*v,0.01,0.08);}
+  else if(k==='grass'){gfNoise(t,'bandpass',1300,0.8,0.05*v,0.01,0.06);gfNoise(t+0.035,'bandpass',2200,0.9,0.03*v,0.01,0.05);}
+  else if(k==='water'){gfNoise(t,'lowpass',900,1.5,0.12*v,0.01,0.22);const o=AUD.ctx.createOscillator();o.type='sine';o.frequency.setValueAtTime(900,t);o.frequency.exponentialRampToValueAtTime(300,t+0.12);o.connect(envGain(t,0.02,0.005,0.12));o.start(t);o.stop(t+0.15);}}
+function sfxLand(v){if(!aOK())return;const t=AUD.ctx.currentTime,g=clamp((v-4)/10,0.3,1);gfNoise(t,'lowpass',260,0.8,0.22*g,0.004,0.18);const k=gfSurface();if(k==='stone')gfNoise(t,'bandpass',1700,1.2,0.07*g,0.003,0.06);else if(k==='water')gfNoise(t,'lowpass',1100,1,0.2*g,0.01,0.35);}
+function sfxTap(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime,o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(1320,t);o.frequency.exponentialRampToValueAtTime(990,t+0.08);o.connect(envGain(t,0.035,0.004,0.12));o.start(t);o.stop(t+0.15);}
+const GFA={on:false,t:0,owl:20,gull:8,creak:6};
+function gfAudioInit(){if(GFA.on||!AUD.ctx||!AUD.noise)return;const c=AUD.ctx;GFA.on=true;
+  // cigarras: ruido muy agudo y estrecho, modulado a unas 30 pulsaciones por segundo
+  const s=c.createBufferSource();s.buffer=AUD.noise;s.loop=true;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=5400;f.Q.value=9;const am=c.createGain();am.gain.value=0.5;const lfo=c.createOscillator();lfo.frequency.value=31;const lg=c.createGain();lg.gain.value=0.5;lfo.connect(lg).connect(am.gain);
+  GFA.cic=c.createGain();GFA.cic.gain.value=0;s.connect(f).connect(am).connect(GFA.cic).connect(AUD.master);s.start();lfo.start();
+  // viento de la velocidad (a caballo al galope y volando)
+  const w=c.createBufferSource();w.buffer=AUD.noise;w.loop=true;const wf=c.createBiquadFilter();wf.type='lowpass';wf.frequency.value=700;GFA.wf=wf;GFA.wind=c.createGain();GFA.wind.gain.value=0;w.connect(wf).connect(GFA.wind).connect(AUD.master);w.start();}
+function sfxOwl(){if(!aOK())return;const c=AUD.ctx;let t=c.currentTime+0.05;for(let i=0;i<2;i++){const o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(i?520:600,t);o.frequency.exponentialRampToValueAtTime(i?480:560,t+0.35);o.connect(envGain(t,0.02,0.06,0.4));o.start(t);o.stop(t+0.5);t+=0.55;}}
+function sfxGull(){if(!aOK())return;const c=AUD.ctx;let t=c.currentTime+0.05;const n=2+Math.floor(Math.random()*3);for(let i=0;i<n;i++){const o=c.createOscillator();o.type='sawtooth';const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1800;f.Q.value=2;o.frequency.setValueAtTime(1500,t);o.frequency.exponentialRampToValueAtTime(900,t+0.25);o.connect(f).connect(envGain(t,0.012,0.03,0.25));o.start(t);o.stop(t+0.3);t+=0.3+Math.random()*0.15;}}
+function sfxCreak(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime,o=c.createOscillator();o.type='sawtooth';const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=420;f.Q.value=6;o.frequency.setValueAtTime(70,t);o.frequency.linearRampToValueAtTime(95,t+0.4);o.connect(f).connect(envGain(t,0.025,0.08,0.45));o.start(t);o.stop(t+0.6);}
+function gfAudio(dt){if(!aOK())return;gfAudioInit();if(!GFA.on)return;const now=AUD.ctx.currentTime;GFA.t+=dt;if(GFA.t<0.25)return;const st=GFA.t;GFA.t=0;
+  const mo=calNow().mo,summer=mo>=5&&mo<=8,outside=!(typeof insideWalls==='function'&&insideWalls(player.x,player.z))||player.x>8000,inMap=ui==='play'||ui==='dialog';
+  const th=terrainH(player.x,player.z),nearSea=th<4;
+  GFA.cic.gain.setTargetAtTime(inMap&&summer&&DAYF>0.55&&!nearSea?0.018*(outside?1:0.5):0,now,1.2);
+  const spd=Math.hypot(GF.vx,GF.vz),wv=FLY.on?clamp(spd/25,0,1)*0.09+0.02:MOUNT.riding?clamp((spd-10)/20,0,1)*0.05:0;GFA.wind.gain.setTargetAtTime(wv,now,0.4);GFA.wf.frequency.setTargetAtTime(500+spd*30,now,0.4);
+  GFA.owl-=st;if(GFA.owl<0){GFA.owl=18+Math.random()*30;if(DAYF<0.25&&outside)sfxOwl();}
+  GFA.gull-=st;if(GFA.gull<0){GFA.gull=7+Math.random()*14;if(DAYF>0.3&&(nearSea||BOAT.on||(typeof HARBOR!=='undefined'&&HARBOR.ok&&Math.hypot(player.x-HARBOR.x,player.z-HARBOR.z)<160)))sfxGull();}
+  GFA.creak-=st;if(GFA.creak<0){GFA.creak=3+Math.random()*5;if(BOAT.on)sfxCreak();}}
+// ---- 3. respuesta visual: pulso al interactuar, cifras que flotan al ganar algo y destello al subir de nivel
+function gfCSS(){if($('gfCSS'))return;const s=document.createElement('style');s.id='gfCSS';s.textContent=
+ '@keyframes gfIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}@keyframes gfPop{0%{opacity:0;transform:translateX(-50%) scale(.8)}60%{opacity:1;transform:translateX(-50%) scale(1.04)}100%{transform:translateX(-50%) scale(1)}}'+
+ '#dialog:not([hidden]){animation:gfIn .2s ease-out}#prompt:not([hidden]){animation:gfPop .18s ease-out}'+
+ '.gfRing{position:fixed;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px solid rgba(232,176,122,.9);border-radius:50%;pointer-events:none;z-index:55;animation:gfRing .45s ease-out forwards}@keyframes gfRing{to{transform:scale(4.5);opacity:0;border-width:1px}}'+
+ '.gfFloat{position:fixed;pointer-events:none;z-index:56;font:600 16px Georgia,serif;text-shadow:0 1px 3px #000,0 0 8px rgba(0,0,0,.5);animation:gfFloat 1.6s ease-out forwards;white-space:nowrap}@keyframes gfFloat{0%{opacity:0;transform:translateY(8px)}15%{opacity:1}100%{opacity:0;transform:translateY(-38px)}}'+
+ '.gfGlow{position:fixed;inset:0;pointer-events:none;z-index:54;box-shadow:inset 0 0 160px 40px rgba(232,176,90,.55);animation:gfGlow 1.4s ease-out forwards}@keyframes gfGlow{0%{opacity:0}20%{opacity:1}100%{opacity:0}}'+
+ '@media (prefers-reduced-motion:reduce){.gfRing,.gfGlow{display:none}#dialog:not([hidden]),#prompt:not([hidden]){animation:none}}';document.head.appendChild(s);}
+gfCSS();
+function gfPulse(){gfCSS();sfxTap();const r=document.createElement('div');r.className='gfRing';document.body.appendChild(r);setTimeout(()=>r.remove(),500);}
+let gfFloatN=0;
+function gfFloat(txt,col){gfCSS();const e=document.createElement('div');e.className='gfFloat';e.textContent=txt;e.style.color=col||'#e8b07a';const st=$('stats')||document.querySelector('#hud');const b=st?st.getBoundingClientRect():{left:20,bottom:120};
+  e.style.left=(b.left+18+(gfFloatN%3)*14)+'px';e.style.top=(b.bottom+6+(gfFloatN%3)*20)+'px';gfFloatN++;document.body.appendChild(e);setTimeout(()=>e.remove(),1700);}
+function gfGlow(){gfCSS();const e=document.createElement('div');e.className='gfGlow';document.body.appendChild(e);setTimeout(()=>e.remove(),1500);}
+// ---- 4. gente viva: los paseantes miran a quien pasa cerca y se apartan
+function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walkers){const g=w.g;if(w.home||!g.visible)continue;const dx=g.position.x-player.x,dz=g.position.z-player.z,d=Math.hypot(dx,dz);if(d>6)continue;
+   if(w.wait>0||!w.moving){if(d<4.5){const ta=Math.atan2(-dx,-dz);g.rotation.y+=wrapA(ta-g.rotation.y)*Math.min(1,dt*3);}}
+   else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
+     g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
+// ---- arranque y tick
+function gfTick(dt){if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+  if(state){if(GF.obols===null)GF.obols=state.obols;const d=state.obols-GF.obols;if(d!==0){if(d>0)gfFloat('+'+d+' '+(MODE==='roma'?'sestercios':'óbolos'),'#e8c37a');GF.obols=state.obols;}}}
 
 function startGame(){
   initAudio();
