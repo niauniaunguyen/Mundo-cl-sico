@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 64). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 65). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,22 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 65: fauna (modelos de Blender propios)
+- `modelos/animales.blend`: escena nueva. No se tocó `atenas_modelos.blend`, que está guardado con Blender 5.2.
+  - Se genera con el script (`modelos/blender/animales.py`; se ejecuta con `bpy` 5.0) y se exporta a `modelos/animales.glb`.
+  - `construir.py` incrusta ese archivo en el marcador `@@GLB2@@` (elemento `#glb2`), y `loadModels` lo carga después del GLB principal.
+  - Contiene 14 especies, cada una por piezas: `A_<especie>_body`, `_head` (pivote en el cuello), `_tail`, y `_leg_fl/fr/bl/br` o `_leg_l/r` (pivote en la cadera). Además, `A_peacock_train`/`_fan`. Los materiales llevan el papel en el nombre (coat, feather, comb, beak, horn…; ver `ROLE_C`).
+- Juego:
+  - `animal(sp,{c,s,extra})` monta un animal; `faunaAdd` lo coloca con un comportamiento: `wander`, `peck`, `still`, `lie`, `sit`, `follow` o `road` (burros con serones y arriero).
+  - `faunaTick` lo anima: patas, cabeceo, cola del perro y el gato, la cabeza que sigue al jugador, el pavo real que abre la cola, las codornices que saltan. Los animales lejanos (a más de 190 m) se ocultan.
+  - `buildFauna` (en `bootWorld`) reparte:
+    - en ambos modos: perros callejeros, guardianes tumbados y falderos que siguen a su dueña, gallos y gallinas, cerdos, cabras con los rebaños y burros por los caminos;
+    - en Atenas, además: comadrejas, lechuzas en la Acrópolis, la pelea de codornices del Ágora (estela `codornices`), la pelea de gallos junto al teatro (`gallos`), pavos reales de una casa rica y un mono con su dueño;
+    - en Roma, además: gatos, los gansos de Juno en el Capitolio (`gansos_capitolio`), los pollos sagrados junto a la Curia (`pollos_sagrados`), el perro de la domus, pavos reales en el Palatino y un loro en tu casa;
+    - en los dos modos, una culebra doméstica en tu casa, y perros y gallinas en cada destino.
+  - E sobre un animal: «Observar» (`faunaTalk`) muestra un dato con fuentes (`FAUNA_INFO`). La primera vez de cada especie da +1 so (`state.fauna`).
+- El HTML pasa a pesar unos 8,1 MB.
 
 ### Novedades de la versión 64: Estagira, y Aristóteles solo allí
 - Mapa nuevo `estagira` (modo Atenas, Calcídica): se llega por mar desde el Pireo y tiene puerto (`seaPort`).
