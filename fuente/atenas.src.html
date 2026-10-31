@@ -550,7 +550,7 @@ function terrainH0(x,z){
   const dx=x-THEA.x,dz=z-THEA.z,r=Math.hypot(dx,dz);
   if(r<THEA.r0)return THEA.h0;
   if(dz<3&&r<THEA.r1+1)return THEA.h0+(Math.floor(r-THEA.r0)+1)*THEA.step;
-  return rawH(x,z);
+  return carveH(x,z,rawH(x,z));
 }
 function displayH(x,z){return MODE==='atenas'&&inCavea(x,z)&&Math.hypot(x-THEA.x,z-THEA.z)>=THEA.r0?terrainH(x,z)-0.7:terrainH(x,z);}
 
@@ -560,6 +560,7 @@ function addPlat(cx,cz,w,d,a,top){platforms.push({cx,cz,hw:w/2,hd:d/2,c:Math.cos
 function floorAt(x,z){
   let h=terrainH(x,z);
   for(const p of platforms){const dx=x-p.cx,dz=z-p.cz;const lx=dx*p.c-dz*p.s,lz=dx*p.s+dz*p.c;if(Math.abs(lx)<=p.hw&&Math.abs(lz)<=p.hd&&p.top>h)h=p.top;}
+  const wv=riverWater(x,z);if(wv!==null&&wv-1.25>h)h=wv-1.25;
   return h;
 }
 function minGround(cx,cz,w,d,a){let m=Infinity;for(let i=-1;i<=1;i+=0.5)for(let j=-1;j<=1;j+=0.5){const p=toW(i*w/2,j*d/2,cx,cz,a);m=Math.min(m,terrainH(p[0],p[1]));}return m;}
@@ -820,7 +821,7 @@ function housesGLB(list){
 // árboles de Blender: list = [{x,z,kind,k}] con kind olive|cypress|pine|plane
 function treesGLB(list){
   const by={olive:[],cypress:[],pine:[],plane:[]};
-  for(const t of list){const h=t.y!==undefined?t.y:floorAt(t.x,t.z),k=t.k||rr(0.8,1.25);
+  for(const t of list){if(riverWater(t.x,t.z)!==null)continue;const h=t.y!==undefined?t.y:floorAt(t.x,t.z),k=t.k||rr(0.8,1.25);
     const it={x:t.x,y:h,z:t.z,a:R()*TAU,sx:k*rr(0.92,1.08),sy:k,sz:k*rr(0.92,1.08),cf:new THREE.Color(t.kind==='cypress'?'#3f5532':t.kind==='pine'?'#5d7340':t.kind==='plane'?'#6f8a45':'#7f8b5d').offsetHSL(rr(-0.02,0.02),rr(-0.05,0.05),rr(-0.06,0.05))};
     by[t.kind].push(it);if(t.collide)addCirc(t.x,t.z,0.45*k);}
   placeModules('T_olive',by.olive,{far:1600});placeModules('T_cypress',by.cypress,{far:1600});placeModules('T_pine',by.pine,{far:1900});placeModules('T_plane',by.plane,{far:1600});
@@ -1271,8 +1272,7 @@ function makePersonGLB(c){
   const add=(n,par,roles)=>{const p=glbPart(n,roles||ro);if(p)(par||g).add(p);return p;};
   // Roma: short = túnica corta con las piernas al aire; toga; veil = palla sobre la cabeza; soldier = legionario
   const short=c.short||c.soldier||c.exomis;
-  add('P_feet');add(short?'P_tunic_short':(c.female?'P_chiton_f':'P_chiton_m'));   // children[1] = túnica (la respiración de los NPC la mece)
-  if(short)add('P_legs');
+  personLegs(g,short,ro);add(short?'P_tunic_short':(c.female?'P_chiton_f':'P_chiton_m'));   // children[0] = piernas (izquierda y derecha); children[1] = túnica (la respiración de los NPC la mece)
   if(c.toga)add('P_toga');else if(!c.noHimation&&!short)add(c.female?'P_himation_f':'P_himation_m');
   add('P_head');add('P_eyes');
   const corinth=!!c.spear&&(c.helmet==='corinth'||(!c.helmet&&c.glow)),pilos=!!c.spear&&!corinth&&c.helmet!=='attic';
@@ -2249,6 +2249,7 @@ function wseg(x,z,a,x1,z1,x2,z2,t){const p=toW(x1,z1,x,z,a),q=toW(x2,z2,x,z,a);a
 
 function buildWorld(){
   if(MODE==='roma'){buildRome();return;}
+  defineRiversGR();
   terrainInner=buildTerrain(INNER.size,440,INNER.x,INNER.z,true);
   buildTerrain(12000,120,INNER.x,INNER.z,false);
   const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#3a7891',shininess:80,specular:'#9fc3d0'}));
@@ -2269,7 +2270,6 @@ function buildWorld(){
   buildMyHouse();
   applyFlats();
   buildHouses();
-  defineRiversGR();
   buildTrees();
   finishColumns();
   buildTorches();
@@ -2932,8 +2932,8 @@ function islandBase(I,x,z){const dx=x-I.x,dz=z-I.z,th=Math.atan2(dz,dx);const R=
   for(const b of I.blobs){const d=Math.hypot(x-b.x,z-b.z)/b.R;const hb=d>1?1.2-(d-1)*b.R*0.15:1.2+b.H*(1-d*d);if(hb>h)h=hb;}
   if(I.coast){const px=x-I.x,pz=z-I.z,d=px*I.coast[0]+pz*I.coast[1]-I.R*I.coastAt+Math.sin((px*I.coast[1]-pz*I.coast[0])*0.012+I.seed)*25;if(d>-40)h=Math.min(h,lerp(h,1.2-d*0.09,clamp((d+40)/40,0,1)));}   // costa: el mar en una dirección
   if(I.lake){const L=I.lake,q=Math.hypot((x-L.x)/L.rx,(z-L.z)/L.rz);if(q<1.3)h=Math.min(h,lerp(-7,h,sstep(clamp((q-0.85)/0.45,0,1))));}   // lago
-  return Math.max(h,-9);}
-function islandH(x,z){const I=islandOf(x);let h=islandBase(I,x,z);for(const road of[false,true])for(const p of I.pads){if(!!p.road!==road)continue;const d=Math.hypot(x-p.x,z-p.z);if(d<p.r+18)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/18,0,1)));}return h;}   // los caminos entre mapas (road) mandan sobre lo demás
+  return Math.max(carveH(x,z,h),-9);}
+function islandH(x,z){const I=islandOf(x);if(I.grid&&!GRIDOFF){const gh=gridH(I,x,z);if(gh!==null)return gh;}let h=islandBase(I,x,z);for(const road of[false,true])for(const p of I.pads){if(!!p.road!==road)continue;const d=Math.hypot(x-p.x,z-p.z);if(d<p.r+18)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/18,0,1)));}return h;}   // los caminos entre mapas (road) mandan sobre lo demás
 function pad(I,lx,lz,r,dh,fixed){const x=I.x+lx,z=I.z+lz;const p={x,z,r,h:fixed!==undefined?fixed:islandBase(I,x,z)+(dh||0)};I.pads.push(p);return p;}
 function shoreAlong(x0,z0,dx,dz,maxT){for(let t=0;t<maxT;t+=2){if(terrainH(x0+dx*t,z0+dz*t)<0.4)return[x0+dx*(t-3),z0+dz*(t-3)];}return[x0,z0];}
 // ============================================================ caminos: Grecia e Italia recorribles a pie
@@ -3059,7 +3059,7 @@ function buildIslandMesh(I){const S=I.R*2.9,seg=Math.round(S/(I.step||6));const 
     c.copy(GRASS_C).lerp(GREEN_C,clamp(fbm(x*0.05,z*0.05)*1.6-0.4,0,1));if(!I.green&&I.id!=='lesbos'&&I.id!=='egina'&&I.id!=='tebas'&&I.id!=='esparta')c.lerp(dry,0.45);if(I.green)c.lerp(_c2.set('#7f8f55'),0.32);
     if(h<3)c.lerp(SAND_C,clamp((3-h)/2,0,1));c.lerp(ROCK_C,clamp((sl-0.4)*1.6,0,1));if(h<-1)c.set('#8a7d60');if(I.tint)I.tint(x,z,h,c);
     const v=0.94+hash(x*0.37,z*0.53)*0.1;col[i*3]=c.r*v;col[i*3+1]=c.g*v;col[i*3+2]=c.b*v;}
-  g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();const m=new THREE.Mesh(g,terrainMat());m.receiveShadow=true;scene.add(m);I.mesh=m;}
+  g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();const m=new THREE.Mesh(g,terrainMat());m.receiveShadow=true;scene.add(m);I.mesh=m;gridSet(I,g,S,seg);}
 
 // barco mercante de vela (holkás), con ojos pintados en la proa
 const SAIL_TEX=canvasTex(128,128,(x)=>{x.fillStyle='#e9dfc6';x.fillRect(0,0,128,128);x.fillStyle='#c9bb98';for(let i=8;i<128;i+=16)x.fillRect(i,0,2,128);for(let j=10;j<128;j+=24)x.fillRect(0,j,128,1);x.fillStyle='#a8392b';x.fillRect(0,0,128,9);});
@@ -3271,12 +3271,7 @@ function placeReliefs(){
 
 
 // ------------------------------------------------------------ cinta de agua que sigue el terreno (ríos)
-function riverRibbon(pts,w,color){const pos=[],idx=[];let k=0;
-  for(let i=0;i<pts.length;i++){const a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l,nz=dx/l,p=pts[i];
-    for(const s of[-1,1]){const x=p[0]+nx*w/2*s,z=p[1]+nz*w/2*s;pos.push(x,terrainH(x,z)+0.25,z);}
-    if(i>0){idx.push(k-2,k-1,k,k-1,k+1,k);}k+=2;}
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
-  const m=new THREE.Mesh(g,new THREE.MeshPhongMaterial({color:color||'#3a7891',shininess:80,side:THREE.DoubleSide}));scene.add(m);return m;}
+function riverRibbon(pts,w,color){const r=addRiver(pts,w,{color});return r&&r.mesh;}
 function horse(x,z,a){
   if(GLB.ok){const g=grp(x,terrainH(x,z),z,a);animalGLB('A_horse',g,pick(['#6b4a2e','#4a3020','#8a6a4a','#d8cfc0']),'#2e2018');addCirc(x,z,1.1);return;}
   const g=grp(x,terrainH(x,z),z,a),c=lam('#6b4a2e'),dk=lam('#2e2018');g.scale.setScalar(1.5);
@@ -5720,7 +5715,7 @@ function defineRomaDests(){
   {const I=G('liguria');I.blobs.push({x:I.x,z:I.z-330,R:300,H:180},{x:I.x+300,z:I.z-120,R:160,H:80});I.town=pad(I,-30,60,60,0,4);I.town.house=true;}
   {const I=G('venetia');I.blobs.push({x:I.x+160,z:I.z-140,R:90,H:26});I.thea=pad(I,160,-120,30);I.town=pad(I,-20,40,110,0,4);I.town.house=true;I.arena=pad(I,-150,140,70,0,4);}
   {const I=G('transpadana');I.lake={x:I.x+120,z:I.z-40,rx:110,rz:420};for(let i=0;i<5;i++)I.blobs.push({x:I.x-200+i*160,z:I.z-I.R*1.05,R:220,H:200+60*Math.sin(i)});I.town=pad(I,-110,120,90,0,4);I.town.house=true;I.villa=pad(I,-20,-120,26,0,4);}
-  {const I=G('cartago');I.blobs.push({x:I.x-60,z:I.z-20,R:130,H:40});I.byrsa=pad(I,-60,-20,60);I.lake={x:I.x+110,z:I.z+150,rx:34,rz:34};I.town=pad(I,-40,110,80,0,4);I.town.house=true;I.tophet=pad(I,90,250,24,0,3);I.amph=pad(I,-280,60,60,0,4);}
+  {const I=G('cartago');I.blobs.push({x:I.x-60,z:I.z-20,R:130,H:40});I.byrsa=pad(I,-60,-20,60);I.lake={x:I.x+110,z:I.z+150,rx:34,rz:34};I.town=pad(I,-40,140,72,0,4);I.town.house=true;I.tophet=pad(I,90,250,24,0,3);I.amph=pad(I,-280,60,60,0,4);}
   {const I=G('tarraco');I.blobs.push({x:I.x+40,z:I.z-60,R:200,H:34});I.upper=pad(I,40,-110,80);I.lower=pad(I,-40,90,70,0,4);I.lower.house=true;}
   {const I=G('barcino');I.blobs.push({x:I.x+20,z:I.z-30,R:90,H:10},{x:I.x+280,z:I.z+20,R:160,H:80});I.town=pad(I,20,-30,70);I.town.house=true;I.quarry=pad(I,240,40,20);}
   {const I=G('emporiae');I.neap=pad(I,-80,60,40,0,4);I.neap.house=true;I.urbs=pad(I,90,-40,100,0,6);I.urbs.house=true;}
@@ -7548,7 +7543,7 @@ function buildSparta(){
   // el Eurotas, con cañas en las orillas
   {const pts=[];for(let i=0;i<=34;i++){const t=i/34;pts.push([S.x+255+Math.sin(t*7)*22,S.z-430+t*860]);}riverRibbon(pts,22,'#4f8a86');
    const reed=new THREE.ConeGeometry(0.12,2.2,4);reed.translate(0,1.1,0);for(let i=0;i<260;i++){const p=pts[Math.floor(R()*pts.length)],s=R()<0.5?-1:1,x=p[0]+s*rr(11,16),z=p[1]+rr(-14,14);piece('reed',reed,lam('#6f8a45'),x,terrainH(x,z),z,R()*TAU,rr(0.8,1.4));}
-   for(let i=0;i<pts.length-1;i++){const a=pts[i],b=pts[i+1];for(const s of[-1,1]){const dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz);addSeg(a[0]-dz/l*11*s,a[1]+dx/l*11*s,b[0]-dz/l*11*s,b[1]+dx/l*11*s,0.5);}}
+   // (antes, dos paredes invisibles impedían cruzar el Eurotas: ahora se vadea, se nada o se surca en barca)
    place('eurotas','El Eurotas','ΕΥΡΩΤΑΣ','El río de Esparta. En sus orillas crecen las cañas con las que los muchachos de la agogé hacen sus camas: tienen que arrancarlas con las manos, sin cuchillo. En el mito, aquí se bañaba Leda cuando Zeus se le acercó en forma de cisne; de aquella unión nacieron Helena y los Dioscuros.',pts[16][0]-24,pts[16][1],Math.PI/2);}
   // la acrópolis, una colina baja, con el templo de Atenea Calcieco («la de la casa de bronce»)
   {const a=S.acro;temple({name:'Templo de Atenea Calcieco',x:a.x,z:a.z,rot:0,W:9,L:16,nW:4,prostyle:true,colD:0.7,colH:5,gy:a.h,roofMat:M.bronze,cella:{w:8,l:10,door:2.4,mat:M.bronze}});
@@ -10247,8 +10242,8 @@ function toggleView(){AVATAR.view3=!AVATAR.view3;toast(AVATAR.view3?'Vista en te
 function updateAvatar(dt,t){
   const moved=AVATAR.lx===null?0:Math.hypot(player.x-AVATAR.lx,player.z-AVATAR.lz);AVATAR.lx=player.x;AVATAR.lz=player.z;
   const w=AVATAR.walk;if(w){w.visible=AVATAR.view3&&!MOUNT.riding&&ui!=='start'&&ui!=='episode';
-    if(w.visible){w.position.set(player.x,player.feet,player.z);w.rotation.y=player.yaw+Math.PI;const v=moved/Math.max(dt,1e-3);AVATAR.ph+=dt*(v>0.3?7:0);
-      const a=w.userData.arms;if(a){const s=v>0.3?Math.sin(AVATAR.ph)*0.45:0;a[0].rotation.x=s;a[1].rotation.x=-s;}w.position.y+=v>0.3?Math.abs(Math.sin(AVATAR.ph))*0.05:0;}}
+    if(w.visible){w.position.set(player.x,player.feet,player.z);w.rotation.y=player.yaw+Math.PI;const v=moved/Math.max(dt,1e-3);if(v>0.3)AVATAR.ph+=Math.min(moved,1)*(keys.run?3.4:4.6);
+      personWalk(w,AVATAR.ph,v>0.3?(keys.run?1.25:1):0);w.position.y+=v>0.3?Math.abs(Math.sin(AVATAR.ph))*0.05:0;}}
   if(AVATAR.rider){AVATAR.rider.visible=MOUNT.riding;for(const h of AVATAR.riderHead)h.visible=AVATAR.view3;}
 }
 function placeCamera(){
@@ -10689,7 +10684,7 @@ window.addEventListener('keydown',e=>{
   if(ui==='map'){if(e.code==='KeyM'||e.code==='Escape')closeModals();return;}
   if(KMAP[e.code]){keys[KMAP[e.code]]=true;e.preventDefault();}
   if(e.code==='Space'&&!e.repeat)jump();
-  if(e.code==='KeyE')interact();
+  if(e.code==='KeyE'){if(BOAT.on)boatExit();else interact();}
   if(e.code==='Enter'&&NET.room){e.preventDefault();netChatOpen();return;}
   if(e.code==='KeyG'&&storyOn())storyGo();
   if(e.code==='KeyX')toggleWings();
@@ -10727,10 +10722,10 @@ let focus=null;
 function findFocus(){
   const ay=aimYaw(),fx=-Math.sin(ay),fz=-Math.cos(ay);let best=null,bs=0;
   const test=(o,x,z,range)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>range)return;const dot=(dx*fx+dz*fz)/(d||1);if(dot<0.35&&d>1.2)return;const sc=dot*2-d/range;if(!best||sc>bs){best=o;bs=sc;}};
-  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const c of CARTERS)test(c,c.x,c.z,4.2);for(const o of MUSE_OBJS)test(o,o.x,o.z,3.6);for(const o of[CASA.agent,CASA.door])if(o)test(o,o.x,o.z,3.4);if(TOUR.obj&&!TOUR.on)test(TOUR.obj,TOUR.obj.x,TOUR.obj.z,3.6);for(const o of[BARCO.wright,BARCO.post])if(o)test(o,o.x,o.z,3.2);for(const o of BARCO.mats)test(o,o.x,o.z,3.4);if(player.feet>MOON.y-50)for(const o of MOON.objs)test(o,o.x,o.z,o.act==='espejo'?4.5:3.6);if(player.feet>CASA.Y-50)for(const o of CASA.objs)test(o,o.x,o.z,o.r);for(const o of[OLYM.mnemo,OLYM.gate,OLYM.zeus,OLYM.back])if(o)test(o,o.x,o.z,o.kind==='zeus'?5:3.8);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
+  for(const n of npcObjs)if(!n.hidden)test(n,n.x,n.z,3.6);for(const o of godObjs)if(o.g.visible)test(o,o.x,o.z,4.4);for(const r of reliefObjs)test(r,r.x,r.z,3.4);for(const c of captains)test(c,c.x,c.z,3.6);for(const s of signObjs)test(s,s.x,s.z,3.2);for(const s of EPI.spheres)if(s.g.visible)test(s,s.x,s.z,3.6);for(const a of storyActors)test(a,a.x,a.z,3.6);if(DAED.g&&Math.abs(player.feet-KNOS.y)<6)test(DAED,DAED.x,DAED.z,3.6);if(FEST_ACT.o)test(FEST_ACT.o,FEST_ACT.o.x,FEST_ACT.o.z,3.6);for(const c of CARTERS)test(c,c.x,c.z,4.2);for(const o of MUSE_OBJS)test(o,o.x,o.z,3.6);for(const o of[CASA.agent,CASA.door])if(o)test(o,o.x,o.z,3.4);if(TOUR.obj&&!TOUR.on)test(TOUR.obj,TOUR.obj.x,TOUR.obj.z,3.6);if(!BOAT.on)for(const o of BOAT.docks)test(o,o.x,o.z,6);for(const o of[BARCO.wright,BARCO.post])if(o)test(o,o.x,o.z,3.2);for(const o of BARCO.mats)test(o,o.x,o.z,3.4);if(player.feet>MOON.y-50)for(const o of MOON.objs)test(o,o.x,o.z,o.act==='espejo'?4.5:3.6);if(player.feet>CASA.Y-50)for(const o of CASA.objs)test(o,o.x,o.z,o.r);for(const o of[OLYM.mnemo,OLYM.gate,OLYM.zeus,OLYM.back])if(o)test(o,o.x,o.z,o.kind==='zeus'?5:3.8);for(const w of walkers)test(Object.assign(w,{kind:'walker'}),w.g.position.x,w.g.position.z,2.6);
   return best;
 }
-function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else if(focus.kind==='musa')museTalk(focus);else if(focus.kind==='mnemo')mnemoTalk();else if(focus.kind==='olygate')olyGateTalk();else if(focus.kind==='zeus')zeusTalk();else if(focus.kind==='olyback')olyTravel(false);else if(focus.kind==='casaAgente')casaAgentTalk();else if(focus.kind==='tour')tourTalk();else if(focus.kind==='barcoW')barcoWright();else if(focus.kind==='barcoMat')barcoMat(focus);else if(focus.kind==='barcoMio')barcoMio();else if(focus.kind==='luna')moonAct(focus);else if(focus.kind==='casaPuerta')casaDoor();else if(focus.kind==='hogar')hogarAct(focus);else bark(focus);}
+function interact(){if(!focus)return;if(TUT.on&&focus.kind!=='sign')TUT.talked=true;if(focus.kind==='npc')openDialog(focus.data);else if(focus.kind==='god')openGod(focus);else if(focus.kind==='sign')readSign(focus);else if(focus.kind==='relief')openRelief(focus);else if(focus.kind==='captain')openVoyage(focus);else if(focus.kind==='sphere')openSphere(focus);else if(focus.kind==='story')storyHook('actor',focus.id);else if(focus.kind==='daedalo')daedalusTalk();else if(focus.kind==='fest')festDialog(focus.f);else if(focus.kind==='carro')carterTalk(focus);else if(focus.kind==='musa')museTalk(focus);else if(focus.kind==='mnemo')mnemoTalk();else if(focus.kind==='olygate')olyGateTalk();else if(focus.kind==='zeus')zeusTalk();else if(focus.kind==='olyback')olyTravel(false);else if(focus.kind==='casaAgente')casaAgentTalk();else if(focus.kind==='tour')tourTalk();else if(focus.kind==='barca')boatEnter(focus);else if(focus.kind==='barcoW')barcoWright();else if(focus.kind==='barcoMat')barcoMat(focus);else if(focus.kind==='barcoMio')barcoMio();else if(focus.kind==='luna')moonAct(focus);else if(focus.kind==='casaPuerta')casaDoor();else if(focus.kind==='hogar')hogarAct(focus);else bark(focus);}
 
 // ============================================================ bucle
 function resize(){const w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -10755,13 +10750,14 @@ function frame(now){
   if(ui==='sea'){seaTick(dt);return;}
   crossT+=dt;if(crossT>0.1){crossT=0;placeCross();}   // el punto de mira vuelve al centro (y el cursor reaparece) fuera del juego
   if(ui!=='start'){if(ui==='episode')clock.h=(clock.h+dt*clock.speed)%24;else addHours(dt*clock.speed);skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}
-  if(ui==='play'){
+  if(ui==='play'&&BOAT.on)boatTick(dt);
+  else if(ui==='play'){
     let f=(keys.w?1:0)-(keys.s?1:0)-joy.y,s=(keys.d?1:0)-(keys.a?1:0)+joy.x;const L=Math.hypot(f,s);if(L>1){f/=L;s/=L;}
     const sp=(FLY.on?(keys.run?30:15):(keys.run?11:4.8)*(MOUNT.riding?3*horseMul():1+0.01*(qLv('ar')-1)))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
-    const mx=(fx*f+rx*s)*sp,mz=(fz*f+rz*s)*sp;
+    const wk=inWaterK(),mx=(fx*f+rx*s)*sp*wk,mz=(fz*f+rz*s)*sp*wk;
     const mv=FLY.on?flyMove:tryMove;if(L>0.01){if(!mv(player.x+mx,player.z+mz)){mv(player.x+mx,player.z)||mv(player.x,player.z+mz);}}
   }
-  const fl=floorAt(player.x,player.z);
+  const fl=BOAT.on?BOAT.y:floorAt(player.x,player.z);
   if(FLY.on&&ui!=='play')FLY.on=false;
   if(FLY.on)player.vy=keys.jump?7:(keys.down?-9:-0.8);else player.vy-=16*dt;player.feet+=player.vy*dt;
   if(player.feet<=fl){player.feet=fl;player.vy=0;player.grounded=true;player.jumps=0;}
@@ -10799,20 +10795,20 @@ function frame(now){
   if(MODE==='roma')updateRome(dt,t);
   // paseantes
   for(const w of walkers){const g=w.g;
-    if(w.wait>0){w.wait-=dt;continue;}
+    if(w.wait>0){w.wait-=dt;if(w.moving){w.moving=false;personWalk(g,0,0);}continue;}
     let dx=w.tx-g.position.x,dz=w.tz-g.position.z,d=Math.hypot(dx,dz);
     if(d<0.5){if(w.mode==='agora'){const b=w.box||[AG.x-30,AG.x+90,AG.z-70,AG.z+45];w.tx=rr(b[0],b[1]);w.tz=rr(b[2],b[3]);w.wait=R()<0.4?rr(1,6):0;}
       else{const rd=g.userData.road;let sI=g.userData.seg+(g.userData.dir>0?1:0);if(sI<=0||sI>=rd.pts.length-1){g.userData.dir*=-1;}g.userData.seg=clamp(g.userData.seg+(g.userData.dir>0?1:-1),0,rd.pts.length-2);const tp=rd.pts[g.userData.dir>0?g.userData.seg+1:g.userData.seg];const off=(g.userData.dir>0?1:-1)*1.6;w.tx=tp[0]+off;w.tz=tp[1]+off;}
       continue;}
     const pd=Math.hypot(player.x-g.position.x,player.z-g.position.z);if(pd<1.4)continue;
     const st=Math.min(d,w.speed*dt);g.position.x+=dx/d*st;g.position.z+=dz/d*st;
-    g.position.y=terrainH(g.position.x,g.position.z)+Math.abs(Math.sin(t*6+w.phase))*0.04;
+    w.moving=true;w.ph=(w.ph===undefined?w.phase:w.ph)+st*4.6;g.position.y=terrainH(g.position.x,g.position.z)+Math.abs(Math.sin(w.ph))*0.045;
     const ta=Math.atan2(dx,dz);g.rotation.y+=wrapA(ta-g.rotation.y)*Math.min(1,dt*5);
-    const a=g.userData.arms;if(a){a[0].rotation.x=Math.sin(t*6+w.phase)*0.35;a[1].rotation.x=-Math.sin(t*6+w.phase)*0.35;}}
+    personWalk(g,w.ph,1);}
 
   if(ui==='play'){
     ft+=dt;if(ft>0.1){ft=0;focus=findFocus();const p=$('prompt');
-      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo'||focus.kind==='fest')?'Hablar con '+focus.data.name:focus.kind==='carro'?'Hablar con '+focus.data.name+', el carretero':(focus.kind==='musa'||focus.kind==='mnemo'||focus.kind==='zeus')?'Hablar con '+focus.data.name:focus.kind==='olygate'?'Examinar el sendero del Olimpo':focus.kind==='casaAgente'||focus.kind==='tour'||focus.kind==='barcoW'||(focus.kind==='luna'&&focus.act==='npc')?'Hablar con '+focus.data.name:focus.kind==='barcoMat'?'Examinar: '+focus.data.name:focus.kind==='barcoMio'?(barcoOwn()?'Subir al «'+barcoName()+'»':'Mirar el amarre'):focus.kind==='luna'?focus.data.name:focus.kind==='casaPuerta'?(cz().st>=3?'Entrar en tu casa':'Mirar la puerta'):focus.kind==='hogar'?(focus.act==='salir'?'Salir a la calle':'Usar: '+focus.data.name):focus.kind==='olyback'?'Bajar del Olimpo':'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
+      if(focus){const lab=focus.kind==='npc'?'Hablar con '+focus.data.name:focus.kind==='god'?'Hablar con '+focus.data.name:focus.kind==='sign'?'Leer: '+focus.data.name:focus.kind==='relief'?'Observar: '+focus.data.name:focus.kind==='sphere'?'Tocar la esfera: '+focus.data.name:focus.kind==='captain'?'Hablar con '+focus.data.name+', '+focus.data.role:(focus.kind==='story'||focus.kind==='daedalo'||focus.kind==='fest')?'Hablar con '+focus.data.name:focus.kind==='carro'?'Hablar con '+focus.data.name+', el carretero':(focus.kind==='musa'||focus.kind==='mnemo'||focus.kind==='zeus')?'Hablar con '+focus.data.name:focus.kind==='olygate'?'Examinar el sendero del Olimpo':focus.kind==='casaAgente'||focus.kind==='tour'||focus.kind==='barcoW'||(focus.kind==='luna'&&focus.act==='npc')?'Hablar con '+focus.data.name:focus.kind==='barcoMat'?'Examinar: '+focus.data.name:focus.kind==='barca'?'Subir a la barca':focus.kind==='barcoMio'?(barcoOwn()?'Subir al «'+barcoName()+'»':'Mirar el amarre'):focus.kind==='luna'?focus.data.name:focus.kind==='casaPuerta'?(cz().st>=3?'Entrar en tu casa':'Mirar la puerta'):focus.kind==='hogar'?(focus.act==='salir'?'Salir a la calle':'Usar: '+focus.data.name):focus.kind==='olyback'?'Bajar del Olimpo':'Escuchar';p.innerHTML='<kbd>'+(isTouch?'Hablar':'E')+'</kbd>'+lab;p.hidden=false;}
       else if(horseNear()){p.innerHTML='<kbd>'+(isTouch?'Caballo':'H')+'</kbd>Montar el caballo';p.hidden=false;}
       else p.hidden=true;}
     zt+=dt;if(zt>0.5){zt=0;checkZone();checkGodQuests();}
@@ -11276,7 +11272,7 @@ function netSay(who,txt){if(!txt)return;NET.log.push([who,txt]);if(NET.log.lengt
 function netChatOpen(){const i=$('netIn');i.hidden=false;i.value='';releasePointer();setTimeout(()=>i.focus(),20);}
 function netTick(dt){const r=NET.room;if(!r)return;NET.t+=dt;
   if(NET.t>0.12){NET.t=0;netPresence(false);for(const p of r.peers())if(!p.sameTab)netAvatar(p);}
-  const k=Math.min(1,dt*8);for(const a of NET.av.values()){if(a.tx===undefined)continue;a.x+=(a.tx-a.x)*k;a.z+=(a.tz-a.z)*k;a.y+=(a.ty-a.y)*k;
+  const k=Math.min(1,dt*8);for(const a of NET.av.values()){if(a.tx===undefined)continue;const mvd=Math.hypot((a.tx-a.x)*k,(a.tz-a.z)*k);a.ph=(a.ph||0)+mvd*4.6;personWalk(a.g,a.ph,mvd/Math.max(dt,1e-3)>0.3?1:0);a.x+=(a.tx-a.x)*k;a.z+=(a.tz-a.z)*k;a.y+=(a.ty-a.y)*k;
     let d=a.tyaw-a.yaw;d=Math.atan2(Math.sin(d),Math.cos(d));a.yaw+=d*k;a.g.position.set(a.x,a.y,a.z);a.g.rotation.y=a.yaw+Math.PI;
     a.lb.visible=Math.hypot(a.x-player.x,a.z-player.z)<40;}
 }
@@ -13341,7 +13337,7 @@ function riverBanks(pts,w,nReeds,nTrees,kind){const reeds=[],trees=[],q=new THRE
   if(trees.length&&GLB.ok)treesGLB(trees);}
 function outsideWalls(pts){return pts.map(p=>{let[x,z]=p;for(let k=0;k<60&&insideWalls(x,z,-14);k++){const dx=x-WALLC.x,dz=z-WALLC.z,l=Math.hypot(dx,dz)||1;x+=dx/l*4;z+=dz/l*4;}return[x,z];});}
 function waterUntilSea(pts){const o=[];for(const p of pts){o.push(p);if(terrainH(p[0],p[1])<0.2)break;}return o;}
-const GRIV={paths:{},grid:new Set(),G:16};
+const GRIV={paths:{},rv:{},grid:new Set(),G:16};
 function traceRiver(way,step){const out=[way[0].slice()];let p=way[0].slice(),prev=null;
   for(let w=1;w<way.length;w++){const b=way[w];for(let n=0;n<600;n++){const dx=b[0]-p[0],dz=b[1]-p[1],d=Math.hypot(dx,dz);if(d<step*1.5)break;const th0=Math.atan2(dz,dx);let best=null,bc=1e9;
       for(let k=-4;k<=4;k++){const th=th0+k*Math.PI/14,q=[p[0]+Math.cos(th)*step,p[1]+Math.sin(th)*step];let c=terrainH(q[0],q[1])+Math.abs(k)*0.9;if(insideWalls(q[0],q[1],-16))c+=1e4;if(prev&&Math.hypot(q[0]-prev[0],q[1]-prev[1])<step*0.6)c+=50;if(c<bc){bc=c;best=q;}}
@@ -13350,40 +13346,118 @@ function traceRiver(way,step){const out=[way[0].slice()];let p=way[0].slice(),pr
 function smoothPts(pts,it){let a=pts;for(let k=0;k<(it||2);k++)a=a.map((p,i)=>i===0||i===a.length-1?p:[(a[i-1][0]+p[0]*2+a[i+1][0])/4,(a[i-1][1]+p[1]*2+a[i+1][1])/4]);return a;}
 function markRiver(pts,w){const G=GRIV.G;for(const p of pts)for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++){const x=p[0]+i*(w/2+6),z=p[1]+j*(w/2+6);GRIV.grid.add(Math.floor(x/G)+','+Math.floor(z/G));}}
 function nearRiver(x,z){return GRIV.grid.size>0&&GRIV.grid.has(Math.floor(x/GRIV.G)+','+Math.floor(z/GRIV.G));}
-function defineRiversGR(){if(MODE!=='atenas')return;const P=id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},ol=P('olimpieion')||[195,203],ly=P('liceo')||[654,-106],ac=P('academia')||[-1116,-1179];
-  GRIV.paths.il=smoothPts(traceRiver([[ly[0]+300,ly[1]-520],[ly[0]-10,ly[1]+90],[ol[0]+40,ol[1]+130],[ol[0]-650,ol[1]+950]],8),3);markRiver(GRIV.paths.il,13);
-  GRIV.paths.cf=smoothPts(traceRiver([[ac[0]-160,ac[1]-280],[ac[0]-190,ac[1]+400],[ac[0]+40,ac[1]+1500],[ac[0]+420,ac[1]+2200]],8),3);markRiver(GRIV.paths.cf,16);}
+function defineRiversGR(){if(MODE!=='atenas')return;const ol=[195,203],ly=[654,-106],ac=[-1116,-1179],ce=[-759,-787];
+  GRIV.paths.il=smoothPts(traceRiver([[ly[0]+300,ly[1]-520],[ly[0]-10,ly[1]+90],[ol[0]+40,ol[1]+130],[ol[0]-650,ol[1]+950]],8),3);markRiver(GRIV.paths.il,13);GRIV.rv.il=addRiver(waterUntilSea(GRIV.paths.il),7,{dep:2.2,name:'El Iliso'});
+  GRIV.paths.cf=smoothPts(traceRiver([[ac[0]-160,ac[1]-280],[ac[0]-190,ac[1]+400],[ac[0]+40,ac[1]+1500],[ac[0]+420,ac[1]+2200]],8),3);markRiver(GRIV.paths.cf,16);GRIV.rv.cf=addRiver(waterUntilSea(GRIV.paths.cf),12,{dep:2.6,boat:true,name:'El Cefiso'});
+  GRIV.paths.er=outsideWalls(polyPts([[ce[0]+90,ce[1]+70],[ce[0]+10,ce[1]+20],[ce[0]-110,ce[1]-30],[ce[0]-260,ce[1]-20],[ce[0]-420,ce[1]+40],[ce[0]-520,ce[1]+60]],5));markRiver(GRIV.paths.er,8);GRIV.rv.er=addRiver(GRIV.paths.er,4,{dep:1.4,name:'El Erídano'});}
 function buildGeoGR(){
   // ---- Atenas: el Iliso, del Himeto al Falero, pasando al sur del Liceo y del Olimpieion; el Erídano por el Cerámico; el Cefiso junto a la Academia
   {const P=id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},ol=P('olimpieion')||[195,203],ly=P('liceo')||[654,-106],ce=P('ceramico')||[-759,-787],ac=P('academia')||[-1116,-1179];
    const il=waterUntilSea(GRIV.paths.il||[]);
-   ribbon(il,13,'#9a8c6c',0.12,false);ribbon(il,5,'#4f8a96',0.2,true);riverBanks(il,13,520,26,'plane');
+   riverBanks(il,11,520,26,'plane');
    place('iliso','El Iliso','ΙΛΙΣΟΣ','El río de Atenas por excelencia: baja del Himeto, pasa junto al Liceo y al sur del Olimpieion, y va a morir hacia el Falero. Casi todo el año es un hilo de agua entre piedras, a la sombra de plátanos y cañas. En sus orillas, cuenta Pausanias, el viento Bóreas raptó a Oritía, la hija del rey Erecteo, mientras jugaba; por eso Bóreas, emparentado con los atenienses, hundió las naves persas. Junto al río hay un altar de las Musas Ilisíadas, y al otro lado, en Agras, el templo de Ártemis Agrótera, la cazadora. Platón escribirá dentro de unos años el Fedro: Sócrates y Fedro caminan descalzos por el agua y se sientan a hablar del amor bajo un plátano alto, junto a un sauzgatillo en flor, mientras cantan las cigarras.',...(()=>{const k=Math.min(il.length-2,Math.round(il.length*0.45)),a=il[k],b=il[k+1],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1;return[a[0]-dz/l*16,a[1]+dx/l*16];})(),0);
-   const er=outsideWalls(polyPts([[ce[0]+90,ce[1]+70],[ce[0]+10,ce[1]+20],[ce[0]-110,ce[1]-30],[ce[0]-260,ce[1]-20],[ce[0]-420,ce[1]+40],[ce[0]-520,ce[1]+60]],5));
-   ribbon(er,7,'#9a8c6c',0.12,false);ribbon(er,3,'#4f8a96',0.2,true);riverBanks(er,7,220,6,'plane');
+   const er=GRIV.paths.er||[];riverBanks(er,6,220,6,'plane');
    place('eridano','El Erídano','ΗΡΙΔΑΝΟΣ','Un arroyo que baja de las laderas del Licabeto, cruza la ciudad casi escondido y sale por el Cerámico, el barrio de los alfareros, junto a la Puerta Sagrada. Se llama como el gran río de los celtas, el Erídano, donde, según el mito, las hermanas de Faetón lloran por él convertidas en álamos, y sus lágrimas se vuelven ámbar. Pausanias dirá que desemboca en el Iliso; en realidad corre hacia el Cefiso.',er[8][0],er[8][1]+12,0);
    const cf=waterUntilSea(GRIV.paths.cf||[]);
-   ribbon(cf,16,'#9a8c6c',0.12,false);ribbon(cf,7,'#4f8a96',0.2,true);riverBanks(cf,16,460,30,'plane');
+   riverBanks(cf,18,460,30,'plane');
    place('cefiso','El Cefiso','ΚΗΦΙΣΟΣ','El mayor río de la llanura de Atenas. Baja del Parnes, riega los olivos sagrados de la Academia y el jardín de Colono, y desemboca en la bahía del Falero. Sófocles, que nació en Colono, le cantó en su última tragedia: un río que nunca se seca. La Vía Sagrada lo cruza camino de Eleusis; allí, dice Pausanias, los descendientes de Fítalo purificaron a Teseo de la sangre de los bandidos que había matado por el camino, y Deméter regaló a Fítalo la primera higuera.',cf[Math.min(60,cf.length-1)][0]+14,cf[Math.min(60,cf.length-1)][1],Math.PI/2);}
   const G=id=>ISLANDS.find(I=>I.id===id);
   // ---- Olimpia: el Cladeo baja del norte y se une al Alfeo; el monte Cronio
   {const I=G('olimpia');if(I&&I.altis){const A=I.altis,kx=A.x-250,cl=polyPts([[kx+30,I.z-I.R*1.15],[kx,A.z-200],[kx-15,A.z],[kx+10,A.z+150],[kx+40,A.z+232]],6);
-    ribbon(cl,12,'#9a8c6c',0.12,false);ribbon(cl,6,'#4f8a96',0.3,true);riverBanks(cl,12,260,14,'plane');
+    addRiver(cl,8,{dep:1.8,name:'El Cladeo'});riverBanks(cl,12,260,14,'plane');
     place('cladeo','El Cladeo','ΚΛΑΔΕΟΣ','El Cladeo baja desde Élide y bordea Olimpia por el oeste antes de juntarse con el Alfeo. Es el río que más honran los eleos después del Alfeo: tiene su altar detrás del Hereo, y en el frontón este del templo de Zeus, en los extremos, los dos ríos aparecen tumbados, como dos hombres que miran la carrera de carros de Pélope.',kx+16,A.z-40,-Math.PI/2);
     place('alfeo','El Alfeo','ΑΛΦΕΙΟΣ','El gran río del Peloponeso, que recoge el agua de siete ríos de Arcadia y de la Élide. Cuenta la leyenda que Alfeo era un cazador enamorado de la cazadora Aretusa; ella, que no quería casarse, huyó hasta la isla de Ortigia, en Siracusa, y se convirtió en fuente, y él, convertido en río, cruza el mar por debajo para mezclar sus aguas con las de ella. Pausanias dice que esto último no lo pone en duda. Una ley de los eleos manda despeñar desde el monte Tipeo a las mujeres casadas que crucen el Alfeo en los días de los Juegos.',A.x+60,A.z+205,Math.PI);
     place('cronio','El monte Cronio','ΚΡΟΝΙΟΝ','La colina cubierta de pinos que cierra el santuario por el norte, consagrada a Crono, el padre de Zeus. A su pie se alinean los tesoros de las ciudades. En la cumbre, cuenta Pausanias, unos sacerdotes llamados Básilas, «los reyes», sacrifican a Crono en el equinoccio de primavera.',A.x-40,A.z-126,0);}}
   // ---- Argos: el Ínaco, un cauce ancho y casi siempre seco
   {const I=G('argos');if(I&&I.town){const x0=I.x+270,ina=polyPts([[x0,I.z-I.R*1.15],[x0-30,I.z-150],[x0+10,I.z+80],[x0-20,I.z+300],[x0+10,I.z+I.R*1.15]],6);
-    ribbon(ina,24,'#b4a684',0.12,false);ribbon(ina,3,'#6a9aa0',0.22,true);riverBanks(ina,24,140,6,'plane');
+    addRiver(ina,18,{dry:true,name:'El Ínaco'});riverBanks(ina,22,140,6,'plane');
     place('inaco','El Ínaco','ΙΝΑΧΟΣ','El río de Argos: un cauce ancho de grava y adelfas por el que casi nunca corre agua. Ínaco fue, según el mito, el primer rey de la Argólide. Cuando Poseidón y Hera se disputaron esta tierra, Ínaco y otros dos ríos hicieron de jueces y se la dieron a Hera; Poseidón, ofendido, les quitó el agua. Por eso, dice Pausanias, el Ínaco solo lleva agua cuando llueve. Su hija Ío fue amada por Zeus y convertida en vaca.',x0-30,I.z+40,-Math.PI/2);}}
   // ---- Itome: la fuente Clepsidra en la subida al santuario y el Pamiso en la llanura
   {const I=G('itome');if(I&&I.site){const s=I.site,fx=s.x+14,fz=s.z+22,fy=floorAt(fx,fz),fg=grp(fx,fy,fz,0),st=lam('#cbbf9f');box(3.2,0.7,1.8,st,0,0.35,0,fg);box(3.2,1.8,0.4,st,0,0.9,-1,fg);const w=new THREE.Mesh(new THREE.PlaneGeometry(2.8,1.4),new THREE.MeshPhongMaterial({color:'#4f8a96',shininess:90}));w.rotation.x=-Math.PI/2;w.position.y=0.66;fg.add(w);addBox(fx,fz,3.2,1.8,0);
     place('clepsidra','La fuente Clepsidra','ΚΛΕΨΥΔΡΑ','En la subida a la cima del Itome mana la Clepsidra. Los mesenios dicen que aquí las ninfas Itome y Neda bañaron a Zeus recién nacido, después de que los Curetes lo robaran para esconderlo de su padre Crono: de ese robo viene el nombre, «la que roba el agua». Cada día se sube agua de esta fuente al santuario de Zeus Itomatas.',fx+3,fz+3,0);
-    const pz=I.z+330,pa=polyPts([[I.x-I.R*1.15,pz+40],[I.x-200,pz],[I.x,pz+30],[I.x+220,pz-10],[I.x+I.R*1.15,pz+30]],6);ribbon(pa,18,'#9a8c6c',0.12,false);ribbon(pa,11,'#4f8a96',0.22,true);riverBanks(pa,18,240,10,'plane');
+    const pz=I.z+330,pa=polyPts([[I.x-I.R*1.15,pz+40],[I.x-200,pz],[I.x,pz+30],[I.x+220,pz-10],[I.x+I.R*1.15,pz+30]],6);addRiver(pa,14,{dep:2.4,boat:true,name:'El Pamiso'});riverBanks(pa,22,240,10,'plane');
     place('pamiso','El Pamiso','ΠΑΜΙΣΟΣ','El río de la llanura de Mesenia, la más fértil del Peloponeso, que los espartanos tienen sometida y trabajan los hilotas. Sus aguas son puras, dice Pausanias, corren entre campos cultivados y desde el mar suben barcos río arriba. En sus fuentes se curan los niños pequeños.',I.x,pz-22,0);}}
   // ---- Corinto: el puerto de Lequeo, en el golfo de Corinto
   {const I=G('corinto');if(I&&I.town){const sh=shoreAlong(I.x-60,I.z,0,-1,800);place('lequeo','Lequeo y Céncreas','ΛΕΧΑΙΟΝ','Corinto tiene dos puertos, uno en cada mar: Lequeo, aquí al norte, en el golfo de Corinto, que mira a Italia y a Sicilia, y Céncreas, al otro lado del Istmo, en el golfo Sarónico, que mira a Asia. Por eso la llaman «la de los dos mares». Las mercancías pasan de un puerto a otro, y los barcos pequeños se arrastran enteros por el diolkos. Una calle recta, la de Lequeo, sube desde el puerto hasta el ágora.',sh[0],sh[1]+6,Math.PI);}}
 }
+// ---- ríos excavados: cada río se registra (addRiver), se excava en el terreno (carveH, también en la malla ya hecha), lleva el agua a un nivel que siempre baja
+// y, si es ancho, tiene un embarcadero con barca para surcarlo. En el agua se vadea; en lo hondo se nada, más despacio.
+const CARVE={rivers:[],grid:new Map(),G:24};let GRIDOFF=false;
+function carveCells(x0,z0,x1,z1,f){const G=CARVE.G;for(let i=Math.floor(Math.min(x0,x1)/G);i<=Math.floor(Math.max(x0,x1)/G);i++)for(let j=Math.floor(Math.min(z0,z1)/G);j<=Math.floor(Math.max(z0,z1)/G);j++)f(i+','+j);}
+function segQ(r,si,x,z){const a=r.pts[si],b=r.pts[si+1],dx=b[0]-a[0],dz=b[1]-a[1],l2=dx*dx+dz*dz||1;let t=((x-a[0])*dx+(z-a[1])*dz)/l2;t=t<0?0:t>1?1:t;const px=a[0]+dx*t,pz=a[1]+dz*t;return{d:Math.hypot(x-px,z-pz),t};}
+function carveH(x,z,h){if(!CARVE.rivers.length)return h;const L=CARVE.grid.get(Math.floor(x/CARVE.G)+','+Math.floor(z/CARVE.G));if(!L)return h;
+  for(const[ri,si]of L){const r=CARVE.rivers[ri],q=segQ(r,si,x,z),hw=r.w/2;if(q.d>r.reach)continue;const lv=r.L[si]+(r.L[si+1]-r.L[si])*q.t,dep=r.dep;
+    const pr=q.d<hw?-dep+dep*0.35*(q.d/hw)*(q.d/hw):-dep*0.65+(q.d-hw)*0.55;const tg=lv+pr;if(tg<h)h=tg;}return h;}
+function riverWater(x,z){if(!CARVE.rivers.length)return null;const L=CARVE.grid.get(Math.floor(x/CARVE.G)+','+Math.floor(z/CARVE.G));if(!L)return null;let w=null;
+  for(const[ri,si]of L){const r=CARVE.rivers[ri];if(r.dry)continue;const q=segQ(r,si,x,z);if(q.d<r.w/2+r.wet){const lv=r.L[si]+(r.L[si+1]-r.L[si])*q.t-0.25;if(w===null||lv>w)w=lv;}}return w;}
+function inWaterK(){if(BOAT.on||FLY.on)return 1;const w=riverWater(player.x,player.z);if(w===null)return 1;const d=w-terrainH(player.x,player.z);return d>1.2?0.42:d>0.35?0.65:1;}
+function uncarvedH(x,z){const s=CARVE.rivers;CARVE.rivers=[];GRIDOFF=true;const h=terrainH0(x,z);GRIDOFF=false;CARVE.rivers=s;return h;}
+function addRiver(pts,w,opt){opt=opt||{};if(!pts||pts.length<2)return null;const dry=!!opt.dry,dep=opt.dep||(dry?1.1:Math.min(3.2,Math.max(1.5,1.1+w*0.06)));
+  const wet0=(dep*0.65-0.25)/0.55,off=w/2+wet0+1.5,h0=pts.map((p,i)=>{const a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l,nz=dx/l;return Math.min(uncarvedH(p[0],p[1]),uncarvedH(p[0]+nx*off,p[1]+nz*off),uncarvedH(p[0]-nx*off,p[1]-nz*off));}),L=[];let cut=pts.length;
+  for(let i=0;i<pts.length;i++){let lv=h0[i]-0.4;if(i)lv=Math.min(lv,L[i-1]);lv=Math.max(lv,-1);L.push(lv);if(i>3&&h0[i]-lv>10){cut=i;break;}}
+  pts=pts.slice(0,cut);L.length=pts.length;if(pts.length<2)return null;
+  const wet=(dep*0.65-0.25)/0.55,reach=w/2+Math.min(40,(Math.max(...h0.slice(0,pts.length).map((h,i)=>h-L[i]))+dep)/0.55+2);
+  const r={pts,w,dep,L,dry,wet,reach,name:opt.name||'',boat:opt.boat},ri=CARVE.rivers.length;CARVE.rivers.push(r);
+  for(let si=0;si<pts.length-1;si++){const a=pts[si],b=pts[si+1];carveCells(Math.min(a[0],b[0])-reach,Math.min(a[1],b[1])-reach,Math.max(a[0],b[0])+reach,Math.max(a[1],b[1])+reach,k=>{let A=CARVE.grid.get(k);if(!A){A=[];CARVE.grid.set(k,A);}A.push([ri,si]);});}
+  r.S=[0];for(let i=1;i<pts.length;i++)r.S.push(r.S[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
+  // si el terreno ya está construido (destinos), se excava también la malla
+  if(pts[0][0]>8000){const I=islandOf(pts[0][0]);if(I&&I.mesh)recarveIsland(I,pts,reach);}
+  // el agua
+  if(!opt.noWater){const pos=[],idx=[];let k=0;const ww=dry?2.2:w+wet*2+0.6;
+    for(let i=0;i<pts.length;i++){const a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l,nz=dx/l,p=pts[i],y=L[i]-(dry?0.85:0.25);
+      for(const s of[-1,1])pos.push(p[0]+nx*ww/2*s,y,p[1]+nz*ww/2*s);if(i)idx.push(k-2,k-1,k,k-1,k+1,k);k+=2;}
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
+    const m=new THREE.Mesh(g,new THREE.MeshPhongMaterial({color:opt.color||'#3f7f8c',shininess:90,specular:'#a8cad4',transparent:true,opacity:0.88,side:THREE.DoubleSide}));m.renderOrder=1;scene.add(m);r.mesh=m;}
+  if(!dry&&(opt.boat||w>=16))buildDock(r);
+  return r;}
+function recarveIsland(I,pts,reach){const g=I.mesh.geometry,pos=g.attributes.position,col=g.attributes.color,G=I.grid;if(!G)return;
+  let x0=1e9,z0=1e9,x1=-1e9,z1=-1e9;for(const p of pts){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);z0=Math.min(z0,p[1]);z1=Math.max(z1,p[1]);}x0-=reach;z0-=reach;x1+=reach;z1+=reach;
+  const mud=new THREE.Color('#8a7d5e'),c=new THREE.Color();GRIDOFF=true;
+  const i0=Math.max(0,Math.floor((x0-G.x0)/G.step)),i1=Math.min(G.n,Math.ceil((x1-G.x0)/G.step)),j0=Math.max(0,Math.floor((z0-G.z0)/G.step)),j1=Math.min(G.n,Math.ceil((z1-G.z0)/G.step));
+  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const k=j*(G.n+1)+i,x=pos.getX(k),z=pos.getZ(k),old=pos.getY(k),h=Math.min(old,islandH(x,z));if(h<old-0.05){pos.setY(k,h);G.H[k]=h;c.setRGB(col.getX(k),col.getY(k),col.getZ(k)).lerp(mud,Math.min(1,(old-h)/2.5));col.setXYZ(k,c.r,c.g,c.b);}}
+  GRIDOFF=false;pos.needsUpdate=true;col.needsUpdate=true;g.computeVertexNormals();}
+// la malla y el suelo de los destinos coinciden: el suelo se lee de la misma rejilla de triángulos que se dibuja
+function gridSet(I,g,S,seg){const pos=g.attributes.position,H=new Float32Array(pos.count);for(let i=0;i<pos.count;i++)H[i]=pos.getY(i);I.grid={x0:I.x-S/2,z0:I.z-S/2,step:S/seg,n:seg,H};}
+function gridH(I,x,z){const G=I.grid,u=(x-G.x0)/G.step,v=(z-G.z0)/G.step;if(u<0||v<0||u>=G.n||v>=G.n)return null;const ix=Math.floor(u),iy=Math.floor(v),fu=u-ix,fv=v-iy,N=G.n+1,H=G.H;
+  const a=H[iy*N+ix],b=H[(iy+1)*N+ix],c=H[(iy+1)*N+ix+1],d=H[iy*N+ix+1];return fu+fv<=1?a+(d-a)*fu+(b-a)*fv:c+(b-c)*(1-fu)+(d-c)*(1-fv);}
+// ---- barcas: un embarcadero en los ríos anchos; W/S para remar río arriba o abajo, A/D para acercarse a una orilla, E para bajar
+const BOAT={on:false,r:null,s:0,lat:0,y:0,g:null,docks:[]};
+function boatMesh(){const g=new THREE.Group(),w=lam('#6b4a30'),d=lam('#4a3220');box(1.9,0.5,5.2,w,0,0.25,0,g);box(1.5,0.12,4.6,d,0,0.52,0,g);const pr=new THREE.Mesh(new THREE.ConeGeometry(0.95,1.4,4),w);pr.rotation.x=Math.PI/2;pr.rotation.y=Math.PI/4;pr.scale.set(1,1,0.36);pr.position.set(0,0.3,3.2);g.add(pr);
+  box(1.7,0.1,0.35,w,0,0.62,-0.8,g);for(const s of[-1,1]){const o=box(0.08,0.08,3,w,s*1.2,0.65,0.2,g);o.rotation.y=s*0.35;}scene.add(g);return g;}
+function riverAt(r,s){let i=1;while(i<r.S.length-1&&r.S[i]<s)i++;const a=r.pts[i-1],b=r.pts[i],t=(s-r.S[i-1])/((r.S[i]-r.S[i-1])||1),dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1;return{x:a[0]+dx*t,z:a[1]+dz*t,tx:dx/l,tz:dz/l,lv:r.L[i-1]+(r.L[i]-r.L[i-1])*t};}
+function buildDock(r){const s=r.S[r.S.length-1]*0.42,P=riverAt(r,s);let best=null;for(const sg of[1,-1]){const bx=P.x-P.tz*sg*(r.w/2+r.wet+4),bz=P.z+P.tx*sg*(r.w/2+r.wet+4);if(isFree(bx,bz,1)){best={bx,bz,sg};break;}}
+  if(!best)best={bx:P.x-P.tz*(r.w/2+r.wet+4),bz:P.z+P.tx*(r.w/2+r.wet+4),sg:1};const by=terrainH(best.bx,best.bz);
+  const pl=grp(best.bx,0,best.bz,Math.atan2(-P.tz*best.sg,P.tx*best.sg));const len=r.wet+5;box(len,0.2,2,lam('#7a5a3a'),len/2-2,Math.max(by,P.lv)+0.15,0,pl);for(let k=0;k<3;k++)for(const s of[-0.9,0.9])box(0.18,3,0.18,lam('#5a4028'),k*len/3,Math.max(by,P.lv)-1.2,s,pl);
+  const bg=boatMesh(),bxp=P.x-P.tz*best.sg*(r.w/2-1.6),bzp=P.z+P.tx*best.sg*(r.w/2-1.6);bg.position.set(bxp,P.lv-0.4,bzp);bg.rotation.y=Math.atan2(P.tx,P.tz);
+  const lb=labelSprite('Barca de río',(r.name?r.name+' · ':'')+'remar río arriba y abajo',false);lb.position.y=2.2;lb.visible=false;bg.add(lb);
+  const D={kind:'barca',x:best.bx,z:best.bz,lb,data:{name:'Barca de río',role:''},r,s,lat:best.sg*(r.w/2-1.6),g:bg,home:{x:bxp,y:P.lv-0.4,z:bzp,a:bg.rotation.y}};BOAT.docks.push(D);r.dock=D;}
+function boatEnter(D){if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}FLY.on=false;Object.assign(BOAT,{on:true,r:D.r,s:D.s,lat:D.lat,g:D.g,D});D.lb.visible=false;
+  toast('<span class="label">'+(D.r.name||'El río')+'</span><br><b>W</b>/<b>S</b>: remar río arriba o abajo · <b>A</b>/<b>D</b>: hacia una orilla · <b>E</b>: bajar a tierra.');boatTick(0);}
+function boatTick(dt){const r=BOAT.r,f=(keys.w?1:0)-(keys.s?1:0)-joy.y,sd=(keys.d?1:0)-(keys.a?1:0)+joy.x,sp=keys.run?8:4.2,Lmax=r.S[r.S.length-1];
+  let P=riverAt(r,BOAT.s);const fwd=-Math.sin(player.yaw)*P.tx-Math.cos(player.yaw)*P.tz,dir=fwd>=0?1:-1;   // «adelante» es hacia donde miras
+  BOAT.s=clamp(BOAT.s+f*dir*sp*dt,3,Lmax-3);P=riverAt(r,BOAT.s);const rgt=Math.cos(player.yaw)*(-P.tz)+(-Math.sin(player.yaw))*P.tx;BOAT.lat=clamp(BOAT.lat+sd*(rgt>=0?1:-1)*2.5*dt,-(r.w/2-1.3),r.w/2-1.3);
+  const x=P.x-P.tz*BOAT.lat,z=P.z+P.tx*BOAT.lat,t=performance.now()/1000;BOAT.y=P.lv-0.4+Math.sin(t*1.7)*0.04;BOAT.g.position.set(x,BOAT.y,z);BOAT.g.rotation.y=Math.atan2(P.tx,P.tz)+(f*dir<0?Math.PI:0)*0;BOAT.g.rotation.z=Math.sin(t*1.3)*0.025;
+  player.x=x;player.z=z;player.feet=BOAT.y+0.55;BOAT.y=player.feet;player.vy=0;}
+function boatExit(){const r=BOAT.r,P=riverAt(r,BOAT.s),sg=BOAT.lat>=0?1:-1;let tx=P.x-P.tz*sg*(r.w/2+r.wet+2.5),tz=P.z+P.tx*sg*(r.w/2+r.wet+2.5);const f=findFree(tx,tz,0.6);
+  player.x=f[0];player.z=f[1];player.feet=floorAt(f[0],f[1]);player.vy=0;BOAT.on=false;const D=BOAT.D,H=D.home;D.g.position.set(H.x,H.y,H.z);D.g.rotation.set(0,H.a,0);toast('Bajas a la orilla. El barquero devolverá la barca al embarcadero.');}
+// ---- andar natural: pies y piernas partidos en izquierda y derecha, con la articulación en la cadera; brazos y piernas en contrafase,
+// vaivén del cuerpo y rebote; el ritmo depende de la distancia recorrida, así los pies no patinan
+const LEG_SPLIT={},HIP_Y=0.9;
+function splitGeo(geo,mat,side){const src=geo.index?geo.toNonIndexed():geo,P=src.attributes.position,v=new THREE.Vector3(),keep=[];
+  for(let i=0;i<P.count;i+=3){let cx=0;for(let k=0;k<3;k++){v.fromBufferAttribute(P,i+k).applyMatrix4(mat);cx+=v.x;}if((cx<0)===(side<0))keep.push(i);}
+  const g=new THREE.BufferGeometry();for(const name in src.attributes){const A=src.attributes[name],n=A.itemSize,arr=new Float32Array(keep.length*3*n);let o=0;
+    for(const i of keep)for(let k=0;k<3;k++){for(let c=0;c<n;c++)arr[o++]=A.array[(i+k)*n+c];}g.setAttribute(name,new THREE.BufferAttribute(arr,n));}
+  g.applyMatrix4(mat);g.translate(0,-HIP_Y,0);g.computeBoundingSphere();return g;}
+function legPart(name,side){const k=name+side;if(LEG_SPLIT[k])return LEG_SPLIT[k];const P=GLB.parts[name];if(!P)return null;bakePersonAO(P);
+  return LEG_SPLIT[k]=P.meshes.map(m=>({geo:splitGeo(m.geo,m.mat,side),role:m.role}));}
+function personLegs(g,short,ro){const root=new THREE.Group();g.add(root);const legs=[];
+  for(const side of[-1,1]){const piv=new THREE.Group();piv.position.set(0,HIP_Y,0);root.add(piv);
+    for(const nm of short?['P_feet','P_legs']:['P_feet']){const L=legPart(nm,side);if(!L)continue;for(const m of L){const me=new THREE.Mesh(m.geo,(ro&&ro[m.role])||lam(ROLE_C[m.role]||'#999999'));me.castShadow=true;piv.add(me);}}
+    legs.push(piv);}
+  g.userData.legs=legs;g.userData.legAmp=short?0.42:0.15;return root;}
+// amp: 0 quieto … 1 paso normal; ph: fase del paso
+function personWalk(g,ph,amp){const u=g.userData,s=Math.sin(ph)*amp;if(u.legs){const la=u.legAmp||0.42;u.legs[0].rotation.x=-s*la;u.legs[1].rotation.x=s*la;}
+  if(u.arms&&!u.armsBusy){u.arms[0].rotation.x=s*0.38;u.arms[1].rotation.x=-s*0.38;}g.rotation.z=Math.sin(ph)*0.025*amp;}
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -13449,6 +13523,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>

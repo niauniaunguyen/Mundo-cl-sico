@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 56). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 57). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,23 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 57: ríos excavados y navegables, suelo igual a la malla, andar natural
+- **Ríos.** `addRiver(pts,w,opt)` registra cada río en `CARVE` (rejilla de 24 m) y lo excava.
+  - `carveH` actúa en `terrainH0` en el mapa de Atenas y en `islandBase` en los destinos. Perfil: lecho, orillas con pendiente 0,55 y nivel de agua `L` que siempre baja (mínimo acumulado de la orilla más baja de cada sección). El río se corta si el cauce queda más de 10 m por debajo.
+  - Si la malla del destino ya existe, `recarveIsland` la excava y la pinta de barro.
+  - `riverRibbon` llama ahora a `addRiver`, así que el Eurotas, el Escamandro, el Ofis, el Alfeo y los ríos de Roma están excavados. En Mantinea el Ofis queda bajo la explanada de la ciudad.
+  - Los ríos de Atenas (`defineRiversGR`) se registran antes de `buildTerrain`, con coordenadas fijas.
+  - El Eurotas ya no tiene paredes invisibles.
+  - `floorAt` incluye `riverWater`: en lo hondo el suelo es el agua −1,25 m (se nada con la cabeza fuera). `inWaterK` frena al jugador en el agua.
+  - `treesGLB` no planta árboles en el agua.
+- **Barcas.** Los ríos de 16 m o más, el Cefiso y el Pamiso tienen embarcadero y barca (`buildDock`). `boatEnter`/`boatTick`/`boatExit`: W/S reman en la dirección en la que se mira, A/D llevan hacia una orilla, E baja a tierra. El bucle principal usa `BOAT.y` como suelo.
+- **Suelo igual a la malla.** `buildIslandMesh` guarda la rejilla (`gridSet`), e `islandH` la interpola con los mismos triángulos (`gridH`). En Cartago la diferencia medida es 0,00 m. Además, la ciudad baja de Cartago ya no se solapa con la Byrsa.
+- **Andar.**
+  - `personLegs` parte `P_feet` y `P_legs` en izquierda y derecha (`splitGeo`) con la articulación en la cadera (`HIP_Y`), en `children[0]`.
+  - `personWalk(g,fase,amp)` mueve piernas y brazos en contrafase y balancea un poco el cuerpo. La zancada es menor con ropa larga (`legAmp` 0,15 frente a 0,42).
+  - La fase avanza con la distancia recorrida. Se aplica a los caminantes, al avatar en tercera persona y a los jugadores en línea.
+- Accesibilidad: 264 objetivos en Atenas y 205 en Roma.
 
 ### Novedades de la versión 56: ríos y geografía (Pausanias I-VI y el Penguin Historical Atlas)
 - Las fuentes se extrajeron en carpetas aisladas: Pausanias desde los epub; el atlas, que es un PDF escaneado sin texto, se consultó por sus páginas de mapas (Esparta y Tebas, 396-362).
