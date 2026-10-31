@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 66). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 67). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -52,6 +52,34 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Traducciones en pausa (desde la versión 33)
 - Por decisión del usuario, **los textos nuevos no se traducen** hasta que lo pida. Lo pendiente se lista con `python3 fuente/i18n.py pendientes` (escribe `fuente/i18n/pendientes.md`); mientras tanto, en catalán e inglés esos textos salen en castellano.
+
+### Novedades de la versión 67: fidelidad histórica de las polis, de Roma y de las provincias
+
+Se revisaron las estelas y los personajes de Tebas, Esparta, Corinto, Argos, Mégara, Delfos, Olimpia, Mantinea, Platea y Micenas, y en el modo Roma los de la propia Roma, Etruria (Tarquinii), Hispania y la Galia. Se cotejaron con Pausanias I-VI (el texto está en `geo_out`), Tucídides, Jenofonte (Helénicas y Constitución de los lacedemonios), Estrabón, Plinio, Livio y Dion Casio LXVI 24. Lo comprobado ya estaba bien: las fechas y las distancias al 386 y al 80 cuadran.
+
+- **Anacronismos corregidos:**
+  - La tumba de Leónidas estaba «frente al teatro»; Esparta no tiene teatro de piedra en el 386. Se aclara que los juegos en su honor los cuenta Pausanias para época romana.
+  - El templo de Tarquinii se llamaba «Ara de la Reina», que es un nombre medieval. Ahora es «Gran templo de Tarquinii».
+  - El Palatino ya no tiene «palacio flavio en obras»: el de Rabirio es de Domiciano.
+  - Las manumisiones del muro poligonal de Delfos son de después del 200 a.C.
+  - Erratas: «Atena» → «Atenea»; ahora Marcial «llama» a Corduba…
+- **Incendio del año 80** (Dion Casio):
+  - Nueva estela `ro_incendio80` en el Campo de Marte.
+  - Se menciona también en el templo de Júpiter Capitolino y en la escena del teatro de Pompeyo.
+  - Los Balbos de Gades remiten al teatro de Balbo quemado.
+- **Grecia:**
+  - **Esparta:** el Coro y las Gimnopedias, Cinadón y la escasez de Iguales, dos reyes y cinco éforos, la moneda de hierro.
+  - **Tebas:** el Heracleo con las estatuas de Alcámenes dedicadas por Trasibulo (Pausanias IX 11), las anguilas del Copais. Nuevo personaje histórico, **Ismenias** (`ismenias`, con su entrada en SRC): Áulide 396, el oro de Timócrates, su muerte en el 382.
+  - **Corinto:** los muros largos y la mora destruida por Ifícrates (390), los «potros» (monedas), la fuente de Glauce.
+  - **Argos:** Apolo Licio (Dánao y el lobo).
+  - **Olimpia:** el gran altar de ceniza, con modelo (Pausanias V 13).
+  - **Delfos:** el pórtico de los atenienses.
+- **Roma y provincias:**
+  - **Etruria:** la lengua etrusca, los doce pueblos y el Fanum Voltumnae, las mujeres etruscas y Tanaquil.
+  - **Gades:** los Balbos.
+  - **Carthago Nova:** el campo del esparto.
+  - **Massilia:** los seiscientos timucos y las dotes (Estrabón IV 1.5).
+- **Pendiente:** los textos nuevos siguen sin traducir. Para Tebas, Delfos y Arcadia no hay Pausanias VIII-X en el material: se usaron Jenofonte y fuentes conocidas.
 
 ### Novedades de la versión 66: tipos de perro antiguos
 - `modelos/blender/animales.py` → `dog()` genera cinco modelos: `A_moloss`, `A_laconian`, `A_cretan`, `A_melitan` (lanudo, con cola en penacho) y `A_umbrian` (orejas largas). `A_dog` queda como el callejero. Los hocicos son elipsoides, porque los cilindros horizontales se veían negros.
