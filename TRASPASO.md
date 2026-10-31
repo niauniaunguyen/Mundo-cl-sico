@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 77 del artefacto; notas de la versión 77). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 78 del artefacto; notas de la versión 78). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -66,6 +66,25 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 78: Egipto vivido
+
+Todo está en el módulo `jero*`/`egx*`, después del de Egipto.
+
+- **Tu nombre en jeroglíficos:**
+  - Lo escriben Padiset, Wennefer o Harsiesis (`egOpts`, `jeroDlg`).
+  - `jeroSigns` traduce el nombre a signos de un solo sonido (`JERO`, con dígrafos ch, ll y qu; c y g suaves).
+  - Se muestra en un cartucho (fuente Noto Sans Egyptian Hieroglyphs, cargada desde Google Fonts al abrir el diálogo) con la tabla de signos y la explicación de Champollion.
+  - Se guarda en `state.jero` y aparece en el Diario, pestaña «Forastero».
+- **Objetos `EGX_OBJS`** (de tipo `egx`, abren `egxAct`; solo son interactivos si estás a menos de 20 m de su altura).
+- **La Gran Pirámide:**
+  - Modo Roma: entrada por la cara norte (2 sestercios, según Estrabón). El interior (`egPyrInterior`, `PYR`) está a 900 m de altura, sobre la propia planta de la pirámide: corredor de entrada, Gran Galería con bóveda escalonada, antecámara y cámara del rey de granito con el sarcófago vacío. Hay un objeto para salir.
+  - Modo Atenas: la entrada está cerrada y se cuenta la leyenda de Heródoto.
+- **El Faro (modo Roma):** «Subir» lleva al segundo piso (una plataforma a 92 m, `EGX.faro`); «Bajar» devuelve a la entrada.
+- **La crecida del Nilo:**
+  - `egFields` crea unos 14 campos por mapa de Egipto que cambian según `egSeason(mo)`: inundados en ajet (julio a octubre), limo y luego verdes en peret, dorados en shemu.
+  - Aviso al entrar en cada estación (`egxTick`).
+  - **Nilómetro** en las dos Menfis: lectura en codos según el mes y el año, con su interpretación (el refrán de los codos en Roma; Heródoto en Atenas).
 
 ### Novedades de la versión 77: Egipto en los dos modos
 
