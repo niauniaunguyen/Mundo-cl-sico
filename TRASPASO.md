@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 107 del artefacto; notas de la versión 107). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 108 del artefacto; notas de la versión 108). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,15 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 108: el terreno lejano ya no asoma en la ciudad
+
+- **Fallo que se veía:** en Roma, junto al templo de Saturno (entre el Foro y el Velabro), un terreno arenoso tapaba personas y objetos, y se atravesaba al andar.
+- **Causa:** era la malla lejana del terreno (`buildTerrain(…,false)`). Sus triángulos miden más de 100 m, y dentro de la zona cercana solo se hundía 8 m. Donde una colina linda con una zona allanada (el Capitolio junto al Foro allanado, con `rawH` de 60 y suelo a 0,6), la superficie entre vértices quedaba por encima del suelo real.
+- **Arreglo:** dentro de la zona cercana, cada vértice de la malla lejana baja ahora 3 m por debajo del punto más bajo de `displayH` en un entorno de ±1 celda, muestreado en 9 × 9 puntos. Así ningún triángulo puede asomar por encima del suelo. Se conserva el −40 del Pireo.
+- **Comprobación** (`t_buried.js`, barrido cada 40 m dentro de la malla cercana):
+  - Roma: 0 puntos por encima del suelo.
+  - Atenas: quedan 39, todos en la columna del borde (x = −1400) y en colinas, con menos de 1 m de diferencia.
 
 ### Novedades de la versión 107: la jornada romana (a partir de Carcopino)
 
