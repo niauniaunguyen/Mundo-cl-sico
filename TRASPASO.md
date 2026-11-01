@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 109 del artefacto; notas de la versión 109). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 110 del artefacto; notas de la versión 110). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,35 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 110: funerales, medicina, Panateneas y reparto de trigo, infancia y juegos
+
+Módulo «VIDA Y MUERTE» (prefijo `vm:`, `vmSetup`, `vmAct`; estado en `state.vm`: `d` para lo diario, `once` para lo que se hace una vez, `nuts` para las nueces). Las pantallas se arman con `vmS(glifo, nombre, subtítulo, html, botones)`.
+- **Funerales** (+2 Eusébeia la primera vez):
+  - Atenas (Arquipe, en el Cerámico): la prótesis, con el óbolo de Caronte y el lamento; el cortejo antes del alba (ley de Solón); la tumba, con libaciones, lécitos y la estela del apretón de manos; las comidas del tercer y noveno día y las Genesias.
+  - Roma (Quinto Vibio, en la Vía Apia): la pompa con las máscaras de cera de los antepasados; la *laudatio* en los Rostra (Polibio); la pira fuera de la ciudad (las Doce Tablas), el hueso cortado y el banquete del noveno día; el colegio funerario y el columbario de los pobres; las Parentalia y las Lemuria.
+- **Medicina:**
+  - Médico (Eurífon, de Cos, en Atenas; Hermógenes, griego, en la Subura). Hay un caso al día:
+    - fiebre terciana junto a las marismas;
+    - tos de herrero;
+    - fractura de una niña.
+  - En cada caso se pregunta primero y luego se elige tratamiento. Acertar da +1 Sophía al día. Hay una opción con el juramento hipocrático, y en Roma salen Catón, Plinio y el instrumental de la Casa del Cirujano de Pompeya.
+  - Incubación (Asklepieion de Atenas, fundado en el 420/19, con Sófocles y el gallo de Sócrates; isla Tiberina en Roma, con el decreto de Claudio sobre los esclavos abandonados): solo de noche, con un sueño al azar y un exvoto de barro. +2 Eusébeia la primera vez.
+- **Grandes Panateneas** (Atenas; Licurgo, en el Pompeion):
+  - El verano del 386 es el tercer año de la 98.ª Olimpiada, así que tocan las Grandes. Se celebran en Hecatombeón (`calNow().mo===6`).
+  - Si aún no es Hecatombeón, se puede esperar: `state.day` avanza los días que faltan (`vmPanDaysTo`).
+  - El papel en la procesión depende de si el personaje es hombre o mujer y de si tiene la ciudadanía ateniense (`state.fx.ciu`): canéfora, portadora de sombrilla, portador de ramos o portador de bandejas (meteco).
+  - Después, la hecatombe y la carrera de antorchas desde el altar de Eros de la Academia. Ganar depende de la Areté y de cuidar la llama; el premio es un ánfora panatenaica (12 óbolos y +3 Kléos).
+- **Reparto de trigo** (Roma; Cayo Atilio, en el Campo de Marte):
+  - El ciudadano varón (`fxEsCiu`) recoge con su tessera 5 modios una vez al mes, y puede llevarlos a la panadería o venderlos.
+  - Las mujeres y los no ciudadanos no tienen derecho (nota según Carcopino); en su lugar pueden descargar en el Emporio, una vez al día.
+  - Explicación de la anona: Alejandría, Puteoli y el puerto de Claudio, las barcazas del Tíber, los horrea y la diosa Annona.
+- **Infancia** (Nicarete en Atenas, Pomponia Rufa en Roma): la Anfidromía y el décimo día en Atenas; el *dies lustricus* y la bula en Roma; una nota sobre la exposición de recién nacidos. El regalo al bebé da +1 Eusébeia.
+- **Juegos de niños** (junto al Ágora / junto al Circo):
+  - Tabas en los dos modos: valores 1, 3, 4 y 6; la tirada de Venus y la del perro; se apuestan nueces.
+  - El castillo de nueces en Roma.
+  - Explicación del aro, la peonza, la ostrakinda y las muñecas.
+- Prueba en `scratchpad/tools/t_vm.js`.
 
 ### Novedades de la versión 109: una sesión de la Academia en directo
 
