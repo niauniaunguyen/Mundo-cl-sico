@@ -1063,7 +1063,7 @@ function buildTerrain(size,seg,cx,cz,inner){
     const x=pos.getX(i)+cx,z=pos.getZ(i)+cz;
     let h=displayH(x,z);
     const isIn=Math.abs(x-INNER.x)<half&&Math.abs(z-INNER.z)<half;
-    if(!inner&&isIn)h-=8;
+    if(!inner&&isIn)h-=pirIn(x,z)?40:8;   // la malla lejana, por debajo de la cercana (en el Pireo hay colinas junto a dársenas hondas)
     pos.setXYZ(i,x,h,z);
     const RH=MODE==='roma'?romaH:rawH;
     const sl=(Math.abs(RH(x+2,z)-RH(x-2,z))+Math.abs(RH(x,z+2)-RH(x,z-2)))/4;
