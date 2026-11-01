@@ -1059,12 +1059,14 @@ const ROAD_C=new THREE.Color('#cdb791'),GRASS_C=new THREE.Color('#9a9258'),GREEN
 function buildTerrain(size,seg,cx,cz,inner){
   const g=new THREE.PlaneGeometry(size,size,seg,seg);g.rotateX(-Math.PI/2);
   const pos=g.attributes.position,n=pos.count,col=new Float32Array(n*3);const c=new THREE.Color();
-  const half=INNER.size/2-2;
+  const half=INNER.size/2-2,step=size/seg;
   for(let i=0;i<n;i++){
     const x=pos.getX(i)+cx,z=pos.getZ(i)+cz;
     let h=displayH(x,z);
     const isIn=Math.abs(x-INNER.x)<half&&Math.abs(z-INNER.z)<half;
-    if(!inner&&isIn)h-=pirIn(x,z)?40:8;   // la malla lejana, por debajo de la cercana (en el Pireo hay colinas junto a dársenas hondas)
+    // la malla lejana, por debajo de la cercana: cada vértice baja por debajo del punto más bajo del suelo real a su alrededor,
+    // para que sus triángulos (de más de 100 m) no asomen donde una colina linda con una zona allanada (el Capitolio junto al Foro; el Pireo)
+    if(!inner&&isIn){let mn=h;for(let a=-4;a<=4;a++)for(let b=-4;b<=4;b++){const v=displayH(x+a*step/4,z+b*step/4);if(v<mn)mn=v;}h=Math.min(h-(pirIn(x,z)?40:8),mn-3);}
     pos.setXYZ(i,x,h,z);
     const RH=MODE==='roma'?romaH:rawH;
     const sl=(Math.abs(RH(x+2,z)-RH(x-2,z))+Math.abs(RH(x,z+2)-RH(x,z-2)))/4;
