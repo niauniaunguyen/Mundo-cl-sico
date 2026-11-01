@@ -3881,7 +3881,7 @@ function renderOpts(extra){
   if(MASTERS[n.id]&&MASTERS[n.id].m===MODE){const d=dz();add(d.grad.includes(n.id)?'Hablar con tu antiguo maestro':d.cur===n.id?'Tu formación como discípulo ('+(d.st===0?'prueba de admisión':'lección '+d.st+' de 4')+')':'Pedir ser su discípulo','quiz',()=>discMenu(n));}
   for(const mid of discOf()){const M=MASTERS[mid];if(M&&M.debate[n.id]&&!dz().deb[mid+':'+n.id])add('Aceptar el reto: debatir con '+n.name,'quiz',()=>debateMenu(n,mid));}
   if(n.id===HORSE_NPC()&&hz().own)add('Cambiar el nombre de '+horseName(),'quiz',()=>horseNameDlg(horseName(),()=>{$('dBody').innerHTML='<p>«'+horseName()+'. Buen nombre. Que corra tanto como suena».</p>';renderOpts();}));
-  fxOpts(n,add);egOpts(n,add);m386Opts(n,add);cavOpts(n,add);finOpts(n,add);
+  fxOpts(n,add);egOpts(n,add);m386Opts(n,add);cavOpts(n,add);finOpts(n,add);progOpts(n,add);
   if(n.id===HORSE_NPC()&&!hz().own)add(hz().q==='caught'?'Te traigo la yegua':hz().q==='on'?'Sobre la yegua escapada…':'¿Me darías un caballo?','quiz',()=>horseQuest(n));
   add('Despedirse','',closeDialog);
 }
@@ -4064,7 +4064,9 @@ function readSign(s){
   $('dGlyph').textContent='𐅃';$('dGlyph').textContent=pl.greek.charAt(0);setName(pl.name);$('dTitle').textContent=pl.greek;
   $('dBody').innerHTML='<p>'+pl.text+'</p>';
   const cs=CURIOS.filter(c=>c.at===pl.id);if(cs.length){$('dBody').innerHTML+=cs.map(curioHTML).join('');cs.forEach(c=>curioGot(c.id));}
-  if(!state.places.includes(pl.id)){state.places.push(pl.id);qAdd('so',1);save();updateStats();toast('<span class="label">Lugar descubierto</span><br>'+pl.name);s.mk.visible=false;}
+  if(qLv('so')>=6&&/[Α-Ωα-ω]/.test(pl.greek||''))$('dTitle').textContent=pl.greek+' · se lee «'+grLat(pl.greek)+'»';
+  if(!state.places.includes(pl.id)){state.places.push(pl.id);qAdd('so',1);if(qLv('so')>=8){state.obols+=1;}save();updateStats();toast('<span class="label">Lugar descubierto</span><br>'+pl.name+(qLv('so')>=8?' · +1 por copiarla':''));s.mk.visible=false;}
+  if(qLv('so')>=2)$('dBody').innerHTML+='<p class="sub">Estelas leídas: '+state.places.length+' de '+signObjs.length+'.</p>';
   const o=$('dOpts');o.innerHTML='';if(pl.go){const g2=document.createElement('button');g2.className='quiz';g2.innerHTML='<span class="n">1</span><span>'+(pl.go==='sueno'?'Dormir y soñar':'Despertar')+'</span>';g2.onclick=()=>/^cnosos/.test(pl.go)?knossosTravel(pl.go):dreamTravel(pl.go);o.appendChild(g2);}const b=document.createElement('button');b.innerHTML='<span class="n">'+(pl.go?2:1)+'</span><span>Seguir</span>';b.onclick=closeDialog;o.appendChild(b);
   $('dialog').hidden=false;setTimeout(()=>b.focus({preventScroll:true}),30);
   if(storySignMatch(pl.id)){o.innerHTML='';const c=document.createElement('button');c.className='quiz';c.innerHTML='<span class="n">1</span><span>Seguir la historia</span>';c.onclick=()=>{closeDialog();storyFire();};o.appendChild(c);setTimeout(()=>c.focus({preventScroll:true}),40);}
@@ -4531,6 +4533,7 @@ function drawMap(){
     x.fillStyle='#16100c';x.font='bold 11px Georgia';x.textAlign='center';x.fillText(n.data.glyph,q[0],q[1]+4);if(big)label(n.data.name,q,19);}
   for(const o of godObjs){if(!state.gods.met.includes(o.data.id)||regionOf(o.x)!==regionOf(player.x))continue;const q=P(o.x,o.z);if(!vis(q))continue;x.fillStyle='#ffd27a';x.strokeStyle='#16100c';x.lineWidth=1.5;x.beginPath();
     for(let k=0;k<10;k++){const r=k%2?3.5:8,a=k/10*TAU-Math.PI/2;x.lineTo(q[0]+Math.cos(a)*r,q[1]+Math.sin(a)*r);}x.closePath();x.fill();x.stroke();if(big)label(o.data.name,q,20,'#7a5a1a');}
+  if(qLv('so')>=5&&typeof OVID_OBJS!=='undefined')for(const o of OVID_OBJS){if(ovz().seen[o.o.id]||regionOf(o.e.x)!==regionOf(player.x))continue;const q=P(o.e.x,o.e.z);if(!vis(q))continue;x.fillStyle='#7fe08a';x.strokeStyle='#1a3a1a';x.lineWidth=1;x.beginPath();x.arc(q[0],q[1],4.5,0,TAU);x.fill();x.stroke();}
   for(const s of EPI.spheres){if(regionOf(s.x)!==regionOf(player.x))continue;const q=P(s.x,s.z);if(!vis(q))continue;sphereIcon(x,q,7,epiDone(s.data));if(big)label(s.data.name,q,20,'#2a4a7a');}
   const q=P(player.x,player.z);const b=-player.yaw;x.save();x.translate(q[0],q[1]);x.rotate(b);x.fillStyle='#a8392b';x.strokeStyle='#fff';x.lineWidth=2;x.beginPath();x.moveTo(0,-11);x.lineTo(7,8);x.lineTo(0,4);x.lineTo(-7,8);x.closePath();x.fill();x.stroke();x.restore();
   x.fillStyle='rgba(22,16,12,.8)';x.fillRect(10,H-76,250,66);x.font='13px Alegreya, Georgia';x.textAlign='left';
@@ -11036,7 +11039,7 @@ function renderGodOpts(d){
   if(!q)add('¿Puedo hacer algo por ti?',()=>{state.gods.q[d.id]='on';save();$('dBody').innerHTML='<p>'+Q.ask+'</p><div class="verdict">Encargo de '+d.name+': '+Q.goal+'</div>';toast('<span class="label">Encargo divino</span><br>'+Q.goal);renderGodOpts(d);},'quiz');
   else if(q==='on')add('Sobre tu encargo…',()=>{$('dBody').innerHTML='<p>'+Q.wait+'</p><div class="verdict">'+Q.goal+'</div>';renderGodOpts(d);});
   else if(q==='ready')add('He cumplido tu encargo',()=>{state.gods.q[d.id]='done';state.obols+=Q.reward+(qLv('eu')>=3?1:0);qAdd('eu',3,'Has cumplido con un dios: tu piedad crece.');save();updateStats();sfxCoin();$('dBody').innerHTML='<p>'+Q.done+'</p><div class="verdict">Favor de '+d.name+' · +'+Q.reward+cur()+'</div>';toast('<span class="label">Favor divino</span><br>'+d.name+' · +'+Q.reward+cur());renderGodOpts(d);},'quiz');
-  atalGodOpts(d,add);add('Despedirse',closeDialog);
+  atalGodOpts(d,add);progGodOpts(d,add);add('Despedirse',closeDialog);
   setTimeout(()=>{const b=o.querySelector('button');b&&b.focus({preventScroll:true});},30);
 }
 function godReady(d){state.gods.q[d.id]='ready';save();sfxCoin();toast('<span class="label">Encargo cumplido</span><br>Vuelve con '+d.name+' ('+d.where+') para contárselo.');}
@@ -11071,7 +11074,7 @@ window.addEventListener('mousemove',e=>{if(ui!=='play')return;let dx=0,dy=0;
   player.yaw-=dx*0.0024;player.pitch=clamp(player.pitch-dy*0.0024,-1.4,1.4);});
 const KMAP={KeyW:'w',ArrowUp:'w',KeyS:'s',ArrowDown:'s',KeyA:'a',ArrowLeft:'a',KeyD:'d',ArrowRight:'d',ShiftLeft:'run',ShiftRight:'run',Space:'jump',KeyC:'down'};
 // salto y doble salto: en el aire se puede dar un segundo impulso (sirve para salir de huecos y subir a bordes altos)
-function jump(){if(ui!=='play'||FLY.on)return;const k=MOUNT.riding?horseJump():1;if(player.grounded){player.vy=5.2*k;player.grounded=false;player.jumps=1;}else if((player.jumps||0)<2){player.vy=5.6*k;player.jumps=2;}}
+function jump(){if(ui!=='play'||FLY.on)return;const k=MOUNT.riding?horseJump():1;const ka=k*(qLv('ar')>=2?1.15:1);if(player.grounded){player.vy=5.2*ka;player.grounded=false;player.jumps=1;}else if((player.jumps||0)<2){player.vy=5.6*ka;player.jumps=2;}}
 window.addEventListener('keydown',e=>{
   if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();
   if(e.target&&e.target.tagName==='INPUT'){if(e.code==='Escape')closeModals();return;}
@@ -11142,7 +11145,7 @@ function tryMove(nx,nz){
   if(hN-player.feet>0.65)return false;
   if(MODE==='roma'&&hN<-1.2)return false;   // el Tíber no se cruza a pie: hay que buscar un puente
   const d=Math.hypot(p.x-player.x,p.z-player.z);
-  if(d>1e-5&&!inCavea(p.x,p.z)){const tN=terrainH(p.x,p.z),tC=terrainH(player.x,player.z);if(hN<=tN+0.01&&(tN-tC)/d>1.15&&tN>player.feet-0.05)return false;}
+  if(d>1e-5&&!inCavea(p.x,p.z)){const tN=terrainH(p.x,p.z),tC=terrainH(player.x,player.z);if(hN<=tN+0.01&&(tN-tC)/d>(qLv('ar')>=8?2.2:1.15)&&tN>player.feet-0.05)return false;}
   if(hN<-1.2)return false;
   player.x=p.x;player.z=p.z;return true;
 }
@@ -11686,7 +11689,7 @@ function storyGo(){const t=storyTarget();if(!t)return;if(Math.hypot(t.x-player.x
 const HORSE_NPC=()=>MODE==='roma'?'auriga':'tesalia';
 function hz(){if(!state.horse||typeof state.horse!=='object')state.horse={own:false,q:'',xp:0,lvl:1};return state.horse;}
 const horseNeed=l=>4+l*2;                       // esferas para pasar del nivel l al siguiente
-const horseMul=()=>1+0.02*(hz().lvl-1);         // +2 % de velocidad por nivel
+const horseMul=()=>(1+0.02*(hz().lvl-1))*(qLv('ar')>=4?1.05:1);         // +2 % de velocidad por nivel
 const horseJump=()=>1+0.03*(hz().lvl-1);        // y un poco más de impulso al saltar
 const MARE={g:null};
 function horseModel(x,z,coat){const g=grp(x,floorAt(x,z),z,R()*TAU);
@@ -11807,7 +11810,7 @@ const qName=q=>MODE==='roma'?q.r:q.a;
 function qz(){if(!state.qual||typeof state.qual!=='object')state.qual={so:0,lo:0,ar:0,eu:0,kl:0,run:0};return state.qual;}
 function qLv(k){const p=qz()[k]||0;let l=1;for(let i=1;i<QLV.length;i++)if(p>=QLV[i])l=i+1;return l;}
 function qAdd(k,n,why){if(!state||!n)return;const Q=qz(),l0=qLv(k);Q[k]=(Q[k]||0)+n;const l1=qLv(k);if(n>0)gfFloat('+'+n+' '+qName(QUAL.find(x=>x.k===k)),'#cfe0a8');
-  if(l1>l0){gfGlow();const q=QUAL.find(x=>x.k===k);sfxCoin();setTimeout(()=>toast('<span class="label">'+qName(q)+' · nivel '+l1+'</span><br>'+(why||'Tu '+qName(q)+' crece.')),900);}
+  if(l1>l0){for(let lv=l0+1;lv<=l1;lv++)lvlUpShow(k,lv,why);}
   save();}
 // a qué cualidad suma cada personaje (por su categoría, con algunas excepciones)
 const Q_AR=['hoplita','ificrates','cabrias','agoge','paidotribes','agesilao','cinisca','prisco','auriga','pretoriano','vigil','frontino','tesalia','laodoco'];
@@ -13263,7 +13266,7 @@ function calNow(d){d=d||(state&&state.day)||1;const m=3+Math.floor((d-1)/SEASON_
 function regionName(){{const fz=fzIn();if(fz)return fz==='race'?(MODE==='roma'?'Un trigal del Lacio':'El estadio'):fz==='tel'?'Eleusis':player.z-6000>155?'Los Campos Elíseos':'Los Infiernos';}if(cavIn())return MODE==='roma'?'El Sueño de Escipión':player.z-CAV.Z<95?'La caverna':player.feet<CAV.Y+50?'Fuera de la caverna':'El mundo de las Ideas';if(player.feet>MOON.y-50)return 'La Luna';if(player.feet>CASA.Y-50)return 'Tu casa';if(OLYM.built&&player.feet>OLYM.y-50)return 'El Olimpo';const I=islandOf(player.x);return I?I.name:(MODE==='roma'?'Roma':'Atenas');}
 let hudKey='';
 function hudTitleTick(){if(!state)return;const c=calNow(),k=regionName()+'|'+c.season.id+'|'+c.year+'|'+!!storyHud;if(k===hudKey)return;hudKey=k;
-  $('hudTitle').textContent=regionName()+' · '+c.season.n+' del '+(MODE==='roma'?'año '+c.year+' d.C.':c.year+' a.C.')+(storyHud?' · Historia':'');applySeason(c.season);}
+  $('hudTitle').textContent=(qLv('kl')>=2&&pjz()&&pjz().name?pjz().name+' · ':'')+regionName()+' · '+c.season.n+' del '+(MODE==='roma'?'año '+c.year+' d.C.':c.year+' a.C.')+(storyHud?' · Historia':'');applySeason(c.season);}
 let storyHud=false,seasonOn=null;const TERR_MATS=[];
 function applySeason(s){if(seasonOn===s.id)return;seasonOn=s.id;const f=new THREE.Color(s.fol);
   ['foliage','vine'].forEach(r=>{if(WHITE_ROLE[r])WHITE_ROLE[r].color.copy(f);if(ROLE_MAT[r])ROLE_MAT[r].color.set(ROLE_C[r]).multiply(f);});
@@ -15310,7 +15313,7 @@ function egxTick(){if(!state)return;const mo=calNow().mo,se=egSeason(mo);
   const I=islandOf(player.x);if(I&&I.net==='eg'&&ui==='play'){const k=I.id+':'+se+':'+calNow().year;if(!EGT.seen[k]){EGT.seen[k]=1;
     toast('<span class="label">'+(se==='akhet'?'Ajet, la inundación':se==='peret'?'Peret, la siembra':'Shemu, la cosecha')+'</span><br>'+(se==='akhet'?'De julio a octubre, el Nilo cubre los campos: las aldeas, sobre sus montículos, parecen islas, y los campesinos trabajan para el rey o arreglan diques y canales.':se==='peret'?'El agua se retira y deja el limo negro: es el momento de sembrar trigo, cebada y lino. Los agrimensores vuelven a marcar los límites de los campos que la crecida ha borrado; dicen que así nació la geometría.':'Los campos están dorados: es la cosecha. Los escribas cuentan los sacos de grano para los impuestos, y en los meses de calor el Nilo baja hasta su nivel más bajo, esperando la próxima crecida.'));}}}
 function egxAct(o){const r=egxAct0(o);if(ui==='dialog')$('dialog').hidden=false;return r;}
-function egxAct0(o){if(String(o.act).startsWith('ov:'))return ovidAct(o);if(/^(ar|ro):/.test(String(o.act)))return artAct(o);if(/^f[gesi]:/.test(String(o.act)))return finAct(o);if(o.act==='d:oraculo')return oracAct();if(/^(c|sm):/.test(String(o.act)))return cavAct(o);if(o.act==='at:atalanta')return atalAct();if(String(o.act).startsWith('f:'))return o.act==='f:offer'?farmOffer():farmAct(o);if(String(o.act).startsWith('m:'))return m386Act(o);const ro=MODE==='roma',one=casaOpen('▲',o.data.name,o.data.role||'Egipto'),B=$('dBody');
+function egxAct0(o){if(String(o.act).startsWith('pg:'))return progAct(o);if(String(o.act).startsWith('ov:'))return ovidAct(o);if(/^(ar|ro):/.test(String(o.act)))return artAct(o);if(/^f[gesi]:/.test(String(o.act)))return finAct(o);if(o.act==='d:oraculo')return oracAct();if(/^(c|sm):/.test(String(o.act)))return cavAct(o);if(o.act==='at:atalanta')return atalAct();if(String(o.act).startsWith('f:'))return o.act==='f:offer'?farmOffer():farmAct(o);if(String(o.act).startsWith('m:'))return m386Act(o);const ro=MODE==='roma',one=casaOpen('▲',o.data.name,o.data.role||'Egipto'),B=$('dBody');
   if(o.act==='pir_entrada'){
     if(ro){B.innerHTML='<p>En la cara norte, a cierta altura, un guía levanta una piedra que gira y deja ver un agujero oscuro: la entrada de la Gran Pirámide. Estrabón lo cuenta: dentro, un pasillo estrecho y empinado baja hacia la roca, y otro sube hasta la cámara del rey. Los guías cobran por enseñarla con antorchas.</p><p class="sub">El corredor de verdad mide poco más de un metro de alto y hay que recorrerlo agachado; en el juego es algo más alto.</p>';one('Entrar con el guía (2 sestercios)',()=>{if(state.obols>=2){state.obols-=2;updateStats();}egxTeleport(PYR.x,PYR.z-66,PYR.Y,Math.PI,'<span class="label">Dentro de la Gran Pirámide</span><br>El aire es caliente y huele a humo de antorcha. Sigue el corredor hacia la gran galería.');},'quiz');}
     else B.innerHTML='<p>La cara norte de la pirámide es lisa, de piedra blanca pulida, sin ninguna abertura a la vista. Los sacerdotes dicen que la entrada está cerrada desde hace siglos y que solo ellos saben dónde está. Heródoto no cuenta que nadie entrara: sus guías le dijeron que el rey Keops estaba enterrado en unas cámaras bajo tierra, en una isla rodeada por un canal del Nilo. Es una leyenda: el rey se enterró en una cámara de granito dentro de la pirámide, como verán los viajeros de época romana.</p>';}
@@ -15353,7 +15356,7 @@ const COM_EV=[null,
  {t:'Un rico prepara un gran banquete de bodas y busca el mejor vino.',g:'vino',f:1.3}];
 const comEv=()=>COM_EV[((state.day||1)*7+3)%COM_EV.length];
 // Lógos / Eloquentia: el regateo (redondea a tu favor)
-function comLogos(base,f,why,sell){const L=qLv('lo')-1;if(L>0){f*=sell?1+0.02*L:1-0.02*L;why.push('regateas con '+(MODE==='roma'?'tu Eloquentia':'tu Lógos')+' ('+(sell?'+':'−')+2*L+' %)');}
+function comLogos(base,f,why,sell){const L=qLv('lo')-1;if(!sell&&qLv('lo')>=2&&!progToday('buy')){f*=0.9;why.push('primera compra del día, con cortesía (−10 %)');}if(!sell&&progToday('hag')){f*=0.85;why.push('has regateado hoy (−15 %)');}if(L>0){f*=sell?1+0.02*L:1-0.02*L;why.push('regateas con '+(MODE==='roma'?'tu Eloquentia':'tu Lógos')+' ('+(sell?'+':'−')+2*L+' %)');}
   const v=base*f;return{p:Math.max(1,L>0?(sell?Math.ceil(v-0.001):Math.floor(v+0.001)):Math.round(v)),why};}
 function comPrice(g,sell){const G=COM[g],mo=calNow().mo;let f=1;const why=[];
   if(g==='trigo'){if(sell){if(mo<=4){f*=1.35;why.push('antes de la cosecha el trigo escasea');}else if(mo>=6&&mo<=9){f*=0.8;why.push('después de la cosecha llegan muchos barcos de trigo');}if(mo>=10||mo===0){f*=1.2;why.push('en invierno casi nadie navega');}}
@@ -15363,14 +15366,15 @@ function comPrice(g,sell){const G=COM[g],mo=calNow().mo;let f=1;const why=[];
   if(g==='madera'&&sell&&mo>=2&&mo<=4){f*=1.3;why.push('en primavera se preparan las flotas');}
   if(sell){const e=comEv();if(e&&(e.g===g||e.g==='*')){f*=e.f;why.push(e.t.charAt(0).toLowerCase()+e.t.slice(1,-1));}}
   return comLogos(sell?G.s:G.b,f,why,sell);}
-const comCap=()=>barcoOwn()?10:4;
+const comCap=()=>(barcoOwn()?10:4)+(qLv('ar')>=3?2:0);
 const comTot=()=>Object.values(m386z().carga).reduce((a,b)=>a+b,0);
 function comCargaTxt(){const c=m386z().carga,L=Object.keys(c).filter(k=>c[k]>0);return L.length?L.map(k=>c[k]+' '+(c[k]===1?COM[k].n:COM[k].pl)).join(', '):'nada';}
 function comSellerMenu(n){comMode();const m=m386z(),goods=Object.keys(COM).filter(k=>COM[k].de===n.id),B=$('dBody'),o=$('dOpts');
   const draw=msg=>{o.innerHTML='';let k=1;const add=(t,fn,c)=>{const b=document.createElement('button');b.className=c||'';b.innerHTML='<span class="n">'+(k++)+'</span><span>'+t+'</span>';b.onclick=fn;o.appendChild(b);};
     B.innerHTML=(msg?'<p>'+msg+'</p>':'')+goods.map(g=>{const P=comPrice(g,false);return '<p><b>'+COM[g].n.charAt(0).toUpperCase()+COM[g].n.slice(1)+'</b>: '+P.p+' '+mon386()+(P.why.length?' <span class="sub">('+P.why.join('; ')+')</span>':'')+'</p>';}).join('')+
       '<p class="sub">Llevas: '+comCargaTxt()+' · Espacio: '+comTot()+' de '+comCap()+(barcoOwn()?' (tu barco)':' (sin barco propio: pagarás 1 '+(MODE==='roma'?'sestercio':'óbolo')+' de flete por cada bulto al venderlo)')+' · Tienes '+state.obols+' '+mon386()+'.</p>';
-    for(const g of goods){const P=comPrice(g,false);add('Comprar 1 '+COM[g].n+' por '+P.p+' '+mon386(),()=>{if(comTot()>=comCap())return draw('No te cabe nada más.');if(state.obols<P.p)return draw('No te llega el dinero.');state.obols-=P.p;m.carga[g]=(m.carga[g]||0)+1;save();updateStats();sfxCoin();draw('Hecho: se carga en el barco.');},'quiz');}
+    for(const g of goods){const P=comPrice(g,false);add('Comprar 1 '+COM[g].n+' por '+P.p+' '+mon386(),()=>{if(comTot()>=comCap())return draw('No te cabe nada más.');if(state.obols<P.p&&!(qLv('kl')>=4&&state.obols-P.p>=-15))return draw('No te llega el dinero.');state.obols-=P.p;progMark('buy');m.carga[g]=(m.carga[g]||0)+1;save();updateStats();sfxCoin();draw('Hecho: se carga en el barco.');},'quiz');}
+    if(qLv('lo')>=5&&!progToday('hag')&&!progToday('hagno'))add('Regatear con el vendedor',()=>{const ok=Math.random()<0.4+qLv('lo')*0.05;if(ok)progMark('hag');else progMark('hagno');draw(ok?'Le recuerdas lo que pagan en el puerto de al lado, alabas su mercancía y le prometes volver. Suspira: «Está bien, hoy te lo dejo más barato».':'Se cruza de brazos: «Si no te gusta el precio, el mar es muy grande». Hoy no hay rebaja.');},'quiz');
     add('Volver a la conversación',()=>{B.innerHTML='<p>Pregunta lo que quieras.</p>';renderOpts();});};
   draw(n.id==='protomaco_bizancio'?'Trigo o atún: elige. Y no tardes, que el viento del norte no espera.':n.id==='cleobula_melos'?'Esta tierra blanca la usan los pintores: dicen que es el mejor blanco que hay.':n.id==='polixena_olinto'?'Mi marido vende troncos de los montes. Para remos y para cascos, nada mejor.':'Vino de Ariusia, el mejor. Te lo cargo yo mismo.');}
 function comBuyerMenu(n){comMode();const m=m386z(),B=$('dBody'),o=$('dOpts'),e=comEv();o.innerHTML='';let k=1;const add=(t,fn,c)=>{const b=document.createElement('button');b.className=c||'';b.innerHTML='<span class="n">'+(k++)+'</span><span>'+t+'</span>';b.onclick=fn;o.appendChild(b);};
@@ -15685,7 +15689,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   if(state){if(GF.obols===null)GF.obols=state.obols;const d=state.obols-GF.obols;if(d!==0){if(d>0){gfFloat('+'+d+' '+(MODE==='roma'?'sestercios':'óbolos'),'#e8c37a');coinFly(d);}GF.obols=state.obols;}}}
 
 
@@ -16462,9 +16466,9 @@ function gmCards(){const ro=MODE==='roma',Q=qz();let h='';
 function gmRender(){const d=$('gmenu');if(!d)return;const ro=MODE==='roma',p=typeof pjz==='function'?pjz():null,o=typeof origen==='function'?origen():null;
   const nm=p&&p.name?(typeof fxNombre==='function'?fxNombre():p.name):'Tu personaje';
   d.querySelector('.gl').innerHTML='<h2>'+nm+'</h2><div class="who">'+(o?o.n:'')+(o?' · ':'')+(ro?'Roma, año 80':'Atenas, 386 a.C.')+'</div>'+
-   '<svg class="fig" viewBox="0 0 560 440" role="img" aria-label="Tus cualidades">'+gmFigure()+gmCards()+'</svg><div class="det" aria-live="polite"></div>';
+   '<svg class="fig" viewBox="0 0 560 440" role="img" aria-label="Tus cualidades">'+gmFigure()+progFigure()+gmCards()+'</svg><div class="det" aria-live="polite"></div>';
   const show=k=>{const q=QUAL.find(x=>x.k===k);if(!q)return;GM.sel=k;d.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel',c.dataset.q===k));const lv=qLv(k);
-    d.querySelector('.det').innerHTML='<b>'+(ro?q.r:q.a)+'</b> · <span class="sub">'+q.ga+' · '+GM_POS[k].part+' · nivel '+lv+'</span><br>'+q.d+'<br><span class="sub">'+q.fx+'</span>';};
+    d.querySelector('.det').innerHTML='<b>'+(ro?q.r:q.a)+'</b> · <span class="sub">'+q.ga+' · '+GM_POS[k].part+' · nivel '+lv+'</span> · <i>«'+qTitle(k,lv)+'»</i><br>'+q.d+'<br><span class="sub"><b>Lo que ya tienes:</b> '+QPROG[k].slice(1,lv).map(r=>r[2]).join(' · ')+(lv<10?'<br><b>Nivel '+(lv+1)+':</b> '+qUnlock(k,lv+1):'')+'</span>';};
   d.querySelectorAll('.card').forEach(c=>{c.onclick=()=>show(c.dataset.q);c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(c.dataset.q);}};});
   if(GM.sel)show(GM.sel);else d.querySelector('.det').innerHTML='<span class="sub">Toca o pasa el ratón por una cualidad para saber qué significa y cómo subirla.</span>';
   const B=[['journal','Diario'],['map','Plano'],['lib','Biblioteca'],['time','Pasar unas horas'],['view','Vista'],['torch','Antorcha'],['horse','Caballo'],['sound','Sonido'],['cam','Balanceo de cámara'],['full','Pantalla completa'],['save','Guardar partida'],['load','Cargar partida'],['era','Cambiar de época']];
@@ -16544,8 +16548,8 @@ const ORAC_Q=[['¿Me irá bien en el viaje que voy a emprender?',['«El que cami
 const ORAC_FAM=['A Creso, rey de Lidia: «Si haces la guerra a los persas, destruirás un gran imperio». Lo hizo, y el imperio destruido fue el suyo (Heródoto I 53 y 91).','A los atenienses, ante la invasión de Jerjes: «Solo el muro de madera quedará intacto». Temístocles convenció a la Asamblea de que el muro de madera eran las naves, y vencieron en Salamina (Heródoto VII 141-143).','A Querefonte: «Nadie es más sabio que Sócrates» (Platón, Apología 21a).'];
 function oracAct(){const one=casaOpen('Π','El oráculo de Delfos','ádyton del templo de Apolo'),B=$('dBody'),mon='óbolos';
   B.innerHTML='<p>A la puerta del templo, los profetas recogen a los consultantes. Se consulta el día siete de cada mes (antiguamente, solo una vez al año). Primero hay que pagar el pelanós, una torta sagrada; luego se ofrece una cabra, y un sacerdote la rocía con agua fría: si tiembla de las patas a la cabeza, el dios acepta hablar.</p><p class="sub">Según un acuerdo grabado en piedra entre Delfos y la ciudad de Fasélide, un particular paga unos cuatro óbolos por consultar; una ciudad, mucho más.</p>';
-  one('Pagar el pelanós y ofrecer la cabra (4 '+mon+')',()=>{if(state.obols<4){toast('No tienes bastante dinero.');return;}state.obols-=4;updateStats();save();
-    const ok=Math.random()<Math.min(0.97,0.75+0.025*(qLv('eu')-1));if(!ok){B.innerHTML='<p>El sacerdote echa agua fría sobre la cabra. El animal se sacude, pero no tiembla. «Hoy el dios no quiere hablar», dice. «Vuelve otro día».</p>';$('dOpts').innerHTML='';one('Marcharse',closeDialog);return;}
+  const cost=qLv('eu')>=8?0:4;one(cost?'Pagar el pelanós y ofrecer la cabra (4 '+mon+')':'Pasar sin pagar: los profetas te conocen',()=>{if(state.obols<cost){toast('No tienes bastante dinero.');return;}state.obols-=cost;updateStats();save();
+    const ok=qLv('eu')>=8||Math.random()<Math.min(0.97,0.75+0.025*(qLv('eu')-1));if(!ok){B.innerHTML='<p>El sacerdote echa agua fría sobre la cabra. El animal se sacude, pero no tiembla. «Hoy el dios no quiere hablar», dice. «Vuelve otro día».</p>';$('dOpts').innerHTML='';one('Marcharse',closeDialog);return;}
     B.innerHTML='<p>La cabra tiembla de arriba abajo: el dios acepta. Te purificas con agua de la Castalia y entras con los profetas en el templo. Al fondo, en el ádyton, la Pitia, coronada de laurel, está sentada en el trípode, junto al ómfalo. No la ves bien: escuchas su voz. ¿Qué preguntas?</p>';$('dOpts').innerHTML='';
     ORAC_Q.forEach(q=>one(q[0],()=>{const r=pick(q[1]);if(!state.seen.oraculo){state.seen.oraculo=1;qAdd('eu',2,'Has consultado el oráculo de Delfos.');}save();
       B.innerHTML='<p>La Pitia habla, y un profeta te lo dice en verso:</p><p><i>'+r+'</i></p><p class="sub">Las respuestas del juego son inventadas, al estilo de las que se conservan. Algunas famosas de verdad:</p><ul class="sub">'+ORAC_FAM.map(x=>'<li>'+x+'</li>').join('')+'</ul>'+cavHint();$('dOpts').innerHTML='';one('Salir del templo',closeDialog);},'quiz'));},'quiz');
@@ -17649,6 +17653,142 @@ function ovidAct(ob){const id=ob.act.slice(3),o=OVID.find(q=>q.id===id);if(!o)re
   one('Ver el catálogo de los quince libros',()=>{B.innerHTML='<p>Todas las metamorfosis de los libros I a X, por orden. Las marcadas con ✓ ya las has encontrado.</p>'+ovidCatalog();$('dOpts').innerHTML='';one('Cerrar',closeDialog);},'quiz');
   one('Cerrar',closeDialog);}
 
+// ============================================================ PROGRESIÓN: un título y un desbloqueo en cada nivel de cada cualidad, con pantalla de subida de nivel
+// Cada fila: [título masculino, título femenino, desbloqueo]. El nivel 10 de cada cualidad es su misión final.
+const QPROG={
+ so:[['Aprendiz','Aprendiz','Empiezas a aprender.'],['Curioso','Curiosa','Al leer una estela ves cuántas llevas leídas.'],['Oyente','Oyente','Cada lección te da una moneda más.'],['Lector','Lectora','En las preguntas de las lecciones, una respuesta falsa aparece tachada.'],['Estudioso','Estudiosa','El plano marca las huellas de las Metamorfosis que aún no has encontrado.'],
+   ['Erudito','Erudita','Al leer una inscripción, sabes leer las letras griegas o latinas: ves cómo suena.'],['Maestro','Maestra','Puedes dar clase con los maestros de la ciudad (una vez al día) y cobrar por ello.'],['Sabio','Sabia','Copista: cada estela nueva que lees te da una moneda.'],['Filósofo','Filósofa','Aristóteles niño (en Roma, Plinio) te pide consejo.'],['Sophós','Sophḗ','La misión final: la caverna de Platón (en Roma, el Sueño de Escipión).']],
+ lo:[['Callado','Callada','Empiezas a hablar.'],['Tímido','Tímida','La primera compra de cada día te sale un 10 % más barata: sabes pedir con cortesía.'],['Convincente','Convincente','Los filósofos y los oradores discuten contigo de igual a igual: nuevos diálogos.'],['Conversador','Conversadora','Puedes hacer una propuesta en la Asamblea (en Roma, desde los Rostra), una vez al día.'],['Dialéctico','Dialéctica','Puedes regatear con los mercaderes: si te sale bien, lo que compres ese día te cuesta un 15 % menos.'],
+   ['Polemista','Polemista','Puedes defender a un vecino ante el tribunal.'],['Abogado','Abogada','Te invitan a un banquete de políticos.'],['Logógrafo','Logógrafa','Puedes escribir discursos por encargo (una vez al día) y cobrar por ello.'],['Orador','Oradora','Isócrates (en Roma, Quintiliano) te invita a dar una clase.'],['Rhḗtōr','Rhḗtōr','La misión final: Gorgias (en Roma, el juicio ante los centúnviros).']],
+ ar:[['Novato','Novata','Empiezas a entrenar.'],['Ágil','Ágil','Saltas más alto.'],['Fuerte','Fuerte','Puedes cargar dos bultos más en el comercio.'],['Resistente','Resistente','Tu caballo corre un 5 % más.'],['Atleta','Atleta','Tu figura se ve más atlética.'],
+   ['Velocista','Velocista','Puedes correr en la carrera del estadio de las fiestas.'],['Campeón del barrio','Campeona del barrio','Tu caballo sube un nivel.'],['Pentatleta','Pentatleta','Subes cuestas que antes eran demasiado empinadas.'],['Héroe','Heroína','Puedes correr contra un campeón de los juegos.'],['Invicto','Invicta','La misión final: la carrera contra Atalanta (en Roma, contra Camila).']],
+ eu:[['Profano','Profana','Empiezas a acercarte a los dioses.'],['Respetuoso','Respetuosa','Notas cuándo hay un dios o una Musa cerca.'],['Devoto','Devota','Los dioses y los sueños te dan una moneda más.'],['Fiel','Fiel','Puedes ayudar en los sacrificios de los dioses (una vez al día).'],['Piadoso','Piadosa','En Atenas, Afrodita te dará sus manzanas; en Roma, las Vestales te dejan ver el fuego sagrado.'],
+   ['Oferente','Oferente','Las primicias de la granja dan dos medidas de más en la cosecha.'],['Purificado','Purificada','Un sueño profético cada semana te dice dónde encontrar a alguien.'],['Iniciado','Iniciada','Los dioses te dan un augurio útil una vez al día; en Atenas, el oráculo de Delfos te recibe gratis.'],['Elegido de las Musas','Elegida de las Musas','Las Musas te visitan en sueños.'],['Eusebḗs','Eusebḗs','La misión final: Eleusis (en Roma, la bajada a los Infiernos con la Sibila).']],
+ kl:[['Desconocido','Desconocida','Nadie te conoce todavía.'],['Conocido en el barrio','Conocida en el barrio','Tu nombre aparece en la cabecera de la pantalla.'],['Conocido','Conocida','La gente te saluda por la calle.'],['Popular','Popular','Los mercaderes te fían: puedes comprar aunque te falten hasta quince monedas.'],['Respetado','Respetada','Ropa nueva: un manto mejor.'],
+   ['Célebre','Célebre','Los niños te siguen por la calle.'],['Ilustre','Ilustre','Tu casa se llena de lujos.'],['Famoso','Famosa','Ponen tu busto en el Ágora (en Roma, en el Foro).'],['Legendario','Legendaria','Los poetas hablan de ti en sus versos.'],['Inmortal','Inmortal','La misión final: el decreto en tu honor (en Roma, los juegos de Tito).']]};
+const QPROG_R={so:{9:['Sapiens','Sapiens']},lo:{9:['Orator','Orator']},eu:{9:['Pius','Pia']},kl:{9:['Perennis','Perennis']}};
+function qTitle(k,lv){lv=lv||qLv(k);const f=pjFem()?1:0,r=MODE==='roma'&&QPROG_R[k]&&QPROG_R[k][lv-1];return r?r[f]:QPROG[k][lv-1][f];}
+const qUnlock=(k,lv)=>QPROG[k][lv-1][2];
+// ---- pantalla de subida de nivel (si suben varias a la vez, se ponen en cola)
+const LVQ=[];
+function lvlUpShow(k,lv,why){LVQ.push({k,lv,why});if(LVQ.length===1)lvlUpNext();}
+function lvlUpNext(){const it=LVQ[0];if(!it)return;if(ui!=='play'&&ui!=='dialog'){setTimeout(lvlUpNext,600);return;}
+  const q=QUAL.find(x=>x.k===it.k),ro=MODE==='roma';let d=$('lvup');if(!d){d=document.createElement('div');d.id='lvup';document.body.appendChild(d);
+    const st=document.createElement('style');st.textContent='#lvup{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;background:rgba(10,8,6,.55);font-family:Alegreya,Georgia,serif;color:#f1e8d8}#lvup .c{max-width:min(460px,90vw);background:rgba(28,22,16,.97);border:1px solid #d9874a;border-radius:14px;padding:22px 26px;text-align:center;animation:lvIn .35s ease-out}#lvup .n{font:64px Marcellus,Georgia,serif;color:#e8b07a;line-height:1}#lvup .g{letter-spacing:.3em;color:#d9874a;font-size:13px}#lvup h2{margin:6px 0;font:28px Marcellus,Georgia,serif}#lvup .t{font-style:italic;color:#ecc29a;font-size:20px}#lvup .u{margin:14px 0 6px;text-align:left;background:rgba(217,135,74,.12);border-radius:8px;padding:10px 12px}#lvup .nx{text-align:left;opacity:.75;font-size:.92em}#lvup button{font:inherit;margin-top:14px;padding:10px 22px;border-radius:8px;border:1px solid #d9874a;background:#d9874a;color:#1a120c;cursor:pointer}@keyframes lvIn{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}';document.head.appendChild(st);}
+  const nx=it.lv<10?'<div class="nx"><b>Nivel '+(it.lv+1)+':</b> '+qUnlock(it.k,it.lv+1)+'</div>':'<div class="nx">Has llegado al nivel máximo.</div>';
+  d.innerHTML='<div class="c"><div class="g">'+(ro?q.a.toUpperCase()+' · '+q.r.toUpperCase():q.ga)+'</div><div class="n">'+it.lv+'</div><h2>'+qName(q)+'</h2><div class="t">«'+qTitle(it.k,it.lv)+'»</div>'+(it.why?'<p class="sub">'+it.why+'</p>':'')+
+   '<div class="u"><b>Desbloqueas:</b> '+qUnlock(it.k,it.lv)+'</div>'+nx+'<button>Seguir</button></div>';d.hidden=false;const prev=ui;releasePointer();
+  const close=()=>{d.hidden=true;LVQ.shift();if(LVQ.length)setTimeout(lvlUpNext,300);};d.querySelector('button').onclick=close;setTimeout(()=>{const b=d.querySelector('button');b&&b.focus({preventScroll:true});},50);
+  try{gfGlow();sfxCoin();}catch(e){}qProgApply(it.k,it.lv);}
+// ---- efectos que hay que aplicar al llegar a un nivel
+function qProgApply(k,lv){
+  if(k==='ar'&&lv>=7&&!state.prog7h){const h=hz();if(h.own){state.prog7h=1;h.lvl=Math.min(10,h.lvl+1);save();}}
+  if(k==='kl'&&lv>=5&&typeof pjAvatar==='function')try{pjAvatar();}catch(e){}
+  if(k==='kl'&&lv>=8)progBust();
+  if(k==='kl'&&lv>=7)progHouse();
+  hudKey='';}
+function progz(){if(!state.prog||typeof state.prog!=='object')state.prog={day:{},seen:{},once:{}};for(const s of['day','seen','once'])if(!state.prog[s])state.prog[s]={};return state.prog;}
+const progToday=k=>progz().day[k]===state.day;
+const progMark=k=>{progz().day[k]=state.day;save();};
+// ---- Sophía 6: cómo suenan las letras griegas
+const GR_LAT={Α:'A',Β:'B',Γ:'G',Δ:'D',Ε:'E',Ζ:'Z',Η:'Ē',Θ:'TH',Ι:'I',Κ:'K',Λ:'L',Μ:'M',Ν:'N',Ξ:'X',Ο:'O',Π:'P',Ρ:'R',Σ:'S',Τ:'T',Υ:'Y',Φ:'PH',Χ:'KH',Ψ:'PS',Ω:'Ō',Ϝ:'W'};
+const grLat=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase().split('').map(c=>GR_LAT[c]!==undefined?GR_LAT[c]:c).join('');
+// ---- Kléos 8: el busto; Kléos 7: la casa más lujosa
+function progBust(){if(PLACES.find(q=>q.id==='busto_pj'))return;const ro=MODE==='roma',id=ro?'ro_rostra':null;let x,z;
+  if(ro){const p=PLACES.find(q=>q.id==='ro_rostra');if(!p)return;x=p.x+12;z=p.z-8;}else{const o=npcObjs.find(q=>q.data&&q.data.id==='pritano');if(!o)return;x=o.x-6;z=o.z+5;}
+  const f=findFree(x,z,1),P=pjz(),nm=P&&P.name?P.name:'';const g=grp(f[0],floorAt(f[0],f[1]),f[1],0),mb=lam(ro?'#c9b48b':'#ece6da');box(0.7,1.4,0.7,mb,0,0.7,0,g);
+  const h=new THREE.Mesh(new THREE.SphereGeometry(0.28,12,10),mb);h.position.y=1.75;g.add(h);box(0.6,0.35,0.35,mb,0,1.48,0,g);
+  placeLive('busto_pj',ro?'El busto de '+nm:'El retrato de '+nm,ro?'IMAGO':'ΕΙΚΩΝ','Por decisión de '+(ro?'los ediles':'la ciudad')+', aquí está tu retrato en piedra, para que todos sepan quién eres: '+nm+'. '+(ro?'En Roma, las estatuas honoríficas llenan el Foro, y de vez en cuando hay que quitar algunas para que quepan las nuevas.':'Las estatuas de ciudadanos vivos son todavía un honor rarísimo en Atenas: pocos generales lo han recibido, como Conón, después de su victoria en Cnido.'),f[0]+1.5,f[1]+1.5,0);}
+function progHouse(){if(ART.lux||!CASA.X)return;ART.lux=1;const X=CASA.X,Z=CASA.Z,Y=CASA.Y,ro=MODE==='roma';
+  for(const[x,z]of[[-4,8],[4,-4]]){const g=grp(X+x,Y,Z+z,0);const v=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.2,0.9,12),lam(ro?'#2a4a6a':'#1a1a1a'));v.position.y=0.45;g.add(v);const pl=new THREE.Mesh(new THREE.SphereGeometry(0.5,8,6),lam('#5a8a4a'));pl.position.y=1.1;g.add(pl);}
+  const rug=new THREE.Mesh(new THREE.PlaneGeometry(5,3),new THREE.MeshLambertMaterial({color:ro?'#8a2a2a':'#2f5a6a'}));rug.rotation.x=-Math.PI/2;rug.position.set(X,Y+0.03,Z-11.5);scene.add(rug);
+  for(const s of[-1,1])box(0.5,1.8,0.5,lam('#e8e0d0'),s*5.5,0.9,-7,null).position.set(X+s*5.5,Y+0.9,Z-7);}
+// ---- Kléos 6: niños que te siguen
+const KIDS=[];
+function progKids(dt){if(qLv('kl')<6||MODE==='roma'&&false)return;const inCity=typeof gfInCity==='function'?gfInCity():true;
+  if(!KIDS.length){for(let i=0;i<2;i++){const k=makePerson({chiton:pick(['#e8dcc0','#c9b48b','#d8c8a8']),hair:'#3a2a1e',scale:0.62,short:true,noHimation:true});k.visible=false;scene.add(k);KIDS.push({g:k,ph:i*2});}}
+  for(const K of KIDS){K.g.visible=inCity&&ui==='play'&&player.feet<300;if(!K.g.visible){K.g.position.set(player.x,player.feet,player.z);continue;}
+    const tx=player.x+Math.sin(player.yaw+2.4+K.ph)*3.2,tz=player.z+Math.cos(player.yaw+2.4+K.ph)*3.2,dx=tx-K.g.position.x,dz=tz-K.g.position.z,d=Math.hypot(dx,dz);
+    if(d>40){K.g.position.set(tx,floorAt(tx,tz),tz);continue;}const sp=Math.min(d,dt*Math.max(4,d*1.6));if(d>0.3){K.g.position.x+=dx/d*sp;K.g.position.z+=dz/d*sp;K.g.rotation.y=Math.atan2(dx,dz);K.ph+=dt*8;personWalk(K.g,K.ph,1);}
+    K.g.position.y=floorAt(K.g.position.x,K.g.position.z);}}
+// ---- Eusébeia 2: notas a los dioses y a las Musas cerca; 7 y 9: sueños
+function progTick(dt){if(!state||ui!=='play')return;progKids(dt);if(AVATAR.walk){const W=AVATAR.walk;if(W.userData.bs===undefined)W.userData.bs=W.scale.x;const k=qLv('ar')>=5?1.07:1;W.scale.x=W.scale.z=W.userData.bs*k;}const P=progz();
+  if(qLv('eu')>=2){P._t=(P._t||0)+dt;if(P._t>2){P._t=0;const L=[...(godObjs||[]),...(typeof MUSE_OBJS!=='undefined'?MUSE_OBJS:[])];
+    for(const o of L){const id=(o.data&&(o.data.id||o.data.name))||'';if(P.seen['g:'+id]||!o.g||!o.g.visible&&o.g.visible!==undefined)continue;const d=Math.hypot(o.x-player.x,o.z-player.z);if(d<70&&d>12){P.seen['g:'+id]=1;save();toast('<span class="label">Sientes una presencia</span><br>Hay algo divino muy cerca: '+(o.kind==='musa'?'una Musa':'un dios')+'. Mira a tu alrededor.');break;}}}}
+  if(P.lastDay!==state.day){const first=P.lastDay===undefined;P.lastDay=state.day;save();if(first)return;
+    if(qLv('eu')>=7&&!state.dreamGift&&state.day%7===0){const L=npcObjs.filter(o=>o.data&&o.data.where&&!(state.seen&&state.seen['m:'+o.data.id]));if(L.length){const o=pick(L);toast('<span class="label">Un sueño profético</span><br>Sueñas con '+o.data.name+'. Lo encontrarás '+o.data.where.charAt(0).toLowerCase()+o.data.where.slice(1).replace(/\.$/,'')+'.');}}
+    else if(qLv('eu')>=9&&state.day%3===0){const m=typeof MUSAS==='function'?pick(MUSAS()):null;if(m){qAdd('so',1);toast('<span class="label">Te visita '+m.name+'</span><br>Esta noche, en sueños, la Musa de '+m.arte+' te ha susurrado una idea. Te despiertas con ganas de aprender.');}}
+    else if(qLv('kl')>=9&&state.day%4===0){const P2=pjz(),nm=P2&&P2.name?P2.name:'';toast('<span class="label">Hablan de ti en verso</span><br>'+(MODE==='roma'?'Un poeta de la Subura recita en una taberna: «Si buscas a quien todos buscan, pregunta por '+nm+'». Marcial frunce el ceño: le han robado la idea.':'En un banquete, un poeta cómico saca tu nombre en una canción: «¿Quién sabe más que '+nm+'? Nadie, ni la lechuza de Atenea». Todos ríen y brindan.'));}}}
+// ---- opciones nuevas en los diálogos de los personajes
+function progOpts(n,add){const ro=MODE==='roma',cat=n.cat||'';
+  // Sophía 7: dar una clase
+  if(qLv('so')>=7&&/Educa|Filos|Ciencia/.test(cat))add('Dar una clase a sus alumnos (una vez al día)','quiz',()=>{if(progToday('clase')){$('dBody').innerHTML='<p>«Hoy ya diste clase. Mañana».</p>';renderOpts();return;}progMark('clase');const m=3+qLv('so')-6;state.obols+=m;qAdd('lo',1);updateStats();sfxCoin();save();
+    $('dBody').innerHTML='<p>'+n.name+' te deja su sitio. Explicas a los alumnos lo que aprendiste: «'+(n.lesson||'lo que sabes')+'». Te escuchan con atención, y uno hace una pregunta que te obliga a pensar. Te pagan '+m+' '+(ro?'sestercios':'óbolos')+'.</p>';renderOpts();});
+  // Lógos 3: discutir de igual a igual
+  if(qLv('lo')>=3&&/Filos|Pol|Justicia|Derecho|Educa/.test(cat)&&!progz().once['deb:'+n.id])add('Discutir con '+n.name+' de igual a igual','quiz',()=>{progz().once['deb:'+n.id]=1;qAdd('lo',1);save();
+    $('dBody').innerHTML='<p>Le pones una objeción a su idea: «'+(n.lesson||'su manera de pensar')+'». '+n.name+' se sorprende, la piensa en voz alta, te da la razón en una parte y te rebate la otra con un ejemplo que no esperabas. Al final, os reís los dos: así se aprende, discutiendo.</p>';renderOpts();});
+  // Lógos 8: logógrafo
+  if(qLv('lo')>=8&&(n.id==='lisias'||n.id==='quintiliano'))add('Escribir un discurso por encargo (una vez al día)','quiz',()=>{if(progToday('logo')){$('dBody').innerHTML='<p>«Ya escribiste uno hoy. Los clientes pueden esperar».</p>';renderOpts();return;}progMark('logo');const m=4+qLv('lo');state.obols+=m;updateStats();sfxCoin();save();
+    $('dBody').innerHTML='<p>'+(ro?'Un comerciante de la Subura necesita defenderse de una reclamación':'Un vecino del Pireo tiene un juicio por una deuda')+'. Le escribes el discurso a su medida, con sus palabras y su manera de hablar, para que parezca suyo: así trabajaba Lisias. Te paga '+m+' '+(ro?'sestercios':'óbolos')+'.</p>';renderOpts();});
+  // Lógos 9: dar una clase de retórica
+  if(qLv('lo')>=9&&(n.id==='isocrates'||n.id==='quintiliano')&&!progz().once['ret:'+n.id])add('Aceptar su invitación a dar una clase de retórica','quiz',()=>{progz().once['ret:'+n.id]=1;qAdd('kl',3,'Has dado clase en la escuela de '+n.name+'.');state.obols+=10;updateStats();sfxCoin();save();
+    $('dBody').innerHTML='<p>Los alumnos de '+n.name+' te escuchan en silencio. Les enseñas lo que has aprendido: que un discurso se piensa antes de hablar, que hay que conocer al público y que la palabra sin verdad no dura. Al acabar, aplauden. '+n.name+' te paga diez '+(ro?'sestercios':'óbolos')+' y te dice: «Vuelve cuando quieras».</p>';renderOpts();});
+  // Sophía 9: Aristóteles niño o Plinio te piden consejo
+  if(qLv('so')>=9&&(n.id==='aristoteles_nino'||n.id==='plinio')&&!progz().once['cons']){add(n.id==='plinio'?'Plinio quiere pedirte consejo':'El niño quiere hacerte una pregunta','quiz',()=>{progz().once['cons']=1;qAdd('kl',2);save();
+    $('dBody').innerHTML=n.id==='plinio'?'<p>«Quiero ser abogado y escribir cartas que se lean dentro de mil años. ¿Qué me aconsejas?». Le dices que escriba cada día, que guarde copia de todo y que no tema contar lo que ve. Plinio sonríe: «Mi tío decía lo mismo». Sus cartas, en efecto, se leerán dos mil años después.</p>':'<p>El pequeño Aristóteles te mira muy serio: «Si todos los hombres desean saber, ¿por qué unos estudian y otros no?». Le contestas que todos tienen la semilla, pero que hay que regarla. El niño lo apunta en una tablilla. Muchos años después empezará un libro así: «Todos los hombres desean por naturaleza saber» (Metafísica I 1).</p>';renderOpts();});}}
+// ---- objetos nuevos en el mapa: Asamblea, tribunal, banquete, carreras, Vesta
+const MG_FEST=atalRace({id:'fiestas',L:420,pace:9.3,kick:0.2,apples:false,col:'#8a5a3a',hair:'#3a2a1e',sky:['#a8c8e0','#f2e6c8'],hill:'#9aa878',track:'#c9a87a',title:'La carrera de las fiestas',
+ intro:'<p>Es día de fiesta y hay carrera del estadio. Tu rival es un joven rápido del barrio. Administra el aliento.</p>',src:'Las carreras de las fiestas locales: Panateneas en Atenas, juegos de las fiestas en Italia.',first:'¡Ya!',winT:'¡Ganas la carrera!',failT:'Te ganan por poco',
+ after(G,res){if(res==='win'&&!progz().once.fest){progz().once.fest=1;qAdd('ar',2);qAdd('kl',1);state.obols+=5;updateStats();save();}return res==='win'?'<p>Cruzas la meta el primero. Te dan una corona de olivo y un ánfora de aceite de premio.</p>':'<p>Te gana por un pecho. «Revancha en la próxima fiesta», te dice.</p>';}});
+const MG_OLY=atalRace({id:'campeon',L:420,pace:10.2,kick:0.4,apples:false,col:'#e8dcc0',hair:'#2a1e16',sky:['#9ec4e0','#f0e2c0'],hill:'#9aa878',track:'#c9a87a',title:'Contra un campeón',
+ intro:'<p>Un vencedor de los grandes juegos acepta correr contigo para entrenar. Es muy rápido: tendrás que administrar el aliento a la perfección.</p>',src:'Los atletas profesionales iban de juego en juego, en Grecia y en Italia.',first:'¡Ya!',winT:'¡Has ganado a un campeón!',failT:'El campeón gana',
+ after(G,res){if(res==='win'&&!progz().once.oly){progz().once.oly=1;qAdd('ar',3);qAdd('kl',2);state.obols+=10;updateStats();save();}return res==='win'?'<p>El campeón no se lo cree. «Así se gana en Olimpia», te dice, y te regala su strígilo.</p>':'<p>«Bien corrido. Yo llevo diez años entrenando», te consuela.</p>';}});
+function progSetup(){const ro=MODE==='roma';progz();
+  const at=(pid,dx,dz,act,nm,sub)=>{const p=PLACES.find(q=>q.id===pid);if(!p)return;const f=findFree(p.x+dx,p.z+dz,1);egxObj(f[0],f[1],undefined,act,nm,sub,3);};
+  if(ro){at('ro_rostra',-8,6,'pg:asamblea','Los Rostra','tribuna de los oradores');at('ro_basilica_julia',8,-8,'pg:tribunal','El tribunal','defender a un vecino');at('ro_palatino',-14,-10,'pg:banquete','Una invitación','un banquete');at('ro_vesta',6,6,'pg:vesta','El fuego de Vesta','las Vestales');
+    at('ro_circo',-20,30,'pg:fiesta','La carrera de las fiestas','corredores');const I=ISLANDS.find(q=>q.id==='campania');if(I&&I.town){const f=findFree(I.town.x+30,I.town.z+30,1);egxObj(f[0],f[1],undefined,'pg:campeon','Un campeón de los juegos de Nápoles','los Sebastá',3);}}
+  else{at('bema',4,-6,'pg:asamblea','La tribuna de la Pnyx','hablar ante el pueblo');at('kleroterion',6,6,'pg:tribunal','El tribunal','defender a un vecino');at('bouleuterion',-8,8,'pg:banquete','Una invitación','un banquete');
+    at('estadio_olimpia',-10,-10,'pg:campeon','Un campeón olímpico','entrena aquí');at('liceo',12,12,'pg:fiesta','La carrera de las fiestas','corredores');}
+  if(qLv('kl')>=8)progBust();if(qLv('kl')>=7)progHouse();}
+function progAct(o){const a=o.act,ro=MODE==='roma',one=casaOpen('✦',o.data.name,o.data.role||''),B=$('dBody'),fin=()=>one('Cerrar',closeDialog),need=(k,l,t)=>{if(qLv(k)<l){B.innerHTML='<p>'+t+'</p><p class="sub">Necesitas '+qName(QUAL.find(x=>x.k===k))+' '+l+' (tienes '+qLv(k)+').</p>';fin();return true;}return false;};
+  if(a==='pg:asamblea'){if(need('lo',4,ro?'Desde los Rostra hablan los magistrados y los oradores. Todavía no te atreves a subir.':'Cualquier ciudadano puede hablar en la Asamblea: «¿Quién quiere tomar la palabra?», pregunta el heraldo. Pero hace falta valor y palabra.'))return;
+    if(progToday('asam')){B.innerHTML='<p>Hoy ya hablaste. Deja que hablen otros.</p>';fin();return;}
+    B.innerHTML='<p>'+(ro?'Subes a los Rostra, entre los espolones de las naves de Ancio. La gente del Foro se para a escucharte.':'El heraldo pregunta: «¿Quién quiere tomar la palabra?». Subes a la tribuna de la Pnyx. Seis mil personas te miran.')+' ¿Qué propones?</p>';
+    const P=[['Arreglar la fuente del barrio, que pierde agua',1],['Honrar a los que ayudaron en el último incendio',1],['Que se prohíban las fiestas para ahorrar dinero',0]];
+    P.forEach(([t,good])=>one(t,()=>{progMark('asam');const ok=good&&Math.random()<0.4+qLv('lo')*0.06;if(ok){qAdd('kl',1);qAdd('lo',1);}save();B.innerHTML='<p>'+(ok?'Te escuchan, alguien grita «¡bien dicho!» y la propuesta sale adelante. Tu nombre corre por la ciudad.':good?'Te escuchan, pero otro orador te lleva la contraria con habilidad, y la propuesta no sale. Mañana será otro día.':'Abucheos. Proponer menos fiestas es la manera más rápida de perder al público.')+'</p>';$('dOpts').innerHTML='';fin();},'quiz'));fin();return;}
+  if(a==='pg:tribunal'){if(need('lo',6,'Un vecino tuyo tiene un pleito y busca quien lo defienda, pero todavía no confía en tu palabra.'))return;if(progz().once.trib){B.innerHTML='<p>Tu vecino todavía te da las gracias cada vez que te ve.</p>';fin();return;}
+    finDuel({glyph:'⚖',name:'Defender a un vecino',title:ro?'Ante el pretor':'Ante los jueces de la Heliea',intro:'<p>Tu vecino está acusado de haber movido el mojón que separa su campo del de otro. '+(ro?'En Roma, el pretor asigna un juez que escucha a las partes.':'En Atenas cada uno debe hablar por sí mismo, pero puedes escribirle el discurso y ayudarle; si el tribunal lo permite, puedes hablar en su apoyo.')+' Necesitas 4 de 6.</p>',good:'Los jueces asienten.',meh:'Murmullos.',bad:'Mala señal.',
+     parts:[{h:'Los hechos',q:'¿Cómo empiezas?',o:[['Cuento lo que pasó con fechas y testigos',2,'Claro y verificable.'],['Digo que mi vecino es buena persona',1,'Ayuda, pero no prueba nada.'],['Acuso al otro de mentiroso sin pruebas',0,'Te vuelves en contra del tribunal.']]},
+      {h:'La prueba',q:'¿Qué presentas?',o:[['El testimonio del agrimensor que puso el mojón',2,'Un testigo técnico: decisivo.'],['Un juramento solemne',1,'Pesa, pero no tanto como un testigo.'],['Nada: confío en la suerte',0,'No.']]},
+      {h:'El cierre',q:'¿Cómo terminas?',o:[['Resumo y pido justicia, no compasión',2,'Firme y respetuoso.'],['Lloro un poco',1,'Se usaba, pero cansa.'],['Amenazo con apelar',0,'Mal.']]}],
+     end(p,max,one2,B2){const win=p>=4;if(win){progz().once.trib=1;qAdd('lo',2,'Has defendido a un vecino.');qAdd('kl',2);save();}B2.innerHTML='<p>'+p+' de '+max+'.</p>'+(win?'<p>Absuelto. Tu vecino te abraza y te regala un ánfora de aceite.</p>':'<p>Condenado a pagar una multa. Prueba otra vez otro día.</p>');$('dOpts').innerHTML='';one2('Cerrar',closeDialog,'quiz');}});return;}
+  if(a==='pg:banquete'){if(need('lo',7,'Aquí se reúnen los políticos a cenar, pero nadie te ha invitado todavía.'))return;if(progz().once.banq){B.innerHTML='<p>Todavía se habla de la noche en que cenaste con ellos.</p>';fin();return;}
+    progz().once.banq=1;qAdd('kl',2);qAdd('lo',1);save();
+    B.innerHTML=ro?'<p>Te invitan a una cena en el triclinio de un senador. Nueve comensales recostados, tres en cada lecho; el anfitrión en el lecho del medio. Ostras del lago Lucrino, lirones con miel, vino de Falerno mezclado con agua. Un esclavo recita versos; otro baila. Entre plato y plato se decide quién apoyará a quién en las próximas elecciones.</p><p class="sub">En los banquetes romanos el sitio que te tocaba mostraba lo importante que eras.</p>':
+     '<p>Te invitan a un simposio en casa de un político. Os recostáis en los lechos del andrón; se elige un rey del banquete, que decide cuánta agua lleva el vino. Hay una flautista, se cantan escolios, se juega al cótabo lanzando las últimas gotas de la copa a un blanco. Y, entre broma y broma, se habla de la próxima Asamblea.</p><p class="sub">En los simposios de los ciudadanos, las únicas mujeres eran músicas, bailarinas o heteras.</p>';fin();return;}
+  if(a==='pg:vesta'){if(need('eu',5,'El templo de Vesta está cerrado a los hombres y a casi todos: solo entran las Vestales.'))return;
+    B.innerHTML='<p>Una Vestal, vestida de blanco y con el pelo recogido bajo las cintas, te deja asomarte a la puerta del templo redondo. Dentro arde el fuego de Vesta, que nunca se apaga: si se apagara, sería un mal presagio para Roma, y la Vestal responsable sería azotada. Seis sacerdotisas lo cuidan durante treinta años de su vida.</p>';if(!progz().once.vesta){progz().once.vesta=1;qAdd('eu',2);save();}fin();return;}
+  if(a==='pg:fiesta'){if(need('ar',6,'Los corredores del barrio entrenan para la carrera de las fiestas. Todavía no te dejan correr con ellos.'))return;closeDialog();race3d(MG_FEST);return;}
+  if(a==='pg:campeon'){if(need('ar',9,'Un campeón de los juegos entrena aquí. No pierde el tiempo con aficionados.'))return;closeDialog();race3d(MG_OLY);return;}
+  fin();}
+// ---- la figura del menú: lo que vas ganando se ve en ella
+function progFigure(){const L=k=>qLv(k),all=['so','lo','ar','eu','kl'].every(k=>L(k)>=10),c=all?'#c8a050':'#d9874a';let s='';
+  if(L('so')>=5)s+='<rect x="318" y="150" width="34" height="12" rx="6" fill="#e8dcb0" stroke="'+c+'" stroke-width="1.6"/>';
+  if(L('lo')>=5)s+='<path d="M310 92 q12 -4 20 -12 M312 98 q14 0 24 -6" stroke="'+c+'" stroke-width="1.6" fill="none"/>';
+  if(L('ar')>=5)s+='<path d="M258 46 q22 -18 44 0" stroke="#9fb06a" stroke-width="4" fill="none"/>';
+  if(L('eu')>=5)s+='<ellipse cx="236" cy="200" rx="12" ry="4" fill="#d9a93a" stroke="'+c+'" stroke-width="1.4"/>';
+  if(L('kl')>=5){const P=pjz();s+='<rect x="226" y="330" width="108" height="26" fill="rgba(217,135,74,.12)" stroke="'+c+'" stroke-width="1.6"/><text x="280" y="348" text-anchor="middle" font-size="13" fill="#ecc29a" font-family="Georgia">'+((P&&P.name)||'').slice(0,16)+'</text>';}
+  if(all)s+='<text x="280" y="378" text-anchor="middle" font-size="12" fill="#c8a050" font-family="Georgia" font-style="italic">Estatua de bronce</text>';
+  return s;}
+
+function progGodOpts(d,add){
+  if(qLv('eu')>=4)add('Ayudar en un sacrificio (una vez al día)',()=>{if(progToday('sacr')){$('dBody').innerHTML='<p>Ya ayudaste hoy en el altar.</p>';renderGodOpts(d);return;}progMark('sacr');qAdd('eu',1);save();
+    $('dBody').innerHTML='<p>Te lavas las manos, te pones una corona y ayudas al sacerdote: echas granos de cebada sobre el animal, se corta un mechón de su frente y se quema en el fuego, y en el momento del sacrificio las mujeres lanzan el grito ritual. La carne se reparte entre todos; a '+d.name+' le toca el humo de los huesos envueltos en grasa.</p>';renderGodOpts(d);},'quiz');
+  if(qLv('eu')>=8)add('Pedir un augurio (una vez al día)',()=>{if(progToday('aug')){$('dBody').innerHTML='<p>«Ya te he hablado hoy».</p>';renderGodOpts(d);return;}progMark('aug');
+    const L=npcObjs.filter(o=>o.data&&o.data.where&&!(state.seen&&state.seen['m:'+o.data.id]));const o=L.length?pick(L):null;
+    $('dBody').innerHTML='<p>'+d.name+' te mira y un pájaro cruza el cielo por la derecha: buena señal. '+(o?'«Busca a '+o.data.name+': lo encontrarás '+o.data.where.charAt(0).toLowerCase()+o.data.where.slice(1).replace(/\.$/,'')+'».':'«Ya conoces a todos los que debías conocer».')+'</p>';renderGodOpts(d);},'quiz');}
+{const pl0=playerLook;playerLook=function(){const o=Object.assign({},pl0());if(state&&qLv('kl')>=5)o.himation=MODE==='roma'?'#5a1a3a':'#2f3f7a';return o;};}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -17694,7 +17834,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();if(MODE==='atenas')romaTheatres();vuSetup();ofSetup();mktSetup();egxSetup();m386Setup();farmSetup();farmOfferSetup();delfosPlus();termoPlus();atalSetup();finSetup();artSetup();urbSetup();ovidSetup();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();if(MODE==='atenas')romaTheatres();vuSetup();ofSetup();mktSetup();egxSetup();m386Setup();farmSetup();farmOfferSetup();delfosPlus();termoPlus();atalSetup();finSetup();artSetup();urbSetup();ovidSetup();progSetup();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
