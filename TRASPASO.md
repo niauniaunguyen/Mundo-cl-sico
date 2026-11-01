@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 111 del artefacto; notas de la versión 111). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 112 del artefacto; notas de la versión 112). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,30 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 112: el camino del forastero a la ciudadanía (10 pasos en cada modo)
+
+Módulo «EL CAMINO DEL FORASTERO» (prefijo `cv`). Une lo que ya existía (prostátes, metoíkion, énktesis por decreto, ciudadanía por el emperador o por Malaca, hospitalidad) y añade los pasos que faltaban. Cada modo guarda su partida, así que `fxz().ciu` es la ciudadanía ateniense en Atenas y la romana en Roma.
+- **Diario, pestaña «Forastero»:** nueva entrada «Tu camino a la ciudadanía», con los 10 pasos marcados (`cvSteps`, `cvPanel`). `fxJournal` está envuelto.
+- **Atenas:**
+  - **Metoíkion cada año** (`cvTick`): aviso al empezar el año. Ocho días después llega la denuncia ante el polemarco (`f.mkLate`) y hay que pagar el doble al demarco.
+  - **Servicios a la ciudad** (`cvServ`), hacen falta 3:
+    - la eisphorá (30 óbolos, con el demarco);
+    - la flota (con Ifícrates);
+    - las Panateneas como portador de bandejas (se toma de `vmz().once.pan`);
+    - una donación (queda como opción para más adelante).
+  - **Isotéleia:** el paisano la gestiona con 3 servicios y Kléos 5.
+  - **Petición de ciudadanía** (`cvPetA`): pide énktesis, isotéleia, Kléos 8, Lógos 6 y un amigo con «Confianza». Primera votación a mano alzada; segunda con 6.000 votos secretos (al azar, ayuda el Kléos). Luego, el juicio por ilegalidad (`cvJuicio`, tres preguntas más un plus de Lógos).
+  - Si gana: demo de Mélite, tribu Cecrópide y fratría. Puede hablar en la Pnyx y desfila como ciudadano en las Panateneas (`vmPanRole` ya miraba `state.fx.ciu`).
+  - **Personaje femenino:** termina en «benefactora» (`f.hon`, decreto con corona de olivo), porque las mujeres no tenían derechos políticos.
+  - **Asamblea de la progresión** (`progAct` envuelto): si no eres ciudadano, en lugar de hablar escribes el discurso para un amigo, como Lisias.
+- **Roma:**
+  - **Veterano** Tiberio Claudio Dases (`cv:vet`, en `ro_paz`), con su diploma militar.
+  - **Vía del trigo** (`cvAnona`, botón añadido a `vmFrum`): solo para latinos (origen Malaca) con barco propio. Seis viajes, uno por mes del juego. El hombre obtiene la ciudadanía (`f.via='anona'`); la mujer, el privilegio de las madres de cuatro hijos (`f.liber`), según Suetonio.
+  - **Malaca:** la magistratura ya no se ofrece a personajes femeninos; hay una explicación en su lugar.
+  - `f.via` registra la vía: `municipio`, `emperador` o `anona`.
+- Comprobado: la casa en Atenas ya exigía énktesis por decreto, y la granja ya era un arriendo a nombre del sobrino de Lamprias. No hacía falta tocarlas.
+- Prueba en `scratchpad/tools/t_cv.js`.
 
 ### Novedades de la versión 111: canteras (cómo se sacaba la piedra) y pigmentos
 
