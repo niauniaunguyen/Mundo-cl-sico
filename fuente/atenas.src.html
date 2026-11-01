@@ -16684,11 +16684,11 @@ function cavLeave(text){const ro=MODE==='roma',id=ro?'epicteto':'platon',o=npcOb
   cavTravel(ro?'Te despiertas…':'Abres los ojos…',text||(ro?'Estás otra vez en Roma, con el libro de Cicerón entre las manos.':'Estás otra vez en el bosque de la Academia, junto a Platón.'),()=>{if(o){player.x=o.x+2.5;player.z=o.z+2.5;}else{const I=ISLANDS[0];void I;player.x=INNER.x;player.z=INNER.z;}cavRestore();});}
 // ---- luz: la caverna es oscura, la subida se aclara, fuera es de día y el mundo de las Ideas es blanco
 function cavIn(){return CAV.built&&Math.abs(player.x-CAV.X)<400&&player.z>CAV.Z-120&&player.z<CAV.Z+700&&player.feet>CAV.Y-60&&player.feet<CAV.Y+400;}
-function cavRestore(){if(!CAV.ovr)return;CAV.ovr=false;scene.fog.near=260;scene.fog.far=2400;if(CAV.light)CAV.light.intensity=0;updateSky();}
+function cavRestore(){if(!CAV.ovr)return;CAV.ovr=false;if(SEA)SEA.visible=true;scene.fog.near=260;scene.fog.far=2400;if(CAV.light)CAV.light.intensity=0;updateSky();}
 function cavBlind(col,ms,txt){let b=CAV.blind;if(!b){b=document.createElement('div');b.style.cssText='position:fixed;inset:0;z-index:40;pointer-events:none;opacity:0;transition:opacity 0.4s;display:flex;align-items:center;justify-content:center;font:italic 22px Alegreya,Georgia,serif;color:#5a4a30;text-align:center;padding:24px';document.body.appendChild(b);CAV.blind=b;}
   b.style.background=col;b.textContent=txt||'';b.style.transition='opacity 0.3s';b.style.opacity='1';setTimeout(()=>{b.style.transition='opacity '+(ms/1000)+'s';b.style.opacity='0';},400);}
 function cavTick(dt){if(!state||!CAV.built)return;const inside=cavIn();if(!inside){if(CAV.ovr)cavRestore();return;}CAV.ovr=true;const t=performance.now()/1000,lz=player.z-CAV.Z,F=scene.fog;
-  if(MODE==='roma'){sun.intensity=0.35;sun.color.set('#c8d4ff');hemi.intensity=0.45;hemi.color.set('#8090c0');hemi.groundColor.set('#202030');F.color.set('#02030a');F.near=300;F.far=3000;
+  if(MODE==='roma'){if(SEA&&SEA.visible)SEA.visible=false;sun.intensity=0.35;sun.color.set('#c8d4ff');hemi.intensity=0.45;hemi.color.set('#8090c0');hemi.groundColor.set('#202030');F.color.set('#02030a');F.near=300;F.far=3000;
     SKY.uniforms.top.value.set('#000004');SKY.uniforms.mid.value.set('#02030a');SKY.uniforms.bot.value.set('#050818');SKY.uniforms.glow.value=0;STARS.material.opacity=1;
     for(const r of CAV.rings){r.a+=dt*r.sp*0.4;r.p.position.set(CAV.X+95+Math.cos(r.a)*r.r,CAV.Y-40,CAV.Z+50+Math.sin(r.a)*r.r);}if(CAV.earth)CAV.earth.rotation.y+=dt*0.02;return;}
   const c=cavz();

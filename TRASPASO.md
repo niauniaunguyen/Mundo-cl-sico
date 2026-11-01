@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 95 del artefacto; notas de la versión 95). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 96 del artefacto; notas de la versión 96). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,32 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 96: la caverna de Platón y el Sueño de Escipión
+
+Todo está en el módulo «LA CAVERNA DE PLATÓN (ATENAS) Y EL SUEÑO DE ESCIPIÓN (ROMA)». El estado se guarda en `CAV`, `cavz()` (`state.cav`) y `somz()` (`state.som`).
+
+- **Dónde se construye:** solo cuando se entra (`buildCave`, `buildSomnium`), en x 9500, z −3000 y a 4200 m de altura, por encima de cualquier relieve. Los objetos con los que se interactúa son `egxObj`, con los prefijos `c:` y `sm:`, y los atiende `cavAct`. `cavTick`, dentro de `gfTick`, controla la luz: la caverna oscura con fuego, la subida que se aclara, el prado de día, las Ideas en blanco y, en Roma, el espacio estrellado sin mar. Al salir, `cavRestore` lo devuelve todo. `checkZone` y `regionName` reconocen las zonas nuevas.
+- **Requisitos** (`cavReq`):
+  - Atenas: Sophía 10, amistad íntima con Platón (afinidad 100) y haber terminado la Academia como discípulo.
+  - Roma: Sapientia 10, amistad íntima con Epicteto y haber terminado la escuela de Musonio o la de Epicteto.
+  - La opción aparece en el diálogo de Platón o de Epicteto (`cavOpts`), que explica lo que falta.
+- **La caverna de Atenas** sigue la *República* VII y los cuatro grados de la «línea dividida» (VI 509d-511e):
+  - Empiezas encadenado delante de la pared. Las sombras son las de figuras que pasan detrás de un murete, y tres de ellas llevan el nombre de personas que has conocido. Rompes las cadenas y te deslumbra el fuego.
+  - Subes por una cuesta de 60 escalones que se va aclarando. Fuera, la luz te ciega. Hay que mirar el estanque de los reflejos y resolver el problema del *Menón* (el cuadrado doble se construye sobre la diagonal); entonces se abre la puerta de la luz.
+  - En el mundo de las Ideas hay seis: el Caballo (con la burla de Antístenes), el Árbol (*Fedón*), lo Bello (*Banquete*), los cinco sólidos (*Timeo*), la ciudad justa (con las mujeres guardianas) y la llanura del Olvido (mito de Er, que enlaza con Mnemósine). Con cuatro de ellas puedes mirar el Sol, la Idea del Bien.
+  - Al final hay que volver a bajar e intentar liberar a un prisionero. Funciona hacer preguntas, como Sócrates; con Lógos 6 el prisionero llega a girar la cabeza.
+  - Recompensa: el título de philósophos, +4 Lógos, +5 Kléos, +2 Eusébeia y 10 óbolos.
+- **Las anacronismos se avisan en el juego:** la *República*, el *Banquete* y el *Timeo* se escribieron después del 386.
+- **Vínculos con el resto del juego:**
+  - Delfos da una pista con Sophía 7 (`cavHint`, dentro de `oracAct`).
+  - Antístenes, con «¿Qué piensas de las Ideas de Platón?», cuenta su burla de la caballeidad.
+  - Aristóteles niño, cuando ya has terminado la caverna, propone que la forma está en las cosas.
+- **El Sueño de Escipión en Roma** sigue a Cicerón, *República* VI 9-29:
+  - Caminas por la Vía Láctea, rodeado de estrellas. Ves la Tierra con sus cinco zonas (el punto dorado es Roma) y las esferas que giran a su alrededor.
+  - El Africano tiene cuatro temas, Paulo uno, y además está la música de las esferas, que suena de verdad (`cavMusic`).
+  - Para despertar con recompensa hay que haber visto seis cosas. Recompensa: +4 Pietas, +3 Eloquentia y 10 sestercios.
+- En `__d` hay ahora funciones de prueba nuevas: `cavEnter`, `cavz`, `somz`, `cavAct`, `CAV` y `cavIn`.
 
 ### Novedades de la versión 95: las cualidades tienen efectos claros
 
