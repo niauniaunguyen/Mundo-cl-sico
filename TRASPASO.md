@@ -89,7 +89,8 @@ Módulo «LA ACADEMIA EN DIRECTO» (prefijo `aca`, estado en `state.aca`), solo 
 - Si el personaje es femenino, una nota recuerda a Axiotea de Fliunte y Lastenia de Mantinea.
 - **Mapa del conocimiento** (`acaMap`): un SVG con las Ideas en el centro y ocho nodos que se encienden según lo enlazado. Avisa de que el *Menón* y la *República* se escribirán después y de que la inscripción sobre la geometría es una leyenda tardía.
 - **Recompensa:** la primera vez, +3 Sophía, +2 Lógos y +1 Kléos; después, +1 Sophía al día.
-- Prueba en `scratchpad/tools/t_aca.js`.
+- **Arreglo de paso:** el glosario (`glossScan`) y el vocabulario (`vocWalk`) ya no tocan el texto que hay dentro de un `svg`. Metían un `span` HTML que hacía desaparecer etiquetas como «Retórica».
+- Prueba en `scratchpad/tools/t_aca.js` y `t_acamap.js`.
 
 ### Novedades de la versión 108: el terreno lejano ya no asoma en la ciudad
 
