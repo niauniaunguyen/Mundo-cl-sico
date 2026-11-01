@@ -608,7 +608,7 @@ function rawH(x,z){
     const out=r>THEA.r1?1-sstep((r-THEA.r1)/12):1,w=1-sstep(clamp((ph-1.55)/0.9,0,1)),e=cav*out*w;if(e>h)h=e;}} // la ladera abraza las gradas
   let a=plateau(x,z,ACRO.x,ACRO.z,ACRO.rx,ACRO.rz,ACRO.h,0.3);
   if(x>-240&&x<-110){const t=clamp((x+235)/113,0,1);const side=1-sstep(clamp((Math.abs(z+2)-7)/5,0,1));a=Math.max(a,(25+35*t)*side);} // rampa de Mnesicles
-  return Math.max(h,a);
+  return a>0?Math.max(h,a):(s>0||pirWet(x,z))?h:Math.max(h,0);   // bajo el nivel del suelo solo el mar y las dársenas del Pireo
 }
 
 // ------------------------------------------------------------ explanadas bajo los edificios
@@ -1026,6 +1026,7 @@ function pirCarve(x,z,h){if(Math.abs(x-PIR0.x)>420||Math.abs(z-PIR0.z)>420)retur
   for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-6+6.4*sstep(clamp((d-b.R*0.9)/(b.R*0.1+10),0,1));if(t<h)h=t;}
     {const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);if(Math.abs(u-b.u)<7&&v<b.v&&v>-40){const t=-5.5+5.3*sstep(clamp((Math.abs(u-b.u)-4)/4,0,1));if(t<h)h=t;}}}   // el canal de entrada
   return h;}
+function pirWet(x,z){for(const b of PIR_BAYS){if(Math.hypot(x-b.x,z-b.z)<b.R+10)return true;const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);if(Math.abs(u-b.u)<9&&v<b.v&&v>-40)return true;}return false;}
 function pirIn(x,z){if(MODE!=='atenas')return false;const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);return u>-235&&u<185&&v>-80&&v<210;}
 // ---- los barrios (demos) de la ciudad: orientación de su trama, tamaño de las casas y proporción de casas de dos pisos
 const ATH_DEMES=[
