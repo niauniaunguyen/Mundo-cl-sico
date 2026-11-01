@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 110 del artefacto; notas de la versión 110). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 111 del artefacto; notas de la versión 111). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,29 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 111: canteras (cómo se sacaba la piedra) y pigmentos
+
+Módulo «CANTERAS Y PIGMENTOS» (prefijo `qc:`, estado en `state.qc`).
+- **La cantera** es una zona aparte (`QC`: X 9500, Z 9000, Y 4200), como el estadio o el Telesterion. Se construye la primera vez que se visita (`qcBuild`).
+  - Tiene un suelo de 150 × 150 m con paredes, el frente de la cantera en cinco bancos, bloques a medio sacar, obreros y montañas alrededor.
+  - `regionName` está envuelto para que la zona tenga nombre.
+  - Se va con `qcGo` y se vuelve con `qcBack`, al punto de salida.
+- **Atenas: el Pentélico.** Se llega con Mnesíteo, el transportista de mármol, en el Cerámico.
+  - El frente, con los canales a pico siguiendo el lecho de la piedra.
+  - Las cuñas de hierro: un minijuego en el que hay que golpearlas todas por igual. Pagan un jornal de una dracma, como en las cuentas del Erecteion, y +1 Areté una vez al día.
+  - La rampa (*lithagogía*) con el trineo, frenado con cuerdas y postes.
+  - El carro con yuntas de bueyes, como en las cuentas de Eleusis.
+- **Roma: el travertino de Tíbur**, la piedra de la fachada del anfiteatro de Tito. Se llega con Félix, el marmolista del muelle de los mármoles, junto al Emporio; allí se habla de los mármoles de colores del imperio y de las marcas de cantera.
+  - La grúa de rueda (Vitruvio; relieve de los Haterios, posterior).
+  - La sierra que corta con agua y arena.
+  - La barcaza por el Anio (Estrabón).
+  - Una nota sobre la toba, el ladrillo y el polvo de Puteoli del hormigón.
+- **Taller de pigmentos.** En Atenas lo lleva Calias, el que según Teofrasto sacó el cinabrio del mineral de Laurio hacia el 405. En Roma, Vestorino, en los talleres de cinabrio que Plinio sitúa entre los templos de Flora y Quirino.
+  - Siete colores, cada uno con su origen: azul egipcio (y Vestorio en Puteoli, según Vitruvio), bermellón (de Sisapo, monopolio del Estado), ocres (los de Ceos), blanco de plomo, malaquita y azurita, negro de hollín y púrpura.
+  - Ver los siete da +2 Sophía.
+  - «Ayudar a pintar una estatua» explica los aglutinantes y la cera. Da +1 Kléos.
+- Prueba en `scratchpad/tools/t_qc.js`.
 
 ### Novedades de la versión 110: funerales, medicina, Panateneas y reparto de trigo, infancia y juegos
 
