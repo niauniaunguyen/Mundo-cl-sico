@@ -1023,8 +1023,8 @@ const PIR_BAYS=[{id:'zea',u:96,v:40,R:24},{id:'muniquia',u:150,v:30,R:15}].map(b
 const PIR_HILL=(()=>{const p=pirP(150,72);return{x:p[0],z:p[1]};})();
 function pirCarve(x,z,h){if(Math.abs(x-PIR0.x)>420||Math.abs(z-PIR0.z)>420)return h;
   h+=bump(x,z,PIR_HILL.x,PIR_HILL.z,38,20);   // la colina de Muniquia
-  for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-3.4+3.8*sstep(clamp((d-b.R*0.72)/(b.R*0.28+10),0,1));if(t<h)h=t;}
-    {const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);if(Math.abs(u-b.u)<7&&v<b.v&&v>-40){const t=-2.8+2.6*sstep(clamp((Math.abs(u-b.u)-3)/4,0,1));if(t<h)h=t;}}}   // el canal de entrada
+  for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-6+6.4*sstep(clamp((d-b.R*0.9)/(b.R*0.1+10),0,1));if(t<h)h=t;}
+    {const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);if(Math.abs(u-b.u)<7&&v<b.v&&v>-40){const t=-5.5+5.3*sstep(clamp((Math.abs(u-b.u)-4)/4,0,1));if(t<h)h=t;}}}   // el canal de entrada
   return h;}
 function pirIn(x,z){if(MODE!=='atenas')return false;const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);return u>-235&&u<185&&v>-80&&v<210;}
 // ---- los barrios (demos) de la ciudad: orientación de su trama, tamaño de las casas y proporción de casas de dos pisos
