@@ -362,7 +362,7 @@ body.tm #toast{bottom:auto;top:calc(170px + env(safe-area-inset-top,0px));right:
 @media (orientation:landscape) and (max-height:520px){
  body.tm #stats{max-width:min(38vw,300px)}body.tm #stats .row:nth-child(2){display:none}
  body.tm #mini{width:78px;height:78px;top:calc(62px + env(safe-area-inset-top,0px))}
- body.tm #dialog{left:auto;right:0;width:min(62vw,620px);max-height:100vh;height:100%;border-radius:16px 0 0 16px;display:flex;flex-direction:column}
+ body.tm #dialog{left:auto;right:0;width:min(62vw,620px);max-height:100vh;height:100%;box-sizing:border-box;border-radius:16px 0 0 16px;display:flex;flex-direction:column}
  body.tm #dialog .opts{grid-template-columns:1fr 1fr}
  body.tm #dialog .opts button,body.tm #dOpts button{min-height:40px;font-size:.88rem}
  #tbtns{transform:scale(.88);transform-origin:right bottom}

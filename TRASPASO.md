@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 102 del artefacto; notas de la versión 102). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 103 del artefacto; notas de la versión 103). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,23 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 103: pruebas completas (dos pasadas) y correcciones
+
+- **Banco de pruebas automático,** en `scratchpad/tools`:
+  - `t_qa.js` recorre todos los personajes y sus temas, las estelas, los dioses, los objetos (`EGX_OBJS`), las Musas, los ensayos, la llegada a cada destino, las esferas y los menús. Busca errores de programa, diálogos que no se ven, textos con `undefined`, `NaN` o `null`, identificadores repetidos y estelas superpuestas.
+  - `t_story.js` juega el modo Historia entero; si falla una pregunta, prueba otra respuesta.
+  - `t_mob.js` comprueba la interfaz en el móvil.
+  - Usan `__d.QA()`, que da acceso a las tablas internas.
+- **Primera pasada:**
+  - Había un identificador de estela duplicado: `horos`. El mojón de hipoteca del campo se llama ahora `horos_hipoteca`, porque el capítulo 1 de la Historia y las curiosidades usan el del Ágora.
+  - Las huellas de Ovidio de Delos, Creta, Lesbos y Troya no aparecían, porque esos destinos no tienen `town`. Ahora se colocan junto a `arrive` o al centro, buscando tierra firme.
+- **Segunda pasada:**
+  - Faltaba la etiqueta `<meta name="viewport">`. claude.ai la añade, pero hace falta para publicar el juego como web independiente.
+  - En el móvil en horizontal, el diálogo pasaba 2 px de la pantalla (se arregla con `box-sizing:border-box`).
+- **Resultado:** el modo Historia se completa en los dos modos (11 capítulos de Atenas y 11 de Roma) sin errores. En el modo libre no hay errores de programa ni textos rotos.
+- **Avisos que no son fallos:** el sueño de Miseno, la boda y las salidas de la pirámide y del Faro abren directamente un minijuego, una escena o un viaje, sin diálogo. Delos, Creta, Lesbos y Troya tienen su propia forma de llegar, sin `arrive`.
+- **No probado:** el modo en línea, porque necesita un servidor y otros jugadores.
 
 ### Novedades de la versión 102: las Metamorfosis completas (libros XI-XV)
 
