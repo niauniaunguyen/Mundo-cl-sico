@@ -16935,7 +16935,7 @@ function finDuel(cfg){const one=casaOpen(cfg.glyph,cfg.name,cfg.title),B=$('dBod
     P.o.map(o=>o).sort(()=>R()-0.5).forEach(o=>one(o[0],()=>{pts+=o[1];B.innerHTML='<p><i>'+o[0]+'</i></p><p>'+o[2]+'</p><p class="sub">'+(o[1]===2?cfg.good:o[1]===1?cfg.meh:cfg.bad)+'</p>';$('dOpts').innerHTML='';
       one(i<cfg.parts.length-1?_t(2798,'Seguir'):'Esperar el veredicto',()=>{i++;if(i<cfg.parts.length)ask();else cfg.end(pts,cfg.parts.length*2,one,B);},'quiz');},'quiz'));};
   B.innerHTML=cfg.intro;$('dOpts').innerHTML='';one('Empezar',ask,'quiz');one(_t(7087,'Ahora no'),closeDialog);$('dialog').hidden=false;}
-const fNeed=(k,lv)=>qLv(k)>=lv;
+const finNeed=(k,lv)=>qLv(k)>=lv;
 function fLack(k,txt){const q=QUAL.find(x=>x.k===k);return '<p class="sub">Necesitas '+qName(q)+' 10 (tienes '+qLv(k)+'). '+(txt||'')+'</p>';}
 // ======================================================== 1. LA CARRERA EN 3D
 const RACE={on:false,D:null,G:null,rival:null,apples:[],ret:null,ov:null,cd:0,ph:0,thr:false};
@@ -16998,7 +16998,7 @@ function gorgiasAct(){const f=finz(),ro=false;void ro;
    ['¿Estuviste en Atenas?','Hace cuarenta años vine como embajador de Leontinos a pedir ayuda contra Siracusa. Hablé en la Asamblea y los atenienses se quedaron con la boca abierta: nunca habían oído antítesis tan bien medidas (Diodoro XII 53). Me votaron la flota. Desde entonces, todo el mundo me imita.']];
   const menu=msg=>{$('dOpts').innerHTML='';if(msg)B.innerHTML=msg;T.forEach(t=>one(t[0],()=>menu('<p>'+t[1]+'</p>')));
     one(f.gor?'Hablar otra vez de retórica':'Aceptar su desafío',()=>{if(f.gor){menu('<p>«Tú y yo ya nos hemos medido. Vuelve cuando quieras a escuchar a un viejo».</p>');return;}
-      if(!fNeed('lo',10)){menu('<p>Gorgias te mira con una sonrisa cansada. «Todavía hablas como quien pide el pan. Vuelve cuando te escuchen las asambleas».</p>'+fLack('lo','Habla con oradores y políticos, y haz de jurado.'));return;}
+      if(!finNeed('lo',10)){menu('<p>Gorgias te mira con una sonrisa cansada. «Todavía hablas como quien pide el pan. Vuelve cuando te escuchen las asambleas».</p>'+fLack('lo','Habla con oradores y políticos, y haz de jurado.'));return;}
       if(f.gorDay===state.day){menu('<p>«Hoy ya me has hecho reír bastante. Mañana».</p>');return;}gorgiasDuel();},'quiz');
     one(_t(2666,'Despedirse'),closeDialog);};
   menu('<p>Un anciano muy erguido, vestido de púrpura, está sentado bajo un pórtico rodeado de jóvenes tesalios. Habla despacio, midiendo cada frase como si la pesara. Es Gorgias, el sofista más famoso de Grecia.</p><p>«Así que tú eres la persona de la que hablan en Atenas. Dicen que tu palabra convence. Demuéstralo: te propongo un desafío delante de mis alumnos».</p>');}
@@ -17028,7 +17028,7 @@ function gorgiasDuel(){const f=finz();f.gorDay=state.day;save();
      $('dOpts').innerHTML='';one(_t(2666,'Despedirse'),closeDialog,'quiz');}});}
 function juicioAct(){const f=finz();
   if(f.jui){finSeq('Q','Quintiliano',_t(102,'Maestro de retórica'),[{t:'<p>«Todavía se habla en el Foro de tu discurso ante los centúnviros. Eso es lo que yo llamo un vir bonus dicendi peritus: un hombre bueno que sabe hablar».</p>',btn:_t(2666,'Despedirse')}],closeDialog);return;}
-  if(!fNeed('lo',10)){finSeq('Q','Quintiliano',_t(102,'Maestro de retórica'),[{t:'<p>«Tengo un caso para alguien de mucha palabra, pero todavía no es para ti».</p>'+fLack('lo','Habla con oradores y políticos.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
+  if(!finNeed('lo',10)){finSeq('Q','Quintiliano',_t(102,'Maestro de retórica'),[{t:'<p>«Tengo un caso para alguien de mucha palabra, pero todavía no es para ti».</p>'+fLack('lo','Habla con oradores y políticos.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
   if(f.juiDay===state.day){finSeq('Q','Quintiliano',_t(102,'Maestro de retórica'),[{t:'<p>«El tribunal no vuelve a reunirse hasta mañana».</p>',btn:_t(2666,'Despedirse')}],closeDialog);return;}
   f.juiDay=state.day;save();
   finDuel({glyph:'⚖',name:'Ante los centúnviros',title:'Basílica Julia · una querella por un testamento',
@@ -17061,7 +17061,7 @@ function juicioAct(){const f=finz();
 // ======================================================== 3. EUSÉBEIA: ELEUSIS (Atenas) Y LA SIBILA DE CUMAS (Roma)
 function eleusisAct(){const f=finz(),mo=calNow().mo,BOE=8;
   if(f.eleu){finSeq('Δ','Los heraldos de los Misterios',_t(2348,'Eleusinion de la ciudad'),[{t:'<p>Ya eres epóptes: has visto. Lo que viste en el Telesterion no se cuenta. Alcibíades lo parodió en una fiesta y tuvo que huir de Atenas condenado a muerte; el poeta Esquilo estuvo a punto de morir linchado por decir en el teatro algo que parecía un secreto.</p>',btn:_t(2666,'Despedirse')}],closeDialog);return;}
-  if(!fNeed('eu',10)){finSeq('Δ','Los heraldos de los Misterios',_t(2348,'Eleusinion de la ciudad'),[{t:'<p>Un sacerdote de la familia de los Cérices te mira. «Los Misterios están abiertos a todos los que hablan griego y no tienen las manos manchadas de sangre: hombres y mujeres, libres y esclavos. Pero el grado más alto, el de los que ven, exige un alma preparada».</p>'+fLack('eu','Cumple los encargos de los dioses, visita santuarios y participa en las fiestas.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
+  if(!finNeed('eu',10)){finSeq('Δ','Los heraldos de los Misterios',_t(2348,'Eleusinion de la ciudad'),[{t:'<p>Un sacerdote de la familia de los Cérices te mira. «Los Misterios están abiertos a todos los que hablan griego y no tienen las manos manchadas de sangre: hombres y mujeres, libres y esclavos. Pero el grado más alto, el de los que ven, exige un alma preparada».</p>'+fLack('eu','Cumple los encargos de los dioses, visita santuarios y participa en las fiestas.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
   if(mo!==BOE){const dleft=(((BOE-mo+12)%12)*SEASON_DAYS)-((state.day-1)%SEASON_DAYS);
     const one=casaOpen('Δ','Los heraldos de los Misterios',_t(2348,'Eleusinion de la ciudad')),B=$('dBody');B.innerHTML='<p>«Los Grandes Misterios se celebran en el mes de Boedromión, en otoño. Faltan unos '+dleft+' días. Vuelve entonces».</p>';
     one('Esperar hasta Boedromión (pasan '+dleft+' días)',()=>{closeDialog();addHours(24*dleft);updateSky();toast('<span class="label">Boedromión</span><br>Han pasado los días. Vuelve al Eleusinion: empiezan los Misterios.');},'quiz');one(_t(2666,'Despedirse'),closeDialog);$('dialog').hidden=false;return;}
@@ -17097,7 +17097,7 @@ function telAct(o){const f=finz(),a=o.act,one=casaOpen('Δ',o.data.name,'Teleste
 // ---- la Sibila de Cumas y los Infiernos (Eneida VI)
 function sibilaAct(){const f=finz();
   if(f.sib){finSeq('Σ','El antro de la Sibila','Cumas, en Campania',[{t:'<p>El antro está en silencio. Hace mucho que la Sibila no habla: en tiempos de Nerón, en el Satiricón de Petronio, alguien cuenta que la vio colgada en una jarra, tan vieja que solo pedía morir (48, 8). Pero tú bajaste con ella.</p>',btn:_t(2666,'Despedirse')}],closeDialog);return;}
-  if(!fNeed('eu',10)){finSeq('Σ','El antro de la Sibila','Cumas, en Campania',[{t:'<p>Una galería larga excavada en la roca, con aberturas por las que entra la luz. Aquí profetizaba la Sibila. Un guía te cuenta que Eneas bajó desde aquí a los Infiernos, para ver a su padre. «Pero solo los piadosos pueden seguirle», dice.</p>'+fLack('eu','Cumple con los dioses y las fiestas.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
+  if(!finNeed('eu',10)){finSeq('Σ','El antro de la Sibila','Cumas, en Campania',[{t:'<p>Una galería larga excavada en la roca, con aberturas por las que entra la luz. Aquí profetizaba la Sibila. Un guía te cuenta que Eneas bajó desde aquí a los Infiernos, para ver a su padre. «Pero solo los piadosos pueden seguirle», dice.</p>'+fLack('eu','Cumple con los dioses y las fiestas.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
   finSeq('Σ','El antro de la Sibila','Cumas, en Campania',[{t:'<p>Entras en la galería. De sus cien bocas salen cien voces (Eneida VI 43-44). Al fondo, una mujer muy vieja se agita, poseída por Apolo. «La bajada al Averno es fácil: la puerta de Dite está abierta noche y día. Volver a subir, eso es lo difícil» (VI 126-129).</p><p class="sub">Es la bajada de Eneas a los Infiernos, en el libro VI de la Eneida. Recorrerla es una licencia del juego.</p>',btn:'Seguir a la Sibila'}],
    ()=>{closeDialog();fzGo('Sigues a la Sibila…','«Busca en el bosque una rama de oro: sin ella nadie baja» (VI 136-141).',()=>{infBuild();f.sibSt=Math.max(f.sibSt,0);save();fzPut(FZ.X,6000-40,Math.PI);setTimeout(()=>toast('<span class="label">El bosque del Averno</span><br>Busca la rama dorada. Sin ella, Caronte no te dejará cruzar.'),900);});});}
 function infBuild(){if(FZ.built.inf)return;FZ.built.inf=1;const X=FZ.X,Z=6000,Y=FZ.Y,g=grp(X,Y,Z,0),rk=lam('#3a3a44'),dk=lam('#24242c');
@@ -17161,7 +17161,7 @@ function fDeeds(){const L=[];const c=state.cav,a=state.atal,f=finz();
   return L;}
 function decretoAct(){const f=finz(),P=pjz(),nm=P&&P.name?P.name:'el forastero';
   if(f.dec){finSeq('Ε',_t(10,'Eucles de Acarnas'),_t(11,'Prítano de la tribu Eneida'),[{t:'<p>«Tu estela ya está en el Ágora, junto al Bouleuterion. Y cada día tienes tu sitio en el Pritaneo. Pocos extranjeros han tenido tanto honor».</p>',btn:_t(2666,'Despedirse')}],closeDialog);return;}
-  if(!fNeed('kl',10)){finSeq('Ε',_t(10,'Eucles de Acarnas'),_t(11,'Prítano de la tribu Eneida'),[{t:'<p>«La ciudad honra a quienes le hacen bien, sobre todo a los extranjeros: los nombra próxenos y benefactores, y lo graba en piedra. Pero para eso hace falta que toda Atenas conozca tu nombre».</p>'+fLack('kl','Conoce a mucha gente, cumple misiones y haz amistades.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
+  if(!finNeed('kl',10)){finSeq('Ε',_t(10,'Eucles de Acarnas'),_t(11,'Prítano de la tribu Eneida'),[{t:'<p>«La ciudad honra a quienes le hacen bien, sobre todo a los extranjeros: los nombra próxenos y benefactores, y lo graba en piedra. Pero para eso hace falta que toda Atenas conozca tu nombre».</p>'+fLack('kl','Conoce a mucha gente, cumple misiones y haz amistades.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
   const D=fDeeds();
   finSeq('Ε','Un decreto en tu honor','La Asamblea, en la Pnyx',[
    {h:'La propuesta',t:'<p>Eucles te cuenta que un consejero ha presentado al Consejo una propuesta para honrarte. El Consejo la ha aprobado como «decreto previo» (probouleuma) y hoy se vota en la Asamblea.</p>'},
@@ -17176,7 +17176,7 @@ function decretoStele(go){const f=finz();if(!f.dec||MODE!=='atenas'||PLACES.find
   if(go){fzPut(x+2,z+2,0);toast('<span class="label">Tu estela</span><br>Ahí está tu nombre, grabado en mármol, en el Ágora de Atenas.');}}
 function coliseoAct(){const f=finz(),P=pjz(),nm=P&&P.name?P.name:'tú';
   if(f.col){finSeq('M',_t(3017,'Marco Valerio Marcial'),_t(3018,'Poeta de epigramas'),[{t:'<p>«Ya te escribí tu epigrama. ¿Quieres otro? Págamelo, que los poetas también comemos».</p>',btn:_t(2666,'Despedirse')}],closeDialog);return;}
-  if(!fNeed('kl',10)){finSeq('M',_t(3017,'Marco Valerio Marcial'),_t(3018,'Poeta de epigramas'),[{t:'<p>«Estoy escribiendo un libro sobre los juegos del nuevo anfiteatro. Solo meto en él a gente famosa: el César, los cazadores, los gladiadores… ¿Tú? Todavía no».</p>'+fLack('kl','Conoce a mucha gente y cumple misiones.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
+  if(!finNeed('kl',10)){finSeq('M',_t(3017,'Marco Valerio Marcial'),_t(3018,'Poeta de epigramas'),[{t:'<p>«Estoy escribiendo un libro sobre los juegos del nuevo anfiteatro. Solo meto en él a gente famosa: el César, los cazadores, los gladiadores… ¿Tú? Todavía no».</p>'+fLack('kl','Conoce a mucha gente y cumple misiones.'),btn:_t(2666,'Despedirse')}],closeDialog);return;}
   const som=state.cav&&state.cav.done;
   finSeq('M','Los juegos inaugurales del Anfiteatro Flavio','Año 80 · cien días de juegos',[
    {h:'La invitación',t:'<p>Un esclavo imperial te trae una tablilla: el emperador Tito, que ha oído hablar de ti, te invita a su palco en la inauguración del anfiteatro que empezó su padre, Vespasiano. Marcial te acompaña: «Siéntate a mi lado y fíjate en todo. Tengo un libro que escribir».</p>'},
