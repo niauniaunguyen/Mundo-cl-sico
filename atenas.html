@@ -18673,7 +18673,9 @@ function qcBuild(){if(QC.built)return;QC.built=true;const ro=MODE==='roma',X=QC.
   // canales abiertos alrededor de un bloque en el primer banco, y otros bloques a medio sacar
   for(const[x,w]of[[-30,6],[-12,5],[8,7],[30,5]]){box(w,3.4,3,stone,x,2.2,-34,g);box(w+0.6,0.3,3.6,dark,x,0.5,-34,g);}
   // las montañas alrededor
-  const mt=lam(ro?'#9a9478':'#a8a8a0');for(let i=0;i<9;i++){const a=-Math.PI*0.95+i*Math.PI*0.24,r=230+R()*60,c=new THREE.Mesh(new THREE.ConeGeometry(70+R()*50,90+R()*80,7),mt);c.position.set(Math.cos(a)*r,30,Math.sin(a)*r-40);g.add(c);}
+  const mt=lam(ro?'#7f8a68':'#8e9280'),mt2=lam(ro?'#9a9a80':'#b4b2a6');for(let i=0;i<11;i++){const a=-Math.PI*1.05+i*Math.PI*0.21,r=210+R()*80,geo=new THREE.IcosahedronGeometry(1,2),ps=geo.attributes.position;
+    for(let k=0;k<ps.count;k++){const vx=ps.getX(k),vy=ps.getY(k),vz=ps.getZ(k),n=1+0.18*Math.sin(vx*5.1+i)*Math.cos(vz*4.3)+0.1*Math.sin(vy*7+i*2);ps.setXYZ(k,vx*n,Math.max(vy,-0.2)*n,vz*n);}geo.computeVertexNormals();
+    const c=new THREE.Mesh(geo,i%3?mt:mt2);c.scale.set(80+R()*60,35+R()*45,70+R()*50);c.position.set(Math.cos(a)*r,0,Math.sin(a)*r-40);g.add(c);}
   // obreros con picos y mazas
   const looks=[{chiton:'#a89878',hair:'#2a1a10'},{chiton:'#8a7a60',hair:'#3a2a1a',beard:true},{chiton:'#b0a080',hair:'#1a1008'},{chiton:'#9a8a70',hair:'#4a3a2a',beard:true}];
   [[-28,-30],[-10,-30],[10,-30],[28,-30],[-36,-6],[18,4]].forEach(([x,z],i)=>{const p=makePerson(Object.assign({noVary:true},looks[i%4]));p.position.set(x,0,z);p.rotation.y=z<-20?Math.PI:R()*6;g.add(p);});
