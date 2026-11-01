@@ -1019,11 +1019,12 @@ const D=GATES.dipylon,SG=GATES.sagrada,PG=GATES.pireo,EG=GATES.este,NG=GATES.nor
 // ---- el Pireo: marco de referencia junto a la costa (u: a lo largo de la costa hacia el sureste; v: tierra adentro)
 const PIR0=(()=>{const t=(1750-(PG.z-PG.x))/1.4;return{x:PG.x+LW_DIR[0]*t,z:PG.z+LW_DIR[1]*t};})();
 const pirP=(u,v)=>[PIR0.x+Math.SQRT1_2*(u+v),PIR0.z+Math.SQRT1_2*(u-v)];
-const PIR_BAYS=[{id:'zea',u:70,v:-6,R:28},{id:'muniquia',u:132,v:-4,R:17}].map(b=>{const p=pirP(b.u,b.v);return Object.assign(b,{x:p[0],z:p[1]});});
+const PIR_BAYS=[{id:'zea',u:96,v:40,R:24},{id:'muniquia',u:150,v:30,R:15}].map(b=>{const p=pirP(b.u,b.v);return Object.assign(b,{x:p[0],z:p[1]});});
 const PIR_HILL=(()=>{const p=pirP(150,72);return{x:p[0],z:p[1]};})();
 function pirCarve(x,z,h){if(Math.abs(x-PIR0.x)>420||Math.abs(z-PIR0.z)>420)return h;
   h+=bump(x,z,PIR_HILL.x,PIR_HILL.z,38,20);   // la colina de Muniquia
-  for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-3.4+3.8*sstep(clamp((d-b.R*0.72)/(b.R*0.28+10),0,1));if(t<h)h=t;}}
+  for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-3.4+3.8*sstep(clamp((d-b.R*0.72)/(b.R*0.28+10),0,1));if(t<h)h=t;}
+    {const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);if(Math.abs(u-b.u)<7&&v<b.v&&v>-40){const t=-2.8+2.6*sstep(clamp((Math.abs(u-b.u)-3)/4,0,1));if(t<h)h=t;}}}   // el canal de entrada
   return h;}
 function pirIn(x,z){if(MODE!=='atenas')return false;const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);return u>-235&&u<185&&v>-80&&v<210;}
 // ---- los barrios (demos) de la ciudad: orientación de su trama, tamaño de las casas y proporción de casas de dos pisos
@@ -17423,18 +17424,18 @@ function pireoPlus(){if(MODE!=='atenas'||URB.pir)return;URB.pir=1;const a=-Math.
   [[-190,'La Stoa Larga (Makrá Stoá)'],[-155,'Pórtico del trigo'],[-120,'El Deigma'],[-85,'Pórtico de los cambistas']].forEach(([u,nm])=>{const p=P(u,26);if(urbFree(p[0],p[1],14))stoa({name:nm,x:p[0],z:p[1],rot:a+Math.PI,len:30,depth:9,colH:4.4,colD:0.55});});
   // la cuadrícula de Hipódamo: manzanas iguales de casas, con calles rectas; el ágora en el centro
   const houses=[],wallM=['#eee5d4','#e6dbc4','#d8c7a5','#efe8da'];
-  for(let bu=-5;bu<=4;bu++)for(let bv=1;bv<=5;bv++){const cu=bu*30+5,cv=bv*30+20;if(cu>120&&cv<120)continue;if(bu>=-1&&bu<=0&&bv>=3&&bv<=4)continue;
+  for(let bu=-5;bu<=4;bu++)for(let bv=1;bv<=5;bv++){const cu=bu*30+5,cv=bv*30+20;if(cu>120&&cv<120)continue;if(PIR_BAYS.some(b=>Math.hypot(cu-b.u,cv-b.v)<b.R+26))continue;if(bu>=-1&&bu<=0&&bv>=3&&bv<=4)continue;
     for(const[du,dv]of[[-6.2,-6.2],[6.2,-6.2],[-6.2,6.2],[6.2,6.2]]){const p=P(cu+du,cv+dv);if(!urbFree(p[0],p[1],7))continue;const gy=floorAt(p[0],p[1]);if(gy<0.6||Math.abs(terrainH(p[0]+5,p[1])-terrainH(p[0]-5,p[1]))>3)continue;houses.push({x:p[0],z:p[1],gy,a:a+(dv<0?Math.PI:0),c:pick(wallM),two:R()<0.25});}}
   for(const h of houses){const g=grp(h.x,h.gy,h.z,h.a),wm=lam(h.c);box(11.8,h.two?6.5:3.8,11.8,wm,0,(h.two?6.5:3.8)/2-0.4,0,g);box(12.4,0.5,12.4,tile,0,(h.two?6.5:3.8)-0.2,0,g);box(1.1,2.1,0.1,lam('#4a3324'),2,1.05,5.95,g);addBox(h.x,h.z,11.8,11.8,h.a);footprints.push({x:h.x,z:h.z,w:11.8,d:11.8,a:h.a,c:'#b8a280',house:true});}
   {const ag=P(-15,125);for(const[du,dv]of[[-24,-24],[24,-24],[-24,24],[24,24]]){const p=P(-15+du,125+dv);box(0.4,1,0.25,lam('#e8e0d0'),p[0],floorAt(p[0],p[1])+0.5,p[1]);}
     placeLive('pir_agora','El ágora de Hipódamo','ΙΠΠΟΔΑΜΕΙΑ ΑΓΟΡΑ','La plaza del Pireo lleva el nombre de quien trazó la ciudad: Hipódamo de Mileto, que hacia el 450 dibujó estas calles rectas y manzanas iguales. Aristóteles lo recuerda como el primero que pensó cómo debía ordenarse una ciudad (Política II 1267b). Se han encontrado los mojones que separaban los espacios: «Mojón del Emporio y del camino», «Mojón del ágora». Compárala con las callejas de Atenas, que crecieron sin plan.',ag[0],ag[1],a);}
   // Zea: cobertizos para las trirremes, en abanico alrededor de la dársena
-  {const b=PIR_BAYS[0];for(let k=0;k<13;k++){const th=Math.atan2(PIR0.x-b.x,PIR0.z-b.z)+Math.PI+(-1.2+k*0.2),cx=b.x+Math.sin(th)*(b.R+9),cz=b.z+Math.cos(th)*(b.R+9);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);
+  {const b=PIR_BAYS[0];for(let k=0;k<13;k++){const th=2.356+(-1.6+k*0.267),cx=b.x+Math.sin(th)*(b.R+9),cz=b.z+Math.cos(th)*(b.R+9);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);
       for(const s of[-1,1])for(let i=0;i<4;i++)box(0.4,3,0.4,stoneM,s*2.4,1.5,-8+i*5.3,g);const r=box(5.4,0.3,18,tile,0,3.2,0,g);r.rotation.x=-0.05;box(4.2,0.2,18,wood,0,0.1,0,g);addSeg(...toW(-2.6,-9,cx,cz,th),...toW(-2.6,9,cx,cz,th),0.25);}
-    makeShip(b.x+3,b.z-2,Math.atan2(PIR0.x-b.x,PIR0.z-b.z));
-    const p=P(70,22);placeLive('pir_zea','Zea, el puerto de las trirremes','ΖΕΑ','Una dársena redonda rodeada de cobertizos: rampas de piedra techadas, donde las trirremes se sacan del agua para que la madera se seque. Las listas de la flota del 330 hablarán de 196 cobertizos en Zea, 82 en Muniquia y 94 en el Cántaro. El gran arsenal de Filón, para guardar velas y cuerdas, se construirá dentro de unos cuarenta años.',p[0],p[1],a);}
-  {const b=PIR_BAYS[1];for(let k=0;k<6;k++){const th=Math.atan2(PIR0.x-b.x,PIR0.z-b.z)+Math.PI+(-0.8+k*0.32),cx=b.x+Math.sin(th)*(b.R+8),cz=b.z+Math.cos(th)*(b.R+8);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);for(const s of[-1,1])box(0.4,3,16,stoneM,s*2.4,1.5,0,g);box(5.4,0.3,16,tile,0,3.2,0,g);}
-    const p=P(128,24);placeLive('pir_muniquia','Muniquia','ΜΟΥΝΙΧΙΑ','El puerto más pequeño y la colina que lo domina, la mejor fortaleza del Pireo: quien la ocupa controla el puerto. En el 403, Trasíbulo y los demócratas vencieron aquí a los Treinta tiranos. Junto al puerto está el santuario de Ártemis Muniquia, la protectora de los marinos.',p[0],p[1],a);}
+    makeShip(b.x,b.z,Math.PI/4);
+    const p=P(96,78);placeLive('pir_zea','Zea, el puerto de las trirremes','ΖΕΑ','Una dársena redonda rodeada de cobertizos: rampas de piedra techadas, donde las trirremes se sacan del agua para que la madera se seque. Las listas de la flota del 330 hablarán de 196 cobertizos en Zea, 82 en Muniquia y 94 en el Cántaro. El gran arsenal de Filón, para guardar velas y cuerdas, se construirá dentro de unos cuarenta años.',p[0],p[1],a);}
+  {const b=PIR_BAYS[1];for(let k=0;k<6;k++){const th=2.356+(-1.2+k*0.48),cx=b.x+Math.sin(th)*(b.R+8),cz=b.z+Math.cos(th)*(b.R+8);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);for(const s of[-1,1])box(0.4,3,16,stoneM,s*2.4,1.5,0,g);box(5.4,0.3,16,tile,0,3.2,0,g);}
+    const p=P(146,58);placeLive('pir_muniquia','Muniquia','ΜΟΥΝΙΧΙΑ','El puerto más pequeño y la colina que lo domina, la mejor fortaleza del Pireo: quien la ocupa controla el puerto. En el 403, Trasíbulo y los demócratas vencieron aquí a los Treinta tiranos. Junto al puerto está el santuario de Ártemis Muniquia, la protectora de los marinos.',p[0],p[1],a);}
   // la colina: santuario de Bendis, la diosa tracia (aquí empieza la República de Platón)
   {const f=findFree(PIR_HILL.x-14,PIR_HILL.z+10,2);temple({name:'Bendideion',x:f[0],z:f[1],rot:a,W:8,L:14,nW:4,nL:6,colD:0.6,colH:5,entH:1.2,pedH:0.9,steps:2,stepH:0.3,roofMat:M.marble});
     placeLive('pir_bendis','El santuario de Bendis','ΒΕΝΔΙΔΕΙΟΝ','Bendis es una diosa tracia, cazadora como Ártemis, que trajeron los tracios del puerto. Atenas la adoptó durante la guerra. Su fiesta, las Bendidias, tiene procesión de atenienses y de tracios y, de noche, carreras de antorchas a caballo. Así empieza la República de Platón: «Bajé ayer al Pireo con Glaucón, el hijo de Aristón, para rezar a la diosa y ver la fiesta» (327a).',f[0]+6,f[1]+8,a);}
