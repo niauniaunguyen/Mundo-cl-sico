@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 98 del artefacto; notas de la versión 98). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 99 del artefacto; notas de la versión 99). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,30 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 99: artistas del 386 a.C. y del 80 d.C., con misiones de las cualidades
+
+Todo está en el módulo «ARTISTAS DEL 386 a.C. Y DEL 80 d.C.». El estado se guarda en `artz()` (`state.art`), con las claves `st`, `ready`, `done` y `zeno`.
+
+- **Cómo está montado:**
+  - Los personajes se definen en `ART_A` y `ART_R`, y `artSetup()` los coloca: cerca de una estela con `artAnchor(id)` o de un destino con `artIsl(id)`.
+  - Se habla con ellos a través de `egxObj`, con acciones que empiezan por `ar:` (Atenas) o `ro:` (Roma). Las atiende `artAct`, desde `egxAct0`.
+  - Cada misión da puntos de una cualidad con `artMark(clave, cualidad, n)`, solo una vez. Los retos usan `finDuel`.
+- **Atenas:**
+  - Cefisodoto (en el Cerámico), con el niño Praxíteles y el boceto de la Eirene. Puedes posar para él (Areté 5 o más; +3 Areté) y encargarle tu estatua (60 óbolos, 3 días).
+  - Parrasio (en la Stoa Pintada): un reto de ilusión pintada y Timantes (+3 Sophía).
+  - Teodoto en Epidauro: la obra según las cuentas de IG IV² 1, 102 y los 900 dracmas de Timoteo (Lógos 4 o más; +3 Lógos y 10 óbolos).
+  - Pánfilo de Sición, en Corinto: una lección de dibujo (+2 Sophía).
+  - Un corego, junto al teatro: las Dionisias, solo en Elafebolión (se puede esperar a que llegue). Es el año 386, el de la primera reposición de una tragedia antigua (IG II² 2318) (+3 Kléos y +2 Eusébeia).
+- **Roma:**
+  - Un retratista en la Subura: las imágenes de los antepasados (Polibio VI 53; +2 Pietas) y un retrato pintado a la encáustica (80 sestercios).
+  - Estacio, junto al templo de la Paz: una lectura pública (+3 Eloquentia).
+  - Silio Itálico, en Campania: la tumba de Virgilio (+3 Pietas).
+  - Un esclavo de Tito, junto a las termas de Tito: el Laocoonte, con una maqueta del grupo (Plinio XXXVI 37; +3 Sapientia).
+  - Paris, junto al teatro de Pompeyo: adivinar mitos de pantomima (+2 Sapientia y +2 Fama).
+  - Un pintor anciano, junto a la Casa Dorada: Fábulo y los grutescos (+2 Sapientia).
+  - Un broncista, junto al Coloso: Zenodoro y el Mercurio de los arvernos. Hay que viajar a Lugdunum; lo detecta `artTick` (+2 Fama).
+- **La obra encargada:** `artTick` comprueba si ya está hecha, y `artHouse()` la coloca en la casa: en Atenas, una estatua en el patio; en Roma, un retrato en la pared oeste.
 
 ### Novedades de la versión 98: misiones finales de todas las cualidades, carrera en 3D y recompensa de los sueños
 
