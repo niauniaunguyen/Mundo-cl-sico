@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 100 del artefacto; notas de la versión 100). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 101 del artefacto; notas de la versión 101). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,18 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 101: las Metamorfosis de Ovidio (libros I-X)
+
+Fuente: la edición de Gredos de J. C. Fernández Corte y J. Cantó Llorca (libros I-V, 2008; VI-X, 2012). Los resúmenes están escritos para el juego; no se copia la traducción. Todo está en el módulo «LAS METAMORFOSIS DE OVIDIO».
+
+- **El catálogo:** `OVID` tiene 72 episodios de los libros I a X. Cada uno lleva libro (`l`), versos (`v`), título (`t`), en qué se transforma (`c`), un resumen (`s`) y dónde está su huella en cada modo: `A` en Atenas y `R` en Roma. La forma es `['p', estela, dx, dz]` o `['i', destino, dx, dz]`; en los destinos, el desplazamiento se multiplica por 2,4 alrededor de `town`.
+- **El ensayo `OVID_ESSAY`:** se añade a la biblioteca en los dos modos. Habla de la vida de Ovidio, del poema, de su estilo, de su recepción (Bersuire, Tiziano, Bernini, el Siglo de Oro) y avisa del anacronismo en el modo Atenas.
+- **Las huellas** (`ovidSetup`, `OVID_OBJS`): un pedestal con un rollo y una luz verde, con acción `ov:<id>`, que atiende `ovidAct`.
+  - En Atenas hay 31 y en Roma 17, colocadas en lugares de mitos romanos: el Iseo, Apolo Palatino, Hércules Vencedor, el teatro de Marcelo (los Nióbidas), el Marsias del Foro, el Po, Nápoles y la Gran Madre.
+  - Cada huella da +1 Sophía la primera vez y desde ella se puede abrir el catálogo (`ovidCatalog`).
+  - Si se encuentran todas: título, +4 Sophía, +2 Kléos y 15 monedas. El progreso se guarda en `ovz()` (`state.ovid`).
+- **Pendiente:** los libros XI a XV, si llegan los otros volúmenes.
 
 ### Novedades de la versión 100: urbanismo de Atenas y Roma
 
