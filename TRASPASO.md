@@ -86,7 +86,15 @@ Módulo «VOCABULARIO» (prefijo `voc`). Una sola lista, `VOCAB`, con 36 palabra
 - **Ajuste en el menú:** el botón `voc` guarda la preferencia en `localStorage` con la clave `nostos-voc`.
   - En Atenas va pasando por alfabeto griego → transliteradas → no.
   - En Roma, por sí → no.
-- Depuración: `__d.RWQ()` expone también `VOC`, `VOCAB`, `vocz`, `vocToggle` y `vocWalk`. Prueba en `scratchpad/tools/t_voc.js`.
+- **Vocabulario latino del documento «Vocabulario latín»:** es una lista escolar con las definiciones en catalán; aquí van traducidas al español (`VOC_LAT_N`, `VOC_LAT_P`, `VOC_LAT_O`). En Roma hay 232 palabras en total; en Atenas siguen siendo 36.
+  - Lo enseñan dos maestros nuevos, con secciones (`T.S`) y lecciones de 6 palabras que se generan solas con `vocSecLessons`:
+    - Valerio Probo, *grammaticus* de Berito (en `ro_grammaticus`): sustantivos, nombres propios, adjetivos y pronombres. Va sin barba: en el 80 los romanos se afeitaban.
+    - Quintiliano, *rhetor* (en `ro_paz`): verbos, adverbios, conjunciones y preposiciones.
+  - Los sustantivos y los nombres propios se sustituyen en los diálogos (año → annus, Júpiter → Iuppiter). «ayuda» solo se cambia detrás de un determinante.
+  - Las demás palabras llevan `nos:1`: se aprenden y se repasan, pero no se sustituyen, porque romperían las frases en español.
+  - Cada palabra lleva su enunciado (`en`), y las 19 que ya estaban en la lista general también (`VOC_LAT_EN`).
+  - Las preguntas dan 4 opciones: la buena y 3 más de la misma lección.
+- Depuración: `__d.RWQ()` expone también `VOC`, `VOCAB`, `vocz`, `vocToggle` y `vocWalk`. Pruebas en `t_voc.js` y `t_voc2.js`. Prueba en `scratchpad/tools/t_voc.js`.
 
 ### Novedades de la versión 105: game feel de las recompensas
 

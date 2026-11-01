@@ -17938,7 +17938,7 @@ const VOC_K=Object.fromEntries(VOCAB.map(v=>[v.k,v]));
 // maestros: tres por época, cada uno con tres lecciones de cuatro palabras
 const VOC_T={
  atenas:[
-  {id:'grammatistes',at:()=>artAnchor('agora',-16,12),look:{chiton:'#b9a78a',himation:'#6a5a48',beard:true,hair:'#4a3a2a',staff:true},name:'Dionisio',sub:'grammatistés, maestro de letras',glyph:'Γ',
+  {id:'grammatistes',at:()=>findFree(AG.x-22,AG.z+32,1),look:{chiton:'#b9a78a',himation:'#6a5a48',beard:true,hair:'#4a3a2a',staff:true},name:'Dionisio',sub:'grammatistés, maestro de letras',glyph:'Γ',
    intro:'Bajo un pórtico, una docena de niños repite letras a coro con la tablilla de cera sobre las rodillas. El maestro te ve mirar: «¿Tú también quieres aprender? Aquí se paga a fin de mes, pero a ti te enseño unas palabras gratis».',
    note:'El grammatistés enseñaba a leer, escribir y contar. La escuela era privada y la pagaban los padres; las niñas, si aprendían, lo hacían en casa. Desde el 403 a.C. Atenas escribe oficialmente con el alfabeto jónico, el que verás aquí.',
    L:[['La ciudad',['ciudad','casa','templo','puerta']],[_t(1070,'La escuela'),['escuela','libro','ley','pueblo']],['Gente importante',['ciudadano','maestro','rey','dios']]]},
@@ -17946,7 +17946,7 @@ const VOC_T={
    intro:'Un esclavo tracio espera junto al gimnasio con el manto de su amo pequeño colgado del brazo. «Lo llevo a la escuela, a la palestra y a casa, y le enseño modales. Si quieres, también te enseño a ti».',
    note:'El paidagogós («el que conduce al niño») era un esclavo de la casa que acompañaba al niño a todas partes y vigilaba su conducta. No era maestro, aunque muchas veces le ayudaba a repasar.',
    L:[['La familia',['padre','madre','hijo','hermano']],['La gente de casa',['mujer','niño','amigo','esclavo']],['De camino',['camino','río','mar','isla']]]},
-  {id:'artopolis',at:()=>artAnchor('agora',22,-14),look:{female:true,chiton:'#c8b08a',himation:'#7a4a3a',hair:'#3a2a1a'},name:'Mírrine',sub:'panadera del Ágora',glyph:'Α',
+  {id:'artopolis',at:()=>findFree(AG.x+42,AG.z-18,1),look:{female:true,chiton:'#c8b08a',himation:'#7a4a3a',hair:'#3a2a1a'},name:'Mírrine',sub:'panadera del Ágora',glyph:'Α',
    intro:'Una panadera vende hogazas y tortas de cebada en el mercado. «¿Vas a comprar o vas a mirar? Bueno, mientras te decides, te enseño cómo se dicen las cosas: los forasteros habláis fatal».',
    note:'Las vendedoras de pan (ἀρτοπώλιδες) eran figuras habituales del Ágora; Aristófanes las pinta como mujeres con mucho carácter. El marido de Mírrine murió en la guerra de Corinto, que esta primavera del 386 termina con la Paz del Rey.',
    L:[['La mesa',['agua','vino','pan','aceite']],['El día y la noche',['luz','noche','fuego','tierra']],['Palabras graves',['guerra','paz','verdad','muerte']]]}],
@@ -17963,20 +17963,269 @@ const VOC_T={
    intro:'Del horno de una panadería sale un olor que llena la calle. La panadera se limpia la harina de las manos: «Si vas a vivir en Roma, aprende a pedir las cosas como se dice. Ven, que te enseño».',
    note:'En la Roma flavia había cientos de panaderías (pistrina) con su molino y su horno. Cecilia ha vivido un año terrible: la erupción del Vesubio en el 79 y, esta primavera del 80, el gran incendio de Roma.',
    L:[['La mesa',['agua','vino','pan','aceite']],['El día y la noche',['luz','noche','fuego','tierra']],['Palabras graves',['guerra','paz','verdad','muerte']]]}]};
+// ---- vocabulario latino básico (lista escolar aportada en «Vocabulario latín»; definiciones traducidas del catalán al español)
+// Sustantivos y nombres propios: se sustituyen en los diálogos. Formato: clave|enunciado|significado|formas en español|formas latinas|de dónde viene|pre
+// (pre=1: solo se cambia detrás de un determinante, porque la palabra española también es un verbo).
+const VOC_LAT_N=`acies|acies, -ei (f.)|línea de batalla|||Acies: el ejército formado para combatir.
+edificio|aedes, -is (f.)|edificio; en plural, casa|edificio,edificios|aedes,aedes|edil: el magistrado que cuidaba de los edificios.
+campo|ager, agri (m.)|campo|campo,campos|ager,agri|agricultura, agrario.
+ánimo|animus, -i (m.)|espíritu, ánimo|ánimo,ánimos|animus,animi|ánimo, unánime («de un solo ánimo»).
+año|annus, -i (m.)|año|año,años|annus,anni|anual, aniversario, perenne.
+armas|arma, -orum (n. pl.)|armas|arma,armas|arma,arma|arma, armadura. En latín solo existe en plural.
+ayuda|auxilium, -i (n.)|ayuda; tropas auxiliares|ayuda,ayudas|auxilium,auxilia|auxilio, auxiliar.|1
+guerra
+campamento|castrum, -i (n.)|campamento (en plural, castra)|campamento,campamentos|castra,castra|castrense; de ahí vienen Castro y las ciudades inglesas en -chester.
+causa|causa, -ae (f.)|causa, razón|causa,causas|causa,causae|causa, acusar.
+ciudadano
+civitas|civitas, -atis (f.)|ciudad, estado; ciudadanía|ciudadanía|civitas|ciudad (de civitatem), civilización.
+cohorte|cohors, -ortis (f.)|cohorte|cohorte,cohortes|cohors,cohortes|cohorte; también corte, el patio y luego la corte del rey.
+consejo|consilium, -i (n.)|consejo, plan|consejo,consejos|consilium,consilia|consejo, consiliario.
+tropas|copia, -ae (f.)|abundancia; en plural, tropas|tropas|copiae|copioso, copia.
+cuerpo|corpus, -oris (n.)|cuerpo|cuerpo,cuerpos|corpus,corpora|corporal, corpulento.
+día|dies, -ei (m./f.)|día|día,días|dies,dies|diario, meridiano («del mediodía»).
+casa
+jinete|eques, -itis (m.)|jinete, caballero|jinete,jinetes,caballero,caballeros|eques,equites,eques,equites|ecuestre. Los equites eran el orden de los caballeros, por debajo de los senadores.
+ejército|exercitus, -us (m.)|ejército|ejército,ejércitos|exercitus,exercitus|ejército, ejercicio.
+fama|fama, -ae (f.)|fama|fama,famas|fama,famae|fama, famoso, infame.
+hijo
+río
+hermano
+trigo|frumentum, -i (n.)|trigo, grano|trigo,trigos|frumentum,frumenta|El Estado repartía trigo gratis a los ciudadanos pobres de Roma.
+gens|gens, -entis (f.)|pueblo, linaje, clan|||gente, gentilicio. Cada familia noble era parte de una gens, como la gens Flavia.
+hombre|homo, -inis (m.)|ser humano, persona|hombre,hombres|homo,homines|humano, homicida.
+enemigo|hostis, -is (m./f.)|enemigo|enemigo,enemigos,enemiga,enemigas|hostis,hostes,hostis,hostes|hostil, hostilidad.
+emperador|imperator, -oris (m.)|general victorioso, emperador|emperador,emperadores|imperator,imperatores|emperador. Al principio era el título que los soldados daban a su general tras una victoria.
+imperio|imperium, -i (n.)|poder, mando; imperio|imperio,imperios|imperium,imperia|imperio, imperativo.
+legado|legatus, -i (m.)|legado, enviado|legado,legados|legatus,legati|delegado, legación.
+legión|legio, -onis (f.)|legión|legión,legiones|legio,legiones|legión, legionario.
+letras|litterae, -arum (f. pl.)|letras; carta; literatura|letras|litterae|literatura, literal.
+lugar|locus, -i (m.)|lugar|lugar,lugares|locus,loca|local, localizar, locomotora.
+mar
+muerte
+nación|natio, -onis (f.)|nación, pueblo|nación,naciones|natio,nationes|nacional, nacer.
+nave|navis, -is (f.)|nave, barco|nave,naves,barco,barcos|navis,naves,navis,naves|naval, navegar.
+nombre|nomen, -inis (n.)|nombre|nombre,nombres|nomen,nomina|nominal, nominar, pronombre.
+noche
+mensajero|nuntius, -i (m.)|mensajero; noticia|mensajero,mensajeros,noticia,noticias|nuntius,nuntii,nuntius,nuntii|anunciar, nuncio.
+rehenes|obsides, -um (m. pl.)|rehenes|rehenes,rehén|obsides,obses|Los romanos se llevaban rehenes de los pueblos vencidos para asegurarse de que cumplieran los pactos.
+ojo|oculus, -i (m.)|ojo|ojo,ojos|oculus,oculi|ocular, oculista.
+oppidum|oppidum, -i (n.)|ciudad pequeña, plaza fortificada|||Así llama César a las ciudades amuralladas de los galos.
+obra|opus, -eris (n.)|obra|obra,obras|opus,opera|ópera, operario, opúsculo.
+paz
+dinero|pecunia, -ae (f.)|dinero|dinero,dineros|pecunia,pecuniae|pecuniario. Viene de pecus, el ganado: la riqueza más antigua.
+peligro|periculum, -i (n.)|peligro|peligro,peligros|periculum,pericula|peligro, peligroso.
+pie|pes, pedis (m.)|pie|pie,pies|pes,pedes|pedal, peatón, pedestre.
+puente|pons, pontis (m.)|puente|puente,puentes|pons,pontes|pontífice: «el que hace puentes», como el Pontifex Maximus.
+pueblo
+puerta
+guarnición|praesidium, -i (n.)|guarnición, protección|guarnición,guarniciones|praesidium,praesidia|presidio, presidir.
+niño
+reino|regnum, -i (n.)|reino|reino,reinos|regnum,regna|reinar, reinado.
+cosa|res, rei (f.)|cosa, asunto|cosa,cosas|res,res|república: res publica, «la cosa pública».
+rey
+orilla|ripa, -ae (f.)|orilla|orilla,orillas|ripa,ripae|ribera, arribar («llegar a la orilla»).
+sangre|sanguis, -inis (m.)|sangre|sangre,sangres|sanguis,sanguines|sanguíneo, sanguinario.
+senado|senatus, -us (m.)|senado|senado,senados|senatus,senatus|senado y senador vienen de senex, anciano: era el consejo de los mayores.
+esclavo
+señal|signum, -i (n.)|señal; estandarte militar|señal,señales,estandarte,estandartes|signum,signa,signum,signa|signo, señal, insignia.
+bosque|silva, -ae (f.)|bosque, selva|bosque,bosques,selva,selvas|silva,silvae,silva,silvae|silvestre, selva.
+tiempo|tempus, -oris (n.)|tiempo|tiempo,tiempos|tempus,tempora|temporal, temporada.
+templo
+tierra
+ciudad
+esposa|uxor, -oris (f.)|esposa|esposa,esposas|uxor,uxores|uxoricidio.
+camino
+marido|vir, viri (m.)|hombre, varón; marido|marido,maridos|vir,viri|viril, virtud.
+virtud|virtus, -utis (f.)|valor, virtud|virtud,virtudes|virtus,virtutes|virtud. Para un romano, virtus era sobre todo el valor del vir, del hombre.
+vida|vita, -ae (f.)|vida|vida,vidas|vita,vitae|vital, vitamina.
+herida|vulnus, -eris (n.)|herida|herida,heridas|vulnus,vulnera|vulnerable, invulnerable.`;
+const VOC_LAT_P=`Afranio|Afranius, -i|Afranio, general de Pompeyo|Afranio|Afranius
+Augusto|Augustus, -i|Augusto, el primer emperador|Augusto|Augustus
+César|Caesar, -aris|César|César,Césares|Caesar,Caesares
+Diana|Diana, -ae|Diana, diosa de la caza|Diana|Diana
+Aníbal|Hannibal, -alis|Aníbal, el general cartaginés|Aníbal|Hannibal
+Héctor|Hector, -oris|Héctor, el héroe troyano|Héctor|Hector
+Júpiter|Iuppiter, Iovis|Júpiter, padre de los dioses|Júpiter|Iuppiter
+Minos|Minos, -ois|Minos, rey de Creta|Minos|Minos
+Numa|Numa, -ae|Numa, segundo rey de Roma|Numa|Numa
+Pompeyo|Pompeius, -i|Pompeyo, rival de César|Pompeyo|Pompeius
+Rómulo|Romulus, -i|Rómulo, fundador de Roma|Rómulo|Romulus
+Espartaco|Spartacus, -i|Espartaco, el gladiador rebelde|Espartaco|Spartacus
+Tarquinio|Tarquinius, -i|Tarquinio, el último rey de Roma|Tarquinio|Tarquinius
+Troya|Troia, -ae|Troya|Troya|Troia
+Venus|Venus, -eris|Venus, diosa del amor|Venus|Venus`;
+// Solo se aprenden (no se sustituyen): enunciado|significado|de dónde viene
+const VOC_LAT_O=[
+ ['Adjetivos',`aeger, -gra, -grum|enfermo|
+alius, -a, -ud|otro|alias, alienígena.
+bonus, -a, -um|bueno|bonito, bonanza.
+celer, -eris, -ere|rápido|acelerar, celeridad.
+certus, -a, -um|seguro, cierto|certeza, certificado.
+difficilis, -e|difícil|
+durus, -a, -um|duro|durar, duradero.
+facilis, -e|fácil|facilidad, facilitar.
+fortis, -e|fuerte, valiente|fortaleza, fortificar.
+gravis, -e|grave, pesado|gravedad.
+honestus, -a, -um|honorable|honesto, honestidad.
+ingens, -entis|enorme|
+longus, -a, -um|largo|longitud.
+magnus, -a, -um|grande|magnífico, magnitud.
+multus, -a, -um|mucho|multitud, multiplicar.
+novus, -a, -um|nuevo|novedad, renovar.
+omnis, -e|todo, cada|ómnibus, omnipotente.
+parvus, -a, -um|pequeño|párvulo.
+primus, -a, -um|primero|primo, primario.
+pulcher, -chra, -chrum|bello, hermoso|pulcro.
+sacer, -cra, -crum|sagrado|sacerdote, sacrificio.
+similis, -e|semejante|similar.
+solus, -a, -um|solo|soledad, solitario.
+tantus, -a, -um|tan grande|tanto.
+totus, -a, -um|todo, entero|total.`],
+ ['Pronombres',`ego|yo|egoísta.
+hic, haec, hoc|este|
+idem, eadem, idem|el mismo|idéntico.
+ille, illa, illud|aquel|de ille vienen nuestros artículos el y la.
+ipse, ipsa, ipsum|él mismo|
+is, ea, id|él, ella, ello|
+nos|nosotros|
+nullus, -a, -um|ninguno|nulo.
+noster, -tra, -trum|nuestro|
+quis, quid|quién, qué|
+suus, -a, -um|suyo|
+tu|tú|
+tuus, -a, -um|tuyo|
+vos|vosotros|`],
+ ['Verbos',`abeo, abii, abitum (irreg.)|irse|
+accipio, accepi, acceptum (3.ª)|recibir|aceptar.
+addo, addidi, additum (3.ª)|añadir|adición.
+ago, egi, actum (3.ª)|hacer, actuar, llevar|actor, acto.
+audio, audivi, auditum (4.ª)|oír|auditorio, audiencia.
+cado, cecidi, casum (3.ª)|caer|caso, ocaso.
+capio, cepi, captum (3.ª)|coger, capturar|capturar, cautivo.
+cedo, cessi, cessum (3.ª)|retirarse, ceder|ceder, proceso.
+cognosco, cognovi, cognitum (3.ª)|conocer|conocer, cognitivo.
+cogo, coegi, coactum (3.ª)|obligar|coacción.
+colloco, collocavi, collocatum (1.ª)|colocar|colocar.
+confero, contuli, collatum (irreg.)|reunir|conferencia.
+credo, credidi, creditum (3.ª)|creer|credo, crédito, incrédulo.
+dico, dixi, dictum (3.ª)|decir|dictado, diccionario.
+do, dedi, datum (1.ª)|dar|dato, donar.
+duco, duxi, ductum (3.ª)|conducir, guiar|conducir, acueducto.
+facio, feci, factum (3.ª)|hacer|fábrica, hecho.
+fero, tuli, latum (irreg.)|llevar|fértil, transferir.
+fugio, fugi, fugitum (3.ª)|huir|fuga, fugitivo.
+habeo, habui, habitum (2.ª)|tener|haber, hábito.
+interficio, interfeci, interfectum (3.ª)|matar|
+invenio, inveni, inventum (4.ª)|encontrar|inventar: «encontrar algo nuevo».
+mitto, misi, missum (3.ª)|enviar|misión, misil, remitir.
+moneo, monui, monitum (2.ª)|avisar, aconsejar|monitor, amonestar.
+moveo, movi, motum (2.ª)|mover|motor, móvil.
+nolo, nolui (irreg.)|no querer|
+occupo, occupavi, occupatum (1.ª)|ocupar|ocupar.
+occido, occidi, occisum (3.ª)|abatir, dar muerte|
+paro, paravi, paratum (1.ª)|preparar|preparar, aparato.
+peto, petivi, petitum (3.ª)|buscar, pedir, atacar|petición, competir.
+pono, posui, positum (3.ª)|poner|poner, posición.
+possum, potui (irreg.)|poder|posible, potencia.
+proficiscor, profectus sum (dep.)|partir, ponerse en marcha|
+relinquo, reliqui, relictum (3.ª)|dejar, abandonar|reliquia.
+sum, fui, futurum (irreg.)|ser, estar|futuro.
+teneo, tenui, tentum (2.ª)|sujetar, mantener|tener, tenaz.
+transeo, transii, transitum (irreg.)|atravesar|tránsito, transeúnte.
+traduco, traduxi, traductum (3.ª)|hacer pasar, trasladar|traducir.
+venio, veni, ventum (4.ª)|venir|venir, aventura.
+video, vidi, visum (2.ª)|ver|vídeo («yo veo»), visión.
+vinco, vici, victum (3.ª)|vencer|victoria, invicto.
+vivo, vixi, victum (3.ª)|vivir|vivo, vivienda.
+volo, volui (irreg.)|querer|voluntad.`],
+ ['Adverbios',`deinde|después, luego|
+eo|allí, hacia allí|
+iam|ya|
+ibi|allí|
+ita|así|
+nunc|ahora|
+saepe|a menudo|
+semper|siempre|sempiterno.
+simul|a la vez|simultáneo.
+statim|inmediatamente|
+subito|de repente|súbito.
+tam|tan|
+tamen|sin embargo|
+tum|entonces|`],
+ ['Conjunciones',`ac / atque|y, y además|
+antequam|antes de que|
+aut|o|
+autem|pero, en cambio|
+cum (conjunción)|cuando, como (tiene varios valores)|
+enim|en efecto, pues|
+et|y|
+igitur|así pues|
+itaque|por tanto|
+nam|pues (explica lo anterior)|
+neque|y no, ni|
+nec|ni|
+nisi|si no|
+postquam|después de que|
+quia|porque|
+quod|porque; que (también es relativo)|
+quoniam|ya que|
+sed|pero, sino|
+si|si (condicional)|
+ut|que, para que, como (tiene varios valores)|`],
+ ['Preposiciones',`ab / a / abs (+ abl.)|de, desde; por (complemento agente)|
+ad (+ acc.)|a, hacia, para, cerca de|
+ante (+ acc.)|antes de, delante de|anterior, anteayer.
+cum (+ abl.)|con|
+de (+ abl.)|de, desde, sobre, acerca de|
+ex / e (+ abl.)|de, desde, fuera de|exterior.
+in (+ abl.)|en, sobre; (+ acc.) a, hacia, contra|
+inter (+ acc.)|entre; durante|internacional.
+per (+ acc.)|por, a través de|
+post (+ acc.)|después de, detrás de|posterior, posguerra.
+propter (+ acc.)|a causa de|`]];
+// enunciados de las palabras latinas que ya estaban en la lista general
+const VOC_LAT_EN={guerra:'bellum, -i (n.)',ciudadano:'civis, -is (m./f.)',casa:'domus, -us (f.)',hijo:'filius, -i (m.)',río:'flumen, -inis (n.)',hermano:'frater, -tris (m.)',mar:'mare, -is (n.)',muerte:'mors, mortis (f.)',noche:'nox, noctis (f.)',paz:'pax, pacis (f.)',pueblo:'populus, -i (m.)',puerta:'porta, -ae (f.)',niño:'puer, -i (m.)',rey:'rex, regis (m.)',esclavo:'servus, -i (m.)',templo:'templum, -i (n.)',tierra:'terra, -ae (f.)',ciudad:'urbs, urbis (f.)',camino:'via, -ae (f.)'};
+const VOC_LAT_SEC=[];   // secciones de los dos maestros nuevos: [nombre, [claves]]
+(function vocLatParse(){const add=v=>{VOCAB.push(v);return v.k;};
+  const nouns=[],names=[];
+  for(const ln of VOC_LAT_N.split('\n')){const f=ln.split('|');if(f.length===1){nouns.push(f[0]);continue;}
+    const[k,en,m,es,la,der,pre]=f,head=en.split(',')[0];
+    if(!es){nouns.push(add({k:'la_'+k,ro:1,nos:1,en,m,es:[m],l:[head],el:der}));continue;}
+    nouns.push(add({k:'la_'+k,ro:1,en,m,es:es.split(','),l:la.split(','),el:der,pre:pre==='1'?1:0}));}
+  for(const ln of VOC_LAT_P.split('\n')){const[k,en,m,es,la]=ln.split('|');names.push(add({k:'lp_'+k,ro:1,en,m,es:es.split(','),l:la.split(','),el:''}));}
+  VOC_LAT_SEC.push(['Sustantivos',nouns],['Nombres propios',names]);
+  for(const[sec,txt]of VOC_LAT_O){const ks=[];for(const ln of txt.split('\n')){const[en,m,der]=ln.split('|');ks.push(add({k:'lo_'+en,ro:1,nos:1,en,m,es:[m],l:[en],el:der||''}));}VOC_LAT_SEC.push([sec,ks]);}
+  for(const k in VOC_LAT_EN){const v=VOCAB.find(x=>x.k===k);if(v)v.en=VOC_LAT_EN[k];}for(const v of VOCAB)VOC_K[v.k]=v;})();
+// trocea una sección en lecciones de seis palabras (la última se queda con el resto)
+function vocChunk(ks,n){const L=[];for(let i=0;i<ks.length;i+=n)L.push(ks.slice(i,i+n));if(L.length>1&&L[L.length-1].length<3)L[L.length-2].push(...L.pop());return L;}
+function vocSecLessons(name,ks){const head=k=>{const v=VOCAB.find(x=>x.k===k);return v?(v.en||v.l[0]).split(/[ ,]/)[0]:k;};return vocChunk(ks,6).map((L,i)=>[name+' '+(i+1)+': '+head(L[0])+' – '+head(L[L.length-1]),L]);}
+
+VOC_T.roma.push(
+ {id:'grammaticus',at:()=>artAnchor('ro_grammaticus',6,6)||artAnchor('ro_basilica_julia',-10,8),look:{chiton:'#e0d8c8',himation:'#5a4a6a',hair:'#8a8070',staff:true},name:'Valerio Probo',sub:'grammaticus de Berito',glyph:'G',
+  intro:'Un hombre mayor lee un rollo a la sombra, rodeado de unos pocos jóvenes. «No tengo escuela: tengo amigos que vienen a preguntar», dice sin levantar la vista. «Si quieres leer a César y a Virgilio, empieza por las palabras que más usan».',
+  note:'Marco Valerio Probo, de Berito (la actual Beirut), fue el gramático más sabio de la época flavia: corregía y comentaba los textos de Virgilio, Horacio y Lucrecio. Según Suetonio, no daba clases como un maestro corriente: recibía por la tarde a unos pocos discípulos y conversaba con ellos. Sus palabras son las de una lista escolar de latín: lo más frecuente en los autores que se leen en clase.',
+  S:VOC_LAT_SEC.slice(0,4).map(([n,ks])=>[n,vocSecLessons(n,ks)])},
+ {id:'rhetor',at:()=>artAnchor('ro_paz',-12,10)||artAnchor('ro_basilica_julia',12,-8),look:{chiton:'#e8e0d0',himation:'#e8e0d0',hair:'#3a2a1a'},name:'Quintiliano',sub:'rhetor, maestro de oratoria',glyph:'Q',
+  intro:'Un hispano de unos cuarenta y cinco años corrige a un alumno que declama con demasiados aspavientos. «Un orador sin palabras exactas es como un soldado sin armas», te dice. «Los verbos son la acción del discurso; las partículas, sus articulaciones. Empecemos».',
+  note:'Marco Fabio Quintiliano, nacido en Calagurris (Calahorra), fue uno de los primeros maestros de retórica que cobró un sueldo del Estado, por decisión de Vespasiano. Hacia el 95 escribirá la Institutio oratoria, un tratado sobre cómo educar a un orador desde la infancia. Sus palabras son las de una lista escolar de latín.',
+  S:VOC_LAT_SEC.slice(4).map(([n,ks])=>[n,vocSecLessons(n,ks)])});
+for(const m in VOC_T)for(const T of VOC_T[m])if(!T.S)T.S=[['',T.L]];
 const VOC={mode:'orig',re:null,map:null,ver:-1,vlen:-1};
 try{const m=localStorage.getItem('nostos-voc');if(m==='orig'||m==='tr'||m==='off')VOC.mode=m;}catch(e){}
 function vocz(){if(!state.voc||typeof state.voc!=='object')state.voc={w:{},l:{}};if(!state.voc.w)state.voc.w={};if(!state.voc.l)state.voc.l={};return state.voc;}
 function vocKnown(k){return !!vocz().w[k];}
-function vocCount(){return Object.keys(vocz().w).filter(k=>VOC_K[k]).length;}
+function VOCM(){return VOCAB.filter(v=>!v.ro||MODE==='roma');}
+function vocCount(){return VOCM().filter(v=>vocKnown(v.k)).length;}
 function vocEff(){return MODE==='roma'&&VOC.mode==='tr'?'orig':VOC.mode;}
 function vocForm(v,i){const ro=MODE==='roma';return ro?v.l[i]:(vocEff()==='tr'?v.gt[i]:v.g[i]);}
-function vocMean(v){return v.es[2]?v.es[0]+' / '+v.es[2]:v.es[0];}
-function vocShow(v,i){const ro=MODE==='roma';return '<b class="vw">'+(ro?v.l[i||0]:v.g[i||0])+'</b>'+(ro?'':' <i class="vtr">'+v.gt[i||0]+'</i>');}
+function vocMean(v){return v.m||(v.es[2]?v.es[0]+' / '+v.es[2]:v.es[0]);}
+function vocLbl(v,gi){return v.m||(gi===2&&v.es[2]?v.es[2]:v.es[0]);}
+function vocShow(v,i,full){const ro=MODE==='roma';if(ro&&full&&v.en){const c=v.en.indexOf(',');return c>0&&!v.nos?'<b class="vw">'+v.en.slice(0,c)+'</b>'+v.en.slice(c):'<b class="vw">'+v.en+'</b>';}return '<b class="vw">'+(ro?v.l[i||0]:v.g[i||0])+'</b>'+(ro?'':' <i class="vtr">'+v.gt[i||0]+'</i>');}
 // expresión regular con todas las formas en español de las palabras aprendidas
-function vocBuild(){const known=Object.keys(vocz().w).filter(k=>VOC_K[k]),sig=known.join(',')+'|'+MODE+'|'+vocEff();if(VOC.sig===sig)return;VOC.sig=sig;
+function vocBuild(){const known=Object.keys(vocz().w).filter(k=>VOC_K[k]&&!VOC_K[k].nos&&(!VOC_K[k].ro||MODE==='roma')),sig=known.join(',')+'|'+MODE+'|'+vocEff();if(VOC.sig===sig)return;VOC.sig=sig;
   VOC.map=new Map();for(const k of known){const v=VOC_K[k];v.es.forEach((f,i)=>{if(!VOC.map.has(f))VOC.map.set(f,[v,i]);});}
   const fs=[...VOC.map.keys()].sort((a,b)=>b.length-a.length);VOC.re=fs.length?new RegExp('(?<![\\p{L}])('+fs.join('|')+')(?![\\p{L}])','giu'):null;}
-const VOC_PRE_VINO=/(?:^|[^\p{L}])(el|un|de|del|al|su|sus|mi|tu|buen|mucho|poco|este|ese|y|con|sin|o|más|menos|copa|jarra|ánfora)\s+$/iu;
+const VOC_PRE_VINO=/(?:^|[^\p{L}])(el|la|los|las|un|una|unos|unas|de|del|al|su|sus|mi|mis|tu|tus|buen|buena|mucho|mucha|poco|poca|este|esta|ese|esa|y|con|sin|o|más|menos|por|para|nuestra|nuestro|gran|copa|jarra|ánfora|pedir|pide|piden|pidió)\s+$/iu;
 const VOC_SE=/(?:^|[^\p{L}])(se|te|me|le|lo|la|nos|os|les)\s+$/iu;
 function vocWalk(root){if(!root||vocEff()==='off'||!state)return;vocBuild();if(!VOC.re)return;
   const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];while(tw.nextNode())nodes.push(tw.currentNode);
@@ -18005,30 +18254,31 @@ function vocToggle(){const ro=MODE==='roma';VOC.mode=ro?(vocEff()==='off'?'orig'
 GM_IC.voc='<path d="M4 4.5h16v11H10l-5 4v-4H4z"/><path d="M9 12.5l2.2-5.5 2.2 5.5M9.8 10.6h2.8"/><path d="M15.5 7.5v5"/>';
 // ---- maestros
 function vocSetup(){vocz();const L=VOC_T[MODE]||[];L.forEach((T,ti)=>{let f=T.at();if(!f)return;artPerson(f,T.look,'vc:'+ti,T.name,T.sub,3);});}
-function vocLessonDone(ti,li){const T=VOC_T[MODE][ti];return T.L[li][1].every(vocKnown);}
-function vocAct(o){const ti=+String(o.act).slice(3),T=VOC_T[MODE][ti];if(!T)return;const one=casaOpen(T.glyph,T.name,T.sub),B=$('dBody'),ro=MODE==='roma',len=ro?'latín':'griego';
-  const menu=html=>{$('dOpts').innerHTML='';B.innerHTML=html;
-    T.L.forEach((Ls,li)=>{const n=Ls[1].filter(vocKnown).length,open=li===0||vocLessonDone(ti,li-1);
-      if(open)one((n===4?'Repasar: ':'Lección: ')+Ls[0]+' ('+n+'/4)',()=>vocTeach(ti,li),n===4?'':'quiz');});
-    if(vocCount())one('¿Qué palabras sé ya? ('+vocCount()+'/'+VOCAB.length+')',()=>menu(vocReview()));
-    one('¿Cómo veré las palabras que aprenda?',()=>menu('<div class="novoc"><p>Cuando aciertes el significado de una palabra, la verás en '+len+' en el resto de diálogos del juego, en lugar de en español.'+(ro?'':' Puedes elegir verla con el alfabeto griego o escrita con nuestras letras.')+'</p><p>Si no recuerdas qué significa, <b>pasa el ratón por encima o tócala</b>.</p><p class="sub">Si te agobia, puedes cambiarlo o desactivarlo en el menú (Tab o el botón ☰) → «'+vocLabel()+'».</p></div>'));
-    one(_t(2666,'Despedirse'),closeDialog);};
-  menu('<div class="novoc"><p>'+T.intro+'</p><p class="sub">'+T.note+'</p><p class="sub">Sabes '+vocCount()+' de '+VOCAB.length+' palabras en '+len+'.</p></div>');
-  function vocTeach(ti,li){const Ls=T.L[li],W=Ls[1].map(k=>VOC_K[k]);$('dOpts').innerHTML='';
-    B.innerHTML='<div class="novoc"><p>«'+Ls[0]+'». Escucha bien:</p><div class="vlist">'+W.map(v=>'<div>'+vocShow(v,0)+(v.es[2]?' / '+vocShow(v,2):'')+' — <b>'+vocMean(v)+'</b><span class="sub">'+(ro?v.el:v.eg)+'</span></div>').join('')+'</div></div>';
-    one('Ya me las sé: pregúntame',()=>vocQuiz(li,0,0),'quiz');one(_t(2676,'Volver'),()=>menu('<div class="novoc"><p>«Cuando quieras».</p></div>'));}
-  function vocQuiz(li,qi,ok){const Ls=T.L[li],W=Ls[1].map(k=>VOC_K[k]);if(qi>=W.length)return vocEnd(li,ok);const v=W[qi],gi=(qi%2&&v.es[2])?2:0;$('dOpts').innerHTML='';
-    B.innerHTML='<div class="novoc"><p class="sub">Pregunta '+(qi+1)+' de '+W.length+'</p><div class="vq">'+vocShow(v,gi)+'</div><p>«¿Qué significa?»</p></div>';
-    const opts=W.slice().sort(()=>R()-0.5);
-    opts.forEach(x=>one(gi===2&&x.es[2]?x.es[2]:x.es[0],()=>{const good=x===v,nw=good&&!vocKnown(v.k);
+function vocLessonDone(T,si,li){return T.S[si][1][li][1].every(vocKnown);}
+function vocAct(o){const ti=+String(o.act).slice(3),T=VOC_T[MODE][ti];if(!T)return;const one=casaOpen(T.glyph,T.name,T.sub),B=$('dBody'),ro=MODE==='roma',len=ro?'latín':'griego',tot=VOCM().length;
+  const how=()=>'<div class="novoc"><p>Cuando aciertes el significado de un sustantivo, lo verás en '+len+' en el resto de diálogos del juego, en lugar de en español.'+(ro?' Los verbos, adjetivos y partículas solo se aprenden: meterlos en frases en español las volvería ilegibles.':' Puedes elegir verlo con el alfabeto griego o escrito con nuestras letras.')+'</p><p>Si no recuerdas qué significa, <b>pasa el ratón por encima o tócalo</b>.</p><p class="sub">Si te agobia, puedes cambiarlo o desactivarlo en el menú (Tab o el botón ☰) → «'+vocLabel()+'».</p></div>';
+  const tail=()=>{if(vocCount())one('¿Qué palabras sé ya? ('+vocCount()+'/'+tot+')',()=>top(vocReview()));one('¿Cómo veré las palabras que aprenda?',()=>top(how()));one(_t(2666,'Despedirse'),closeDialog);};
+  const lessons=(si)=>{T.S[si][1].forEach((Ls,li)=>{const n=Ls[1].filter(vocKnown).length,N=Ls[1].length,open=li===0||vocLessonDone(T,si,li-1);
+      if(open)one((n===N?'Repasar: ':'Lección: ')+Ls[0]+' ('+n+'/'+N+')',()=>teach(si,li),n===N?'':'quiz');});};
+  const secCount=si=>{const ks=T.S[si][1].flatMap(L=>L[1]);return ks.filter(vocKnown).length+'/'+ks.length;};
+  const top=html=>{$('dOpts').innerHTML='';B.innerHTML=html;if(T.S.length===1)lessons(0);else T.S.forEach((S,si)=>one(S[0]+' ('+secCount(si)+')',()=>sec(si,'<div class="novoc"><p>«'+S[0]+'». Ve lección por lección: cada una se abre al terminar la anterior.</p></div>')));tail();};
+  const sec=(si,html)=>{if(T.S.length===1)return top(html);$('dOpts').innerHTML='';B.innerHTML=html;lessons(si);one(_t(2676,'Volver'),()=>top('<div class="novoc"><p>«¿Qué más quieres aprender?»</p></div>'));};
+  top('<div class="novoc"><p>'+T.intro+'</p><p class="sub">'+T.note+'</p><p class="sub">Sabes '+vocCount()+' de '+tot+' palabras en '+len+'.</p></div>');
+  function teach(si,li){const Ls=T.S[si][1][li],W=Ls[1].map(k=>VOC_K[k]);$('dOpts').innerHTML='';
+    B.innerHTML='<div class="novoc"><p>«'+Ls[0]+'». Escucha bien:</p><div class="vlist">'+W.map(v=>'<div>'+vocShow(v,0,true)+(!ro&&v.es[2]?' / '+vocShow(v,2):'')+(ro&&!v.en&&v.es[2]?' / '+vocShow(v,2):'')+' — <b>'+vocMean(v)+'</b>'+((ro?v.el:v.eg)?'<span class="sub">'+(ro?v.el:v.eg)+'</span>':'')+'</div>').join('')+'</div></div>';
+    one('Ya me las sé: pregúntame',()=>quiz(si,li,0,0),'quiz');one(_t(2676,'Volver'),()=>sec(si,'<div class="novoc"><p>«Cuando quieras».</p></div>'));}
+  function quiz(si,li,qi,ok){const Ls=T.S[si][1][li],W=Ls[1].map(k=>VOC_K[k]);if(qi>=W.length)return end(si,li,ok);const v=W[qi],gi=(qi%2&&v.es[2]&&!v.m)?2:0;$('dOpts').innerHTML='';
+    B.innerHTML='<div class="novoc"><p class="sub">Pregunta '+(qi+1)+' de '+W.length+'</p><div class="vq">'+(v.nos?vocShow(v,0,true):vocShow(v,gi))+'</div><p>«¿Qué significa?»</p></div>';
+    const others=W.filter(x=>x!==v&&vocLbl(x,gi)!==vocLbl(v,gi)).sort(()=>R()-0.5).slice(0,3),opts=[v,...others].sort(()=>R()-0.5);
+    opts.forEach(x=>one(vocLbl(x,gi),()=>{const good=x===v,nw=good&&!vocKnown(v.k);
       if(good){vocz().w[v.k]=1;if(nw)state.obols+=1;save();updateStats();try{sfxTap();}catch(e){}}
-      $('dOpts').innerHTML='';B.innerHTML='<div class="novoc"><div class="vq">'+vocShow(v,gi)+'</div><p>'+(good?'«¡Eso es!» ':'«No». ')+'Significa <b>'+(gi===2?v.es[2]:v.es[0])+'</b>.'+(nw?' <span class="sub">Desde ahora la verás en '+len+' en los diálogos.</span>':'')+'</p></div>';
-      one(_t(2797,'Seguir'),()=>vocQuiz(li,qi+1,ok+(good?1:0)),'quiz');}));}
-  function vocEnd(li,ok){const Ls=T.L[li],done=vocLessonDone(ti,li),k='l'+ti+'_'+li,first=done&&!vocz().l[k];$('dOpts').innerHTML='';
+      $('dOpts').innerHTML='';B.innerHTML='<div class="novoc"><div class="vq">'+(v.nos?vocShow(v,0,true):vocShow(v,gi))+'</div><p>'+(good?'«¡Eso es!» ':'«No». ')+'Significa <b>'+vocLbl(v,gi)+'</b>.'+(nw&&!v.nos?' <span class="sub">Desde ahora la verás en '+len+' en los diálogos.</span>':'')+'</p></div>';
+      one(_t(2797,'Seguir'),()=>quiz(si,li,qi+1,ok+(good?1:0)),'quiz');}));}
+  function end(si,li,ok){const L=T.S[si][1],Ls=L[li],done=vocLessonDone(T,si,li),k='l'+T.id+'_'+si+'_'+li,first=done&&!vocz().l[k];$('dOpts').innerHTML='';
     if(first){vocz().l[k]=1;qAdd('so',1);qAdd('lo',1,'Aprender otra lengua te da palabras para pensar.');save();}
-    B.innerHTML='<div class="novoc"><p>Has acertado '+ok+' de '+Ls[1].length+'.</p><p>'+(done?(first?'«Muy bien. Ya conoces todas las palabras de esta lección».':'«Veo que no se te olvidan».')+(li<T.L.length-1&&first?' <span class="sub">Se abre la lección siguiente.</span>':'')+(first&&li===T.L.length-1?' <span class="sub">Has terminado todas sus lecciones.</span>':''):'«Las que has fallado no cuentan todavía. Repásalas y vuelve a intentarlo».')+'</p></div>';
-    one(_t(2676,'Volver'),()=>menu('<div class="novoc"><p>«¿Algo más?»</p></div>'));one(_t(2666,'Despedirse'),closeDialog);}}
-function vocReview(){const ro=MODE==='roma',ks=VOCAB.filter(v=>vocKnown(v.k));return '<div class="novoc"><p>Palabras que ya conoces ('+ks.length+'/'+VOCAB.length+'):</p><div class="vlist">'+ks.map(v=>'<div>'+vocShow(v,0)+' — '+vocMean(v)+'</div>').join('')+'</div></div>';}
+    B.innerHTML='<div class="novoc"><p>Has acertado '+ok+' de '+Ls[1].length+'.</p><p>'+(done?(first?'«Muy bien. Ya conoces todas las palabras de esta lección».':'«Veo que no se te olvidan».')+(li<L.length-1&&first?' <span class="sub">Se abre la lección siguiente.</span>':'')+(first&&li===L.length-1?' <span class="sub">Has terminado esta parte.</span>':''):'«Las que has fallado no cuentan todavía. Repásalas y vuelve a intentarlo».')+'</p></div>';
+    if(done&&li<L.length-1)one('Siguiente lección',()=>teach(si,li+1),'quiz');one(_t(2676,'Volver'),()=>sec(si,'<div class="novoc"><p>«¿Algo más?»</p></div>'));one(_t(2666,'Despedirse'),closeDialog);}}
+function vocReview(){const ks=VOCM().filter(v=>vocKnown(v.k));return '<div class="novoc"><p>Palabras que ya conoces ('+ks.length+'/'+VOCM().length+'):</p><div class="vlist">'+ks.map(v=>'<div>'+vocShow(v,0,true)+' — '+vocMean(v)+'</div>').join('')+'</div></div>';}
 
 function startGame(){
   initAudio();
