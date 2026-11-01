@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 113 del artefacto; notas de la versión 113). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 114 del artefacto; notas de la versión 114). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,20 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 114: mirar con atención (θεωρία / animadversio) y el entierro de Miseno
+
+- **Modo atención** (módulo «MIRAR CON ATENCIÓN», prefijo `at`):
+  - Mientras se mantiene **Q** (en pantallas táctiles, el botón 👁 `#atBtn`), aparece una mira con el nombre de lo que tienes delante (`atPick`): personajes, dioses, objetos `egx` (`egxObj` está envuelto para guardar el subtítulo), fauna, transeúntes, el caballo y los lugares de `PLACES`.
+  - Con **E** sale una ficha breve (`atCardShow`). Un listener en fase de captura corta la interacción normal mientras el modo está activo.
+  - Al soltar Q, o al perder el foco, el modo se apaga.
+  - En móvil, la ficha sale sola tras 0,8 s mirando lo mismo.
+  - Cada 15 cosas distintas miradas: +1 Sophía (`state.atSeen`).
+- **Roma: el entierro de Miseno** (*Eneida* VI 149-235): `infBuild` e `infAct` están envueltos.
+  - El cuerpo de Miseno (`fi:miseno`) está en la entrada del bosque. Caronte no deja cruzar sin haberlo enterrado (`finz().misen`).
+  - Los ritos: pira, palomas que guían a la rama de oro, cenizas, urna, purificación y túmulo. Si se vio el funeral de la Vía Apia, se recuerda.
+  - Al cruzar aparece Palinuro (`f.palin`).
+- Prueba en `scratchpad/tools/t_at.js`.
 
 ### Novedades de la versión 113: el Hades griego (la bajada órfica, en Atenas)
 
