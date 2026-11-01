@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 106 del artefacto; notas de la versión 106). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 107 del artefacto; notas de la versión 107). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 107: la jornada romana (a partir de Carcopino)
+
+Fuente: J. Carcopino, *Daily Life in Ancient Rome*, el EPUB que se subió, en la traducción inglesa. Los textos del juego resumen sus ideas con palabras propias y no reproducen el libro. Carcopino describe sobre todo la Roma de Trajano (h. 100-120); aquí solo entra lo que ya valía en el 80, y se avisa de lo que es posterior: la barba de Adriano, la separación de horarios en las termas.
+
+Módulo «LA JORNADA ROMANA», solo en Roma (prefijo `jr:`, `jrSetup`, `jrAct`, `jrTick`; marca diaria en `state.jr.d`):
+- **Barbería** (Ciro, `jr:tonsor`, en la Subura):
+  - afeitado con el maestro lento: perfecto, pero se va una hora;
+  - afeitado rápido en la esquina: 45 % de corte, curado con telarañas en aceite y vinagre (Plinio);
+  - rumores del 80: el Coliseo, el incendio, el Vesubio, Agrícola, Domiciano, Berenice;
+  - la *depositio barbae*.
+  - Si juegas con un personaje femenino, en lugar del afeitado está la *ornatrix*, con el peinado flavio de rizos en torre y el maquillaje (aviso sobre el albayalde).
+- **Termas de Tito** (Fortunato, `jr:termas`): abren de día; la entrada cuesta un cuadrante. Se recorre el apodyterium (con el *capsarius* y el riesgo de robo), la palestra (trigon, aro, lucha), el sudatorio y el caldarium (con el estrígilo) y el tepidarium y el frigidarium. Da +1 Areté una vez al día y avanza el reloj una hora.
+- **Cena de clientes** (Sexto Nevio, `jr:cena`): de la hora nona a la noche. Nomenclátor, triclinio, lecho bajo, gustatio y mulsum. Al anfitrión le sirven mejor comida que a ti (la queja de Marcial). Puedes callar, hacer una broma (con Lógos ≥ 4 sale bien: +2 Lógos) o quejarte. Al final, postres, ofrenda a los Lares y las sobras en la servilleta.
+- **Micatio** (Gavio, `jr:micatio`, en el Pórtico de Octavia): apuesta de 2 sestercios, hasta 3 partidas al día. Eliges los dedos que sacas y el total que cantas; si aciertas tú y él no, ganas 4. Explica que los dados estaban prohibidos fuera de las Saturnales.
+- **El reloj de Augusto** (`jr:reloj`, en `ro_obelisco`): calcula cuánto duran ese día las horas de día y de noche según el mes (`jrDayLen`) y explica cómo era un día normal.
+- **`horaRomana`**: la noche ya no sale como «de noche», sino por vigilias (prima, secunda, tertia y quarta).
+- **Sucesos de la calle** (`jrTick`): cada 2-4 minutos, si vas a pie a menos de 1.100 m de los Rostra, aparece un aviso.
+  - De día: orinales que caen de las ventanas, pregoneros, literas, obras tras el incendio, mendigos, ínsulas que crujen, maestros gritando.
+  - De noche: carros (desde César solo podían circular de noche), patrullas de *vigiles*, borrachos.
+- **Ensayo en la biblioteca:** «Un día en Roma» (`JR_ESSAY`), con la fuente y el aviso sobre las fechas.
+- Prueba en `scratchpad/tools/t_jr.js`.
 
 ### Novedades de la versión 106: maestros de griego y de latín; las palabras aprendidas aparecen en el original
 
