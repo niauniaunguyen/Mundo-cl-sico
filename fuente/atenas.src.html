@@ -3645,7 +3645,7 @@ function buildSocial(){
    NPC_POS.novia=[...findFree(-300,-176,1.5),Math.PI/2];}
   // mojones de hipoteca en los campos junto al camino de la Academia
   {const rd=ROADS[1],a=rd.pts[0],b=rd.pts[1];for(let i=0;i<3;i++){const t=0.35+i*0.18,x=lerp(a[0],b[0],t)+(i%2?-1:1)*16,z=lerp(a[1],b[1],t)+(i%2?1:-1)*10;const gy=terrainH(x,z);const m=box(0.42,1.0,0.22,M.limestone,x,gy+0.5,z);m.rotation.y=R()*TAU;addCirc(x,z,0.35);
-     if(i===0)place('horos','Mojón de hipoteca','ΟΡΟΣ','Una piedra clavada en un campo: «Mojón de un terreno vendido con derecho a recompra a Fanóstrato de Peania por mil dracmas». Cuando una tierra garantizaba una deuda, el acreedor ponía en ella uno de estos horoi, para que todos supieran que no podía venderse ni hipotecarse de nuevo hasta saldar la deuda. Se han encontrado cientos en el Ática. No había ningún registro público de la propiedad.',x+2.5,z+2.5,0);}}
+     if(i===0)place('horos_hipoteca','Mojón de hipoteca','ΟΡΟΣ','Una piedra clavada en un campo: «Mojón de un terreno vendido con derecho a recompra a Fanóstrato de Peania por mil dracmas». Cuando una tierra garantizaba una deuda, el acreedor ponía en ella uno de estos horoi, para que todos supieran que no podía venderse ni hipotecarse de nuevo hasta saldar la deuda. Se han encontrado cientos en el Ática. No había ningún registro público de la propiedad.',x+2.5,z+2.5,0);}}
 }
 function updateSocial(dt,t){
   if(MODE!=='atenas')return;
@@ -17631,7 +17631,8 @@ function ovz(){if(!state.ovid||typeof state.ovid!=='object')state.ovid={seen:{},
 const OVID_OBJS=[];
 function ovidSetup(){const ro=MODE==='roma';OVID_OBJS.length=0;if(!ESSAYS.find(e=>e.id==='ovidio'))ESSAYS.push(OVID_ESSAY);
   for(const o of OVID){const A=ro?o.R:o.A;if(!A)continue;let x,z;
-    if(A[0]==='p'){const p=PLACES.find(q=>q.id===A[1]);if(!p)continue;x=p.x+A[2];z=p.z+A[3];}else{const I=ISLANDS.find(q=>q.id===A[1]);if(!I||!I.town)continue;x=I.town.x+A[2]*2.4;z=I.town.z+A[3]*2.4;}
+    if(A[0]==='p'){const p=PLACES.find(q=>q.id===A[1]);if(!p)continue;x=p.x+A[2];z=p.z+A[3];}else{const I=ISLANDS.find(q=>q.id===A[1]);if(!I)continue;const c=I.town||I.arrive||{x:I.x,z:I.z};x=c.x+A[2]*2.4;z=c.z+A[3]*2.4;
+      if(floorAt(x,z)<0.3){let ok=false;for(let k=0;k<12&&!ok;k++){const a=k/12*TAU,r=30+k*6,tx=c.x+Math.cos(a)*r,tz=c.z+Math.sin(a)*r;if(floorAt(tx,tz)>0.6){x=tx;z=tz;ok=true;}}if(!ok)continue;}}
     const f=findFree(x,z,1);x=f[0];z=f[1];const gy=floorAt(x,z),g=grp(x,gy,z,R()*TAU);
     box(0.5,0.9,0.5,lam('#d8d0c0'),0,0.45,0,g);const sc=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.7,8),lam('#e8dcb0'));sc.rotation.z=Math.PI/2;sc.position.y=1.0;g.add(sc);
     const h=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:ovz().seen[o.id]?0.25:0.8,fog:false,color:'#a8ffb0'}));h.scale.set(2.2,2.2,1);h.position.y=1.2;g.add(h);
