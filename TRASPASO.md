@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 96 del artefacto; notas de la versión 96). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 97 del artefacto; notas de la versión 97). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,21 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 97: carrera contra Atalanta (Atenas) y Camila (Roma)
+
+Todo está en el módulo «ATALANTA (Atenas) Y CAMILA (Roma)». El estado se guarda en `atz()` (`state.atal`).
+
+- **Dónde están:** `atalSetup()` coloca a la heroína. Atalanta está junto al estadio de Olimpia, en la estela `estadio_olimpia`; Camila, junto a la ciudad de Latium et Campania. Se habla con ellas a través de un `egxObj` cuya acción es `at:atalanta`, y responde `atalAct`. Cada una tiene cuatro temas: Atalanta, la caza de Calidón, los pretendientes y las Hereas de Olimpia (Pausanias V 16); Camila, la *Eneida* VII y XI.
+- **La carrera:** solo con Areté o Virtus 10. Es un minijuego del sistema MG, hecho con `atalRace(rival)`, que da `MG_ATAL` y `MG_CAMILA`. Se ve de lado, mide 420 pasos y hay que administrar el aliento: W para esprintar, Espacio para lanzar una manzana.
+  - Ritmos de la rival: Atalanta, 10,8 (más 0,6 si vas por delante); Camila, 9,85 (más 0,3).
+  - Simulado: a Atalanta no se le gana sin manzanas con ninguna estrategia. A Camila solo se le gana administrando bien el aliento.
+  - Los datos de la carrera se llaman `G.pd` y `G.ad`. No hay que usar `G.d`, porque en el minijuego `G` es `MG` y `MG.d` es el elemento de la pantalla.
+- **Las manzanas:**
+  - Afrodita (`atalGodOpts`, dentro de `renderGodOpts`) da las tres manzanas de Támaso si tienes Areté 10 y Eusébeia 5. Solo hacen efecto si Atalanta está a menos de 16 pasos.
+  - Si ganas usándolas, quedas en deuda: hay que darle las gracias a Afrodita. Si pasan 3 días sin hacerlo, `atalTick` aplica el castigo de Hipómenes en versión suave: −12 puntos de Eusébeia y un sueño de leones (Ovidio X 681-704).
+- **Recompensas:** si ganas, corona y epigrama, +6 Kléos, +4 Areté y 10 monedas. Si pierdes, +3 Areté y +2 Kléos la primera vez.
+- **Cambio en el sistema MG:** los minijuegos marcados con `own:true` no reciben la recompensa genérica de los sueños y usan sus propios textos en los botones («¡A correr!», «Repetir la carrera»).
 
 ### Novedades de la versión 96: la caverna de Platón y el Sueño de Escipión
 
