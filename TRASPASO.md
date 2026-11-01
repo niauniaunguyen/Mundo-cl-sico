@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 91 del artefacto; notas de la versión 91). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 92 del artefacto; notas de la versión 92). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -55,6 +55,8 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 
 ### Tareas pendientes acordadas
 
+- **Granja: plagas y malas cosechas** (pendiente por decisión de la usuaria). La idea: la roya (robigo) en el cereal, la langosta, la sequía, el granizo y los pájaros que se comen la simiente, con remedios de la época: las Robigalia, el espantapájaros de Príapo, los consejos de Catón y Columela, y la Ambarvalia como protección. Se colgaría de `farmDay` (un suceso al azar según el mes) y del estado de cada parcela.
+
 - **Publicar el juego como web para los alumnos** (pendiente de decisión del usuario).
   - Opción recomendada: conectar el repositorio a Netlify o Cloudflare Pages, que admiten repositorios privados. GitHub Pages exigiría hacerlo público.
   - Cada vez que se suban cambios a la rama elegida (`main-djww2r` para actualizar al momento, o `main` para revisar antes), la web se actualiza sola.
@@ -66,6 +68,24 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 92: vecinos, fiestas del campo y la agricultura en la biblioteca
+
+Todo está en el módulo «LA GRANJA 2», antes de `startGame`.
+
+- **Vecinos** (`NBS`, `nbSpawn`, `nbTalk`; estado en `state.farm.nb`). Aparecen cuando la granja es tuya.
+  - Atenas: Eufrósine (viuda, abejas y gallinas) y Cármides (viñas y un caballo). Roma: Fannia (flores y verduras de la vía Apia) y Sexto (liberto con un molino de mulas).
+  - Cada uno hace encargos (`nbReq`): 2 o 3 unidades de un producto, en 7 días. Pagan el doble del precio más 2.
+  - Cada encargo cumplido da +1 corazón, hasta 5.
+  - Regalos a los 3 corazones: un perro guardián que pasea por la finca o una hoz de hierro (cosechar cuesta 5).
+  - Regalos a los 5 corazones: colmenas, el buey de Cármides o el molino de Sexto (el trigo se vende un 50 % más caro).
+  - Frases propias de cada vecino.
+- **Fiestas del campo** (`FRUR`, `frurNow`, `frurDo`): se celebran una vez al año en el altar de la finca, y un aviso las anuncia al llegar el mes.
+  - Atenas: Proerosia (arar cansa 3), Tesmoforias (semillas), Haloa (bendición de la cosecha) y Talisias (+1 corazón a los vecinos).
+  - Roma: Sementivae (semillas), Cerealia, Robigalia y Ambarvalia (bendición), Vinalia rustica (+3 cestas de uva), Consualia (el grano vale más ese mes) y Saturnales (+1 corazón).
+  - Cada fiesta lleva su texto y sus fuentes (Ovidio, Fastos; Catón 141; Teócrito VII; Varrón; Macrobio…).
+- **Biblioteca:** el ensayo `agricultura` en `ESSAYS` (Atenas) y en `ROMA_ESSAYS` (Roma). Trata de cultivos, barbecho y rotación, aperos (arado, hoz, era, trillo, vallus, trapetum, prensa), almacenaje y calendario.
+- **Libro de la finca:** ahora muestra los vecinos, sus encargos y las fiestas del mes.
 
 ### Novedades de la versión 91: la granja heredada (en los dos modos)
 
