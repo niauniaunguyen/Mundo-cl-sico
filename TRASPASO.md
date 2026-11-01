@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 94 del artefacto; notas de la versión 94). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 95 del artefacto; notas de la versión 95). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,17 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 95: las cualidades tienen efectos claros
+
+Los efectos están en el módulo de cualidades (`QUAL`, cuyo campo `fx` es el texto que se ve en el menú) y en los puntos donde se aplican. «Nivel − 1» significa que en el nivel 1 no hay ventaja.
+
+- **Sophía / Sapientia:** como antes, más monedas por lección desde el nivel 3. Desde el nivel 4, en la pregunta de una lección aparece tachada y desactivada una respuesta falsa (`startQuiz`).
+- **Lógos / Eloquentia:** el regateo. Rebaja un 2 % por cada nivel por encima del 1 lo que compras como mercader y sube un 2 % lo que vendes. El redondeo te favorece, y el motivo se lee junto al precio. Está en `comLogos`, que usan el `comPrice` de Atenas y el de Roma. También suben los precios de venta de la granja (`fPrice`).
+- **Areté / Virtus:** un 2 % más de velocidad a pie por cada nivel por encima del 1 (antes era un 1 %). Las fuerzas máximas de la granja suben de 100 a 100 + 5 × (nivel − 1), con `fMax()`.
+- **Eusébeia / Pietas:** como antes, una moneda más de los dioses y los sueños desde el nivel 3. En Delfos, la probabilidad de que el dios acepte la consulta es del 75 % + 2,5 % por cada nivel por encima del 1, con un máximo del 97 %. Desde el nivel 6, las primicias de la granja dan dos medidas de más en la cosecha en vez de una.
+- **Kléos / Fama:** desde el nivel 3, la gente de la calle te reconoce, se vuelve hacia ti y te saluda por tu nombre (`qualGreet`, dentro de `qualTick`). Hay tres grupos de frases según el nivel (3-4, 5-7, 8-10), distintos en Atenas y en Roma. `klBonus()` da una moneda más por cada dos niveles por encima del 1 en los encargos de misiones y de los vecinos de la granja.
+- En `__d` hay ahora funciones de prueba nuevas: `qualGreet`, `qLv`, `qAdd`, `fPrice`, `fMax`, `klBonus`, `startQuiz`, `openDialog`, `getS`, `getW`, `getP`, `getNPCS`, `setUi` y `comModeT`.
 
 ### Novedades de la versión 94: Delfos y las Termópilas, ampliados
 
