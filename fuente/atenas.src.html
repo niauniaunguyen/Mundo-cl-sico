@@ -602,6 +602,7 @@ function rawH(x,z){
   h+=bump(x,z,-215,-5,75,24);                   // collado al oeste de la Acrópolis
   if(Math.abs(x-40)<250&&z>0)h+=30*(1-sstep(clamp((z-64)/95,0,1)))*sstep(clamp((z-15)/35,0,1))*(1-sstep(clamp((Math.abs(x-40)-130)/90,0,1))); // ladera sur
   const s=(z-x)-1750;if(s>0)h-=sstep(clamp(s/220,0,1))*22;
+  h=pirCarve(x,z,h);
   const th=Math.hypot(x-THEA.x,z-(THEA.z+12));if(th<45)h=lerp(h,THEA.h0,1-sstep(clamp((th-25)/20,0,1)));
   {const tx=x-THEA.x,tz=z-THEA.z,r=Math.hypot(tx,tz);if(r<THEA.r1+12){const ph=Math.abs(Math.atan2(tx,-tz)),rc=Math.min(Math.max(r,THEA.r0),THEA.r1),cav=THEA.h0+(rc-THEA.r0)*THEA.step+0.3;
     const out=r>THEA.r1?1-sstep((r-THEA.r1)/12):1,w=1-sstep(clamp((ph-1.55)/0.9,0,1)),e=cav*out*w;if(e>h)h=e;}} // la ladera abraza las gradas
@@ -1005,7 +1006,7 @@ const WALLC={x:-250,z:-170};
 const wallR=th=>720+45*Math.sin(3*th+1);
 const WN=200;
 const wallPts=[];for(let i=0;i<WN;i++){const th=-Math.PI+i/WN*TAU;const r=wallR(th);wallPts.push([WALLC.x+Math.cos(th)*r,WALLC.z+Math.sin(th)*r,th]);}
-const GATE_ANG={dipylon:-2.29,sagrada:-2.37,este:0.0,norte:-1.5,pireo:2.3,sur:0.65};
+const GATE_ANG={dipylon:-2.29,sagrada:-2.37,este:0.0,norte:-1.5,pireo:2.3,sur:0.65,eria:-1.95,diomea:0.33,halade:1.2,melitides:2.9};
 const gateSeg={};
 for(const k in GATE_ANG){let best=0,bd=9;for(let i=0;i<WN;i++){const a=wallPts[i],b=wallPts[(i+1)%WN];const mid=Math.atan2((a[1]+b[1])/2-WALLC.z,(a[0]+b[0])/2-WALLC.x);const d=Math.abs(wrapA(mid-GATE_ANG[k]));if(d<bd){bd=d;best=i;}}gateSeg[k]=best;}
 const GATES={};for(const k in gateSeg){const a=wallPts[gateSeg[k]],b=wallPts[(gateSeg[k]+1)%WN];const x=(a[0]+b[0])/2,z=(a[1]+b[1])/2,ol=Math.hypot(x-WALLC.x,z-WALLC.z);GATES[k]={x,z,dx:b[0]-a[0],dz:b[1]-a[1],ox:(x-WALLC.x)/ol,oz:(z-WALLC.z)/ol};}
@@ -1014,6 +1015,28 @@ const LW_DIR=(()=>{const l=Math.hypot(-0.8,0.6);return[-0.8/l,0.6/l];})();
 const LW=[2.05,2.6].map(th=>{const r=wallR(th);return[WALLC.x+Math.cos(th)*r,WALLC.z+Math.sin(th)*r];});
 
 const D=GATES.dipylon,SG=GATES.sagrada,PG=GATES.pireo,EG=GATES.este,NG=GATES.norte,SGATE=GATES.sur;
+
+// ---- el Pireo: marco de referencia junto a la costa (u: a lo largo de la costa hacia el sureste; v: tierra adentro)
+const PIR0=(()=>{const t=(1750-(PG.z-PG.x))/1.4;return{x:PG.x+LW_DIR[0]*t,z:PG.z+LW_DIR[1]*t};})();
+const pirP=(u,v)=>[PIR0.x+Math.SQRT1_2*(u+v),PIR0.z+Math.SQRT1_2*(u-v)];
+const PIR_BAYS=[{id:'zea',u:70,v:-6,R:28},{id:'muniquia',u:132,v:-4,R:17}].map(b=>{const p=pirP(b.u,b.v);return Object.assign(b,{x:p[0],z:p[1]});});
+const PIR_HILL=(()=>{const p=pirP(150,72);return{x:p[0],z:p[1]};})();
+function pirCarve(x,z,h){if(Math.abs(x-PIR0.x)>420||Math.abs(z-PIR0.z)>420)return h;
+  h+=bump(x,z,PIR_HILL.x,PIR_HILL.z,38,20);   // la colina de Muniquia
+  for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-3.4+3.8*sstep(clamp((d-b.R*0.72)/(b.R*0.28+10),0,1));if(t<h)h=t;}}
+  return h;}
+function pirIn(x,z){if(MODE!=='atenas')return false;const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);return u>-235&&u<185&&v>-80&&v<210;}
+// ---- los barrios (demos) de la ciudad: orientación de su trama, tamaño de las casas y proporción de casas de dos pisos
+const ATH_DEMES=[
+ {id:'melite',name:'Melite',gr:'ΜΕΛΙΤΗ',sub:'Barrio acomodado entre la Pnyx, las Ninfas y el Ágora: aquí tuvo su casa Temístocles, junto al templo de Ártemis Aristobule que él mismo fundó.',x:-560,z:-150,r:200,a:0.35,p:15,two:0.4,blk:5},
+ {id:'koile',name:'Coile',gr:'ΚΟΙΛΗ',sub:'«La hondonada», entre la Pnyx y la colina de las Musas: casas pequeñas de gente humilde junto al camino del Pireo.',x:-470,z:290,r:190,a:0.75,p:10,two:0,blk:6},
+ {id:'kollytos',name:'Colito',gr:'ΚΟΛΛΥΤΟΣ',sub:'Barrio al sur de la Acrópolis; según algunos, aquí nació Platón.',x:-130,z:300,r:180,a:0.2,p:13,two:0.25,blk:5},
+ {id:'kydathenaion',name:'Cidateneo',gr:'ΚΥΔΑΘΗΝΑΙΟΝ',sub:'«La Atenas gloriosa», al norte de la Acrópolis y al este del Ágora: el barrio de Aristófanes.',x:-80,z:-360,r:220,a:0.5,p:14,two:0.3,blk:5},
+ {id:'skambonidai',name:'Escambónidas',gr:'ΣΚΑΜΒΩΝΙΔΑΙ',sub:'Barrio del norte de la ciudad, al norte del Ágora.',x:-420,z:-660,r:190,a:0.3,p:12,two:0.2,blk:5},
+ {id:'kerameis',name:'Cerámico interior',gr:'ΚΕΡΑΜΕΙΣ',sub:'Los alfareros, junto al Dípilon: talleres, hornos y humo.',x:-690,z:-560,r:150,a:0.62,p:11,two:0.05,blk:4},
+ {id:'diomeia',name:'Diomea',gr:'ΔΙΟΜΕΙΑ',sub:'Barrio del este, camino del Cinosarges, donde se celebra a Heracles.',x:330,z:60,r:200,a:0.1,p:12,two:0.15,blk:5}];
+function demeAt(x,z){if(MODE!=='atenas')return null;let b=null,bd=1e9;for(const d of ATH_DEMES){const q=Math.hypot(x-d.x,z-d.z)/d.r;if(q<1&&q<bd){bd=q;b=d;}}return b;}
+
 const ACADEMY={x:D.x+D.ox*640,z:D.z+D.oz*640};
 const LYCEUM={x:640,z:-110};
 const CYNO={x:520,z:400},OLY={x:255,z:195};
@@ -2940,22 +2963,25 @@ function buildHouses(){
   const mark=(x,z,w,d)=>{for(let i=Math.floor((x-w/2)/OC);i<=Math.floor((x+w/2)/OC);i++)for(let j=Math.floor((z-d/2)/OC);j<=Math.floor((z+d/2)/OC);j++)occ.add(i+','+j);};
   for(const f of footprints){if(f.r)mark(f.x,f.z,f.r*2+8,f.r*2+8);else{const m=Math.max(f.w,f.d)+8;mark(f.x,f.z,m,m);}}
   const list=[];
-  for(let k=0;k<45000&&list.length<2800;k++){
-    const th=R()*TAU,rad=Math.sqrt(R())*780,x=WALLC.x+Math.cos(th)*rad,z=WALLC.z+Math.sin(th)*rad;
-    if(!insideWalls(x,z,18))continue;
-    if(superD(x,z,ACRO.x,ACRO.z,ACRO.rx,ACRO.rz)<1.45)continue;
-    if(Math.hypot(x-AG.x,z-AG.z)<165)continue;
-    if(superD(x,z,PNYX.x,PNYX.z,PNYX.rx,PNYX.rz)<1.25)continue;
-    if(superD(x,z,AREO.x,AREO.z,46,22)<1.4)continue;
-    if(x>-60&&x<200&&z>60&&z<200)continue;
-    if(x>-250&&x<-100&&Math.abs(z+2)<26)continue;
-    if(Math.hypot(x-D.x,z-D.z)<110||Math.hypot(x-SG.x,z-SG.z)<60)continue;
-    const w=rr(10,16),d=rr(10,15);
-    if(roadDist(x,z)<Math.max(w,d)/2+2)continue;
-    if(Math.abs(terrainH(x+6,z)-terrainH(x-6,z))>3.2||Math.abs(terrainH(x,z+6)-terrainH(x,z-6))>3.2)continue;
-    if(!free(x,z,w,d))continue;mark(x,z,w,d);
-    const a=(R()<0.5?0:Math.PI/2)+(R()<0.5?0:Math.PI)+rr(-0.12,0.12)+0.35;
-    list.push({x,z,w,d,a,h:rr(3.2,4.4),two:R()<0.2,gy:minGround(x,z,w,d,a)});
+  const hkeys=new Set();
+  const hBad=(x,z)=>!insideWalls(x,z,18)||superD(x,z,ACRO.x,ACRO.z,ACRO.rx,ACRO.rz)<1.45||Math.hypot(x-AG.x,z-AG.z)<165||superD(x,z,PNYX.x,PNYX.z,PNYX.rx,PNYX.rz)<1.25||superD(x,z,AREO.x,AREO.z,46,22)<1.4||(x>-60&&x<200&&z>60&&z<200)||(x>-250&&x<-100&&Math.abs(z+2)<26)||Math.hypot(x-D.x,z-D.z)<110||Math.hypot(x-SG.x,z-SG.z)<60;
+  for(let k=0;k<90000&&list.length<2800;k++){
+    const th=R()*TAU,rad=Math.sqrt(R())*780;let x=WALLC.x+Math.cos(th)*rad,z=WALLC.z+Math.sin(th)*rad;
+    if(hBad(x,z))continue;
+    let w=rr(10,16),d=rr(10,15),a=(R()<0.5?0:Math.PI/2)+(R()<0.5?0:Math.PI)+rr(-0.12,0.12)+0.35,two=R()<0.2;
+    const dm=demeAt(x,z);
+    if(dm){   // en los barrios, las casas forman manzanas pegadas, con callejas entre ellas
+      const c=Math.cos(dm.a),sn=Math.sin(dm.a),dx=x-WALLC.x,dz=z-WALLC.z,iu=Math.round((dx*c-dz*sn)/dm.p),iv=Math.round((dx*sn+dz*c)/dm.p);
+      if(((iu%dm.blk)+dm.blk)%dm.blk===dm.blk-1)continue;const vm=((iv%3)+3)%3;if(vm===2)continue;const key=dm.id+':'+iu+':'+iv;if(hkeys.has(key))continue;
+      const q=toW(iu*dm.p,iv*dm.p,WALLC.x,WALLC.z,dm.a);x=q[0];z=q[1];if(hBad(x,z))continue;w=d=dm.p-0.6;a=dm.a+(vm===0?Math.PI:0);two=R()<dm.two;
+      if(roadDist(x,z)<w/2+1)continue;
+      if(Math.abs(terrainH(x+6,z)-terrainH(x-6,z))>3.2||Math.abs(terrainH(x,z+6)-terrainH(x,z-6))>3.2)continue;
+      if(!free(x,z,w*0.7,d*0.7))continue;hkeys.add(key);}
+    else{
+      if(roadDist(x,z)<Math.max(w,d)/2+2)continue;
+      if(Math.abs(terrainH(x+6,z)-terrainH(x-6,z))>3.2||Math.abs(terrainH(x,z+6)-terrainH(x,z-6))>3.2)continue;
+      if(!free(x,z,w,d))continue;mark(x,z,w,d);}
+    list.push({x,z,w,d,a,h:rr(3.2,4.4),two,gy:minGround(x,z,w,d,a)});
   }
   if(GLB.ok){housesGLB(list);return;}
   const unit=new THREE.BoxGeometry(1,1,1);unit.translate(0,0.5,0);
@@ -3792,7 +3818,7 @@ let zoneTimer=0;
 function showZone(name,greek,sub){const z=$('zone');z.querySelector('.zn').textContent=name;z.querySelector('.zg').textContent=greek||'';z.querySelector('.zs').textContent=sub||'';z.classList.add('show');clearTimeout(zoneTimer);zoneTimer=setTimeout(()=>z.classList.remove('show'),4200);}
 const ZONES=[
   ...ISLANDS.map(I=>({id:'isl_'+I.id,name:I.name,gr:I.gr,sub:I.sub,test:x=>regionOf(x)===I.id})),
-  {id:'puerto',name:'El Pireo',gr:'ΠΕΙΡΑΙΕΥΣ',sub:'El puerto de Atenas. Aquí embarcan los viajeros hacia las islas.',test:(x,z)=>HARBOR.ok&&Math.hypot(x-HARBOR.x,z-HARBOR.z)<90},
+  {id:'puerto',name:'El Pireo',gr:'ΠΕΙΡΑΙΕΥΣ',sub:'El puerto de Atenas. Aquí embarcan los viajeros hacia las islas.',test:(x,z)=>(HARBOR.ok&&Math.hypot(x-HARBOR.x,z-HARBOR.z)<90)||pirIn(x,z)},
   {id:'acro',name:'Acrópolis',gr:'ΑΚΡΟΠΟΛΙΣ',sub:'La roca sagrada de Atenea, coronada por los templos de Pericles.',test:(x,z)=>superD(x,z,ACRO.x,ACRO.z,ACRO.rx,ACRO.rz)<1.05&&floorAt(x,z)>48},
   {id:'agora',name:'Ágora',gr:'ΑΓΟΡΑ',sub:'Mercado, plaza y corazón político de la ciudad.',test:(x,z)=>Math.hypot(x-AG.x,z-AG.z)<150},
   {id:'pnyx',name:'Pnyx',gr:'ΠΝΥΞ',sub:'La colina donde se reúne la Asamblea del pueblo.',test:(x,z)=>superD(x,z,PNYX.x,PNYX.z,PNYX.rx,PNYX.rz)<1.05},
@@ -3806,6 +3832,7 @@ const ZONES=[
   {id:'muros',name:'Muros Largos',gr:'ΜΑΚΡΑ ΤΕΙΧΗ',sub:'El corredor fortificado hacia el puerto del Pireo.',test:(x,z)=>!insideWalls(x,z)&&((x-PG.x)*LW_DIR[0]+(z-PG.z)*LW_DIR[1])>0&&Math.abs((x-PG.x)*LW_DIR[1]-(z-PG.z)*LW_DIR[0])<230},
   {id:'olimp',name:'Olimpieion',gr:'ΟΛΥΜΠΙΕΙΟΝ',sub:'El templo inacabado de los tiranos.',test:(x,z)=>Math.abs(x-OLY.x)<62&&Math.abs(z-OLY.z)<28},
   {id:'cino',name:'Cinosarges',gr:'ΚΥΝΟΣΑΡΓΕΣ',sub:'Gimnasio de Heracles, junto al Iliso.',test:(x,z)=>Math.hypot(x-CYNO.x,z-CYNO.z)<60},
+  ...ATH_DEMES.map(d=>({id:'demo_'+d.id,name:d.name,gr:d.gr,sub:d.sub,test:(x,z)=>MODE==='atenas'&&insideWalls(x,z)&&demeAt(x,z)===d})),
   {id:'ciudad',name:'Calles de Atenas',gr:'ΑΣΤΥ',sub:'Casas con patio, de adobe sobre zócalo de piedra, y callejas de tierra.',test:(x,z)=>insideWalls(x,z)},
   {id:'campo',name:'Campos del Ática',gr:'ΧΩΡΑ',sub:'Olivares, viñas y caminos entre los demos.',test:()=>true},
 ];
@@ -15655,7 +15682,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   if(state){if(GF.obols===null)GF.obols=state.obols;const d=state.obols-GF.obols;if(d!==0){if(d>0){gfFloat('+'+d+' '+(MODE==='roma'?'sestercios':'óbolos'),'#e8c37a');coinFly(d);}GF.obols=state.obols;}}}
 
 
@@ -17377,6 +17404,89 @@ function artTick(){if(!state)return;const a=state.art;if(!a)return;
   if(a.st==='wait'&&(state.day||1)>=a.ready){a.st='ready';save();artHouse();toast('<span class="label">'+(MODE==='roma'?'Tu retrato':'Tu estatua')+'</span><br>Ya está en tu casa'+(cz().st>=2?'':', esperándote para cuando la tengas')+'.');qAdd('kl',2,'Tu imagen ya existe.');}
   if(MODE==='roma'&&a.zeno===1){const I=islandOf(player.x);if(I&&I.id==='lugdunum'){a.zeno=2;save();toast('<span class="label">El Mercurio de los arvernos</span><br>En Lugdunum todos conocen la estatua de Zenodoro. Vuelve a contárselo al broncista, junto al Coloso.');}}}
 
+// ============================================================ URBANISMO: el Pireo de Hipódamo, puertas y colinas de Atenas; la Roma del incendio del 80
+const URB={smoke:[]};
+function urbFree(x,z,r){for(const f of footprints){const fr=f.r||Math.max(f.w||0,f.d||0)/2;if(Math.hypot(f.x-x,f.z-z)<fr+r)return false;}return true;}
+function urbScaffold(x,z,w,d,h,a){const g=grp(x,floorAt(x,z),z,a||0),wd=lam('#8a6a44');
+  for(let i=0;i<=Math.round(w/3);i++)for(const s of[-1,1]){const px=-w/2+i*w/Math.round(w/3);box(0.18,h,0.18,wd,px,h/2,s*d/2,g);}
+  for(let j=0;j<=Math.round(d/3);j++)for(const s of[-1,1]){const pz=-d/2+j*d/Math.round(d/3);box(0.18,h,0.18,wd,s*w/2,h/2,pz,g);}
+  for(let k=1;k<=Math.floor(h/2.5);k++){const y=k*2.5;box(w,0.12,0.5,wd,0,y,-d/2,g);box(w,0.12,0.5,wd,0,y,d/2,g);box(0.5,0.12,d,wd,-w/2,y,0,g);box(0.5,0.12,d,wd,w/2,y,0,g);}return g;}
+function urbSmoke(x,z,y,n){for(let i=0;i<(n||6);i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,color:'#5a5450',transparent:true,opacity:0.35,depthWrite:false}));s.position.set(x+rr(-3,3),y+i*3,z+rr(-3,3));s.scale.set(6,6,1);scene.add(s);URB.smoke.push({s,x,z,y,ph:i/(n||6)});}}
+function urbWorkers(x,z,n){for(let i=0;i<n;i++){const f=findFree(x+rr(-8,8),z+rr(-8,8),0.6);const p=makePerson({chiton:pick(['#b8a888','#a89878','#c8b898']),short:true,noHimation:true,hair:'#3a2a1e',carry:R()<0.3?'hydria':null});p.position.set(f[0],floorAt(f[0],f[1]),f[1]);p.rotation.y=R()*TAU;scene.add(p);walkers.push({g:p,mode:'idle',tx:f[0],tz:f[1],wait:Infinity,speed:0,phase:R()*10,x:f[0],z:f[1],barks:MODE==='roma'?['¡Cuidado con esa viga!','El emperador paga bien, pero quiere prisa.','Aquí todo huele todavía a quemado.']:['¡Aparta, que pasa la piedra!','Tres óbolos al día y la comida.']});}}
+// ======================================================== ATENAS
+function pireoPlus(){if(MODE!=='atenas'||URB.pir)return;URB.pir=1;const a=-Math.PI/4,P=pirP;
+  const stoneM=M.limestone,wood=lam('#6a5038'),tile=lam('#b0563a');
+  // los muelles (chómata) que cierran el Cántaro, con sus torres
+  for(const[u0,u1]of[[-90,-40],[45,0]]){const A=P(u0,-4),B=P(u1,-58),mx=(A[0]+B[0])/2,mz=(A[1]+B[1])/2,L=Math.hypot(B[0]-A[0],B[1]-A[1]),ang=Math.atan2(B[0]-A[0],B[1]-A[1]);
+    const m=box(6,6,L,stoneM,mx,-1.5,mz);m.rotation.y=ang;addPlat(mx,mz,6,L,ang,1.5);const t=grp(B[0],1.5,B[1],ang);box(4,7,4,stoneM,0,3.5,0,t);addCirc(B[0],B[1],2.4);}
+  // el Emporio: cinco pórticos de comercio en la orilla del Cántaro, entre ellos el Deigma, la «muestra», donde se exponían las mercancías
+  [[-190,'La Stoa Larga (Makrá Stoá)'],[-155,'Pórtico del trigo'],[-120,'El Deigma'],[-85,'Pórtico de los cambistas']].forEach(([u,nm])=>{const p=P(u,26);if(urbFree(p[0],p[1],14))stoa({name:nm,x:p[0],z:p[1],rot:a+Math.PI,len:30,depth:9,colH:4.4,colD:0.55});});
+  // la cuadrícula de Hipódamo: manzanas iguales de casas, con calles rectas; el ágora en el centro
+  const houses=[],wallM=['#eee5d4','#e6dbc4','#d8c7a5','#efe8da'];
+  for(let bu=-5;bu<=4;bu++)for(let bv=1;bv<=5;bv++){const cu=bu*30+5,cv=bv*30+20;if(cu>120&&cv<120)continue;if(bu>=-1&&bu<=0&&bv>=3&&bv<=4)continue;
+    for(const[du,dv]of[[-6.2,-6.2],[6.2,-6.2],[-6.2,6.2],[6.2,6.2]]){const p=P(cu+du,cv+dv);if(!urbFree(p[0],p[1],7))continue;const gy=floorAt(p[0],p[1]);if(gy<0.6||Math.abs(terrainH(p[0]+5,p[1])-terrainH(p[0]-5,p[1]))>3)continue;houses.push({x:p[0],z:p[1],gy,a:a+(dv<0?Math.PI:0),c:pick(wallM),two:R()<0.25});}}
+  for(const h of houses){const g=grp(h.x,h.gy,h.z,h.a),wm=lam(h.c);box(11.8,h.two?6.5:3.8,11.8,wm,0,(h.two?6.5:3.8)/2-0.4,0,g);box(12.4,0.5,12.4,tile,0,(h.two?6.5:3.8)-0.2,0,g);box(1.1,2.1,0.1,lam('#4a3324'),2,1.05,5.95,g);addBox(h.x,h.z,11.8,11.8,h.a);footprints.push({x:h.x,z:h.z,w:11.8,d:11.8,a:h.a,c:'#b8a280',house:true});}
+  {const ag=P(-15,125);for(const[du,dv]of[[-24,-24],[24,-24],[-24,24],[24,24]]){const p=P(-15+du,125+dv);box(0.4,1,0.25,lam('#e8e0d0'),p[0],floorAt(p[0],p[1])+0.5,p[1]);}
+    placeLive('pir_agora','El ágora de Hipódamo','ΙΠΠΟΔΑΜΕΙΑ ΑΓΟΡΑ','La plaza del Pireo lleva el nombre de quien trazó la ciudad: Hipódamo de Mileto, que hacia el 450 dibujó estas calles rectas y manzanas iguales. Aristóteles lo recuerda como el primero que pensó cómo debía ordenarse una ciudad (Política II 1267b). Se han encontrado los mojones que separaban los espacios: «Mojón del Emporio y del camino», «Mojón del ágora». Compárala con las callejas de Atenas, que crecieron sin plan.',ag[0],ag[1],a);}
+  // Zea: cobertizos para las trirremes, en abanico alrededor de la dársena
+  {const b=PIR_BAYS[0];for(let k=0;k<13;k++){const th=Math.atan2(PIR0.x-b.x,PIR0.z-b.z)+Math.PI+(-1.2+k*0.2),cx=b.x+Math.sin(th)*(b.R+9),cz=b.z+Math.cos(th)*(b.R+9);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);
+      for(const s of[-1,1])for(let i=0;i<4;i++)box(0.4,3,0.4,stoneM,s*2.4,1.5,-8+i*5.3,g);const r=box(5.4,0.3,18,tile,0,3.2,0,g);r.rotation.x=-0.05;box(4.2,0.2,18,wood,0,0.1,0,g);addSeg(...toW(-2.6,-9,cx,cz,th),...toW(-2.6,9,cx,cz,th),0.25);}
+    makeShip(b.x+3,b.z-2,Math.atan2(PIR0.x-b.x,PIR0.z-b.z));
+    const p=P(70,22);placeLive('pir_zea','Zea, el puerto de las trirremes','ΖΕΑ','Una dársena redonda rodeada de cobertizos: rampas de piedra techadas, donde las trirremes se sacan del agua para que la madera se seque. Las listas de la flota del 330 hablarán de 196 cobertizos en Zea, 82 en Muniquia y 94 en el Cántaro. El gran arsenal de Filón, para guardar velas y cuerdas, se construirá dentro de unos cuarenta años.',p[0],p[1],a);}
+  {const b=PIR_BAYS[1];for(let k=0;k<6;k++){const th=Math.atan2(PIR0.x-b.x,PIR0.z-b.z)+Math.PI+(-0.8+k*0.32),cx=b.x+Math.sin(th)*(b.R+8),cz=b.z+Math.cos(th)*(b.R+8);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);for(const s of[-1,1])box(0.4,3,16,stoneM,s*2.4,1.5,0,g);box(5.4,0.3,16,tile,0,3.2,0,g);}
+    const p=P(128,24);placeLive('pir_muniquia','Muniquia','ΜΟΥΝΙΧΙΑ','El puerto más pequeño y la colina que lo domina, la mejor fortaleza del Pireo: quien la ocupa controla el puerto. En el 403, Trasíbulo y los demócratas vencieron aquí a los Treinta tiranos. Junto al puerto está el santuario de Ártemis Muniquia, la protectora de los marinos.',p[0],p[1],a);}
+  // la colina: santuario de Bendis, la diosa tracia (aquí empieza la República de Platón)
+  {const f=findFree(PIR_HILL.x-14,PIR_HILL.z+10,2);temple({name:'Bendideion',x:f[0],z:f[1],rot:a,W:8,L:14,nW:4,nL:6,colD:0.6,colH:5,entH:1.2,pedH:0.9,steps:2,stepH:0.3,roofMat:M.marble});
+    placeLive('pir_bendis','El santuario de Bendis','ΒΕΝΔΙΔΕΙΟΝ','Bendis es una diosa tracia, cazadora como Ártemis, que trajeron los tracios del puerto. Atenas la adoptó durante la guerra. Su fiesta, las Bendidias, tiene procesión de atenienses y de tracios y, de noche, carreras de antorchas a caballo. Así empieza la República de Platón: «Bajé ayer al Pireo con Glaucón, el hijo de Aristón, para rezar a la diosa y ver la fiesta» (327a).',f[0]+6,f[1]+8,a);}
+  {const p=P(-40,70);placeLive('pir_cuadricula','Calles a cordel','ΠΕΙΡΑΙΕΥΣ','Fíjate: en el Pireo las calles son rectas y se cruzan en ángulo recto, y todas las manzanas tienen el mismo tamaño. En Atenas, en cambio, las callejas suben y bajan y se tuercen como quieren, porque la ciudad creció durante siglos sin un plan. El Pireo es una ciudad nueva, trazada hace unos setenta años, pensada sobre el papel.',p[0],p[1],a);}
+  urbWorkers(P(60,12)[0],P(60,12)[1],4);}
+// puertas de la muralla y colinas
+const GATE_INFO={norte:['Puerta Acarnea','Hacia Acarnas, el demo más grande del Ática, y hacia Decelia.'],este:['Puerta de Diocares','Hacia el Liceo y el monte Himeto.'],sur:['Puerta Itonia','Hacia Falero, la vieja playa-puerto de Atenas.'],pireo:['Puerta del Pireo','Entre los Muros Largos, el camino del puerto.'],
+ eria:['Puertas de Eria','«Las puertas de las tumbas»: junto a ellas había cementerios. Hacia Colono.'],diomea:['Puerta Diomea','Hacia el demo de Diomea y el gimnasio del Cinosarges.'],halade:['Puerta Hálade','«Hacia el mar»: por aquí bajan los iniciados de Eleusis a bañarse a Falero. Su lugar exacto se discute.'],melitides:['Puerta Melítide','Junto al barrio de Melite; cerca, dicen, está la tumba de Cimón y de su familia.']};
+function athUrbPlus(){if(MODE!=='atenas'||URB.ath)return;URB.ath=1;
+  for(const k in GATE_INFO){const G=GATES[k];if(!G)continue;const[x,z]=gatePt(G,-12,8);const f=findFree(x,z,1);placeLive('puerta_'+k,GATE_INFO[k][0],'ΠΥΛΑΙ','La muralla de Atenas tenía unas quince puertas, y cada camino del Ática salía por una de ellas. '+GATE_INFO[k][1]+' La muralla la levantó Temístocles después de las guerras médicas, y la reconstruyó Conón hace pocos años con el dinero de los persas.',f[0],f[1],0);}
+  {const f=findFree(-330,345,2);placeLive('museion','La colina de las Musas','ΜΟΥΣΕΙΟΝ','Al suroeste de la Acrópolis. Se llama así porque aquí cantaba, según la tradición, el poeta Museo, y aquí está su tumba (Pausanias I 25, 8). Desde lo alto se ve todo hasta el mar.',f[0],f[1],0);}
+  {const f=findFree(-700,-40,2);placeLive('ninfas','La colina de las Ninfas','ΛΟΦΟΣ ΝΥΜΦΩΝ','Al oeste de la ciudad, entre la Pnyx y el barrio de Melite. En su ladera hay un pequeño santuario de las Ninfas y Demos, protectoras de las bodas y de los niños.',f[0],f[1],0);}
+  for(const d of ATH_DEMES){const f=findFree(d.x,d.z,2);if(insideWalls(f[0],f[1],10))placeLive('demo_'+d.id,'El barrio de '+d.name,d.gr,d.sub+' Atenas no estaba dividida en calles con nombre sino en demos, como este: cada ciudadano llevaba su nombre unido al de su demo («Aristófanes de Cidateneo»).',f[0],f[1],0);}}
+// ======================================================== ROMA
+function romaUrbPlus(){if(MODE!=='roma'||URB.roma)return;URB.roma=1;const A=id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;};
+  // el incendio del 80 (Dion Casio LXVI 24): Capitolio y Campo de Marte
+  for(const[id,dx,dz,w,d,h]of[['ro_jupiter',0,14,24,14,16],['ro_panteon',0,-26,18,12,14],['ro_iseo',10,10,14,10,10],['ro_pompeyo',-14,18,22,10,14]]){const p=A(id);if(!p)continue;const x=p[0]+dx,z=p[1]+dz;
+    urbScaffold(x,z,w,d,h,0);urbSmoke(x+rr(-4,4),z+rr(-4,4),floorAt(x,z)+h,5);for(let i=0;i<7;i++){const b=box(rr(1,3),rr(0.4,1.2),rr(1,3),lam(pick(['#2a2420','#3a3028','#4a4038'])),x+rr(-w/2,w/2),floorAt(x,z)+0.3,z+d/2+rr(1,5));b.rotation.y=R()*3;}urbWorkers(x,z+d/2+4,3);}
+  {const p=A('ro_panteon');if(p){const f=findFree(p[0]+14,p[1]+20,1);placeLive('incendio80','El incendio de este año','INCENDIVM','Este año, mientras Tito estaba en Campania atendiendo a las víctimas del Vesubio, un incendio ardió en Roma tres días y tres noches. Se quemaron el templo de Júpiter en el Capitolio, el Panteón, el templo de Isis y Serapis, los Saepta, el Diribitorio, el teatro de Balbo y la escena del teatro de Pompeyo, entre muchos otros (Dion Casio LXVI 24). Tito dijo que la pérdida era solo suya, y para reconstruir dio hasta los adornos de sus propias villas (Suetonio, Tito 8, 4). Por eso ves andamios, vigas negras y humo.',f[0],f[1],0);}}
+  // el templo de Vespasiano, en obras, con una grúa de rueda
+  {const p=A('ro_saturno');if(p){const f=findFree(p[0]-22,p[1]-6,6);const g=grp(f[0],floorAt(f[0],f[1]),f[1],0),mb=lam('#ece6da');box(14,4,20,TRAV||mb,0,2,0,g);
+    for(let i=0;i<6;i++){const h=i<3?13:rr(2,6);const c=new THREE.Mesh(new THREE.CylinderGeometry(0.7,0.75,h,14),mb);c.position.set(-6+i*2.4,4+h/2,-9);g.add(c);}
+    for(let i=0;i<4;i++){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.7,0.7,1.6,14),mb);c.rotation.z=Math.PI/2;c.position.set(rr(-5,5),4.8,rr(-2,6));g.add(c);}
+    addBox(f[0],f[1],14,20,0);urbScaffold(f[0],f[1]+4,14,10,16,0);
+    const cr=grp(f[0]+10,floorAt(f[0]+10,f[1]),f[1]-4,0);const wh=new THREE.Mesh(new THREE.TorusGeometry(2.6,0.25,6,20),wood_());wh.position.y=2.8;cr.add(wh);for(const s of[-1,1]){const bm=box(0.3,16,0.3,wood_(),s*0.8,8,0,cr);bm.rotation.z=s*0.12;}box(2,0.3,0.3,wood_(),0,15.8,0,cr);
+    urbWorkers(f[0],f[1]+14,4);
+    placeLive('templo_vespasiano','El templo de Vespasiano, en obras','AEDES DIVI VESPASIANI','Vespasiano murió el año pasado y el Senado lo hizo dios. Su hijo Tito ha empezado a levantarle un templo aquí, al pie del Tabularium, entre el de la Concordia y el de Saturno. Lo terminará su hermano Domiciano. Fíjate en la grúa: una rueda enorme dentro de la que caminan unos hombres para subir los tambores de las columnas (Vitrubio X 2).',f[0]+4,f[1]+14,0);}}
+  // las obras de Domiciano en el Palatino
+  {const p=A('ro_palatino');if(p){const f=findFree(p[0]+30,p[1]+10,6);urbScaffold(f[0],f[1],20,14,12,0.3);urbWorkers(f[0],f[1]+10,3);placeLive('palatino_obras','Obras en el Palatino','PALATIVM','Aquí se empieza a preparar el gran palacio que el arquitecto Rabirio construirá para Domiciano, el hermano de Tito, sobre las casas de los emperadores anteriores. Cuando esté acabado, la colina entera será un palacio: de su nombre, Palatium, viene nuestra palabra «palacio».',f[0]+6,f[1]+10,0);}}
+  // las Termas de Nerón, junto al Panteón
+  {const p=A('ro_panteon');if(p){let f=null;for(const dx of[-70,-90,-110,-55]){const c=[p[0]+dx,p[1]+10];if(urbFree(c[0],c[1],26)){f=c;break;}}
+    if(f){const g=grp(f[0],floorAt(f[0],f[1]),f[1],0),br=lam('#c88a5a');box(46,12,34,br,0,6,0,g);box(14,16,14,br,0,8,0,g);const dm=new THREE.Mesh(new THREE.SphereGeometry(7,16,8,0,TAU,0,Math.PI/2),br);dm.position.y=16;g.add(dm);addBox(f[0],f[1],46,34,0);footprints.push({x:f[0],z:f[1],w:46,d:34,a:0,c:'#c88a5a'});
+      placeLive('termas_neron','Las Termas de Nerón','THERMAE NERONIANAE','Unos baños públicos enormes, de los primeros de su tipo, construidos por Nerón junto al Panteón. Marcial bromea: «¿Hubo algo peor que Nerón? ¿Y algo mejor que sus termas?» (VII 34).',f[0],f[1]+20,0);}}}
+  // los puentes con su nombre, y el puente Emilio, aguas abajo de la isla
+  {const X=z=>romaRiverX(z),W=z=>romaRiverW(z);bridge(380,X(380)+W(380)+12,X(380)-W(380)-12,8);
+    for(const[z,side,id,nm,txt]of[[250,1,'pons_fabricio','Puente Fabricio','Une la isla con la orilla de la ciudad. Lo hizo de piedra Lucio Fabricio, encargado de las calzadas, en el 62 a.C., y se sigue usando hoy, dos mil años después.'],[250,-1,'pons_cestio','Puente Cestio','Une la isla Tiberina con el Trastévere. Es del siglo I a.C.'],
+      [380,1,'pons_emilio','Puente Emilio','El primer puente de piedra de Roma, del 179 a.C.: antes, solo había puentes de madera.'],[560,1,'pons_sublicio','Puente Sublicio','El más antiguo y el más sagrado: de madera, sin un solo clavo de hierro, por tradición. Aquí defendió Horacio Cocles la ciudad contra los etruscos. Los pontífices, los «hacedores de puentes», se encargan de él.'],
+      [-250,1,'pons_agripa','Puente de Agripa','Un puente construido en tiempos de Augusto, aguas arriba de la isla.'],[-560,1,'pons_neron','Puente de Nerón','Lleva al Vaticano, donde Nerón tenía su circo y sus jardines.']]){const x=X(z)+side*(W(z)+16),f=findFree(x,z+10,1);placeLive(id,nm,'PONS',txt,f[0],f[1],0);}}
+  // la Porta Maggiore: los acueductos Claudio y Anio Nuevo entran en la ciudad
+  {let f=null;for(const c of[[720,-160],[760,-120],[700,-220],[780,-60]])if(urbFree(c[0],c[1],16)){f=c;break;}
+    if(f){const g=grp(f[0],floorAt(f[0],f[1]),f[1],Math.PI/2),tr=lam('#c9b48b');for(const s of[-1,0,1])box(4,14,6,tr,s*9,7,0,g);box(24,5,6.2,tr,0,16.5,0,g);box(24,1.2,6.4,lam('#b8a478'),0,13.6,0,g);addBox(f[0]-0,f[1]-9,6,4,Math.PI/2);addBox(f[0],f[1]+9,6,4,Math.PI/2);addBox(f[0],f[1],6,4,Math.PI/2);
+      placeLive('porta_maggiore','Los arcos de los acueductos','AQVA CLAVDIA · ANIO NOVVS','Dos acueductos, el Claudio y el Anio Nuevo, pasan aquí por encima de las calzadas Prenestina y Labicana, uno sobre otro, en un arco doble de piedra sin labrar. En el ático hay inscripciones: la de Claudio, que los terminó en el 52, y la de Vespasiano, que los reparó en el 71. Pronto se añadirá otra de Tito. Más tarde se convertirá en una puerta de la muralla: la Porta Maggiore. Cerca llega también el Aqua Marcia, la del agua más fresca de Roma (Plinio XXXI 41).',f[0]-10,f[1]+14,0);}}
+  // los Castra Praetoria
+  {let f=null;for(const c of[[560,-930],[620,-880],[520,-1000],[660,-960]])if(urbFree(c[0],c[1],40)){f=c;break;}
+    if(f){const g=grp(f[0],floorAt(f[0],f[1]),f[1],0),br=lam('#b8664a');for(const[x,z,w,d]of[[0,-30,80,2],[0,30,80,2],[-40,0,2,60],[40,0,2,60]])box(w,6,d,br,x,3,z,g);
+      for(const[a2,b2,c2,d2]of[[-40,-30,-4,-30],[4,-30,40,-30],[-40,30,-4,30],[4,30,40,30],[-40,-30,-40,30],[40,-30,40,30]])addSeg(f[0]+a2,f[1]+b2,f[0]+c2,f[1]+d2,1);
+      for(let i=0;i<8;i++)box(12,4,6,lam('#c88a5a'),-24+(i%4)*16,2,-14+Math.floor(i/4)*20,g);
+      placeLive('castra','El campamento de los pretorianos','CASTRA PRAETORIA','Un campamento rectangular con murallas de ladrillo, al noreste de la ciudad. Lo construyó Tiberio, aconsejado por Sejano, para reunir aquí a la guardia de los emperadores, varios miles de soldados. Quien los tiene contentos tiene el trono: ellos nombraron emperador a Claudio en el 41.',f[0],f[1]+38,0);}}}
+const wood_=()=>lam('#6a5038');
+function urbTick(dt){if(!URB.smoke.length)return;const t=performance.now()/1000;for(const o of URB.smoke){const k=((t*0.06+o.ph)%1);o.s.position.y=o.y+k*22;o.s.material.opacity=0.38*(1-k);const sc=4+k*10;o.s.scale.set(sc,sc,1);o.s.position.x=o.x+k*6;}}
+function urbSetup(){if(MODE==='atenas'){pireoPlus();athUrbPlus();}else romaUrbPlus();}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -17422,7 +17532,7 @@ function bootWorld(){setTimeout(()=>loadModels(()=>{
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
   SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();if(MODE==='atenas')romaTheatres();vuSetup();ofSetup();mktSetup();egxSetup();m386Setup();farmSetup();farmOfferSetup();delfosPlus();termoPlus();atalSetup();finSetup();artSetup();
+  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();if(MODE==='atenas')romaTheatres();vuSetup();ofSetup();mktSetup();egxSetup();m386Setup();farmSetup();farmOfferSetup();delfosPlus();termoPlus();atalSetup();finSetup();artSetup();urbSetup();
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -17442,6 +17552,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
