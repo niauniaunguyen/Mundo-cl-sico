@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 104 del artefacto; notas de la versión 104). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 105 del artefacto; notas de la versión 105). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 105: game feel de las recompensas
+
+Módulo «GAME FEEL 3: RECOMPENSAS» (prefijo `rw`, estado en `RW`, tick `rwTick` dentro de `gfTick`). Sustituye el aviso anterior de monedas (`coinFly`, que ya no se usa).
+- **Ganar monedas** (`rwObols` → `rwGain`): las monedas saltan desde el diálogo (o desde el centro de la pantalla), quedan un instante en el aire girando y vuelan al monedero. Cada una suena al llegar con una nota que sube por una escala pentatónica.
+  - El contador rueda número a número (`rwRoll`, `RW.shown`).
+  - El «+N» junto al contador suma las ganancias seguidas en lugar de apilar avisos.
+  - Con 10 o más monedas, también brilla la pantalla y suena un acorde.
+  - Las monedas son de plata con «ΑΘΕ» en Atenas (el óbolo ático era de plata, con la lechuza y la leyenda ΑΘΕ) y de oricalco dorado con «SC» en Roma (el sestercio de época flavia era de latón y llevaba S·C).
+- **Gastar** (`rwSpend`): unas monedas saltan del monedero y caen, suenan unas notas que bajan y un golpe sordo, y aparece «−N» en rojo apagado.
+- El tintineo genérico `sfxCoin` se calla cuando ya suenan las monedas, para no duplicar el sonido. El original queda en `sfxCoin0`.
+- **Esferas del caballo** (envoltorio de `horseXP`):
+  - imán: las esferas a menos de 10 m se acercan al jinete (`rwMagnet`);
+  - estallido de chispas y anillo en 3D (`rwBurst`/`rwParts`, que heredan la velocidad del caballo);
+  - campana que sube de tono con la racha (5 s entre esferas) y aviso «✦ +1 · racha ×N»;
+  - acelerón (`RW.dash`, multiplica la velocidad a caballo) con un golpe de campo de visión (`RW.fov`);
+  - barra de experiencia dentro del indicador del caballo (`--hx`);
+  - al subir de nivel: fanfarria, relincho, brillo y un gran estallido.
+- **Lugar descubierto** (`rwDiscover`): un rótulo grande en el centro, con una línea que se despliega y tres notas de lira. Sustituye al aviso pequeño.
+- **Subida de nivel de cualidad**: fanfarria de lira (`rwFanfare`), más larga al nivel 10; el número entra rebotando y un brillo cruza la tarjeta.
+- Con «reducir movimiento» del sistema no hay partículas ni acelerón: solo el contador, el aviso y el sonido.
+- Depuración: `__d.RWQ()` expone `RW`, `MOUNT`, `HORBS`, `hz`, `horseXP` y `rwDiscover`. Prueba en `scratchpad/tools/t_rw.js`.
 
 ### Novedades de la versión 104: progresión por niveles en las cinco cualidades
 
