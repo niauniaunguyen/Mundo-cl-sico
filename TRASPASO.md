@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 99 del artefacto; notas de la versión 99). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 100 del artefacto; notas de la versión 100). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,27 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 100: urbanismo de Atenas y Roma
+
+Los datos fijos están junto a `GATES` («el Pireo: marco de referencia…» y `ATH_DEMES`). Lo que se construye al empezar la partida está en el módulo «URBANISMO» (`urbSetup`, `pireoPlus`, `athUrbPlus`, `romaUrbPlus`, `urbTick`).
+
+- **El terreno de Atenas, corregido:** antes nunca bajaba de la cota 0 (`rawH` acababa en `Math.max(h,a)`), así que el mar no se veía en la costa. Ahora puede quedar por debajo del mar solo mar adentro (s>0) o en las dársenas del Pireo (`pirWet`). La malla lejana se hunde 40 m en el Pireo (antes, 8) para que no asome sobre las dársenas.
+- **El Pireo:**
+  - Se ubica con `PIR0`, un punto de la costa en la línea de los Muros Largos, y `pirP(u,v)`: u a lo largo de la costa hacia el sureste, v tierra adentro.
+  - Zea y Muniquia son dársenas excavadas (`PIR_BAYS`, `pirCarve`) con canal al mar. La colina de Muniquia se levanta en el terreno.
+  - Edificios: muelles con torres en el Cántaro, cuatro pórticos del Emporio (con el Deigma) y la cuadrícula de Hipódamo, con manzanas de 2 × 2 casas y el ágora de Hipódamo con sus mojones. En Zea hay 13 cobertizos y una trirreme, y en Muniquia, 6 cobertizos. En la colina está el santuario de Bendis.
+  - Estelas: el ágora, Zea, Muniquia, Bendis y las calles a cordel. La zona del puerto ahora es todo el Pireo (`pirIn`).
+- **Los barrios de Atenas** (`ATH_DEMES`, `demeAt`): Melite, Coile, Colito, Cidateneo, Escambónidas, el Cerámico interior y Diomea.
+  - En `buildHouses`, las casas de cada barrio se colocan en una cuadrícula con su propia orientación (a), su tamaño de casa (p), su proporción de casas de dos pisos (two) y una calleja cada blk casas y cada dos filas. Fuera de los barrios, siguen como antes.
+  - Al entrar en cada barrio sale su nombre (zonas `demo_*` en `ZONES`), y cada uno tiene su estela.
+- **Puertas y colinas de Atenas:** en `GATE_ANG` hay cuatro puertas nuevas: eria, diomea, halade y melitides. Las puertas que no son el Dípilon ni la Sagrada tienen estela con su nombre (`GATE_INFO`). Las colinas de las Musas y de las Ninfas también tienen estela.
+- **Roma:**
+  - El incendio del 80, en el templo de Júpiter, el Panteón, el templo de Isis y el teatro de Pompeyo: andamios, humo animado (`URB.smoke`), escombros, obreros y la estela `incendio80` (Dion Casio LXVI 24; Suetonio, Tito 8).
+  - El templo de Vespasiano en obras, con una grúa de rueda, y obras en el Palatino.
+  - Las Termas de Nerón, los arcos de los acueductos (la futura Porta Maggiore) y el campamento de los pretorianos. Antes de construir, `urbFree` comprueba que no choquen con otros edificios.
+  - Puentes: se añade el puente Emilio (`bridge` en z=380), y los puentes Fabricio, Cestio, Emilio, Sublicio, de Agripa y de Nerón tienen estela con su nombre.
+- En `__d` hay ahora funciones de prueba nuevas: `placeXZ`, `URB`, `PIR0`, `pirP`, `PIR_BAYS`, `ATH_DEMES`, `GATES`, `terrainH`, `floorAt`, `rawH`, `SEA_`, `TI` y `SC`.
 
 ### Novedades de la versión 99: artistas del 386 a.C. y del 80 d.C., con misiones de las cualidades
 
