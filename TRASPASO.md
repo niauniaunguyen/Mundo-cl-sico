@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 93 del artefacto; notas de la versión 93). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 94 del artefacto; notas de la versión 94). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,30 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 94: Delfos y las Termópilas, ampliados
+
+Todo está en el módulo «DELFOS Y LAS TERMÓPILAS»: `delfosPlus`, `termoPlus`, `oracAct` y `delterTick`. Se llaman después de `farmSetup` en el arranque del mundo.
+
+- **`placeLive`, función nueva:** crea al momento una estela (la añade a `PLACES` y a `signObjs`). `place()` solo apunta los datos en `PLACES`, y las estelas se dibujan una vez al construir el mundo, así que las que se añadían después no aparecían. Por eso no se veía la estela de la granja; ahora usan `placeLive` la granja, Delfos y las Termópilas.
+- **Delfos** (Pausanias, libro X; Heródoto I; siempre con lo que ya existía en el 386):
+  - La Vía Sacra en zigzag, empedrada, desde la puerta del recinto hasta el templo.
+  - A la entrada, frente a frente: los almirantes de Lisandro (Egospótamos, 405) y el grupo de Maratón de Fidias.
+  - Los tesoros de los sifnios (con dos cariátides), de los sicionios y de los corintios (el oro de Giges y Creso), además del de los atenienses.
+  - La roca de la Sibila, la esfinge de los naxios sobre su columna y el altar negro de los quiotas.
+  - El auriga de bronce (se cuenta su entierro en el 373), la lesche de los cnidios con las pinturas de Polignoto y las rocas Fedríades (Esopo).
+  - Atenea Pronaia: el templo antiguo y el tolo, que empieza a construirse por estos años; los bloques esperan en el suelo.
+  - Peregrinos con su cabra y un sacerdote. Un citaredo con su público, y se oye la lira al acercarse.
+  - Una estela de los Juegos Píticos: en el 386 se celebran.
+- **Consultar el oráculo** (`oracAct`, en la puerta del templo): se paga el pelanós (4 óbolos, según el acuerdo de Delfos con Fasélide) y se rocía la cabra con agua fría; si no tiembla, el dios no habla ese día (una probabilidad de un 25 %). Luego eliges entre tres preguntas. Las respuestas son inventadas y se avisa de ello; se añaden tres oráculos reales (Creso, el muro de madera, Sócrates). La primera consulta da +2 Eusébeia.
+- **Termópilas** (Heródoto VII 175-233):
+  - Un camino de tierra a lo largo del paso.
+  - Paredes de roca del Calídromo junto al camino, más cerca en las tres «puertas» (occidental, del medio y oriental), cada una con sus pilares y su estela. Quedan huecos para Antela, las aguas calientes, el Colono y la senda de Anopea.
+  - Bañistas en las aguas calientes, costras blancas de azufre y el altar de Heracles.
+  - Un recorrido de la batalla en seis estelas: el primer día con los medos, los Inmortales, el segundo día, Megistias, el tercer día delante del muro, y los tespios y los tebanos.
+  - El puesto de los focidios entre robles, en el monte (Heródoto VII 217-218).
+  - La estela de los tres epigramas, con las cifras de Heródoto comparadas con las estimaciones actuales.
+  - Viajeros con burros por el camino. En otoño, delegados de la Anfictionía en Antela.
 
 ### Novedades de la versión 93: el menú del juego (cualidades y opciones)
 
