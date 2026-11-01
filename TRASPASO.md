@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 108 del artefacto; notas de la versión 108). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 109 del artefacto; notas de la versión 109). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,28 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 109: una sesión de la Academia en directo
+
+Módulo «LA ACADEMIA EN DIRECTO» (prefijo `aca`, estado en `state.aca`), solo en Atenas. Se entra desde Platón con la opción «Asistir a una sesión de la Academia, en directo» (`acaOpts`, enganchada en `renderOpts`). Funciona de la hora 7 a la 17.
+- **Escena** (`acaScene`): seis oyentes alrededor de Platón. Se retiran al terminar o al cerrar el diálogo; para eso `closeDialog` está envuelto.
+- **Motor en directo** (`acaNext`):
+  - Las frases se añaden a `#acaLog`, que no es hijo directo de `#dBody`. Así la máquina de escribir no reescribe toda la conversación.
+  - Las intervenciones avanzan solas (1,8 s más 32 ms por carácter), con botones Seguir, Pausa y Salir.
+  - Las preguntas de Platón detienen la sesión hasta que el jugador responde.
+  - Las palabras griegas aprendidas aparecen en las frases de los personajes (`vocWalk` sobre cada línea).
+- **Guion** (`acaScript`), con las ideas de los diálogos de Platón en texto propio del juego:
+  - opinión verdadera y saber (el camino a Larisa y las estatuas de Dédalo);
+  - el cuadrado doble del *Menón*, con figuras SVG (`acaFig`), y los inconmensurables de Teeteto;
+  - aprender es recordar y la inmortalidad del alma;
+  - lo Bello mismo y las Ideas (*Hipias mayor*), la imitación y Heráclito;
+  - el anillo de Giges y el alma en tres partes (*República*);
+  - el sol y el Bien.
+- **Enlaces con lo que ha hecho el jugador** (`acaKnows`): solo aparecen si es verdad. Teeteto, Isócrates, ἀλήθεια, los sueños, Eleusis, los órficos, Dédalo, Cefisodoto, el teatro, las metamorfosis de Ovidio, la Pnix, Gorgias y la caverna.
+- Si el personaje es femenino, una nota recuerda a Axiotea de Fliunte y Lastenia de Mantinea.
+- **Mapa del conocimiento** (`acaMap`): un SVG con las Ideas en el centro y ocho nodos que se encienden según lo enlazado. Avisa de que el *Menón* y la *República* se escribirán después y de que la inscripción sobre la geometría es una leyenda tardía.
+- **Recompensa:** la primera vez, +3 Sophía, +2 Lógos y +1 Kléos; después, +1 Sophía al día.
+- Prueba en `scratchpad/tools/t_aca.js`.
 
 ### Novedades de la versión 108: el terreno lejano ya no asoma en la ciudad
 
