@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 105 del artefacto; notas de la versión 105). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 106 del artefacto; notas de la versión 106). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,25 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 106: maestros de griego y de latín; las palabras aprendidas aparecen en el original
+
+Módulo «VOCABULARIO» (prefijo `voc`). Una sola lista, `VOCAB`, con 36 palabras frecuentes en los diálogos del juego. Cada palabra tiene sus formas en español (singular, plural y femenino), el griego ático con su transliteración, el latín y una nota de etimología para cada lengua.
+- **Maestros** (`VOC_T`, objetos `vc:0-2`, `vocAct`): tres en cada modo, con tres lecciones de cuatro palabras cada uno. Cada lección se abre al terminar la anterior.
+  - Atenas: Dionisio, *grammatistés* en el Ágora; Sosias, pedagogo tracio en el Liceo; Mírrine, panadera del Ágora.
+  - Roma: Lucio Verecundo, *ludi magister* junto a la Basílica Emilia; Eutico, *paedagogus* griego junto al templo de Cástor; Cecilia, panadera de la Subura.
+  - Cada maestro tiene una nota histórica: el alfabeto jónico desde el 403; la Paz del Rey del 386; el Vesubio y el incendio del 80; el Templo de la Paz.
+- **Lección:** se ven las cuatro palabras con su etimología y luego hay cuatro preguntas. Cada palabra acertada queda aprendida (`state.voc.w`) y da 1 moneda. Terminar una lección da +1 Sophía y +1 Lógos (`state.voc.l`).
+- **Sustitución en los diálogos** (`vocWalk`):
+  - Se aplica sobre `#dBody` justo antes del efecto de máquina de escribir, porque `twStart` está envuelto: así el efecto ya escribe el texto sustituido.
+  - Respeta mayúsculas, número y género.
+  - Se salta los botones, las etiquetas `.label` y todo lo que esté dentro de `.novoc` (las lecciones).
+  - «casa» no se cambia detrás de «se/te/me…» (se casa). «vino» solo se cambia detrás de un determinante (el vino, de vino), no cuando es el verbo (vino ayer).
+  - Cada palabra cambiada es un `span.voc`: al pasar el ratón o tocarla se ve «transliteración · significado».
+- **Ajuste en el menú:** el botón `voc` guarda la preferencia en `localStorage` con la clave `nostos-voc`.
+  - En Atenas va pasando por alfabeto griego → transliteradas → no.
+  - En Roma, por sí → no.
+- Depuración: `__d.RWQ()` expone también `VOC`, `VOCAB`, `vocz`, `vocToggle` y `vocWalk`. Prueba en `scratchpad/tools/t_voc.js`.
 
 ### Novedades de la versión 105: game feel de las recompensas
 
