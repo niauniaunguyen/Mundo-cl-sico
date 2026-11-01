@@ -16576,7 +16576,7 @@ function buildCave(){if(CAV.built)return;CAV.built=true;CAV.X=9500;CAV.Z=-3000;c
   const rock=lam('#4a3d33'),rock2=lam('#5a4a3c'),dark=lam('#2c241e'),stone=lam('#b8a990'),g=grp(X,Y,Z,0);
   // la sala: suelo, pared del fondo (donde se proyectan las sombras), paredes y techo
   box(26,0.4,40,dark,0,-0.2,-15,g);addPlat(X,Z-15,26,40,0,Y);
-  box(26,12,0.8,lam('#7a6a58'),0,6,-34.6,g);box(0.8,12,40,rock,-13.4,6,-15,g);box(0.8,12,40,rock,13.4,6,-15,g);box(27.6,0.8,41,rock,0,12.4,-15,g);
+  CAV.wallM=new THREE.MeshLambertMaterial({color:'#9a7a58',emissive:'#4a2c14'});box(26,12,0.8,CAV.wallM,0,6,-34.6,g);box(0.8,12,40,rock,-13.4,6,-15,g);box(0.8,12,40,rock,13.4,6,-15,g);box(27.6,0.8,41,rock,0,12.4,-15,g);
   box(11,12,0.8,rock,-7.5,6,5.4,g);box(11,12,0.8,rock,7.5,6,5.4,g);box(4,6,0.8,rock,0,9,5.4,g);
   for(const[a,b,c,d]of[[-13,-34.2,13,-34.2],[-13,-34.2,-13,5],[13,-34.2,13,5],[-13,5,-2,5],[2,5,13,5]])addSeg(X+a,Z+b,X+c,Z+d,0.4);
   for(let i=0;i<14;i++){const s=box(rr(1,2.5),rr(1.5,4),rr(1,2.5),rock2,(R()<0.5?-1:1)*rr(10.5,12.5),rr(0.6,2),rr(-32,3),g);s.rotation.y=R()*3;}
@@ -16613,6 +16613,7 @@ function buildCave(){if(CAV.built)return;CAV.built=true;CAV.X=9500;CAV.Z=-3000;c
   {const ln=lam('#5a4630');for(const[w,d,x,z,ry]of[[4,0.08,0,-2,0],[4,0.08,0,2,0],[0.08,4,-2,0,0],[0.08,4,2,0,0],[5.66,0.08,0,0,Math.PI/4]]){const m=box(w,0.03,d,ln,18+x,30.02,130+z,g);m.rotation.y=ry;}}
   // la puerta de la luz y el mundo de las Ideas, más arriba
   {const gp=grp(X,T,Z+205,0);box(1,7,1,lam('#f4efe4'),-3,3.5,0,gp);box(1,7,1,lam('#f4efe4'),3,3.5,0,gp);box(7,0.8,1,lam('#f4efe4'),0,7.4,0,gp);CAV.gateGlow=cavSp('#fff6d0',6,8,0.25,gp,0,3.5,0);}
+  const n0=scene.children.length,gn0=g.children.length;
   const IY=Y+60,iz=420,wM=lam('#fbf8f0'),gold=lam('#e8c868');box(130,1,130,wM,0,59.5,iz,g);addPlat(X,Z+iz,130,130,0,IY);
   for(const[a,b,c,d]of[[-60,iz-60,60,iz-60],[60,iz-60,60,iz+60],[60,iz+60,-60,iz+60],[-60,iz+60,-60,iz-60]])addSeg(X+a,Z+b,X+c,Z+d,0.4);
   {const d=new THREE.Mesh(new THREE.CircleGeometry(600,40),new THREE.MeshBasicMaterial({color:'#fffdf6'}));d.rotation.x=-Math.PI/2;d.position.set(0,59.3,iz);g.add(d);}
@@ -16632,6 +16633,7 @@ function buildCave(){if(CAV.built)return;CAV.built=true;CAV.X=9500;CAV.Z=-3000;c
   {const r=new THREE.Mesh(new THREE.PlaneGeometry(40,3),new THREE.MeshBasicMaterial({color:'#a8c8e8',transparent:true,opacity:0.8}));r.rotation.x=-Math.PI/2;r.position.set(X,IY+0.06,Z+iz+40);scene.add(r);}
   // el Sol, la Idea del Bien
   CAV.sun=cavSp('#fff4c0',90,90,1,null,X,IY+120,Z+iz+300);CAV.sun2=cavSp('#ffffff',36,36,1,null,X,IY+120,Z+iz+299);
+  CAV.ideas=scene.children.slice(n0).concat(g.children.slice(gn0));CAV.ideasOn=true;
   // objetos con los que se interactúa
   const E=(lx,lz,y,act,nm,sub,r)=>{const p=cavL(lx,lz);return egxObj(p[0],p[1],y,act,nm,sub,r);};
   E(0,-22.4,Y,'c:cadenas','Las cadenas','no puedes girar la cabeza',1.6);E(0,-33,Y,'c:pared','La pared del fondo','las sombras',12);E(1.6,-21.4,Y,'c:prisioneros','Los prisioneros','tus compañeros',2.4);
@@ -16687,6 +16689,8 @@ function cavTick(dt){if(!state||!CAV.built)return;const inside=cavIn();if(!insid
     SKY.uniforms.top.value.set('#000004');SKY.uniforms.mid.value.set('#02030a');SKY.uniforms.bot.value.set('#050818');SKY.uniforms.glow.value=0;STARS.material.opacity=1;
     for(const r of CAV.rings){r.a+=dt*r.sp*0.4;r.p.position.set(CAV.X+95+Math.cos(r.a)*r.r,CAV.Y-40,CAV.Z+50+Math.sin(r.a)*r.r);}if(CAV.earth)CAV.earth.rotation.y+=dt*0.02;return;}
   const c=cavz();
+  {const on=player.feet>CAV.Y+50;if(CAV.ideas&&on!==CAV.ideasOn){CAV.ideasOn=on;for(const o of CAV.ideas)o.visible=on;}}
+  if(CAV.wallM)CAV.wallM.emissiveIntensity=0.85+Math.sin(t*9)*0.12+Math.sin(t*5.1)*0.08;
   // los porteadores van y vienen detrás del murete; sus figuras proyectan sombras en la pared
   CAV.bear.forEach((B,i)=>{const u=((t*0.035+B.ph)%1),x=-11+u*22;B.g.position.x=CAV.X+x;B.g.position.y=CAV.Y+Math.abs(Math.sin(t*3+i))*0.05;const S=CAV.shad[i];S.position.x=CAV.X+x*1.15;S.visible=Math.abs(x)<10.5;});
   if(CAV.fire){const f=0.85+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.07;CAV.fire.scale.set(3.2*f,4.2*f,1);CAV.fire2.material.opacity=0.45+0.15*f;}
@@ -16694,7 +16698,7 @@ function cavTick(dt){if(!state||!CAV.built)return;const inside=cavIn();if(!insid
   CAV.solids.forEach((m,i)=>{m.rotation.x+=dt*0.4;m.rotation.y+=dt*(0.3+i*0.07);m.position.y=CAV.Y+60+2.6+Math.sin(t+i)*0.3;});
   if(CAV.gateGlow)CAV.gateGlow.material.opacity=(c.ref&&c.meno)||c.done?0.85:0.2;
   if(lz<95){const k=lz<5?0:clamp((lz-5)/90,0,1),kk=k*k;CAV.light.intensity=lz<5?2.2*(0.9+Math.sin(t*11)*0.1):2.2*(1-k);
-    sun.intensity=1.2*kk;hemi.intensity=0.03+0.55*kk;F.color.setRGB(0.02+0.75*kk,0.015+0.72*kk,0.01+0.66*kk);F.near=3+60*kk;F.far=40+500*kk;
+    sun.intensity=1.2*kk;hemi.intensity=0.08+0.5*kk;F.color.setRGB(0.02+0.75*kk,0.015+0.72*kk,0.01+0.66*kk);F.near=6+60*kk;F.far=70+470*kk;
     SKY.uniforms.top.value.copy(F.color);SKY.uniforms.mid.value.copy(F.color);SKY.uniforms.bot.value.copy(F.color);STARS.material.opacity=0;CAV.emerged=false;}
   else if(player.feet<CAV.Y+50){CAV.light.intensity=0;F.near=260;F.far=2400;if(!CAV.emerged){CAV.emerged=true;clock.h=9.5;updateSky();if(c.st<2&&!c.done){c.st=2;save();}
       cavBlind('#fffdf4',6000,'La luz te ciega. No puedes ver nada de lo que llaman real.');setTimeout(()=>toast('<span class="label">Fuera de la caverna</span><br>«Al principio verías mejor las sombras, y después las imágenes de los hombres y de las cosas reflejadas en el agua, y luego las cosas mismas» (República VII 516a). Busca el estanque.'),6500);}}
