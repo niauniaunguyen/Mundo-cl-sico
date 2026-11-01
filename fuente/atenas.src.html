@@ -16848,22 +16848,22 @@ function atalRace(rival){return{id:rival.id,title:rival.title,own:true,
  intro:rival.intro,ctl:'Corres solo. Mantén <b>W</b> (o la flecha arriba) para esprintar: gastas aliento. Al soltar, lo recuperas. Si lo agotas, te ahogas y te frenas.'+(rival.apples?' <b>Espacio</b>: lanzar una manzana de oro.':''),
  ctlT:'Mantén <b>Esprint</b> para acelerar: gasta aliento.'+(rival.apples?' <b>Manzana</b>: lánzala cuando la tengas cerca.':''),
  touch:rival.apples?[['KeyW','Esprint'],['Space','Manzana']]:[['KeyW','Esprint']],src:rival.src,first:rival.first,winT:rival.winT,failT:rival.failT,
- init(G){G.L=rival.L;G.d=0;G.ad=0;G.b=100;G.tired=0;G.astop=0;G.apples=rival.apples?Math.min(3,atz().apples||0):0;G.used=0;G.sp=0;G.asp=0;G.ap=[];G.prevSp=false;G.res=null;G.lead=0;},
+ init(G){G.L=rival.L;G.pd=0;G.ad=0;G.b=100;G.tired=0;G.astop=0;G.apples=rival.apples?Math.min(3,atz().apples||0):0;G.used=0;G.sp=0;G.asp=0;G.ap=[];G.prevSp=false;G.res=null;G.lead=0;},
  tick(G,dt){const sprint=mgk('KeyW','ArrowUp')&&G.tired<=0,lv=qLv('ar');
    if(G.tired>0)G.tired-=dt;
    const tv=G.tired>0?6:sprint?12.5+0.05*lv:9+0.03*lv;G.sp+=(tv-G.sp)*Math.min(1,dt*3);
    if(sprint)G.b-=28*dt;else G.b=Math.min(100,G.b+(G.tired>0?18:12)*dt);if(G.b<=0){G.b=0;G.tired=1.8;mgSay('Te ahogas. Las piernas no responden.',1.6);}
-   G.d+=G.sp*dt;
+   G.pd+=G.sp*dt;
    // la rival: ritmo constante, alguna aceleración, y se para por las manzanas
-   if(G.astop>0){G.astop-=dt;G.asp*=0.85;}else{let v=rival.pace+Math.sin(G.t*0.9)*0.5;if(G.ad-G.d>25)v-=0.8;if(G.d-G.ad>3)v+=rival.kick;G.asp+=(v-G.asp)*Math.min(1,dt*2);}
+   if(G.astop>0){G.astop-=dt;G.asp*=0.85;}else{let v=rival.pace+Math.sin(G.t*0.9)*0.5;if(G.ad-G.pd>25)v-=0.8;if(G.pd-G.ad>3)v+=rival.kick;G.asp+=(v-G.asp)*Math.min(1,dt*2);}
    G.ad+=G.asp*dt;
-   const thr=mgk('Space');if(thr&&!G.prevSp&&rival.apples){if(G.apples-G.used<=0)mgSay('No te quedan manzanas.',1.2);else{G.used++;const near=Math.abs(G.ad-G.d)<16;G.ap.push({x:G.d+2,y:0,vx:near?13:9,vy:-6,ok:near});
+   const thr=mgk('Space');if(thr&&!G.prevSp&&rival.apples){if(G.apples-G.used<=0)mgSay('No te quedan manzanas.',1.2);else{G.used++;const near=Math.abs(G.ad-G.pd)<16;G.ap.push({x:G.pd+2,y:0,vx:near?13:9,vy:-6,ok:near});
      if(near){G.astop=2.5;mgSay(['«Ella se asombra y, deseosa del fruto brillante, se aparta de la carrera y recoge el oro que rueda» (Metamorfosis X 666-667).','Lanzas la segunda hacia un lado: Atalanta se desvía para cogerla.','La tercera, con fuerza, lejos del camino. Ella duda… y va a por ella.'][Math.min(2,G.used-1)],3);}
      else mgSay('La manzana rueda lejos: Atalanta va demasiado por delante y ni la ve. Lánzala cuando la tengas cerca.',2.5);}}
    G.prevSp=thr;
    for(const p of G.ap){p.x+=p.vx*dt;p.vx*=0.985;p.vy+=20*dt;p.y+=p.vy*dt;if(p.y>0){p.y=0;p.vy*=-0.35;}}
-   if(G.d>=G.L&&!G.res)return G.ad<G.L?'win':'fail';if(G.ad>=G.L)return 'fail';return null;},
- draw(G,x){const t=G.t,cam=G.d-30,k=2.1,sx=d=>(d-cam)*k;
+   if(G.pd>=G.L&&!G.res)return G.ad<G.L?'win':'fail';if(G.ad>=G.L)return 'fail';return null;},
+ draw(G,x){const t=G.t,cam=G.pd-30,k=2.1,sx=d=>(d-cam)*k;
    const sky=x.createLinearGradient(0,0,0,50);sky.addColorStop(0,rival.sky[0]);sky.addColorStop(1,rival.sky[1]);x.fillStyle=sky;x.fillRect(0,0,160,90);
    x.fillStyle=rival.hill;for(let i=-1;i<5;i++){const hx=((i*60-cam*0.3)%240+240)%240-40;x.beginPath();x.ellipse(hx,46,40,14,0,Math.PI,TAU);x.fill();}
    x.fillStyle='#8a9a6a';x.fillRect(0,46,160,8);for(let i=0;i<60;i++){const px=((i*13-cam*0.8)%170+170)%170-5;x.fillStyle=['#c8402a','#e8dcc0','#4a6a9a','#d8a040'][i%4];x.fillRect(px,47+(i%3)*2,1.4,2);}
@@ -16877,9 +16877,9 @@ function atalRace(rival){return{id:rival.id,title:rival.title,own:true,
      x.fillStyle='#c99a74';x.beginPath();x.arc(X,Y-10.4,1.25,0,TAU);x.fill();x.fillStyle=hair;x.beginPath();x.arc(X-0.3,Y-10.9,1.2,Math.PI,TAU);x.fill();if(fem){x.fillRect(X-1.8,Y-10.6,0.8,2.2);}
      if(me){x.fillStyle='#e8b07a';x.font='2.3px Georgia';x.textAlign='center';x.fillText('tú',X,Y-13);x.textAlign='left';}};
    for(const p of G.ap){x.fillStyle='#ffd040';x.beginPath();x.arc(sx(p.x),78+p.y*0.5-1,1.1,0,TAU);x.fill();x.fillStyle='rgba(255,240,160,.4)';x.beginPath();x.arc(sx(p.x),78+p.y*0.5-1,2.2,0,TAU);x.fill();}
-   runner(G.ad,68,rival.col,rival.hair,true,false);const pf=pjFem();runner(G.d,80,'#e8e4da','#3b2a1e',pf,true);
+   runner(G.ad,68,rival.col,rival.hair,true,false);const pf=pjFem();runner(G.pd,80,'#e8e4da','#3b2a1e',pf,true);
    if(G.astop>0){x.fillStyle='rgba(255,230,140,.9)';x.font='2.4px Georgia';x.textAlign='center';x.fillText('se para a recoger la manzana',sx(G.ad),53);x.textAlign='left';}},
- hud(G){const diff=G.d-G.ad;return 'Aliento: <span style="display:inline-block;width:90px;height:9px;background:rgba(255,255,255,.2);vertical-align:middle"><span style="display:block;height:100%;width:'+G.b.toFixed(0)+'%;background:'+(G.tired>0?'#c0392b':'#7fb8d8')+'"></span></span> · Faltan <b>'+Math.max(0,Math.round(G.L-G.d))+'</b> pasos · '+(diff>=0?'vas <b>'+diff.toFixed(0)+'</b> por delante':'te saca <b>'+(-diff).toFixed(0)+'</b>')+(rival.apples?' · Manzanas: <b>'+Math.max(0,G.apples-G.used)+'</b>':'');},
+ hud(G){const diff=G.pd-G.ad;return 'Aliento: <span style="display:inline-block;width:90px;height:9px;background:rgba(255,255,255,.2);vertical-align:middle"><span style="display:block;height:100%;width:'+G.b.toFixed(0)+'%;background:'+(G.tired>0?'#c0392b':'#7fb8d8')+'"></span></span> · Faltan <b>'+Math.max(0,Math.round(G.L-G.pd))+'</b> pasos · '+(diff>=0?'vas <b>'+diff.toFixed(0)+'</b> por delante':'te saca <b>'+(-diff).toFixed(0)+'</b>')+(rival.apples?' · Manzanas: <b>'+Math.max(0,G.apples-G.used)+'</b>':'');},
  after(G,res){return rival.after(G,res);}};}
 const MG_ATAL=atalRace({id:'atalanta',L:420,pace:10.8,kick:0.6,apples:true,col:'#5a6a3a',hair:'#b07a3a',sky:['#9ec4e0','#f0e2c0'],hill:'#9aa878',track:'#c9a87a',
  title:'Una carrera contra Atalanta',
