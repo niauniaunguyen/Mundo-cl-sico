@@ -16572,7 +16572,7 @@ function cavShape(kind,mat){const g=new THREE.Group(),b=(w,h,d,x,y,z,rz)=>{const
   else if(kind==='perro'){b(0.7,0.28,0.12,0,0.5,0);b(0.26,0.22,0.12,0.45,0.72,0);for(const x of[-0.25,0.25])b(0.08,0.36,0.12,x,0.18,0);b(0.06,0.3,0.12,-0.4,0.66,0,0.8);}
   return g;}
 // ---- Atenas: la caverna
-function buildCave(){if(CAV.built)return;CAV.built=true;const I=ISLANDS[0];CAV.X=I.x;CAV.Z=I.z-6200;const X=CAV.X,Z=CAV.Z,Y=CAV.Y;
+function buildCave(){if(CAV.built)return;CAV.built=true;CAV.X=9500;CAV.Z=-3000;const X=CAV.X,Z=CAV.Z,Y=CAV.Y;
   const rock=lam('#4a3d33'),rock2=lam('#5a4a3c'),dark=lam('#2c241e'),stone=lam('#b8a990'),g=grp(X,Y,Z,0);
   // la sala: suelo, pared del fondo (donde se proyectan las sombras), paredes y techo
   box(26,0.4,40,dark,0,-0.2,-15,g);addPlat(X,Z-15,26,40,0,Y);
@@ -16642,7 +16642,7 @@ function buildCave(){if(CAV.built)return;CAV.built=true;const I=ISLANDS[0];CAV.X
   E(-28,iz+14,IY,'c:f:solidos','Los cinco sólidos','del Timeo',4);E(28,iz+14,IY,'c:f:ciudad','La ciudad justa','la Calípolis',5);E(0,iz+37,IY,'c:f:lete','La llanura del Olvido','el río Ameles',5);
   E(0,iz+52,IY,'c:sol','Levantar la vista','el Sol',5);E(-8,iz-52,IY,'c:volver',_t(2675,'Volver'),'a la boca de la caverna',3);}
 // ---- Roma: el Sueño de Escipión
-function buildSomnium(){if(CAV.built)return;CAV.built=true;const I=ISLANDS[0];CAV.X=I.x;CAV.Z=I.z-6200;const X=CAV.X,Z=CAV.Z,Y=CAV.Y,g=grp(X,Y,Z,0);
+function buildSomnium(){if(CAV.built)return;CAV.built=true;CAV.X=9500;CAV.Z=-3000;const X=CAV.X,Z=CAV.Z,Y=CAV.Y,g=grp(X,Y,Z,0);
   // la Vía Láctea: un camino de luz entre las estrellas
   {const m=new THREE.Mesh(new THREE.PlaneGeometry(14,170),new THREE.MeshBasicMaterial({color:'#dfe6ff',transparent:true,opacity:0.18,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set(0,0.02,40);g.add(m);}
   addPlat(X,Z+40,14,170,0,Y);for(const[a,b,c,d]of[[-7,-45,7,-45],[7,-45,7,125],[7,125,-7,125],[-7,125,-7,-45]])addSeg(X+a,Z+b,X+c,Z+d,0.3);
