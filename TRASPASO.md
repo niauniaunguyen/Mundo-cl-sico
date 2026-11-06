@@ -200,7 +200,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Música antigua**: lira sintetizada. Epitafio de Seikilos y un fragmento del himno délfico a Apolo, **aproximaciones simplificadas de transcripciones modernas** (y posteriores al 386 a.C.: se avisa en el modo Atenas); modos dorio, frigio y lidio con la opinión de Platón (República III 398e-399c) y de Aristóteles (Política VIII 1342b).
   - **Comercio entre ciudades** (`TRADE`): cada mercancía es barata en su tierra de origen; precios con estación; carga 8 (16 con caballo); piratas en el Egeo (modo Atenas, 15 % al navegar con carga) y portorium al vender (modo Roma).
   - **Sucesos en la ciudad** (`EV_A`/`EV_R`): invitación a simposio o cena, testigo, barco con noticias, incendio con los vigiles, préstamo a un vecino (que puede no devolverlo).
-  - **Plagas en la granja** (envoltorio de `farmDay`): langosta, tizón (con las Robigalia, Ovidio, Fastos IV 901-942), sequía y granizo (vigilantes del granizo de Cleonas, Séneca, Cuestiones naturales IV b 6); la piedad reduce la probabilidad.
+  - **Plagas en la granja** (envoltorio de `farmDay`): langosta, tizón (con las Robigalia, Ovidio, Fastos IV 901-942), sequía y granizo (vigilantes del granizo de Cleonas, Séneca, Cuestiones naturales IV b 6); la piedad reduce la probabilidad. **Opcionales y desactivadas por defecto** (decisión del usuario): se activan o desactivan con un botón que aparece en cualquier diálogo de la granja propia (`f.plagas`).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
