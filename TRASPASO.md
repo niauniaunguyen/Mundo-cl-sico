@@ -92,6 +92,18 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Incienso:** `pfx` en los lararios (`CULT_OBJS`), los compita y el hekataion.
   - **Desenfoque en el modo foto:** BokehPass; botones «Desenfoque» y «Enfocar» (`dofFocus` lanza un rayo al centro de la pantalla). `gfxRender` le da prioridad mientras está activo.
   - **Sombras de contacto:** SSAOPass dentro de la iluminación realzada; opción `ao` del menú (localStorage `nostos-ao`).
+- **El tiempo** (módulo «EL TIEMPO», `WX_T`, `WXS`, `state.wx`):
+  - **Tipos y cambio:** sol, nubes, niebla (solo por la mañana), viento, lluvia, tormenta, calor y nieve. Se eligen con pesos según el mes (`wxPick`) y duran unas horas de juego.
+  - **Menú:** la opción «Tiempo» (`wxCycle`) lo fija o lo devuelve a automático (`state.wx.man`).
+  - **Aspecto:** `updateSky` envuelta (cielo gris, menos sol, niebla más cerrada). Las partículas de lluvia (LineSegments) y de nieve (Points) siguen a la cámara. Hay sonido de lluvia y truenos sintetizados, relámpagos y arco iris al escampar. El HUD añade el tiempo a la hora.
+  - **Juego:**
+    - La lluvia apaga la antorcha y no deja encenderla (envoltura de `toggleTorch`).
+    - El barro y la nieve frenan (`wxSpeed` en la línea de velocidad).
+    - Tras unas 3 horas de juego al sol con calor, cansancio que se quita bebiendo del odre.
+    - Con tormenta no se zarpa (envoltura de `sail`), y en invierno el pasaje cuesta la mitad más (envoltura de `fareOf`; mare clausum).
+    - Con tormenta se disuelve la Asamblea (`pg:asamblea`).
+    - Granja: `farmRain` es cierto si llueve y falso si hay sequía.
+  - **Sequía:** 6 días sin lluvia; contador en `newDay`. El rito para pedir lluvia aparece en el amuleto (`wxRite`): Zeus Ombrios en el Himeto (Pausanias I 32, 2) o el aquaelicium (Festo; Petronio 44).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
