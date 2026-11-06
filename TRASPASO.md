@@ -114,6 +114,19 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Periplo o itinerario:** `hbRollo` muestra las rutas, los días, los precios y los peligros (el Malea según Estrabón VIII 6, 20; los piratas; el mar cerrado). Con él, los pasajes cuestan un 10 % menos (envoltura de `fareOf`).
   - **Amuleto:** ofrenda en una herma (Atenas) o a los Lares Viales (Roma); protege ese día.
   - **Alas:** visibles en la espalda en tercera persona (`uxWingMesh`, hijo de `AVATAR.walk`; aletean). El derretimiento por subir demasiado (`FLY.melt`) ya existía.
+- **Tejados** (módulo «TEJADOS Y CORNISAS», `RF`):
+  - `rfSetup` (1,5 s después de las otras preparaciones) hace una rejilla de 16 m con las cajas de todas las mallas opacas. Quedan fuera: personas, avatar, caballo, mallas transparentes o Basic, y las de más de 300 m, como el terreno.
+  - `rfFloor` sustituye a `floorAt` en la gravedad: si estás 0,9 m o más por encima del suelo normal, un rayo hacia abajo encuentra la superficie.
+  - `tryMove` pasa a `rfMove` si `RF.onRoof` o si estás 2,6 m o más por encima: no usa las paredes 2D, pero sí un rayo horizontal (`rfWall`). `flyMove` también usa `rfWall`, así que ya no se atraviesan edificios volando.
+- **Ayuda** (módulo «AYUDA SIN LLEVAR DE LA MANO», `MTR`; ojo, `MT` ya existía; estado en `state.mt`):
+  - **Pedagogo con G** (en el modo Historia, G sigue siendo «llévame») o con el botón «?» en el móvil. Es Zópiro en Atenas (Platón, Alcibíades I 122b) y Antíoco en Roma.
+  - **Pistas en tres niveles por objetivo** (`asks`): la idea, la dirección y distancia, y una columna de luz dorada (`mtBeacon`).
+  - **Objetivo** (`mtGoal`): el paso de «Primeros pasos» pendiente; si ya están todos, la persona más cercana del camino elegido.
+  - **Tres caminos** (`MT_PATHS`): se preguntan a los 25 s de juego libre.
+  - **Ofrecimiento si estás perdido:** sin progreso (`mtSig`) durante 90 s (ayuda «mucha») o 180 s («poca»), y habiendo caminado al menos 80 m. Si dices que no, 10 minutos de silencio.
+  - **Tras dos fallos en la misma pregunta**, otra explicación (envoltura de `answer`).
+  - **Tablón de anuncios** (`mt:board`) junto a los Rostra o en el ágora: encargos fácil, medio y difícil.
+  - **Menú:** opción «Ayuda» con los valores mucha, poca o solo si la pido.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
