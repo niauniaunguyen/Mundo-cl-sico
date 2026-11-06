@@ -19796,11 +19796,68 @@ function natSetup(){NAT.ny.length=0;for(const id in NAT_NY){const I=ISLANDS.find
     const g=makePerson(N.g==='old'?{chiton:'#8a7a5a',himation:'#5a4a30',hair:'#d8d2c8',beard:true}:{female:true,chiton:N.c,himation:'#a8c8c8',hair:'#5a3a24'});
     g.traverse(o=>{if(o.isMesh&&o.material){o.material=o.material.clone();o.material.transparent=true;o.material.opacity=0.82;if(o.material.emissive)o.material.emissive.set('#26302c');}});
     const gl=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:0xcfe6ff,transparent:true,opacity:0.35,depthWrite:false,blending:THREE.AdditiveBlending}));gl.scale.set(2.6,3.6,1);gl.position.y=1.1;g.add(gl);
-    g.position.set(p[0],floorAt(p[0],p[1]),p[1]);g.rotation.y=R()*TAU;scene.add(g);NAT.ny.push({g,y:g.position.y,ph:R()*6});egxObj(p[0],p[1],undefined,'nat:'+id,N.n,N.s,3.2);}
+    g.position.set(p[0],floorAt(p[0],p[1]),p[1]);g.rotation.y=R()*TAU;scene.add(g);NAT.ny.push({id,g,y:g.position.y,ph:R()*6});egxObj(p[0],p[1],undefined,'nat:'+id,N.n,N.s,3.2);}
   for(const id in NAT_FA){const I=ISLANDS.find(q=>q.id===id);if(!I)continue;for(const[sp,n,dx,dz,r]of NAT_FA[id])for(let i=0;i<n;i++){const x=I.x+dx+rr(-r/2,r/2),z=I.z+dz+rr(-r/2,r/2);try{faunaAdd(sp,x,z,{r,beh:'wander'});}catch(e){}}}}
 function natTick(dt){const t=performance.now()/1000;for(const N of NAT.ny){if(Math.abs(N.g.position.x-player.x)>300)continue;N.g.position.y=N.y+0.25+Math.sin(t*1.2+N.ph)*0.12;N.g.rotation.y+=dt*0.15;}}
 function natAct(o){const id=o.act.slice(4),N=NAT_NY[id];if(!N)return;const s=natz(),first=!s[id];
   vmS(N.g==='old'?'♣':'❦',N.n,N.s,N.t+'<p class="sub">Fuente: '+N.src+'. El juego muestra lo que creían los antiguos.'+(first?' <b>+1 '+(MODE==='roma'?'Sapientia':'Sophía')+' y +1 '+(MODE==='roma'?'Pietas':'Eusébeia')+'</b>':'')+'</p>',[[MODE==='roma'?'Dejar una ofrenda de leche y flores':'Dejar una ofrenda de leche y miel',()=>{if(!s[id]){s[id]=1;qAdd('so',1);qAdd('eu',1);save();}closeDialog();toast('Dejas tu ofrenda junto a la '+(N.g==='old'?'piedra del altar':'fuente')+'. Por un momento te parece oír una risa entre los árboles.');},'quiz'],vmBye]);}
+
+// ---- el camino en los mapas de transición: hermas, montones de Hermes, posadas, fortines, miliarios, tumbas y viajeros (todo documentado)
+function natHerm(x,z,a){const gy=terrainH(x,z),g=grp(x,gy,z,a||0),m=lam('#e6dccb');box(0.5,1.6,0.42,m,0,0.8,0,g);const h=new THREE.Mesh(new THREE.SphereGeometry(0.28,10,8),m);h.position.y=1.9;g.add(h);box(0.36,0.22,0.08,m,0,2.0,0.22,g);addCirc(x,z,0.5);}
+function natCairn(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0);for(let i=0;i<18;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(0.22+R()*0.2,0),M.stone);const k=i/18;r.position.set(rr(-0.9,0.9)*(1-k),k*1.4,rr(-0.9,0.9)*(1-k));g.add(r);}addCirc(x,z,1);}
+function natInn(x,z,a,roman){const gy=terrainH(x,z),g=grp(x,gy,z,a||0);box(10,4,7,lam(roman?'#e3d8c2':'#d8ccb0'),0,2,0,g);gableRoof(g,10.6,7.6,4,1.6,M.tile,lam('#c9bc9f'),true);box(1.4,2.4,0.2,lam('#4a3424'),0,1.2,3.55,g);box(6,0.2,2.4,M.wood,0,2.6,4.6,g);for(const s of[-1,1])box(0.18,2.6,0.18,M.wood,s*2.8,1.3,5.7,g);
+  const sg=box(1.2,0.6,0.08,lam('#c9a46a'),2.2,3.2,3.6,g);addBox(x,z,10,7,a||0);return g;}
+function natTower(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0),m=lam('#b8ab94');const t=new THREE.Mesh(new THREE.CylinderGeometry(3.2,3.4,9,14),m);t.position.y=4.5;g.add(t);for(let i=0;i<7;i++){const a=i/7*TAU;box(5,2.6,1.2,m,Math.cos(a)*9,1.3,Math.sin(a)*9,g).rotation.y=-a;}addCirc(x,z,3.5);}
+function natMile(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0),m=lam('#d8ccb0');const c=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.34,2,12),m);c.position.y=1;g.add(c);box(0.8,0.3,0.8,m,0,0.15,0,g);addCirc(x,z,0.5);}
+function natTomb(x,z,a){const gy=terrainH(x,z),g=grp(x,gy,z,a||0),m=lam('#d6cbb2');box(4,3,4,m,0,1.5,0,g);const d=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.8,2.4,14),m);d.position.y=4.2;g.add(d);box(1.4,0.8,0.1,lam('#efe8d8'),0,2.2,2.05,g);addBox(x,z,4,4,a||0);}
+const NAT_ROAD={
+ pentelico:I=>{const a=I.arrive;natHerm(a.x+30,a.z+18,0);place('herma_hiparco','Una herma de Hiparco','ΕΡΜΗΣ','Hiparco, hijo del tirano Pisístrato, mandó poner hermas a mitad de camino entre Atenas y cada demo, con versos para educar a los caminantes. En una se lee: «Monumento de Hiparco: camina pensando cosas justas»; en otra: «No engañes a un amigo» (Hiparco, diálogo atribuido a Platón, 228d-229a).',a.x+36,a.z+24,0);},
+ citeron:I=>{const a=I.arrive;natHerm(a.x+30,a.z+18,0);natTower(I.x-60,I.z-30);place('enoe','La fortaleza de Énoe','ΟΙΝΟΗ','En el camino del Citerón, en la frontera con Beocia, los atenienses tienen un fortín amurallado: Énoe. Tucídides cuenta que fue lo primero que atacaron los espartanos al invadir el Ática en el 431 a.C. (II 18-19). Desde estas torres se vigila el paso hacia Platea y Tebas.',I.x-48,I.z-16,0);},
+ nemea:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);natInn(I.x-120,I.z+120,0.3,false);place('pandokeion','Una posada','ΠΑΝΔΟΚΕΙΟΝ','Junto al camino hay una posada, un pandokeîon, donde «se acoge a todos»: cama, fuego y comida a cambio de unos óbolos. Tienen mala fama. En Las ranas de Aristófanes, dos posaderas se lanzan contra Heracles porque la última vez se comió dieciséis panes y no pagó (549-578), y Platón propone vigilar de cerca a los posaderos (Leyes XI 918-919).',I.x-104,I.z+132,0);},
+ liceo:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);place('hermaion','Un montón de Hermes','ΕΡΜΑΙΟΝ','En los caminos de montaña, cada viajero echa una piedra al pasar junto a estos montones, consagrados a Hermes, el dios de los caminos. Así crecen poco a poco y señalan la ruta aunque haya niebla o nieve.',a.x+34,a.z+22,0);},
+ tempe:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);natInn(I.x+140,I.z+90,-0.4,false);},
+ parnaso:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);},
+ eta:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);},
+ achelous:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);natInn(I.x-150,I.z-120,0.2,false);},
+ taigeto:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);},
+ escironides:I=>{const a=I.arrive;natCairn(a.x+28,a.z+16);},
+ nemi:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);natInn(I.x-150,I.z+200,0.2,true);for(let i=0;i<3;i++)natTomb(a.x+50+i*14,a.z-26,0);
+   place('aricia','La posada de Aricia','ARICIA','Aquí al lado, en Aricia, hizo Horacio su primera parada cuando viajó de Roma a Brundisium con Mecenas: «Al salir de la gran Roma, me acogió Aricia en una posada modesta» (Sátiras I 5, 1-2). Las tumbas flanquean la Vía Apia porque la ley prohíbe enterrar dentro de la ciudad.',I.x-134,I.z+214,0);
+   place('miliario','Una columna miliaria','MILIARIVM','Cada mil pasos, unos 1.480 metros, una columna de piedra indica la distancia hasta Roma y el nombre del magistrado o del emperador que hizo o reparó la calzada. Vespasiano y Tito han restaurado muchas vías de Italia, y sus nombres se leen en cientos de miliarios.',a.x+32,a.z+20,0);},
+ soracte:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);place('flaminia','La Vía Flaminia','VIA FLAMINIA','La calzada que va de Roma a Ariminum, en el Adriático, construida por el censor Gayo Flaminio en el 220 a.C. Vespasiano acaba de mejorarla: en el 76-77 d.C. mandó abrir un túnel en la roca en el paso del Furlo, y la inscripción que lo recuerda aún se conserva.',a.x+32,a.z+20,0);},
+ clitumno:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);natInn(I.x-150,I.z+110,0.3,true);},
+ sila:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);},
+ ciminia:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);},
+ caudium:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);natInn(I.x-120,I.z+150,0.2,true);for(let i=0;i<2;i++)natTomb(a.x+50+i*14,a.z-26,0);
+   place('caupona_caudi','Las posadas de Caudio','CAVPONA','Horacio también paró aquí, en su viaje a Brundisium: cuenta que en una «villita junto al puente de Campania» y en las posadas de Caudio cenaron y se rieron con las bromas de dos bufones (Sátiras I 5, 45-70). En las posadas de camino se duerme mal: Horacio se queja de los mosquitos, de las ranas y del agua mala.',I.x-104,I.z+164,0);},
+ lunae:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);},
+ padus:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);},
+ rubico:I=>{const a=I.arrive;natMile(a.x+26,a.z+14);}};
+for(const S of[SIMPLE_GR,SIMPLE_RO])for(const id in NAT_ROAD){const o=S[id];if(!o)continue;const e0=o.extra;o.extra=function(I){if(e0)e0.call(this,I);try{NAT_ROAD[id](I);}catch(e){console.warn('natRoad',id,e);}};}
+// viajeros con los que hablar (frases basadas en las fuentes)
+const NAT_TRAV={
+ pentelico:['Un apicultor','con sus colmenas',{chiton:'#b8a07a',short:true,noHimation:true},'«La mejor miel del Ática sale de las flores del tomillo de estos montes y del Himeto. La cosecho con humo, para que las abejas no me piquen.»'],
+ citeron:['Un pastor beocio','con sus cabras',{chiton:'#8a7a5a',short:true,noHimation:true},'«En verano subo las cabras al Citerón; en invierno las bajo a los llanos. Aquí arriba nos encontramos los pastores de Tebas y los del Ática, como en la historia de Edipo.»'],
+ nemea:['Un atleta de camino a los juegos','de Argos',{chiton:'#d8ccb4'},'«Voy a Nemea a correr el estadio. Si gano, me darán una corona de apio silvestre, que no vale nada… y en mi ciudad me harán una estatua.»'],
+ liceo:['Una pastora arcadia','con su siringa',{female:true,chiton:'#a8906a',himation:'#6a5a40'},'«Aquí todos sabemos tocar la siringa: nos enseñó Pan. Los de la ciudad dicen que somos rudos, pero los arcadios somos el pueblo más antiguo de Grecia, más que la Luna.»'],
+ tempe:['Un mercader tesalio','con sus mulas',{chiton:'#b0a080',himation:'#7a6040'},'«Llevo caballos de Tesalia a Macedonia. El rey Amintas paga bien por ellos. Por el Tempe se pasa en un día, pero con la crecida del Peneo el camino se inunda.»'],
+ parnaso:['Una tíade de Delfos','sacerdotisa de Dioniso',{female:true,chiton:'#e8dcc8',himation:'#6a2a4a'},'«En pleno invierno subimos al Parnaso por la noche, con antorchas, a despertar a Dioniso. Una vez la nieve nos atrapó y los hombres tuvieron que subir a rescatarnos.»'],
+ eta:['Un pastor de Traquis','',{chiton:'#8a7a5a',short:true,noHimation:true},'«Cada año subimos a la cumbre a quemar ofrendas a Heracles, donde ardió su pira. Mi abuelo decía que conocía el sendero que enseñó Efialtes a los persas. Nadie en el pueblo habla de ese traidor.»'],
+ achelous:['Un barquero','del Aqueloo',{chiton:'#7a8a8a',short:true,noHimation:true},'«El río trae tanto barro que mi padre recordaba islas que hoy ya son tierra firme. Cuando crece, se lleva puentes y cosechas: por eso lo pintan como un toro.»'],
+ taigeto:['Un cazador espartano','con dos perros laconios',{chiton:'#7a2a24'},'«La caza es parte de la educación de un espartano. Mis perros no ladran al seguir el rastro: así la presa no se entera hasta que es tarde. Jenofonte, el ateniense que vive en Escilunte, los admira mucho.»'],
+ escironides:['Un arriero de Megara','con sus burros',{chiton:'#9a8a6a',short:true,noHimation:true},'«Por este camino hay que ir despacio: a un lado la roca, al otro el mar. Desde que Teseo acabó con Escirón, lo peor son los desprendimientos.»'],
+ nemi:['Un viajero que vuelve de Brundisium','',{chiton:'#d8ccb4',himation:'#7a5a3a'},'«Diez días por la Apia. Las posadas, llenas de chinches y de posaderos tramposos; en el Foro de Apio, el agua era tan mala que preferí no cenar. Lo mismo que cuenta Horacio, ¿eh?»'],
+ soracte:['Un peregrino','de camino al templo',{chiton:'#d8ccb4',himation:'#8a6a3a'},'«Subo a ver a los Hirpi andar sobre las brasas en la fiesta de Apolo. Dicen que no se queman porque los protege el dios.»'],
+ clitumno:['Una mujer de Hispellum','',{female:true,chiton:'#e8dcc8',himation:'#5a6a7a'},'«Venimos a bañarnos río abajo, donde está permitido, y a dejar una moneda en la fuente. Mira cuántas se ven en el fondo.»'],
+ sila:['Un pegunero brucio','fabrica pez',{chiton:'#5a4a3a',short:true,noHimation:true},'«Hacemos cortes en los pinos, recogemos la resina y la cocemos en estos hornos. La pez sale negra y pegajosa: la quieren los astilleros y los que fabrican ánforas.»'],
+ ciminia:['Un leñador etrusco','',{chiton:'#6a5a40',short:true,noHimation:true},'«Mi bisabuelo contaba que antes nadie se atrevía a cruzar este bosque. Ahora pasa la Vía Cassia, pero de noche aún hay lobos.»'],
+ caudium:['Un campesino samnita','',{chiton:'#8a7a5a',short:true,noHimation:true},'«Aquí mis antepasados hicieron pasar a los romanos bajo el yugo. Luego Roma ganó la guerra, claro. Ahora somos todos ciudadanos.»'],
+ lunae:['Un cantero','de las canteras de Luna',{chiton:'#c8c0b0',short:true,noHimation:true},'«Abrimos la roca con cuñas de madera que mojamos para que se hinchen, o con cuñas de hierro a golpe de maza. Luego bajamos los bloques en trineos por la ladera, frenándolos con cuerdas.»'],
+ padus:['Un pescador del delta','',{chiton:'#7a8a7a',short:true,noHimation:true},'«En las lagunas hay anguilas y mújoles. Los barcos suben por el Po hasta Placentia y más allá: es el gran camino del norte de Italia.»'],
+ rubico:['Un veterano','de las guerras civiles',{chiton:'#9a3a2a'},'«Mi abuelo cruzó este río con César. Decía que el general dudó mucho rato y que luego dijo aquello de la suerte. Y la suerte, desde luego, estaba echada.»']};
+function natTravSetup(){for(const id in NAT_TRAV){const I=ISLANDS.find(q=>q.id===id);if(!I||!I.arrive)continue;const T=NAT_TRAV[id],p=findFree(I.arrive.x+40,I.arrive.z+30,1);if(!p)continue;artPerson(p,T[2],'nat:tr_'+id,T[0],T[1]||'viajero',3);}}
+const natActTr=natAct;natAct=function(o){const id=o.act.slice(4);if(id.startsWith('tr_')){const T=NAT_TRAV[id.slice(3)];if(T)vmS('✦',T[0],T[1]||'',`<p>${T[3]}</p>`,[vmBye]);return;}return natActTr(o);};
+const natSetup0=natSetup;natSetup=function(){natSetup0();try{natTravSetup();}catch(e){console.warn('natTrav',e);}};
 
 function startGame(){
   initAudio();

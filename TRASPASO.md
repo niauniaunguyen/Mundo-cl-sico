@@ -138,6 +138,10 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Italia:** ciminia (Roma–Etruria), caudium (Samnium–Campania), lunae (Etruria–Liguria), padus (Emilia–Venetia) y rubico (Umbría–Emilia).
   - **Ojo con los nombres:** los identificadores achelous, padus y rubico evitan chocar con los lugares `aqueloo`, `eridano` y `rubicon`, que ya existían.
   - **Piezas nuevas:** `natBlocks` (cantera), `natHives`, `natPyre` y `natPoplars`.
+- **El camino en los mapas de transición** (`NAT_ROAD`, que envuelve los `extra`, y `NAT_TRAV`):
+  - **En Grecia:** herma de Hiparco en el Pentélico y el Citerón; montones de Hermes; fortín de Énoe en el Citerón (Tucídides II 18-19); posadas (pandokeîon) en Nemea, el Tempe y el Aqueloo (Aristófanes, Las ranas 549-578).
+  - **En Italia:** miliarios en todos los mapas; tumbas junto a la Vía Apia en Nemi y Caudio; posadas de Aricia y Caudio según Horacio (Sátiras I 5); la Vía Flaminia y el túnel del Furlo (76-77 d.C.) en el Soracte.
+  - **Viajeros:** uno por mapa (`artPerson`, acción `nat:tr_<id>`), con frases basadas en las fuentes.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
