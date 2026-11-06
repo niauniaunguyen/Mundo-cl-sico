@@ -164,6 +164,14 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Atenas:** Maratón, Termópilas, Salamina, el Lequeo, Hímera, Platea, Mícala, Eurimedonte, Pilos, Delio, Anfípolis, Mantinea (418), el Gran Puerto de Siracusa, Cícico, Arginusas, Egospótamos, Cunaxa, Nemea (394), Coronea y Cnido.
   - **Roma:** Cannas, Pidna, Alesia, el lago Regilo, las Horcas Caudinas, Heraclea, Milas, las Égates, Trasimeno, el Metauro, Zama, Cinoscéfalas, Aquae Sextiae, Carras, Farsalia, Accio, Teutoburgo, Boudica, Bedriaco y Jerusalén.
   - **Campos nuevos de cada escenario:** `h` (qué pasó de verdad) y `ev.side` (refuerzos propios, como en Cícico y Aquae Sextiae).
+- **Los caminos, más vivos** (módulo «LOS CAMINOS, MÁS VIVOS», `RD`, prefijo `rd:`; se aplica a los mapas de `RD_MAPS` usando las rutas de `GATES_W` con `from` igual al mapa):
+  - **Firme:** calzada romana con bordillos, o rodadas griegas (`rdStrip`, que sigue el terreno).
+  - **Tráfico** en ida y vuelta por cada ruta: carro de bueyes y recua en los dos modos; en Roma, además, correo a caballo, litera y soldados; en Grecia, peregrinos y rebaño.
+  - **Paradas y control:** abrevadero (rellena el odre y entra en `PLACES` como `fuente_<id>`); tumbas con epitafio (Frasiclea y Creso; Claudia y NFFNSNC); mutatio en seis mapas romanos; aduana (portorium) en Luna y el delta del Po; peripolo de frontera en el Citerón y el Pentélico.
+  - **Campo:** un campo con dos campesinos que cambia de color según el mes (arar, verde, siega, rastrojo).
+  - **Peligros:** bandoleros (15 % cada 2 horas de juego, uno al día, se evitan a caballo o con protección) y perros pastores junto a los rebaños.
+  - **Sonido:** cigarras de junio a septiembre, de día; ranas junto al agua por la noche.
+  - **Extras:** el trofeo de Maratón y un viajero de Gades con un vaso de Vicarello.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
