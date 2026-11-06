@@ -147,6 +147,10 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Seis esferas de sueño nuevas** (`NAT_EPIS`, con `push` a `EPISODES`): el león de Nemea, la pira del Eta, Pan y Siringe, Teseo y Escirón, Numa y Egeria, y César en el Rubicón.
   - **Animal nuevo:** `WILD.lion`, con melena (envoltura de `wildBuild`).
   - **Apariciones** (`natAppTick`): ménades en el Citerón en invierno de noche, Pan en el Liceo al atardecer y Ártemis con dos ciervos en el Taigeto de noche. Cada una tiene su ficha de fuentes, que se ve una sola vez (`state.nat.ap_*`).
+- **Los doce trabajos de Heracles** (`HER_EPIS`, basados en Apolodoro II 5):
+  - **Mapas de transición nuevos:** lerna (Argos–Mantinea), erimanto (Egio–Olimpia), estinfalo (camino nuevo Corinto–Mantinea) y tenaro (fondo de saco desde Esparta). Cada uno con su ninfa o figura (Amimone, el centauro Folo, Ártemis Estinfalia, una sombra en la cueva), fauna y viajero.
+  - **Esferas, modo Atenas:** el león en Nemea; la Hidra en Lerna; la cierva en Egio; el jabalí en el Erimanto; Augías en Olimpia; las aves en el Estínfalo; el toro en Creta; las yeguas en Pela (Tracia no tiene mapa); Hipólita en Éfeso; Cerbero en el Ténaro.
+  - **Esferas, modo Roma:** Gerión en Gades y las Hespérides en Cartago.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
