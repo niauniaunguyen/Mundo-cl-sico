@@ -178,6 +178,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Roma:** centúnviros (Plinio VI 33), Res Gestae junto al Mausoleo, grafitis de Pompeya en paráfrasis (CIL IV 1904, 8408, 429 y 1842), escuela al aire libre (Marcial IX 68), forica (Marcial XI 77; Séneca, Cartas 70, 20), castellum aquae, argentarius y apuestas en el Circo (Plinio IX 6).
   - **Roma de noche:** carros por las vías de `ROADS` (Juvenal III 236-238) y una patrulla de vigiles.
   - **Ambiente:** rumor de ciudad en los dos modos.
+- **Zurrón y objetos del viaje** (módulo «EL ZURRÓN Y LOS OBJETOS DEL VIAJE»):
+  - **Barra configurable:** `state.hb.bar` (9 claves; `hbSlots` sustituye a `HB_ITEMS` en la barra). El zurrón se abre con I o desde el menú (`objZurron`).
+  - **Contexto** (`objContext` y `OBJ.ctx`): la casilla útil brilla en verde (odre junto al agua, antorcha de noche, tablilla junto a una estela sin leer, estrígilo en la palestra, amuleto junto a un altar, exvoto en un Asclepieo, siringa junto a un rebaño). Si el objeto está en el zurrón, aparece una pista.
+  - **Objetos nuevos:** pétaso (el calor cansa la mitad), capa (la lluvia frena menos), cayado (trepar más deprisa), siringa (calma perros; de noche, ninfas), aceite (necesario para el estrígilo; contador en `hb.cnt`), tésera (viajes un 20 % más baratos), óbolo (Caronte, `hd:caronte`), rama dorada (`fi:rama`), tortas de miel (Cerbero), pinákion (jurado con pago en el klērōtḗrion), diploma (viajes por tierra gratis en Roma), anillo de sello, exvoto (Epidauro o isla Tiberina), lira y honda.
+  - **Cómo se consiguen:** comprando con la bolsa, de los pastores de los caminos, de los viajeros (la tésera), de Siringe, de la sombra del Ténaro, o automáticamente por ciudadanía o Fama.
+  - **Encargo:** dar agua del odre a los viajeros (+1 Eusébeia, +1 Kléos).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
