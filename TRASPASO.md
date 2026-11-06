@@ -142,6 +142,11 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **En Grecia:** herma de Hiparco en el Pentélico y el Citerón; montones de Hermes; fortín de Énoe en el Citerón (Tucídides II 18-19); posadas (pandokeîon) en Nemea, el Tempe y el Aqueloo (Aristófanes, Las ranas 549-578).
   - **En Italia:** miliarios en todos los mapas; tumbas junto a la Vía Apia en Nemi y Caudio; posadas de Aricia y Caudio según Horacio (Sátiras I 5); la Vía Flaminia y el túnel del Furlo (76-77 d.C.) en el Soracte.
   - **Viajeros:** uno por mapa (`artPerson`, acción `nat:tr_<id>`), con frases basadas en las fuentes.
+- **Mitos en su sitio** (al final del módulo de naturaleza):
+  - **Fragmentos de Ovidio trasladados** a los mapas de transición: Acteón y Penteo al Citerón; Licaón y Calisto al Liceo; Dafne al Tempe; el diluvio al Parnaso; Hércules al Eta; Aqueloo a su río; Ino a las rocas Escironias; las Helíades al delta del Po; Egeria e Hipólito a Nemi. La Puerta Capena y Epidauro dejan de tener esos fragmentos.
+  - **Seis esferas de sueño nuevas** (`NAT_EPIS`, con `push` a `EPISODES`): el león de Nemea, la pira del Eta, Pan y Siringe, Teseo y Escirón, Numa y Egeria, y César en el Rubicón.
+  - **Animal nuevo:** `WILD.lion`, con melena (envoltura de `wildBuild`).
+  - **Apariciones** (`natAppTick`): ménades en el Citerón en invierno de noche, Pan en el Liceo al atardecer y Ártemis con dos ciervos en el Taigeto de noche. Cada una tiene su ficha de fuentes, que se ve una sola vez (`state.nat.ap_*`).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
