@@ -172,6 +172,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Peligros:** bandoleros (15 % cada 2 horas de juego, uno al día, se evitan a caballo o con protección) y perros pastores junto a los rebaños.
   - **Sonido:** cigarras de junio a septiembre, de día; ranas junto al agua por la noche.
   - **Extras:** el trofeo de Maratón y un viajero de Gades con un vaso de Vicarello.
+- **La ciudad, más viva** (módulo «LA CIUDAD, MÁS VIVA», `CY`, prefijo `cy:`):
+  - **Minijuego de destreza** (`cyMini`, aguja y zona buena), con pago una vez al día. Oficios: el alfarero (figuras rojas) y el herrero en Atenas; el panadero (Eurísaces y el pan sellado) y la fullonica (Vespasiano y «pecunia non olet») en Roma.
+  - **Atenas:** klērōtḗrion (Aristóteles, Constitución de los atenienses 63-66), cambista y la fuente de las Nueve Bocas (rellena el odre).
+  - **Roma:** centúnviros (Plinio VI 33), Res Gestae junto al Mausoleo, grafitis de Pompeya en paráfrasis (CIL IV 1904, 8408, 429 y 1842), escuela al aire libre (Marcial IX 68), forica (Marcial XI 77; Séneca, Cartas 70, 20), castellum aquae, argentarius y apuestas en el Circo (Plinio IX 6).
+  - **Roma de noche:** carros por las vías de `ROADS` (Juvenal III 236-238) y una patrulla de vigiles.
+  - **Ambiente:** rumor de ciudad en los dos modos.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
