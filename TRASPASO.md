@@ -160,6 +160,10 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Escenarios del modo Roma:** partida libre, Cannas, Pidna (terreno quebrado) y Alesia (aguantar).
   - **Maestros:** Arquelao (inventado) en el ágora; Frontino (licencia del juego) junto a la Basílica Julia, donde había tableros grabados en las escaleras.
   - **Recompensa:** la primera victoria de cada escenario da +1 Lógos y +1 Sophía (`state.tt.w`).
+- **Veinte batallas por modo** (generadas con un script de Python a `TT_SC` y `TT_LIST`; solo batallas anteriores al año de cada modo):
+  - **Atenas:** Maratón, Termópilas, Salamina, el Lequeo, Hímera, Platea, Mícala, Eurimedonte, Pilos, Delio, Anfípolis, Mantinea (418), el Gran Puerto de Siracusa, Cícico, Arginusas, Egospótamos, Cunaxa, Nemea (394), Coronea y Cnido.
+  - **Roma:** Cannas, Pidna, Alesia, el lago Regilo, las Horcas Caudinas, Heraclea, Milas, las Égates, Trasimeno, el Metauro, Zama, Cinoscéfalas, Aquae Sextiae, Carras, Farsalia, Accio, Teutoburgo, Boudica, Bedriaco y Jerusalén.
+  - **Campos nuevos de cada escenario:** `h` (qué pasó de verdad) y `ev.side` (refuerzos propios, como en Cícico y Aquae Sextiae).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
