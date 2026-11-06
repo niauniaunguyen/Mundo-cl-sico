@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 116 del artefacto; notas de la versión 116). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 117 del artefacto; notas de la versión 117). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,16 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 117: ciudades de Hispania reconstruidas y rayas de la iluminación realzada
+- **Rayas en ventanas y molduras** con la iluminación realzada: el render target del EffectComposer tenía profundidad de 16 bits (z-fighting). Ahora usa `stencilBuffer:true` (profundidad de 24 bits) y multimuestreo con WebGL2 (`gfxBuild`).
+- **Piezas nuevas** (módulo «HISPANIA URBANA», antes de `romaArrive`): `archGeo` (enjuta de arco extruida), `arcadeLine` (acueducto entre dos puntos, varios pisos, hiladas de ladrillo opcionales), `stoneBridge` (puente largo con arcos, pretiles, rampas y plataforma) y `circusH` (circo de provincias con espina, metas y cárceres; se entra a la arena por los cárceres).
+- **Tarraco:** el foro provincial ya no está «en obras»: lo terminaron los Flavios. Tiene un recinto porticado del templo, una plaza del concilio con pórticos y los pedestales de los flamines. Se añade el acueducto de les Ferreres (dos pisos, acercado a la ciudad, con nota). En una estela se explica que el circo (Domiciano) y el anfiteatro (siglo II) aún no existen en el 80.
+- **Emerita:** el Anas tiene dos brazos y una isla; el puente es de 170 m con unos 20 arcos, acortado (con nota). Se añaden el circo (más de 400 m en la realidad), el acueducto de Los Milagros (granito y ladrillo, tres pisos, fecha discutida) sobre el Albarregas y el «templo de Diana», rebautizado como templo del culto imperial, con nota sobre el pórtico de mármol del foro.
+- **Carthago Nova:** cinco colinas (Polibio X), con el teatro excavado en la ladera (gradas hacia la colina), y el foro con su Capitolio.
+- **Corduba:** el puente del Betis (Vía Augusta), el teatro augusteo, el foro de la colonia y el gran templo del culto imperial (fecha discutida, Claudio o los Flavios).
+- **Gades:** el teatro de Balbo y la Neápolis, que Estrabón llama Dídime, y el Herakleion de Melqart, sin estatua, con el fuego perpetuo y las dos columnas de bronce. Una nota aclara que el templo real estaba en Sancti Petri.
+- Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani. Propuestas al usuario, aún sin aprobar: la barra de objetos inferior y los espíritus (Lares, Lemures, Manes, Keres de las Antesterias).
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
 
