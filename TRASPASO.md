@@ -77,7 +77,15 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Carthago Nova:** cinco colinas (Polibio X), con el teatro excavado en la ladera (gradas hacia la colina), y el foro con su Capitolio.
 - **Corduba:** el puente del Betis (Vía Augusta), el teatro augusteo, el foro de la colonia y el gran templo del culto imperial (fecha discutida, Claudio o los Flavios).
 - **Gades:** el teatro de Balbo y la Neápolis, que Estrabón llama Dídime, y el Herakleion de Melqart, sin estatua, con el fuego perpetuo y las dos columnas de bronce. Una nota aclara que el templo real estaba en Sancti Petri.
-- Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani. Propuestas al usuario, aún sin aprobar: la barra de objetos inferior y los espíritus (Lares, Lemures, Manes, Keres de las Antesterias).
+- **Barra de objetos** (módulo «LA BARRA DE OBJETOS», objeto `HBAR`, estado `state.hb`). Ojo: `HB` ya lo usa la animación del caballo.
+  - Nueve casillas abajo (en móvil, arriba). Se eligen con la rueda o las teclas 1-9 y se usan con R o con el clic derecho; en el móvil, tocando la casilla elegida.
+  - Casillas: antorcha, tablilla de cera, bolsa, odre, estrígilo, caballo, alas, itinerario o periplo, y amuleto (en Roma, las figurillas de los Lares; en Atenas, la ramita de espino o la laminilla órfica).
+  - Cómo se consiguen (`hbGive`, `hbTick`): la tablilla, en la primera lección (`startQuiz` envuelta); en cada pregunta, los apuntes tachan una respuesta falsa si la Sophía es menor que 4. El odre y el rollo, en el primer destino (el rollo solo si se llega por mar). El estrígilo, en las termas o la palestra.
+- **Espíritus** (módulo «LOS ESPÍRITUS», `state.sp`).
+  - Presencias pálidas (`spTick`): en Roma, de noche en Maius si no se ha hecho el rito de las Lemurias (`cultz().lem`); en Atenas, en Antesterión si no se ha hecho el rito contra las Keres. Casi no se ven sin antorcha. Si te tocan, −1 Eusébeia o Pietas.
+  - `spMenu` (amuleto): en Roma, el Genio o la Juno el día del cumpleaños (`sp.bd`, de 1 a 60) y los Manes en Februarius. En Atenas, el Agathós Daímon a diario, la cena de Hécate en luna nueva (primer día del mes) y el rito de las Keres (`spKeres`).
+  - Objetos en el mapa (`spSetup`, prefijo `sp:`): tres altares de los Lares de las encrucijadas en Roma (Compitalia en Ianuarius) y un hekataion de Hécate junto al ágora.
+- Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
 
