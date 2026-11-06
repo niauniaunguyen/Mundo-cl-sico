@@ -19498,13 +19498,13 @@ const hbRenderUx=hbRender;hbRender=function(force){hbRenderUx(force);try{const b
   const s3=b.children[3];if(s3&&hbz().got.odre){s3.title='Odre: '+h.odre+' tragos de '+(h.odreC==='agua'?'agua':h.odreC==='posca'?'posca':'vino aguado');}}catch(e){}};
 // ---- 7. las alas, visibles en la espalda en tercera persona
 function uxWingMesh(){const g=new THREE.Group(),feather=new THREE.MeshLambertMaterial({color:'#efe6d2',side:THREE.DoubleSide}),tip=new THREE.MeshLambertMaterial({color:'#b89a6a',side:THREE.DoubleSide}),wax=new THREE.MeshLambertMaterial({color:'#e2c98a'});
-  for(const s of[-1,1]){const w=new THREE.Group();w.position.set(s*0.12,1.32,-0.2);g.add(w);const bar=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.07,0.05),wax);bar.position.set(s*0.55,0.06,0);w.add(bar);
-    for(let i=0;i<8;i++){const L=0.95-i*0.08,f=new THREE.Mesh(new THREE.PlaneGeometry(0.16,L),i>5?tip:feather);f.position.set(s*(0.08+i*0.14),0.06-L/2+0.02,-0.01*i);f.rotation.z=s*(0.15+i*0.06);w.add(f);}
+  for(const s of[-1,1]){const w=new THREE.Group();w.position.set(s*0.1,1.58,-0.24);g.add(w);const bar=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.07,0.05),wax);bar.position.set(s*0.55,0.06,0);w.add(bar);
+    for(let i=0;i<8;i++){const L=0.78-i*0.06,f=new THREE.Mesh(new THREE.PlaneGeometry(0.16,L),i>5?tip:feather);f.position.set(s*(0.08+i*0.14),0.06-L/2+0.02,-0.01*i);f.rotation.z=s*(0.15+i*0.06);w.add(f);}
     for(let i=0;i<6;i++){const f=new THREE.Mesh(new THREE.PlaneGeometry(0.12,0.4),feather);f.position.set(s*(0.1+i*0.16),-0.1,0.02);f.rotation.z=s*0.2;w.add(f);}
     w.userData.s=s;}
   g.visible=false;return g;}
 function uxWingsTick(dt){const w=AVATAR.walk;if(!w)return;if(!w.userData.uxW){w.userData.uxW=uxWingMesh();w.add(w.userData.uxW);}const W=w.userData.uxW,on=typeof FLY!=='undefined'&&FLY.on;W.visible=on;if(!on)return;
-  const t=performance.now()/1000,fl=player.vy>0.5||keys.up?1.6:0.7;for(const c of W.children){const s=c.userData.s;c.rotation.z=s*(0.25*Math.sin(t*6*fl))+s*0.1;c.rotation.y=s*0.35;}}
+  const t=performance.now()/1000,fl=player.vy>0.5||keys.up?1.6:0.7;for(const c of W.children){const s=c.userData.s;c.rotation.z=s*(0.42+0.3*Math.sin(t*6*fl));c.rotation.y=s*0.3;}}
 function uxTick(dt){if(!state)return;try{uxTorchTick(dt);uxThiefTick(dt);uxWingsTick(dt);}catch(e){}}
 
 // ============================================================ TEJADOS Y CORNISAS: posarse sobre los edificios
