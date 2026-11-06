@@ -151,6 +151,9 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Mapas de transición nuevos:** lerna (Argos–Mantinea), erimanto (Egio–Olimpia), estinfalo (camino nuevo Corinto–Mantinea) y tenaro (fondo de saco desde Esparta). Cada uno con su ninfa o figura (Amimone, el centauro Folo, Ártemis Estinfalia, una sombra en la cueva), fauna y viajero.
   - **Esferas, modo Atenas:** el león en Nemea; la Hidra en Lerna; la cierva en Egio; el jabalí en el Erimanto; Augías en Olimpia; las aves en el Estínfalo; el toro en Creta; las yeguas en Pela (Tracia no tiene mapa); Hipólita en Éfeso; Cerbero en el Ténaro.
   - **Esferas, modo Roma:** Gerión en Gades y las Hespérides en Cartago.
+- **La guerra en el horizonte** (`WAR_A`, `WAR_R`, `warSetup`, prefijo `war:`; la primera conversación da +1 Sophía):
+  - **Atenas:** tabla con la Paz del Rey (paráfrasis de Jenofonte, Helénicas V 1, 31); un veterano del Lequeo y de los Muros Largos; un peltasta tracio de Ifícrates; una refugiada de Regio (Diodoro XIV 106-112); un marino chipriota con lo de Evágoras.
+  - **Roma:** la madre de un legionario de Agrícola en Britania (Tácito, Agrícola 22); un veterano de la X Fretensis junto al Templo de la Paz (Josefo); un mercader de Britania en el Emporio (Juvenal IV 141; Estrabón IV 5, 2; Tácito, Agrícola 21); el rumor del falso Nerón (Dión Casio LXVI 19, 3).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
