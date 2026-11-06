@@ -154,6 +154,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **La guerra en el horizonte** (`WAR_A`, `WAR_R`, `warSetup`, prefijo `war:`; la primera conversación da +1 Sophía):
   - **Atenas:** tabla con la Paz del Rey (paráfrasis de Jenofonte, Helénicas V 1, 31); un veterano del Lequeo y de los Muros Largos; un peltasta tracio de Ifícrates; una refugiada de Regio (Diodoro XIV 106-112); un marino chipriota con lo de Evágoras.
   - **Roma:** la madre de un legionario de Agrícola en Britania (Tácito, Agrícola 22); un veterano de la X Fretensis junto al Templo de la Paz (Josefo); un mercader de Britania en el Emporio (Juvenal IV 141; Estrabón IV 5, 2; Tácito, Agrícola 21); el rumor del falso Nerón (Dión Casio LXVI 19, 3).
+- **Pettéia y latrunculi** (módulo «PETTÉIA Y LUDUS LATRUNCULORUM», `TT`, `TT_SC`, `ui='board'`):
+  - **Reglas:** reconstruidas. Movimiento de torre y captura por custodia. IA codiciosa (capturas, riesgo, amenaza).
+  - **Escenarios del modo Atenas:** partida libre, Maratón, Termópilas (aguantar; Efialtes en el turno 12), Salamina y el Lequeo (hoplitas lentos).
+  - **Escenarios del modo Roma:** partida libre, Cannas, Pidna (terreno quebrado) y Alesia (aguantar).
+  - **Maestros:** Arquelao (inventado) en el ágora; Frontino (licencia del juego) junto a la Basílica Julia, donde había tableros grabados en las escaleras.
+  - **Recompensa:** la primera victoria de cada escenario da +1 Lógos y +1 Sophía (`state.tt.w`).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
