@@ -133,6 +133,11 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Caminos:** los `WORLD_LINKS` se parten para intercalar los nuevos mapas, y `homeGate` tiene citeron, soracte y nemi.
   - **Animales salvajes** hechos con primitivas (`WILD` y `wildBuild`, con envoltura de `animal`): ciervo, jabalí, lobo, oso, liebre y buey blanco. Sus textos están en `FAUNA_INFO`.
   - **Ninfas y divinidades** (`NAT_NY`, creadas en `natSetup`, prefijo `nat:`): Esfragítide, Nemea, Siringe, Dafne, Coricia, Egeria, Feronia, la náyade del Clitumno y Silvano. La primera ofrenda da +1 Sophía y +1 Eusébeia.
+- **Segunda tanda de mapas de transición:**
+  - **Grecia:** pentelico (Atenas–Maratón), eta (Delfos–Termópilas), achelous (Dodona–Calidón), taigeto (Esparta–Itome) y escironides (Megara–Corinto).
+  - **Italia:** ciminia (Roma–Etruria), caudium (Samnium–Campania), lunae (Etruria–Liguria), padus (Emilia–Venetia) y rubico (Umbría–Emilia).
+  - **Ojo con los nombres:** los identificadores achelous, padus y rubico evitan chocar con los lugares `aqueloo`, `eridano` y `rubicon`, que ya existían.
+  - **Piezas nuevas:** `natBlocks` (cantera), `natHives`, `natPyre` y `natPoplars`.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
