@@ -85,6 +85,13 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Presencias pálidas (`spTick`): en Roma, de noche en Maius si no se ha hecho el rito de las Lemurias (`cultz().lem`); en Atenas, en Antesterión si no se ha hecho el rito contra las Keres. Casi no se ven sin antorcha. Si te tocan, −1 Eusébeia o Pietas.
   - `spMenu` (amuleto): en Roma, el Genio o la Juno el día del cumpleaños (`sp.bd`, de 1 a 60) y los Manes en Februarius. En Atenas, el Agathós Daímon a diario, la cena de Hécate en luna nueva (primer día del mes) y el rito de las Keres (`spKeres`).
   - Objetos en el mapa (`spSetup`, prefijo `sp:`): tres altares de los Lares de las encrucijadas en Roma (Compitalia en Ianuarius) y un hekataion de Hécate junto al ágora.
+- **Mejoras visuales 2** (módulo «MEJORAS VISUALES 2», objetos `VIS` y `DOF`):
+  - **Luna con fases:** uniforme `mph` en el shader del cielo; `visMoonPhase` vale `cultDia().i*0.125` (Kalendas: luna nueva; Idus: luna llena).
+  - **Niebla según la hora:** `updateSky` envuelta; ajusta near y far (bruma al alba, polvo dorado al atardecer, noche cerrada). No actúa si `CAV.ovr` o `FZ.ovr`.
+  - **Ventanas encendidas de noche:** un InstancedMesh sobre las fachadas de los `footprints` con `house`.
+  - **Incienso:** `pfx` en los lararios (`CULT_OBJS`), los compita y el hekataion.
+  - **Desenfoque en el modo foto:** BokehPass; botones «Desenfoque» y «Enfocar» (`dofFocus` lanza un rayo al centro de la pantalla). `gfxRender` le da prioridad mientras está activo.
+  - **Sombras de contacto:** SSAOPass dentro de la iluminación realzada; opción `ao` del menú (localStorage `nostos-ao`).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
