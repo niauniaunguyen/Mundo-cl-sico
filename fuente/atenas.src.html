@@ -19170,13 +19170,14 @@ const HB_SVG={
 const HB_ITEMS=[
  {k:'antorcha',n:()=>MODE==='roma'?'Antorcha (fax)':'Antorcha (lampás)',has:()=>true,on:()=>!!(typeof TORCH!=='undefined'&&TORCH.on),use:()=>toggleTorch(),how:'La llevas desde el principio.'},
  {k:'tablilla',n:()=>MODE==='roma'?'Tablilla de cera (tabulae)':'Tablilla de cera (pínax)',has:()=>!!hbz().got.tablilla,use:()=>hbTablilla(),how:'Te la da el primer maestro, en tu primera lección.'},
- {k:'bolsa',n:()=>MODE==='roma'?'Bolsa (marsupium)':'Bolsa',has:()=>true,use:()=>hbBolsa(),how:'La llevas desde el principio.'},
- {k:'odre',n:()=>'Odre',has:()=>!!hbz().got.odre,use:()=>hbOdre(),how:'Te lo regala un cochero en tu primer viaje por tierra o por mar.'},
+ {k:'bolsa',n:()=>MODE==='roma'?'Bolsa (marsupium)':'Bolsa (balántion)',has:()=>true,use:()=>hbBolsa(),how:'La llevas desde el principio.'},
+ {k:'odre',n:()=>MODE==='roma'?'Odre (uter)':'Odre (askós)',has:()=>!!hbz().got.odre,use:()=>hbOdre(),how:MODE==='roma'?'Te lo regala un cochero en tu primer viaje fuera de Roma.':'Te lo regala un arriero o un marinero en tu primer viaje fuera del Ática.'},
  {k:'strigil',n:()=>MODE==='roma'?'Estrígilo y aceite (strigilis)':'Estrígilo y aceite (stlengís)',has:()=>!!hbz().got.strigil,use:()=>hbStrigil(),how:MODE==='roma'?'Lo consigues la primera vez que vas a las termas.':'Lo consigues la primera vez que vas a la palestra.'},
- {k:'caballo',n:()=>'Llamar al caballo',has:()=>hz().own,on:()=>!!(MOUNT&&MOUNT.riding),use:()=>callHorse(),how:'Cuando completes el encargo del caballo.'},
- {k:'alas',n:()=>'Alas de cera',has:()=>wz().own,on:()=>!!(typeof FLY!=='undefined'&&FLY.on),use:()=>toggleWings(),how:'Después de ayudar a Dédalo en Creta.'},
- {k:'rollo',n:()=>MODE==='roma'?'Itinerario':'Periplo',has:()=>!!hbz().got.rollo,use:()=>openMap(),how:'Te lo da el capitán en tu primer viaje por mar.'},
+ {k:'caballo',n:()=>MODE==='roma'?'Llamar al caballo (equus)':'Llamar al caballo (híppos)',has:()=>hz().own,on:()=>!!(MOUNT&&MOUNT.riding),use:()=>callHorse(),how:'Cuando completes el encargo del caballo.'},
+ {k:'alas',n:()=>MODE==='roma'?'Alas de cera (alae)':'Alas de cera (ptéryges)',has:()=>wz().own,on:()=>!!(typeof FLY!=='undefined'&&FLY.on),use:()=>toggleWings(),how:'Después de ayudar a Dédalo en Creta.'},
+ {k:'rollo',n:()=>MODE==='roma'?'Itinerario (itinerarium)':'Periplo (períplous)',has:()=>!!hbz().got.rollo,use:()=>openMap(),how:'Te lo da el capitán en tu primer viaje por mar.'},
  {k:'amuleto',n:()=>hbAmuletoName(),has:()=>hbAmuletoHas(),use:()=>spMenu(),how:MODE==='roma'?'Las figurillas de los Lares: al comprar tu casa o tras tu primera ofrenda en un larario.':'Una ramita de espino (en el mes de Antesterión) o la laminilla de oro de los órficos.'}];
+function hbIcon(k){if(k==='amuleto'&&MODE!=='roma')return state&&state.fest&&state.fest.orficos?'<rect x="6" y="4" width="12" height="16" rx="1"/><path d="M8.5 8h7M8.5 11h7M8.5 14h5M8.5 17h3"/>':'<path d="M5 20C9 15 13 9 19 4"/><path d="M9 15l-3-1M11 12.5l3 1.5M13 10l-3-2M15.5 7.5l2.5 1"/><circle cx="7" cy="12.5" r="1"/><circle cx="15" cy="14.5" r="1"/>';if(k==='amuleto')return '<circle cx="12" cy="5" r="2"/><path d="M12 7v6M8 9.5l4 2 4-2M12 13l-3 7M12 13l3 7"/><path d="M15.5 9l2-3"/>';if(k==='bolsa'&&MODE!=='roma')return HB_SVG.bolsa+'<circle cx="12" cy="14" r="1.8"/>';return HB_SVG[k];}
 function hbAmuletoHas(){if(MODE==='roma'){try{return cz().st>=3||cultz().n>0;}catch(e){return false;}}return !!(hbz().got.espino||(state.fest&&state.fest.orficos));}
 function hbAmuletoName(){if(MODE==='roma')return 'Figurillas de los Lares';return state.fest&&state.fest.orficos?'Laminilla de oro (órfica)':'Ramita de espino';}
 function hbGive(k,why){const h=hbz();if(h.got[k])return;h.got[k]=1;save();const it=HB_ITEMS.find(i=>i.k===k);hbRender(true);try{sfxCoin();}catch(e){}
@@ -19195,7 +19196,7 @@ function hbRender(force){hbCSS();let b=$('hbar');if(!b){b=document.createElement
     b.addEventListener('click',e=>{const s=e.target.closest('.s');if(!s)return;e.stopPropagation();const i=+s.dataset.i;if(HBAR.sel===i&&document.body.classList.contains('tm'))hbUse();else hbSelect(i);});
     b.addEventListener('contextmenu',e=>{e.preventDefault();const s=e.target.closest('.s');if(s){hbSelect(+s.dataset.i);hbUse();}});}
   const h=hbz(),key=HB_ITEMS.map(it=>(it.has()?1:0)+''+(it.on&&it.on()?1:0)).join('')+HBAR.sel+h.odre;if(!force&&key===HBAR.last)return;HBAR.last=key;
-  b.innerHTML=HB_ITEMS.map((it,i)=>{const has=it.has();return '<div class="s'+(has?'':' off')+(i===HBAR.sel?' sel':'')+(has&&it.on&&it.on()?' on':'')+'" data-i="'+i+'" title="'+(has?it.n():'Aún no lo tienes: '+it.how)+'"><span class="k">'+(i+1)+'</span><svg viewBox="0 0 24 24">'+HB_SVG[it.k]+'</svg>'+(it.k==='odre'&&has?'<span class="c">'+h.odre+'</span>':'')+'</div>';}).join('');}
+  b.innerHTML=HB_ITEMS.map((it,i)=>{const has=it.has();return '<div class="s'+(has?'':' off')+(i===HBAR.sel?' sel':'')+(has&&it.on&&it.on()?' on':'')+'" data-i="'+i+'" title="'+(has?it.n():'Aún no lo tienes: '+it.how)+'"><span class="k">'+(i+1)+'</span><svg viewBox="0 0 24 24">'+hbIcon(it.k)+'</svg>'+(it.k==='odre'&&has?'<span class="c">'+h.odre+'</span>':'')+'</div>';}).join('');}
 const HBAR={sel:0,last:'',nt:0};
 function hbSelect(i){HBAR.sel=(i+HB_ITEMS.length)%HB_ITEMS.length;hbz().sel=HBAR.sel;hbRender(true);const it=HB_ITEMS[HBAR.sel],n=$('hbName');if(n){n.textContent=it.has()?it.n():'Vacío · '+it.how;n.style.opacity=1;HBAR.nt=2.2;}try{if(aOK())sfxTap();}catch(e){}}
 function hbUse(){if(ui!=='play')return;const it=HB_ITEMS[HBAR.sel];if(!it.has()){toast('<span class="label">Casilla vacía</span><br>'+it.how);return;}it.use();setTimeout(()=>hbRender(true),60);}
@@ -19237,7 +19238,7 @@ function spz(){if(!state.sp||typeof state.sp!=='object')state.sp={bd:1+Math.floo
 const SPC={g:[],t:0,card:false};
 function spMonthOn(){try{const m=calNow().mes,n=clock.h>=21||clock.h<4;if(!n)return false;if(MODE==='roma')return m==='Maius'&&!cultz().lem[cultDia().yr];return m==='Antesterión'&&!spz().ker[calNow().year];}catch(e){return false;}}
 function spGhost(){const g=new THREE.Group(),m=new THREE.MeshBasicMaterial({color:0xcfe0ff,transparent:true,opacity:0.1,depthWrite:false});const b=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.55,1.6,10,1,true),m);b.position.y=0.95;g.add(b);const h=new THREE.Mesh(new THREE.SphereGeometry(0.24,10,8),m);h.position.y=1.95;g.add(h);
-  const gl=new THREE.Sprite(new THREE.SpriteMaterial({color:0x9fc0ff,transparent:true,opacity:0.1,depthWrite:false,blending:THREE.AdditiveBlending}));gl.scale.set(2.6,3.4,1);gl.position.y=1.2;g.add(gl);g.userData={m,gl,ph:Math.random()*6};scene.add(g);return g;}
+  const gl=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:0x9fc0ff,transparent:true,opacity:0.1,depthWrite:false,blending:THREE.AdditiveBlending}));gl.scale.set(2.6,3.4,1);gl.position.y=1.2;g.add(gl);g.userData={m,gl,ph:Math.random()*6};scene.add(g);return g;}
 function spTick(dt){if(!state||ui!=='play'){return;}const on=spMonthOn()&&!(typeof fzIn==='function'&&fzIn())&&player.feet<200;
   if(!on){if(SPC.g.length){for(const g of SPC.g)scene.remove(g);SPC.g.length=0;}return;}
   while(SPC.g.length<3){const g=spGhost(),a=Math.random()*TAU,d=26+Math.random()*16;g.position.set(player.x+Math.cos(a)*d,0,player.z+Math.sin(a)*d);g.position.y=floorAt(g.position.x,g.position.z);SPC.g.push(g);}
