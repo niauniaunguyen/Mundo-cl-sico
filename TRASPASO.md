@@ -5,7 +5,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - **Archivo jugable:** `atenas.html` (unos 5,8 MB; `?modo=roma` o `?modo=atenas` en la dirección se salta el selector): HTML + CSS + JS y los modelos de Blender incrustados en base64.
 - **Código fuente:** `fuente/atenas.src.html`, el mismo archivo con el marcador `@@GLB@@` en lugar de los modelos. **Se edita siempre el fuente** y luego se ejecuta `python fuente/construir.py`, que genera `atenas.html` incrustando `modelos/atenas_modelos.glb`.
 - **Modelos:** `modelos/atenas_modelos.blend` (escena de Blender con todas las piezas) y `modelos/atenas_modelos.glb` (lo que carga el juego).
-- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 114 del artefacto; notas de la versión 114). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
+- **Publicado como artefacto:** https://claude.ai/artifact/HPMmRcZdwLro9kjKtCX2U9 (versión 115 del artefacto; notas de la versión 115). Para actualizarlo desde otra sesión, hay que leerlo primero con la acción `read` del artefacto y luego publicar pasando esa misma URL como `url`. Así se conserva el enlace.
 - **Motor:** Three.js r128 (UMD desde cdnjs) y `GLTFLoader` r128 desde jsDelivr (`three@0.128.0/examples/js/loaders/GLTFLoader.js`). Sin compilación: todo el código va inline, dentro de `(function(){ ... })();`.
 
 ## Qué contiene
@@ -68,6 +68,27 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Fuera de claude.ai no funcionan el modo libre en línea ni el diálogo con Platón por IA, porque usan las capacidades del artefacto. Todo lo demás sí.
   - No se recomienda guardar partidas en la nube con cuentas (datos de menores): se mantienen el guardado en el navegador y el archivo de partida.
 - **Traducciones de los textos nuevos:** en pausa por decisión del usuario.
+
+### Novedades de la versión 115: anfiteatro por dentro, modo foto y arreglos (móvil, Celio, alas)
+
+- **Diálogos cortados en el móvil:** el glosario (`glossScan`) sustituía nodos de texto mientras el efecto de máquina de escribir (`TW`) los iba rellenando, y lo visible se quedaba congelado a medias.
+  - Ahora `glossScan` no actúa mientras `TW.on`, y se lanza al terminar la escritura (`twTick`, `twFinish`).
+  - El botón 👁 se oculta cuando hay un diálogo abierto.
+  - `vmS` siempre muestra el diálogo, porque antes, llamado después de `closeDialog`, quedaba oculto.
+- **Anfiteatro Flavio** (módulo «EL ANFITEATRO FLAVIO POR DENTRO», `romaColosseum` envuelto con `colPlus`; `colSetup` en la cadena de setups):
+  - Muro interior y gradas por encima de los túneles de los ejes, más el muro a los lados de los túneles. Antes, por los arcos se veía la parte de atrás de las gradas.
+  - Techos de los deambulatorios a 10,3, 22,1 y 33,9 m, y cubierta a 46 m.
+  - Vomitoria (bocas oscuras) en tres menianos.
+  - Cuatro entradas del público (`col:entrada`, arcos IX, XXIV, LIII y LXVII) con su tésera: ARCVS, CVNEVS, GRADVS y LOCVS.
+  - El asiento se decide según quién eres (`colSeat`): mujeres arriba, en las gradas de madera (Augusto); ciudadanos varones en el segundo meniano; peregrinos y plebe en la parte alta.
+  - Deambulatorio y vomitorio narrados; el asiento es una plataforma con bordes; se sale con `col:salir`.
+- **Modo foto** (P o F2, o el menú; prefijo `ph`):
+  - Oculta la interfaz; zoom con la rueda, +/− o botones (`PH.z` se aplica en el cálculo del campo de visión de `gfCam`).
+  - Pie de foto opcional con época, lugar, coordenadas, día y hora (útil para informes de errores).
+  - Vista previa; se guarda con la capacidad `downloads` del visor y, si no está, con un enlace.
+- **Celio:** el anillo de travertino alrededor del anfiteatro tenía solo dos filas a 18 m. En la cuesta flotaba sobre el terreno; ahora tiene 7 filas de 3 m y 240 segmentos.
+- **Alas de Ícaro:** volar (y navegar) ya no suma distancia para la Areté de «correr», y ponerse las alas ya no da +2 Areté (sigue dando Kléos).
+- Pendiente: el «temblor» del río en el Emporio no se reproduce quieto ni empujando contra la orilla. Los fotogramas del vídeo muestran movimiento de cámara y centelleo de la hierba, no del agua.
 
 ### Novedades de la versión 114: mirar con atención (θεωρία / animadversio) y el entierro de Miseno
 
