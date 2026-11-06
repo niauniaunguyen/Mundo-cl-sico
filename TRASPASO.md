@@ -104,6 +104,16 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
     - Con tormenta se disuelve la Asamblea (`pg:asamblea`).
     - Granja: `farmRain` es cierto si llueve y falso si hay sequía.
   - **Sequía:** 6 días sin lluvia; contador en `newDay`. El rito para pedir lluvia aparece en el amuleto (`wxRite`): Zeus Ombrios en el Himeto (Pausanias I 32, 2) o el aquaelicium (Festo; Petronio 44).
+- **Para qué sirven los objetos** (módulo «PARA QUÉ SIRVEN LOS OBJETOS», `uxz`, `uxTick`):
+  - **Antorcha:** se gasta. Cada una dura unas 3 horas de juego (`hb.burn`); empiezas con 3 de repuesto (`hb.antor`); se compran 2 por 1 moneda con la bolsa.
+  - **Ladrones de noche:** sin antorcha, en la ciudad, un 30 % por hora de juego, un robo por noche. Una ofrenda hecha ese día protege (`uxProt`). Fuentes: Juvenal III; Aristófanes, Las aves 493-498.
+  - **Bolsa** (`hbBolsa` reescrita): limosna (+1 de piedad, una al día), antorchas, posca o vino aguado para el odre, y un guía (2 monedas) que te lleva a `nextTarget()`.
+  - **Odre:** su contenido está en `hb.odreC`. El vino o la posca quitan el freno de la nieve durante 2 horas (`WXS.warm`). En los viajes por tierra de 2 o más días (envolturas de `sail` con `land` y de `gateTravel`) se bebe un trago; sin agua llegas agotado.
+  - **Estrígilo:** si lo usaste ayer u hoy, cada lección nueva da +1 moneda (envoltura de `answer`); si llevas 4 días sin usarlo, aviso de que hueles a sudor.
+  - **Tablilla:** notas propias (`hb.notas`, con un textarea que corta la propagación de las teclas) y el álbum de las inscripciones leídas (`state.places`).
+  - **Periplo o itinerario:** `hbRollo` muestra las rutas, los días, los precios y los peligros (el Malea según Estrabón VIII 6, 20; los piratas; el mar cerrado). Con él, los pasajes cuestan un 10 % menos (envoltura de `fareOf`).
+  - **Amuleto:** ofrenda en una herma (Atenas) o a los Lares Viales (Roma); protege ese día.
+  - **Alas:** visibles en la espalda en tercera persona (`uxWingMesh`, hijo de `AVATAR.walk`; aletean). El derretimiento por subir demasiado (`FLY.melt`) ya existía.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
