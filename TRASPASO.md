@@ -127,6 +127,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Tras dos fallos en la misma pregunta**, otra explicación (envoltura de `answer`).
   - **Tablón de anuncios** (`mt:board`) junto a los Rostra o en el ágora: encargos fácil, medio y difícil.
   - **Menú:** opción «Ayuda» con los valores mucha, poca o solo si la pido.
+- **Trepar** (módulo «TREPAR», `CLB`): en `tryMove`, una pendiente por encima del límite (1,15, o 2,2 con Areté 8 o más) ya no bloquea; frena hasta un 20 % (`clbSlow`). Con el caballo sí bloquea. Polvo y piedrecitas con `pfx`; el avatar se inclina (`rotation.x`); en las bajadas de más de 1,4 de pendiente se resbala mientras te mueves. Cada 30 m de desnivel, +1 de Areté (máximo 3 al día, `state.clb`).
+- **Mapas naturales** (módulo «LA NATURALEZA ENTRE LAS CIUDADES»):
+  - **Destinos:** cinco nuevos en `GREECE_DESTS` (citeron, nemea, liceo, tempe, parnaso) y cuatro en `ROMA_DESTS` (nemi, soracte, clitumno, sila). Coordenadas en `MED_POS` y `MED_POS_RO`, entradas en `SIMPLE_GR` y `SIMPLE_RO` con `extra` (bosque `NAT_FOREST`, cuevas, fuentes `natSpring`, altar de ceniza, hornos de pez, ríos, cañas).
+  - **Caminos:** los `WORLD_LINKS` se parten para intercalar los nuevos mapas, y `homeGate` tiene citeron, soracte y nemi.
+  - **Animales salvajes** hechos con primitivas (`WILD` y `wildBuild`, con envoltura de `animal`): ciervo, jabalí, lobo, oso, liebre y buey blanco. Sus textos están en `FAUNA_INFO`.
+  - **Ninfas y divinidades** (`NAT_NY`, creadas en `natSetup`, prefijo `nat:`): Esfragítide, Nemea, Siringe, Dafne, Coricia, Egeria, Feronia, la náyade del Clitumno y Silvano. La primera ofrenda da +1 Sophía y +1 Eusébeia.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
