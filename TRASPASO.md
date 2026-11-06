@@ -184,6 +184,15 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Objetos nuevos:** pétaso (el calor cansa la mitad), capa (la lluvia frena menos), cayado (trepar más deprisa), siringa (calma perros; de noche, ninfas), aceite (necesario para el estrígilo; contador en `hb.cnt`), tésera (viajes un 20 % más baratos), óbolo (Caronte, `hd:caronte`), rama dorada (`fi:rama`), tortas de miel (Cerbero), pinákion (jurado con pago en el klērōtḗrion), diploma (viajes por tierra gratis en Roma), anillo de sello, exvoto (Epidauro o isla Tiberina), lira y honda.
   - **Cómo se consiguen:** comprando con la bolsa, de los pastores de los caminos, de los viajeros (la tésera), de Siringe, de la sombra del Ténaro, o automáticamente por ciudadanía o Fama.
   - **Encargo:** dar agua del odre a los viajeros (+1 Eusébeia, +1 Kléos).
+- **El campo** (módulo «EL CAMPO», `RCX`; ojo, `RC` ya existía; estado en `state.rc`):
+  - **Caza:** botón en `faunaTalk` para liebre, ciervo y jabalí en los mapas de transición. Minijuego `cyMini`; vender da 2, 4 o 6 monedas.
+  - **Pesca:** pescador en los mapas con agua (`RC_FISH`).
+  - **Recolección por estaciones y herbario:** `RC_HERB`; la miel da una torta.
+  - **Fiestas rurales en su mes** (`RC_FEST`): Dionisias rurales y la trilla en Atenas; Parilias, Terminalia y Vinalia en Roma.
+  - **Piezas en cada mapa:** árbol sagrado con cintas, o mojón de Término en algunos mapas romanos; carboneros; mirador en la cumbre (`RC_VIEW`); ruinas (`RC_RUIN`); una moneda perdida por mapa.
+  - **Clima de montaña:** `wxPick` envuelta (más nieve en invierno, niebla matinal).
+  - **Fuentes que se secan** en julio y agosto (50 %).
+- **Lebadea:** mapa nuevo entre Tebas y el Parnaso, con el río Hercina, dos fuentes (Olvido y Memoria) y la cueva de Trofonio (`rc:trofonio`, gasta 2 tortas; Pausanias IX 39).
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
