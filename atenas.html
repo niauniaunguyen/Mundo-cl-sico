@@ -19573,7 +19573,7 @@ function mtAsk(){if(!state||ui!=='play')return;const m=mtz(),g=mtGoal();if(!g){m
   const n=(m.asks[g.key]||0)+1;m.asks[g.key]=Math.min(3,n);save();
   if(n===1){mtSay('Te iría bien esto: <b>'+g.title+'</b>. '+mtIdea(g)+' <span class="sub">(Si me vuelves a preguntar, te digo hacia dónde.)</span>');return;}
   if(n===2||g.x===null){const dx=g.x-player.x,dz=g.z-player.z,d=Math.hypot(dx,dz);mtSay(g.x===null?g.short:'<b>'+g.title+'</b>: '+g.short+'. Está hacia el <b>'+dirName(dx,dz)+'</b>, a unos '+Math.max(10,Math.round(d/10)*10)+' pasos. <span class="sub">(Si vuelves a preguntar, te lo señalo.)</span>');return;}
-  mtBeacon(g.x,g.z);mtSay('Mira la columna de luz dorada: <b>'+(g.who||g.title)+'</b> está allí. '+(g.txt?'<span class="sub">'+g.txt+'</span>':''));}
+  mtBeacon(g.x,g.z);mtSay('Mira la columna de luz dorada: allí está <b>'+(g.who||g.short||g.title)+'</b>. '+(g.txt?'<span class="sub">'+g.txt+'</span>':''));}
 // columna de luz sobre el objetivo (desaparece al llegar o al rato)
 function mtBeacon(x,z){if(MTR.beacon){scene.remove(MTR.beacon);MTR.beacon=null;}const g=new THREE.Group(),m=new THREE.MeshBasicMaterial({color:0xffcf6a,transparent:true,opacity:0.32,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide});
   const c=new THREE.Mesh(new THREE.CylinderGeometry(0.7,1.1,90,16,1,true),m);c.position.y=45;g.add(c);g.position.set(x,floorAt(x,z),z);scene.add(g);MTR.beacon=g;MTR.beaconT=120;}
