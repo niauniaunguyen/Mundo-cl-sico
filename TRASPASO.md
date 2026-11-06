@@ -193,6 +193,14 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Clima de montaña:** `wxPick` envuelta (más nieve en invierno, niebla matinal).
   - **Fuentes que se secan** en julio y agosto (50 %).
 - **Lebadea:** mapa nuevo entre Tebas y el Parnaso, con el río Hercina, dos fuentes (Olvido y Memoria) y la cueva de Trofonio (`rc:trofonio`, gasta 2 tortas; Pausanias IX 39).
+- **Para aprender y enseñar** (módulo `edu`, estado `state.edu`; entradas nuevas en el menú de juego):
+  - **Códice** (tecla C): todo lo visto, con buscador (lugares, lecciones, herbario, batallas, ninfas, objetos, animales), línea del tiempo de las batallas y **logros** con nombre antiguo (`LOGROS`, comprobados cada 3 s en `eduTick`).
+  - **Accesibilidad** (`ACC`, en `localStorage` `nostos-acc`): botón 🔊 de lectura en voz alta en cada diálogo (speechSynthesis, es-ES) y opción de lectura automática; letra grande; fuente Atkinson Hyperlegible (Google Fonts); alto contraste; modo ligero (pixel ratio 1, sin sombras).
+  - **Panel del profesor**: resumen del progreso, código de partida, informe descargable (.txt), preguntas propias del profesor (`localStorage` `nostos-preguntas`) y repaso de 5 preguntas mezclando lecciones aprendidas y preguntas del profesor.
+  - **Música antigua**: lira sintetizada. Epitafio de Seikilos y un fragmento del himno délfico a Apolo, **aproximaciones simplificadas de transcripciones modernas** (y posteriores al 386 a.C.: se avisa en el modo Atenas); modos dorio, frigio y lidio con la opinión de Platón (República III 398e-399c) y de Aristóteles (Política VIII 1342b).
+  - **Comercio entre ciudades** (`TRADE`): cada mercancía es barata en su tierra de origen; precios con estación; carga 8 (16 con caballo); piratas en el Egeo (modo Atenas, 15 % al navegar con carga) y portorium al vender (modo Roma).
+  - **Sucesos en la ciudad** (`EV_A`/`EV_R`): invitación a simposio o cena, testigo, barco con noticias, incendio con los vigiles, préstamo a un vecino (que puede no devolverlo).
+  - **Plagas en la granja** (envoltorio de `farmDay`): langosta, tizón (con las Robigalia, Ovidio, Fastos IV 901-942), sequía y granizo (vigilantes del granizo de Cleonas, Séneca, Cuestiones naturales IV b 6); la piedad reduce la probabilidad.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
