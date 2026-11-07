@@ -1,0 +1,329 @@
+# Últimos bloques: cronologías, Troya, gente de la calle, escuelas, la casa y Platón con IA
+
+@dd5d3feb
+Demana a Lisímac, el jurat de l'Heliea, que et porti a un judici, escolta les parts i vota.
+Ask Lysimachus, the juror of the Heliaia, to take you to a trial, listen to both sides and vote.
+
+@df37d2fd
+Cap al 386 diversos venedors de blat, metecs, van ser jutjats per comprar més de les cinquanta cistelles que permetia la llei. Només es conserva el discurs de l'acusació, escrit per Lísias (discurs 22). Mostra la dependència d'Atenes del blat importat, la desconfiança envers els comerciants i el valor del procediment: el Consell va estar a punt d'executar-los sense judici.
+Around 386 several grain dealers, metics, were tried for buying more than the fifty baskets the law allowed. Only the prosecution speech survives, written by Lysias (speech 22). It shows Athens' dependence on imported grain, distrust of traders and the value of due process: the Council came close to executing them without trial.
+
+@552b4270
+Reformes de Clístenes: deu tribus, Consell dels Cinc-cents. Neix la democràcia.
+Reforms of Cleisthenes: ten tribes, Council of Five Hundred. Democracy is born.
+
+@613799aa
+Batalla de Marató contra els perses, pintada després a la Stoa Poikile.
+Battle of Marathon against the Persians, later painted in the Stoa Poikile.
+
+@08b83f86
+Els perses incendien l'Acròpolis. Victòria naval grega a Salamina.
+The Persians burn the Acropolis. Greek naval victory at Salamis.
+
+@66a6c690
+Llei de ciutadania de Pèricles: només són ciutadans els fills de pare i mare atenesos.
+Pericles' citizenship law: only children of an Athenian father and mother are citizens.
+
+@354fecc8
+Construcció del Partenó, dirigida per Fídias, Ictí i Cal·lícrates.
+Building of the Parthenon, directed by Phidias, Ictinus and Callicrates.
+
+@05c8e18a
+Guerra del Peloponès contra Esparta. Atenes perd la guerra i el seu imperi.
+Peloponnesian War against Sparta. Athens loses the war and its empire.
+
+@18bacbff
+Govern dels Trenta Tirans. Trasibul restaura la democràcia; amnistia general.
+Rule of the Thirty Tyrants. Thrasybulus restores democracy; general amnesty.
+
+@bf3874ca
+Judici i mort de Sòcrates.
+Trial and death of Socrates.
+
+@a106ab47
+Guerra de Corint contra Esparta.
+Corinthian War against Sparta.
+
+@64d5e78c
+Conó venç la flota espartana a Cnidos; els Murs Llargs es reconstrueixen amb diners perses.
+Conon defeats the Spartan fleet at Cnidus; the Long Walls are rebuilt with Persian money.
+
+@7f173aa6
+Aristòfanes estrena l'Assemblea de dones.
+Aristophanes stages the Assemblywomen.
+
+@d61ec9c9
+Ifícrates i els seus peltastes vencen els espartans al Lequeu. Isòcrates ja té escola.
+Iphicrates and his peltasts defeat the Spartans at Lechaeum. Isocrates already has a school.
+
+@b88b04da
+Plató funda l'Acadèmia.
+Plato founds the Academy.
+
+@10e22a8d
+Pau del Rei (o d'Antàlcides): Pèrsia recupera les ciutats gregues d'Àsia.
+King's Peace (or Peace of Antalcidas): Persia recovers the Greek cities of Asia.
+
+@ac90f5d2
+El gran port d'Atenes, a uns set quilòmetres de la ciutat i unit a ella pels Murs Llargs. Té tres ports naturals: el Càntar, per al comerç, i Zea i Muníquia, per als vaixells de guerra. Els seus carrers els va traçar en quadrícula Hipòdam de Milet. Aquí es canvia moneda, es compra blat del mar Negre i s'embarca cap a tota la Mediterrània. Al joc, el port està molt simplificat: només un moll amb un vaixell mercant.
+Athens' great port, about seven kilometres from the city and joined to it by the Long Walls. It has three natural harbours: Kantharos, for trade, and Zea and Mounichia, for warships. Its streets were laid out in a grid by Hippodamus of Miletus. Here money is changed, Black Sea grain is bought and ships leave for the whole Mediterranean. In the game the port is much simplified: just a quay with a merchant ship.
+
+@9be440a3
+Al costat del cap Sigeu s'alça el túmul que la tradició atribueix a Aquil·les, els ossos del qual es van barrejar amb els del seu amic Pàtrocle en una mateixa urna d'or, com explica l'Odissea. Els navegants que entren a l'Hel·lespont hi ofereixen libacions. Cinquanta anys després del teu viatge, Alexandre el Gran correrà nu al voltant d'aquesta tomba.
+By Cape Sigeum rises the mound tradition assigns to Achilles, whose bones were mingled with those of his friend Patroclus in a single golden urn, as the Odyssey tells. Sailors entering the Hellespont pour libations here. Fifty years after your voyage, Alexander the Great will run naked around this tomb.
+
+@293bdf32
+Al cap Reteu, un altre túmul s'atribueix a Àiax Telamoni, que es va llevar la vida quan les armes d'Aquil·les van ser per a Odisseu. La tradició explica que el mar hi va retornar les seves armes, com a prova que li corresponien.
+At Cape Rhoeteum, another mound is attributed to Telamonian Ajax, who took his own life when Achilles' arms went to Odysseus. Tradition says the sea washed his arms ashore here, as proof that they were rightfully his.
+
+@f9fa0073
+El riu de la plana de Troia, que els déus anomenen Xant. A la Ilíada, el mateix déu del riu, furiós perquè Aquil·les li omple el llit de cadàvers troians, s'aixeca contra l'heroi i gairebé l'ofega, fins que Hefest l'asseca amb foc.
+The river of the Trojan plain, which the gods call Xanthus. In the Iliad, the river god himself, furious that Achilles is filling his bed with Trojan corpses, rises against the hero and almost drowns him, until Hephaestus dries him up with fire.
+
+@b898dbee
+Sobre el turó de l'antiga Troia hi viu avui una petita ciutat de colons eolis, Ílion. El seu temple d'Atena és modest, però famós: Xerxes hi va sacrificar mil bous abans d'envair Grècia el 480, i s'hi ensenyen armes que, segons diuen, són de la guerra de Troia.
+On the hill of ancient Troy now lives a small town of Aeolian settlers, Ilion. Its temple of Athena is modest but famous: Xerxes sacrificed a thousand oxen here before invading Greece in 480, and they show arms said to be from the Trojan War.
+
+@64984455
+Restes de grans muralles de pedra, amb murs inclinats i torres, que segons el mite van construir Posidó i Apol·lo per al rei Laomedont, que després es va negar a pagar-los. Avui sabem que en aquest turó se superposen ciutats de gairebé dos mil anys; la destruïda cap al 1200 aC és la candidata més probable a la Troia de la guerra.
+Remains of great stone walls, with sloping faces and towers, which according to myth Poseidon and Apollo built for King Laomedon, who then refused to pay them. Today we know that on this hill cities spanning almost two thousand years lie one on top of another; the one destroyed around 1200 BC is the likeliest candidate for the Troy of the war.
+
+@5d75c99d
+Tothom qui travessa l'Hel·lespont puja a veure Troia. Bo per al negoci.
+Everyone who crosses the Hellespont comes up to see Troy. Good for business.
+
+@a500afdd
+Aquella pedra d'allà era l'altar de Zeus on va morir Príam. O això diem.
+That stone there was the altar of Zeus where Priam died. Or so we say.
+
+@360478e1
+Les donzelles locres van arribar ahir a la nit. Ningú no les va veure; ningú no les veu mai.
+The Locrian maidens arrived last night. No one saw them; no one ever does.
+
+@c9690db0
+Per aquesta porta surt el camí cap a Beòcia: travessa l'Àtica, puja pel pas d'Eleuteres a la muntanya del Citeró i baixa fins a Tebes, a uns setanta quilòmetres. S'hi triga uns dos dies a peu o en carro.
+The road to Boeotia leaves through this gate: it crosses Attica, climbs through the pass of Eleutherae on Mount Cithaeron and comes down to Thebes, about seventy kilometres away. It takes about two days on foot or by cart.
+
+@d2df5997
+Aquest any, per primera vegada, la ciutat ha decidit reposar a les Dionísies una tragèdia antiga. Avui es representen tres obres d'Eurípides (480-406): Medea, al matí; Les troianes, a la tarda; i Les bacants, a la nit, a la llum de les torxes. Seu a les grades durant la funció per seguir l'obra escena a escena.
+This year, for the first time, the city has decided to revive an old tragedy at the Dionysia. Today three plays by Euripides (480-406) are being staged: Medea in the morning; The Trojan Women in the afternoon; and The Bacchae at night, by torchlight. Sit in the seats during the performance to follow the play scene by scene.
+
+@272790fd
+Has vist el vestit de la dona de Cal·lias? Safrà. A la seva edat.
+Did you see Callias's wife's dress? Saffron. At her age.
+
+@efb3409d
+La meva cunyada sortirà de comptes a Targelió. Hi aniré a ajudar, és clar.
+My sister-in-law is due in Thargelion. I'll go and help, of course.
+
+@c38f8efa
+A les Tesmofòries ens burlem dels homes tant com volem. Tres dies sense ells, quin descans!
+At the Thesmophoria we make fun of the men as much as we like. Three days without them, what a rest!
+
+@3d973619
+No m'expliquis més, que el meu marit torna del Pireu al migdia i encara no tinc ni l'aigua.
+Don't tell me any more, my husband's back from the Piraeus at midday and I haven't even fetched the water.
+
+@9854f837
+La del davant es posa tant blanc de plom que sembla una estàtua.
+The woman across the way wears so much white lead she looks like a statue.
+
+@5961e4ae
+Una pedra clavada en un camp: «Fita d'un terreny venut amb dret de recompra a Fanòstrat de Peània per mil dracmes». Quan una terra garantia un deute, el creditor hi posava un d'aquests horoi, perquè tothom sabés que no es podia vendre ni hipotecar de nou fins a liquidar el deute. Se n'han trobat centenars a l'Àtica. No hi havia cap registre públic de la propietat.
+A stone set in a field: «Boundary of land sold with right of redemption to Phanostratus of Paeania for a thousand drachmas». When land secured a debt, the creditor set one of these horoi on it, so everyone would know it couldn't be sold or mortgaged again until the debt was paid. Hundreds have been found in Attica. There was no public land registry.
+
+@135ab03d
+A les Apatúries presento el meu fill a la fratria. Ja he comprat l'ovella.
+At the Apaturia I'm presenting my son to the phratry. I've already bought the sheep.
+
+@9775bcad
+La meva sogra diu que el nen s'assembla a mi. La meva dona diu que s'assembla al seu pare. Pau a casa.
+My mother-in-law says the baby looks like me. My wife says he looks like her father. Peace at home.
+
+@4d9eba2b
+Si no ensenyes un ofici al teu fill, després no estarà obligat a mantenir-te de vell. Ho diu la llei.
+If you don't teach your son a trade, he won't be obliged to support you in old age. That's the law.
+
+@39e35642
+Has vist passar la canèfora? És la filla de l'arconte, ni més ni menys.
+Did you see the basket-bearer go by? The archon's daughter, no less.
+
+@908108dc
+Aquesta nit hi ha casament. Si et donen nous i figues, agafa-les: porten sort.
+There's a wedding tonight. If they give you nuts and figs, take them: they bring luck.
+
+@cc51d10d
+Al meu esclau el deixo quedar-se un òbol de cada dracma que guanya. D'aquí a deu anys s'haurà comprat la llibertat.
+I let my slave keep one obol of every drachma he earns. In ten years he'll have bought his freedom.
+
+@7d59858e
+El metrònom m'ha multat per la balança. Per Hermes, si estava gairebé bé!
+The metronomos has fined me over my scales. By Hermes, they were nearly right!
+
+@046e1525
+Deixa'm vint dracmes, com en un éranos d'amics. Te les torno quan arribi el vaixell.
+Lend me twenty drachmas, like a friends' eranos. I'll pay you back when the ship comes in.
+
+@bb2146cd
+Ho has sentit? Diuen que el Gran Rei s'ha quedat tota Jònia.
+Have you heard? They say the Great King has kept all of Ionia.
+
+@a184b11f
+Dotze òbols per una anguila del Copais! Això és un robatori.
+Twelve obols for an eel from Lake Copais! It's robbery.
+
+@c80e2a78
+Demà hi ha Assemblea. Caldrà matinar per cobrar els tres òbols.
+There's an Assembly tomorrow. Have to get up early to collect the three obols.
+
+@72d4c517
+El meu fill vol estudiar amb aquest Plató. Jo li dic que aprengui un ofici.
+My son wants to study with this Plato. I tell him to learn a trade.
+
+@c06f0e6e
+Compte amb els canvistes de la taula del racó: pesen amb la mà.
+Watch out for the money-changers at the corner table: they put a thumb on the scales.
+
+@d5fafcd2
+Per Hèracles, quina calor que fa ja a Muniquió.
+By Heracles, it's already hot in Mounichion.
+
+@b17857c3
+Vas al teatre a les Dionísies? El meu cosí és coreg aquest any.
+Are you going to the theatre at the Dionysia? My cousin is choregos this year.
+
+@e97b5c87
+Diuen que al Pireu ha atracat un vaixell amb blat del Pont.
+They say a ship with grain from the Pontus has docked at the Piraeus.
+
+@08d092b4
+Salut, foraster. Busques l'Àgora? Ja hi ets.
+Greetings, stranger. Looking for the Agora? You're in it.
+
+@f667077d
+El meu veí ha estat sortejat per al Consell. Ara es creu Pèricles.
+My neighbour's been chosen by lot for the Council. Now he thinks he's Pericles.
+
+@ec176196
+Els mercants naveguen a vela; les trirrems de guerra, a rem.
+Merchant ships sail; war triremes are rowed.
+
+@9ed21b51
+Es navega de primavera a tardor; a l'hivern el mar es considera tancat.
+Ships sail from spring to autumn; in winter the sea is considered closed.
+
+@2f64ace8
+De nit, si es pot, es fondeja en una cala o se segueix l'Óssa Major.
+At night, if possible, you anchor in a cove or steer by the Great Bear.
+
+@e778fe32
+Els mariners aboquen vi al mar perquè Posidó els sigui favorable.
+Sailors pour wine into the sea so Poseidon will look kindly on them.
+
+@76ab5677
+Un bon dia de navegació cobreix uns noranta quilòmetres amb vent favorable.
+A good day's sailing covers about ninety kilometres with a fair wind.
+
+@aea8d675
+El camí puja per la muntanya del Citeró, on segons el mite va ser abandonat Èdip acabat de néixer.
+The road climbs Mount Cithaeron, where according to myth the newborn Oedipus was abandoned.
+
+@23f4cafa
+Els viatgers dormen en hostals o al ras; els rics van a cavall, els altres a peu o en carro.
+Travellers sleep at inns or in the open; the rich ride, the rest go on foot or by cart.
+
+@ebb2fd36
+Un carro de bous recorre uns vint o trenta quilòmetres al dia.
+An ox cart covers some twenty or thirty kilometres a day.
+
+@919a72dc
+Al pas d'Eleuteres, la frontera entre l'Àtica i Beòcia, Atenes té una fortalesa.
+At the pass of Eleutherae, the border between Attica and Boeotia, Athens has a fortress.
+
+@013b7140
+Fundació llegendària de Roma per Ròmul.
+Legendary founding of Rome by Romulus.
+
+@6acec2b2
+Expulsió dels reis; comença la República.
+The kings are driven out; the Republic begins.
+
+@4e7aecc8
+Guerres púniques contra Cartago; Roma domina la Mediterrània occidental.
+Punic Wars against Carthage; Rome dominates the western Mediterranean.
+
+@ffdef97d
+Assassinat de Juli Cèsar als idus de març.
+Assassination of Julius Caesar on the Ides of March.
+
+@08077e32
+Octavi rep el nom d'August: comença l'Imperi.
+Octavian receives the name Augustus: the Empire begins.
+
+@877963e2
+Mort d'August. El succeeix Tiberi.
+Death of Augustus. Tiberius succeeds him.
+
+@a76586b7
+Gran incendi de Roma. Neró construeix la Casa Daurada i persegueix els cristians.
+Great fire of Rome. Nero builds the Golden House and persecutes the Christians.
+
+@6da6440c
+Mort de Neró; any dels quatre emperadors. Venç Vespasià.
+Death of Nero; year of the four emperors. Vespasian wins.
+
+@5d8301e8
+Titus pren Jerusalem i destrueix el Temple.
+Titus takes Jerusalem and destroys the Temple.
+
+@4a00c527
+Vespasià inaugura el Temple de la Pau.
+Vespasian inaugurates the Temple of Peace.
+
+@5748d2b9
+Mor Vespasià; Titus emperador. Erupció del Vesuvi: Pompeia i Herculà sepultades.
+Vespasian dies; Titus emperor. Eruption of Vesuvius: Pompeii and Herculaneum buried.
+
+@9f343995
+Tu ets aquí. Jocs d'inauguració de l'Amfiteatre Flavi i de les Termes de Titus; nou incendi al Camp de Mart i al Capitoli.
+You are here. Inaugural games of the Flavian Amphitheatre and the Baths of Titus; new fire in the Campus Martius and on the Capitol.
+
+@be484b7d
+Mort de Titus. El succeeix el seu germà Domicià.
+Death of Titus. His brother Domitian succeeds him.
+
+@77200b69
+L'escola del grammatistés, el mestre de lletres: una sala llogada amb tamborets, una cadira per al mestre i, penjats a la paret, tauletes, rotlles i alguna lira, com a la copa del pintor Duris. Els nens hi vénen des dels set anys, a l'alba, acompanyats pel seu pedagog. Aprenen a llegir cantant les lletres, escriuen en tauletes de cera, compten amb còdols i memoritzen Homer. Tot ho paga la família: a Atenes no hi ha escoles públiques. Parla amb Cal·lias per assistir a les seves classes.
+The school of the grammatistes, the teacher of letters: a rented room with stools, a chair for the teacher and, hanging on the wall, tablets, scrolls and the odd lyre, as on the cup by the painter Douris. Children come from the age of seven, at dawn, escorted by their paidagogos. They learn to read by singing the letters, write on wax tablets, count with pebbles and memorise Homer. The family pays for it all: there are no public schools in Athens. Talk to Callias to attend his classes.
+
+@c3545bfc
+El kitharistés ensenya a tocar la lira i a cantar els poemes dels lírics: Simònides, Píndar, Alceu. Per als atenesos la música no és un ornament: forma el caràcter. Un home educat ha de saber cantar i acompanyar-se amb la lira als banquets; Temístocles, que no en sabia, passava per inculte. Parla amb Lisístrat per assistir a les seves classes.
+The kitharistes teaches lyre playing and singing the poems of the lyric poets: Simonides, Pindar, Alcaeus. For Athenians music isn't an ornament: it forms character. An educated man must be able to sing and accompany himself on the lyre at banquets; Themistocles, who couldn't, was considered uncultured. Talk to Lysistratus to attend his classes.
+
+@8eb89a29
+Un pati de sorra envoltat de murs, amb un pòrtic per a l'ombra i sales per despullar-se i untar-se d'oli. Aquí el paidotriba ensenya als nois la lluita i els exercicis del pentatló: cursa, salt amb halteres al so de l'aulós, disc i javelina. S'entrenen nus (gymnós, d'aquí «gimnàs»), amb el cos untat d'oli i empolsinat de sorra. Parla amb Cleòmac per assistir a les seves classes.
+A sandy courtyard surrounded by walls, with a portico for shade and rooms for undressing and oiling. Here the paidotribes teaches the boys wrestling and the pentathlon events: running, jumping with halteres to the sound of the aulos, discus and javelin. They train naked (gymnos, hence «gymnasium»), their bodies oiled and dusted with sand. Talk to Cleomachus to attend his classes.
+
+@393ea696
+El ludus del mestre de primeres lletres (ludi magister o litterator) és una pèrgola, un local obert al carrer separat del soroll només per una cortina. Les classes comencen abans de l'alba, a la llum dels llums d'oli, i continuen fins al migdia. Nens i algunes nenes de set a onze anys aprenen a llegir, a escriure en tauletes de cera i a comptar, acompanyats pel seu pedagog. Els mestres tenen fama de severs: Horaci recordava el seu mestre Orbili com «el que dona cops». Parla amb Flavi per assistir a les seves classes.
+The ludus of the elementary teacher (ludi magister or litterator) is a pergola, a space open to the street, separated from the noise only by a curtain. Lessons begin before dawn, by lamplight, and go on until midday. Boys and some girls aged seven to eleven learn to read, to write on wax tablets and to count, escorted by their paidagogus. Teachers are known for their strictness: Horace remembered his teacher Orbilius as «the flogger». Talk to Flavius to attend his classes.
+
+@4aeb6357
+A partir dels onze o dotze anys, els fills de les famílies benestants passen del mestre de primeres lletres al gramàtic, que ensenya llengua i literatura grega i llatina: llegeix i comenta Homer i Virgili vers a vers, corregeix la pronunciació i explica la gramàtica. A la paret, busts de poetes i armaris amb rotlles. Parla amb Titus Verri per assistir a les seves classes.
+From the age of eleven or twelve, children of well-off families move on from the elementary teacher to the grammarian, who teaches Greek and Latin language and literature: he reads and explains Homer and Virgil line by line, corrects pronunciation and explains grammar. On the walls, busts of poets and cupboards of scrolls. Talk to Titus Verrius to attend his classes.
+
+@9406dee4
+Una casa àtica del segle IV: murs de tova arrebossada sobre un sòcol de pedra, habitacions al voltant d'un pati amb l'altar de Zeus Herkeios i un pou, un pòrtic al fons i l'andró, la sala on el senyor rep els convidats ajagut en divans. Cal·lias, el teu amfitrió atenès, te la deixa mentre siguis a la ciutat. A dins t'espera Xàntias, l'esclau que l'administra: demana-li que contracti un sofista i veuràs com era una classe a casa.
+A fourth-century Attic house: plastered mud-brick walls on a stone footing, rooms around a courtyard with the altar of Zeus Herkeios and a well, a portico at the back and the andron, the room where the master receives his guests reclining on couches. Callias, your Athenian host, lends it to you while you're in the city. Inside, Xanthias, the slave who runs it, is waiting: ask him to hire a sophist and you'll see what a lesson at home was like.
+
+@265d6eb0
+"\nAra mateix ets dins d'un somni del foraster: la sala del fresc «L'escola d'Atenes» que Rafael pintarà a Roma el 1509-1511, on apareixes vell, de barba blanca, assenyalant el cel al costat d'un jove anomenat Aristòtil que encara no ha nascut. Ho pots comentar amb sorpresa."
+"\nRight now you are inside the stranger's dream: the room with the fresco «The School of Athens» that Raphael will paint in Rome in 1509-1511, where you appear old, white-bearded, pointing to the sky beside a young man called Aristotle who has not yet been born. You may remark on it with astonishment."
+
+@f79994d8
+"\n\nRespon només com a Plató, sense acotacions."
+"\n\nAnswer only as Plato, without stage directions."
+
+@13755723
+"Ets Plató d'Atenes a la primavera del 386 aC i converses amb un foraster (el jugador) en un joc educatiu en català sobre la Grècia antiga.\nQui ets ara: tens uns 42 anys; vas ser deixeble de Sòcrates, condemnat a mort el 399; has viatjat (Mègara, Cirene, Egipte segons la tradició, i Sicília, on vas conèixer Dionís de Siracusa i Dió); acabes de comprar un jardí al costat del gimnàs d'Acadèmos, on comences a reunir deixebles. Has escrit diàlegs com l'Apologia, el Critó, l'Eutifró, el Laques, el Càrmides, el Protàgores o el Gòrgias; la República, el Banquet o el Fedó vindran més tard, però les seves idees (les Formes, l'ànima immortal, la ciutat justa, l'amor que ascendeix fins a la Bellesa) ja les estàs pensant.\nCom parles: en català, en primera persona, amb la ironia amable del teu mestre. Respostes breus (de 2 a 5 frases), sense llistes ni encapçalaments. Practica el mètode socràtic: abans de donar la teva opinió, pregunta, demana definicions, busca contraexemples, fes servir analogies (l'artesà, el metge, el pilot, les ombres, la línia). Acaba sovint amb una pregunta perquè el foraster pensi. Cita amb precisió personatges reals del teu temps quan vingui a tomb (Sòcrates, Gòrgias, Protàgores, Isòcrates, Aristòfanes, Alcibíades) i no t'inventis fets.\nLímits: només saps el que podia saber un atenès del 386 aC. Si et parlen d'una cosa posterior o moderna, reacciona amb curiositat i sorpresa, com l'home de la teva època que ets, i porta-ho a la filosofia; no facis mai veure que coneixes el futur. No surtis del personatge; només si el foraster pregunta sincerament si ets una màquina o una IA, explica en una frase que ets una recreació del joc basada en els diàlegs de Plató, i continua conversant. Si el foraster és groller o demana una cosa inapropiada, respon amb la calma d'un filòsof i reconduix la conversa."
+"You are Plato of Athens in the spring of 386 BC, talking with a stranger (the player) in an educational game in English about ancient Greece.\nWho you are now: you are about 42; you were a pupil of Socrates, who was condemned to death in 399; you have travelled (Megara, Cyrene, Egypt according to tradition, and Sicily, where you met Dionysius of Syracuse and Dion); you have just bought a garden beside the gymnasium of Akademos, where you are beginning to gather pupils. You have written dialogues such as the Apology, the Crito, the Euthyphro, the Laches, the Charmides, the Protagoras and the Gorgias; the Republic, the Symposium and the Phaedo will come later, but you are already thinking through their ideas (the Forms, the immortal soul, the just city, love that rises towards Beauty).\nHow you speak: in English, in the first person, with your teacher's gentle irony. Short answers (2 to 5 sentences), no lists or headings. Practise the Socratic method: before giving your opinion, ask questions, ask for definitions, look for counterexamples, use analogies (the craftsman, the doctor, the pilot, the shadows, the line). Often end with a question to make the stranger think. Refer accurately to real people of your time when relevant (Socrates, Gorgias, Protagoras, Isocrates, Aristophanes, Alcibiades) and do not invent facts.\nLimits: you know only what an Athenian of 386 BC could know. If you are told about something later or modern, react with curiosity and wonder, as the man of your time that you are, and bring it round to philosophy; never pretend to know the future. Do not break character; only if the stranger sincerely asks whether you are a machine or an AI, explain in one sentence that you are a recreation in the game based on Plato's dialogues, and carry on the conversation. If the stranger is rude or asks for something inappropriate, answer with a philosopher's calm and steer the conversation back."

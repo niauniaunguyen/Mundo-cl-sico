@@ -1,0 +1,1241 @@
+# Personajes de Roma (ROMA_NPCS). Claves @: hash del texto en español.
+
+@3ef8fe50
+Marc Valeri Marcial (c. 40-104), nascut a Bílbilis (Hispània), viu a Roma des del 64. Per a la inauguració de l'Amfiteatre Flavi el 80 va compondre el Llibre dels espectacles, epigrames breus que celebren els jocs de Titus: caceres, combats i escenes mitològiques a l'arena. Els seus epigrames retraten la vida diària de Roma amb humor i mordacitat.
+Marcus Valerius Martialis (c. 40-104), born at Bilbilis (Hispania), has lived in Rome since 64. For the opening of the Flavian Amphitheatre in 80 he wrote the Book of Spectacles, short epigrams celebrating Titus' games: beast hunts, combats and mythological scenes in the arena. His epigrams portray daily life in Rome with humour and bite.
+
+@ce98b503
+Ah, un altre foraster que ve a veure els jocs! Sóc Marc Valeri Marcial, de Bílbilis, a Hispània, encara que fa setze anys que sóc a Roma. Escric epigrames: poemes curts, amb verí a la cua. Aquests dies escric sobre el que passa allà dins: l'amfiteatre més gran que ha vist el món.
+Ah, another stranger come to see the games! I'm Marcus Valerius Martialis, from Bilbilis, in Hispania, though I've been in Rome for sixteen years. I write epigrams: short poems with a sting in the tail. These days I'm writing about what goes on in there: the biggest amphitheatre the world has ever seen.
+
+@cd1d2ef3
+Què estàs escrivint?
+What are you writing?
+
+@fa7be572
+Un llibret per als jocs d'inauguració: cent dies d'espectacles que paga l'emperador Titus. Un poema per a cada meravella: un elefant que s'agenolla davant el Cèsar, un rinoceront que llança un toro pels aires, una dona que lluita contra un lleó… Començo dient que les piràmides d'Egipte i les muralles de Babilònia ja poden callar: tota obra humana cedeix davant l'amfiteatre del Cèsar.
+A little book for the opening games: a hundred days of shows paid for by the emperor Titus. A poem for each marvel: an elephant kneeling before Caesar, a rhinoceros tossing a bull into the air, a woman fighting a lion… I begin by saying that the pyramids of Egypt and the walls of Babylon can fall silent: every human work yields to Caesar's amphitheatre.
+
+@732a6bc3
+Què va passar amb Prisc i Ver?
+What happened with Priscus and Verus?
+
+@d7477400
+Dos gladiadors lluitaven sense que cap no cedís, i el públic demanava per a ells la llibertat. Titus havia posat una regla: lluitar fins que un aixequés el dit. Però tots dos el van aixecar alhora, i el Cèsar els va donar a tots dos l'espasa de fusta, la rudis, i la palma de la victòria. Ho explico en un dels meus epigrames. Prisc és per l'arena; pregunta-li.
+Two gladiators fought with neither giving way, and the crowd called for their freedom. Titus had set a rule: fight until one raised his finger. But both raised it at the same moment, and Caesar gave them both the wooden sword, the rudis, and the palm of victory. I tell it in one of my epigrams. Priscus is out on the sand; ask him.
+
+@58b72da8
+Com viu un poeta a Roma?
+How does a poet live in Rome?
+
+@a3e5e404
+Malament, amic. M'aixeco a l'alba per anar a saludar els meus patrons amb la toga, que pesa a l'estiu, i a canvi em donen l'espòrtula: unes monedes o una mica de menjar. Visc en un tercer pis del Quirinal i pujo moltes escales. Els llibreters venen els meus llibres per cinc denaris i jo no en veig ni un as. Però tothom em llegeix.
+Badly, my friend. I get up at dawn to go and greet my patrons in a toga, which weighs a ton in summer, and in return they give me the sportula: a few coins or a bit of food. I live on a third floor on the Quirinal and climb a lot of stairs. The booksellers sell my books for five denarii and I don't see a single as. But everyone reads me.
+
+@aa4adf23
+Per a quina ocasió va escriure Marcial el Llibre dels espectacles?
+For what occasion did Martial write the Book of Spectacles?
+
+@83296af5
+Per a la inauguració de l'Amfiteatre Flavi per Titus l'any 80
+For Titus' opening of the Flavian Amphitheatre in AD 80
+
+@3a5dfbbf
+Per al triomf d'August després d'Àccium
+For Augustus' triumph after Actium
+
+@c75c4ad8
+Per als funerals de Neró
+For Nero's funeral
+
+@a0df4f31
+No. El Llibre dels espectacles celebra els jocs d'inauguració de l'Amfiteatre Flavi, que Titus va oferir l'any 80.
+No. The Book of Spectacles celebrates the opening games of the Flavian Amphitheatre, which Titus gave in AD 80.
+
+@7c00995b
+Quintilià (c. 35-c. 100), nascut a Calagurris (Calahorra, Hispània), va ser el primer professor de retòrica pagat per l'Estat, amb un sou que li va assignar Vespasià. Defensava una educació completa des de la infància, sense càstigs físics, per formar l'orador ideal: «un home bo, hàbil en el parlar». Ho va exposar més tard a la seva Institució oratòria.
+Quintilian (c. 35-c. 100), born at Calagurris (Calahorra, Hispania), was the first teacher of rhetoric paid by the state, with a salary granted by Vespasian. He championed a complete education from childhood, without corporal punishment, to form the ideal orator: «a good man skilled in speaking». He set it out later in his Institutio Oratoria.
+
+@f2230a91
+Benvingut. Sóc Marc Fabi Quintilià. Ensenyo retòrica aquí, a Roma, i l'emperador Vespasià em va assignar un sou de cent mil sestercis l'any, pagat per l'erari: el primer mestre pagat per l'Estat. Els meus alumnes parlen després en aquests mateixos tribunals de la Basílica Júlia.
+Welcome. I'm Marcus Fabius Quintilianus. I teach rhetoric here in Rome, and the emperor Vespasian granted me a salary of a hundred thousand sesterces a year, paid from the treasury: the first teacher paid by the state. My pupils go on to speak in these very courts of the Basilica Julia.
+
+@54a675e7
+A parlar bé, que és el mateix que pensar bé i viure bé. L'orador perfecte, deia Cató, és un home bo hàbil en el parlar. No n'hi ha prou amb la tècnica: cal saber de tot, història, dret, filosofia, poesia. Comencem amb la gramàtica i els poetes; després vénen els exercicis: narracions, lloances, discursos sobre casos inventats. I molta memòria.
+To speak well, which is the same as thinking well and living well. The perfect orator, said Cato, is a good man skilled in speaking. Technique isn't enough: you need to know everything, history, law, philosophy, poetry. We start with grammar and the poets; then come the exercises: narratives, praise speeches, speeches on invented cases. And a lot of memory work.
+
+@63614839
+Pegues els teus alumnes?
+Do you beat your pupils?
+
+@6df11e47
+Mai. Els assots són cosa d'esclaus i no ensenyen res: humilien i endureixen. Un nen aprèn jugant i per emulació, si el mestre sap despertar la seva ambició. I l'aprenentatge comença al bressol: que la dida parli bé, que el pedagog sigui culte. Els errors de parla que s'aprenen de petit costen anys de treure.
+Never. Flogging is for slaves and teaches nothing: it humiliates and hardens. A child learns through play and emulation, if the teacher knows how to awaken his ambition. And learning starts in the cradle: let the nurse speak well, let the paedagogus be educated. Speech faults learned as a child take years to undo.
+
+@b5c58b1e
+On es parla en públic a Roma?
+Where does one speak in public in Rome?
+
+@e03e6aab
+Aquí mateix: a la Basílica Júlia es reuneix el tribunal dels centumvirs, que jutja herències. Hi ha quatre sales alhora, i de vegades els oients aplaudeixen tant que se sent a la sala del costat. Al Senat ja no es decideix tant com abans; des d'August, qui mana és el príncep. Però als tribunals la paraula encara pot salvar o enfonsar un home.
+Right here: the centumviral court, which tries inheritance cases, sits in the Basilica Julia. There are four courtrooms at once, and sometimes the audience applauds so loudly it can be heard next door. The Senate doesn't decide as much as it used to; since Augustus, the princeps is in charge. But in the courts words can still save or ruin a man.
+
+@2d830532
+Per què va ser innovador el càrrec de Quintilià?
+Why was Quintilian's post a novelty?
+
+@3f3ff60a
+Va ser el primer mestre de retòrica amb un sou pagat per l'Estat
+He was the first teacher of rhetoric with a salary paid by the state
+
+@76bf4072
+Va ser el primer romà que va ensenyar en grec
+He was the first Roman to teach in Greek
+
+@4e21cd86
+Va ser el primer senador que va escriure poesia
+He was the first senator to write poetry
+
+@be2a1f22
+No. Vespasià li va assignar un sou públic: va ser el primer professor de retòrica pagat per l'erari a Roma.
+No. Vespasian granted him a public salary: he was the first teacher of rhetoric in Rome paid from the treasury.
+
+@a4c771cd
+Josep (37-c. 100), sacerdot de Jerusalem i cap rebel a Galilea, es va rendir a Vespasià el 67 i li va predir que seria emperador. Alliberat i amb el nom de la família Flàvia, va presenciar la destrucció de Jerusalem el 70 i va escriure a Roma la Guerra dels jueus. Els objectes del Temple de Jerusalem, com el canelobre de set braços, es van exposar al Temple de la Pau.
+Josephus (37-c. 100), a priest of Jerusalem and rebel commander in Galilee, surrendered to Vespasian in 67 and foretold that he would be emperor. Freed and given the Flavian family name, he witnessed the destruction of Jerusalem in 70 and wrote The Jewish War in Rome. The objects from the Temple in Jerusalem, such as the seven-branched candlestick, were displayed in the Temple of Peace.
+
+@f12a4733
+Xalom, foraster. Em deia Yosef ben Matityahu, sacerdot de Jerusalem. Ara em diuen Flavi Josep. Visc a l'antiga casa de l'emperador Vespasià i escric la història de la guerra en què el meu poble ho va perdre gairebé tot. Mira allà dins: el canelobre d'or del nostre Temple és exposat com un trofeu.
+Shalom, stranger. I was called Yosef ben Matityahu, a priest of Jerusalem. Now they call me Flavius Josephus. I live in the emperor Vespasian's old house and I'm writing the history of the war in which my people lost almost everything. Look in there: the golden lampstand of our Temple is on display like a trophy.
+
+@5718e287
+Com vas arribar a Roma?
+How did you come to Rome?
+
+@c9236a55
+Dirigia la defensa de Galilea contra Roma. A Iotapata vam resistir quaranta-set dies; quan va caure, em vaig amagar en una cova amb uns altres quaranta. Van decidir matar-se abans que rendir-se, i vam fer sortejos. Jo vaig quedar entre els últims i em vaig lliurar. Davant de Vespasià li vaig dir que seria emperador. Dos anys després ho era. Em va alliberar i porto el seu nom. Els meus paisans em diuen traïdor; jo dic que només vaig veure abans que ells el que passaria.
+I led the defence of Galilee against Rome. At Jotapata we held out for forty-seven days; when it fell, I hid in a cave with forty others. They decided to kill themselves rather than surrender, and we drew lots. I was among the last and gave myself up. Before Vespasian I told him he would be emperor. Two years later he was. He freed me and I bear his name. My countrymen call me a traitor; I say I merely saw sooner than they did what was going to happen.
+
+@4e048a19
+Què va passar amb el Temple?
+What happened to the Temple?
+
+@f9d9c969
+L'estiu del 70, Titus, el fill de Vespasià, va prendre Jerusalem després d'un setge terrible: fam, foc, faccions que es mataven entre elles dins les muralles. El Temple va cremar. Jo ho vaig veure des de les línies romanes. L'any següent van desfilar aquí, en el triomf, la taula dels pans, les trompetes de plata i el canelobre de set braços. Ara són en aquest Temple de la Pau. Pau, en diuen.
+In the summer of 70, Titus, Vespasian's son, took Jerusalem after a terrible siege: hunger, fire, factions killing one another inside the walls. The Temple burned. I watched from the Roman lines. The following year the table of the showbread, the silver trumpets and the seven-branched candlestick were paraded here in the triumph. Now they're in this Temple of Peace. Peace, they call it.
+
+@c879473c
+Què és el Temple de la Pau?
+What is the Temple of Peace?
+
+@27324318
+Vespasià el va inaugurar fa cinc anys amb el botí de Judea. És més un jardí que un temple: una gran plaça amb pòrtics, estanys i rosers, una sala amb estàtues i pintures gregues famoses portades de tot l'imperi, i una biblioteca. Els romans hi vénen a passejar i a mirar obres d'art. Jo hi vinc a mirar el canelobre i a recordar.
+Vespasian dedicated it five years ago with the spoils of Judaea. It's more a garden than a temple: a great square with porticoes, pools and rose beds, a hall of famous Greek statues and paintings brought from all over the empire, and a library. Romans come to stroll and look at works of art. I come to look at the lampstand and remember.
+
+@e1040582
+Què s'exposava al Temple de la Pau procedent de Jerusalem?
+What was displayed in the Temple of Peace that came from Jerusalem?
+
+@797678bb
+El canelobre de set braços i altres objectes del Temple jueu
+The seven-branched candlestick and other objects from the Jewish Temple
+
+@41943a98
+L'estàtua d'or de Zeus d'Olímpia
+The gold statue of Zeus at Olympia
+
+@0d65bed2
+Els escuts dels gals d'Alèsia
+The shields of the Gauls from Alesia
+
+@a9b95e54
+No. Vespasià va exposar al Temple de la Pau el botí de la guerra de Judea, com el canelobre de set braços (menorà) del Temple de Jerusalem.
+No. Vespasian displayed the spoils of the Judaean war in the Temple of Peace, such as the seven-branched candlestick (menorah) of the Temple in Jerusalem.
+
+@f4b9bf4b
+Epictet (c. 50-c. 135), nascut a Hieràpolis de Frígia, va ser esclau d'Epafrodit, llibert de Neró, que li va permetre estudiar amb l'estoic Musoni Ruf. Coix, ensenyava a distingir el que depèn de nosaltres (judicis, desitjos) del que no (cos, béns, fama), i que la llibertat és a l'interior. Ja alliberat va ensenyar a Roma i després a Nicòpolis; el seu deixeble Arrià en va recollir els ensenyaments.
+Epictetus (c. 50-c. 135), born at Hierapolis in Phrygia, was the slave of Epaphroditus, Nero's freedman, who let him study with the Stoic Musonius Rufus. Lame, he taught people to distinguish what is up to us (judgements, desires) from what is not (body, property, reputation), and that freedom lies within. Once freed he taught in Rome and later at Nicopolis; his disciple Arrian recorded his teachings.
+
+@a55e1a5e
+No et compadeixis de la meva cama, foraster. Em dic Epictet, que en grec vol dir «adquirit»: sóc esclau d'Epafrodit, el que va ser secretari de Neró. El meu amo em deixa anar a escoltar el filòsof Musoni. I et diré una cosa: sóc més lliure que molts senadors que passen per aquí en llitera.
+Don't pity my leg, stranger. My name is Epictetus, which means «acquired» in Greek: I'm the slave of Epaphroditus, who was Nero's secretary. My master lets me go and listen to the philosopher Musonius. And I'll tell you something: I'm freer than many senators who pass by here in their litters.
+
+@28b3bd64
+Com pot ser lliure un esclau?
+How can a slave be free?
+
+@0f10a752
+De les coses que existeixen, unes depenen de nosaltres i d'altres no. Depenen de nosaltres el judici, el desig, l'aversió: el que és obra nostra. No depenen de nosaltres el cos, els béns, la fama, els càrrecs. El meu amo pot encadenar la meva cama, però ni Zeus no pot encadenar la meva voluntat. Qui desitja el que no depèn d'ell, aquest és el veritable esclau.
+Of the things that exist, some are up to us and some are not. Up to us are judgement, desire, aversion: what is our own doing. Not up to us are the body, property, reputation, office. My master can chain my leg, but not even Zeus can chain my will. He who desires what is not up to him: he is the true slave.
+
+@b75cec3e
+Què li va passar a la teva cama?
+What happened to your leg?
+
+@f0a1061e
+Uns diuen que vaig néixer coix; d'altres, que un amo me la va retorçar per diversió. Expliquen que li vaig dir: «Si continues, la trencaràs». I quan es va trencar: «No t'ho deia?». Sigui com sigui, la cama no és cosa meva; el que em correspon és com ho porto. No són les coses les que ens pertorben, sinó les opinions que tenim sobre les coses.
+Some say I was born lame; others, that a master twisted it for fun. They say I told him: «If you go on, you'll break it». And when it broke: «Didn't I tell you?». Whatever the truth, the leg isn't my business; what's mine is how I bear it. It is not things that disturb us, but our opinions about things.
+
+@37f920d3
+Què és l'estoïcisme?
+What is Stoicism?
+
+@ae357c87
+Una filosofia que va néixer a Atenes, a l'Stoa Pintada, amb Zenó, fa gairebé quatre-cents anys. Diu que l'univers està ordenat per la raó, el lógos, i que el savi viu d'acord amb la natura. A Roma ha tingut grans seguidors: Sèneca, que va ser mestre de Neró i va morir per ordre seva, i el meu mestre Musoni, desterrat diverses vegades. És una filosofia per a temps difícils.
+A philosophy born in Athens, in the Painted Stoa, with Zeno, almost four hundred years ago. It says the universe is ordered by reason, the logos, and that the wise man lives in accordance with nature. In Rome it has had great followers: Seneca, who was Nero's tutor and died on his orders, and my teacher Musonius, exiled several times. It's a philosophy for hard times.
+
+@75705a6d
+Segons Epictet, què depèn de nosaltres?
+According to Epictetus, what is up to us?
+
+@29ba52bd
+Els nostres judicis, desitjos i aversions
+Our judgements, desires and aversions
+
+@807e7699
+La nostra salut, els nostres béns i la nostra fama
+Our health, our property and our reputation
+
+@d262ddf4
+El destí que ens marquen els déus
+The fate the gods assign us
+
+@c0ca39df
+No. Per a Epictet només depenen de nosaltres els judicis, els desitjos i les aversions; el cos, els béns i la fama, no.
+No. For Epictetus only judgements, desires and aversions are up to us; the body, property and reputation are not.
+
+@07e53207
+Musoni Ruf (c. 25-c. 100), cavaller etrusc i filòsof estoic, va ser desterrat per Neró a l'illa de Gíaros i un altre cop per Vespasià; Titus el va fer tornar. Ensenyava una filosofia pràctica: menjar senzill, treball, sobrietat. Sostenia que homes i dones tenen la mateixa capacitat per a la virtut i que les filles han d'estudiar filosofia com els fills.
+Musonius Rufus (c. 25-c. 100), an Etruscan knight and Stoic philosopher, was exiled by Nero to the island of Gyaros and again by Vespasian; Titus brought him back. He taught a practical philosophy: simple food, work, sobriety. He held that men and women have the same capacity for virtue and that daughters should study philosophy just as sons do.
+
+@3f4a225f
+Salut. Sóc Gai Musoni Ruf. Neró em va desterrar a Gíaros, una roca sense aigua a l'Egeu; Vespasià em va fer fora un altre cop amb els altres filòsofs. Ara, amb Titus, he tornat. A la meva edat prefereixo ensenyar passejant sota aquests pòrtics, entre els plàtans, a veure si algun d'aquests joves vol ser millor i no només més ric.
+Greetings. I am Gaius Musonius Rufus. Nero exiled me to Gyaros, a waterless rock in the Aegean; Vespasian threw me out again with the other philosophers. Now, under Titus, I'm back. At my age I prefer to teach walking under these porticoes, among the plane trees, to see if any of these young men wants to become better and not just richer.
+
+@208dcfd8
+Han d'estudiar filosofia les dones?
+Should women study philosophy?
+
+@85d0dfee
+Per què no? Els déus van donar a les dones la mateixa raó que als homes, els mateixos sentits, el mateix desig natural de la virtut. Una dona filòsofa serà millor administradora de la seva casa, més justa amb els esclaus, més valenta davant la desgràcia, millor mare. Per això dic que les filles s'han d'educar igual que els fills.
+Why not? The gods gave women the same reason as men, the same senses, the same natural desire for virtue. A woman philosopher will run her household better, be juster to her slaves, braver in misfortune, a better mother. That's why I say daughters should be educated the same as sons.
+
+@279f03f9
+Què és el més important en la filosofia?
+What matters most in philosophy?
+
+@7e88e351
+La pràctica. De res no serveix saber què és la temprança si menges com un golafre. Per això recomano menjar senzill, sense carn si és possible, dormir a terra de tant en tant, treballar amb les mans, suportar el fred i la calor. La virtut és com la medicina o la música: no n'hi ha prou de conèixer la teoria, cal exercitar-se.
+Practice. It's no use knowing what temperance is if you eat like a glutton. That's why I recommend simple food, without meat if possible, sleeping on the ground now and then, working with your hands, enduring cold and heat. Virtue is like medicine or music: knowing the theory isn't enough, you have to train.
+
+@59f32821
+Com era el desterrament?
+What was exile like?
+
+@f8337f1d
+A Gíaros no hi havia res, ni aigua. Però em visitava gent de tota Grècia per parlar de filosofia, i una vegada vaig trobar una font que ningú no coneixia. El desterrament treu la pàtria, no la virtut; el món sencer és la pàtria del savi. El que de veritat fa mal no és el desterrament, sinó la por al desterrament.
+On Gyaros there was nothing, not even water. But people came from all over Greece to talk philosophy with me, and once I found a spring nobody knew about. Exile takes away your homeland, not your virtue; the whole world is the wise man's homeland. What truly hurts is not exile but the fear of exile.
+
+@f7b7fcf9
+Què defensava Musoni Ruf sobre l'educació de les dones?
+What did Musonius Rufus argue about women's education?
+
+@f4a85469
+Que les filles havien d'estudiar filosofia com els fills, perquè tenen la mateixa capacitat per a la virtut
+That daughters should study philosophy like sons, because they have the same capacity for virtue
+
+@f283e9fe
+Que les dones només havien d'aprendre a teixir
+That women should only learn to weave
+
+@7d4ae3b2
+Que només les sacerdotesses podien estudiar
+That only priestesses could study
+
+@9cf08e26
+No. Musoni sostenia que homes i dones tenen la mateixa raó i capacitat per a la virtut, i que les filles havien d'estudiar filosofia igual que els fills.
+No. Musonius held that men and women have the same reason and capacity for virtue, and that daughters should study philosophy just as sons do.
+
+@9856ac33
+Roma rebia aigua per nou aqüeductes el 80. L'Aqua Claudia, acabat per Claudi el 52, portava aigua des de gairebé setanta quilòmetres per canals amb un pendent mínim, i en el seu últim tram travessava la vall sobre grans arcs; Neró el va perllongar fins al Celi i el Palatí. Frontí, que va ser curator aquarum el 97, va descriure el sistema en el seu tractat Sobre els aqüeductes de Roma.
+In 80 Rome received water through nine aqueducts. The Aqua Claudia, completed by Claudius in 52, brought water from almost seventy kilometres away through channels with a minimal gradient, crossing the valley on great arches on its last stretch; Nero extended it to the Caelian and the Palatine. Frontinus, who was curator aquarum in 97, described the system in his treatise On the Aqueducts of Rome.
+
+@48f141f5
+Salut. Sext Juli Frontí. He governat Britània i he combatut els silurs a les seves muntanyes; ara he tornat a Roma. M'interessen les coses que funcionen, i poques funcionen tan bé com això que tens damunt: l'Aqüeducte Claudi. Escolta: dins del canal corre aigua que ha baixat més de seixanta quilòmetres des de les muntanyes.
+Greetings. Sextus Julius Frontinus. I've governed Britain and fought the Silures in their mountains; now I'm back in Rome. I'm interested in things that work, and few work as well as what's above your head: the Aqua Claudia. Listen: inside the channel flows water that has come down more than sixty kilometres from the hills.
+
+@f2d8012c
+Com arriba l'aigua a Roma?
+How does the water reach Rome?
+
+@a72e443f
+Per gravetat, res més. Es capta en fonts de les muntanyes i es porta per un canal de pedra cobert, l'specus, amb un pendent molt petit. Gairebé tot el recorregut va sota terra; només quan cal travessar una vall s'aixeca sobre arcs com aquests. En arribar, l'aigua va a dipòsits, i d'allà, per canonades de plom, a fonts, termes i cases.
+By gravity, nothing more. It's collected from springs in the hills and carried in a covered stone channel, the specus, with a very slight gradient. Almost the whole way runs underground; only where a valley must be crossed does it rise on arches like these. On arrival the water goes into reservoirs, and from there, through lead pipes, to fountains, baths and houses.
+
+@9b3c919a
+Quants aqüeductes té Roma?
+How many aqueducts does Rome have?
+
+@8def75d1
+Nou. El més antic, l'Aqua Appia, el va construir Api Claudi fa gairebé quatre-cents anys, el mateix de la Via Àpia. Després l'Anio Vetus, la Marcia, que porta la millor aigua, freda i neta, la Tepula, la Julia, la Virgo d'Agripa, l'Alsietina, que només serveix per regar, i aquesta Claudia amb l'Anio Novus. Compara'm aquesta obra amb les piràmides ocioses d'Egipte o amb les obres inútils i famoses dels grecs.
+Nine. The oldest, the Aqua Appia, was built by Appius Claudius almost four hundred years ago, the same man as the Via Appia. Then the Anio Vetus, the Marcia, which brings the best water, cold and clean, the Tepula, the Julia, Agrippa's Virgo, the Alsietina, good only for irrigation, and this Claudia with the Anio Novus. Compare this work, I say, with the idle pyramids of Egypt or the useless, famous works of the Greeks.
+
+@52efa7d3
+Qui s'encarrega de tot això?
+Who looks after all this?
+
+@34c44206
+Un curator aquarum, un senador, amb centenars d'esclaus públics: lampistes, vigilants, paletes. El seu pitjor enemic són els lladres d'aigua: gent que punxa la canonada pública per regar l'hort o omplir el bany, de vegades subornant els lampistes. Algun dia m'agradaria posar-hi ordre.
+A curator aquarum, a senator, with hundreds of public slaves: plumbers, watchmen, masons. His worst enemy is the water thieves: people who tap the public pipe to water their garden or fill their bath, sometimes bribing the plumbers. One day I'd like to sort that out.
+
+@c3df2155
+Com arribava l'aigua dels aqüeductes a Roma?
+How did aqueduct water reach Rome?
+
+@0ffc7f06
+Per gravetat, amb un pendent molt petit, gairebé sempre sota terra
+By gravity, with a very slight gradient, almost always underground
+
+@5c82c9ac
+Bombejada per grans rodes mogudes per esclaus
+Pumped by great wheels turned by slaves
+
+@7d810380
+En carros cisterna des del Tíber
+In water carts from the Tiber
+
+@286ac4e3
+No. L'aigua baixava per gravetat des de les fonts per un canal amb un pendent mínim; només les valls es travessaven sobre arcs.
+No. The water came down by gravity from the springs in a channel with a minimal gradient; only valleys were crossed on arches.
+
+@f9167134
+El 79, el Vesuvi va entrar en erupció i va sepultar Pompeia, Herculà i Estàbia. Plini el Vell, almirall de la flota de Misè i autor de la Història natural, va morir en intentar rescatar els habitants de la costa. El seu nebot, Plini el Jove, que ho va veure tot des de Misè amb 17 anys, ho va explicar després en dues cartes a Tàcit: la primera descripció detallada d'una erupció volcànica.
+In 79 Vesuvius erupted and buried Pompeii, Herculaneum and Stabiae. Pliny the Elder, admiral of the fleet at Misenum and author of the Natural History, died trying to rescue the people of the coast. His nephew, Pliny the Younger, who saw it all from Misenum at seventeen, later told the story in two letters to Tacitus: the first detailed description of a volcanic eruption.
+
+@32c5eac7
+Salut. Sóc Gai Plini Cecili Segon, nebot i fill adoptiu de Plini el Vell. Estudio retòrica amb Quintilià. L'any passat el meu oncle va morir a l'erupció del Vesuvi, i jo ho vaig veure tot des de Misè, a l'altra banda del golf. De vegades encara somio amb aquell núvol.
+Greetings. I'm Gaius Plinius Caecilius Secundus, nephew and adopted son of Pliny the Elder. I study rhetoric with Quintilian. Last year my uncle died in the eruption of Vesuvius, and I saw it all from Misenum, across the bay. Sometimes I still dream of that cloud.
+
+@a4824b57
+Què vas veure aquell dia?
+What did you see that day?
+
+@24f8cc50
+Cap a l'hora setena la meva mare va assenyalar un núvol enorme sobre una muntanya, a l'altra banda del golf. Tenia la forma d'un pi: un tronc altíssim que s'obria en branques. Unes vegades blanc, d'altres brut, segons si carregava terra o cendra. L'endemà la terra tremolava tant que els carros es movien sols. Després va caure una foscor com la d'una habitació tancada amb el llum apagat. Se sentien els crits de dones i nens.
+Around the seventh hour my mother pointed out a huge cloud over a mountain across the bay. It had the shape of a pine tree: a very tall trunk that spread out into branches. Sometimes white, sometimes dirty, depending on whether it carried earth or ash. The next day the earth shook so much that the carts moved on their own. Then a darkness fell like that of a closed room with the lamp put out. You could hear women and children screaming.
+
+@a0c9556e
+Com va morir el teu oncle?
+How did your uncle die?
+
+@1f1efb8a
+Era almirall de la flota de Misè. En veure el núvol s'hi va voler acostar per estudiar-lo, com a bon naturalista; després va rebre el missatge d'una dona que demanava ajuda i va convertir l'expedició en un rescat. Va navegar cap al perill mentre tothom fugia. A Estàbia, al tercer dia, el van trobar mort a la platja, sencer, com adormit: li va faltar l'aire. Havia escrit trenta-set llibres d'Història natural.
+He was admiral of the fleet at Misenum. Seeing the cloud, he wanted to go closer and study it, like a good naturalist; then he received a message from a woman begging for help and turned the expedition into a rescue. He sailed towards the danger while everyone else fled. At Stabiae, on the third day, they found him dead on the beach, unharmed, as if asleep: he had run out of air. He had written thirty-seven books of Natural History.
+
+@dacad882
+Què ha passat amb Pompeia?
+What has happened to Pompeii?
+
+@ab9ae04f
+Ha desaparegut sota la cendra, igual que Herculà i Estàbia. L'emperador Titus va anar a Campània, va nomenar comissionats per a la reconstrucció i va destinar els béns dels morts sense hereus a ajudar els supervivents. Però aquelles ciutats no es reconstruiran: són sota diversos metres de pedra tosca. Potser algun dia algú les desenterrarà.
+It has vanished under the ash, like Herculaneum and Stabiae. The emperor Titus went to Campania, appointed commissioners for the rebuilding and assigned the property of those who died without heirs to help the survivors. But those towns won't be rebuilt: they lie under several metres of pumice. Perhaps one day someone will dig them up.
+
+@36d73419
+Com va morir Plini el Vell?
+How did Pliny the Elder die?
+
+@3838a0bb
+En intentar rescatar amb la flota els habitants de la costa durant l'erupció del Vesuvi
+Trying to rescue the people of the coast with the fleet during the eruption of Vesuvius
+
+@5a0fa5d3
+En una batalla contra els parts
+In a battle against the Parthians
+
+@97da298a
+Enverinat per ordre de Neró
+Poisoned on Nero's orders
+
+@704fb07c
+No. Plini el Vell, almirall de la flota de Misè, va morir a Estàbia durant l'erupció del Vesuvi del 79, quan intentava rescatar els habitants de la costa.
+No. Pliny the Elder, admiral of the fleet at Misenum, died at Stabiae during the eruption of Vesuvius in 79, while trying to rescue the people of the coast.
+
+@cf4d69eb
+A la Roma imperial el Senat continuava existint, amb uns 600 membres, però el poder real era de l'emperador (princeps). La carrera dels honors (cursus honorum) seguia un ordre fix: qüestor, edil o tribú de la plebs, pretor i cònsol, amb edats mínimes. Tàcit, que va fer carrera sota els Flavis, va escriure després els Annals i les Històries, amb una visió amarga del poder imperial.
+In imperial Rome the Senate still existed, with some 600 members, but real power belonged to the emperor (princeps). The course of honours (cursus honorum) followed a fixed order: quaestor, aedile or tribune of the plebs, praetor and consul, with minimum ages. Tacitus, who made his career under the Flavians, later wrote the Annals and the Histories, with a bitter view of imperial power.
+
+@4701fdf0
+Salut. Publi Corneli Tàcit. Sóc jove per ser davant de la Cúria, ja ho sé: tinc uns vint-i-quatre anys. Fa poc em vaig casar amb la filla de Gneu Juli Agrícola, que ara governa Britània, i Vespasià em va obrir la carrera senatorial. Algun dia escriuré la història d'aquests temps. Si m'hi atreveixo.
+Greetings. Publius Cornelius Tacitus. I'm young to be standing before the Curia, I know: I'm about twenty-four. I recently married the daughter of Gnaeus Julius Agricola, who now governs Britain, and Vespasian opened the senatorial career to me. One day I'll write the history of these times. If I dare.
+
+@7dc5e8fc
+Què és el cursus honorum?
+What is the cursus honorum?
+
+@aaed3b29
+La carrera dels honors. Primer, càrrecs menors i servei com a tribú en una legió. Després, cap als vint-i-cinc anys, qüestor: administres diners públics i entres al Senat. Després edil o tribú de la plebs; cap als trenta, pretor, que jutja; i al final, si l'emperador vol, cònsol. Cada càrrec dura un any i es comparteix amb col·legues. I després, governar una província o manar un exèrcit.
+The course of honours. First, minor posts and service as a tribune in a legion. Then, at about twenty-five, quaestor: you manage public money and enter the Senate. Then aedile or tribune of the plebs; around thirty, praetor, who judges cases; and finally, if the emperor wishes, consul. Each office lasts a year and is shared with colleagues. And afterwards, governing a province or commanding an army.
+
+@a36b087d
+Quin poder té el Senat?
+What power does the Senate have?
+
+@e3aabc45
+Molt de nom, poc de fet. Sis-cents senadors amb túnica de franja porpra, que voten decrets, jutgen els seus i governen algunes províncies. Però des d'August qui mana és el príncep: té els exèrcits, els diners i l'última paraula. Hem après a callar i a adular. Amb un bon príncep, com Titus, la cosa es pot suportar. Amb un de dolent, com Neró, cada sessió podia ser l'última.
+A lot in name, little in fact. Six hundred senators in tunics with a purple stripe, who vote decrees, try their own members and govern some provinces. But since Augustus the princeps has been in charge: he has the armies, the money and the last word. We've learned to keep quiet and to flatter. With a good princeps, like Titus, it's bearable. With a bad one, like Nero, every session could be your last.
+
+@a75b1349
+Per què vols escriure història?
+Why do you want to write history?
+
+@1d8b434c
+Perquè algú ha d'explicar sense ira ni parcialitat el que va passar: l'any dels quatre emperadors, quan es van matar Galba, Otó i Vitel·li i Roma va cremar en guerra civil fins que va arribar Vespasià. Els historiadors de la cort menteixen per por o per odi. Jo esperaré que hi hagi un temps feliç en què es pugui pensar el que es vulgui i dir el que es pensa.
+Because someone must tell what happened without anger or partiality: the year of the four emperors, when Galba, Otho and Vitellius were killed and Rome burned in civil war until Vespasian came. Court historians lie out of fear or hatred. I'll wait for a happy time when one may think what one likes and say what one thinks.
+
+@3f993fdc
+Quin càrrec donava entrada al Senat en la carrera dels honors?
+Which office gave entry to the Senate in the course of honours?
+
+@186f5c08
+La qüestura
+The quaestorship
+
+@a810809d
+El consolat
+The consulship
+
+@a8df85ea
+La censura
+The censorship
+
+@c42136b9
+No. El primer càrrec de la carrera senatorial era la qüestura, que donava entrada al Senat; el consolat n'era el cim.
+No. The first office of the senatorial career was the quaestorship, which gave entry to the Senate; the consulship was the summit.
+
+@d073c92c
+Roma era plena de grecs: mestres, metges, filòsofs, esclaus, comerciants. L'elit romana parlava grec, llegia Homer i Plató i enviava els seus fills a estudiar a Atenes o a Rodes. Dió de Prusa (c. 40-c. 115), anomenat Crisòstom («boca d'or»), va ser un dels oradors grecs més famosos; sota Domicià seria desterrat i vagaria anys per l'imperi com un filòsof cínic.
+Rome was full of Greeks: teachers, doctors, philosophers, slaves, merchants. The Roman elite spoke Greek, read Homer and Plato and sent their sons to study in Athens or Rhodes. Dio of Prusa (c. 40-c. 115), called Chrysostom («golden mouth»), was one of the most famous Greek orators; under Domitian he would be exiled and wander the empire for years as a Cynic philosopher.
+
+@4fb17a9b
+Khaíre, estranger, o salve, si ho prefereixes. Sóc Dió, de Prusa, a Bitínia. Els romans em diuen orador; els meus amics, filòsof. Roma va conquerir Grècia, diuen, però Grècia va conquerir el seu ferotge vencedor: aquí tothom que és algú parla grec, té un metge grec i un mestre grec per als seus fills.
+Khaire, stranger, or salve, if you prefer. I'm Dio, of Prusa, in Bithynia. The Romans call me an orator; my friends, a philosopher. Rome conquered Greece, they say, but Greece conquered her fierce conqueror: here everyone who's anyone speaks Greek, has a Greek doctor and a Greek tutor for his children.
+
+@407bfef0
+Per què hi ha tants grecs a Roma?
+Why are there so many Greeks in Rome?
+
+@4692d377
+Perquè aquí hi ha el poder i els diners, i nosaltres tenim el que Roma admira: la filosofia, la retòrica, la medicina, l'escultura. Horaci ho va dir: Grècia, conquerida, va conquerir el seu ferotge vencedor i va portar les arts al rústic Laci. Però també hi ha recel; hi ha poetes que es queixen que Roma s'ha tornat una ciutat grega. I molts grecs han arribat aquí com a esclaus.
+Because power and money are here, and we have what Rome admires: philosophy, rhetoric, medicine, sculpture. Horace said it: captive Greece took her fierce conqueror captive and brought the arts to rustic Latium. But there's suspicion too; some poets complain that Rome has become a Greek city. And many Greeks came here as slaves.
+
+@813d26ae
+Has estat a Atenes?
+Have you been to Athens?
+
+@ff5ec674
+Moltes vegades. Atenes és avui una ciutat petita sota Roma, però continua sent l'escola de Grècia: l'Acadèmia, el Liceu, l'Stoa. Els joves romans rics hi van a estudiar, com va fer Ciceró. Un s'asseu al teatre de Dionís i pensa en Eurípides. Encara es discuteix a l'Àgora com en temps de Sòcrates, encara que les decisions es prenguin aquí.
+Many times. Athens today is a small city under Rome, but it's still the school of Greece: the Academy, the Lyceum, the Stoa. Rich young Romans go there to study, as Cicero did. You sit in the theatre of Dionysus and think of Euripides. People still argue in the Agora as in Socrates' day, though the decisions are made here.
+
+@a2774473
+Què és avui un sofista?
+What is a sophist today?
+
+@947c7ecf
+Ja no és un insult, com en temps de Plató. Som conferenciants: parlem en teatres i a les corts, improvisem sobre qualsevol tema, lloem ciutats, aconsellem reis. De vegades és pura pirotècnia. Jo procuro que els meus discursos serveixin per a alguna cosa: parlar de la concòrdia entre ciutats, de la virtut del governant, de la vida senzilla del camp.
+It's no longer an insult, as in Plato's day. We're lecturers: we speak in theatres and at courts, improvise on any theme, praise cities, advise kings. Sometimes it's pure fireworks. I try to make my speeches useful: to speak of concord between cities, the virtue of the ruler, the simple life of the countryside.
+
+@1032a47a
+Què volia dir la frase d'Horaci sobre Grècia i Roma?
+What did Horace's line about Greece and Rome mean?
+
+@07e0859c
+Que Grècia, conquerida per Roma, va conquerir el seu vencedor amb la seva cultura
+That Greece, conquered by Rome, conquered her conqueror with her culture
+
+@3b1b12ac
+Que Roma va destruir tota la cultura grega
+That Rome destroyed all Greek culture
+
+@92cd3ead
+Que els grecs no van aprendre mai llatí
+That the Greeks never learned Latin
+
+@47dc013e
+No. Horaci va escriure que Grècia, conquerida, va conquerir el seu ferotge vencedor: Roma va adoptar la cultura grega.
+No. Horace wrote that captive Greece took her fierce conqueror captive: Rome adopted Greek culture.
+
+@de7b2b17
+Les romanes lliures no votaven ni ocupaven càrrecs, però tenien més llibertat que les ateneses: menjaven amb els seus marits, sortien al carrer, assistien als espectacles, podien heretar i administrar béns, i des d'August les mares de tres fills quedaven lliures de la tutela. Sulpícia, citada per Marcial, escrivia poemes d'amor al seu marit Calè, una cosa rara en una literatura escrita gairebé només per homes.
+Free Roman women did not vote or hold office, but they had more freedom than Athenian women: they dined with their husbands, went out in the street, attended the shows, could inherit and manage property, and from Augustus' time mothers of three children were freed from guardianship. Sulpicia, mentioned by Martial, wrote love poems to her husband Calenus, a rarity in a literature written almost entirely by men.
+
+@3c3cbe9e
+Salut, foraster. Sóc Sulpícia. Escric versos: sí, una dona, i casada, i al meu propi marit, Calè. Marcial diu que totes les dones m'haurien de llegir. Els homes de Roma s'escandalitzen que una matrona parli d'amor, però jo no escric res de què m'hagi d'avergonyir.
+Greetings, stranger. I'm Sulpicia. I write verse: yes, a woman, and a married one, and to my own husband, Calenus. Martial says all women should read me. The men of Rome are scandalised that a matrona should speak of love, but I write nothing I need be ashamed of.
+
+@3b28b50a
+Què poden fer les dones a Roma?
+What can women do in Rome?
+
+@41f814b2
+Més que a Grècia, em diuen els grecs. Mengem a taula amb els nostres marits, sortim al carrer, anem a les termes, al teatre, al circ. Podem heretar, tenir béns propis i administrar-los. Si tinc tres fills, quedo lliure de tutor, per una llei d'August. El que no podem és votar, ni parlar al Senat, ni ser magistrades. I algunes, com Agripina, la mare de Neró, van manar més que molts cònsols.
+More than in Greece, the Greeks tell me. We eat at table with our husbands, go out in the street, go to the baths, the theatre, the circus. We can inherit, own property and manage it. If I have three children, I'm free of a guardian, under a law of Augustus. What we can't do is vote, speak in the Senate or be magistrates. And some, like Agrippina, Nero's mother, held more power than many consuls.
+
+@311604dc
+Com és un matrimoni romà?
+What is a Roman marriage like?
+
+@dc509b26
+N'hi ha prou amb la voluntat de tots dos de viure com a marit i muller, i el consentiment dels pares. Hi ha casament, és clar: el vel color de flama, el pastís d'espelta, la mà dreta a la mà dreta, el seguici a casa del nuvi. La dona gairebé sempre continua pertanyent a la seva família i conserva els seus béns. I el divorci és fàcil: n'hi ha prou de dir-ho. Per això, quan un matrimoni dura, és perquè s'estimen.
+It's enough that both wish to live as husband and wife, with their parents' consent. There's a wedding, of course: the flame-coloured veil, the spelt cake, right hand in right hand, the procession to the groom's house. The wife nearly always remains part of her own family and keeps her property. And divorce is easy: you just have to say so. So when a marriage lasts, it's because they love each other.
+
+@d6e776d6
+Hi ha altres poetesses?
+Are there other women poets?
+
+@4be7fc6e
+Poques que conegueu. Fa un segle n'hi va haver una altra, Sulpícia, neboda de Messal·la, que va escriure versos d'amor a un tal Cerint; es llegeixen al costat dels de Tibul. I les gregues tenien Safo. Les romanes escrivim cartes, memòries, de vegades discursos: Hortènsia va parlar al Fòrum contra un impost dels triumvirs. Però la poesia l'escriuen els homes, sobre nosaltres. Jo prefereixo escriure-la jo.
+Few you'd know. A century ago there was another Sulpicia, Messalla's niece, who wrote love poems to a certain Cerinthus; they're read alongside Tibullus'. And Greek women had Sappho. We Roman women write letters, memoirs, sometimes speeches: Hortensia spoke in the Forum against a tax imposed by the triumvirs. But poetry is written by men, about us. I'd rather write it myself.
+
+@8ac7ce72
+Quin dret obtenien, per una llei d'August, les mares de tres fills?
+What right did mothers of three children obtain under a law of Augustus?
+
+@1b9a98df
+Quedar lliures de la tutela d'un home
+Freedom from a man's guardianship
+
+@5b7c6636
+Votar a les assemblees
+Voting in the assemblies
+
+@36145d3f
+Ser escollides senadores
+Being elected senators
+
+@263359bc
+No. Per les lleis d'August (el dret dels tres fills), la dona lliure amb tres fills quedava lliure de tutela i podia administrar els seus béns.
+No. Under Augustus' laws (the right of three children), a freeborn woman with three children was freed from guardianship and could manage her own property.
+
+@13693eca
+Els romans van revolucionar l'arquitectura amb el formigó (opus caementicium): calç, sorra volcànica (puzolana), aigua i pedres, que feia presa fins i tot sota l'aigua. Combinat amb l'arc i la volta, va permetre cobrir grans espais: termes, amfiteatres, palaus, aqüeductes. Rabiri va ser l'arquitecte de Domicià que va construir el gran palau del Palatí, acabat cap al 92.
+The Romans revolutionised architecture with concrete (opus caementicium): lime, volcanic sand (pozzolana), water and stones, which set even under water. Combined with the arch and the vault, it made it possible to roof huge spaces: baths, amphitheatres, palaces, aqueducts. Rabirius was Domitian's architect, who built the great palace on the Palatine, finished around 92.
+
+@396727bf
+Compte amb la bastida, que això és calç viva. Sóc Rabiri, arquitecte. Aquí, al Palatí, estem començant una cosa gran: el germà de l'emperador, Domicià, vol un palau que faci semblar petita la Casa Daurada de Neró. Salons amb voltes tan altes que semblarà que el cel és a dins.
+Mind the scaffolding, that's quicklime. I'm Rabirius, architect. Here on the Palatine we're starting something big: the emperor's brother, Domitian, wants a palace that will make Nero's Golden House look small. Halls with vaults so high it will seem the sky is indoors.
+
+@7a66c0dd
+Quin és el vostre secret?
+What is your secret?
+
+@1f2a5585
+El formigó. Barregem calç amb la pols de Puteoli, la sorra volcànica de Campània, hi afegim aigua i trossos de pedra o maó, i ho aboquem entre dos murs de maó com si fossin un motlle. Fa presa com la roca, fins i tot sota l'aigua: així fem els ports. I no calen grans blocs de marbre ni picapedrers grecs: n'hi ha prou amb esclaus, calç i paciència.
+Concrete. We mix lime with the dust of Puteoli, the volcanic sand of Campania, add water and pieces of stone or brick, and pour it between two brick walls as if into a mould. It sets like rock, even under water: that's how we build harbours. And you don't need great marble blocks or Greek stonemasons: slaves, lime and patience will do.
+
+@7db7a08c
+Com es cobreix un espai tan gran?
+How do you roof such a large space?
+
+@77f54735
+Amb l'arc, que reparteix el pes cap als costats, i amb la volta, que és un arc que es perllonga, o que gira sobre si mateix, com la cúpula. Els grecs només sabien posar bigues de pedra sobre columnes, i per això els seus temples són plens de columnes. Nosaltres podem aixecar una sala de cent peus sense ni un sol suport al mig. Mira l'Amfiteatre Flavi: és tot arcs i voltes, per dins i per fora.
+With the arch, which spreads the weight to the sides, and with the vault, which is an arch extended, or turned around itself, like the dome. The Greeks only knew how to lay stone beams on columns, which is why their temples are full of columns. We can raise a hall a hundred feet wide without a single support in the middle. Look at the Flavian Amphitheatre: it's all arches and vaults, inside and out.
+
+@8b7f55dc
+Què va ser la Casa Daurada?
+What was the Golden House?
+
+@e837a961
+El palau de Neró després de l'incendi del 64: ocupava mig centre de Roma, amb un llac artificial on avui hi ha l'amfiteatre, vinyes, boscos i una sala de banquets que girava com el cel. Els seus arquitectes, Sever i Cèler, eren genis. Però els Flavis han retornat el terreny al poble: sobre el llac, l'amfiteatre; sobre part del palau, les termes de Titus. Neró deia que per fi vivia com un ésser humà. Ho va pagar Roma.
+Nero's palace after the fire of 64: it took up half the centre of Rome, with an artificial lake where the amphitheatre now stands, vineyards, woods and a banqueting hall that revolved like the heavens. Its architects, Severus and Celer, were geniuses. But the Flavians have given the land back to the people: on the lake, the amphitheatre; on part of the palace, the Baths of Titus. Nero said that at last he was living like a human being. Rome paid for it.
+
+@4e3b35fb
+Quin material va permetre als romans construir grans voltes i ports?
+What material let the Romans build great vaults and harbours?
+
+@a1396039
+El formigó fet amb calç i sorra volcànica
+Concrete made with lime and volcanic sand
+
+@f0aa2b7a
+El ferro colat
+Cast iron
+
+@8e67ad92
+El marbre, en grans blocs
+Marble, in large blocks
+
+@d1709b7f
+No. El gran invent va ser el formigó (opus caementicium), de calç i sorra volcànica (puzolana), que feia presa fins i tot sota l'aigua.
+No. The great invention was concrete (opus caementicium), made of lime and volcanic sand (pozzolana), which set even under water.
+
+@0d7b37f0
+A la Roma del segle I hi havia llibreries a l'Argilet i en altres carrers del centre, amb els títols anunciats a les columnes de l'entrada. Els llibres eren rotlles de papir copiats per esclaus; començaven a aparèixer els primers còdexs de pergamí. Hi havia biblioteques públiques: la de l'Atri de la Llibertat, la del temple d'Apol·lo al Palatí, la del Pòrtic d'Octàvia i la del Temple de la Pau.
+In first-century Rome there were bookshops in the Argiletum and other central streets, with titles advertised on the columns at the entrance. Books were papyrus rolls copied by slaves; the first parchment codices were beginning to appear. There were public libraries: in the Atrium of Liberty, at the temple of Apollo on the Palatine, in the Portico of Octavia and in the Temple of Peace.
+
+@d111b52f
+Passa, passa. Atrecte, llibreter, per servir-te. Veus les columnes de l'entrada? Hi anuncio el que tinc: Virgili, Ovidi, Livi, i Marcial, que és el que més es ven encara que ell digui que no en veu ni un as. I si no saps què llegir, t'explico jo les velles històries de Roma, i les dels grecs.
+Come in, come in. Atrectus, bookseller, at your service. See the columns at the door? That's where I advertise what I've got: Virgil, Ovid, Livy, and Martial, who sells best of all though he says he never sees an as. And if you don't know what to read, I'll tell you the old stories of Rome myself, and the Greek ones too.
+
+@69621251
+Al taller del darrere tinc dotze copistes, gairebé tots esclaus grecs. Un dicta i els altres copien alhora en rotlles de papir egipci. En un dia en surten diverses còpies d'un llibre curt. Ara també venc llibres petits de pergamí, amb els fulls cosits: caben en una mà i els pots llegir de viatge. Marcial els recomana. Diuen que és una moda, que no durarà.
+In the workshop at the back I have twelve copyists, nearly all Greek slaves. One dictates and the others copy at the same time onto rolls of Egyptian papyrus. In a day several copies of a short book come out. Now I also sell little parchment books with the leaves sewn together: they fit in one hand and you can read them on a journey. Martial recommends them. They say it's a fad that won't last.
+
+@ee502bbe
+Hi ha biblioteques públiques?
+Are there public libraries?
+
+@821bbb32
+Sí. Cèsar en volia una, i la va fer Asini Pol·lió a l'Atri de la Llibertat. August en va posar dues, una de grega i una de llatina, al costat del temple d'Apol·lo al Palatí, i una altra al Pòrtic d'Octàvia. I Vespasià, una altra al seu Temple de la Pau. Qualsevol hi pot entrar a llegir. Però els llibres que vols de debò, els compres aquí.
+Yes. Caesar wanted one, and Asinius Pollio built it in the Atrium of Liberty. Augustus set up two, one Greek and one Latin, next to the temple of Apollo on the Palatine, and another in the Portico of Octavia. And Vespasian, another in his Temple of Peace. Anyone can go in and read. But the books you really want, you buy here.
+
+@c27c05f8
+Què llegeix la gent?
+What do people read?
+
+@0c748c51
+Els nens aprenen amb Virgili, com abans els grecs amb Homer. Els grans llegeixen Ciceró, Livi, que va explicar tota la història de Roma en cent quaranta-dos llibres, Ovidi i les seves Metamorfosis, Sèneca. I als sopars es reciten poemes nous. Molta gent no sap llegir, és clar, però escolta: als fòrums, a les termes, a les lectures públiques.
+Children learn with Virgil, as the Greeks used to with Homer. Adults read Cicero, Livy, who told the whole history of Rome in a hundred and forty-two books, Ovid and his Metamorphoses, Seneca. And at dinners new poems are recited. Many people can't read, of course, but they listen: in the forums, at the baths, at public readings.
+
+@93c3addf
+Quin format de llibre començava a aparèixer a Roma al segle I dC, al costat del rotlle de papir?
+What book format was starting to appear in Rome in the first century AD, alongside the papyrus roll?
+
+@4ef8381c
+El còdex, amb fulls de pergamí cosits
+The codex, with sewn parchment leaves
+
+@b92c6caa
+El llibre imprès
+The printed book
+
+@227df1de
+La tauleta d'argila
+The clay tablet
+
+@37137358
+No. Al costat del rotlle es va començar a fer servir el còdex, amb fulls de pergamí cosits; Marcial el recomana per llegir de viatge.
+No. Alongside the roll the codex came into use, with sewn parchment leaves; Martial recommends it for reading on a journey.
+
+@6e3e3372
+Els gladiadors eren gairebé sempre esclaus, presoners o condemnats, encara que també hi havia homes lliures que es contractaven. S'entrenaven en escoles (ludi) i lluitaven per parelles amb armes diferents: el mirmil·ló amb casc i escut gran, el reciari amb xarxa i trident, el traci amb escut petit i espasa corba. No tots els combats acabaven en mort: l'editor i el públic podien concedir la vida, i el gladiador que destacava podia rebre la rudis, l'espasa de fusta de la llibertat.
+Gladiators were nearly always slaves, prisoners or convicts, though there were also free men who hired themselves out. They trained in schools (ludi) and fought in pairs with different weapons: the murmillo with a helmet and a large shield, the retiarius with net and trident, the thraex with a small shield and curved sword. Not every fight ended in death: the editor and the crowd could grant a reprieve, and a gladiator who excelled could receive the rudis, the wooden sword of freedom.
+
+@fc63df58
+Mira'm bé, foraster: sóc Prisc, i fa uns dies que sóc lliure. Tinc l'espasa de fusta, la rudis. Vaig lluitar contra Ver a la inauguració de l'amfiteatre i cap dels dos no va poder vèncer l'altre. L'emperador ens va donar la llibertat a tots dos. Marcial n'ha escrit un poema. Jo no sé llegir, però me l'han recitat.
+Take a good look, stranger: I'm Priscus, and for a few days now I've been free. I have the wooden sword, the rudis. I fought Verus at the opening of the amphitheatre and neither of us could beat the other. The emperor gave us both our freedom. Martial has written a poem about it. I can't read, but they recited it to me.
+
+@fbacd5b7
+Com va ser el combat?
+What was the fight like?
+
+@c613860d
+Va durar moltíssim. El públic cridava els nostres noms i demanava la llibertat per a tots dos. Titus havia posat una regla: es lluita fins que un aixequi el dit per rendir-se. Al final, esgotats, tots dos vam aixecar el dit alhora. El Cèsar ens va enviar a tots dos la palma i la rudis. Diuen que és la millor baralla dels cent dies.
+It went on for ages. The crowd shouted our names and demanded freedom for both of us. Titus had set a rule: you fight until one raises his finger to surrender. In the end, exhausted, we both raised our fingers at the same moment. Caesar sent us both the palm and the rudis. They say it's the best fight of the hundred days.
+
+@8f3fa3a4
+Com s'arriba a ser gladiador?
+How does one become a gladiator?
+
+@0d80f9b2
+A mi em van comprar en un mercat d'esclaus; d'altres, els condemnen per un delicte. Hi ha homes lliures que es venen per deutes o per glòria: juren deixar-se cremar, assotar i matar amb el ferro. A l'escola menges bé, et curen els metges, entrenes cada dia contra un pal de fusta. Cadascú té la seva armadura: jo sóc mirmil·ló, amb casc i escut gran. El meu rival preferit és el traci.
+I was bought at a slave market; others are condemned for a crime. There are free men who sell themselves for debts or glory: they swear to let themselves be burned, flogged and killed with steel. At the school you eat well, the doctors treat you, you train every day against a wooden post. Each has his own armour: I'm a murmillo, with helmet and big shield. My favourite opponent is the thraex.
+
+@d4be2481
+Sempre es mor?
+Does someone always die?
+
+@7667cd46
+No tant com es pensa la gent. Un gladiador costa molts diners a qui l'entrena, i un bon combat val més que un mort. Si caus i has lluitat bé, el públic agita els mocadors i l'editor et concedeix la vida. Si has lluitat malament… Molts moren joves, sí. Però alguns arriben a vells i entrenen d'altres. I les dones de Roma ens adoren.
+Not as often as people think. A gladiator costs his trainer a lot of money, and a good fight is worth more than a dead man. If you go down having fought well, the crowd waves their handkerchiefs and the editor spares you. If you fought badly… Many die young, yes. But some grow old and train others. And the women of Rome adore us.
+
+@cd574a40
+Què rebia un gladiador com a símbol de la seva llibertat?
+What did a gladiator receive as the symbol of his freedom?
+
+@6c6493c3
+La rudis, una espasa de fusta
+The rudis, a wooden sword
+
+@df307f34
+Una corona de llorer d'or
+A golden laurel crown
+
+@88aef06d
+Un anell de ferro
+An iron ring
+
+@5ca3e67f
+No. El símbol de l'alliberament del gladiador era la rudis, una espasa de fusta; Prisc i Ver la van rebre de Titus.
+No. The symbol of a gladiator's release was the rudis, a wooden sword; Priscus and Verus received it from Titus.
+
+@ce9f4cb3
+Les sis vestals, escollides de nenes entre famílies patrícies, servien trenta anys Vesta, deessa de la llar, guardant el foc sagrat que no s'havia d'apagar mai al seu temple rodó del Fòrum, i objectes sagrats com el Pal·ladi. Tenien privilegis extraordinaris: no estaven sota tutela, tenien seients d'honor i un lictor. Si perdien la virginitat, eren enterrades vives.
+The six Vestals, chosen as girls from patrician families, served Vesta, goddess of the hearth, for thirty years, tending the sacred fire that must never go out in her round temple in the Forum, and sacred objects such as the Palladium. They had extraordinary privileges: they were under no guardian, had seats of honour and a lictor. If they lost their virginity, they were buried alive.
+
+@5c705cf8
+Salut. Sóc Cornèlia, sacerdotessa de Vesta. Vaig entrar en aquest atri amb deu anys, i hi he passat la meitat de la meva vida. Guardem el foc de Roma: mentre cremi al temple rodó, Roma viurà. Si un dia s'apaga, la vestal culpable serà assotada pel pontífex màxim, que és el mateix emperador.
+Greetings. I'm Cornelia, priestess of Vesta. I entered this atrium at ten, and I've spent half my life here. We guard the fire of Rome: as long as it burns in the round temple, Rome will live. If one day it goes out, the guilty Vestal will be flogged by the pontifex maximus, who is the emperor himself.
+
+@838304c1
+Qui són les vestals?
+Who are the Vestals?
+
+@e57ca847
+Som sis. El pontífex màxim ens escull de nenes, entre els sis i els deu anys, en famílies de bona sang, amb pare i mare vius. Servim trenta anys: deu aprenent, deu servint i deu ensenyant. Després podem sortir i casar-nos, encara que gairebé cap ho fa. Guardem el foc, preparem la farina sagrada per als sacrificis i custodiem el Pal·ladi, la imatge de Pal·las que Enees va portar de Troia.
+There are six of us. The pontifex maximus chooses us as girls, between six and ten, from families of good blood, with both parents living. We serve thirty years: ten learning, ten serving and ten teaching. After that we may leave and marry, though hardly any of us do. We tend the fire, prepare the sacred flour for sacrifices and guard the Palladium, the image of Pallas that Aeneas brought from Troy.
+
+@3c374f38
+Quins privilegis teniu?
+What privileges do you have?
+
+@e30c6935
+Més que qualsevol dona de Roma. No tenim tutor, podem fer testament, un lictor ens obre pas pel carrer, tenim el millor lloc als espectacles. Si un condemnat a mort es creua amb una vestal, queda lliure. La nostra paraula val sense jurament. Els grans, com Cèsar o August, deixaven aquí els seus testaments.
+More than any woman in Rome. We have no guardian, we can make wills, a lictor clears the way for us in the street, we have the best seats at the shows. If a man condemned to death crosses paths with a Vestal, he goes free. Our word is valid without an oath. The great men, like Caesar or Augustus, left their wills here.
+
+@59151253
+I si una vestal falta al seu vot?
+And if a Vestal breaks her vow?
+
+@dffcfeb1
+Si perd la virginitat, ha trencat la pau amb els déus, i Roma corre perill. Se l'endu en una llitera tancada, com en un funeral, fins al Camp Maleït, al costat de la porta Col·lina, i se la baixa a una cambra sota terra amb una llàntia, pa, aigua, llet i oli. I es tanca. Ningú no la mata: decideixen els déus. Fa temps que no passa. Tant de bo no torni a passar.
+If she loses her virginity, she has broken the peace with the gods, and Rome is in danger. She is carried in a closed litter, as at a funeral, to the Accursed Field by the Colline Gate, and lowered into an underground chamber with a lamp, bread, water, milk and oil. And it is sealed. Nobody kills her: the gods decide. It hasn't happened for a long time. May it never happen again.
+
+@3b6be437
+Quina era la tasca principal de les vestals?
+What was the Vestals' main task?
+
+@a5392d5e
+Guardar el foc sagrat de Vesta, que no s'havia d'apagar mai
+Guarding the sacred fire of Vesta, which must never go out
+
+@bd3ea4ff
+Dirigir els jocs del circ
+Running the games in the circus
+
+@6a7cb8bd
+Interpretar el vol dels ocells
+Interpreting the flight of birds
+
+@54fd8f7e
+No. Les vestals guardaven el foc sagrat del temple de Vesta, símbol de la continuïtat de Roma, a més d'altres objectes sagrats.
+No. The Vestals guarded the sacred fire of the temple of Vesta, the symbol of Rome's continuity, as well as other sacred objects.
+
+@055f0d83
+Roma era una societat esclavista: potser un de cada quatre o cinc habitants d'Itàlia era esclau. Però els romans alliberaven sovint els seus esclaus (manumissió), i el llibert d'un ciutadà es convertia en ciutadà, encara que devia respecte i serveis al seu antic amo, ara el seu patró. Alguns llibertos es van enriquir enormement amb el comerç; els seus fills ja eren ciutadans de ple dret.
+Rome was a slave society: perhaps one in four or five inhabitants of Italy was a slave. But Romans often freed their slaves (manumission), and a citizen's freedman became a citizen, though he owed respect and services to his former master, now his patron. Some freedmen grew enormously rich through trade; their sons were full citizens.
+
+@073d2df5
+Mira bé aquest anell d'or, foraster. El porto jo, Hermeros, que vaig arribar a Roma amb un cartell penjat al coll al mercat d'esclaus. El meu amo em va alliberar, vaig aprendre a comerciar amb vi i oli, i ara tinc vaixells, botigues i esclaus propis. El meu fill serà cavaller, ja ho veuràs.
+Take a good look at this gold ring, stranger. I'm wearing it, Hermeros, who came to Rome with a placard hanging round my neck at the slave market. My master freed me, I learned to trade in wine and oil, and now I have ships, shops and slaves of my own. My son will be a knight, you'll see.
+
+@e41add9c
+Com s'allibera un esclau?
+How is a slave freed?
+
+@e04eed46
+De diverses maneres: davant d'un magistrat, que et toca amb una vara; en el testament de l'amo, que és el més comú; o inscrivint-te al cens com a ciutadà. Molts amos alliberen els seus esclaus de confiança, o els deixen comprar la llibertat amb els seus estalvis, el peculi. Et poses el barret de llibert i ja ets ciutadà romà. Bé, gairebé: no pots ser magistrat. Però els teus fills sí.
+In several ways: before a magistrate, who touches you with a rod; in the master's will, which is the most common; or by being entered in the census as a citizen. Many masters free their trusted slaves, or let them buy their freedom with their savings, the peculium. You put on the freedman's cap and you're a Roman citizen. Well, almost: you can't be a magistrate. But your sons can.
+
+@fc202438
+Què li deus al teu antic amo?
+What do you owe your former master?
+
+@815df61e
+Ara és el meu patró. Li dec respecte, alguns dies de feina l'any, i si moro sense fills, part de la meva herència és seva. Vaig a saludar-lo als matins com qualsevol client. A canvi em protegeix, em presta diners si en necessito i em defensa als tribunals. I porto el seu nom: Gai Pompeu Hermeros. Som com una família, encara que jo sàpiga que em podia haver venut.
+He's my patron now. I owe him respect, a few days' work a year, and if I die without children, part of my estate is his. I go and greet him in the mornings like any client. In return he protects me, lends me money if I need it and defends me in court. And I bear his name: Gaius Pompeius Hermeros. We're like a family, though I know he could have sold me.
+
+@9c3c8fff
+Com et vas fer ric?
+How did you get rich?
+
+@9d14ddad
+Treballant mentre els nobles feien discursos. Els senadors no poden tenir vaixells grans de comerç: queda lleig. Així que els negocis els fem els llibertos. Vaig enviar cinc vaixells de vi a Roma i es van enfonsar tots: trenta milions de sestercis al fons del mar. En vaig construir uns altres de més grans i millors, i amb un sol viatge en vaig guanyar deu milions. N'hi ha que es riuen de com parlo. Que riguin: jo tinc més diners que ells.
+By working while the nobles made speeches. Senators can't own big merchant ships: it's not done. So we freedmen do the business. I sent five ships of wine to Rome and they all sank: thirty million sesterces at the bottom of the sea. I built bigger and better ones, and with a single voyage I made ten million. Some people laugh at the way I talk. Let them: I've got more money than they have.
+
+@2c57f672
+Què passava amb l'esclau d'un ciutadà romà quan era alliberat?
+What happened to a Roman citizen's slave when he was freed?
+
+@edf48fdf
+Es convertia en ciutadà romà, encara que devia respecte i serveis al seu patró
+He became a Roman citizen, though he owed respect and services to his patron
+
+@50fff53f
+Continuava sent esclau de la ciutat
+He remained a slave of the city
+
+@e01b055a
+Havia d'abandonar Itàlia
+He had to leave Italy
+
+@99cd3890
+No. Amb la manumissió, l'esclau d'un ciutadà es feia ciutadà (amb algunes limitacions) i el seu antic amo passava a ser el seu patró.
+No. On manumission, a citizen's slave became a citizen (with some limitations) and his former master became his patron.
+
+@f0f296b3
+La societat romana es basava en relacions de patronatge: el patró, ric i influent, protegia els seus clients, i aquests l'acompanyaven, li donaven suport a les eleccions i el saludaven cada matí a la salutatio, vestits amb toga. A canvi rebien l'espòrtula, una petita quantitat de diners o menjar, ajuda als judicis i favors. Marcial i Juvenal es queixen del que té d'humiliant aquesta rutina.
+Roman society rested on patronage: the rich, influential patron protected his clients, and they escorted him, backed him at elections and greeted him every morning at the salutatio, wearing their togas. In return they received the sportula, a small sum of money or food, help in lawsuits and favours. Martial and Juvenal complain of how humiliating this routine was.
+
+@245a2b32
+Xxt, no parlis fort: esperem que obrin la porta. Sóc Luci Fabi, client de l'il·lustre senador que viu aquí. Sóc en aquesta cua des d'abans de l'alba amb la toga posada. Quan obrin, entrarem per ordre d'importància i el saludarem, i si hi ha sort em convidarà a sopar. Si no, l'espòrtula: sis sestercis i quart.
+Shh, don't talk loudly: we're waiting for them to open the door. I'm Lucius Fabius, a client of the illustrious senator who lives here. I've been in this queue with my toga on since before dawn. When they open, we'll go in in order of importance and greet him, and with luck he'll invite me to dinner. If not, the sportula: six and a quarter sesterces.
+
+@713ef54d
+Què és un client?
+What is a client?
+
+@d60962ee
+Algú que depèn d'un home poderós, el seu patró. Cada matí vinc a saludar-lo a casa seva amb la toga, l'acompanyo al fòrum perquè es vegi quanta gent el segueix, aplaudeixo els seus discursos, el voto si es presenta a alguna cosa. A canvi, em dona l'espòrtula, em defensa si tinc un plet, em presta diners, em recomana. Així funciona Roma de dalt a baix: fins i tot el meu patró és client d'algú més poderós, i tots, de l'emperador.
+Someone who depends on a powerful man, his patron. Every morning I come to his house in a toga to greet him, I escort him to the forum so people can see how many follow him, I applaud his speeches, I vote for him if he stands for anything. In return he gives me the sportula, defends me if I have a lawsuit, lends me money, recommends me. That's how Rome works from top to bottom: even my patron is the client of someone more powerful, and all of them are the emperor's.
+
+@ddd2b299
+Com és una domus per dins?
+What is a domus like inside?
+
+@b5446683
+Des d'aquí veuràs el vestíbul i, al fons, l'atri: una sala alta amb un forat al sostre, el compluvi, i un estany a sota, l'impluvi, que recull la pluja. Al voltant, les habitacions; al fons, el tablinum, on el senyor rep, amb les màscares de cera dels seus avantpassats en armaris. Darrere, el peristil, un jardí amb columnes. Les cases dels rics donen l'esquena al carrer: cap a fora, només botigues i murs.
+From here you'll see the vestibule and, at the back, the atrium: a tall room with an opening in the roof, the compluvium, and a pool beneath, the impluvium, which collects the rain. Around it, the rooms; at the far end, the tablinum, where the master receives visitors, with the wax masks of his ancestors in cupboards. Behind, the peristyle, a garden with columns. Rich men's houses turn their backs on the street: outwards, only shops and walls.
+
+@b2825489
+Val la pena?
+Is it worth it?
+
+@39e9eaa5
+Et diré el que diu Marcial: després d'un matí dempeus, cent quadrants. Hi ha patrons que sopen ostres i donen als seus clients un vi dolent al mateix banquet. Però en una ciutat d'un milió d'ànimes, sense patró no ets ningú. Qui t'ajudarà si el propietari et fa fora o si un ric et pega al carrer? La toga i la paciència són el preu.
+I'll tell you what Martial says: a morning on your feet for a hundred quadrantes. Some patrons dine on oysters and give their clients bad wine at the same banquet. But in a city of a million souls, without a patron you're nobody. Who will help you if the landlord throws you out or a rich man beats you in the street? The toga and patience are the price.
+
+@50550a75
+Què era la salutatio?
+What was the salutatio?
+
+@90f3db12
+La visita matinal dels clients per saludar el seu patró a casa seva
+The clients' morning visit to greet their patron at his house
+
+@5a98ac1a
+Una salutació militar davant de l'emperador
+A military salute before the emperor
+
+@0de956d4
+La festa de la deessa Salus
+The festival of the goddess Salus
+
+@ca0b9f2c
+No. La salutatio era la visita que els clients feien cada matí, vestits amb toga, a la casa del seu patró, que a canvi els donava l'espòrtula.
+No. The salutatio was the visit clients paid every morning, in their togas, to their patron's house, and in return he gave them the sportula.
+
+@aae7aaf4
+L'exèrcit imperial tenia unes 28 legions d'uns 5.000 ciutadans cadascuna, que servien 20 o 25 anys, i un nombre semblant de tropes auxiliars de provincials, que rebien la ciutadania en llicenciar-se. A Roma hi havia la guàrdia pretoriana, que protegia l'emperador i cobrava molt més, les cohorts urbanes i els vigils. Els pretorians van arribar a decidir qui era emperador.
+The imperial army had some 28 legions of about 5,000 citizens each, who served 20 or 25 years, and a similar number of auxiliary troops recruited from the provinces, who received citizenship on discharge. In Rome there were the Praetorian Guard, who protected the emperor and were paid much more, the urban cohorts and the vigiles. The praetorians came to decide who would be emperor.
+
+@c7f2f363
+Alto aquí. Ah, un foraster. Marc Valeri Pudent, de la guàrdia pretoriana. Protegim l'emperador i la seva família, aquí al Palatí. Nou cohorts, amb el seu campament al costat de la porta Viminal. Cobrem tres vegades més que un legionari i servim setze anys, no vint-i-cinc. No et queixis si et miro malament: és el meu ofici.
+Halt there. Ah, a stranger. Marcus Valerius Pudens, of the Praetorian Guard. We protect the emperor and his family, here on the Palatine. Nine cohorts, with their camp by the Viminal Gate. We earn three times as much as a legionary and serve sixteen years, not twenty-five. Don't complain if I give you a hard look: it's my job.
+
+@188a1ff0
+Com és una legió?
+What is a legion like?
+
+@7cedbcff
+Uns cinc mil ciutadans d'infanteria pesant, dividits en deu cohorts, i cada cohort en centúries de vuitanta homes al comandament d'un centurió. Cada legionari porta la seva cuirassa de làmines, el casc, l'escut llarg, dues javelines, l'espasa curta i una pala per cavar: cada nit es construeix un campament. Els auxiliars, que no són ciutadans, posen la cavalleria, els arquers i els foners. En llicenciar-se reben la ciutadania.
+About five thousand citizen heavy infantry, divided into ten cohorts, and each cohort into centuries of eighty men under a centurion. Each legionary carries his plate armour, helmet, long shield, two javelins, short sword and a spade for digging: a camp is built every night. The auxiliaries, who aren't citizens, supply the cavalry, archers and slingers. On discharge they receive citizenship.
+
+@4c1eaaca
+Quin poder teniu els pretorians?
+What power do you praetorians have?
+
+@76b56665
+Més del que hauríem de tenir. Quan van matar Calígula, uns pretorians van trobar el seu oncle Claudi amagat darrere d'una cortina i el van fer emperador. Després, cada nou emperador ens ha pagat un donatiu en pujar al tron. L'any dels quatre emperadors es va vendre i es va comprar l'imperi. Ara, amb Titus, que va ser el nostre prefecte, tot està tranquil.
+More than we should. When Caligula was killed, some praetorians found his uncle Claudius hiding behind a curtain and made him emperor. Since then every new emperor has paid us a donative on taking the throne. In the year of the four emperors the empire was bought and sold. Now, with Titus, who was our prefect, all is quiet.
+
+@cf5e14de
+On és la frontera?
+Where is the frontier?
+
+@5e77b9d1
+Lluny: el Rin i el Danubi al nord, l'Eufrates a l'est, el desert al sud, l'oceà a l'oest. I a Britània, el governador Agrícola avança cap al nord, cap a Caledònia. A la frontera hi ha campaments de pedra, calçades i torres de vigilància. Des d'aquí, la guerra sembla una desfilada: els triomfs, el botí, els presoners a l'amfiteatre.
+Far away: the Rhine and the Danube in the north, the Euphrates in the east, the desert in the south, the ocean in the west. And in Britain the governor Agricola is pushing north towards Caledonia. On the frontier there are stone forts, roads and watchtowers. From here, war looks like a parade: triumphs, plunder, prisoners in the amphitheatre.
+
+@394d3fec
+Què rebien els soldats auxiliars en acabar el servei?
+What did auxiliary soldiers receive at the end of their service?
+
+@837b2387
+La ciutadania romana
+Roman citizenship
+
+@b4c5a063
+Un lloc al Senat
+A seat in the Senate
+
+@da34165e
+Una casa a Roma
+A house in Rome
+
+@11bec43d
+No. Els auxiliars, que no eren ciutadans, rebien la ciutadania romana en llicenciar-se, com mostren els diplomes militars de bronze.
+No. The auxiliaries, who were not citizens, received Roman citizenship on discharge, as the bronze military diplomas show.
+
+@1816d775
+El Circ Màxim, entre el Palatí i l'Aventí, era el major edifici d'espectacles de Roma: uns 600 metres de llarg i capacitat per a més de 150.000 espectadors. Les curses de carros (quadrigues de quatre cavalls, bigues de dos) feien set voltes al voltant de l'espina. Els aurigues corrien per a quatre faccions, verds, blaus, vermells i blancs, que tenien seguidors apassionats. Els millors aurigues, gairebé sempre esclaus o llibertos, guanyaven fortunes.
+The Circus Maximus, between the Palatine and the Aventine, was Rome's largest entertainment building: about 600 metres long, holding more than 150,000 spectators. Chariot races (four-horse quadrigae, two-horse bigae) ran seven laps around the spina. Charioteers raced for four factions, Greens, Blues, Reds and Whites, which had passionate supporters. The best charioteers, nearly always slaves or freedmen, earned fortunes.
+
+@883da616
+Ei, foraster! Verd o blau? Tria bé, que a Roma això importa més que la política. Sóc Fèlix, auriga dels verds. Aquesta tarda corro. Set voltes al voltant de l'espina, fregant les metes a cada revolt: si t'obres perds; si et tanques massa, el carro vola a trossos.
+Hey, stranger! Green or Blue? Choose carefully, in Rome that matters more than politics. I'm Felix, charioteer for the Greens. I'm racing this afternoon. Seven laps round the spina, grazing the turning posts at every bend: swing wide and you lose; cut too tight and the chariot flies to pieces.
+
+@9f2ddfc1
+Com és una cursa?
+What is a race like?
+
+@db8a5617
+Dotze carros surten de les càrceres, aquelles portes de l'extrem oest, quan el magistrat deixa caure un mocador blanc. Set voltes, unes cinc milles. A l'espina, uns dofins de bronze s'abaixen per comptar les voltes. Els revolts són el perillós: porto les regnes lligades a la cintura per dirigir amb el cos, i un ganivet per tallar-les si bolco. Si no, t'arrosseguen els cavalls.
+Twelve chariots burst out of the carceres, those gates at the west end, when the magistrate drops a white cloth. Seven laps, about five miles. On the spina, bronze dolphins are lowered to count the laps. The bends are the dangerous part: I wear the reins tied round my waist to steer with my body, and carry a knife to cut them if I overturn. Otherwise the horses drag you.
+
+@b5eea850
+Què són les faccions?
+What are the factions?
+
+@9a7a4c00
+Quatre empreses que tenen cavalls, carros, aurigues, mossos i metges: els verds, els blaus, els vermells i els blancs. La gent és d'una facció com d'una família. N'hi ha que tiren encens a la pira de l'auriga mort i n'hi ha que enterren tauletes de maledicció contra el rival. Neró era dels verds. De quin color és l'emperador ara, això no es pregunta.
+Four companies that own horses, chariots, charioteers, grooms and doctors: the Greens, the Blues, the Reds and the Whites. People belong to a faction as to a family. Some throw incense on a dead charioteer's pyre and some bury curse tablets against the rival. Nero was a Green. What colour the emperor is now, that's not something you ask.
+
+@9b92a206
+Es guanya molt?
+Is there a lot of money in it?
+
+@a48bdf3c
+Si guanyes, moltíssim. Els millors aurigues acaben amb milions de sestercis i estàtues en el seu honor. Jo sóc llibert i tinc una casa de tres pisos. Però al revolt no hi ha diners que valguin: he vist morir companys trepitjats davant de cent mil persones que cridaven el meu nom. I tot i així, no hi ha res com aquest crit.
+If you win, a fortune. The best charioteers end up with millions of sesterces and statues in their honour. I'm a freedman and I own a three-storey house. But on the bend no money in the world helps: I've seen friends trampled to death in front of a hundred thousand people shouting my name. And still, there's nothing like that roar.
+
+@c7fd514c
+Quantes voltes feien els carros en una cursa del Circ Màxim?
+How many laps did the chariots run in a race at the Circus Maximus?
+
+@bddb6bd7
+Set
+Seven
+
+@2c121408
+Tres
+Three
+
+@72c2e3e8
+Dotze
+Twelve
+
+@5c0d3928
+No. La cursa habitual era de set voltes al voltant de l'espina; es comptaven amb ous i dofins de bronze.
+No. The usual race was seven laps around the spina; they were counted with bronze eggs and dolphins.
+
+@27788aac
+Roma, amb prop d'un milió d'habitants, depenia del blat importat d'Egipte, Àfrica i Sicília, que arribava a Puteoli i Òstia i pujava pel Tíber fins a l'Empori. L'Estat repartia blat gratis cada mes a uns 200.000 ciutadans, organitzat pel prefecte de l'annona. Juvenal va resumir la política imperial en «pa i circ».
+Rome, with nearly a million inhabitants, depended on wheat imported from Egypt, Africa and Sicily, which arrived at Puteoli and Ostia and went up the Tiber to the Emporium. The state handed out free grain every month to about 200,000 citizens, organised by the prefect of the annona. Juvenal summed up imperial policy as «bread and circuses».
+
+@5db1a49a
+Compte amb els sacs, que hi ha molt de trànsit. Sóc Tiberi Claudi Èutic, llibert de la casa imperial, i visc del blat. Les barques pugen des d'Òstia remolcades per bous, descarreguem aquí, a l'Empori, i ho portem als magatzems. Roma menja cada any més blat del que produeix tota Itàlia.
+Mind the sacks, it's busy here. I'm Tiberius Claudius Eutyches, a freedman of the imperial household, and I live off grain. The barges come up from Ostia towed by oxen, we unload here at the Emporium and carry it to the warehouses. Every year Rome eats more grain than the whole of Italy produces.
+
+@b0037e6d
+D'on ve el blat?
+Where does the grain come from?
+
+@f903c9f1
+D'Egipte, sobretot: la collita del Nil alimenta Roma quatre mesos l'any. I d'Àfrica, de Sicília, de Sardenya. Grans vaixells de gra arriben a Puteoli o al nou port de Claudi a Òstia; allà es passa a barques més petites que pugen pel Tíber. Si una flota d'Alexandria es retarda per les tempestes, el preu del pa puja i la gent s'amotina al circ.
+From Egypt, above all: the Nile harvest feeds Rome four months a year. And from Africa, Sicily, Sardinia. Great grain ships put in at Puteoli or at Claudius' new harbour at Ostia; there the grain is moved to smaller boats that go up the Tiber. If a fleet from Alexandria is delayed by storms, the price of bread goes up and people riot in the circus.
+
+@535e3f3c
+És veritat que reparteixen blat gratis?
+Is it true they give out free grain?
+
+@4f96e641
+A uns dos-cents mil ciutadans inscrits a les llistes: cinc modis al mes, uns trenta-tants quilos, el just per a una persona. Hi van amb la seva fitxa al Pòrtic Minuci. Va començar Gai Grac venent-lo barat, Clodi el va fer gratis i August ho va organitzar amb un prefecte de l'annona. Els emperadors saben que el poble de Roma només demana dues coses, com dirà algun poeta: pa i circ.
+To about two hundred thousand citizens on the lists: five modii a month, thirty-odd kilos, just enough for one person. They go with their token to the Porticus Minucia. Gaius Gracchus started it by selling it cheap, Clodius made it free and Augustus organised it under a prefect of the annona. The emperors know the people of Rome ask for only two things, as some poet will say: bread and circuses.
+
+@3ed4abbe
+I aquesta muntanya de testos?
+And that hill of potsherds?
+
+@a1259bed
+Allà, darrere dels magatzems, llancem les àmfores d'oli d'Hispània un cop buides. L'oli amara l'argila i no es poden reutilitzar, així que es trenquen i s'apilen amb ordre, amb calç per a l'olor. Al ritme que es consumeix oli a Roma, algun dia serà una muntanya de veritat. Cada àmfora porta segells amb el nom del productor: una muntanya de comptabilitat.
+There, behind the warehouses, we throw away the Spanish oil amphorae once they're empty. The oil soaks into the clay and they can't be reused, so they're smashed and stacked in order, with lime against the smell. At the rate Rome consumes oil, one day it'll be a real hill. Every amphora bears stamps with the producer's name: a mountain of bookkeeping.
+
+@0c84edb6
+D'on venia bona part del blat que menjava Roma?
+Where did much of the grain Rome ate come from?
+
+@2403d8f7
+D'Egipte, Àfrica i Sicília, per mar
+From Egypt, Africa and Sicily, by sea
+
+@5e7b4d3f
+Dels horts de dins de la ciutat
+From the gardens inside the city
+
+@bc6e6b46
+De Britània, per terra
+From Britain, overland
+
+@36645392
+No. Roma depenia del blat importat per mar, sobretot d'Egipte, Àfrica i Sicília; arribava a Òstia o Puteoli i pujava pel Tíber.
+No. Rome depended on grain shipped in by sea, mainly from Egypt, Africa and Sicily; it arrived at Ostia or Puteoli and went up the Tiber.
+
+@47fdd5d8
+Les termes eren banys públics i centres socials: per una entrada mínima (un quadrant) o gratis, qualsevol podia exercitar-se a la palestra, banyar-se en sales a temperatures diferents (frigidari, tepidari, caldari), rebre massatges i xerrar. L'aigua arribava pels aqüeductes i s'escalfava amb forns que enviaven aire calent sota el terra (hipocaust). Titus va inaugurar les seves termes el 80, al costat de l'amfiteatre.
+The baths were public bathhouses and social centres: for a tiny fee (a quadrans) or free, anyone could exercise in the palaestra, bathe in rooms of different temperatures (frigidarium, tepidarium, caldarium), get a massage and chat. Water came by aqueduct and was heated by furnaces that sent hot air under the floor (the hypocaust). Titus opened his baths in 80, next to the amphitheatre.
+
+@9afdb0df
+Benvingut a les termes de l'emperador Titus, acabades d'inaugurar: encara fa olor de calç. Sóc Secund, encarregat dels banys. Passa, que per un quadrant tens palestra, banys freds, temperats i calents, i gent amb qui parlar fins al sopar. Avui, pels jocs, l'entrada és gratis.
+Welcome to the emperor Titus' baths, just opened: they still smell of lime. I'm Secundus, manager of the baths. Come in, for a quadrans you get a palaestra, cold, warm and hot baths, and people to talk to until dinner. Today, because of the games, entry is free.
+
+@7eae8d30
+Com es pren un bany?
+How do you take a bath?
+
+@9eabf49f
+Primer, exercici a la palestra: pilota, peses, lluita. Després t'untes d'oli i te'l treus amb l'estrígil. Passes al tepidari, temperat, per anar-te escalfant; al caldari, amb l'aigua calenta i l'aire humit, fins a suar; i acabes al frigidari, aigua freda, per tancar els porus. Després, massatge, depilació, perfums. I xerrada: aquí es tanquen negocis i s'expliquen xafarderies.
+First, exercise in the palaestra: ball games, weights, wrestling. Then you oil yourself and scrape it off with the strigil. You go into the tepidarium, warm, to heat up gradually; into the caldarium, with hot water and steamy air, until you sweat; and you finish in the frigidarium, cold water, to close the pores. Then massage, hair removal, perfumes. And talk: business is done and gossip told here.
+
+@d1868d93
+Com s'escalfa l'aigua?
+How is the water heated?
+
+@8f191c3b
+Amb forns que els esclaus alimenten de dia i de nit amb llenya. L'aire calent passa per sota el terra, aixecat sobre piles de maons, l'hipocaust, i puja per tubs dins de les parets. El terra del caldari crema: cal anar-hi amb sandàlies de fusta. L'aigua arriba de l'aqüeducte a grans dipòsits, i d'allà, per canonades de plom, a les piscines.
+With furnaces that slaves feed day and night with firewood. The hot air passes under the floor, which is raised on stacks of bricks, the hypocaust, and rises through flues inside the walls. The caldarium floor is scorching: you need wooden sandals. Water comes from the aqueduct to big tanks, and from there, through lead pipes, to the pools.
+
+@076b9e54
+Es banyen junts homes i dones?
+Do men and women bathe together?
+
+@caa7c012
+Depèn de les termes i dels temps. El decent és que hi hagi horaris separats o sales diferents: les dones al matí, els homes a la tarda. Però en alguns banys es barreja tothom i els moralistes s'escandalitzen. Sèneca, que vivia damunt d'uns banys, es queixava del soroll: crits, cops de massatge, el depilador anunciant-se, el venedor de salsitxes.
+It depends on the baths and on the times. The decent thing is separate hours or separate rooms: women in the morning, men in the afternoon. But in some baths everyone mixes and the moralists are scandalised. Seneca, who lived above a bathhouse, complained of the noise: shouting, the slap of massage, the hair-plucker advertising himself, the sausage-seller.
+
+@62201771
+Com es deia la sala d'aigua calenta d'unes termes romanes?
+What was the hot room of a Roman bathhouse called?
+
+@c125d592
+Caldari
+Caldarium
+
+@bd0e97af
+Frigidari
+Frigidarium
+
+@2c1ad581
+Peristil
+Peristyle
+
+@2e3b5d95
+No. El caldari era la sala calenta; el tepidari, la temperada, i el frigidari, la freda.
+No. The caldarium was the hot room; the tepidarium, the warm one, and the frigidarium, the cold one.
+
+@cced8eeb
+La majoria dels romans vivia de lloguer en ínsules, blocs de pisos de quatre o cinc altures amb botigues a la planta baixa. Els pisos baixos eren els millors; a dalt hi vivien els pobres, sense aigua ni latrines, amb el perill d'esfondraments i incendis. Després del gran incendi del 64, Neró va limitar l'altura dels edificis i va obligar a fer servir materials menys inflamables. August havia creat els vigils: set cohorts de llibertos que vigilaven de nit i apagaven els focs.
+Most Romans rented flats in insulae, apartment blocks four or five storeys high with shops on the ground floor. The lower floors were the best; the poor lived at the top, without water or latrines, at risk of collapse and fire. After the great fire of 64, Nero limited the height of buildings and required less flammable materials. Augustus had created the vigiles: seven cohorts of freedmen who kept watch at night and put out fires.
+
+@c253acdb
+Aparta't d'aquest braser, per Vulcà! Perdona, foraster. Sóc Aule Semproni, de la segona cohort de vigils. Patrullem la Subura de nit amb galledes, destrals, esponges i mantes mullades. En aquest barri es cuina en brasers sobre terres de fusta: cada nit hi ha un foc en algun lloc. I quan n'hi ha un de gros…
+Get away from that brazier, by Vulcan! Sorry, stranger. I'm Aulus Sempronius, of the second cohort of the vigiles. We patrol the Subura at night with buckets, axes, sponges and wet blankets. In this neighbourhood people cook on braziers on wooden floors: every night there's a fire somewhere. And when there's a big one…
+
+@73bf931f
+Com es viu en una ínsula?
+What is life like in an insula?
+
+@bdcdee80
+A baix, les botigues: forners, sabaters, tavernes. El primer pis és el millor, de vegades amb aigua corrent. Com més puges, més barat i pitjor: habitacions petites, sense aigua, sense latrina, amb gerres que es buiden per la finestra, compte en passar. El lloguer d'un cau a Roma costa el que una casa sencera al camp. I les parets són tan primes que s'esfondren: els propietaris ho arreglen amb una mica de guix.
+Downstairs, the shops: bakers, cobblers, taverns. The first floor is the best, sometimes with running water. The higher you go, the cheaper and worse: small rooms, no water, no latrine, chamber pots emptied out of the window, so watch out as you pass. Renting a hovel in Rome costs as much as a whole house in the country. And the walls are so thin they collapse: the landlords patch them with a bit of plaster.
+
+@756f4fe0
+Què va passar al gran incendi?
+What happened in the great fire?
+
+@b0813e05
+Fa setze anys, al juliol, va començar un foc a les botigues del Circ Màxim i va durar nou dies. Dels catorze barris de Roma, tres van desaparèixer i set van quedar gairebé destruïts. El meu pare era vigil: deia que no hi havia manera d'aturar-lo, que saltava de carrer en carrer. Uns van culpar Neró, que va reconstruir amb la seva Casa Daurada; Neró va culpar els cristians. Des d'aleshores els carrers són més amples i hi ha pòrtics de pedra. Més o menys.
+Sixteen years ago, in July, a fire started in the shops of the Circus Maximus and lasted nine days. Of Rome's fourteen districts, three vanished and seven were nearly destroyed. My father was a vigil: he said there was no way to stop it, it leapt from street to street. Some blamed Nero, who rebuilt with his Golden House; Nero blamed the Christians. Since then the streets are wider and there are stone porticoes. More or less.
+
+@cddd3f2b
+Qui són els vigils?
+Who are the vigiles?
+
+@f1eb2968
+Set cohorts, uns set mil homes, gairebé tots llibertos, una per cada dos barris. August ens va crear després que un polític, Cras, es fes ric comprant cases en flames a preu de ruïna abans d'apagar-les amb la seva brigada privada. Patrullem de nit, avisem dels brasers mal posats, perseguim els lladres i, si hi ha foc, enderroquem cases per tallar-li el pas. Després d'uns anys de servei, ens donen la ciutadania.
+Seven cohorts, about seven thousand men, nearly all freedmen, one for every two districts. Augustus created us after a politician, Crassus, got rich buying burning houses at ruin prices before putting them out with his private brigade. We patrol at night, warn about badly placed braziers, chase thieves and, if there's a fire, pull down houses to stop it spreading. After some years' service we're given citizenship.
+
+@393457c7
+Qui apagava els incendis a la Roma imperial?
+Who put out fires in imperial Rome?
+
+@3ec016d6
+Els vigils, cohorts creades per August
+The vigiles, cohorts created by Augustus
+
+@e639fb40
+Els pretorians de l'emperador
+The emperor's praetorians
+
+@6674a77c
+Els esclaus de cada casa, sense organització
+The slaves of each household, with no organisation
+
+@cf6034b2
+No. August va crear els vigils, set cohorts de llibertos que patrullaven de nit i apagaven els incendis.
+No. Augustus created the vigiles, seven cohorts of freedmen who patrolled at night and put out fires.
+
+@174d22b5
+La religió romana era sobretot un conjunt de ritus públics per mantenir la pax deorum, la bona relació amb els déus. Els col·legis de sacerdots (pontífexs, àugurs, flàmines) eren càrrecs de l'elit política. Els àugurs interpretaven la voluntat dels déus observant el vol dels ocells des d'un espai consagrat; els harúspexs llegien les entranyes de les víctimes. A cada casa s'honoraven els lars, els penats i el geni del pare de família.
+Roman religion was above all a set of public rites to maintain the pax deorum, good relations with the gods. The colleges of priests (pontiffs, augurs, flamens) were posts for the political elite. Augurs interpreted the will of the gods by watching the flight of birds from a consecrated space; haruspices read the entrails of victims. In every house the Lares, the Penates and the genius of the head of the family were honoured.
+
+@1c2bd04b
+Silenci un moment: estic observant el cel. Bé, no hi ha ocells. Sóc àugur, del col·legi dels àugurs, com ho van ser Ciceró o el diví August. Des d'aquest lloc consagrat, amb el meu bastó corbat, el lituus, miro quins ocells volen i per on. Abans de qualsevol afer públic cal saber si els déus hi estan d'acord.
+Silence a moment: I'm watching the sky. Good, no birds. I'm an augur, of the college of augurs, as Cicero and the divine Augustus were. From this consecrated spot, with my curved staff, the lituus, I watch which birds fly and where. Before any public business we must know whether the gods agree.
+
+@f84ec621
+Com es consulta els déus?
+How are the gods consulted?
+
+@9a43d5c3
+Amb el lituus traço al cel un espai sagrat, un templum. Després observo: quins ocells apareixen, per quin costat, com volen o canten. També hi ha els pollastres sagrats: si mengen amb ganes abans de la batalla, bon senyal. Un cònsol, Claudi Pulcre, els va llançar al mar perquè no menjaven, dient: «Que beguin». Va perdre la flota. Amb els déus no s'hi juga.
+With the lituus I trace a sacred space in the sky, a templum. Then I watch: which birds appear, on which side, how they fly or sing. There are also the sacred chickens: if they eat eagerly before a battle, a good sign. A consul, Claudius Pulcher, threw them into the sea because they wouldn't eat, saying: «Let them drink». He lost the fleet. You don't trifle with the gods.
+
+@2df81829
+Què és la pax deorum?
+What is the pax deorum?
+
+@2acb59af
+La pau amb els déus. Roma té un pacte amb ells: nosaltres els donem els ritus exactes, en el moment just, amb les paraules justes, i ells protegeixen la ciutat. Si un prodigi, una estàtua que sua sang o un llamp al Capitoli, indica que s'han enfadat, es consulta els sacerdots i s'expia. No importa tant el que creguis a dins com que el ritu es faci bé. Per això un error en una paraula obliga a començar de nou.
+Peace with the gods. Rome has a pact with them: we give them the exact rites, at the right moment, with the right words, and they protect the city. If a portent, a statue sweating blood or lightning on the Capitol, shows they're angry, the priests are consulted and it's expiated. What you believe inside matters less than that the rite be done properly. That's why a mistake in a single word means starting over.
+
+@af3161e6
+Quins déus adoreu?
+Which gods do you worship?
+
+@eaec80fe
+Júpiter Òptim Màxim, aquí al Capitoli, amb Juno i Minerva. Mart, pare de Ròmul; Vesta, la llar de Roma; Janus, el de les dues cares. A casa, els lars, que protegeixen la família, els penats del rebost i el geni del pare. I els emperadors divinitzats: el diví Juli, el diví August, el diví Vespasià. També acollim déus de fora, com Cíbele de Frígia o Isis d'Egipte. Roma té lloc per a tothom, si respecten els seus.
+Jupiter Best and Greatest, here on the Capitol, with Juno and Minerva. Mars, father of Romulus; Vesta, the hearth of Rome; Janus, the two-faced. At home, the Lares, who protect the family, the Penates of the larder and the father's genius. And the deified emperors: the divine Julius, the divine Augustus, the divine Vespasian. We also take in foreign gods, like Cybele from Phrygia or Isis from Egypt. Rome has room for everyone, as long as they respect hers.
+
+@051218b3
+Què observaven els àugurs per conèixer la voluntat dels déus?
+What did the augurs watch to learn the will of the gods?
+
+@26e8ecc5
+El vol i el cant dels ocells
+The flight and song of birds
+
+@fdacef33
+Les estrelles a l'horitzó
+The stars on the horizon
+
+@6bb16ff1
+El color del fum dels altars
+The colour of the smoke from the altars
+
+@c95498b8
+No. Els àugurs interpretaven els auspicis observant el vol i el cant dels ocells des d'un espai consagrat.
+No. Augurs interpreted the auspices by watching the flight and song of birds from a consecrated space.
+
+@206fda58
+A Roma hi vivia una gran comunitat jueva, sobretot al Trastevere, amb diverses sinagogues. D'ella van sorgir els primers cristians, seguidors de Jesús de Natzaret. Pau de Tars va escriure cap al 57 una carta als cristians de Roma i hi va estar pres cap al 60-62. Després de l'incendi del 64, Neró va culpar els cristians i en va executar molts. El 80 eren encara un grup petit que es reunia en cases privades.
+A large Jewish community lived in Rome, mainly in Trastevere, with several synagogues. From it came the first Christians, followers of Jesus of Nazareth. Paul of Tarsus wrote a letter to the Christians of Rome around 57 and was held prisoner there around 60-62. After the fire of 64, Nero blamed the Christians and executed many. In 80 they were still a small group meeting in private houses.
+
+@4946e335
+La pau sigui amb tu, foraster. Em dic Júnia. Visc aquí, al Trastevere, entre tintorers, adobers i jueus de Síria. El primer dia de la setmana ens reunim a casa d'uns amics per partir el pa en memòria d'un mestre de Galilea. No t'ho dic per convèncer-te; t'ho dic perquè ho has preguntat.
+Peace be with you, stranger. My name is Junia. I live here in Trastevere, among dyers, tanners and Jews from Syria. On the first day of the week we meet at some friends' house to break bread in memory of a teacher from Galilee. I'm not telling you to convince you; I'm telling you because you asked.
+
+@b7efa354
+Qui sou?
+Who are you?
+
+@7ccb3f39
+Seguim Jesús de Natzaret, un mestre jueu que va morir crucificat a Judea quan Tiberi era emperador. Diem que va ressuscitar. Al principi tots érem jueus; ara també hi ha grecs, llibertos, esclaus i alguna matrona. Ens reunim a les cases, cantem, llegim les escriptures i les cartes dels apòstols. No tenim temples ni sacrificis, i per això alguns ens diuen ateus.
+We follow Jesus of Nazareth, a Jewish teacher who died crucified in Judaea when Tiberius was emperor. We say he rose again. At first we were all Jews; now there are Greeks too, freedmen, slaves and the odd matrona. We meet in houses, sing, read the scriptures and the apostles' letters. We have no temples or sacrifices, and that's why some call us atheists.
+
+@1ac2b5dd
+Què va passar en temps de Neró?
+What happened under Nero?
+
+@bb82dd01
+Després de l'incendi, la gent deia que Neró l'havia provocat. Ell va buscar culpables i va assenyalar els cristians. A alguns els van cobrir amb pells d'animals perquè els esquarteressin els gossos; d'altres els van crucificar, o els van cremar de nit per il·luminar els seus jardins, a l'altra banda del Tíber. La tradició diu que aleshores també van morir Pere, el pescador, i Pau, decapitat a la via d'Òstia. Jo era una nena. La meva mare em tapava els ulls.
+After the fire, people said Nero had started it. He looked for culprits and pointed at the Christians. Some were sewn into animal skins to be torn apart by dogs; others were crucified, or burned at night to light his gardens across the Tiber. Tradition says that Peter, the fisherman, died then too, and Paul, beheaded on the road to Ostia. I was a little girl. My mother covered my eyes.
+
+@ae5645da
+I els jueus de Roma?
+And the Jews of Rome?
+
+@88c92352
+Són molts, des de fa més de cent anys: Cèsar els va protegir i ells van plorar al seu funeral. Tenen les seves sinagogues, guarden el dissabte, no mengen porc. Però des de la destrucció del Temple de Jerusalem, cada jueu de l'imperi paga un impost per al temple de Júpiter Capitolí, i això és una humiliació. Alguns ens miren a nosaltres amb desconfiança, i els romans no ens saben distingir.
+There are many of them, for more than a hundred years now: Caesar protected them and they wept at his funeral. They have their synagogues, keep the Sabbath, don't eat pork. But since the destruction of the Temple in Jerusalem, every Jew in the empire pays a tax for the temple of Capitoline Jupiter, and that's a humiliation. Some of them look at us with suspicion, and the Romans can't tell us apart.
+
+@61a52d59
+A qui va culpar Neró de l'incendi de Roma de l'any 64?
+Whom did Nero blame for the fire of Rome in 64?
+
+@9f6dddd3
+Als cristians
+The Christians
+
+@6b868581
+Als jueus d'Alexandria
+The Jews of Alexandria
+
+@3ba63b25
+Als senadors conspiradors
+Conspiring senators
+
+@4a526cda
+No. Segons Tàcit, Neró va culpar els cristians de l'incendi del 64 i va ordenar executar-ne molts de manera cruel.
+No. According to Tacitus, Nero blamed the Christians for the fire of 64 and had many of them cruelly executed.
+
+@4e2f9c4e
+La medicina romana era sobretot grega: els metges més prestigiosos eren grecs, sovint esclaus o llibertos. Coneixien la teoria dels quatre humors d'Hipòcrates, operaven amb instruments de bronze i feien servir moltes plantes medicinals. A l'Illa Tiberina hi havia el temple d'Esculapi, portat d'Epidaure el 291 aC després d'una pesta; allà s'abandonaven els esclaus malalts, fins que Claudi va decretar que quedaven lliures si es curaven.
+Roman medicine was mostly Greek: the most prestigious doctors were Greeks, often slaves or freedmen. They knew Hippocrates' theory of the four humours, operated with bronze instruments and used many medicinal plants. On the Tiber Island stood the temple of Aesculapius, brought from Epidaurus in 291 BC after a plague; sick slaves were abandoned there, until Claudius decreed that they became free if they recovered.
+
+@b81ac425
+Salut, que és la meva feina. Em dic Asclepíades, com el gran metge de Bitínia, encara que jo sóc de Pèrgam. Aquí, a l'illa d'Esculapi, atenc els malalts que vénen a dormir al temple esperant un somni del déu. Jo prefereixo les herbes i el bisturí, però no li trec la feina al déu.
+Good health, that's my business. My name is Asclepiades, like the great doctor from Bithynia, though I'm from Pergamum. Here on Aesculapius' island I look after the sick who come to sleep in the temple hoping for a dream from the god. I prefer herbs and the scalpel, but I don't take the god's work from him.
+
+@a76437a5
+Per què el temple és en una illa?
+Why is the temple on an island?
+
+@f07c30b0
+Fa gairebé quatre-cents anys, una pesta assolava Roma i els llibres sibil·lins van manar portar Esculapi d'Epidaure. Hi va anar una ambaixada en vaixell i, en tornar, una serp sagrada va saltar del vaixell i va nedar fins a aquesta illa. Aquí es va construir el temple. Per això l'illa s'ha adornat amb forma de vaixell, amb una proa de travertí, i a sobre el bastó amb la serp.
+Almost four hundred years ago a plague was ravaging Rome and the Sibylline Books ordered that Aesculapius be brought from Epidaurus. An embassy went by ship and, on the way back, a sacred snake leapt from the ship and swam to this island. The temple was built here. That's why the island has been decorated in the shape of a ship, with a travertine prow, and on it the staff with the snake.
+
+@924df3e7
+Com cureu?
+How do you heal?
+
+@92065851
+Segons Hipòcrates, la salut és l'equilibri de quatre humors: sang, flegma, bilis groga i bilis negra. La malaltia és un desequilibri, i es corregeix amb dieta, exercici, banys, sagnies, purgues i medicines de plantes: cascall per al dolor, mandràgora per dormir. I si cal, operem: cataractes, pedres, ferides, amputacions. Tinc pinces, sondes, escalpels i espèculums de bronze. Contra el dolor de veritat només tenim el vi i l'opi.
+According to Hippocrates, health is the balance of four humours: blood, phlegm, yellow bile and black bile. Illness is an imbalance, corrected with diet, exercise, baths, bleeding, purges and plant medicines: poppy for pain, mandrake for sleep. And if need be, we operate: cataracts, stones, wounds, amputations. I have bronze forceps, probes, scalpels and specula. Against real pain all we have is wine and opium.
+
+@2e3df6aa
+Què passa amb els esclaus malalts?
+What about sick slaves?
+
+@c067d383
+Alguns amos abandonen aquí, a l'illa, els seus esclaus malalts o vells per no haver-los de cuidar. L'emperador Claudi va decretar que l'esclau abandonat que es curés quedava lliure, i que l'amo que el matés en lloc d'abandonar-lo seria acusat d'assassinat. Així que molts que arriben aquí com a esclaus en surten lliures. Si en surten.
+Some masters abandon their sick or old slaves here on the island so they don't have to care for them. The emperor Claudius decreed that an abandoned slave who recovered became free, and that a master who killed one instead of abandoning him would be charged with murder. So many who arrive here as slaves leave free. If they leave.
+
+@6847bd1c
+Segons la medicina d'Hipòcrates, què era la salut?
+According to Hippocratic medicine, what was health?
+
+@1b69fe98
+L'equilibri dels quatre humors del cos
+The balance of the body's four humours
+
+@c861778d
+L'absència de dimonis al cos
+The absence of demons in the body
+
+@f931b1a7
+Un regal exclusiu de l'emperador
+An exclusive gift from the emperor
+
+@ec05b312
+No. Per a la medicina hipocràtica, la salut era l'equilibri entre quatre humors: sang, flegma, bilis groga i bilis negra.
+No. For Hippocratic medicine, health was the balance between four humours: blood, phlegm, yellow bile and black bile.

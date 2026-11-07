@@ -1,0 +1,585 @@
+# ROMA_SRC: fuentes y notas de los personajes de Roma
+
+@8aa6984b
+Marcial, Llibre dels espectacles 1, 17, 22 i 29 (Prisc i Ver)
+Martial, Book of Spectacles 1, 17, 22 and 29 (Priscus and Verus)
+
+@0a00d9c4
+Marcial, Epigrames I 2 i I 117 (els llibreters), X 70 (la vida del client)
+Martial, Epigrams I 2 and I 117 (the booksellers), X 70 (the client's life)
+
+@8e7588c1
+Suetoni, Titus 7.3 i Dió Cassi LXVI 25 (els jocs inaugurals)
+Suetonius, Titus 7.3 and Cassius Dio LXVI 25 (the inaugural games)
+
+@e1ee4adc
+=
+=
+
+@ac593c49
+=
+=
+
+@a95f2e32
+La data d'alguns epigrames del Llibre dels espectacles es discuteix; una part podria referir-se a jocs de Domicià.
+The date of some epigrams in the Book of Spectacles is debated; some may refer to games under Domitian.
+
+@9800c1b0
+Quintilià, Institució oratòria I 1-3 (l'educació del nen; contra els càstigs) i XII 1 (vir bonus dicendi peritus)
+Quintilian, Institutes of Oratory I 1-3 (the child's education; against beatings) and XII 1 (vir bonus dicendi peritus)
+
+@f3786134
+Suetoni, Vespasià 18 (sous públics als mestres de retòrica)
+Suetonius, Vespasian 18 (public salaries for teachers of rhetoric)
+
+@c10eb107
+Plini el Jove, Cartes VI 33 (la Basílica Júlia i els centumvirs)
+Pliny the Younger, Letters VI 33 (the Basilica Julia and the centumviri)
+
+@6c340559
+=
+=
+
+@d72206a4
+=
+=
+
+@9e1885a8
+La Institució oratòria es va escriure cap al 95; al joc Quintilià exposa idees que ja ensenyava.
+The Institutes of Oratory were written around 95; in the game Quintilian sets out ideas he was already teaching.
+
+@c3007d01
+Flavi Josep, Guerra dels jueus III 340-408 (Jotapata i la profecia), VI 249-266 (l'incendi del Temple) i VII 148-162 (el triomf i el Temple de la Pau)
+Flavius Josephus, Jewish War III 340-408 (Jotapata and the prophecy), VI 249-266 (the burning of the Temple) and VII 148-162 (the triumph and the Temple of Peace)
+
+@605fbf4b
+Flavi Josep, Autobiografia 414-430 (la seva vida a Roma)
+Flavius Josephus, Life 414-430 (his life in Rome)
+
+@5bc8f338
+Suetoni, Vespasià 5.6 i 9.1
+Suetonius, Vespasian 5.6 and 9.1
+
+@e2f1805a
+=
+=
+
+@1c518771
+=
+=
+
+@5674b084
+La Guerra dels jueus es va publicar entre el 75 i el 79. L'arc de Titus, amb el relleu del canelobre, és posterior al 81.
+The Jewish War was published between 75 and 79. The Arch of Titus, with the relief of the candlestick, is later than 81.
+
+@e5428d56
+Epictet, Manual 1 i 5, recollit per Arrià
+Epictetus, Handbook 1 and 5, recorded by Arrian
+
+@61cedaf0
+Epictet, Diatribes I 1 i I 9.29
+Epictetus, Discourses I 1 and I 9.29
+
+@6ccad451
+Orígenes, Contra Cels VII 53 (l'anècdota de la cama)
+Origen, Against Celsus VII 53 (the anecdote of the leg)
+
+@e7cde95d
+=
+=
+
+@18803029
+P. Ortiz García (trad.), Epicteto, Disertaciones por Arriano (Gredos, 1993)
+P. Ortiz García (trans.), Epicteto, Disertaciones por Arriano (Gredos, 1993)
+
+@bec8f0bb
+No sabem si Epictet encara era esclau el 80; el seu alliberament i el començament del seu ensenyament a Roma són de data incerta.
+We don't know whether Epictetus was still a slave in 80; his liberation and the start of his teaching in Rome are of uncertain date.
+
+@195c3b15
+Musoni Ruf, Diatribes III i IV (si les dones han de filosofar; si cal educar igual fills i filles) i IX (el desterrament)
+Musonius Rufus, Discourses III and IV (whether women should study philosophy; whether sons and daughters should be educated alike) and IX (exile)
+
+@e39aae3f
+Tàcit, Annals XV 71 i Històries III 81
+Tacitus, Annals XV 71 and Histories III 81
+
+@86736095
+Dió Cassi LXVI 13 (desterrament dels filòsofs per Vespasià)
+Cassius Dio LXVI 13 (Vespasian's banishment of the philosophers)
+
+@f16a1c72
+=
+=
+
+@83f62933
+El retorn de Musoni sota Titus és la datació més acceptada, però no és segura.
+Musonius' return under Titus is the most widely accepted dating, but it isn't certain.
+
+@437e2327
+Frontí, Sobre els aqüeductes de la ciutat de Roma I 4-16 (llista d'aqüeductes i les piràmides ocioses) i II 75-76 (els robatoris d'aigua)
+Frontinus, On the Aqueducts of the City of Rome I 4-16 (list of aqueducts and the idle pyramids) and II 75-76 (water theft)
+
+@48341590
+Plini el Vell, Història natural XXXVI 121-123 (l'Aqua Claudia)
+Pliny the Elder, Natural History XXXVI 121-123 (the Aqua Claudia)
+
+@3da069ff
+Suetoni, Claudi 20
+Suetonius, Claudius 20
+
+@4c554451
+=
+=
+
+@e623ace5
+=
+=
+
+@208c7408
+Frontí va governar Britània cap al 74-77; la seva presència a Roma el 80 és probable però no està documentada. El tractat és del 97-98.
+Frontinus governed Britain around 74-77; his presence in Rome in 80 is likely but undocumented. The treatise dates from 97-98.
+
+@d9535dbf
+Plini el Jove, Cartes VI 16 i VI 20 (a Tàcit: la mort del seu oncle i l'erupció)
+Pliny the Younger, Letters VI 16 and VI 20 (to Tacitus: his uncle's death and the eruption)
+
+@af02eadd
+Plini el Jove, Cartes III 5 (les obres del seu oncle)
+Pliny the Younger, Letters III 5 (his uncle's works)
+
+@53d2e7ae
+Suetoni, Titus 8.3-4 i Dió Cassi LXVI 21-24
+Suetonius, Titus 8.3-4 and Cassius Dio LXVI 21-24
+
+@33098322
+M. Beard, Pompeia: història i llegenda d'una ciutat romana (2008)
+M. Beard, Pompeii: The Life of a Roman Town (2008)
+
+@47c0b360
+R. Gibson i R. Morello, Reading the Letters of Pliny the Younger (2012)
+R. Gibson and R. Morello, Reading the Letters of Pliny the Younger (2012)
+
+@1155f114
+Les cartes es van escriure cap al 106. La data de l'erupció, tradicionalment el 24 d'agost, podria ser d'octubre segons troballes recents.
+The letters were written around 106. The date of the eruption, traditionally 24 August, may have been in October according to recent finds.
+
+@f88dab9f
+Tàcit, Agrícola 9 (el seu matrimoni) i Històries I 1 (la seva carrera; sine ira et studio)
+Tacitus, Agricola 9 (his marriage) and Histories I 1 (his career; sine ira et studio)
+
+@934f78ab
+Tàcit, Annals I 1-2
+Tacitus, Annals I 1-2
+
+@70d9a51e
+Plini el Jove, Cartes VII 20
+Pliny the Younger, Letters VII 20
+
+@a7570b14
+=
+=
+
+@69982310
+La data de naixement de Tàcit (c. 56) i la seva qüestura (c. 81) són aproximades; el 80 potser encara no era senador.
+Tacitus' date of birth (c. 56) and quaestorship (c. 81) are approximate; in 80 he may not yet have been a senator.
+
+@f53c346a
+Horaci, Epístoles II 1.156-157 (Graecia capta ferum victorem cepit)
+Horace, Epistles II 1.156-157 (Graecia capta ferum victorem cepit)
+
+@4d3f52fa
+Juvenal, Sàtires III 58-125 (els grecs a Roma)
+Juvenal, Satires III 58-125 (the Greeks in Rome)
+
+@4e91b904
+Dió de Prusa, Discursos VII (Eubeu) i XIII (el seu desterrament)
+Dio of Prusa, Orations VII (Euboean) and XIII (his exile)
+
+@9ed020b8
+Filòstrat, Vides dels sofistes I 7
+Philostratus, Lives of the Sophists I 7
+
+@3a8d14bf
+=
+=
+
+@7421fcca
+=
+=
+
+@38221073
+Dió va ser a Roma sota Vespasià i Titus; el seu desterrament per Domicià és de cap al 82. Juvenal va escriure les seves sàtires anys després.
+Dio was in Rome under Vespasian and Titus; his exile by Domitian dates from around 82. Juvenal wrote his satires years later.
+
+@85966a99
+Marcial, Epigrames X 35 i X 38 (Sulpícia i Calè)
+Martial, Epigrams X 35 and X 38 (Sulpicia and Calenus)
+
+@be2fd80d
+Gai, Institucions I 145 i 194 (tutela de les dones i dret dels tres fills)
+Gaius, Institutes I 145 and 194 (guardianship of women and the right of three children)
+
+@acd1ab29
+Corpus Tibullianum III 13-18 (la Sulpícia de l'època augustal)
+Corpus Tibullianum III 13-18 (the Augustan-age Sulpicia)
+
+@85f5749a
+Valeri Màxim VIII 3.3 (el discurs d'Hortènsia)
+Valerius Maximus VIII 3.3 (Hortensia's speech)
+
+@30195862
+=
+=
+
+@f488687b
+=
+=
+
+@b747fd87
+E. Cantarella, La calamitat ambigua (1991)
+E. Cantarella, Pandora's Daughters (1987)
+
+@c76269a9
+De la Sulpícia de Marcial només es conserven dos versos; la seva presència a Roma el 80 és possible, no segura.
+Only two lines of Martial's Sulpicia survive; her presence in Rome in 80 is possible, not certain.
+
+@60d5d764
+Vitruvi, Sobre l'arquitectura II 5-6 (la calç i la pols de Puteoli)
+Vitruvius, On Architecture II 5-6 (lime and the dust of Puteoli)
+
+@d00a620f
+Marcial, Epigrames VII 56 i X 71 (Rabiri)
+Martial, Epigrams VII 56 and X 71 (Rabirius)
+
+@0d746753
+Suetoni, Neró 31 (la Domus Aurea)
+Suetonius, Nero 31 (the Domus Aurea)
+
+@4a51864d
+Tàcit, Annals XV 42 (Sever i Cèler)
+Tacitus, Annals XV 42 (Severus and Celer)
+
+@34a6d1a9
+J.-P. Adam, La construcció romana (1984)
+J.-P. Adam, Roman Building (1984)
+
+@d0b65575
+=
+=
+
+@76eecd90
+Les obres del palau de Domicià es daten a partir del 81; situar-les el 80 és una llicència.
+Work on Domitian's palace is dated from 81 on; placing it in 80 is a licence.
+
+@ac52916f
+Marcial, Epigrames I 2 (llibres de pergamí de butxaca) i I 117 (la llibreria d'Atrecte a l'Argilet, amb anuncis a les columnes)
+Martial, Epigrams I 2 (pocket parchment books) and I 117 (Atrectus' bookshop in the Argiletum, with notices on the columns)
+
+@0c966ca2
+Suetoni, Cèsar 44 i August 29 (biblioteques)
+Suetonius, Caesar 44 and Augustus 29 (libraries)
+
+@267a152a
+Plini el Vell, Història natural XIII 68-83 (el papir)
+Pliny the Elder, Natural History XIII 68-83 (papyrus)
+
+@cfd4aec6
+=
+=
+
+@17ca8af9
+Atrecte és el llibreter que esmenta Marcial; el seu caràcter i el seu taller són inventats.
+Atrectus is the bookseller Martial names; his character and his shop are invented.
+
+@923f93c2
+Marcial, Llibre dels espectacles 29 (Prisc i Ver)
+Martial, Book of Spectacles 29 (Priscus and Verus)
+
+@7c0d514a
+Petroni, Satiricó 117 (el jurament del gladiador)
+Petronius, Satyricon 117 (the gladiator's oath)
+
+@bb073e8a
+Sèneca, Cartes 7 (contra els espectacles)
+Seneca, Letters 7 (against the games)
+
+@6ee8cfb9
+K. Hopkins i M. Beard, El Colosseu (2005)
+K. Hopkins and M. Beard, The Colosseum (2005)
+
+@8f395336
+=
+=
+
+@aadc90ea
+Només coneixem Prisc per l'epigrama de Marcial; la seva vida és inventada. El gest del polze és més ambigu del que se sol creure.
+We know Priscus only from Martial's epigram; his life is invented. The thumb gesture is more ambiguous than usually believed.
+
+@a911d228
+Plutarc, Numa 9-10 (les vestals i el seu càstig)
+Plutarch, Numa 9-10 (the Vestals and their punishment)
+
+@e8032aa8
+Aule Gel·li, Nits àtiques I 12 (l'elecció)
+Aulus Gellius, Attic Nights I 12 (the selection)
+
+@ee749e36
+Plini el Jove, Cartes IV 11 (la condemna de la vestal Cornèlia sota Domicià)
+Pliny the Younger, Letters IV 11 (the condemnation of the Vestal Cornelia under Domitian)
+
+@8b1ad6bc
+M. Beard, J. North i S. Price, Religions of Rome (1998)
+M. Beard, J. North and S. Price, Religions of Rome (1998)
+
+@be258ee6
+=
+=
+
+@30727e1b
+Cornèlia és la vestal màxima que Domicià va fer enterrar viva cap al 91; el seu caràcter al joc és inventat.
+Cornelia is the chief Vestal whom Domitian had buried alive around 91; her character in the game is invented.
+
+@10a9f96b
+Petroni, Satiricó 75-77 (Trimalció i els seus vaixells)
+Petronius, Satyricon 75-77 (Trimalchio and his ships)
+
+@a3814721
+Gai, Institucions I 17-44 (formes de manumissió)
+Gaius, Institutes I 17-44 (forms of manumission)
+
+@3810512f
+Plini el Vell, Història natural XXXIII 134-135 (llibertos rics)
+Pliny the Elder, Natural History XXXIII 134-135 (rich freedmen)
+
+@1e6787f0
+=
+=
+
+@180b1872
+Hermeros és inventat: la seva història segueix la del Trimalció de Petroni, un personatge literari, i el nom està pres del Satiricó.
+Hermeros is invented: his story follows that of Petronius' Trimalchio, a literary character, and the name comes from the Satyricon.
+
+@3296c22f
+Marcial, Epigrames III 7 i X 70 (l'espòrtula de cent quadrants)
+Martial, Epigrams III 7 and X 70 (the sportula of a hundred quadrantes)
+
+@0d47b1f7
+Juvenal, Sàtires I 95-126 i V (el client humiliat)
+Juvenal, Satires I 95-126 and V (the humiliated client)
+
+@a39b4995
+Vitruvi, Sobre l'arquitectura VI 3-5 (les parts de la domus)
+Vitruvius, On Architecture VI 3-5 (the parts of the domus)
+
+@19499a63
+=
+=
+
+@c10f78ab
+=
+=
+
+@8aeea727
+Luci Fabi és inventat. Cent quadrants equivalien a sis sestercis i quart.
+Lucius Fabius is invented. A hundred quadrantes were worth six and a quarter sesterces.
+
+@dd283fd8
+Tàcit, Annals IV 5 (les legions) i Històries I-II
+Tacitus, Annals IV 5 (the legions) and Histories I-II
+
+@928c35c0
+Suetoni, Claudi 10 i Titus 6 (Titus, prefecte del pretori)
+Suetonius, Claudius 10 and Titus 6 (Titus, praetorian prefect)
+
+@2874fc4e
+Flavi Josep, Guerra dels jueus III 70-109 (l'exèrcit romà)
+Flavius Josephus, Jewish War III 70-109 (the Roman army)
+
+@b5d25f66
+A. Goldsworthy, L'exèrcit romà (2003)
+A. Goldsworthy, The Complete Roman Army (2003)
+
+@7ea01953
+=
+=
+
+@e89250a8
+Marc Valeri Pudent és inventat.
+Marcus Valerius Pudens is invented.
+
+@c063265a
+Dionís d'Halicarnàs, Antiguitats romanes III 68 (el Circ)
+Dionysius of Halicarnassus, Roman Antiquities III 68 (the Circus)
+
+@f32d5204
+Plini el Vell, Història natural XXXVI 102 (capacitat del Circ)
+Pliny the Elder, Natural History XXXVI 102 (capacity of the Circus)
+
+@1030d7b5
+Inscripció de l'auriga Diocles, CIL VI 10048
+Inscription of the charioteer Diocles, CIL VI 10048
+
+@3ecc0293
+Suetoni, Neró 22
+Suetonius, Nero 22
+
+@fd1adbf8
+=
+=
+
+@778800e2
+=
+=
+
+@795f389a
+Fèlix és inventat. Les xifres de capacitat del Circ varien molt segons les fonts.
+Felix is invented. Figures for the Circus' capacity vary widely between sources.
+
+@56dcf6e5
+Juvenal, Sàtires X 78-81 (panem et circenses)
+Juvenal, Satires X 78-81 (panem et circenses)
+
+@d04d6516
+Suetoni, August 40-42 i Claudi 18-20 (l'annona i el port d'Òstia)
+Suetonius, Augustus 40-42 and Claudius 18-20 (the annona and the port of Ostia)
+
+@e722aa8d
+Flavi Josep, Guerra dels jueus II 383-386 (Egipte alimenta Roma quatre mesos)
+Flavius Josephus, Jewish War II 383-386 (Egypt feeds Rome four months a year)
+
+@226040bd
+=
+=
+
+@a1f23d9f
+=
+=
+
+@ae1bca08
+El personatge és inventat. Juvenal va escriure després del 100. El Mont Testaccio va començar a formar-se en època augustal, però va créixer sobretot als segles II i III.
+The character is invented. Juvenal wrote after 100. Monte Testaccio began to form in the Augustan age, but grew mostly in the second and third centuries.
+
+@206da64f
+Sèneca, Cartes 56 (el soroll dels banys) i 86
+Seneca, Letters 56 (the noise of the baths) and 86
+
+@a70a7089
+Suetoni, Titus 7.3 (les termes al costat de l'amfiteatre)
+Suetonius, Titus 7.3 (the baths beside the amphitheatre)
+
+@f8538bdb
+Marcial, Epigrames III 36
+Martial, Epigrams III 36
+
+@b1d1780e
+Vitruvi, Sobre l'arquitectura V 10
+Vitruvius, On Architecture V 10
+
+@4a4d1e7e
+=
+=
+
+@66220e46
+=
+=
+
+@150d5526
+Secund és inventat. De les Termes de Titus se'n conserva molt poc; la seva planta es coneix per dibuixos del Renaixement.
+Secundus is invented. Very little survives of the Baths of Titus; their plan is known from Renaissance drawings.
+
+@4736a5d4
+Tàcit, Annals XV 38-44 (l'incendi del 64 i la reconstrucció)
+Tacitus, Annals XV 38-44 (the fire of 64 and the rebuilding)
+
+@e1d59d27
+Juvenal, Sàtires III 190-231 (esfondraments i incendis)
+Juvenal, Satires III 190-231 (collapses and fires)
+
+@74a583c4
+Suetoni, August 30 i Neró 38
+Suetonius, Augustus 30 and Nero 38
+
+@a6deb52d
+Plutarc, Cras 2
+Plutarch, Crassus 2
+
+@a5932d62
+=
+=
+
+@f2722462
+Aule Semproni és inventat.
+Aulus Sempronius is invented.
+
+@ad06a25e
+Ciceró, Sobre l'endevinació I-II i Sobre les lleis II 20-21
+Cicero, On Divination I-II and On the Laws II 20-21
+
+@d49ae9d5
+Ciceró, Sobre la naturalesa dels déus II 7 (Claudi Pulcre i els pollastres sagrats)
+Cicero, On the Nature of the Gods II 7 (Claudius Pulcher and the sacred chickens)
+
+@f8a79b2c
+Livi I 18 (la presa d'auspicis de Numa)
+Livy I 18 (Numa's taking of the auspices)
+
+@9d3ef300
+J. Scheid, La religió a Roma (1991)
+J. Scheid, An Introduction to Roman Religion (1998)
+
+@ac118337
+L'àugur és inventat; el nom és el d'una família senatorial republicana.
+The augur is invented; the name is that of a Republican senatorial family.
+
+@0c07d8a9
+Tàcit, Annals XV 44 (els cristians després de l'incendi)
+Tacitus, Annals XV 44 (the Christians after the fire)
+
+@b65b40d5
+Pau, Carta als Romans 16 (salutacions, entre elles a Andrònic i Júnia)
+Paul, Letter to the Romans 16 (greetings, among them to Andronicus and Junia)
+
+@c5e47561
+Suetoni, Claudi 25.4 i Neró 16
+Suetonius, Claudius 25.4 and Nero 16
+
+@3a519711
+Flavi Josep, Guerra dels jueus VII 218 (l'impost jueu)
+Flavius Josephus, Jewish War VII 218 (the Jewish tax)
+
+@db327d5d
+=
+=
+
+@f29041cb
+Júnia és un personatge inventat; el seu nom recorda la Júnia saludada per Pau. La mort de Pere i Pau a Roma ve de la tradició.
+Junia is an invented character; her name recalls the Junia greeted by Paul. The deaths of Peter and Paul in Rome come from tradition.
+
+@942535b0
+Livi X 47 i Ovidi, Metamorfosis XV 622-744 (l'arribada d'Esculapi a l'illa)
+Livy X 47 and Ovid, Metamorphoses XV 622-744 (the arrival of Aesculapius on the island)
+
+@82990c41
+Suetoni, Claudi 25.2 (els esclaus abandonats a l'illa)
+Suetonius, Claudius 25.2 (the slaves abandoned on the island)
+
+@130a38a9
+Cels, Sobre la medicina VII (cirurgia)
+Celsus, On Medicine VII (surgery)
+
+@30f478bc
+Plini el Vell, Història natural XXIX 1-28 (els metges grecs)
+Pliny the Elder, Natural History XXIX 1-28 (the Greek doctors)
+
+@d5be65e5
+=
+=
+
+@1df39388
+=
+=
+
+@d6dcf884
+Asclepíades és inventat.
+Asclepiades is invented.

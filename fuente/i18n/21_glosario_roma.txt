@@ -1,0 +1,1225 @@
+# ROMA_GLOSS: glosario de Roma (las variantes en minúsculas se buscan en el texto traducido)
+
+@63be29e5
+Senat
+Senate
+
+@2ffd0ee0
+El consell d'uns sis-cents antics magistrats, que serveixen de per vida. A l'Imperi conserva prestigi i algunes funcions, però el poder real és de l'emperador.
+The council of some six hundred former magistrates, who serve for life. Under the Empire it keeps its prestige and some functions, but real power lies with the emperor.
+
+@5f7ce85f
+L'edifici on es reuneix el Senat. La Cúria Júlia del Fòrum la va començar Cèsar i la va acabar August.
+The building where the Senate meets. The Curia Julia in the Forum was begun by Caesar and finished by Augustus.
+
+@e80bd007
+Cònsol
+Consul
+
+@0486ebe1
+cònsol
+consul
+
+@d81a98ed
+cònsols
+consuls
+
+@92ae4fb5
+Els dos magistrats suprems, elegits cada any. Donen nom a l'any. A l'Imperi, l'emperador decideix qui ho serà.
+The two supreme magistrates, elected every year. They give their names to the year. Under the Empire, the emperor decides who they will be.
+
+@d1cde361
+Pretor
+Praetor
+
+@8b2fb6f1
+Magistrat encarregat de la justícia, per sota dels cònsols.
+Magistrate in charge of justice, below the consuls.
+
+@48bf6c64
+Qüestor
+Quaestor
+
+@1bdf8e67
+El primer càrrec de la carrera senatorial: administra fons públics i dona entrada al Senat.
+The first post of the senatorial career: he manages public funds and gains entry to the Senate.
+
+@f0015390
+Edil
+Aedile
+
+@269d4b53
+Magistrat que té cura de carrers, mercats, temples i jocs públics.
+Magistrate who looks after streets, markets, temples and public games.
+
+@eaa5454b
+Tribú de la plebs
+Tribune of the plebs
+
+@ddda12ed
+tribú de la plebs
+tribune of the plebs
+
+@1322458d
+Magistrat creat per defensar la plebs davant els patricis, amb dret de veto.
+Magistrate created to defend the plebs against the patricians, with the right of veto.
+
+@c7eb05f6
+Cursus honorum
+Cursus honorum
+
+@75639c09
+cursus honorum
+cursus honorum
+
+@4375a056
+carrera dels honors
+career of honours
+
+@4ffa9074
+La «carrera dels honors»: l'ordre fix de càrrecs públics (qüestor, edil o tribú, pretor, cònsol) amb edats mínimes.
+The «career of honours»: the fixed order of public offices (quaestor, aedile or tribune, praetor, consul) with minimum ages.
+
+@ca3050c2
+Príncep
+Princeps
+
+@b92eafe2
+príncep
+princeps
+
+@5ab243c3
+«El primer» dels ciutadans: així es presentava August. És el títol oficiós de l'emperador.
+«The first» of the citizens: that's how Augustus presented himself. It is the emperor's unofficial title.
+
+@1dce6834
+Emperador
+Emperor
+
+@6abca3dd
+En llatí, imperator: el general victoriós. Des d'August, el governant únic de Roma, encara que les institucions de la República continuen existint.
+In Latin, imperator: the victorious general. Since Augustus, the sole ruler of Rome, though the institutions of the Republic still exist.
+
+@c743773d
+Pretorians
+Praetorians
+
+@8098e4bb
+guàrdia pretoriana
+praetorian guard
+
+@bb756d0a
+La guàrdia de l'emperador, acampada a Roma. Cobraven molt més que els legionaris i van arribar a posar i treure emperadors.
+The emperor's guard, camped in Rome. They were paid far more than legionaries and came to make and unmake emperors.
+
+@2edccff8
+Legió
+Legion
+
+@a95e8a4f
+legió
+legion
+
+@c3971ddb
+Unitat d'uns cinc mil ciutadans d'infanteria pesant, dividida en deu cohorts. L'Imperi en tenia unes vint-i-vuit.
+Unit of about five thousand citizen heavy infantry, divided into ten cohorts. The Empire had some twenty-eight.
+
+@4d6e6168
+Centurió
+Centurion
+
+@5912d3cf
+centurió
+centurion
+
+@c2c62e26
+Oficial al comandament d'una centúria, uns vuitanta homes. És la columna vertebral de l'exèrcit.
+Officer commanding a century, about eighty men. He is the backbone of the army.
+
+@c4536f90
+Auxiliars
+Auxiliaries
+
+@36575d59
+Soldats que no eren ciutadans romans: cavalleria, arquers, foners. Rebien la ciutadania en llicenciar-se.
+Soldiers who were not Roman citizens: cavalry, archers, slingers. They received citizenship on discharge.
+
+@48edff2a
+Vigils
+Vigiles
+
+@e568d8b9
+Les set cohorts de llibertos que patrullaven Roma de nit i apagaven els incendis. Les va crear August.
+The seven cohorts of freedmen who patrolled Rome at night and put out fires. Augustus created them.
+
+@d6ddff42
+Lictor
+Lictor
+
+@1ef75a84
+Escorta dels magistrats, que portava les fasces: un feix de vares amb una destral, símbol del poder de castigar.
+Escort of the magistrates, carrying the fasces: a bundle of rods with an axe, symbol of the power to punish.
+
+@dc38cd2b
+Triomf
+Triumph
+
+@a71ba184
+La desfilada del general victoriós per Roma fins al Capitoli, amb el botí i els presoners.
+The victorious general's parade through Rome to the Capitol, with the spoils and the prisoners.
+
+@123f3aaf
+Toga
+Toga
+
+@a02bb523
+El mantell de llana blanca del ciutadà romà, de forma semicircular i difícil de posar. Era obligatòria en actes oficials.
+The Roman citizen's white wool mantle, semicircular and hard to put on. It was compulsory on official occasions.
+
+@48bdefa8
+Túnica
+Tunic
+
+@8537372c
+túnica
+tunic
+
+@eaa39dcf
+túniques
+tunics
+
+@39626879
+La peça bàsica d'homes i dones, de llana o lli, amb cinturó. Els senadors la portaven amb una franja porpra.
+The basic garment of men and women, of wool or linen, belted. Senators wore it with a purple stripe.
+
+@50132a15
+Fòrum
+Forum
+
+@5cbcf101
+La plaça pública d'una ciutat romana: mercat, centre polític, religiós i judicial.
+The public square of a Roman city: market and political, religious and judicial centre.
+
+@f727c99e
+Basílica
+Basilica
+
+@5b6224a9
+basílica
+basilica
+
+@6f831564
+basíliques
+basilicas
+
+@4978eebb
+Gran sala coberta al costat del fòrum per a tribunals i negocis. La seva forma l'heretaran les esglésies cristianes.
+Large covered hall beside the forum for courts and business. Christian churches will inherit its form.
+
+@1c8bc523
+La tribuna dels oradors del Fòrum, adornada amb esperons de naus enemigues.
+The speakers' platform in the Forum, adorned with the rams of enemy ships.
+
+@c0d3ce45
+Amfiteatre
+Amphitheatre
+
+@0ec528e9
+Edifici el·líptic per a combats de gladiadors i caceres de feres. L'Amfiteatre Flavi és el més gran.
+Elliptical building for gladiator fights and wild-beast hunts. The Flavian Amphitheatre is the largest.
+
+@fe122557
+Gladiador
+Gladiator
+
+@1fca06ca
+Lluitador dels espectacles, gairebé sempre esclau, presoner o condemnat, entrenat en una escola (ludus).
+Fighter in the shows, nearly always a slave, prisoner or convict, trained in a school (ludus).
+
+@3c33f6ce
+Mirmil·ló
+Murmillo
+
+@a5cfc7ce
+mirmil·ló
+murmillo
+
+@4b24377d
+Gladiador amb casc de peix, escut llarg i espasa curta.
+Gladiator with a fish-crested helmet, long shield and short sword.
+
+@768c7867
+Reciari
+Retiarius
+
+@dd3e7288
+Gladiador amb xarxa, trident i punyal, gairebé sense armadura.
+Gladiator with net, trident and dagger, almost without armour.
+
+@73cb011d
+Traci
+Thraex
+
+@53dadf9b
+Gladiador amb escut petit i espasa corba, a l'estil dels guerrers de Tràcia.
+Gladiator with a small shield and curved sword, in the style of Thracian warriors.
+
+@f7457c35
+Rudis
+Rudis
+
+@09ad2db1
+L'espasa de fusta que rebia el gladiador en ser alliberat del combat.
+The wooden sword a gladiator received when released from fighting.
+
+@c7e9fb2e
+Editor
+Editor
+
+@ecb51f62
+Qui paga i presideix els jocs. Decideix si un gladiador vençut viu o mor.
+Whoever pays for and presides over the games. He decides whether a defeated gladiator lives or dies.
+
+@ea17de1e
+Circ
+Circus
+
+@5fe1008e
+Pista allargada per a les curses de carros. El Circ Màxim és el més gran de Roma.
+Long track for chariot races. The Circus Maximus is the largest in Rome.
+
+@05747b5b
+Espina
+Spina
+
+@5dbeb70a
+El mur baix que divideix la pista del circ, amb estàtues, obeliscs i comptadors de voltes.
+The low wall dividing the circus track, with statues, obelisks and lap counters.
+
+@3496e41d
+Càrceres
+Carceres
+
+@4dfcbe0b
+càrceres
+carceres
+
+@305f19ad
+Les portes de sortida dels carros, a l'extrem del circ.
+The chariots' starting gates, at the end of the circus.
+
+@f5f52063
+Auriga
+Charioteer
+
+@c3413944
+El conductor de carros de curses, normalment esclau o llibert. Els millors eren ídols rics.
+The driver of racing chariots, usually a slave or freedman. The best were rich idols.
+
+@41d0f41c
+Faccions
+Factions
+
+@e68f4378
+facció
+faction
+
+@c187fd90
+Les quatre empreses de curses: verds, blaus, vermells i blancs, amb seguidors apassionats.
+The four racing companies: Greens, Blues, Reds and Whites, with passionate supporters.
+
+@47707744
+Quadriga
+Quadriga
+
+@7dd96851
+Carro tirat per quatre cavalls (o dos, la biga).
+Chariot drawn by four horses (or two, the biga).
+
+@cd7070ff
+Termes
+Baths
+
+@e7ac4202
+banys públics
+public baths
+
+@4084c4ca
+Banys públics amb palestra, piscines i sales a diferents temperatures. Eren centres socials.
+Public baths with exercise yard, pools and rooms at different temperatures. They were social centres.
+
+@bab175f8
+La sala d'aigua freda de les termes.
+The cold room of the baths.
+
+@891e0576
+Tepidari
+Tepidarium
+
+@f2a0428e
+La sala temperada de les termes.
+The warm room of the baths.
+
+@aeef984b
+La sala calenta de les termes, amb bany d'aigua calenta.
+The hot room of the baths, with a hot-water bath.
+
+@eacc29b5
+Hipocaust
+Hypocaust
+
+@71aea8f5
+Calefacció sota el terra: l'aire calent d'un forn circula entre piles de maons.
+Underfloor heating: hot air from a furnace circulates between stacks of bricks.
+
+@5be97b17
+Estrígil
+Strigil
+
+@f5522630
+estrígil
+strigil
+
+@53d68923
+Rascador corbat de metall per treure's de la pell l'oli, la suor i la brutícia.
+Curved metal scraper for removing oil, sweat and dirt from the skin.
+
+@38671f88
+Pati per a l'exercici i la lluita.
+Courtyard for exercise and wrestling.
+
+@65ec079e
+Ínsula
+Insula
+
+@5f50d9e3
+ínsula
+insula
+
+@e262b2c5
+ínsules
+insulae
+
+@738164d4
+Bloc de pisos de lloguer de diverses plantes, amb botigues a baix. Habitatge de la majoria dels romans.
+Block of rented flats several storeys high, with shops below. Home to most Romans.
+
+@11b1ae0a
+Domus
+Domus
+
+@74d49f4f
+La casa unifamiliar dels rics, tancada al carrer, amb atri i peristil.
+The single-family house of the rich, closed to the street, with atrium and peristyle.
+
+@ea8cc316
+Atri
+Atrium
+
+@8a3b49e6
+La sala principal de la domus, amb una obertura al sostre (compluvi) i un estany a sota (impluvi).
+The main room of the domus, with an opening in the roof (compluvium) and a pool below (impluvium).
+
+@9679fdf2
+Impluvi
+Impluvium
+
+@250c6e8a
+L'estany de l'atri que recull la pluja que entra per l'obertura del sostre (compluvi).
+The atrium pool that collects the rain coming in through the roof opening (compluvium).
+
+@3cde72de
+Tablinum
+Tablinum
+
+@b85f2fc7
+La sala de recepció del senyor de la casa, al fons de l'atri.
+The master's reception room, at the far end of the atrium.
+
+@45b79970
+Jardí envoltat de columnes a l'interior de la casa.
+Garden surrounded by columns inside the house.
+
+@7bb183ae
+Patró
+Patron
+
+@cd0dba5e
+Home influent que protegeix els seus clients, o antic amo d'un llibert.
+Influential man who protects his clients, or a freedman's former master.
+
+@c5c7d5ee
+Client
+Client
+
+@93ed9b9f
+Persona que depèn d'un patró: el saluda cada matí, l'acompanya i li dona suport a canvi de protecció i regals.
+Person dependent on a patron: he greets him every morning, escorts him and supports him in exchange for protection and gifts.
+
+@c3ab68f2
+Salutatio
+Salutatio
+
+@1aa8fd12
+La visita matinal dels clients a casa del seu patró per saludar-lo.
+The clients' morning visit to their patron's house to greet him.
+
+@fbcfae27
+Espòrtula
+Sportula
+
+@d82b3f01
+espòrtula
+sportula
+
+@1933d6bf
+El petit regal en diners o menjar que el patró dona als seus clients.
+The small gift of money or food a patron gives his clients.
+
+@058e7f31
+Llibert
+Freedman
+
+@7f9bcb55
+Antic esclau alliberat. Si el seu amo era ciutadà, ell també ho és, encara que amb limitacions.
+A former slave set free. If his master was a citizen, he is one too, though with limitations.
+
+@f433b080
+Manumissió
+Manumission
+
+@3c9c8c81
+manumissió
+manumission
+
+@80fd75de
+L'acte legal d'alliberar un esclau.
+The legal act of freeing a slave.
+
+@9846dba4
+Pecúlium
+Peculium
+
+@a752d7b5
+Els diners que un esclau podia estalviar i administrar, de vegades per comprar la seva llibertat.
+The money a slave could save and manage, sometimes to buy his freedom.
+
+@60e70094
+Annona
+Annona
+
+@127dbb6a
+El proveïment de blat de Roma i el seu repartiment gratuït als ciutadans inscrits.
+Rome's grain supply and its free distribution to registered citizens.
+
+@04772a5a
+Modi
+Modius
+
+@cf26f364
+Mesura de capacitat per al gra, d'uns 8,7 litres.
+Dry measure for grain, about 8.7 litres.
+
+@0cac507a
+Sesterci
+Sestertius
+
+@b29d6bdd
+La moneda de compte romana, de llautó. Quatre sestercis fan un denari.
+The Roman unit of account, a brass coin. Four sesterces make a denarius.
+
+@323867b5
+Denari
+Denarius
+
+@22a90c47
+Moneda de plata que val quatre sestercis.
+Silver coin worth four sesterces.
+
+@9d31985f
+As
+As
+
+@8a6b4f6e
+Moneda de coure que val un quart de sesterci.
+Copper coin worth a quarter of a sestertius.
+
+@e9dbf806
+Quadrant
+Quadrans
+
+@4b5ce7bf
+La moneda més petita: un quart d'as. És el que costa entrar en unes termes.
+The smallest coin: a quarter of an as. It's the price of entry to the baths.
+
+@cc9236a7
+Vestals
+Vestals
+
+@450c0d98
+Les sis sacerdotesses de Vesta, que guardaven el foc sagrat durant trenta anys.
+The six priestesses of Vesta, who guarded the sacred fire for thirty years.
+
+@1516773d
+Vesta
+Vesta
+
+@b27010a9
+Deessa de la llar i del foc sagrat de Roma.
+Goddess of the hearth and of Rome's sacred fire.
+
+@21201990
+Pontífex màxim
+Pontifex maximus
+
+@3334b203
+pontífex màxim
+pontifex maximus
+
+@ee2e00d8
+pontífex
+pontiff
+
+@03f89ab5
+El cap de la religió pública romana. Des d'August, el càrrec el té l'emperador.
+The head of Roman public religion. Since Augustus, the emperor holds the post.
+
+@b2d0faa5
+Sacerdot que interpretava la voluntat dels déus observant el vol dels ocells (els auspicis).
+Priest who interpreted the will of the gods by watching the flight of birds (the auspices).
+
+@abc1679d
+Lituus
+Lituus
+
+@f63b63ac
+El bastó corbat dels àugurs.
+The augurs' curved staff.
+
+@5506ada3
+Harúspex
+Haruspex
+
+@57451f46
+harúspex
+haruspex
+
+@bbbee412
+harúspexs
+haruspices
+
+@383c666a
+Endeví d'origen etrusc que llegia les entranyes dels animals sacrificats.
+Diviner of Etruscan origin who read the entrails of sacrificed animals.
+
+@78a9cc35
+Lars
+Lares
+
+@1d902c00
+Déus protectors de la casa i de les cruïlles.
+Protective gods of the house and the crossroads.
+
+@cb4fde13
+Penats
+Penates
+
+@0460abf5
+Déus del rebost i de la família; també els déus de Troia que va portar Enees.
+Gods of the larder and the family; also the gods of Troy that Aeneas brought.
+
+@6d145afc
+Geni
+Genius
+
+@15a63400
+L'esperit protector de cada home, especialment del pare de família.
+The guardian spirit of every man, especially the head of the family.
+
+@56195ece
+Pax deorum
+Pax deorum
+
+@b06d1986
+pax deorum
+pax deorum
+
+@1a5fbdd8
+La pau amb els déus: la bona relació que els ritus públics havien de mantenir.
+Peace with the gods: the good relationship that public rites were meant to maintain.
+
+@c0296b24
+júpiter
+jupiter
+
+@77db1d35
+El déu suprem de Roma, senyor del cel, venerat al Capitoli amb Juno i Minerva.
+The supreme god of Rome, lord of the sky, worshipped on the Capitol with Juno and Minerva.
+
+@2e97b8b4
+Juno
+Juno
+
+@387d8874
+Esposa de Júpiter, deessa de les dones i del matrimoni.
+Wife of Jupiter, goddess of women and marriage.
+
+@e745c92c
+Minerva
+Minerva
+
+@9eb77deb
+Deessa de la saviesa i dels oficis, equivalent a l'Atena grega.
+Goddess of wisdom and crafts, equivalent to the Greek Athena.
+
+@ce38545f
+Mart
+Mars
+
+@66ee6795
+Déu de la guerra i pare de Ròmul i Rem.
+God of war and father of Romulus and Remus.
+
+@f92857d9
+Janus
+Janus
+
+@d50c63f7
+Déu de les portes i els començaments, amb dues cares. Les portes del seu temple es tancaven en temps de pau.
+God of doorways and beginnings, with two faces. The doors of his temple were closed in time of peace.
+
+@71068972
+Venus
+Venus
+
+@ff1a6f13
+Deessa de l'amor, mare d'Enees i avantpassada de la família de Cèsar.
+Goddess of love, mother of Aeneas and ancestor of Caesar's family.
+
+@8550d166
+Esculapi
+Aesculapius
+
+@fa1d9103
+El déu metge, l'Asclepi grec, portat d'Epidaure a l'illa del Tíber.
+The healing god, the Greek Asclepius, brought from Epidaurus to the Tiber island.
+
+@0be4f248
+Saturnals
+Saturnalia
+
+@153c982f
+Festa de desembre en honor de Saturn: banquets, regals i esclaus asseguts a taula amb els seus amos.
+December festival in honour of Saturn: banquets, presents and slaves sitting at table with their masters.
+
+@845918ba
+Lupercals
+Lupercalia
+
+@c0c27326
+Festa de febrer en què uns joves corrien al voltant del Palatí assotant amb tires de pell de cabra.
+February festival in which young men ran round the Palatine lashing out with strips of goatskin.
+
+@5da55944
+Llibres sibil·lins
+Sibylline Books
+
+@c3b7b6de
+llibres sibil·lins
+sibylline books
+
+@49467ae4
+Col·lecció de profecies que els romans consultaven en moments de crisi.
+Collection of prophecies the Romans consulted in times of crisis.
+
+@465d7649
+Aqüeducte
+Aqueduct
+
+@e47496ff
+Conducció d'aigua per gravetat des de deus llunyanes, gairebé sempre sota terra i sobre arcs a les valls.
+Gravity-fed water channel from distant springs, almost always underground and on arches across valleys.
+
+@be673f4d
+Specus
+Specus
+
+@59d68b1e
+El canal cobert per on corre l'aigua d'un aqüeducte.
+The covered channel through which an aqueduct's water runs.
+
+@e1da5f3c
+Curator aquarum
+Curator aquarum
+
+@82236adf
+curator aquarum
+curator aquarum
+
+@933e24f5
+El senador encarregat dels aqüeductes de Roma.
+The senator in charge of Rome's aqueducts.
+
+@5885d29a
+Formigó
+Concrete
+
+@9ece26c4
+formigó
+concrete
+
+@825a0960
+L'opus caementicium: calç, sorra volcànica, aigua i pedres. Va permetre als romans construir voltes i ports.
+Opus caementicium: lime, volcanic sand, water and stones. It let the Romans build vaults and harbours.
+
+@21741293
+Puteoli
+Puteoli
+
+@5f4dcaad
+Pozzuoli, port de Campània. La seva sorra volcànica (puzzolana) feia adormir el formigó fins i tot sota l'aigua.
+Pozzuoli, a port in Campania. Its volcanic sand (pozzolana) made concrete set even under water.
+
+@f0059907
+Volta
+Vault
+
+@7ed89410
+volta
+vault
+
+@68915f50
+voltes
+vaults
+
+@5d8d16f6
+cúpula
+dome
+
+@ff3b8ec6
+Sostre corbat que reparteix el pes cap als costats; la cúpula és una volta que gira sobre si mateixa.
+Curved ceiling that spreads the weight sideways; a dome is a vault rotated about its axis.
+
+@1db9a002
+Casa Daurada
+Golden House
+
+@050a006b
+casa daurada
+golden house
+
+@17ccb1c1
+domus aurea
+domus aurea
+
+@2e4b020a
+El gegantesc palau de Neró després de l'incendi del 64, amb un llac on després es va construir l'amfiteatre.
+Nero's gigantic palace after the fire of 64, with a lake where the amphitheatre was later built.
+
+@554750f4
+Vesuvi
+Vesuvius
+
+@63e9f07d
+El volcà de Campània que el 79 va sepultar Pompeia, Herculà i Estàbia.
+The Campanian volcano that in 79 buried Pompeii, Herculaneum and Stabiae.
+
+@1b4294c5
+Pompeia
+Pompeii
+
+@11d64bfc
+Ciutats de Campània sepultades per l'erupció del Vesuvi del 79. Les seves ruïnes s'excaven des del segle XVIII.
+Campanian towns buried by the eruption of Vesuvius in 79. Their ruins have been excavated since the eighteenth century.
+
+@cd922414
+Estoïcisme
+Stoicism
+
+@c709ab5b
+Filosofia fundada per Zenó a Atenes: viure segons la raó i la natura i no deixar-se dominar pel que no depèn d'un mateix.
+Philosophy founded by Zeno in Athens: living according to reason and nature and not being ruled by what is not in one's power.
+
+@25e3fa8d
+El Pòrtic Pintat d'Atenes, on ensenyava Zenó; d'aquí el nom d'«estoics».
+The Painted Porch in Athens, where Zeno taught; hence the name «Stoics».
+
+@c12caba8
+Logos
+Logos
+
+@64b5dc37
+lógos
+logos
+
+@c49aea04
+Per als estoics, la raó que ordena l'univers.
+For the Stoics, the reason that orders the universe.
+
+@3d5ff6cc
+En època romana, conferenciant grec famós pels seus discursos improvisats.
+In Roman times, a Greek lecturer famous for his improvised speeches.
+
+@53590d81
+L'art de parlar en públic per persuadir. Era la base de l'educació superior romana.
+The art of public speaking to persuade. It was the basis of Roman higher education.
+
+@85491b5a
+Centumvirs
+Centumviri
+
+@19f3d899
+El tribunal d'uns 180 jutges que decidia els plets d'herències a la Basílica Júlia.
+The court of some 180 judges that decided inheritance suits in the Basilica Julia.
+
+@b45ed288
+Epigrama
+Epigram
+
+@1f88b8e1
+Poema breu i enginyós, sovint satíric, amb una cloenda final. Marcial n'és el gran mestre.
+Short, witty poem, often satirical, with a final twist. Martial is its great master.
+
+@9b0c3c3b
+Còdex
+Codex
+
+@596ed3a1
+còdex
+codex
+
+@592c8088
+còdexs
+codices
+
+@4b6e6952
+Llibre de fulls de pergamí cosits, com els nostres, que va començar a competir amb el rotlle al segle I.
+Book of sewn parchment leaves, like ours, which began competing with the scroll in the first century.
+
+@78d80294
+Papir
+Papyrus
+
+@1f15ede4
+Material d'escriptura fet amb una planta del Nil. Els llibres eren rotlles de papir.
+Writing material made from a Nile plant. Books were papyrus scrolls.
+
+@adb474b9
+Carrer que surt del Fòrum cap a la Subura, famós per les seves llibreries.
+Street running from the Forum towards the Subura, famous for its bookshops.
+
+@da1b2e1d
+El barri més poblat i sorollós de Roma, entre l'Esquilí i el Viminal.
+The most crowded and noisy district of Rome, between the Esquiline and the Viminal.
+
+@71ddecef
+El turó de Ròmul i dels palaus imperials; del seu nom ve «palau».
+The hill of Romulus and of the imperial palaces; the word «palace» comes from its name.
+
+@d51ba1f9
+El turó sagrat de Roma, amb el temple de Júpiter Òptim Màxim.
+The sacred hill of Rome, with the temple of Jupiter Best and Greatest.
+
+@4362fcfa
+camp de mart
+campus martius
+
+@b25f1579
+La plana al costat del Tíber, antic camp d'entrenament militar, plena de monuments.
+The plain by the Tiber, once a military training ground, full of monuments.
+
+@f1068e24
+trastevere
+trastevere
+
+@5080c325
+El barri «a l'altra banda del Tíber»: artesans, mariners i estrangers.
+The district «across the Tiber»: craftsmen, sailors and foreigners.
+
+@926c7774
+tíber
+tiber
+
+@54803a01
+El riu de Roma. L'anomenaven «el ros Tíber» pel color de les seves aigües carregades de llim.
+Rome's river. They called it «the yellow Tiber» for the colour of its silt-laden waters.
+
+@dcac71e0
+Òstia
+Ostia
+
+@135c2e29
+El port de Roma a la desembocadura del Tíber. Claudi hi va construir un gran port nou.
+Rome's port at the mouth of the Tiber. Claudius built a great new harbour there.
+
+@b8f8275e
+Judea
+Judaea
+
+@12d4cc83
+jerusalem
+jerusalem
+
+@12600a24
+La província jueva de l'Imperi. La rebel·lió del 66 va acabar amb la destrucció de Jerusalem i el seu Temple el 70.
+The Jewish province of the Empire. The revolt of 66 ended with the destruction of Jerusalem and its Temple in 70.
+
+@c14f8f4d
+Menorà
+Menorah
+
+@30394235
+menorà
+menorah
+
+@6d65f392
+canelobre de set braços
+seven-branched candlestick
+
+@bf6b1c81
+El canelobre d'or de set braços del Temple de Jerusalem, portat a Roma com a botí.
+The golden seven-branched candlestick of the Temple in Jerusalem, carried to Rome as booty.
+
+@3343f3d1
+Sinagoga
+Synagogue
+
+@7112ca3c
+Lloc de reunió i pregària de les comunitats jueves.
+Meeting and prayer place of Jewish communities.
+
+@573e5997
+Cristians
+Christians
+
+@2de6d22b
+Seguidors de Jesús de Natzaret. El 80 eren un grup petit que es reunia en cases.
+Followers of Jesus of Nazareth. In 80 they were a small group meeting in houses.
+
+@1c39c1ed
+Flavis
+Flavians
+
+@6a23a7a1
+La dinastia de Vespasià i els seus fills Titus i Domicià (69-96).
+The dynasty of Vespasian and his sons Titus and Domitian (69-96).
+
+@c2a27adb
+Titus
+Titus
+
+@f7ab2f92
+Emperador del 79 al 81, fill de Vespasià. Va prendre Jerusalem el 70 i va inaugurar l'amfiteatre.
+Emperor from 79 to 81, son of Vespasian. He took Jerusalem in 70 and inaugurated the amphitheatre.
+
+@42da9283
+Vespasià
+Vespasian
+
+@5b13abf2
+Emperador del 69 al 79, fundador de la dinastia Flàvia. Va restaurar les finances i va començar l'amfiteatre.
+Emperor from 69 to 79, founder of the Flavian dynasty. He restored the finances and began the amphitheatre.
+
+@755582d0
+Domicià
+Domitian
+
+@55d208f7
+Germà de Titus, emperador del 81 al 96. Va construir el gran palau del Palatí.
+Brother of Titus, emperor from 81 to 96. He built the great palace on the Palatine.
+
+@475ee94f
+Neró
+Nero
+
+@16e7d9dc
+neró
+nero
+
+@361f9710
+Últim emperador de la família d'August (54-68). Després de l'incendi del 64 va construir la Casa Daurada.
+Last emperor of Augustus' family (54-68). After the fire of 64 he built the Golden House.
+
+@5192dd80
+August
+Augustus
+
+@c6de654e
+Octavi, renebot de Cèsar, primer emperador (27 aC-14 dC).
+Octavian, Caesar's great-nephew, first emperor (27 BC-AD 14).
+
+@b630ea8f
+Cèsar
+Caesar
+
+@fd10474a
+cèsar
+caesar
+
+@f9a1a4ea
+juli cèsar
+julius caesar
+
+@37dbd776
+Gai Juli Cèsar, dictador assassinat el 44 aC. El seu nom es va convertir en títol dels emperadors.
+Gaius Julius Caesar, dictator murdered in 44 BC. His name became a title of the emperors.
+
+@68050633
+Any dels quatre emperadors
+Year of the four emperors
+
+@dda6d6fc
+any dels quatre emperadors
+year of the four emperors
+
+@c9937054
+otó
+otho
+
+@4ed8df98
+El 69 dC: després de la mort de Neró es van succeir Galba, Otó i Vitel·li, fins que va vèncer Vespasià.
+AD 69: after Nero's death Galba, Otho and Vitellius followed one another, until Vespasian won.
+
+@c98f5e2a
+Heroi troià, fill de Venus, que va fugir de Troia i va arribar al Laci. Avantpassat llegendari dels romans.
+Trojan hero, son of Venus, who fled Troy and reached Latium. Legendary ancestor of the Romans.
+
+@c9f87a3c
+Ròmul
+Romulus
+
+@852cb910
+ròmul
+romulus
+
+@b1c5c716
+Els bessons fills de Mart alletats per una lloba. Ròmul va fundar Roma el 753 aC, segons la llegenda.
+The twin sons of Mars suckled by a she-wolf. Romulus founded Rome in 753 BC, according to legend.
+
+@86e9c9c3
+Homer
+Homer
+
+@a6880e77
+El poeta grec de la Ilíada i l'Odissea, base de l'educació grega i model de Virgili.
+The Greek poet of the Iliad and the Odyssey, basis of Greek education and Virgil's model.
+
+@67ded575
+Virgili
+Virgil
+
+@6dc54dca
+El gran poeta d'August, autor de l'Eneida. Els nens romans aprenien a llegir amb ell.
+Augustus' great poet, author of the Aeneid. Roman children learned to read with him.
+
+@b26c3b52
+Ovidi
+Ovid
+
+@9f5f32b3
+Poeta de l'època d'August, autor de les Metamorfosis i de poemes d'amor. Va morir desterrat al mar Negre.
+Poet of Augustus' age, author of the Metamorphoses and love poems. He died in exile on the Black Sea.
+
+@fc7bb730
+Livi
+Livy
+
+@cc6f9a6e
+Titus Livi, historiador de l'època d'August: va explicar la història de Roma des de la seva fundació en 142 llibres.
+Titus Livius, historian of Augustus' age: he told the history of Rome from its foundation in 142 books.
+
+@8d74a961
+Ciceró
+Cicero
+
+@c44a487e
+ciceró
+cicero
+
+@4399b74e
+El més gran orador de Roma (106-43 aC), cònsol, filòsof i autor de centenars de cartes.
+Rome's greatest orator (106-43 BC), consul, philosopher and author of hundreds of letters.
+
+@8cb7a985
+Sèneca
+Seneca
+
+@47d9fd22
+sèneca
+seneca
+
+@16cf92fc
+Filòsof estoic i mestre de Neró, obligat a suïcidar-se el 65.
+Stoic philosopher and Nero's tutor, forced to commit suicide in 65.
+
+@9e154bbf
+Hipòcrates
+Hippocrates
+
+@751a7a93
+hipòcrates
+hippocrates
+
+@6c6ae756
+El metge grec de Cos (segle V aC). Segons la seva escola, la salut és l'equilibri de quatre humors.
+The Greek physician of Cos (fifth century BC). According to his school, health is the balance of four humours.
+
+@6ca09a7f
+Hispània
+Hispania
+
+@68f81957
+bílbilis
+bilbilis
+
+@150f7fcd
+La península ibèrica, província romana. D'allà venien Marcial (Bílbilis), Quintilià (Calagurris) i Sèneca (Còrdova).
+The Iberian peninsula, a Roman province. Martial (Bilbilis), Quintilian (Calagurris) and Seneca (Corduba) came from there.
+
+@f9bbca0b
+Britània
+Britannia
+
+@015b2906
+La província romana a l'actual Anglaterra, conquerida des del 43. Caledònia és l'actual Escòcia.
+The Roman province in present-day England, conquered from 43. Caledonia is present-day Scotland.
+
+@e05584c3
+Bitínia
+Bithynia
+
+@f79df925
+Regió grega del nord-oest de l'Àsia Menor, a l'actual Turquia.
+Greek region in north-west Asia Minor, in present-day Turkey.
+
+@158e4be9
+La gran ciutat grega, en època romana una ciutat petita però encara l'«escola de Grècia».
+The great Greek city, in Roman times a small city but still the «school of Greece».
+
+@18f3623a
+Safo
+Sappho
+
+@096376d5
+Poetessa grega de Lesbos (segle VII-VI aC), la més famosa de l'Antiguitat.
+Greek poet from Lesbos (seventh-sixth century BC), the most famous woman poet of Antiquity.
+
+@8be3fa34
+Sabines
+Sabines
+
+@3cc0ec7a
+Poble veí de Roma. Segons la llegenda, Ròmul en va raptar les dones per poblar la ciutat.
+A people neighbouring Rome. According to legend, Romulus carried off their women to people the city.
+
+@eeb4ebc8
+Gíaros
+Gyaros
+
+@6d68f998
+gíaros
+gyaros
+
+@e2cfdaca
+Illa rocosa i sense aigua de l'Egeu, lloc de desterrament.
+Rocky, waterless island in the Aegean, a place of exile.

@@ -1,0 +1,357 @@
+# ROMA_QUINT_CLASSES y notas de las escuelas
+
+@c60ae7e1
+=
+=
+
+@68ada55b
+L'orador té cinc tasques: trobar els arguments (inventio), ordenar-los (dispositio), vestir-los amb paraules (elocutio), aprendre el discurs de memòria (memoria) i pronunciar-lo amb la veu i els gestos adequats (actio o pronuntiatio).
+The orator has five tasks: finding the arguments (inventio), arranging them (dispositio), clothing them in words (elocutio), learning the speech by heart (memoria) and delivering it with the right voice and gestures (actio or pronuntiatio).
+
+@7d0db0eb
+El discurs, al seu torn, té parts: l'exordi, per guanyar-se el públic; la narració dels fets; l'argumentació, amb proves i refutació; i l'epíleg o peroració, on es mouen els sentiments. Ciceró és el model: cal llegir-lo fins a estimar-lo.
+A speech, in turn, has parts: the exordium, to win over the audience; the narration of the facts; the argument, with proofs and refutation; and the epilogue or peroration, where feelings are stirred. Cicero is the model: you must read him until you love him.
+
+@55413dd2
+Què és la inventio?
+What is inventio?
+
+@b336830f
+Trobar els arguments
+Finding the arguments
+
+@70bbb010
+Aprendre el discurs de memòria
+Learning the speech by heart
+
+@578300a0
+Pronunciar amb gestos
+Delivering it with gestures
+
+@b04a6c19
+La primera de les cinc tasques de l'orador.
+The first of the orator's five tasks.
+
+@54f14d03
+Com s'anomena la part final del discurs, on es mouen els sentiments?
+What is the final part of a speech, where feelings are stirred, called?
+
+@5a5dcbec
+La peroració o epíleg
+The peroration or epilogue
+
+@73efe0ca
+L'exordi
+The exordium
+
+@88b4ab56
+La narració
+The narration
+
+@ede9ba75
+L'exordi és el començament; la peroració, el final.
+The exordium is the beginning; the peroration, the end.
+
+@11e3d209
+El primer exercici de declamació és la suasòria: l'alumne aconsella un personatge famós en un moment decisiu. Ha d'Alexandre travessar l'Oceà? Han de fugir de les Termòpiles els tres-cents espartans? Ha de Ciceró demanar perdó a Antoni per salvar la vida?
+The first declamation exercise is the suasoria: the pupil advises a famous figure at a decisive moment. Should Alexander cross the Ocean? Should the three hundred Spartans flee Thermopylae? Should Cicero beg Antony's pardon to save his life?
+
+@adbee330
+Cal tenir en compte l'honest, l'útil i el possible, i adaptar-se al caràcter del personatge: no s'aconsella igual un rei que un general. Sèneca el Vell, el pare del filòsof, va reunir en un llibre les millors suasòries que va sentir en la seva vida.
+You must weigh the honourable, the useful and the possible, and suit the character of the person: you don't advise a king as you would a general. Seneca the Elder, the philosopher's father, collected in a book the best suasoriae he heard in his life.
+
+@f7f0e51e
+Què és una suasòria?
+What is a suasoria?
+
+@39095ddc
+Un discurs que aconsella un personatge famós què fer
+A speech advising a famous figure what to do
+
+@0de651f1
+Un judici fictici amb lleis inventades
+A fictitious trial with invented laws
+
+@fce10042
+Un elogi fúnebre
+A funeral eulogy
+
+@c27ce5da
+Del verb suadere, aconsellar.
+From the verb suadere, to advise.
+
+@1d452fcb
+Què s'ha de tenir en compte en una suasòria?
+What must be taken into account in a suasoria?
+
+@51409b5e
+L'honest, l'útil i el possible
+The honourable, the useful and the possible
+
+@2a82e0a7
+Només el que agrada al públic
+Only what pleases the audience
+
+@4af28e19
+L'edat de l'orador
+The orator's age
+
+@7388e88b
+Són les consideracions del gènere deliberatiu.
+These are the considerations of the deliberative genre.
+
+@345a3520
+L'exercici superior és la controvèrsia: un judici inventat, amb lleis inventades, en què l'alumne defensa una de les parts. Per exemple: «La llei ordena que el fill que no mantingui el seu pare sigui encadenat. Un fill va rescatar el seu pare dels pirates, però el seu pare el va desheretar…».
+The advanced exercise is the controversia: an invented trial, with invented laws, in which the pupil defends one side. For example: «The law orders that a son who does not support his father shall be put in chains. A son rescued his father from pirates, but his father disinherited him…».
+
+@11f457de
+Molts es queixen que els casos són desgavellats, plens de pirates, tirans, enverinadores i raptes, i que no preparen per als tribunals de veritat. Quintilià ho diu: la declamació s'ha d'assemblar als plets reals, no a una tragèdia.
+Many complain that the cases are absurd, full of pirates, tyrants, poisoners and abductions, and don't prepare students for real courts. Quintilian says so: declamation should resemble real lawsuits, not a tragedy.
+
+@731660e4
+Què és una controvèrsia?
+What is a controversia?
+
+@b99d72d6
+Una carta a un amic
+A letter to a friend
+
+@9950abb4
+Una discussió entre filòsofs
+A debate between philosophers
+
+@f1970792
+Era l'exercici més avançat de l'escola del rètor.
+It was the most advanced exercise in the rhetorician's school.
+
+@1cb216b1
+Quina crítica es feia a les controvèrsies?
+What criticism was made of the controversiae?
+
+@912b325b
+Que eren desgavellades i no preparaven per als judicis reals
+That they were absurd and didn't prepare for real trials
+
+@c1a5282a
+Que eren massa curtes
+That they were too short
+
+@d8500e2b
+Que es feien en grec
+That they were done in Greek
+
+@2da6c2fc
+Quintilià i Petroni se'n queixen.
+Quintilian and Petronius complain of it.
+
+@65046e0c
+Per aprendre un discurs llarg, els oradors fan servir el mètode dels llocs: imaginen un edifici que coneixen bé i col·loquen a cada habitació una imatge que recorda una part del discurs. En parlar, recorren mentalment la casa i van trobant cada imatge.
+To learn a long speech, orators use the method of places: they imagine a building they know well and put in each room an image that recalls a part of the speech. When speaking, they walk through the house in their minds and find each image in turn.
+
+@2e529305
+El mètode el va inventar, diuen, el poeta Simònides de Ceos: en un banquet va sortir un moment, el sostre es va enfonsar i els cadàvers van quedar irreconeixibles; ell va saber qui era cadascú recordant on seia. Per això els romans diem «en primer lloc», «en segon lloc».
+The method was invented, they say, by the poet Simonides of Ceos: at a banquet he stepped out for a moment, the roof fell in and the bodies were unrecognisable; he knew who each one was by remembering where they sat. That's why we Romans say «in the first place», «in the second place».
+
+@89c87f0a
+En què consisteix el mètode dels llocs?
+What does the method of places consist of?
+
+@bfea66ed
+A col·locar imatges als llocs d'un edifici imaginat
+Placing images in the spots of an imagined building
+
+@2a9d8f1b
+A repetir el discurs cent vegades
+Repeating the speech a hundred times
+
+@bf299db8
+A escriure'l a la mà
+Writing it on your hand
+
+@0900adc9
+Es recorre mentalment l'edifici en parlar.
+You walk through the building in your mind as you speak.
+
+@5174f4aa
+Qui va inventar, segons la llegenda, l'art de la memòria?
+Who, according to legend, invented the art of memory?
+
+@3933cb7b
+El poeta Simònides de Ceos
+The poet Simonides of Ceos
+
+@bf257c92
+El rei Numa
+King Numa
+
+@e4c39a23
+Ho expliquen Ciceró i Quintilià.
+Cicero and Quintilian tell the story.
+
+@610b17c1
+Quatre lliçons, com les que dono als nois cada matí. Agafa una tauleta.
+Four lessons, like the ones I give the boys every morning. Take a tablet.
+
+@b78e25ed
+A la seva escola de lletres, al sud de l'Àgora (al matí)
+At his school of letters, south of the Agora (in the morning)
+
+@2ba72581
+Seu amb els grans. Avui toca llegir i comentar.
+Sit with the older ones. Today we read and discuss.
+
+@53ae29f9
+A la seva escola, al costat de l'Argilet, darrere de la Basílica Emília
+At his school, by the Argiletum, behind the Basilica Aemilia
+
+@a219411b
+Els meus alumnes tenen quinze anys o més. Vegem si estàs preparat.
+My pupils are fifteen or older. Let's see if you're ready.
+
+@544e3bd2
+Plató, Protàgores 326a-b i República III 398c-401a
+Plato, Protagoras 326a-b and Republic III 398c-401a
+
+@3a45603d
+Plató, Lleis VII 812b-e
+Plato, Laws VII 812b-e
+
+@b3f1bc2a
+Aristòfanes, Núvols 961-972
+Aristophanes, Clouds 961-972
+
+@6842195e
+Himne homèric a Hermes 24-61 (la lira)
+Homeric Hymn to Hermes 24-61 (the lyre)
+
+@14866c09
+Plutarc, Institucions laconies 17 (les cordes de Timoteu)
+Plutarch, Spartan Institutions 17 (Timotheus' strings)
+
+@921cbea7
+=
+=
+
+@b88b6aee
+Lisístrat és inventat.
+Lysistratus is invented.
+
+@38951c11
+Plató, Protàgores 326b-c, Càrmides 153a i Lisis 203a-207d
+Plato, Protagoras 326b-c, Charmides 153a and Lysis 203a-207d
+
+@7518d170
+Aristòtil, Retòrica I 1361b (els pentatletes)
+Aristotle, Rhetoric I 1361b (the pentathletes)
+
+@e1eef10d
+Pausànias VI 14.5-8 (Miló)
+Pausanias VI 14.5-8 (Milo)
+
+@8e53df7e
+Filòstrat, Sobre la gimnàstica
+Philostratus, On Gymnastics
+
+@7832ed63
+=
+=
+
+@dd680a50
+=
+=
+
+@6060dc6e
+Cleòmac és inventat.
+Cleomachus is invented.
+
+@e8228db0
+Horaci, Sàtires I 6.71-78 (l'escola de Flavi a Venúsia) i Epístoles II 1.70-71 (Orbili «el que dona cops»), Art poètica 325-330 (les fraccions)
+Horace, Satires I 6.71-78 (Flavius' school at Venusia) and Epistles II 1.70-71 (Orbilius «the flogger»), Art of Poetry 325-330 (fractions)
+
+@35fb43f3
+Marcial IX 68 i X 62 (el mestre i les vacances)
+Martial IX 68 and X 62 (the schoolmaster and the holidays)
+
+@6041eb65
+Quintilià, Institució oratòria I 1-3
+Quintilian, Institutes of Oratory I 1-3
+
+@9ebeb426
+Ciceró, Sobre les lleis II 59 (les Dotze Taules)
+Cicero, On the Laws II 59 (the Twelve Tables)
+
+@8e17e4c8
+Juvenal VII 222-243 (el sou dels mestres)
+Juvenal VII 222-243 (teachers' pay)
+
+@dcbb8dfc
+=
+=
+
+@cb53bc5c
+Flavi és inventat; el seu nom recorda l'escola de Flavi a la qual el pare d'Horaci no va voler enviar-lo.
+Flavius is invented; his name recalls the school of Flavius to which Horace's father refused to send him.
+
+@a1c33724
+A l'Atenes del segle IV no hi ha escoles públiques ni educació obligatòria: cada família paga els mestres que pot. Des dels set anys, el nen surt de casa amb el seu pedagog, un esclau que l'acompanya i el vigila, i recorre tres mestres: el grammatistés (lletres, comptes i poetes), el kitharistés (lira i cant) i el paidotribés (gimnàstica a la palestra).
+In fourth-century Athens there are no public schools or compulsory education: each family pays what teachers it can. From the age of seven, a boy leaves home with his paidagogos, a slave who escorts and watches him, and goes round three teachers: the grammatistes (letters, sums and poets), the kitharistes (lyre and singing) and the paidotribes (gymnastics in the palaestra).
+
+@5c064611
+Les nenes s'eduquen a casa: filar, teixir, governar el rebost i, de vegades, llegir i escriure. Els pobres gairebé no van a l'escola. A partir dels quinze o setze anys, els fills dels rics busquen mestres superiors: sofistes, rètors com Isòcrates, filòsofs com Plató, que acaba de fundar l'Acadèmia. Els gimnasos (Acadèmia, Liceu, Cinosarges) són llocs d'exercici i de conversa.
+Girls are educated at home: spinning, weaving, managing the stores and sometimes reading and writing. The poor hardly go to school. From fifteen or sixteen, rich men's sons seek higher teachers: sophists, rhetoricians like Isocrates, philosophers like Plato, who has just founded the Academy. The gymnasia (Academy, Lyceum, Cynosarges) are places of exercise and conversation.
+
+@bdf7c342
+Al joc, l'escola de lletres, la de música i la palestra són juntes al sud de l'Àgora; a cadascuna es pot assistir a classes amb exercicis.
+In the game, the school of letters, the music school and the palaestra are together south of the Agora; in each you can attend classes with exercises.
+
+@327e934d
+Plató, Protàgores 325c-326e
+Plato, Protagoras 325c-326e
+
+@522c0bd0
+Aristòfanes, Núvols 961-1023
+Aristophanes, Clouds 961-1023
+
+@bddc3891
+Xenofont, Constitució dels lacedemonis 2
+Xenophon, Constitution of the Lacedaemonians 2
+
+@8a0112ea
+Copa de Duris amb escena d'escola (Berlín, F 2285)
+Cup by Douris with a school scene (Berlin, F 2285)
+
+@b9495243
+=
+=
+
+@6e2af910
+D. Hernández de la Fuente i R. López Melero, Civilización griega (2014)
+D. Hernández de la Fuente and R. López Melero, Civilización griega (2014)
+
+@1f978ed7
+A Roma l'ensenyament és privat i s'organitza en tres etapes. Dels set als onze anys, el ludi magister ensenya a llegir, escriure i comptar en una pèrgola llogada. Dels onze als quinze, el gramàtic ensenya llengua i literatura grega i llatina. Després, el rètor prepara els joves de bona família per parlar en públic amb declamacions: suasòries i controvèrsies.
+In Rome teaching is private and organised in three stages. From seven to eleven, the ludi magister teaches reading, writing and arithmetic under a rented pergola. From eleven to fifteen, the grammaticus teaches Greek and Latin language and literature. After that, the rhetor trains young men of good family to speak in public through declamations: suasoriae and controversiae.
+
+@9f8e4369
+Els nens van acompanyats per un pedagog, un esclau, sovint grec. Algunes nenes van a l'escola elemental; les de famílies riques tenen mestres a casa. Des de Vespasià, alguns rètors, com Quintilià, cobren un sou de l'Estat. Els mestres elementals, en canvi, cobren molt poc i tenen fama de pegar als alumnes.
+Children are escorted by a paidagogus, a slave, often Greek. Some girls go to elementary school; those of rich families have tutors at home. Since Vespasian, some rhetoricians, like Quintilian, draw a state salary. Elementary teachers, on the other hand, are paid very little and have a reputation for beating their pupils.
+
+@847faade
+Al joc hi ha una escola de primeres lletres a l'Argilet, l'escola del gramàtic Titus Verri al costat de l'Argilet i les classes de retòrica de Quintilià a la Basílica Júlia.
+In the game there is an elementary school in the Argiletum, the school of the grammarian Titus Verrius by the Argiletum and Quintilian's rhetoric classes in the Basilica Julia.
+
+@41c2bf0a
+Quintilià, Institució oratòria I-II
+Quintilian, Institutes of Oratory I-II
+
+@e7eec86b
+Suetoni, Sobre els gramàtics i rètors
+Suetonius, On Grammarians and Rhetoricians
+
+@7d0fbe10
+Horaci, Sàtires I 6.71-88
+Horace, Satires I 6.71-88
+
+@32b904ca
+Sèneca el Vell, Suasòries i Controvèrsies
+Seneca the Elder, Suasoriae and Controversiae

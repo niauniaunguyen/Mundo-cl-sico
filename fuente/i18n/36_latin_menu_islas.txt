@@ -1,0 +1,261 @@
+# latinMenu (Tito Verrio y la biblioteca de latinismos) y buildIslands (islas)
+
+"<p>Tengo "
+"<p>Tinc "
+"<p>I have "
+
+" expresiones apuntadas en mis tablillas, ordenadas por letras. ¿Por cuál empezamos?</p>"
+" expressions apuntades a les meves tauletes, ordenades per lletres. Per quina comencem?</p>"
+" expressions noted on my tablets, in alphabetical order. Which shall we start with?</p>"
+
+@e704a721
+"<p><span class=\"label\">Llatinismes · "
+"<p><span class=\"label\">Latinisms · "
+
+@1ac1aa8b
+</span></p><p>Tria una expressió.</p>
+</span></p><p>Choose an expression.</p>
+
+@c394d8d0
+=
+=
+
+@542d18d9
+Altres lletres
+Other letters
+
+@0f2907ba
+El llatí, la llengua de Roma, va donar origen a les llengües romàniques (castellà, català, gallec, portuguès, francès, italià, romanès…) i va ser durant segles la llengua de la ciència, el dret i l'Església. Moltes expressions llatines es continuen fent servir tal qual: són els llatinismes, com ad hoc, statu quo, in situ o curriculum vitae. Alguns vénen d'autors romans (Horaci, Juvenal, Virgili, Juli Cèsar) i d'altres es van formar molt després, en el llatí medieval, jurídic o científic.
+Latin, the language of Rome, gave rise to the Romance languages (Spanish, Catalan, Galician, Portuguese, French, Italian, Romanian…) and for centuries was the language of science, law and the Church; English, too, borrowed thousands of its words. Many Latin expressions are still used as they are: these are Latinisms, like ad hoc, status quo, in situ or curriculum vitae. Some come from Roman authors (Horace, Juvenal, Virgil, Julius Caesar) and others were formed much later, in medieval, legal or scientific Latin.
+
+@158f4a6b
+Silenci, nens, que tenim visita! Salve, foraster. Sóc Titus Verri, gramàtic. Aquí, sota el pòrtic, ensenyo aquests petits a llegir i a parlar un llatí correcte. I et diré una cosa que sempre els dic: Roma caurà algun dia, com va caure Troia, però les nostres paraules no. D'aquí a dos mil anys, gent que no coneixem continuarà dient ad hoc, statu quo o alea iacta est.
+Quiet, children, we have a visitor! Salve, stranger. I'm Titus Verrius, grammarian. Here, under the portico, I teach these little ones to read and to speak correct Latin. And I'll tell you something I always tell them: Rome will fall one day, as Troy fell, but our words won't. Two thousand years from now, people we don't know will still be saying ad hoc, status quo or alea iacta est.
+
+@23a2f516
+Què és un llatinisme?
+What is a Latinism?
+
+@970a5358
+Una paraula o una expressió llatina que es fa servir dins d'una altra llengua, tal qual o gairebé. N'hi ha de dues classes: les que es prenen senceres, sense canviar res, com in situ o ad hoc, i les que s'adapten a la llengua nova i fins i tot porten accents, com dèficit, rèquiem o currículum. Es fan servir molt en el dret, en la medicina, en la ciència i en la política, perquè durant segles el llatí serà la llengua dels savis a tot Europa.
+A Latin word or expression used within another language, as it is or nearly so. There are two kinds: those taken whole, without changing anything, like in situ or ad hoc, and those adapted to the new language, like deficit, requiem or agenda. They are used a great deal in law, medicine, science and politics, because for centuries Latin will be the language of the learned all over Europe.
+
+@f8fe9e38
+D'on surten?
+Where do they come from?
+
+@d7ce9b62
+Alguns ja els diem ara, aquí a Roma: alea iacta est ho va dir el diví Juli en travessar el Rubicó, i August ajornava els pagaments ad Kalendas Graecas. D'altres surten dels poetes: aurea mediocritas i beatus ille són d'Horaci; mens sana in corpore sano i rara avis, d'un tal Juvenal que encara és un noi. I d'altres els inventaran juristes, metges i monjos de segles futurs, com in vitro o curriculum vitae. Sí, sí: un gramàtic també sap somiar.
+Some we already say now, here in Rome: the divine Julius said alea iacta est as he crossed the Rubicon, and Augustus put off payments ad Kalendas Graecas. Others come from the poets: aurea mediocritas and beatus ille are Horace's; mens sana in corpore sano and rara avis, from one Juvenal who's still a boy. And others will be invented by lawyers, doctors and monks of future centuries, like in vitro or curriculum vitae. Yes, yes: a grammarian can dream too.
+
+@f10d66b9
+Com es pronuncien?
+How are they pronounced?
+
+@65d9aa27
+Nosaltres pronunciem la c sempre com a k: Kíkero, no Ciceró; la v gairebé com una u, i la ae com a i e seguides. Els qui vinguin després ho pronunciaran cadascú a la manera de la seva llengua: a Hispània diran Cicerón i a la Gàl·lia Siserón. No importa gaire. L'important és saber què signifiquen i fer-los servir bé: un llatinisme mal fet servir és pitjor que cap.
+We always pronounce c as k: Kíkero, not Cicero; v almost like u, and ae as a and e together. Those who come after will each pronounce it their own language's way: in Hispania they'll say Thithero and in Gaul Siseró. It doesn't matter much. What matters is knowing what they mean and using them properly: a Latinism used wrongly is worse than none.
+
+@0b39776a
+Què vol dir conditio sine qua non?
+What does conditio sine qua non mean?
+
+@56cffb9f
+Una condició imprescindible, sense la qual una cosa no pot passar
+An essential condition, without which something cannot happen
+
+@8adafa85
+Una condició que no té cap importància
+A condition of no importance at all
+
+@31dc82d9
+Una situació de guerra
+A state of war
+
+@19effdfc
+No. Conditio sine qua non vol dir «condició sense la qual no»: un requisit imprescindible.
+No. Conditio sine qua non means «condition without which not»: an essential requirement.
+
+@6893ac29
+Suetoni, August 87 (ad Kalendas Graecas) i Cèsar 32 i 37 (alea iacta est; veni, vidi, vici)
+Suetonius, Augustus 87 (ad Kalendas Graecas) and Caesar 32 and 37 (alea iacta est; veni, vidi, vici)
+
+@2996c0bc
+Horaci, Odes II 10 i Epodes 2
+Horace, Odes II 10 and Epodes 2
+
+@39ad2a41
+Juvenal, Sàtires VI 165 i X 356
+Juvenal, Satires VI 165 and X 356
+
+@a1224bc6
+Quintilià, Institució oratòria I 4-7 (el gramàtic i la correcció del llenguatge)
+Quintilian, Institutes of Oratory I 4-7 (the grammarian and correct language)
+
+@e18f2fbd
+Llista de llatinismes de les PAU de Llengua i Cultura Llatines: El Foc de Prometeu, <a href="https://elfocdeprometeu.cat/llatinismes/" target="_blank" rel="noopener">elfocdeprometeu.cat/llatinismes</a>
+List of Latinisms for the Catalan university entrance exam in Latin Language and Culture: El Foc de Prometeu, <a href="https://elfocdeprometeu.cat/llatinismes/" target="_blank" rel="noopener">elfocdeprometeu.cat/llatinismes</a>
+
+@1aa6a2fb
+J. Herrero Ingelmo i altres, Diccionario de latinismos y frases latinas
+J. Herrero Ingelmo et al., Diccionario de latinismos y frases latinas
+
+@fbf0db69
+Titus Verri és inventat; el seu nom recorda el gramàtic Verri Flac, mestre dels néts d'August. Molts llatinismes de la llista es van formar segles després de l'any 80: és una llicència que el personatge els «endevini».
+Titus Verrius is invented; his name recalls the grammarian Verrius Flaccus, tutor to Augustus' grandsons. Many Latinisms on the list were formed centuries after the year 80: it is a licence that the character «foresees» them.
+
+@a9a8468c
+Expressions llatines que continuem fent servir, amb la seva traducció literal i el seu ús (llista de les PAU de Llengua i Cultura Llatines, segons El Foc de Prometeu). Titus Verri, el gramàtic del Fòrum, les explica una per una.
+Latin expressions we still use, with their literal translation and their use (list from the Catalan university entrance exam in Latin, according to El Foc de Prometeu). Titus Verrius, the grammarian of the Forum, explains them one by one.
+
+@25af0757
+=
+=
+
+@c632cdec
+=
+=
+
+@67aedee6
+=
+=
+
+@233a0542
+Les explicacions estan redactades per al joc.
+The explanations were written for the game.
+
+@0ddd9594
+Gramàtic
+Grammarian
+
+@3ea3b121
+gramàtic
+grammarian
+
+@dd2dd06c
+gramàtics
+grammarians
+
+@093f2080
+Mestre de l'escola secundària romana: ensenyava llengua i literatura, sobretot els poetes, a nens d'entre dotze i quinze anys.
+Teacher at the Roman secondary school: he taught language and literature, especially the poets, to children aged twelve to fifteen.
+
+@796ea05a
+Rubicó
+Rubicon
+
+@8bd8152a
+rubicó
+rubicon
+
+@43551760
+Riu que separava la Gàl·lia Cisalpina d'Itàlia. Travessar-lo amb l'exèrcit, com va fer Cèsar el 49 aC, era declarar la guerra civil.
+River separating Cisalpine Gaul from Italy. Crossing it with an army, as Caesar did in 49 BC, meant declaring civil war.
+
+@9be51652
+Temple dòric de cap al 500, d'uns 13,8 per 28,8 metres, dalt d'una pineda al nord-est de l'illa. Està dedicat a Afaia, una deessa local identificada amb la cretenca Britomartis. Els seus frontons mostren les guerres de Troia presidides per Atena; els guerrers, pintats amb colors vius, són del millor de l'escultura del seu temps.
+Doric temple of around 500, some 13.8 by 28.8 metres, at the top of a pine wood in the north-east of the island. It is dedicated to Aphaia, a local goddess identified with the Cretan Britomartis. Its pediments show the Trojan wars presided over by Athena; the warriors, painted in bright colours, are among the finest sculpture of their time.
+
+@7824775b
+Les tortugues d'Egina corren per tots els mercats del mar. Les nostres, no les òlibes.
+Aegina's turtles run through every market on the sea. Ours, not the owls.
+
+@5eacac6c
+Atenès? El meu avi va ser expulsat d'aquesta illa pels teus. Vam tornar amb Lisandre.
+Athenian? My grandfather was driven off this island by your people. We came back with Lysander.
+
+@3a6942b3
+Diuen que Èac continua jutjant els morts. Que em trobi de bon humor.
+They say Aeacus still judges the dead. May he find me in a good mood.
+
+@3bf7d01f
+Egina va ser una gran potència comercial: les seves monedes de plata amb una tortuga són de les primeres de Grècia. Enemiga d'Atenes, el 431 els atenesos en van expulsar els habitants i van repartir l'illa entre colons atenesos. Després de la derrota atenesa del 404, Lisandre va retornar l'illa als eginetes. Durant la guerra de Corint els seus corsaris van saquejar l'Àtica, fins a la Pau del Rei.
+Aegina was a great trading power: its silver coins with a turtle are among the first in Greece. An enemy of Athens, in 431 the Athenians expelled its people and shared the island among Athenian settlers. After the Athenian defeat of 404, Lysander gave the island back to the Aeginetans. During the Corinthian War its privateers raided Attica, until the King's Peace.
+
+@349aba75
+L'altar que, segons el mite, va construir Apol·lo de petit amb banyes de cabra entrellaçades. Teseu hi va ballar al voltant la dansa de la grua en tornar de Creta. La seva identificació arqueològica és discutida.
+The altar which, according to myth, Apollo built as a child from interlocking goat horns. Theseus danced the crane dance around it on his return from Crete. Its archaeological identification is debated.
+
+@33fc573e
+El llac rodó al costat del qual, segons el mite, va néixer Apol·lo. A la vora creix una palmera sagrada: ja a l'Odissea, Ulisses recorda haver vist a Delos un jove rebrot de palmera al costat de l'altar d'Apol·lo.
+The round lake beside which, according to myth, Apollo was born. A sacred palm grows on its shore: already in the Odyssey, Ulysses recalls seeing a young palm shoot on Delos by Apollo's altar.
+
+@27151fa8
+Una filera de lleons de marbre de Naxos, de cap al 600, mira cap al llac sagrat. Van ser un regal dels naxis, que aleshores dominaven el santuari. Originalment n'eren uns setze.
+A row of Naxian marble lions, from about 600, looks towards the sacred lake. They were a gift of the Naxians, who then controlled the sanctuary. Originally there were about sixteen.
+
+@d71ce09e
+Temple dòric que Atenes va construir cap al 425-417, quan controlava el santuari. Al costat hi ha el gran temple d'Apol·lo, començat al segle V i encara sense acabar: algunes columnes a penes sobresurten de terra.
+Doric temple Athens built around 425-417, when it controlled the sanctuary. Next to it is the great temple of Apollo, begun in the fifth century and still unfinished: some columns barely rise above the ground.
+
+@e2e6baf1
+Aquí ningú no neix ni mor: és la llei del déu.
+Here no one is born or dies: it's the god's law.
+
+@89deaca3
+Has vist les Delíades? Canten com si fossin tots els pobles alhora.
+Have you seen the Delian maidens? They sing as if they were every people at once.
+
+@031f258c
+Els atenesos manen aquí, però l'or del santuari és d'Apol·lo.
+The Athenians are in charge here, but the sanctuary's gold belongs to Apollo.
+
+@350ce276
+La gran porta de marbre d'un temple d'Apol·lo que el tirà Lígdamis va començar cap al 530 a l'illot de Palatia, unit a Naxos per un dic. En caure la tirania, l'obra es va abandonar. Segons la tradició local, en aquest illot Teseu va abandonar Ariadna. Mira cap a Delos.
+The great marble doorway of a temple of Apollo begun by the tyrant Lygdamis around 530 on the islet of Palatia, joined to Naxos by a causeway. When the tyranny fell, the work was abandoned. According to local tradition, Theseus abandoned Ariadne on this islet. It faces Delos.
+
+@0801b8cd
+En una pedrera de Naxos jau un kuros (estàtua de jove) d'uns deu metres, abandonat sense acabar al segle VI, potser perquè es va esquerdar. Mostra com els escultors desbastaven el bloc a la mateixa pedrera abans de transportar-lo.
+In a quarry on Naxos lies a kouros (statue of a youth) about ten metres long, abandoned unfinished in the sixth century, perhaps because it cracked. It shows how sculptors roughed out the block in the quarry itself before transporting it.
+
+@e73b1a2a
+El marbre de Naxos és el millor; el de Paros, diuen els de Paros.
+Naxian marble is the best; Parian, say the Parians.
+
+@511bb832
+Dionís és el nostre déu. Aquí el vi és bo de debò.
+Dionysus is our god. The wine here is truly good.
+
+@23a40806
+De nit, mira la corona d'Ariadna al cel.
+At night, look for Ariadne's crown in the sky.
+
+@b8d12d8a
+Restes de murs molt antics al costat de la ciutat de Cnossos. Els cretencs del segle IV els relacionaven amb el rei Minos i el seu laberint. Avui sabem que eren un palau de l'Edat del Bronze, destruït cap al 1375 aC, amb patis, magatzems i columnes vermelles que s'estrenyen cap avall.
+Remains of very ancient walls beside the city of Knossos. Fourth-century Cretans linked them with King Minos and his labyrinth. Today we know they were a Bronze Age palace, destroyed around 1375 BC, with courtyards, storerooms and red columns that taper downwards.
+
+@bca47503
+Una de les grutes on, segons els cretencs, Rea va amagar Zeus acabat de néixer. Els curets ballaven colpejant els escuts perquè Cronos no sentís el plor. Es veneraven així la cova del mont Ida i la del mont Dicte; totes dues rebien ofrenes des de l'Edat del Bronze.
+One of the caves where, according to the Cretans, Rhea hid the newborn Zeus. The Curetes danced, beating their shields so Cronus wouldn't hear him cry. The caves of Mount Ida and Mount Dicte were both venerated this way; both received offerings from the Bronze Age on.
+
+@37ab5a60
+Els cretencs no mentim. Bé, gairebé mai.
+We Cretans don't lie. Well, hardly ever.
+
+@a8c80b07
+Aquí a prop va néixer Zeus. I aquí hi ha la seva tomba, encara que no ho diguis a Atenes.
+Zeus was born near here. And here is his tomb, though don't say so in Athens.
+
+@7d417075
+Les lleis de Gortina són més velles que les vostres.
+The laws of Gortyn are older than yours.
+
+@b9c25032
+Segons la tradició, el cap d'Orfeu va arribar cantant a aquesta costa d'Antissa i va ser enterrat en una gruta, on donava oracles. Vasos atenesos del segle V ja mostren el cap profetitzant davant de joves que anoten les seves respostes. La lira, diuen, es va oferir en un temple d'Apol·lo.
+According to tradition, Orpheus' head came singing to this coast at Antissa and was buried in a cave, where it gave oracles. Fifth-century Athenian vases already show the head prophesying before young men who write down its answers. The lyre, they say, was offered in a temple of Apollo.
+
+@84cfaf5e
+Lesbos va donar a Grècia alguns dels seus grans músics i poetes: Terpandre, que segons la tradició va donar a la lira set cordes; Arió de Metimna; Alceu i Safo de Mitilene, que cap al 600 van escriure en el seu dialecte eòlic poemes per cantar amb la lira. Un epigrama atribuït a Plató anomena Safo la desena musa.
+Lesbos gave Greece some of its great musicians and poets: Terpander, who according to tradition gave the lyre seven strings; Arion of Methymna; Alcaeus and Sappho of Mytilene, who around 600 wrote poems in their Aeolic dialect to be sung to the lyre. An epigram attributed to Plato calls Sappho the tenth Muse.
+
+@dbb208f6
+Has sentit cantar els rossinyols d'Antissa? Diuen que és Orfeu.
+Have you heard the nightingales of Antissa sing? They say it's Orpheus.
+
+@ea58ecb8
+Mitilene s'ha aliat un altre cop amb Atenes. Fins a la propera vegada.
+Mytilene has allied with Athens again. Until next time.
+
+@134f50aa
+Safo era d'aquí. Bé, de Mitilene, però d'aquí.
+Sappho was from here. Well, from Mytilene, but from here.
