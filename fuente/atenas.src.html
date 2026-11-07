@@ -20686,8 +20686,11 @@ function* seal2Job(prev){const C=seal2Cands(),ppl=seal2People(),lp=new THREE.Vec
       if(busy(ax1,az1,ax2,az2,t)){SEAL2.n.skipPeople++;continue;}
       {const LL=Math.hypot(ax2-ax1,az2-az1),n=Math.max(1,Math.ceil(LL/0.5));let st=-1;const put=(i0,i1)=>{const u0=i0/n,u1=i1/n;if((u1-u0)*LL<0.3)return;addSeg(ax1+(ax2-ax1)*u0,az1+(az2-az1)*u0,ax1+(ax2-ax1)*u1,az1+(az2-az1)*u1,t);ns++;A.push(['seg',ax1+(ax2-ax1)*u0,az1+(az2-az1)*u0,ax1+(ax2-ax1)*u1,az1+(az2-az1)*u1,t,P.o.name||'',P.y0,P.w,P.d]);};
        for(let q=0;q<=n;q++){const r=onRoad(ax1+(ax2-ax1)*q/n,az1+(az2-az1)*q/n);if(!r&&st<0)st=q;if(r&&st>=0){put(st,Math.max(st,q-1));st=-1;}if(r)SEAL2.n.road=(SEAL2.n.road||0)+(q===0?0:0);}if(st>=0)put(st,n);}}}
-  if(FOUND.length){try{const L=[];for(const[x,z,w,d,a,y0,lo]of FOUND){const h=y0-lo+0.6,g=new THREE.BoxGeometry(w+0.12,h,d+0.12);L.push([g,new THREE.Matrix4().makeRotationY(-a).setPosition(x,lo-0.5+h/2,z)]);}
-    for(let i=0;i<L.length;i+=400){const m=new THREE.Mesh(mergeGeos(L.slice(i,i+400)),SEAL2.stone||(SEAL2.stone=lam('#a89c86')));m.receiveShadow=true;m.userData.noCol=true;m.userData.zocalo=true;scene.add(m);}SEAL2.n.zocalos=(SEAL2.n.zocalos||0)+FOUND.length;}catch(e){console.warn('zocalos',e);}}
+  SEAL2.found=FOUND;
+  if(FOUND.length){try{if(!SEAL2.unit){SEAL2.unit=new THREE.BoxGeometry(1,1,1);SEAL2.unit.translate(0,0.5,0);}const q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),items=[];   // cajas instanciadas por zonas, como las casas
+    for(const[x,z,w,d,a,y0,lo]of FOUND){const h=y0-lo+0.6;q.setFromAxisAngle(up,-a);items.push({m:new THREE.Matrix4().compose(new THREE.Vector3(x,lo-0.5,z),q.clone(),new THREE.Vector3(w+0.12,h,d+0.12))});}
+    const before=CHUNKS.length;chunked(SEAL2.unit,SEAL2.stone||(SEAL2.stone=lam('#a89c86')),items,{far:1200,shadow:false,receive:true});for(let k=before;k<CHUNKS.length;k++){CHUNKS[k].im.userData.noCol=true;CHUNKS[k].im.userData.zocalo=true;}
+    SEAL2.n.zocalos=(SEAL2.n.zocalos||0)+FOUND.length;}catch(e){console.warn('zocalos',e);}}
   SEAL2.n.box+=nb;SEAL2.n.seg+=ns;SEAL2.n.circ+=nc;
   {const p={x:player.x,z:player.z};resolve(p,0.35);player.x=p.x;player.z=p.z;}
   return SEAL2.n;}
