@@ -20681,12 +20681,12 @@ function* seal2Job(prev){const C=seal2Cands(),ppl=seal2People(),lp=new THREE.Vec
   {const p={x:player.x,z:player.z};resolve(p,0.35);player.x=p.x;player.z=p.z;}
   return SEAL2.n;}
 // en dos tiempos: una foto de las piezas al segundo de juego y el sellado al segundo siguiente, con las que no se han movido
-function seal2Tick(dt){if(!state||ui==='start')return;
+function seal2Tick(dt){if(!state)return;
   if(SEAL2.done){SEAL2.ck=(SEAL2.ck||0)+dt;if(SEAL2.ck<6)return;SEAL2.ck=0;const n=scene.children.length;if(SEAL2.nch===undefined){SEAL2.nch=n;return;}
     if(n!==SEAL2.nch&&performance.now()-(SEAL2.last||0)>30000){SEAL2.nch=n;SEAL2.done=false;SEAL2.t=0;SEAL2.last=performance.now();SEAL2.runs=(SEAL2.runs||1)+1;}return;}   // hay construcciones nuevas (un interior, un destino): otra pasada
   SEAL2.t+=dt;
   if(!SEAL2.snap&&SEAL2.t>1){try{SEAL2.snap=seal2Cands();}catch(e){SEAL2.done=true;console.warn('seal2',e);}return;}
-  if(SEAL2.snap&&SEAL2.t>2){if(!SEAL2.job)SEAL2.job=seal2Job(SEAL2.snap);const t0=performance.now();let r;try{do{r=SEAL2.job.next();}while(!r.done&&performance.now()-t0<6);}catch(e){console.warn('seal2',e);r={done:true};}
+  if(SEAL2.snap&&SEAL2.t>2){if(!SEAL2.job)SEAL2.job=seal2Job(SEAL2.snap);const t0=performance.now(),bud=SEAL2.ms||(ui==='play'?6:40);let r;try{do{r=SEAL2.job.next();}while(!r.done&&performance.now()-t0<bud);}catch(e){console.warn('seal2',e);r={done:true};}
     if(r.done){SEAL2.done=true;SEAL2.job=null;SEAL2.snap=null;SEAL2.prof.clear();SEAL2.nch=scene.children.length;}}}
 
 function startGame(){
