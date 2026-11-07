@@ -14577,7 +14577,9 @@ function faunaTick(dt){const T=performance.now()/1000,px=player.x,pz=player.z;FA
       F.obj.x=g.position.x;F.obj.z=g.position.z;continue;}
     if(F.beh==='wander'||F.beh==='peck'||F.beh==='follow'){
       F.w-=dt;const dx=F.tx-g.position.x,dz=F.tz-g.position.z,d=Math.hypot(dx,dz);
-      if(d<0.25||F.w>0){if(F.beh!=='follow'&&F.w<=0){F.w=F.beh==='peck'?rr(1,5):rr(2,9);const a=R()*TAU,r=Math.sqrt(R())*F.r;F.tx=F.cx+Math.cos(a)*r;F.tz=F.cz+Math.sin(a)*r;}
+      if(d<0.25||F.w>0){if(F.beh!=='follow'&&F.w<=0){F.w=F.beh==='peck'?rr(1,5):rr(2,9);const a=R()*TAU,r=Math.sqrt(R())*F.r;F.tx=F.cx+Math.cos(a)*r;F.tz=F.cz+Math.sin(a)*r;
+          // solo por suelo al mismo nivel que su sitio: que los gansos del Capitolio no trepen por el acantilado ni los animales por los muros
+          if(!F.fixedY){if(F.h0===undefined)F.h0=floorAt(F.cx,F.cz);let ok=false;for(let q=0;q<5&&!ok;q++){if(q){const b=R()*TAU,rb=Math.sqrt(R())*F.r;F.tx=F.cx+Math.cos(b)*rb;F.tz=F.cz+Math.sin(b)*rb;}const hm=floorAt((F.tx+g.position.x)/2,(F.tz+g.position.z)/2);ok=Math.abs(floorAt(F.tx,F.tz)-F.h0)<1.2&&Math.abs(hm-F.h0)<1.2;}if(!ok){F.tx=F.cx;F.tz=F.cz;}}}
         A.legs.forEach(l=>l.rotation.x*=0.85);if(A.head)A.head.rotation.x=F.beh==='peck'?Math.max(0,Math.sin(T*6+F.ph))*0.9:Math.sin(T*0.7+F.ph)*0.15;if(A.head)A.head.rotation.y=Math.sin(T*0.5+F.ph)*0.5;}
       else{const v=Math.min(d,dt*F.spd*(F.beh==='follow'&&d>3?2:1));g.position.x+=dx/d*v;g.position.z+=dz/d*v;if(!F.fixedY)g.position.y=floorAt(g.position.x,g.position.z);g.rotation.y+=wrapA(Math.atan2(dx,dz)-g.rotation.y)*Math.min(1,dt*6);
         F.ph+=v*(F.A.legs.length===2?16:9)/(g.scale.x||1);const s=Math.sin(F.ph);if(A.legs.length===4){A.legs[0].rotation.x=s*0.45;A.legs[3].rotation.x=s*0.45;A.legs[1].rotation.x=-s*0.45;A.legs[2].rotation.x=-s*0.45;}else if(A.legs.length===2){A.legs[0].rotation.x=s*0.5;A.legs[1].rotation.x=-s*0.5;}
@@ -20297,11 +20299,10 @@ function cyNightTick(dt){if(MODE!=='roma'||!state)return;const h=clock.h,night=h
   const all=[...CY.carts];if(CY.vig)all.push(CY.vig);for(const m of all){m.g.visible=night&&inCity;if(!m.g.visible)continue;const save0=RD.mov;RD.mov=[m];rdMoveTick(dt);RD.mov=save0;m.g.visible=true;}
   if(night&&inCity&&ui==='play'&&!CY.cartMsg){const z=cyz();if(!z.carros){z.carros=1;save();CY.cartMsg=true;toast('<span class="label">Roma de noche</span><br>De día, los carros tienen prohibido entrar en la ciudad; por eso de noche las calles se llenan de carretas con piedra, madera y vino. Juvenal se queja de que en Roma solo duermen los ricos: el estruendo de los carros en las calles estrechas no deja dormir a nadie (Sátiras III 236-238).');}}
   if(night&&inCity&&CY.vig&&ui==='play'&&!cyz().vig&&Math.hypot(CY.vig.g.position.x-player.x,CY.vig.g.position.z-player.z)<25){cyz().vig=1;save();toast('<span class="label">Los vigiles</span><br>Una patrulla de vigiles, con antorchas, cubos de esparto y hachas, recorre el barrio. Augusto creó en el 6 d.C. siete cohortes de libertos para apagar incendios y vigilar de noche. Tras el incendio de este año tienen mucho trabajo.');}
-  // el rumor de la ciudad
-  try{if(!CY.snd&&AUD.ctx&&AUD_ON){const C=AUD.ctx,b=C.createBuffer(1,C.sampleRate*2,C.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const s=C.createBufferSource();s.buffer=b;s.loop=true;const f=C.createBiquadFilter();f.type='lowpass';f.frequency.value=500;const g=C.createGain();g.gain.value=0;s.connect(f);f.connect(g);g.connect(AUD.master||C.destination);s.start();CY.snd=g;}
-    if(CY.snd)CY.snd.gain.value=AUD_ON&&ui==='play'&&inCity&&(h>7&&h<19||night)?(night?0.02:0.035):0;}catch(e){}}
-function cyTick(dt){cyNightTick(dt);if(MODE!=='roma'&&CY.snd===null){try{if(AUD.ctx&&AUD_ON){const C=AUD.ctx,b=C.createBuffer(1,C.sampleRate*2,C.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const s=C.createBufferSource();s.buffer=b;s.loop=true;const f=C.createBiquadFilter();f.type='lowpass';f.frequency.value=500;const g=C.createGain();g.gain.value=0;s.connect(f);f.connect(g);g.connect(AUD.master||C.destination);s.start();CY.snd=g;}}catch(e){}}
-  if(MODE!=='roma'&&CY.snd){let inCity=false;try{inCity=!islandOf(player.x)&&player.feet<CASA.Y-50;}catch(e){}CY.snd.gain.value=AUD_ON&&ui==='play'&&inCity&&clock.h>7&&clock.h<19?0.03:0;}}
+  // de noche, el estruendo de los carros: golpes sueltos y cortos cuando hay uno cerca (sin ruido de fondo continuo)
+  if(night&&inCity&&ui==='play'&&AUD_ON&&aOK()){CY.rumT=(CY.rumT||0)-dt;if(CY.rumT<0){CY.rumT=rr(5,12);const near=CY.carts.some(m=>Math.hypot(m.g.position.x-player.x,m.g.position.z-player.z)<45);
+    if(near){try{const t=AUD.ctx.currentTime;for(let k=0;k<5;k++)gfNoise(t+k*0.11,'lowpass',160+Math.random()*80,0.8,0.05,0.01,0.12);}catch(e){}}}}}
+function cyTick(dt){cyNightTick(dt);if(CY.snd){try{CY.snd.gain.value=0;}catch(e){}}}
 
 // ============================================================ EL ZURRÓN Y LOS OBJETOS DEL VIAJE: casillas configurables, uso según el contexto y quince objetos nuevos
 // Tecla I (o el menú): el zurrón con todo lo que llevas; eliges qué va en cada casilla de la barra. La casilla del objeto útil brilla según dónde estés.
