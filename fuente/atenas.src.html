@@ -17600,9 +17600,11 @@ function artTick(){if(!state)return;const a=state.art;if(!a)return;
 // ============================================================ URBANISMO: el Pireo de Hipódamo, puertas y colinas de Atenas; la Roma del incendio del 80
 const URB={smoke:[]};
 function urbFree(x,z,r){for(const f of footprints){const fr=f.r||Math.max(f.w||0,f.d||0)/2;if(Math.hypot(f.x-x,f.z-z)<fr+r)return false;}return true;}
-function urbScaffold(x,z,w,d,h,a){const g=grp(x,floorAt(x,z),z,a||0),wd=lam('#8a6a44');
-  for(let i=0;i<=Math.round(w/3);i++)for(const s of[-1,1]){const px=-w/2+i*w/Math.round(w/3);box(0.18,h,0.18,wd,px,h/2,s*d/2,g);}
-  for(let j=0;j<=Math.round(d/3);j++)for(const s of[-1,1]){const pz=-d/2+j*d/Math.round(d/3);box(0.18,h,0.18,wd,s*w/2,h/2,pz,g);}
+function urbScaffold(x,z,w,d,h,a){const gy=floorAt(x,z),g=grp(x,gy,z,a||0),wd=lam('#8a6a44');
+  // cada poste baja hasta el suelo que tiene debajo (en ladera, unos son más largos que otros; antes colgaban en el aire)
+  const pole=(px,pz)=>{const wp=toW(px,pz,x,z,a||0),yb=Math.min(0,floorAt(wp[0],wp[1])-gy-0.1);box(0.18,h-yb,0.18,wd,px,(h+yb)/2,pz,g);};
+  for(let i=0;i<=Math.round(w/3);i++)for(const s of[-1,1])pole(-w/2+i*w/Math.round(w/3),s*d/2);
+  for(let j=0;j<=Math.round(d/3);j++)for(const s of[-1,1])pole(s*w/2,-d/2+j*d/Math.round(d/3));
   for(let k=1;k<=Math.floor(h/2.5);k++){const y=k*2.5;box(w,0.12,0.5,wd,0,y,-d/2,g);box(w,0.12,0.5,wd,0,y,d/2,g);box(0.5,0.12,d,wd,-w/2,y,0,g);box(0.5,0.12,d,wd,w/2,y,0,g);}return g;}
 function urbSmoke(x,z,y,n){for(let i=0;i<(n||6);i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,color:'#5a5450',transparent:true,opacity:0.35,depthWrite:false}));s.position.set(x+rr(-3,3),y+i*3,z+rr(-3,3));s.scale.set(6,6,1);scene.add(s);URB.smoke.push({s,x,z,y,ph:i/(n||6)});}}
 function urbWorkers(x,z,n){for(let i=0;i<n;i++){const f=findFree(x+rr(-8,8),z+rr(-8,8),0.6);const p=makePerson({chiton:pick(['#b8a888','#a89878','#c8b898']),short:true,noHimation:true,hair:'#3a2a1e',carry:R()<0.3?'hydria':null});p.position.set(f[0],floorAt(f[0],f[1]),f[1]);p.rotation.y=R()*TAU;scene.add(p);walkers.push({g:p,mode:'idle',tx:f[0],tz:f[1],wait:Infinity,speed:0,phase:R()*10,x:f[0],z:f[1],barks:MODE==='roma'?['¡Cuidado con esa viga!','El emperador paga bien, pero quiere prisa.','Aquí todo huele todavía a quemado.']:['¡Aparta, que pasa la piedra!','Tres óbolos al día y la comida.']});}}
@@ -17644,8 +17646,10 @@ function athUrbPlus(){if(MODE!=='atenas'||URB.ath)return;URB.ath=1;
 // ======================================================== ROMA
 function romaUrbPlus(){if(MODE!=='roma'||URB.roma)return;URB.roma=1;const A=id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;};
   // el incendio del 80 (Dion Casio LXVI 24): Capitolio y Campo de Marte
-  for(const[id,dx,dz,w,d,h]of[['ro_jupiter',0,14,24,14,16],['ro_panteon',0,-26,18,12,14],['ro_iseo',10,10,14,10,10],['ro_pompeyo',-14,18,22,10,14]]){const p=A(id);if(!p)continue;const x=p[0]+dx,z=p[1]+dz;
-    urbScaffold(x,z,w,d,h,0);urbSmoke(x+rr(-4,4),z+rr(-4,4),floorAt(x,z)+h,5);for(let i=0;i<7;i++){const b=box(rr(1,3),rr(0.4,1.2),rr(1,3),lam(pick(['#2a2420','#3a3028','#4a4038'])),x+rr(-w/2,w/2),floorAt(x,z)+0.3,z+d/2+rr(1,5));b.rotation.y=R()*3;}urbWorkers(x,z+d/2+4,3);}
+  // el andamio busca, alrededor del punto previsto, el sitio más llano para su planta (en el Capitolio colgaba sobre la ladera)
+  const flat=(x0,z0,w,d)=>{let best=[x0,z0],bv=Infinity;for(const[ox,oz]of[[0,0],[0,-8],[0,-14],[0,-20],[8,0],[-8,0],[8,-10],[-8,-10],[0,8]]){const x=x0+ox,z=z0+oz;let lo=Infinity,hi=-Infinity;for(const fx of[-0.5,0,0.5])for(const fz of[-0.5,0,0.5]){const y=floorAt(x+fx*w,z+fz*d);lo=Math.min(lo,y);hi=Math.max(hi,y);}const v=hi-lo+Math.hypot(ox,oz)*0.02;if(v<bv){bv=v;best=[x,z];}}return best;};
+  for(const[id,dx,dz,w,d,h]of[['ro_jupiter',0,14,24,14,16],['ro_panteon',0,-26,18,12,14],['ro_iseo',10,10,14,10,10],['ro_pompeyo',-14,18,22,10,14]]){const p=A(id);if(!p)continue;const[x,z]=flat(p[0]+dx,p[1]+dz,w,d);
+    urbScaffold(x,z,w,d,h,0);urbSmoke(x+rr(-4,4),z+rr(-4,4),floorAt(x,z)+h,5);for(let i=0;i<7;i++){const bx=x+rr(-w/2,w/2),bz=z+d/2+rr(1,5),b=box(rr(1,3),rr(0.4,1.2),rr(1,3),lam(pick(['#2a2420','#3a3028','#4a4038'])),bx,floorAt(bx,bz)+0.3,bz);b.rotation.y=R()*3;}urbWorkers(x,z+d/2+4,3);}
   {const p=A('ro_panteon');if(p){const f=findFree(p[0]+14,p[1]+20,1);placeLive('incendio80','El incendio de este año','INCENDIVM','Este año, mientras Tito estaba en Campania atendiendo a las víctimas del Vesubio, un incendio ardió en Roma tres días y tres noches. Se quemaron el templo de Júpiter en el Capitolio, el Panteón, el templo de Isis y Serapis, los Saepta, el Diribitorio, el teatro de Balbo y la escena del teatro de Pompeyo, entre muchos otros (Dion Casio LXVI 24). Tito dijo que la pérdida era solo suya, y para reconstruir dio hasta los adornos de sus propias villas (Suetonio, Tito 8, 4). Por eso ves andamios, vigas negras y humo.',f[0],f[1],0);}}
   // el templo de Vespasiano, en obras, con una grúa de rueda
   {const p=A('ro_saturno');if(p){const f=findFree(p[0]-22,p[1]-6,6);const g=grp(f[0],floorAt(f[0],f[1]),f[1],0),mb=lam('#ece6da');box(14,4,20,TRAV||mb,0,2,0,g);
@@ -21891,6 +21895,22 @@ function sw2AfTake(k){const z=sw2z(),D=SW_AF[MODE],T=SW_AFT[k];z.afit=z.afit||{}
 const eduEntriesSW2=eduEntries;eduEntries=function(){const E=eduEntriesSW2();const D=swD();if(!D||!state)return E;const z=sw2z();
   for(const k in z.per)if(D.info[k])E.push({c:'Periplo',n:D.info[k][0],t:sw2strip(D.info[k][2])});
   for(const k in z.enc)if(SW2_ENC[k])E.push({c:'Encuentros en el mar',n:SW2_ENC[k].name,t:sw2strip(SW2_ENC[k].txt+(MODE==='roma'&&SW2_ENC[k].ro?SW2_ENC[k].ro:''))});return E;};
+// ---- modo atención en el mar: encuentros, barcos, esferas, regalos, ánforas, islas y la propia barca
+const atCandsSW=atCands;atCands=function(){const C=atCandsSW();try{if(!swD()||!SW.built)return C;const sy=swSeaY(),z=sw2z(),ro=MODE==='roma',two=t=>{const a=sw2strip(t).split(/(?<=\.)\s/);return a.slice(0,3).join(' ');};
+  if(SW.bg&&SW.bg.visible!==false)C.push({obj:SW.bg,x:SW.bg.position.x,y:sy+0.8,z:SW.bg.position.z,r:2.2,name:z.mine?'Tu barca':'La barca',sub:'barca de remos',txt:()=>(ro?'Una barca de remos con dos ojos pintados en la proa, un cuello de cisne en la popa y una estatuilla de Neptuno, su dios protector (la tutela).':'Una barca de remos con dos ojos pintados en la proa para que «vea» el camino, el aflaston en abanico en la popa y una estatuilla de Atenea, su protectora.')+' Nivel '+(z.blvl||0)+': recoge esferas de espuma para que reme más deprisa.'});
+  if(!swIn())return C;
+  if(SW2.enc){const E=SW2_ENC[SW2.enc.k];C.push({obj:SW2.enc.g,x:SW2.enc.x,y:sy+2,z:SW2.enc.z,r:2.5,name:E.name,sub:E.sub,txt:()=>two(E.txt)});}
+  const SH={pesca:['Una barca de pescadores','pesca de bajura',ro?'Pescan atún, sardinas y caballas; con las vísceras saladas al sol se hace el garum (Plinio XXXI 93-94).':'Pescan atún, que avistan desde atalayas en la costa, y lo salan para venderlo en ánforas.'],
+   mercante:['Un barco mercante','de vela, cargado de ánforas',ro?'Lleva grano, vino o aceite. En invierno el mar «se cierra» y casi nadie navega.':'Lleva vino, aceite o trigo en ánforas. Solo se navega con buen tiempo, de primavera a otoño.'],
+   trirreme:['Una trirreme','barco de guerra ateniense','Unos doscientos hombres a bordo, ciento setenta de ellos remeros en tres filas. Un flautista marca el ritmo de la boga.'],
+   liburna:['Una liburna','galera ligera de la flota romana','Rápida y con dos filas de remos; Roma copió el diseño de los liburnos de Iliria. Vigila que no vuelvan los piratas.']};
+  for(const S of SW2.ships){if(S.seg!==SW.seg)continue;const T=SH[S.type];C.push({obj:S.g,x:S.x,y:sy+2.5,z:S.z,r:4,name:T[0],sub:T[1],txt:()=>T[2]+' Acércate con la barca y pulsa E para hablar.'});}
+  if(SW2.pir)C.push({obj:SW2.pir.g,x:SW2.pir.x,y:sy+2.5,z:SW2.pir.z,r:4,name:'Una nave pirata',sub:'¡rema!',txt:()=>'Vela roja y ningún estandarte: piratas. Isócrates se queja hacia el 380 a.C. de que dominan el mar (Panegírico 115). Rema con fuerza para escapar.'});
+  for(const o of SWORB.list){if(o.seg!==SW.seg)continue;C.push({obj:o.g,x:o.x,y:o.g.position.y,z:o.z,r:1.4,name:'Una esfera de espuma',sub:'brilla sobre el agua',txt:()=>'Pasa con la barca por encima para recogerla: con cada nivel remas más deprisa (hasta el nivel 10). Llevas '+(z.bxp||0)+' de '+sw2Need(z.blvl||0)+' para el siguiente nivel.'});}
+  if(typeof SWAF!=='undefined'&&z.af===1)for(const k in SWAF.it){const I=SWAF.it[k];if(I.seg!==SW.seg)continue;C.push({obj:I.g,x:I.x,y:I.g.position.y+0.4,z:I.z,r:1.6,name:SW_AFT[k][0],sub:'un regalo de '+SW_AF[MODE].name,txt:()=>two(SW_AFT[k][1])+(I.under?' Está en el fondo: tírate al agua y bucea.':' Acércate con la barca y pulsa E.')});}
+  if(SW.swim)for(const A of SW2.amph){if(A.seg!==SW.seg||!A.m.visible)continue;C.push({obj:A.m,x:A.x,y:A.m.position.y,z:A.z,r:1.2,name:'Un ánfora',sub:'de un barco hundido',txt:()=>'Un ánfora de un mercante hundido: podía llevar vino, aceite o salsa de pescado. Acércate y pulsa E para subirla; la venderás en el próximo puerto.'});}
+  const Sg=swD().segs[SW.seg];if(Sg){const cz=swSegZ(SW.seg);for(const I of Sg.isl){if(I.rock)continue;C.push({x:SW.X+I.x,y:sy+Math.min(I.h,40)*0.6,z:cz+I.z,r:Math.min(I.rx,I.rz)*0.8,place:1,name:I.name,sub:I.sub||'',txt:()=>(I.sub?I.sub.charAt(0).toUpperCase()+I.sub.slice(1)+'. ':'')+(I.id?'Acércate a su orilla con la barca y pulsa E para desembarcar.':'No se puede desembarcar aquí en este viaje.')});}}
+ }catch(e){}return C;};
 const eduReportSW2=eduReport;eduReport=function(){const r=eduReportSW2();try{const D=swD();if(D){const z=sw2z();let tot=0;for(const id in D.segs)tot+=sw2keys(id).length;r.periplo=Object.keys(z.per).filter(k=>D.info[k]).length+' de '+tot+' historias del mar, '+Object.keys(z.vis).length+' de '+Object.keys(D.segs).length+' mares';}}catch(e){}return r;};
 
 function startGame(){
