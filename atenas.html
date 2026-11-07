@@ -833,12 +833,11 @@ function audioTick(dt){
   if(ui==='play'&&player.grounded&&moved<3){stepAcc+=moved;if(stepAcc>(MOUNT.riding?(keys.run?3.2:1.9):(keys.run?1.3:0.8))){stepAcc=0;if(!MOUNT.riding)gfStep();}}   // los cascos los marca horseAlive, según el aire
   aT+=dt;if(aT<0.2)return;const st=aT;aT=0;const now=AUD.ctx.currentTime;
   const ad=Math.hypot(player.x-AGORA.x,player.z-AGORA.z);const crowd=clamp(1-(ad-25)/90,0,1)*(0.15+0.85*DAYF);
-  AUD.crowd.gain.setTargetAtTime(0.14*crowd,now,0.6);AUD.crowd2.gain.setTargetAtTime(0.05*crowd*(0.5+Math.random()*0.5),now,0.1);
-  AUD.crowdF.frequency.setTargetAtTime(380+Math.random()*420,now,0.15);
+  AUD.crowd.gain.setTargetAtTime(0,now,0.6);AUD.crowd2.gain.setTargetAtTime(0,now,0.3);   // sin murmullo de ruido blanco: sonaba a siseo continuo
   const high=clamp((player.feet-5)/30,0,1),outside=insideWalls(player.x,player.z)?0:1;
-  AUD.wind.gain.setTargetAtTime(0.025+0.07*high+0.03*outside,now,1.5);
+  {const gust=Math.max(0,Math.sin(now*0.23)*Math.sin(now*0.071+1.3));const nz=typeof ACC!=='undefined'&&ACC.noAmb;AUD.wind.gain.setTargetAtTime(nz?0:(0.05*high+0.02*outside)*gust,now,1.5);}   // viento solo en lo alto o fuera de las murallas, a ráfagas
   const nearSea=player.x>8000?clamp(1-(terrainH(player.x,player.z)-1)/25,0.2,1):(HARBOR.ok?clamp(1-Math.hypot(player.x-HARBOR.x,player.z-HARBOR.z)/180,0,1):0);
-  AUD.waves.gain.setTargetAtTime(0.1*nearSea*(0.55+0.45*Math.sin(now*0.7)),now,0.4);
+  {const sea=player.x>8000?clamp(1-(terrainH(player.x,player.z)-0.5)/6,0,1):nearSea;AUD.waves.gain.setTargetAtTime(typeof ACC!=='undefined'&&ACC.noAmb?0:0.06*sea*(0.5+0.5*Math.sin(now*0.7)),now,0.4);}   // olas solo junto a la orilla
   if(DAYF>0.3&&Math.random()<st*(0.2+0.6*outside)*DAYF)sfxBird();
   if(DAYF<0.3&&Math.random()<st*1.2*(1-DAYF))sfxCricket();
   lyreT-=st;if(lyreT<0){lyreT=10+Math.random()*16;const near=[[THEA.x,THEA.z],[SYMP.x,SYMP.z],[ACADEMY.x,ACADEMY.z],[AGORA.x,AGORA.z]].some(p=>Math.hypot(player.x-p[0],player.z-p[1])<70);if(near)playPhrase();}
@@ -15762,7 +15761,7 @@ function sfxCreak(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime,o=c.createO
 function gfAudio(dt){if(!aOK())return;gfAudioInit();if(!GFA.on)return;const now=AUD.ctx.currentTime;GFA.t+=dt;if(GFA.t<0.25)return;const st=GFA.t;GFA.t=0;
   const mo=calNow().mo,summer=mo>=5&&mo<=8,outside=!gfInCity(),inMap=ui==='play'||ui==='dialog';
   const th=terrainH(player.x,player.z),nearSea=th<4;
-  GFA.cic.gain.setTargetAtTime(inMap&&summer&&DAYF>0.55&&!nearSea?0.018*(outside?1:0.5):0,now,1.2);
+  GFA.cic.gain.setTargetAtTime(inMap&&summer&&DAYF>0.55&&!nearSea&&!(typeof ACC!=='undefined'&&ACC.noAmb)?0.018*(outside?1:0.5):0,now,1.2);
   const spd=Math.hypot(GF.vx,GF.vz),wv=FLY.on?clamp(spd/25,0,1)*0.09+0.02:MOUNT.riding?clamp((spd-10)/20,0,1)*0.05:0;GFA.wind.gain.setTargetAtTime(wv,now,0.4);GFA.wf.frequency.setTargetAtTime(500+spd*30,now,0.4);
   GFA.owl-=st;if(GFA.owl<0){GFA.owl=18+Math.random()*30;if(DAYF<0.25&&outside)sfxOwl();}
   GFA.gull-=st;if(GFA.gull<0){GFA.gull=7+Math.random()*14;if(DAYF>0.3&&(nearSea||BOAT.on||(typeof HARBOR!=='undefined'&&HARBOR.ok&&Math.hypot(player.x-HARBOR.x,player.z-HARBOR.z)<160)))sfxGull();}
@@ -19221,7 +19220,8 @@ function hbCSS(){if($('hbCSS'))return;const s=document.createElement('style');s.
  '#hbName{position:fixed;left:50%;bottom:calc(68px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;color:#f3e6cf;font:600 15px Alegreya,Georgia,serif;text-shadow:0 1px 3px #000,0 0 8px #000;pointer-events:none;transition:opacity .4s;white-space:nowrap}'+
  'body:not(.tm) #conv{bottom:calc(98px + env(safe-area-inset-bottom,0px))}body:not(.tm) #atCard{bottom:calc(76px + env(safe-area-inset-bottom,0px))}body.photo #hbar,body.photo #hbName{display:none!important}@keyframes spF{from{opacity:1}to{opacity:0}}'+
  'body.tm #hbar{bottom:auto;top:calc(8px + env(safe-area-inset-top,0px));gap:2px;padding:3px}body.tm #hbar .s{width:34px;height:34px}body.tm #hbar .s svg{width:22px;height:22px}body.tm #hbar .s .k{display:none}body.tm #hbName{bottom:auto;top:calc(52px + env(safe-area-inset-top,0px));font-size:13px}'+
- '@media (max-width:520px){#hbar .s{width:32px;height:32px}#hbar .s svg{width:21px;height:21px}}';document.head.appendChild(s);}
+ '@media (max-width:520px){#hbar .s{width:32px;height:32px}#hbar .s svg{width:21px;height:21px}}'+
+ '@media (orientation:portrait){body.tm #compass{top:auto;bottom:calc(196px + env(safe-area-inset-bottom,0px))}body.tm #hbar{top:50%;bottom:auto;left:calc(6px + env(safe-area-inset-left,0px));transform:translateY(-50%);flex-direction:column;gap:2px;padding:3px}body.tm #hbar .s{width:34px;height:34px}body.tm #hbName{top:50%;bottom:auto;left:calc(52px + env(safe-area-inset-left,0px));transform:translateY(-50%);font-size:13px;white-space:normal;max-width:40vw}}';document.head.appendChild(s);}   /* en el móvil en vertical, columna a la izquierda: no tapa los mensajes de arriba */
 function hbRender(force){hbCSS();let b=$('hbar');if(!b){b=document.createElement('div');b.id='hbar';document.body.appendChild(b);const n=document.createElement('div');n.id='hbName';n.style.opacity=0;document.body.appendChild(n);
     b.addEventListener('click',e=>{const s=e.target.closest('.s');if(!s)return;e.stopPropagation();const i=+s.dataset.i;if(HBAR.sel===i&&document.body.classList.contains('tm'))hbUse();else hbSelect(i);});
     b.addEventListener('contextmenu',e=>{e.preventDefault();const s=e.target.closest('.s');if(s){hbSelect(+s.dataset.i);hbUse();}});}
@@ -20219,8 +20219,8 @@ function rdDangerTick(dt){if(ui!=='play'||!state)return;let I=null;try{I=islandO
 function rdSound(){try{if(!AUD.ctx||!AUD_ON)return;const C=AUD.ctx;const mk=(f,q)=>{const b=C.createBuffer(1,C.sampleRate,C.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const s=C.createBufferSource();s.buffer=b;s.loop=true;const bp=C.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;const g=C.createGain();g.gain.value=0;const lfo=C.createOscillator(),lg=C.createGain();lfo.frequency.value=f>3000?18:3;lg.gain.value=0.5;lfo.connect(lg);lg.connect(g.gain);s.connect(bp);bp.connect(g);g.connect(AUD.master||C.destination);s.start();lfo.start();return g;};
   RD.snd=mk(5200,6);RD.snd2=mk(600,4);}catch(e){}}
 function rdSoundTick(){if(!RD.snd){if(AUD.ctx&&AUD_ON)rdSound();return;}const mo=calNow().mo,h=clock.h,out=!(player.feet>CASA.Y-50);let I=null;try{I=islandOf(player.x);}catch(e){}const country=!!I;
-  RD.snd.gain.value=AUD_ON&&ui==='play'&&out&&country&&mo>=5&&mo<=8&&h>9&&h<19&&WXS.rain<0.2?0.025:0;
-  let wet=false;try{wet=riverWater(player.x,player.z)!==null||(I&&I.lake&&Math.hypot(I.lake.x-player.x,I.lake.z-player.z)<I.lake.rx+60);}catch(e){}RD.snd2.gain.value=AUD_ON&&ui==='play'&&out&&wet&&(h>20||h<5)&&mo>=3&&mo<=8?0.03:0;}
+  RD.snd.gain.value=AUD_ON&&!ACC.noAmb&&ui==='play'&&out&&country&&mo>=5&&mo<=8&&h>9&&h<19&&WXS.rain<0.2?0.025:0;
+  let wet=false;try{wet=riverWater(player.x,player.z)!==null||(I&&I.lake&&Math.hypot(I.lake.x-player.x,I.lake.z-player.z)<I.lake.rx+60);}catch(e){}RD.snd2.gain.value=AUD_ON&&!ACC.noAmb&&ui==='play'&&out&&wet&&(h>20||h<5)&&mo>=3&&mo<=8?0.03:0;}
 // ---- el trofeo de Maratón y los vasos de Vicarello
 function rdExtras(){if(MODE!=='roma'){const I=ISLANDS.find(q=>q.id==='maraton');if(I){const p=findFree(I.x+120,I.z-40,1);if(p){const[x,z]=p,g=grp(x,terrainH(x,z),z,0),m=lam('#efe8d8');const c=new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.5,7,14),m);c.position.y=3.5;g.add(c);box(1.6,0.6,1.6,m,0,0.3,0,g);const h=new THREE.Mesh(new THREE.SphereGeometry(0.4,10,8),lam('#b08a40'));h.position.y=7.3;g.add(h);addCirc(x,z,1);egxObj(x,z,undefined,'rd:trofeo','Trofeo de Maratón','columna de mármol',3);}}}
   else{const I=ISLANDS.find(q=>q.id==='gades');if(I&&I.arrive){const p=findFree(I.arrive.x+30,I.arrive.z-10,1);if(p)artPerson(p,{chiton:'#d8ccb4',himation:'#6a2a4a',hair:'#2a1e14',beard:true},'rd:vicarello','Un viajero rico de Gades','con una copa de plata',3);}}}
@@ -20538,7 +20538,7 @@ function accSpeak(t){try{const S=window.speechSynthesis;if(!S)return toast('Tu n
 function accDialogHook(){const d=$('dialog');if(!d||d.hidden||d.querySelector('#accRead'))return;const b=document.createElement('button');b.id='accRead';b.textContent='🔊';b.title='Leer en voz alta';b.style.cssText='position:absolute;right:10px;top:8px;font-size:18px;background:transparent;border:1px solid #6a4a30;border-radius:8px;color:#f1e8d8;cursor:pointer;padding:2px 8px;z-index:2';b.onclick=e=>{e.stopPropagation();accSpeak(($('dBody')||d).innerText);};d.appendChild(b);if(ACC.auto)setTimeout(()=>accSpeak(($('dBody')||d).innerText),300);}
 let ACC_T=0;function accTick(dt){ACC_T-=dt;if(ACC_T>0)return;ACC_T=0.4;const d=$('dialog');if(d&&!d.hidden){if(!d.dataset.accSeen){d.dataset.accSeen='1';const o=d.querySelector('#accRead');if(o)o.remove();accDialogHook();}}else if(d){delete d.dataset.accSeen;try{if(!ACC.auto)window.speechSynthesis&&0;}catch(e){}}}
 function accMenu(){const it=(k,n)=>'<label style="display:flex;gap:10px;align-items:center;padding:8px;border:1px solid #6a4a30;border-radius:8px;margin:6px 0;cursor:pointer"><input type="checkbox" data-k="'+k+'" '+(ACC[k]?'checked':'')+'> '+n+'</label>';
-  const o=eduOverlay('accBox','Accesibilidad',it('auto','Leer en voz alta cada diálogo al abrirse (siempre puedes pulsar 🔊)')+it('big','Letra más grande')+it('font','Fuente de lectura fácil (Atkinson Hyperlegible)')+it('contrast','Alto contraste en diálogos y avisos')+it('lite','Modo ligero, para ordenadores lentos (menos resolución, sin sombras)')+'<p class="sub" style="opacity:.8">Las opciones se guardan en este navegador.</p>');
+  const o=eduOverlay('accBox','Accesibilidad',it('auto','Leer en voz alta cada diálogo al abrirse (siempre puedes pulsar 🔊)')+it('big','Letra más grande')+it('font','Fuente de lectura fácil (Atkinson Hyperlegible)')+it('contrast','Alto contraste en diálogos y avisos')+it('lite','Modo ligero, para ordenadores lentos (menos resolución, sin sombras)')+it('noAmb','Sin sonido de ambiente (viento, olas, cigarras, animales y talleres): solo los sonidos de lo que haces')+'<p class="sub" style="opacity:.8">Las opciones se guardan en este navegador.</p>');
   o.querySelectorAll('input[data-k]').forEach(i=>i.onchange=()=>{ACC[i.dataset.k]=i.checked;accSave();});}
 setTimeout(accApply,1500);
 // ---- 3. panel del profesor: informe, código de partida, repaso y preguntas propias
@@ -20924,7 +20924,7 @@ function ambTick(dt){if(!state||ui==='start')return;AMB.t+=dt;const ro=MODE==='r
   // flores según la estación
   for(const F of AMB.flowers){const on=F.season===season||(F.season==='pri'&&season==='ver'&&mo===5);if(F.chunk){F.chunk.near=on?0:1e9;if(!on)F.o.visible=false;}else F.o.visible=on;}
   // sonidos del día y de la noche
-  if(AUD_ON&&aOK()&&ui==='play'){AMB.tSnd-=dt;
+  if(AUD_ON&&aOK()&&ui==='play'&&!ACC.noAmb){AMB.tSnd-=dt;
     if(h>5&&h<6.3&&AMB.tCock!==state.day&&(inCity||nat)){AMB.tCock=state.day;ambCock();}
     if(AMB.tSnd<0){AMB.tSnd=rr(18,40);if(night&&(inCity||nat)){if(!ro&&R()<0.5)ambOwl();else ambBark();}}
     if(ro&&inCity&&h>=13.8&&h<14.2&&AMB.tBell!==state.day){AMB.tBell=state.day;ambBell();const z=ambz();if(!z.seen.bell){z.seen.bell=1;save();toast('<span class="label">La campana de las termas</span><br>Suena el bronce: abren los baños. «Deja la pelota: suena la campana de las termas», bromea Marcial (Epigramas XIV 163). La mayoría de los romanos va a las termas a primera hora de la tarde.');}}
@@ -20939,7 +20939,7 @@ function ambFx(dt,E){const ro=MODE==='roma';
    const k=wet&&E.h>5&&E.h<8.5&&E.season!=='ver'?Math.min(1,(8.5-E.h)/2):0;AMB.mist.material.opacity+=(k*0.45-AMB.mist.material.opacity)*Math.min(1,dt*0.5);AMB.mist.visible=AMB.mist.material.opacity>0.01;if(AMB.mist.visible)AMB.mist.position.set(player.x,floorAt(player.x,player.z)+1.2,player.z);}
   if(!AMB.dust){const n=60,g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(n*3),3));AMB.dust=new THREE.Points(g,new THREE.PointsMaterial({color:0xfff2d0,size:0.025,transparent:true,opacity:0.7,depthWrite:false}));AMB.dust.frustumCulled=false;AMB.dust.userData.noCol=true;scene.add(AMB.dust);AMB.dustP=[...Array(n)].map(()=>[rr(-3,3),rr(0.2,2.6),rr(-3,3),R()*10]);}
   {const inside=player.feet>CASA.Y-50&&!E.night;AMB.dust.visible=inside;if(inside){const a=AMB.dust.geometry.attributes.position;AMB.dustP.forEach((p,i)=>{p[3]+=dt*0.2;a.setXYZ(i,player.x+p[0]+Math.sin(p[3])*0.3,player.feet+p[1]+Math.sin(p[3]*0.7)*0.2,player.z+p[2]+Math.cos(p[3]*0.8)*0.3);});a.needsUpdate=true;}}
-  if(!AMB.sw){AMB.sw=[];for(let i=0;i<6;i++){const b=birdMesh('#1d1a22');b.g.scale.setScalar(0.6);b.g.userData.noCol=true;scene.add(b.g);AMB.sw.push({b,ph:R()*TAU,r:rr(6,14),sp:rr(1.2,2),y:rr(3,7)});}}
+  if(!AMB.sw){AMB.sw=[];for(let i=0;i<6;i++){const b=birdMesh('#1d1a22');b.g.scale.setScalar(0.32);b.g.userData.noCol=true;scene.add(b.g);AMB.sw.push({b,ph:R()*TAU,r:rr(6,14),sp:rr(1.2,2),y:rr(3,7)});}}
   {const on=E.season==='pri'&&!E.night&&E.h>7&&E.h<19&&(E.inCity||E.nat);for(const S of AMB.sw){S.b.g.visible=on;if(!on)continue;S.ph+=dt*S.sp;const x=player.x+Math.cos(S.ph)*S.r,z=player.z+Math.sin(S.ph*1.3)*S.r;S.b.g.position.set(x,floorAt(x,z)+S.y+Math.sin(S.ph*3)*1.2,z);S.b.g.rotation.y=-S.ph;const fa=Math.sin(AMB.t*14+S.ph)*0.7;if(S.b.wg){S.b.wg[0].rotation.z=fa;S.b.wg[1].rotation.z=-fa;}}
    if(on&&!ambz().seen.golond){ambz().seen.golond=1;save();setTimeout(()=>toast('<span class="label">Golondrinas</span><br>Han vuelto las golondrinas: es primavera. «Una golondrina no hace verano», dice el refrán que recoge Aristóteles (Ética a Nicómaco I 7).'),1200);}}
   // la calima ya la pone el tiempo meteorológico (WXS.heat) en los días de calor
@@ -21091,7 +21091,7 @@ function amb2Tick(dt){if(!state||ui==='start')return;AMB2.t+=dt;const T=AMB2.t,h
    if(AMB2.wetT>0.05&&AMB2.pud.length<12&&R()<dt*2){const x=px+rr(-25,25),z=pz+rr(-25,25),m=new THREE.Mesh(new THREE.CircleGeometry(rr(0.6,1.6),16),new THREE.MeshLambertMaterial({color:'#5a6470',transparent:true,opacity:0.5,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set(x,floorAt(x,z)+0.03,z);m.userData.noCol=true;scene.add(m);AMB2.pud.push(m);}
    for(const m of AMB2.pud){m.material.opacity=0.5*AMB2.wetT;m.visible=AMB2.wetT>0.03;}if(AMB2.wetT<0.03&&AMB2.pud.length){AMB2.pud.forEach(m=>{scene.remove(m);m.geometry.dispose();});AMB2.pud.length=0;}}
   // sonidos de taller (martillo, telar, muela) y la siringa del cabrero
-  if(AUD_ON&&aOK()&&ui==='play'&&day){AMB2.snd-=dt;if(AMB2.snd<0){AMB2.snd=rr(4,9);
+  if(AUD_ON&&aOK()&&ui==='play'&&day&&!ACC.noAmb){AMB2.snd-=dt;if(AMB2.snd<0){AMB2.snd=rr(4,9);
     let q=null;for(const o of EGX_OBJS){if(!near(o.x,o.z,22))continue;if(/^cy:(herrero|alfarero)/.test(o.act)){q='martillo';break;}if(o.act==='amb:telar'){q='telar';break;}if(o.act==='amb:molino'){q='muela';break;}}
     try{const t=AUD.ctx.currentTime;if(q==='martillo')for(let k=0;k<3;k++)ambTone(1800,1700,0.08,'square',0.02,k*0.35);else if(q==='telar')for(let k=0;k<2;k++)gfNoise(t+k*0.5,'bandpass',600,4,0.04,0.003,0.06);else if(q==='muela')gfNoise(t,'lowpass',180,1,0.05,0.2,1.5);}catch(e){}
     if(AMB2.syr)for(const S of AMB2.syr)if(near(S.x,S.z,30)){const notes=[523,587,659,784,880,784,659];notes.forEach((f,i)=>ambTone(f,f,0.32,'sine',0.025,i*0.3));break;}}}}

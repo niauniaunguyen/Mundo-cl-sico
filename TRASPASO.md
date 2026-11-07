@@ -223,6 +223,12 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - **Costa:** redes, barcas varadas, secaderos y salinas.
   - **Campo:** prensas de aceite, vareo de la aceituna en otoño, cabreros con siringa (suena) y cuervos.
   - **Efectos:** abejas junto a las colmenas, moscas en el pescado y las popinas, charcos tras la lluvia que se secan poco a poco, y sonidos de taller (martillo, telar, muela).
+- **Sonido de fondo, más limpio:**
+  - el «viento» ya no suena siempre: solo en lo alto o fuera de las murallas, a ráfagas;
+  - fuera el «murmullo» de ruido blanco del Ágora;
+  - olas solo junto a la orilla;
+  - nueva opción de Accesibilidad «Sin sonido de ambiente» (`ACC.noAmb`), que apaga viento, olas, cigarras, ranas, animales y talleres.
+- **Móvil en vertical:** la barra de objetos va en columna a la izquierda, centrada en altura, y la brújula baja por encima de los botones para no tapar el título.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
