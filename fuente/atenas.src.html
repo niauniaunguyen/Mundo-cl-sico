@@ -3373,8 +3373,8 @@ function romaVillagers(I,cx,cz,n,barks){for(let i=0;i<n;i++){const fem=R()<0.4,x
 function destTrees(I,n,kinds){const tr=[];for(let k=0;k<n*4&&tr.length<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
   if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;tr.push({x,z,kind:pick(kinds)});}
   if(GLB.ok)treesGLB(tr);else islandTrees(tr.map(t=>[t.x,t.z]));}
-function caveMouth(x,z,a){const gy=terrainH(x,z),g=grp(x,gy,z,a);box(4,3.2,3,lam('#1a1512'),0,1.6,-1.2,g);
-  for(let i=0;i<9;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(0.9+R()*1.3,0),M.stone);r.position.set(rr(-4.5,4.5),rr(0,4),rr(-2,0.5));g.add(r);}addCirc(x,z-1,2.4);return g;}
+function caveMouth(x,z,a){const gy=minGround(x,z,4,3,a),gt=Math.max(gy,terrainH(x,z)),g=grp(x,gy,z,a);box(4,3.2+(gt-gy),3,lam('#1a1512'),0,(3.2+(gt-gy))/2,-1.2,g);
+  for(let i=0;i<9;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(0.9+R()*1.3,0),M.stone),lx=rr(-4.5,4.5),lz=rr(-2,0.5),w=toW(lx,lz,x,z,a);r.position.set(lx,terrainH(w[0],w[1])-gy+rr(-0.2,2.6),lz);g.add(r);}   /* cada roca apoyada en el terreno de su sitio */addCirc(x,z-1,2.4);return g;}
 
 function buildIslands(){
   defineIslandLayout();defineMainlandLayout();defineGates();
@@ -19751,7 +19751,7 @@ function natz(){if(!state.nat||typeof state.nat!=='object')state.nat={};return s
 Object.assign(MED_POS,{pentelico:[23.89,38.08],eta:[22.25,38.8],achelous:[21.3,38.7],taigeto:[22.35,36.95],escironides:[23.15,37.93]});
 Object.assign(MED_POS_RO,{ciminia:[12.2,42.4],caudium:[14.55,41.05],lunae:[10.1,44.08],padus:[12.15,44.95],rubico:[12.4,44.1]});
 function natBlocks(x,z,n){const m=lam('#efece4');for(let i=0;i<n;i++){const px=x+rr(-25,25),pz=z+rr(-15,15),w=rr(1.5,3.2),h=rr(1,2),d=rr(1.5,3);box(w,h,d,m,px,terrainH(px,pz)+h/2,pz);addBox(px,pz,w,d,0);}
-  for(let k=0;k<4;k++){const y=terrainH(x,z-40-k*8);box(40-k*6,6,2,m,x,y+3,z-40-k*8);}}
+  for(let k=0;k<4;k++){const zz=z-40-k*8,W=40-k*6;let lo=1e9,hi=-1e9;for(let u=-0.5;u<=0.5;u+=0.125){const h=terrainH(x+u*W,zz);lo=Math.min(lo,h);hi=Math.max(hi,h);}const H=hi-lo+5;box(W,H,2,m,x,lo-0.3+H/2,zz);}}   /* cada grada arranca de lo más bajo bajo su anchura */
 function natHives(x,z,n){for(let i=0;i<n;i++){const px=x+(i%4)*2.4,pz=z+Math.floor(i/4)*2.4,g=grp(px,terrainH(px,pz),pz,0),c=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.4,0.9,10),lam('#b8885a'));c.rotation.z=Math.PI/2;c.position.y=0.55;g.add(c);box(0.8,0.2,0.8,lam('#8a7a62'),0,0.1,0,g);addCirc(px,pz,0.5);}}
 function natPyre(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0);for(let i=0;i<6;i++){const l=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,3.4,6),lam('#3a2a1e'));l.rotation.z=Math.PI/2;l.rotation.y=i*0.5;l.position.y=0.3+i*0.28;g.add(l);}const a=new THREE.Mesh(new THREE.ConeGeometry(2.6,0.9,12),lam('#3e3834'));a.position.y=0.3;g.add(a);addCirc(x,z,2.4);}
 function natPoplars(x,z,n){const tr=new THREE.MeshLambertMaterial({color:'#5a4a38'}),lf=new THREE.MeshLambertMaterial({color:'#6a8a3a'});for(let i=0;i<n;i++){const px=x+rr(-40,40),pz=z+rr(-20,20),gy=terrainH(px,pz),h=rr(9,14);const t=new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.28,h,6),tr);t.position.set(px,gy+h/2,pz);scene.add(t);const c=new THREE.Mesh(new THREE.CylinderGeometry(0.6,1.4,h*0.75,8),lf);c.position.set(px,gy+h*0.62,pz);scene.add(c);addCirc(px,pz,0.4);}}
@@ -19818,9 +19818,9 @@ function natAct(o){const id=o.act.slice(4),N=NAT_NY[id];if(!N)return;const s=nat
 // ---- el camino en los mapas de transición: hermas, montones de Hermes, posadas, fortines, miliarios, tumbas y viajeros (todo documentado)
 function natHerm(x,z,a){const gy=terrainH(x,z),g=grp(x,gy,z,a||0),m=lam('#e6dccb');box(0.5,1.6,0.42,m,0,0.8,0,g);const h=new THREE.Mesh(new THREE.SphereGeometry(0.28,10,8),m);h.position.y=1.9;g.add(h);box(0.36,0.22,0.08,m,0,2.0,0.22,g);addCirc(x,z,0.5);}
 function natCairn(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0);for(let i=0;i<18;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(0.22+R()*0.2,0),M.stone);const k=i/18;r.position.set(rr(-0.9,0.9)*(1-k),k*1.4,rr(-0.9,0.9)*(1-k));g.add(r);}addCirc(x,z,1);}
-function natInn(x,z,a,roman){const gy=terrainH(x,z),g=grp(x,gy,z,a||0);box(10,4,7,lam(roman?'#e3d8c2':'#d8ccb0'),0,2,0,g);gableRoof(g,10.6,7.6,4,1.6,M.tile,lam('#c9bc9f'),true);box(1.4,2.4,0.2,lam('#4a3424'),0,1.2,3.55,g);box(6,0.2,2.4,M.wood,0,2.6,4.6,g);for(const s of[-1,1])box(0.18,2.6,0.18,M.wood,s*2.8,1.3,5.7,g);
+function natInn(x,z,a,roman){const gy=minGround(x,z,10.5,8,a||0)-0.05,g=grp(x,gy,z,a||0);   /* apoyada en el punto más bajo de su planta: no cuelga en las laderas */box(10,4,7,lam(roman?'#e3d8c2':'#d8ccb0'),0,2,0,g);gableRoof(g,10.6,7.6,4,1.6,M.tile,lam('#c9bc9f'),true);box(1.4,2.4,0.2,lam('#4a3424'),0,1.2,3.55,g);box(6,0.2,2.4,M.wood,0,2.6,4.6,g);for(const s of[-1,1])box(0.18,2.6,0.18,M.wood,s*2.8,1.3,5.7,g);
   const sg=box(1.2,0.6,0.08,lam('#c9a46a'),2.2,3.2,3.6,g);addBox(x,z,10,7,a||0);return g;}
-function natTower(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0),m=lam('#b8ab94');const t=new THREE.Mesh(new THREE.CylinderGeometry(3.2,3.4,9,14),m);t.position.y=4.5;g.add(t);for(let i=0;i<7;i++){const a=i/7*TAU;box(5,2.6,1.2,m,Math.cos(a)*9,1.3,Math.sin(a)*9,g).rotation.y=-a;}addCirc(x,z,3.5);}
+function natTower(x,z){const gy=minGround(x,z,7,7,0)-0.05,g=grp(x,gy,z,0),m=lam('#b8ab94');const t=new THREE.Mesh(new THREE.CylinderGeometry(3.2,3.4,9,14),m);t.position.y=4.5;g.add(t);for(let i=0;i<7;i++){const a=i/7*TAU;box(5,2.6,1.2,m,Math.cos(a)*9,1.3,Math.sin(a)*9,g).rotation.y=-a;}addCirc(x,z,3.5);}
 function natMile(x,z){const gy=terrainH(x,z),g=grp(x,gy,z,0),m=lam('#d8ccb0');const c=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.34,2,12),m);c.position.y=1;g.add(c);box(0.8,0.3,0.8,m,0,0.15,0,g);addCirc(x,z,0.5);}
 function natTomb(x,z,a){const gy=terrainH(x,z),g=grp(x,gy,z,a||0),m=lam('#d6cbb2');box(4,3,4,m,0,1.5,0,g);const d=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.8,2.4,14),m);d.position.y=4.2;g.add(d);box(1.4,0.8,0.1,lam('#efe8d8'),0,2.2,2.05,g);addBox(x,z,4,4,a||0);}
 const NAT_ROAD={
