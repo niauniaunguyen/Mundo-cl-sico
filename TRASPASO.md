@@ -229,6 +229,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - olas solo junto a la orilla;
   - nueva opción de Accesibilidad «Sin sonido de ambiente» (`ACC.noAmb`), que apaga viento, olas, cigarras, ranas, animales y talleres.
 - **Móvil en vertical:** la barra de objetos va en columna a la izquierda, centrada en altura, y la brújula baja por encima de los botones para no tapar el título.
+- v123 · Carga más rápida al elegir Atenas o Roma. `buildIslandMesh` calculaba 5 alturas (`islandH`) por vértice para la pendiente; ahora calcula una y saca la pendiente de los vértices vecinos de la malla. El terreno lejano bajo la ciudad (`buildTerrain`) usa 5×5 muestras en vez de 9×9 para quedar por debajo del cercano. En la máquina de pruebas (render por software, muy lenta): Atenas de 18,9 s a 10,2 s; Roma de 18,1 s a 12,4 s. Medidor `PROF` solo con `#debug` (marcas en `bootWorld`, `__d.PROF()`); lo que queda en Roma: `buildTerrain` ~2,6 s, `buildIslandMesh` ~2,3 s.
 - Pendiente: revisar Roma contra la *Forma Urbis* de Lanciani.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
