@@ -21913,6 +21913,28 @@ const atCandsSW=atCands;atCands=function(){const C=atCandsSW();try{if(!swD()||!S
  }catch(e){}return C;};
 const eduReportSW2=eduReport;eduReport=function(){const r=eduReportSW2();try{const D=swD();if(D){const z=sw2z();let tot=0;for(const id in D.segs)tot+=sw2keys(id).length;r.periplo=Object.keys(z.per).filter(k=>D.info[k]).length+' de '+tot+' historias del mar, '+Object.keys(z.vis).length+' de '+Object.keys(D.segs).length+' mares';}}catch(e){}return r;};
 
+// ============================================================ AGUA: oleaje animado, reflejo del cielo según el ángulo (Fresnel) y destellos del sol
+// Mar y ríos usan un mapa de normales generado aquí (sin imágenes externas), muestreado dos veces en coordenadas del mundo con escalas y
+// direcciones distintas; así no hay costuras cuando el plano del mar se recoloca siguiendo al jugador. Hacia el horizonte el agua refleja el
+// color del cielo (el de la niebla del horizonte); mirando hacia abajo se ve su color profundo.
+const WTR={tex:null,mats:[],t:0};
+function wtrTex(){if(WTR.tex)return WTR.tex;const N=256,h=new Float32Array(N*N),TA=Math.PI*2;
+  const W=[[1,0,0.5,0],[0,1,0.45,1.3],[2,1,0.25,2.1],[1,-2,0.22,0.7],[3,2,0.12,4.2],[-2,3,0.11,1.9],[5,1,0.06,0.3],[1,5,0.06,2.8],[4,-5,0.04,5.1],[7,3,0.03,3.3],[-6,7,0.025,0.9]];
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){let v=0;for(const[a,b,amp,ph]of W)v+=amp*Math.sin(TA*(a*x+b*y)/N+ph);h[y*N+x]=v;}
+  const c=document.createElement('canvas');c.width=c.height=N;const g=c.getContext('2d'),im=g.createImageData(N,N);
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){const L=h[y*N+(x+N-1)%N],R=h[y*N+(x+1)%N],U=h[((y+N-1)%N)*N+x],D=h[((y+1)%N)*N+x];let nx=(L-R)*2.2,nz=(U-D)*2.2,ny=1;const l=Math.hypot(nx,ny,nz);nx/=l;ny/=l;nz/=l;const i=(y*N+x)*4;im.data[i]=(nx*0.5+0.5)*255;im.data[i+1]=(nz*0.5+0.5)*255;im.data[i+2]=(ny*0.5+0.5)*255;im.data[i+3]=255;}
+  g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;try{t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());}catch(e){}return WTR.tex=t;}
+function wtrApply(mat,o){if(!mat||mat.userData.wtr)return;o=o||{};mat.userData.wtr=1;const U={uNrm:{value:wtrTex()},uT:{value:0},uSky:{value:new THREE.Color('#b8c8d0')},uStr:{value:o.str||0.55}};
+  mat.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);
+    sh.vertexShader='varying vec3 vWP;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n vWP=(modelMatrix*vec4(transformed,1.0)).xyz;');
+    sh.fragmentShader='varying vec3 vWP;\nuniform sampler2D uNrm;uniform float uT;uniform vec3 uSky;uniform float uStr;\n'+sh.fragmentShader
+     .replace('#include <normal_fragment_begin>','#include <normal_fragment_begin>\n float wDist=length(cameraPosition-vWP);float wS=uStr*clamp(1.0-wDist/900.0,0.18,1.0);\n vec3 w1=texture2D(uNrm,vWP.xz/14.0+vec2(uT*0.021,uT*0.013)).xzy*2.0-1.0;vec3 w2=texture2D(uNrm,vWP.xz/37.5+vec2(-uT*0.012,uT*0.017)).xzy*2.0-1.0;\n vec3 wN=normalize(vec3((w1.x+w2.x)*wS,1.0,(w1.z+w2.z)*wS));if(!gl_FrontFacing)wN.y=-wN.y;\n normal=normalize((viewMatrix*vec4(wN,0.0)).xyz);')
+     .replace('#include <fog_fragment>','{vec3 vD=normalize(cameraPosition-vWP);float fr=0.02+0.98*pow(1.0-clamp(abs(dot(wN,vD)),0.0,1.0),5.0);vec3 rc=mix(uSky,vec3(0.42,0.6,0.74),0.4);gl_FragColor.rgb=mix(gl_FragColor.rgb,rc,clamp(fr,0.0,0.55));}\n#include <fog_fragment>');};
+  mat.needsUpdate=true;WTR.mats.push(U);}
+function waterSetup(){if(SEA){const m=SEA.material;m.color.set(MODE==='roma'?'#22586a':'#1e5a78');m.shininess=420;m.specular.set('#b8ccd4');wtrApply(m,{str:0.6});
+    SEA.onBeforeRender=()=>{WTR.t=performance.now()/1000;const sky=scene.fog?scene.fog.color:null;for(const U of WTR.mats){U.uT.value=WTR.t;if(sky)U.uSky.value.copy(sky);}};}
+  try{for(const r of CARVE.rivers)if(r.mesh&&r.mesh.material){r.mesh.material.shininess=300;if(r.mesh.material.specular)r.mesh.material.specular.set('#9fb8c0');wtrApply(r.mesh.material,{str:0.35});}}catch(e){}}
+
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
@@ -22186,7 +22208,8 @@ function bootWorld(){PROF.marks.push(['arranque',performance.now()]);ldShipShow(
   ['ambSetup',()=>{ambSetup();}],
   ['amb2Setup',()=>{amb2Setup();}],
   ['swSetup',()=>{swSetup();}],
-  ['sw2Setup',()=>{sw2Setup();}]
+  ['sw2Setup',()=>{sw2Setup();}],
+  ['waterSetup',()=>{waterSetup();}]
   ]);
   ldRun(steps,err=>{console.error(err);ldShipFail();$('loadmsg').textContent='Algo falló al construir la ciudad: '+err.message;},()=>{
   PROF.marks.push(['mundo construido',performance.now()]);
