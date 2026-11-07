@@ -2395,48 +2395,89 @@ const TRIAL_H={x:AL(-86,68)[0],z:AL(-86,68)[1]};
 function grp(x,y,z,a){const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=a||0;scene.add(g);return g;}
 function wseg(x,z,a,x1,z1,x2,z2,t){const p=toW(x1,z1,x,z,a),q=toW(x2,z2,x,z,a);addSeg(p[0],p[1],q[0],q[1],t||0.4);}
 
-function buildWorld(){
-  if(MODE==='roma'){buildRome();return;}
-  defineRiversGR();
-  terrainInner=buildTerrain(INNER.size,440,INNER.x,INNER.z,true);
-  buildTerrain(12000,120,INNER.x,INNER.z,false);
-  const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#3a7891',shininess:80,specular:'#9fc3d0'}));
+function buildWorld(){bwSteps().forEach(st=>st[1]());}
+// la construcción va por etapas para que la pantalla de carga (el barco) pueda dibujarse entre una y otra
+function bwSteps(){
+  if(MODE==='roma')return romeSteps();
+  return [
+  ['defineRiversGR',()=>{defineRiversGR();
+  }],
+  ['buildTerrain',()=>{terrainInner=buildTerrain(INNER.size,440,INNER.x,INNER.z,true);
+  }],
+  ['buildTerrain',()=>{buildTerrain(12000,120,INNER.x,INNER.z,false);
+  }],
+  ['mar',()=>{const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#3a7891',shininess:80,specular:'#9fc3d0'}));
   sea.rotation.x=-Math.PI/2;sea.position.y=-2.2;scene.add(sea);
-  {const mm=new THREE.MeshLambertMaterial({color:'#aab5bd',fog:false});const r=mulberry32(7);
-   for(let i=0;i<40;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.5))<0.5)continue;const d=4200+r()*1200,h=220+r()*360;const m=new THREE.Mesh(new THREE.ConeGeometry(900+r()*900,h,10,1),mm);m.position.set(INNER.x+Math.cos(a)*d,h/2-60,INNER.z+Math.sin(a)*d);m.rotation.y=r()*TAU;scene.add(m);}}
-  buildAcropolis();
-  buildSouthSlope();
-  buildAgora();
-  buildKerameikos();
-  buildOutskirts();
-  buildWalls();
-  buildHarbor();
-  buildIslands();
-  buildLandRoute();
-  definePlaces();
-  buildAthensSchools();
-  buildMyHouse();
-  applyFlats();
-  buildHouses();
-  buildTrees();
-  finishColumns();
-  buildTorches();
-  buildSocial();
-  buildGeoGR();buildTucGR();
-  PLACES.forEach(pl=>{const s=stele(pl.x,pl.z,pl.rot,pl.id);signObjs.push({kind:'sign',data:pl,g:s.g,mk:s.mk,x:pl.x,z:pl.z});});
-  placeReliefs();
-  placeNewNPCs();
-  buildRaphaelHall();
-  athensDecor();
-  placeNPCs();
-  houseApply();
-  poseDream();
-  buildPerformers();
-  placeWalkers();
-  buildGods();
-  buildMount();
-  buildAvatar();
-  finishRoofs();
+  }],
+  ['montes',()=>{{const mm=new THREE.MeshLambertMaterial({color:'#aab5bd',fog:false});const r=mulberry32(7);
+for(let i=0;i<40;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.5))<0.5)continue;const d=4200+r()*1200,h=220+r()*360;const m=new THREE.Mesh(new THREE.ConeGeometry(900+r()*900,h,10,1),mm);m.position.set(INNER.x+Math.cos(a)*d,h/2-60,INNER.z+Math.sin(a)*d);m.rotation.y=r()*TAU;scene.add(m);}}
+  }],
+  ['buildAcropolis',()=>{buildAcropolis();
+  }],
+  ['buildSouthSlope',()=>{buildSouthSlope();
+  }],
+  ['buildAgora',()=>{buildAgora();
+  }],
+  ['buildKerameikos',()=>{buildKerameikos();
+  }],
+  ['buildOutskirts',()=>{buildOutskirts();
+  }],
+  ['buildWalls',()=>{buildWalls();
+  }],
+  ['buildHarbor',()=>{buildHarbor();
+  }],
+  ['buildIslands',()=>{buildIslands();
+  }],
+  ['buildLandRoute',()=>{buildLandRoute();
+  }],
+  ['definePlaces',()=>{definePlaces();
+  }],
+  ['buildAthensSchools',()=>{buildAthensSchools();
+  }],
+  ['buildMyHouse',()=>{buildMyHouse();
+  }],
+  ['applyFlats',()=>{applyFlats();
+  }],
+  ['buildHouses',()=>{buildHouses();
+  }],
+  ['buildTrees',()=>{buildTrees();
+  }],
+  ['finishColumns',()=>{finishColumns();
+  }],
+  ['buildTorches',()=>{buildTorches();
+  }],
+  ['buildSocial',()=>{buildSocial();
+  }],
+  ['buildGeoGR',()=>{buildGeoGR();buildTucGR();
+  }],
+  ['PLACES',()=>{PLACES.forEach(pl=>{const s=stele(pl.x,pl.z,pl.rot,pl.id);signObjs.push({kind:'sign',data:pl,g:s.g,mk:s.mk,x:pl.x,z:pl.z});});
+  }],
+  ['placeReliefs',()=>{placeReliefs();
+  }],
+  ['placeNewNPCs',()=>{placeNewNPCs();
+  }],
+  ['buildRaphaelHall',()=>{buildRaphaelHall();
+  }],
+  ['athensDecor',()=>{athensDecor();
+  }],
+  ['placeNPCs',()=>{placeNPCs();
+  }],
+  ['houseApply',()=>{houseApply();
+  }],
+  ['poseDream',()=>{poseDream();
+  }],
+  ['buildPerformers',()=>{buildPerformers();
+  }],
+  ['placeWalkers',()=>{placeWalkers();
+  }],
+  ['buildGods',()=>{buildGods();
+  }],
+  ['buildMount',()=>{buildMount();
+  }],
+  ['buildAvatar',()=>{buildAvatar();
+  }],
+  ['finishRoofs',()=>{finishRoofs();
+  }]];
 }
 
 // ------------------------------------------------------------ Acrópolis
@@ -6282,32 +6323,67 @@ function romaRoads(){
   R2('Vía Salaria',4.5,[[70,-775],[20,-1000],[-40,-1500]]);
   R2('Vía Nomentana',4.5,[[70,-775],[200,-1000],[380,-1500]]);
 }
-function buildRome(){
-  romaRoads();
-  terrainInner=buildTerrain(INNER.size,520,INNER.x,INNER.z,true);
-  buildTerrain(14000,120,INNER.x,INNER.z,false);
-  const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#5d7f78',shininess:60,specular:'#8fa8a0'}));
+function buildRome(){romeSteps().forEach(st=>st[1]());}
+function romeSteps(){
+  return [
+  ['romaRoads',()=>{romaRoads();
+  }],
+  ['buildTerrain',()=>{terrainInner=buildTerrain(INNER.size,520,INNER.x,INNER.z,true);
+  }],
+  ['buildTerrain',()=>{buildTerrain(14000,120,INNER.x,INNER.z,false);
+  }],
+  ['mar',()=>{const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#5d7f78',shininess:60,specular:'#8fa8a0'}));
   sea.rotation.x=-Math.PI/2;sea.position.y=-2.2;scene.add(sea);
-  {const mm=new THREE.MeshLambertMaterial({color:'#a9b4bd',fog:false});const r=mulberry32(80);   // montes Sabinos y Albanos a lo lejos
-   for(let i=0;i<36;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.6))<0.55)continue;const d=4800+r()*1500,h=200+r()*420;const m=new THREE.Mesh(new THREE.ConeGeometry(900+r()*900,h,10,1),mm);m.position.set(INNER.x+Math.cos(a)*d,h/2-60,INNER.z+Math.sin(a)*d);m.rotation.y=r()*TAU;scene.add(m);}}
-  romaForum();romaCapitol();romaPalatine();romaColosseum();romaCircus();romaFora();romaCampus();romaTheatres();romaRiver();romaOutskirts();
-  ROMA_PLACES.forEach(p=>place(p[0],p[1],p[2],p[3],p[4][0],p[4][1],p[5]));
-  romaTravel();buildRomaDests();romaTheatres();buildGods();
-  romaSchools();
-  romaQuarters();
-  romaCity();
-  romaDecor();
-  applyFlats();
-  finishColumns();
-  for(const p of[[-62,-14],[-62,4],[40,10],[60,-14],[292,48],[292,70],[508,48],[508,70],[-190,26],[-230,26],[450,-80],[510,-80],[-655,-575],[-625,-575],[-218,330],[-218,380],[175,-112],[60,-118]])addTorch(p[0],p[1]);
-  TORCH_SPOTS.slice(0,110).forEach(p=>addTorch(p[0],p[1],2.1));
-  PLACES.forEach(pl=>{const s=stele(pl.x,pl.z,pl.rot,pl.id);signObjs.push({kind:'sign',data:pl,g:s.g,mk:s.mk,x:pl.x,z:pl.z});});
-  romaNPCs();
-  placeNPCs();
-  romaWalkers();
-  buildMount();
-  buildAvatar();
-  finishRoofs();
+  }],
+  ['montes',()=>{{const mm=new THREE.MeshLambertMaterial({color:'#a9b4bd',fog:false});const r=mulberry32(80);   // montes Sabinos y Albanos a lo lejos
+for(let i=0;i<36;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.6))<0.55)continue;const d=4800+r()*1500,h=200+r()*420;const m=new THREE.Mesh(new THREE.ConeGeometry(900+r()*900,h,10,1),mm);m.position.set(INNER.x+Math.cos(a)*d,h/2-60,INNER.z+Math.sin(a)*d);m.rotation.y=r()*TAU;scene.add(m);}}
+  }],
+  ['romaForum',()=>{romaForum();}],
+  ['romaCapitol',()=>{romaCapitol();}],
+  ['romaPalatine',()=>{romaPalatine();}],
+  ['romaColosseum',()=>{romaColosseum();}],
+  ['romaCircus',()=>{romaCircus();}],
+  ['romaFora',()=>{romaFora();}],
+  ['romaCampus',()=>{romaCampus();}],
+  ['romaTheatres',()=>{romaTheatres();}],
+  ['romaRiver',()=>{romaRiver();}],
+  ['romaOutskirts',()=>{romaOutskirts();}],
+  ['ROMA_PLACES',()=>{ROMA_PLACES.forEach(p=>place(p[0],p[1],p[2],p[3],p[4][0],p[4][1],p[5]));
+  }],
+  ['romaTravel',()=>{romaTravel();}],
+  ['buildRomaDests',()=>{buildRomaDests();}],
+  ['romaTheatres',()=>{romaTheatres();}],
+  ['buildGods',()=>{buildGods();}],
+  ['romaSchools',()=>{romaSchools();
+  }],
+  ['romaQuarters',()=>{romaQuarters();
+  }],
+  ['romaCity',()=>{romaCity();
+  }],
+  ['romaDecor',()=>{romaDecor();
+  }],
+  ['applyFlats',()=>{applyFlats();
+  }],
+  ['finishColumns',()=>{finishColumns();
+  }],
+  ['for',()=>{for(const p of[[-62,-14],[-62,4],[40,10],[60,-14],[292,48],[292,70],[508,48],[508,70],[-190,26],[-230,26],[450,-80],[510,-80],[-655,-575],[-625,-575],[-218,330],[-218,380],[175,-112],[60,-118]])addTorch(p[0],p[1]);
+  }],
+  ['TORCH_SPOTS',()=>{TORCH_SPOTS.slice(0,110).forEach(p=>addTorch(p[0],p[1],2.1));
+  }],
+  ['PLACES',()=>{PLACES.forEach(pl=>{const s=stele(pl.x,pl.z,pl.rot,pl.id);signObjs.push({kind:'sign',data:pl,g:s.g,mk:s.mk,x:pl.x,z:pl.z});});
+  }],
+  ['romaNPCs',()=>{romaNPCs();
+  }],
+  ['placeNPCs',()=>{placeNPCs();
+  }],
+  ['romaWalkers',()=>{romaWalkers();
+  }],
+  ['buildMount',()=>{buildMount();
+  }],
+  ['buildAvatar',()=>{buildAvatar();
+  }],
+  ['finishRoofs',()=>{finishRoofs();
+  }]];
 }
 // viajes desde Roma: el cochero junto a la Vía Apia y el naviero en el Emporio
 function romaTravel(){
@@ -21240,13 +21316,144 @@ if(typeof defineSimple==='function'){const _f=defineSimple;defineSimple=function
 if(typeof destHouses==='function'){const _f=destHouses;destHouses=function(){const t=performance.now();const r=_f.apply(this,arguments);PROF.m['destHouses']=(PROF.m['destHouses']||0)+performance.now()-t;PROF.c=PROF.c||{};PROF.c['destHouses']=(PROF.c['destHouses']||0)+1;return r;};}
 if(typeof destTrees==='function'){const _f=destTrees;destTrees=function(){const t=performance.now();const r=_f.apply(this,arguments);PROF.m['destTrees']=(PROF.m['destTrees']||0)+performance.now()-t;PROF.c=PROF.c||{};PROF.c['destTrees']=(PROF.c['destTrees']||0)+1;return r;};}
 }
-function bootWorld(){PROF.marks.push(['arranque',performance.now()]);setTimeout(()=>loadModels(()=>{PROF.marks.push(['modelos cargados',performance.now()]);
-  try{buildWorld();PROF.marks.push(['mundo construido',performance.now()]);}catch(err){console.error(err);$('loadmsg').textContent='Algo falló al construir la ciudad: '+err.message;return;}
+// ---------- Pantalla de carga: un barco (trirreme ateniense / corbita romana) que navega hacia el puerto mientras se levanta la ciudad ----------
+// La construcción va por etapas (bwSteps + setups); entre tandas de ~90 ms se cede el control para que la pantalla se dibuje.
+// El peso de cada etapa sale de lo que tardó la última carga en este navegador (localStorage); la primera vez, de una tabla aproximada.
+const LD={p:0,el:null,dur:{}};
+const LD_W={buildIslands:50,buildTerrain:10,applyFlats:5,buildTrees:5,sello:5,buildHouses:2.5,amb2Setup:2,ambSetup:1.5,buildGeoGR:1.4,rcSetup:1.3,rdSetup:1.3,romaForum:8,romaCapitol:6,romaPalatine:6,romaColosseum:5,romaCircus:4,romaFora:5,romaCampus:5,romaRiver:3,romaTravel:15,buildRomaDests:12,romaCity:3};
+function ldSvgShip(){
+  if(MODE==='roma')return '<svg viewBox="0 0 120 60" class="ldBoat" aria-hidden="true">'+
+   '<line x1="20" y1="34" x2="13" y2="52" stroke="#4a3220" stroke-width="2.2" stroke-linecap="round"/>'+
+   '<path d="M12,32 L100,32 Q108,31 112,25 L115,23 L113,30 Q108,45 92,46 L28,46 Q14,44 12,32 Z" fill="#7a5434" stroke="#4a3220" stroke-width="1"/>'+
+   '<rect x="16" y="35" width="90" height="2.4" fill="#c9a36a"/>'+
+   '<path d="M16,32 Q5,24 9,13 Q12,6 19,9 Q16,12 13,13" fill="none" stroke="#4a3220" stroke-width="3" stroke-linecap="round"/>'+
+   '<line x1="56" y1="32" x2="56" y2="2" stroke="#4a3220" stroke-width="2"/><line x1="34" y1="5" x2="78" y2="5" stroke="#4a3220" stroke-width="1.6"/>'+
+   '<path class="ldSail" d="M36,6 L76,6 Q78,18 75,29 L37,29 Q34,18 36,6 Z" fill="#efe6d2" stroke="#b8a888" stroke-width=".8"/>'+
+   '<path d="M37,15 L76,15 M37,22 L76,22" stroke="#c8b898" stroke-width=".6"/>'+
+   '<line x1="104" y1="30" x2="117" y2="12" stroke="#4a3220" stroke-width="1.6"/><path class="ldSail" d="M106,14 L117,10 L118,22 L109,25 Z" fill="#efe6d2" stroke="#b8a888" stroke-width=".7"/></svg>';
+  let oars='';for(let i=0;i<9;i++)oars+='<line x1="'+(30+i*8.5)+'" y1="40" x2="'+(26+i*8.5)+'" y2="54"/>';
+  return '<svg viewBox="0 0 120 60" class="ldBoat" aria-hidden="true">'+
+   '<g class="ldOars" stroke="#5a4532" stroke-width="1.3" stroke-linecap="round">'+oars+'</g>'+
+   '<path d="M14,34 L104,34 L110,40 L119,45 L110,47.5 L104,46 L24,46 Q14,44 10,36 Q6,26 10,15 Q13,24 14,34 Z" fill="#2b2622" stroke="#151210" stroke-width=".8"/>'+
+   '<rect x="22" y="36.5" width="80" height="3.2" fill="#8a3b2a"/>'+
+   '<circle cx="101" cy="39" r="2.4" fill="#f4efe4"/><circle cx="101.6" cy="39" r="1.2" fill="#151210"/>'+
+   '<line x1="58" y1="34" x2="58" y2="6" stroke="#3a2c22" stroke-width="1.8"/><line x1="40" y1="8" x2="76" y2="8" stroke="#3a2c22" stroke-width="1.4"/>'+
+   '<path class="ldSail" d="M42,9 L74,9 Q76,19 73,29 L43,29 Q40,19 42,9 Z" fill="#efe6d2" stroke="#b8a888" stroke-width=".8"/></svg>';
+}
+function ldShipShow(){
+  if(LD.el)return;const lm=$('loadmsg');if(!lm)return;
+  if(!$('ldCSS')){const st=document.createElement('style');st.id='ldCSS';st.textContent=
+   '#ldBox{box-sizing:border-box;position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(460px,calc(100vw - 32px));z-index:60;background:rgba(24,19,15,.9);border:1px solid #c98a4e;border-radius:10px;padding:8px 12px 8px;box-shadow:0 6px 24px rgba(0,0,0,.45);transition:opacity .8s,transform .8s;text-align:center}'+
+   '#ldBox.gone{opacity:0;transform:translate(-50%,20px);pointer-events:none}'+
+   '#ldPct{font-size:.9rem;color:#efe6d2;margin-top:2px}'+
+   '#ldShip{position:relative;width:100%;height:96px;overflow:hidden}'+
+   '#ldShip .ldTrack{position:absolute;left:0;right:184px;top:27px;height:60px}'+
+   '#ldShip .ldMove{position:absolute;inset:0;transition:transform .7s linear;will-change:transform}'+
+   '#ldShip .ldBob{position:absolute;left:0;top:0;width:112px;height:56px;animation:ldBob 2.4s ease-in-out infinite}'+
+   '#ldShip .ldBoat{width:112px;height:56px;display:block}'+
+   '#ldShip .ldOars{transform-origin:50% 40px;animation:ldRow 1.1s ease-in-out infinite}'+
+   '#ldShip .ldSea{position:absolute;left:0;bottom:4px;width:200%;height:30px;animation:ldWave 6s linear infinite}'+
+   '#ldShip .ldSea2{bottom:0;opacity:.6;animation-duration:9s;animation-direction:reverse}'+
+   '#ldShip .ldPort{position:absolute;right:2px;top:2px;font-size:.72rem;color:#cbbfa8;text-align:center;width:70px}'+
+   '#ldShip .ldPort svg{display:block;margin:2px auto 0;width:54px;height:40px}'+
+   '#ldShip.done .ldOars{animation:none}#ldShip.done .ldBob{animation-duration:4s}'+
+   '#ldNote{font-size:.74rem;color:#cbbfa8;font-style:italic;margin:2px auto 0}'+
+   '@keyframes ldBob{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(3px) rotate(1.2deg)}}'+
+   '@keyframes ldRow{0%,100%{transform:skewX(18deg)}50%{transform:skewX(-14deg)}}'+
+   '@keyframes ldWave{from{transform:translateX(0)}to{transform:translateX(-50%)}}'+
+   '@media (prefers-reduced-motion:reduce){#ldShip *{animation:none!important;transition:none!important}}';
+   document.head.appendChild(st);}
+  const R=MODE==='roma';let w='';for(let x=0;x<=880;x+=20)w+=(x?' ':'M')+x+','+(x%40?10:16)+(x?'':'');
+  const wave=c=>'<svg class="ldSea'+(c?' ldSea2':'')+'" viewBox="0 0 880 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0,14 '+Array.from({length:44},(_,i)=>'q10,'+(i%2?6:-6)+' 20,0').join(' ')+' V30 H0 Z" fill="'+(c?'#2f6a82':'#3a7891')+'"/></svg>';
+  const port=R?'<svg viewBox="0 0 54 40" aria-hidden="true"><rect x="2" y="22" width="50" height="16" fill="#c9a36a"/><rect x="8" y="12" width="14" height="10" fill="#d8ccb0"/><path d="M6,12 L15,6 L24,12 Z" fill="#b4583b"/><rect x="30" y="16" width="16" height="6" fill="#d8ccb0"/><rect x="36" y="4" width="5" height="12" fill="#e8dfcc"/><circle cx="38.5" cy="3" r="2.2" fill="#ffb040"/></svg>':
+   '<svg viewBox="0 0 54 40" aria-hidden="true"><path d="M2,38 L10,24 L22,20 L40,22 L52,38 Z" fill="#b9a27a"/><rect x="18" y="13" width="18" height="7" fill="#efe6d2"/><path d="M16,13 L27,8 L38,13 Z" fill="#d8ccb0"/><path d="M19,13 V20 M23,13 V20 M27,13 V20 M31,13 V20 M35,13 V20" stroke="#b8a888" stroke-width=".8"/></svg>';
+  const d=document.createElement('div');d.id='ldShip';d.setAttribute('role','progressbar');d.setAttribute('aria-valuemin','0');d.setAttribute('aria-valuemax','100');d.setAttribute('aria-label','Carga del mundo');
+  d.innerHTML=wave(0)+wave(1)+'<div class="ldPort">'+(R?'Ostia':'El Pireo')+port+'</div><div class="ldTrack"><div class="ldMove"><div class="ldBob">'+ldSvgShip()+'</div></div></div>';
+  const box=document.createElement('div');box.id='ldBox';box.appendChild(d);const pc=document.createElement('div');pc.id='ldPct';box.appendChild(pc);document.body.appendChild(box);
+  const n=document.createElement('div');n.id='ldNote';n.textContent=R?'Una corbita, el barco mercante romano de vela: llevaba grano, vino y aceite por todo el Mediterráneo hasta los puertos de Roma.'
+   :'Una trirreme ateniense: unos 170 remeros en tres filas movían el barco; los ojos pintados en la proa «miraban» el camino.';
+  box.appendChild(n);LD.el=d;LD.box=box;
+}
+function ldShipSet(p){
+  LD.p=Math.max(LD.p,Math.min(1,p));if(!LD.el)return;
+  LD.el.querySelector('.ldMove').style.transform='translateX('+(LD.p*100).toFixed(1)+'%)';LD.el.setAttribute('aria-valuenow',Math.round(LD.p*100));
+  const t=LD.p<1?(MODE==='roma'?'Levantando Roma… ':'Levantando la ciudad… ')+Math.round(LD.p*100)+' %':(MODE==='roma'?'Roma está lista. ¡Bienvenido a puerto!':'La ciudad está lista. ¡Bienvenido a puerto!');
+  $('ldPct').textContent=t;if(LD.p<1)$('loadmsg').textContent=t;
+}
+function ldShipDone(){if(!LD.el)return;LD.el.classList.add('done');const bx=LD.box,hide=()=>bx.classList.add('gone');document.addEventListener('pointerdown',hide,{once:true});document.addEventListener('keydown',hide,{once:true});setTimeout(hide,2600);setTimeout(()=>bx.remove(),3600);}
+function ldShipFail(){if(LD.el){LD.el.classList.add('done');$('ldPct').textContent='Algo falló al construir la ciudad.';}}
+function ldRun(steps,onErr,onDone){
+  const key='nostos-carga-'+MODE;let prev={};try{prev=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){}
+  const ids=steps.map((s,i)=>s[0]+'#'+i),w=ids.map((id,i)=>Math.max(0.1,prev[id]!=null?prev[id]/100:(LD_W[steps[i][0]]||0.3)));
+  const tot=w.reduce((a,b)=>a+b,0);let i=0,acc=0;
+  const go=()=>{const t0=performance.now();
+    try{while(i<steps.length){const s=performance.now();steps[i][1]();LD.dur[ids[i]]=Math.round(performance.now()-s);acc+=w[i];i++;if(performance.now()-t0>90)break;}}
+    catch(e){onErr(e);return;}
+    ldShipSet(0.05+0.93*acc/tot);
+    if(i<steps.length){setTimeout(go,0);return;}
+    try{localStorage.setItem(key,JSON.stringify(LD.dur));}catch(e){}
+    onDone();};
+  setTimeout(go,0);
+}
+function bootWorld(){PROF.marks.push(['arranque',performance.now()]);ldShipShow();ldShipSet(0.02);setTimeout(()=>loadModels(()=>{PROF.marks.push(['modelos cargados',performance.now()]);ldShipSet(0.05);
+  const steps=bwSteps().concat([
+  ['sello',()=>{
   // three r128 descarta un InstancedMesh según la esfera de su geometría unitaria, en el origen: las columnas o tejas
   // repartidas por la ciudad desaparecían al mirar hacia otro lado. Las que no van por zonas se dibujan siempre.
   scene.traverse(o=>{if(o.isInstancedMesh&&!o.userData.chunk)o.frustumCulled=false;});
-  SEALED=sealFootprints();
-  buildHandTorch();buildSpheres();mareShow();buildDaedalus();buildConvs();buildCarters();buildMusas();buildCasa();buildTour();buildBarco();buildBirds();buildFauna();if(MODE==='atenas')romaTheatres();vuSetup();ofSetup();mktSetup();egxSetup();m386Setup();farmSetup();farmOfferSetup();delfosPlus();termoPlus();atalSetup();finSetup();artSetup();urbSetup();ovidSetup();progSetup();vocSetup();jrSetup();vmSetup();qcSetup();cvSetup();hdSetup();colSetup();hbSetup();spSetup();visSetup();mtSetup();natSetup();warSetup();ttSetup();rdSetup();cySetup();rcSetup();popSetup();ambSetup();amb2Setup();setTimeout(()=>{try{rfSetup();}catch(e){console.warn('rfSetup',e);}},1500);
+  SEALED=sealFootprints();}],
+  ['buildHandTorch',()=>{buildHandTorch();}],
+  ['buildSpheres',()=>{buildSpheres();}],
+  ['mareShow',()=>{mareShow();}],
+  ['buildDaedalus',()=>{buildDaedalus();}],
+  ['buildConvs',()=>{buildConvs();}],
+  ['buildCarters',()=>{buildCarters();}],
+  ['buildMusas',()=>{buildMusas();}],
+  ['buildCasa',()=>{buildCasa();}],
+  ['buildTour',()=>{buildTour();}],
+  ['buildBarco',()=>{buildBarco();}],
+  ['buildBirds',()=>{buildBirds();}],
+  ['buildFauna',()=>{buildFauna();}],
+  ['romaTheatres2',()=>{if(MODE==='atenas')romaTheatres();}],
+  ['vuSetup',()=>{vuSetup();}],
+  ['ofSetup',()=>{ofSetup();}],
+  ['mktSetup',()=>{mktSetup();}],
+  ['egxSetup',()=>{egxSetup();}],
+  ['m386Setup',()=>{m386Setup();}],
+  ['farmSetup',()=>{farmSetup();}],
+  ['farmOfferSetup',()=>{farmOfferSetup();}],
+  ['delfosPlus',()=>{delfosPlus();}],
+  ['termoPlus',()=>{termoPlus();}],
+  ['atalSetup',()=>{atalSetup();}],
+  ['finSetup',()=>{finSetup();}],
+  ['artSetup',()=>{artSetup();}],
+  ['urbSetup',()=>{urbSetup();}],
+  ['ovidSetup',()=>{ovidSetup();}],
+  ['progSetup',()=>{progSetup();}],
+  ['vocSetup',()=>{vocSetup();}],
+  ['jrSetup',()=>{jrSetup();}],
+  ['vmSetup',()=>{vmSetup();}],
+  ['qcSetup',()=>{qcSetup();}],
+  ['cvSetup',()=>{cvSetup();}],
+  ['hdSetup',()=>{hdSetup();}],
+  ['colSetup',()=>{colSetup();}],
+  ['hbSetup',()=>{hbSetup();}],
+  ['spSetup',()=>{spSetup();}],
+  ['visSetup',()=>{visSetup();}],
+  ['mtSetup',()=>{mtSetup();}],
+  ['natSetup',()=>{natSetup();}],
+  ['warSetup',()=>{warSetup();}],
+  ['ttSetup',()=>{ttSetup();}],
+  ['rdSetup',()=>{rdSetup();}],
+  ['cySetup',()=>{cySetup();}],
+  ['rcSetup',()=>{rcSetup();}],
+  ['popSetup',()=>{popSetup();}],
+  ['ambSetup',()=>{ambSetup();}],
+  ['amb2Setup',()=>{amb2Setup();}]
+  ]);
+  ldRun(steps,err=>{console.error(err);ldShipFail();$('loadmsg').textContent='Algo falló al construir la ciudad: '+err.message;},()=>{
+  PROF.marks.push(['mundo construido',performance.now()]);
+  setTimeout(()=>{try{rfSetup();}catch(e){console.warn('rfSetup',e);}},1500);
   // marcadores ya completados
   npcObjs.forEach(n=>{n.mk.visible=!npcDone(n.data);});
   signObjs.forEach(s=>{if(state.places.includes(s.data.id))s.mk.visible=false;});
@@ -21256,7 +21463,9 @@ function bootWorld(){PROF.marks.push(['arranque',performance.now()]);setTimeout(
   updateSky();
   PROF.marks.push(['listo',performance.now()]);$('go').disabled=false;$('goStory').disabled=false;$('goNet').disabled=false;$('loadmsg').textContent=(state.lessons.length||state.places.length)?'Tu progreso anterior se ha recuperado: '+state.lessons.length+' lecciones y '+state.places.length+' lugares.':'La ciudad está lista.';
   if(hot&&hot.data&&hot.data.state)startGame();
+  ldShipSet(1);ldShipDone();
   requestAnimationFrame(frame);
+  });
 }),30);}
 // selector de época: tarjetas en pantalla, o ?modo=roma|atenas en la dirección
 function chooseMode(m){
@@ -21266,6 +21475,6 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={PROF:()=>PROF,RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+if(location.hash==="#debug")window.__d={PROF:()=>PROF,LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
 </script>
