@@ -6811,9 +6811,12 @@ function drape(cx,cz,w,d,a,tex,tile,yo){
 function mergeGeos(list){const P=[],N=[];for(const[g0,m]of list){const g=(g0.index?g0.toNonIndexed():g0.clone()).applyMatrix4(m);if(!g.attributes.normal)g.computeVertexNormals();P.push(...g.attributes.position.array);N.push(...g.attributes.normal.array);}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(P,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(N,3));g.computeBoundingSphere();return g;}
 // estatua ligera (figura con manto, unos 170 triángulos), para frontones, arcadas y nichos; mide 1,9 m con escala 1
-const STATUE_G=(()=>{const body=new THREE.LatheGeometry(V2([[0,0],[0.25,0],[0.27,0.08],[0.25,0.6],[0.21,1.05],[0.24,1.38],[0.22,1.5],[0.09,1.58],[0,1.6]]),10);
-  const head=new THREE.SphereGeometry(0.12,8,6),arm=new THREE.CylinderGeometry(0.05,0.045,0.55,5),m=new THREE.Matrix4();
-  return mergeGeos([[body,new THREE.Matrix4()],[head,m.clone().makeTranslation(0,1.72,0.01)],[arm,new THREE.Matrix4().makeRotationZ(-0.5).setPosition(0.3,1.38,0.06)]]);})();
+const STATUE_G=(()=>{   // proporciones humanas: hombros más anchos que la base, cabeza proporcionada, dos brazos y un plinto (antes, de lejos, parecía una gallina)
+  const body=new THREE.LatheGeometry(V2([[0,0],[0.3,0],[0.3,0.2],[0.19,0.2],[0.2,0.28],[0.17,0.75],[0.15,1.1],[0.18,1.32],[0.23,1.52],[0.2,1.6],[0.07,1.64],[0.06,1.7],[0,1.7]]),10);
+  const head=new THREE.SphereGeometry(0.13,8,6),arm=new THREE.CylinderGeometry(0.055,0.045,0.6,5),fore=new THREE.CylinderGeometry(0.045,0.04,0.34,5);
+  return mergeGeos([[body,new THREE.Matrix4()],[head,new THREE.Matrix4().makeScale(1,1.12,1).setPosition(0,1.82,0.01)],
+    [arm,new THREE.Matrix4().makeRotationZ(0.12).setPosition(-0.27,1.25,0)],[arm,new THREE.Matrix4().makeRotationZ(-0.12).setPosition(0.27,1.25,0)],
+    [fore,new THREE.Matrix4().makeRotationX(Math.PI/2-0.25).setPosition(0.3,0.98,0.16)]]);})();
 const STAT={marble:[],bronze:[],gold:[]};
 // cuadriga de bronce o dorada con su auriga: los cuatro caballos y el carro de Blender (sin modelos, bloques)
 function quadriga(x,y,z,a,gold){const c=gold?'#c9a24a':'#7d6a3e',g=grp(x,y,z,a);
