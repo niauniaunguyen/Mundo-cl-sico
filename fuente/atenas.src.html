@@ -20670,9 +20670,9 @@ function* seal2Job(prev){const C=seal2Cands(),ppl=seal2People(),lp=new THREE.Vec
     if(col){if(seal2Near(P.x,P.z,0.05))continue;}
     let pr;try{pr=seal2Profile(P);}catch(e){continue;}
     if(!pr.rows.some(r=>r.iv.length))continue;   // hueco a la altura de la rodilla (pérgola, arco, porche): se pasa
-    if(col){const r=(P.w+P.d)/4;if(onRoad(P.x,P.z))continue;if(ppl.some(([px,pz])=>Math.hypot(px-P.x,pz-P.z)<r-0.05)){SEAL2.n.skipPeople++;continue;}if(!(SEAL2.dbgNo||'').includes('circ'))addCirc(P.x,P.z,r);nc++;A.push(['circ',P.x,P.z,r,0,0,P.o.name||'',P.y0]);continue;}
+    if(col){const r=(P.w+P.d)/4;if(onRoad(P.x,P.z))continue;if(ppl.some(([px,pz])=>Math.hypot(px-P.x,pz-P.z)<r-0.05)){SEAL2.n.skipPeople++;continue;}addCirc(P.x,P.z,r);nc++;A.push(['circ',P.x,P.z,r,0,0,P.o.name||'',P.y0]);continue;}
     if(pr.full&&P.d>=1.6){{const ca=Math.cos(P.a),sa=Math.sin(P.a);let open=false;for(const[lx,lz]of[[0,0],[-P.w/2+0.5,0],[P.w/2-0.5,0],[0,-P.d/2+0.5],[0,P.d/2-0.5],[-P.w/2+0.5,-P.d/2+0.5],[P.w/2-0.5,P.d/2-0.5],[-P.w/2+0.5,P.d/2-0.5],[P.w/2-0.5,-P.d/2+0.5]]){const x=P.x+lx*ca-lz*sa,z=P.z+lx*sa+lz*ca;if(!seal2Near(x,z,0.05)&&!seal2Enclosed(x,z,40)){open=true;break;}}if(!open)continue;}const ca=Math.cos(P.a),sa=Math.sin(P.a),inside=ppl.some(([px,pz])=>{const dx=px-P.x,dz=pz-P.z,lx=dx*ca+dz*sa,lz=-dx*sa+dz*ca;return Math.abs(lx)<P.w/2+0.4&&Math.abs(lz)<P.d/2+0.4;});
-      if(inside){SEAL2.n.skipPeople++;continue;}{let rd=false;for(const[u,v]of[[0,0],[-.45,0],[.45,0],[0,-.45],[0,.45],[-.45,-.45],[.45,.45],[-.45,.45],[.45,-.45]]){const lx=u*P.w,lz=v*P.d;if(onRoad(P.x+lx*ca-lz*sa,P.z+lx*sa+lz*ca)){rd=true;break;}}if(rd){SEAL2.n.road=(SEAL2.n.road||0)+1;continue;}}if(!(SEAL2.dbgNo||'').includes('box'))addBox(P.x,P.z,P.w,P.d,-P.a,0.25);nb++;A.push(['box',P.x,P.z,P.w,P.d,P.a,P.o.name||'',P.y0]);continue;}
+      if(inside){SEAL2.n.skipPeople++;continue;}{let rd=false;for(const[u,v]of[[0,0],[-.45,0],[.45,0],[0,-.45],[0,.45],[-.45,-.45],[.45,.45],[-.45,.45],[.45,-.45]]){const lx=u*P.w,lz=v*P.d;if(onRoad(P.x+lx*ca-lz*sa,P.z+lx*sa+lz*ca)){rd=true;break;}}if(rd){SEAL2.n.road=(SEAL2.n.road||0)+1;continue;}}addBox(P.x,P.z,P.w,P.d,-P.a,0.25);nb++;A.push(['box',P.x,P.z,P.w,P.d,P.a,P.o.name||'',P.y0]);continue;}
     const tw=pr.rowsN===1?Math.max(0.12,P.d/2):P.d/pr.rowsN/2+0.06;
     for(const R of pr.rows)for(const[a,b]of R.iv){if((b-a)*P.w/Math.max(1e-6,pr.lenL)<0.12)continue;
       lp.set(0,0,0);lp.setComponent(P.h1,a);lp.setComponent(P.h2,R.b);ln.set(0,0,0);ln.setComponent(P.h1,b);ln.setComponent(P.h2,R.b);
@@ -20684,10 +20684,10 @@ function* seal2Job(prev){const C=seal2Cands(),ppl=seal2People(),lp=new THREE.Vec
       // los extremos se recortan lo que mide el grosor, para que la tapa redonda del segmento no invada un vano vecino
       const sh=Math.min(t*0.9,L*0.45)/L,ax1=x1+(x2-x1)*sh,az1=z1+(z2-z1)*sh,ax2=x2-(x2-x1)*sh,az2=z2-(z2-z1)*sh;
       if(busy(ax1,az1,ax2,az2,t)){SEAL2.n.skipPeople++;continue;}
-      {const LL=Math.hypot(ax2-ax1,az2-az1),n=Math.max(1,Math.ceil(LL/0.5));let st=-1;const put=(i0,i1)=>{const u0=i0/n,u1=i1/n;if((u1-u0)*LL<0.3)return;if(!(SEAL2.dbgNo||'').includes('seg'))addSeg(ax1+(ax2-ax1)*u0,az1+(az2-az1)*u0,ax1+(ax2-ax1)*u1,az1+(az2-az1)*u1,t);ns++;A.push(['seg',ax1+(ax2-ax1)*u0,az1+(az2-az1)*u0,ax1+(ax2-ax1)*u1,az1+(az2-az1)*u1,t,P.o.name||'',P.y0,P.w,P.d]);};
+      {const LL=Math.hypot(ax2-ax1,az2-az1),n=Math.max(1,Math.ceil(LL/0.5));let st=-1;const put=(i0,i1)=>{const u0=i0/n,u1=i1/n;if((u1-u0)*LL<0.3)return;addSeg(ax1+(ax2-ax1)*u0,az1+(az2-az1)*u0,ax1+(ax2-ax1)*u1,az1+(az2-az1)*u1,t);ns++;A.push(['seg',ax1+(ax2-ax1)*u0,az1+(az2-az1)*u0,ax1+(ax2-ax1)*u1,az1+(az2-az1)*u1,t,P.o.name||'',P.y0,P.w,P.d]);};
        for(let q=0;q<=n;q++){const r=onRoad(ax1+(ax2-ax1)*q/n,az1+(az2-az1)*q/n);if(!r&&st<0)st=q;if(r&&st>=0){put(st,Math.max(st,q-1));st=-1;}if(r)SEAL2.n.road=(SEAL2.n.road||0)+(q===0?0:0);}if(st>=0)put(st,n);}}}
   SEAL2.found=FOUND;
-  if(FOUND.length&&!SEAL2.noZoc){try{if(!SEAL2.unit){SEAL2.unit=new THREE.BoxGeometry(1,1,1);SEAL2.unit.translate(0,0.5,0);}const q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),items=[];   // cajas instanciadas por zonas, como las casas
+  if(FOUND.length){try{if(!SEAL2.unit){SEAL2.unit=new THREE.BoxGeometry(1,1,1);SEAL2.unit.translate(0,0.5,0);}const q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),items=[];   // cajas instanciadas por zonas, como las casas
     for(const[x,z,w,d,a,y0,lo]of FOUND){const h=y0-lo+0.6;q.setFromAxisAngle(up,-a);items.push({m:new THREE.Matrix4().compose(new THREE.Vector3(x,lo-0.5,z),q.clone(),new THREE.Vector3(w+0.12,h,d+0.12))});}
     const before=CHUNKS.length;chunked(SEAL2.unit,SEAL2.stone||(SEAL2.stone=lam('#a89c86')),items,{far:1200,shadow:false,receive:true});for(let k=before;k<CHUNKS.length;k++){CHUNKS[k].im.userData.noCol=true;CHUNKS[k].im.userData.zocalo=true;}
     SEAL2.n.zocalos=(SEAL2.n.zocalos||0)+FOUND.length;}catch(e){console.warn('zocalos',e);}}
