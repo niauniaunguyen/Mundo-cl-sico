@@ -6723,7 +6723,7 @@ function romaCity(){
     if(!romaInUrbs(x,z)||inIsla(x,z,6))return false;if(romaQuarter(x,z)!==Q)return false;if((x<romaRiverX(z))!==trast)return false;
     if(romaRiverDist(x,z)<romaRiverW(z)+20)return false;
     let lo=1e9,hi=-1e9;for(const[i,j]of[[-1,-1],[1,-1],[-1,1],[1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const p=toW(i*w/2,j*d/2,x,z,a),h=romaH(p[0],p[1]);lo=Math.min(lo,h);hi=Math.max(hi,h);if(roadDist(p[0],p[1])<2)return false;}
-    if(lo<0.4||hi-lo>(w<20?9:7.5))return false;return freeRect(x,z,w,d,a);};
+    if(lo<0.4||hi-lo>4)return false;return freeRect(x,z,w,d,a);};   // más de 4 m de desnivel bajo la planta: la ínsula quedaría medio enterrada ladera arriba
   const put=(k,x,z,a,big)=>{const[w,d]=SZ[k],gy=minGround(x,z,w,d,a);markRect(x,z,w,d,a);
     G[k].push({x,y:gy,z,a,sx:k==='H_dom'?1.45:1,sy:k==='H_dom'?1.2:big?rr(1.02,1.25):rr(0.85,1.08),sz:k==='H_dom'?1.4:1,cw:new THREE.Color(pick(cw)),cp:new THREE.Color(pick(cp)),cr:new THREE.Color(pick(cr))});
     addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:k==='H_dom'?'#cdb994':'#b98a6c',house:true});n++;
