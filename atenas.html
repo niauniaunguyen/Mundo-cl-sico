@@ -21195,15 +21195,23 @@ const SWD={
     isl:[{id:'atenas',name:_t(2441,'El Pireo'),sub:'Desembarcar en el puerto de Atenas',x:0,z:-430,rx:620,rz:130,h:26,town:1},
          {id:'egina',name:_t(2402,'Egina'),sub:'La isla de Éaco',x:-250,z:40,rx:80,rz:70,h:40},
          {id:null,name:'Salamina',sub:'La isla de Áyax (se desembarca desde el puerto de pasaje)',x:-330,z:-250,rx:60,rz:50,h:26}]},
-   cicladas:{k:1,name:'El mar de las Cícladas',gr:'ΚΥΚΛΑΔΕΣ',sub:'Las islas que forman un círculo alrededor de Delos',n:'saronico',s:'cretico',
+   cicladas:{k:1,name:'El mar de las Cícladas',gr:'ΚΥΚΛΑΔΕΣ',sub:'Las islas que forman un círculo alrededor de Delos',n:'saronico',s:'cretico',e:'icario',
     isl:[{id:'delos',name:_t(2405,'Delos'),sub:'La isla sagrada de Apolo',x:230,z:-150,rx:45,rz:40,h:16},
          {id:'naxos',name:_t(2408,'Naxos'),sub:'La isla de Ariadna',x:240,z:140,rx:90,rz:80,h:55},
          {id:'melos',name:'Melos',sub:'La isla dórica del sur',x:-250,z:170,rx:70,rz:60,h:40},
          {id:null,name:'La roca de Nereo',x:-60,z:-40,rx:8,rz:7,h:5,rock:1,giver:1}],
     wreck:{x:-40,z:120}},
    cretico:{k:2,name:'El mar de Creta',gr:'ΚΡΗΤΙΚΟΝ ΠΕΛΑΓΟΣ',sub:'Mar abierto hacia la isla de Minos',n:'cicladas',
-    isl:[{id:'creta',name:_t(2411,'Creta'),sub:'Desembarcar en la isla de Minos',x:0,z:470,rx:760,rz:150,h:90,big:1}]}},
-  entry:{atenas:['saronico',0,-250],egina:['saronico',-140,40],delos:['cicladas',160,-150],naxos:['cicladas',125,140],melos:['cicladas',-155,170],creta:['cretico',0,280]},
+    isl:[{id:'creta',name:_t(2411,'Creta'),sub:'Desembarcar en la isla de Minos',x:0,z:470,rx:760,rz:150,h:90,big:1}]},
+   icario:{k:3,name:'El mar Icario',gr:'ΙΚΑΡΙΟΝ ΠΕΛΑΓΟΣ',sub:'Donde cayó Ícaro, entre las Cícladas y la costa de Asia',w:'cicladas',
+    isl:[{id:'quios',name:'Quíos',sub:'La isla del mejor vino de Grecia',x:120,z:-460,rx:130,rz:100,h:60},
+         {id:'efeso',name:_t(2428,'Éfeso'),sub:'Jonia: la ciudad del templo de Ártemis',x:480,z:-230,rx:150,rz:140,h:30},
+         {id:'samos',name:'Samos',sub:'La isla de Hera y de Pitágoras',x:220,z:-90,rx:110,rz:70,h:60},
+         {id:'mileto',name:_t(2429,'Mileto'),sub:'Jonia: la ciudad de los primeros filósofos',x:480,z:100,rx:150,rz:120,h:20},
+         {id:'halicarnaso',name:_t(2430,'Halicarnaso'),sub:'Caria: la ciudad de Heródoto',x:400,z:350,rx:130,rz:90,h:40},
+         {id:null,name:'Icaria',sub:'La isla de Ícaro',x:-110,z:-120,rx:130,rz:45,h:50}],
+    deco:[{t:'plumas',x:-80,z:-20,info:'icaro'},{t:'punto',x:90,z:-30,info:'policrates'}]}},
+  entry:{atenas:['saronico',0,-250],egina:['saronico',-140,40],delos:['cicladas',160,-150],naxos:['cicladas',125,140],melos:['cicladas',-155,170],creta:['cretico',0,280],quios:['icario',100,-320],efeso:['icario',300,-200],samos:['icario',130,-50],mileto:['icario',300,90],halicarnaso:['icario',250,240]},
   palace:{seg:'cicladas',x:80,z:70,name:'El palacio de Poseidón',sub:'en lo hondo del mar, de oro y brillante',figs:'nereidas y Anfitrite',
    txt:'<p>En la <i>Ilíada</i>, Poseidón baja a Egas, donde tiene su famosa casa en lo hondo del mar, de oro, brillante e imperecedera; allí unce a su carro los caballos de cascos de bronce y sale cabalgando sobre las olas (Ilíada XIII 17-31).</p><p>Homero no dice dónde está Egas: había lugares con ese nombre en Acaya y en Eubea. El juego pone el palacio en el fondo del Egeo, entre las Cícladas: <b>licencia del juego</b>. Las figuras son nereidas y Anfitrite, la esposa de Poseidón, como en el poema de Baquílides sobre Teseo.</p>'},
   giver:{name:'Nereo',sub:'el Viejo del Mar',gl:'🌊',look:{chiton:'#5e8a8a',himation:'#3f6e78',beard:true,hair:'#e8e4da'},tail:'#3f7a72',
@@ -21228,7 +21236,9 @@ const SWD={
    {key:'ariadna',where:'naxos',kind:'flower',name:'Una flor de oro',sub:'sobre una roca, junto a la orilla',short:'la flor de la corona de Ariadna',gl:'✿',cname:'La corona de Ariadna',
     txt:'<p>Sobre la roca brilla una pequeña flor de oro.</p><p>Teseo abandonó a Ariadna dormida en Naxos. Dioniso la encontró, se casó con ella y, para honrarla, subió su corona al cielo: es la constelación de la Corona Boreal (Ovidio, Fastos III 459-516; Higino, Astronomía II 5). La flor caída es <b>licencia del juego</b>.</p>',
     codex:'Dioniso subió al cielo la corona de Ariadna: la Corona Boreal (Ovidio, Fastos III 459-516; Higino, Astronomía II 5).'}],
-  info:{}},
+  info:{
+   icaro:['Plumas en el agua','el mar donde cayó Ícaro','<p>Dédalo e Ícaro escaparon de Creta con alas de plumas pegadas con cera. Ícaro, desobedeciendo a su padre, subió demasiado cerca del sol: la cera se derritió, perdió las plumas y cayó al mar, que desde entonces se llama Icario. Dédalo enterró a su hijo en la isla cercana, que también tomó su nombre: Icaria (Ovidio, Metamorfosis VIII 183-235; Estrabón XIV 1.19).</p><p>Si tienes las alas de Dédalo, ya sabes: ni muy alto ni muy bajo.</p>'],
+   policrates:['El anillo de Polícrates','frente a Samos','<p>Heródoto cuenta que Polícrates, tirano de Samos, tenía tanta suerte que su amigo el faraón Amasis le aconsejó desprenderse de lo que más quería para no despertar la envidia de los dioses. Polícrates arrojó al mar, desde un barco, su sello de oro con una esmeralda, obra de Teodoro de Samos. Días después, un pescador le regaló un pez enorme… y en su vientre estaba el anillo. Amasis rompió la amistad: pensó que alguien con tanta suerte acabaría mal, y así fue (Heródoto III 40-43 y 120-125).</p>']}},
  roma:{lane:'cartago',coin:'sestercios',reward:20,
   segs:{
    ostia:{k:0,name:'El mar de Ostia',gr:'MARE TYRRHENVM',sub:'Frente a la desembocadura del Tíber y el puerto de Claudio',s:'fretum',w:'sardum',
@@ -21333,9 +21343,10 @@ function swBuild(){if(SW.built)return;SW.built=true;const D=swD(),sy=swSeaY(),sa
     for(const d of S.deco||[]){const x=SW.X+d.x,z=cz+d.z,inf=D.info[d.info];
       if(d.t==='faro'){swFaro(x,sy+(d.h>60?4:2),z,d.h);box(26,6,26,lam('#9a8f80'),0,0,0).position.set(x,sy+1,z);}
       if(d.t==='escila'){const c=new THREE.Mesh(new THREE.ConeGeometry(55,90,7,1),lam('#5a544a'));c.position.set(x+40,sy+40,z);scene.add(c);box(10,8,2,lam('#1a1612'),0,0,0).position.set(x+12,sy+55,z);}
+      if(d.t==='plumas'){const fm=lam('#f4efe4',{side:THREE.DoubleSide});for(let k=0;k<26;k++){const f=new THREE.Mesh(new THREE.PlaneGeometry(0.25,0.9),fm);f.rotation.x=-Math.PI/2;f.rotation.z=Math.random()*TAU;f.position.set(x+(Math.random()-0.5)*16,sy+0.05,z+(Math.random()-0.5)*16);scene.add(f);}}
       if(d.t==='remolino'){for(let k=0;k<4;k++){const t=new THREE.Mesh(new THREE.TorusGeometry(d.r*(0.25+k*0.22),1.2,6,40),new THREE.MeshBasicMaterial({color:k%2?'#1d4a5c':'#2a6478',transparent:true,opacity:0.75}));t.rotation.x=Math.PI/2;t.position.set(x,sy+0.08,z);scene.add(t);SW.spin.push({m:t,v:0.6+k*0.25});}}
-      if(inf){const o=egxObj(x,z,sy,'sw:info:'+d.info,inf[0],inf[1],d.t==='remolino'?d.r+30:d.t==='faro'?45:d.t==='escila'?90:60);o.seg=id;SW.info.push(o);SW.objs.push(o);if(d.t==='remolino')SW.whirl={seg:id,x,z,r:d.r};
-        if(d.t!=='remolino'&&d.t!=='punto'){}else{const lb=labelSprite(inf[0],inf[1],false);lb.userData.swSeg=id;SW.labels.push(lb);lb.position.set(x,sy+14,z);lb.scale.multiplyScalar(1.6);scene.add(lb);}}}
+      if(inf){const o=egxObj(x,z,sy,'sw:info:'+d.info,inf[0],inf[1],d.t==='remolino'?d.r+30:d.t==='faro'?45:d.t==='escila'?90:d.t==='plumas'?25:60);o.seg=id;SW.info.push(o);SW.objs.push(o);if(d.t==='remolino')SW.whirl={seg:id,x,z,r:d.r};
+        if(d.t!=='remolino'&&d.t!=='punto'&&d.t!=='plumas'){}else{const lb=labelSprite(inf[0],inf[1],false);lb.userData.swSeg=id;SW.labels.push(lb);lb.position.set(x,sy+14,z);lb.scale.multiplyScalar(1.6);scene.add(lb);}}}
     // pecio con ánforas
     if(S.wreck){const x=SW.X+S.wreck.x,z=cz+S.wreck.z,wood=lam('#4a3826'),am=lam('#b0643c');const g=grp(x,SW.BED+0.6,z,0.6);box(5,1.2,16,wood,0,0,0,g);for(let i=0;i<18;i++){const a=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.12,1.1,8),am);a.position.set((i%3-1)*1.3,0.9,-6+Math.floor(i/3)*2);a.rotation.z=1.2;g.add(a);}
       SW.objs.push(egxObj(x,z,SW.BED+1,'sw:pecio','Un pecio','un barco mercante hundido con su carga',8));}
