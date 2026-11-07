@@ -5742,12 +5742,19 @@ function theatre(o){
   const wall=ringGeo(2,N,(u,k)=>{const t=Math.PI+u*Math.PI;return[Math.cos(t)*(R1-5),k?H:0,Math.sin(t)*(R1-5)];},null,()=> '#bfb39a');ringMesh(wall,o.x,gy,o.z,a);
   for(let i=0;i<N;i++){const t0=Math.PI+i/N*Math.PI,t1=Math.PI+(i+1)/N*Math.PI;wseg(o,a,Math.cos(t0)*(R1-5),Math.sin(t0)*(R1-5),Math.cos(t1)*(R1-5),Math.sin(t1)*(R1-5),0.6);}
   // escena: frente de columnas en dos pisos
-  const g=grp(o.x,gy,o.z,a),sw=R1*1.7;box(sw,H+2,7,PLAST,0,(H+2)/2,R0+5,g);box(R0*2.2,1.2,8,M.wood,0,0.6,R0+0.5,g);
+  // escena: muro de ladrillo con cornisa (por detrás, la fachada que daba a la calle o al pórtico)
+  const g=grp(o.x,gy,o.z,a),sw=R1*1.7,scM=texMat(RTEX.brick,Math.max(2,sw/5),Math.max(1,(H+2)/3));box(sw,H+2,7,scM,0,(H+2)/2,R0+5,g);box(sw+0.8,0.7,7.8,M.marble,0,H+2.35,R0+5,g);box(R0*2.2,1.2,8,M.wood,0,0.6,R0+0.5,g);
+  // en ladera: subestructura de piedra bajo la cávea, la orquesta y la escena hasta el punto más bajo del terreno (antes flotaban)
+  {let mn=gy;for(let i=0;i<=16;i++)for(const rr of[R0,(R0+R1)/2,R1]){const t=Math.PI+i/16*Math.PI,w=toW(Math.cos(t)*rr,Math.sin(t)*rr,o.x,o.z,a);mn=Math.min(mn,terrainH(w[0],w[1]));}
+   for(const lx of[-sw/2,0,sw/2])for(const lz of[0,R0+8.5]){const w=toW(lx,lz,o.x,o.z,a);mn=Math.min(mn,terrainH(w[0],w[1]));}
+   const dh=gy-mn+0.3;if(dh>0.8){const sm=M.stone,cy=new THREE.Mesh(new THREE.CylinderGeometry(R1,R1,dh,32,1,false,Math.PI/2,Math.PI),sm);cy.position.set(o.x,gy-dh/2,o.z);cy.rotation.y=a;scene.add(cy);
+    box(sw,dh,R0+8.5,sm,0,-dh/2,(R0+8.5)/2,g);box(R1*2,dh,1,sm,0,-dh/2,0,g);}}
   for(const[dx,w]of[[0,3.4],[-R0*0.55,2.6],[R0*0.55,2.6]]){box(w,w*1.7,0.2,M.dark,dx,1.2+w*0.85,R0+1.45,g);box(w+0.8,0.5,0.4,M.marble,dx,1.2+w*1.7+0.25,R0+1.4,g);}   // las tres puertas de la escena
   for(let i=0;i<12;i++){const lx=-sw*0.42+i*sw*0.84/11;for(const lv of[0,1]){const wp=toW(lx,R0+1.2,o.x,o.z,a);addColumn(wp[0],gy+1.2+lv*(H*0.45),wp[1],0.4,H*0.42,a,'corinthian',true);}}
   wseg(o,a,-sw/2,R0+1.5,sw/2,R0+1.5);   // los pasillos laterales (párodos) quedan abiertos: se entra a la orquesta para ver la función
   ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name});   // todos tienen funciones (ROMA_PLAYS, por nombre del teatro)
-  footprints.push({x:o.x,z:o.z-R1*0.4,w:R1*2,d:R1*1.2,a,c:'#e4dac6',name:o.name});
+  // huella circular: cubre la cávea y la escena sea cual sea el giro (la rectangular no giraba y dejaba entrar casas en el teatro)
+  footprints.push({x:o.x,z:o.z,r:R1+1,c:'#e4dac6',name:o.name});
   return g;
 }
 // puente: tablero de piedra sobre arcos entre dos orillas, con rampas suaves a ambos lados
