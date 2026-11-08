@@ -1007,7 +1007,8 @@ const WALLC={x:-250,z:-170};
 const wallR=th=>720+45*Math.sin(3*th+1);
 const WN=200;
 const wallPts=[];for(let i=0;i<WN;i++){const th=-Math.PI+i/WN*TAU;const r=wallR(th);wallPts.push([WALLC.x+Math.cos(th)*r,WALLC.z+Math.sin(th)*r,th]);}
-const GATE_ANG={dipylon:-2.29,sagrada:-2.37,este:0.0,norte:-1.5,pireo:2.3,sur:0.65,eria:-1.95,diomea:0.33,halade:1.2,melitides:2.9};
+// ángulos de las puertas alrededor de WALLC, revisados con el plano de Judeich (Topographie von Athen, 1905, fig. 9): Diocares al nordeste, Melítide al suroeste junto a la colina de las Musas
+const GATE_ANG={dipylon:-2.29,sagrada:-2.37,este:-0.6,norte:-1.5,pireo:2.3,sur:0.65,eria:-1.95,diomea:0.33,halade:1.2,melitides:1.88};
 const gateSeg={};
 for(const k in GATE_ANG){let best=0,bd=9;for(let i=0;i<WN;i++){const a=wallPts[i],b=wallPts[(i+1)%WN];const mid=Math.atan2((a[1]+b[1])/2-WALLC.z,(a[0]+b[0])/2-WALLC.x);const d=Math.abs(wrapA(mid-GATE_ANG[k]));if(d<bd){bd=d;best=i;}}gateSeg[k]=best;}
 const GATES={};for(const k in gateSeg){const a=wallPts[gateSeg[k]],b=wallPts[(gateSeg[k]+1)%WN];const x=(a[0]+b[0])/2,z=(a[1]+b[1])/2,ol=Math.hypot(x-WALLC.x,z-WALLC.z);GATES[k]={x,z,dx:b[0]-a[0],dz:b[1]-a[1],ox:(x-WALLC.x)/ol,oz:(z-WALLC.z)/ol};}
@@ -1048,7 +1049,7 @@ ROADS.push({name:_t(9,'Vía Panatenaica'),w:5,pts:[[D.x,D.z],AL(-150,-232),AL(-8
 ROADS.push({w:4.5,pts:[[D.x,D.z],[ACADEMY.x-D.ox*40,ACADEMY.z-D.oz*40]]});
 ROADS.push({w:3,pts:[[SG.x,SG.z],[SG.x+SG.ox*420+90,SG.z+SG.oz*420]]});
 ROADS.push({w:3.5,pts:[AL(-58,96),[-548,-150],[-538,-40],[PNYX.x+12,PNYX.z-34]]});
-ROADS.push({w:4,pts:[[-300,-185],[-120,-150],[150,-128],[EG.x,EG.z],[LYCEUM.x-28,LYCEUM.z]]});
+ROADS.push({w:4,pts:[[-300,-185],[-120,-150],[60,-250],[EG.x-60,EG.z+110],[EG.x,EG.z],[EG.x+EG.ox*90,EG.z+EG.oz*90],[LYCEUM.x-28,LYCEUM.z]]});
 ROADS.push({w:3.5,pts:[[-238,-2],[-205,80],[-112,114],[-40,132],[-30,200],[80,214],[150,196],[190,236],[SGATE.x,SGATE.z],[CYNO.x-26,CYNO.z]]});
 ROADS.push({w:4,pts:[[PNYX.x+12,PNYX.z-34],[-610,170],[PG.x,PG.z],[PG.x+LW_DIR[0]*1600,PG.z+LW_DIR[1]*1600]]});
 ROADS.push({w:3,pts:[AL(-40,-162),[-520,-560],[NG.x,NG.z],[NG.x-20,NG.z-420]]});
@@ -17716,7 +17717,7 @@ function pireoPlus(){if(MODE!=='atenas'||URB.pir)return;URB.pir=1;const a=-Math.
   urbWorkers(P(60,12)[0],P(60,12)[1],4);}
 // puertas de la muralla y colinas
 const GATE_INFO={norte:['Puerta Acarnea','Hacia Acarnas, el demo más grande del Ática, y hacia Decelia.'],este:['Puerta de Diocares','Hacia el Liceo y el monte Himeto.'],sur:['Puerta Itonia','Hacia Falero, la vieja playa-puerto de Atenas.'],pireo:['Puerta del Pireo','Entre los Muros Largos, el camino del puerto.'],
- eria:['Puertas de Eria','«Las puertas de las tumbas»: junto a ellas había cementerios. Hacia Colono.'],diomea:['Puerta Diomea','Hacia el demo de Diomea y el gimnasio del Cinosarges.'],halade:['Puerta Hálade','«Hacia el mar»: por aquí bajan los iniciados de Eleusis a bañarse a Falero. Su lugar exacto se discute.'],melitides:['Puerta Melítide','Junto al barrio de Melite; cerca, dicen, está la tumba de Cimón y de su familia.']};
+ eria:['Puertas de Eria','«Las puertas de las tumbas»: junto a ellas había cementerios. Hacia Colono.'],diomea:['Puerta Diomea','Hacia el demo de Diomea y el gimnasio del Cinosarges.'],halade:['Puerta Hálade','«Hacia el mar»: por aquí bajan los iniciados de Eleusis a bañarse a Falero. Su lugar exacto se discute.'],melitides:['Puerta Melítide','Al suroeste, al pie de la colina de las Musas, hacia el barrio de Coile; fuera, junto al camino de Coile, está la tumba de Cimón y de su familia (Heródoto VI 103). Judeich la sitúa aquí; su lugar exacto se discute.']};
 function athUrbPlus(){if(MODE!=='atenas'||URB.ath)return;URB.ath=1;
   for(const k in GATE_INFO){const G=GATES[k];if(!G)continue;const[x,z]=gatePt(G,-12,8);const f=findFree(x,z,1);placeLive('puerta_'+k,GATE_INFO[k][0],'ΠΥΛΑΙ','La muralla de Atenas tenía unas quince puertas, y cada camino del Ática salía por una de ellas. '+GATE_INFO[k][1]+' La muralla la levantó Temístocles después de las guerras médicas, y la reconstruyó Conón hace pocos años con el dinero de los persas.',f[0],f[1],0);}
   {const f=findFree(-330,345,2);placeLive('museion','La colina de las Musas','ΜΟΥΣΕΙΟΝ','Al suroeste de la Acrópolis. Se llama así porque aquí cantaba, según la tradición, el poeta Museo, y aquí está su tumba (Pausanias I 25, 8). Desde lo alto se ve todo hasta el mar.',f[0],f[1],0);}
@@ -22774,7 +22775,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='87d636a97e36';
+const NOSTOS_VER='d2a351f97809';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
