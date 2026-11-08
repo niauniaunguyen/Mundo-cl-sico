@@ -5591,10 +5591,11 @@ function romaInUrbs(x,z){
   return x<romaRiverX(z)&&x>romaRiverX(z)-430&&z>-260&&z<820;   // Trastévere
 }
 // zonas llanas: [cx, cz, rx, rz, altura, borde] (superelipse)
+const CIRC_A=-0.349;   // el Circo Máximo, girado unos 20° respecto al eje este-oeste del juego (Lanciani, Forma Urbis, lám. 35)
 const RFLATS=[
  [0,0,122,64,0.6,0.22],        // Foro Romano
  [60,-165,200,95,1.0,0.2],     // foros imperiales
- [40,355,320,78,1.0,0.12],     // Circo Máximo
+ [40,355,320,78,1.0,0.12,-0.349],     // Circo Máximo (girado, CIRC_A)
  [480,-128,78,62,8,0.32],      // terraza de las Termas de Tito
  [-430,120,90,70,1.2,0.4],     // Foro Boario y Velabro
  [600,359,16,34,31.6,0.3],     // la domus visitable del Celio
@@ -5608,7 +5609,7 @@ function romaH(x,z){
   for(const H of RHILLS){const p=plateau(x,z,H[0],H[1],H[2],H[3],H[4],H[5]);if(p>0.01)h=Math.max(h,1.8+p+(fbm(x*0.03+H[0],z*0.03)-0.5)*3*Math.min(1,p/10));}
   h+=bump(x,z,1100,-900,500,24)+bump(x,z,1500,900,600,40);   // lomas del este y el camino a los montes Albanos
   {const e=Math.hypot((x-400)/120,(z-60)/105);if(e<1.5)h=lerp(2,h,sstep(clamp((e-1)/0.5,0,1)));}   // valle del anfiteatro (el antiguo lago de Nerón)
-  for(const F of RFLATS){const d=superD(x,z,F[0],F[1],F[2],F[3]);if(d<1+F[5])h=lerp(F[4],h,sstep(clamp((d-1)/F[5],0,1)));}
+  for(const F of RFLATS){let qx=x,qz=z;if(F[6]){const dx=x-F[0],dz=z-F[1],c=Math.cos(F[6]),sn=Math.sin(F[6]);qx=F[0]+dx*c-dz*sn;qz=F[1]+dx*sn+dz*c;}const d=superD(qx,qz,F[0],F[1],F[2],F[3]);if(d<1+F[5])h=lerp(F[4],h,sstep(clamp((d-1)/F[5],0,1)));}
   {const w=sstep(clamp((-x-420)/110,0,1))*sstep(clamp((-z-40)/120,0,1));if(w>0)h=lerp(h,2.2+(fbm(x*0.01,z*0.01)-0.5)*1.2,w);}   // Campo de Marte
   if(x<-70&&x>-215&&z>-10&&z<45){const c=clivusAt(x,z);if(c.d<10){const top=1.8+32,hc=lerp(0.6,top,sstep(c.t)*0.25+c.t*0.75);h=lerp(hc,h,sstep(clamp((c.d-4.5)/5,0,1)));}}   // Clivus Capitolinus
   {const rx=romaRiverX(z);if(x<rx){const w=sstep(clamp((rx-x-60)/90,0,1))*(1-sstep(clamp((rx-x-380)/200,0,1)));if(w>0&&z>-300&&z<900)h=lerp(h,2.4,w*0.85);}}   // llanura del Trastévere
@@ -6566,26 +6567,26 @@ function romaColosseum(){
    addBox(cx,cz-4,124,56,0);footprints.push({x:cx,z:cz-4,w:124,d:56,a:0,c:'#e2d6c0',name:_t(3762,'Termas de Tito')});}
 }
 function romaCircus(){
-  const C={x:40,z:355},gy=1,Lh=260;ROMA.circ=C;
-  footprints.push({x:C.x+20,z:C.z,w:640,d:160,a:0,c:'#d8ccb0',reserve:true});
+  const C={x:40,z:355},gy=1,Lh=260,CA=CIRC_A,co=Math.cos(CA),si=Math.sin(CA),cr=(lx,lz)=>[C.x+lx*co+lz*si,C.z-lx*si+lz*co];ROMA.circ=C;   // girado como en la Forma Urbis de Lanciani (lám. 35): del Foro Boario hacia la Puerta Capena
+  footprints.push({x:C.x+20,z:C.z,w:660,d:380,a:0,c:'#d8ccb0',reserve:true});
   const st=(u,R)=>{if(u<0.35){const s=u/0.35;return[-Lh+2*Lh*s,-R];}if(u<0.5){const t=-Math.PI/2+(u-0.35)/0.15*Math.PI;return[Lh+Math.cos(t)*R,Math.sin(t)*R];}if(u<0.85){const s=(u-0.5)/0.35;return[Lh-2*Lh*s,R];}const t=Math.PI/2+(u-0.85)/0.15*Math.PI;return[-Lh+Math.cos(t)*R,Math.sin(t)*R];};
   const skip=u=>u>0.85||Math.abs(u-0.425)<0.012;const ST=14,R0=46,R1=78;
   const P=(u,k)=>{let r,y;if(k===0){r=R0;y=0;}else if(k===1){r=R0;y=3.2;}else{const j=Math.floor((k-2)/2),e=(k-2)%2;r=R0+2+(R1-R0-4)*(j+e)/ST;y=3.2+(26-3.2)*(j+1)/ST;}const p=st(u,r);return[p[0],y,p[1]];};
-  ringMesh(ringGeo(2+ST*2+1,140,P,skip,k=>k<2?'#e2d9c6':(k%2?'#e0d6c2':'#c8bca4')),C.x,gy,C.z);
-  {const t=RTEX.arcade.clone();t.needsUpdate=true;t.repeat.set(1,1.5);const w=new THREE.Mesh(ringGeo(2,140,(u,k)=>{const p=st(u,R1+1);return[p[0],k?30:0,p[1]];},skip,()=>'#ffffff',Math.round((4*Lh+TAU*R1)/12)),new THREE.MeshLambertMaterial({map:t,side:THREE.DoubleSide}));w.position.set(C.x,gy,C.z);w.castShadow=true;scene.add(w);}
-  for(let i=0;i<140;i++){const u0=i/140,u1=(i+1)/140;if(skip((u0+u1)/2))continue;for(const R of[R0,R1+1]){const a=st(u0,R),b=st(u1,R);addSeg(C.x+a[0],C.z+a[1],C.x+b[0],C.z+b[1],0.5);}}
+  ringMesh(ringGeo(2+ST*2+1,140,P,skip,k=>k<2?'#e2d9c6':(k%2?'#e0d6c2':'#c8bca4')),C.x,gy,C.z,CA);
+  {const t=RTEX.arcade.clone();t.needsUpdate=true;t.repeat.set(1,1.5);const w=new THREE.Mesh(ringGeo(2,140,(u,k)=>{const p=st(u,R1+1);return[p[0],k?30:0,p[1]];},skip,()=>'#ffffff',Math.round((4*Lh+TAU*R1)/12)),new THREE.MeshLambertMaterial({map:t,side:THREE.DoubleSide}));w.position.set(C.x,gy,C.z);w.rotation.y=CA;w.castShadow=true;scene.add(w);}
+  for(let i=0;i<140;i++){const u0=i/140,u1=(i+1)/140;if(skip((u0+u1)/2))continue;for(const R of[R0,R1+1]){const a=st(u0,R),b=st(u1,R),A=cr(a[0],a[1]),B=cr(b[0],b[1]);addSeg(A[0],A[1],B[0],B[1],0.5);}}
   // las cárceres: doce puertas de salida en el extremo oeste
-  {const g=grp(C.x-Lh-6,gy,C.z,0);box(12,11,2*R1,TRAV,0,5.5,0,g);for(let i=0;i<12;i++)box(0.2,6,4.4,M.dark,6.05,3,-34+i*6.2,g);for(const s of[-1,1])box(14,16,14,TRAV2,0,8,s*(R1-6),g);
-   addSeg(C.x-Lh,C.z-R1,C.x-Lh,C.z-6,0.6);addSeg(C.x-Lh,C.z+6,C.x-Lh,C.z+R1,0.6);addSeg(C.x-Lh-12,C.z-R1,C.x-Lh-12,C.z-6,0.6);addSeg(C.x-Lh-12,C.z+6,C.x-Lh-12,C.z+R1,0.6);}
+  {const cp=cr(-Lh-6,0),g=grp(cp[0],gy,cp[1],CA);box(12,11,2*R1,TRAV,0,5.5,0,g);for(let i=0;i<12;i++)box(0.2,6,4.4,M.dark,6.05,3,-34+i*6.2,g);for(const s of[-1,1])box(14,16,14,TRAV2,0,8,s*(R1-6),g);
+   for(const[ax,az,bx,bz]of[[-Lh,-R1,-Lh,-6],[-Lh,6,-Lh,R1],[-Lh-12,-R1,-Lh-12,-6],[-Lh-12,6,-Lh-12,R1]]){const A=cr(ax,az),B=cr(bx,bz);addSeg(A[0],A[1],B[0],B[1],0.6);}}
   // la espina: muro bajo con estanques, metas y el obelisco de Augusto
-  {const g=grp(C.x,gy,C.z,0);box(380,2.2,8,M.marble,0,1.1,0,g);for(let i=0;i<6;i++)box(28,0.4,5,lam('#4f7f8a'),-160+i*64,2.3,0,g);addBox(C.x,C.z,380,8,0);
-   if(GLB.ok&&GLB.parts.B_obelisk){placeModules('B_obelisk',[{x:C.x,y:gy+2.2,z:C.z,a:0,sx:1}],{far:3000});placeModules('B_meta',[{x:C.x-198,y:gy,z:C.z,a:0,sx:1.2},{x:C.x+198,y:gy,z:C.z,a:0,sx:1.2}],{far:2400});}
+  {const g=grp(C.x,gy,C.z,CA);box(380,2.2,8,M.marble,0,1.1,0,g);for(let i=0;i<6;i++)box(28,0.4,5,lam('#4f7f8a'),-160+i*64,2.3,0,g);addBox(C.x,C.z,380,8,CA);
+   if(GLB.ok&&GLB.parts.B_obelisk){placeModules('B_obelisk',[{x:C.x,y:gy+2.2,z:C.z,a:CA,sx:1}],{far:3000});const m1=cr(-198,0),m2=cr(198,0);placeModules('B_meta',[{x:m1[0],y:gy,z:m1[1],a:CA,sx:1.2},{x:m2[0],y:gy,z:m2[1],a:CA,sx:1.2}],{far:2400});}
    else{const ob=new THREE.Mesh(new THREE.CylinderGeometry(0.8,1.6,24,4),lam('#9a6a5e'));ob.position.set(0,14,0);g.add(ob);}
    for(let i=0;i<7;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(0.4,8,6),BRONZE2);d.scale.set(1,0.6,2);d.position.set(120+i*1.6,4.2,0);g.add(d);}
-   addCirc(C.x-198,C.z,3);addCirc(C.x+198,C.z,3);}
+   {const m1=cr(-198,0),m2=cr(198,0);addCirc(m1[0],m1[1],3);addCirc(m2[0],m2[1],3);}}
   // público
   {const geo=new THREE.CylinderGeometry(0.2,0.26,1.15,5);geo.translate(0,0.58,0);const it=[],cols=['#efe8da','#e2d6c0','#3f7a3a','#2f4c86','#a8392b','#c9b48b','#f4efe4'],q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),p=new THREE.Vector3(),sc=new THREE.Vector3(1,1,1);
-   for(let j=0;j<ST;j++){const r=R0+2+(R1-R0-4)*(j+0.5)/ST,y=gy+3.2+(26-3.2)*(j+1)/ST;for(let i=0;i<900;i++){if(R()<0.45)continue;const u=(i+R())/900;if(skip(u))continue;const a=st(u,r),b=st(u+0.001,r);p.set(C.x+a[0],y,C.z+a[1]);q.setFromAxisAngle(up,Math.atan2(b[0]-a[0],b[1]-a[1])-Math.PI/2);it.push({m:new THREE.Matrix4().compose(p,q,sc),c:new THREE.Color(pick(cols))});}}
+   for(let j=0;j<ST;j++){const r=R0+2+(R1-R0-4)*(j+0.5)/ST,y=gy+3.2+(26-3.2)*(j+1)/ST;for(let i=0;i<900;i++){if(R()<0.45)continue;const u=(i+R())/900;if(skip(u))continue;const a=st(u,r),b=st(u+0.001,r);{const A=cr(a[0],a[1]);p.set(A[0],y,A[1]);}q.setFromAxisAngle(up,Math.atan2(b[0]-a[0],b[1]-a[1])-Math.PI/2+CA);it.push({m:new THREE.Matrix4().compose(p,q,sc),c:new THREE.Color(pick(cols))});}}
    chunked(geo,WHITE_M,it,{cell:120,far:800,shadow:false});}
   // cuadrigas: verdes, azules, rojos y blancos
   const fac=[['#3f7a3a',_t(4887,'Verdes')],['#2f4c86',_t(4888,'Azules')],['#a8392b',_t(4889,'Rojos')],['#efe8da',_t(4890,'Blancos')]];
@@ -6594,9 +6595,9 @@ function romaCircus(){
       for(const s of[-1,1]){const h=new THREE.Group();h.position.set(s*0.55,0,2.4);h.scale.setScalar(0.92);legs=legs.concat(animalGLB('A_horse',h,pick(['#5a3a22','#3a2a1e','#8a6a4a','#d8d0c0']),'#1e140e'));g.add(h);}}
     else{box(1.2,1,1.4,lam(f[0]),0,0.7,0,g);box(1.4,1.4,2.4,lam('#5a3a22'),0,1.4,2.4,g);}
     const d=makePerson({short:true,chiton:f[0],hair:'#2a1e16'});d.position.set(0,0.25,-0.6);g.add(d);
-    g.position.set(C.x+200-i*14,1.02,C.z-22);g.rotation.y=-Math.PI/2;ROMA.chariots.push({g,legs,s:i*14,v:13+i*0.6,lane:-6+i*4,ph:R()*6});});
+    {const P0=cr(200-i*14,-22);g.position.set(P0[0],1.02,P0[1]);}g.rotation.y=-Math.PI/2+CA;ROMA.chariots.push({g,legs,s:i*14,v:13+i*0.6,lane:-6+i*4,ph:R()*6});});
   // Félix y unos mozos junto a las cárceres; caballos de repuesto
-  ROMA.circus={C,Lh};
+  ROMA.circus={C,Lh,cr,CA};if(typeof NPC_POS!=='undefined'){const a=cr(-300,-30);NPC_POS.auriga=[a[0],a[1],Math.PI/2+CA];}
 }
 function romaFora(){
   // Foro de César: plaza con pórticos y el templo de Venus Genetrix al fondo
@@ -7080,7 +7081,7 @@ function updateRome(dt,t){
     for(const ch of ROMA.chariots){const R=22+ch.lane*0.5,per=4*Lh+TAU*R;ch.s=(ch.s+ch.v*dt*(1+0.06*Math.sin(t*0.3+ch.ph)))%per;let s=ch.s,x,z,a;
       if(s<2*Lh){x=Lh-s;z=-R;a=-Math.PI/2;}else if((s-=2*Lh)<Math.PI*R){const th=-Math.PI/2-s/R;x=-Lh+Math.cos(th)*R;z=Math.sin(th)*R;a=Math.PI-th;}
       else if((s-=Math.PI*R)<2*Lh){x=-Lh+s;z=R;a=Math.PI/2;}else{s-=2*Lh;const th=Math.PI/2-s/R;x=Lh+Math.cos(th)*R;z=Math.sin(th)*R;a=Math.PI-th;}
-      ch.g.position.set(c.C.x+x,1.02,c.C.z+z);ch.g.rotation.y=a;const ph=t*14+ch.ph;ch.legs.forEach((l,i)=>{l.rotation.x=Math.sin(ph+(i%4===0||i%4===3?0:Math.PI))*0.6;});}}
+      {const P0=c.cr?c.cr(x,z):[c.C.x+x,c.C.z+z];ch.g.position.set(P0[0],1.02,P0[1]);}ch.g.rotation.y=a+(c.CA||0);const ph=t*14+ch.ph;ch.legs.forEach((l,i)=>{l.rotation.x=Math.sin(ph+(i%4===0||i%4===3?0:Math.PI))*0.6;});}}
   const C=ROMA.col;if(C&&ROMA.glad.length&&Math.hypot(player.x-C.x,player.z-C.z)<260){const[a,b,j]=ROMA.glad,th=t*0.5,r=2.6+Math.sin(t*1.7)*0.6;
     a.position.x=C.x+8+Math.cos(th)*r;a.position.z=C.z-6+Math.sin(th)*r;b.position.x=C.x+8-Math.cos(th)*r;b.position.z=C.z-6-Math.sin(th)*r;
     a.rotation.y=Math.atan2(b.position.x-a.position.x,b.position.z-a.position.z);b.rotation.y=a.rotation.y+Math.PI;
@@ -22752,7 +22753,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='075c7726f98f';
+const NOSTOS_VER='219ef3a4d94a';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
