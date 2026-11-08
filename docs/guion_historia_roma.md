@@ -545,6 +545,83 @@ Ha pasado un mes. Tercia, tu hermana, ya libre, no para de hacer preguntas. Hoy,
 
 ---
 
+## Capítulo extra (opcional, al terminar la historia) · Las historias de Tácito
+*Tema: Historia*
+
+Tácito, el joven senador que te aconsejó cuando buscabas a Tercia, está casado con la hija de Gneo Julio Agrícola, el gobernador de Britania. Sueña con escribir algún día la historia de su tiempo, «sin ira y sin parcialidad». Para eso necesita testigos. Y tú tienes una barca, y ganas de ver mundo.
+
+### 12.1 · Habla con Tácito, junto a la Curia
+*Cómo se activa: hablar con Publio Cornelio Tácito (Joven senador)*
+
+**Tácito:** Has demostrado que sabes buscar la verdad entre papeles y mentiras. Te propongo un trabajo. Quiero escribir la historia de estos años: la guerra de Judea, la rebelión del Rin, Britania… y el Vesubio. Pero no me fío de lo que se cuenta en los banquetes.
+
+**Tácito:** Busca a cuatro testigos: un superviviente de Pompeya, un veterano de Jerusalén, alguien de Colonia que viviera la rebelión de Civil, y un soldado de mi suegro en Britania. Pregúntales qué vieron. Yo pago el viaje.
+
+**Pregunta de Tácito:** ¿Por qué Tácito quiere hablar con testigos en lugar de copiar lo que se cuenta?
+- ✔ Porque un historiador debe buscar fuentes fiables, no rumores
+- ✘ Porque así le pagan más
+- ✘ Porque los testigos escriben mejor que él
+  - Si aciertas: Exacto. Tucídides ya lo decía: hay que preguntar a los que estuvieron allí, y aun así comparar lo que dicen.
+  - Si fallas: No: un buen historiador busca fuentes fiables y las compara. Los rumores de banquete no sirven.
+
+### 12.2 · Busca en Pompeya a Herenio, el superviviente
+*Cómo se activa: hablar con Herenio (Superviviente de Pompeya)*
+
+**Herenio:** ¿Un historiador? Dile que no fue solo la ceniza. Primero cayeron piedras ligeras toda la tarde y toda la noche; los tejados se hundían. Muchos se quedaron en casa, esperando. Lo que los mató fue lo de la mañana: una nube ardiente que bajó corriendo por el monte.
+
+**Herenio:** Y dile también que el emperador mandó ayuda. Eso hay que reconocérselo a Tito.
+
+*Apuntas sus palabras en tus tablillas de cera. Primer testimonio.*
+
+
+### 12.3 · Busca en Jerusalén a Lucio Antonio, el veterano
+*Cómo se activa: hablar con Lucio Antonio (Veterano de la Legión X)*
+
+**Lucio Antonio:** Que escriba lo que fue: un asedio terrible para los dos bandos. Hambre dentro de la ciudad, crucifixiones fuera. Cuando ardió el templo, nadie supo decirme quién dio la orden.
+
+**Lucio Antonio:** Y que no escriba que los judíos son cobardes: lucharon hasta el final. Lo sé porque yo estaba delante.
+
+*Muchos años después, Tácito escribirá sobre los judíos con desprecio y muchos errores. No siempre los historiadores escuchan a sus testigos.*
+
+
+### 12.4 · Busca en Colonia a Ennio, el soplador de vidrio
+*Cómo se activa: hablar con Ennio (Soplador de vidrio)*
+
+**Ennio:** La rebelión de Civil… Los germanos de la otra orilla nos pedían que matáramos a todos los romanos de la ciudad y derribáramos las murallas. Nosotros dijimos que no: aquí vivimos mezclados, nuestros hijos tienen madres romanas.
+
+**Ennio:** Tuvimos que fingir que estábamos con los rebeldes para sobrevivir. Cuando volvieron las legiones, nos acusaron de traidores. Así es la guerra en una frontera.
+
+
+### 12.5 · Busca en el campamento de Agrícola a Tito Flavio
+*Cómo se activa: hablar con Tito Flavio (Legionario de la IX Hispana)*
+
+**Tito Flavio:** ¿Te manda el yerno del general? Pues dile que su suegro es un buen jefe: elige él mismo dónde acampar, no deja que los oficiales roben y castiga poco pero en serio.
+
+**Tito Flavio:** Y dile también lo que no dicen los informes: que a los britanos les quemamos las cosechas, y que muchos de sus hijos acaban vendidos en el mercado de Londinium.
+
+**Pregunta de Tito Flavio:** ¿Qué le pasa a un testimonio de un soldado sobre su propio general?
+- ✔ Puede ser sincero, pero también interesado: hay que compararlo con otros
+- ✘ Siempre es falso
+- ✘ Siempre es verdad
+  - Si aciertas: Eso es pensar como un historiador.
+  - Si fallas: Ni siempre verdad ni siempre mentira: hay que compararlo con otras fuentes.
+
+### 12.6 · Vuelve con Tácito, junto a la Curia
+*Cómo se activa: hablar con Publio Cornelio Tácito (Joven senador)*
+
+**Tácito:** Cuatro testigos, cuatro guerras distintas, y en todos lo mismo: la gente corriente paga los errores de los poderosos. Lo escribiré, aunque tarde años.
+
+**Tácito:** Y lo haré. Escribiré la vida de mi suegro, y luego las Historias, y luego los Anales. Y pondré en boca de un jefe britano lo que me has traído de Britania: «Donde crean un desierto, lo llaman paz».
+
+*Tácito escribirá la Vida de Agrícola en el 98, las Historias hacia el 105 y los Anales hacia el 115. De sus obras se conserva solo una parte.*
+
+
+**Final del capítulo:** Has recorrido el imperio de un extremo a otro buscando testigos: Pompeya bajo la ceniza, Jerusalén en ruinas, Colonia en la frontera del Rin y el campamento de Agrícola en el norte de Britania.
+
+**Lo que se aprende:** La historia se escribe con fuentes. Los historiadores antiguos, como Tucídides o Tácito, buscaban testigos y documentos, pero también tenían sus prejuicios y sus intereses. Por eso, hoy, comparamos siempre varias fuentes y nos preguntamos quién habla, cuándo y por qué.
+
+---
+
 ## Final · La tablilla de Tercia
 
 Has terminado la historia de Roma. Buscando a tu hermana has recorrido la ciudad entera: la salutatio de un senador, el templo de Vesta, los registros del tesoro, el Emporio, una escuela, la isla de Esculapio, el Trastévere, el anfiteatro, el incendio del Campo de Marte y el Palatino. Y, con Tercia, has seguido el trigo desde África y Egipto hasta el Emporio.
