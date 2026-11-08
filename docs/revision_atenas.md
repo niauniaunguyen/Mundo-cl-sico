@@ -33,7 +33,21 @@ La muralla del juego es casi un círculo. Superpuesta al trazado de Judeich, coi
 | **Melítide** | 2,90 (oeste) | 2,19 (suroeste) | **corregida a 1,88, al pie de la colina de las Musas** |
 | Pireo | 2,30 | −3,00 | se deja: el juego la pone entre los Muros Largos, como varias reconstrucciones |
 | Diomea | 0,33 | 0,90 | se deja: su lugar se discute (Judeich, al sur; otros, al este) |
-| **Dípilon** | −2,29 | −2,67 | **pendiente** |
+| **Dípilon** y Puerta Sagrada | −2,29 / −2,37 | −2,67 | **corregido a −2,62 / −2,70** |
+
+## El Dípilon y el Cerámico
+
+En el juego, el Dípilon estaba al norte del Ágora. En Judeich y en la realidad está al noroeste, y la Vía Panatenaica cruza el Ágora en diagonal desde allí. Se ha girado su puerta en la muralla de −2,29 a −2,62 (y la Puerta Sagrada, a su lado, de −2,37 a −2,70).
+
+Con la puerta se mueve todo el Cerámico, que se construye a partir de ella: el patio del Dípilon con sus cuatro torres, la Puerta Sagrada, el Pompeion, los alfareros, la casa del banquete, los carteles, el barrio interior de los alfareros y los dioses y personajes de la zona.
+
+Desviación respecto al ajuste de toda la ciudad, antes → después: Dípilon 167 → 21 m, Pompeion 120 → 18 m.
+
+Tres cosas no podían seguir a la puerta sin más:
+
+- **La Academia** se colocaba en línea recta hacia fuera desde la puerta. Con la puerta al noroeste habría quedado al oeste-suroeste, cuando está al norte-noroeste del Dípilon. Se ha dejado fija y se ha definido el **Dromos**, el camino ancho del Dípilon a la Academia: las tumbas, los túmulos del cementerio público y el cartel del Cerámico se alinean ahora a lo largo de ese camino, y no en línea recta hacia fuera.
+- **La Vía Panatenaica** sale del Dípilon hacia el este-sureste y entra en el Ágora por su ángulo noroeste, como en la lámina 5 de *Agora XIV*.
+- **El Erídano** estaba trazado con coordenadas fijas. Ahora sale de la ciudad por la Puerta Sagrada, con su cauce perpendicular a la muralla, y corre hacia el oeste. Antes la franja de agua de la Puerta Sagrada iba a lo largo de la muralla.
 
 ## El Ágora, edificio por edificio
 
@@ -63,5 +77,4 @@ El ajuste con 11 edificios da escala 0,91 y giro −6,7°: el Ágora del juego e
 
 ## Pendiente
 
-- **El Dípilon y el Cerámico.** En el juego, el Dípilon queda al norte del Ágora; en realidad está al noroeste, y la Vía Panatenaica cruza el Ágora en diagonal. Moverlo arrastra la Puerta Sagrada, el Pompeion, el cementerio del Cerámico, el Erídano, el camino y la posición de la Academia y el barrio de los alfareros. Es una reordenación grande, para hacerla aparte.
 - La Acrópolis, unos 70 m al este respecto al Ágora.

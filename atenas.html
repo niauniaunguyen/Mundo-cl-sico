@@ -1007,8 +1007,9 @@ const WALLC={x:-250,z:-170};
 const wallR=th=>720+45*Math.sin(3*th+1);
 const WN=200;
 const wallPts=[];for(let i=0;i<WN;i++){const th=-Math.PI+i/WN*TAU;const r=wallR(th);wallPts.push([WALLC.x+Math.cos(th)*r,WALLC.z+Math.sin(th)*r,th]);}
-// ángulos de las puertas alrededor de WALLC, revisados con el plano de Judeich (Topographie von Athen, 1905, fig. 9): Diocares al nordeste, Melítide al suroeste junto a la colina de las Musas
-const GATE_ANG={dipylon:-2.29,sagrada:-2.37,este:-0.6,norte:-1.5,pireo:2.3,sur:0.65,eria:-1.95,diomea:0.33,halade:1.2,melitides:1.88};
+// ángulos de las puertas alrededor de WALLC, revisados con el plano de Judeich (Topographie von Athen, 1905, fig. 9): Diocares al nordeste, Melítide al suroeste junto a la colina de las Musas,
+// y el Dípilon y la Puerta Sagrada al noroeste del Ágora (antes estaban al norte)
+const GATE_ANG={dipylon:-2.62,sagrada:-2.70,este:-0.6,norte:-1.5,pireo:2.3,sur:0.65,eria:-1.95,diomea:0.33,halade:1.2,melitides:1.88};
 const gateSeg={};
 for(const k in GATE_ANG){let best=0,bd=9;for(let i=0;i<WN;i++){const a=wallPts[i],b=wallPts[(i+1)%WN];const mid=Math.atan2((a[1]+b[1])/2-WALLC.z,(a[0]+b[0])/2-WALLC.x);const d=Math.abs(wrapA(mid-GATE_ANG[k]));if(d<bd){bd=d;best=i;}}gateSeg[k]=best;}
 const GATES={};for(const k in gateSeg){const a=wallPts[gateSeg[k]],b=wallPts[(gateSeg[k]+1)%WN];const x=(a[0]+b[0])/2,z=(a[1]+b[1])/2,ol=Math.hypot(x-WALLC.x,z-WALLC.z);GATES[k]={x,z,dx:b[0]-a[0],dz:b[1]-a[1],ox:(x-WALLC.x)/ol,oz:(z-WALLC.z)/ol};}
@@ -1037,16 +1038,18 @@ const ATH_DEMES=[
  {id:'kollytos',name:'Colito',gr:'ΚΟΛΛΥΤΟΣ',sub:'Barrio al sur de la Acrópolis; según algunos, aquí nació Platón.',x:-130,z:300,r:180,a:0.2,p:13,two:0.25,blk:5},
  {id:'kydathenaion',name:'Cidateneo',gr:'ΚΥΔΑΘΗΝΑΙΟΝ',sub:'«La Atenas gloriosa», al norte de la Acrópolis y al este del Ágora: el barrio de Aristófanes.',x:-80,z:-360,r:220,a:0.5,p:14,two:0.3,blk:5},
  {id:'skambonidai',name:'Escambónidas',gr:'ΣΚΑΜΒΩΝΙΔΑΙ',sub:'Barrio del norte de la ciudad, al norte del Ágora.',x:-420,z:-660,r:190,a:0.3,p:12,two:0.2,blk:5},
- {id:'kerameis',name:'Cerámico interior',gr:'ΚΕΡΑΜΕΙΣ',sub:'Los alfareros, junto al Dípilon: talleres, hornos y humo.',x:-690,z:-560,r:150,a:0.62,p:11,two:0.05,blk:4},
+ {id:'kerameis',name:'Cerámico interior',gr:'ΚΕΡΑΜΕΙΣ',sub:'Los alfareros, entre el Dípilon y el Ágora: talleres, hornos y humo.',x:-735,z:-470,r:140,a:0.62,p:11,two:0.05,blk:4},
  {id:'diomeia',name:'Diomea',gr:'ΔΙΟΜΕΙΑ',sub:'Barrio del este, camino del Cinosarges, donde se celebra a Heracles.',x:330,z:60,r:200,a:0.1,p:12,two:0.15,blk:5}];
 function demeAt(x,z){if(MODE!=='atenas')return null;let b=null,bd=1e9;for(const d of ATH_DEMES){const q=Math.hypot(x-d.x,z-d.z)/d.r;if(q<1&&q<bd){bd=q;b=d;}}return b;}
 
-const ACADEMY={x:D.x+D.ox*640,z:D.z+D.oz*640};
+const ACADEMY={x:-1146,z:-1219};   // al norte-noroeste del Dípilon, a ~1,5 km en la realidad (aquí comprimido)
+// el Dromos: el camino ancho del Dípilon a la Academia, con las tumbas y el cementerio público a los lados
+const DROMOS=(()=>{const dx=ACADEMY.x-D.x,dz=ACADEMY.z-D.z,l=Math.hypot(dx,dz);return{x:D.x,z:D.z,ox:dx/l,oz:dz/l,L:l};})();
 const LYCEUM={x:640,z:-110};
 const CYNO={x:520,z:400},OLY={x:255,z:195};
 const ELEUS={x:-282,z:-222};
-ROADS.push({name:_t(9,'Vía Panatenaica'),w:5,pts:[[D.x,D.z],AL(-150,-232),AL(-88,-132),AL(-28,-88),AL(60,30),AL(140,118),[-300,-185],[-226,-100],[-232,-15],[-238,-2]]});
-ROADS.push({w:4.5,pts:[[D.x,D.z],[ACADEMY.x-D.ox*40,ACADEMY.z-D.oz*40]]});
+ROADS.push({name:_t(9,'Vía Panatenaica'),w:5,pts:[[D.x,D.z],[D.x-D.ox*80,D.z-D.oz*80],AL(-150,-150),AL(-88,-132),AL(-28,-88),AL(60,30),AL(140,118),[-300,-185],[-226,-100],[-232,-15],[-238,-2]]});
+ROADS.push({w:4.5,pts:[[D.x,D.z],[ACADEMY.x-DROMOS.ox*40,ACADEMY.z-DROMOS.oz*40]]});
 ROADS.push({w:3,pts:[[SG.x,SG.z],[SG.x+SG.ox*420+90,SG.z+SG.oz*420]]});
 ROADS.push({w:3.5,pts:[AL(-58,96),[-548,-150],[-538,-40],[PNYX.x+12,PNYX.z-34]]});
 ROADS.push({w:4,pts:[[-300,-185],[-120,-150],[60,-250],[EG.x-60,EG.z+110],[EG.x,EG.z],[EG.x+EG.ox*90,EG.z+EG.oz*90],[LYCEUM.x-28,LYCEUM.z]]});
@@ -2853,7 +2856,8 @@ function buildKerameikos(){
   footprints.push({x:gatePt(D,-19,0)[0],z:gatePt(D,-19,0)[1],w:28,d:44,a:ang,c:'#a89a82',name:_t(2295,'Dípilon')});
   // Puerta Sagrada con el arroyo Erídano
   {const a2=Math.atan2(SG.ox,SG.oz);for(const s of[-1,1]){const p=gatePt(SG,0,s*9),gy=terrainH(p[0],p[1])-2;const t=box(7,14,7,tm,p[0],gy+7,p[1]);t.rotation.y=a2;addCirc(p[0],p[1],4.2);}
-   const p=gatePt(SG,0,-2.5),w=new THREE.Mesh(new THREE.PlaneGeometry(3,160),new THREE.MeshPhongMaterial({color:'#2f6a85',shininess:80}));w.rotation.x=-Math.PI/2;w.rotation.z=-a2;w.position.set(p[0],terrainH(p[0],p[1])+0.08,p[1]);scene.add(w);}
+   // el cauce del Erídano cruza la muralla por la Puerta Sagrada, perpendicular a ella
+   const p=gatePt(SG,28,-2.5),g=grp(p[0],terrainH(p[0],p[1])+0.08,p[1],a2),w=new THREE.Mesh(new THREE.PlaneGeometry(3,72),new THREE.MeshPhongMaterial({color:'#2f6a85',shininess:80}));w.rotation.x=-Math.PI/2;g.add(w);}
   // Pompeion (c. 400): patio porticado donde se prepara la procesión
   {const c=gatePt(D,-75,-38),gy=minGround(c[0],c[1],22,50,ang),g=grp(c[0],gy,c[1],ang);
    for(const s of[-1,1]){box(0.8,5,50,M.stone,s*11,2.5,0,g);wseg(c[0],c[1],ang,s*11,-25,s*11,25);}
@@ -2872,11 +2876,11 @@ function buildKerameikos(){
    donkey(...gatePt(D,-80,26),1.2);}
   // tumbas a lo largo del Dromos y de la Vía Sacra, y túmulos del cementerio público
   {const n=170,im=new THREE.InstancedMesh(new THREE.BoxGeometry(0.7,1,0.2),M.marble,n),mm=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new THREE.Vector3(),p=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
-   for(let i=0;i<n;i++){const G=i%3?D:SG,t=25+R()*(G===D?500:260),side=R()<0.5?-1:1,off=(G===D?24:6)+R()*10;const[x,z]=gatePt(G,t,side*off);const h=0.8+R()*1.4;
+   for(let i=0;i<n;i++){const G=i%3?DROMOS:SG,t=25+R()*(G===DROMOS?500:260),side=R()<0.5?-1:1,off=(G===DROMOS?24:6)+R()*10;const[x,z]=gatePt(G,t,side*off);const h=0.8+R()*1.4;
      q.setFromAxisAngle(up,Math.atan2(G.ox,G.oz)+Math.PI/2+rr(-0.2,0.2));p.set(x,terrainH(x,z)+h/2,z);s.set(1,h,1);mm.compose(p,q,s);im.setMatrixAt(i,mm);}
    im.castShadow=true;scene.add(im);
-   for(let i=0;i<5;i++){const[x,z]=gatePt(D,120+i*85,(i%2?1:-1)*34);const mo=new THREE.Mesh(new THREE.SphereGeometry(7,16,8,0,TAU,0,Math.PI/2),lam('#9a8a62'));mo.scale.y=0.45;mo.position.set(x,terrainH(x,z)-0.3,z);scene.add(mo);addCirc(x,z,6.5);
-     const[sx,sz]=gatePt(D,120+i*85,(i%2?1:-1)*26);box(2.2,2.2,0.3,M.marble,sx,terrainH(sx,sz)+1.1,sz).rotation.y=ang;addCirc(sx,sz,1.1);}}
+   for(let i=0;i<5;i++){const[x,z]=gatePt(DROMOS,120+i*85,(i%2?1:-1)*34);const mo=new THREE.Mesh(new THREE.SphereGeometry(7,16,8,0,TAU,0,Math.PI/2),lam('#9a8a62'));mo.scale.y=0.45;mo.position.set(x,terrainH(x,z)-0.3,z);scene.add(mo);addCirc(x,z,6.5);
+     const[sx,sz]=gatePt(DROMOS,120+i*85,(i%2?1:-1)*26);box(2.2,2.2,0.3,M.marble,sx,terrainH(sx,sz)+1.1,sz).rotation.y=Math.atan2(DROMOS.ox,DROMOS.oz);addCirc(sx,sz,1.1);}}
 }
 
 // ------------------------------------------------------------ fuera del centro: Pnyx, Academia, Liceo, Cinosarges, Olimpieion
@@ -2969,7 +2973,7 @@ function definePlaces(){
   P('asklepieion',_t(2355,'Santuario de Asclepio'),'ΑΣΚΛΗΠΙΕΙΟΝ',_t(2356,'Asclepio, el dios médico de Epidauro, llegó a Atenas en el 420/419, en plena guerra y tras la peste. Lo trajo un particular, Telémaco, cuya estela cuenta la fundación; el poeta Sófocles acogió al dios en su casa mientras se construía el santuario. Los enfermos duermen aquí esperando que el dios los cure en sueños y dejan exvotos con la parte del cuerpo sanada.'),[-34,104],0);
   P('dipilon',_t(2357,'Puerta del Dípilon'),'ΔΙΠΥΛΟΝ',_t(2358,'La «puerta doble», la mayor de Atenas: un patio de unos 40 por 22 metros entre cuatro torres, con una puerta doble a cada lado, para atrapar a los atacantes. Por aquí entran los viajeros de Eleusis, Beocia y el Peloponeso, y de aquí parte la procesión de las Panateneas.'),gatePt(D,-48,6),0);
   P('pompeion',_t(2296,'Pompeion'),'ΠΟΜΠΕΙΟΝ',_t(2359,'Edificio con patio porticado entre el Dípilon y la Puerta Sagrada, construido hacia el 400. Aquí se prepara la procesión (pompé) de las Panateneas y se guarda el material ritual. Tras la fiesta, los ciudadanos comen aquí la carne de los sacrificios.'),gatePt(D,-75,-24),0);
-  P('ceramico',_t(2360,'Cementerio del Cerámico'),'ΚΕΡΑΜΕΙΚΟΣ',_t(2361,'Fuera de las murallas, a lo largo del Dromos hacia la Academia y de la Vía Sacra hacia Eleusis, se alinean las tumbas: estelas pintadas, vasos de mármol y relieves de despedida. En los túmulos del cementerio público se entierra a los caídos en la guerra. Pericles pronunció aquí su famoso discurso fúnebre en el 431.'),gatePt(D,60,14),0);
+  P('ceramico',_t(2360,'Cementerio del Cerámico'),'ΚΕΡΑΜΕΙΚΟΣ',_t(2361,'Fuera de las murallas, a lo largo del Dromos hacia la Academia y de la Vía Sacra hacia Eleusis, se alinean las tumbas: estelas pintadas, vasos de mármol y relieves de despedida. En los túmulos del cementerio público se entierra a los caídos en la guerra. Pericles pronunció aquí su famoso discurso fúnebre en el 431.'),gatePt(DROMOS,60,14),0);
   P('academia',_t(2362,'La Academia'),'ΑΚΑΔΗΜΕΙΑ',_t(2363,'Un gimnasio con bosque sagrado dedicado al héroe Academo, a más de un kilómetro y medio del Dípilon. Hay pistas para correr, una palestra, el altar de Prometeo, de donde parten carreras de antorchas, y olivos sagrados de Atenea. Platón ha comprado un jardín junto a él para su escuela, que tomará el nombre del lugar.'),[ACADEMY.x+30,ACADEMY.z+40],0);
   P('liceo',_t(2364,'Liceo'),'ΛΥΚΕΙΟΝ',_t(2365,'Gimnasio junto al santuario de Apolo Liceo, a orillas del Iliso. Aquí entrenan los jóvenes, se pasa revista a la caballería y enseñaban los sofistas. Sócrates venía a menudo a conversar. Isócrates tiene su escuela muy cerca.'),[LYCEUM.x+14,LYCEUM.z+4],0);
   P('olimpieion',_t(2303,'Olimpieion'),'ΟΛΥΜΠΙΕΙΟΝ',_t(2366,'El templo de Zeus Olímpico, empezado por los hijos del tirano Pisístrato hacia el 520 para ser el mayor de Grecia y abandonado al caer la tiranía. Casi ciento cuarenta años después solo quedan los cimientos y algunos tambores de columna. La democracia no quiso terminar la obra de los tiranos: no se acabará hasta el emperador Adriano, en el 132 d.C.'),[OLY.x-60,OLY.z+8],-Math.PI/2);
@@ -11143,7 +11147,7 @@ const GODS=[
   wait:_t(9166,'El Eleusinion está subiendo por la Vía Panatenaica, entre el Ágora y la Acrópolis.'),
   done:_t(9167,'Gracias. Que no te falte nunca el pan en la mesa. Y cuando veas una espiga, recuerda que alguien lloró nueve días para que creciera.')}},
 {id:'atenea',name:_t(5265,'Atenea'),gr:'ΑΘΗΝΑ',glyph:'Α',title:_t(9168,'protectora de Atenas'),where:_t(9169,'entre los olivos sagrados de la Academia'),
- at:()=>[ACADEMY.x-D.ox*78-D.oz*18,ACADEMY.z-D.oz*78+D.ox*18],look:{female:true,chiton:'#e9e2d2',himation:'#6a7fa0',hair:'#5a3a22',helmet:'attic',attrs:['G_aegis','P_spear','P_spearhead','P_shield']},
+ at:()=>[ACADEMY.x-DROMOS.ox*78-DROMOS.oz*18,ACADEMY.z-DROMOS.oz*78+DROMOS.ox*18],look:{female:true,chiton:'#e9e2d2',himation:'#6a7fa0',hair:'#5a3a22',helmet:'attic',attrs:['G_aegis','P_spear','P_spearhead','P_shield']},
  intro:_t(9170,'Estos olivos son míos: las moríai, hijas del primer olivo que planté en la Acrópolis. Su aceite se da como premio en mis Panateneas. Arrancar uno se castiga con el destierro. Soy Atenea, y esta ciudad lleva mi nombre por algo. Pregunta, pero pregunta bien.'),
  topics:[[_t(9171,'¿Cómo ganaste Atenas?'),_t(9172,'Poseidón golpeó la roca con el tridente e hizo brotar una fuente de agua salada. Muy espectacular, y muy inútil. Yo planté un olivo: aceite, madera, comida, luz. Los atenienses eligieron bien. Poseidón inundó la llanura de rabia; todavía hoy se enfada cuando se acuerda.')],
   [_t(9173,'¿Qué opinas de los atenienses?'),_t(9174,'Los quiero, pero me desesperan. Son capaces de levantar el Partenón y de condenar a Sócrates. Votan una guerra un día y se arrepienten al siguiente. Tienen la mejor flota del mundo y la perdieron por soberbia. Aun así, aquí se discute, se piensa y se aprende como en ninguna otra parte. Por eso sigo aquí.')],
@@ -14028,7 +14032,7 @@ function traceRiver(way,step){const out=[way[0].slice()];let p=way[0].slice(),pr
 function smoothPts(pts,it){let a=pts;for(let k=0;k<(it||2);k++)a=a.map((p,i)=>i===0||i===a.length-1?p:[(a[i-1][0]+p[0]*2+a[i+1][0])/4,(a[i-1][1]+p[1]*2+a[i+1][1])/4]);return a;}
 function markRiver(pts,w){const G=GRIV.G;for(const p of pts)for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++){const x=p[0]+i*(w/2+6),z=p[1]+j*(w/2+6);GRIV.grid.add(Math.floor(x/G)+','+Math.floor(z/G));}}
 function nearRiver(x,z){return GRIV.grid.size>0&&GRIV.grid.has(Math.floor(x/GRIV.G)+','+Math.floor(z/GRIV.G));}
-function defineRiversGR(){if(MODE!=='atenas')return;const ol=[195,203],ly=[654,-106],ac=[-1116,-1179],ce=[-759,-787];
+function defineRiversGR(){if(MODE!=='atenas')return;const ol=[195,203],ly=[654,-106],ac=[-1116,-1179],ce=[SG.x-90,SG.z-70];   // el Erídano sale de la ciudad por la Puerta Sagrada
   GRIV.paths.il=smoothPts(traceRiver([[ly[0]+300,ly[1]-520],[ly[0]-10,ly[1]+90],[ol[0]+40,ol[1]+130],[ol[0]-650,ol[1]+950]],8),3);markRiver(GRIV.paths.il,13);GRIV.rv.il=addRiver(waterUntilSea(GRIV.paths.il),7,{dep:2.2,name:'El Iliso'});
   GRIV.paths.cf=smoothPts(traceRiver([[ac[0]-160,ac[1]-280],[ac[0]-190,ac[1]+400],[ac[0]+40,ac[1]+1500],[ac[0]+420,ac[1]+2200]],8),3);markRiver(GRIV.paths.cf,16);GRIV.rv.cf=addRiver(waterUntilSea(GRIV.paths.cf),12,{dep:2.6,boat:true,name:'El Cefiso'});
   GRIV.paths.er=outsideWalls(polyPts([[ce[0]+90,ce[1]+70],[ce[0]+10,ce[1]+20],[ce[0]-110,ce[1]-30],[ce[0]-260,ce[1]-20],[ce[0]-420,ce[1]+40],[ce[0]-520,ce[1]+60]],5));markRiver(GRIV.paths.er,8);GRIV.rv.er=addRiver(GRIV.paths.er,4,{dep:1.4,name:'El Erídano'});}
@@ -22781,7 +22785,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='fbe8cf7cb631';
+const NOSTOS_VER='b2ad25a28f2c';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
