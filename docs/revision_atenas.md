@@ -49,6 +49,20 @@ Tres cosas no podían seguir a la puerta sin más:
 - **La Vía Panatenaica** sale del Dípilon hacia el este-sureste y entra en el Ágora por su ángulo noroeste, como en la lámina 5 de *Agora XIV*.
 - **El Erídano** estaba trazado con coordenadas fijas. Ahora sale de la ciudad por la Puerta Sagrada, con su cauce perpendicular a la muralla, y corre hacia el oeste. Antes la franja de agua de la Puerta Sagrada iba a lo largo de la muralla.
 
+## La Acrópolis y el Ágora
+
+La Acrópolis estaba unos 70 m al este respecto al Ágora. Por separado, cada conjunto tiene sus proporciones bien (escala 0,81-0,82), pero la distancia entre ambos estaba estirada: del Tholos al Partenón había 693 m, cuando a la escala del centro deberían ser unos 530-600.
+
+La Acrópolis es el origen de coordenadas del mapa: la roca, el Partenón, el teatro y toda la ladera sur se miden desde ella. El Ágora, en cambio, depende de un solo punto (`AG`). Por eso se ha acercado el Ágora a la Acrópolis, y no al revés:
+
+- **El Ágora** se desplaza 100 m al este, con todos sus edificios, el llano, el Kolonos Agoraios con el Hefestión, las escuelas, tu casa, la casa de Simón, los carteles y los personajes.
+- **El Eleusinion** pasa a (−198,−175), al pie de la Acrópolis y al este de la subida de la Vía Panatenaica, como en la realidad.
+- **La Vía Panatenaica** entre el Ágora y la Acrópolis y el arranque del camino del Liceo se han rehecho, porque tenían puntos fijos.
+
+Resultado: ajustando juntos la cima de la Acrópolis y el Ágora (10 edificios), todos quedan a menos de 38 m; antes, la Acrópolis entera se desviaba 55-77 m. No hay casas montadas sobre ningún edificio.
+
+Queda una diferencia pequeña dentro de la Acrópolis: el Partenón está unos 40 m al este respecto al Erecteion, porque la roca del juego es algo más baja de norte a sur, y el Asclepieion unos 30 m al oeste respecto al teatro.
+
 ## El Ágora, edificio por edificio
 
 Plano de referencia: *Agora XIV*, lámina 5, «The Agora in Late 5th Century B.C.», de J. Travlos (1970), con escala gráfica de 100 m y el norte arriba. Es el estado del Ágora más cercano al 386.
@@ -77,4 +91,3 @@ El ajuste con 11 edificios da escala 0,91 y giro −6,7°: el Ágora del juego e
 
 ## Pendiente
 
-- La Acrópolis, unos 70 m al este respecto al Ágora.

@@ -580,7 +580,8 @@ function wrapA(a){while(a>Math.PI)a-=TAU;while(a<-Math.PI)a+=TAU;return a;}
 const ACRO={x:0,z:0,rx:135,rz:64,h:60};
 const AY=ACRO.h;
 const THEA={x:62,z:142,r0:10,r1:58,h0:2,step:0.45};
-const AG={x:-470,z:-330};                 // centro del Ágora: los edificios se colocan con AL(x,z) en metros desde aquí
+const AG={x:-370,z:-330};                 // centro del Ágora: los edificios se colocan con AL(x,z) en metros desde aquí
+                                          // (antes en x=−470: el Ágora quedaba demasiado lejos de la Acrópolis; ver docs/revision_atenas.md)
 const AGORA={x:AG.x,z:AG.z,r:150};
 const AL=(lx,lz)=>[AG.x+lx,AG.z+lz];
 const PNYX={x:-520,z:60,rx:70,rz:55,h:45};
@@ -1047,12 +1048,12 @@ const ACADEMY={x:-1146,z:-1219};   // al norte-noroeste del Dípilon, a ~1,5 km 
 const DROMOS=(()=>{const dx=ACADEMY.x-D.x,dz=ACADEMY.z-D.z,l=Math.hypot(dx,dz);return{x:D.x,z:D.z,ox:dx/l,oz:dz/l,L:l};})();
 const LYCEUM={x:640,z:-110};
 const CYNO={x:520,z:400},OLY={x:255,z:195};
-const ELEUS={x:-282,z:-222};
-ROADS.push({name:'Vía Panatenaica',w:5,pts:[[D.x,D.z],[D.x-D.ox*80,D.z-D.oz*80],AL(-150,-150),AL(-88,-132),AL(-28,-88),AL(60,30),AL(140,118),[-300,-185],[-226,-100],[-232,-15],[-238,-2]]});
+const ELEUS={x:-198,z:-175};   // al pie de la Acrópolis, al este de la subida de la Vía Panatenaica
+ROADS.push({name:'Vía Panatenaica',w:5,pts:[[D.x,D.z],[D.x-D.ox*80,D.z-D.oz*80],AL(-150,-150),AL(-88,-132),AL(-28,-88),AL(60,30),AL(140,118),[-226,-100],[-232,-15],[-238,-2]]});
 ROADS.push({w:4.5,pts:[[D.x,D.z],[ACADEMY.x-DROMOS.ox*40,ACADEMY.z-DROMOS.oz*40]]});
 ROADS.push({w:3,pts:[[SG.x,SG.z],[SG.x+SG.ox*420+90,SG.z+SG.oz*420]]});
 ROADS.push({w:3.5,pts:[AL(-58,96),[-548,-150],[-538,-40],[PNYX.x+12,PNYX.z-34]]});
-ROADS.push({w:4,pts:[[-300,-185],[-120,-150],[60,-250],[EG.x-60,EG.z+110],[EG.x,EG.z],[EG.x+EG.ox*90,EG.z+EG.oz*90],[LYCEUM.x-28,LYCEUM.z]]});
+ROADS.push({w:4,pts:[[-228,-128],[-120,-150],[60,-250],[EG.x-60,EG.z+110],[EG.x,EG.z],[EG.x+EG.ox*90,EG.z+EG.oz*90],[LYCEUM.x-28,LYCEUM.z]]});
 ROADS.push({w:3.5,pts:[[-238,-2],[-205,80],[-112,114],[-40,132],[-30,200],[80,214],[150,196],[190,236],[SGATE.x,SGATE.z],[CYNO.x-26,CYNO.z]]});
 ROADS.push({w:4,pts:[[PNYX.x+12,PNYX.z-34],[-610,170],[PG.x,PG.z],[PG.x+LW_DIR[0]*1600,PG.z+LW_DIR[1]*1600]]});
 ROADS.push({w:3,pts:[AL(-40,-162),[-520,-560],[NG.x,NG.z],[NG.x-20,NG.z-420]]});
