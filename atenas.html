@@ -1069,7 +1069,7 @@ const ROAD_C=new THREE.Color('#cdb791'),GRASS_C=new THREE.Color('#9a9258'),GREEN
 function buildTerrain(size,seg,cx,cz,inner){
   const g=new THREE.PlaneGeometry(size,size,seg,seg);g.rotateX(-Math.PI/2);
   const pos=g.attributes.position,n=pos.count,col=new Float32Array(n*3);const c=new THREE.Color();
-  const half=INNER.size/2-2,step=size/seg;
+  if(inner)INNER.mesh=size;const half=(INNER.mesh||INNER.size)/2-2,step=size/seg;   // la malla cercana pasa un poco del borde: así la lejana no asoma sobre las salidas
   for(let i=0;i<n;i++){
     const x=pos.getX(i)+cx,z=pos.getZ(i)+cz;
     let h=displayH(x,z);
@@ -2414,7 +2414,7 @@ function bwSteps(){
   return [
   ['defineRiversGR',()=>{defineRiversGR();
   }],
-  ['buildTerrain',()=>{terrainInner=buildTerrain(INNER.size,440,INNER.x,INNER.z,true);
+  ['buildTerrain',()=>{terrainInner=buildTerrain(INNER.size+300,500,INNER.x,INNER.z,true);
   }],
   ['buildTerrain',()=>{buildTerrain(12000,120,INNER.x,INNER.z,false);
   }],
@@ -3269,6 +3269,13 @@ function buildGates(){
     const days=Math.max(1,Math.round(g.br.km/30)),lb=labelSprite('Hacia '+mapName(g.to),'por el '+dirName(g.ox,g.oz)+' · unos '+days+(days>1?' días':' día')+' de camino');
     lb.position.set(0,3.6,0);lb.visible=false;grpG.add(lb);g.lb=lb;}
 }
+// franja que sigue el relieve (caminos, cañadas, lindes): una losa plana larga queda enterrada o flotando
+function drapeStrip(x0,z0,x1,z1,w,mat,lift){const L=Math.hypot(x1-x0,z1-z0),n=Math.max(1,Math.ceil(L/4)),nx=-(z1-z0)/L*w/2,nz=(x1-x0)/L*w/2,pos=[],y=(x,z)=>terrainH(x,z)+Math.max(0.22,lift||0);
+  const P=[];for(let i=0;i<=n;i++){const x=lerp(x0,x1,i/n),z=lerp(z0,z1,i/n);P.push([x+nx,y(x+nx,z+nz),z+nz,x-nx,y(x-nx,z-nz),z-nz]);}
+  for(let i=0;i<n;i++){const a=P[i],b=P[i+1];if(Math.max(Math.abs(a[1]-a[4]),Math.abs(b[1]-b[4]),Math.abs(a[1]-b[1]),Math.abs(a[4]-b[4]))>Math.max(2.5,w*0.35))continue;   // en las laderas muy empinadas no se pinta
+  pos.push(a[0],a[1],a[2],b[0],b[1],b[2],a[3],a[4],a[5],a[3],a[4],a[5],b[0],b[1],b[2],b[3],b[4],b[5]);}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
+  const m=new THREE.Mesh(g,mat);m.material.side=THREE.DoubleSide;m.material.polygonOffset=true;m.material.polygonOffsetFactor=-2;m.material.polygonOffsetUnits=-2;m.receiveShadow=true;scene.add(m);return m;}
 const TRAV_STONE=()=>lam('#d8ccb0');
 // al llegar a una puerta se camina hasta el mapa vecino
 let gateT=0,gateCool=0;
@@ -6216,7 +6223,7 @@ function buildRomaDests(){
    {const ga=lam('#c9bc9f');for(const[x,z]of[[t.x,t.z-120],[t.x,t.z+120]]){arch({x,z,rot:0,W:8,D:3,H:9});for(const s of[-1,1])statue(x+s*2.2,terrainH(x,z)+4.5,z+(z<t.z?-1.6:1.6),z<t.z?Math.PI:0,0.9,'marble');}}
    forumR(t.x+20,t.z,46,26,_t(4664,'Foro de Saepinum'));basilica({x:t.x+20,z:t.z-40,rot:0,L:36,D:18,name:_t(4665,'Basílica de Saepinum')});
    theatre({x:t.x-70,z:t.z+80,rot:0,R0:8,R1:24,H:11,name:_t(4666,'Teatro de Saepinum'),noPlays:true});destHouses(I,t.x,t.z,26,90,true,{inside:(x,z)=>Math.abs(x-t.x)<100&&Math.abs(z-t.z)<110&&Math.abs(x-t.x)>8});
-   box(14,0.15,I.R*2.6,lam('#8f9a62'),t.x,terrainH(t.x,t.z)+0.08,t.z);
+   drapeStrip(t.x,I.z-I.R*1.2,t.x,I.z+I.R*1.2,14,new THREE.MeshLambertMaterial({color:'#8f9a62'}),0.08);   // el tratturo, la cañada de los rebaños
    {const fl=grp(t.x,terrainH(t.x,t.z+200),t.z+200,0);for(let i=0;i<30;i++)sheep(fl,rr(-6,6),rr(-30,30));}
    {const p=I.pietra;romanTemple({x:p.x,z:p.z,rot:Math.PI/2,W:12,L:20,pod:3,colD:0.8,colH:6,nW:4,deep:2,name:_t(4667,'Santuario de Pietrabbondante')});}
    place('saepinum','Saepinum','SAEPINVM',_t(4668,'Un pueblo pequeño en un valle de montaña, en el corazón del antiguo Samnio. Sus murallas con torres las pagaron Tiberio y su hermano Druso en tiempos de Augusto, como dice la inscripción de las puertas, donde hay estatuas de bárbaros prisioneros. Dentro: un foro, una basílica, un teatro, termas, tiendas. Todo lo necesario para vivir como en Roma, pero con más ovejas.'),t.x+10,t.z-100,0);
@@ -6273,8 +6280,8 @@ function buildRomaDests(){
    romaVillagers(I,c.x,c.z+10,5,[_t(4715,'Mi familia es etrusca desde antes de Roma. Todavía leemos los libros del rayo.'),_t(4716,'En las tumbas de los antepasados hay banquetes pintados que nunca se acaban.'),_t(4717,'Pocos hablan ya etrusco. Los viejos, y los harúspices.'),_t(4718,'El vino de Graviscae, el puerto, es flojo; el aceite, bueno.')]);}
   // ---------------------------------------- VIII. Aemilia: Mutina
   {const I=G('aemilia'),t=I.town;
-   box(I.R*2.8,0.2,7,lam('#8f8778'),I.x,1.3,I.z+60);for(let i=-6;i<=6;i++){const x=I.x+i*90,z=I.z+66;const m=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.4,1.8,10),TRAV);m.position.set(x,terrainH(x,z)+0.9,z);scene.add(m);addCirc(x,z,0.5);}
-   for(let i=-7;i<=7;i++){box(1.4,0.08,I.R*2.6,lam('#a59a72'),I.x+i*71,terrainH(I.x+i*71,0)+0.05,I.z);box(I.R*2.6,0.08,1.4,lam('#a59a72'),I.x,terrainH(I.x,I.z+i*71)+0.05,I.z+i*71);}
+   drapeStrip(I.x-I.R*1.2,I.z+60,I.x+I.R*1.2,I.z+60,7,new THREE.MeshLambertMaterial({color:'#8f8778'}),0.1);for(let i=-6;i<=6;i++){const x=I.x+i*90,z=I.z+66;const m=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.4,1.8,10),TRAV);m.position.set(x,terrainH(x,z)+0.9,z);scene.add(m);addCirc(x,z,0.5);}
+   {const mt=new THREE.MeshLambertMaterial({color:'#a59a72'});for(let i=-7;i<=7;i++){{drapeStrip(I.x+i*71,I.z-I.R*1.2,I.x+i*71,I.z+I.R*1.2,1.4,mt,0.05);drapeStrip(I.x-I.R*1.2,I.z+i*71,I.x+I.R*1.2,I.z+i*71,1.4,mt,0.05);}}}
    for(let i=-6;i<6;i++)for(let j=-6;j<6;j++){if(R()<0.4)continue;const x=I.x+(i+0.5)*71,z=I.z+(j+0.5)*71;if(Math.hypot(x-t.x,z-t.z)<130||Math.abs(z-I.z-60)<40)continue;const m=new THREE.Mesh(new THREE.PlaneGeometry(64,64),lam(pick(['#b8a865','#8f9a52','#a8a070','#c2b27a'])));m.rotation.x=-Math.PI/2;m.position.set(x,terrainH(x,z)+0.04,z);scene.add(m);}
    rectWall(t.x,t.z,160,180,BRICK,6);forumR(t.x,t.z,40,26,_t(4719,'Foro de Mutina'));romanTemple({x:t.x,z:t.z-50,rot:0,W:12,L:22,pod:2.8,colD:0.8,colH:7,nW:4,deep:2,name:_t(4720,'Templo de Mutina')});destHouses(I,t.x,t.z,26,75,true,{inside:(x,z)=>Math.abs(x-t.x)<72&&Math.abs(z-t.z)<82});
    place('via_emilia',_t(4721,'La Vía Emilia'),'VIA AEMILIA',_t(4722,'El cónsul Marco Emilio Lépido la trazó en el 187 a.C., recta como una regla, desde Ariminum hasta Placentia, a orillas del Po: unos 260 kilómetros. A lo largo de ella se fundaron colonias cada pocas jornadas: Bononia, Mutina, Parma, Regium. Toda la región ha tomado su nombre.'),I.x-40,I.z+76,0);
@@ -6456,7 +6463,7 @@ function romeSteps(){
   ['romaRoads',()=>{romaRoads();
   }],
   ['buildTerrain',()=>{Object.assign(INNER,{x:0,z:-170,size:2800});edgeSlots._c={};   // Roma: un cuadrado mayor, con los montes y la Vía Apia
-    terrainInner=buildTerrain(INNER.size,600,INNER.x,INNER.z,true);
+    terrainInner=buildTerrain(INNER.size+300,664,INNER.x,INNER.z,true);
   }],
   ['buildTerrain',()=>{buildTerrain(14000,120,INNER.x,INNER.z,false);
   }],
@@ -22844,7 +22851,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='2c9f9b006878';
+const NOSTOS_VER='6e32bb0a8c57';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
