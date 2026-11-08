@@ -45,6 +45,25 @@ El margen de lectura de la *Synopsis* es de unos ±10 píxeles, es decir, de uno
 - **El centro del Circo, unos 150 m más al norte** de lo que le correspondería: moverlo hacia el sur lo metería en el Aventino del juego, que está comprimido hacia el norte por el trazado del río (ya anotado en la revisión anterior).
 - **Las Termas de Tito**: la etiqueta «Th. Titi» de la *Synopsis* no está sobre el edificio; en la lámina 30 las termas quedan al norte y algo al este del Coliseo, como en el juego.
 
+## Segunda revisión: láminas sueltas
+
+Con el EPUB completo se georreferenció cada lámina por separado (cada una con sus propios puntos de anclaje, porque las láminas se solapan y están desplazadas) y se superpusieron encima el río, las calles y las plantas del juego. Además, 14 edificios del Foro y del Capitolio, cuya posición real es segura, dieron un ajuste de conjunto (escala 0,77, giro −12,8°) que sirve para distinguir **compresión deliberada** de **error local**.
+
+**Bien situados** (10–48 m de desviación respecto al ajuste): Basílica Emilia, Templo de Marte Vengador, Tabulario, Concordia, Juno Moneta, Curia, Anfiteatro Flavio, Júpiter Capitolino, Vesta, Cástor, Basílica Julia, Saturno, Teatro de Marcelo y Esculapio en la isla. En la lámina 29 el Foro y el Anfiteatro coinciden, y las calles siguen los valles.
+
+**Corregido ahora:**
+
+- **El Pórtico de Octavia** (con los templos de Juno Reina y Júpiter Estátor) estaba unos 140 m al norte, separado del Teatro de Marcelo por varias manzanas. En Lanciani (lám. 21) está pegado al noroeste del teatro. Se ha movido allí, y su patio queda libre de casas (antes había casas dentro del pórtico).
+- **El Templo de Hércules Vencedor** estaba frente a la punta norte de la isla, al lado del teatro. En Lanciani (lám. 28) está frente a la mitad sur de la isla, cerca de la Porta Trigemina; su nombre antiguo era precisamente *Hercules Victor ad Portam Trigeminam*. Se ha llevado allí, con una plaza abierta alrededor, y se ha ampliado hacia el sur la explanada del Foro Boario.
+- **Nuevo: el Templo de Portuno**, el templo jónico rectangular que está al lado del de Hércules junto al puerto fluvial. No estaba en el juego. Tiene su cartel.
+
+**Comprobado y no cambiado:**
+
+- **El Palatino es demasiado estrecho** de norte a sur (58 m de semieje). Por eso el palacio de Domiciano queda unos 75 m al oeste en la lámina 29 y, en el ajuste de conjunto, la Casa de Augusto y el centro del Circo quedan a 100–150 m. Arreglarlo es rehacer el Palatino, el Circo y el Aventino a la vez: queda como propuesta aparte.
+- **El río al sur de la isla** debería torcer hacia el este, hasta pasar junto al Foro Boario y el Aventino. En el juego baja más recto, con la orilla oriental unos 120–180 m al oeste. Corregirlo obliga a mover la muralla de la Porta Trigemina, la calle del Velabro y el puente Sublicio; se deja anotado. Las posiciones relativas sí se han conservado: teatro → isla → Foro Boario → Porta Trigemina → cárceres del Circo.
+- **El Campo de Marte** está desplazado en bloque unos 150–190 m hacia el norte, y el Emporio y la Pirámide están comprimidos. Es compresión deliberada para que el mapa sea recorrible.
+- Para el Templo de Claudio, la Domus Aurea, la Puerta Capena y las Termas de Tito, las coordenadas reales del ajuste no eran fiables; en las láminas 30, 35 y 36 su posición respecto a sus vecinos es aceptable (el de Claudio, algo al suroeste).
+
 ## Pendiente
 
-Una revisión lámina a lámina (46 láminas a escala 1:1000) permitiría comprobar calles, manzanas y edificios menores. Las láminas del EPUB tienen una resolución de 1020 × 680 píxeles, suficiente para los edificios grandes pero justa para las calles.
+Quedan por comprobar las calles y manzanas menores de cada lámina (46 láminas a escala 1:1000), y las dos reordenaciones grandes descritas arriba (el Palatino con el Circo y el río al sur de la isla). Las láminas del EPUB tienen una resolución de 1020 × 680 píxeles, suficiente para los edificios grandes pero justa para las calles.
