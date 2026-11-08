@@ -275,6 +275,13 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Casas: `courtyardHouse(...,keep)` busca un sitio más llano si la parcela tiene más de 2,5 m de desnivel, o no se construye. Las casas con nombre pasan `keep=true`.
   - `destHouses` deja libre la franja de las estelas junto a la llegada y no construye encima de ningún cartel.
 - v162: cámara de diálogo (`TCAM`, `talkCamera()` tras `placeCamera0()`): al entrar en `ui==='dialog'` con un `focus` a menos de 8 m (no estelas), la cámara se coloca a 2,9 m de la persona, de tres cuartos, mirando a la cintura para que la cara quede sobre el cuadro; transición suave de ida y vuelta. Se desactiva con `SET.talkCam=false`.
+- v163 (rendimiento): medido con `__d.REN().info` (prueba `t_perf.js`, M=roma para Roma).
+  - **Culling por celdas** (`CULL`, `cullTick`): cada objeto de primer nivel se registra (800 por fotograma) con su centro y su radio, y se saca de la escena si la cámara está lejos: radio <1,5 m → 300 m; <6 → 750; <30 → 1500; si no, 2600. Se recalcula al cambiar de celda de 120 m o cada 1,5 s, usando la posición actual de lo que se mueve.
+  - `scene.remove`/`scene.add` están envueltos para que lo que el juego borra no vuelva. No se registran las luces (ni los grupos que las contienen: cambiar el número de luces recompila los materiales), el cielo, `DREAM.g` ni los trozos instanciados.
+  - Resultado en el Ágora: de 70.800 a 17.100 objetos en escena, de 49.500 a 9.500 que proyectan sombra y de 4.645 a 2.998 llamadas de dibujo. En el Pireo, de 1.651 a 638 llamadas.
+  - `chunked`: celdas de al menos 420 m (Roma pasa de 19.333 a 10.579 grupos), `matrixAutoUpdate=false` y distancia ×0,7 en móvil (`CHUNK_FAR_K`).
+  - Sombra del sol a 2048 (antes 4096 en escritorio). Personas y PNJ visibles hasta 150 m (antes 180).
+  - Fusión de piezas estáticas (`MERGE`, `mgGroup`): escrita pero **apagada**. Ahorra solo un ~10 % de llamadas y en la prueba disparaba la memoria. Diagnóstico con `__d.mgDiag()` y `__d.mgSize()`.
 - Pendiente: revisión lámina a lámina de calles y manzanas con la *Forma Urbis*.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
