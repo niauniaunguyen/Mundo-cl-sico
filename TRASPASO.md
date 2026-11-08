@@ -274,6 +274,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - Sueño de la Academia: `DREAM.g` oculto salvo durante el sueño. Era la «caja gris» que flotaba en el cielo.
   - Casas: `courtyardHouse(...,keep)` busca un sitio más llano si la parcela tiene más de 2,5 m de desnivel, o no se construye. Las casas con nombre pasan `keep=true`.
   - `destHouses` deja libre la franja de las estelas junto a la llegada y no construye encima de ningún cartel.
+- v162: cámara de diálogo (`TCAM`, `talkCamera()` tras `placeCamera0()`): al entrar en `ui==='dialog'` con un `focus` a menos de 8 m (no estelas), la cámara se coloca a 2,9 m de la persona, de tres cuartos, mirando a la cintura para que la cara quede sobre el cuadro; transición suave de ida y vuelta. Se desactiva con `SET.talkCam=false`.
 - Pendiente: revisión lámina a lámina de calles y manzanas con la *Forma Urbis*.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber

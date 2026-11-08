@@ -10899,7 +10899,22 @@ function updateAvatar(dt,t){
       personWalk(w,AVATAR.ph,v>0.3?(keys.run?1.25:1):0);w.position.y+=v>0.3?Math.abs(Math.sin(AVATAR.ph))*0.05:0;}}
   if(AVATAR.rider){AVATAR.rider.visible=MOUNT.riding;for(const h of AVATAR.riderHead)h.visible=AVATAR.view3;}
 }
+// cámara de diálogo: al hablar con alguien, la cámara se acerca y encuadra a esa persona; al terminar, vuelve con suavidad
+const TCAM={on:false,k:0,t0:0,tx:0,ty:0,tz:0,q:null,p:null};
+function talkCamera(){const now=performance.now(),dt=Math.min(0.1,TCAM.t0?(now-TCAM.t0)/1000:0);TCAM.t0=now;
+  if(ui==='dialog'&&!(typeof SET!=='undefined'&&SET&&SET.talkCam===false)){if(TCAM.on===false){const f=typeof focus!=='undefined'?focus:null;
+      if(f&&isFinite(f.x)&&f.kind!=='sign'&&Math.hypot(f.x-player.x,f.z-player.z)<8){TCAM.on=true;TCAM.tx=f.x;TCAM.tz=f.z;TCAM.ty=(f.y!==undefined&&f.kind==='egx'?f.y:floorAt(f.x,f.z))+(f.kind==='god'?2.4:1.55);}else TCAM.on='no';}}
+  else TCAM.on=false;
+  const goal=TCAM.on===true?1:0;TCAM.k+=(goal-TCAM.k)*Math.min(1,dt*(goal?3.2:4.5));if(TCAM.k<0.002){TCAM.k=0;return;}
+  let dx=player.x-TCAM.tx,dz=player.z-TCAM.tz,l=Math.hypot(dx,dz)||1;dx/=l;dz/=l;const sx=-dz,sz=dx;
+  const px=TCAM.tx+dx*2.9+sx*0.9,pz=TCAM.tz+dz*2.9+sz*0.9,py=Math.max(TCAM.ty+0.05,floorAt(px,pz)+1.2);
+  const k=sstep(TCAM.k),P=TCAM.p||(TCAM.p=new THREE.Vector3()),Q=TCAM.q||(TCAM.q=new THREE.Quaternion()),q0=camera.quaternion.clone();
+  P.set(px,py,pz);camera.position.lerp(P,k);
+  const m=new THREE.Matrix4().lookAt(P,new THREE.Vector3(TCAM.tx-sx*0.3,TCAM.ty-1.05,TCAM.tz-sz*0.3),camera.up);Q.setFromRotationMatrix(m);
+  camera.quaternion.copy(q0).slerp(Q,k);}
 function placeCamera(){
+  placeCamera0();talkCamera();}
+function placeCamera0(){
   const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw);
   if(AVATAR.view3&&ui!=='start'){const back=MOUNT.riding?7.5:5,up=MOUNT.riding?2.0:1.5;let cx=player.x-fx*back,cz=player.z-fz*back,cy=player.camY+up-player.pitch*3;
     cy=Math.max(cy,floorAt(cx,cz)+0.8);camera.position.set(cx,cy,cz);camera.lookAt(player.x+fx*2,player.camY-0.2+player.pitch*3,player.z+fz*2);gfCam(true);}
@@ -22794,7 +22809,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='9c4d7628e1af';
+const NOSTOS_VER='29f6e55fb3a5';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
