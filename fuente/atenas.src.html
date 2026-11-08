@@ -22083,7 +22083,7 @@ function crtBuild(){if(CRT.built)return;CRT.built=true;const r=mulberry32(123);
   {const id='ida';for(let i=0;i<110;i++){const lx=(r()-0.5)*760,lz=(r()-0.5)*760;if(crtHL(id,lx,lz)>110)continue;crtTree(id,lx,lz,r()<0.4?'cipres':'roble');}
    const cx=-62,cz=-86,[wx,wz]=crtW(id,cx,cz),y=crtHL(id,cx,cz);const g=grp(wx,y,wz,Math.PI);   // la boca mira al norte
    {const hill=new THREE.Mesh(new THREE.SphereGeometry(13,12,8,0,TAU,0,Math.PI/2),lam('#7d766c'));hill.scale.set(1,0.75,0.9);hill.position.set(0,-1.5,-6);g.add(hill);}box(4.2,3.8,0.6,lam('#0d0a09'),0,1.7,5.3,g);for(let k=0;k<9;k++){const ro=new THREE.Mesh(new THREE.DodecahedronGeometry(1.2+r()*1.6,0),lam(k%2?'#7d766c':'#6f685e'));const a=-1.3+k*0.33;ro.position.set(Math.sin(a)*3.4,1.2+Math.cos(a)*3.2,5+r()*0.6);ro.rotation.set(r()*3,r()*3,r()*3);g.add(ro);}
-   box(1.4,1,1,M.marble,0,0.5,10,g);   // altar ante la cueva
+   {const ay=crtHL(id,cx,cz-10)-y;box(1.4,1+Math.max(0,-ay)*0+0.6,1,M.marble,0,ay+0.5,10,g);box(1.8,Math.max(0.3,4-ay),1.4,lam('#7d766c'),0,ay-Math.max(0.3,4-ay)/2+0.1,10,g);}   // altar ante la cueva
    for(let k=0;k<5;k++){const sh=new THREE.Mesh(new THREE.CylinderGeometry(0.6,0.6,0.08,18),lam('#a8743a'));sh.rotation.x=Math.PI/2;sh.position.set(-3+k*1.5,4.6,4.4);g.add(sh);}   // escudos de bronce ofrendados
    addCirc(wx,wz+6,10.5);CRT.cave={x:wx,z:wz};
    const am=crtGoat(id,-80,-104,'#f0ece4',true);am.scale.setScalar(1.25);CRT.amal=egxObj(am.position.x,am.position.z,crtHL(id,-80,-104),'crt:amaltea','Una cabra blanca','con un cuerno roto',3);CRT.amal.g=am;CRT.objs.push(CRT.amal);
@@ -22119,11 +22119,11 @@ function crtMaia(){const I=ISLANDS.find(q=>q.id==='estinfalo'),P=PORTS.estinfalo
   const pl=PLACES[PLACES.length-1],s=stele(sx,sz,0,'cueva_maya');signObjs.push({kind:'sign',data:pl,g:s.g,mk:s.mk,x:sx,z:sz});if(typeof PSRC!=='undefined')PSRC.cueva_maya={a:['Himno homérico a Hermes 1-19 y 24-61','Pausanias VIII 17.1-2']};
   const tf=findFree(f[0]-5,f[1]+6,0.6),tg=grp(tf[0],floorAt(tf[0],tf[1]),tf[1],0);const sh=new THREE.Mesh(new THREE.SphereGeometry(0.32,10,6,0,TAU,0,Math.PI/2),lam('#6a5a34'));sh.scale.set(1,0.6,1.3);sh.position.y=0.08;tg.add(sh);const hd=new THREE.Mesh(new THREE.SphereGeometry(0.09,8,6),lam('#7a6a4a'));hd.position.set(0,0.08,0.42);tg.add(hd);
   const o=egxObj(tf[0],tf[1],undefined,'crt:tortuga','Una tortuga','junto a la cueva',2.5);o.g=tg;CRT.objs.push(o);}
-function crtSetup(){if(MODE!=='atenas')return;const C=ISLANDS.find(I=>I.id==='creta');if(!C)return;CRT.X=C.x;CRT.built=false;CRT.objs=[];crtBuild();crtMaia();knDetails();
+function crtSetup(){if(MODE!=='atenas')return;const C=ISLANDS.find(I=>I.id==='creta');if(!C)return;CRT.X=C.x;CRT.built=false;CRT.objs=[];crtBuild();crtDetails();crtMaia();knDetails();
   if(state.pos&&crtBand(state.pos.x,state.pos.z)){/* se guardó dentro: se continúa allí */}}
 // ---- sonidos: los curetes (percusión) junto a la cueva del Ida, y la lira junto a la cueva de Maya
 function crtDrum(t,v){const c=AUD.ctx,o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(55,t+0.25);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.5*v,t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t+0.35);o.connect(g).connect(AUD.master);o.start(t);o.stop(t+0.4);}
-function crtTick(dt){if(MODE!=='atenas'||!CRT.built)return;knTick(dt);
+function crtTick(dt){if(MODE!=='atenas'||!CRT.built)return;knTick(dt);crdTick(dt);
   if(CRT.cave&&typeof aOK==='function'&&aOK()&&!(typeof ACC!=='undefined'&&ACC.noAmb)&&ui==='play'){const d=Math.hypot(player.x-CRT.cave.x,player.z-CRT.cave.z);
     if(d<90){CRT.percT-=dt;if(CRT.percT<0){CRT.percT=2.4;const v=Math.min(1,(90-d)/70),t0=AUD.ctx.currentTime+0.05,B=0.3;
       [[0,'d'],[B,'c'],[2*B,'d'],[2.5*B,'d'],[3*B,'c'],[3.5*B,'c'],[5*B,'d'],[6*B,'c']].forEach(([o,k])=>{if(k==='d')crtDrum(t0+o,v*0.6);else gfNoise(t0+o,'bandpass',3200,1.4,0.16*v,0.002,0.14);});}
@@ -22139,7 +22139,7 @@ function crtTick(dt){if(MODE!=='atenas'||!CRT.built)return;knTick(dt);
   if(lz>CRT.H-2&&S.s)return go(S.s,lx,-CRT.H+14,null);
   const ox=player.x,oz=player.z;player.x=clamp(player.x,CRT.X-CRT.H+3,CRT.X+CRT.H-3);player.z=clamp(player.z,cz-CRT.H+3,cz+CRT.H-3);
   CRT.edgeT=Math.max(0,CRT.edgeT-dt);if((ox!==player.x||oz!==player.z)&&!CRT.edgeT){CRT.edgeT=5;toast('Por ahí solo hay montes sin camino. Sigue el camino hacia el norte o hacia el sur.');}}
-function crtAct(o){const a=String(o.act).slice(4);if(['pithos','cuernos','fresco','hacha','ninos','pastorkn','andreion','agela','epimenides','alfarero','demeter','ovillo'].includes(a))return knAct(a);
+function crtAct(o){const a=String(o.act).slice(4);if(['fuente','colmenas','agrimi','altar','iniciado','quesero','aguila','era','juez','toro'].includes(a))return crdAct(a);if(['pithos','cuernos','fresco','hacha','ninos','pastorkn','andreion','agela','epimenides','alfarero','demeter','ovillo'].includes(a))return knAct(a);
   if(a==='entrar'){swFade(()=>{const w=crtW('camino',4,-CRT.H+16);player.x=w[0];player.z=w[1];player.feet=floorAt(w[0],w[1]);player.camY=player.feet+player.eye;player.yaw=Math.PI;
     toast('<span class="label">El camino del Ida</span><br>Hacia el sur, por el camino de cipreses, se sube al monte Ida y se baja a la llanura de Festo y Gortina. Al norte vuelves a Cnosos.');});return;}
   if(a==='pastora')return vmS('🐐','Una pastora','con sus cabras','<p>«¿Ves esa planta de hojas redondas y peludas? Es díctamo, solo crece en nuestros montes. Cuando a una cabra salvaje la hiere una flecha, busca díctamo, lo come y la flecha se le cae sola. Lo dicen los cazadores, y hasta los sabios de Atenas lo escriben».</p><p class="src">Aristóteles, Historia de los animales IX 6 (612a); Teofrasto, Historia de las plantas IX 16.1. Virgilio contará que Venus curó a Eneas con díctamo de Creta (Eneida XII 411-424).</p>',[vmBye]);
@@ -22240,6 +22240,94 @@ function knAct(a){const S=(gl,n,sub,html)=>vmS(gl,n,sub,html,[vmBye]);
   if(a==='demeter'){if(!state.knOf)return S('🌾','El altar de Deméter','para dejar una ofrenda','<p>Sobre el altar hay figurillas de barro, lamparitas y vasitos con granos de trigo. Las ofrendas se compran a los alfareros del ágora.</p>');state.knOf=0;state.knOfDone=(state.knOfDone||0)+1;if(typeof qAdd==='function')qAdd('eu',1);save();
     return S('🌾','El altar de Deméter','dejas tu ofrenda','<p>Dejas la figurilla en el altar, junto a muchas otras. Así se hacía: los santuarios se llenaban tanto de figurillas que de vez en cuando los sacerdotes las enterraban en fosas para hacer sitio. Gracias a esas fosas, los arqueólogos las encuentran hoy a miles.</p>');}
   if(a==='ovillo')return vmS('🧶','Un ovillo de hilo rojo','el hilo se mete entre las ruinas','<p>Alguien ha dejado aquí un ovillo de hilo rojo. El hilo se adentra entre los muros, como el que Ariadna dio a Teseo para salir del laberinto.</p>',[['Seguir el hilo',()=>knossosTravel('cnosos_sueno')],vmBye]);
+}
+// ---- detalles del interior de Creta: camino del Ida, monte Ida y Mesara
+const CRD={mule:null,muleT:0,oxen:[],eagle:null,bees:[],kri:[],snd:{},sT:{}};
+function crdBovine(id,lx,lz,col,s){const[wx,wz]=crtW(id,lx,lz),g=grp(wx,crtHL(id,lx,lz),wz,0),m=lam(col);box(0.9,0.9,2,m,0,1.2,0,g);box(0.5,0.55,0.7,m,0,1.35,1.25,g);for(const[a,b]of[[-0.3,-0.7],[0.3,-0.7],[-0.3,0.7],[0.3,0.7]])box(0.16,0.8,0.16,m,a,0.4,b,g);
+  for(const sd of[-1,1]){const h=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.5,6),lam('#e8dcc0'));h.position.set(sd*0.32,1.68,1.3);h.rotation.z=-sd*1.1;g.add(h);}g.scale.setScalar(s||1);return g;}
+function crdEgx(id,lx,lz,act,name,sub,g,r){const[wx,wz]=crtW(id,lx,lz);const o=egxObj(wx,wz,crtHL(id,lx,lz),'crt:'+act,name,sub,r||3);if(g)o.g=g;CRT.objs.push(o);return o;}
+function crdStele(id,lx,lz,pid,name,gr,txt,src){crtStele(id,lx,lz,pid,name,gr,txt,src);}
+function crtDetails(){const r=mulberry32(321);
+  // ===== el camino del Ida
+  {const id='camino';
+   // fuente con abrevadero
+   {const[wx,wz]=crtW(id,24,-100),g=grp(wx,crtHL(id,24,-100),wz,0.3);box(3,0.6,1,lam('#8f8670'),0,0.3,0,g);const w=box(2.7,0.05,0.75,new THREE.MeshPhongMaterial({color:'#3f7f8c',shininess:90}),0,0.56,0,g);box(1,1.6,0.6,lam('#9d927a'),0,0.8,-0.75,g);
+    addBox(wx,wz,3,1.6,0.3);CRD.snd.fuente={x:wx,z:wz};crdEgx(id,24,-98,'fuente','Una fuente','con un abrevadero para el ganado',g);}
+   // colmenas de barro tumbadas
+   {const hx=-40,hz=40,gm=lam('#b5764a');for(let k=0;k<8;k++){const lx=hx+(k%4)*1.3,lz=hz+Math.floor(k/4)*1.4,[wx,wz]=crtW(id,lx,lz);const c=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.32,1,10),gm);c.rotation.x=Math.PI/2;c.position.set(wx,crtHL(id,lx,lz)+0.55+Math.floor(k/4)*0.0,wz);c.castShadow=true;scene.add(c);}
+    const[bx,bz]=crtW(id,hx+2,hz+0.7);box(5.4,0.3,3,lam('#9d927a'),bx,crtHL(id,hx+2,hz+0.7)+0.15,bz);addBox(bx,bz,5.6,3.2,0);
+    const pm=new THREE.PointsMaterial({color:0x2a2010,size:0.09});for(let k=0;k<3;k++){const P=new Float32Array(30*3);const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(P,3));const pts=new THREE.Points(pg,pm);scene.add(pts);CRD.bees.push({pts,x:bx-1.5+k*1.5,y:crtHL(id,hx,hz)+1,z:bz,ph:k});}
+    CRD.snd.bees={x:bx,z:bz};const P=crtPerson(id,hx+2,hz+3.5,{chiton:'#b8a888',himation:'#6a5a3a',female:true,hair:'#2a1e14'},'crt:colmenas','Una apicultora','junto a sus colmenas',3.5);}
+   // arriero con su mula y ánforas, que va y viene por el camino
+   {const g=new THREE.Group(),m=lam('#6a5a4a');box(0.6,0.7,1.5,m,0,1.1,0,g);box(0.3,0.4,0.6,m,0,1.45,0.95,g);for(const[a,b]of[[-0.2,-0.5],[0.2,-0.5],[-0.2,0.5],[0.2,0.5]])box(0.1,0.8,0.1,m,a,0.4,b,g);
+    for(const s of[-1,1]){const a=new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.07,0.8,8),lam('#b5764a'));a.position.set(s*0.42,1.25,0);g.add(a);}scene.add(g);
+    const man=makePerson({chiton:'#8a7a5a',hair:'#2a1e14',beard:true,staff:true});scene.add(man);CRD.mule={g,man,t:0.2};}
+   // cabras salvajes (agrimi) en las laderas del Yuctas
+   for(let k=0;k<3;k++){const lx=235+k*9,lz=-125+k*6,[wx,wz]=crtW(id,lx,lz),g=grp(wx,crtHL(id,lx,lz),wz,r()*TAU),m=lam('#8a6a44');box(0.4,0.45,0.9,m,0,0.7,0,g);box(0.22,0.28,0.35,m,0,0.95,0.55,g);for(const[a,b]of[[-0.14,-0.3],[0.14,-0.3],[-0.14,0.3],[0.14,0.3]])box(0.08,0.5,0.08,m,a,0.25,b,g);
+    for(const s of[-1,1]){const h=new THREE.Mesh(new THREE.TorusGeometry(0.28,0.035,5,10,Math.PI*0.9),lam('#5a4a3a'));h.position.set(s*0.07,1.2,0.35);h.rotation.set(0,Math.PI/2,0.4);g.add(h);}CRD.kri.push({g,lx,lz,ph:k*2});}
+   crdEgx(id,244,-118,'agrimi','Cabras salvajes','en las rocas del Yuctas',null,14);
+   // altar rústico junto al camino
+   {const[wx,wz]=crtW(id,-20,250),g=grp(wx,crtHL(id,-20,250),wz,0);for(let k=0;k<9;k++){const s=new THREE.Mesh(new THREE.DodecahedronGeometry(0.35+r()*0.2,0),lam('#8f8670'));s.position.set((r()-0.5)*1.2,0.3+Math.floor(k/4)*0.35,(r()-0.5)*1);g.add(s);}
+    for(let k=0;k<4;k++){const f=new THREE.Mesh(new THREE.SphereGeometry(0.09,6,5),lam(['#c9a24a','#8a3a2a','#e8dcc0','#6a8a3a'][k]));f.position.set(-0.3+k*0.2,1.1,0.1);g.add(f);}addCirc(wx,wz,0.9);crdEgx(id,-20,252,'altar','Un montón de piedras','con ofrendas encima',g);}}
+  // ===== el monte Ida
+  {const id='ida';
+   crtPerson(id,-54,-98,{chiton:'#1e1a18',himation:'#1e1a18',beard:true,hair:'#2a1e14'},'crt:iniciado','Un hombre envuelto en lana negra','a la entrada de la cueva',3);
+   // cabaña de piedra de pastores y quesos
+   {const lx=90,lz=-160,[wx,wz]=crtW(id,lx,lz),g=grp(wx,crtHL(id,lx,lz),wz,0.6),sm=lam('#8f8670');const d=new THREE.Mesh(new THREE.SphereGeometry(2.6,10,6,0,TAU,0,Math.PI/2),sm);d.scale.y=0.9;g.add(d);box(1,1.6,0.5,lam('#1a1512'),0,0.8,2.5,g);
+    box(1.8,0.08,0.6,lam('#6a5038'),3.2,1,0,g);for(let k=0;k<4;k++){const ch=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.17,0.12,10),lam('#ece2c8'));ch.position.set(2.6+k*0.4,1.1,0);g.add(ch);}addCirc(wx,wz,2.7);
+    crtPerson(id,lx+4,lz+3,{chiton:'#7a6a50',himation:'#8a7a5a',hair:'#3a2a1e',beard:true,staff:true},'crt:quesero','Un pastor del Ida','haciendo queso',3.5);}
+   // el águila de Zeus sobre la cueva
+   {const g=new THREE.Group(),m=lam('#3a2c20');box(0.3,0.25,1,m,0,0,0,g);for(const s of[-1,1]){const w=box(1.6,0.05,0.55,m,s*0.9,0.05,0,g);w.rotation.z=s*0.15;}box(0.2,0.2,0.3,lam('#d8d0c0'),0,0.05,0.6,g);scene.add(g);CRD.eagle={g,c:CRT.cave};}
+   crdEgx(id,-62,-60,'aguila','Un águila','da vueltas sobre la cueva',null,30);}
+  // ===== la Mesara
+  {const id='mesara';
+   // era: bueyes trillando en círculo
+   {const lx=40,lz=120,[wx,wz]=crtW(id,lx,lz),y=crtHL(id,lx,lz);const d=new THREE.Mesh(new THREE.CylinderGeometry(9,9,0.2,28),lam('#c9b27a'));d.position.set(wx,y+0.05,wz);d.receiveShadow=true;scene.add(d);
+    for(let k=0;k<40;k++){const a=k/40*TAU;box(0.5,0.3,0.4,lam('#8f8670'),wx+Math.cos(a)*9.2,y+0.15,wz+Math.sin(a)*9.2);}
+    const hay=new THREE.Mesh(new THREE.ConeGeometry(2,2.2,10),lam('#d8bf6a'));hay.position.set(wx+12,y+1.1,wz+3);scene.add(hay);addCirc(wx+12,wz+3,2);
+    for(let k=0;k<2;k++)CRD.oxen.push({g:crdBovine(id,lx,lz,k?'#7a5a3a':'#a8875a',0.9),cx:wx,cz:wz,y,ph:k*0.5});
+    CRD.snd.era={x:wx,z:wz};crtPerson(id,lx+11,lz-4,{chiton:'#b8a888',hair:'#3a2a1e',beard:true,staff:true},'crt:era','Un campesino','trillando el trigo con sus bueyes',4);}
+   // tumbas redondas muy antiguas
+   for(const[lx,lz]of[[-60,-250],[-30,-275]]){const[wx,wz]=crtW(id,lx,lz),g=grp(wx,crtHL(id,lx,lz),wz,0.8),sm=lam('#8f8670');for(let k=0;k<22;k++){if(k===5)continue;const a=k/22*TAU;box(1.6,0.5+r()*0.9,0.9,sm,Math.cos(a)*4.4,0.4,Math.sin(a)*4.4,g).rotation.y=-a;}
+    box(1,0.6,4,sm,-1.1,0.3,6,g);box(1,0.6,4,sm,1.1,0.3,6,g);addCirc(wx,wz,4.6);}
+   crdStele(id,-48,-262,'tolos_mesara','Las tumbas redondas','ΤΑΦΟΙ','Estos círculos de piedra son tumbas tan antiguas que nadie recuerda quién las construyó. Eran redondas, con una cúpula de piedra que ya se ha hundido, y en cada una se enterraba durante siglos a toda una familia o una aldea. Hoy sabemos que son de los primeros cretenses, mil años anteriores incluso al palacio de Cnosos.',{m:['Tumbas circulares (tholoi) de la Mesara, hacia el 3000-1700 a.C.']});
+   // templo de Apolo Pitio en Gortina
+   temple({name:'Templo de Apolo Pitio',x:crtW(id,140,-5)[0],z:crtW(id,140,-5)[1],rot:Math.PI/2,W:10,L:18,nW:4,nL:7,colD:0.6,colH:5,entH:1.1,pedH:0.9,steps:2,stepH:0.3,roofMat:M.marble});
+   crdStele(id,150,10,'apolo_pitio','El templo de Apolo Pitio','ΑΠΟΛΛΩΝ ΠΥΘΙΟΣ','El templo más importante de Gortina. En sus muros también se grabaron leyes, aún más antiguas que las de la gran pared: las ciudades cretenses ponían sus leyes bajo la protección de los dioses.',{m:['Templo arcaico de Apolo Pitio en Gortina (siglo VII a.C.), con inscripciones legales en sus muros']});
+   // un juez
+   crtPerson(id,176,-44,{chiton:'#e8dfcc',himation:'#3a3a5a',beard:true,hair:'#d8d0c2',staff:true},'crt:juez','Un juez de Gortina','escuchando a dos vecinos',3);
+   crtPerson(id,172,-40,{chiton:'#b8a888',beard:true,hair:'#2a1e14'},'crt:juez','Un vecino','que reclama una cabra',2);
+   // un toro blanco junto al plátano de Europa
+   {const g=crdBovine(id,236,72,'#f2eee4',1.25);g.rotation.y=2.3;addCirc(g.position.x,g.position.z,1.5);crdEgx(id,236,72,'toro','Un toro blanco','paciendo junto al río',g,3.5);}
+   CRD.snd.ranas=crtW(id,280,20);CRD.snd.ranas={x:CRD.snd.ranas[0],z:CRD.snd.ranas[1]};}
+}
+function crdTick(dt){if(!CRT.built||!crtBand(player.x,player.z))return;const t=performance.now()/1000,id=crtSegOf(player.z);
+  if(id==='camino'&&CRD.mule){const M=CRD.mule,road=CRT_SEGS.camino.road;M.t=(M.t+dt*0.006)%2;const u=M.t<1?M.t:2-M.t,f=u*(road.length-1),i=Math.min(road.length-2,Math.floor(f)),q=f-i,lx=road[i][0]+(road[i+1][0]-road[i][0])*q+2,lz=road[i][1]+(road[i+1][1]-road[i][1])*q,[wx,wz]=crtW('camino',lx,lz),dir=M.t<1?0:Math.PI;
+    M.g.position.set(wx,crtHL('camino',lx,lz),wz);M.g.rotation.y=dir;M.man.position.set(wx-0.9,crtHL('camino',lx-0.9,lz),wz+(M.t<1?-1.6:1.6));M.man.rotation.y=dir;
+    for(const b of CRD.bees){const P=b.pts.geometry.attributes.position;for(let k=0;k<30;k++){const a=t*(2+k%5)+k*1.7+b.ph;P.setXYZ(k,b.x+Math.cos(a)*(0.4+(k%7)*0.12),b.y+Math.sin(a*1.3)*0.4,b.z+Math.sin(a)*(0.4+(k%5)*0.12));}P.needsUpdate=true;}
+    for(const k of CRD.kri){k.g.rotation.y=Math.sin(t*0.2+k.ph)*1.2;}}
+  if(id==='ida'&&CRD.eagle){const E=CRD.eagle,a=t*0.15;E.g.position.set(E.c.x+Math.cos(a)*40,crtH(E.c.x,E.c.z)+55+Math.sin(t*0.3)*4,E.c.z+Math.sin(a)*40);E.g.rotation.set(0,-a,0.35);}
+  if(id==='mesara')for(const o of CRD.oxen){const a=t*0.25+o.ph;o.g.position.set(o.cx+Math.cos(a)*5.5,o.y,o.cz+Math.sin(a)*5.5);o.g.rotation.y=-a;}
+  if(!(typeof aOK==='function'&&aOK())||ui!=='play')return;const ac=AUD.ctx,t0=ac.currentTime+0.03,S=CRD.snd,T=CRD.sT;
+  const near=(o,r)=>o?Math.max(0,1-Math.hypot(player.x-o.x,player.z-o.z)/r):0,tick=(k,v,per,fn)=>{if(v<=0)return;T[k]=(T[k]||0)-dt;if(T[k]<0){T[k]=per();fn(v);}};
+  tick('fuente',near(S.fuente,25),()=>0.45,v=>gfNoise(t0,'lowpass',900,0.7,0.05*v,0.05,0.4));
+  tick('bees',near(S.bees,18),()=>0.7,v=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.value=200+Math.random()*40;g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.02*v,t0+0.15);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.8);const f=ac.createBiquadFilter();f.type='bandpass';f.frequency.value=420;o.connect(f).connect(g).connect(AUD.master);o.start(t0);o.stop(t0+0.85);});
+  tick('aguila',id==='ida'?near(CRT.cave,140):0,()=>9+Math.random()*9,v=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(2400,t0);o.frequency.exponentialRampToValueAtTime(1500,t0+0.6);g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.03*v,t0+0.05);g.gain.exponentialRampToValueAtTime(0.0001,t0+0.65);o.connect(g).connect(AUD.master);o.start(t0);o.stop(t0+0.7);});
+  tick('era',near(S.era,40),()=>1.1,v=>{crtDrum(t0,0.12*v);crtDrum(t0+0.5,0.1*v);});
+  tick('ranas',near(S.ranas,45),()=>0.6+Math.random()*1.2,v=>{for(let k=0;k<2;k++){const o=ac.createOscillator(),g=ac.createGain(),tt=t0+k*0.12;o.type='square';o.frequency.setValueAtTime(300+Math.random()*80,tt);o.frequency.exponentialRampToValueAtTime(180,tt+0.08);g.gain.setValueAtTime(0.0001,tt);g.gain.exponentialRampToValueAtTime(0.025*v,tt+0.01);g.gain.exponentialRampToValueAtTime(0.0001,tt+0.09);o.connect(g).connect(AUD.master);o.start(tt);o.stop(tt+0.1);}});
+}
+function crdAct(a){const S=(gl,n,sub,html)=>vmS(gl,n,sub,html,[vmBye]);
+  if(a==='fuente')return S('💧','Una fuente','con un abrevadero para el ganado','<p>Agua fría que baja del monte. Un buen sitio para descansar a la sombra, como hacen los tres viejos de Las leyes de Platón, que van parando en cada fuente y en cada prado del camino.</p><p>Bebes y te sientes con fuerzas para seguir subiendo.</p><p class="src">Platón, Leyes I 625b.</p>');
+  if(a==='colmenas')return S('🐝','Una apicultora','junto a sus colmenas','<p>«Las abejas de Creta son sagradas. Cuando Zeus era un bebé escondido en la cueva, las abejas le traían miel para alimentarlo, y por eso él les dio el color dorado. Mis colmenas son de barro, tumbadas, para que no se calienten demasiado. La mejor miel sale del tomillo».</p><p class="src">Virgilio, Geórgicas IV 149-152; Antonino Liberal, Metamorfosis 19 (las abejas de la cueva). Aristóteles describe la vida de las abejas en Historia de los animales V 21-22 y IX 40. En Creta se han hallado colmenas de cerámica.</p>');
+  if(a==='agrimi')return S('🐐','Cabras salvajes','en las rocas del Yuctas','<p>Tres cabras de pelo pardo y cuernos largos y curvos saltan de roca en roca. Son las cabras salvajes de Creta, las que buscan díctamo cuando las hiere una flecha. Los cazadores cretenses hacen arcos con sus cuernos.</p><p class="src">Homero, Ilíada IV 105-111 (el arco de Pándaro, hecho con cuernos de cabra salvaje). Hoy esta cabra (Capra aegagrus creticus) solo vive en algunos montes de Creta.</p>');
+  if(a==='altar')return S('🪨','Un montón de piedras','con ofrendas encima','<p>Los caminantes que pasan por aquí añaden una piedra al montón y dejan algo encima: una flor, un higo, un mechón de lana. Así piden al dios del camino que les deje llegar bien.</p><p>Es una costumbre muy antigua. En Atenas se ponen hermes en los caminos; en el campo, a veces, basta con un montón de piedras.</p><p class="src">Los montones de piedras del camino (hermaia) se relacionaban con Hermes; los cita ya la Odisea (XVI 471, «la colina de Hermes»).</p>');
+  if(a==='iniciado')return S('🖤','Un hombre envuelto en lana negra','a la entrada de la cueva','<p>«Vengo de Samos para bajar a la cueva. Me he purificado con una piedra de rayo, y ahora entraré envuelto en lana negra y me quedaré dentro tres veces nueve días, como hizo Pitágoras. Después ofreceré un sacrificio a Zeus en su trono, que está ahí dentro, y quizá entienda algo».</p><p class="src">Porfirio, Vida de Pitágoras 17 (siglo III d.C., pero recoge tradiciones antiguas). Diógenes Laercio VIII 3.</p>');
+  if(a==='quesero')return S('🧀','Un pastor del Ida','haciendo queso','<p>«Ordeño las ovejas al atardecer, cuajo la leche con jugo de higuera y la dejo escurrir en cestas de mimbre. Mira: igual que el cíclope de Homero en su cueva, ¿te acuerdas? Cestas llenas de queso, cubos llenos de suero… Pero yo no me como a los viajeros. Toma, prueba».</p><p class="src">Homero, Odisea IX 219-249; Ilíada V 902 (el jugo de higuera que cuaja la leche).</p>');
+  if(a==='aguila')return S('🦅','Un águila','da vueltas sobre la cueva','<p>Un águila planea en círculos muy alto, sobre la cueva. El águila es el ave de Zeus: le lleva sus rayos, y Zeus, convertido en águila, raptó al joven Ganimedes. Los pastores del Ida dicen que esta nunca se va de aquí.</p><p class="src">Píndaro, Pítica I 6-10 (el águila dormida sobre el cetro de Zeus); Apolodoro III 12.2 (Ganimedes).</p>');
+  if(a==='era')return S('🌾','Un campesino','trillando el trigo con sus bueyes','<p>«La Mesara es la tierra más fértil de Creta. Ahora trillamos: los bueyes dan vueltas sobre las espigas y las pisan para que suelte el grano. Luego, cuando sople el viento, lanzaremos la paja al aire con la pala, y el grano, que pesa más, caerá al suelo».</p><p class="src">Homero, Ilíada XX 495-497 (bueyes trillando en la era) y XIII 588-590 (aventar). Hesíodo, Trabajos y días 597-599.</p>');
+  if(a==='juez')return vmS('⚖','Un juez de Gortina','escuchando a dos vecinos','<p>«Este dice que la cabra es suya, y el otro, que la compró. Nuestra ley dice cuándo debo juzgar según los testigos y cuándo debo jurar yo mismo y decidir según lo que creo justo. Aquí hay testigos, así que decido por ellos».</p><p>¿Qué crees que hace el juez si ninguno de los dos tiene testigos?</p>',
+    [['Jura y decide según su conciencia',()=>S('⚖','Un juez de Gortina','','<p>«Exacto. La ley lo dice: cuando no hay testigos, el juez jura y decide. Así de grande es nuestra confianza en los jueces… y en los dioses que castigan al que jura en falso».</p><p class="src">Código de Gortina, columna XI, líneas 26-31.</p>')],['Echa a suertes quién tiene razón',()=>S('⚖','Un juez de Gortina','','<p>«¡No! Eso sería dejarlo al azar. Cuando no hay testigos, el juez jura y decide según su conciencia».</p><p class="src">Código de Gortina, columna XI, líneas 26-31.</p>')],vmBye]);
+  if(a==='toro')return S('🐂','Un toro blanco','paciendo junto al río','<p>Un toro enorme, blanco como la nieve, pace junto al río. Te mira con tranquilidad.</p><p>Así era el toro en que se convirtió Zeus para raptar a Europa: blanco, con los cuernos como una luna creciente, tan manso que ella se atrevió a subirse a su lomo. Entonces el toro entró en el mar y nadó hasta Creta.</p><p class="src">Mosco, Europa 80-130; Ovidio, Metamorfosis II 846-875.</p>');
 }
 // enganches
 {const fa1=floorAt;floorAt=function(x,z){if(crtBand(x,z))return crtH(x,z);return fa1(x,z);};
