@@ -602,7 +602,8 @@ function rawH(x,z){
   h+=bump(x,z,-2100,-250,750,300);              // Egaleo
   h+=bump(x,z,-300,-2700,1150,450);             // Parnés
   h+=bump(x,z,-215,-5,75,24);                   // collado al oeste de la Acrópolis
-  if(Math.abs(x-40)<250&&z>0)h+=30*(1-sstep(clamp((z-64)/95,0,1)))*sstep(clamp((z-15)/35,0,1))*(1-sstep(clamp((Math.abs(x-40)-130)/90,0,1))); // ladera sur
+  if(Math.abs(x-40)<250&&z>0)h+=30*(1-sstep(clamp((z-64)/95,0,1)))*sstep(clamp((z-15)/35,0,1))*(1-sstep(clamp((Math.abs(x-40)-130)/90,0,1)))*(0.3+0.7*sstep(clamp((superD(x,z,165,100,52,62)-1)/0.6,0,1))); // ladera sur, más suave junto al Odeón
+  {const d=superD(x,z,162,124,33,36.5);if(d<1.5)h=lerp(8,h,sstep(clamp((d-1)/0.5,0,1)));}   // terraza del Odeón, excavada en la ladera como el real
   const s=(z-x)-1750;if(s>0)h-=sstep(clamp(s/220,0,1))*22;
   h=pirCarve(x,z,h);
   const th=Math.hypot(x-THEA.x,z-(THEA.z+12));if(th<45)h=lerp(h,THEA.h0,1-sstep(clamp((th-25)/20,0,1)));
@@ -1025,8 +1026,10 @@ const PIR0=(()=>{const t=(1750-(PG.z-PG.x))/1.4;return{x:PG.x+LW_DIR[0]*t,z:PG.z
 const pirP=(u,v)=>[PIR0.x+Math.SQRT1_2*(u+v),PIR0.z+Math.SQRT1_2*(u-v)];
 const PIR_BAYS=[{id:'zea',u:96,v:40,R:24},{id:'muniquia',u:150,v:30,R:15}].map(b=>{const p=pirP(b.u,b.v);return Object.assign(b,{x:p[0],z:p[1]});});
 const PIR_HILL=(()=>{const p=pirP(150,72);return{x:p[0],z:p[1]};})();
+const BEND={x:PIR_HILL.x+10,z:PIR_HILL.z-10};   // el Bendideion, en una explanada junto a la cima de Muniquia, del lado de tierra (el otro lado cae a la dársena)
 function pirCarve(x,z,h){if(Math.abs(x-PIR0.x)>420||Math.abs(z-PIR0.z)>420)return h;
-  h+=bump(x,z,PIR_HILL.x,PIR_HILL.z,38,20);   // la colina de Muniquia
+  const h0=h;h+=bump(x,z,PIR_HILL.x,PIR_HILL.z,38,20);   // la colina de Muniquia
+  {const d=Math.hypot(x-BEND.x,z-BEND.z);if(d<22){const t=h0+bump(BEND.x,BEND.z,PIR_HILL.x,PIR_HILL.z,38,20);h=lerp(t,h,sstep(clamp((d-11)/11,0,1)));}}   // explanada del Bendideion
   for(const b of PIR_BAYS){const d=Math.hypot(x-b.x,z-b.z);if(d<b.R+10){const t=-6+6.4*sstep(clamp((d-b.R*0.9)/(b.R*0.1+10),0,1));if(t<h)h=t;}
     {const dx=x-PIR0.x,dz=z-PIR0.z,u=Math.SQRT1_2*(dx+dz),v=Math.SQRT1_2*(dx-dz);if(Math.abs(u-b.u)<7&&v<b.v&&v>-40){const t=-5.5+5.3*sstep(clamp((Math.abs(u-b.u)-4)/4,0,1));if(t<h)h=t;}}}   // el canal de entrada
   return h;}
@@ -2794,7 +2797,7 @@ function buildAgora(){
    for(let i=0;i<3;i++){const fx=x-6+i*6,fz=z+4;box(1.8,1.4,1.8,lam('#7a6a5a'),fx,e.gy+0.7,fz);const f=new THREE.Mesh(new THREE.SphereGeometry(0.35,8,6),new THREE.MeshBasicMaterial({color:'#ff8a3a'}));f.position.set(fx,e.gy+1.2,fz-0.9);scene.add(f);addBox(fx,fz,1.8,1.8,0);}
    box(2.4,0.9,1.2,M.wood,x+5,e.gy+0.45,z-4);addBox(x+5,z-4,2.4,1.2,0);}
   // casa de Simón el zapatero y mojón del Ágora
-  {const[x,z]=AL(-74,102);courtyardHouse(x,z,0,13,11,3.6,false);box(1.2,0.8,0.7,M.wood,x+3,terrainH(x+3,z+7)+0.4,z+7);addBox(x+3,z+7,1.2,0.7,0);}
+  {const[x,z]=AL(-74,102);courtyardHouse(x,z,0,13,11,3.6,false,true);box(1.2,0.8,0.7,M.wood,x+3,terrainH(x+3,z+7)+0.4,z+7);addBox(x+3,z+7,1.2,0.7,0);}
   {const[x,z]=AL(-66,88),gy=terrainH(x,z);box(0.5,1.1,0.35,M.marble,x,gy+0.55,z);addCirc(x,z,0.3);}
   // puestos del mercado en la plaza abierta
   {const cols=['#b0462f','#c79a3a','#5e7a96','#8a6b3e','#e3d7bd','#6f8a4e'];
@@ -2830,9 +2833,12 @@ function donkey(x,z,a){
   box(0.72,0.35,0.5,lam('#a3552f'),0,1.35,0,g);addCirc(x,z,0.7);}
 
 // casa con patio: crujía al fondo (a veces con piso alto), ala lateral, muros del patio y puerta a la calle
-function courtyardHouse(x,z,a,w,d,h,two){
+function courtyardHouse(x,z,a,w,d,h,two,keep){
   {const M=Math.max(w,d),hit=(x,z)=>footprints.some(f=>f.house&&Math.abs(f.x-x)<(Math.max(f.w||0,f.d||0)+M)/2+1.2&&Math.abs(f.z-z)<(Math.max(f.w||0,f.d||0)+M)/2+1.2);   // no levantar una casa encima de otra
    if(hit(x,z)){let ok=false;for(let k=0;k<12&&!ok;k++){const nx=x+(Math.random()-0.5)*22,nz=z+(Math.random()-0.5)*22;if(!hit(nx,nz)&&Math.abs(terrainH(nx,nz)-terrainH(x,z))<1.5&&terrainH(nx,nz)>0.5){x=nx;z=nz;ok=true;}}if(!ok)return;}}
+  {const sl=(px,pz)=>{let lo=1e9,hi=-1e9;for(const[i,j]of[[-1,-1],[1,-1],[-1,1],[1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const p=toW(i*w/2,j*d/2,px,pz,a),h=terrainH(p[0],p[1]);lo=Math.min(lo,h);hi=Math.max(hi,h);}return hi-lo;};
+   const busy=(px,pz)=>ISLANDS.some(I=>I.arrive&&Math.hypot(px-I.arrive.x,pz-I.arrive.z)<60)||PLACES.some(q=>Math.hypot(px-q.x,pz-q.z)<Math.max(w,d))||footprints.some(f=>{const fw=f.r?f.r*2:(f.w||0),fd=f.r?f.r*2:(f.d||0);return Math.abs(f.x-px)<(Math.max(fw,fd)+Math.max(w,d))/2+1&&Math.abs(f.z-pz)<(Math.max(fw,fd)+Math.max(w,d))/2+1;});
+   if(!keep&&sl(x,z)>2.5){let ok=false;for(let k=0;k<14&&!ok;k++){const nx=x+(R()-0.5)*30,nz=z+(R()-0.5)*30;if(sl(nx,nz)<=2.5&&terrainH(nx,nz)>0.5&&!busy(nx,nz)){x=nx;z=nz;ok=true;}}if(!ok)return;}}   // en ladera fuerte la casa quedaría medio enterrada
   const gy=minGround(x,z,w,d,a),g=grp(x,gy,z,a),rd=Math.min(5,d*0.42),sw=Math.min(4,w*0.32),wm=lam('#e8dfcc'),sm=M.limestone;
   box(w,h+2,rd,wm,0,h/2-1,-d/2+rd/2,g);box(w+0.1,0.9,rd+0.1,sm,0,0.45,-d/2+rd/2,g);
   if(two)box(w*0.6,2.8,rd,wm,-w*0.2,h+1.4,-d/2+rd/2,g);
@@ -3421,6 +3427,8 @@ function updatePlumes(t){for(const P of PLUMES){if(Math.abs(player.x-P.g.positio
 function destHouses(I,cx,cz,n,spread,roman,opt){opt=opt||{};let k=0;const G={H_dom:[],H_insb:[]},walls=['#e3d8c2','#e9c9a0','#d8b48a','#efe2c8'],roofs=['#b0563a','#a24d33','#bf6a45'];
   for(let tries=0;tries<n*12&&k<n;tries++){const x=cx+rr(-spread,spread)*(opt.sx||1),z=cz+rr(-spread,spread)*(opt.sz||1);
     if(opt.inside&&!opt.inside(x,z))continue;if(I.pads.some(p=>p.noHouse!==false&&p.house!==true&&Math.hypot(x-p.x,z-p.z)<p.r+(p.road?(roman?26:14):9)))continue;   // los caminos entre mapas quedan libres
+    if(I.arrive&&x>I.arrive.x-6&&x<I.arrive.x+24&&z>I.arrive.z-20&&z<I.arrive.z+60)continue;   // la franja de las estelas, junto a la llegada
+    if(PLACES.some(q=>Math.abs(q.x-x)<24&&Math.abs(q.z-z)<26))continue;   // ninguna casa encima de un cartel
     const h0=terrainH(x,z);if(h0<1.4)continue;if(I.chkFree&&!isFree(x,z,11))continue;if(Math.abs(terrainH(x+7,z)-terrainH(x-7,z))+Math.abs(terrainH(x,z+7)-terrainH(x,z-7))>4)continue;
     if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<(f.reserve?0:f.r+8):Math.abs(x-f.x)<(f.w||0)/2+9&&Math.abs(z-f.z)<(f.d||0)/2+9))continue;
     const a=(opt.a||0)+(R()<0.5?0:Math.PI/2)+rr(-0.06,0.06);
@@ -3622,7 +3630,7 @@ function buildThebes(){
   NPC_POS.epaminondas=[c.x+46,c.z-4,0];
   place('cadmea',_t(2509,'La Cadmea'),'ΚΑΔΜΕΙΑ',_t(2510,'La acrópolis de Tebas, fortificada según el mito por Cadmo. Aquí están los edificios de gobierno, los templos más antiguos y las casas de las familias nobles. Cuatro años después de tu visita, en el 382, un general espartano la ocupará a traición con ayuda de los tebanos partidarios de Esparta.'),c.x+60,c.z+8,0);
   {const t=gates[2],x=c.x+Math.cos(t)*(r-14),z=c.z+Math.sin(t)*(r-14);place('siete_puertas',_t(2511,'Las siete puertas de Tebas'),'ΕΠΤΑΠΥΛΟΙ ΘΗΒΑΙ',_t(2512,'Tebas es famosa por sus siete puertas, que Esquilo nombra en Los siete contra Tebas: Electra, Prétide, Neíta, Crenea, Hipsista, Ogigia y Homolóide. Ante ellas lucharon los siete jefes que acompañaban a Polinices contra su hermano Eteocles. Su número y sus nombres eran motivo de orgullo, aunque los estudiosos discuten dónde estaba cada una.'),x,z,0);}
-  {const t=gates[0],x=c.x+Math.cos(t)*(r+16),z=c.z+Math.sin(t)*(r+16);courtyardHouse(x+8,z+8,0,12,11,3.6,false);place('casa_anfitrion',_t(2513,'Casa de Anfitrión'),'ΟΙΚΙΑ ΑΜΦΙΤΡΥΩΝΟΣ',_t(2514,'Junto a la puerta Electra, los tebanos enseñan las ruinas de la casa de Anfitrión, donde nació Heracles: hijo de Zeus, que tomó la apariencia de Anfitrión para unirse a su esposa Alcmena. Por eso Heracles es el gran héroe de Tebas.'),x,z,0);}
+  {const t=gates[0],x=c.x+Math.cos(t)*(r+16),z=c.z+Math.sin(t)*(r+16);courtyardHouse(x+8,z+8,0,12,11,3.6,false,true);place('casa_anfitrion',_t(2513,'Casa de Anfitrión'),'ΟΙΚΙΑ ΑΜΦΙΤΡΥΩΝΟΣ',_t(2514,'Junto a la puerta Electra, los tebanos enseñan las ruinas de la casa de Anfitrión, donde nació Heracles: hijo de Zeus, que tomó la apariencia de Anfitrión para unirse a su esposa Alcmena. Por eso Heracles es el gran héroe de Tebas.'),x,z,0);}
   {const t=gates[0]+0.22,x=c.x+Math.cos(t)*(r+30),z=c.z+Math.sin(t)*(r+30);temple({name:'Heracleo de Tebas',x,z,rot:t,W:8,L:14,nW:4,prostyle:true,colD:0.6,colH:4.6,cella:{w:7,l:8.5,door:2.2}});
    place('heracleo_tebas','El Heracleo y el regalo de Trasibulo','ΗΡΑΚΛΕΙΟΝ','El santuario de Heracles, fuera de la puerta Electra, junto al gimnasio de Yolao, su sobrino y compañero. Dentro hay dos grandes estatuas de mármol, una Atenea y un Heracles, obra del escultor ateniense Alcámenes. Las dedicó Trasibulo: en el 404, cuando los Treinta Tiranos gobernaban Atenas, Tebas acogió a los demócratas desterrados, y desde aquí salió Trasibulo con setenta hombres a tomar la fortaleza de File y liberar Atenas. Fue su manera de dar las gracias.',x+Math.cos(t)*14,z+Math.sin(t)*14,0);}
   place('anguilas','Las anguilas del Copais','ΕΓΧΕΛΥΣ ΚΩΠΑΪΣ','Al norte de Tebas se extiende el lago Copais, rodeado de cañaverales: de ahí salen las cañas para los aulós, las flautas, y las anguilas más famosas de Grecia. En Los acarnienses de Aristófanes, un beocio llega al mercado de Atenas con patos, liebres, tordos y anguilas del Copais, y el ateniense las recibe como a una diosa. Los atenienses se burlan de los beocios: dicen que son gordos, comilones y lentos, «cerdos beocios».',c.x+16,c.z+40,0);
@@ -3631,7 +3639,7 @@ function buildThebes(){
   {const d=B.dirce;const w=new THREE.Mesh(new THREE.CircleGeometry(1,28),new THREE.MeshPhongMaterial({color:'#3f7a8a',shininess:80}));w.rotation.x=-Math.PI/2;w.scale.set(11,7,1);w.position.set(d.x,d.h+0.08,d.z);scene.add(w);
    for(let i=0;i<18;i++){const a=i/18*TAU;addCirc(d.x+Math.cos(a)*10.5,d.z+Math.sin(a)*6.5,1);}
    blockBuilding({name:_t(2515,'Fuente Dirce'),x:d.x,z:d.z-12,rot:0,w:12,d:5,h:4,mat:M.limestone});
-   courtyardHouse(d.x+26,d.z+14,0,13,12,3.8,true);
+   courtyardHouse(d.x+26,d.z+14,0,13,12,3.8,true,true);
    NPC_POS.pelopidas=[d.x+12,d.z+2,Math.PI/2];
    place('dirce',_t(2515,'Fuente Dirce'),'ΔΙΡΚΗ',_t(2516,'La fuente sagrada de Tebas. Según el mito, Dirce, esposa del rey Lico, maltrató a Antíope, madre de los gemelos Anfión y Zeto; cuando estos crecieron, la ataron a un toro salvaje y la arrojaron aquí. Anfión construyó después las murallas de Tebas: las piedras se movían solas al son de su lira.'),d.x-14,d.z+4,0);
    place('casa_pindaro',_t(2517,'Casa de Píndaro'),'ΟΙΚΙΑ ΠΙΝΔΑΡΟΥ',_t(2518,'Aquí vivió Píndaro (c. 518-438), el gran poeta de las odas para los vencedores de los juegos. Su casa se respeta como un lugar casi sagrado. Medio siglo después de tu visita, cuando Alejandro Magno arrase Tebas en el 335, ordenará respetar solo esta casa.'),d.x+26,d.z+24,0);}
@@ -8643,7 +8651,7 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 const DREAM={x:0,z:0,y:600,on:false};
 function buildRaphaelHall(){
   const X=ACADEMY.x+260,Z=ACADEMY.z+60,Y=600,UP=1.5;Object.assign(DREAM,{x:X,z:Z});
-  const g=grp(X,Y,Z,0),wall=M.marbleShade,mar=M.marble;
+  const g=grp(X,Y,Z,0),wall=M.marbleShade,mar=M.marble;DREAM.g=g;g.visible=false;   // oculta mientras no se sueña: desde la ciudad se veía flotando en el cielo
   // suelo delantero con el dibujo de mármoles del fresco, escalinata y suelo superior
   const flo=canvasTex(256,256,(x)=>{x.fillStyle='#d8cbb4';x.fillRect(0,0,256,256);x.fillStyle='#8a5a4a';x.fillRect(16,16,224,224);x.fillStyle='#efe6d4';x.fillRect(40,40,176,176);x.fillStyle='#8a5a4a';x.fillRect(64,64,128,128);x.fillStyle='#efe6d4';x.fillRect(96,96,64,64);});
   const fl=new THREE.Mesh(new THREE.BoxGeometry(40,1,20),[mar,mar,texMat(flo,6,3),mar,mar,mar]);fl.position.set(0,-0.5,14);fl.receiveShadow=true;g.add(fl);addPlat(X,Z+14,40,20,0,Y);
@@ -8692,7 +8700,7 @@ function dreamTravel(to){
   v.querySelector('.vf').textContent=to==='sueno'?_t(7068,'Rafael pintó «La escuela de Atenas» en 1509-1511, diecinueve siglos después de tu viaje.'):_t(7069,'Platón enseñará en la Academia hasta su muerte, en el 348/347 a.C.');
   v.hidden=false;requestAnimationFrame(()=>v.classList.add('show'));
   setTimeout(()=>{if(to==='sueno'){player.x=DREAM.x;player.z=DREAM.z+18;player.yaw=0;}else{const p=toW(18,46,ACADEMY.x,ACADEMY.z,0);player.x=p[0];player.z=p[1];player.yaw=Math.PI;}
-    player.feet=floorAt(player.x,player.z);player.camY=player.feet+player.eye;player.vy=0;player.pitch=0.05;curZone=null;DREAM.on=to==='sueno';
+    player.feet=floorAt(player.x,player.z);player.camY=player.feet+player.eye;player.vy=0;player.pitch=0.05;curZone=null;DREAM.on=to==='sueno';if(DREAM.g)DREAM.g.visible=DREAM.on;
     v.classList.remove('show');setTimeout(()=>{v.hidden=true;ui='play';},700);},2600);
 }
 
@@ -15966,7 +15974,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   rwTick(dt);}
 
 
@@ -17722,7 +17730,7 @@ function pireoPlus(){if(MODE!=='atenas'||URB.pir)return;URB.pir=1;const a=-Math.
   {const b=PIR_BAYS[1];for(let k=0;k<6;k++){const th=2.356+(-1.2+k*0.48),cx=b.x+Math.sin(th)*(b.R+8),cz=b.z+Math.cos(th)*(b.R+8);const g=grp(cx,Math.max(0.4,terrainH(cx,cz)),cz,th);for(const s of[-1,1])box(0.4,3,16,stoneM,s*2.4,1.5,0,g);box(5.4,0.3,16,tile,0,3.2,0,g);}
     const p=P(146,58);placeLive('pir_muniquia','Muniquia','ΜΟΥΝΙΧΙΑ','El puerto más pequeño y la colina que lo domina, la mejor fortaleza del Pireo: quien la ocupa controla el puerto. En el 403, Trasíbulo y los demócratas vencieron aquí a los Treinta tiranos. Junto al puerto está el santuario de Ártemis Muniquia, la protectora de los marinos.',p[0],p[1],a);}
   // la colina: santuario de Bendis, la diosa tracia (aquí empieza la República de Platón)
-  {const f=findFree(PIR_HILL.x-14,PIR_HILL.z+10,2);temple({name:'Bendideion',x:f[0],z:f[1],rot:a,W:8,L:14,nW:4,nL:6,colD:0.6,colH:5,entH:1.2,pedH:0.9,steps:2,stepH:0.3,roofMat:M.marble});
+  {const f=[BEND.x,BEND.z];temple({name:'Bendideion',x:f[0],z:f[1],rot:a,W:8,L:14,nW:4,nL:6,colD:0.6,colH:5,entH:1.2,pedH:0.9,steps:2,stepH:0.3,roofMat:M.marble});
     placeLive('pir_bendis','El santuario de Bendis','ΒΕΝΔΙΔΕΙΟΝ','Bendis es una diosa tracia, cazadora como Ártemis, que trajeron los tracios del puerto. Atenas la adoptó durante la guerra. Su fiesta, las Bendidias, tiene procesión de atenienses y de tracios y, de noche, carreras de antorchas a caballo. Así empieza la República de Platón: «Bajé ayer al Pireo con Glaucón, el hijo de Aristón, para rezar a la diosa y ver la fiesta» (327a).',f[0]+6,f[1]+8,a);}
   {const p=P(-40,70);placeLive('pir_cuadricula','Calles a cordel','ΠΕΙΡΑΙΕΥΣ','Fíjate: en el Pireo las calles son rectas y se cruzan en ángulo recto, y todas las manzanas tienen el mismo tamaño. En Atenas, en cambio, las callejas suben y bajan y se tuercen como quieren, porque la ciudad creció durante siglos sin un plan. El Pireo es una ciudad nueva, trazada hace unos setenta años, pensada sobre el papel.',p[0],p[1],a);}
   urbWorkers(P(60,12)[0],P(60,12)[1],4);}
@@ -22786,7 +22794,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='dbaab2de5d79';
+const NOSTOS_VER='9c4d7628e1af';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -22949,6 +22957,15 @@ function tpAct(o){const it=TP_OBJS[+String(o.act).slice(3)];if(!it)return;const 
     if(first)toast('<span class="label">Ofrenda en '+it.name+'</span><br>Has honrado '+cnt+(cnt===1?' templo':' templos')+'.');};
   menu('<p>'+(P&&R.pt&&P.length>3?'':'')+'«Salud, forastero. Este templo es de '+(ro?R.god:(R.gr||R.god))+'.»</p><p>'+R.st+'</p>');}
 {const f=egxAct0;egxAct0=function(o){if(String(o.act).startsWith('tp:'))return tpAct(o);return f(o);};}
+// ============================================================ COLUMNAS QUE SE CONSTRUYEN TARDE
+// finishColumns() dibujaba una sola vez, durante la carga, las columnas acumuladas por addColumn(). Lo que se construía después
+// (el Bendideion del Pireo, los mapas que se levantan al llegar) se quedaba sin columnas y su entablamento flotaba en el aire.
+// Ahora cada llamada dibuja solo las columnas nuevas, y colsTick() la repite cuando aparecen columnas pendientes.
+const COL_DONE=[0,0,0];
+{const f0=finishColumns;finishColumns=function(){const L=[COLS,ICOLS,CCOLS];if(L.every((a,i)=>a.length<=COL_DONE[i]))return;
+  const all=L.map(a=>a.slice()),nw=L.map((a,i)=>a.slice(COL_DONE[i]));L.forEach((a,i)=>{a.length=0;a.push(...nw[i]);});
+  try{f0();}finally{L.forEach((a,i)=>{a.length=0;a.push(...all[i]);});all.forEach((a,i)=>COL_DONE[i]=a.length);}};}
+let _colT=0;function colsTick(dt){_colT+=dt;if(_colT<0.5)return;_colT=0;if(COLS.length>COL_DONE[0]||ICOLS.length>COL_DONE[1]||CCOLS.length>COL_DONE[2])finishColumns();}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

@@ -267,6 +267,13 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
 - v158 (Ágora, Agora XIV lám. 5): Epónimos en AL(-82,37), altar de los Doce Dioses en AL(-55,-98) (también el sacrificio), TRIAL_H en AL(-65,60), fuente en AL(38,76), Ceca nueva (`enclosure`) en AL(64,80) con su cartel `ceca`, Tiranicidas en AL(-59,-26), cartel de las hermas en AL(-83,-135). Herramientas: `atenas/agora.py` y `atenas/ov.py` en el scratchpad.
 - v159 (Dípilon y Cerámico): `GATE_ANG.dipylon` −2,62 y `sagrada` −2,70. `ACADEMY` fijo en (−1146,−1219); `DROMOS` (marco del camino Dípilon→Academia, usable con `gatePt`) para las tumbas, los túmulos, el cartel `ceramico` y la diosa de la Academia. Vía Panatenaica rehecha desde el Dípilon. Barrio `kerameis` en (−735,−470). Erídano: `ce=[SG.x-90,SG.z-70]` en `defineRiversGR`; la franja de agua de la Puerta Sagrada va en un `grp` girado `a2`.
 - v160 (Acrópolis y Ágora): `AG` pasa de (−470,−330) a (−370,−330) (todo lo que usa `AL` se mueve); `ELEUS` en (−198,−175); se quita el punto fijo [−300,−185] de la Vía Panatenaica y el camino del Liceo arranca en (−228,−128). Ojo: las coordenadas absolutas del Ágora en notas anteriores (v157-v158) están ahora 100 m más al este.
+- v161 (errores visuales del vídeo y las capturas):
+  - Columnas tardías: `finishColumns` ahora solo dibuja las nuevas (`COL_DONE`) y `colsTick` la llama si hay pendientes. Antes todo templo construido después de la carga (el Bendideion del Pireo, los mapas que se levantan al llegar) se quedaba sin columnas y su entablamento flotaba.
+  - Bendideion: `BEND` = cima de Muniquia +(10,−10), del lado de tierra, con explanada en `pirCarve`. Antes colgaba sobre la dársena.
+  - Odeón: terraza a 8 m en `rawH`; la «ladera sur» se suaviza a su alrededor (`superD(165,100,52,62)`). Antes estaba medio enterrado y por el sur tenía muros de más de 25 m.
+  - Sueño de la Academia: `DREAM.g` oculto salvo durante el sueño. Era la «caja gris» que flotaba en el cielo.
+  - Casas: `courtyardHouse(...,keep)` busca un sitio más llano si la parcela tiene más de 2,5 m de desnivel, o no se construye. Las casas con nombre pasan `keep=true`.
+  - `destHouses` deja libre la franja de las estelas junto a la llegada y no construye encima de ningún cartel.
 - Pendiente: revisión lámina a lámina de calles y manzanas con la *Forma Urbis*.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
