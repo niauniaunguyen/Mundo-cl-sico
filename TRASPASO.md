@@ -282,6 +282,14 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - `chunked`: celdas de al menos 420 m (Roma pasa de 19.333 a 10.579 grupos), `matrixAutoUpdate=false` y distancia ×0,7 en móvil (`CHUNK_FAR_K`).
   - Sombra del sol a 2048 (antes 4096 en escritorio). Personas y PNJ visibles hasta 150 m (antes 180).
   - Fusión de piezas estáticas (`MERGE`, `mgGroup`): escrita pero **apagada**. Ahorra solo un ~10 % de llamadas y en la prueba disparaba la memoria. Diagnóstico con `__d.mgDiag()` y `__d.mgSize()`.
+- v164 (escenarios cuadrados, antes de `defineGates`):
+  - `regionSquare(k)`: la ciudad usa el cuadrado de `INNER`. En Roma, `INNER` pasa a {0,−170,2800} justo antes de `buildTerrain` (antes Roma se cortaba en x=780 y no se llegaba a las puertas de Tíbur ni de Nemi). Los destinos de tierra firme usan 1,25·R; las islas, 1,4·R.
+  - `edgeSlots(f)`: cada vecino por tierra (de `WORLD_LINKS`) va al lado que mira hacia él según `bearing`; si en un lado hay varios, se reparten. Las puertas quedan a 26 m del borde, porque el paso se corta a 20 (`tryMove`, `flyMove`, tejados; `sqClamp` en los destinos).
+  - `sqMount`: montes más allá del borde, solo en tierra (el mar sigue siendo mar), con un paso abierto de unos 40 m en cada salida. Se aplica en `islandBase` y envolviendo `terrainH0` para la ciudad.
+  - En tierra firme, fuera del círculo R el terreno ya no se empina (pendiente 0,06), así que todo el cuadrado es jugable.
+  - En la ciudad, el camino de tierra va de la antigua puerta (`homeGate`) a la del borde.
+  - El viaje sigue en `gateTravel`: días y coste, y llegada 14 m hacia dentro de la puerta opuesta. Por mar, puertos como antes.
+  - Plano y minimapa: `regionBounds` cubre el cuadrado entero (el Pireo salía azul porque `MAPB` acababa en z=470). `buildMapBase` pinta los campos de `fieldAt` (Atenas), oscurece lo de fuera y marca el borde. `mapStale()` rehace la imagen si cambia el número de edificios (como mucho cada 15 s).
 - Pendiente: revisión lámina a lámina de calles y manzanas con la *Forma Urbis*.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
