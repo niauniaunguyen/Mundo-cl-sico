@@ -290,6 +290,7 @@ Juego 3D en primera persona para el navegador, en español. Al empezar se elige 
   - En la ciudad, el camino de tierra va de la antigua puerta (`homeGate`) a la del borde.
   - El viaje sigue en `gateTravel`: días y coste, y llegada 14 m hacia dentro de la puerta opuesta. Por mar, puertos como antes.
   - Plano y minimapa: `regionBounds` cubre el cuadrado entero (el Pireo salía azul porque `MAPB` acababa en z=470). `buildMapBase` pinta los campos de `fieldAt` (Atenas), oscurece lo de fuera y marca el borde. `mapStale()` rehace la imagen si cambia el número de edificios (como mucho cada 15 s).
+- v165 · Módulo VIDA (`VIV`, prefijo `v2`): corros de conversación con gestos; quejas si chocas corriendo y saludo por el nombre cuando ya eres conocido; los personajes principales respiran y se giran hacia ti; sucesos espontáneos de día (ladrón al que puedes atrapar, pregonero con noticias de 386 a.C./80 d.C., riña, mensajero); pájaros que huyen; sentarse con O (el tiempo pasa más rápido); vendedores de comida (1 óbolo/as, más velocidad 3 min) y trabajo de porteador de ánforas (3 monedas). Gente que carga ánforas y cestas. Pendiente: horarios por hora de los PNJ principales, sonido por zonas y pasos según el suelo.
 - Pendiente: revisión lámina a lámina de calles y manzanas con la *Forma Urbis*.
 
 ### Novedades de la versión 116: iluminación realzada (opcional) y vuelo sobre el Tíber
