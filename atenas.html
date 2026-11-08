@@ -5579,7 +5579,8 @@ const RHILLS=[
  [-1400,250,150,600,62,0.8]  // Janículo
 ];
 // el Tíber: [z, x] del centro del cauce, de norte a sur; rodea el Campo de Marte por el oeste y pasa junto a la isla
-const RIV=[[-1700,-760],[-1400,-800],[-1100,-880],[-800,-1080],[-500,-1100],[-200,-900],[50,-640],[235,-520],[450,-520],[700,-600],[1000,-700],[1400,-780]];
+// al sur de la isla el río tuerce al este y pasa junto al Foro Boario y al pie del Aventino (Lanciani, láms. 28 y 34)
+const RIV=[[-1700,-760],[-1400,-800],[-1100,-880],[-800,-1080],[-500,-1100],[-200,-900],[50,-640],[235,-520],[350,-515],[470,-468],[580,-478],[700,-600],[1000,-700],[1400,-780]];
 function romaRiverX(z){if(z<=RIV[0][0])return RIV[0][1];for(let i=0;i<RIV.length-1;i++){const a=RIV[i],b=RIV[i+1];if(z<=b[0]){const t=(z-a[0])/(b[0]-a[0]);return lerp(a[1],b[1],sstep(t)*0.35+t*0.65);}}return RIV[RIV.length-1][1];}
 function romaRiverW(z){return 34+38*Math.exp(-Math.pow((z-250)/120,2));}   // más ancho junto a la isla
 function romaRiverDist(x,z){return Math.abs(x-romaRiverX(z));}
@@ -6372,7 +6373,7 @@ function romaRoads(){
   R2(_t(4865,'Puentes de la isla'),3.5,[[-300,140],[-440,250],[-520,250],[-600,250],[-760,320],[-950,380]]);
   R2(_t(4866,'Vía Labicana'),4.5,[[500,60],[800,30],[1300,-30]]);
   R2(_t(4867,'Vía Recta'),4,[[-330,-500],[-560,-505],[-900,-520],[-1030,-520]]);
-  R2(_t(4868,'Calle del Velabro'),3.5,[[-90,45],[-200,100],[-300,140],[-440,180],[-470,420],[-470,700]]);
+  R2(_t(4868,'Calle del Velabro'),3.5,[[-90,45],[-200,100],[-300,140],[-440,180],[-444,290],[-442,360],[-420,430],[-416,520],[-424,590],[-445,640]]);
   R2(_t(4869,'Clivo de Escauro'),3.5,[[300,140],[420,240],[560,300],[800,400]]);
   R2(_t(4870,'Calle del Trastévere'),3.5,[[-760,620],[-760,320],[-820,0],[-820,-60]]);
   // calles de los barrios del norte y del este (por su trazado conocido, comprimido como el resto)
@@ -6713,7 +6714,7 @@ function romaRiver(){
   // barcas en el río
   for(const[z,dx]of[[480,-10],[520,14],[640,-6],[-80,8],[-700,-12]]){const x=X(z)+dx,g=grp(x,-2.0,z,0.05);box(4,1.2,14,M.wood,0,0.2,0,g);box(4.4,0.3,14.4,lam('#5a3d26'),0,0.85,0,g);for(let i=0;i<5;i++){const a=new THREE.Mesh(PGEO.jar,lam('#b5603a'));a.scale.setScalar(1.6);a.position.set(rr(-1,1),0.9,-4+i*2);g.add(a);}}
   // Emporio: almacenes de bóvedas en la orilla y el montón de ánforas rotas
-  {const z0=600,x=X(z0)+W(z0)+30,g=grp(x,romaH(x,z0+70),z0+70,0);for(let i=0;i<10;i++){box(16,9,13,BRICK,0,4.5,-60+i*13.5,g);const v=new THREE.Mesh(new THREE.CylinderGeometry(6.5,6.5,16,12,1,false,0,Math.PI),M.tile);v.rotation.z=Math.PI/2;v.position.set(0,9,-60+i*13.5);g.add(v);box(0.2,4,3.4,M.dark,-8.05,2,-60+i*13.5,g);}
+  {const z0=650,x=-470,g=grp(x,romaH(x,z0+70),z0+70,0);for(let i=0;i<10;i++){box(16,9,13,BRICK,0,4.5,-60+i*13.5,g);const v=new THREE.Mesh(new THREE.CylinderGeometry(6.5,6.5,16,12,1,false,0,Math.PI),M.tile);v.rotation.z=Math.PI/2;v.position.set(0,9,-60+i*13.5);g.add(v);box(0.2,4,3.4,M.dark,-8.05,2,-60+i*13.5,g);}
    addBox(x,z0+70,16,135,0);footprints.push({x,z:z0+70,w:16,d:135,a:0,c:'#c79a7e',name:_t(4905,'Pórtico Emilio')});
    const t=new THREE.Mesh(new THREE.ConeGeometry(42,16,24),lam('#b5704a'));t.position.set(-330,romaH(-330,820)+6,820);scene.add(t);addCirc(-330,820,38);
    for(let i=0;i<40;i++){const a=new THREE.Mesh(PGEO.jar,lam(pick(['#b5603a','#a8532f','#c47a4a'])));a.scale.setScalar(1.6);const px=x-12+rr(-3,3),pz=z0+rr(0,140);a.position.set(px,romaH(px,pz),pz);a.rotation.z=R()<0.3?Math.PI/2:0;scene.add(a);}}
@@ -6773,8 +6774,8 @@ const RQUART=[
 ];
 function romaQuarter(x,z){for(const Q of RQUART)if(Math.hypot((x-Q[0])/Q[2],(z-Q[1])/Q[3])<1)return Q;return null;}
 // muralla serviana (siglo IV a.C.): restos entre las casas, con sus puertas donde la cruzan las calles
-const SERV=[[-470,330],[-415,420],[-410,560],[-380,690],[-300,760],[-150,740],[-60,690],[175,620],[410,575],[440,440],[430,300],[560,190],[600,60],[590,-100],[580,-330],[560,-560],[420,-720],[200,-790],[70,-775],[-150,-720],[-330,-660],[-400,-540],[-300,-330],[-290,-110],[-300,40]];
-const SERV_GATES=[['Porta Trigemina',-455,330],['Porta Raudusculana',-182,750],['Porta Capena',440,440],['Porta Caelimontana',480,258],['Porta Querquetulana',600,50],['Porta Esquilina',583,-330],['Porta Viminalis',362,-738],['Porta Collina',62,-773],['Porta Fontinalis',-300,-330]];
+const SERV=[[-470,330],[-405,425],[-398,560],[-372,690],[-300,760],[-150,740],[-60,690],[175,620],[410,575],[440,440],[430,300],[560,190],[600,60],[590,-100],[580,-330],[560,-560],[420,-720],[200,-790],[70,-775],[-150,-720],[-330,-660],[-400,-540],[-300,-330],[-290,-110],[-300,40]];
+const SERV_GATES=[['Porta Trigemina',-440,372],['Porta Raudusculana',-182,750],['Porta Capena',440,440],['Porta Caelimontana',480,258],['Porta Querquetulana',600,50],['Porta Esquilina',583,-330],['Porta Viminalis',362,-738],['Porta Collina',62,-773],['Porta Fontinalis',-300,-330]];
 const TUFA_W=lam('#a69a78');
 function portaServ(x,z,a,name){
   const W=11,D=5.5,H=10.5,h1=7.6,r=2.5,gy=minGround(x,z,W,D,a)-0.3,g=grp(x,gy,z,a);
@@ -22761,7 +22762,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='933773c53967';
+const NOSTOS_VER='2d562844d9f9';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';

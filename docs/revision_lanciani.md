@@ -59,7 +59,6 @@ Con el EPUB completo se georreferenció cada lámina por separado (cada una con 
 
 **Comprobado y no cambiado:**
 
-- **El río al sur de la isla** debería torcer hacia el este, hasta pasar junto al Foro Boario y el Aventino. En el juego baja más recto, con la orilla oriental unos 120–180 m al oeste. Corregirlo obliga a mover la muralla de la Porta Trigemina, la calle del Velabro y el puente Sublicio; se deja anotado. Las posiciones relativas sí se han conservado: teatro → isla → Foro Boario → Porta Trigemina → cárceres del Circo.
 - **El Campo de Marte** está desplazado en bloque unos 150–190 m hacia el norte, y el Emporio y la Pirámide están comprimidos. Es compresión deliberada para que el mapa sea recorrible.
 - Para el Templo de Claudio, la Domus Aurea, la Puerta Capena y las Termas de Tito, las coordenadas reales del ajuste no eran fiables; en las láminas 30, 35 y 36 su posición respecto a sus vecinos es aceptable (el de Claudio, algo al suroeste).
 
@@ -72,6 +71,11 @@ Con el EPUB completo se georreferenció cada lámina por separado (cada una con 
 
 Desviación respecto al ajuste de conjunto, antes → después: palacio 139 → 91 m, centro del Circo ~150 → ~100 m, templo de Apolo 70 → 64 m, Casa de Tiberio 60 → 55 m. Lo que queda es sobre todo la compresión general del sur de la ciudad, que es deliberada.
 
+## Cuarta fase: la curva del Tíber
+
+- Al sur de la isla, el río **tuerce ahora al este**. Pasa junto al Foro Boario, por delante de la Porta Trigemina, y va pegado al pie del Aventino. Después vuelve al oeste hacia el Emporio, como en las láminas 28 y 34. Entre la isla y el Emporio, la orilla oriental se ha desplazado entre 40 y 80 m al este. No llega a los 120–180 m de la realidad porque el Aventino del juego está comprimido.
+- Se han movido con el río la **calle del Velabro** (que va por la orilla hasta el Emporio), el **tramo de la muralla serviana** del Aventino (ahora en la ladera, con una sola puerta, la Trigemina) y el **Pórtico Emilio** (a 40 m de la nueva orilla). Los puentes Emilio y Sublicio, los barcos y los barrios del Trastévere siguen el río solos.
+
 ## Pendiente
 
-Quedan por comprobar las calles y manzanas menores de cada lámina (46 láminas a escala 1:1000), y la reordenación grande del río al sur de la isla. Las láminas del EPUB tienen una resolución de 1020 × 680 píxeles, suficiente para los edificios grandes pero justa para las calles.
+Quedan por comprobar las calles y manzanas menores de cada lámina (46 láminas a escala 1:1000), . Las láminas del EPUB tienen una resolución de 1020 × 680 píxeles, suficiente para los edificios grandes pero justa para las calles.
