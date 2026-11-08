@@ -2394,7 +2394,7 @@ const TIMELINE=[
 const npcObjs=[],signObjs=[],walkers=[];let SEA=null;
 const OLIVE_POS=[];
 let terrainInner,potX=0,potZ=0;
-const TRIAL_H={x:AL(-86,68)[0],z:AL(-86,68)[1]};
+const TRIAL_H={x:AL(-65,60)[0],z:AL(-65,60)[1]};   // Agora XIV, lám. 5: al oeste de la Stoa Sur I
 function grp(x,y,z,a){const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=a||0;scene.add(g);return g;}
 function wseg(x,z,a,x1,z1,x2,z2,t){const p=toW(x1,z1,x,z,a),q=toW(x2,z2,x,z,a);addSeg(p[0],p[1],q[0],q[1],t||0.4);}
 
@@ -2751,15 +2751,16 @@ function buildAgora(){
    for(let i=0;i<40;i++){const t0=i/40*TAU,t1=(i+1)/40*TAU,mid=(t0+t1)/2;if(Math.abs(wrapA(mid-Math.PI/2))<gap)continue;addSeg(x+Math.sin(t0)*r,z+Math.cos(t0)*r,x+Math.sin(t1)*r,z+Math.cos(t1)*r,0.4);}
    box(0.6,3.2,2.6,M.dark,x+r+0.05,gy+1.6,z).visible=false;
    footprints.push({x,z,r,c:'#d6c6a6',name:'Tholos'});}
-  // Monumento de los Héroes Epónimos
-  {const[x,z]=AL(-84,-25),gy=terrainH(x,z);box(1.9,1.6,16.6,M.marble,x,gy+0.8,z);
+  // Monumento de los Héroes Epónimos: en el 386 está aún en su primer emplazamiento, al sur, junto a la Heliea (Agora XIV, lám. 5);
+  // el monumento excavado delante del Metroon es de hacia el 330
+  {const[x,z]=AL(-82,37),gy=terrainH(x,z);box(1.9,1.6,16.6,M.marble,x,gy+0.8,z);
    for(let i=0;i<10;i++){const k=makePerson({chiton:'#7d6236',himation:'#8a6a3a',hair:'#6b5230',skin:'#8a6a3a',beard:true});k.position.set(x,gy+1.6,z-7.4+i*1.65);k.rotation.y=Math.PI/2;scene.add(k);}
    for(let i=0;i<5;i++)box(0.08,1.1,1.3,lam('#e8dfc8'),x+1.0,gy+0.9,z-6+i*3);
    for(let i=0;i<9;i++){box(0.15,1.1,0.15,M.stone,x+2.6,gy+0.55,z-8.8+i*2.2);box(0.15,1.1,0.15,M.stone,x-2.6,gy+0.55,z-8.8+i*2.2);}
    box(0.1,0.1,17.8,M.stone,x+2.6,gy+1.05,z);box(0.1,0.1,17.8,M.stone,x-2.6,gy+1.05,z);
    addBox(x,z,5.4,18,0);footprints.push({x,z,w:1.9,d:16.6,a:0,c:'#efe7d8'});}
   // Altar de los Doce Dioses (9,35 x 9,8 m, parapeto con relieves)
-  {const[x,z]=AL(-28,-98),gy=terrainH(x,z),pm=texMat(TEX.nike,3,1);
+  {const[x,z]=AL(-55,-98),gy=terrainH(x,z),pm=texMat(TEX.nike,3,1);
    box(9.35,1.15,0.35,pm,x,gy+0.58,z-4.9);box(9.35,1.15,0.35,pm,x,gy+0.58,z+4.9);box(0.35,1.15,9.8,pm,x+4.68,gy+0.58,z);
    box(0.35,1.15,3.4,pm,x-4.68,gy+0.58,z-3.2);box(0.35,1.15,3.4,pm,x-4.68,gy+0.58,z+3.2);
    addSeg(x-4.68,z-4.9,x+4.68,z-4.9,0.2);addSeg(x-4.68,z+4.9,x+4.68,z+4.9,0.2);addSeg(x+4.68,z-4.9,x+4.68,z+4.9,0.2);addSeg(x-4.68,z-4.9,x-4.68,z-1.5,0.2);addSeg(x-4.68,z+1.5,x-4.68,z+4.9,0.2);
@@ -2776,7 +2777,7 @@ function buildAgora(){
    box(1.6,1.2,1,M.stone,H.x-10,e.gy+0.6,H.z);
    {const kx=H.x+18,kz=H.z+6;box(0.3,1.8,1.1,M.marble,kx,e.gy+0.9,kz);for(let r=0;r<6;r++)box(0.32,0.05,0.9,M.dark,kx,e.gy+0.5+r*0.22,kz);addCirc(kx,kz,0.6);}}
   // fuente del sureste
-  {const[x,z]=AL(68,80),a=Math.PI,gy=minGround(x,z,18.4,7,a),g=grp(x,gy,z,a);
+  {const[x,z]=AL(38,76),a=Math.PI,gy=minGround(x,z,18.4,7,a),g=grp(x,gy,z,a);
    box(18.4,0.5,7,M.limestone,0,0.0,0,g);addPlat(x,z,18.4,7,a,gy+0.25);
    box(18.4,5,0.8,M.stone,0,2.5,-3.1,g);box(0.8,5,7,M.stone,-8.8,2.5,0,g);box(0.8,5,7,M.stone,8.8,2.5,0,g);
    wseg(x,z,a,-9.2,-3.1,9.2,-3.1);wseg(x,z,a,-8.8,-3.5,-8.8,3);wseg(x,z,a,8.8,-3.5,8.8,3);
@@ -2784,6 +2785,10 @@ function buildAgora(){
    for(let i=0;i<3;i++){const p=toW(-5+i*5,3,x,z,a);addColumn(p[0],gy+0.25,p[1],0.38,4.2,a,'doric');}
    const t2=entablature(g,18.4,7,0.25+4.2,1.3,{ia:5});gableRoof(g,19,7.6,t2,1.2,M.tile,M.marbleShade,true);
    footprints.push({x,z,w:18.4,d:7,a,c:'#e4dac6',name:'Fuente'});}
+  // la Ceca (Argyrokopeion), al este de la fuente: hornos y escorias de bronce, de hacia el 400 (Agora XIV, lám. 5)
+  {const[x,z]=AL(64,80),e=enclosure({name:'Ceca',x,z,w:24,d:20,h:3.8,gap:3,rot:Math.PI});
+   for(let i=0;i<3;i++){const fx=x-6+i*6,fz=z+4;box(1.8,1.4,1.8,lam('#7a6a5a'),fx,e.gy+0.7,fz);const f=new THREE.Mesh(new THREE.SphereGeometry(0.35,8,6),new THREE.MeshBasicMaterial({color:'#ff8a3a'}));f.position.set(fx,e.gy+1.2,fz-0.9);scene.add(f);addBox(fx,fz,1.8,1.8,0);}
+   box(2.4,0.9,1.2,M.wood,x+5,e.gy+0.45,z-4);addBox(x+5,z-4,2.4,1.2,0);}
   // casa de Simón el zapatero y mojón del Ágora
   {const[x,z]=AL(-74,102);courtyardHouse(x,z,0,13,11,3.6,false);box(1.2,0.8,0.7,M.wood,x+3,terrainH(x+3,z+7)+0.4,z+7);addBox(x+3,z+7,1.2,0.7,0);}
   {const[x,z]=AL(-66,88),gy=terrainH(x,z);box(0.5,1.1,0.35,M.marble,x,gy+0.55,z);addCirc(x,z,0.3);}
@@ -2948,14 +2953,15 @@ function definePlaces(){
   P('poikile','Stoa Poikile','ΣΤΟΑ ΠΟΙΚΙΛΗ','El «pórtico pintado». Sus grandes tablas de madera, obra de Polignoto, Micón y Paneno, muestran la batalla de Énoe, a Teseo contra las Amazonas, la caída de Troya y la batalla de Maratón. Es un lugar de paseo y conversación: aquí se reúnen filósofos, comerciantes y curiosos.',AL(-55,-142),0);
   P('bouleuterion','Bouleuterion','ΒΟΥΛΕΥΤΗΡΙΟΝ','Sede del Consejo de los Quinientos, construida a finales del siglo V detrás del viejo edificio del Consejo. Dentro, los consejeros se sientan en gradas frente a la tribuna.',AL(-122,-12),0);
   P('metroon','Metroon (antiguo Bouleuterion)','ΜΗΤΡΩΙΟΝ','El viejo edificio del Consejo, de hacia el 500, ahora dedicado a la Madre de los dioses. Desde finales del siglo V guarda el archivo de la ciudad: leyes, decretos, cuentas y actas, en papiro y en tablillas. Cualquier ciudadano puede pedir consultarlos a los esclavos públicos que los custodian.',AL(-98,-14),Math.PI/2);
-  P('eponimos','Monumento de los Héroes Epónimos','ΕΠΩΝΥΜΟΙ','Diez estatuas de bronce de los héroes que dan nombre a las diez tribus de Clístenes: Erecteo, Egeo, Pandión, Leonte, Acamante, Eneo, Cécrope, Hipotoonte, Áyax y Antíoco. En los tablones de su base se cuelgan los avisos públicos: leyes propuestas, convocatorias de juicios, listas de reclutamiento. Es el tablón de anuncios de la democracia.',AL(-78,-36),Math.PI/2);
-  P('doce','Altar de los Doce Dioses','ΒΩΜΟΣ ΤΩΝ ΔΩΔΕΚΑ ΘΕΩΝ','Fundado por Pisístrato el Joven hacia el 522. Es el punto cero de Atenas: desde aquí se miden las distancias a todas partes del Ática. También es un asilo: quien se refugia junto a él suplicando queda bajo la protección de los dioses.',AL(-36,-104),0);
+  P('eponimos','Monumento de los Héroes Epónimos','ΕΠΩΝΥΜΟΙ','Diez estatuas de bronce de los héroes que dan nombre a las diez tribus de Clístenes: Erecteo, Egeo, Pandión, Leonte, Acamante, Eneo, Cécrope, Hipotoonte, Áyax y Antíoco. En los tablones de su base se cuelgan los avisos públicos: leyes propuestas, convocatorias de juicios, listas de reclutamiento. Es el tablón de anuncios de la democracia. Hacia el 330 lo trasladarán frente al Metroon, donde lo encontraron los arqueólogos; ahora, en el 386, está aquí, al sur de la plaza, según la reconstrucción de Travlos (Agora XIV, lámina 5), que lo marca con interrogante.',AL(-76,26),Math.PI/2);
+  P('doce','Altar de los Doce Dioses','ΒΩΜΟΣ ΤΩΝ ΔΩΔΕΚΑ ΘΕΩΝ','Fundado por Pisístrato el Joven hacia el 522. Es el punto cero de Atenas: desde aquí se miden las distancias a todas partes del Ática. También es un asilo: quien se refugia junto a él suplicando queda bajo la protección de los dioses.',AL(-63,-104),0);
   P('hefestion','Hefestión','ΗΦΑΙΣΤΕΙΟΝ','Templo de Hefesto, dios del fuego y la forja, y de Atenea Ergane, patrona de los artesanos. Mide 13,7 por 31,8 metros, con 6 por 13 columnas dóricas. Domina el Ágora desde la colina del Colono Agoreo, rodeado de talleres de bronce y de cerámica. Se empezó hacia 450 y se terminó hacia 415.',AL(-122,-44),Math.PI/2);
-  P('peribolos','Recinto rectangular','ΗΛΙΑΙΑ;','Un gran recinto sin techo de unos 31 por 26,5 metros, con muros de mampostería poligonal. Los excavadores lo identificaron con la Heliea, el mayor tribunal, pero ellos mismos lo presentaron solo como una hipótesis. Hoy muchos piensan que era el Eaceo, el santuario del héroe Éaco, que una ley del 374/373 convirtió en granero. En el juego se usa como tribunal.',AL(-66,58),Math.PI/2);
-  P('kleroterion','Kleroterion','ΚΛΗΡΩΤΗΡΙΟΝ','La máquina de sortear. Cada ciudadano tiene una placa de bronce con su nombre (pinakion) que se inserta en las ranuras de esta piedra. Un tubo deja caer al azar bolas blancas y negras: cada bola decide si una fila entera de nombres es elegida o no. Así se escogen jurados y magistrados sin que nadie pueda hacer trampa.',AL(-66,77),Math.PI/2);
+  P('peribolos','Recinto rectangular','ΗΛΙΑΙΑ;','Un gran recinto sin techo de unos 31 por 26,5 metros, con muros de mampostería poligonal. Los excavadores lo identificaron con la Heliea, el mayor tribunal, pero ellos mismos lo presentaron solo como una hipótesis. Hoy muchos piensan que era el Eaceo, el santuario del héroe Éaco, que una ley del 374/373 convirtió en granero. En el juego se usa como tribunal.',AL(-45,50),Math.PI/2);
+  P('kleroterion','Kleroterion','ΚΛΗΡΩΤΗΡΙΟΝ','La máquina de sortear. Cada ciudadano tiene una placa de bronce con su nombre (pinakion) que se inserta en las ranuras de esta piedra. Un tubo deja caer al azar bolas blancas y negras: cada bola decide si una fila entera de nombres es elegida o no. Así se escogen jurados y magistrados sin que nadie pueda hacer trampa.',AL(-45,69),Math.PI/2);
   P('horos','Mojón del Ágora','ΗΟΡΟΣ ΕΙΜΙ ΤΕΣ ΑΓΟΡΑΣ','La inscripción dice: «Soy el límite del Ágora». Este mojón se encontró en su sitio original, junto a la casa de Simón. Dentro de estos límites el espacio es sagrado y público. Los que han cometido ciertos delitos tienen prohibido entrar: quedan apartados de la vida de la ciudad.',AL(-63,91),Math.PI/2);
   P('simon','Casa de Simón el zapatero','ΣΙΜΩΝΟΣ','Una casa modesta en la esquina suroeste del Ágora. Los arqueólogos encontraron aquí clavos de botas, ojales de hueso y la base de una copa con el nombre «de Simón». Diógenes Laercio cuenta que Sócrates visitaba el taller del zapatero Simón para conversar, y Jenofonte, que los jóvenes que aún no podían entrar en el Ágora se reunían en talleres junto a ella.',AL(-80,112),0);
-  P('fuente','Fuente del sureste','ΚΡΗΝΗ','Una fuente pública del siglo VI, quizá la famosa Eneacruno («nueve caños») de los Pisistrátidas, aunque la identificación es discutida. Aquí las mujeres y los esclavos llenan las hidrias cada día: es uno de los pocos lugares donde las mujeres atenienses se encuentran y conversan fuera de casa.',AL(68,72),Math.PI);
+  P('ceca','La Ceca','ΑΡΓΥΡΟΚΟΠΕΙΟΝ','El taller de la moneda. Los arqueólogos lo identifican así por los hornos, las escorias de bronce y los cospeles (los discos de metal sin acuñar) que encontraron dentro; no se sabe si aquí se acuñaba también la plata de las lechuzas. En el 406, en lo peor de la guerra, Atenas tuvo que acuñar monedas de bronce bañadas en plata, y Aristófanes se burló de ellas en Las ranas: la ciudad, dice, trata a sus mejores ciudadanos como a esa moneda falsa.',AL(64,66),Math.PI);
+  P('fuente','Fuente del sureste','ΚΡΗΝΗ','Una fuente pública del siglo VI, quizá la famosa Eneacruno («nueve caños») de los Pisistrátidas, aunque la identificación es discutida. Aquí las mujeres y los esclavos llenan las hidrias cada día: es uno de los pocos lugares donde las mujeres atenienses se encuentran y conversan fuera de casa.',AL(38,68),Math.PI);
   P('eleusinion','Eleusinion de la ciudad','ΕΛΕΥΣΙΝΙΟΝ','Santuario de Deméter y de su hija Core (Perséfone), en la ladera junto a la Vía Panatenaica. Aquí se guardan los objetos sagrados de los Misterios de Eleusis cuando llegan a Atenas antes de la gran procesión de otoño. También se exponen las estelas con los bienes confiscados a los acusados de profanar los Misterios en el 415.',[ELEUS.x+19,ELEUS.z+6],Math.PI/2);
   P('bema','Bema de la Pnyx','ΒΗΜΑ','La tribuna de los oradores. En esta fase de la Pnyx (desde hacia el 400) el público se sienta sobre una terraza sostenida por un gran muro curvo al norte y mira hacia la tribuna, al sur. Quien sube a hablar lleva una corona de mirto: mientras habla, su persona es inviolable.',[PNYX.x+5,PNYX.z+34],Math.PI);
   P('teatro','Teatro de Dioniso','ΘΕΑΤΡΟΝ ΔΙΟΝΥΣΟΥ','Aquí se estrenaron las tragedias de Esquilo, Sófocles y Eurípides y las comedias de Aristófanes. Las gradas son todavía de madera (ikria) sobre la ladera de la Acrópolis; caben miles de espectadores. En el centro de la orquesta, donde canta y danza el coro, está el altar de Dioniso. Detrás, la escena de madera con sus tres puertas.',[THEA.x-22,THEA.z+12],0);
@@ -2990,7 +2996,7 @@ function placeNPCs(){
     alfarero:[potX,potZ,0],sacerdotisa:[-3.4,-31,Math.PI/2],aristofanes:[THEA.x+3,THEA.z+4,Math.PI],hoplita:[PG.x+LW_DIR[0]*26,PG.z+LW_DIR[1]*26,0],
     pasion:[...AL(40,-19.6),0],filina:[sympDoor[0],sympDoor[1],Math.atan2(D.ox,D.oz)+Math.PI/2],antistenes:[CYNO.x+2,CYNO.z+1.6,0]
   };
-  Object.assign(pos,{platonakis:[ACADEMY.x+18,ACADEMY.z+32,1.3],orfeotelesta:[ELEUS.x+21,ELEUS.z+8,Math.PI/2],abuela:[...AL(60,71),0],enfermo:[-37,114,Math.PI/2],iniciada:[ELEUS.x+6,ELEUS.z+12,Math.PI/2]},NPC_POS);
+  Object.assign(pos,{platonakis:[ACADEMY.x+18,ACADEMY.z+32,1.3],orfeotelesta:[ELEUS.x+21,ELEUS.z+8,Math.PI/2],abuela:[...AL(30,67),0],enfermo:[-37,114,Math.PI/2],iniciada:[ELEUS.x+6,ELEUS.z+12,Math.PI/2]},NPC_POS);
   NPCS.forEach(n=>{const[x,z,r]=pos[n.id];const g=makePerson(dressLook(n.look,n.title));const y=floorAt(x,z);g.position.set(x,y,z);g.rotation.y=r;scene.add(g);
     const lb=labelSprite(n.name,n.title,!HIST.has(n.id));lb.position.y=2.45;lb.visible=false;g.add(lb);const mk=markerSprite();mk.position.y=2.95;g.add(mk);
     addCirc(x,z,0.4);npcObjs.push({kind:'npc',data:n,g,lb,mk,x,z,baseRot:r});});
@@ -3717,7 +3723,7 @@ function sheep(parent,x,z){const g=new THREE.Group();g.position.set(x,0,z);const
 const SOCIAL={school:[],sacrifice:[],smoke:[],wedding:null,horoi:[]};
 function buildSocial(){
   // sacrificio al amanecer junto al Altar de los Doce Dioses
-  {const[ax,az]=AL(-28,-98),gy=terrainH(ax,az),g=grp(ax,gy,az,0);
+  {const[ax,az]=AL(-55,-98),gy=terrainH(ax,az),g=grp(ax,gy,az,0);
    const pr=makePerson({chiton:'#f4efe4',himation:'#f4efe4',beard:true,hair:'#8d8a85'});pr.position.set(-6.2,0,0.6);pr.rotation.y=Math.PI/2;g.add(pr);
    pr.userData.arms[0].rotation.x=-2.2;pr.userData.arms[1].rotation.x=-2.2;
    const kn=makePerson({chiton:'#f1e4c4',himation:'#c9a24a',female:true,hair:'#3b2a1e'});kn.position.set(-6.4,0,-1.2);kn.rotation.y=Math.PI/2;g.add(kn);
@@ -3738,7 +3744,7 @@ function buildSocial(){
    const bks=['¿Has visto el vestido de la mujer de Calias? Azafrán. A su edad.','Mi cuñada sale de cuentas en Targelión. Iré a ayudarla, claro.','En las Tesmoforias nos burlamos de los hombres todo lo que queremos. Tres días sin ellos, ¡qué descanso!','No me cuentes más, que mi marido vuelve del Pireo a mediodía y no tengo ni el agua.','La de enfrente se pone tanto blanco de plomo que parece una estatua.'];
    for(let i=0;i<3;i++){const[x,z]=AL(60+i*6,73.5+(i%2)*1.5);const L=looks[i];const g=makePerson({chiton:L[0],himation:L[1],female:true,carry:'hydria',hair:'#3b2a1e'});g.position.set(x,floorAt(x,z),z);g.rotation.y=Math.PI+(i-1)*0.5;scene.add(g);addCirc(x,z,0.35);
      walkers.push({g,mode:'idle',tx:x,tz:z,wait:Infinity,speed:0,phase:R()*10,x,z,barks:bks});}
-   NPC_POS.aguadora=[...AL(75,72),Math.PI*1.2];}
+   NPC_POS.aguadora=[...AL(45,68),Math.PI*1.2];}
   // cortejo nupcial al anochecer
   {const pts=[[-292,-184],[-215,-170],[-140,-155]];let L=0;const seg=[];for(let i=0;i<pts.length-1;i++){const l=Math.hypot(pts[i+1][0]-pts[i][0],pts[i+1][1]-pts[i][1]);seg.push(l);L+=l;}
    const mem=[],torches=[];const add=(g,back,side)=>{scene.add(g);g.visible=false;mem.push({g,back,side});return g;};
@@ -8103,7 +8109,7 @@ function athensDecor(){
   // el Ágora: tierra apisonada
   {const c=AL(12,-28);drape(c[0],c[1],215,240,0,'earth',8,0.08);}
   athensRoadsDecor();
-  const avoid=[...Object.values(NPC_POS),AL(-97,21),AL(-64,66),AL(-89,-68),AL(10,-30),AL(40,-19.6),AL(60,71),AL(-120,2),AL(-113,-3),AL(92,-70),AL(-74,-42)];
+  const avoid=[...Object.values(NPC_POS),AL(-97,21),AL(-64,66),AL(-89,-68),AL(10,-30),AL(40,-19.6),AL(30,67),AL(-120,2),AL(-113,-3),AL(92,-70),AL(-74,-42)];
   const farNPC=(x,z,m)=>avoid.every(p=>Math.hypot(p[0]-x,p[1]-z)>m);
   // puestos del mercado: mesas, toldos y mercancías; algunos vendedores pregonan
   const AW=[lam('#c9a24a'),lam('#a8392b'),lam('#e9dfc8'),lam('#5c6b3f')],JAR=lam('#b5603a'),WIC=lam('#a8864f'),CL=[lam('#7a2a5e'),lam('#2f4c86'),lam('#efe6d2')];
@@ -8118,7 +8124,7 @@ function athensDecor(){
   // los plátanos que plantó Cimón en el Ágora
   {const tr=[];for(let k=0;k<200&&tr.length<16;k++){const[x,z]=AL(rr(-80,100),R()<0.5?rr(55,75):rr(-130,-112));if(roadDist(x,z)>3&&isFree(x,z,3)&&!footHit(x,z,4)&&farNPC(x,z,4))tr.push({x,z,kind:'plane',k:rr(1.0,1.25),collide:true});}if(GLB.ok)treesGLB(tr);}
   // los Tiranicidas, Harmodio y Aristogitón
-  {const[x,z]=findFree(...AL(18,-58),3),gy=floorAt(x,z),a=-0.5;box(3.4,1.5,1.9,M.marble,x,gy+0.75,z).rotation.y=a;addBox(x,z,3.4,1.9,a);
+  {const[x,z]=findFree(...AL(-59,-26),3),gy=floorAt(x,z),a=-Math.PI/2;   // «más o menos enfrente del Metroon» (Arriano, Anábasis III 16.8)box(3.4,1.5,1.9,M.marble,x,gy+0.75,z).rotation.y=a;addBox(x,z,3.4,1.9,a);
    const p1=toW(-0.75,0,x,z,a),p2=toW(0.75,0,x,z,a);const f1=bronzeFig(p1[0],gy+1.5,p1[1],a+0.3,{short:true,beard:false}),f2=bronzeFig(p2[0],gy+1.5,p2[1],a-0.3,{short:true,beard:true});
    if(f1.userData.arms){f1.userData.arms[1].rotation.x=-2.7;f1.userData.arms[0].rotation.x=-0.6;}if(f2.userData.arms){f2.userData.arms[0].rotation.x=-1.4;f2.userData.arms[1].rotation.x=0.4;}
    place('tiranicidas','Los Tiranicidas','ΑΡΜΟΔΙΟΣ ΚΑΙ ΑΡΙΣΤΟΓΕΙΤΩΝ','Harmodio y Aristogitón mataron en el 514 a Hiparco, hermano del tirano Hipias, durante las Panateneas. Murieron por ello, pero los atenienses los honran como fundadores de la libertad: sus descendientes comen gratis en el Pritaneo y nadie más puede tener una estatua junto a ellos. El primer grupo de bronce, de Antenor, se lo llevó Jerjes a Persia en el 480; este es el que hicieron Critio y Nesiotes en el 477.',...toW(0,2.6,x,z,a),a);}
@@ -8142,7 +8148,7 @@ function athensDecor(){
   {let nw=0;for(const f of footprints){if(!f.house||nw>=46||R()<0.9)continue;const p=toW(rr(-f.w*0.3,f.w*0.3),f.d/2+2.2,f.x,f.z,f.a);if(!isFree(p[0],p[1],1.2)||roadDist(p[0],p[1])<2)continue;const b={x:p[0],y:floorAt(p[0],p[1]),z:p[1],a:f.a};pieceAt('well',UNITC,lam('#a8532f'),b,0,0,0,0.95,0.72,0.95);pieceAt('wellI',UNITC,M.dark,b,0,0.7,0,0.6,0.03,0.6);addCirc(p[0],p[1],0.55);nw++;}}
   place('ciudad_calles','Las calles de Atenas','ΟΔΟΙ','A diferencia de Roma, las calles de Atenas no se pavimentan: son de tierra apisonada y grava, polvorientas en verano y embarradas en invierno, y muchas son estrechas y torcidas, porque la ciudad creció sin plan. A un lado corren desagües de piedra que llevan el agua de lluvia hacia el gran canal del Ágora. Un viajero de la época escribió que Atenas era seca, mal regada y mal trazada por su antigüedad, aunque sus edificios públicos eran los más bellos de Grecia. A las puertas de las casas hay hermas y pozos.',...AL(-58,104),0);
   place('mercado','El mercado del Ágora','ΑΓΟΡΑ','El Ágora es también el gran mercado de Atenas. Cada mercancía tiene su rincón: los «círculos» (kykloi) del pescado, la carne y las verduras, los puestos de perfumes, de libros, de cerámica, de esclavos. Los inspectores del mercado (agoranomoi) vigilan la calidad, y los metronomoi, los pesos y medidas. «A la hora del ágora llena», a media mañana, aquí se encuentra toda la ciudad.',...AL(30,10),0);
-  place('hermas','Hermas','ΕΡΜΑΙ','Pilares de piedra con la cabeza de Hermes y un falo, que protegen las puertas de las casas, los cruces y los caminos. En los cruces hay también hecateos, pilares con tres imágenes de Hécate, diosa de las encrucijadas. En el 415, la noche antes de que zarpara la expedición a Sicilia, alguien mutiló casi todas las hermas de Atenas: el escándalo acabó con el destierro de Alcibíades.',...AL(-36,-78),0);
+  place('hermas','Hermas','ΕΡΜΑΙ','Pilares de piedra con la cabeza de Hermes y un falo, que protegen las puertas de las casas, los cruces y los caminos. En los cruces hay también hecateos, pilares con tres imágenes de Hécate, diosa de las encrucijadas. En el 415, la noche antes de que zarpara la expedición a Sicilia, alguien mutiló casi todas las hermas de Atenas: el escándalo acabó con el destierro de Alcibíades. Las hermas más famosas están en el ángulo noroeste del Ágora, entre la Stoa Real y la Stoa Poikile.',...AL(-83,-135),0);
   flushStatues();flushPieces();
 }
 

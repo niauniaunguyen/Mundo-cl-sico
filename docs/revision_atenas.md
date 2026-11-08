@@ -35,8 +35,33 @@ La muralla del juego es casi un círculo. Superpuesta al trazado de Judeich, coi
 | Diomea | 0,33 | 0,90 | se deja: su lugar se discute (Judeich, al sur; otros, al este) |
 | **Dípilon** | −2,29 | −2,67 | **pendiente** |
 
+## El Ágora, edificio por edificio
+
+Plano de referencia: *Agora XIV*, lámina 5, «The Agora in Late 5th Century B.C.», de J. Travlos (1970), con escala gráfica de 100 m y el norte arriba. Es el estado del Ágora más cercano al 386.
+
+El ajuste con 11 edificios da escala 0,91 y giro −6,7°: el Ágora del juego está ligeramente comprimida y girada respecto al resto, como toda la ciudad.
+
+**Antes de la revisión ya estaban bien** (menos de 25 m): Hefestión, Stoa Real, Stoa de Zeus, los dos Bouleuteria, la Tholos, la Stoa Sur I y la Stoa Poikile. La Vía Panatenaica cruza la plaza en diagonal, como en la lámina.
+
+**Corregido:**
+
+| Elemento | Antes | Ahora | Por qué |
+|---|---|---|---|
+| Monumento de los Héroes Epónimos | delante del Metroon (73 m) | al sur, junto a la Heliea (16 m) | El monumento excavado delante del Metroon es de hacia el 330; en el 386 estaba en su primer emplazamiento, que Travlos marca con interrogante. El cartel lo explica. |
+| Altar de los Doce Dioses | encima de la Vía Panatenaica (20 m) | al oeste de la calle (12 m) | Lámina 5 |
+| Recinto rectangular («¿Heliea?») | 22 m al oeste | junto a la Stoa Sur I (3 m) | Lámina 5; también el kleroterion y su cartel |
+| Fuente del sureste | 30 m al este, en el sitio de la Ceca | pegada a la Stoa Sur I (3 m) | Lámina 5; también la aguadora y la abuela |
+| **La Ceca** (nueva) | no estaba | al este de la fuente | Hornos, escorias y cospeles; hacia el 400. El cartel recuerda las monedas de bronce plateado del 406 (Aristófanes, *Ranas* 718-737). |
+| Los Tiranicidas | al este de la Vía Panatenaica | en la Orquestra, frente al Metroon | Arriano, *Anábasis* III 16.8 |
+| Hermas | en mitad de la plaza | en el ángulo noroeste, entre la Stoa Real y la Poikile | Agora XIV; Agora III (testimonios sobre «las Hermas») |
+
+**Comprobado y no cambiado:**
+
+- La casa de Simón y el mojón del Ágora están unos 70 m al sur de la esquina suroeste de la lámina. Se dejan juntos, porque el mojón se encontró al lado de la casa.
+- El Estrategeion (¿?) de la lámina no está en el juego; su identificación es dudosa.
+- La Stoa Poikile del juego sigue la reconstrucción de 1970. La excavada en 1981 está algo más al oeste, al norte de la Vía Panatenaica; la diferencia es menor de 20 m.
+
 ## Pendiente
 
 - **El Dípilon y el Cerámico.** En el juego, el Dípilon queda al norte del Ágora; en realidad está al noroeste, y la Vía Panatenaica cruza el Ágora en diagonal. Moverlo arrastra la Puerta Sagrada, el Pompeion, el cementerio del Cerámico, el Erídano, el camino y la posición de la Academia y el barrio de los alfareros. Es una reordenación grande, para hacerla aparte.
 - La Acrópolis, unos 70 m al este respecto al Ágora.
-- Revisión edificio a edificio del Ágora con los planos de *Agora XIV* y del *Pictorial Dictionary*.
