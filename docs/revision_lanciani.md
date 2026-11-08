@@ -59,11 +59,19 @@ Con el EPUB completo se georreferenció cada lámina por separado (cada una con 
 
 **Comprobado y no cambiado:**
 
-- **El Palatino es demasiado estrecho** de norte a sur (58 m de semieje). Por eso el palacio de Domiciano queda unos 75 m al oeste en la lámina 29 y, en el ajuste de conjunto, la Casa de Augusto y el centro del Circo quedan a 100–150 m. Arreglarlo es rehacer el Palatino, el Circo y el Aventino a la vez: queda como propuesta aparte.
 - **El río al sur de la isla** debería torcer hacia el este, hasta pasar junto al Foro Boario y el Aventino. En el juego baja más recto, con la orilla oriental unos 120–180 m al oeste. Corregirlo obliga a mover la muralla de la Porta Trigemina, la calle del Velabro y el puente Sublicio; se deja anotado. Las posiciones relativas sí se han conservado: teatro → isla → Foro Boario → Porta Trigemina → cárceres del Circo.
 - **El Campo de Marte** está desplazado en bloque unos 150–190 m hacia el norte, y el Emporio y la Pirámide están comprimidos. Es compresión deliberada para que el mapa sea recorrible.
 - Para el Templo de Claudio, la Domus Aurea, la Puerta Capena y las Termas de Tito, las coordenadas reales del ajuste no eran fiables; en las láminas 30, 35 y 36 su posición respecto a sus vecinos es aceptable (el de Claudio, algo al suroeste).
 
+## Tercera fase: el Palatino y el Circo Máximo
+
+- **El Palatino** era demasiado estrecho de norte a sur (116 m). Ahora mide 164 m (semiejes 160 × 82, centro en (40,195)). Sigue comprimido respecto a la realidad (unos 300 m a la escala del juego), pero sin chocar con el Circo.
+- **Sus edificios** se han colocado en el orden de Lanciani (láms. 29 y 35). Al norte, sobre el Foro, la Casa de Tiberio. En la esquina oeste, el templo de la Gran Madre y la cabaña de Rómulo. Al sur, la Casa de Augusto con el templo de Apolo a su lado, mirando al Circo. Al este, el palacio de los Flavios en obras. Antes Apolo estaba al este del palacio, y el palacio en el centro de la colina.
+- **El Circo Máximo** baja 50 m y se desplaza 25 m al este, al centro (65,405), con el mismo giro. Su curva sigue mirando a la Puerta Capena. El tramo de la muralla serviana entre el Aventino y la Puerta Capena rodea ahora la curva del Circo. El cartel y los personajes del Circo se mueven con él.
+- **La cima del Palatino** queda reservada: allí no se generan ínsulas, solo palacios, templos y jardines.
+
+Desviación respecto al ajuste de conjunto, antes → después: palacio 139 → 91 m, centro del Circo ~150 → ~100 m, templo de Apolo 70 → 64 m, Casa de Tiberio 60 → 55 m. Lo que queda es sobre todo la compresión general del sur de la ciudad, que es deliberada.
+
 ## Pendiente
 
-Quedan por comprobar las calles y manzanas menores de cada lámina (46 láminas a escala 1:1000), y las dos reordenaciones grandes descritas arriba (el Palatino con el Circo y el río al sur de la isla). Las láminas del EPUB tienen una resolución de 1020 × 680 píxeles, suficiente para los edificios grandes pero justa para las calles.
+Quedan por comprobar las calles y manzanas menores de cada lámina (46 láminas a escala 1:1000), y la reordenación grande del río al sur de la isla. Las láminas del EPUB tienen una resolución de 1020 × 680 píxeles, suficiente para los edificios grandes pero justa para las calles.

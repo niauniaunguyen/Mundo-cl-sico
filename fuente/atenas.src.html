@@ -5152,7 +5152,7 @@ const ROMA_TIMELINE=[
 const ROMA_ZONES=[
  {id:'foro',name:'Foro Romano',gr:'FORVM ROMANVM',sub:'El corazón político y religioso de Roma, entre el Capitolio y el Palatino.',test:(x,z)=>Math.abs(x)<120&&Math.abs(z)<65},
  {id:'capitolio',name:'Capitolio',gr:'CAPITOLIVM',sub:'La colina sagrada de Júpiter Óptimo Máximo.',test:(x,z)=>superD(x,z,-222,-42,72,112)<1.05&&romaH(x,z)>16},
- {id:'palatino',name:'Palatino',gr:'PALATIVM',sub:'La colina de Rómulo y de los palacios de los emperadores.',test:(x,z)=>superD(x,z,20,175,170,100)<1.05&&romaH(x,z)>22},
+ {id:'palatino',name:'Palatino',gr:'PALATIVM',sub:'La colina de Rómulo y de los palacios de los emperadores.',test:(x,z)=>superD(x,z,40,195,180,108)<1.05&&romaH(x,z)>22},
  {id:'anfiteatro',name:'Anfiteatro Flavio',gr:'AMPHITHEATRVM FLAVIVM',sub:'El anfiteatro que Tito inaugura con cien días de juegos.',test:(x,z)=>Math.hypot((x-400)/120,(z-60)/105)<1},
  {id:'circo',name:'Circo Máximo',gr:'CIRCVS MAXIMVS',sub:'Las carreras de carros, entre el Palatino y el Aventino.',test:(x,z)=>x>-280&&x<360&&z>290&&z<420},
  {id:'foros',name:'Foros imperiales',gr:'FORA',sub:'Los foros de César y de Augusto y el Templo de la Paz.',test:(x,z)=>x>-180&&x<260&&z>-260&&z<-70},
@@ -5570,7 +5570,7 @@ const RHILLS=[
  [-228,22,52,44,32,0.42],    // Capitolio: el Capitolium (cumbre sur, con el templo de Júpiter)
  [-218,-108,42,34,38,0.42],  // el Arx (cumbre norte, la más alta, con Juno Moneta y el auguraculum)
  [-214,-42,38,30,21,0.5],    // el Asylum, la hondonada entre las dos cumbres, tras el Tabularium
- [20,178,150,58,34,0.7],     // Palatino
+ [40,195,160,82,34,0.7],     // Palatino: más ancho de norte a sur (Lanciani, láms. 29 y 35)
  [-250,590,170,120,30,0.5],  // Aventino
  [520,330,150,95,28,0.6],    // Celio
  [470,-260,200,100,34,0.6],  // Esquilino (Opio)
@@ -5595,7 +5595,7 @@ const CIRC_A=-0.349;   // el Circo Máximo, girado unos 20° respecto al eje est
 const RFLATS=[
  [0,0,122,64,0.6,0.22],        // Foro Romano
  [60,-165,200,95,1.0,0.2],     // foros imperiales
- [40,355,320,78,1.0,0.12,-0.349],     // Circo Máximo (girado, CIRC_A)
+ [65,405,320,78,1.0,0.12,-0.349],     // Circo Máximo (girado, CIRC_A)
  [480,-128,78,62,8,0.32],      // terraza de las Termas de Tito
  [-430,120,90,70,1.2,0.4],     // Velabro
  [-410,250,58,95,1.2,0.35],    // Foro Boario, hasta la Porta Trigemina
@@ -5636,7 +5636,7 @@ function romaColor(x,z,h,sl,c,inner){
   if(urb&&!green)c.lerp(RC.urb,0.92*(1-hill*0.3));
   c.lerp(RC.garden,(green?0.5:urb?hill*0.12:hill*0.25)*(0.6+fbm(x*0.03,z*0.03)));
   if(romaPaved(x,z))c.lerp(RC.pave,0.8);
-  if(superD(x,z,40,355,300,44)<1||Math.hypot((x-400)/41.5,(z-60)/24)<1)c.lerp(RC.sand,0.9);
+  if((()=>{const dx=x-65,dz=z-405,c=Math.cos(CIRC_A),sn=Math.sin(CIRC_A);return superD(65+dx*c-dz*sn,405+dx*sn+dz*c,65,405,300,44)<1;})()||Math.hypot((x-400)/41.5,(z-60)/24)<1)c.lerp(RC.sand,0.9);
   c.lerp(RC.tufa,clamp((sl-0.5)*1.4,0,1)*0.75);if(sl>0.5)c.lerp(RC.garden,clamp((sl-0.5)*0.5,0,0.35)*fbm(x*0.05+3,z*0.05));
   if(h<0.6&&romaRiverDist(x,z)<romaRiverW(z)+20)c.lerp(h<-1?RC.mud:RC.bank,0.8);
   if(inner){const rd=roadDist(x,z);if(rd<1.2)c.lerp(RC.basalt,clamp(1-(rd+0.4)/1.6,0,1));}
@@ -5657,12 +5657,12 @@ const ROMA_PLACES=[
  ['ro_jupiter','Templo de Júpiter Óptimo Máximo','IOVI OPTIMO MAXIMO','El templo más sagrado de Roma, en la cima del Capitolio, dedicado a la tríada Júpiter, Juno y Minerva. Fundado en el 509 a.C., ardió en la guerra civil del 69 d.C. y Vespasiano lo reconstruyó; este mismo año, el gran incendio del 80 lo ha vuelto a quemar, y ya se habla de levantarlo otra vez, todavía más rico. Tiene tejas de bronce dorado. Aquí terminan los desfiles triunfales: el general sube con el rostro pintado de rojo, como la estatua del dios.',[-214,58],0],
  ['ro_tarpeya','Roca Tarpeya','SAXVM TARPEIVM','Desde este acantilado del Capitolio se despeñaba a los traidores y asesinos. Tarpeya, hija del comandante de la ciudadela, abrió las puertas a los sabinos a cambio de «lo que llevaban en el brazo izquierdo», pensando en sus brazaletes de oro; los sabinos la aplastaron con sus escudos.',[-205,66],Math.PI],
  ['ro_palatino','El Palatino','PALATIVM','La colina donde, según la leyenda, Rómulo fundó Roma. Aquí vivieron los nobles de la República y, desde Augusto, los emperadores: por eso «palacio» viene de Palatino. Vespasiano prefería vivir en los jardines de Salustio, y Tito, en su casa: los Flavios quieren alejarse del lujo de Nerón. Dentro de pocos años, su hermano Domiciano encargará al arquitecto Rabirio un palacio inmenso en lo alto de la colina.',[60,120],0],
- ['ro_romulo','Cabaña de Rómulo','CASA ROMVLI','Una cabaña de madera, barro y paja que los romanos conservan y reparan desde hace siglos como recuerdo de la casa de Rómulo. Los arqueólogos han encontrado en el Palatino agujeros de postes de cabañas como esta del siglo VIII a.C.',[-100,232],0],
- ['ro_apolo','Templo de Apolo Palatino','APOLLO PALATINVS','Augusto lo construyó junto a su casa tras vencer a Sexto Pompeyo y lo dedicó en el 28 a.C. A su lado estaban las bibliotecas griega y latina. Sus puertas tenían relieves de marfil; el pórtico, estatuas de las cincuenta Danaides. Augusto guardó aquí los libros sibilinos.',[60,250],0],
+ ['ro_romulo','Cabaña de Rómulo','CASA ROMVLI','Una cabaña de madera, barro y paja que los romanos conservan y reparan desde hace siglos como recuerdo de la casa de Rómulo. Los arqueólogos han encontrado en el Palatino agujeros de postes de cabañas como esta del siglo VIII a.C.',[-72,262],0],
+ ['ro_apolo','Templo de Apolo Palatino','APOLLO PALATINVS','Augusto lo construyó junto a su casa tras vencer a Sexto Pompeyo y lo dedicó en el 28 a.C. A su lado estaban las bibliotecas griega y latina. Sus puertas tenían relieves de marfil; el pórtico, estatuas de las cincuenta Danaides. Augusto guardó aquí los libros sibilinos.',[0,270],0],
  ['ro_coliseo','Anfiteatro Flavio','AMPHITHEATRVM','Vespasiano lo empezó hacia el 72 sobre el lago artificial de la Casa Dorada de Nerón, y Tito lo inaugura en el 80 con cien días de juegos. Mide 188 por 156 metros y unos 48 de alto. Tiene cuatro pisos: arcos con columnas toscanas, jónicas y corintias, y un ático con ventanas. Caben unos cincuenta mil espectadores, sentados según su rango. Siglos después lo llamarán Coliseo.',[292,58],-Math.PI/2],
  ['ro_coloso','El Coloso','COLOSSVS','Una estatua de bronce de más de treinta metros, obra de Zenodoro, que representaba a Nerón y presidía el vestíbulo de la Casa Dorada. Vespasiano le cambió la cabeza y la convirtió en el dios Sol, con una corona de rayos. Quizá por él se acabó llamando Coliseo al anfiteatro.',[282,-6],-Math.PI/2],
  ['ro_termas','Termas de Tito','THERMAE TITI','Unas termas públicas que Tito construyó deprisa junto al anfiteatro, sobre parte de la Casa Dorada de Nerón, y que inaugura con los juegos del 80. Tienen palestra, piscinas y salas frías, templadas y calientes.',[452,-74],0],
- ['ro_circo','Circo Máximo','CIRCVS MAXIMVS','El mayor edificio de espectáculos de Roma, en el valle entre el Palatino y el Aventino, donde según la leyenda se raptó a las sabinas. Las carreras de carros dan siete vueltas alrededor de la espina, adornada con un obelisco egipcio que trajo Augusto. Tras el incendio del 64, que empezó en sus tiendas, se reconstruyó.',[-190,300],Math.PI/2],
+ ['ro_circo','Circo Máximo','CIRCVS MAXIMVS','El mayor edificio de espectáculos de Roma, en el valle entre el Palatino y el Aventino, donde según la leyenda se raptó a las sabinas. Las carreras de carros dan siete vueltas alrededor de la espina, adornada con un obelisco egipcio que trajo Augusto. Tras el incendio del 64, que empezó en sus tiendas, se reconstruyó.',[-165,350],Math.PI/2],
  ['ro_paz','Templo de la Paz','TEMPLVM PACIS','Inaugurado por Vespasiano en el 75 con el botín de la guerra de Judea. Es una gran plaza ajardinada con estanques y rosales, rodeada de pórticos, con una biblioteca y una sala de obras de arte griegas. Aquí se exponen el candelabro de siete brazos y otros objetos del Templo de Jerusalén.',[118,-160],-Math.PI/2],
  ['ro_augusto','Foro de Augusto','FORVM AVGVSTI','Augusto lo prometió antes de la batalla de Filipos (42 a.C.), donde vengó a César. El templo de Marte Vengador está al fondo, ante un enorme muro cortafuegos que lo separa del barrio de la Subura. En los pórticos hay estatuas de Eneas, de Rómulo y de los grandes hombres de Roma, cada uno con su inscripción.',[40,-150],0],
  ['ro_cesar','Foro de César','FORVM IVLIVM','La primera de las plazas imperiales, inaugurada por César en el 46 a.C. Al fondo, el templo de Venus Genetrix, la madre de Eneas, de quien la familia Julia decía descender. Dentro hay una estatua de Cleopatra en bronce dorado.',[-60,-140],Math.PI/2],
@@ -6495,12 +6495,12 @@ function romaCapitol(){
   if(GLB.ok)treesGLB(tr);
 }
 function romaPalatine(){
-  const top=romaH(20,178);
+  const top=romaH(40,195);
   // palacio de Tiberio, al norte, sobre el Foro: bloques de varios pisos con ventanas
-  {const g=grp(-55,top-0.3,145,0);const w=new THREE.Mesh(new THREE.BoxGeometry(110,24,50),[texMat(RTEX.windows,8,2),texMat(RTEX.windows,8,2),M.tile,M.tile,texMat(RTEX.windows,14,2),texMat(RTEX.windows,14,2)]);w.position.y=10;w.castShadow=true;g.add(w);
-   gableRoof(g,112,52,22,5,M.tile,BRICK,true);addBox(-55,145,110,50,0);footprints.push({x:-55,z:145,w:110,d:50,a:0,c:'#c79a7e',name:'Casa de Tiberio'});}
+  {const g=grp(-45,top-0.3,150,0);const w=new THREE.Mesh(new THREE.BoxGeometry(110,24,50),[texMat(RTEX.windows,8,2),texMat(RTEX.windows,8,2),M.tile,M.tile,texMat(RTEX.windows,14,2),texMat(RTEX.windows,14,2)]);w.position.y=10;w.castShadow=true;g.add(w);
+   gableRoof(g,112,52,22,5,M.tile,BRICK,true);addBox(-45,150,110,50,0);footprints.push({x:-45,z:150,w:110,d:50,a:0,c:'#c79a7e',name:'Casa de Tiberio'});}
   // palacio de los Flavios en obras: muros de ladrillo a medio levantar, andamios y una grúa de rueda
-  {const cx=40,cz=195,gy=top-0.3,g=grp(cx,gy,cz,0),wm=texMat(RTEX.brick,6,3);
+  {const cx=95,cz=215,gy=top-0.3,g=grp(cx,gy,cz,0),wm=texMat(RTEX.brick,6,3);
    const walls=[[-40,-30,80,1.6,14],[-40,30,80,1.6,9],[-40,-30,1.6,60,12],[40,-30,1.6,60,18],[-10,-30,1.6,40,7],[15,0,50,1.6,5]];
    for(const[x0,z0,w,d,h]of walls){box(w,h+1,d,wm,x0+w/2,(h+1)/2-1,z0+d/2,g);const p=toW(x0,z0,cx,cz,0),q=toW(x0+w,z0+d,cx,cz,0);if(w>d)addSeg(p[0],(p[1]+q[1])/2,q[0],(p[1]+q[1])/2,d/2);else addSeg((p[0]+q[0])/2,p[1],(p[0]+q[0])/2,q[1],w/2);}
    for(let i=0;i<14;i++){const px=-38+i*6;for(const pz of[-32,-27.5]){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,16,5),M.wood);c.position.set(px,8,pz);g.add(c);}}
@@ -6509,13 +6509,13 @@ function romaPalatine(){
    for(const s of[-1,1]){const l=box(0.3,16,0.3,M.wood,s*1.4,7.5,-1.5,crane);l.rotation.x=0.35;}const boom=box(0.3,0.3,10,M.wood,0,14.5,-5,crane);
    footprints.push({x:cx,z:cz,w:80,d:60,a:0,c:'#c79a7e',name:'Palacio en obras'});
    for(let i=0;i<5;i++){const w=makePerson({short:true,chiton:pick(['#a89070','#8a7350','#c9b48b']),hair:'#2a1e16',beard:R()<0.5,carry:i%2?'basket':null});w.position.set(cx-30+i*12,gy,cz-24);w.rotation.y=Math.PI;scene.add(w);}}
-  romanTemple({x:60,z:228,rot:0,W:22,L:40,pod:4,gy:top-0.4,colD:1.2,colH:11,nW:6,deep:2,pseudo:true,name:'Templo de Apolo Palatino'});
+  romanTemple({x:0,z:240,rot:0,W:22,L:40,pod:4,gy:top-0.4,colD:1.2,colH:11,nW:6,deep:2,pseudo:true,name:'Templo de Apolo Palatino'});
   romaMagnaMater(top);
   // casa de Augusto (una domus grande) y cabaña de Rómulo
-  if(GLB.ok)placeModules('H_dom',[{x:-30,y:top-0.3,z:212,a:Math.PI,sx:1.3,sy:1,sz:1,cp:new THREE.Color('#e6dcc6'),cr:new THREE.Color('#b0563a')}],{far:1800});
-  addBox(-30,212,23,39,0);footprints.push({x:-30,z:212,w:23,d:39,a:0,c:'#d6c6a6',name:'Casa de Augusto'});   // entera sobre la cima: antes asomaba por el borde del Palatino
-  {const g=grp(-100,romaH(-100,240),240,0);const w=new THREE.Mesh(new THREE.CylinderGeometry(2.6,2.8,2.2,12),lam('#8a6e4c'));w.position.y=1.1;g.add(w);const rf=new THREE.Mesh(new THREE.ConeGeometry(3.4,3.2,12),lam('#a8925a'));rf.position.y=3.7;g.add(rf);box(1,1.8,0.2,M.dark,0,0.9,2.65,g);addCirc(-100,240,2.8);}
-  const tr=[];for(let i=0;i<80;i++){const x=rr(-130,170),z=rr(125,235);if(romaH(x,z)>top-4)tr.push({x,z,kind:pick(['pine','pine','cypress','plane'])});}
+  if(GLB.ok)placeModules('H_dom',[{x:-38,y:top-0.3,z:232,a:Math.PI,sx:1.3,sy:1,sz:1,cp:new THREE.Color('#e6dcc6'),cr:new THREE.Color('#b0563a')}],{far:1800});
+  addBox(-38,232,23,39,0);footprints.push({x:-38,z:232,w:23,d:39,a:0,c:'#d6c6a6',name:'Casa de Augusto'});   // entera sobre la cima: antes asomaba por el borde del Palatino
+  {const g=grp(-72,romaH(-72,250),250,0);const w=new THREE.Mesh(new THREE.CylinderGeometry(2.6,2.8,2.2,12),lam('#8a6e4c'));w.position.y=1.1;g.add(w);const rf=new THREE.Mesh(new THREE.ConeGeometry(3.4,3.2,12),lam('#a8925a'));rf.position.y=3.7;g.add(rf);box(1,1.8,0.2,M.dark,0,0.9,2.65,g);addCirc(-72,250,2.8);}
+  const tr=[];for(let i=0;i<80;i++){const x=rr(-115,195),z=rr(120,275);if(romaH(x,z)>top-4)tr.push({x,z,kind:pick(['pine','pine','cypress','plane'])});}
   if(GLB.ok)treesGLB(tr.filter(t=>isFree(t.x,t.z,2)));
 }
 function romaColosseum(){
@@ -6569,7 +6569,7 @@ function romaColosseum(){
    addBox(cx,cz-4,124,56,0);footprints.push({x:cx,z:cz-4,w:124,d:56,a:0,c:'#e2d6c0',name:'Termas de Tito'});}
 }
 function romaCircus(){
-  const C={x:40,z:355},gy=1,Lh=260,CA=CIRC_A,co=Math.cos(CA),si=Math.sin(CA),cr=(lx,lz)=>[C.x+lx*co+lz*si,C.z-lx*si+lz*co];ROMA.circ=C;   // girado como en la Forma Urbis de Lanciani (lám. 35): del Foro Boario hacia la Puerta Capena
+  const C={x:65,z:405},gy=1,Lh=260,CA=CIRC_A,co=Math.cos(CA),si=Math.sin(CA),cr=(lx,lz)=>[C.x+lx*co+lz*si,C.z-lx*si+lz*co];ROMA.circ=C;   // girado como en la Forma Urbis de Lanciani (lám. 35): del Foro Boario hacia la Puerta Capena
   footprints.push({x:C.x+20,z:C.z,w:660,d:380,a:0,c:'#d8ccb0',reserve:true});
   const st=(u,R)=>{if(u<0.35){const s=u/0.35;return[-Lh+2*Lh*s,-R];}if(u<0.5){const t=-Math.PI/2+(u-0.35)/0.15*Math.PI;return[Lh+Math.cos(t)*R,Math.sin(t)*R];}if(u<0.85){const s=(u-0.5)/0.35;return[Lh-2*Lh*s,R];}const t=Math.PI/2+(u-0.85)/0.15*Math.PI;return[-Lh+Math.cos(t)*R,Math.sin(t)*R];};
   const skip=u=>u>0.85||Math.abs(u-0.425)<0.012;const ST=14,R0=46,R1=78;
@@ -6694,12 +6694,12 @@ function romaIseum(){
 }
 // templo de la Gran Madre en el Palatino, con sus galos tocando tambores delante
 function romaMagnaMater(top){
-  romanTemple({x:-75,z:200,rot:0,W:17,L:32,pod:3.5,gy:top-0.4,colD:1.0,colH:10,nW:6,deep:2,name:'Templo de la Gran Madre'});
-  box(2.4,1.1,1.6,TRAV,-75,top+0.55,229);addBox(-75,229,2.4,1.6,0);
-  ROMA.galli=[];for(let i=0;i<3;i++){const x=-79+i*4,z=231+(i%2)*1.2,g=makePerson({female:true,chiton:pick(['#c9a24a','#b0563a','#e8b84a']),himation:pick(['#8a3f5e','#6a4d7a','#3f6a5a']),veil:'#e8b84a',hair:'#4a3020'});
+  romanTemple({x:-88,z:200,rot:0,W:17,L:32,pod:3.5,gy:top-0.4,colD:1.0,colH:10,nW:6,deep:2,name:'Templo de la Gran Madre'});
+  box(2.4,1.1,1.6,TRAV,-88,top+0.55,229);addBox(-88,229,2.4,1.6,0);
+  ROMA.galli=[];for(let i=0;i<3;i++){const x=-92+i*4,z=231+(i%2)*1.2,g=makePerson({female:true,chiton:pick(['#c9a24a','#b0563a','#e8b84a']),himation:pick(['#8a3f5e','#6a4d7a','#3f6a5a']),veil:'#e8b84a',hair:'#4a3020'});
     const tp=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.28,0.06,16),lam('#c9b48b'));tp.rotation.x=Math.PI/2;tp.position.set(-0.3,1.5,0.35);g.add(tp);
     g.position.set(x,floorAt(x,z),z);g.rotation.y=Math.PI*(0.9+i*0.1);scene.add(g);addCirc(x,z,0.4);ROMA.galli.push({g,ph:i*1.7});}
-  place('ro_magna_mater','El templo de la Gran Madre','MATER DEVM MAGNA IDAEA','La Gran Madre de los dioses, la Cibeles de Frigia, llegó a Roma en el 204 a.C., en plena guerra contra Aníbal, porque así lo aconsejaban los libros sibilinos: su imagen era una piedra negra traída de Pesinunte. Este templo se dedicó en el 191 a.C., junto a la cabaña de Rómulo, y Augusto lo reconstruyó tras un incendio. En abril, durante las Megalesias, se representan comedias delante de él, con el público sentado en la escalinata. Sus sacerdotes, los galos, son eunucos frigios que bailan al son de tambores y címbalos; a los ciudadanos romanos no se les permite serlo.',-90,226,0);
+  place('ro_magna_mater','El templo de la Gran Madre','MATER DEVM MAGNA IDAEA','La Gran Madre de los dioses, la Cibeles de Frigia, llegó a Roma en el 204 a.C., en plena guerra contra Aníbal, porque así lo aconsejaban los libros sibilinos: su imagen era una piedra negra traída de Pesinunte. Este templo se dedicó en el 191 a.C., junto a la cabaña de Rómulo, y Augusto lo reconstruyó tras un incendio. En abril, durante las Megalesias, se representan comedias delante de él, con el público sentado en la escalinata. Sus sacerdotes, los galos, son eunucos frigios que bailan al son de tambores y címbalos; a los ciudadanos romanos no se les permite serlo.',-103,226,0);
 }
 function romaRiver(){
   // isla Tiberina con el templo de Esculapio y la proa de piedra
@@ -6773,7 +6773,7 @@ const RQUART=[
 ];
 function romaQuarter(x,z){for(const Q of RQUART)if(Math.hypot((x-Q[0])/Q[2],(z-Q[1])/Q[3])<1)return Q;return null;}
 // muralla serviana (siglo IV a.C.): restos entre las casas, con sus puertas donde la cruzan las calles
-const SERV=[[-470,330],[-415,420],[-410,560],[-380,690],[-300,760],[-150,740],[-60,690],[150,560],[360,480],[440,440],[430,300],[560,190],[600,60],[590,-100],[580,-330],[560,-560],[420,-720],[200,-790],[70,-775],[-150,-720],[-330,-660],[-400,-540],[-300,-330],[-290,-110],[-300,40]];
+const SERV=[[-470,330],[-415,420],[-410,560],[-380,690],[-300,760],[-150,740],[-60,690],[175,620],[410,575],[440,440],[430,300],[560,190],[600,60],[590,-100],[580,-330],[560,-560],[420,-720],[200,-790],[70,-775],[-150,-720],[-330,-660],[-400,-540],[-300,-330],[-290,-110],[-300,40]];
 const SERV_GATES=[['Porta Trigemina',-455,330],['Porta Raudusculana',-182,750],['Porta Capena',440,440],['Porta Caelimontana',480,258],['Porta Querquetulana',600,50],['Porta Esquilina',583,-330],['Porta Viminalis',362,-738],['Porta Collina',62,-773],['Porta Fontinalis',-300,-330]];
 const TUFA_W=lam('#a69a78');
 function portaServ(x,z,a,name){
@@ -6856,6 +6856,7 @@ function romaCity(){
   for(const r of RHILLS.slice(0,2))markRect(r[0],r[1],r[2]*2,r[3]*2,0);
   markRect(-330,820,90,90,0);   // el monte de ánforas rotas
   markRect(-491,20,100,80,0);   // el patio del Pórtico de Octavia (sin casas dentro)
+  markRect(40,198,290,150,0);   // la cima del Palatino es de los emperadores: sin ínsulas
   markRect(-418,280,56,78,0);   // la plaza del Foro Boario, entre Portuno, Hércules y la Porta Trigemina
   for(const p of PLACES)markRect(p.x,p.z,6,6,0);
   for(const p of[[-215,555],[232,-402],[-760,330],[-790,-388],[-675,-296],[-36,-90],[215,-176]])markRect(p[0],p[1],8,8,0);   // sitios de personajes
