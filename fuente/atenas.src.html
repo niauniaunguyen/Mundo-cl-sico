@@ -3160,7 +3160,12 @@ function islandBase(I,x,z){const dx=x-I.x,dz=z-I.z,th=Math.atan2(dz,dx);const R=
   if(I.coast){const px=x-I.x,pz=z-I.z,d=px*I.coast[0]+pz*I.coast[1]-I.R*I.coastAt+Math.sin((px*I.coast[1]-pz*I.coast[0])*0.012+I.seed)*25;if(d>-40)h=Math.min(h,lerp(h,1.2-d*0.09,clamp((d+40)/40,0,1)));}   // costa: el mar en una dirección
   if(I.lake){const L=I.lake,q=Math.hypot((x-L.x)/L.rx,(z-L.z)/L.rz);if(q<1.3)h=Math.min(h,lerp(-7,h,sstep(clamp((q-0.85)/0.45,0,1))));}   // lago
   return Math.max(carveH(x,z,h),-9);}
-function islandH(x,z){const I=islandOf(x);if(I.grid&&!GRIDOFF){const gh=gridH(I,x,z);if(gh!==null)return gh;}let h=islandBase(I,x,z);for(const road of[false,true])for(const p of I.pads){if(!!p.road!==road)continue;const d=Math.hypot(x-p.x,z-p.z);if(d<p.r+18)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/18,0,1)));}return h;}   // los caminos entre mapas (road) mandan sobre lo demás
+function padIndex(I){if(I._pi&&I._pi.n===I.pads.length)return I._pi;const C=48,m=new Map();   // índice de los allanamientos por celdas: mismo resultado, mucho menos trabajo al construir el relieve
+  const order=[...I.pads.filter(p=>!p.road),...I.pads.filter(p=>p.road)];order.forEach((p,k)=>{const R=p.r+18,i0=Math.floor((p.x-R)/C),i1=Math.floor((p.x+R)/C),j0=Math.floor((p.z-R)/C),j1=Math.floor((p.z+R)/C);
+    for(let i=i0;i<=i1;i++)for(let j=j0;j<=j1;j++){const key=i*100003+j;let L=m.get(key);if(!L){L=[];m.set(key,L);}L.push(p);}});
+  I._pi={n:I.pads.length,C,m};return I._pi;}
+function islandH(x,z){const I=islandOf(x);if(I.grid&&!GRIDOFF){const gh=gridH(I,x,z);if(gh!==null)return gh;}let h=islandBase(I,x,z);const P=padIndex(I),L=P.m.get(Math.floor(x/P.C)*100003+Math.floor(z/P.C));
+  if(L)for(const p of L){const d=Math.hypot(x-p.x,z-p.z);if(d<p.r+18)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/18,0,1)));}return h;}   // los caminos entre mapas (road) mandan sobre lo demás: van al final de cada lista   // los caminos entre mapas (road) mandan sobre lo demás
 function pad(I,lx,lz,r,dh,fixed){const x=I.x+lx,z=I.z+lz;const p={x,z,r,h:fixed!==undefined?fixed:islandBase(I,x,z)+(dh||0)};I.pads.push(p);return p;}
 function shoreAlong(x0,z0,dx,dz,maxT){for(let t=0;t<maxT;t+=2){if(terrainH(x0+dx*t,z0+dz*t)<0.4)return[x0+dx*(t-3),z0+dz*(t-3)];}return[x0,z0];}
 // ============================================================ caminos: Grecia e Italia recorribles a pie
@@ -6086,9 +6091,12 @@ function defineRomaDests(){
   {const I=G('emerita');I.town=pad(I,0,-60,120,0,4);I.town.house=true;I.spect=pad(I,170,-160,70,0,4);for(const cx of[-60,40,140,220])pad(I,cx,-310,58,0,4);}
   for(const id in SIMPLE_RO){const I=G(id);if(I)defineSimple(I,SIMPLE_RO[id]);}
 }
+let ROMA_DEF=false;
+function romaDestsPre(){if(ROMA_DEF)return;ROMA_DEF=true;defineRomaDests();defineGates();}
+function romaReliefChunk(k,n){romaDestsPre();for(let i=k;i<ISLANDS.length;i+=n){const I=ISLANDS[i];if(!I.mesh)buildIslandMesh(I);}}
 function buildRomaDests(){
-  defineRomaDests();defineGates();
-  for(const I of ISLANDS)buildIslandMesh(I);
+  romaDestsPre();
+  for(const I of ISLANDS)if(!I.mesh)buildIslandMesh(I);
   const G=id=>ISLANDS.find(I=>I.id===id);
   // ---------------------------------------- I. Latium et Campania: Neápolis y el Vesubio
   {const I=G('campania'),t=I.town;
@@ -6400,6 +6408,7 @@ for(let i=0;i<36;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.6))<0.55)continue;co
   ['ROMA_PLACES',()=>{ROMA_PLACES.forEach(p=>place(p[0],p[1],p[2],p[3],p[4][0],p[4][1],p[5]));
   }],
   ['romaTravel',()=>{romaTravel();}],
+  ...Array.from({length:8},(_,k)=>['relieve',()=>{romaReliefChunk(k,8);}]),
   ['buildRomaDests',()=>{buildRomaDests();}],
   ['romaTheatres',()=>{romaTheatres();}],
   ['buildGods',()=>{buildGods();}],
