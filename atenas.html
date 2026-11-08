@@ -15932,7 +15932,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);isl3Tick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   rwTick(dt);}
 
 
@@ -22736,6 +22736,30 @@ const STORY_EXTRA_ROMA={cat:_t(120,'Historia'),title:'Las historias de Tácito',
   const o=$('dOpts'),b=document.createElement('button');b.innerHTML='<span class="n">2</span><span>Capítulo extra: «Las historias de Tácito» (un viaje por las provincias)</span>';
   b.onclick=()=>{closeDialog();state.story.extra=1;if(!STORY.includes(STORY_EXTRA_ROMA))STORY.push(STORY_EXTRA_ROMA);state.story.ch=STORY.length-1;state.story.st=0;save();storyResume(true);};o.appendChild(b);};}
 {const ss0=startStory;startStory=function(){const r=ss0.apply(this,arguments);if(MODE==='roma'&&state.story&&state.story.extra&&!STORY.includes(STORY_EXTRA_ROMA)){STORY.push(STORY_EXTRA_ROMA);if(state.story.ch>=STORY.length-1&&!state.story.extraDone)storyResume(false);}return r;};}
+// ============================================================ PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva
+let R7_T=0;function r7Tick(dt){const now=performance.now();if(now<R7_T||!state)return;R7_T=now+1500;try{const id=regionOf(player.x);if(!id)return;const L=state.mapas||(state.mapas=[]);if(!L.includes(id)){L.push(id);save();}}catch(e){}}
+{const er0=eduReport;eduReport=function(){const r=er0();const st=state.story||{};r.capitulos=st.done||0;r.mapas=(state.mapas||[]).length+' de '+(ISLANDS.length+1);try{const d=dreamCount();r.esferas=d[0]+' de '+d[1];}catch(e){r.esferas='-';}return r;};}
+{const ec0=eduCode;eduCode=function(){const r=eduReport();return btoa(unescape(encodeURIComponent([r.nombre,r.modo[0],r.dia,r.lecciones,r.inscripciones,r.batallas,r.plantas,r.logros,r.capitulos,String(r.mapas).split(' ')[0],String(r.esferas).split(' ')[0]].join('|')))).replace(/=+$/,'');};}
+function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.slice((c.trim().length+3)%4)))).split('|');if(s.length<8)return null;return s;}catch(e){return null;}}
+{const et0=eduTeacher;eduTeacher=function(){et0();const o=$('teacher');if(!o)return;const r=eduReport(),box=document.createElement('div');
+  box.innerHTML='<div class="curio"><p>Capítulos de la historia completados: <b>'+r.capitulos+'</b> · Mapas visitados: <b>'+r.mapas+'</b> · Esferas de sueño: <b>'+r.esferas+'</b></p></div>'+
+   '<h4 style="color:#f0c890">Hoja de la clase</h4><p style="opacity:.8">Pide a cada alumno su código de partida y pégalos aquí, uno por línea (puedes poner el nombre delante, separado por dos puntos). La tabla se calcula en este ordenador: no se envía nada a ningún sitio.</p>'+
+   '<textarea id="tClase" rows="5" style="width:100%;font:inherit;background:#1d1610;color:#f1e8d8;border:1px solid #6a4a30;border-radius:6px;padding:6px" placeholder="Ana: QW5hfFJ8MTJ8…"></textarea><p><button id="tTabla" class="b">Ver la tabla</button> <button id="tCSV" class="b">Descargar como hoja de cálculo (CSV)</button></p><div id="tOut"></div>';
+  o.appendChild(box);box.querySelectorAll('textarea').forEach(i=>i.addEventListener('keydown',e=>e.stopPropagation()));box.querySelectorAll('button.b').forEach(b=>b.style.cssText='font:inherit;padding:6px 12px;border-radius:8px;border:1px solid #d9874a;background:rgba(217,135,74,.18);color:#f1e8d8;cursor:pointer');
+  const H=['Alumno','Modo','Día',_t(2551,'Lecciones'),'Estelas','Batallas','Plantas','Logros','Capítulos','Mapas','Esferas'];
+  const rows=()=>$('tClase').value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const i=l.lastIndexOf(':'),code=i>0?l.slice(i+1):l,s=r7Decode(code);if(!s)return [l.slice(0,30),'código no válido'];const nm=i>0?l.slice(0,i).trim():s[0];return [nm||s[0]||'—',s[1]==='R'?_t(2723,'Roma'):_t(2724,'Atenas'),...s.slice(2)];});
+  $('tTabla').onclick=()=>{const R=rows();$('tOut').innerHTML='<table style="border-collapse:collapse;width:100%;font-size:14px"><tr>'+H.map(h=>'<th style="border-bottom:1px solid #6a4a30;text-align:left;padding:4px">'+h+'</th>').join('')+'</tr>'+R.map(r=>'<tr>'+H.map((_,k)=>'<td style="padding:4px;border-bottom:1px solid #3a2a1e">'+String(r[k]==null?'':r[k]).replace(/</g,'&lt;')+'</td>').join('')+'</tr>').join('')+'</table>';};
+  $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
+    try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
+// aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
+const NOSTOS_VER='c75c13914fee';
+function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
+  const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
+    const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
+    d.innerHTML='Hay una versión nueva de Nóstos. Tu partida está guardada: recarga la página para jugar con la nueva. <button style="margin-left:8px;font:inherit;padding:4px 10px;border-radius:8px;border:1px solid #d9874a;background:rgba(217,135,74,.25);color:#f1e8d8;cursor:pointer">Recargar</button>';
+    d.querySelector('button').onclick=()=>{try{save();}catch(e){}location.reload();};document.body.appendChild(d);}).catch(()=>{});
+  setTimeout(chk,20000);setInterval(chk,10*60*1000);}
+setTimeout(r7VersionCheck,5000);
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
