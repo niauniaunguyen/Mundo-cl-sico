@@ -628,7 +628,7 @@ function addFlat(f){FLATS.push(f);const R=Math.max(f.hw,f.hd)*1.42+f.ring+f.blen
 function applyFlats(){
   // alturas de la malla tal como se ve (interpolada entre vértices): la de Atenas o Roma y la de cada isla
   const grids=[];const addGrid=(m,cx,cz,S)=>{if(!m)return;const pos=m.geometry.attributes.position,seg=Math.round(Math.sqrt(pos.count))-1;grids.push({m,pos,x0:cx-S/2,z0:cz-S/2,S,st:S/seg,G:seg+1});};
-  addGrid(terrainInner,INNER.x,INNER.z,INNER.size);for(const I of ISLANDS)if(I.mesh)addGrid(I.mesh,I.x,I.z,I.R*2.9);
+  addGrid(terrainInner,INNER.x,INNER.z,INNER.size);for(const I of ISLANDS)if(I.mesh){addGrid(I.mesh,I.x,I.z,I.R*2.9);grids[grids.length-1].I=I;}
   const meshH=(x,z)=>{for(const g of grids){if(x<=g.x0+1||z<=g.z0+1||x>=g.x0+g.S-1||z>=g.z0+g.S-1)continue;const fx=(x-g.x0)/g.st,fz=(z-g.z0)/g.st,ix=Math.floor(fx),iz=Math.floor(fz),u=fx-ix,v=fz-iz,H=(i,j)=>g.pos.getY(i+g.G*j);
     const p=H(ix,iz),q=H(ix,iz+1),r=H(ix+1,iz+1),t=H(ix+1,iz);return u+v<=1?p+u*(t-p)+v*(q-p):r+(1-u)*(q-r)+(1-v)*(t-r);}return null;};
   // piezas de los edificios ya construidos, repartidas en celdas
@@ -647,15 +647,16 @@ function applyFlats(){
     // se mide dentro del solar y un poco más allá (escalinatas, zócalos)
     let low=Infinity;for(let i=-1;i<=1;i+=1/6)for(let j=-1;j<=1;j+=1/6){const p=toW(i*(w/2+1.2),j*(d/2+1.2),fp.x,fp.z,a),y=covered(p[0],p[1]);if(y!=null&&y<low)low=y;}
     if(low===Infinity)continue;
-    const Ii=fp.x>8000?islandOf(fp.x):null,stp=Ii?(Ii.step||6):0,f={cx:fp.x,cz:fp.z,c:Math.cos(a),s:Math.sin(a),hw:w/2+1.5,hd:d/2+1.5,round,base:low-0.04,ring:Math.max(5,stp*1.2),blend:Math.max(7,stp*2.2)};addFlat(f);/* en los destinos la malla es más basta (6-8 m): un corte estrecho no se puede dibujar y la ladera tapa el edificio */added.push(f);}
+    const f={cx:fp.x,cz:fp.z,c:Math.cos(a),s:Math.sin(a),hw:w/2+1.5,hd:d/2+1.5,round,base:low-0.04,ring:5,blend:7};addFlat(f);added.push(f);}
   if(!added.length)return;
   // vuelve a calcular las alturas de las mallas de terreno afectadas
   for(const g of grids){const pos=g.pos,hf=g.m===terrainInner?displayH:terrainH;let ch=false;
     for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i);if(!FLAT_GRID.has(Math.floor(x/FLAT_C)+','+Math.floor(z/FLAT_C)))continue;const h=hf(x,z);if(Math.abs(h-pos.getY(i))>0.001){pos.setY(i,h);ch=true;}}
-    if(ch){pos.needsUpdate=true;g.m.geometry.computeVertexNormals();g.m.geometry.computeBoundingSphere();}}
+    if(ch){pos.needsUpdate=true;g.m.geometry.computeVertexNormals();g.m.geometry.computeBoundingSphere();}
+    if(ch&&g.I&&g.I.grid){const H=g.I.grid.H;for(let i=0;i<pos.count;i++)H[i]=pos.getY(i);g.I.flatMesh=true;}}   // en los destinos el suelo físico es la malla que se ve (más basta que un corte estrecho)
 }
 function inCavea(x,z){const dx=x-THEA.x,dz=z-THEA.z;return dz<3&&Math.hypot(dx,dz)<THEA.r1+1;}
-function terrainH(x,z){const h=terrainH0(x,z);return FLATS.length?flatAt(x,z,h):h;}
+function terrainH(x,z){const h=terrainH0(x,z);if(x>8000){const I=islandOf(x);if(I&&I.flatMesh&&!GRIDOFF&&I.grid&&gridH(I,x,z)!==null)return h;}return FLATS.length?flatAt(x,z,h):h;}
 {const f0=terrainH0;terrainH0=function(x,z){const h=f0(x,z);return x>8000?h:sqMount('atenas',x,z,h);};}
 function terrainH0(x,z){
   if(x>8000)return islandH(x,z);
