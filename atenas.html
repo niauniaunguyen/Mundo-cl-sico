@@ -647,7 +647,7 @@ function applyFlats(){
     // se mide dentro del solar y un poco más allá (escalinatas, zócalos)
     let low=Infinity;for(let i=-1;i<=1;i+=1/6)for(let j=-1;j<=1;j+=1/6){const p=toW(i*(w/2+1.2),j*(d/2+1.2),fp.x,fp.z,a),y=covered(p[0],p[1]);if(y!=null&&y<low)low=y;}
     if(low===Infinity)continue;
-    const f={cx:fp.x,cz:fp.z,c:Math.cos(a),s:Math.sin(a),hw:w/2+1.5,hd:d/2+1.5,round,base:low-0.04,ring:5,blend:7};addFlat(f);added.push(f);}
+    const Ii=fp.x>8000?islandOf(fp.x):null,stp=Ii?(Ii.step||6):0,f={cx:fp.x,cz:fp.z,c:Math.cos(a),s:Math.sin(a),hw:w/2+1.5,hd:d/2+1.5,round,base:low-0.04,ring:Math.max(5,stp*1.2),blend:Math.max(7,stp*2.2)};addFlat(f);/* en los destinos la malla es más basta (6-8 m): un corte estrecho no se puede dibujar y la ladera tapa el edificio */added.push(f);}
   if(!added.length)return;
   // vuelve a calcular las alturas de las mallas de terreno afectadas
   for(const g of grids){const pos=g.pos,hf=g.m===terrainInner?displayH:terrainH;let ch=false;
@@ -22851,7 +22851,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='7c745b076735';
+const NOSTOS_VER='2d5e99ea2788';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -23273,6 +23273,16 @@ function zsTick(dt){if(!aOK()||!state||ui==='start')return;zsInit();if(!RUT.wat)
   // martillos en el barrio de los broncistas (las fundiciones excavadas junto al Hefestion) o en las tiendas de la Subura
   const fr=zoneNear(Z.fra,70);if(day&&fr>0){RUT.hamT-=st;if(RUT.hamT<0){RUT.hamT=Math.random()<0.25?2+Math.random()*4:0.45+Math.random()*0.25;sfxClang(0.05*fr);}}
   const pu=zoneNear(Z.puerto,MODE==='roma'?120:160);if(day&&pu>0){RUT.dockT-=st;if(RUT.dockT<0){RUT.dockT=0.8+Math.random()*3;if(Math.random()<0.6)sfxKnock(0.06*pu);else sfxPhrase(Math.random()*1.4-0.7,0.016*pu);}}}
+// los árboles y plantas de los destinos se plantan antes de excavar ríos y caminos: al final de la carga
+// se vuelven a posar en el suelo los que quedaron en el aire, y se quitan los que caen dentro del agua
+function vegSnap(){const m4=new THREE.Matrix4(),v=new THREE.Vector3();let mov=0,del=0;
+  for(const C of CHUNKS){const im=C.im;if(!im||!im.userData.veg||!im.isInstancedMesh||C.x<8000)continue;let ch=false;
+    for(let i=0;i<im.count;i++){im.getMatrixAt(i,m4);v.setFromMatrixPosition(m4);if(v.y<-50)continue;
+      const w=riverWater(v.x,v.z),t=terrainH(v.x,v.z);
+      if(w!==null&&w>t+0.3){m4.makeScale(0,0,0);im.setMatrixAt(i,m4);ch=true;del++;continue;}
+      const dy=v.y-t;if(dy>0.6&&dy<120){m4.elements[13]-=dy;im.setMatrixAt(i,m4);ch=true;mov++;}}
+    if(ch)im.instanceMatrix.needsUpdate=true;}
+  return[mov,del];}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -23841,6 +23851,7 @@ function bootWorld(){PROF.marks.push(['arranque',performance.now()]);ldShipShow(
   ['jrSetup',()=>{jrSetup();}],
   ['tpSetup',()=>{tpSetup();TP_READY=true;}],
   ['v2Setup',()=>{v2VendorSetup();}],
+  ['vegSnap',()=>{vegSnap();}],
   ['vmSetup',()=>{vmSetup();}],
   ['qcSetup',()=>{qcSetup();}],
   ['cvSetup',()=>{cvSetup();}],
@@ -23889,7 +23900,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={PROF:()=>PROF,RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={PROF:()=>PROF,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
