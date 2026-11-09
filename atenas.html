@@ -8634,6 +8634,13 @@ const PTEX={
  wood:procTex(256,(u,v)=>{const pl=Math.floor(u*5),g=pfbm(u*5*2,v*1.2,10,pl+2,4);let val=0.78+0.18*Math.sin((u*5*12+g*6)*TAU*0.5)*0.5+hash(pl,1)*0.08;if((u*5)%1<0.04)val*=0.6;return[val,val*0.94,val*0.88];}),
  leaf:procTex(128,(u,v)=>{const val=0.7+pfbm(u*12,v*12,12,51,3)*0.38;return[val*0.95,val,val*0.9];}),
  bark:procTex(128,(u,v)=>{const val=0.68+pfbm(u*14,v*3,14,61,4)*0.42;return[val,val*0.95,val*0.9];}),
+ // detalle del suelo por zonas (ver terrainMat): roca, hierba, grava y tierra cuarteada
+ rock:procTex(256,(u,v)=>{const b=pfbm(u*6,v*6,6,81,5),c=Math.abs(pnoise(u*10,v*10,10,83)-0.5),c2=Math.abs(pnoise(u*22,v*22,22,85)-0.5);let val=0.66+b*0.36;if(c<0.025)val*=0.62;if(c2<0.018)val*=0.78;return[val,val*0.98,val*0.95];}),
+ grass:procTex(256,(u,v)=>{const a=pnoise(u*96,v*18,96,91),b=pnoise(u*20,v*96,20,93),c=pfbm(u*8,v*8,8,95,3);const val=0.68+Math.max(a,b)*0.34+c*0.12;return[val*0.9,val,val*0.74];}),
+ gravel:procTex(256,(u,v)=>{const N=26,cu=u*N,cv=v*N;let best=9,sh=0;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){const ci=Math.floor(cu)+di,cj=Math.floor(cv)+dj,a=((ci%N)+N)%N,b=((cj%N)+N)%N,px=ci+hash(a,b*7+1),py=cj+hash(a*3+5,b),r=0.22+hash(a+9,b+4)*0.25,d=Math.hypot(cu-px,cv-py)/r;if(d<best){best=d;sh=((cu-px)+(cv-py))/r;}}
+   let val=0.8+(pnoise(u*60,v*60,60,97)-0.5)*0.1;if(best<1)val=best>0.82?0.6:0.92-sh*0.07+hash(Math.floor(cu),Math.floor(cv))*0.08;return[val,val*0.97,val*0.92];}),
+ cracks:procTex(256,(u,v)=>{const N=12,cu=u*N,cv=v*N;let f1=9,f2=9;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){const ci=Math.floor(cu)+di,cj=Math.floor(cv)+dj,a=((ci%N)+N)%N,b=((cj%N)+N)%N,d=Math.hypot(cu-ci-hash(a,b+3),cv-cj-hash(a+7,b));if(d<f1){f2=f1;f1=d;}else if(d<f2)f2=d;}
+   let val=0.9+(pfbm(u*12,v*12,12,99,3)-0.5)*0.12;const w=pfbm(u*20,v*20,20,101,2);if(f2-f1<0.02+w*0.025)val*=0.8+w*0.12;return[val,val*0.97,val*0.93];}),
  ground:procTex(256,(u,v)=>{const big=pfbm(u*4,v*4,4,71,4),fine=pnoise(u*64,v*64,64,7),peb=Math.pow(pnoise(u*40,v*40,40,9),6);let val=0.8+big*0.18+fine*0.06-peb*0.25;return[val,val*(0.98+big*0.03),val*0.95];})
 };
 // proyección triplanar en un MeshLambertMaterial (con o sin instancias); 'scale' son los metros que ocupa la textura; flat: solo desde arriba (terreno)
@@ -8649,7 +8656,28 @@ const ROLE_TEX={wall:['plaster',5],plaster:['plaster',5],brick:['brick',2.6],roo
 const WHITE_ROLE={},ROLE_MAT={};
 function whiteRole(role){const t=ROLE_TEX[role];if(!t)return WHITE_M;if(!WHITE_ROLE[role])WHITE_ROLE[role]=triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX[t[0]],t[1]);return WHITE_ROLE[role];}
 function roleMat(role){const c=ROLE_C[role]||'#999999',t=ROLE_TEX[role];if(!t)return lam(c);if(!ROLE_MAT[role])ROLE_MAT[role]=triplanar(new THREE.MeshLambertMaterial({color:c}),PTEX[t[0]],t[1]);return ROLE_MAT[role];}
-function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'});TERR_MATS.push(m);return triplanar(m,PTEX.ground,9,true);}   // tinte cálido: compensa la desaturación del mapeo tonal
+function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'});TERR_MATS.push(m);triplanar(m,PTEX.ground,9,true);m.customProgramCacheKey=()=>'terr2';
+  // el suelo cambia según el sitio: roca en las pendientes, hierba donde el color es verde, grava y tierra cuarteada a manchas,
+  // y grandes manchas de color (tierra roja, zonas más claras u oscuras) para que no se repita la misma textura cada 9 m
+  m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,{tpScale:{value:1/9},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks}});
+    sh.vertexShader='varying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvec4 tpw=modelMatrix*vec4(transformed,1.0);vTpPos=tpw.xyz;vTpNor=normalize(mat3(modelMatrix)*objectNormal);');
+    sh.fragmentShader='uniform float tpScale;uniform sampler2D rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
+     'float tH(vec2 p){p=mod(p,289.0);return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nfloat tV(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(tH(i),tH(i+vec2(1.0,0.0)),f.x),mix(tH(i+vec2(0.0,1.0)),tH(i+vec2(1.0,1.0)),f.x),f.y);}\n'+
+     sh.fragmentShader.replace('#include <map_fragment>',[
+      'vec2 wp=vTpPos.xz;float m1=tV(wp*0.006),m2=tV(wp*0.021+3.7)*0.7+tV(wp*0.06+9.1)*0.3,m3=tV(wp*0.08+11.3);',
+      'vec2 rw=mat2(0.8,-0.6,0.6,0.8)*wp;vec3 col=mix(texture2D(map,wp*tpScale).rgb,texture2D(map,rw*tpScale*0.31).rgb,0.3+0.3*m3);',   // dos escalas giradas: sin repetición visible
+      'vec3 nn=abs(normalize(vTpNor));float slope=1.0-nn.y;',
+      'vec3 rk=nn.x>nn.z?texture2D(rockMap,vTpPos.zy*0.2).rgb:texture2D(rockMap,vTpPos.xy*0.2).rgb;rk=mix(rk,texture2D(rockMap,wp*0.2).rgb,nn.y);',
+      '#ifdef USE_COLOR\nfloat green=smoothstep(0.0,0.05,vColor.g-vColor.r*0.93);\n#else\nfloat green=0.0;\n#endif',
+      'float rockW=smoothstep(0.2,0.48,slope+(m2-0.5)*0.22);',
+      'float grassW=green*(0.5+0.5*m3)*(1.0-rockW);',
+      'float dry=(1.0-green)*(1.0-rockW);float gravW=dry*smoothstep(0.58,0.74,m2)*0.85;float crackW=dry*smoothstep(0.66,0.85,m1)*(1.0-gravW)*0.45;',
+      'col=mix(col,texture2D(gravMap,wp*0.42).rgb,gravW);col=mix(col,texture2D(crackMap,wp*0.11).rgb,crackW);col=mix(col,texture2D(grassMap,wp*0.6).rgb,grassW*0.8);col=mix(col,rk,rockW);',
+      'col*=0.86+0.26*m1;',   // manchas grandes más claras u oscuras
+      'col=mix(col,col*vec3(1.08,0.95,0.84),smoothstep(0.55,0.82,m2)*0.55*dry);',   // tierra rojiza (terra rossa) a manchas
+      'col=mix(col,col*vec3(0.9,0.97,1.0),smoothstep(0.62,0.88,m3)*0.25);',
+      'diffuseColor.rgb*=col;'].join('\n'));};
+  m.needsUpdate=true;return m;}   // tinte cálido: compensa la desaturación del mapeo tonal
 // materiales de los edificios
 triplanar(M.marble,PTEX.marble,4);triplanar(M.marbleShade,PTEX.marble,4);triplanar(M.stone,PTEX.stone,3);triplanar(M.limestone,PTEX.stone,3);
 triplanar(M.tile,PTEX.tile,3);triplanar(M.wood,PTEX.wood,2);
@@ -16032,7 +16060,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);cullTick(dt);mergeTick(dt);v2Tick(dt);rutTick(dt);zsTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);cullTick(dt);mergeTick(dt);v2Tick(dt);rutTick(dt);zsTick(dt);gdTick();farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   rwTick(dt);}
 
 
@@ -22852,7 +22880,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='c733e43cac85';
+const NOSTOS_VER='a819ca7ca126';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -23285,6 +23313,35 @@ function vegSnap(){const m4=new THREE.Matrix4(),v=new THREE.Vector3();let mov=0,
     if(ch)im.instanceMatrix.needsUpdate=true;}
   for(const c of CARTERS){if(!c.g)continue;const y=floorAt(c.x,c.z);if(Math.abs(c.g.position.y-y)>0.3){c.g.position.y=y;c.g.updateMatrixWorld(true);mov++;}}   // los carreteros, igual
   return[mov,del];}
+// detalle del suelo en 3D alrededor del jugador: piedras sueltas (más en pendientes y pedregales) y matas de hierba,
+// secas en el Ática y en los destinos áridos, verdes en Italia y en los destinos húmedos; nada dentro de las ciudades ni en los caminos.
+// Cada celda de 3,5 m decide siempre lo mismo (según su posición), así que al andar el detalle se recoloca sin cambiar.
+const GD={C:3.5,R:isTouch?42:56,cx:1e9,cz:1e9,rk:null,tf:null,cache:new Map(),on:true};
+function gdInit(){const rg=new THREE.IcosahedronGeometry(0.5,0);{const P=rg.attributes.position;for(let i=0;i<P.count;i++){const k=0.78+hash(Math.round(P.getX(i)*97),Math.round(P.getZ(i)*89+P.getY(i)*53))*0.4;P.setXYZ(i,P.getX(i)*k,P.getY(i)*k,P.getZ(i)*k);}rg.computeVertexNormals();}
+  const tp=[];for(let b=0;b<12;b++){const a=b/12*TAU+hash(b,3)*0.5,h=0.3+hash(b,7)*0.38,l=0.08+hash(b,9)*0.2,r0=0.04+hash(b,11)*0.06,c=Math.cos(a),sn=Math.sin(a),px=-sn*0.05,pz=c*0.05;tp.push(c*r0+px,0,sn*r0+pz,c*r0-px,0,sn*r0-pz,c*l,h,sn*l);}
+  const tg=new THREE.BufferGeometry();tg.setAttribute('position',new THREE.Float32BufferAttribute(tp,3));{const nm=[];for(let i=0;i<tp.length/3;i++)nm.push(0,1,0);tg.setAttribute('normal',new THREE.Float32BufferAttribute(nm,3));}   // normales hacia arriba: la mata se ilumina como la hierba del suelo
+  const NR=isTouch?600:1100,NT=isTouch?1500:3000;
+  GD.rk=new THREE.InstancedMesh(rg,triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX.rock,1.6),NR);GD.tf=new THREE.InstancedMesh(tg,new THREE.MeshLambertMaterial({color:0xffffff,side:THREE.DoubleSide}),NT);
+  for(const im of[GD.rk,GD.tf]){im.count=0;im.frustumCulled=false;im.receiveShadow=true;im.userData.noCull=true;im.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(im.instanceMatrix.count*3),3);scene.add(im);}}
+const GD_RC=['#a39b8c','#b3a993','#8f887b','#c2b59a','#9a8f80'].map(c=>new THREE.Color(c)),GD_DRY=['#a08d52','#8f8248','#ab9862','#858344','#978858'].map(c=>new THREE.Color(c)),GD_GRN=['#5c6d31','#52622a','#68773a','#5f7137','#7a7b43'].map(c=>new THREE.Color(c));
+function gdCell(i,j){const k=i+','+j;let r=GD.cache.get(k);if(r!==undefined)return r;r=null;const C=GD.C,x=(i+hash(i,j*7+3))*C,z=(j+hash(i*5+1,j))*C;
+  do{const t=terrainH(x,z);if(t<1.2)break;const w=riverWater(x,z);if(w!==null&&w>t-0.3)break;
+    let green,desert=false;if(x>8000){const I=islandOf(x);if(!I)break;green=!!I.green;desert=!!I.desert;}else{if(MODE==='roma'?romaInUrbs(x,z):insideWalls(x,z))break;green=MODE==='roma';}
+    if(!isFree(x,z,0.9))break;
+    const sl=(Math.abs(terrainH(x+1.2,z)-terrainH(x-1.2,z))+Math.abs(terrainH(x,z+1.2)-terrainH(x,z-1.2)))/4.8,rocky=sl>0.32||fbm(x*0.02+5,z*0.02)>0.66,u=hash(i*3+7,j*11+5);
+    if(x<8000&&!rocky&&u<0.9&&roadDist(x,z)<3.5)break;
+    if(rocky?u<0.55:u<0.06){r={k:1,x,z,t,s:rocky?0.3+hash(i,j+9)*0.9:0.15+hash(i,j+9)*0.3,c:GD_RC[Math.floor(hash(i+2,j)*5)]};break;}
+    const dens=desert?0.15:green?0.85:0.6;if(u>dens)break;const g=green?hash(j,i+4)<0.8:hash(j,i+4)<0.15;
+    r={k:2,x,z,t,s:0.6+hash(i+5,j+5)*0.8,c:(g?GD_GRN:GD_DRY)[Math.floor(hash(i,j+2)*5)]};}while(false);
+  if(GD.cache.size>60000)GD.cache.clear();GD.cache.set(k,r);return r;}
+function gdTick(){if(!GD.on||!state||ui==='start')return;if(!GD.rk)gdInit();const P=player;if(P.feet>(P.x>8000?400:300)||Math.hypot(P.x-GD.cx,P.z-GD.cz)<6)return;GD.cx=P.x;GD.cz=P.z;
+  const C=GD.C,R=GD.R,i0=Math.floor((P.x-R)/C),i1=Math.floor((P.x+R)/C),j0=Math.floor((P.z-R)/C),j1=Math.floor((P.z+R)/C),m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),sc=new THREE.Vector3(),p=new THREE.Vector3();
+  let nr=0,nt=0;const MR=GD.rk.instanceMatrix.count,MT=GD.tf.instanceMatrix.count;
+  for(let i=i0;i<=i1;i++)for(let j=j0;j<=j1;j++){const c=gdCell(i,j);if(!c)continue;const dx=c.x-P.x,dz=c.z-P.z;if(dx*dx+dz*dz>R*R)continue;
+    if(c.k===1&&nr<MR){const n=c.s>0.6?2:1;for(let k=0;k<n&&nr<MR;k++){const ox=k?(hash(i,j+21)-0.5)*1.6:0,oz=k?(hash(i+21,j)-0.5)*1.6:0,s=k?c.s*0.6:c.s;e.set((hash(i,j+31)-0.5)*0.6,hash(i+31,j)*TAU,(hash(i+41,j)-0.5)*0.6);q.setFromEuler(e);sc.set(s*(0.8+hash(i,j+51)*0.6),s*(0.45+hash(i+51,j)*0.4),s*(0.8+hash(i+61,j)*0.5));p.set(c.x+ox,c.t-0.12*s,c.z+oz);
+        m.compose(p,q,sc);GD.rk.setMatrixAt(nr,m);GD.rk.setColorAt(nr,c.c);nr++;}}
+    else if(c.k===2&&nt<MT){e.set(0,hash(i+71,j)*TAU,0);q.setFromEuler(e);sc.set(c.s,c.s*(0.8+hash(i,j+81)*0.5),c.s);p.set(c.x,c.t-0.03,c.z);m.compose(p,q,sc);GD.tf.setMatrixAt(nt,m);GD.tf.setColorAt(nt,c.c);nt++;}}
+  GD.rk.count=nr;GD.tf.count=nt;for(const im of[GD.rk,GD.tf]){im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;}}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -23902,7 +23959,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={PROF:()=>PROF,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={PROF:()=>PROF,GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
