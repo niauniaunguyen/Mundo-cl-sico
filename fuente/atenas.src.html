@@ -23286,6 +23286,7 @@ function vegSnap(){const m4=new THREE.Matrix4(),v=new THREE.Vector3();let mov=0,
       if(w!==null&&w>t+0.3){m4.makeScale(0,0,0);im.setMatrixAt(i,m4);ch=true;del++;continue;}
       const dy=v.y-t;if(dy>0.6&&dy<120){m4.elements[13]-=dy;im.setMatrixAt(i,m4);ch=true;mov++;}}
     if(ch)im.instanceMatrix.needsUpdate=true;}
+  for(const c of CARTERS){if(!c.g)continue;const y=floorAt(c.x,c.z);if(Math.abs(c.g.position.y-y)>0.3){c.g.position.y=y;c.g.updateMatrixWorld(true);mov++;}}   // los carreteros, igual
   return[mov,del];}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
