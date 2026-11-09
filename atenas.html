@@ -1085,7 +1085,8 @@ function buildTerrain(size,seg,cx,cz,inner){
     const isIn=Math.abs(x-INNER.x)<half&&Math.abs(z-INNER.z)<half;
     // la malla lejana, por debajo de la cercana: cada vértice baja por debajo del punto más bajo del suelo real a su alrededor,
     // para que sus triángulos (de más de 100 m) no asomen donde una colina linda con una zona allanada (el Capitolio junto al Foro; el Pireo)
-    if(!inner&&isIn){let mn=h;for(let a=-2;a<=2;a++)for(let b=-2;b<=2;b++){const v=displayH(x+a*step/2,z+b*step/2);if(v<mn)mn=v;}h=Math.min(h-(pirIn(x,z)?40:8),mn-3);}
+    const edgeD=half-Math.max(Math.abs(x-INNER.x),Math.abs(z-INNER.z));   // junto al borde de la malla cercana, la lejana conserva la altura real: así empalman sin corte
+    if(!inner&&isIn&&edgeD>step*1.05){let mn=h;for(let a=-2;a<=2;a++)for(let b=-2;b<=2;b++){const v=displayH(x+a*step/2,z+b*step/2);if(v<mn)mn=v;}h=Math.min(h-(pirIn(x,z)?40:8),mn-3);}
     pos.setXYZ(i,x,h,z);
     const RH=MODE==='roma'?romaH:rawH;
     const sl=(Math.abs(RH(x+2,z)-RH(x-2,z))+Math.abs(RH(x,z+2)-RH(x,z-2)))/4;
@@ -2425,7 +2426,7 @@ function bwSteps(){
   }],
   ['buildTerrain',()=>{terrainInner=buildTerrain(INNER.size+300,500,INNER.x,INNER.z,true);
   }],
-  ['buildTerrain',()=>{buildTerrain(12000,120,INNER.x,INNER.z,false);
+  ['buildTerrain',()=>{buildTerrain(12000,300,INNER.x,INNER.z,false);
   }],
   ['mar',()=>{const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#3a7891',shininess:80,specular:'#9fc3d0'}));
   sea.rotation.x=-Math.PI/2;sea.position.y=-2.2;scene.add(sea);
@@ -3237,9 +3238,10 @@ function edgeSlots(f){const C=edgeSlots._c||(edgeSlots._c={}),key=MODE+':'+f;if(
       out[l.t]={x:S.cx+o[0]*(S.h-26)+tg[0]*t*S.h,z:S.cz+o[1]*(S.h-26)+tg[1]*t*S.h,ox:o[0],oz:o[1],side:sd};});}   // a 26 m del borde: el paso se corta a 20
   return C[key]=out;}
 // montes más allá del borde (solo en tierra; el mar sigue siendo mar), con un paso abierto en cada salida
-function sqMount(k,x,z,h){if(h<0.6)return h;let S;try{S=regionSquare(k);}catch(err){return h;}if(!S)return h;const e=sqOut(S,x,z);if(e<-22||e>700)return h;
-  let add=Math.max(0,e+22)*0.75+Math.max(0,fbm(x*0.011+3.1,z*0.011)-0.35)*Math.min(1,Math.max(0,e+22)/50)*40;
-  let G;try{G=edgeSlots(k);}catch(err){G={};}for(const t in G){const g=G[t],lat=Math.abs((x-g.x)*(-g.oz)+(z-g.z)*g.ox);if(lat<40)add*=sstep(clamp((lat-9)/31,0,1));}
+function sqMount(k,x,z,h){if(h<0.6)return h;let S;try{S=regionSquare(k);}catch(err){return h;}if(!S)return h;const e=sqOut(S,x,z);if(e<-22)return h;
+  const e2=Math.max(0,e+22);let add=260*(1-Math.exp(-e2*0.75/260))+Math.max(0,fbm(x*0.011+3.1,z*0.011)-0.35)*Math.min(1,Math.max(0,e+22)/50)*40;
+  let G;try{G=edgeSlots(k);}catch(err){G={};}for(const t in G){const g=G[t],lat=Math.abs((x-g.x)*(-g.oz)+(z-g.z)*g.ox);const ee=Math.max(0,e),w0=9+ee*0.4,rp=31+ee*0.9;if(lat<w0+rp)add*=sstep(clamp((lat-w0)/rp,0,1));}   // el paso se abre en valle a medida que se aleja del borde
+  if(e>3000)add*=Math.max(0,1-(e-3000)/1500);   // muy lejos, la sierra baja despacio
   return h+add;}
 // antes de construir el terreno: la puerta de cada destino y un camino aplanado (pads) desde la llegada hasta ella
 function defineGates(){
@@ -6474,7 +6476,7 @@ function romeSteps(){
   ['buildTerrain',()=>{Object.assign(INNER,{x:0,z:-170,size:2800});edgeSlots._c={};   // Roma: un cuadrado mayor, con los montes y la Vía Apia
     terrainInner=buildTerrain(INNER.size+300,664,INNER.x,INNER.z,true);
   }],
-  ['buildTerrain',()=>{buildTerrain(14000,120,INNER.x,INNER.z,false);
+  ['buildTerrain',()=>{buildTerrain(14000,350,INNER.x,INNER.z,false);
   }],
   ['mar',()=>{const sea=SEA=new THREE.Mesh(new THREE.PlaneGeometry(30000,30000),new THREE.MeshPhongMaterial({color:'#5d7f78',shininess:60,specular:'#8fa8a0'}));
   sea.rotation.x=-Math.PI/2;sea.position.y=-2.2;scene.add(sea);
@@ -22888,7 +22890,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='7afed177f8e3';
+const NOSTOS_VER='5a3166608cda';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
