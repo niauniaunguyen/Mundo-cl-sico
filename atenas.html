@@ -2895,7 +2895,7 @@ function buildKerameikos(){
 // ------------------------------------------------------------ fuera del centro: Pnyx, Academia, Liceo, Cinosarges, Olimpieion
 function buildOutskirts(){
   // Pnyx, fase II (c. 400): muro de contención curvo al norte y tribuna al sur; el público mira hacia el sur
-  {const x=PNYX.x,z=PNYX.z+40,gy=PNYX.h;box(5,3,4,M.limestone,x,gy+1.5-0.5,z);
+  {const x=PNYX.x,z=PNYX.z+40,gy=Math.min(terrainH(x,z-2.5),terrainH(x,z),terrainH(x,z+2))-0.3;box(5,3,4,M.limestone,x,gy+1.5-0.5,z);
    for(let i=0;i<3;i++){box(3,0.5,1,M.limestone,x,gy+0.25+i*0.5,z-2.5+i*0.4);addPlat(x,z-2.5+i*0.4,3,1,0,gy+0.5+i*0.5);}
    addBox(x,z,5,4,0);addPlat(x,z,5,4,0,gy+1.5);
    for(let i=0;i<=34;i++){const t=Math.PI*(1.06+i/34*0.88),r=68;const px=x+Math.cos(t)*r,pz=z+8+Math.sin(t)*r*0.82;const h=terrainH(px,pz);
@@ -22851,7 +22851,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='6e32bb0a8c57';
+const NOSTOS_VER='7c745b076735';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
