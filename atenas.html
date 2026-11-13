@@ -6594,16 +6594,32 @@ function romaTravel(){
    place('ro_viajes',_t(4877,'Viajar por Italia'),'ITINERA',_t(4878,'Junto a la Vía Apia esperan los cocheros que alquilan carros para viajar por Italia: hacia el sur, por la Apia; hacia el norte, por la Flaminia; por la costa, por la Aurelia. Para ir a Hispania, en cambio, hay que bajar al Emporio y embarcar.'),p[0]+6,p[1]+5,0);}
   {const z=720,sx=romaRiverX(z)+romaRiverW(z)+2;buildPort('atenas',_t(4518,'El Emporio'),sx,z,-1,0);}
 }
+const CURIA={o:null,on:false};
 function romaForum(){
   footprints.push({x:0,z:0,w:236,d:120,a:0,c:'#d8ccb4',reserve:true});
   // Rostra: tribuna con espolones de bronce
   {const gy=romaH(-70,-8),g=grp(-70,gy,-8,Math.PI/2);box(24,3.6+2,11,TRAV,0,1.8-1,0,g);box(24.4,0.4,11.4,M.marble,0,3.7,0,g);
    for(let i=0;i<8;i++){const b=new THREE.Mesh(new THREE.ConeGeometry(0.35,1.6,6),BRONZE2);b.rotation.x=Math.PI/2;b.position.set(-10+i*2.85,2.2,5.9);g.add(b);}
    addBox(-70,-8,11,24,0);footprints.push({x:-70,z:-8,w:11,d:24,a:0,c:'#d8ccb0'});}
-  // Curia Julia
-  {const o={x:-70,z:-62},gy=romaH(o.x,o.z)-0.1,g=grp(o.x,gy,o.z,0);box(18,21+3,27,PLAST,0,(21+3)/2-3,0,g);box(18.3,4,27.3,BRICK,0,2,0,g);
-   gableRoof(g,18.8,27.8,21,4.2,M.tile,PLAST);box(4.5,8,0.25,BRONZE2,0,4.4,13.6,g);for(const s of[-1,0,1])box(2.2,3.4,0.2,M.dark,s*5,15,13.6,g);
-   stairs(g,o,0,13.5,10,1.6,gy,0);addBox(o.x,o.z,18,27,0);footprints.push({x:o.x,z:o.z,w:18,d:27,a:0,c:'#c79a7e',name:_t(4879,'Curia')});}
+  // Curia Julia: hueca y visitable. Sala de unos 25 × 17 m, con tres gradas bajas a cada lado para los bancos de los senadores, el tribunal del magistrado al fondo y, detrás, la Victoria de Tarento con su altar (Augusto, 29 a.C.)
+  {const o={x:-70,z:-62},gy=romaH(o.x,o.z)-0.1,g=grp(o.x,gy,o.z,0),F=1.6,t=1,dw=2.2,dt=F+8.4;CURIA.o=o;CURIA.gy=gy;
+   for(const sg of[-1,1])box(t,24,27,PLAST,sg*(9-t/2),9,0,g);box(18,24,t,PLAST,0,9,-(13.5-t/2),g);
+   for(const sg of[-1,1])box(9-dw,24,t,PLAST,sg*(dw+(9-dw)/2),9,13.5-t/2,g);box(2*dw,21-dt,t,PLAST,0,(21+dt)/2,13.5-t/2,g);box(2*dw,F+3,t,PLAST,0,(F-3)/2,13.5-t/2,g);
+   for(const sg of[-1,1]){box(9-dw+0.3,4,0.15,BRICK,sg*(dw+(9-dw)/2+0.15),2,13.6,g);box(0.15,4,27.3,BRICK,sg*9.08,2,0,g);}box(18.3,4,0.15,BRICK,0,2,-13.6,g);
+   gableRoof(g,18.8,27.8,21,4.2,M.tile,PLAST);box(16,0.3,25,lam('#8a6a48'),0,20.85,0,g);   // techo de madera por dentro
+   for(const s of[-1,0,1])box(2.2,3.4,0.2,M.dark,s*5,15,13.6,g);
+   for(const sg of[-1,1]){const l=box(0.15,8.4,dw,BRONZE2,sg*(dw-0.1),F+4.2,13-t-dw/2+0.4,g);const w0=[o.x+sg*(dw-0.1),o.z+13-t+0.4],w1=[o.x+sg*(dw-0.1),o.z+13-t+0.4-dw];addSeg(w0[0],w0[1],w1[0],w1[1],0.12);}   // las puertas de bronce, abiertas hacia dentro
+   stairs(g,o,0,13.5,10,1.6,gy,0);
+   for(const[a,b,c,d]of[[-9,-13.5,9,-13.5],[-9,-13.5,-9,13.5],[9,-13.5,9,13.5],[-9,13.5,-dw,13.5],[dw,13.5,9,13.5]])addSeg(o.x+a,o.z+b,o.x+c,o.z+d,0.6);
+   box(16,0.3,25,M.marble,0,F-0.15,0,g);box(7,0.02,15,lam('#9c7f6a'),0,F+0.01,1.5,g);addPlat(o.x,o.z+0.25,16.2,26.5,0,gy+F);
+   for(const sg of[-1,1])for(let k=0;k<3;k++){const h=0.3*(3-k),x=7.45-k*1.1;box(1.1,h,20,M.marble,sg*x,F+h/2,1,g);addPlat(o.x+sg*x,o.z+1,1.1,20,0,gy+F+h);box(0.45,0.42,19,M.wood,sg*(x+0.25),F+h+0.21,1,g);}   // gradas y bancos (subsellia)
+   box(9,0.7,3,M.marble,0,F+0.35,-10.5,g);addPlat(o.x,o.z-10.5,9,3,0,gy+F+0.7);for(const sg of[-1,1])box(0.7,0.5,0.6,lam('#efe6d2'),sg*1.3,F+0.95,-10.9,g);   // tribunal y sillas curules
+   const gold=M.gold||lam('#c9a24a');box(1.8,2.6,1.8,M.marble,0,F+0.7+1.3,-12.2,g);const gl=new THREE.Mesh(new THREE.SphereGeometry(0.75,18,12),gold);gl.position.set(0,F+0.7+2.6+0.7,-12.2);g.add(gl);
+   const vy=F+0.7+2.6+1.4;const bd=new THREE.Mesh(new THREE.CylinderGeometry(0.26,0.55,2.4,10),gold);bd.position.set(0,vy+1.2,-12.2);g.add(bd);const hd=new THREE.Mesh(new THREE.SphereGeometry(0.22,12,8),gold);hd.position.set(0,vy+2.65,-12.2);g.add(hd);
+   for(const sg of[-1,1]){const w=box(0.08,2.1,0.9,gold,sg*0.45,vy+2.2,-12.55,g);w.rotation.z=sg*0.5;w.rotation.y=sg*0.35;}const wr=new THREE.Mesh(new THREE.TorusGeometry(0.28,0.05,6,16),gold);wr.position.set(0.55,vy+2.9,-11.9);g.add(wr);   // la Victoria sobre el globo, con la corona
+   const sh=new THREE.Mesh(new THREE.CylinderGeometry(1.2,1.2,0.12,32),gold);sh.rotation.x=Math.PI/2;sh.position.set(0,F+12.5,-12.9);g.add(sh);   // el escudo de oro (clupeus virtutis)
+   box(1.6,1.1,1.0,M.marble,0,F+0.55,-7.6,g);box(1.85,0.16,1.25,M.marble,0,F+1.18,-7.6,g);const fl=new THREE.Mesh(new THREE.ConeGeometry(0.22,0.6,7),new THREE.MeshBasicMaterial({color:0xff8a30,transparent:true,opacity:0.9}));fl.position.set(0,F+1.56,-7.6);g.add(fl);CURIA.fl=fl;addBox(o.x,o.z-7.6,1.6,1.0,0,0.2);   // el altar, con incienso y fuego
+   footprints.push({x:o.x,z:o.z,w:18,d:27,a:0,c:'#c79a7e',name:_t(4879,'Curia')});}
   if(GLB.ok){const br=lam('#7d6a3e'),gb=lam('#a07c44');for(const[x,z,a]of[[-40,-30,0],[-20,-32,0],[0,-33,0],[20,-32,0],[-35,26,Math.PI],[-10,28,Math.PI],[100,-30,0],[-45,8,Math.PI/2]]){const gy=romaH(x,z),g=grp(x,gy,z,a);box(1.6,2.6,2.2,M.marble,0,1.3,0,g);box(1.9,0.3,2.5,M.marble,0,2.6,0,g);
     const st=makePerson({toga:true,chiton:'#7d6a3e',himation:'#7d6a3e',hair:'#7d6a3e',beard:R()<0.4,attrRoles:{cloth:br,drape:br,skin:gb,hair:br,sandal:br,eye:br}});st.scale.setScalar(1.25);st.position.y=2.75;g.add(st);addBox(x,z,1.6,2.2,a);}}
   basilica({x:20,z:-62,rot:0,L:88,D:28,name:_t(4475,'Basílica Emilia')});
@@ -16146,7 +16162,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);cullTick(dt);mergeTick(dt);v2Tick(dt);rutTick(dt);zsTick(dt);gdTick();socTick(dt);dioTick(dt);pitTick(dt);herTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);cullTick(dt);mergeTick(dt);v2Tick(dt);rutTick(dt);zsTick(dt);gdTick();socTick(dt);dioTick(dt);pitTick(dt);herTick(dt);curTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   rwTick(dt);}
 
 
@@ -22967,7 +22983,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='928beef0848d';
+const NOSTOS_VER='846bcc344173';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -24131,6 +24147,25 @@ function toastOpen(T){if(!T)return;try{
    const h=document.createElement('small');h.className='thint';const w=T.codex?'el Códice':'el Diario';h.textContent=isTouch?'Toca para abrirlo en '+w:'[Y] Abrir en '+w;d.appendChild(h);
    TLK.last={T,d,until:performance.now()+5200};d.addEventListener('click',e=>{e.stopPropagation();d.remove();TLK.last=null;toastOpen(T);});}catch(e){}};
  if(!isTouch){const b=$('tutSkip');if(b)b.textContent='Saltar el tutorial (tecla Retroceso)';}}
+// ============================================================ LA CURIA JULIA POR DENTRO: el altar y la estatua de la Victoria (Augusto, 29 a.C.)
+function curiaSetup(){if(MODE!=='roma'||!CURIA.o)return;const o=CURIA.o;egxObj(o.x,o.z-6.4,CURIA.gy+1.6,'cur:altar','El altar de la Victoria',_t(4455,'Curia Julia'),2.8);egxObj(o.x+5.5,o.z+6,CURIA.gy+1.6,'cur:sala','La sala del Senado',_t(4455,'Curia Julia'),2.6);}
+{const f=colSetup;colSetup=function(){f();try{curiaSetup();}catch(e){console.warn('curia',e);}};}
+function curAct(o){const ro=()=>[['La Victoria y su altar',curVic,'quiz'],['El escudo de oro',curEsc,'quiz'],['Cómo se vota aquí',curVoto,'quiz'],vmBye];
+  const z=state.seen||(state.seen={});if(!z.curia){z.curia=1;save();qAdd('so',1,'Has entrado en la Curia.');}
+  if(o.act==='cur:sala')return vmS('🏛','La sala del Senado','Curia Julia · año 80 d.C.','<p>Una sala alta y sobria, más larga que ancha, con suelo de mármol de colores. A los lados, tres gradas bajas y anchas con bancos: ahí se sientan los senadores, unos seiscientos cuando están todos, aunque casi nunca están todos. Al fondo, en el tribunal, se sienta el cónsul que preside.</p><p>Las puertas de bronce se quedan abiertas durante las sesiones: desde fuera, en el Comicio, la gente oye los discursos, pero no entra.</p><p class="sub">El edificio de ladrillo que se conserva hoy en el Foro no es este: es la reconstrucción de Diocleciano, tras el incendio del año 283. La planta, la altura y las gradas eran parecidas.</p>',ro());
+  vmS('✦','El altar de la Victoria',_t(4455,'Curia Julia'),'<p>Al fondo, sobre un globo, una Victoria de oro con alas extendidas ofrece una corona. Delante, un pequeño altar de mármol donde arde incienso.</p><p>Elige qué quieres saber.</p>',ro());}
+function curVic(){vmS('✦','La Victoria de Tarento','Octavio, después de Accio',
+  '<p>El 2 de septiembre del 31 a.C., en Accio, la flota de Octavio derrotó a Marco Antonio y Cleopatra. Dos años después, el 28 de agosto del 29 a.C., Octavio inauguró esta Curia, que había empezado su padre adoptivo, Julio César, y puso dentro la estatua de la <b>Victoria</b> que los romanos se habían llevado de Tarento, y la adornó con botín de Egipto (Dion Casio, 51, 22).</p>'+
+  '<p>Delante de la estatua está su <b>altar</b>. Augusto ordenó que cada senador, antes de sentarse, quemara incienso y ofreciera vino en el altar del dios del templo donde se reunía el Senado (Suetonio, <i>Augusto</i> 35, 3). Así, cada sesión empieza con un gesto ante la Victoria de Accio: el Senado delibera bajo la victoria que dio a Roma un solo señor.</p>'+
+  '<p class="sub">Lo que todavía no sabe nadie (dentro de tres siglos): en el 382 el emperador Graciano, cristiano, hará retirar el altar; en el 384 el senador Símaco pedirá que lo devuelvan y el obispo Ambrosio de Milán se opondrá (Símaco, <i>Relatio</i> 3; Ambrosio, <i>Cartas</i> 17 y 18). Será uno de los últimos debates entre la religión antigua y la nueva.</p>',
+  [[_t(2678,'Volver'),()=>curAct({act:'cur:altar'}),'quiz'],vmBye]);}
+function curEsc(){vmS('◎','El escudo de oro','clupeus virtutis','<p>Encima de la Victoria cuelga un escudo de oro. En el 27 a.C. el Senado y el pueblo se lo regalaron a Augusto y lo colocaron en esta Curia. Su inscripción alababa cuatro virtudes: el valor, la clemencia, la justicia y la piedad (<i>virtus, clementia, iustitia, pietas</i>). Lo cuenta el propio Augusto en sus <i>Res Gestae</i> (34).</p><p class="sub">En Arlés (Francia) se encontró una copia en mármol de este escudo.</p>',[[_t(2678,'Volver'),()=>curAct({act:'cur:altar'}),'quiz'],vmBye]);}
+function curVoto(){vmS('⚖','Cómo se vota aquí','el Senado en el año 80','<p>El cónsul presenta el asunto y pide la opinión (<i>sententia</i>) a los senadores por orden de rango: primero a los antiguos cónsules, después a los antiguos pretores, y así hacia abajo. Los más jóvenes, como Tácito, casi nunca llegan a hablar.</p><p>Para votar no se levanta la mano: los senadores se levantan y se ponen junto al que defiende la opinión que apoyan. Se llama «ir con los pies a una opinión» (<i>pedibus in sententiam ire</i>). Gana el lado con más gente.</p><p class="sub">En el año 80 manda el emperador Tito. El Senado aún debate y vota, pero las decisiones importantes las toma el emperador.</p>',[[_t(2678,'Volver'),()=>curAct({act:'cur:altar'}),'quiz'],vmBye]);}
+{const f=egxAct0;egxAct0=function(o){if(String(o.act).startsWith('cur:'))return curAct(o);return f(o);};}
+function curTick(dt){if(MODE!=='roma'||!CURIA.o)return;const o=CURIA.o,L=ROMA.bodaLight;if(!L)return;
+  const inside=Math.abs(player.x-o.x)<8.6&&Math.abs(player.z-o.z)<13.4&&player.feet>CURIA.gy+1;
+  if(inside&&ui!=='episode'){const t=performance.now()/1000,k=0.85+0.15*Math.sin(t*9)*Math.sin(t*5.3);L.position.set(o.x,CURIA.gy+4.5,o.z-6.5);L.intensity=1.5*k;L.distance=30;CURIA.on=true;if(CURIA.fl)CURIA.fl.scale.set(1,k*1.2,1);}
+  else if(CURIA.on){L.intensity=0;CURIA.on=false;}}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
