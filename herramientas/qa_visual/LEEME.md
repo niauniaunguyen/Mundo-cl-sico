@@ -25,3 +25,11 @@ Qué mide `barrido.js` (las coordenadas que imprime son relativas al centro de l
 Falsos positivos habituales: techos sobre muros (la Tholos), árboles sobre el túmulo del Mausoleo de Augusto, escenas subterráneas (cueva de Platón), muros de contención en laderas. Por eso cada candidato se confirma con una captura (`mirar.js`) antes de tocar nada.
 
 La salida y las capturas van a `$SALIDA` (por defecto, el directorio temporal). El rendimiento en el navegador sin pantalla es muy bajo (~1 fps): no sirve para medir fps.
+
+## Caminos cortados
+
+`node run.js '?modo=atenas#debug' caminos.js` recorre cada camino de la ciudad cada 2 m y lista los tramos donde algo choca (con el edificio más cercano). Los cruces de las puertas (Dípilon) y la entrada a tu casa son normales.
+
+## Personas en el suelo
+
+En el juego, `sueloTick()` (módulo SUELO) se ejecuta antes de dibujar cada imagen y coloca a las personas cercanas sobre el suelo que se ve. En `#debug`: `__d.SUELO().fix` cuenta las correcciones y `__d.groundY(x,z)` da la altura correcta de un punto.

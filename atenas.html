@@ -2846,6 +2846,7 @@ function donkey(x,z,a){
 
 // casa con patio: crujía al fondo (a veces con piso alto), ala lateral, muros del patio y puerta a la calle
 function courtyardHouse(x,z,a,w,d,h,two,keep){
+  if(!keep&&x<8000&&roadDist(x,z)<Math.hypot(w,d)/2+2.5)return;   // ninguna casa encima de un camino
   {const M=Math.max(w,d),hit=(x,z)=>footprints.some(f=>f.house&&Math.abs(f.x-x)<(Math.max(f.w||0,f.d||0)+M)/2+1.2&&Math.abs(f.z-z)<(Math.max(f.w||0,f.d||0)+M)/2+1.2);   // no levantar una casa encima de otra
    if(hit(x,z)){let ok=false;for(let k=0;k<12&&!ok;k++){const nx=x+(Math.random()-0.5)*22,nz=z+(Math.random()-0.5)*22;if(!hit(nx,nz)&&Math.abs(terrainH(nx,nz)-terrainH(x,z))<1.5&&terrainH(nx,nz)>0.5){x=nx;z=nz;ok=true;}}if(!ok)return;}}
   {const sl=(px,pz)=>{let lo=1e9,hi=-1e9;for(const[i,j]of[[-1,-1],[1,-1],[-1,1],[1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const p=toW(i*w/2,j*d/2,px,pz,a),h=terrainH(p[0],p[1]);lo=Math.min(lo,h);hi=Math.max(hi,h);}return hi-lo;};
@@ -2908,7 +2909,7 @@ function buildOutskirts(){
   {const x=PNYX.x,z=PNYX.z+40,gy=Math.min(terrainH(x,z-2.5),terrainH(x,z),terrainH(x,z+2))-0.3;box(5,3,4,M.limestone,x,gy+1.5-0.5,z);
    for(let i=0;i<3;i++){box(3,0.5,1,M.limestone,x,gy+0.25+i*0.5,z-2.5+i*0.4);addPlat(x,z-2.5+i*0.4,3,1,0,gy+0.5+i*0.5);}
    addBox(x,z,5,4,0);addPlat(x,z,5,4,0,gy+1.5);
-   for(let i=0;i<=34;i++){const t=Math.PI*(1.06+i/34*0.88),r=68;const px=x+Math.cos(t)*r,pz=z+8+Math.sin(t)*r*0.82;const h=terrainH(px,pz);
+   for(let i=0;i<=34;i++){const t=Math.PI*(1.06+i/34*0.88),r=68;const px=x+Math.cos(t)*r,pz=z+8+Math.sin(t)*r*0.82;if(roadDist(px,pz)<6)continue;const h=terrainH(px,pz);   // paso abierto donde cruza un camino
      const b=box(6.4,3.2,2.2,M.limestone,px,h-0.4,pz);b.rotation.y=-t+Math.PI/2;const b2=box(6.4,1.6,1.2,M.limestone,px+Math.cos(t)*1.4,h+1.6,pz+Math.sin(t)*1.4*0.82);b2.rotation.y=-t+Math.PI/2;}
    footprints.push({x,z,w:5,d:4,a:0,c:'#efe7d8',name:_t(2298,'Bema')});}
   // Academia
@@ -14602,7 +14603,7 @@ function tropaion(x,z,a){const gy=floorAt(x,z),g=grp(x,gy,z,a||0);box(0.25,3.4,0
   const h=new THREE.Mesh(new THREE.SphereGeometry(0.3,10,8,0,TAU,0,Math.PI/2),M.bronze);h.position.y=3.4;g.add(h);box(0.7,0.9,0.25,M.bronze,0,2.4,0.15,g);
   const s=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.08,18),M.bronze);s.rotation.x=Math.PI/2;s.position.set(0.9,2.3,0.2);g.add(s);addCirc(x,z,0.5);return g;}
 function bronzeFigure(x,z,a,look){const gy=floorAt(x,z);box(1.4,1.2,1.4,M.limestone,x,gy+0.6,z);addBox(x,z,1.4,1.4,0);
-  const p=makePerson(Object.assign({noVary:true,short:true,noHimation:true,chiton:'#8a6a3a',hair:'#6b5030',beard:true},look||{}));p.position.set(x,gy+1.2,z);p.rotation.y=a||0;p.traverse(o=>{if(o.isMesh)o.material=M.bronze;});scene.add(p);return p;}
+  const p=makePerson(Object.assign({noVary:true,short:true,noHimation:true,chiton:'#8a6a3a',hair:'#6b5030',beard:true},look||{}));p.position.set(x,gy+1.2,z);p.rotation.y=a||0;p.traverse(o=>{if(o.isMesh)o.material=M.bronze;});p.userData.noSnap=true;scene.add(p);return p;}
 function vinesAt(x,z,w,d){const m=lam('#5e7a3a');for(let i=0;i<w/2.5;i++)for(let j=0;j<d/3;j++){const px=x-w/2+i*2.5,pz=z-d/2+j*3;box(0.5,rr(0.9,1.2),0.5,m,px,terrainH(px,pz)+0.55,pz);}}
 function pebbleMosaic(x,z,w,d){const c=document.createElement('canvas');c.width=256;c.height=256;const k=c.getContext('2d');k.fillStyle='#2a2622';k.fillRect(0,0,256,256);
   k.strokeStyle='#e8e0d0';k.lineWidth=6;k.strokeRect(14,14,228,228);k.beginPath();for(let i=0;i<12;i++){const a=i/12*TAU;k.moveTo(128,128);k.lineTo(128+Math.cos(a)*70,128+Math.sin(a)*70);}k.stroke();
@@ -15381,7 +15382,8 @@ function sfxOficio(k){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;
   else if(k==='campana'){[880,1320,1760].forEach((f,i)=>{const o=c.createOscillator();o.type='sine';o.frequency.value=f;o.connect(envGain(t,0.05/(i+1),0.003,1.6));o.start(t);o.stop(t+1.7);});}
   else if(k==='molino'){const o=c.createOscillator();o.type='sawtooth';o.frequency.value=55;o.connect(envGain(t,0.02,0.2,1.2));o.start(t);o.stop(t+1.4);}}
 // tipo: 'taller' (con trabajadores animados) o 'pregon' (vendedor que anuncia su mercancía cada cierto tiempo)
-function oficio(o){const[x,z]=findFree(o.x,o.z,o.r||3);const gy=floorAt(x,z),g=grp(x,gy,z,o.rot||0);if(o.build)o.build(g);
+function oficio(o){let[x,z]=findFree(o.x,o.z,o.r||3);if(roadDist(x,z)<(o.r||3)+2.5){for(let k=1;k<=12;k++){const a2=k*2.4,dd=4+k*1.5,q=findFree(x+Math.cos(a2)*dd,z+Math.sin(a2)*dd,o.r||3);if(roadDist(q[0],q[1])>=(o.r||3)+2.5){[x,z]=q;break;}}}   // los puestos, fuera del camino
+  const gy=floorAt(x,z),g=grp(x,gy,z,o.rot||0);if(o.build)o.build(g);
   const ppl=(o.ppl||[]).map(p=>{const m=p.make?p.make():makePerson(Object.assign({noVary:true},p.look));m.position.set(p.x||0,p.y||0,p.z||0);m.rotation.y=p.r||0;g.add(m);return{m,anim:p.anim||'brazos'};});
   const lb=labelSprite(o.name,o.sub,false);lb.position.set(0,3.4,0);lb.visible=false;g.add(lb);addCirc(x,z,o.r?o.r*0.6:1.6);
   OFIC.push(Object.assign({},o,{x,z,g,ppl,lb,next:0,seen:0}));}
@@ -17849,7 +17851,7 @@ function pireoPlus(){if(MODE!=='atenas'||URB.pir)return;URB.pir=1;const a=-Math.
   // la cuadrícula de Hipódamo: manzanas iguales de casas, con calles rectas; el ágora en el centro
   const houses=[],wallM=['#eee5d4','#e6dbc4','#d8c7a5','#efe8da'];
   for(let bu=-5;bu<=4;bu++)for(let bv=1;bv<=5;bv++){const cu=bu*30+5,cv=bv*30+20;if(cu>120&&cv<120)continue;if(PIR_BAYS.some(b=>Math.hypot(cu-b.u,cv-b.v)<b.R+26))continue;if(bu>=-1&&bu<=0&&bv>=3&&bv<=4)continue;
-    for(const[du,dv]of[[-6.2,-6.2],[6.2,-6.2],[-6.2,6.2],[6.2,6.2]]){const p=P(cu+du,cv+dv);if(!urbFree(p[0],p[1],7))continue;const gy=floorAt(p[0],p[1]);if(gy<0.6||Math.abs(terrainH(p[0]+5,p[1])-terrainH(p[0]-5,p[1]))>3)continue;houses.push({x:p[0],z:p[1],gy,a:a+(dv<0?Math.PI:0),c:pick(wallM),two:R()<0.25});}}
+    for(const[du,dv]of[[-6.2,-6.2],[6.2,-6.2],[-6.2,6.2],[6.2,6.2]]){const p=P(cu+du,cv+dv);if(!urbFree(p[0],p[1],7)||roadDist(p[0],p[1])<10)continue;const gy=floorAt(p[0],p[1]);if(gy<0.6||Math.abs(terrainH(p[0]+5,p[1])-terrainH(p[0]-5,p[1]))>3)continue;houses.push({x:p[0],z:p[1],gy,a:a+(dv<0?Math.PI:0),c:pick(wallM),two:R()<0.25});}}
   for(const h of houses){const g=grp(h.x,h.gy,h.z,h.a),wm=lam(h.c);box(11.8,h.two?6.5:3.8,11.8,wm,0,(h.two?6.5:3.8)/2-0.4,0,g);box(12.4,0.5,12.4,tile,0,(h.two?6.5:3.8)-0.2,0,g);box(1.1,2.1,0.1,lam('#4a3324'),2,1.05,5.95,g);addBox(h.x,h.z,11.8,11.8,h.a);footprints.push({x:h.x,z:h.z,w:11.8,d:11.8,a:h.a,c:'#b8a280',house:true});}
   {const ag=P(-15,125);for(const[du,dv]of[[-24,-24],[24,-24],[-24,24],[24,24]]){const p=P(-15+du,125+dv);box(0.4,1,0.25,lam('#e8e0d0'),p[0],floorAt(p[0],p[1])+0.5,p[1]);}
     placeLive('pir_agora','El ágora de Hipódamo','ΙΠΠΟΔΑΜΕΙΑ ΑΓΟΡΑ','La plaza del Pireo lleva el nombre de quien trazó la ciudad: Hipódamo de Mileto, que hacia el 450 dibujó estas calles rectas y manzanas iguales. Aristóteles lo recuerda como el primero que pensó cómo debía ordenarse una ciudad (Política II 1267b). Se han encontrado los mojones que separaban los espacios: «Mojón del Emporio y del camino», «Mojón del ágora». Compárala con las callejas de Atenas, que crecieron sin plan.',ag[0],ag[1],a);}
@@ -22925,7 +22927,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='91dcf4498539';
+const NOSTOS_VER='e7f86511ddde';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -23067,7 +23069,7 @@ function tpLook(it){const P=it.R.pr,f=P?P[2]:false;if(it.ro)return f?{female:tru
   return f?{female:true,chiton:'#f3eee2',himation:'#7a2a3a',veil:true,hair:'#3a2a1e'}:{chiton:'#f3eee2',himation:'#efe6d4',beard:true,hair:'#8d8a85',beardC:'#a8a49c',staff:true,attrs:[_t(4384,'G_wreath')]};}
 function tpSpawn(){const Q=tpQ();while(Q.length){const it=Q.shift();try{const f=findFree(it.x,it.z,1);if(!f)continue;const P=it.R.pr,i=TP_OBJS.length;TP_OBJS.push(it);
   const nm=P?P[0]:(it.ro?'Guardián del templo':'Neócoro'),sub=P&&P[1]?P[1]:(it.ro?'aedituus · '+it.R.god:'guardián del templo · '+(it.R.gr||it.R.god));
-  artPerson(f,tpLook(it),'tp:'+i,nm,sub,3);}catch(e){}}}
+  it.g=artPerson(f,tpLook(it),'tp:'+i,nm,sub,3);}catch(e){}}}
 function tpSetup(){TP_OBJS.length=0;tpSpawn();}
 let _tpT=0;function tpTick(dt){_tpT+=dt;if(_tpT<1)return;_tpT=0;if(tpQ().length&&TP_READY)tpSpawn();}
 let TP_READY=false;
@@ -23682,6 +23684,31 @@ for(const D of D386B){MED_POS[D.id]=D.pos;for(const l of D.links||[])WORLD_LINKS
 {const S=SWD&&SWD.atenas;if(S){const ids={'Ítaca':'itaca','Cefalenia':'cefalonia','Lemnos':'lemnos','Samotracia':'samotracia','Sinope y la costa del Ponto':'sinope'};
   for(const k in S.segs)for(const I of S.segs[k].isl)if(!I.id&&ids[I.name])I.id=ids[I.name];
   Object.assign(S.entry,{itaca:['jonico',70,-80],cefalonia:['jonico',-120,150],lemnos:['egeonorte',120,60],samotracia:['egeonorte',250,-290],sinope:['colquide',-250,310]});}}
+// ============================================================ SUELO: las personas, sobre el suelo que se ve
+// El suelo físico (terrainH, con los allanamientos exactos junto a los edificios) y la malla que se dibuja (un vértice cada ~5 m)
+// no coinciden del todo: junto a un templo o en una pendiente, alguien colocado en el suelo físico puede flotar o hundirse en lo que se ve.
+// Justo antes de dibujar cada imagen, las personas cercanas que están en el suelo se recolocan a la altura de lo que se ve:
+// sobre la malla del terreno, o sobre el suelo de un edificio (plataformas) si están encima de uno.
+// No se tocan: las que cuelgan de otro objeto (talleres, carros, barcos), las estatuas y las que están a otra altura a propósito.
+const PEOPLE=[],SUELO={on:true,R:90,fix:0,meshes:null};
+{const mp0=makePerson;makePerson=function(c){const g=mp0(c);PEOPLE.push(g);return g;};}
+function sueloMeshes(){const L=[];const add=(m,I)=>{if(!m||!m.geometry||!m.geometry.parameters)return;const P=m.geometry.parameters,pos=m.geometry.attributes.position;L.push({m,I,pos,n:P.widthSegments,x0:pos.getX(0),z0:pos.getZ(0),st:P.width/P.widthSegments});};
+  add(terrainInner,null);for(const I of ISLANDS)if(I&&I.mesh)add(I.mesh,I);return L;}
+function meshH(x,z){if(!SUELO.meshes||!SUELO.meshes.length)SUELO.meshes=sueloMeshes();
+  for(const g of SUELO.meshes){if(g.I?Math.abs(x-g.I.x)>g.I.R*1.5:x>8000)continue;const u=(x-g.x0)/g.st,w=(z-g.z0)/g.st;if(u<0||w<0||u>=g.n||w>=g.n)continue;
+    const ix=Math.floor(u),iy=Math.floor(w),fu=u-ix,fv=w-iy,N=g.n+1,Y=i=>g.pos.getY(i),a=Y(iy*N+ix),b=Y((iy+1)*N+ix),c=Y((iy+1)*N+ix+1),d=Y(iy*N+ix+1);
+    return fu+fv<=1?a+(d-a)*fu+(b-a)*fv:c+(b-c)*(1-fu)+(d-c)*(1-fv);}
+  return null;}
+// la altura a la que debe estar alguien que pisa el suelo en (x,z)
+function groundY(x,z){const f=floorAt(x,z),t=terrainH(x,z);if(f>t+0.05)return f;const m=meshH(x,z);return m===null?f:m;}
+function sueloTick(){if(!SUELO.on||!state||typeof player==='undefined')return;const R2=SUELO.R*SUELO.R;
+  for(let i=PEOPLE.length-1;i>=0;i--){const g=PEOPLE[i];if(!g.parent){if(g.userData.gone>200)PEOPLE.splice(i,1);else g.userData.gone=(g.userData.gone||0)+1;continue;}g.userData.gone=0;
+    if(g.parent!==scene||!g.visible||g.userData.noSnap)continue;const p=g.position,dx=p.x-player.x,dz=p.z-player.z;if(dx*dx+dz*dz>R2)continue;
+    const f=floorAt(p.x,p.z),y=groundY(p.x,p.z);
+    if(p.y<y-0.03&&p.y>y-1.2){p.y=y;SUELO.fix++;continue;}   // nadie por debajo del suelo que se ve
+    if(Math.abs(p.y-f)>0.2)continue;   // por encima, solo se baja a quien está puesto en el suelo físico: no a las estatuas ni a quien está a otra altura a propósito
+if(Math.abs(y-p.y)>0.03&&Math.abs(y-p.y)<2.5){p.y=y;SUELO.fix++;}}}
+scene.onBeforeRender=function(){try{sueloTick();}catch(e){}};
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -24299,7 +24326,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={PROF:()=>PROF,toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={PROF:()=>PROF,SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
