@@ -33,3 +33,7 @@ La salida y las capturas van a `$SALIDA` (por defecto, el directorio temporal). 
 ## Personas en el suelo
 
 En el juego, `sueloTick()` (módulo SUELO) se ejecuta antes de dibujar cada imagen y coloca a las personas cercanas sobre el suelo que se ve. En `#debug`: `__d.SUELO().fix` cuenta las correcciones y `__d.groundY(x,z)` da la altura correcta de un punto.
+
+## Personas que atraviesan edificios
+
+`SEG=60 ZONA=x,z node run.js '?modo=atenas#debug' atraviesan.js` observa durante SEG segundos a todo lo que se mueve (paseantes, personajes con horario, figuras de los sucesos) y lista a quien pisa dentro de una colisión, con su tipo y dónde. En el juego, `npcStep()` impide que ocurra: antes de cada paso comprueba que el sitio está libre, rodea el obstáculo si puede y, si no, cambia de destino.

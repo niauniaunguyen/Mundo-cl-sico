@@ -11586,12 +11586,13 @@ function frame(now){
   for(const w of walkers){const g=w.g;if(w.home)continue;
     if(w.wait>0){w.wait-=dt;if(w.moving){w.moving=false;personWalk(g,0,0);}continue;}
     let dx=w.tx-g.position.x,dz=w.tz-g.position.z,d=Math.hypot(dx,dz);
-    if(d<0.5){if(w.mode==='agora'){const b=w.box||[AG.x-30,AG.x+90,AG.z-70,AG.z+45];w.tx=rr(b[0],b[1]);w.tz=rr(b[2],b[3]);w.wait=R()<0.4?rr(1,6):0;}
+    if(d<0.5){if(w.mode==='agora'){const b=w.box||[AG.x-30,AG.x+90,AG.z-70,AG.z+45];for(let k=0;k<8;k++){w.tx=rr(b[0],b[1]);w.tz=rr(b[2],b[3]);if(isFree(w.tx,w.tz,0.6))break;}w.wait=R()<0.4?rr(1,6):0;}
       else{const rd=g.userData.road;let sI=g.userData.seg+(g.userData.dir>0?1:0);if(sI<=0||sI>=rd.pts.length-1){g.userData.dir*=-1;}g.userData.seg=clamp(g.userData.seg+(g.userData.dir>0?1:-1),0,rd.pts.length-2);const tp=rd.pts[g.userData.dir>0?g.userData.seg+1:g.userData.seg];const off=(g.userData.dir>0?1:-1)*1.6;w.tx=tp[0]+off;w.tz=tp[1]+off;}
       continue;}
     const pd=Math.hypot(player.x-g.position.x,player.z-g.position.z);if(pd<1.4)continue;
-    const st=Math.min(d,w.speed*dt);g.position.x+=dx/d*st;g.position.z+=dz/d*st;
-    w.moving=true;w.ph=(w.ph===undefined?w.phase:w.ph)+st*4.6;g.position.y=terrainH(g.position.x,g.position.z)+Math.abs(Math.sin(w.ph))*0.045;
+    const st=Math.min(d,w.speed*dt);
+    if(!npcStep(g,dx/d,dz/d,st)){w.blk=(w.blk||0)+dt;if(w.blk>1.5){w.blk=0;if(w.mode==='agora'){const b=w.box||[AG.x-30,AG.x+90,AG.z-70,AG.z+45];for(let k=0;k<8;k++){w.tx=rr(b[0],b[1]);w.tz=rr(b[2],b[3]);if(isFree(w.tx,w.tz,0.6))break;}}else{w.wait=rr(0.5,2);if(R()<0.5&&g.userData.dir!==undefined)g.userData.dir*=-1;}}continue;}
+    w.blk=0;w.moving=true;w.ph=(w.ph===undefined?w.phase:w.ph)+st*4.6;g.position.y=terrainH(g.position.x,g.position.z)+Math.abs(Math.sin(w.ph))*0.045;
     const ta=Math.atan2(dx,dz);g.rotation.y+=wrapA(ta-g.rotation.y)*Math.min(1,dt*5);
     personWalk(g,w.ph,1);}
 
@@ -23227,7 +23228,7 @@ function v2Event(dt){if(VIV.evt){v2EvtTick(VIV.evt,dt);return;}if(!v2City()||!v2
   else{const dir=Math.atan2(player.x-p[0],player.z-p[1]);E.dx=Math.sin(dir);E.dz=Math.cos(dir);E.g=v2Person({short:true,noHimation:true,chiton:'#efe6d4',hair:'#4a3020'},p[0],p[1]);E.objs.push(E.g);E.said=0;}
   VIV.evt=E;}
 function v2EvtTick(E,dt){E.t+=dt;const now=performance.now(),ro=MODE==='roma',end=()=>{for(const o of E.objs)scene.remove(o);VIV.evt=null;};
-  if(E.k==='ladron'){const run=(g,sp,ph)=>{g.position.x+=E.dx*sp*dt;g.position.z+=E.dz*sp*dt;g.position.y=floorAt(g.position.x,g.position.z);g.rotation.y=Math.atan2(E.dx,E.dz);E[ph]=(E[ph]||0)+sp*dt*3.2;personWalk(g,E[ph],1.4);};
+  if(E.k==='ladron'){const run=(g,sp,ph)=>{if(!npcStep(g,E.dx,E.dz,sp*dt)){const a=Math.atan2(E.dz,E.dx)+(R()<0.5?1:-1)*rr(0.8,1.6);E.dx=Math.cos(a);E.dz=Math.sin(a);}g.position.y=floorAt(g.position.x,g.position.z);g.rotation.y=Math.atan2(E.dx,E.dz);E[ph]=(E[ph]||0)+sp*dt*3.2;personWalk(g,E[ph],1.4);};
     if(!E.caught){run(E.th,4.4,'p1');run(E.me,3.7,'p2');E.sh-=dt;if(E.sh<=0){E.sh=2.6;v2Say(E.me.position.x,E.me.position.y+2.6,E.me.position.z,ro?'¡Al ladrón! ¡Detenedlo!':'¡Al ladrón! ¡Que alguien lo pare!',1800);}
       if(Math.hypot(E.th.position.x-player.x,E.th.position.z-player.z)<2.2){E.caught=E.t;E.th.remove(E.bread);E.bread.position.set(E.th.position.x,floorAt(E.th.position.x,E.th.position.z)+0.1,E.th.position.z);scene.add(E.bread);E.objs.push(E.bread);
         state.obols+=2;save();updateStats();sfxCoin();v2Say(E.me.position.x,E.me.position.y+2.6,E.me.position.z,ro?'¡Gracias! Toma, por la molestia.':'¡Gracias, forastero! Que los dioses te lo paguen.',2600);
@@ -23310,7 +23311,7 @@ function rutSpot(n){const T=(MODE==='roma'?RUT_R:RUT_A)[n.data.id];if(!T)return 
 function rutPlace(n,x,z){n.x=x;n.z=z;n.g.position.set(x,floorAt(x,z),z);}
 function rutTick(dt){if(!state||ui!=='play'||player.x>8000)return;RUT.t-=dt;
   for(const n of npcObjs){if(!n.rtWalk)continue;const dx=n.rtWalk.x-n.x,dz=n.rtWalk.z-n.z,d=Math.hypot(dx,dz);
-    if(d<0.3){personWalk(n.g,0,0);n.rtWalk=null;continue;}const st=Math.min(d,1.25*dt);rutPlace(n,n.x+dx/d*st,n.z+dz/d*st);n.rtPh=(n.rtPh||0)+st*4.6;personWalk(n.g,n.rtPh,1);n.g.rotation.y=Math.atan2(dx,dz);}
+    if(d<0.3){personWalk(n.g,0,0);n.rtWalk=null;continue;}const st=Math.min(d,1.25*dt),nx=n.x+dx/d*st,nz=n.z+dz/d*st;if(!isFree(nx,nz,0.3)&&isFree(n.x,n.z,0.3)){personWalk(n.g,0,0);if(Math.hypot(player.x-n.x,player.z-n.z)>30)rutPlace(n,n.rtWalk.x,n.rtWalk.z);n.rtWalk=null;continue;}rutPlace(n,nx,nz);n.rtPh=(n.rtPh||0)+st*4.6;personWalk(n.g,n.rtPh,1);n.g.rotation.y=Math.atan2(dx,dz);}
   if(RUT.t>0)return;RUT.t=1.5;
   for(const n of npcObjs){if(n.hidden||n.x>8000)continue;const T=(MODE==='roma'?RUT_R:RUT_A)[n.data.id];if(!T)continue;
     if(n.rx0===undefined){n.rx0=n.x;n.rz0=n.z;}
@@ -24070,6 +24071,10 @@ if(SIMPLE_GR.efeso){const o0=SIMPLE_GR.efeso.extra;SIMPLE_GR.efeso.extra=functio
   for(const sl of hbSlots())if(sl.k==='antorcha')sl.use=()=>toggleTorch();
   // al empezar, el cursor no se queda en la antorcha (si no, se encendería sola de día)
   const su0=hbSetup;hbSetup=function(){su0();try{const ti=tIdx();if(HBAR.sel===ti&&!(TORCH&&TORCH.on)){HBAR.sel=(ti+1)%9;hbz().sel=HBAR.sel;hbRender(true);}}catch(e){}};}
+// ---- un paso de una persona sin atravesar edificios: si el paso choca, prueba a rodear; si no puede, no se mueve
+function npcStep(g,ux,uz,st){const x=g.position.x,z=g.position.z;if(!isFree(x,z,0.3)){g.position.x+=ux*st;g.position.z+=uz*st;return true;}   // si ya estaba dentro (por un error de colocación), le dejamos salir
+  for(const a of[0,0.5,-0.5,1.0,-1.0,1.5,-1.5]){const c=Math.cos(a),s=Math.sin(a),vx=ux*c-uz*s,vz=ux*s+uz*c,nx=x+vx*st,nz=z+vz*st;if(isFree(nx,nz,0.3)){g.position.x=nx;g.position.z=nz;return true;}}
+  return false;}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

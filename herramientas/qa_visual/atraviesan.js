@@ -2,7 +2,7 @@
 // (paseantes, personajes con horario, figuras de sucesos, animales) y apunta a quien pisa dentro de una colisión.
 // Uso: SEG=60 node run.js '?modo=atenas#debug' atraviesan.js   (ZONA=x,z para colocar al jugador en otro sitio)
 module.exports=async(p)=>{const W=ms=>new Promise(r=>setTimeout(r,ms));const SEG=+(process.env.SEG||60);
- await p.evaluate(()=>{const s=__d.state;s.pj={name:'Nía',g:'f',o:'quios'};s.tut=1;});await p.evaluate(()=>__d.startGame());await W(3000);
+ await p.evaluate(()=>{const s=__d.state;s.pj={name:'Nía',g:'f',o:(location.search.includes('roma')?'roma':'quios')};s.tut=1;});await p.evaluate(()=>__d.startGame());await W(3000);
  await p.evaluate((z)=>{const d=__d,pl=d.getP();if(z){const[x,zz]=z.split(',').map(Number);pl.x=x;pl.z=zz;pl.feet=d.floorAt(x,zz);pl.camY=pl.feet+1.6;}d.setUi('play');d.setH(10.5);window.__atr={};},process.env.ZONA||'');
  const t0=Date.now();while(Date.now()-t0<SEG*1000){await p.evaluate(()=>{const d=__d,ff=d.AUD3().isFree,A=window.__atr,pl=d.getP();
    const chk=(tipo,g,id)=>{if(!g||!g.visible)return;const x=g.position.x,z=g.position.z;if(Math.hypot(x-pl.x,z-pl.z)>160)return;if(!ff(x,z,0.15)){const k=tipo+':'+id;const e=A[k]||(A[k]={n:0,x:Math.round(x),z:Math.round(z)});e.n++;}};
