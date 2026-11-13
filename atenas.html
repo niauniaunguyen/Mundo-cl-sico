@@ -22890,7 +22890,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='5a3166608cda';
+const NOSTOS_VER='c8ffb38dfcf4';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -23328,12 +23328,11 @@ function vegSnap(){const m4=new THREE.Matrix4(),v=new THREE.Vector3();let mov=0,
 // Cada celda de 3,5 m decide siempre lo mismo (según su posición), así que al andar el detalle se recoloca sin cambiar.
 const GD={C:3.5,R:isTouch?42:56,cx:1e9,cz:1e9,rk:null,tf:null,cache:new Map(),on:true};
 function gdInit(){const rg=new THREE.IcosahedronGeometry(0.5,0);{const P=rg.attributes.position;for(let i=0;i<P.count;i++){const k=0.78+hash(Math.round(P.getX(i)*97),Math.round(P.getZ(i)*89+P.getY(i)*53))*0.4;P.setXYZ(i,P.getX(i)*k,P.getY(i)*k,P.getZ(i)*k);}rg.computeVertexNormals();}
-  const tp=[];for(let b=0;b<12;b++){const a=b/12*TAU+hash(b,3)*0.5,h=0.3+hash(b,7)*0.38,l=0.08+hash(b,9)*0.2,r0=0.04+hash(b,11)*0.06,c=Math.cos(a),sn=Math.sin(a),px=-sn*0.05,pz=c*0.05;tp.push(c*r0+px,0,sn*r0+pz,c*r0-px,0,sn*r0-pz,c*l,h,sn*l);}
-  const tg=new THREE.BufferGeometry();tg.setAttribute('position',new THREE.Float32BufferAttribute(tp,3));{const nm=[];for(let i=0;i<tp.length/3;i++)nm.push(0,1,0);tg.setAttribute('normal',new THREE.Float32BufferAttribute(nm,3));}   // normales hacia arriba: la mata se ilumina como la hierba del suelo
+  const tg=new THREE.IcosahedronGeometry(0.5,1);{const P=tg.attributes.position;for(let k=0;k<P.count;k++){const x=P.getX(k),y=P.getY(k),z=P.getZ(k),n=0.82+hash(Math.round(x*71+z*13),Math.round(y*59))*0.3;P.setXYZ(k,x*n,Math.max(-0.05,y)*n*0.75+0.1,z*n);}tg.computeVertexNormals();}   // matorral bajo y redondeado (tomillo, salvia, lentisco), del mismo estilo facetado que árboles y arbustos
   const NR=isTouch?600:1100,NT=isTouch?1500:3000;
-  GD.rk=new THREE.InstancedMesh(rg,triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX.rock,1.6),NR);GD.tf=new THREE.InstancedMesh(tg,new THREE.MeshLambertMaterial({color:0xffffff,side:THREE.DoubleSide}),NT);
+  GD.rk=new THREE.InstancedMesh(rg,triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX.rock,1.6),NR);GD.tf=new THREE.InstancedMesh(tg,triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX.leaf,1.2),NT);
   for(const im of[GD.rk,GD.tf]){im.count=0;im.frustumCulled=false;im.receiveShadow=true;im.userData.noCull=true;im.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(im.instanceMatrix.count*3),3);scene.add(im);}}
-const GD_RC=['#a39b8c','#b3a993','#8f887b','#c2b59a','#9a8f80'].map(c=>new THREE.Color(c)),GD_DRY=['#a08d52','#8f8248','#ab9862','#858344','#978858'].map(c=>new THREE.Color(c)),GD_GRN=['#5c6d31','#52622a','#68773a','#5f7137','#7a7b43'].map(c=>new THREE.Color(c));
+const GD_RC=['#a39b8c','#b3a993','#8f887b','#c2b59a','#9a8f80'].map(c=>new THREE.Color(c)),GD_DRY=['#8a8a58','#7d7f4e','#959060','#86865a','#9a9468'].map(c=>new THREE.Color(c)),GD_GRN=['#5f7438','#566b33','#6a7d40','#62763c','#74804a'].map(c=>new THREE.Color(c));
 function gdCell(i,j){const k=i+','+j;let r=GD.cache.get(k);if(r!==undefined)return r;r=null;const C=GD.C,x=(i+hash(i,j*7+3))*C,z=(j+hash(i*5+1,j))*C;
   do{const t=terrainH(x,z);if(t<1.2)break;const w=riverWater(x,z);if(w!==null&&w>t-0.3)break;
     let green,desert=false;if(x>8000){const I=islandOf(x);if(!I)break;green=!!I.green;desert=!!I.desert;}else{if(MODE==='roma'?romaInUrbs(x,z):insideWalls(x,z))break;green=MODE==='roma';}
@@ -23341,8 +23340,8 @@ function gdCell(i,j){const k=i+','+j;let r=GD.cache.get(k);if(r!==undefined)retu
     const sl=(Math.abs(terrainH(x+1.2,z)-terrainH(x-1.2,z))+Math.abs(terrainH(x,z+1.2)-terrainH(x,z-1.2)))/4.8,rocky=sl>0.32||fbm(x*0.02+5,z*0.02)>0.66,u=hash(i*3+7,j*11+5);
     if(x<8000&&!rocky&&u<0.9&&roadDist(x,z)<3.5)break;
     if(rocky?u<0.55:u<0.06){r={k:1,x,z,t,s:rocky?0.3+hash(i,j+9)*0.9:0.15+hash(i,j+9)*0.3,c:GD_RC[Math.floor(hash(i+2,j)*5)]};break;}
-    const dens=desert?0.15:green?0.85:0.6;if(u>dens)break;const g=green?hash(j,i+4)<0.8:hash(j,i+4)<0.15;
-    r={k:2,x,z,t,s:0.6+hash(i+5,j+5)*0.8,c:(g?GD_GRN:GD_DRY)[Math.floor(hash(i,j+2)*5)]};}while(false);
+    const dens=desert?0.08:green?0.45:0.32;if(u>dens)break;const g=green?hash(j,i+4)<0.8:hash(j,i+4)<0.15;
+    r={k:2,x,z,t,s:0.45+hash(i+5,j+5)*0.75,c:(g?GD_GRN:GD_DRY)[Math.floor(hash(i,j+2)*5)]};}while(false);
   if(GD.cache.size>60000)GD.cache.clear();GD.cache.set(k,r);return r;}
 function gdTick(){if(!GD.on||!state||ui==='start')return;if(!GD.rk)gdInit();const P=player;if(P.feet>(P.x>8000?400:300)||Math.hypot(P.x-GD.cx,P.z-GD.cz)<6)return;GD.cx=P.x;GD.cz=P.z;
   const C=GD.C,R=GD.R,i0=Math.floor((P.x-R)/C),i1=Math.floor((P.x+R)/C),j0=Math.floor((P.z-R)/C),j1=Math.floor((P.z+R)/C),m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),sc=new THREE.Vector3(),p=new THREE.Vector3();
@@ -23350,7 +23349,7 @@ function gdTick(){if(!GD.on||!state||ui==='start')return;if(!GD.rk)gdInit();cons
   for(let i=i0;i<=i1;i++)for(let j=j0;j<=j1;j++){const c=gdCell(i,j);if(!c)continue;const dx=c.x-P.x,dz=c.z-P.z;if(dx*dx+dz*dz>R*R)continue;
     if(c.k===1&&nr<MR){const n=c.s>0.6?2:1;for(let k=0;k<n&&nr<MR;k++){const ox=k?(hash(i,j+21)-0.5)*1.6:0,oz=k?(hash(i+21,j)-0.5)*1.6:0,s=k?c.s*0.6:c.s;e.set((hash(i,j+31)-0.5)*0.6,hash(i+31,j)*TAU,(hash(i+41,j)-0.5)*0.6);q.setFromEuler(e);sc.set(s*(0.8+hash(i,j+51)*0.6),s*(0.45+hash(i+51,j)*0.4),s*(0.8+hash(i+61,j)*0.5));p.set(c.x+ox,c.t-0.12*s,c.z+oz);
         m.compose(p,q,sc);GD.rk.setMatrixAt(nr,m);GD.rk.setColorAt(nr,c.c);nr++;}}
-    else if(c.k===2&&nt<MT){e.set(0,hash(i+71,j)*TAU,0);q.setFromEuler(e);sc.set(c.s,c.s*(0.8+hash(i,j+81)*0.5),c.s);p.set(c.x,c.t-0.03,c.z);m.compose(p,q,sc);GD.tf.setMatrixAt(nt,m);GD.tf.setColorAt(nt,c.c);nt++;}}
+    else if(c.k===2&&nt<MT){e.set(0,hash(i+71,j)*TAU,0);q.setFromEuler(e);sc.set(c.s*(0.9+hash(i,j+91)*0.4),c.s*(0.7+hash(i,j+81)*0.5),c.s*(0.9+hash(i+91,j)*0.4));p.set(c.x,c.t-0.08*c.s,c.z);m.compose(p,q,sc);GD.tf.setMatrixAt(nt,m);GD.tf.setColorAt(nt,c.c);nt++;}}
   GD.rk.count=nr;GD.tf.count=nt;for(const im of[GD.rk,GD.tf]){im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;}}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
