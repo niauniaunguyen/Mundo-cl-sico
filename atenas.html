@@ -655,6 +655,16 @@ function applyFlats(){
     if(ch){pos.needsUpdate=true;g.m.geometry.computeVertexNormals();g.m.geometry.computeBoundingSphere();}
     if(ch&&g.I&&g.I.grid){const H=g.I.grid.H;for(let i=0;i<pos.count;i++)H[i]=pos.getY(i);g.I.flatMesh=true;}}   // en los destinos el suelo físico es la malla que se ve (más basta que un corte estrecho)
 }
+const CAVEAS=[];
+function caveaH(C,x,z){const dx=x-C.x,dz=z-C.z;if(Math.abs(dx)>C.rr||Math.abs(dz)>C.rr)return null;const c=Math.cos(C.a),s=Math.sin(C.a),lx=dx*c-dz*s,lz=dx*s+dz*c;
+  if(C.k==='t'){if(lz>0.5)return null;const r=Math.hypot(lx,lz);if(r<C.R0-2||r>C.R1-0.5)return null;if(r>C.R1-5)return C.gy+1.2+(C.H-6);   // el pasillo de arriba (summa cavea)
+    const span=C.R1-C.R0-6,y1=1.2+(C.H-6)*0.5/C.steps;if(r<C.R0+2)return C.gy+y1*(r-C.R0+2)/4;   // rampa suave del borde de la orquesta al primer peldaño
+    const f=Math.min(1,(r-C.R0-2)/span+0.5/C.steps);return C.gy+1.2+(C.H-6)*f;}
+  if(C.k==='c'){let lo=0,hi=1;const q=s=>{const a=C.ai+(C.ao-C.ai)*s,b=C.bi+(C.bo-C.bi)*s;return(lx/a)**2+(lz/b)**2;};if(q(C.s0-0.004)<1||q(1)>1)return null;   /* el Coliseo: gradas elípticas sobre el podio */
+    for(let i=0;i<12;i++){const m=(lo+hi)/2;if(q(m)>1)lo=m;else hi=m;}const s=(lo+hi)/2,a=C.ai+(C.ao-C.ai)*s,b=C.bi+(C.bo-C.bi)*s;if(Math.abs(Math.sin(Math.atan2(lz/b,lx/a)))<0.14)return null;
+    const j=Math.max(C.s0*C.ST,s*C.ST-0.5);return C.gy+4.2+(40-4.2)*Math.min(C.ST,j+1)/C.ST;}
+  const r=Math.hypot(lx,lz);if(r<0.01)return null;const cs=lx/r,sn=lz/r,d0=1/Math.hypot(cs/C.ax,sn/C.az),d1=1/Math.hypot(cs/C.rx,sn/C.rz);if(r<d0+0.5||r>d1)return null;if(Math.abs(sn)<0.07)return null;   // las entradas de los extremos, a ras de suelo
+  const f=Math.min(1,(r-d0)/(d1-d0)+0.5/C.steps),y=1.2+(C.H-2)*f,lat=r*(Math.abs(sn)-0.07);return C.gy+Math.min(y,lat*0.55);}   // junto a las entradas, las gradas suben en rampa
 function inCavea(x,z){const dx=x-THEA.x,dz=z-THEA.z;return dz<3&&Math.hypot(dx,dz)<THEA.r1+1;}
 function terrainH(x,z){const h=terrainH0(x,z);if(x>8000){const I=islandOf(x);if(I&&I.flatMesh&&!GRIDOFF&&I.grid&&gridH(I,x,z)!==null)return h;}return FLATS.length?flatAt(x,z,h):h;}
 {const f0=terrainH0;terrainH0=function(x,z){const h=f0(x,z);return x>8000?h:sqMount('atenas',x,z,h);};}
@@ -673,6 +683,7 @@ const platforms=[];
 function addPlat(cx,cz,w,d,a,top){platforms.push({cx,cz,hw:w/2,hd:d/2,c:Math.cos(a),s:Math.sin(a),top});}
 function floorAt(x,z){
   let h=terrainH(x,z);
+  for(const C of CAVEAS){const y=caveaH(C,x,z);if(y!==null&&y>h)h=y;}
   for(const p of platforms){const dx=x-p.cx,dz=z-p.cz;const lx=dx*p.c-dz*p.s,lz=dx*p.s+dz*p.c;if(Math.abs(lx)<=p.hw&&Math.abs(lz)<=p.hd&&p.top>h)h=p.top;}
   const wv=riverWater(x,z);if(wv!==null&&wv-1.25>h)h=wv-1.25;
   return h;
@@ -5905,7 +5916,8 @@ function theatre(o){
   for(const[dx,w]of[[0,3.4],[-R0*0.55,2.6],[R0*0.55,2.6]]){box(w,w*1.7,0.2,M.dark,dx,1.2+w*0.85,R0+1.45,g);box(w+0.8,0.5,0.4,M.marble,dx,1.2+w*1.7+0.25,R0+1.4,g);}   // las tres puertas de la escena
   for(let i=0;i<12;i++){const lx=-sw*0.42+i*sw*0.84/11;for(const lv of[0,1]){const wp=toW(lx,R0+1.2,o.x,o.z,a);addColumn(wp[0],gy+1.2+lv*(H*0.45),wp[1],0.4,H*0.42,a,'corinthian',true);}}
   wseg(o,a,-sw/2,R0+1.5,sw/2,R0+1.5);   // los pasillos laterales (párodos) quedan abiertos: se entra a la orquesta para ver la función
-  ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name});   // todos tienen funciones (ROMA_PLAYS, por nombre del teatro)
+  ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name});
+  CAVEAS.push({k:'t',x:o.x,z:o.z,a,gy,R0,R1,H,steps,rr:R1+1});   // las gradas se pisan y se suben   // todos tienen funciones (ROMA_PLAYS, por nombre del teatro)
   // huella circular: cubre la cávea y la escena sea cual sea el giro (la rectangular no giraba y dejaba entrar casas en el teatro)
   footprints.push({x:o.x,z:o.z,r:R1+1,c:'#e4dac6',name:o.name});
   return g;
@@ -5987,6 +5999,7 @@ function amphi(x,z,a,rx,rz,H,name){
   wm.position.set(x,gy,z);wm.rotation.y=a;scene.add(wm);
   const fl=new THREE.Mesh(new THREE.CircleGeometry(1,32),lam('#d8c39a'));fl.rotation.x=-Math.PI/2;fl.scale.set(ax,az,1);fl.position.set(x,gy+0.1,z);scene.add(fl);
   for(const[sx,sz]of[[rx,rz],[ax+0.4,az+0.4]])for(let i=0;i<N;i++){const t0=i/N*TAU,t1=(i+1)/N*TAU;if(Math.abs(Math.sin((t0+t1)/2))<0.06)continue;const p=toW(Math.cos(t0)*sx,Math.sin(t0)*sz,x,z,a),q=toW(Math.cos(t1)*sx,Math.sin(t1)*sz,x,z,a);addSeg(p[0],p[1],q[0],q[1],0.6);}
+  CAVEAS.push({k:'a',x,z,a,gy,ax,az,rx,rz,H,steps,rr:Math.max(rx,rz)+1});   // las gradas se pisan y se suben
   footprints.push({x,z,w:rx*2,d:rz*2,a,c:'#d8c39a',name,noFlat:true});
 }
 // foro: plaza enlosada con pórticos en los lados largos
@@ -11521,6 +11534,7 @@ function tryMove(nx,nz){
   else sqClamp(p);   // destinos: el cuadrado de su escenario (antes, 1,38·R)
   const hN=floorAt(p.x,p.z);
   if(hN-player.feet>0.65)return false;
+  if(player.feet-hN>2.5&&CAVEAS.some(C=>caveaH(C,player.x,player.z)!==null)&&!CAVEAS.some(C=>caveaH(C,p.x,p.z)!==null))return false;   // desde lo alto de las gradas no se salta al vacío
   if(MODE==='roma'&&hN<-1.2&&!FLY.on)return false;   // el Tíber no se cruza a pie: hay que buscar un puente (volando, sí)
   const d=Math.hypot(p.x-player.x,p.z-player.z);
   if(d>1e-5&&!inCavea(p.x,p.z)){const tN=terrainH(p.x,p.z),tC=terrainH(player.x,player.z),lim=qLv('ar')>=8?2.2:1.15,k=(tN-tC)/d;if(hN<=tN+0.01&&k>lim&&tN>player.feet-0.05){const q=clbSlow(p.x,p.z,k,lim);if(!q)return false;p.x=q[0];p.z=q[1];}}
@@ -19419,6 +19433,7 @@ function colPlus(){const C=ROMA.col,{A,B,gy,ai,bi,ST}=COLX,ao=A-7,bo=B-7,tunnel=
   ringMesh(ringGeo(2,240,(u,k)=>{const t=u*TAU;return[ao*Math.cos(t),k?7.8:0,bo*Math.sin(t)];},u=>!tunnel(u)||Math.abs(Math.sin(u*TAU))*bo<3.6,()=>'#bfb39a'),C.x,gy,C.z);   // a los lados del túnel, también abajo
   const K=1+2*(ST-j0),P=(u,k)=>{const t=u*TAU;let s,y;if(k===0){s=j0/ST;y=7.8;}else{const j=j0+Math.floor((k-1)/2),e=(k-1)%2;s=(j+e)/ST;y=colTier(j);}return[lerp(ai,ao,s)*Math.cos(t),y,lerp(bi,bo,s)*Math.sin(t)];};
   ringMesh(ringGeo(K,128,P,u=>!tunnel(u),k=>k%2?'#e6dccb':'#bfb39b'),C.x,gy,C.z);
+  CAVEAS.push({k:'c',x:C.x,z:C.z,a:0,gy,ai,bi,ao,bo,ST,s0:j0/ST,rr:ao+1});   // las gradas se pisan: se sube y se baja por ellas
   // techos de los deambulatorios (bóvedas vistas desde abajo) y cubierta del último piso
   const ann=(y,r1a,r1b,r2a,r2b,col)=>{const s=new THREE.Shape();s.absellipse(0,0,r1a,r1b,0,TAU,false,0);const h=new THREE.Path();h.absellipse(0,0,r2a,r2b,0,TAU,true,0);s.holes.push(h);
     const g=new THREE.ShapeGeometry(s,96);g.rotateX(-Math.PI/2);const m=new THREE.Mesh(g,new THREE.MeshLambertMaterial({color:col,side:THREE.DoubleSide}));m.position.set(C.x,gy+y,C.z);m.receiveShadow=true;scene.add(m);return m;};
@@ -19441,7 +19456,7 @@ function colAct(o){const e=COLX.ent&&COLX.ent.reduce((b,x)=>!b||Math.hypot(x.x-o
   vmS('🎟','Arco '+e.num,'entrada del público','<p>Sobre cada arco de la planta baja hay un número grabado: del I al LXXVI. (Los cuatro de los ejes no tienen número: son las entradas de honor y de los gladiadores.) Un empleado mira tu tésera, una ficha de hueso o de barro que te dio tu patrono, y te indica el camino.</p><div class="curio"><span class="label">Tu tésera</span><p><b>ARCVS '+e.num+' · CVNEVS '+cu+' · GRADVS '+gr+' · LOCVS '+loc+'</b></p><p class="sub">Arco '+e.num+', sector '+cu+', grada '+gr+', asiento '+loc+': '+S.m+'.</p></div><p class="sub">'+S.who+' La entrada era gratuita: las téseras las repartían los organizadores de los juegos.</p>',
     [['Entrar y buscar tu asiento',()=>colEntrar(e,S),'quiz'],vmBye]);}
 function colEntrar(e,S){const C=ROMA.col,{ai,bi,ST}=COLX,ao=COLX.A-7,bo=COLX.B-7,s=(S.j+0.5)/ST,t=e.t,x=C.x+lerp(ai,ao,s)*Math.cos(t),z=C.z+lerp(bi,bo,s)*Math.sin(t),y=COLX.gy+colTier(S.j);
-  const k='s'+S.j+'_'+e.num;if(!COLX.seats.includes(k)){COLX.seats.push(k);addPlat(x,z,3,3,0,y);const r=1.4;for(const[a,b,c,d]of[[-r,-r,r,-r],[r,-r,r,r],[r,r,-r,r],[-r,r,-r,-r]])addSeg(x+a,z+b,x+c,z+d,0.2);egxObj(x+0.2,z+0.2,y,'col:salir','Salir del anfiteatro','por el vomitorio',2.2);}
+  const k='s'+S.j+'_'+e.num;if(!COLX.seats.includes(k)){COLX.seats.push(k);egxObj(x+0.2,z+0.2,y,'col:salir','Salir del anfiteatro','por el vomitorio',2.2);}
   COLX.back={x:e.x,z:e.z};closeDialog();
   vmS('🏟','El deambulatorio','dentro del anfiteatro','<p>Pasas bajo el arco '+e.num+' y entras en un pasillo abovedado que da la vuelta entera al edificio, lleno de gente, de vendedores de comida y de cojines de alquiler. Sigues los números pintados en las paredes hasta tu escalera, subes los escalones de travertino y llegas a un pasillo más estrecho que acaba en una boca de luz: el <b>vomitorio</b>.</p><p class="sub">Se llaman vomitoria porque por ellos el anfiteatro «vomitaba» a la gente: con ochenta entradas y decenas de escaleras, cincuenta mil espectadores podían salir en pocos minutos.</p>',
     [['Salir a la cavea',()=>{closeDialog();fzPut(x,z,Math.atan2(-(C.x-x),-(C.z-z)));const st=colz();if(!st.vis){st.vis=1;save();qAdd('so',1,'Ya sabes cómo se llena un anfiteatro.');}
@@ -22929,7 +22944,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='c6fb7086b659';
+const NOSTOS_VER='c7ab02a6e6a9';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
