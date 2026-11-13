@@ -15368,12 +15368,27 @@ function oficio(o){const[x,z]=findFree(o.x,o.z,o.r||3);const gy=floorAt(x,z),g=g
   const ppl=(o.ppl||[]).map(p=>{const m=p.make?p.make():makePerson(Object.assign({noVary:true},p.look));m.position.set(p.x||0,p.y||0,p.z||0);m.rotation.y=p.r||0;g.add(m);return{m,anim:p.anim||'brazos'};});
   const lb=labelSprite(o.name,o.sub,false);lb.position.set(0,3.4,0);lb.visible=false;g.add(lb);addCirc(x,z,o.r?o.r*0.6:1.6);
   OFIC.push(Object.assign({},o,{x,z,g,ppl,lb,next:0,seen:0}));}
-function ofTick(dt,t){if(!state||!OFIC.length)return;const h=clock.h,open=h>=6.5&&h<18.5,now=performance.now(),d=state.day||1;
+// yunque: tocón de madera, cuerpo de hierro, cara plana arriba (a 0,82 m) y bigornia (el cuerno) a un lado
+function anvilAt(g,x,z){const ir=lam('#3d3a38'),wd=lam('#5a3f28');const st=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.32,0.56,10),wd);st.position.set(x,0.28,z);g.add(st);
+  box(0.34,0.16,0.2,ir,x,0.64,z,g);box(0.24,0.06,0.3,ir,x,0.59,z,g);box(0.56,0.1,0.24,ir,x,0.77,z,g);
+  const hn=new THREE.Mesh(new THREE.ConeGeometry(0.09,0.26,8),ir);hn.rotation.z=-Math.PI/2;hn.position.set(x-0.4,0.77,z);g.add(hn);}
+const FSP={pts:null,n:90,i:0,v:null,life:null};
+function forjaChispas(o){if(!FSP.pts){const g=new THREE.BufferGeometry(),P=new Float32Array(FSP.n*3).fill(-9999);g.setAttribute('position',new THREE.BufferAttribute(P,3));
+    FSP.pts=new THREE.Points(g,new THREE.PointsMaterial({color:0xffa040,size:0.065,map:TORCH_TEX,transparent:true,opacity:1,blending:THREE.AdditiveBlending,depthWrite:false}));FSP.pts.frustumCulled=false;FSP.pts.userData.noCull=true;scene.add(FSP.pts);FSP.v=new Float32Array(FSP.n*3);FSP.life=new Float32Array(FSP.n);}
+  const w=o.g.localToWorld(new THREE.Vector3(o.anvil[0],o.anvil[1]+0.04,o.anvil[2])),P=FSP.pts.geometry.attributes.position.array;
+  for(let k=0;k<14;k++){const j=FSP.i;FSP.i=(FSP.i+1)%FSP.n;P[j*3]=w.x;P[j*3+1]=w.y;P[j*3+2]=w.z;const a=R()*TAU,sp=rr(1.2,3.4);FSP.v[j*3]=Math.cos(a)*sp;FSP.v[j*3+1]=rr(1.2,3.2);FSP.v[j*3+2]=Math.sin(a)*sp;FSP.life[j]=rr(0.25,0.6);}
+  FSP.pts.geometry.attributes.position.needsUpdate=true;}
+function forjaTick(dt){if(!FSP.pts)return;const P=FSP.pts.geometry.attributes.position.array;let any=false;
+  for(let j=0;j<FSP.n;j++){if(FSP.life[j]<=0)continue;any=true;FSP.life[j]-=dt;if(FSP.life[j]<=0){P[j*3+1]=-9999;continue;}FSP.v[j*3+1]-=9.8*dt;P[j*3]+=FSP.v[j*3]*dt;P[j*3+1]+=FSP.v[j*3+1]*dt;P[j*3+2]+=FSP.v[j*3+2]*dt;}
+  if(any)FSP.pts.geometry.attributes.position.needsUpdate=true;}
+function ofTick(dt,t){forjaTick(dt);if(!state||!OFIC.length)return;const h=clock.h,open=h>=6.5&&h<18.5,now=performance.now(),d=state.day||1;
   for(const o of OFIC){const dd=Math.hypot(o.x-player.x,o.z-player.z);if(dd>140){continue;}
     const on=open&&(!o.siesta||h<11.5||h>=14);o.g.visible=dd<140;for(const p of o.ppl)p.m.visible=on;
     o.lb.visible=dd<12;if(!on)continue;
     for(const[i,p]of o.ppl.entries()){const a=p.m.userData.arms;
-      if(p.anim==='martillo'&&a){a[1].rotation.x=-1.4+Math.abs(Math.sin(t*3+i))*1.2;}
+      if(p.anim==='forja'&&a){const ph=(t*1.5+i*0.37)%1,dn=0.22;a[1].rotation.x=ph<dn?lerp(-2.3,-0.62,Math.pow(ph/dn,2)):lerp(-0.62,-2.3,sstep((ph-dn)/(1-dn)));a[0].rotation.x=-0.55;   // la izquierda sujeta la pieza con las tenazas
+        if(p.lastPh!==undefined&&p.lastPh<dn&&ph>=dn&&o.anvil&&dd<45){forjaChispas(o);if(dd<22&&ui==='play')sfxClang(0.05*clamp(1-dd/22,0.2,1));}p.lastPh=ph;}
+      else if(p.anim==='martillo'&&a){a[1].rotation.x=-1.4+Math.abs(Math.sin(t*3+i))*1.2;}
       else if(p.anim==='pisar'){p.m.position.y=(o.ppl[i].y0===undefined?(o.ppl[i].y0=p.m.position.y):o.ppl[i].y0)+Math.abs(Math.sin(t*4+i))*0.18;if(a){a[0].rotation.x=-0.5;a[1].rotation.x=-0.5;}}
       else if(p.anim==='girar'){const R2=o.millR||2.2,ang=t*0.5+i*Math.PI;p.m.position.set(Math.cos(ang)*R2,p.m.position.y,Math.sin(ang)*R2);p.m.rotation.y=-ang+(p.m.userData.arms?0:Math.PI);if(p.m.userData.arms)personWalk(p.m,t*4,1);}
       else if(a){a[1].rotation.x=-0.8+Math.sin(t*2+i)*0.4;a[0].rotation.x=Math.sin(t*1.3+i)*0.2;}}
@@ -15401,8 +15416,8 @@ function ofSetup(){OFIC.length=0;const W=lam('#6b4a2e'),ST=M.limestone,TER=lam('
       text:'El barbero afeita con una navaja de hierro sin jabón, solo con agua: un buen barbero es un tesoro y uno torpe deja la cara llena de cortes, que se tapan con telarañas empapadas en aceite. La barbería es también el sitio donde se cuentan todos los chismes de la ciudad. El primer afeitado de un joven es una fiesta: la barba se guarda y se ofrece a los dioses.',
       pregon:['¡Afeitado y corte! ¿Quién quiere quedar como un senador?'],who:'el barbero'});
     oficio({x:290,z:-420,rot:0,r:3,name:'Herrería',sub:'officina ferraria',sfx:'yunque',
-      build:g=>{box(0.8,0.8,0.5,lam('#3a3a3a'),0,0.4,0,g);const f=new THREE.Mesh(new THREE.BoxGeometry(1.4,1,1.2),TER);f.position.set(-2,0.5,0);g.add(f);const fire=new THREE.Mesh(new THREE.SphereGeometry(0.3,8,6),new THREE.MeshBasicMaterial({color:'#ff8a3a'}));fire.position.set(-2,1.1,0);g.add(fire);},
-      ppl:[{look:{short:true,noHimation:true,exomis:true,chiton:'#6b5a4a',hair:'#2a1a12',beard:true},x:0.8,r:-Math.PI/2,anim:'martillo'}],
+      build:g=>{anvilAt(g,0,0);const f=new THREE.Mesh(new THREE.BoxGeometry(1.4,1,1.2),TER);f.position.set(-2,0.5,0);g.add(f);const fire=new THREE.Mesh(new THREE.SphereGeometry(0.3,8,6),new THREE.MeshBasicMaterial({color:'#ff8a3a'}));fire.position.set(-2,1.1,0);g.add(fire);},
+      anvil:[0,0.82,0],ppl:[{look:{short:true,noHimation:true,exomis:true,chiton:'#6b5a4a',hair:'#2a1a12',beard:true,attrs:['G_hammer_hand']},x:0.72,r:-Math.PI/2,anim:'forja'}],
       text:'El herrero calienta el hierro en la fragua y lo golpea sobre el yunque: clavos, herramientas, cerraduras, rejas. En su larario honra a Vulcano. En la Subura, entre talleres como este, se oye martillear desde el amanecer: Marcial se quejaba de que en Roma no había manera de dormir.',pregon:null});
     oficio({x:-450,z:150,rot:0,r:3,name:'Taberna de comidas',sub:'thermopolium',
       build:g=>{box(4,1,1,lam('#c9b48b'),0,0.5,0,g);for(let i=0;i<3;i++){const d=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,0.05,12),lam('#3a2a1e'));d.position.set(-1.2+i*1.2,1.02,0);g.add(d);}box(4,2.4,0.2,lam('#a8392b'),0,1.2,-1.4,g);},
@@ -15430,8 +15445,8 @@ function ofSetup(){OFIC.length=0;const W=lam('#6b4a2e'),ST=M.limestone,TER=lam('
       text:'Las barberías son como clubes: los atenienses van no solo a cortarse el pelo y arreglarse la barba, sino a enterarse de las noticias. El orador Lisias dice que todo el mundo tiene su barbería, su perfumería o su zapatería donde pasar el rato. Plutarco cuenta que la noticia del desastre de Sicilia llegó a Atenas a través de un barbero del Pireo, y que nadie le creyó.',
       pregon:['¡Barba al estilo espartano o a la moda de Atenas, tú eliges!'],who:'el barbero'});
     oficio({x:AL(-110,-10)[0],z:AL(-110,-10)[1],rot:0,r:3,name:'Fundición de bronce',sub:'χαλκεῖον',sfx:'yunque',
-      build:g=>{const f=new THREE.Mesh(new THREE.BoxGeometry(1.4,1,1.2),TER);f.position.set(-1.5,0.5,0);g.add(f);const fire=new THREE.Mesh(new THREE.SphereGeometry(0.3,8,6),new THREE.MeshBasicMaterial({color:'#ff8a3a'}));fire.position.set(-1.5,1.1,0);g.add(fire);box(0.7,0.7,0.5,lam('#3a3a3a'),0.6,0.35,0,g);},
-      ppl:[{look:{chiton:'#6b5a4a',exomis:true,hair:'#2a1a12',beard:true},x:1.3,r:-Math.PI/2,anim:'martillo'}],
+      build:g=>{const f=new THREE.Mesh(new THREE.BoxGeometry(1.4,1,1.2),TER);f.position.set(-1.5,0.5,0);g.add(f);const fire=new THREE.Mesh(new THREE.SphereGeometry(0.3,8,6),new THREE.MeshBasicMaterial({color:'#ff8a3a'}));fire.position.set(-1.5,1.1,0);g.add(fire);anvilAt(g,0.6,0);},
+      anvil:[0.6,0.82,0],ppl:[{look:{chiton:'#6b5a4a',exomis:true,hair:'#2a1a12',beard:true,attrs:['G_hammer_hand']},x:1.25,r:-Math.PI/2,anim:'forja'}],
       text:'Al pie de la colina del templo de Hefesto, el dios herrero, están los talleres de los broncistas y los herreros. Allí se funden estatuas en fosas excavadas en el suelo y se forjan armas y herramientas. El humo, el ruido y el calor no paran en todo el día.',pregon:null});
     oficio({x:AL(15,55)[0],z:AL(15,55)[1],rot:Math.PI,r:2.5,name:'Panaderas',sub:'ἀρτοπώλιδες',
       build:g=>{box(1.6,0.7,0.8,W,0,0.35,0,g);for(let i=0;i<5;i++){const b=new THREE.Mesh(new THREE.SphereGeometry(0.18,8,6),lam('#c9935a'));b.scale.y=0.6;b.position.set(-0.6+i*0.3,0.78,0);g.add(b);}},
