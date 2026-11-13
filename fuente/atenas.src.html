@@ -24226,8 +24226,8 @@ function n2Init(){const NF=isTouch?900:1800;
   for(const im of[NAT2.st,NAT2.fl]){im.count=0;im.frustumCulled=false;im.userData.noCull=true;scene.add(im);}
   if(GD.tf&&!GD.tf.material.userData.n2){n2Sway(GD.tf.material,0.07,'n2m');GD.tf.material.userData.n2=1;}   // el matorral bajo también se mece
   // mariposas: dos alas instanciadas (izquierda y derecha) que baten
-  const NB=isTouch?6:10,wg=new THREE.PlaneGeometry(0.11,0.085);wg.rotateX(-Math.PI/2);wg.translate(0.055,0,0);const wg2=wg.clone();wg2.scale(-1,1,1);
-  const wm=new THREE.MeshLambertMaterial({color:0xffffff,side:THREE.DoubleSide});NAT2.bfR=new THREE.InstancedMesh(wg,wm,NB);NAT2.bfL=new THREE.InstancedMesh(wg2,wm,NB);
+  const NB=isTouch?6:10,wg=new THREE.PlaneGeometry(0.24,0.19);{const P=wg.attributes.position;for(let i=0;i<P.count;i++)if(P.getX(i)>0&&P.getY(i)<0)P.setY(i,P.getY(i)*0.45);}wg.rotateX(-Math.PI/2);wg.translate(0.12,0,0);const wg2=wg.clone();wg2.scale(-1,1,1);
+  const wm=new THREE.MeshBasicMaterial({color:0xe8e2d6,side:THREE.DoubleSide});NAT2.bfR=new THREE.InstancedMesh(wg,wm,NB);NAT2.bfL=new THREE.InstancedMesh(wg2,wm,NB);
   const BC=['#f4f0e0','#f0d040','#e08a30','#f4f0e0','#9ab0e0'].map(c=>new THREE.Color(c));
   for(const im of[NAT2.bfR,NAT2.bfL]){im.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(NB*3),3);im.count=0;im.frustumCulled=false;im.userData.noCull=true;scene.add(im);}
   for(let i=0;i<NB;i++){const c=BC[i%BC.length];NAT2.bfR.setColorAt(i,c);NAT2.bfL.setColorAt(i,c);NAT2.bf.push({on:false,x:0,y:0,z:0,tx:0,tz:0,ph:Math.random()*9,fl:0,c});}
