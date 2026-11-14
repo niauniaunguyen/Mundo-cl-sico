@@ -20075,7 +20075,7 @@ const NAT_FOREST=(I,n)=>forestBuild(I,n);   // bosques con sus especies, densos 
 
 
 Object.assign(SIMPLE_GR,{
- citeron:{label:'el Citerón',blobs:[[0,-170,330,170],[-280,140,200,90],[260,170,180,70]],site:[150,60,18],houses:2,spread:40,arr:[-300,40],
+ citeron:{label:'el Citerón',blobs:[[0,-170,330,170],[-280,140,200,90],[260,170,180,70]],site:[150,60,18],houses:2,spread:40,arr:[-380,-60],
   steles:[['citeron_monte','El Citerón','ΚΙΘΑΙΡΩΝ','La frontera entre el Ática y Beocia es este monte de pinos y pastos. Aquí suben los rebaños de los dos lados: en el Edipo rey de Sófocles, un pastor de Tebas y uno de Corinto se encuentran en el Citerón, y por eso el niño Edipo, abandonado aquí con los pies atados, acabó en Corinto. En este monte las mujeres de Tebas despedazaron a Penteo, según Las bacantes de Eurípides.']],
   extra(I){NAT_FOREST(I,620);const s=[I.x+40,I.z-120];caveMouth(s[0],s[1],0);natSpring(I.x-120,I.z+60);natAltar(I.x+150,I.z+60,'#cfc0a0');
    place('esfragitides','La cueva de las ninfas Esfragítides','ΣΦΡΑΓΙΤΙΔΕΣ','En una cueva del Citerón viven las ninfas Esfragítides, que en otro tiempo daban oráculos. Antes de la batalla de Platea (479 a.C.), el oráculo de Delfos mandó a los atenienses rezarles a ellas y a otros dioses del lugar, como cuenta Plutarco.',s[0]+8,s[1]+8,0);
@@ -22989,7 +22989,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='21c0cb6fd098';
+const NOSTOS_VER='e59d33ad520f';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';

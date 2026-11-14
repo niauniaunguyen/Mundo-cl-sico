@@ -40,7 +40,7 @@ const NAT_FOREST=(I,n)=>forestBuild(I,n);   // bosques con sus especies, densos 
 
 
 Object.assign(SIMPLE_GR,{
- citeron:{label:'el Citerón',blobs:[[0,-170,330,170],[-280,140,200,90],[260,170,180,70]],site:[150,60,18],houses:2,spread:40,arr:[-300,40],
+ citeron:{label:'el Citerón',blobs:[[0,-170,330,170],[-280,140,200,90],[260,170,180,70]],site:[150,60,18],houses:2,spread:40,arr:[-380,-60],
   steles:[['citeron_monte','El Citerón','ΚΙΘΑΙΡΩΝ','La frontera entre el Ática y Beocia es este monte de pinos y pastos. Aquí suben los rebaños de los dos lados: en el Edipo rey de Sófocles, un pastor de Tebas y uno de Corinto se encuentran en el Citerón, y por eso el niño Edipo, abandonado aquí con los pies atados, acabó en Corinto. En este monte las mujeres de Tebas despedazaron a Penteo, según Las bacantes de Eurípides.']],
   extra(I){NAT_FOREST(I,620);const s=[I.x+40,I.z-120];caveMouth(s[0],s[1],0);natSpring(I.x-120,I.z+60);natAltar(I.x+150,I.z+60,'#cfc0a0');
    place('esfragitides','La cueva de las ninfas Esfragítides','ΣΦΡΑΓΙΤΙΔΕΣ','En una cueva del Citerón viven las ninfas Esfragítides, que en otro tiempo daban oráculos. Antes de la batalla de Platea (479 a.C.), el oráculo de Delfos mandó a los atenienses rezarles a ellas y a otros dioses del lugar, como cuenta Plutarco.',s[0]+8,s[1]+8,0);
