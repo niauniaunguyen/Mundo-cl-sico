@@ -9,7 +9,10 @@ try{const o=execSync('python3 fuente/construir.py',{cwd:raiz,encoding:'utf8'});b
 const html=fs.readFileSync(path.join(raiz,'atenas.html'),'utf8');
 // 2. sintaxis: el <script> más largo
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]);const code=scripts.reduce((a,b)=>b.length>a.length?b:a,'');
-try{new vm.Script(code,{filename:'atenas.html'});bien('sintaxis correcta ('+Math.round(code.length/1e3)+' KB de código)');}catch(e){mal('error de sintaxis: '+e.message+'\n'+(e.stack||'').split('\n').slice(0,3).join('\n'));}
+try{new vm.Script(code,{filename:'atenas.html'});bien('sintaxis correcta ('+Math.round(code.length/1e3)+' KB de código)');}catch(e){
+  // dónde: node --check sobre el código extraído da la línea; se busca esa línea en los módulos para decir en cuál está
+  let donde='';try{const tmp=path.join(require('os').tmpdir(),'nostos_main.js');fs.writeFileSync(tmp,code);execSync('node --check '+tmp,{stdio:'pipe'});}catch(c){const m=/:(\d+)\n/.exec(String(c.stderr||''));if(m){const ln=code.split('\n')[+m[1]-1]||'';const f=fs.readdirSync(dir).filter(f=>f.endsWith('.js')).find(f=>fs.readFileSync(path.join(dir,f),'utf8').includes(ln.trim().slice(0,80)));donde='\n  en '+(f||'¿?')+': '+ln.trim().slice(0,160);}}
+  mal('error de sintaxis: '+e.message+donde);}
 // 3. funciones de primer nivel declaradas dos veces (la segunda pisa a la primera sin avisar)
 const mods=fs.readdirSync(dir).filter(f=>f.endsWith('.js')).sort(),decl=new Map();
 for(const f of mods){const L=fs.readFileSync(path.join(dir,f),'utf8').split('\n');L.forEach((l,i)=>{const m=/^function\s+([A-Za-z_$][\w$]*)\s*\(/.exec(l);if(m){if(!decl.has(m[1]))decl.set(m[1],[]);decl.get(m[1]).push(f+':'+(i+1));}});}

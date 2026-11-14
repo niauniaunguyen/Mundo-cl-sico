@@ -15,7 +15,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `008_edificios.js` | 139 | edificios |
 | `009_personas.js` | 141 | personas |
 | `010_contenido.js` | 928 | CONTENIDO |
-| `011_construccion_del_mundo.js` | 835 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
+| `011_construccion_del_mundo.js` | 836 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
 | `012_escenarios_cuadrados.js` | 204 | ESCENARIOS CUADRADOS |
 | `013_destinos_nuevos_grecia_italia_hispania.js` | 447 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
 | `014_hud.js` | 152 | HUD |
@@ -142,4 +142,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `136_camino_de_ilion.js` | 24 | EL CAMINO DE ILIÓN: de la playa del desembarco a la ciudad, por la llanura del Escamandro |
 | `137_sentarse_y_sombra.js` | 48 | SENTARSE: rodillas, posturas (banco, suelo, de rodillas), bancos de piedra y la sombra en verano |
 | `138_paisaje_sonoro.js` | 42 | PAISAJE SONORO Y MÚSICA DE AMBIENTE (todo sintetizado, sin archivos) |
+| `139_laurion.js` | 50 | EL LAURIÓN: las minas de plata del sur del Ática (modo Atenas) |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
