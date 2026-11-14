@@ -19,7 +19,7 @@ module.exports=async(p,P,shot)=>{const W=ms=>new Promise(r=>setTimeout(r,ms));
    if(sec==='muse'){for(const m of Q.MUSE_OBJS){T('musa '+m.m.id,()=>{Q.museTalk(m);chk('musa '+m.m.id);});reset();}}
    if(sec==='lib'){for(const e of Q.ESSAYS){T('ensayo '+e.id,()=>{Q.openLibrary('e:'+e.id);const L=document.getElementById('library')||document.querySelector('.lib');const t=(document.querySelector('#lib, #library, .library')||document.body).innerText;if(BAD.test(t.slice(0,5000)))I.push('ensayo '+e.id+': texto raro '+(t.match(BAD)||[''])[0]);});}
      try{const l=document.querySelector('#library');if(l)l.hidden=true;}catch(e){}reset();}
-   if(sec==='isl'){for(const isl of Q.ISLANDS){const a=isl.arrive||isl.town;if(!a){I.push('destino sin llegada: '+isl.id);continue;}const h=Q.floorAt(a.x,a.z);if(!isFinite(h))I.push('destino '+isl.id+': suelo NaN');else if(h<-0.5)I.push('destino '+isl.id+': la llegada está bajo el agua ('+h.toFixed(1)+')');
+   if(sec==='isl'){for(const isl of Q.ISLANDS){const PT=window.__d.PORTS||{},a=isl.arrive||isl.town||PT[isl.id+'_n']||PT[isl.id];if(!a){I.push('destino sin llegada: '+isl.id);continue;}   // los destinos marítimos antiguos (Delos, Creta, Lesbos, Troya) llegan por su puertoconst h=Q.floorAt(a.x,a.z);if(!isFinite(h))I.push('destino '+isl.id+': suelo NaN');else if(h<-0.5)I.push('destino '+isl.id+': la llegada está bajo el agua ('+h.toFixed(1)+')');
      if(isl.town){const h2=Q.floorAt(isl.town.x,isl.town.z);if(h2<-0.5)I.push('destino '+isl.id+': el pueblo está bajo el agua');}}}
    if(sec==='sphere'){for(const s of Q.EPI.spheres){T('esfera '+s.data.id,()=>{Q.epiStart(s.data);Q.epiEnd&&Q.epiEnd();});reset();}}
    if(sec==='story'){T('historia',()=>{Q.startStory();});let guard=0,lastCh=-1;const st=()=>Q.state.story;
