@@ -93,3 +93,6 @@ function crxTick(dt){if(!CRX.on||!CRX.anim.length)return;const t=performance.now
 function crPut(I,dx,dz,a,r){const p=findFree(I.x+dx,I.z+dz,r||2);return p&&isFinite(p[0])?grp(p[0],terrainH(p[0],p[1]),p[1],a||0):null;}
 function crPerson(x,z,look,a,pose){const f=findFree(x,z,0.5)||[x,z],g=makePerson(Object.assign({},MN_LOOK[look]||look));g.position.set(f[0],floorAt(f[0],f[1]),f[1]);g.rotation.y=a||0;scene.add(g);if(pose)try{personPose(g,pose);}catch(e){}return g;}
 function crCave(I,dx,dz,a,key){try{caveMouth(I.x+dx,I.z+dz,a||0);}catch(e){}if(key)crObj(I.x+dx,I.z+dz,key,5);}
+// egxSetup vacía la lista de objetos al arrancar, después de construir los mapas de destino: sin esto se perdían todos los objetos de Creta
+// (y del Laurión), incluido «Imaginarlo». Se conservan los que ya existían con esos prefijos.
+{const e0=egxSetup;egxSetup=function(){const keep=EGX_OBJS.filter(o=>/^(crx|lau):/.test(String(o.act)));const r=e0.apply(this,arguments);for(const o of keep)if(!EGX_OBJS.includes(o))EGX_OBJS.push(o);return r;};}
