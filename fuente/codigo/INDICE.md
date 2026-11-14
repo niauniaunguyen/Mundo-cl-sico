@@ -139,4 +139,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `132_oficios_del_campo.js` | 208 | OFICIOS DEL CAMPO: quién vive y trabaja en el monte, el río, la costa y los caminos |
 | `133_modo_atencion.js` | 62 | MODO ATENCIÓN: QUÉ ESTÁ HACIENDO CADA PERSONA (campo, caminos y calle)<br>LLEGAR MIRANDO A ALGO: tras un viaje o un salto, si la cámara da contra una ladera, girar hacia lo despejado |
 | `134_tu_viaje_poco_a_poco.js` | 45 | TU VIAJE, POCO A POCO: las herramientas se abren por etapas, y una meta clara (el regreso) |
+| `136_camino_de_ilion.js` | 24 | EL CAMINO DE ILIÓN: de la playa del desembarco a la ciudad, por la llanura del Escamandro |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
