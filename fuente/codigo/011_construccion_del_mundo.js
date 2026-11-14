@@ -37,7 +37,8 @@ for(let i=0;i<40;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.5))<0.5)continue;con
   }],
   ['buildHarbor',()=>{buildHarbor();
   }],
-  ['buildIslands',()=>{buildIslands();
+  ['buildIslands',()=>{buildIslands();R.seed(386386);   // semilla: lo que se construye después (las casas de la ciudad) ya no depende de cuánto azar gastan los destinos, que cambia con su relieve
+
   }],
   ['buildLandRoute',()=>{buildLandRoute();
   }],
@@ -801,16 +802,17 @@ function regionOf(x){if(x<8000)return 'atenas';return ISLANDS[clamp(Math.round((
 function islandOf(x){if(x<8000)return null;return ISLANDS[clamp(Math.round((x-ISL0)/ISLD),0,ISLANDS.length-1)];}
 function islandBase(I,x,z){const dx=x-I.x,dz=z-I.z,th=Math.atan2(dz,dx);const R=I.R*(1+0.14*Math.sin(3*th+I.seed)+0.07*Math.sin(7*th+I.seed*2.3));const r=Math.hypot(dx,dz)/R;
   let h=r>1?(I.land?1.2+(r-1)*R*(I.flat?0.035:0.06)+fbm(x*0.01,z*0.01)*(I.flat?4:9):1.2-(r-1)*R*0.12):1.2+I.H*Math.pow(1-r,1.5)+(fbm(x*0.012+I.seed,z*0.012)-0.42)*12*Math.min(1,(1-r)*4);
-  for(const b of I.blobs){const d=Math.hypot(x-b.x,z-b.z)/b.R;const hb=d>1?1.2-(d-1)*b.R*0.15:1.2+b.H*(1-d*d);if(hb>h)h=hb;}
+  for(const b of I.blobs){const d=Math.hypot(x-b.x,z-b.z)/b.R;const H=Math.min(b.H,b.R*0.55),q=1-d*d;const hb=d>1?1.2-(d-1)*b.R*0.15:1.2+H*q*q;if(hb>h)h=hb;}   // montes: perfil suave (sin escalón en el borde) y nunca más empinados de unos 40° (antes, hasta 58°: paredes imposibles en el Eta o el Taigeto)
   if(I.coast){const px=x-I.x,pz=z-I.z,d=px*I.coast[0]+pz*I.coast[1]-I.R*I.coastAt+Math.sin((px*I.coast[1]-pz*I.coast[0])*0.012+I.seed)*25;if(d>-40)h=Math.min(h,lerp(h,1.2-d*0.09,clamp((d+40)/40,0,1)));}   // costa: el mar en una dirección
   if(I.lake){const L=I.lake,q=Math.hypot((x-L.x)/L.rx,(z-L.z)/L.rz);if(q<1.3)h=Math.min(h,lerp(-7,h,sstep(clamp((q-0.85)/0.45,0,1))));}   // lago
   return Math.max(carveH(x,z,sqMount(I.id,x,z,h)),-9);}   // escenario cuadrado: montes más allá del borde
 function padIndex(I){if(I._pi&&I._pi.n===I.pads.length)return I._pi;const C=48,m=new Map();   // índice de los allanamientos por celdas: mismo resultado, mucho menos trabajo al construir el relieve
-  const order=[...I.pads.filter(p=>!p.road),...I.pads.filter(p=>p.road)];order.forEach((p,k)=>{const R=p.r+18,i0=Math.floor((p.x-R)/C),i1=Math.floor((p.x+R)/C),j0=Math.floor((p.z-R)/C),j1=Math.floor((p.z+R)/C);
+  const order=[...I.pads.filter(p=>!p.road),...I.pads.filter(p=>p.road)];order.forEach((p,k)=>{if(p.bw===undefined){let dm=0;for(let i=0;i<12;i++){const a=i/12*TAU;for(const rr2 of[18,45,80]){const hh=islandBase(I,p.x+Math.cos(a)*(p.r+rr2),p.z+Math.sin(a)*(p.r+rr2));dm=Math.max(dm,Math.abs(hh-p.h)-rr2*0.75);}}p.bw=clamp(18+dm*1.3,18,110);}   // la rampa entre el allanamiento y el monte se alarga con el desnivel (talud de unos 37°): sin paredes verticales en los caminos que cortan un monte
+    const R=p.r+p.bw,i0=Math.floor((p.x-R)/C),i1=Math.floor((p.x+R)/C),j0=Math.floor((p.z-R)/C),j1=Math.floor((p.z+R)/C);
     for(let i=i0;i<=i1;i++)for(let j=j0;j<=j1;j++){const key=i*100003+j;let L=m.get(key);if(!L){L=[];m.set(key,L);}L.push(p);}});
   I._pi={n:I.pads.length,C,m};return I._pi;}
 function islandH(x,z){const I=islandOf(x);if(I.grid&&!GRIDOFF){const gh=gridH(I,x,z);if(gh!==null)return gh;}let h=islandBase(I,x,z);const P=padIndex(I),L=P.m.get(Math.floor(x/P.C)*100003+Math.floor(z/P.C));
-  if(L)for(const p of L){const d=Math.hypot(x-p.x,z-p.z);if(d<p.r+18)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/18,0,1)));}return h;}   // los caminos entre mapas (road) mandan sobre lo demás: van al final de cada lista   // los caminos entre mapas (road) mandan sobre lo demás
+  if(L)for(const p of L){const d=Math.hypot(x-p.x,z-p.z),bw=p.bw||18;if(d<p.r+bw)h=lerp(h,p.h,1-sstep(clamp((d-p.r)/bw,0,1)));}return h;}   // los caminos entre mapas (road) mandan sobre lo demás: van al final de cada lista   // los caminos entre mapas (road) mandan sobre lo demás
 function pad(I,lx,lz,r,dh,fixed){const x=I.x+lx,z=I.z+lz;const p={x,z,r,h:fixed!==undefined?fixed:islandBase(I,x,z)+(dh||0)};I.pads.push(p);return p;}
 function shoreAlong(x0,z0,dx,dz,maxT){for(let t=0;t<maxT;t+=2){if(terrainH(x0+dx*t,z0+dz*t)<0.4)return[x0+dx*(t-3),z0+dz*(t-3)];}return[x0,z0];}
 // ============================================================ caminos: Grecia e Italia recorribles a pie

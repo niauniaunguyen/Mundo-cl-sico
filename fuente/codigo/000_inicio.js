@@ -35,7 +35,7 @@ let MODE='atenas';   // 'atenas' (386 a.C.) o 'roma' (80 d.C.); se elige en la p
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const sstep=t=>t*t*(3-2*t);
-function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function mulberry32(a){const f=function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};f.seed=s=>{a=s;};return f;}   // seed(): volver a sembrar (ver «semilla» en la construcción del mundo)
 const R=mulberry32(386);
 const rr=(a,b)=>a+(b-a)*R();
 const pick=a=>a[Math.floor(R()*a.length)];

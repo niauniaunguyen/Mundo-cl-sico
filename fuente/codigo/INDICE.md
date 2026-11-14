@@ -15,8 +15,8 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `008_edificios.js` | 139 | edificios |
 | `009_personas.js` | 141 | personas |
 | `010_contenido.js` | 928 | CONTENIDO |
-| `011_construccion_del_mundo.js` | 836 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
-| `012_escenarios_cuadrados.js` | 204 | ESCENARIOS CUADRADOS |
+| `011_construccion_del_mundo.js` | 838 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
+| `012_escenarios_cuadrados.js` | 205 | ESCENARIOS CUADRADOS |
 | `013_destinos_nuevos_grecia_italia_hispania.js` | 447 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
 | `014_hud.js` | 152 | HUD |
 | `015_dialogo.js` | 224 | diálogo |
@@ -97,12 +97,12 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `090_el_tiempo.js` | 115 | EL TIEMPO: sol, nubes, niebla, viento, lluvia, tormenta, calor y nieve, según la estación |
 | `091_para_que_sirven_los_objetos.js` | 98 | PARA QUÉ SIRVEN LOS OBJETOS: antorchas que se gastan, ladrones nocturnos, limosna, guías, vino en el odre,<br>TEJADOS Y CORNISAS: posarse sobre los edificios |
 | `092_ayuda_sin_llevar_de_la.js` | 83 | AYUDA SIN LLEVAR DE LA MANO (modo libre)<br>TREPAR: las laderas empinadas se suben despacio, apoyando las manos, en vez de chocar con ellas |
-| `093_la_naturaleza_entre_las_ciudades.js` | 431 | LA NATURALEZA ENTRE LAS CIUDADES: montes, bosques, cuevas y fuentes con sus ninfas y su fauna<br>LA GUERRA EN EL HORIZONTE: lo que se comenta en la calle en el 386 a.C. y en el 80 d.C. |
+| `093_la_naturaleza_entre_las_ciudades.js` | 437 | LA NATURALEZA ENTRE LAS CIUDADES: montes, bosques, cuevas y fuentes con sus ninfas y su fauna<br>LA GUERRA EN EL HORIZONTE: lo que se comenta en la calle en el 386 a.C. y en el 80 d.C. |
 | `094_petteia_y_ludus_latrunculorum.js` | 81 | PETTÉIA Y LUDUS LATRUNCULORUM: el juego de tablero y las grandes batallas |
 | `095_los_caminos_mas_vivos.js` | 74 | LOS CAMINOS, MÁS VIVOS: tráfico, calzadas y rodadas, estaciones de postas, aduanas, tumbas que hablan, |
 | `096_la_ciudad_mas_viva.js` | 79 | LA CIUDAD, MÁS VIVA: oficios con minijuego, instituciones, grafitis, la noche de Roma, agua e higiene, cambist |
 | `097_el_zurron_y_los_objetos.js` | 104 | EL ZURRÓN Y LOS OBJETOS DEL VIAJE: casillas configurables, uso según el contexto y quince objetos nuevos |
-| `098_el_campo.js` | 80 | EL CAMPO: caza, pesca, recolección y herbario, fiestas rurales en su fecha, árboles sagrados y mojones, |
+| `098_el_campo.js` | 83 | EL CAMPO: caza, pesca, recolección y herbario, fiestas rurales en su fecha, árboles sagrados y mojones, |
 | `099_para_aprender_y_ensenar.js` | 115 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
 | `100_paredes_solidas_en_todos_los.js` | 145 | PAREDES SÓLIDAS EN TODOS LOS EDIFICIOS<br>CUÁNTOS ÉRAMOS: población de Atenas (386 a.C.) y de Roma (80 d.C.)<br>MIRAR CON ATENCIÓN: lo que el juego ha elegido brilla en azul claro |
 | `101_vestuario.js` | 75 | VESTUARIO: ropa, colores, pelo, coronas, calzado y anillos con sus reglas |

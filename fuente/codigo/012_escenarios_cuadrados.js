@@ -86,13 +86,14 @@ function gateTravel(g){
 // mapas de paso que completan Grecia e Italia: un pueblo, un santuario o monumento y una estela
 function defineSimple(I,o){for(const b of o.blobs||[])I.blobs.push({x:I.x+b[0],z:I.z+b[1],R:b[2],H:b[3]});
   if(o.lake)I.lake={x:I.x+o.lake[0],z:I.z+o.lake[1],rx:o.lake[2],rz:o.lake[3]};if(o.tint)I.tint=o.tint;
-  I.arrive=pad(I,...(o.arr||[-I.R*0.72,30]),24,0,3);I.town=pad(I,o.tx||0,o.tz||0,o.tr||70,0,4);I.town.house=true;
+  I.arrive=pad(I,...(o.arr||[-I.R*0.72,30]),24,0,3);I.town=pad(I,o.tx||0,o.tz||0,o.tr||70,0,Math.max(4,islandBase(I,I.x+(o.tx||0),I.z+(o.tz||0))));   /* el pueblo, a la altura del terreno: fijado a 4 m, en los mapas de monte abría un pozo de paredes verticales (el Eta, el Liceo, las Escironias…) */I.town.house=true;
   if(o.site)I.site=pad(I,o.site[0],o.site[1],o.site[2]||22,0,o.site[3]);
   for(const q of o.pads||[])pad(I,q[0],q[1],q[2]);}   // espacios libres de árboles para escenas y objetos
 function buildSimple(I,o){const t=I.town,s=I.site;
   if(o.temple&&s)temple(Object.assign({x:s.x,z:s.z,gy:s.h,rot:Math.PI/2,W:12,L:24,nW:6,nL:12,colD:1,colH:6,cella:{w:7.5,l:14,door:2.4}},o.temple));
   if(o.rtemple&&s)romanTemple(Object.assign({x:s.x,z:s.z,gy:s.h-0.2,rot:0,W:14,L:24,pod:2.5,colD:0.9,colH:9,nW:6,deep:2},o.rtemple));
-  if(o.early&&o.extra){I.chkFree=true;if(typeof NAT_NY!=='undefined'&&NAT_NY[I.id])footprints.push({x:I.x+NAT_NY[I.id].dx,z:I.z+NAT_NY[I.id].dz,r:4});o.extra(I);}   // los mapas nuevos levantan sus edificios antes que las casas, y las casas evitan lo ya construido
+  if(typeof NAT_NY!=='undefined'&&NAT_NY[I.id])footprints.push({x:I.x+NAT_NY[I.id].dx,z:I.z+NAT_NY[I.id].dz,r:4});   // el sitio del dios o la ninfa del lugar, reservado en todos los mapas (antes solo en los «early»: en Selinunte una casa tapaba al genio)
+  if(o.early&&o.extra){I.chkFree=true;o.extra(I);}   // los mapas nuevos levantan sus edificios antes que las casas, y las casas evitan lo ya construido
   destHouses(I,t.x,t.z,o.houses||30,o.spread||120,!!o.roman);
   const a=I.arrive;(o.steles||[]).forEach((S,i)=>place(S[0],S[1],S[2],S[3],a.x+9,a.z-8+i*12,-Math.PI/2));
   if(o.npc)NPC_POS[o.npc]=[a.x+16,a.z+10,-Math.PI/2];

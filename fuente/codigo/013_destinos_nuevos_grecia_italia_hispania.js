@@ -207,7 +207,7 @@ function buildTroy(){
   const T=ISLANDS.find(I=>I.id==='troya'),h=T.hill;
   temple({name:'Templo de Atenea Ilíade',x:h.x,z:h.z,rot:Math.PI/2,W:10,L:18,nW:4,prostyle:true,amphi:true,colD:0.8,colH:5.6,gy:h.h,cella:{w:9,l:10.5,door:2.6}});
   NPC_POS.ilion=[h.x+14,h.z+3,Math.PI/2];NPC_POS.locria=[h.x+4,h.z+10,Math.PI/2];
-  for(let i=0;i<14;i++){const a=R()*TAU,d=20+R()*26,x=h.x+Math.cos(a)*d,z=h.z+Math.sin(a)*d;if(Math.abs(x-h.x)<14&&Math.abs(z-h.z)<9)continue;courtyardHouse(x,z,R()<0.5?0:Math.PI/2,rr(9,12),rr(9,12),3.4,false);}
+  for(let i=0;i<14;i++){const a=R()*TAU,d=20+R()*26,x=h.x+Math.cos(a)*d,z=h.z+Math.sin(a)*d;if(Math.abs(x-h.x)<14&&Math.abs(z-h.z)<9)continue;if([[h.x+14,h.z+3],[h.x+4,h.z+10]].some(q=>Math.abs(q[0]-x)<10&&Math.abs(q[1]-z)<10))continue;   /* ni encima ni pegada a Ideo o a Peribea */courtyardHouse(x,z,R()<0.5?0:Math.PI/2,rr(9,12),rr(9,12),3.4,false);}
   // los grandes muros de la Edad del Bronce, en ruinas
   const wm=lam('#b9aa8a');for(let i=0;i<36;i++){if(i%5===3)continue;const t0=i/36*TAU,t1=(i+1)/36*TAU,r=72;const ax=h.x+Math.cos(t0)*r,az=h.z+Math.sin(t0)*r,bx=h.x+Math.cos(t1)*r,bz=h.z+Math.sin(t1)*r;
     const mx=(ax+bx)/2,mz=(az+bz)/2,len=Math.hypot(bx-ax,bz-az),hh=rr(2.5,6.5),gy=Math.min(terrainH(ax,az),terrainH(bx,bz));const m=box(3.2,hh+3,len+0.3,wm,mx,gy+hh/2-1.5,mz);m.rotation.y=Math.atan2(bx-ax,bz-az);m.rotation.z=0;addSeg(ax,az,bx,bz,1.6);

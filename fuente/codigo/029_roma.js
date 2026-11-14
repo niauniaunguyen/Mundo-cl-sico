@@ -55,7 +55,7 @@ for(let i=0;i<36;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.6))<0.55)continue;co
   }],
   ['romaTravel',()=>{romaTravel();}],
   ...Array.from({length:8},(_,k)=>['relieve',()=>{romaReliefChunk(k,8);}]),
-  ['buildRomaDests',()=>{buildRomaDests();}],
+  ['buildRomaDests',()=>{buildRomaDests();R.seed(80080);}],   // semilla: los barrios de Roma ya no dependen del azar que gastan los destinos
   ['romaTheatres',()=>{romaTheatres();}],
   ['buildGods',()=>{buildGods();}],
   ['romaSchools',()=>{romaSchools();
