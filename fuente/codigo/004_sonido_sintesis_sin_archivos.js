@@ -4,7 +4,7 @@ const AUD={ctx:null,master:null,plucks:{}};
 function initAudio(){
   if(AUD.ctx){if(AUD.ctx.state==='suspended')AUD.ctx.resume();return;}
   try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C();AUD.ctx=ctx;
-    const m=ctx.createGain();m.gain.value=AUD_ON?0.8:0;m.connect(ctx.destination);AUD.master=m;
+    const m=ctx.createGain();m.gain.value=AUD_ON?0.6:0;m.connect(ctx.destination);AUD.master=m;
     const nb=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;AUD.noise=nb;
     const loop=()=>{const s=ctx.createBufferSource();s.buffer=nb;s.loop=true;s.start(0,Math.random()*2);return s;};
     const wf=ctx.createBiquadFilter();wf.type='lowpass';wf.frequency.value=380;const wg=ctx.createGain();wg.gain.value=0.03;loop().connect(wf).connect(wg).connect(m);AUD.wind=wg;
@@ -14,7 +14,7 @@ function initAudio(){
   }catch(e){AUD.ctx=null;}
 }
 function toggleSound(){AUD_ON=!AUD_ON;try{localStorage.setItem('atenas-386-sound',AUD_ON?'on':'off');}catch(e){}
-  if(AUD.master)AUD.master.gain.setTargetAtTime(AUD_ON?0.8:0,AUD.ctx.currentTime,0.1);
+  if(AUD.master)AUD.master.gain.setTargetAtTime(AUD_ON?0.6:0,AUD.ctx.currentTime,0.1);
   const b=document.getElementById('bSound');if(b)b.setAttribute('aria-pressed',AUD_ON?'true':'false');}
 function aOK(){return AUD.ctx&&AUD_ON&&AUD.ctx.state==='running';}
 function envGain(t0,peak,att,dec,dest){const g=AUD.ctx.createGain();g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(peak,t0+att);g.gain.exponentialRampToValueAtTime(0.0001,t0+att+dec);g.connect(dest||AUD.master);return g;}

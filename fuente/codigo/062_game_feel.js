@@ -57,7 +57,10 @@ function sfxCreak(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime,o=c.createO
 function gfAudio(dt){if(!aOK())return;gfAudioInit();if(!GFA.on)return;const now=AUD.ctx.currentTime;GFA.t+=dt;if(GFA.t<0.25)return;const st=GFA.t;GFA.t=0;
   const mo=calNow().mo,summer=mo>=5&&mo<=8,outside=!gfInCity(),inMap=ui==='play'||ui==='dialog';
   const th=terrainH(player.x,player.z),nearSea=th<4;
-  GFA.cic.gain.setTargetAtTime(inMap&&summer&&DAYF>0.55&&!nearSea&&!(typeof ACC!=='undefined'&&ACC.noAmb)?0.018*(outside?1:0.5):0,now,1.2);
+  // cigarras: solo en verano, fuera de la ciudad, en las horas de calor (de 10 a 18) y a tandas: cantan un rato, callan y vuelven a empezar
+  GFA.cicT=(GFA.cicT||0)-st;if(GFA.cicT<=0){GFA.cicOn=!GFA.cicOn;GFA.cicT=GFA.cicOn?12+Math.random()*20:18+Math.random()*40;}
+  const hh=clock.h,hot=hh>=10&&hh<=18;
+  GFA.cic.gain.setTargetAtTime(inMap&&summer&&hot&&GFA.cicOn&&outside&&DAYF>0.55&&!nearSea&&!(typeof ACC!=='undefined'&&ACC.noAmb)?0.014:0,now,GFA.cicOn?2.5:1.2);
   const spd=Math.hypot(GF.vx,GF.vz),wv=FLY.on?clamp(spd/25,0,1)*0.09+0.02:MOUNT.riding?clamp((spd-10)/20,0,1)*0.05:0;GFA.wind.gain.setTargetAtTime(wv,now,0.4);GFA.wf.frequency.setTargetAtTime(500+spd*30,now,0.4);
   GFA.owl-=st;if(GFA.owl<0){GFA.owl=18+Math.random()*30;if(DAYF<0.25&&outside)sfxOwl();}
   GFA.gull-=st;if(GFA.gull<0){GFA.gull=7+Math.random()*14;if(DAYF>0.3&&(nearSea||BOAT.on||(typeof HARBOR!=='undefined'&&HARBOR.ok&&Math.hypot(player.x-HARBOR.x,player.z-HARBOR.z)<160)))sfxGull();}

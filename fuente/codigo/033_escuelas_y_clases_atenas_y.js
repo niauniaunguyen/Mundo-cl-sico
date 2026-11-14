@@ -37,10 +37,15 @@ function schoolRoom(o){
   return{g,gy,a,x:o.x,z:o.z,w,d,h,W:(lx,lz)=>toW(lx,lz,o.x,o.z,a)};
 }
 // alumno sentado en un taburete (la figura se hunde un poco: parece sentada), con tablilla o lira
+// tablilla de cera (díptico): dos hojas de madera con la cera oscura dentro, unas letras rayadas y el estilo
+const WAX_TEX=(()=>{let t=null;return()=>{if(t)return t;const c=document.createElement('canvas');c.width=64;c.height=48;const x=c.getContext('2d');x.fillStyle='#2e2a24';x.fillRect(0,0,64,48);x.strokeStyle='#c8b896';x.lineWidth=1.4;
+  for(let r=0;r<4;r++){x.beginPath();let px=6;for(let i=0;i<9;i++){x.moveTo(px,10+r*10);x.lineTo(px+2+((i*7+r)%4),4+r*10+((i+r)%3)*2);px+=6;}x.stroke();}t=new THREE.MeshLambertMaterial({map:new THREE.CanvasTexture(c)});return t;};})();
+function waxTablet(w){const g=new THREE.Group(),h=w*0.72,fr=lam('#b08a5a');for(const sg of[-1,1]){const f=box(w/2,0.025,h,fr,sg*w/4,0,0,g);const wx=new THREE.Mesh(new THREE.PlaneGeometry(w/2-0.05,h-0.05),WAX_TEX());wx.rotation.x=-Math.PI/2;wx.position.set(sg*w/4,0.014,0);g.add(wx);}
+  const st=new THREE.Mesh(new THREE.CylinderGeometry(0.008,0.008,w*0.6,5),lam('#c8c0b0'));st.rotation.z=Math.PI/2;st.rotation.y=0.4;st.position.set(w*0.1,0.03,h*0.3);g.add(st);return g;}
 function seatKid(S,lx,lz,ry,look,prop,list){const g=S.g;box(0.42,0.42,0.42,M.wood,lx,0.33,lz,g);
   const k=makePerson(Object.assign({hair:pick(['#2b1f17','#5b4532','#3e2c1f']),scale:0.62},look));k.position.set(lx,0.2,lz);k.rotation.y=ry;g.add(k);
   if(k.userData.arms){k.userData.arms[0].rotation.x=-0.45;k.userData.arms[1].rotation.x=-0.45;}
-  if(prop==='tab'){const t=box(0.26,0.02,0.2,lam('#4a3a2a'),0,0.82,0.22,k);t.rotation.x=-0.6;}
+  if(prop==='tab'){const t=waxTablet(0.4);t.position.set(0,0.82,0.26);t.rotation.x=-0.75;k.add(t);}   // tablilla de cera abierta sobre las rodillas, con su estilo
   else if(prop==='lyre'){const l=new THREE.Mesh(new THREE.TorusGeometry(0.17,0.025,5,10,Math.PI),M.wood);l.position.set(0,1.05,0.25);k.add(l);const sh=new THREE.Mesh(new THREE.SphereGeometry(0.12,8,6),lam('#6b5a3a'));sh.scale.set(1,0.5,0.6);sh.position.set(0,0.88,0.25);k.add(sh);}
   (list||SOCIAL.school).push(k);return k;}
 function teacherChair(S,lx,lz,ry,mat){const c=grp(0,0,0,0);S.g.add(c);c.position.set(lx,0.12,lz);c.rotation.y=ry;box(0.6,0.5,0.55,mat||M.wood,0,0.25,0,c);box(0.6,0.7,0.08,mat||M.wood,0,0.85,-0.26,c).rotation.x=-0.25;return c;}
@@ -135,7 +140,7 @@ function romaSchools(){
   // ludus litterarius en una pérgola abierta a la calle del Argileto, con una cortina a medio correr
   {const S=schoolRoom({x:35,z:-91,rot:Math.PI,w:9,d:7.5,h:4.2,open:true,wall:lam('#d9c7a8'),pier:BRICK,floor:lam('#9a8a6c'),name:'Escuela de primeras letras'});
    const cur=box(2.8,3.4,0.06,lam('#a8392b'),-3,2.1,3.55,S.g);box(9,0.1,0.1,M.wood,0,3.9,3.55,S.g);
-   box(1.6,0.3,1.2,M.wood,0,0.27,-2.6,S.g);teacherChair(S,0,-2.6,0).position.y=0.42;
+   box(1.6,0.3,1.2,M.wood,0,0.27,-2.6,S.g);teacherChair(S,0,-2.6,0).position.y=0.42;for(let k=0;k<5;k++){const t=waxTablet(0.36);t.position.set(-0.45+(k%2)*0.06,0.44+k*0.03,-2.55+k*0.02);t.rotation.y=k*0.15;S.g.add(t);}
    for(let i=0;i<10;i++){const lx=-3.2+(i%5)*1.6,lz=-0.4+Math.floor(i/5)*1.6;seatKid(S,lx,lz,Math.PI,{chiton:pick(['#efe9dc','#e2d6c0','#d8c9a8','#c9b48b']),noHimation:true,female:i===3||i===7},'tab',ROMA.school);}
    box(1.4,0.9,0.06,lam('#5a4636'),2.6,2.2,-3.5,S.g);for(let r=0;r<5;r++)for(let c=0;c<6;c++){const b=new THREE.Mesh(new THREE.SphereGeometry(0.035,6,4),M.ivory);b.position.set(2.1+c*0.18,1.9+r*0.14,-3.45);S.g.add(b);}
    for(let i=0;i<3;i++){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.45,10),lam('#8a6340'));c.position.set(-3.6+i*0.5,0.35,-3.2);S.g.add(c);}

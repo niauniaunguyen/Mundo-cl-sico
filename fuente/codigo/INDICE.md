@@ -17,7 +17,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `010_contenido.js` | 928 | CONTENIDO |
 | `011_construccion_del_mundo.js` | 838 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
 | `012_escenarios_cuadrados.js` | 205 | ESCENARIOS CUADRADOS |
-| `013_destinos_nuevos_grecia_italia_hispania.js` | 447 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
+| `013_destinos_nuevos_grecia_italia_hispania.js` | 449 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
 | `014_hud.js` | 152 | HUD |
 | `015_dialogo.js` | 224 | diálogo |
 | `016_viajes_en_barco.js` | 77 | viajes en barco |
@@ -32,19 +32,19 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `025_roma.js` | 42 | ROMA: lugares (estelas) |
 | `026_roma.js` | 154 | ROMA: constructores |
 | `027_roma.js` | 123 | ROMA: destinos de viaje (año 80 d.C.)<br>HISPANIA URBANA: piezas para reconstruir las ciudades (acueductos, puentes largos, circos) |
-| `028_roma.js` | 431 | ROMA: la domus visitable del Celio |
+| `028_roma.js` | 461 | ROMA: la domus visitable del Celio |
 | `029_roma.js` | 412 | ROMA: construcción del mundo |
 | `030_roma.js` | 178 | ROMA: barrios, densidad y muralla |
 | `031_roma.js` | 174 | ROMA: decoración según las reconstrucciones |
-| `032_glosario_lateral.js` | 757 | glosario lateral |
-| `033_escuelas_y_clases_atenas_y.js` | 207 | escuelas y clases (Atenas y Roma) |
+| `032_glosario_lateral.js` | 758 | glosario lateral |
+| `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
 | `034_atenas.js` | 71 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 405 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
 | `036_acabado.js` | 82 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 87 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
-| `040_caballo.js` | 335 | caballo |
+| `040_caballo.js` | 337 | caballo |
 | `041_dioses.js` | 193 | dioses |
 | `042_entrada.js` | 83 | entrada<br>interacción |
 | `043_bucle.js` | 99 | bucle<br>arranque |
@@ -66,7 +66,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `059_egipto.js` | 148 | Egipto: Náucratis y Menfis (modo Atenas, 386 a.C.); Alejandría y Menfis (modo Roma, 80 d.C.) |
 | `060_egipto_2.js` | 78 | Egipto (2): jeroglíficos, la Gran Pirámide por dentro, el Faro y la crecida del Nilo |
 | `061_sacar_partido_a_los_diez.js` | 273 | sacar partido a los diez destinos del 386: |
-| `062_game_feel.js` | 158 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
+| `062_game_feel.js` | 161 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
 | `063_polvo_bajo_los_cascos_y.js` | 65 | polvo bajo los cascos y la cinemática de la yegua recuperada |
 | `064_game_feel_2.js` | 120 | GAME FEEL 2: caballo vivo, animales que reaccionan, huellas, agua, saludos, |
 | `065_equivalentes_romanos_ano_80.js` | 196 | equivalentes romanos (año 80): comercio desde el Emporio, la carrera del Circo Máximo, |
@@ -103,7 +103,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `096_la_ciudad_mas_viva.js` | 79 | LA CIUDAD, MÁS VIVA: oficios con minijuego, instituciones, grafitis, la noche de Roma, agua e higiene, cambist |
 | `097_el_zurron_y_los_objetos.js` | 104 | EL ZURRÓN Y LOS OBJETOS DEL VIAJE: casillas configurables, uso según el contexto y quince objetos nuevos |
 | `098_el_campo.js` | 83 | EL CAMPO: caza, pesca, recolección y herbario, fiestas rurales en su fecha, árboles sagrados y mojones, |
-| `099_para_aprender_y_ensenar.js` | 115 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
+| `099_para_aprender_y_ensenar.js` | 123 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
 | `100_paredes_solidas_en_todos_los.js` | 145 | PAREDES SÓLIDAS EN TODOS LOS EDIFICIOS<br>CUÁNTOS ÉRAMOS: población de Atenas (386 a.C.) y de Roma (80 d.C.)<br>MIRAR CON ATENCIÓN: lo que el juego ha elegido brilla en azul claro |
 | `101_vestuario.js` | 75 | VESTUARIO: ropa, colores, pelo, coronas, calzado y anillos con sus reglas |
 | `102_ambientacion.js` | 125 | AMBIENTACIÓN: detalles pequeños y documentados que se ven o se oyen al pasar |
@@ -135,7 +135,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `128_gestos.js` | 147 | GESTOS: los personajes hablan con las manos, mueven la cabeza, viven en reposo y conversan en corrillos<br>GAME FEEL 5: ceremonia al cumplir algo, sonido situado de los talleres, entrar en el agua<br>GESTOS (2): codos, y vasijas y cestos que se tambalean al rozarlos<br>MEDIDOR DE TIRONES (solo con #debug o ?prof): tiempo de cada función del bucle, media, máximo y picos<br>EL PLANO SE REVELA AL ANDAR, Y CARAS QUE PARPADEAN Y HABLAN |
 | `129_personajes_atentos.js` | 95 | PERSONAJES ATENTOS: mirada, cejas que expresan, saludo a conocidos, empujones y truenos<br>CUERPOS VARIADOS: niños, ancianos, gruesos y flacos; andares; posturas al esperar |
 | `130_rigor_visual.js` | 58 | RIGOR VISUAL: peinados y barbas de cada época, distintivos y objetos de oficio |
-| `131_personas_no_carteles.js` | 87 | PERSONAS, NO CARTELES: memoria y fama, familias y acompañantes, pleitos, comer, la fuente, el calor |
+| `131_personas_no_carteles.js` | 89 | PERSONAS, NO CARTELES: memoria y fama, familias y acompañantes, pleitos, comer, la fuente, el calor |
 | `132_oficios_del_campo.js` | 208 | OFICIOS DEL CAMPO: quién vive y trabaja en el monte, el río, la costa y los caminos |
 | `133_modo_atencion.js` | 62 | MODO ATENCIÓN: QUÉ ESTÁ HACIENDO CADA PERSONA (campo, caminos y calle)<br>LLEGAR MIRANDO A ALGO: tras un viaje o un salto, si la cámara da contra una ladera, girar hacia lo despejado |
 | `134_tu_viaje_poco_a_poco.js` | 45 | TU VIAJE, POCO A POCO: las herramientas se abren por etapas, y una meta clara (el regreso) |

@@ -159,9 +159,9 @@ function defineRomaDests(){
   {const I=G('venetia');I.blobs.push({x:I.x+160,z:I.z-140,R:90,H:26});I.thea=pad(I,160,-120,30);I.town=pad(I,-20,40,110,0,4);I.town.house=true;I.arena=pad(I,-150,140,70,0,4);}
   {const I=G('transpadana');I.lake={x:I.x+120,z:I.z-40,rx:110,rz:420};for(let i=0;i<5;i++)I.blobs.push({x:I.x-200+i*160,z:I.z-I.R*1.05,R:220,H:200+60*Math.sin(i)});I.town=pad(I,-110,120,90,0,4);I.town.house=true;I.villa=pad(I,-20,-120,26,0,4);}
   {const I=G('cartago');I.blobs.push({x:I.x-60,z:I.z-20,R:130,H:40});I.byrsa=pad(I,-60,-20,60);I.lake={x:I.x+110,z:I.z+150,rx:34,rz:34};I.town=pad(I,-40,140,72,0,4);I.town.house=true;I.tophet=pad(I,90,250,24,0,3);I.amph=pad(I,-280,60,60,0,4);}
-  {const I=G('tarraco');I.blobs.push({x:I.x+40,z:I.z-60,R:200,H:34});I.upper=pad(I,40,-110,80);I.lower=pad(I,-40,90,70,0,4);I.lower.house=true;}
+  {const I=G('tarraco');I.blobs.push({x:I.x+40,z:I.z-60,R:200,H:34});I.upper=pad(I,40,-110,80);I.lower=pad(I,-40,110,70,0,4);I.lower.house=true;I.circH=islandBase(I,I.x+40,I.z-8);for(let k=-3;k<=3;k++)pad(I,40+k*48,-8,40,0,I.circH);}   // el circo, en una terraza entre el foro provincial y la ciudad baja
   {const I=G('barcino');I.blobs.push({x:I.x+20,z:I.z-30,R:90,H:10},{x:I.x+280,z:I.z+20,R:160,H:80});I.town=pad(I,20,-30,70);I.town.house=true;I.quarry=pad(I,240,40,20);}
-  {const I=G('emporiae');I.neap=pad(I,-80,60,40,0,4);I.neap.house=true;I.urbs=pad(I,90,-40,100,0,6);I.urbs.house=true;}
+  {const I=G('emporiae');I.neap=pad(I,-60,70,64,0,4);I.neap.house=true;I.urbs=pad(I,30,-130,175,0,9);I.urbs.house=true;I.pal=pad(I,150,80,34,0,5);I.amph=pad(I,-210,-130,40,0,8);}   // Neápolis junto al puerto; la ciudad romana, mucho mayor, tierra adentro; la Paleápolis al otro lado del puerto; el anfiteatro fuera de la muralla
   {const I=G('ilerda');I.blobs.push({x:I.x+20,z:I.z-30,R:140,H:40});I.town=pad(I,20,-30,70);I.town.house=true;}
   {const I=G('emerita');I.town=pad(I,0,-60,120,0,4);I.town.house=true;I.spect=pad(I,170,-160,70,0,4);for(const cx of[-60,40,140,220])pad(I,cx,-310,58,0,4);}
   for(const id in SIMPLE_RO){const I=G(id);if(I)defineSimple(I,SIMPLE_RO[id]);}
@@ -255,7 +255,8 @@ function buildRomaDests(){
    romaVillagers(I,t.x,t.z+30,5,['Aquí termina la Flaminia y empieza la Emilia: todo el mundo pasa por Ariminum.','Dicen que César habló a sus soldados en este mismo foro.','El pescado del Adriático es mejor que el del Tíber.','Del puerto salen barcos hacia Istria y Dalmacia.']);}
   // ---------------------------------------- VII. Etruria: Tarquinii
   {const I=G('etruria'),c=I.civ,n=I.necro;
-   {const a=I.ara;box(36,4,30,TUFA,a.x,a.h+1,a.z);addPlat(a.x,a.z,36,30,0,a.h+3);addBox(a.x,a.z,36,30,0);romanTemple({x:a.x,z:a.z,rot:Math.PI/2,W:22,L:26,pod:2,colD:1.2,colH:7,nW:4,deep:2,order:'tuscan',gy:a.h+3,roofMat:M.tile,name:'Gran templo de Tarquinii'});}
+   {const a=I.ara;box(36,4,30,TUFA,a.x,a.h+1,a.z);addPlat(a.x,a.z,36,30,0,a.h+3);for(const[x1,z1,x2,z2]of[[-18,-15,18,-15],[-18,15,18,15],[-18,-15,-18,15],[18,-15,18,-5.2],[18,5.2,18,15]])addSeg(a.x+x1,a.z+z1,a.x+x2,a.z+z2,0.6);   // tres lados cerrados y, delante, una escalinata de tufo para subir a pie
+    {const sg=grp(a.x,a.h,a.z,Math.PI/2);stairs(sg,{x:a.x,z:a.z},0,18,10,3,a.h,Math.PI/2,TUFA);}romanTemple({x:a.x,z:a.z,rot:Math.PI/2,W:22,L:26,pod:2,colD:1.2,colH:7,nW:4,deep:2,order:'tuscan',gy:a.h+3,roofMat:M.tile,name:'Gran templo de Tarquinii'});}
    destHouses(I,c.x,c.z,24,60,true);
    for(let i=0;i<14;i++){const a=R()*TAU,d=rr(10,70);tumulus(n.x+Math.cos(a)*d,n.z+Math.sin(a)*d,rr(4,8),rr(2,4),'#8a8f5a');}
    {const x=n.x,z=n.z,gy=n.h,W=6,D=5,Hh=3;const tex=canvasTex(512,128,(g)=>{g.fillStyle='#e9d9b6';g.fillRect(0,0,512,128);g.fillStyle='#9a2f22';g.fillRect(0,0,512,10);g.fillRect(0,118,512,10);
@@ -334,6 +335,16 @@ function buildRomaDests(){
     for(let i=0;i<7;i++)for(const sx of[-1,1]){const x=u.x+sx*44,z=u.z+i*7;box(1.3,1.8,1.3,TRAV,x,u.h+1.6,z);addCirc(x,z,0.9);}
     footprints.push({x:u.x,z:u.z+20,w:110,d:60,a:0,c:'#d8ccb4',name:'Foro provincial: plaza del concilio'});}
    arcadeLine(I.x-330,I.z-150,I.x-202,I.z-298,{H:24,span:8.6,dep:3.2,levels:[0.48,1],mat:lam('#c9b48e')});
+   {// el circo, en obras: terraza alargada de este a oeste que separa el foro provincial de la ciudad baja (unos 325 × 115 m)
+    const cx=I.x+40,cz=I.z-8,gy=I.circH,g=grp(cx,gy,cz,0),L=300,Wd=110,sm=lam('#c9b48e');
+    box(L,0.3,Wd-24,lam('#b8a27a'),0,0.15,0,g);addPlat(cx,cz,L,Wd-24,0,gy+0.3);
+    for(const sg of[-1,1]){const done=sg<0;for(let i=0;i<14;i++){const seg=L/14,x=-L/2+seg*(i+0.5),hh=done?7:(i%3===2?0:1.5+((i*7)%5)*0.9);if(hh<=0)continue;box(seg-0.4,hh,10,sm,x,hh/2,sg*(Wd/2-5),g);addBox(cx+x,cz+sg*(Wd/2-5),seg,10,0);}}   // la grada norte ya en pie, la sur a medio hacer
+    box(170,1.1,6,lam('#b8a27a'),0,0.55,0,g);addBox(cx,cz,170,6,0);   // los cimientos de la espina
+    for(let i=0;i<18;i++){const p=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,8,5),M.wood);p.position.set(-120+i*14,4,Wd/2-10.5);g.add(p);}for(const y of[2.5,5])box(250,0.12,1.2,M.wood,0,y,Wd/2-10.5,g);
+    for(let k=0;k<6;k++){const w=makePerson({short:true,noHimation:true,chiton:['#8a7a5a','#a89070','#7a6a50'][k%3],hair:'#2a1e16',carry:k%2?'basket':null});w.position.set(cx-60+k*24,gy+0.3,cz+Wd/2-16);w.rotation.y=Math.PI;scene.add(w);}
+    footprints.push({x:cx,z:cz,w:L,d:Wd,a:0,c:'#d8ccb0',name:'Circo de Tarraco (en obras)'});
+    place('circo_tarraco','El circo, en obras','CIRCVS','Bajo la gran plaza del concilio se está construyendo un circo para las carreras de carros: una terraza alargada de unos 325 metros, metida entre la parte alta y la ciudad baja, que la separa de la plaza como una muralla. La grada del norte ya está en pie; la del sur y la espina, a medio hacer. Lo terminará el emperador Domiciano. Sus bóvedas seguirán en pie veinte siglos después, dentro de las casas de la ciudad.',cx+70,cz+Wd/2+6,0);}
+   place('anfiteatro_tarraco','Aquí no hay todavía anfiteatro','AMPHITHEATRVM','Junto a la playa, fuera de las murallas, Tarraco tendrá su anfiteatro, pero no ahora: se construirá hacia el año 100, en tiempos de Trajano. En el 80 los combates de gladiadores se dan en recintos provisionales de madera o en el foro. En el anfiteatro morirán quemados en el 259 el obispo Fructuoso y sus diáconos.',I.x+120,I.z+170,0);
    theatre({x:l.x+50,z:l.z+20,rot:Math.PI,R0:10,R1:28,H:13,name:'Teatro de Tarraco',noPlays:true});forumR(l.x-20,l.z-10,40,24,'Foro de la colonia');destHouses(I,l.x,l.z,30,70,true);
    {const sh=shoreAlong(l.x,l.z,0,1,400);buildPort('tarraco','Tarraco',sh[0],sh[1],0,1);}
    romaArrive(I,'Tarraco',HISP_DRIVER);
@@ -380,10 +391,29 @@ function buildRomaDests(){
    NPC_POS.pedania=[t.x-140,t.z-40,0];
    romaVillagers(I,t.x,t.z+10,5,['Aquí todos tienen una viña o trabajan en la de otro.','Las ánforas de vino salen del puerto por miles.','Tarraco es la capital, pero aquí se vive más tranquilo.','Los abuelos de mis abuelos eran layetanos. Ahora todos somos romanos.']);}
   // ---------------------------------------- Hispania: Emporiae
-  {const I=G('emporiae'),n=I.neap,u=I.urbs;
-   ringWall(n.x,n.z,42,[0],lam('#b8a888'),5,5);temple({name:'Santuario de Asclepio',x:n.x-10,z:n.z-14,rot:0,W:7,L:12,nW:4,prostyle:true,colD:0.55,colH:4,gy:n.h,cella:{w:6,l:7,door:2}});
-   statue(n.x-10,n.h+0.8,n.z+4,0,1.5,'marble');destHouses(I,n.x,n.z,10,30,false,{inside:(x,z)=>Math.hypot(x-n.x,z-n.z)<36});
-   rectWall(u.x,u.z,180,150,lam('#b5a98e'),5);forumR(u.x,u.z,44,26,'Foro de Emporiae');romanTemple({x:u.x,z:u.z-44,rot:0,W:14,L:24,pod:3,colD:0.9,colH:8,nW:6,deep:2,name:'Capitolio de Emporiae'});destHouses(I,u.x,u.z,24,80,true,{inside:(x,z)=>Math.abs(x-u.x)<82&&Math.abs(z-u.z)<68});
+  {const I=G('emporiae'),n=I.neap,u=I.urbs,pa=I.pal,am=I.amph;
+   // Neápolis griega: recinto alargado junto al puerto, con la puerta del sur (aquí, al oeste), el Asclepieion y el Serapeion junto a ella, y el ágora con su pórtico en medio
+   rectWall(n.x,n.z,124,84,lam('#b8a888'),5);
+   temple({name:'Santuario de Asclepio',x:n.x-48,z:n.z-18,rot:Math.PI/2,W:7,L:12,nW:4,prostyle:true,colD:0.55,colH:4,gy:n.h,cella:{w:6,l:7,door:2}});statue(n.x-38,n.h+0.8,n.z-18,Math.PI/2,1.5,'marble');
+   temple({name:'Serapeion',x:n.x-44,z:n.z+20,rot:Math.PI/2,W:7,L:11,nW:4,prostyle:true,colD:0.5,colH:3.8,gy:n.h,cella:{w:6,l:6,door:2}});porticus(n.x-56,n.z+8,n.x-30,n.z+8,4,4,'ionic',1,n.h);
+   forumR(n.x+6,n.z-4,30,20,'Ágora de Emporion');porticus(n.x-10,n.z-18,n.x+24,n.z-18,6,5,'doric',-1,n.h);
+   for(const[dx,dz]of[[-20,26],[26,22],[34,-26]]){const g=grp(n.x+dx,n.h,n.z+dz,0);box(3,0.6,3,lam('#9a8a70'),0,0.3,0,g);addBox(n.x+dx,n.z+dz,3,3,0);}   // cisternas
+   destHouses(I,n.x+20,n.z+4,10,40,false,{inside:(x,z)=>Math.abs(x-n.x-4)<56&&Math.abs(z-n.z)<38});
+   // el espigón del puerto, hacia la Paleápolis
+   {const sh=shoreAlong(n.x+70,n.z,0,1,300),g=grp(sh[0],0,sh[1],0);box(5,3,46,lam('#a89a80'),0,0.4,22,g);addBox(sh[0],sh[1]+22,5,46,0);}
+   // Paleápolis: el primer asentamiento, en la antigua isla, con el templo de Ártemis de Éfeso
+   temple({name:'Templo de Ártemis de Éfeso',x:pa.x,z:pa.z-8,rot:0,W:8,L:13,nW:4,prostyle:true,colD:0.55,colH:4.2,gy:pa.h,cella:{w:6.5,l:8,door:2}});destHouses(I,pa.x,pa.z+6,6,22,false);
+   // ciudad romana: rectángulo grande tierra adentro, con dos ejes, el foro en medio, el templo capitolino al fondo y casas con jardín hacia el mar
+   rectWall(u.x,u.z,320,140,lam('#b5a98e'),5);
+   forumR(u.x,u.z,64,40,'Foro de Emporiae');romanTemple({x:u.x+44,z:u.z,rot:-Math.PI/2,W:14,L:24,pod:3,colD:0.9,colH:8,nW:6,deep:2,name:'Templo capitolino de Emporiae'});
+   porticus(u.x-32,u.z-22,u.x+30,u.z-22,6,6,'tuscan',1,u.h);porticus(u.x-32,u.z+22,u.x+30,u.z+22,6,6,'tuscan',-1,u.h);
+   {const g=grp(u.x-46,u.h,u.z,0);box(14,8,36,PLAST,0,4,0,g);box(14.6,0.4,36.6,M.tile||PLAST,0,8.2,0,g);addBox(u.x-46,u.z,14,36,0);footprints.push({x:u.x-46,z:u.z,w:14,d:36,a:0,name:'Basílica',house:true});}
+   destHouses(I,u.x,u.z,34,150,true,{inside:(x,z)=>Math.abs(x-u.x)<152&&Math.abs(z-u.z)<64&&!(Math.abs(x-u.x)<60&&Math.abs(z-u.z)<34)});
+   for(const dx of[-90,90]){const x=u.x+dx,z=u.z+46,g=grp(x,u.h,z,0);box(30,5,18,PLAST,0,2.5,0,g);box(30.6,0.35,18.6,M.tile||PLAST,0,5.2,0,g);addBox(x,z,30,18,0);footprints.push({x,z,w:30,d:18,a:0,name:'Domus con mosaicos',house:true});}
+   amphi(am.x,am.z,0,38,30,9,'Anfiteatro de Emporiae');
+   place('emporiae_mosaicos','Las casas de la colina','DOMVS','Junto a la muralla que mira al mar, las familias ricas tienen casas grandes con atrio, peristilo, jardín y suelos de mosaico blanco y negro. Desde sus terrazas se ve el puerto y la vieja ciudad griega.',u.x-90,u.z+60,0);
+   place('emporiae_anfiteatro','El anfiteatro','AMPHITHEATRVM','Fuera de la puerta de la ciudad romana hay un anfiteatro pequeño, con gradas sobre terraplenes de tierra y un muro de piedra, para combates de gladiadores y cacerías de fieras en los días de fiesta. Al lado se ejercitan los jóvenes en una gran palestra.',am.x+40,am.z,0);
+   place('paleapolis','La Paleápolis','ΠΑΛΑΙΑ ΠΟΛΙΣ','La «ciudad vieja»: aquí, en lo que era una isla junto a la desembocadura del río, se establecieron los primeros griegos de Focea hacia el 600 a.C. Estrabón cuenta que los de Emporion veneran a Ártemis de Éfeso, como los de Massalia.',pa.x+18,pa.z+10,0);
    {const sh=shoreAlong(n.x,n.z,0,1,300);buildPort('emporiae','Emporiae',sh[0],sh[1],0,1);}
    romaArrive(I,'Emporiae',HISP_DRIVER);
    place('emporion_griega','Emporion, la ciudad griega','ΕΜΠΟΡΙΟΝ','Los griegos de Focea, llegados desde Massalia, fundaron aquí hacia el 575 a.C. un puesto de comercio, un emporion: de ahí el nombre. Primero en un islote y luego en esta pequeña ciudad amurallada junto al puerto, al lado de un poblado íbero. Durante siglos vendieron vino, aceite y cerámica a los íberos a cambio de cereal, metales y lino. Hoy la ciudad griega está medio vacía.',n.x+14,n.z+30,0);

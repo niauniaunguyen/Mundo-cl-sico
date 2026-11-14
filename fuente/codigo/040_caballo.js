@@ -80,8 +80,10 @@ function updateTorch(dt,t){
   if(!TORCH.hint&&ui==='play'&&DAYF<0.25){TORCH.hint=true;toast('Se ha hecho de noche. Pulsa <b>'+(isTouch?'el botón de la antorcha':'F')+'</b> para encender una antorcha.');}
   if(!on){TORCH.light.intensity=0;return;}
   const f=1+Math.sin(t*11)*0.07+Math.sin(t*27+1.3)*0.05+Math.sin(t*4.1)*0.04;
-  if(AVATAR.view3&&!MOUNT.riding){const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
-    TORCH.g.position.set(player.x+rx*0.34+fx*0.28,player.feet+1.45,player.z+rz*0.34+fz*0.28);TORCH.g.rotation.set(0,0,0);}
+  if(AVATAR.view3){   // tercera persona: en la mano del personaje (a pie o a caballo), no delante de la cámara
+    const body=MOUNT.riding?AVATAR.rider:AVATAR.walk,arm=body&&body.visible!==false&&body.userData.arms&&body.userData.arms[1];
+    if(arm){arm.rotation.x=-0.75;body.updateMatrixWorld(true);_tv.set(0,-0.55,0.06);arm.localToWorld(_tv);TORCH.g.position.copy(_tv);TORCH.g.rotation.set(0,player.yaw,0);TORCH.g.rotateX(-0.25);}
+    else{const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);TORCH.g.position.set(player.x+rx*0.34+fx*0.28,player.feet+(MOUNT.riding?2.3:1.45),player.z+rz*0.34+fz*0.28);TORCH.g.rotation.set(0,0,0);}}
   else{camera.updateMatrixWorld();_tv.set(0.36,-0.34,-0.95);camera.localToWorld(_tv);TORCH.g.position.copy(_tv);TORCH.g.quaternion.copy(camera.quaternion);TORCH.g.rotateX(0.35);TORCH.g.rotateZ(-0.25);}
   TORCH.fl.scale.set(0.24*f,0.36*f,1);
   TORCH.g.getWorldPosition(_tv);TORCH.light.position.set(_tv.x,_tv.y+0.45,_tv.z);

@@ -294,7 +294,9 @@ function updatePerformance(dt,t){
   }
   const el=$('stage');
   if(!pl){if(el&&!el.hidden)el.hidden=true;return;}
-  const n=pl.scenes.length,si=Math.min(n-1,Math.floor((clock.h-pl.start)/(pl.end-pl.start)*n)),sc=pl.scenes[si];
+  // las escenas avanzan con el tiempo real que pasas mirando (unos 16 s cada una) y la obra vuelve a empezar; antes dependían de la hora del juego y tardaban minutos
+  if(PERF.wtFor!==pl.id){PERF.wtFor=pl.id;PERF.wt=0;}if(Math.hypot(player.x-THEA.x,player.z-THEA.z)<140)PERF.wt+=dt;
+  const n=pl.scenes.length,si=Math.floor(PERF.wt/16)%n,sc=pl.scenes[si];
   if(si!==PERF.scene){PERF.scene=si;}
   pl.cast.forEach((c,i)=>{const g=PERF.actors[pl.id][i],pos=sc[2][i];const off=pos[1]>=9.5;g.visible=!off;if(off)return;const tx=THEA.x+pos[0],tz=THEA.z+pos[1];
     g.position.x+= (tx-g.position.x)*Math.min(1,dt*1.5);g.position.z+=(tz-g.position.z)*Math.min(1,dt*1.5);g.position.y=THEA.h0+0.03+(pos[1]<0?0:0);g.rotation.y=Math.PI+Math.sin(t*0.7+i)*0.25;

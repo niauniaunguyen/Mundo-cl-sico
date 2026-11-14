@@ -84,3 +84,5 @@ function needTick(dt){if(!state||ui==='start')return;const h=clock.h,P=player,t=
     const gs=u.gs;if(!gs||!idle||w.pal)continue;
     if(w.eat){w.eT=(w.eT||Math.random()*3)-dt;if(w.eT<=0){w.eT=3+Math.random()*3;gs.react=1.2;gsSet(gs,'comer',1,true);}}
     else if(hot){w.hT=(w.hT===undefined?Math.random()*8:w.hT)-dt;if(w.hT<=0){w.hT=8+Math.random()*10;gs.react=2.4;gs.fan=2.4;gsSet(gs,'abanico',1,true);stFeat(g,'calor');}if(gs.fan>0){gs.fan-=dt;gs.tgt.rz=GSET.abanico[3]+Math.sin(t*9)*0.18;}}}}
+// en Roma se saluda con «salve»: si una presentación empieza con «Hola» o «Buenos días», se cambia (en Grecia, «khaîre» lo dicen los saludos de la calle)
+{const od0=openDialog;openDialog=function(){const r=od0.apply(this,arguments);try{if(MODE==='roma'){const b=$('dBody');const p=b&&b.querySelector('p');if(p&&/^\s*(«?\s*)(¡?Hola|Buenos días|Buenas tardes|Saludos)\b/.test(p.innerHTML))p.innerHTML=p.innerHTML.replace(/^(\s*«?\s*)(¡?Hola|Buenos días|Buenas tardes|Saludos)([,.!]*)/,(m,a,g,c)=>a+(g[0]==='¡'||/!/.test(c||'')?'¡Salve':'Salve')+(c||'.'));}}catch(e){}return r;};}

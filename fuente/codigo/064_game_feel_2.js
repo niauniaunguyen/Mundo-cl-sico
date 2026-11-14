@@ -75,7 +75,7 @@ function foamTick(dt){FOAM.t-=dt;if(FOAM.t>0||ui!=='play')return;FOAM.t=0.35;con
   for(let k=0;k<10;k++){const a=Math.random()*TAU,d=4+Math.random()*44,x=player.x+Math.cos(a)*d,z=player.z+Math.sin(a)*d,h=terrainH(x,z);
     if(h>sea-0.7&&h<sea+0.5&&riverWater(x,z)===null){mark(x,z,0,'ripple',sea+0.05);pfx(x,sea+0.15,z,{col:'#f4f8f8',life:1.6,s:0.7,grow:1.2,a:0.45});break;}}}
 // ---- 5. gente que saluda y vendedores que levantan el brazo al pregonar
-const SAL={A:['¡Salud!','¡Alégrate!','Buenos días, forastero','¡Que los dioses te guarden!'],R:['¡Salve!','¡Ave!','Buenos días','¡Que te vaya bien!']};
+const SAL={A:['¡Khaîre!','¡Khaîre, forastero!','¡Salud!','¡Que los dioses te guarden!'],R:['¡Salve!','¡Salve, forastero!','¡Ave!','¡Salve!']};   // los saludos de verdad: khaîre («alégrate») en griego; salve y ave en latín
 function greetTick(dt){if(ui!=='play')return;const now=performance.now();
   for(const w of walkers){const g=w.g;if(w.home||!g.visible)continue;if(w.gr&&now<w.gr.until){if(now>w.gr.down&&!w.gr.dn){w.gr.dn=1;armUp(g,null,0);}continue;}
     if(w.gr&&w.gr.sp){scene.remove(w.gr.sp);w.gr.sp=null;}

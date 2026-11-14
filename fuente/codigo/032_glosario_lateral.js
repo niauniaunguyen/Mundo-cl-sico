@@ -665,7 +665,8 @@ function updateRomaTheatre(dt,t){
       if(pl&&ui!=='start'&&Math.hypot(player.x-T.x,player.z-T.z)<400)toast(`<span class="label">${T.name}</span><br>Empieza ${pl.title}, de ${pl.author}.`);}
     if(!pl)return;
     const far=Math.hypot(player.x-T.x,player.z-T.z)>500;if(far)return;   // lejos no hace falta mover a nadie
-    const n=pl.scenes.length,si=Math.min(n-1,Math.floor((clock.h-pl.start)/(pl.end-pl.start)*n)),sc=pl.scenes[si];RPERF.scene[ti]=si;
+    RPERF.wt=RPERF.wt||{};if(!RPERF.wt[ti]||RPERF.wt[ti].id!==pl.id)RPERF.wt[ti]={id:pl.id,t:0};if(Math.hypot(player.x-T.x,player.z-T.z)<160)RPERF.wt[ti].t+=dt;   // escenas de unos 16 s de tiempo real mirando
+    const n=pl.scenes.length,si=Math.floor(RPERF.wt[ti].t/16)%n,sc=pl.scenes[si];RPERF.scene[ti]=si;
     pl.cast.forEach((c,i)=>{const g=RPERF.actors[pl.id][i],pos=sc[2][i],off=pos[1]>=9.5;g.visible=!off;if(off)return;
       const w=toW(pos[0]*2.2,T.stageZ+pos[1],T.x,T.z,T.a);if(Math.hypot(w[0]-g.position.x,w[1]-g.position.z)>15)g.position.set(w[0],T.gy+T.stageY,w[1]);g.position.x+=(w[0]-g.position.x)*Math.min(1,dt*1.5);g.position.z+=(w[1]-g.position.z)*Math.min(1,dt*1.5);g.position.y=T.gy+T.stageY;
       g.rotation.y=T.a+Math.PI+Math.sin(t*0.7+i)*0.3;const a=g.userData.arms;if(a){const k=pl.dance?1.6:1;a[1].rotation.x=-0.7*k+Math.sin(t*2.4*k+i)*0.5*k;a[0].rotation.x=Math.sin(t*1.7*k+i)*0.3*k;}});
