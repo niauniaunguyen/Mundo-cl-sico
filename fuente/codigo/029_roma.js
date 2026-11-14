@@ -124,10 +124,10 @@ function romaForum(){
   if(GLB.ok){const br=lam('#7d6a3e'),gb=lam('#a07c44');for(const[x,z,a]of[[-40,-30,0],[-20,-32,0],[0,-33,0],[20,-32,0],[-35,26,Math.PI],[-10,28,Math.PI],[100,-30,0],[-45,8,Math.PI/2]]){const gy=romaH(x,z),g=grp(x,gy,z,a);box(1.6,2.6,2.2,M.marble,0,1.3,0,g);box(1.9,0.3,2.5,M.marble,0,2.6,0,g);
     const st=makePerson({toga:true,chiton:'#7d6a3e',himation:'#7d6a3e',hair:'#7d6a3e',beard:R()<0.4,attrRoles:{cloth:br,drape:br,skin:gb,hair:br,sandal:br,eye:br}});st.scale.setScalar(1.25);st.position.y=2.75;g.add(st);addBox(x,z,1.6,2.2,a);}}
   basilica({x:20,z:-62,rot:0,L:88,D:28,name:'Basílica Emilia'});
-  basilica({x:-25,z:60,rot:Math.PI,L:84,D:42,name:'Basílica Julia'});
+  basilica({x:-31,z:60,rot:Math.PI,L:101,D:49,name:'Basílica Julia'});   // 101 × 49 m (planta conservada); el borde este sigue en el Vico Tusco
   romanTemple({x:-105,z:25,rot:Math.PI/2,W:22,L:40,pod:6,colD:1.4,colH:11,nW:6,deep:2,order:'ionic',pseudo:true,name:'Templo de Saturno'});
   romanTemple({x:-114,z:-28,rot:Math.PI/2,W:26,L:28,pod:4,colD:1.3,colH:12,nW:6,deep:1,name:'Templo de la Concordia'});
-  romanTemple({x:45,z:40,rot:Math.PI,W:30,L:46,pod:6.5,colD:1.45,colH:12.5,nW:8,deep:3,peri:true,name:'Templo de Cástor y Pólux'});
+  romanTemple({x:45,z:40,rot:Math.PI,W:32,L:50,pod:6.5,colD:1.45,colH:12.5,nW:8,deep:3,peri:true,name:'Templo de Cástor y Pólux'});
   romanTemple({x:80,z:0,rot:-Math.PI/2,W:24,L:30,pod:5,colD:1.1,colH:10,nW:6,deep:2,order:'ionic',name:'Templo del Divino Julio'});
   roundTemple({x:75,z:42,r:7.5,colD:0.75,colH:9,n:20,pod:2.5,rot:-Math.PI/2,name:'Templo de Vesta'});
   // Casa de las Vestales: patio con pórticos y estanques
@@ -146,9 +146,9 @@ function romaForum(){
 }
 function romaCapitol(){
   const top=romaH(-228,22);
-  romanTemple({x:-228,z:22,rot:0,W:46,L:56,pod:4,gy:top-0.4,colD:1.9,colH:15,nW:6,deep:3,peri:true,roofMat:lam('#c9a24a'),name:'Templo de Júpiter Óptimo Máximo'});
+  romanTemple({x:-228,z:22,rot:0,W:53,L:62,pod:4,gy:top-0.4,colD:1.9,colH:15,nW:6,deep:3,peri:true,roofMat:lam('#c9a24a'),name:'Templo de Júpiter Óptimo Máximo'});
   romanTemple({x:-218,z:-108,rot:Math.PI/2,W:14,L:20,pod:2.5,gy:romaH(-218,-108)-0.3,colD:0.8,colH:8,nW:4,deep:2,name:'Templo de Juno Moneta'});
-  const tr=[];for(let i=0;i<40;i++){const a=R()*TAU,r=rr(10,70),x=-220+Math.cos(a)*r*0.8,z=-40+Math.sin(a)*r*1.6;const h=romaH(x,z);if(h>18&&Math.hypot(x+228,z-22)>36&&Math.hypot(x+218,z+108)>16&&Math.abs(x+140)>12&&clivusAt(x,z).d>8)tr.push({x,z,kind:R()<0.6?'pine':'cypress'});}
+  const tr=[];for(let i=0;i<40;i++){const a=R()*TAU,r=rr(10,70),x=-220+Math.cos(a)*r*0.8,z=-40+Math.sin(a)*r*1.6;const h=romaH(x,z);if(h>18&&Math.hypot(x+228,z-22)>42&&Math.hypot(x+218,z+108)>16&&Math.abs(x+140)>12&&clivusAt(x,z).d>8)tr.push({x,z,kind:R()<0.6?'pine':'cypress'});}
   place('ro_clivus','Clivus Capitolinus','CLIVVS CAPITOLINVS','La única calle por la que suben los carros al Capitolio: una cuesta empinada y pavimentada que sale del Foro junto al templo de Saturno y gira hacia la cumbre de Júpiter. Por aquí suben los generales en el triunfo y los cónsules el día que toman posesión. El Capitolio tiene dos cumbres: el Capitolium, al sur, con el templo de Júpiter, y el Arx, la ciudadela, al norte, con el templo de Juno Moneta (donde se acuña la moneda) y el auguraculum, desde donde los augures observan el vuelo de las aves. Entre ambas, la hondonada del Asylum, donde según la leyenda Rómulo acogió a fugitivos para poblar Roma.',-150,24,0);
   if(GLB.ok)treesGLB(tr);
 }
@@ -230,7 +230,7 @@ function romaCircus(){
   const C={x:65,z:405},gy=1,Lh=260,CA=CIRC_A,co=Math.cos(CA),si=Math.sin(CA),cr=(lx,lz)=>[C.x+lx*co+lz*si,C.z-lx*si+lz*co];ROMA.circ=C;   // girado como en la Forma Urbis de Lanciani (lám. 35): del Foro Boario hacia la Puerta Capena
   footprints.push({x:C.x+20,z:C.z,w:660,d:380,a:0,c:'#d8ccb0',reserve:true});
   const st=(u,R)=>{if(u<0.35){const s=u/0.35;return[-Lh+2*Lh*s,-R];}if(u<0.5){const t=-Math.PI/2+(u-0.35)/0.15*Math.PI;return[Lh+Math.cos(t)*R,Math.sin(t)*R];}if(u<0.85){const s=(u-0.5)/0.35;return[Lh-2*Lh*s,R];}const t=Math.PI/2+(u-0.85)/0.15*Math.PI;return[-Lh+Math.cos(t)*R,Math.sin(t)*R];};
-  const skip=u=>u>0.85||Math.abs(u-0.425)<0.012;const ST=14,R0=46,R1=78;
+  const skip=u=>u>0.85||Math.abs(u-0.425)<0.012;const ST=14,R0=43,R1=78;   // arena de unos 84-87 m de ancho (Platner-Ashby)
   const P=(u,k)=>{let r,y;if(k===0){r=R0;y=0;}else if(k===1){r=R0;y=3.2;}else{const j=Math.floor((k-2)/2),e=(k-2)%2;r=R0+2+(R1-R0-4)*(j+e)/ST;y=3.2+(26-3.2)*(j+1)/ST;}const p=st(u,r);return[p[0],y,p[1]];};
   ringMesh(ringGeo(2+ST*2+1,140,P,skip,k=>k<2?'#e2d9c6':(k%2?'#e0d6c2':'#c8bca4')),C.x,gy,C.z,CA);
   {const t=RTEX.arcade.clone();t.needsUpdate=true;t.repeat.set(1,1.5);const w=new THREE.Mesh(ringGeo(2,140,(u,k)=>{const p=st(u,R1+1);return[p[0],k?30:0,p[1]];},skip,()=>'#ffffff',Math.round((4*Lh+TAU*R1)/12)),new THREE.MeshLambertMaterial({map:t,side:THREE.DoubleSide}));w.position.set(C.x,gy,C.z);w.rotation.y=CA;w.castShadow=true;scene.add(w);}
@@ -239,11 +239,11 @@ function romaCircus(){
   {const cp=cr(-Lh-6,0),g=grp(cp[0],gy,cp[1],CA);box(12,11,2*R1,TRAV,0,5.5,0,g);for(let i=0;i<12;i++)box(0.2,6,4.4,M.dark,6.05,3,-34+i*6.2,g);for(const s of[-1,1])box(14,16,14,TRAV2,0,8,s*(R1-6),g);
    for(const[ax,az,bx,bz]of[[-Lh,-R1,-Lh,-6],[-Lh,6,-Lh,R1],[-Lh-12,-R1,-Lh-12,-6],[-Lh-12,6,-Lh-12,R1]]){const A=cr(ax,az),B=cr(bx,bz);addSeg(A[0],A[1],B[0],B[1],0.6);}}
   // la espina: muro bajo con estanques, metas y el obelisco de Augusto
-  {const g=grp(C.x,gy,C.z,CA);box(380,2.2,8,M.marble,0,1.1,0,g);for(let i=0;i<6;i++)box(28,0.4,5,lam('#4f7f8a'),-160+i*64,2.3,0,g);addBox(C.x,C.z,380,8,CA);
-   if(GLB.ok&&GLB.parts.B_obelisk){placeModules('B_obelisk',[{x:C.x,y:gy+2.2,z:C.z,a:CA,sx:1}],{far:3000});const m1=cr(-198,0),m2=cr(198,0);placeModules('B_meta',[{x:m1[0],y:gy,z:m1[1],a:CA,sx:1.2},{x:m2[0],y:gy,z:m2[1],a:CA,sx:1.2}],{far:2400});}
+  {const g=grp(C.x,gy,C.z,CA);box(344,2.2,8,M.marble,0,1.1,0,g);for(let i=0;i<6;i++)box(26,0.4,5,lam('#4f7f8a'),-150+i*60,2.3,0,g);addBox(C.x,C.z,344,8,CA);   // espina de unos 344 m
+   if(GLB.ok&&GLB.parts.B_obelisk){placeModules('B_obelisk',[{x:C.x,y:gy+2.2,z:C.z,a:CA,sx:1}],{far:3000});const m1=cr(-176,0),m2=cr(176,0);placeModules('B_meta',[{x:m1[0],y:gy,z:m1[1],a:CA,sx:1.2},{x:m2[0],y:gy,z:m2[1],a:CA,sx:1.2}],{far:2400});}
    else{const ob=new THREE.Mesh(new THREE.CylinderGeometry(0.8,1.6,24,4),lam('#9a6a5e'));ob.position.set(0,14,0);g.add(ob);}
    for(let i=0;i<7;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(0.4,8,6),BRONZE2);d.scale.set(1,0.6,2);d.position.set(120+i*1.6,4.2,0);g.add(d);}
-   {const m1=cr(-198,0),m2=cr(198,0);addCirc(m1[0],m1[1],3);addCirc(m2[0],m2[1],3);}}
+   {const m1=cr(-176,0),m2=cr(176,0);addCirc(m1[0],m1[1],3);addCirc(m2[0],m2[1],3);}}
   // público
   {const geo=new THREE.CylinderGeometry(0.2,0.26,1.15,5);geo.translate(0,0.58,0);const it=[],cols=['#efe8da','#e2d6c0','#3f7a3a','#2f4c86','#a8392b','#c9b48b','#f4efe4'],q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),p=new THREE.Vector3(),sc=new THREE.Vector3(1,1,1);
    for(let j=0;j<ST;j++){const r=R0+2+(R1-R0-4)*(j+0.5)/ST,y=gy+3.2+(26-3.2)*(j+1)/ST;for(let i=0;i<900;i++){if(R()<0.45)continue;const u=(i+R())/900;if(skip(u))continue;const a=st(u,r),b=st(u+0.001,r);{const A=cr(a[0],a[1]);p.set(A[0],y,A[1]);}q.setFromAxisAngle(up,Math.atan2(b[0]-a[0],b[1]-a[1])-Math.PI/2+CA);it.push({m:new THREE.Matrix4().compose(p,q,sc),c:new THREE.Color(pick(cols))});}}
