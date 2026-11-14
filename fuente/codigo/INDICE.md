@@ -143,4 +143,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `137_sentarse_y_sombra.js` | 48 | SENTARSE: rodillas, posturas (banco, suelo, de rodillas), bancos de piedra y la sombra en verano |
 | `138_paisaje_sonoro.js` | 42 | PAISAJE SONORO Y MÚSICA DE AMBIENTE (todo sintetizado, sin archivos) |
 | `139_laurion.js` | 50 | EL LAURIÓN: las minas de plata del sur del Ática (modo Atenas) |
+| `140_creta_kit.js` | 94 | CRETA (1): herramientas para los mapas de Creta (modo Atenas) |
+| `141_creta_centro.js` | 197 | CRETA (2): el centro de la isla (modo Atenas, 386 a.C.) |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
