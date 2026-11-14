@@ -11507,7 +11507,7 @@ window.addEventListener('mousemove',e=>{if(ui!=='play')return;let dx=0,dy=0;
   player.yaw-=dx*0.0024;player.pitch=clamp(player.pitch-dy*0.0024,-1.4,1.4);});
 const KMAP={KeyW:'w',ArrowUp:'w',KeyS:'s',ArrowDown:'s',KeyA:'a',ArrowLeft:'a',KeyD:'d',ArrowRight:'d',ShiftLeft:'run',ShiftRight:'run',Space:'jump',KeyC:'down'};
 // salto y doble salto: en el aire se puede dar un segundo impulso (sirve para salir de huecos y subir a bordes altos)
-function jump(){if(ui!=='play'||FLY.on)return;const k=MOUNT.riding?horseJump():1;const ka=k*(qLv('ar')>=2?1.15:1);if(player.grounded){player.vy=5.2*ka;player.grounded=false;player.jumps=1;}else if((player.jumps||0)<2){player.vy=5.6*ka;player.jumps=2;}}
+function jump(){if(ui!=='play'||FLY.on)return;const k=MOUNT.riding?horseJump():1;const ka=k*(qLv('ar')>=2?1.15:1);const nw=performance.now();if(player.grounded||(nw-(player.lastG||0)<120&&!(player.jumps>0))){player.vy=5.2*ka;player.grounded=false;player.jumps=1;player.jbuf=0;}else if((player.jumps||0)<2){player.vy=5.6*ka;player.jumps=2;player.jbuf=0;}else player.jbuf=nw;}   // margen de 0,12 s al dejar el suelo; si se pulsa en el aire sin saltos, se recuerda 0,15 s
 window.addEventListener('keydown',e=>{
   if(AUD.ctx&&AUD.ctx.state==='suspended')AUD.ctx.resume();
   if(e.target&&e.target.tagName==='INPUT'){if(e.code==='Escape')closeModals();return;}
@@ -11605,8 +11605,8 @@ function frame(now){
   if(FLY.on&&ui!=='play')FLY.on=false;
   if(FLY.on)player.vy+=((keys.jump?7:(keys.down?-9:-0.8))-player.vy)*Math.min(1,dt*3.5);else player.vy-=16*dt;player.feet+=player.vy*dt;
   if(FLY.on){const wv=riverWater(player.x,player.z);if(wv!==null&&player.feet<wv+0.4){player.feet=wv+0.4;if(player.vy<0)player.vy=0;}}   // volando, se roza el agua sin hundirse
-  if(player.feet<=fl){if(!player.grounded&&player.vy<-5)gfLand(-player.vy);player.feet=fl;player.vy=0;player.grounded=true;player.jumps=0;}
-  else if(player.grounded&&player.feet-fl<0.6&&player.vy<=0){player.feet=fl;player.vy=0;}
+  if(player.feet<=fl){const was=player.grounded;if(!player.grounded&&player.vy<-5)gfLand(-player.vy);player.feet=fl;player.vy=0;player.grounded=true;player.jumps=0;player.lastG=performance.now();if(!was&&player.jbuf&&player.lastG-player.jbuf<150&&ui==='play'){player.jbuf=0;jump();}}
+  else if(player.grounded&&player.feet-fl<0.6&&player.vy<=0){player.feet=fl;player.vy=0;player.lastG=performance.now();}
   else player.grounded=false;
   updateMount(dt);
   const targetY=player.feet+player.eye+(MOUNT.riding?Math.abs(Math.sin(MOUNT.ph))*Math.min(0.07,MOUNT.v*0.004):0);player.camY=player.camY&&Math.abs(player.camY-targetY)<3?lerp(player.camY,targetY,1-Math.exp(-dt*18)):targetY;{const gC=floorAt(player.x,player.z)+0.3;if(player.camY<gC)player.camY=gC;}   /* tras un salto grande la cámara va directa a su sitio y nunca queda bajo tierra */
@@ -16169,7 +16169,7 @@ function gfPeople(dt){const rid=MOUNT.riding,R0=rid?4.5:2.6;for(const w of walke
    else if(d<R0){const mx=w.tx-g.position.x,mz=w.tz-g.position.z,ml=Math.hypot(mx,mz)||1,nx=-mz/ml,nz=mx/ml,side=Math.sign(dx*nx+dz*nz)||1,f=(R0-d)/R0*(rid?3:1.6);
      g.position.x+=nx*side*f*dt;g.position.z+=nz*side*f*dt;}}}
 // ---- arranque y tick
-function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);cullTick(dt);mergeTick(dt);v2Tick(dt);rutTick(dt);zsTick(dt);gdTick();socTick(dt);dioTick(dt);pitTick(dt);herTick(dt);curTick(dt);n2Tick(dt);forTick(dt);wildTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
+function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();artTick();urbTick(dt);progTick(dt);jrTick(dt);cvTick(dt);atTick(dt);hbTick(dt);spTick(dt);visTick(dt);wxTick(dt);uxTick(dt);mtTick(dt);mtBtnTick();clbTick(dt);natTick(dt);natAppTick(dt);rdTick(dt);cyTick(dt);objTick(dt);rcTick(dt);eduTick(dt);accTick(dt);seal2Tick(dt);ambTick(dt);amb2Tick(dt);swTick(dt);crtTick(dt);r7Tick(dt);isl3Tick(dt);tpTick(dt);colsTick(dt);cullTick(dt);mergeTick(dt);v2Tick(dt);rutTick(dt);zsTick(dt);gdTick();socTick(dt);dioTick(dt);pitTick(dt);herTick(dt);curTick(dt);n2Tick(dt);forTick(dt);wildTick(dt);gf4Tick(dt);gsTick(dt);farmTick();gf2Tick(dt);dustGame(dt);cineTick(dt);tmTick();if(typeof keysAutoTick==='function')keysAutoTick();if(ui!=='play'){GF.vx*=0.5;GF.vz*=0.5;}gfAudio(dt);gfPeople(dt);
   rwTick(dt);}
 
 
@@ -24672,6 +24672,86 @@ Object.assign(ATX_DEF,{
   for(const c of C)if(c.ex===undefined){}
   for(const o of (typeof OFIC!=='undefined'?OFIC:[])){if(!o||!isFinite(o.x))continue;if(Math.abs(o.x-P.x)>60||Math.abs(o.z-P.z)>60)continue;const t=o.text||'';C.push({x:o.x,y:floorAt(o.x,o.z)+1.6,z:o.z,r:Math.max(1.5,(o.r||3)*0.8),far:60,bias:0.15,name:o.name,sub:o.sub||'taller',def:atShort(t),txt:()=>t||'Un taller.'});}
   }catch(e){}return C;};}
+// ============================================================ GAME FEEL 4: lo que se puede usar se nota, cada acción suena a lo suyo y los interiores tienen eco
+// Anillo dorado que late bajo lo que tienes delante (lo que E activaría) y un «tic» suave al cambiar de objetivo; pergamino al leer, campanilla en las esferas;
+// reverberación (convolución con un eco sintético) en la Curia, cuevas, laberinto, pirámide, el Hades, el Coliseo y, un poco, en las gradas de los teatros.
+const GF4={ring:null,last:null,rev:null,wet:null,k:0};
+function gf4Ring(){if(GF4.ring)return GF4.ring;const m=new THREE.MeshBasicMaterial({color:'#ffc04a',transparent:true,opacity:0.85,depthWrite:false});const r=new THREE.Mesh(new THREE.TorusGeometry(0.75,0.06,6,40),m);r.rotation.x=Math.PI/2;r.visible=false;r.renderOrder=3;scene.add(r);GF4.ring=r;return r;}
+function gf4Tick(dt){const r=gf4Ring(),f=(ui==='play'&&typeof focus!=='undefined')?focus:null;
+  if(f&&isFinite(f.x)){const big=f.kind==='god'||f.kind==='sphere'?1.4:f.kind==='sign'?0.9:1;const t=performance.now()/1000,k=1+0.08*Math.sin(t*5);r.visible=true;r.scale.set(big*k,big*k,big*k);r.position.set(f.x,floorAt(f.x,f.z)+0.06,f.z);r.material.opacity=0.7+0.25*Math.sin(t*5);
+    if(f!==GF4.last){GF4.last=f;try{if(aOK()){const c=AUD.ctx,t0=c.currentTime,o=c.createOscillator(),e=c.createGain();o.type='sine';o.frequency.setValueAtTime(1180,t0);o.frequency.exponentialRampToValueAtTime(1480,t0+0.06);e.gain.setValueAtTime(0.0001,t0);e.gain.exponentialRampToValueAtTime(0.035,t0+0.01);e.gain.exponentialRampToValueAtTime(0.0001,t0+0.12);o.connect(e);e.connect(AUD.master);o.start(t0);o.stop(t0+0.14);}}catch(e){}}}
+  else{r.visible=false;GF4.last=null;}
+  gf4Echo(dt);}
+// sonidos según la acción
+function sfxRustle(){if(!aOK()||!AUD.noise)return;const c=AUD.ctx,t=c.currentTime,s=c.createBufferSource();s.buffer=AUD.noise;const bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=3200;bp.Q.value=0.7;const e=c.createGain();e.gain.setValueAtTime(0.0001,t);e.gain.exponentialRampToValueAtTime(0.12,t+0.03);e.gain.exponentialRampToValueAtTime(0.03,t+0.14);e.gain.exponentialRampToValueAtTime(0.0001,t+0.32);s.connect(bp).connect(e).connect(AUD.master);s.start(t,Math.random()*2);s.stop(t+0.35);}
+function sfxChime(){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;[1568,2093,2637].forEach((fq,i)=>{const o=c.createOscillator(),e=c.createGain();o.type='sine';o.frequency.value=fq;e.gain.setValueAtTime(0.0001,t+i*0.06);e.gain.exponentialRampToValueAtTime(0.05,t+i*0.06+0.01);e.gain.exponentialRampToValueAtTime(0.0001,t+i*0.06+1.2);o.connect(e);e.connect(AUD.master);o.start(t+i*0.06);o.stop(t+i*0.06+1.3);});}
+{const i0=interact;interact=function(){const f=typeof focus!=='undefined'?focus:null;try{if(f){if(f.kind==='sign'||f.kind==='relief')sfxRustle();else if(f.kind==='sphere')sfxChime();}}catch(e){}return i0.apply(this,arguments);};}
+// eco en los interiores grandes
+function gf4EchoAmt(){const P=player;try{
+  if(typeof CURIA!=='undefined'&&CURIA.on)return 0.55;
+  if(typeof cavIn==='function'&&cavIn())return 0.6;if(typeof inMaze==='function'&&inMaze(P.x,P.z))return 0.5;if(typeof fzIn==='function'&&fzIn())return 0.55;
+  if(MODE==='roma'&&P.feet>850&&P.feet<1000)return 0.65;   // dentro de la Gran Pirámide
+  if(MODE==='roma'&&typeof ROMA!=='undefined'&&ROMA.col&&Math.hypot((P.x-ROMA.col.x)/94,(P.z-ROMA.col.z)/78)<1)return 0.35;
+  for(const C of CAVEAS)if(caveaH(C,P.x,P.z)!==null)return 0.22;}catch(e){}return 0;}
+function gf4Echo(dt){if(!AUD.ctx||!AUD.master)return;if(!GF4.rev){try{const c=AUD.ctx,n=Math.floor(c.sampleRate*2.2),ir=c.createBuffer(2,n,c.sampleRate);for(let ch=0;ch<2;ch++){const d=ir.getChannelData(ch);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3.2)*(i<c.sampleRate*0.012?0:1);}
+    const cv=c.createConvolver();cv.buffer=ir;const w=c.createGain();w.gain.value=0;AUD.master.connect(cv);cv.connect(w);w.connect(c.destination);GF4.rev=cv;GF4.wet=w;}catch(e){GF4.rev=1;return;}}
+  if(!GF4.wet)return;const tg=gf4EchoAmt();GF4.k+=(tg-GF4.k)*Math.min(1,dt*2);GF4.wet.gain.value=GF4.k*0.9;}
+// ============================================================ GESTOS: los personajes hablan con las manos, mueven la cabeza, viven en reposo y conversan en corrillos
+// Brazos: giran en el hombro hacia delante (x) y hacia fuera (z). Cabeza: se le crea un cuello (pivote a 1,55 m) con las piezas de encima.
+// Estilo: en Atenas, el ciudadano con himation gesticula poco (el orador «decente» habla con el brazo dentro del manto);
+// en Roma, con toga, la izquierda sujeta el manto y la derecha hace el gesto (Quintiliano, Institutio oratoria 11, 3); al exclamar, adlocutio.
+const GS={dlgG:null,dlgT:0,mood:0,list:new Set(),flyT:0};
+function gsRig(g){const u=g.userData;if(u.gs)return u.gs;const gs=u.gs={arms:u.arms||null,base:null,head:null,t:Math.random()*5,tgt:{lx:0,lz:0,rx:0,rz:0,hx:0,hy:0,hz:0},next:2+Math.random()*8,talk:0};
+  if(gs.arms){gs.base=gs.arms.map(a=>({x:a.rotation.x,z:a.rotation.z}));gs.side=gs.arms.map(a=>{const b=new THREE.Box3().setFromObject(a);const c=new THREE.Vector3();b.getCenter(c);g.worldToLocal(c);return c.x>=0?1:-1;});}
+  try{const H=1.55,pv=new THREE.Group();pv.position.set(0,H,0);const mv=[];g.updateMatrixWorld(true);
+    for(const ch of g.children){if(gs.arms&&gs.arms.includes(ch))continue;if(!ch.isMesh&&!ch.isGroup)continue;const b=new THREE.Box3().setFromObject(ch);if(b.isEmpty())continue;const c=new THREE.Vector3();b.getCenter(c);g.worldToLocal(c);const sz=new THREE.Vector3();b.getSize(sz);
+      if(c.y>H+0.03&&sz.y<0.9)mv.push(ch);}
+    if(mv.length){for(const ch of mv){g.remove(ch);ch.position.y-=H;pv.add(ch);}g.add(pv);gs.head=pv;}}catch(e){}
+  return gs;}
+const lp=(a,b,k)=>a+(b-a)*k;
+function gsApply(g,gs,dt){const k=Math.min(1,dt*7),T=gs.tgt,px=g.position.x,pz=g.position.z,mov=gs.lx!==undefined&&Math.hypot(px-gs.lx,pz-gs.lz)>0.004;gs.lx=px;gs.lz=pz;
+  if(gs.arms&&gs.base&&!g.userData.pose&&!mov){for(let i=0;i<2;i++){const a=gs.arms[i],b=gs.base[i],s=gs.side[i],tx=i?T.rx:T.lx,tz=i?T.rz:T.lz;a.rotation.x=lp(a.rotation.x,b.x+tx,k);a.rotation.z=lp(a.rotation.z,b.z+s*tz,k);}}
+  if(gs.head){const h=gs.head;h.rotation.x=lp(h.rotation.x,T.hx,k*0.8);h.rotation.y=lp(h.rotation.y,T.hy,k*0.6);h.rotation.z=lp(h.rotation.z,T.hz,k*0.6);}}
+// repertorio: [izq. delante, izq. fuera, der. delante, der. fuera, cabeza abajo, ladeo]
+const GSET={palmas:[-0.55,0.55,-0.55,0.55,0.05,0],senala:[0,0,-1.35,0.1,-0.05,0],pecho:[0,0,-0.95,-0.45,0.12,0],encoge:[-0.35,0.45,-0.35,0.45,0,0.18],ritmo:[0,0,-0.75,0.15,0,0],
+  alto:[0,0,-1.9,0.15,-0.12,0],adlocutio:[-0.3,0,-1.55,0.25,-0.08,0],manto:[-0.25,0,-0.45,0.05,0,0],cabeza:[0,0,-2.5,0.55,0.1,0.15],espalda:[0.35,0.12,0.35,0.12,0,0],pecho2:[0,0,-0.9,-0.4,0.15,0.08],brazosArriba:[-2.3,0.35,-2.3,0.35,-0.25,0]};
+function gsSet(gs,n,amp,keepHead){const G=GSET[n]||[0,0,0,0,0,0],a=amp===undefined?1:amp;Object.assign(gs.tgt,{lx:G[0]*a,lz:G[1]*a,rx:G[2]*a,rz:G[3]*a});if(!keepHead){gs.tgt.hx=G[4];gs.tgt.hz=G[5];}}
+function gsRest(gs){Object.assign(gs.tgt,{lx:0,lz:0,rx:0,rz:0,hx:0,hz:0});}
+function gsStyle(d){const L=(d&&d.look)||{};if(MODE==='roma'&&L.toga)return 'toga';if(MODE!=='roma'&&L.himation&&!L.female&&!L.short)return 'himation';return 'libre';}
+function gsTick(dt){if(!state||ui==='start')return;const P=player,t=performance.now()/1000;
+  // 1) quien te habla gesticula mientras se escribe su texto
+  let dg=null,dd=null;if(ui==='dialog'&&typeof dlg!=='undefined'&&dlg&&dlg.n){const o=npcObjs.find(o=>o.data===dlg.n);if(o&&o.g){dg=o.g;dd=o.data;}}
+  if(dg!==GS.dlgG){if(GS.dlgG&&GS.dlgG.userData.gs)gsRest(GS.dlgG.userData.gs);GS.dlgG=dg;GS.dlgT=0;}
+  if(dg){const gs=gsRig(dg);GS.list.add(dg);const typing=typeof TW!=='undefined'&&TW.on,st=gsStyle(dd),amp=st==='himation'?0.45:1;
+    // mira hacia ti
+    const ang=Math.atan2(P.x-dg.position.x,P.z-dg.position.z)-dg.rotation.y;let a=((ang+Math.PI)%TAU+TAU)%TAU-Math.PI;gs.tgt.hy=Math.max(-0.9,Math.min(0.9,a));
+    GS.dlgT-=dt;if(typing&&GS.dlgT<=0){GS.dlgT=0.9+Math.random()*0.9;const tx=($('dBody')&&$('dBody').innerText)||'',q=/\?/.test(tx),ex=/!/.test(tx),r=Math.random();
+      let n=q&&r<0.45?'palmas':ex&&r<0.35?(st==='toga'?'adlocutio':'alto'):r<0.22?'pecho':r<0.38?'senala':r<0.5?'encoge':'ritmo';if(st==='toga'&&(n==='palmas'||n==='encoge'))n='ritmo';
+      gsSet(gs,n,amp,true);if(st==='toga')Object.assign(gs.tgt,{lx:GSET.manto[0],lz:0});if(st==='himation')Object.assign(gs.tgt,{lx:-0.2,lz:0});
+      gs.tgt.hx=Math.random()<0.4?0.12:0;gs.tgt.hz=(Math.random()-0.5)*0.15;}
+    if(!typing&&GS.dlgT<=0){GS.dlgT=1.5;gsRest(gs);gs.tgt.hz=0.08*Math.sin(t*0.7);gs.tgt.hx=0.04;if(st==='toga')gs.tgt.lx=GSET.manto[0];}
+    if(typing)gs.tgt.rx+=Math.sin(t*6)*0.04*amp;   // el compás de la mano al hablar
+    gsApply(dg,gs,dt);}
+  // 2) los demás personajes cercanos: te siguen con la mirada, gestos en reposo y sorpresa si vuelas
+  GS.flyT-=dt;
+  for(const o of npcObjs){if(o.hidden||!o.g||!o.g.visible||o.g===dg)continue;const dx=o.g.position.x-P.x,dz=o.g.position.z-P.z,d=Math.hypot(dx,dz);if(d>28)continue;const gs=gsRig(o.g);GS.list.add(o.g);
+    if(d<7){const ang=Math.atan2(-dx,-dz)-o.g.rotation.y;let a=((ang+Math.PI)%TAU+TAU)%TAU-Math.PI;gs.tgt.hy=Math.abs(a)<1.8?Math.max(-0.85,Math.min(0.85,a)):0;}else gs.tgt.hy=0;
+    if(FLY.on&&d<16&&!gs.wow){gs.wow=2;gsSet(gs,'brazosArriba',1);gs.tgt.hx=-0.35;}
+    if(gs.wow>0){gs.wow-=dt;if(gs.wow<=0){gs.wow=FLY.on?-6:0;gsRest(gs);}}else if(gs.wow<0)gs.wow=Math.min(0,gs.wow+dt);
+    else{gs.next-=dt;if(gs.next<=0){gs.next=6+Math.random()*10;if(gs.cur){gs.cur=0;gsRest(gs);}else{const r=Math.random();const n=r<0.2?'cabeza':r<0.45?'espalda':r<0.6?'pecho2':null;if(n){gs.cur=1;gsSet(gs,n,1);gs.next=1.4+Math.random()*1.5;}else{gs.tgt.hy+=(Math.random()-0.5)*1.2;}}}}
+    gsApply(o.g,gs,dt);}
+  // 3) corrillos: paseantes parados cerca unos de otros conversan por turnos
+  const near=[];for(const w of walkers){if(!w.g||!w.g.visible||!(w.wait>0))continue;const dx=w.g.position.x-P.x,dz=w.g.position.z-P.z;if(dx*dx+dz*dz<35*35)near.push(w);if(near.length>24)break;}
+  for(const w of near){if(w.pal&&(!(w.pal.wait>0)||Math.hypot(w.pal.g.position.x-w.g.position.x,w.pal.g.position.z-w.g.position.z)>4)){w.pal=null;const gs0=w.g.userData.gs;if(gs0){gsRest(gs0);gs0.tgt.hy=0;}}
+    if(!w.pal)for(const v of near){if(v===w||v.pal)continue;if(Math.hypot(v.g.position.x-w.g.position.x,v.g.position.z-w.g.position.z)<3.4){w.pal=v;v.pal=w;w.spk=true;v.spk=false;w.g.rotation.y=Math.atan2(v.g.position.x-w.g.position.x,v.g.position.z-w.g.position.z);v.g.rotation.y=w.g.rotation.y+Math.PI;break;}}
+    if(!w.pal)continue;const gs=gsRig(w.g);GS.list.add(w.g);gs.ct=(gs.ct||0)-dt;if(gs.ct<=0){gs.ct=1+Math.random()*1.4;if(Math.random()<0.3)w.spk=!w.spk,w.pal.spk=!w.spk;
+      if(w.spk){const r=Math.random();gsSet(gs,r<0.3?'palmas':r<0.55?'ritmo':r<0.75?'senala':'encoge',0.8);}else{gsRest(gs);gs.tgt.hx=Math.random()<0.5?0.1:0;gs.tgt.hz=(Math.random()-0.5)*0.2;}}
+    if(w.spk)gs.tgt.rx+=Math.sin(t*5+w.phase)*0.03;gsApply(w.g,gs,dt);}}
+// lo que se aprende sobre los gestos
+function gsTopics(){const add=(id,q,a)=>{const n=(typeof NPCS!=='undefined'?NPCS:[]).find(n=>n.id===id);if(n&&n.topics&&!n.topics.some(t=>t[0]===q))n.topics.push([q,a]);};
+ add('quintiliano','¿Cómo se mueven las manos al hablar?','«La mano derecha hace casi todo el trabajo; la izquierda sujeta la toga y casi nunca gesticula sola. El gesto debe acompañar el sentido, no imitar cada palabra como hacen los mimos. Empieza el gesto con la frase y termínalo con ella. No levantes la mano por encima de los ojos ni la bajes por debajo del pecho, y no te golpees el muslo ni la frente como un actor de comedia.» Lo escribirá en el libro 11 de su Institutio oratoria.');
+ add('isocrates','¿Por qué los oradores apenas mueven los brazos?','«Los antiguos, Pericles, Temístocles, hablaban con el brazo recogido dentro del manto: mover los brazos les parecía descarado. En Salamina hay una estatua de Solón así. Ahora algunos se agitan, gritan y se arremangan el manto en la tribuna, como hacía Cleón.» (Lo dirá Esquines en el 346, en su discurso Contra Timarco 25; de Cleón lo cuenta la Constitución de los atenienses 28.)');}
+{const g0=gsTick;gsTick=function(dt){if(state&&!GS.topics){GS.topics=1;try{gsTopics();}catch(e){}}return g0(dt);};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
