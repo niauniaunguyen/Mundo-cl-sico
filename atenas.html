@@ -11615,7 +11615,8 @@ function frame(now){
   updateSpheres(dt,t);updatePlumes(t);if(MODE==='atenas')updateKnossos(dt,t);
 
   // personajes
-  for(const n of npcObjs){const d=Math.hypot(n.x-player.x,n.z-player.z);n.lb.visible=d<14;
+  for(const n of npcObjs){const d=Math.hypot(n.x-player.x,n.z-player.z);n.lb.visible=d<14&&d>3.2;   // de muy cerca el cartel taparía media pantalla; ya lo dice el aviso «Hablar con…»
+
     if(d<6&&!n.noTurn){const ta=Math.atan2(player.x-n.x,player.z-n.z);n.g.rotation.y+=wrapA(ta-n.g.rotation.y)*Math.min(1,dt*4);}
     n.mk.position.y=2.95+Math.sin(t*2+n.x)*0.08;n.g.children[1].rotation.z=Math.sin(t*1.3+n.x)*0.02;}
   for(const s of signObjs){if(s.mk.visible){s.mk.rotation.y=t*1.5;s.mk.position.y=2.6+Math.sin(t*2+s.x)*0.1;}}
@@ -19408,7 +19409,7 @@ const AT={on:false,t:0,cur:null,card:false,stable:0,el:null};
 // los objetos especiales guardan también su subtítulo, para describirlos
 const egxObj0=egxObj;egxObj=function(x,z,y,act,name,sub,r){const o=egxObj0(x,z,y,act,name,sub,r);if(o&&o.data)o.data.sub=sub;return o;};
 function atName(){return MODE==='roma'?['Animadversio','poner atención']:['Θεωρία','mirar con atención'];}
-function atCSS(){if($('atCSS'))return;const s=document.createElement('style');s.id='atCSS';s.textContent=
+function atCSS(){if($('atCSS'))return;const s=document.createElement('style');s.id='atCSS';s.textContent='body.atOn #prompt{display:none!important}'+
  '#atLay{position:fixed;inset:0;pointer-events:none;z-index:40;background:radial-gradient(circle at 50% 50%,transparent 22%,rgba(12,8,4,.55) 75%);opacity:0;transition:opacity .2s}#atLay.on{opacity:1}'+
  '#atLay .ring{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border:2px solid rgba(240,200,144,.85);border-radius:50%;box-shadow:0 0 12px rgba(240,200,144,.5);transition:transform .15s}#atLay.hit .ring{transform:scale(.7);border-color:#ffe2a8}'+
  '#atLay .nm{position:absolute;left:50%;top:calc(50% + 34px);transform:translateX(-50%);text-align:center;color:#f3e6cf;font:600 16px Georgia,serif;text-shadow:0 1px 4px #000;white-space:nowrap}#atLay .nm small{display:block;font:italic 13px Georgia,serif;color:#e8c37a}#atLay .nm em{display:block;font:12px Georgia,serif;color:#c9b9a2;margin-top:3px;font-style:normal}'+
@@ -19432,7 +19433,7 @@ function atPick(){const cam=camera,P=new THREE.Vector3(),D=new THREE.Vector3();c
   for(const c of atCands()){const vx=c.x-P.x,vy=c.y-P.y,vz=c.z-P.z,d=Math.hypot(vx,vy,vz);if(d<0.5||d>(c.place?420:60))continue;const cos=(vx*D.x+vy*D.y+vz*D.z)/d;if(cos<0.7)continue;
     const ang=Math.acos(Math.min(1,cos)),thr=Math.atan(c.r/d)+(c.place?0.01:0.035);if(ang>thr)continue;const sc=ang/thr+(c.place?1.2:0)+d/400;if(sc<bs){bs=sc;best=c;}}
   return best;}
-function atShow(on){const d=atLay();AT.on=on;d.classList.toggle('on',on);if(!on){AT.cur=null;atCardHide();d.classList.remove('hit');return;}d.querySelector('.tt').textContent=atName()[0]+' · '+atName()[1];atUpdate();}
+function atShow(on){const d=atLay();AT.on=on;document.body.classList.toggle('atOn',!!on);d.classList.toggle('on',on);if(!on){AT.cur=null;atCardHide();d.classList.remove('hit');return;}d.querySelector('.tt').textContent=atName()[0]+' · '+atName()[1];atUpdate();}
 function atUpdate(){const d=atLay(),c=atPick(),nm=d.querySelector('.nm');const same=c&&AT.cur&&c.name===AT.cur.name&&c.sub===AT.cur.sub;AT.cur=c;d.classList.toggle('hit',!!c);
   if(!same){AT.stable=0;atCardHide();}
   nm.innerHTML=c?(c.name+(c.sub?'<small>'+c.sub+'</small>':'')+((c.def!==undefined?c.def:(c.def=c.place?'':(()=>{try{return atShort(c.txt());}catch(e){return '';}})()))?'<i class="df">'+c.def+'</i>':'')+'<em>'+(document.body.classList.contains('tm')?'mantén la mirada para saber más':'clic izquierdo o E: saber más')+'</em>'):'<em>'+(typeof regionName==='function'?regionName():'')+'</em>';}
@@ -19818,7 +19819,12 @@ function wxTick(dt){if(!state)return;const w=wxz();if(w.man==='auto'&&wxNow()>=w
   if(WXS.heat>0.5&&!inside&&ui==='play'){WXS.heatE+=dt*clock.speed;if(WXS.heatE>=3&&!WXS.heatMsg){WXS.heatMsg=true;toast('<span class="label">Agotado por el calor</span><br>Caminas más despacio. Bebe del odre (casilla 4) o espera a que caiga la tarde.');}}else if(WXS.heat<0.2){WXS.heatE=Math.max(0,WXS.heatE-dt*clock.speed);if(WXS.heatE<1)WXS.heatMsg=false;}
   if(WXS.bow){WXS.bowT-=dt;WXS.bow.material.opacity=0.22*clamp(Math.min(WXS.bowT/10,(90-WXS.bowT)/6),0,1)*(1-WXS.cl);if(WXS.bowT<=0){scene.remove(WXS.bow);WXS.bow=null;}}}
 // sin antorcha bajo la lluvia
-const toggleTorch0wx=toggleTorch;toggleTorch=function(){if(state&&typeof TORCH!=='undefined'&&!TORCH.on&&WXS.rain>0.4&&!(player.feet>CASA.Y-50)){toast('Con esta lluvia la antorcha no prende. Espera a que escampe.');return;}return toggleTorch0wx();};
+// con lluvia, la antorcha no prende: en su lugar, un farol de cuerno (la llama va dentro de una caja con paredes de cuerno raspado), que alumbra menos
+const toggleTorch0wx=toggleTorch;toggleTorch=function(){if(state&&typeof TORCH!=='undefined'&&!TORCH.on&&WXS.rain>0.4&&!(player.feet>CASA.Y-50)){TORCH.lantern=true;
+  if(!state.seen['farol']){state.seen['farol']=1;toast('<span class="label">Un farol de cuerno</span><br>Con esta lluvia una antorcha no prendería: enciendes un farol, una lamparilla de aceite dentro de una caja con paredes de cuerno raspado, tan fino que deja pasar la luz. Alumbra menos, pero no se apaga.'+(MODE==='roma'?' Marcial hace hablar a uno: «guía del camino, llevo la llama encerrada, y la lamparilla va a salvo en mi seno» (Epigramas 14, 61).':''));}
+  else toast('Enciendes el farol de cuerno.');return toggleTorch0wx();}
+  if(TORCH&&TORCH.on)TORCH.lantern=false;return toggleTorch0wx();};
+{const u0=updateTorch;updateTorch=function(dt,t){u0(dt,t);if(TORCH.on&&TORCH.lantern&&TORCH.light){TORCH.light.intensity*=0.62;if(TORCH.fl)TORCH.fl.scale.multiplyScalar(0.55);}};}
 // el cielo, la luz y la niebla según el tiempo (sobre lo que ya calcula updateSky)
 const updateSkyWx=updateSky;updateSky=function(){updateSkyWx();try{const c=WXS.cl,f=WXS.fog,r=WXS.rain;if(c<0.01&&f<0.01&&WXS.heat<0.01)return;
   WXS.hb=hemi.intensity;const gr=_c2.setRGB(0.55,0.58,0.62).multiplyScalar(0.18+0.82*DAYF);for(const u of['top','mid','bot'])SKY.uniforms[u].value.lerp(gr,c*0.8);SKY.uniforms.glow.value*=1-c;
@@ -22985,7 +22991,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='2c9c3962fea5';
+const NOSTOS_VER='8764bfac0848';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -25208,7 +25214,7 @@ function ruFarm(I,s){const{x,z,ry}=s,y=terrainH(x,z),g=grp(x,y,z,ry),V={k:'granj
   V.oxen=[];for(let i=0;i<2;i++){const b=makeBeast('buey',g,0,0,0);V.oxen.push(b);}
   ruGround(g);for(const o of V.oxen)o.userData.noGround=1;
   for(let i=0;i<3;i++){const fem=i===2&&Math.random()<0.5,p=ruP(ruW(fem),x,z,ry);p.userData.fem=fem;V.p.push(p);const tl=new THREE.Group();ruCyl(0.02,2.6,M.wood,0,0.7,0,tl);ruHand(p,tl,0);p.userData.tool=tl;}
-  egxObj(x,z,undefined,'ru:granja:'+RU.live.length,MODE==='roma'?'Una granja':'Una granja','el trabajo del mes',5);RU.live.push(V);ruFarmPhase(V);return V;}
+  egxObj(x,z,undefined,'ru:granja:'+RU.live.length,'Una granja','el trabajo del mes',8);RU.live.push(V);ruFarmPhase(V);return V;}
 function ruFase(){const mo=calNow().mo;return mo>=10||mo===0?'oliva':mo<=2?'poda':mo===3?'cava':mo<=5?'siega':mo<=7?'trilla':'vendimia';}
 function ruFarmPhase(V){const f=ruFase();if(V.fase===f)return;V.fase=f;const{x,z,g}=V,ry=g.rotation.y,c=Math.cos(ry),s=Math.sin(ry);
   const put=(p,lx,lz,face,bend,vis)=>{p.visible=vis!==false;const wx=x+lx*c+lz*s,wz=z-lx*s+lz*c;p.position.set(wx,terrainH(wx,wz),wz);p.rotation.y=ry+(face||0);p.rotation.x=bend||0;p.userData.tool.visible=false;};
@@ -25654,6 +25660,8 @@ function crdAct(a){const S=(gl,n,sub,html)=>vmS(gl,n,sub,html,[vmBye]);
 function startGame(){
   initAudio();
   if(state.pos&&!startGame.done){const p=state.pos;if(Math.abs(p.x)<1e6&&floorAt(p.x,p.z)>-1){player.x=p.x;player.z=p.z;player.yaw=p.yaw||0;player.feet=floorAt(p.x,p.z);player.camY=player.feet+player.eye;clock.h=p.h||10;updateSky();setTimeout(()=>toast('<span class="label">Partida recuperada</span><br>Vuelves adonde lo dejaste: día '+(state.day||1)+', '+hourLabel()+'.'),2500);}}
+  // partida nueva: empezar mirando hacia el primer objetivo, no hacia una pared
+  if(!state.pos&&!startGame.done){try{const s=curStep(),a=s&&s.at&&s.at();if(a&&isFinite(a.x))player.yaw=Math.atan2(player.x-a.x,player.z-a.z);}catch(e){}}
   startGame.done=true;
   for(const s of STEPS())if(s.ok())state.steps['ok:'+s.id]=1;   // lo ya hecho en partidas anteriores cuenta sin recompensa
   $('start').hidden=true;$('hud').hidden=false;if(isTouch)$('touch').hidden=false;ui='play';updateStats();requestPointer();
