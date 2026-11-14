@@ -10944,7 +10944,7 @@ function glossScan(){if(typeof TW!=='undefined'&&TW.on)return;   // mientras el 
   if(glObs)glObs.disconnect();
   const found=[];body.querySelectorAll('.gt').forEach(s=>{const i=+s.dataset.g;if(!found.includes(i))found.push(i);});
   const tw=document.createTreeWalker(body,NodeFilter.SHOW_TEXT),nodes=[];while(tw.nextNode())nodes.push(tw.currentNode);
-  for(const tn of nodes){if(tn.parentNode.closest('.gt,.label,.verdict,svg'))continue;const txt=tn.nodeValue;GL_RE.lastIndex=0;let m,last=0,frag=null;
+  for(const tn of nodes){if(tn.parentNode.closest('.gt,.label,.verdict,svg,select,option,button,textarea,input'))continue;const txt=tn.nodeValue;GL_RE.lastIndex=0;let m,last=0,frag=null;
     while((m=GL_RE.exec(txt))){const i=GL_IDX.get(m[0].toLowerCase());if(i===undefined||found.includes(i))continue;found.push(i);
       frag=frag||document.createDocumentFragment();frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
       const s=document.createElement('span');s.className='gt';s.dataset.g=i;s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length;}
