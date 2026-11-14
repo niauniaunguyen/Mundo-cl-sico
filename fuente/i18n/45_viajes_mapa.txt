@@ -1,0 +1,532 @@
+# Destinos de Grecia continental, viajes por Italia e Hispania y el mapa del Mediterráneo
+@962122dc
+Mediterrani
+Mediterranean
+
+@ad796056
+Mègara
+Megara
+
+@0c1b1219
+La ciutat dòrica entre Atenes i l'Istme, amb dos turons per acròpolis.
+The Dorian city between Athens and the Isthmus, with two hills for an acropolis.
+
+@71c88080
+un dia de camí per Eleusis i la costa
+one day's walk by way of Eleusis and the coast
+
+@5650c8cd
+La rica ciutat de l'Istme, amb dos ports i una muntanya per acròpolis.
+The rich city of the Isthmus, with two harbours and a mountain for an acropolis.
+
+@b2650092
+dos dies de camí per Mègara i les Roques Escirònides
+two days' walk by way of Megara and the Scironian Rocks
+
+@fe91f875
+Platea
+Plataea
+
+@323fad18
+La petita ciutat de Beòcia que es torna a aixecar, al peu del Citeró.
+The small Boeotian city rising again at the foot of Mount Cithaeron.
+
+@0eee48a8
+dos dies de camí pel pas del Citeró
+two days' walk over the Cithaeron pass
+
+@830dd0a5
+El santuari d'Apol·lo al vessant del Parnàs: el melic del món.
+The sanctuary of Apollo on the slopes of Parnassus: the navel of the world.
+
+@284ec2da
+quatre o cinc dies de camí per Beòcia i la Fòcida
+four or five days' walk through Boeotia and Phocis
+
+@785bcb8e
+Argos
+Argos
+
+@bff92efa
+La vella rival d'Esparta, a la plana de l'Argòlida.
+Sparta's old rival, on the plain of the Argolid.
+
+@03b2e131
+Epidaure
+Epidaurus
+
+@9f5a94fd
+El santuari d'Asclepi, on els malalts van a somiar amb el déu.
+The sanctuary of Asclepius, where the sick come to dream of the god.
+
+@614d3fbd
+tres dies de camí per l'Istme i les muntanyes de l'Argòlida
+three days' walk across the Isthmus and the hills of the Argolid
+
+@e8bf10e3
+Mantinea
+Mantinea
+
+@e2e5bddb
+La ciutat democràtica d'Arcàdia, en una plana alta envoltada de muntanyes.
+The democratic city of Arcadia, on a high plain ringed by mountains.
+
+@dd725d7e
+cinc dies de camí per l'Istme, Argos i les muntanyes d'Arcàdia
+five days' walk by way of the Isthmus, Argos and the mountains of Arcadia
+
+@e821be9d
+Olímpia
+Olympia
+
+@c313e9cf
+El santuari de Zeus a l'Èlida, on cada quatre anys se celebren els Jocs.
+The sanctuary of Zeus in Elis, where the Games are held every four years.
+
+@6e6e0572
+vuit o nou dies de camí per l'Istme, Arcàdia i l'Èlida
+eight or nine days' walk across the Isthmus, Arcadia and Elis
+
+@954182f8
+Luci Ancari
+Lucius Ancarius
+
+@e9c1fa11
+Naviler · nau a Hispània
+Shipowner · ship to Hispania
+
+@7d5453bb
+el naviler
+the shipowner
+
+@770d05a0
+l'armador
+the shipowner
+
+@8fe4db47
+Gai Fabi
+Gaius Fabius
+
+@cbee4179
+Carreter · viatges per Itàlia
+Coachman · journeys through Italy
+
+@0dfe5d4a
+el carreter
+the coachman
+
+@d3499e77
+el traginer
+the muleteer
+
+@46aed77e
+Roma (l'Empori)
+Rome (the Emporium)
+
+@609150da
+Carreter · camins d'Hispània · personatge inventat
+Coachman · roads of Hispania · invented character
+
+@ac1a235a
+Carreter · carruatges de lloguer per les calçades d'Itàlia · personatge inventat
+Coachman · carriages for hire on the roads of Italy · invented character
+
+@6ec60afd
+<p>Salut, viatger. Porto gent i equipatge per les calçades d'Hispània en la meva raeda, un carro de quatre rodes amb tendal. Terra endins tot és més lluny del que sembla: a Ilerda hi ha tres dies; a Emerita, gairebé un mes.</p>
+<p>Greetings, traveller. I carry people and baggage along the roads of Hispania in my raeda, a four-wheeled covered wagon. Inland everything is farther than it looks: Ilerda is three days away; Emerita, almost a month.</p>
+
+@01809c18
+<p>Salut, ciutadà. Tinc una raeda, un carro de quatre rodes amb tendal, i dues mules que coneixen totes les calçades d'Itàlia. Si tens pressa, també llogo un cisium, més lleuger. Canviem de mules a les fondes del camí. On anem?</p>
+<p>Greetings, citizen. I have a raeda, a four-wheeled covered wagon, and two mules that know every road in Italy. If you're in a hurry I also hire out a cisium, which is lighter. We change mules at the inns along the way. Where are we going?</p>
+
+@1b0f2c10
+" (pagaràs ajudant amb les mules)"
+" (you'll pay by helping with the mules)"
+
+@14f325ff
+Com es viatja per Itàlia?
+How do people travel in Italy?
+
+@ac263385
+<p>Per les calçades: l'Àpia cap al sud, la Flamínia cap al nord, l'Aurèlia per la costa d'Etrúria, la Salària cap a l'Adriàtic. Cada mil passes hi ha un mil·liari que diu quant falta. Fem unes vint-i-cinc o trenta milles al dia. Els correus de l'emperador canvien de cavalls a les mansions i van molt més de pressa, però aquest servei no és per a nosaltres: només per a qui porta un permís oficial.</p>
+<p>By the roads: the Appian Way to the south, the Flaminian to the north, the Aurelian along the coast of Etruria, the Salarian towards the Adriatic. Every thousand paces there's a milestone telling you how far is left. We do some twenty-five or thirty miles a day. The emperor's couriers change horses at the posting stations and go much faster, but that service isn't for us: only for those carrying an official permit.</p>
+
+@06953fb4
+<p>Més que abans. Des d'August hi ha llocs de soldats als camins i pocs bandolers s'hi atreveixen a prop de Roma. El pitjor són les fondes: Horaci es queixava de l'aigua, dels mosquits i dels hostalers garrepes. I a l'hivern, la neu als ports dels Apenins. Emporta't la teva manta.</p>
+<p>More than before. Since Augustus there have been army posts on the roads, and few bandits dare to work near Rome. The worst thing is the inns: Horace complained about the water, the mosquitoes and the stingy innkeepers. And in winter, the snow on the passes of the Apennines. Bring your own blanket.</p>
+
+@672e50ab
+Naviler · nau de càrrega a Hispània · personatge inventat
+Shipowner · cargo ship to Hispania · invented character
+
+@3d29e067
+<p>Salut. La meva barca baixa pel Tíber fins a Portus, el gran port que Claudi va construir al costat d'Òstia. Allà t'embarques a la meva nau, una oneraria que torna a Hispània amb vaixella, vidre i teles, i en porta oli, vi i salaons. On vols anar?</p>
+<p>Greetings. My barge goes down the Tiber to Portus, the great harbour Claudius built next to Ostia. There you board my ship, an oneraria returning to Hispania with tableware, glass and cloth, and bringing back oil, wine and salted fish. Where do you want to go?</p>
+
+@92065683
+<p>Salut. Tornem a Itàlia amb àmfores de vi i d'oli. Si vols, et porto a Portus, al costat d'Òstia, o a un altre port de la costa.</p>
+<p>Greetings. We're heading back to Italy with amphorae of wine and oil. If you like, I'll take you to Portus, next to Ostia, or to another port on the coast.</p>
+
+@4386afe9
+Quant es triga?
+How long does it take?
+
+@f1d28144
+<p>Amb bon vent, d'Òstia a la Hispània Citerior s'hi arriba en quatre dies: ho diu Plini el Vell, que en pau descansi. Si el vent no ajuda, una setmana o dues. A Gades, a l'altre extrem, set dies. Només es navega de primavera a tardor: a l'hivern el mar és tancat.</p>
+<p>With a good wind you reach Nearer Hispania from Ostia in four days: so says Pliny the Elder, may he rest in peace. If the wind won't help, a week or two. To Gades, at the far end, seven days. We only sail from spring to autumn: in winter the sea is closed.</p>
+
+@8c24ced2
+Què porteu a la bodega?
+What do you carry in the hold?
+
+@3948ada0
+<p>D'Hispània portem oli de la Bètica, vi de la Tarraconense, garum i salaons, metalls de les mines. D'Itàlia hi portem vaixella vermella d'Arretium, llànties, vidre, teixits. Les àmfores buides d'oli acaben a Roma en un turó que creix al costat de l'Empori: n'hi ha tantes que ja és una muntanyeta.</p>
+<p>From Hispania we bring oil from Baetica, wine from Tarraconensis, garum and salted fish, metals from the mines. From Italy we carry red tableware from Arretium, lamps, glass, cloth. The empty oil amphorae end up in Rome on a mound growing next to the Emporium: there are so many that it's already a hill.</p>
+
+@240fa741
+Pagues el viatge ajudant amb les mules i els farcells.
+You pay for the journey by helping with the mules and the bundles.
+
+@ee293122
+Els déus s'apareixen fora de la ciutat, al camp, al costat dels llocs del seu culte: els de Grècia, amb el seu nom romà, i els que només té Roma. Se'ls reconeix per la brillantor de la pell. Cadascun et pot demanar un favor.
+The gods appear outside the city, in the countryside, near the places where they are worshipped: the gods of Greece under their Roman names, and those that only Rome has. You can recognise them by the glow of their skin. Each of them may ask you a favour.
+
+@b7061023
+Els déus s'apareixen fora de les muralles, al costat dels llocs del seu culte. Se'ls reconeix per la brillantor de la pell. Cadascun et pot demanar un favor.
+The gods appear outside the walls, near the places where they are worshipped. You can recognise them by the glow of their skin. Each of them may ask you a favour.
+
+@6d28016e
+La Mediterrània cap al 386 aC
+The Mediterranean around 386 BC
+
+@cf0aec67
+Pau del Rei (387/386 aC): Esparta pacta amb Pèrsia i les ciutats gregues d'Àsia queden sota el Gran Rei. Dionisi de Siracusa domina Sicília; Cartago, la Mediterrània occidental. Roma és una ciutat llatina que es refà del saqueig dels gals.
+The King's Peace (387/386 BC): Sparta makes a pact with Persia, and the Greek cities of Asia fall under the Great King. Dionysius of Syracuse rules Sicily; Carthage, the western Mediterranean. Rome is a Latin city recovering from the sack by the Gauls.
+
+@409b68a0
+IMPERI PERSA
+PERSIAN EMPIRE
+
+@15f0f7fa
+Artaxerxes II
+Artaxerxes II
+
+@dd3d2160
+VÈNETS
+VENETI
+
+@aba32133
+MAGNA GRÈCIA
+MAGNA GRAECIA
+
+@fee0108b
+regne odrisi
+Odrysian kingdom
+
+@54106e8a
+Dominis de Dionisi I
+Domains of Dionysius I
+
+@dceacbbb
+Cirenaica grega
+Greek Cyrenaica
+
+@268f17ab
+Bòsfor Cimeri
+Cimmerian Bosporus
+
+@7a17dece
+Cartago
+Carthage
+
+@6da35189
+Tir
+Tyre
+
+@3c1ff2e2
+Sidó
+Sidon
+
+@552e0ee8
+Sardes
+Sardis
+
+@ece2eec0
+Milet
+Miletus
+
+@dc679f7a
+Efes
+Ephesus
+
+@8b94de7f
+Rodes
+Rhodes
+
+@5f78f7c7
+Bizanci
+Byzantium
+
+@6b35a1ff
+Òlbia
+Olbia
+
+@f76d7019
+Panticapeu
+Panticapaeum
+
+@21a4541c
+Sinope
+Sinope
+
+@1b223d3a
+Cirene
+Cyrene
+
+@cc78b0a8
+Memfis
+Memphis
+
+@7f4c14fe
+Nàucratis
+Naucratis
+
+@8646ce8d
+Massàlia
+Massalia
+
+@f569506e
+Empòrion
+Emporion
+
+@6bc06b6f
+Gadir
+Gadir
+
+@c0d47de0
+Tàrent
+Taras
+
+@98cc3139
+Neàpolis
+Neapolis
+
+@4ee2b43e
+Pel·la
+Pella
+
+@6118f690
+Útica
+Utica
+
+@c9a8eeb5
+Mitilene
+Mytilene
+
+@f2faaca0
+Halicarnàs
+Halicarnassus
+
+@b0845794
+Salamina de Xipre
+Salamis in Cyprus
+
+@cc25e64e
+La Mediterrània l'any 80 dC
+The Mediterranean in AD 80
+
+@0176e60c
+Sota l'emperador Titus, Roma governa totes les costes: els romans en diuen «el nostre mar», Mare Nostrum. Més enllà de les fronteres queden els parts, els germànics, els dacis, els sàrmates i els pobles del desert.
+Under the emperor Titus, Rome rules every coast: the Romans call it "our sea", Mare Nostrum. Beyond the frontiers lie the Parthians, the Germans, the Dacians, the Sarmatians and the peoples of the desert.
+
+@cc2eec41
+IMPERI ROMÀ
+ROMAN EMPIRE
+
+@e9ecc0fb
+HISPÀNIA TARRACONENSE
+HISPANIA TARRACONENSIS
+
+@ec9eecaa
+BÈTICA
+BAETICA
+
+@ee19887b
+GÀL·LIA NARBONENSE
+GALLIA NARBONENSIS
+
+@d3ef047f
+GÀL·LIA LUGDUNENSE
+GALLIA LUGDUNENSIS
+
+@140b8182
+ÀFRICA PROCONSULAR
+AFRICA PROCONSULARIS
+
+@b436b888
+CIRENAICA I CRETA
+CYRENAICA AND CRETE
+
+@92539e92
+BITÍNIA I PONT
+BITHYNIA AND PONTUS
+
+@6e2a6240
+LÍCIA I PANFÍLIA
+LYCIA AND PAMPHYLIA
+
+@b0d2d0df
+NÒRIC
+NORICUM
+
+@bb1efc8c
+SARDENYA I CÒRSEGA
+SARDINIA AND CORSICA
+
+@a6debf98
+IMPERI PART
+PARTHIAN EMPIRE
+
+@1dc40b20
+SÀRMATES
+SARMATIANS
+
+@9d8bbb0f
+Regne del Bòsfor
+Bosporan Kingdom
+
+@f275f0dd
+Alexandria
+Alexandria
+
+@7c2fdf7b
+Antioquia
+Antioch
+
+@00f95aa1
+Tarraco
+Tarraco
+
+@43234d13
+Corduba
+Corduba
+
+@d330c162
+Emerita Augusta
+Emerita Augusta
+
+@6cf3cc1c
+Gades
+Gades
+
+@b71dc617
+Narbo
+Narbo
+
+@0c343a1a
+Massilia
+Massilia
+
+@7bb05a7c
+Lugdunum
+Lugdunum
+
+@518a5a70
+Aquileia
+Aquileia
+
+@d35fb65f
+Mediolanum
+Mediolanum
+
+@14abc352
+Pompeia (sepultada)
+Pompeii (buried)
+
+@8ede5593
+Tessalònica
+Thessalonica
+
+@34b63dfc
+Nicomèdia
+Nicomedia
+
+@e4a4fb14
+Pèrgam
+Pergamon
+
+@3368fb99
+Esmirna
+Smyrna
+
+@b89317bc
+Tars
+Tarsus
+
+@83e50496
+Cesarea
+Caesarea
+
+@4c5e341a
+Jerusalem (destruïda el 70)
+Jerusalem (destroyed in 70)
+
+@4a22fa47
+Leptis Magna
+Leptis Magna
+
+@ebc3406a
+Gortina
+Gortyn
+
+@84dccc44
+Trapezunt
+Trapezus
+
+@93dcfaa2
+Cesarea de Mauritània
+Caesarea in Mauretania
+
+@3f539751
+Tingis
+Tingis
+
+@e5d4f69d
+Carthago Nova
+Carthago Nova
+
+@68205d69
+Brundisium
+Brundisium
+
+@ecd0cda7
+Ancira
+Ancyra
+
+@e29a57ff
+Damasc
+Damascus
+
+@64c849cc
+Capital o gran ciutat
+Capital or great city
+
+@115f920f
+Gran potència o ciutat principal
+Great power or leading city
+
+@4421389f
+Una altra ciutat
+Other city
+
+@be049df3
+Ets aquí
+You are here
+
+@b101c482
+Tornar al plànol
+Back to the map
+
+@105db1ba
+La Mediterrània
+The Mediterranean

@@ -1,0 +1,508 @@
+# Termópilas, Cartago y ciudades del mapa ampliado
+@7b4f8753
+Termòpiles
+Thermopylae
+
+@7e156d55
+El pas estret entre la muntanya i el mar on van morir Leònides i els tres-cents.
+The narrow pass between the mountain and the sea where Leonidas and the three hundred died.
+
+@c011bfc7
+quatre dies de camí per Beòcia, la Fòcida i la Lòcrida
+four days' walk through Boeotia, Phocis and Locris
+
+@5e751ce8
+Naviler · naus a Hispània i a l'Àfrica
+Shipowner · ships to Hispania and Africa
+
+@66c1cdd8
+Naviler · naus de càrrega a Hispània i a l'Àfrica · personatge inventat
+Shipowner · cargo ships to Hispania and Africa · invented character
+
+@328a9c64
+Troia
+Troy
+
+@3b7c39ae
+Calcis
+Chalcis
+
+@ac09bf62
+Corcira
+Corcyra
+
+@53450bff
+Agrigent
+Akragas
+
+@0d7603d3
+Selinunt
+Selinus
+
+@436901df
+Crotona
+Croton
+
+@5ca520b0
+Règion
+Rhegium
+
+@2e324b2d
+Càpua
+Capua
+
+@3fe8793c
+Ravenna
+Ravenna
+
+@4a965955
+Útica
+Utica
+
+@e993b29f
+Hippo Regius
+Hippo Regius
+
+@d9568119
+Hispalis
+Hispalis
+
+@ae1188b5
+Caesaraugusta
+Caesaraugusta
+
+@1bb73844
+Gai Juli Himilcó
+Gaius Julius Himilco
+
+@3100a06e
+Comerciant de blat, de família púnica
+Grain merchant, of a Punic family
+
+@a87d6277
+Cartago, de ciutat púnica a colònia romana
+Carthage, from Punic city to Roman colony
+
+@14162a5c
+A Carthago, al costat del port
+In Carthago, beside the harbour
+
+@17a3155b
+Cartago, fundada per colons fenicis de Tir cap al 814 aC segons la tradició, va dominar la Mediterrània occidental i va lluitar contra Roma en tres guerres púniques (264-241, 218-201 i 149-146 aC). En la tercera, Escipió Emilià la va prendre i la va arrasar, i el seu territori es va convertir en la província d'Àfrica. Un segle després, Cèsar i August van fundar sobre les ruïnes la colònia romana de Cartago, que va arribar a ser una de les ciutats més grans de l'Imperi i el port del blat africà per a Roma. La llengua i alguns cultes púnics van sobreviure segles.
+Carthage, founded by Phoenician settlers from Tyre around 814 BC according to tradition, dominated the western Mediterranean and fought Rome in three Punic Wars (264-241, 218-201 and 149-146 BC). In the third, Scipio Aemilianus took it and razed it, and its territory became the province of Africa. A century later Caesar and Augustus founded the Roman colony of Carthage on the ruins; it became one of the largest cities of the Empire and the port for African grain bound for Rome. The Punic language and some Punic cults survived for centuries.
+
+@1dfce9cc
+Salut, foraster. Gai Juli Himilcó, comerciant de blat. Sí, Himilcó, com els almiralls de l'antiga Cartago: la meva família és púnica des de fa segles, i ciutadana romana des del meu avi. Envio a Roma més blat del que et pots imaginar.
+Greetings, stranger. Gaius Julius Himilco, grain merchant. Yes, Himilco, like the admirals of old Carthage: my family has been Punic for centuries, and Roman citizens since my grandfather. I send more grain to Rome than you can imagine.
+
+@cdf4efed
+Què va passar a l'última guerra?
+What happened in the last war?
+
+@5a7b5cac
+Els romans van exigir als meus avantpassats ostatges, després les armes, i finalment que abandonessin la ciutat i visquessin lluny del mar. S'hi van negar i van resistir tres anys. El 146 va entrar Escipió Emilià: sis dies de combats carrer per carrer i un incendi que ho va arrasar tot. Els supervivents, uns cinquanta mil, van ser venuts com a esclaus. Durant un segle aquí no hi va haver res.
+The Romans demanded hostages from my ancestors, then their weapons, and finally that they abandon the city and live far from the sea. They refused and held out for three years. In 146 Scipio Aemilianus broke in: six days of street-by-street fighting and a fire that destroyed everything. The survivors, some fifty thousand, were sold as slaves. For a century there was nothing here.
+
+@c145ebe0
+Encara es parla púnic?
+Is Punic still spoken?
+
+@0d28638b
+A casa meva, sí, amb la meva mare. Al fòrum, llatí. A Leptis i en altres ciutats de la província es posen inscripcions en les dues llengües, i algunes encara tenen sufets, com la vella Cartago. Els déus tampoc no se n'han anat del tot: Baal Hammon ara és Saturn, i Tanit és la deessa Celeste. Canviem els noms i continuem pregant.
+At home, yes, with my mother. In the forum, Latin. In Leptis and other towns of the province they put up inscriptions in both languages, and some still have sufetes, like old Carthage. The gods haven't entirely left either: Baal Hammon is now Saturn, and Tanit is the goddess Caelestis. We change the names and keep praying.
+
+@f24554f3
+De què viu Cartago?
+What does Carthage live on?
+
+@dd7c0b9a
+Del blat. L'Àfrica i Egipte alimenten Roma: Flavi Josep calcula que l'Àfrica l'alimenta vuit mesos l'any. Els grans propietaris, i l'emperador, hi tenen finques immenses; el blat baixa a la costa i surt a les naus de l'annona cap a Òstia. També venem oli, ceràmica vermella i feres per als jocs.
+Grain. Africa and Egypt feed Rome: Flavius Josephus reckons Africa feeds it eight months of the year. The great landowners, and the emperor, have immense estates here; the grain comes down to the coast and leaves on the ships of the annona for Ostia. We also sell olive oil, red pottery and wild beasts for the games.
+
+@2017d7a0
+Qui va prendre i destruir Cartago el 146 aC?
+Who took and destroyed Carthage in 146 BC?
+
+@84f88759
+Escipió Emilià
+Scipio Aemilianus
+
+@0e821f76
+Escipió l'Africà
+Scipio Africanus
+
+@51c8c521
+Juli Cèsar
+Julius Caesar
+
+@c31ee8a0
+No. Va ser Escipió Emilià, nét adoptiu de l'Africà, que havia vençut Anníbal a Zama el 202.
+No. It was Scipio Aemilianus, adoptive grandson of Africanus, who had defeated Hannibal at Zama in 202.
+
+@11d44e10
+Appià, Líbia 74-135
+Appian, Libyca 74-135
+
+@a7739b5f
+Polibi XXXVIII 19-22
+Polybius 38.19-22
+
+@95cf9d94
+Plutarc, Cató el Vell 26-27
+Plutarch, Cato the Elder 26-27
+
+@9d1f7982
+Flavi Josep, La guerra dels jueus II 383
+Flavius Josephus, The Jewish War 2.383
+
+@8042192d
+Estrabó XVII 3.14-15
+Strabo 17.3.14-15
+
+@fd4cf3ec
+S. Lancel, Carthage (1995)
+S. Lancel, Carthage (1995)
+
+@f9ee2a41
+R. Miles, Carthage Must Be Destroyed (2010)
+R. Miles, Carthage Must Be Destroyed (2010)
+
+@4ae0462a
+Himilcó és inventat.
+Himilco is invented.
+
+@6d6370c1
+Sobre la sal: R. T. Ridley, «To Be Taken with a Pinch of Salt: The Destruction of Carthage», Classical Philology 81 (1986).
+On the salt: R. T. Ridley, "To Be Taken with a Pinch of Salt: The Destruction of Carthage", Classical Philology 81 (1986).
+
+@0c2de123
+La Cartago romana, capital de l'Àfrica, sobre les ruïnes de la ciutat púnica.
+Roman Carthage, capital of Africa, on the ruins of the Punic city.
+
+@dcd8aaa3
+dos o tres dies de navegació des d'Òstia, amb bon vent
+two or three days' sailing from Ostia, with a good wind
+
+@71715bd2
+Capitoli de Carthago
+Capitol of Carthago
+
+@8c6ddc08
+Fòrum de Carthago
+Forum of Carthago
+
+@3491067b
+Amfiteatre de Carthago
+Amphitheatre of Carthago
+
+@bd017966
+La Birsa i el Capitoli
+The Byrsa and the Capitol
+
+@35bed6da
+La Birsa va ser la ciutadella de la Cartago púnica. Segons la llegenda, la reina Dido, fugida de Tir, va demanar al rei del lloc tanta terra com pogués abastar una pell de bou; la va tallar en tires finíssimes i va envoltar amb elles tot el turó. Els romans van aplanar el cim, enterrant sota el reompliment les cases púniques, i hi van aixecar a sobre el fòrum, la basílica i el Capitoli de la colònia.
+The Byrsa was the citadel of Punic Carthage. According to legend, Queen Dido, fleeing from Tyre, asked the local king for as much land as an ox hide could cover; she cut it into very thin strips and surrounded the whole hill with them. The Romans levelled the summit, burying the Punic houses beneath the fill, and built the colony's forum, basilica and Capitol on top.
+
+@e68e558f
+Els ports de Cartago
+The harbours of Carthage
+
+@e509434c
+Cartago tenia dos ports units: un de rectangular per als mercants i, darrere, un de circular per a la flota de guerra, amb una illa al centre on vivia l'almirall i grades per a unes dues-centes vint naus al voltant. Avui els fan servir les naus del blat: segons Flavi Josep, l'Àfrica alimenta Roma vuit mesos l'any.
+Carthage had two connected harbours: a rectangular one for merchant ships and, behind it, a circular one for the war fleet, with an island in the middle where the admiral lived and slipways for some two hundred and twenty ships around it. Today they are used by the grain ships: according to Flavius Josephus, Africa feeds Rome eight months of the year.
+
+@675463df
+«Cartago ha de ser destruïda»
+"Carthage must be destroyed"
+
+@f24538f6
+Cató el Vell acabava tots els seus discursos al Senat amb la mateixa frase: «A més, opino que Cartago ha de ser destruïda». El 146 aC, després de tres anys de setge, Escipió Emilià va prendre la ciutat, la va incendiar i la va arrasar; els supervivents van ser venuts com a esclaus. Que els romans sembressin sal als seus camps és un invent modern: cap autor antic no ho diu.
+Cato the Elder ended every speech in the Senate with the same sentence: "Furthermore, I think Carthage must be destroyed." In 146 BC, after a three-year siege, Scipio Aemilianus took the city, burned it and razed it; the survivors were sold as slaves. The idea that the Romans sowed its fields with salt is a modern invention: no ancient author says so.
+
+@b9cf6093
+El tofet
+The tophet
+
+@1f628cce
+Al costat del port hi ha l'antic recinte sagrat de Baal Hammon i de Tanit, amb milers d'urnes i esteles. Les urnes guarden ossos cremats de nens petits i d'animals. Grecs i romans acusaven els cartaginesos de sacrificar els seus fills; els historiadors d'avui discuteixen si tots van ser sacrificis. Els déus no se n'han anat: Baal Hammon ara l'anomenen Saturn, i Tanit, Celeste.
+Beside the harbour lies the old sacred precinct of Baal Hammon and Tanit, with thousands of urns and stelae. The urns hold the burned bones of small children and of animals. Greeks and Romans accused the Carthaginians of sacrificing their children; historians today debate whether all of them were sacrifices. The gods have not left: Baal Hammon is now called Saturn, and Tanit, Caelestis.
+
+@5ea1cfb2
+La colònia de Cèsar i August
+The colony of Caesar and Augustus
+
+@1a3eee28
+Gai Grac va intentar fundar-hi una colònia el 122 aC, però va fracassar. Juli Cèsar la va projectar i August la va fundar, amb tres mil colons i molts habitants dels voltants. Avui és la capital de la província d'Àfrica, on resideix el procònsol, i una de les ciutats més grans d'Occident.
+Gaius Gracchus tried to found a colony here in 122 BC, but failed. Julius Caesar planned it and Augustus founded it, with three thousand colonists and many people from the surrounding area. Today it is the capital of the province of Africa, where the proconsul lives, and one of the largest cities in the West.
+
+@4fd7cd48
+Els púnics d'avui
+The Punic people today
+
+@61e14178
+La ciutat és romana, però a les cases i al camp molts continuen parlant la llengua púnica, la dels seus avis fenicis. A les ciutats de la província hi ha inscripcions en llatí i en púnic alhora, i famílies d'antic nom fenici són avui ciutadans romans.
+The city is Roman, but in homes and in the countryside many still speak the Punic language, the language of their Phoenician forebears. In the towns of the province there are inscriptions in Latin and Punic together, and families with old Phoenician names are Roman citizens today.
+
+@15862cbd
+La meva àvia encara prega a Tanit, encara que ara l'anomeni Celeste.
+My grandmother still prays to Tanit, though she calls her Caelestis now.
+
+@9d8bd29b
+A l'estiu surt una nau de blat cap a Roma gairebé cada dia.
+In summer a grain ship leaves for Rome almost every day.
+
+@ecc80971
+Diuen que Anníbal va néixer en aquesta ciutat. Aquí no en parlem gaire.
+They say Hannibal was born in this city. We don't talk about him much here.
+
+@ede55184
+A l'amfiteatre hi fan feres de debò: lleons de Numídia, no aquests gats d'Itàlia.
+In the amphitheatre they show real wild beasts: lions from Numidia, not those Italian cats.
+
+@9818bc99
+Santuari de Demèter Amfictiònida
+Sanctuary of Demeter Amphictyonis
+
+@0d73df50
+Antela i l'Amfictionia
+Anthela and the Amphictyony
+
+@90bb2b43
+Al llogaret d'Antela, a l'entrada occidental del pas, hi ha el santuari de Demèter Amfictiònida. Aquí es reuneixen cada tardor els delegats de l'Amfictionia, la lliga de dotze pobles veïns que també administra el santuari de Delfos (a la primavera es reuneixen allà). Tenen els seus seients de pedra al costat del temple. Heròdot explica que el pas, aquí, era tan estret que només hi cabia un carro.
+In the village of Anthela, at the western entrance of the pass, stands the sanctuary of Demeter Amphictyonis. Here every autumn the delegates of the Amphictyony meet, the league of twelve neighbouring peoples that also runs the sanctuary of Delphi (in spring they meet there). They have their stone seats beside the temple. Herodotus says the pass here was so narrow that there was room for only one wagon.
+
+@0e10cc1a
+Les portes calentes
+The hot gates
+
+@5c6e79eb
+Termòpiles vol dir «les portes calentes»: aquí brollen fonts d'aigua calenta que fa olor de sofre. Els del lloc les anomenen les olles, i al costat hi ha un altar d'Hèracles. Expliquen que Atena, o Hefest, va fer brollar aquestes aigües perquè Hèracles s'hi banyés després d'un dels seus treballs. L'aigua deixa a terra crostes blanques.
+Thermopylae means "the hot gates": springs of hot water smelling of sulphur rise here. The locals call them the pots, and beside them stands an altar of Heracles. They say Athena, or Hephaestus, made these waters spring up so that Heracles could bathe after one of his labours. The water leaves white crusts on the ground.
+
+@7eeda487
+El mur dels focidis
+The wall of the Phocians
+
+@78f4b8af
+Fa molt de temps, els focidis hi van aixecar un mur per aturar els tessalis, i van desviar l'aigua calenta per enfangar el camí. El 480 el mur estava mig caigut: els grecs de Leònides el van reparar i s'hi van apostar darrere. L'últim dia van sortir a combatre davant d'ell, on el pas s'eixamplava.
+Long ago the Phocians built a wall here to hold back the Thessalians, and diverted the hot water to turn the road into a bog. By 480 the wall was half fallen: Leonidas's Greeks repaired it and took up position behind it. On the last day they went out to fight in front of it, where the pass widened.
+
+@57485ddc
+El lleó de Leònides
+The lion of Leonidas
+
+@b8c35493
+En aquest petit turó van resistir els últims grecs, fins que els perses els van acribillar a fletxes. A sobre hi han posat un lleó de pedra en honor de Leònides, el nom del qual vol dir «fill de lleó». Al costat, tres esteles amb epigrames. El més famós, atribuït a Simònides, diu: «Foraster, vés a dir als lacedemonis que aquí jaiem, obedients a les seves lleis». Els ossos de Leònides ja no són aquí: quaranta anys després de la batalla els van portar a Esparta.
+On this small hill the last Greeks held out until the Persians shot them down with arrows. On top they have placed a stone lion in honour of Leonidas, whose name means "son of a lion". Beside it, three stelae with epigrams. The most famous, attributed to Simonides, says: "Stranger, go tell the Lacedaemonians that here we lie, obedient to their laws." Leonidas's bones are no longer here: forty years after the battle they were taken to Sparta.
+
+@0aa9a7ec
+El sender d'Anopea
+The Anopaea path
+
+@0b995ec0
+Per aquí puja el sender que envolta el pas per la muntanya. El va ensenyar als perses Efialtes, un home de la regió, a canvi d'una recompensa. Els Immortals el van recórrer de nit; els mil focidis que el vigilaven a dalt es van retirar a un cim i els van deixar passar. Els amfictions van posar preu al cap d'Efialtes, que va fugir a Tessàlia. Anys després el va matar un tal Atenades, per un altre motiu.
+Here begins the path that skirts the pass over the mountain. Ephialtes, a man of the region, showed it to the Persians in exchange for a reward. The Immortals took it by night; the thousand Phocians guarding it above withdrew to a peak and let them through. The Amphictyons put a price on Ephialtes's head, and he fled to Thessaly. Years later a certain Athenades killed him, for another reason.
+
+@77dd04b0
+El mar s'allunyarà
+The sea will recede
+
+@b18e3874
+Avui el golf Maliac arriba gairebé al peu de la muntanya, i el pas, en els punts més estrets, deixa lloc per a un sol carro. Però el riu Esperqueu arrossega tant de fang que la costa avança any rere any. D'aquí a vint-i-cinc segles, el mar serà a diversos quilòmetres, i qui vingui a veure el camp de batalla hi trobarà una plana ampla.
+Today the Malian Gulf reaches almost to the foot of the mountain, and the pass, at its narrowest points, leaves room for a single wagon. But the river Spercheios carries down so much mud that the coastline advances year after year. Twenty-five centuries from now the sea will be several kilometres away, and whoever comes to see the battlefield will find a broad plain.
+
+@89b088ef
+Els que no van morir
+Those who did not die
+
+@84f2e03c
+Dos espartans es van salvar. Aristodem, malalt dels ulls, no va ser a l'últim combat: a Esparta li van dir «el que va tremolar», ningú no li donava foc ni li parlava. Un any després, a Platea, va lluitar com un boig fins a morir, buscant la mort. Pantites, que havia anat de missatger a Tessàlia, va tornar i, deshonrat, es va penjar. Abans de la batalla, quan algú va dir que les fletxes perses taparien el sol, l'espartà Dieneces va respondre: «Millor, així lluitarem a l'ombra».
+Two Spartans survived. Aristodemus, who had an eye disease, was not in the last fight: in Sparta they called him "the trembler", and no one would give him fire or speak to him. A year later, at Plataea, he fought like a madman until he died, seeking death. Pantites, who had gone as a messenger to Thessaly, returned and, disgraced, hanged himself. Before the battle, when someone said the Persian arrows would blot out the sun, the Spartan Dieneces replied: "All the better: we'll fight in the shade."
+
+@176df3dd
+Els viatgers sempre pregunten pel lleó. Després es banyen a les aigües calentes i se'n van contents.
+Travellers always ask about the lion. Then they bathe in the hot springs and leave happy.
+
+@fd51a34e
+Aquí el camí és tan estret que dos carros no s'hi creuen. Cal esperar.
+The road here is so narrow that two wagons can't pass each other. You have to wait.
+
+@688ae6f8
+El meu avi deia que Efialtes era d'Antícira; d'altres diuen que de Traquis. Ningú no vol que sigui del seu poble.
+My grandfather said Ephialtes was from Anticyra; others say from Trachis. Nobody wants him to be from their town.
+
+@b6dca264
+A la tardor ve l'Amfictionia i a Antela no hi cap ni una agulla.
+In autumn the Amphictyony comes and Anthela is packed to bursting.
+
+@71b25dce
+La batalla de les Termòpiles
+The Battle of Thermopylae
+
+@5a419b13
+un pas estret entre la muntanya i el mar, homes que es pentinen abans de morir, torxes a la nit i un lleó de pedra sobre un turó.
+a narrow pass between mountain and sea, men combing their hair before dying, torches in the night and a stone lion on a hill.
+
+@d48ef148
+Estiu del 480 aC. Xerxes, rei de Pèrsia, ha travessat l'Hel·lespont amb l'exèrcit més gran mai vist: Heròdot parla de milions d'homes, encara que els historiadors d'avui en calculen potser cent o dos-cents mil. Per aturar-lo, els grecs envien el rei espartà Leònides a aquest pas entre la muntanya i el mar, amb tres-cents espartans i uns sis o set mil aliats. Reparen el vell mur dels focidis. Mentrestant, la flota grega espera la persa al cap Artemísion.
+Summer of 480 BC. Xerxes, king of Persia, has crossed the Hellespont with the largest army ever seen: Herodotus speaks of millions of men, although historians today reckon perhaps a hundred or two hundred thousand. To stop him, the Greeks send the Spartan king Leonidas to this pass between the mountain and the sea, with three hundred Spartans and some six or seven thousand allies. They repair the old wall of the Phocians. Meanwhile the Greek fleet waits for the Persian one at Cape Artemisium.
+
+@1cd6d942
+Xerxes envia un genet a espiar. Veu els espartans que són davant del mur: uns fan exercici i d'altres es pentinen la llarga cabellera. El rei no ho entén. Demarat, un rei espartà desterrat que acompanya Xerxes, li ho explica: «És el seu costum: quan es juguen la vida, s'arreglen els cabells». Xerxes espera quatre dies que se'n vagin.
+Xerxes sends a horseman to spy. He sees the Spartans in front of the wall: some are exercising and others are combing their long hair. The king does not understand. Demaratus, an exiled Spartan king travelling with Xerxes, explains: "It is their custom: when they are about to risk their lives, they dress their hair." Xerxes waits four days for them to leave.
+
+@e1627a82
+El cinquè dia, Xerxes fa atacar els medes i després les seves millors tropes, els Immortals. A l'estret no poden aprofitar el seu nombre, i les seves llances són més curtes. Els espartans fingeixen fugir, es giren de cop i els arrosseguen. Xerxes, diu Heròdot, va saltar tres vegades del tron, tement pel seu exèrcit.
+On the fifth day Xerxes sends in the Medes and then his best troops, the Immortals. In the narrow pass they cannot use their numbers, and their spears are shorter. The Spartans pretend to flee, turn suddenly and cut them down. Xerxes, says Herodotus, leapt from his throne three times, fearing for his army.
+
+@14ab2ed6
+El segon dia de combats, un home de la regió, Efialtes, es presenta davant de Xerxes: a canvi d'una recompensa, li ensenya el sender d'Anopea, que envolta el pas per la muntanya. Aquella mateixa nit, els Immortals el recorren a la llum de les torxes, guiats per ell. A l'alba, els mil focidis que vigilen el cim senten cruixir les fulles dels roures, però es retiren i els deixen passar.
+On the second day of fighting a man of the region, Ephialtes, comes before Xerxes: for a reward he shows him the Anopaea path, which goes round the pass over the mountain. That same night the Immortals march along it by torchlight, guided by him. At dawn the thousand Phocians guarding the summit hear the oak leaves rustle, but they withdraw and let them pass.
+
+@dce479e1
+A l'alba, els vigies baixen corrent de la muntanya: els perses els estan envoltant. Leònides acomiada la majoria dels aliats perquè se salvin; ell es queda amb els seus tres-cents, perquè la llei d'Esparta prohibeix abandonar el lloc. Amb ell es queden set-cents tespis, per voluntat pròpia, i quatre-cents tebans. Un oracle de Delfos havia anunciat que Esparta perdria o un rei o la ciutat.
+At dawn the lookouts come running down the mountain: the Persians are surrounding them. Leonidas sends most of the allies away to save themselves; he stays with his three hundred, because Spartan law forbids abandoning one's post. With him remain seven hundred Thespians, of their own free will, and four hundred Thebans. An oracle from Delphi had foretold that Sparta would lose either a king or the city.
+
+@475cf3a4
+Aquesta vegada surten a combatre davant del mur, on el pas s'eixampla, per matar tants enemics com puguin. Els oficials perses empenyen els seus homes a cops de fuet; molts cauen al mar o moren trepitjats. Leònides cau lluitant, i al voltant del seu cos es lliura la lluita més dura: quatre vegades rebutgen els grecs els perses. Quan els Immortals apareixen per darrere, els últims es retiren a un petit turó, darrere del mur.
+This time they go out to fight in front of the wall, where the pass widens, to kill as many enemies as they can. The Persian officers drive their men forward with whips; many fall into the sea or are trampled to death. Leonidas falls fighting, and around his body the hardest fight of all takes place: four times the Greeks drive the Persians back. When the Immortals appear behind them, the last of them withdraw to a small hill behind the wall.
+
+@30059fbf
+Al turó lluiten amb el que els queda, amb les espases, amb les mans i amb les dents, fins que els perses els sepulten sota una pluja de fletxes. Els tebans es rendeixen. Els perses han perdut milers d'homes, entre ells dos germans de Xerxes.
+On the hill they fight with whatever they have left, with swords, with hands and with teeth, until the Persians bury them under a rain of arrows. The Thebans surrender. The Persians have lost thousands of men, among them two brothers of Xerxes.
+
+@fb2549a6
+Els grecs van enterrar els seus morts on van caure i van posar sobre el turó un lleó de pedra. La flota, en saber la notícia, es va retirar de l'Artemísion, i Xerxes va entrar a l'Àtica i va cremar Atenes. Però setmanes després els grecs van vèncer a Salamina, i l'any següent a Platea. L'epigrama de Simònides es repetirà durant segles: «Foraster, vés a dir als lacedemonis que aquí jaiem, obedients a les seves lleis».<p class="sub">Fonts: Heròdot VII 175-239; Diodor XI 4-11; Estrabó IX 4.16. Heròdot dona xifres enormes per a l'exèrcit persa; els historiadors d'avui el creuen molt més petit. La resposta «Vine a agafar-les» («Molon labe») l'explica Plutarc cinc segles després.</p>
+The Greeks buried their dead where they fell and placed a stone lion on the hill. The fleet, on hearing the news, withdrew from Artemisium, and Xerxes entered Attica and burned Athens. But weeks later the Greeks won at Salamis, and the following year at Plataea. The epigram of Simonides will be repeated for centuries: "Stranger, go tell the Lacedaemonians that here we lie, obedient to their laws."<p class="sub">Sources: Herodotus 7.175-239; Diodorus 11.4-11; Strabo 9.4.16. Herodotus gives enormous figures for the Persian army; historians today believe it was much smaller. The reply "Come and take them" ("Molon labe") is told by Plutarch five centuries later.</p>
+
+@e745b0ca
+La tercera guerra púnica
+The Third Punic War
+
+@54946058
+unes figues fresques al Senat, una ciutat que lliura les armes, un port rodó, sis dies de foc i un general que plora.
+fresh figs in the Senate, a city that hands over its weapons, a round harbour, six days of fire and a general who weeps.
+
+@907d05c3
+Roma, any 150 aC. Cartago ha perdut dues guerres contra Roma, ha lliurat la seva flota i les seves colònies, i paga cada any la seva indemnització. Però torna a ser rica. El vell Cató, que l'ha visitada, s'aixeca al Senat i deixa caure unes figues fresques dels plecs de la toga: «Les van collir a Cartago fa tres dies. Tan a prop és l'enemic». I acaba tots els seus discursos, parli del que parli, amb la mateixa frase: «A més, opino que Cartago ha de ser destruïda».
+Rome, 150 BC. Carthage has lost two wars against Rome, given up its fleet and its colonies, and pays its indemnity every year. But it is rich again. Old Cato, who has visited it, rises in the Senate and lets some fresh figs fall from the folds of his toga: "They were picked in Carthage three days ago. That is how close the enemy is." And he ends every speech, whatever its subject, with the same sentence: "Furthermore, I think Carthage must be destroyed."
+
+@4f69a9b6
+El 150, Cartago es defensa sense permís de Roma contra el rei Massinissa de Numídia, aliat de Roma, que li roba terres des de fa anys. És l'excusa. El 149 desembarca a Útica un exèrcit consular. Els cartaginesos, aterrits, lliuren tres-cents nens com a ostatges i després, perquè els ho exigeixen, totes les seves armes: segons Appià, dues-centes mil armadures i dues mil catapultes.
+In 150 Carthage defends itself, without Rome's permission, against King Masinissa of Numidia, Rome's ally, who has been stealing its land for years. That is the pretext. In 149 a consular army lands at Utica. The terrified Carthaginians hand over three hundred children as hostages and then, because they are ordered to, all their weapons: according to Appian, two hundred thousand suits of armour and two thousand catapults.
+
+@b12ea8c7
+Aleshores arriba l'última ordre: abandonar la ciutat i viure a deu milles del mar. Per a un poble de mariners és una condemna a mort. Els cartaginesos s'hi neguen. Tanquen les portes i fabriquen armes dia i nit, als temples i a les places: cada dia, cent quaranta escuts, tres-centes espases, mil projectils. Les dones es tallen els cabells per fer cordes per a les catapultes.
+Then comes the last order: abandon the city and live ten miles from the sea. For a seafaring people it is a death sentence. The Carthaginians refuse. They shut the gates and make weapons day and night, in the temples and the squares: every day a hundred and forty shields, three hundred swords, a thousand missiles. The women cut off their hair to make ropes for the catapults.
+
+@41a2ec0d
+El setge dura tres anys. El 147, el poble romà elegeix cònsol, tot i que no té l'edat, Publi Corneli Escipió Emilià, nét adoptiu del vencedor d'Anníbal. Escipió tanca el port amb un enorme dic de pedra. Els cartaginesos, en secret, obren un nou canal cap al mar des del seu port circular i treuen una flota construïda amb la fusta de les seves cases. Arriba tard: no serveix de res.
+The siege lasts three years. In 147 the Roman people elect as consul, although he is under age, Publius Cornelius Scipio Aemilianus, adoptive grandson of Hannibal's conqueror. Scipio closes the harbour with an enormous stone mole. The Carthaginians secretly dig a new channel to the sea from their circular harbour and bring out a fleet built from the timber of their houses. It comes too late: it is no use.
+
+@a51ffca5
+A la primavera del 146, els romans assalten el port i entren a la ciutat. Des de l'àgora pugen cap a la ciutadella, la Birsa, per tres carrers de cases de sis pisos. Durant sis dies i sis nits es lluita casa per casa, de teulada en teulada; després Escipió fa incendiar-ho tot per obrir-se pas.
+In the spring of 146 the Romans storm the harbour and break into the city. From the agora they climb towards the citadel, the Byrsa, along three streets of six-storey houses. For six days and six nights they fight house by house, roof by roof; then Scipio orders everything burned to clear a way.
+
+@6bf34678
+El setè dia, els qui s'han refugiat a la Birsa demanen la vida: en surten uns cinquanta mil homes i dones, que seran venuts com a esclaus. Nou-cents desertors romans, que no poden esperar perdó, calen foc al temple d'Eixmun i hi moren dins. El seu cap, el general cartaginès Asdrúbal, es rendeix als peus d'Escipió. La seva esposa, des de dalt del temple, l'anomena covard i es llança a les flames amb els seus fills.
+On the seventh day those who have taken refuge on the Byrsa beg for their lives: some fifty thousand men and women come out, to be sold as slaves. Nine hundred Roman deserters, who can hope for no pardon, set fire to the temple of Eshmun and die inside. Their leader, the Carthaginian general Hasdrubal, surrenders at Scipio's feet. His wife, from the top of the temple, calls him a coward and throws herself into the flames with her children.
+
+@16ed34ee
+Polibi, l'historiador grec, és al costat d'Escipió quan contempla com crema la ciutat. Escipió plora i recita uns versos d'Homer: «Arribarà un dia en què perirà la sagrada Troia». Polibi li pregunta què vol dir, i ell respon que tem que algun dia li passi el mateix a la seva pròpia pàtria. Cartago va ser arrasada i el seu sòl, maleït; el seu territori es va convertir en la província d'Àfrica.<p class="sub">Fonts: Polibi XXXVIII 19-22; Appià, Líbia 74-135; Plutarc, Cató el Vell 26-27; Livi, Perioques 48-51. Que els romans llancessin sal sobre la terra de Cartago és una invenció moderna: cap autor antic no ho explica.</p>
+Polybius, the Greek historian, is beside Scipio as he watches the city burn. Scipio weeps and recites some lines of Homer: "A day will come when sacred Troy shall perish." Polybius asks him what he means, and he answers that he fears the same will one day happen to his own country. Carthage was razed and its ground cursed; its territory became the province of Africa.<p class="sub">Sources: Polybius 38.19-22; Appian, Libyca 74-135; Plutarch, Cato the Elder 26-27; Livy, Periochae 48-51. The idea that the Romans scattered salt on Carthage's land is a modern invention: no ancient author tells it.</p>
+
+@4072c442
+Lampó d'Antela
+Lampon of Anthela
+
+@0758d938
+Guardià del santuari de Demèter Amfictiònida
+Keeper of the sanctuary of Demeter Amphictyonis
+
+@1ee95282
+A Antela, al costat del santuari de Demèter
+In Anthela, beside the sanctuary of Demeter
+
+@2fbe240d
+L'estiu del 480 aC, mentre la flota grega esperava la persa al cap Artemísion, el rei espartà Leònides va defensar el pas de les Termòpiles amb tres-cents espartans i uns sis o set mil aliats contra l'exèrcit de Xerxes. Durant dos dies va rebutjar els atacs a l'estret. El tercer, els Immortals el van envoltar pel sender d'Anopea, que els havia ensenyat Efialtes. Leònides va acomiadar la majoria dels aliats i es va quedar amb els espartans, set-cents tespis i quatre-cents tebans. Van morir gairebé tots. La derrota es va convertir en un símbol de valor i d'obediència a la llei.
+In the summer of 480 BC, while the Greek fleet awaited the Persian one at Cape Artemisium, the Spartan king Leonidas defended the pass of Thermopylae with three hundred Spartans and some six or seven thousand allies against the army of Xerxes. For two days he threw back the attacks in the narrows. On the third, the Immortals outflanked him by the Anopaea path, which Ephialtes had shown them. Leonidas sent most of the allies away and stayed with the Spartans, seven hundred Thespians and four hundred Thebans. Almost all of them died. The defeat became a symbol of courage and obedience to the law.
+
+@cebfd60c
+Salut, foraster. Sóc Lampó, guardià del santuari de Demèter. Quan no hi ha reunió dels amfictions, la meva feina consisteix a escombrar i a explicar als viatgers el que va passar aquí fa noranta-quatre anys. Tots vénen pel mateix.
+Greetings, stranger. I'm Lampon, keeper of the sanctuary of Demeter. When the Amphictyons aren't meeting, my job is to sweep and to tell travellers what happened here ninety-four years ago. They all come for the same thing.
+
+@3abf38bc
+Per què es va lluitar aquí?
+Why was the battle fought here?
+
+@4bdf321a
+Perquè és l'única porta. Per baixar de Tessàlia al centre de Grècia, un exèrcit ha de passar entre aquesta muntanya i el mar, i aquí el camí és tan estret que en alguns llocs només hi cap un carro. Amb pocs homes es podia aturar moltíssims. I alhora la flota grega tancava el pas per mar a l'Artemísion, al nord d'Eubea. Si queia l'un, queia l'altre.
+Because it's the only door. To come down from Thessaly into central Greece, an army has to pass between this mountain and the sea, and here the road is so narrow that in places only one wagon fits. A few men could hold back a great many. And at the same time the Greek fleet was blocking the way by sea at Artemisium, north of Euboea. If one fell, so did the other.
+
+@c4001cf0
+De debò eren només tres-cents?
+Were there really only three hundred?
+
+@045444e5
+Tres-cents espartans, escollits entre els qui tenien fills vius, perquè cap família no s'extingís. Però amb ells venien uns sis o set mil aliats del Peloponès, de Beòcia, de la Fòcida i de la Lòcrida, i els ilotes que servien els espartans. L'últim dia es van quedar amb Leònides set-cents tespis, que van triar morir allà, i quatre-cents tebans, que es van rendir al final. Dels tespis gairebé ningú no se'n recorda. Jo sí.
+Three hundred Spartans, chosen from those who had living sons, so that no family would die out. But with them came some six or seven thousand allies from the Peloponnese, Boeotia, Phocis and Locris, and the helots who served the Spartans. On the last day seven hundred Thespians stayed with Leonidas, choosing to die there, and four hundred Thebans, who surrendered at the end. Hardly anyone remembers the Thespians. I do.
+
+@00e27e25
+Què van fer els perses amb Leònides?
+What did the Persians do with Leonidas?
+
+@553aaba6
+Xerxes, furiós perquè aquell grapat d'homes li havia costat tants morts, li va fer tallar el cap i clavar-lo en un pal. Heròdot diu que els perses solien honorar els enemics valents, i que això demostra quant odiava Xerxes Leònides. Quaranta anys després, els espartans es van endur els seus ossos a Esparta, i allà li celebren cada any uns jocs.
+Xerxes, furious that this handful of men had cost him so many dead, had his head cut off and stuck on a pole. Herodotus says the Persians usually honoured brave enemies, and that this shows how much Xerxes hated Leonidas. Forty years later the Spartans took his bones to Sparta, and there they hold games in his honour every year.
+
+@586a0425
+Qui va ensenyar als perses el sender que envoltava el pas?
+Who showed the Persians the path around the pass?
+
+@4d9a70d6
+Efialtes, un home de la regió
+Ephialtes, a man of the region
+
+@68998a05
+Demarat, el rei espartà desterrat
+Demaratus, the exiled Spartan king
+
+@d9db4650
+Temístocles
+Themistocles
+
+@c174daf7
+No. Va ser Efialtes, un mali de la regió, que esperava una recompensa de Xerxes.
+No. It was Ephialtes, a Malian of the region, who hoped for a reward from Xerxes.
+
+@5d801c49
+Heròdot VII 175-239
+Herodotus 7.175-239
+
+@64f574bc
+Diodor XI 4-11
+Diodorus 11.4-11
+
+@38acbdcb
+Estrabó IX 4.13-17 (Antela i les aigües calentes)
+Strabo 9.4.13-17 (Anthela and the hot springs)
+
+@5286ab94
+Pausànias III 14.1 (els ossos de Leònides)
+Pausanias 3.14.1 (the bones of Leonidas)
+
+@41e8aa08
+P. Cartledge, Thermopylae (2006)
+P. Cartledge, Thermopylae (2006)
+
+@5c29f1d5
+J. Lazenby, The Defence of Greece (1993)
+J. Lazenby, The Defence of Greece (1993)
+
+@76b45a31
+Lampó és inventat.
+Lampon is invented.
+
+@f054490c
+La resposta «Vine a agafar-les» («Molon labe»), que Leònides hauria donat a Xerxes quan li va demanar les armes, l'explica Plutarc cinc segles després.
+The reply "Come and take them" ("Molon labe"), which Leonidas is said to have given Xerxes when he demanded their weapons, is told by Plutarch five centuries later.

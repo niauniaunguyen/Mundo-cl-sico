@@ -1,0 +1,285 @@
+# romaDecor, buildSparta, athensDecor: fuentes, cruces, calles, estelas menores (los ids tipo lacusB no se traducen)
+
+@3a5d07ac
+=
+=
+
+@29a3e47f
+=
+=
+
+@688d5d78
+=
+=
+
+@c62e4057
+=
+=
+
+@f32a339e
+=
+=
+
+@bb682361
+=
+=
+
+@8aeeaa83
+=
+=
+
+@8bf32f49
+=
+=
+
+@1a173125
+=
+=
+
+@044b9ef3
+=
+=
+
+@36d3ebb6
+=
+=
+
+@fd7872a2
+=
+=
+
+@aced4358
+=
+=
+
+@b82c7f06
+=
+=
+
+@fb5146e9
+=
+=
+
+@3873d2e0
+=
+=
+
+@6d6bce7b
+=
+=
+
+@46e97654
+=
+=
+
+@d6fd5f71
+=
+=
+
+@51839a79
+=
+=
+
+@9d7f2c34
+=
+=
+
+@2ae2018e
+=
+=
+
+@7dc620fb
+=
+=
+
+@37006746
+=
+=
+
+@feaaba76
+=
+=
+
+@98a273c2
+=
+=
+
+@1f68e17e
+=
+=
+
+@e7507d3d
+=
+=
+
+@bc2fe2cc
+=
+=
+
+@b64b87d6
+=
+=
+
+@d33b1ef7
+=
+=
+
+@f154c167
+=
+=
+
+@0718c2d2
+Una de les centenars de fonts públiques (lacus) de Roma: una pica de pedra on cau sense parar l'aigua dels aqüeductes per un broc de bronze. D'aquí treuen l'aigua els veïns de les ínsules, que no en tenen a casa. Agripa, com a edil el 33 aC, va construir 700 piques i 105 fonts; segons Frontí, a finals del segle I hi havia gairebé 600 fonts públiques. L'aigua que vessa neteja els carrers i va a les clavegueres.
+One of the hundreds of public fountains (lacus) of Rome: a stone basin into which aqueduct water pours endlessly from a bronze spout. The residents of the insulae, who have no water at home, fetch it here. Agrippa, as aedile in 33 BC, built 700 basins and 105 fountains; according to Frontinus, by the end of the first century there were nearly 600 public fountains. The overflow cleans the streets and runs into the sewers.
+
+@0a8f69af
+A cada encreuament de carrers hi ha un petit santuari dels lars compitals, els déus protectors del barri. August va reorganitzar la ciutat en 265 barris (vici) i va unir aquest culte al del seu propi geni: cada barri elegeix quatre magistrats, sovint llibertos, que tenen cura de l'altar i celebren les festes Compitàlies al gener.
+At every street crossing there is a small shrine of the Lares Compitales, the protective gods of the neighbourhood. Augustus reorganised the city into 265 neighbourhoods (vici) and linked this cult to that of his own genius: each neighbourhood elects four magistrates, often freedmen, who look after the altar and celebrate the Compitalia festival in January.
+
+@7875e63d
+Els carrers principals de Roma es pavimenten amb grans lloses poligonals de basalt (basoli), encaixades com un trencaclosques sobre capes de grava i calç. Als costats, voreres elevades (crepidines) amb vorades de pedra protegeixen els vianants del fang i dels carros, que des de Cèsar no poden circular de dia pel centre tret de les obres públiques. Fora de la ciutat, les calçades porten mil·liaris que marquen la distància des de Roma.
+Rome's main streets are paved with large polygonal basalt slabs (basoli), fitted together like a jigsaw on layers of gravel and lime. At the sides, raised pavements (crepidines) with stone kerbs protect pedestrians from the mud and from the carts, which since Caesar may not move through the centre by day except for public works. Outside the city, the roads carry milestones marking the distance from Rome.
+
+@45909732
+Una columna de bronze daurat que August va aixecar el 20 aC al costat dels Rostra, com a punt de partida simbòlic de totes les calçades de l'imperi: hi havia escrites les distàncies des de Roma fins a les principals ciutats. D'aquí la dita «tots els camins porten a Roma». Molt a prop, el Melic de la Ciutat (Umbilicus Urbis) en marca el centre.
+A gilded bronze column that Augustus set up in 20 BC beside the Rostra, as the symbolic starting point of every road in the empire: on it were written the distances from Rome to the main cities. Hence the saying «all roads lead to Rome». Close by, the Navel of the City (Umbilicus Urbis) marks its centre.
+
+@f204f9cd
+Un petit recinte amb un pou sec enmig del Fòrum. Segons una llegenda, el 362 aC s'hi va obrir un avenc que només es tancaria si Roma sacrificava el que més valia; el jove Marc Curci, entenent que això eren el valor i les armes, s'hi va llançar a cavall. Una altra versió el relaciona amb un guerrer sabí de l'època de Ròmul. Els romans hi llancen monedes per demanar bona salut per a l'emperador.
+A small enclosure with a dry well in the middle of the Forum. According to one legend, in 362 BC a chasm opened here that would only close if Rome sacrificed what it valued most; young Marcus Curtius, understanding that this meant courage and arms, rode into it on horseback. Another version links it to a Sabine warrior of Romulus' time. Romans toss coins into it to wish the emperor good health.
+
+@16c34379
+Un tros de paviment de marbre negre, tancat, davant de la Cúria. Assenyala un lloc funest: uns diuen que la tomba de Ròmul, d'altres la del seu pare adoptiu Fàustul. A sota hi ha un altar arcaic i una pedra amb una de les inscripcions llatines més antigues, del segle VI aC, que parla d'un rei.
+A patch of black marble paving, fenced off, in front of the Curia. It marks an ill-omened spot: some say Romulus' tomb, others that of his foster father Faustulus. Beneath it are an archaic altar and a stone bearing one of the oldest Latin inscriptions, from the sixth century BC, which mentions a king.
+
+@7d509406
+Columnes adornades amb esperons de bronze de naus enemigues, com la que va honorar Gai Duili per la primera victòria naval romana sobre Cartago, a Miles (260 aC). August en va dedicar d'altres amb els esperons de la flota d'Antoni i Cleòpatra després de la batalla d'Àccium.
+Columns decorated with the bronze rams of enemy ships, like the one honouring Gaius Duilius for the first Roman naval victory over Carthage, at Mylae (260 BC). Augustus dedicated others with the rams of Antony and Cleopatra's fleet after the battle of Actium.
+
+@9355f455
+Arc de tres obertures entre el temple del Diví Juli i el de Càstor, dedicat pel Senat a August el 19 aC, quan els parts van retornar les ensenyes militars que havien capturat a Cras a Carres. Als seus pilars es van gravar les llistes de cònsols i de generals que havien celebrat un triomf (els Fasti). A dalt, l'emperador en una quadriga de bronze.
+A three-bay arch between the temple of the Divine Julius and that of Castor, dedicated by the Senate to Augustus in 19 BC, when the Parthians returned the military standards they had captured from Crassus at Carrhae. The lists of consuls and of generals who had celebrated a triumph (the Fasti) were carved on its piers. On top, the emperor in a bronze quadriga.
+
+@28abe65d
+Arc aixecat el 16 dC al costat del temple de Saturn per celebrar que Germànic havia recuperat les ensenyes de les legions de Var, perdudes al bosc de Teutoburg set anys abans.
+Arch raised in AD 16 beside the temple of Saturn to celebrate Germanicus' recovery of the standards of Varus' legions, lost in the Teutoburg Forest seven years earlier.
+
+@08c07dc0
+El riu d'Esparta. A les seves ribes creixen les canyes amb què els nois de l'agogé fan els llits: les han d'arrencar amb les mans, sense ganivet. En el mite, aquí es banyava Leda quan Zeus se li va acostar en forma de cigne; d'aquella unió van néixer Helena i els Diòscurs.
+Sparta's river. On its banks grow the reeds the boys of the agoge make their beds from: they have to pull them up by hand, without a knife. In myth, Leda was bathing here when Zeus approached her as a swan; from that union Helen and the Dioscuri were born.
+
+@185da07e
+Al turó més alt, que fa d'acròpolis, hi ha el temple d'Atena «de la casa de bronze»: les seves parets interiors estan cobertes de plaques de bronze amb relleus dels treballs d'Hèracles i d'altres mites, obra de Gitíades. Aquí es va refugiar el regent Pausànias, el vencedor de Platea, acusat de traïció: els èfors van tapiar la porta i el van deixar morir de gana a dins.
+On the highest hill, which serves as acropolis, stands the temple of Athena «of the Bronze House»: its inner walls are covered with bronze plates with reliefs of the labours of Heracles and other myths, by Gitiadas. The regent Pausanias, victor of Plataea, took refuge here when accused of treason: the ephors walled up the door and let him starve inside.
+
+@139a973d
+El rei Leònides va caure a les Termòpiles el 480 amb els seus tres-cents espartans. Uns quaranta anys després, els seus ossos es van portar a Esparta i es van enterrar aquí, davant del teatre. Cada any se celebren en honor seu discursos i jocs, en què només poden competir espartans.
+King Leonidas fell at Thermopylae in 480 with his three hundred Spartans. About forty years later his bones were brought to Sparta and buried here, opposite the theatre. Every year speeches and games are held in his honour, in which only Spartans may compete.
+
+@81bbc881
+Els espartans van construir aquest pòrtic amb el botí de les guerres mèdiques. En lloc d'algunes columnes, unes estàtues de marbre de perses sostenen el sostre: entre elles, diuen, la de Mardoni, el general que va morir a Platea, i la d'Artemísia, la reina d'Halicarnàs que va lluitar a Salamina. És l'única gran construcció de luxe en una ciutat que presumeix d'austeritat.
+The Spartans built this portico with the spoils of the Persian Wars. In place of some columns, marble statues of Persians hold up the roof: among them, they say, Mardonius, the general who died at Plataea, and Artemisia, the queen of Halicarnassus who fought at Salamis. It is the only grand, luxurious building in a city that prides itself on austerity.
+
+@ff876048
+Cada espartà adult menja cada nit amb els seus companys de taula, uns quinze homes, a les sissíties. Aporta cada mes farina, vi, formatge, figues i una mica de diners; qui no pot pagar perd els seus drets de ciutadà. El plat famós és el brou negre, de porc amb sang i vinagre. Un rei del Pont que el va tastar va dir que ara entenia per què els espartans no tenien por de la mort.
+Every adult Spartan eats each evening with his messmates, about fifteen men, at the syssitia. Each month he contributes flour, wine, cheese, figs and a little money; whoever can't pay loses his citizen rights. The famous dish is black broth, of pork with blood and vinegar. A king of Pontus who tasted it said he now understood why Spartans didn't fear death.
+
+@5ac17ff7
+Esparta no té muralles: és un conjunt de cinc llogarets (Pitane, Mesoa, Limnes, Cinosura i, més al sud, Amicles), amb cases senzilles, sense grans monuments. Els espartans diuen que les seves muralles són els seus homes. Tucídides ja advertia que, si un dia Esparta quedés deserta, ningú no creuria per les seves ruïnes que poderosa havia estat.
+Sparta has no walls: it is a cluster of five villages (Pitane, Mesoa, Limnai, Kynosoura and, further south, Amyklai), with simple houses and no great monuments. The Spartans say their walls are their men. Thucydides already warned that if Sparta were one day deserted, no one would believe from its ruins how powerful it had been.
+
+@f7b17008
+Un santuari molt antic al costat de l'Eurotas, ple d'exvots de plom, ivori i màscares de terracota. Aquí, explica Xenofont, els nois intenten robar formatges de l'altar mentre altres els defensen a cops de fuet: així aprenen a suportar el dolor i a ser astuts. Segles després, en època romana, la prova es convertirà en una flagel·lació brutal davant d'un públic de turistes.
+A very ancient sanctuary by the Eurotas, full of votive offerings of lead, ivory and terracotta masks. Here, Xenophon says, boys try to steal cheeses from the altar while others defend it with whips: that's how they learn to bear pain and be cunning. Centuries later, in Roman times, the test will become a brutal flogging in front of an audience of tourists.
+
+@bda642bb
+Una illa de plàtans envoltada per un canal, amb dos ponts: en un hi ha una estàtua d'Hèracles i a l'altre, de Licurg. Aquí s'enfronten cada any dos grups de nois: lluiten a cops de puny, puntades i mossegades per tirar els rivals a l'aigua. Abans sacrifiquen de nit un cadell a Enialios, el déu de la guerra.
+An island of plane trees surrounded by a channel, with two bridges: on one stands a statue of Heracles and on the other, of Lycurgus. Here two teams of boys clash every year: they fight with fists, kicks and bites to throw their rivals into the water. Beforehand they sacrifice a puppy at night to Enyalios, the god of war.
+
+@e4213a69
+Al turó de Terapne, a l'altra banda de l'Eurotas, es veneren Menelau i Helena, que segons la tradició són enterrats aquí. Per als espartans, Helena no és només la causa de la guerra de Troia: és una deessa protectora de les noies i del matrimoni, amb el seu propi culte i les seves festes.
+On the hill of Therapne, across the Eurotas, Menelaus and Helen are worshipped; according to tradition they are buried here. For the Spartans, Helen isn't just the cause of the Trojan War: she is a goddess who protects girls and marriage, with her own cult and festivals.
+
+@244d4a63
+Parla poc, foraster. Aquí no ens agraden els discursos llargs.
+Speak little, stranger. We don't like long speeches here.
+
+@bd5d2ed3
+Atenesos? Molta xerrameca i poca disciplina.
+Athenians? Lots of talk and little discipline.
+
+@75493c37
+El rei Agesilau es renta al riu com qualsevol de nosaltres.
+King Agesilaus washes in the river like any of us.
+
+@f8a759b2
+El meu fill va entrar a l'agogé als set anys. Ja només el veig a les festes.
+My son entered the agoge at seven. Now I only see him at festivals.
+
+@c79237f7
+Si vols veure una ciutat de marbre, torna a Atenes.
+If you want to see a city of marble, go back to Athens.
+
+@94356400
+Figues de l'Àtica, les més dolces de Grècia. Tasta'n una!
+Figs from Attica, the sweetest in Greece. Try one!
+
+@696574b8
+Oli nou, d'oliveres d'Acarnes.
+New oil, from the olive groves of Acharnae.
+
+@5a8099ef
+Anguiles del Copais, acabades d'arribar de Beòcia!
+Eels from Lake Copais, just arrived from Boeotia!
+
+@7c8dce5e
+Peix del Falèron: sardines, pop, tonyina.
+Fish from Phaleron: sardines, octopus, tuna.
+
+@fb352d14
+Vasos del Ceràmic, amb figures roges. Barat.
+Pots from the Kerameikos, red-figure. Cheap.
+
+@acb45a8a
+Llànties, càntirs, olles: tot per a la casa.
+Lamps, jugs, pots: everything for the home.
+
+@02dc00a8
+Teles de Milet, llana fina. Per a un himàtion de debò.
+Cloth from Miletus, fine wool. For a proper himation.
+
+@949648f8
+Perfum de roses, en aríbals de Corint.
+Rose perfume, in Corinthian aryballoi.
+
+@aae63488
+Corones de murtra i violetes per al banquet.
+Myrtle and violet garlands for the banquet.
+
+@d53ebddb
+Llibres, rotlles de papir egipci. Eurípides, Homer.
+Books, scrolls of Egyptian papyrus. Euripides, Homer.
+
+@a0ee4ed0
+Harmodi i Aristogitó van matar el 514 Hiparc, germà del tirà Hípias, durant les Panatenees. Van morir per això, però els atenesos els honoren com a fundadors de la llibertat: els seus descendents mengen de franc al Pritaneu i ningú més no pot tenir una estàtua al seu costat. El primer grup de bronze, d'Antènor, se'l va endur Xerxes a Pèrsia el 480; aquest és el que van fer Crici i Nesiotes el 477.
+Harmodius and Aristogeiton killed Hipparchus, brother of the tyrant Hippias, in 514 during the Panathenaia. They died for it, but the Athenians honour them as founders of freedom: their descendants dine free in the Prytaneion and no one else may have a statue next to theirs. The first bronze group, by Antenor, was carried off to Persia by Xerxes in 480; this is the one made by Critius and Nesiotes in 477.
+
+@f58af516
+Al costat del pòrtic de Zeus Alliberador, la ciutat ha aixecat fa pocs anys estàtues de bronze del general Conó i del seu amic Evàgores, rei de Salamina de Xipre, que amb la flota del rei de Pèrsia van derrotar els espartans a Cnidos (394). Amb els diners perses Conó va reconstruir els Murs Llargs. És la primera vegada des dels Tiranicides que Atenes honora així un home viu.
+Beside the portico of Zeus the Liberator, the city has recently raised bronze statues of the general Conon and his friend Evagoras, king of Salamis in Cyprus, who with the Persian king's fleet defeated the Spartans at Cnidus (394). With Persian money Conon rebuilt the Long Walls. It's the first time since the Tyrannicides that Athens has honoured a living man this way.
+
+@bc9b9e25
+Una font pública (krene): un petit pòrtic amb una pica on cau l'aigua per brocs de bronze en forma de cap de lleó. Atenes no té aqüeductes com els que tindrà Roma: l'aigua arriba per canals subterranis des dels turons o es treu dels pous. Anar a la font és feina d'esclaves i de dones pobres, i un dels pocs llocs on les ateneses poden xerrar fora de casa.
+A public fountain (krene): a small portico with a basin into which water falls from bronze lion-head spouts. Athens has no aqueducts like those Rome will have: water comes through underground channels from the hills or is drawn from wells. Going to the fountain is work for slave women and poor women, and one of the few places Athenian women can chat outside the home.
+
+@1047b4d4
+A diferència de Roma, els carrers d'Atenes no es pavimenten: són de terra piconada i grava, polsosos a l'estiu i enfangats a l'hivern, i molts són estrets i tortuosos, perquè la ciutat va créixer sense pla. A un costat corren desguassos de pedra que porten l'aigua de pluja cap al gran canal de l'Àgora. Un viatger de l'època va escriure que Atenes era seca, mal regada i mal traçada per la seva antiguitat, tot i que els seus edificis públics eren els més bells de Grècia. A les portes de les cases hi ha hermes i pous.
+Unlike Rome, the streets of Athens aren't paved: they're beaten earth and gravel, dusty in summer and muddy in winter, and many are narrow and crooked, because the city grew without a plan. Stone drains run along one side, carrying rainwater to the great channel of the Agora. A traveller of the time wrote that Athens was dry, badly watered and badly laid out because of its age, though its public buildings were the most beautiful in Greece. At the doors of the houses there are herms and wells.
+
+@8a3437f2
+L'Àgora és també el gran mercat d'Atenes. Cada mercaderia té el seu racó: els «cercles» (kykloi) del peix, la carn i les verdures, les parades de perfums, de llibres, de ceràmica, d'esclaus. Els inspectors del mercat (agoranomoi) vigilen la qualitat, i els metronomoi, els pesos i mesures. «A l'hora de l'àgora plena», a mig matí, aquí s'hi troba tota la ciutat.
+The Agora is also Athens' great market. Each kind of goods has its corner: the «circles» (kykloi) for fish, meat and vegetables, the stalls for perfume, books, pottery, slaves. The market inspectors (agoranomoi) watch over quality, and the metronomoi over weights and measures. «At the hour of the full agora», mid-morning, the whole city is here.
+
+@d51851e4
+Pilars de pedra amb el cap d'Hermes i un fal·lus, que protegeixen les portes de les cases, els encreuaments i els camins. A les cruïlles també hi ha hecateus, pilars amb tres imatges d'Hècate, deessa de les cruïlles. El 415, la nit abans que salpés l'expedició a Sicília, algú va mutilar gairebé totes les hermes d'Atenes: l'escàndol va acabar amb el desterrament d'Alcibíades.
+Stone pillars with the head of Hermes and a phallus, which protect house doors, crossings and roads. At crossroads there are also hekataia, pillars with three images of Hecate, goddess of crossroads. In 415, the night before the Sicilian expedition sailed, someone mutilated nearly every herm in Athens: the scandal ended with Alcibiades' exile.

@@ -1,0 +1,1381 @@
+# GLOSS: glosario de Atenas. Las variantes en minúsculas son las palabras que se buscan en el texto traducido.
+
+@3b4e89e1
+àgora
+agora
+
+@9fac4a9a
+àgores
+agoras
+
+@303c2bbc
+Plaça central de la ciutat: mercat, lloc de reunió i seu dels edificis del Consell, els magistrats i els tribunals.
+The city's central square: market, meeting place and home of the buildings of the Council, the magistrates and the courts.
+
+@a7ac04c4
+acròpolis
+acropolis
+
+@fbcf5cfe
+La «ciutat alta»: la roca fortificada on hi ha els grans temples d'Atena.
+The «high city»: the fortified rock where Athena's great temples stand.
+
+@09574213
+Turó a l'oest de l'Acròpolis on es reuneix l'Assemblea. Hi caben uns sis mil ciutadans asseguts al vessant.
+Hill west of the Acropolis where the Assembly meets. About six thousand citizens can sit on the slope.
+
+@5e70b677
+Assemblea
+Assembly
+
+@66febfa0
+ekklesía
+ekklesia
+
+@e0e72ff9
+L'ekklesía: reunió de tots els ciutadans homes adults, que voten lleis, la guerra i la pau a mà alçada.
+The ekklesia: the meeting of all adult male citizens, who vote on laws, war and peace by show of hands.
+
+@2e06a85f
+Consell
+Council
+
+@bb7b62ad
+bulé
+boule
+
+@b5d6b018
+La Bulé: cinc-cents ciutadans sortejats, cinquanta per tribu, que preparen els afers que vota l'Assemblea.
+The Boule: five hundred citizens chosen by lot, fifty per tribe, who prepare the business the Assembly votes on.
+
+@a300d71b
+Prítanis
+Prytanis
+
+@eee73efe
+prítanis
+prytanis
+
+@a1b662c4
+prítanes
+prytaneis
+
+@9aaddfe0
+pritania
+prytany
+
+@a58269a1
+pritanies
+prytanies
+
+@de0738d2
+Els cinquanta consellers d'una tribu que, per torns d'unes cinc setmanes, dirigeixen el Consell i mengen junts a la Tolos.
+The fifty councillors of one tribe who, in turns of about five weeks, preside over the Council and eat together in the Tholos.
+
+@cef7dade
+Arconte
+Archon
+
+@d94642d7
+Els nou magistrats principals, elegits per sorteig cada any. L'arconte epònim dona nom a l'any.
+The nine chief magistrates, chosen by lot every year. The eponymous archon gives his name to the year.
+
+@ee7c387d
+Polemarc
+Polemarch
+
+@62e62449
+Un dels nou arcontes. Antigament comandava l'exèrcit; ara s'ocupa sobretot dels plets dels metecs.
+One of the nine archons. Formerly he commanded the army; now he deals mainly with lawsuits involving metics.
+
+@262a29d1
+Estrateg
+Strategos
+
+@bba78e1f
+Els deu generals, elegits a mà alçada i reelegibles. Són dels pocs càrrecs que no se sortegen.
+The ten generals, elected by show of hands and re-electable. They are among the few offices not filled by lot.
+
+@ce57ae3d
+Heliea
+Heliaia
+
+@cae95fdd
+El gran tribunal popular. Cada any se sortegen sis mil jurats de més de trenta anys.
+The great people's court. Every year six thousand jurors over thirty are chosen by lot.
+
+@24c7b04a
+Jurat
+Juror
+
+@ec9a2fff
+El dicasta: ciutadà sortejat per jutjar. Cobra tres òbols al dia i vota en secret amb fitxes de bronze.
+The dikast: a citizen chosen by lot to judge. He is paid three obols a day and votes in secret with bronze tokens.
+
+@ff3c74d7
+kleroterion
+kleroterion
+
+@2deb54e6
+Màquina de sorteig de pedra amb ranures per a les fitxes dels ciutadans i un tub amb boles blanques i negres.
+Stone allotment machine with slots for the citizens' tokens and a tube with black and white balls.
+
+@bc5f93a4
+Sorteig
+Lot
+
+@51b91b8a
+A la democràcia atenesa gairebé tots els càrrecs es reparteixen per sorteig: es considera més igualitari que l'elecció.
+In Athenian democracy almost all offices are filled by lot: it is thought more egalitarian than election.
+
+@57d3245f
+Òbol
+Obol
+
+@da6dc9a1
+òbol
+obol
+
+@eb0424b0
+òbols
+obols
+
+@6bce7095
+Moneda petita de plata. Sis òbols fan una dracma. Un jurat en cobra tres al dia.
+Small silver coin. Six obols make a drachma. A juror earns three a day.
+
+@880a4eda
+Dracma
+Drachma
+
+@896fba4d
+Moneda de plata d'uns 4,3 grams, amb l'òliba d'Atena. És més o menys el jornal d'un artesà.
+Silver coin of about 4.3 grams, with Athena's owl. It is roughly a craftsman's daily wage.
+
+@6e6700e0
+Mina
+Mina
+
+@35ade242
+Unitat de compte: cent dracmes.
+Unit of account: a hundred drachmas.
+
+@445add49
+Talent
+Talent
+
+@852c45c3
+Unitat de compte enorme: seixanta mines, sis mil dracmes, uns 26 quilos de plata. Amb un talent es paga una trirrem un mes.
+Huge unit of account: sixty minas, six thousand drachmas, about 26 kilos of silver. A talent pays for a trireme for a month.
+
+@5d2c6108
+Meteco
+Metic
+
+@dad34549
+Estranger lliure que viu a Atenes. Paga un impost especial, serveix a l'exèrcit i no pot votar ni tenir terres.
+Free foreigner living in Athens. He pays a special tax, serves in the army and may not vote or own land.
+
+@c72fee56
+Ciutadà
+Citizen
+
+@0f40a302
+ciutadania
+citizenship
+
+@55fb4b56
+Home lliure, fill de pare i mare atenesos i inscrit al seu demos als divuit anys. Només ell vota i ocupa càrrecs.
+Free man, son of an Athenian father and mother and enrolled in his deme at eighteen. Only he votes and holds office.
+
+@e52c854d
+Demos
+Deme
+
+@24ddab14
+Barri o llogaret de l'Àtica (n'hi ha uns 139). Cada ciutadà porta el nom del seu demos, per exemple «d'Acarnes».
+District or village of Attica (there are about 139). Every citizen bears his deme's name, for example «of Acharnae».
+
+@beb87c6e
+Tribu
+Tribe
+
+@9acaf501
+Les deu tribus de Clístenes, cadascuna amb demos de la costa, de l'interior i de la ciutat. Organitzen el Consell i l'exèrcit.
+Cleisthenes' ten tribes, each with demes from the coast, the inland and the city. They organise the Council and the army.
+
+@20265d46
+Fratria
+Phratry
+
+@992ec1bc
+fratria
+phratry
+
+@17e57e80
+fratries
+phratries
+
+@b3aede93
+Germandat religiosa de famílies. El pare hi presenta els seus fills durant les Apatúries.
+Religious brotherhood of families. The father presents his children to it during the Apaturia.
+
+@886a1732
+Oikos
+Oikos
+
+@e4434e39
+La casa en sentit ampli: la família, els esclaus, les terres i els béns, sota l'autoritat del pare.
+The household in the broad sense: the family, slaves, land and property, under the father's authority.
+
+@7636eda9
+Kyrios
+Kyrios
+
+@b0d72c61
+El tutor legal d'una dona: el seu pare, el seu marit o el seu parent home més proper. Ella no pot signar contractes importants.
+A woman's legal guardian: her father, her husband or her nearest male relative. She cannot sign important contracts.
+
+@ecfd5d5c
+Dot
+Dowry
+
+@848b17db
+Béns que la família de la núvia lliura en casar-se. Si hi ha divorci, el marit l'ha de retornar.
+Property the bride's family hands over at the marriage. On divorce, the husband must return it.
+
+@62e6fac5
+Epiclera
+Epikleros
+
+@f0fa0f1e
+Filla sense germans mascles que hereta la casa. S'ha de casar amb el seu parent més proper perquè els béns es quedin a la família.
+A daughter without brothers who inherits the house. She must marry her nearest kinsman so the property stays in the family.
+
+@f4124f79
+Gineceu
+Gynaikeion
+
+@83cf40b5
+Les habitacions de les dones, a la part més reservada de la casa.
+The women's quarters, in the most private part of the house.
+
+@383181b4
+Andró
+Andron
+
+@2c88eab2
+andró
+andron
+
+@23481d7d
+La sala dels homes, on se celebren els banquets amb els convidats reclinats en llits.
+The men's room, where banquets are held with the guests reclining on couches.
+
+@e28be609
+Banquet
+Banquet
+
+@5ce2c6fc
+El symposion: reunió d'homes per beure vi barrejat amb aigua, conversar, cantar i escoltar música, després de sopar.
+The symposion: a gathering of men to drink wine mixed with water, talk, sing and listen to music, after dinner.
+
+@2d3e4aa8
+Hetera
+Hetaira
+
+@42c317cd
+Companya de banquets, sovint música i culta, que viu del tracte amb els homes. No és esposa ni ciutadana.
+Banquet companion, often a musician and educated, who lives from her dealings with men. She is neither wife nor citizen.
+
+@c753ab55
+Cràter
+Krater
+
+@8db17654
+cràter
+krater
+
+@67ded687
+cràters
+kraters
+
+@d26ad348
+Vas gran on es barreja el vi amb aigua als banquets. Beure el vi pur es considera cosa de bàrbars.
+Large vessel in which wine is mixed with water at banquets. Drinking wine neat is thought barbarian.
+
+@975a6c17
+Àmfora
+Amphora
+
+@54554f10
+àmfora
+amphora
+
+@77a012da
+àmfores
+amphorae
+
+@ebac650b
+Vas de dues nanses per transportar i guardar vi, oli o gra.
+Two-handled jar for carrying and storing wine, oil or grain.
+
+@bbf09817
+Hídria
+Hydria
+
+@aad0c8c9
+Vas de tres nanses per portar aigua de la font. Anar a buscar aigua és feina de les dones i les esclaves.
+Three-handled jar for fetching water from the fountain. Fetching water is a task for women and slave women.
+
+@732d0241
+Quitó
+Chiton
+
+@108f6896
+quitó
+chiton
+
+@9c80cb36
+Túnica de lli o llana, la peça bàsica d'homes i dones.
+Linen or wool tunic, the basic garment of men and women.
+
+@2c23ca3e
+Himàtion
+Himation
+
+@137710b2
+Mantell de llana que es porta sobre el quitó, embolicat al cos i tirat sobre l'espatlla esquerra.
+Wool cloak worn over the chiton, wrapped round the body and thrown over the left shoulder.
+
+@5f91a73d
+Peple
+Peplos
+
+@a10c36e1
+Vestit femení de llana, amb un plec doblegat per dalt. A les Panatenees s'ofereix un peple nou a Atena.
+Women's wool dress, with a fold turned over at the top. At the Panathenaia a new peplos is offered to Athena.
+
+@35b77738
+Estela
+Stele
+
+@42017b48
+Llosa de pedra vertical amb una inscripció o un relleu: lleis, decrets, tractats o làpides funeràries.
+Upright stone slab with an inscription or relief: laws, decrees, treaties or gravestones.
+
+@88d449ad
+Stoa
+Stoa
+
+@1222058b
+pòrtic
+portico
+
+@68a8b830
+pòrtics
+porticoes
+
+@ed08239a
+Edifici allargat amb una columnata oberta al davant: ombra, passeig, botigues i oficines públiques.
+Long building with an open colonnade in front: shade, strolling, shops and public offices.
+
+@e3891f59
+stoa poikile
+stoa poikile
+
+@813a330b
+El «pòrtic pintat» de l'Àgora, amb grans quadres de la batalla de Marató i de Troia.
+The «painted portico» of the Agora, with large paintings of the battle of Marathon and of Troy.
+
+@1e92945a
+Sala de reunions del Consell dels Cinc-cents, a l'Àgora.
+Meeting hall of the Council of Five Hundred, in the Agora.
+
+@8cbbb19d
+Metròon
+Metroon
+
+@85010002
+L'antic Buleuteri, dedicat a la Mare dels déus, que ara serveix d'arxiu de la ciutat.
+The old Bouleuterion, dedicated to the Mother of the gods, which now serves as the city archive.
+
+@cc7699fc
+Tolos
+Tholos
+
+@00dd43b4
+Edifici rodó de l'Àgora on mengen i dormen els prítanes de torn.
+Round building in the Agora where the prytaneis on duty eat and sleep.
+
+@447dec08
+Tribuna de pedra des de la qual parlen els oradors a la Pnyx.
+Stone platform from which orators speak on the Pnyx.
+
+@480ff97c
+Gimnàs
+Gymnasium
+
+@e9284a63
+Lloc d'exercici a l'aire lliure, amb pistes i patis de lluita. També s'hi conversa i s'hi ensenya.
+Open-air place for exercise, with tracks and wrestling courts. People also talk and teach there.
+
+@aa20fc25
+Gimnàs i bosc sagrat de l'heroi Acadèmos, fora de les muralles. Allà Plató ha començat a reunir deixebles.
+Gymnasium and sacred grove of the hero Akademos, outside the walls. There Plato has begun gathering pupils.
+
+@187acbfc
+Gimnàs d'Apol·lo Lici, a l'est de la ciutat, al costat del riu Ilisos.
+Gymnasium of Apollo Lykeios, east of the city, by the river Ilissos.
+
+@a0eaa599
+Gimnàs d'Hèracles, fora de les muralles, obert als fills de mare estrangera. Allà ensenya Antístenes.
+Gymnasium of Heracles, outside the walls, open to sons of foreign mothers. Antisthenes teaches there.
+
+@42934cb8
+Efeb
+Ephebe
+
+@997bca9a
+efebia
+ephebeia
+
+@4ea7c609
+Jove de divuit a vint anys que s'entrena com a soldat i fa guàrdia a les fronteres.
+Young man of eighteen to twenty who trains as a soldier and stands guard on the frontiers.
+
+@1fc3c89c
+Pedagog
+Paidagogos
+
+@bac4bfc9
+Esclau que acompanya els nens a l'escola i els vigila. No és el mestre.
+Slave who takes children to school and watches over them. He is not the teacher.
+
+@93c005d5
+Dida
+Nurse
+
+@48c15021
+Dona, sovint esclava, que alleta i cria els nens d'una família.
+Woman, often a slave, who breastfeeds and raises a family's children.
+
+@d1a8ea5e
+Paideia
+Paideia
+
+@269e84d9
+L'educació completa d'un grec: lletres, música, gimnàstica i formació del caràcter.
+The complete education of a Greek: letters, music, gymnastics and the shaping of character.
+
+@b5105370
+Sofista
+Sophist
+
+@0871f7f8
+Mestre ambulant que cobra per ensenyar retòrica i l'art de triomfar en política.
+Itinerant teacher who charges to teach rhetoric and the art of succeeding in politics.
+
+@c70ad691
+Retòrica
+Rhetoric
+
+@854e803e
+retòrica
+rhetoric
+
+@b93a7299
+L'art de parlar en públic per convèncer, imprescindible a l'Assemblea i als tribunals.
+The art of public speaking to persuade, essential in the Assembly and the courts.
+
+@941559fd
+Logògraf
+Logographer
+
+@e4756875
+logògraf
+logographer
+
+@38513307
+logògrafs
+speechwriter
+
+@67fc0ae5
+Qui escriu discursos per a altres. Als judicis cadascú parla per si mateix, però pot comprar el text.
+Someone who writes speeches for others. In trials everyone speaks for himself, but he can buy the text.
+
+@8e2c5ff9
+Sicofanta
+Sycophant
+
+@128b141e
+Denunciant professional que acusa altres per fer-los xantatge o cobrar una part de la multa.
+Professional informer who accuses others to blackmail them or collect part of the fine.
+
+@3b1dc161
+Graphé
+Graphe
+
+@7ed3ad8c
+graphé
+graphe
+
+@3844dd3b
+Acusació pública: qualsevol ciutadà la pot presentar en nom de la ciutat, no només la víctima.
+Public prosecution: any citizen can bring it on the city's behalf, not only the victim.
+
+@5eba0ab1
+Ostracisme
+Ostracism
+
+@13d4524f
+òstraka
+ostraka
+
+@a03ee040
+Votació en què cada ciutadà escrivia un nom en un tros de ceràmica. El més votat era desterrat deu anys.
+A vote in which each citizen wrote a name on a potsherd. Whoever got the most votes was exiled for ten years.
+
+@b0611f55
+Litúrgia
+Liturgy
+
+@bb5cccd3
+Servei públic que paguen els rics: equipar un cor, una trirrem o una festa.
+Public service paid for by the rich: equipping a chorus, a trireme or a festival.
+
+@85af9de7
+Coreg
+Choregos
+
+@a7425e07
+coregia
+choregia
+
+@d0148823
+Ciutadà ric que paga i prepara un cor per als concursos de teatre, com a litúrgia.
+Wealthy citizen who pays for and prepares a chorus for the theatre contests, as a liturgy.
+
+@050d660c
+Trierarca
+Trierarch
+
+@93dff6d2
+trierarquia
+trierarchy
+
+@2e117039
+Ciutadà ric que paga el manteniment d'una trirrem durant un any i la comanda.
+Wealthy citizen who pays for a trireme's upkeep for a year and commands it.
+
+@13d4a3e4
+Trirrem
+Trireme
+
+@0b456053
+Vaixell de guerra amb tres fileres de remers, uns 170, i un esperó de bronze. Base del poder naval atenès.
+Warship with three banks of rowers, about 170, and a bronze ram. The basis of Athenian naval power.
+
+@dd490c7b
+Hoplita
+Hoplite
+
+@eb52e6d7
+Soldat d'infanteria pesant amb escut rodó, llança, casc i cuirassa, que es paga el seu propi equip.
+Heavy infantryman with round shield, spear, helmet and breastplate, who pays for his own equipment.
+
+@3324c0e7
+Falange
+Phalanx
+
+@afb24655
+Formació tancada d'hoplites en fileres, cadascun protegit per l'escut del seu veí.
+Close formation of hoplites in ranks, each protected by his neighbour's shield.
+
+@9a564c1b
+Metrònom
+Metronomos
+
+@d5e5d820
+agorànom
+agoranomos
+
+@fd95ad13
+agorànoms
+agoranomoi
+
+@5ba0a10a
+Inspectors del mercat: comproven peses, mesures i la qualitat del que es ven.
+Market inspectors: they check weights, measures and the quality of goods sold.
+
+@e643e9ce
+Trapezita
+Trapezites
+
+@74d4a718
+Banquer o canvista que treballa en una taula (trápeza) a l'Àgora: canvia moneda, guarda dipòsits i presta.
+Banker or money-changer who works at a table (trapeza) in the Agora: he changes money, keeps deposits and lends.
+
+@c317ffc5
+Éranos
+Eranos
+
+@5801cdf9
+éranos
+eranos
+
+@cd678fb1
+Préstec sense interès entre amics, que posen diners entre tots per ajudar-ne un.
+Interest-free loan among friends, who pool money to help one of them.
+
+@390272cd
+Horos
+Horos
+
+@06711e9c
+fita
+boundary stone
+
+@2aaca125
+Fita de pedra que marca un límit o indica que un terreny està hipotecat.
+Stone marker showing a boundary or that a piece of land is mortgaged.
+
+@d548adb0
+Pròxen
+Proxenos
+
+@6995e817
+proxènia
+proxenia
+
+@b0e5c4f5
+Ciutadà que defensa a la seva ciutat els interessos d'una altra ciutat i atén els seus viatgers.
+Citizen who looks after another city's interests in his own city and assists its travellers.
+
+@b40ce735
+Xenía
+Xenia
+
+@7cc97e36
+xenía
+xenia
+
+@605559ee
+El deure sagrat d'hospitalitat entre amfitrió i hoste, protegit per Zeus.
+The sacred duty of hospitality between host and guest, protected by Zeus.
+
+@460bef6e
+Polis
+Polis
+
+@fe5e0b69
+La ciutat estat: una ciutat amb el seu territori, les seves lleis, els seus déus i els seus ciutadans.
+The city-state: a city with its territory, its laws, its gods and its citizens.
+
+@81f5070e
+Àtica
+Attica
+
+@df9dc70d
+àtica
+attica
+
+@fc6daf2a
+La regió d'Atenes: uns 2.500 km² de planes, muntanyes i costa, amb els seus demos.
+The region of Athens: about 2,500 km² of plains, mountains and coast, with its demes.
+
+@69fff9ad
+murs llargs
+long walls
+
+@f783329e
+Dues muralles d'uns sis quilòmetres que uneixen Atenes amb el Pireu, per resistir un setge per mar.
+Two walls about six kilometres long linking Athens with the Piraeus, to withstand a siege supplied by sea.
+
+@7fe3b7f6
+Pireu
+Piraeus
+
+@134af404
+El port d'Atenes, amb els seus arsenals, mercats i barris de mariners i metecs.
+The port of Athens, with its arsenals, markets and quarters of sailors and metics.
+
+@fedcfb52
+Els Trenta
+The Thirty
+
+@5edd10f0
+els trenta
+the thirty
+
+@23d8eabd
+trenta tirans
+thirty tyrants
+
+@19e92f8b
+Oligarquia imposada per Esparta el 404 després de la derrota d'Atenes. Van matar uns 1.500 atenesos; la democràcia va tornar el 403.
+Oligarchy imposed by Sparta in 404 after Athens' defeat. They killed about 1,500 Athenians; democracy returned in 403.
+
+@972d2e30
+Pau del Rei
+King's Peace
+
+@dd9b62b4
+pau del rei
+king's peace
+
+@c7d70dea
+Tractat del 387-386 dictat pel rei de Pèrsia: Jònia queda per a Pèrsia i les ciutats gregues han de ser autònomes.
+Treaty of 387-386 dictated by the king of Persia: Ionia goes to Persia and the Greek cities must be autonomous.
+
+@8146b681
+Gran Rei
+Great King
+
+@1ea9f993
+gran rei
+great king
+
+@99d9cbd1
+Així anomenen els grecs el rei de Pèrsia, Artaxerxes II el 386.
+What the Greeks call the king of Persia, Artaxerxes II in 386.
+
+@82471c63
+Sàtrapa
+Satrap
+
+@e30b0654
+sàtrapa
+satrap
+
+@e42f3290
+sàtrapes
+satraps
+
+@1fc6287b
+Governador d'una província de l'imperi persa.
+Governor of a province of the Persian empire.
+
+@1acfdead
+Lliga de Delos
+Delian League
+
+@0b56a67d
+lliga de delos
+delian league
+
+@e1375d78
+Aliança naval dirigida per Atenes des del 478, que va acabar sent el seu imperi. Es va dissoldre amb la derrota del 404.
+Naval alliance led by Athens from 478, which ended up as its empire. It dissolved with the defeat of 404.
+
+@957bcfb1
+La gran rival d'Atenes, al Peloponès: una ciutat de soldats que viu de la feina dels ilotes.
+Athens' great rival, in the Peloponnese: a city of soldiers living off the helots' labour.
+
+@40a3273f
+Ilota
+Helot
+
+@b5a26019
+Serfs d'Esparta, descendents de pobles conquerits, que conreen la terra dels espartiates.
+Serfs of Sparta, descendants of conquered peoples, who farm the Spartiates' land.
+
+@e91d6e1e
+Èfor
+Ephor
+
+@3539e9e4
+èfor
+ephor
+
+@f029842a
+èfors
+ephors
+
+@0032dbba
+Els cinc magistrats que governen Esparta al costat dels seus dos reis.
+The five magistrates who govern Sparta alongside its two kings.
+
+@570b6374
+Beòcia
+Boeotia
+
+@158520e0
+Regió al nord de l'Àtica, amb Tebes com a ciutat principal.
+Region north of Attica, with Thebes as its main city.
+
+@d74df9d6
+La gran ciutat de Beòcia, fundada segons el mite per Cadme. Pàtria d'Èdip, Hèracles i Píndar.
+The great city of Boeotia, founded according to myth by Cadmus. Homeland of Oedipus, Heracles and Pindar.
+
+@395e9b0f
+Corint
+Corinth
+
+@d2404dc2
+Rica ciutat comercial de l'istme, entre dos mars. Ha lluitat amb Atenes contra Esparta en l'última guerra.
+Rich trading city on the isthmus, between two seas. It fought with Athens against Sparta in the last war.
+
+@c732152e
+Pèrsia
+Persia
+
+@24e53f3f
+El gran imperi de l'est, el de Darios i Xerxes. Ara finança unes ciutats gregues contra unes altres.
+The great empire of the east, that of Darius and Xerxes. Now it funds some Greek cities against others.
+
+@d11fa2a5
+Pont
+Pontus
+
+@f18ec9b4
+El mar Negre, d'on arriba gran part del blat que menja Atenes.
+The Black Sea, source of much of the grain Athens eats.
+
+@f48f7bf8
+Cíclades
+Cyclades
+
+@f8884771
+cíclades
+cyclades
+
+@ec92ff38
+Les illes que formen un cercle al voltant de Delos, al centre de l'Egeu.
+The islands that form a circle around Delos, in the middle of the Aegean.
+
+@c70a93d1
+Delfos
+Delphi
+
+@e25ba576
+Santuari d'Apol·lo amb l'oracle més famós de Grècia, on la Pítia dona les respostes del déu.
+Sanctuary of Apollo with the most famous oracle in Greece, where the Pythia gives the god's answers.
+
+@97a45acf
+Oracle
+Oracle
+
+@ef65701a
+oracle
+oracle
+
+@c5464dcb
+oracles
+oracles
+
+@b596cd83
+Resposta d'un déu a una consulta, o el santuari on es dona. A Delfos parla la Pítia, sacerdotessa d'Apol·lo.
+A god's answer to a consultation, or the sanctuary where it is given. At Delphi the Pythia speaks, priestess of Apollo.
+
+@87c5a2ae
+Eleusis
+Eleusis
+
+@68b20ba5
+Ciutat de l'Àtica amb el santuari de Demèter i Core, on se celebren els Misteris.
+Town in Attica with the sanctuary of Demeter and Kore, where the Mysteries are celebrated.
+
+@4c9dbdb2
+Misteris
+Mysteries
+
+@b7758586
+Ritus secrets d'Eleusis. Els iniciats juren no revelar-los i esperen un destí millor després de la mort.
+Secret rites of Eleusis. Initiates swear not to reveal them and hope for a better fate after death.
+
+@469f012f
+Panatenees
+Panathenaia
+
+@f0521747
+La gran festa d'Atena, al mes d'Hecatombeó, amb processó, sacrificis, concursos i un peple nou per a la deessa.
+Athena's great festival, in the month of Hekatombaion, with procession, sacrifices, contests and a new peplos for the goddess.
+
+@b8eaa39c
+Dionísies
+Dionysia
+
+@05e078a0
+Festa de Dionís a la primavera, amb concursos de tragèdia, comèdia i ditirambe al teatre.
+Festival of Dionysus in spring, with contests of tragedy, comedy and dithyramb in the theatre.
+
+@4041331f
+Lenees
+Lenaia
+
+@94c18147
+Festa de Dionís a l'hivern, també amb concursos de teatre, sobretot de comèdia.
+Festival of Dionysus in winter, also with theatre contests, mainly comedy.
+
+@4e385d29
+Tesmofòries
+Thesmophoria
+
+@a43432d6
+Festa de Demèter reservada a les dones casades, que passen tres dies juntes sense homes.
+Festival of Demeter reserved for married women, who spend three days together without men.
+
+@627e10b8
+Apatúries
+Apaturia
+
+@7b2c7367
+Festa de les fratries, a la tardor, en què els pares presenten els seus fills nounats.
+Festival of the phratries, in autumn, at which fathers present their newborn children.
+
+@a4fa9d13
+Adònies
+Adonia
+
+@0600aba4
+Festa de dones que ploren la mort d'Adonis, l'amant d'Afrodita, als terrats de les cases.
+Women's festival mourning the death of Adonis, Aphrodite's lover, on the rooftops.
+
+@3e145523
+Canèfora
+Kanephoros
+
+@9b1ba769
+canèfora
+kanephoros
+
+@915c0cfb
+canèfores
+kanephoroi
+
+@fce3ad61
+Donzella de bona família que porta al cap la cistella sagrada a les processons.
+Maiden of good family who carries the sacred basket on her head in processions.
+
+@cfa9c715
+Libació
+Libation
+
+@81a15989
+libació
+libation
+
+@82710c2d
+Ofrena de vi, llet o oli que s'aboca a terra o a l'altar en honor d'un déu.
+Offering of wine, milk or oil poured on the ground or the altar in honour of a god.
+
+@9e9fc6cf
+Hecatombe
+Hecatomb
+
+@6e4a5e40
+Sacrifici de cent bous; a la pràctica, qualsevol gran sacrifici públic.
+Sacrifice of a hundred oxen; in practice, any large public sacrifice.
+
+@a8f1547d
+Tragèdia
+Tragedy
+
+@de4e2301
+Obra teatral seriosa, amb cor i màscares, basada gairebé sempre en els mites dels herois.
+Serious play, with chorus and masks, almost always based on the myths of the heroes.
+
+@b4e5da0f
+Comèdia
+Comedy
+
+@c62010f0
+Obra teatral còmica que es burla de polítics, filòsofs i de la mateixa ciutat.
+Comic play that mocks politicians, philosophers and the city itself.
+
+@11a88882
+Ditirambe
+Dithyramb
+
+@f9154c62
+Cant coral en honor de Dionís, interpretat per cinquanta homes o nens.
+Choral song in honour of Dionysus, performed by fifty men or boys.
+
+@c6f63973
+Orquestra
+Orchestra
+
+@cf260ce0
+L'espai circular del teatre on balla i canta el cor.
+The circular space in the theatre where the chorus dances and sings.
+
+@89dea500
+Aulós
+Aulos
+
+@cb06b9af
+aulós
+aulos
+
+@953d2d41
+Instrument de vent amb dos tubs i llengüeta doble, que sona fort i agut. Acompanya el cor i els sacrificis.
+Wind instrument with two pipes and a double reed, loud and high-pitched. It accompanies the chorus and sacrifices.
+
+@e7ce1491
+Lira
+Lyre
+
+@6c521e1b
+cítara
+kithara
+
+@8475e589
+Instrument de corda: la lira, feta amb una closca de tortuga; la cítara, més gran i de fusta, per als professionals.
+Stringed instrument: the lyre, made from a tortoise shell; the kithara, larger and wooden, for professionals.
+
+@164fc164
+Naos
+Naos
+
+@ccd768e2
+La sala del temple on hi ha l'estàtua del déu. Al davant té un pòrtic (pronaos) i al darrere un altre (opistòdom).
+The room of the temple that holds the god's statue. In front is a porch (pronaos) and behind another (opisthodomos).
+
+@7f99047d
+Frontó
+Pediment
+
+@172570a0
+frontó
+pediment
+
+@a5e1607f
+El triangle sota la teulada a dues aigües a la façana d'un temple, ple d'escultures.
+The triangle beneath the gabled roof on a temple's façade, filled with sculpture.
+
+@91b2f0f2
+Mètopa
+Metope
+
+@c61a329f
+Al fris dòric s'alternen tríglifs (plaques amb tres estries) i mètopes (plaques amb relleus).
+In the Doric frieze, triglyphs (plaques with three grooves) alternate with metopes (plaques with reliefs).
+
+@ccf55ee5
+Fris
+Frieze
+
+@68df28dd
+Banda decorada sota la cornisa. La del Partenó mostra la processó de les Panatenees.
+Decorated band beneath the cornice. The Parthenon's shows the Panathenaic procession.
+
+@7fa224c7
+Cariàtide
+Caryatid
+
+@3feefe75
+cariàtide
+caryatid
+
+@46521e46
+cariàtides
+caryatids
+
+@25599fc7
+Estàtua de dona que sosté el sostre en lloc d'una columna, com a l'Erectèon.
+Statue of a woman supporting the roof instead of a column, as in the Erechtheion.
+
+@e7b5bf51
+Kuros
+Kouros
+
+@5450e8cd
+Estàtues arcaiques de joves nus (kuroi) i de noies vestides (korai), drets i somrients.
+Archaic statues of naked youths (kouroi) and clothed maidens (korai), standing and smiling.
+
+@dadd0b7f
+partenó
+parthenon
+
+@d2198c43
+El gran temple d'Atena Pàrtenos (la verge) a l'Acròpolis, acabat el 432.
+The great temple of Athena Parthenos (the maiden) on the Acropolis, completed in 432.
+
+@34a08c22
+Temple de l'Acròpolis amb diversos cultes: Atena Polias, Posidó i els reis mítics Erecteu i Cècrops.
+Temple on the Acropolis with several cults: Athena Polias, Poseidon and the mythical kings Erechtheus and Cecrops.
+
+@2d7d00d8
+La gran entrada monumental de l'Acròpolis.
+The great monumental entrance to the Acropolis.
+
+@4938982c
+areòpag
+areopagus
+
+@34e97bd8
+Turó d'Ares, al costat de l'Acròpolis, i l'antic consell que s'hi reuneix per jutjar els homicidis.
+Hill of Ares, beside the Acropolis, and the ancient council that meets there to try homicides.
+
+@4a510f82
+Hades
+Hades
+
+@073facc4
+El déu dels morts i, per extensió, el món subterrani on van les ànimes.
+The god of the dead and, by extension, the underworld where souls go.
+
+@61c22ff5
+Olimp
+Olympus
+
+@63798498
+olímpics
+olympians
+
+@e424126d
+La muntanya més alta de Grècia, on segons el mite viuen els dotze déus principals.
+The highest mountain in Greece, where according to myth the twelve chief gods live.
+
+@4aba6f6f
+Nimfa
+Nymph
+
+@367e2a11
+Divinitats menors de fonts, arbres i muntanyes, joves i belles.
+Minor deities of springs, trees and mountains, young and beautiful.
+
+@8b57690c
+Sàtir
+Satyr
+
+@2e01b22e
+sàtir
+satyr
+
+@d8f44468
+sàtirs
+satyrs
+
+@03b95ad2
+Éssers del seguici de Dionís, meitat homes meitat cavalls o cabres, borratxos i gresquers.
+Creatures of Dionysus' retinue, half men and half horses or goats, drunken revellers.
+
+@f029f00d
+Mènade
+Maenad
+
+@6d297bfc
+mènade
+maenad
+
+@9c3f63e3
+mènades
+maenads
+
+@e81b71c5
+Dones posseïdes per Dionís que corren per les muntanyes en èxtasi.
+Women possessed by Dionysus who run through the mountains in ecstasy.
+
+@808542d1
+Tirs
+Thyrsus
+
+@ff92b442
+Bastó de fonoll coronat amb una pinya i fulles d'heura, emblema de Dionís i les bacants.
+Fennel staff topped with a pine cone and ivy leaves, emblem of Dionysus and the bacchants.
+
+@998700ce
+Ègida
+Aegis
+
+@968b0521
+ègida
+aegis
+
+@bafd42e6
+La pell màgica de cabra que porten Zeus i Atena, vorejada de serps i amb el cap de la Gorgona.
+The magic goatskin worn by Zeus and Athena, fringed with snakes and bearing the Gorgon's head.
+
+@9770fe53
+Gorgona
+Gorgon
+
+@dcabd6ff
+Monstre de cabells de serp la mirada del qual converteix en pedra. Perseu li va tallar el cap a Medusa.
+Snake-haired monster whose gaze turns people to stone. Perseus cut off Medusa's head.
+
+@61c36775
+Heroi
+Hero
+
+@57fcbe58
+heroi
+hero
+
+@4f98f38f
+herois
+heroes
+
+@bde62faa
+heroïna
+heroine
+
+@c5aa2b0a
+Fill d'un déu i un mortal, o persona extraordinària del passat mític, que rep culte a la seva tomba.
+Child of a god and a mortal, or extraordinary person of the mythical past, who receives worship at their tomb.
+
+@8259ab2d
+El més gran dels herois, fill de Zeus i Alcmena, famós pels seus dotze treballs. En morir va pujar a l'Olimp.
+The greatest of the heroes, son of Zeus and Alcmene, famous for his twelve labours. At his death he rose to Olympus.
+
+@7232a1a8
+Teseu
+Theseus
+
+@0d4287cc
+Heroi i rei mític d'Atenes que va matar el Minotaure i, segons es diu, va unir els pobles de l'Àtica.
+Hero and mythical king of Athens who killed the Minotaur and, it is said, united the communities of Attica.
+
+@cfcbd690
+Rei dels déus, senyor del cel i del llamp. Protegeix els hostes, els juraments i l'ordre.
+King of the gods, lord of the sky and the thunderbolt. He protects guests, oaths and order.
+
+@0549c806
+Esposa de Zeus i reina dels déus, protectora del matrimoni.
+Wife of Zeus and queen of the gods, protector of marriage.
+
+@6cfa6c84
+Deessa de la saviesa, la guerra ordenada i els oficis, protectora d'Atenes.
+Goddess of wisdom, disciplined warfare and crafts, protector of Athens.
+
+@c4494443
+posidó
+poseidon
+
+@9ec5bf80
+Déu del mar, dels terratrèmols i dels cavalls. Va perdre davant d'Atena el patronatge d'Atenes.
+God of the sea, earthquakes and horses. He lost the patronage of Athens to Athena.
+
+@675a094e
+Déu de la música, la profecia, la medicina i la llum. El seu oracle és a Delfos.
+God of music, prophecy, medicine and light. His oracle is at Delphi.
+
+@75c55ab5
+àrtemis
+artemis
+
+@a339f475
+Deessa verge de la caça i dels animals salvatges, protectora de les noies i dels parts.
+Virgin goddess of hunting and wild animals, protector of girls and childbirth.
+
+@10b7e075
+Missatger dels déus, protector dels camins, el comerç, els lladres i guia de les ànimes.
+Messenger of the gods, protector of roads, trade and thieves, and guide of souls.
+
+@d0a19f8e
+Herma
+Herm
+
+@b466f171
+Pilar de pedra amb el cap d'Hermes, que es posa a les portes i a les cruïlles per protegir-les.
+Stone pillar with the head of Hermes, set at doors and crossroads to protect them.
+
+@12c6d81e
+demèter
+demeter
+
+@ed747e87
+Deessa de l'agricultura i el blat, mare de Persèfone. Els seus Misteris se celebren a Eleusis.
+Goddess of agriculture and grain, mother of Persephone. Her Mysteries are celebrated at Eleusis.
+
+@338e9aa0
+Persèfone
+Persephone
+
+@09c0e785
+persèfone
+persephone
+
+@615ed3e7
+Filla de Demèter, raptada per Hades. Passa una part de l'any sota terra; per això hi ha hivern.
+Daughter of Demeter, carried off by Hades. She spends part of the year below ground; that's why there is winter.
+
+@8f95df58
+Déu del vi, l'èxtasi i el teatre.
+God of wine, ecstasy and theatre.
+
+@0933cc2c
+Deessa de l'amor i la bellesa, nascuda de l'escuma del mar segons Hesíode.
+Goddess of love and beauty, born from the sea foam according to Hesiod.
+
+@0392396a
+Déu de la guerra violenta. Els atenesos el respecten però l'estimen poc.
+God of violent war. The Athenians respect him but don't much like him.
+
+@b389c27a
+Déu del foc i la farga, coix, protector de ferrers i artesans.
+God of fire and the forge, lame, protector of smiths and craftsmen.
+
+@8d2f593e
+hefestèon
+hephaisteion
+
+@30382d31
+Temple d'Hefest i Atena sobre el turó que domina l'Àgora, envoltat de tallers de bronze.
+Temple of Hephaestus and Athena on the hill overlooking the Agora, surrounded by bronze workshops.
+
+@428e1087
+Temple gegantesc de Zeus Olímpic, començat pels tirans cap al 520 i abandonat sense acabar.
+Gigantic temple of Olympian Zeus, begun by the tyrants around 520 and abandoned unfinished.
+
+@99057c7f
+Sòcrates
+Socrates
+
+@302f341f
+sòcrates
+socrates
+
+@8a146ec1
+Filòsof atenès que preguntava a tothom què és la justícia o la virtut. Va ser condemnat a mort el 399.
+Athenian philosopher who asked everyone what justice or virtue is. He was condemned to death in 399.
+
+@b886db1a
+plató
+plato
+
+@fcf953e1
+Deixeble de Sòcrates. Cap al 387 comença a ensenyar a l'Acadèmia.
+Pupil of Socrates. Around 387 he begins teaching at the Academy.
+
+@636c31c6
+Pèricles
+Pericles
+
+@ba946e92
+Polític que va dirigir Atenes entre el 461 i el 429 i va promoure les obres de l'Acròpolis.
+Politician who led Athens from 461 to 429 and promoted the building works on the Acropolis.
+
+@d54e642d
+Soló
+Solon
+
+@c7f95840
+soló
+solon
+
+@ffee9426
+Legislador del 594: va abolir l'esclavitud per deutes i va repartir els drets segons la riquesa.
+Lawgiver of 594: he abolished debt slavery and distributed rights according to wealth.
+
+@73360f48
+Clístenes
+Cleisthenes
+
+@5df3fe70
+clístenes
+cleisthenes
+
+@a6bf95b7
+Reformador del 508 que va crear les deu tribus i el Consell dels Cinc-cents: l'inici de la democràcia.
+Reformer of 508 who created the ten tribes and the Council of Five Hundred: the beginning of democracy.
+
+@5e19b824
+isòcrates
+isocrates
+
+@507a8d74
+Mestre de retòrica que dirigeix una escola a Atenes i defensa la unió dels grecs contra Pèrsia.
+Teacher of rhetoric who runs a school in Athens and argues for the union of the Greeks against Persia.

@@ -1,0 +1,900 @@
+# Destinos de Roma: regiones de Italia (1)
+@b0ffa5cd
+Latium et Campania · Neàpolis
+Latium et Campania · Neapolis
+
+@738a5f1a
+Neàpolis, la badia i el Vesuvi, un any després de l'erupció.
+Neapolis, the bay and Vesuvius, a year after the eruption.
+
+@fd4aab0f
+cinc dies per la Via Àpia
+five days along the Appian Way
+
+@505ad82c
+Apulia et Calabria · Brundisium
+Apulia et Calabria · Brundisium
+
+@332e9764
+El port de Brundisium, al final de la Via Àpia, davant de Grècia.
+The port of Brundisium, at the end of the Appian Way, facing Greece.
+
+@b28e3cb4
+uns dotze dies per la Via Àpia
+about twelve days along the Appian Way
+
+@d1974c00
+Lucania et Bruttii · Paestum
+Lucania et Bruttii · Paestum
+
+@e8055c75
+La vella Posidònia dels grecs, amb els seus temples dòrics i les seves roses.
+The old Poseidonia of the Greeks, with its Doric temples and its roses.
+
+@864ccead
+uns sis dies per la Via Àpia i la Via Popília
+about six days along the Appian Way and the Via Popilia
+
+@1facf4bc
+Samnium · Saepinum
+Samnium · Saepinum
+
+@f2327b1e
+Un poble de muntanya entre ramats, al país dels antics samnites.
+A mountain town among flocks, in the land of the ancient Samnites.
+
+@29f65397
+cinc dies per la Via Llatina i els camins dels ramats
+five days along the Via Latina and the drove roads
+
+@cd12506d
+Picenum · Asculum
+Picenum · Asculum
+
+@f0f72ab1
+La ciutat de travertí entre dos rius, on va començar la guerra dels aliats.
+The travertine city between two rivers, where the Social War began.
+
+@7f4a3e27
+quatre dies per la Via Salària
+four days along the Via Salaria
+
+@02deedf7
+Umbria et Ager Gallicus · Ariminum
+Umbria et Ager Gallicus · Ariminum
+
+@eac7544b
+On acaba la Via Flamínia i comença l'Emília, al costat de l'Adriàtic.
+Where the Via Flaminia ends and the Aemilia begins, beside the Adriatic.
+
+@61be6953
+set dies per la Via Flamínia
+seven days along the Via Flaminia
+
+@de665a1c
+Etruria · Tarquínia
+Etruria · Tarquinii
+
+@0d0d548b
+La vella ciutat etrusca dels Tarquinis i les seves tombes pintades.
+The old Etruscan city of the Tarquins and its painted tombs.
+
+@a2d1b53d
+dos dies per la Via Aurèlia
+two days along the Via Aurelia
+
+@405d5896
+Aemilia · Mutina
+Aemilia · Mutina
+
+@774d2826
+La plana del Po, dividida en quadres, al llarg de la Via Emília.
+The plain of the Po, divided into squares, along the Via Aemilia.
+
+@881b3303
+vuit dies per la Via Flamínia i la Via Emília
+eight days along the Via Flaminia and the Via Aemilia
+
+@2786a8ae
+Liguria · Gènua
+Liguria · Genua
+
+@608ab140
+Un port entre muntanyes, al peu dels Apenins.
+A harbour among mountains, at the foot of the Apennines.
+
+@93a92408
+deu o onze dies per la Via Aurèlia, seguint la costa
+ten or eleven days along the Via Aurelia, following the coast
+
+@092239d9
+Venetia et Histria · Verona
+Venetia et Histria · Verona
+
+@458d1a83
+La ciutat de Catul, en un meandre de l'Atesis, amb el seu gran amfiteatre.
+The city of Catullus, in a bend of the Athesis, with its great amphitheatre.
+
+@bf52aef9
+deu dies per la Via Flamínia, l'Emília i la Postúmia
+ten days along the Via Flaminia, the Aemilia and the Postumia
+
+@7e6a17a0
+Transpadana · Comum
+Transpadana · Comum
+
+@11bd0799
+La ciutat dels Plinis, a la riba del llac Lari, al peu dels Alps.
+The city of the Plinies, on the shore of Lake Larius, at the foot of the Alps.
+
+@61a11aad
+dotze dies per la Via Flamínia i l'Emília, fins a Mediolanum i el llac Lari
+twelve days along the Via Flaminia and the Aemilia, to Mediolanum and Lake Larius
+
+@670c10ce
+La capital de la Hispània Citerior, sobre un turó al costat del mar.
+The capital of Nearer Hispania, on a hill by the sea.
+
+@5e5a1900
+quatre dies de navegació des d'Òstia, amb bon vent
+four days' sailing from Ostia, with a good wind
+
+@b9c0ea91
+Una petita colònia emmurallada d'August, entre vinyes, al costat del mar.
+A small walled colony of Augustus, among vineyards, by the sea.
+
+@748fc1d3
+quatre o cinc dies de navegació
+four or five days' sailing
+
+@f6590048
+La vella colònia grega on van desembarcar els Escipions.
+The old Greek colony where the Scipios landed.
+
+@e09ed740
+tres o quatre dies de navegació, seguint la costa de la Gàl·lia
+three or four days' sailing, following the coast of Gaul
+
+@31a7860e
+La ciutat dels ilergetes, sobre un turó al costat del riu Sícoris.
+The city of the Ilergetes, on a hill beside the river Sicoris.
+
+@ca83c966
+en vaixell fins a Tarraco i tres dies de camí
+by ship to Tarraco and three days on the road
+
+@78b9da54
+tres dies de camí des de Tarraco, terra endins
+three days inland from Tarraco
+
+@d09bcae8
+La colònia dels veterans d'August, capital de Lusitània, al costat del riu Anas.
+The colony of Augustus's veterans, capital of Lusitania, beside the river Anas.
+
+@0f83da13
+en vaixell fins a Tarraco i unes tres setmanes de camí
+by ship to Tarraco and about three weeks on the road
+
+@29200f02
+unes tres setmanes de camí per les calçades de la Meseta
+about three weeks on the roads of the Meseta
+
+@ecfd8ae2
+Cada mil passes, un mil·liari de pedra indica la distància fins a Roma.
+Every thousand paces, a stone milestone shows the distance to Rome.
+
+@b2d1e2f1
+Les calçades tenen capes de pedra i grava sota les lloses; algunes duraran dos mil anys.
+The roads have layers of stone and gravel beneath the paving; some will last two thousand years.
+
+@143f34e1
+A les fondes del camí es canvien les mules, es menja malament i es dorm pitjor.
+At the inns along the road you change mules, eat badly and sleep worse.
+
+@84dc4c8c
+Els correus de l'emperador recorren fins a cinquanta milles al dia canviant de cavalls.
+The emperor's couriers cover up to fifty miles a day, changing horses.
+
+@2bfc8504
+Al costat de les calçades, a la sortida de cada ciutat, s'arrengleren les tombes.
+Along the roads, outside every town, the tombs stand in rows.
+
+@d95df187
+El port de Claudi, al costat d'Òstia, rep les naus de blat d'Egipte i d'Àfrica.
+The harbour of Claudius, next to Ostia, receives the grain ships from Egypt and Africa.
+
+@4cba750d
+Una nau de càrrega pot portar milers d'àmfores a la bodega.
+A cargo ship can carry thousands of amphorae in its hold.
+
+@e396e66b
+Es navega de primavera a tardor: a l'hivern el mar és tancat.
+Ships sail from spring to autumn: in winter the sea is closed.
+
+@f01898b6
+Abans de salpar, els mariners ofereixen un sacrifici i eviten els dies de mal averany.
+Before sailing, the sailors offer a sacrifice and avoid days of ill omen.
+
+@87607fa0
+El far de Portus imita el d'Alexandria.
+The lighthouse of Portus imitates the one at Alexandria.
+
+@5333d869
+Luci Valeri
+Lucius Valerius
+
+@f4ef074f
+Carreter · camins d'Hispània
+Coachman · roads of Hispania
+
+@2cc67479
+Teatre de Neàpolis
+Theatre of Neapolis
+
+@b6106591
+Temple dels Dioscurs
+Temple of the Dioscuri
+
+@0dce599d
+Fòrum de Neàpolis
+Forum of Neapolis
+
+@ad0fdaf7
+Pompeia, sepultada
+Pompeii, buried
+
+@7f70126e
+Sota aquesta plana grisa hi ha Pompeia, una ciutat d'uns dotze mil habitants, enterrada per quatre a sis metres de pedra tosca i cendra. Només en sobresurten les teulades més altes i algunes columnes. Els supervivents excaven túnels per recuperar el que poden. Titus ha nomenat dos antics cònsols «encarregats de restaurar la Campània» i ha donat als damnificats els béns dels morts sense hereus. Aquest any el mateix emperador ha vingut a la zona.
+Beneath this grey plain lies Pompeii, a city of some twelve thousand people, buried under four to six metres of pumice and ash. Only the highest roofs and a few columns poke out. The survivors dig tunnels to recover what they can. Titus has appointed two former consuls "commissioners for the restoration of Campania" and has given the victims the property of those who died without heirs. This year the emperor himself has come to the area.
+
+@be9d6474
+El Vesuvi
+Vesuvius
+
+@131ca8ab
+Fa poc més d'un any, a finals de l'estiu o a la tardor del 79, la muntanya, coberta de vinyes, va esclatar. Una columna de fum i pedres va pujar fins al cel i núvols ardents van baixar pels vessants: Pompeia, Herculà, Estàbia i Oplontis van desaparèixer. Plini el Vell, almirall de la flota de Misè, va morir a Estàbia quan anava a socórrer els habitants. El seu nebot, Plini el Jove, ho explicarà en dues cartes a l'historiador Tàcit.
+A little more than a year ago, at the end of summer or in the autumn of 79, the mountain, covered in vineyards, exploded. A column of smoke and stones rose into the sky and burning clouds swept down its slopes: Pompeii, Herculaneum, Stabiae and Oplontis vanished. Pliny the Elder, admiral of the fleet at Misenum, died at Stabiae while going to the rescue of the inhabitants. His nephew, Pliny the Younger, will tell the story in two letters to the historian Tacitus.
+
+@39f31954
+La «ciutat nova» la van fundar els grecs de Cumes fa més de cinc segles, i aquí encara es parla grec, se celebren jocs a la manera grega, els Sebastà, i s'estudia retòrica i filosofia. Molts romans rics hi tenen les vil·les d'esbarjo. En aquest teatre va debutar Neró com a cantant el 64: un terratrèmol va sacsejar l'edifici, que es va ensorrar quan el públic acabava de sortir.
+The "new city" was founded by the Greeks of Cumae more than five centuries ago, and here people still speak Greek, hold games in the Greek manner, the Sebasta, and study rhetoric and philosophy. Many rich Romans have their country villas here. In this theatre Nero made his debut as a singer in 64: an earthquake shook the building, which collapsed just after the audience had left.
+
+@54d2c368
+La tomba de Virgili
+The tomb of Virgil
+
+@515be58c
+Al camí de Neàpolis a Puteoli, a menys de dues milles, hi ha la tomba de Virgili, que va viure molts anys aquí i hi va escriure les Geòrgiques. El seu epitafi diu: «Màntua em va engendrar, els calabresos em van arrabassar, ara em té Partènope; vaig cantar les pastures, els camps, els cabdills».
+On the road from Neapolis to Puteoli, less than two miles out, is the tomb of Virgil, who lived here for many years and wrote the Georgics here. His epitaph reads: "Mantua bore me, the Calabrians snatched me away, now Parthenope holds me; I sang of pastures, fields and leaders."
+
+@4c6d7256
+Encara em cau cendra als cabells quan bufa de llevant.
+Ash still falls in my hair when the wind blows from the east.
+
+@19bdb66b
+El meu cosí vivia a Herculà. No en sabem res.
+My cousin lived in Herculaneum. We've heard nothing of him.
+
+@247c73df
+Aquí parlem grec a casa i llatí al fòrum.
+Here we speak Greek at home and Latin in the forum.
+
+@56e9856e
+Han arribat famílies de Pompeia sense res. L'emperador envia diners, però no n'hi ha prou.
+Families have come from Pompeii with nothing. The emperor sends money, but it isn't enough.
+
+@10df999d
+Magatzems
+Warehouses
+
+@4cdfa751
+Temple de Brundisium
+Temple of Brundisium
+
+@971c3616
+Fòrum de Brundisium
+Forum of Brundisium
+
+@2486224a
+El port de Brundisium
+The harbour of Brundisium
+
+@980b4476
+El millor port d'Itàlia cap a Orient: un braç de mar que s'obre en dos com les banyes d'un cérvol (això vol dir el seu nom en messapi). D'aquí salpen els vaixells cap a Dirraqui i Apol·lònia, a l'Epir, a un dia de navegació, i d'allà segueix la Via Egnàtia fins a Bizanci. Per aquí passen els governadors, els soldats i els mercaders que van a Grècia i a Àsia.
+The best harbour in Italy for the East: an arm of the sea that forks like a stag's antlers (that is what its name means in Messapian). From here ships sail to Dyrrachium and Apollonia, in Epirus, a day's sailing, and from there the Via Egnatia runs on to Byzantium. Governors, soldiers and merchants bound for Greece and Asia all pass through here.
+
+@a147ca44
+El final de la Via Àpia
+The end of the Appian Way
+
+@f6bdcbf2
+Aquí acaba la Via Àpia, que va començar Api Claudi el 312 aC fins a Càpua i després es va allargar fins a aquest port. El poeta Horaci va explicar amb humor el seu viatge de Roma a Brundisium del 37 aC: hostalers tramposos, mosquits, granotes i un foc a la cuina que gairebé crema la fonda.
+Here ends the Appian Way, begun by Appius Claudius in 312 BC as far as Capua and later extended to this port. The poet Horace told the story of his journey from Rome to Brundisium in 37 BC with humour: cheating innkeepers, mosquitoes, frogs and a kitchen fire that nearly burned down the inn.
+
+@c8825c5c
+Aquí va morir Virgili
+Here Virgil died
+
+@9b4f8737
+El setembre del 19 aC, Virgili va desembarcar aquí malalt, en tornar de Grècia, i va morir al cap de pocs dies. Havia demanat que cremessin l'Eneida, que no havia acabat de polir. August ho va prohibir i la va fer publicar. El van enterrar a Neàpolis.
+In September of 19 BC Virgil landed here ill, on his way back from Greece, and died a few days later. He had asked for the Aeneid, which he had not finished polishing, to be burned. Augustus forbade it and had it published. He was buried in Neapolis.
+
+@718418cf
+Calàbria, el taló d'Itàlia
+Calabria, the heel of Italy
+
+@f81c766e
+En la teva època, Calàbria no és la punta d'Itàlia sinó el taló, la terra dels messapis i de Tàrent, la vella colònia que van fundar els espartans. La punta és el Bruci. Per aquí va néixer el poeta Enni, que deia que tenia tres cors perquè parlava grec, osc i llatí; i aquí va néixer Pacuvi, el seu nebot. Apúlia és terra de ramats: la llana de Tàrent i de Canusium és famosa.
+In your time Calabria is not the toe of Italy but the heel, the land of the Messapians and of Tarentum, the old colony founded by the Spartans. The toe is Bruttium. Around here was born the poet Ennius, who said he had three hearts because he spoke Greek, Oscan and Latin; and here was born Pacuvius, his nephew. Apulia is sheep country: the wool of Tarentum and Canusium is famous.
+
+@3e1243a5
+Demà salpa una nau cap a Dirraqui, si el vent ho permet.
+A ship sails for Dyrrachium tomorrow, if the wind allows.
+
+@a34c481a
+Les meves ovelles passen l'estiu a les muntanyes del Samni i l'hivern aquí.
+My sheep spend the summer in the mountains of Samnium and the winter here.
+
+@03ca004c
+Enni era d'aquí a prop: parlava tres llengües i deia que tenia tres cors.
+Ennius came from near here: he spoke three languages and said he had three hearts.
+
+@0aa25e02
+Aquí desembarquen tots els qui tornen de Grècia explicant meravelles.
+Everyone coming back from Greece lands here, telling of wonders.
+
+@728b6931
+Temple d'Hera (el més antic)
+Temple of Hera (the oldest)
+
+@d80a530e
+Segon temple d'Hera
+Second temple of Hera
+
+@3223f3dc
+Temple d'Atena
+Temple of Athena
+
+@0441c71d
+Temple del fòrum de Paestum
+Temple of the forum of Paestum
+
+@0f2e2999
+Fòrum de Paestum
+Forum of Paestum
+
+@ef7255f9
+Els temples de Posidònia
+The temples of Poseidonia
+
+@25a9124a
+Tres grans temples dòrics dels grecs de Síbaris, que van fundar aquí Posidònia, la ciutat de Posidó, cap al 600 aC. El més antic té nou columnes a la façana, cosa molt estranya. Les seves columnes s'eixamplen al centre i els capitells són amples com taules. Probablement estaven dedicats a Hera i a Atena. Quan els vegis, ja seran més antics que la mateixa República romana.
+Three great Doric temples built by the Greeks of Sybaris, who founded Poseidonia, the city of Poseidon, here around 600 BC. The oldest has nine columns across its front, which is very unusual. Its columns swell in the middle and its capitals are as wide as tables. They were probably dedicated to Hera and Athena. When you see them, they are already older than the Roman Republic itself.
+
+@cf7dcace
+De Posidònia a Paestum
+From Poseidonia to Paestum
+
+@34c0e4f8
+Cap al 400 aC els lucans, un poble itàlic de les muntanyes, es van fer amb la ciutat grega. Un escriptor grec va explicar que els posidoniates es reunien un cop l'any per plorar, en grec, la llengua i els costums que havien perdut. El 273 aC Roma hi va fundar una colònia llatina, Paestum, que li va ser fidel fins i tot quan Anníbal recorria Itàlia.
+Around 400 BC the Lucanians, an Italic mountain people, took over the Greek city. A Greek writer told how the Poseidoniates met once a year to mourn, in Greek, the language and customs they had lost. In 273 BC Rome founded a Latin colony here, Paestum, which stayed loyal even while Hannibal roamed Italy.
+
+@a45d8559
+Les roses de Paestum
+The roses of Paestum
+
+@7f7819d8
+Virgili i Properci van cantar els rosers de Paestum, que floreixen dues vegades l'any. Les roses es venen a Roma per a corones, perfums i banquets, i per a les garlandes dels déus.
+Virgil and Propertius sang of the rose gardens of Paestum, which bloom twice a year. The roses are sold in Rome for crowns, perfumes and banquets, and for the garlands of the gods.
+
+@44332673
+Lucània i el Bruci
+Lucania and Bruttium
+
+@4900e130
+Més al sud, la punta d'Itàlia és el Bruci, terra de boscos: la pega de la muntanya Sila calafata els vaixells de mig Imperi. Allà hi ha Règion, al costat de l'estret on els mariners diuen que viuen Escil·la i Caribdis. Els brucis es van passar a Anníbal, i Roma els va castigar: durant molt de temps van servir com a criats dels magistrats.
+Further south, the toe of Italy is Bruttium, a land of forests: pitch from the Sila mountains caulks the ships of half the Empire. There lies Rhegium, beside the strait where sailors say Scylla and Charybdis live. The Bruttii went over to Hannibal, and Rome punished them: for a long time they served as attendants to the magistrates.
+
+@78549f02
+Les roses d'aquí floreixen dues vegades l'any. Les venem a Roma.
+The roses here bloom twice a year. We sell them in Rome.
+
+@8934e263
+Aquests temples ja eren vells quan Anníbal va passar per aquí.
+These temples were already old when Hannibal passed through.
+
+@6b3b7194
+A l'estiu, la plana s'omple de mosquits. Millor viure al turó.
+In summer the plain fills with mosquitoes. Better to live on the hill.
+
+@68dc7c38
+La pega de la Sila calafata mig Imperi.
+Pitch from the Sila caulks half the Empire.
+
+@52e9c727
+Fòrum de Saepinum
+Forum of Saepinum
+
+@829e5683
+Basílica de Saepinum
+Basilica of Saepinum
+
+@69e44212
+Teatre de Saepinum
+Theatre of Saepinum
+
+@e345fd25
+Santuari de Pietrabbondante
+Sanctuary of Pietrabbondante
+
+@64c78c9d
+Un poble petit en una vall de muntanya, al cor de l'antic Samni. Les seves muralles amb torres les van pagar Tiberi i el seu germà Drus en temps d'August, com diu la inscripció de les portes, on hi ha estàtues de bàrbars presoners. A dins: un fòrum, una basílica, un teatre, termes, botigues. Tot el necessari per viure com a Roma, però amb més ovelles.
+A small town in a mountain valley, in the heart of old Samnium. Its towered walls were paid for by Tiberius and his brother Drusus in the time of Augustus, as the inscription on the gates says, where there are statues of captive barbarians. Inside: a forum, a basilica, a theatre, baths, shops. Everything you need to live as in Rome, but with more sheep.
+
+@bbef638c
+El camí dels ramats
+The drove road
+
+@4a3e5211
+El carrer principal de Saepinum és també un camí de transhumància: cada tardor hi baixen milers d'ovelles des de les muntanyes del Samni fins als pasturatges d'hivern d'Apúlia, i a la primavera tornen a pujar. Els ramats són de grans propietaris, de vegades del mateix emperador, i els pastors sovint són esclaus.
+The main street of Saepinum is also a drove road: every autumn thousands of sheep come down it from the mountains of Samnium to the winter pastures of Apulia, and in spring they go back up. The flocks belong to great landowners, sometimes to the emperor himself, and the shepherds are often slaves.
+
+@612b1610
+Les guerres samnites
+The Samnite Wars
+
+@c4054043
+Els samnites van ser els enemics més durs de Roma a Itàlia: tres guerres, entre el 343 i el 290 aC. El 321 van atrapar un exèrcit romà al congost de Càudium i el van fer passar sota el jou, una humiliació que Roma no va oblidar. El 82 aC, Sul·la els va derrotar a les portes de Roma i es va venjar amb matances.
+The Samnites were Rome's toughest enemies in Italy: three wars, between 343 and 290 BC. In 321 they trapped a Roman army in the Caudine Forks and made it pass under the yoke, a humiliation Rome never forgot. In 82 BC Sulla defeated them at the gates of Rome and took his revenge with massacres.
+
+@f226d363
+El santuari samnita
+The Samnite sanctuary
+
+@716562a1
+En aquell cim hi ha el gran santuari dels samnites, amb un temple i un teatre junts, on es reunien els caps de la seva lliga. Es va abandonar després de la guerra dels aliats, quan els samnites van lluitar contra Roma per la ciutadania. Avui gairebé ningú no hi puja.
+On that summit stands the great sanctuary of the Samnites, with a temple and a theatre together, where the leaders of their league used to meet. It was abandoned after the Social War, when the Samnites fought Rome for citizenship. Today hardly anyone goes up there.
+
+@a7cc909c
+El meu avi encara parlava osc a casa.
+My grandfather still spoke Oscan at home.
+
+@9ce16af7
+Els ramats baixen a Apúlia a la tardor i passen just per la porta del poble.
+The flocks go down to Apulia in autumn and pass right by the town gate.
+
+@ce963169
+Aquí no hi ha mar ni grans senyors: pedres, ovelles i fred.
+Here there's no sea and no great lords: stones, sheep and cold.
+
+@9071472e
+Els recaptadors de l'emperador compten les ovelles millor que nosaltres.
+The emperor's tax collectors count sheep better than we do.
+
+@81161092
+Temple d'Asculum
+Temple of Asculum
+
+@34ac842c
+Fòrum d'Asculum
+Forum of Asculum
+
+@0cec9f54
+Asculum i la guerra dels aliats
+Asculum and the Social War
+
+@8348aa79
+El 91 aC, els habitants d'Asculum van matar al teatre el magistrat romà i tots els romans de la ciutat: va començar la guerra dels aliats, els pobles d'Itàlia que demanaven la ciutadania romana. Pompeu Estrabó, pare de Pompeu el Gran, va prendre la ciutat el 89 després d'un llarg setge. Roma va guanyar la guerra, però va acabar donant la ciutadania a gairebé tots els italians.
+In 91 BC the people of Asculum killed the Roman magistrate and every Roman in the city in the theatre: so began the Social War, fought by the peoples of Italy who wanted Roman citizenship. Pompeius Strabo, father of Pompey the Great, took the city in 89 after a long siege. Rome won the war, but ended up granting citizenship to almost all Italians.
+
+@b69fc22f
+El nen captiu que va ser cònsol
+The captive boy who became consul
+
+@46c7d043
+Entre els presoners d'Asculum va desfilar en el triomf de Pompeu Estrabó un nen, Publi Ventidi. De gran va ser traginer de mules per a l'exèrcit, es va guanyar la confiança de Cèsar, va arribar a cònsol i el 38 aC va vèncer els parts. Va ser el primer romà que va celebrar un triomf sobre ells: havia entrat a Roma com a captiu en un triomf i hi va tornar com a triomfador.
+Among the prisoners from Asculum paraded in the triumph of Pompeius Strabo was a boy, Publius Ventidius. As a man he was a mule-driver for the army, won Caesar's trust, became consul and in 38 BC defeated the Parthians. He was the first Roman to celebrate a triumph over them: he had entered Rome as a captive in a triumph and returned as the triumphant general.
+
+@c754efdc
+La Via Salària
+The Via Salaria
+
+@697c97de
+Per aquest camí els sabins portaven la sal des de la desembocadura del Tíber cap a l'interior, i d'aquí ve el seu nom. Avui uneix Roma amb Asculum i l'Adriàtic. El pont sobre el riu Truentus és de l'època d'August.
+Along this road the Sabines carried salt inland from the mouth of the Tiber, hence its name. Today it links Rome with Asculum and the Adriatic. The bridge over the river Truentus dates from the time of Augustus.
+
+@38cc9f47
+Els picens i el picot
+The Picentes and the woodpecker
+
+@1b3ae766
+Segons la llegenda, els avantpassats dels picens van arribar aquí des de la Sabina guiats per un picot, el picus, l'ocell de Mart: d'aquí ve el seu nom. El Picè és terra d'oliveres, i les seves olives se serveixen a les millors taules de Roma.
+According to legend, the ancestors of the Picentes came here from Sabine country, guided by a woodpecker, the picus, the bird of Mars: hence their name. Picenum is olive country, and its olives are served at the finest tables in Rome.
+
+@b4fa8da2
+Les olives del Picè són les millors: pregunta a qualsevol taula de Roma.
+The olives of Picenum are the best: ask at any table in Rome.
+
+@446506f8
+El picot va guiar els nostres avantpassats fins aquí.
+The woodpecker guided our ancestors here.
+
+@1a453ff2
+El meu besavi va veure cremar la ciutat a la guerra contra Roma. Ara som més romans que ningú.
+My great-grandfather saw the city burn in the war against Rome. Now we're more Roman than anyone.
+
+@f64ecc34
+El travertí de les nostres pedreres és tan bo com el de Tíbur.
+The travertine from our quarries is as good as the stone of Tibur.
+
+@355e2811
+Fòrum d'Ariminum
+Forum of Ariminum
+
+@4ee04e06
+Temple d'Ariminum
+Temple of Ariminum
+
+@256a74f4
+L'Arc d'August
+The Arch of Augustus
+
+@48520208
+El Senat va dedicar aquest arc a August el 27 aC, quan va restaurar la Via Flamínia i les principals calçades d'Itàlia. Aquí acaba la Flamínia, que ve de Roma. Als medallons, Júpiter, Apol·lo, Neptú i la deessa Roma.
+The Senate dedicated this arch to Augustus in 27 BC, when he restored the Via Flaminia and the main roads of Italy. Here ends the Flaminia, which comes from Rome. In the medallions: Jupiter, Apollo, Neptune and the goddess Roma.
+
+@f93a0114
+El pont de Tiberi
+The bridge of Tiberius
+
+@214249e0
+Cinc arcs de pedra d'Ístria sobre el riu Ariminus. El va començar August el 14 dC i el va acabar Tiberi el 21. D'aquí surt la Via Emília cap a Placentia, per la plana del Po. Aquest pont continuarà en ús dos mil anys després.
+Five arches of Istrian stone over the river Ariminus. Augustus began it in AD 14 and Tiberius finished it in 21. From here the Via Aemilia sets out for Placentia, across the plain of the Po. This bridge will still be in use two thousand years later.
+
+@48529e6b
+El Rubicó
+The Rubicon
+
+@e3546c71
+Unes milles al nord corre el Rubicó, un rierol que marcava la frontera entre Itàlia i la província de la Gàl·lia Cisalpina. Un general no el podia travessar amb el seu exèrcit. Cèsar el va travessar el gener del 49 aC dient, segons Suetoni, «la sort està llançada», i va començar la guerra civil. S'explica que va arengar els seus soldats al fòrum d'Ariminum.
+A few miles to the north runs the Rubicon, a stream that marked the border between Italy and the province of Cisalpine Gaul. A general could not cross it with his army. Caesar crossed it in January of 49 BC saying, according to Suetonius, "the die is cast", and the civil war began. It is said that he addressed his soldiers in the forum of Ariminum.
+
+@c9f4017c
+Umbres i gals
+Umbrians and Gauls
+
+@e56bce63
+Els umbres eren un poble antic de les muntanyes; a Iguvium guarden unes taules de bronze amb els seus ritus escrits en la seva llengua. Aquesta costa, en canvi, va ser dels gals sènons fins que Roma els va vèncer el 283 aC: per això l'anomenen el «camp gal». Ariminum és colònia llatina des del 268.
+The Umbrians were an ancient mountain people; at Iguvium they keep bronze tablets with their rites written in their own language. This coast, on the other hand, belonged to the Senones Gauls until Rome defeated them in 283 BC: that's why it's called the "Gallic land". Ariminum has been a Latin colony since 268.
+
+@8d565b8d
+Aquí acaba la Flamínia i comença l'Emília: tothom passa per Ariminum.
+Here the Flaminia ends and the Aemilia begins: everyone passes through Ariminum.
+
+@9dab1dd4
+Diuen que Cèsar va parlar als seus soldats en aquest mateix fòrum.
+They say Caesar spoke to his soldiers in this very forum.
+
+@5c7bafb8
+El peix de l'Adriàtic és millor que el del Tíber.
+Fish from the Adriatic is better than fish from the Tiber.
+
+@66cb36ce
+Del port surten vaixells cap a Ístria i Dalmàcia.
+Ships leave the harbour for Istria and Dalmatia.
+
+@a2f43054
+Ara de la Reina
+Altar of the Queen
+
+@0e3bb980
+Tomba pintada
+Painted tomb
+
+@12806a6d
+Les tombes pintades
+The painted tombs
+
+@6c35dcb7
+En aquest turó, davant de la ciutat, els etruscs de Tarquínia van enterrar els seus morts durant segles en cambres excavades a la roca, sota túmuls de terra. Les parets de moltes estan pintades: banquets, músics, ballarins, jocs atlètics, caceres. Entra en aquesta: els avantpassats continuen de festa per sempre. Algunes famílies encara hi honoren els seus.
+On this hill, facing the city, the Etruscans of Tarquinii buried their dead for centuries in chambers cut into the rock, under earthen mounds. The walls of many are painted: banquets, musicians, dancers, athletic games, hunts. Go into this one: the ancestors are still feasting, for ever. Some families still honour their dead here.
+
+@84e94600
+Els harúspexs
+The haruspices
+
+@753b0490
+Els etruscs són els mestres de la «disciplina etrusca»: saben llegir la voluntat dels déus al fetge dels animals sacrificats i en els llamps. Roma continua consultant els seus harúspexs, i l'emperador Claudi, que va escriure vint llibres d'història etrusca, en va reorganitzar el col·legi de seixanta. L'harúspex Spurinna, d'una família d'aquí, va avisar Cèsar dels idus de març.
+The Etruscans are the masters of the "Etruscan discipline": they know how to read the will of the gods in the livers of sacrificed animals and in lightning. Rome still consults their haruspices, and the emperor Claudius, who wrote twenty books of Etruscan history, reorganised their college of sixty. The haruspex Spurinna, from a family of this town, warned Caesar about the Ides of March.
+
+@0d62094b
+La ciutat dels Tarquinis
+The city of the Tarquins
+
+@5ed8dc40
+D'aquí va sortir Lucumó, fill d'un noble de Corint refugiat a Etrúria, que se'n va anar a Roma amb la seva dona Tanaquil i va arribar a ser el rei Tarquini Prisc. La seva família va donar a Roma el seu últim rei, Tarquini el Superb. Tarquínia va ser una de les grans ciutats de la lliga etrusca; avui és un municipi romà tranquil.
+From here came Lucumo, son of a Corinthian noble who had taken refuge in Etruria; he went to Rome with his wife Tanaquil and became King Tarquinius Priscus. His family gave Rome its last king, Tarquin the Proud. Tarquinii was one of the great cities of the Etruscan league; today it is a quiet Roman municipality.
+
+@68fb99b7
+El gran temple
+The great temple
+
+@2d189387
+Un temple etrusc dels antics, amb un podi enorme, columnes toscanes molt separades i una teulada de fusta adornada amb terracotes pintades, entre elles una parella de cavalls alats. La gent l'anomena «l'altar de la reina».
+An old-style Etruscan temple, with a huge podium, widely spaced Tuscan columns and a wooden roof adorned with painted terracottas, among them a pair of winged horses. People call it "the altar of the queen".
+
+@569b4397
+La meva família és etrusca des d'abans de Roma. Encara llegim els llibres del llamp.
+My family has been Etruscan since before Rome. We still read the books of lightning.
+
+@886bb2e8
+A les tombes dels avantpassats hi ha banquets pintats que no s'acaben mai.
+In the ancestors' tombs there are painted banquets that never end.
+
+@2a46aaae
+Pocs parlen ja etrusc. Els vells, i els harúspexs.
+Few speak Etruscan any more. The old people, and the haruspices.
+
+@5451402e
+El vi de Graviscae, el port, és fluix; l'oli, bo.
+The wine of Graviscae, the port, is thin; the oil is good.
+
+@d4e50ca2
+Fòrum de Mutina
+Forum of Mutina
+
+@33621ea4
+Temple de Mutina
+Temple of Mutina
+
+@a03802b2
+La Via Emília
+The Via Aemilia
+
+@9dddc81a
+El cònsol Marc Emili Lèpid la va traçar el 187 aC, recta com un regle, des d'Ariminum fins a Placentia, a la riba del Po: uns 260 quilòmetres. Al llarg d'ella es van fundar colònies cada poques jornades: Bononia, Mutina, Parma, Regium. Tota la regió n'ha pres el nom.
+The consul Marcus Aemilius Lepidus laid it out in 187 BC, straight as a ruler, from Ariminum to Placentia on the banks of the Po: some 260 kilometres. Along it colonies were founded every few days' journey: Bononia, Mutina, Parma, Regium. The whole region has taken its name from it.
+
+@551d9326
+Els camps en quadrícula
+The gridded fields
+
+@e57b6a54
+Quan es funda una colònia, els agrimensors divideixen el camp amb la groma en grans quadrats de vint actus, uns 710 metres de costat, separats per camins rectes: els cardines i els decumani. Cada quadrat es reparteix entre cent lots. Dos mil anys després, des de l'aire, encara es veuran aquests quadres a la plana del Po.
+When a colony is founded, the surveyors divide the land with the groma into great squares of twenty actus, about 710 metres on a side, separated by straight roads: the cardines and the decumani. Each square is shared among a hundred plots. Two thousand years later, these squares will still be visible from the air on the plain of the Po.
+
+@4271a045
+La guerra de Mutina
+The War of Mutina
+
+@dd9d9f35
+El 43 aC, després de l'assassinat de Cèsar, Marc Antoni hi va assetjar Dècim Brut. El Senat, empès pels discursos de Ciceró, va enviar contra ell els dos cònsols, Hirci i Pansa, i el jove Octavi. Antoni va ser derrotat, però els dos cònsols van morir, i Octavi es va quedar amb els seus exèrcits: va ser el primer pas cap al seu poder.
+In 43 BC, after Caesar's murder, Mark Antony besieged Decimus Brutus here. The Senate, spurred on by Cicero's speeches, sent the two consuls, Hirtius and Pansa, and the young Octavian against him. Antony was defeated, but both consuls died, and Octavian kept their armies: it was the first step towards his power.
+
+@12dab809
+La llana de Mutina
+The wool of Mutina
+
+@3e6ecc48
+Colònia romana des del 183 aC, Mutina viu del camp i del bestiar. Les seves llanes, blanques i fines, són famoses a Roma, igual que les de Parma. A la plana també s'hi crien porcs que alimenten la ciutat de Roma.
+A Roman colony since 183 BC, Mutina lives from its fields and livestock. Its white, fine wool is famous in Rome, like that of Parma. On the plain they also raise the pigs that feed the city of Rome.
+
+@c215bd32
+Des que van traçar els camps en quadres, cadascú sap on s'acaba el que és seu.
+Since they laid out the fields in squares, everyone knows where his own land ends.
+
+@87914616
+La llana de Mutina és blanquíssima.
+The wool of Mutina is as white as can be.
+
+@1bd783a2
+Per l'Emília passen legions cap al Rin i el Danubi.
+Legions pass along the Aemilia on their way to the Rhine and the Danube.
+
+@ac53e220
+El meu avi va rebre el seu lot de terra en llicenciar-se de la legió.
+My grandfather received his plot of land when he was discharged from the legion.
+
+@0cf5d4c9
+Temple de Gènua
+Temple of Genua
+
+@d7cb02b5
+La taula de bronze del Polcevera
+The bronze tablet of the Polcevera
+
+@e3c323ec
+El 117 aC, els genuates i els seus veïns de la vall del Polcevera discutien per unes terres. El Senat va enviar dos germans, els Minucis Rufs, que van dictar una sentència: quins camps eren públics, quant de vi i de blat se'n pagava i per on passaven els límits, de fita en fita. La van gravar en bronze. Es trobarà el 1506, i és un dels documents més antics sobre el camp d'Itàlia.
+In 117 BC the people of Genua and their neighbours in the Polcevera valley were quarrelling over some land. The Senate sent two brothers, the Minucii Rufi, who gave a ruling: which fields were public, how much wine and grain was paid for them and where the boundaries ran, from stone to stone. It was engraved in bronze. It will be found in 1506, and is one of the oldest documents about the Italian countryside.
+
+@c762005d
+El port dels lígurs, aliat de Roma des d'antic. Els cartaginesos el van destruir el 205 aC i els romans el van reconstruir. Aquí baixen de les muntanyes la fusta, el bestiar, la mel i les pells, i hi arriben l'oli i el vi del sud.
+The harbour of the Ligurians, Rome's ally of old. The Carthaginians destroyed it in 205 BC and the Romans rebuilt it. Timber, livestock, honey and hides come down here from the mountains, and oil and wine arrive from the south.
+
+@c8cc885b
+Els lígurs
+The Ligurians
+
+@f01f2650
+Els lígurs de les muntanyes van resistir Roma durant més d'un segle. Diodor explica que viuen d'una terra pobra que cal trencar a cops, que les dones treballen com els homes i que són petits, prims i duríssims. Els seus vessants estan tallats en feixes de pedra seca.
+The mountain Ligurians resisted Rome for more than a century. Diodorus says they live off a poor land that has to be broken by force, that the women work like the men and that they are small, lean and extremely tough. Their hillsides are cut into dry-stone terraces.
+
+@e561e974
+La costa lígur
+The Ligurian coast
+
+@c57d9d08
+La Via Aurèlia, que surt de Roma per la costa d'Etrúria, continua fins aquí i segueix cap a la Gàl·lia per una costa de penya-segats. August la va allargar amb la Via Júlia Augusta i va vèncer els últims pobles dels Alps: a La Turbie, al costat del mar, s'alça el seu trofeu.
+The Via Aurelia, which leaves Rome along the coast of Etruria, runs on to here and continues towards Gaul along a coast of cliffs. Augustus extended it as the Via Julia Augusta and defeated the last peoples of the Alps: at La Turbie, above the sea, stands his trophy.
+
+@c2af5f58
+A les nostres muntanyes no es conrea: s'arrenca la terra a la pedra, feixa a feixa.
+In our mountains you don't farm: you tear the soil from the rock, terrace by terrace.
+
+@457f88ea
+La fusta de Ligúria fa els millors vaixells.
+Ligurian timber makes the best ships.
+
+@a7f50c9e
+Els de la costa som mariners; els de la muntanya, durs com els seus roures.
+Those of us on the coast are sailors; those in the mountains are as tough as their oaks.
+
+@6cdd01c3
+A l'hivern el port s'omple de vaixells que esperen el bon temps.
+In winter the harbour fills with ships waiting for good weather.
+
+@f9b373a6
+Arena de Verona
+Arena of Verona
+
+@68d2a81d
+Teatre de Verona
+Theatre of Verona
+
+@2927770e
+Fòrum de Verona
+Forum of Verona
+
+@155acb61
+Capitoli de Verona
+Capitol of Verona
+
+@dad8eff9
+L'arena de Verona
+The arena of Verona
+
+@b5b275ae
+Un gran amfiteatre de pedra rosada de la Valpolicella, construït fa uns cinquanta anys, fora de les muralles: hi caben unes trenta mil persones, més veronesos dels que hi ha a la ciutat. Hi ve gent de tots els pobles dels voltants a veure els combats de gladiadors i les caceres.
+A great amphitheatre of pink Valpolicella stone, built about fifty years ago, outside the walls: it holds some thirty thousand people, more than there are Veronese in the city. People come from all the towns around to watch the gladiator fights and the beast hunts.
+
+@ca57a1d6
+La ciutat de Catul
+The city of Catullus
+
+@7338501a
+Aquí va néixer, cap al 84 aC, el poeta Catul, que a Roma es va enamorar d'una dona a qui va anomenar Lèsbia i li va escriure versos que encara es reciten: «Odio i estimo. Potser em preguntes per què ho faig. No ho sé, però sento que passa, i em turmento». La seva família tenia una vil·la al llac Benac, a Sirmió.
+Here, around 84 BC, was born the poet Catullus, who in Rome fell in love with a woman he called Lesbia and wrote her verses still recited today: "I hate and I love. Perhaps you ask why I do it. I don't know, but I feel it happening, and I am in torment." His family had a villa on Lake Benacus, at Sirmio.
+
+@de113646
+Patavium i Aquileia
+Patavium and Aquileia
+
+@1f124b4c
+A l'est hi ha Patavium, on va néixer Titus Livi, el gran historiador de Roma (Asini Pol·lió es burlava del seu accent paduà), i Aquileia, colònia des del 181 aC i gran port de l'Adriàtic: allà arriba l'ambre del Bàltic. Més enllà, a Ístria, Pola també té el seu amfiteatre, que s'està ampliant.
+To the east lie Patavium, where Livy, the great historian of Rome, was born (Asinius Pollio mocked his Paduan accent), and Aquileia, a colony since 181 BC and the great port of the Adriatic: the amber of the Baltic arrives there. Further on, in Istria, Pola also has its amphitheatre, which is being enlarged.
+
+@98bc5f0b
+vènets
+Veneti
+
+@295b6149
+Els vènets
+The Veneti
+
+@d2bb0a93
+Els vènets, aliats de Roma des d'antic contra els gals, deien que descendien dels ènets de Paflagònia que van arribar amb Antènor després de la guerra de Troia. Eren famosos criadors de cavalls: amb cavalls vènets va guanyar un espartà a Olímpia, segons Estrabó.
+The Veneti, Rome's allies of old against the Gauls, claimed descent from the Eneti of Paphlagonia who came with Antenor after the Trojan War. They were famous horse breeders: a Spartan won at Olympia with Venetic horses, according to Strabo.
+
+@41149669
+A l'arena hi caben més veronesos dels que viuen a Verona.
+The arena holds more Veronese than live in Verona.
+
+@e964a832
+Els cavalls vènets guanyaven curses fins i tot a Olímpia.
+Venetic horses won races even at Olympia.
+
+@24e972e8
+L'ambre del nord arriba a Aquileia i d'allà a tota Itàlia.
+Amber from the north reaches Aquileia and from there all Italy.
+
+@cf670c38
+Catul era d'aquí. La meva àvia se sabia de memòria els seus versos més indecents.
+Catullus was from here. My grandmother knew his most indecent verses by heart.
+
+@0bdb3cc4
+Fòrum de Comum
+Forum of Comum
+
+@72796d37
+Temple de Comum
+Temple of Comum
+
+@5c17cc84
+Vil·la al costat del llac
+Villa by the lake
+
+@167e17cb
+Comum i el llac Lari
+Comum and Lake Larius
+
+@141572aa
+Novum Comum el va fundar Cèsar el 59 aC amb cinc mil colons, entre ells cinc-cents grecs il·lustres. És a la punta del llac Lari, llarg i estret entre muntanyes, pel qual es navega cap als passos dels Alps. Els rics de la ciutat tenen vil·les a les seves ribes.
+Novum Comum was founded by Caesar in 59 BC with five thousand colonists, among them five hundred distinguished Greeks. It stands at the tip of Lake Larius, long and narrow between mountains, along which you sail towards the Alpine passes. The town's rich men have villas on its shores.
+
+@d5bc70ac
+Aquí va néixer, cap al 23 dC, Gai Plini Segon: soldat, advocat, procurador, almirall i sobretot lector incansable. Va escriure una Història natural en trenta-set llibres sobre tot el que se sabia del món, que va dedicar a Titus fa tres anys. Va morir l'any passat en l'erupció del Vesuvi, per voler-la veure de prop i ajudar els qui fugien.
+Here, around AD 23, was born Gaius Plinius Secundus: soldier, lawyer, procurator, admiral and above all a tireless reader. He wrote a Natural History in thirty-seven books about everything known of the world, which he dedicated to Titus three years ago. He died last year in the eruption of Vesuvius, because he wanted to see it up close and help those who were fleeing.
+
+@7de01f29
+El seu nebot i hereu, Gai Plini Cecili Segon, va néixer aquí cap al 61. Ara té uns divuit anys i estudia retòrica a Roma amb Quintilià. Serà advocat, cònsol i governador, i deixarà deu llibres de cartes, en què parlarà de les seves vil·les del llac: a una l'anomenarà «Tragèdia» i a una altra «Comèdia».
+His nephew and heir, Gaius Plinius Caecilius Secundus, was born here around 61. He is now about eighteen and studies rhetoric in Rome with Quintilian. He will be a lawyer, consul and governor, and will leave ten books of letters, in which he will speak of his villas on the lake: one he will call "Tragedy" and the other "Comedy".
+
+@7d343bdf
+Els transpadans
+The Transpadanes
+
+@b6f57513
+Els pobles al nord del Po van rebre el dret llatí el 89 aC i la ciutadania romana completa el 49, gràcies a Cèsar. La gran ciutat de la regió és Mediolanum, a la plana. Al nord, pels Alps, es va a la Rècia i a la Gàl·lia; August va vèncer els salasses i va fundar Augusta Pretòria per guardar els passos.
+The peoples north of the Po received Latin rights in 89 BC and full Roman citizenship in 49, thanks to Caesar. The great city of the region is Mediolanum, on the plain. To the north, over the Alps, the roads lead to Raetia and Gaul; Augustus defeated the Salassi and founded Augusta Praetoria to guard the passes.
+
+@a29500d8
+El llac és tan llarg que les seves ribes semblen dos països.
+The lake is so long its two shores seem like two countries.
+
+@8cbe4d95
+Els Plinis són d'aquí: l'oncle i el nebot.
+The Plinies are from here: the uncle and the nephew.
+
+@6ce4fd63
+De Mediolanum als passos dels Alps només hi ha uns quants dies; d'allà, la Gàl·lia.
+From Mediolanum to the Alpine passes is only a few days; from there, Gaul.
+
+@7fd2b973
+A l'hivern baixa del nord un vent que talla la cara.
+In winter a wind comes down from the north that cuts your face.
+
+@fb8f4469
+Temple d'August (Tarraco)
+Temple of Augustus (Tarraco)
+
+@4a157933
+Fòrum provincial (en obres)
+Provincial forum (under construction)
+
+@2485c00a
+Teatre de Tarraco
+Theatre of Tarraco
+
+@9d8efdb7
+Fòrum de la colònia
+Forum of the colony
+
+@d83bfa99
+Tarraco, capital de la Hispània Citerior
+Tarraco, capital of Nearer Hispania
+
+@4e32746a
+Els germans Escipions hi van desembarcar el 218 aC, en començar la guerra contra Anníbal, i la van convertir en la seva base. Avui és colònia i capital de la província més gran de l'Imperi, que va de la Mediterrània a l'Atlàntic. Aquí resideix el governador. August hi va passar l'hivern del 26 al 25 aC, malalt, durant la guerra contra els càntabres.
+The Scipio brothers landed here in 218 BC, at the start of the war against Hannibal, and made it their base. Today it is a colony and capital of the largest province in the Empire, which stretches from the Mediterranean to the Atlantic. The governor lives here. Augustus spent the winter of 26-25 BC here, ill, during the war against the Cantabri.
+
+@323f0e0e
+El temple d'August
+The temple of Augustus
+
+@63905649
+El 15 dC, poc després de la seva mort, els hispans van demanar a Tiberi permís per aixecar aquí un temple al diví August. Va ser el primer de la seva mena a Occident, com explica Tàcit, i va servir d'exemple a altres províncies. Aquí es reuneixen cada any els delegats de les ciutats de la província.
+In AD 15, shortly after his death, the people of Hispania asked Tiberius for permission to build a temple here to the divine Augustus. It was the first of its kind in the West, as Tacitus says, and served as an example to other provinces. Here the delegates of the province's cities meet every year.
+
+@bd55c9d7
+El fòrum provincial, en obres
+The provincial forum, under construction

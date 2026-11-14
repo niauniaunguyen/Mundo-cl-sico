@@ -1,0 +1,93 @@
+# Revisión del plano de Atenas (386 a.C.)
+
+Fuentes aportadas para esta revisión:
+
+- E. Curtius y J. A. Kaupert, *Atlas von Athen* (1878) y *Karten von Attika* (1881–1903): planos topográficos de la ciudad, del Pireo y del Ática.
+- W. Judeich, *Topographie von Athen* (1.ª ed., 1905), en especial la fig. 9: la muralla de Temístocles con sus puertas sobre el plano de la ciudad moderna (escala 1:32.600).
+- J. Travlos, *Pictorial Dictionary of Ancient Athens* (1971).
+- R. E. Wycherley, *The Athenian Agora III: Literary and Epigraphical Testimonia* (1957), y H. A. Thompson y R. E. Wycherley, *The Athenian Agora XIV: The Agora of Athens* (1972).
+
+Solo se usan para comprobar posiciones; no se copia su texto.
+
+## Método
+
+Igual que con Roma y Lanciani:
+
+1. Se toman las coordenadas reales (latitud y longitud) de los edificios conservados y se ajusta una semejanza (escala, giro y traslación) con su posición en el juego.
+2. Con ese ajuste se superponen sobre el plano de Judeich la muralla, las puertas y los edificios del juego.
+
+**Centro** (Acrópolis y Ágora, 15 edificios): escala 1,06 y giro −13°. Están a menos de 50 m el Eleusinion, la Stoa Basileios, la Stoa de Zeus, la Tholos, el Hefestión, el teatro de Dioniso, el Bouleuterion, la Stoa Poikile, el Odeón y el Asclepieion. La Acrópolis entera queda unos 70 m al este respecto al Ágora; las distancias entre sus edificios son correctas.
+
+**Toda la ciudad** (13 lugares, incluidas las colinas y las puertas): escala 0,84 y giro −8°. Es decir, la periferia está algo comprimida, como en Roma, para que la ciudad se pueda recorrer. A esa escala, las colinas de las Ninfas y de las Musas, la Pnyx y el Areópago quedan en su sitio. La Academia, el Liceo y el Pireo están muy comprimidos a propósito.
+
+## La muralla y las puertas
+
+La muralla del juego es casi un círculo. Superpuesta al trazado de Judeich, coincide bien por el norte, el este y el sur. Puerta por puerta (ángulo alrededor del centro de la muralla, juego → Judeich):
+
+| Puerta | Juego | Judeich | |
+|---|---|---|---|
+| Acarnea | −1,50 | −1,50 | bien |
+| Eria | −1,95 | −1,86 | bien |
+| Itonia | 0,65 | 0,61 | bien |
+| **Diocares** | 0,00 | −0,66 | **unos 500 m al sur: corregida a −0,60** |
+| **Melítide** | 2,90 (oeste) | 2,19 (suroeste) | **corregida a 1,88, al pie de la colina de las Musas** |
+| Pireo | 2,30 | −3,00 | se deja: el juego la pone entre los Muros Largos, como varias reconstrucciones |
+| Diomea | 0,33 | 0,90 | se deja: su lugar se discute (Judeich, al sur; otros, al este) |
+| **Dípilon** y Puerta Sagrada | −2,29 / −2,37 | −2,67 | **corregido a −2,62 / −2,70** |
+
+## El Dípilon y el Cerámico
+
+En el juego, el Dípilon estaba al norte del Ágora. En Judeich y en la realidad está al noroeste, y la Vía Panatenaica cruza el Ágora en diagonal desde allí. Se ha girado su puerta en la muralla de −2,29 a −2,62 (y la Puerta Sagrada, a su lado, de −2,37 a −2,70).
+
+Con la puerta se mueve todo el Cerámico, que se construye a partir de ella: el patio del Dípilon con sus cuatro torres, la Puerta Sagrada, el Pompeion, los alfareros, la casa del banquete, los carteles, el barrio interior de los alfareros y los dioses y personajes de la zona.
+
+Desviación respecto al ajuste de toda la ciudad, antes → después: Dípilon 167 → 21 m, Pompeion 120 → 18 m.
+
+Tres cosas no podían seguir a la puerta sin más:
+
+- **La Academia** se colocaba en línea recta hacia fuera desde la puerta. Con la puerta al noroeste habría quedado al oeste-suroeste, cuando está al norte-noroeste del Dípilon. Se ha dejado fija y se ha definido el **Dromos**, el camino ancho del Dípilon a la Academia: las tumbas, los túmulos del cementerio público y el cartel del Cerámico se alinean ahora a lo largo de ese camino, y no en línea recta hacia fuera.
+- **La Vía Panatenaica** sale del Dípilon hacia el este-sureste y entra en el Ágora por su ángulo noroeste, como en la lámina 5 de *Agora XIV*.
+- **El Erídano** estaba trazado con coordenadas fijas. Ahora sale de la ciudad por la Puerta Sagrada, con su cauce perpendicular a la muralla, y corre hacia el oeste. Antes la franja de agua de la Puerta Sagrada iba a lo largo de la muralla.
+
+## La Acrópolis y el Ágora
+
+La Acrópolis estaba unos 70 m al este respecto al Ágora. Por separado, cada conjunto tiene sus proporciones bien (escala 0,81-0,82), pero la distancia entre ambos estaba estirada: del Tholos al Partenón había 693 m, cuando a la escala del centro deberían ser unos 530-600.
+
+La Acrópolis es el origen de coordenadas del mapa: la roca, el Partenón, el teatro y toda la ladera sur se miden desde ella. El Ágora, en cambio, depende de un solo punto (`AG`). Por eso se ha acercado el Ágora a la Acrópolis, y no al revés:
+
+- **El Ágora** se desplaza 100 m al este, con todos sus edificios, el llano, el Kolonos Agoraios con el Hefestión, las escuelas, tu casa, la casa de Simón, los carteles y los personajes.
+- **El Eleusinion** pasa a (−198,−175), al pie de la Acrópolis y al este de la subida de la Vía Panatenaica, como en la realidad.
+- **La Vía Panatenaica** entre el Ágora y la Acrópolis y el arranque del camino del Liceo se han rehecho, porque tenían puntos fijos.
+
+Resultado: ajustando juntos la cima de la Acrópolis y el Ágora (10 edificios), todos quedan a menos de 38 m; antes, la Acrópolis entera se desviaba 55-77 m. No hay casas montadas sobre ningún edificio.
+
+Queda una diferencia pequeña dentro de la Acrópolis: el Partenón está unos 40 m al este respecto al Erecteion, porque la roca del juego es algo más baja de norte a sur, y el Asclepieion unos 30 m al oeste respecto al teatro.
+
+## El Ágora, edificio por edificio
+
+Plano de referencia: *Agora XIV*, lámina 5, «The Agora in Late 5th Century B.C.», de J. Travlos (1970), con escala gráfica de 100 m y el norte arriba. Es el estado del Ágora más cercano al 386.
+
+El ajuste con 11 edificios da escala 0,91 y giro −6,7°: el Ágora del juego está ligeramente comprimida y girada respecto al resto, como toda la ciudad.
+
+**Antes de la revisión ya estaban bien** (menos de 25 m): Hefestión, Stoa Real, Stoa de Zeus, los dos Bouleuteria, la Tholos, la Stoa Sur I y la Stoa Poikile. La Vía Panatenaica cruza la plaza en diagonal, como en la lámina.
+
+**Corregido:**
+
+| Elemento | Antes | Ahora | Por qué |
+|---|---|---|---|
+| Monumento de los Héroes Epónimos | delante del Metroon (73 m) | al sur, junto a la Heliea (16 m) | El monumento excavado delante del Metroon es de hacia el 330; en el 386 estaba en su primer emplazamiento, que Travlos marca con interrogante. El cartel lo explica. |
+| Altar de los Doce Dioses | encima de la Vía Panatenaica (20 m) | al oeste de la calle (12 m) | Lámina 5 |
+| Recinto rectangular («¿Heliea?») | 22 m al oeste | junto a la Stoa Sur I (3 m) | Lámina 5; también el kleroterion y su cartel |
+| Fuente del sureste | 30 m al este, en el sitio de la Ceca | pegada a la Stoa Sur I (3 m) | Lámina 5; también la aguadora y la abuela |
+| **La Ceca** (nueva) | no estaba | al este de la fuente | Hornos, escorias y cospeles; hacia el 400. El cartel recuerda las monedas de bronce plateado del 406 (Aristófanes, *Ranas* 718-737). |
+| Los Tiranicidas | al este de la Vía Panatenaica | en la Orquestra, frente al Metroon | Arriano, *Anábasis* III 16.8 |
+| Hermas | en mitad de la plaza | en el ángulo noroeste, entre la Stoa Real y la Poikile | Agora XIV; Agora III (testimonios sobre «las Hermas») |
+
+**Comprobado y no cambiado:**
+
+- La casa de Simón y el mojón del Ágora están unos 70 m al sur de la esquina suroeste de la lámina. Se dejan juntos, porque el mojón se encontró al lado de la casa.
+- El Estrategeion (¿?) de la lámina no está en el juego; su identificación es dudosa.
+- La Stoa Poikile del juego sigue la reconstrucción de 1970. La excavada en 1981 está algo más al oeste, al norte de la Vía Panatenaica; la diferencia es menor de 20 m.
+
+## Pendiente
+

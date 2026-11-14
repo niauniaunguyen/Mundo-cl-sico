@@ -1,0 +1,221 @@
+# ROMA_PLACES: textos de los lugares de Roma (las inscripciones latinas no se traducen)
+
+@33e11830
+=
+=
+
+@cbde2c7f
+La seu del Senat, començada per Juli Cèsar i acabada per August el 29 aC. És una gran sala de maó revestida d'estuc, amb portes de bronze. A dins, els senadors seuen en bancs a banda i banda i voten desplaçant-se cap al qui defensa la seva postura. August hi va posar un altar i una estàtua de la Victòria.
+The seat of the Senate, begun by Julius Caesar and finished by Augustus in 29 BC. It is a large brick hall faced with stucco, with bronze doors. Inside, the senators sit on benches on either side and vote by moving towards whoever defends their position. Augustus placed an altar and a statue of Victory here.
+
+@75ca282f
+La tribuna dels oradors. Pren el nom dels esperons (rostra) de bronze de les naus enemigues capturades a Àntium el 338 aC, que n'adornen el front. Des d'aquí parlaven Ciceró i els grans polítics de la República; aquí Marc Antoni va exposar el cap i les mans de Ciceró el 43 aC.
+The speakers' platform. It takes its name from the bronze rams (rostra) of enemy ships captured at Antium in 338 BC, which adorn its front. Cicero and the great politicians of the Republic spoke from here; here Mark Antony displayed Cicero's head and hands in 43 BC.
+
+@e1c50539
+=
+=
+
+@352f8b69
+Un dels temples més antics de Roma, del 497 aC, reconstruït per Munaci Planc el 42 aC. Sota el seu podi hi ha l'erari, el tresor de l'Estat. Al desembre hi comencen les Saturnals: es deslliguen els peus de llana de l'estàtua del déu i durant uns quants dies els esclaus mengen amb els seus amos.
+One of the oldest temples in Rome, from 497 BC, rebuilt by Munatius Plancus in 42 BC. Beneath its podium is the aerarium, the state treasury. In December the Saturnalia begin here: the woollen bonds on the god's statue are untied and for a few days slaves eat with their masters.
+
+@50261201
+=
+=
+
+@6da4823a
+Els Diòscurs, els bessons de Zeus, es van aparèixer segons la llegenda en aquesta font del Fòrum per anunciar la victòria romana del llac Regil (496 aC). El temple actual, amb vuit columnes corínties a la façana, el va reconstruir Tiberi el 6 dC. Sota el podi, unes cambres serveixen d'oficina de pesos i mesures i de caixes fortes per a particulars.
+The Dioscuri, the twins of Zeus, appeared according to legend at this fountain in the Forum to announce the Roman victory at Lake Regillus (496 BC). The present temple, with eight Corinthian columns on the façade, was rebuilt by Tiberius in AD 6. Under the podium, chambers serve as an office of weights and measures and as strongrooms for private individuals.
+
+@6f625961
+=
+=
+
+@69a80aac
+Un temple rodó que recorda les cabanes dels primers romans. A dins no hi ha estàtua: només el foc sagrat, que les vestals mantenen encès dia i nit. Al seu magatzem secret es guarda el Pal·ladi, la imatge de Pal·las que Enees hauria portat de Troia. Cap home no hi pot entrar, tret del pontífex màxim.
+A round temple recalling the huts of the first Romans. There is no statue inside: only the sacred fire, which the Vestals keep burning day and night. Its secret store holds the Palladium, the image of Pallas that Aeneas is said to have brought from Troy. No man may enter, except the pontifex maximus.
+
+@ead3afc6
+=
+=
+
+@26e8a7da
+Construït per August al lloc on es va cremar el cadàver de Juli Cèsar el 44 aC, quan la multitud va improvisar una pira amb els bancs dels tribunals. Va ser el primer temple de Roma dedicat a un home divinitzat. A la façana, una altra tribuna s'adorna amb els esperons de les naus egípcies d'Àccium.
+Built by Augustus on the spot where Julius Caesar's body was burned in 44 BC, when the crowd improvised a pyre from the court benches. It was the first temple in Rome dedicated to a deified man. On its façade, another platform is decorated with the rams of the Egyptian ships from Actium.
+
+@fd5a68e5
+=
+=
+
+@86d0f0e7
+Una enorme sala de 101 per 49 metres amb dos pisos d'arcades, començada per Cèsar i acabada per August. Aquí jutja el tribunal dels centumvirs, que s'ocupa de les herències: quatre sales alhora, separades per cortines. Al paviment dels pòrtics, els desvagats hi han gravat taulers de joc.
+A huge hall of 101 by 49 metres with two storeys of arches, begun by Caesar and finished by Augustus. The court of the centumviri sits here, dealing with inheritances: four courtrooms at once, separated by curtains. Idlers have carved gaming boards into the paving of the porticoes.
+
+@25d11c47
+=
+=
+
+@46e2a5b7
+La basílica més antiga que es conserva al Fòrum, del 179 aC, restaurada moltes vegades per la família Emília. Al davant té una filera de botigues (tabernae) de banquers i canvistes. Plini el Vell la comptava entre els tres edificis més bells del món.
+The oldest surviving basilica in the Forum, from 179 BC, restored many times by the Aemilian family. In front is a row of shops (tabernae) of bankers and money-changers. Pliny the Elder counted it among the three most beautiful buildings in the world.
+
+@6faf999e
+L'arxiu de l'Estat, del 78 aC, construït al vessant del Capitoli com un enorme mur de pedra amb arcades. Guarda en tauletes de bronze les lleis i els decrets del Senat. Des de les seves galeries es domina tot el Fòrum.
+The state archive, from 78 BC, built on the slope of the Capitol as a huge arcaded stone wall. It keeps the laws and decrees of the Senate on bronze tablets. Its galleries overlook the whole Forum.
+
+@764e2758
+=
+=
+
+@ae36cad7
+El temple més sagrat de Roma, al cim del Capitoli, dedicat a la tríada Júpiter, Juno i Minerva. Fundat el 509 aC, va cremar a la guerra civil del 69 dC i Vespasià el va reconstruir. Té teules de bronze daurat. Aquí acaben les desfilades triomfals: el general hi puja amb la cara pintada de vermell, com l'estàtua del déu.
+The most sacred temple in Rome, on the summit of the Capitol, dedicated to the triad of Jupiter, Juno and Minerva. Founded in 509 BC, it burned in the civil war of AD 69 and Vespasian rebuilt it. It has gilded bronze tiles. Triumphal parades end here: the general climbs up with his face painted red, like the god's statue.
+
+@3c4b9a86
+=
+=
+
+@0c00f8c1
+Des d'aquest penya-segat del Capitoli es llançaven els traïdors i assassins. Tarpeia, filla del comandant de la ciutadella, va obrir les portes als sabins a canvi de «el que portaven al braç esquerre», pensant en els seus braçalets d'or; els sabins la van aixafar amb els escuts.
+Traitors and murderers were thrown from this cliff on the Capitol. Tarpeia, daughter of the citadel's commander, opened the gates to the Sabines in exchange for «what they wore on their left arms», meaning their gold bracelets; the Sabines crushed her with their shields.
+
+@04d36618
+El turó on, segons la llegenda, Ròmul va fundar Roma. Aquí hi van viure els nobles de la República i, des d'August, els emperadors: per això «palau» ve de Palatí. Els Flavis hi estan aixecant un palau enorme sobre les ruïnes de la casa de Neró.
+The hill where, according to legend, Romulus founded Rome. The nobles of the Republic lived here and, from Augustus on, the emperors: that's why «palace» comes from Palatine. The Flavians are raising an enormous palace here on the ruins of Nero's house.
+
+@9e74bcdc
+=
+=
+
+@1d56c8c1
+Una cabana de fusta, fang i palla que els romans conserven i reparen des de fa segles com a record de la casa de Ròmul. Els arqueòlegs han trobat al Palatí forats de pals de cabanes com aquesta del segle VIII aC.
+A hut of wood, mud and straw that the Romans have kept and repaired for centuries in memory of Romulus' house. Archaeologists have found postholes of eighth-century BC huts like this one on the Palatine.
+
+@f7b05919
+=
+=
+
+@45ffb184
+August el va construir al costat de casa seva després de vèncer Sext Pompeu i el va dedicar el 28 aC. Al seu costat hi havia les biblioteques grega i llatina. Les portes tenien relleus d'ivori; el pòrtic, estàtues de les cinquanta Danaides. August hi va guardar els llibres sibil·lins.
+Augustus built it beside his house after defeating Sextus Pompey and dedicated it in 28 BC. Next to it were the Greek and Latin libraries. Its doors had ivory reliefs; the portico, statues of the fifty Danaids. Augustus kept the Sibylline Books here.
+
+@e50cc5b8
+Vespasià el va començar cap al 72 sobre el llac artificial de la Casa Daurada de Neró, i Titus l'inaugura el 80 amb cent dies de jocs. Fa 188 per 156 metres i uns 48 d'alt. Té quatre pisos: arcs amb columnes toscanes, jòniques i corínties, i un àtic amb finestres. Hi caben uns cinquanta mil espectadors, asseguts segons el seu rang. Segles després l'anomenaran Colosseu.
+Vespasian began it around 72 on the artificial lake of Nero's Golden House, and Titus inaugurates it in 80 with a hundred days of games. It measures 188 by 156 metres and about 48 high. It has four storeys: arches with Tuscan, Ionic and Corinthian columns, and an attic with windows. It holds about fifty thousand spectators, seated by rank. Centuries later it will be called the Colosseum.
+
+@30a17c5c
+Una estàtua de bronze de més de trenta metres, obra de Zenodor, que representava Neró i presidia el vestíbul de la Casa Daurada. Vespasià li va canviar el cap i la va convertir en el déu Sol, amb una corona de raigs. Potser per ell es va acabar anomenant Colosseu l'amfiteatre.
+A bronze statue over thirty metres tall, by Zenodorus, which depicted Nero and presided over the vestibule of the Golden House. Vespasian changed its head and turned it into the Sun god, with a crown of rays. Perhaps because of it the amphitheatre ended up being called the Colosseum.
+
+@ae26096e
+Unes termes públiques que Titus va construir de pressa al costat de l'amfiteatre, sobre part de la Casa Daurada de Neró, i que inaugura amb els jocs del 80. Tenen palestra, piscines i sales fredes, temperades i calentes.
+Public baths that Titus built in haste beside the amphitheatre, over part of Nero's Golden House, and opens with the games of 80. They have an exercise yard, pools and cold, warm and hot rooms.
+
+@0fc8e979
+El més gran edifici d'espectacles de Roma, a la vall entre el Palatí i l'Aventí, on segons la llegenda es van raptar les sabines. Les curses de carros fan set voltes al voltant de l'espina, adornada amb un obelisc egipci que va portar August. Després de l'incendi del 64, que va començar a les seves botigues, es va reconstruir.
+Rome's largest entertainment building, in the valley between the Palatine and the Aventine, where according to legend the Sabine women were carried off. Chariot races run seven laps round the spina, decorated with an Egyptian obelisk brought by Augustus. After the fire of 64, which began in its shops, it was rebuilt.
+
+@dffd0377
+=
+=
+
+@2e959543
+Inaugurat per Vespasià el 75 amb el botí de la guerra de Judea. És una gran plaça enjardinada amb estanys i rosers, envoltada de pòrtics, amb una biblioteca i una sala d'obres d'art gregues. Aquí s'exposen el canelobre de set braços i altres objectes del Temple de Jerusalem.
+Inaugurated by Vespasian in 75 with the spoils of the Judaean war. It is a large landscaped square with pools and rose beds, surrounded by porticoes, with a library and a hall of Greek works of art. The seven-branched candlestick and other objects from the Temple of Jerusalem are displayed here.
+
+@19a76070
+=
+=
+
+@7b8fa6a6
+August el va prometre abans de la batalla de Filipos (42 aC), on va venjar Cèsar. El temple de Mart Venjador és al fons, davant d'un enorme mur tallafocs que el separa del barri de la Subura. Als pòrtics hi ha estàtues d'Enees, de Ròmul i dels grans homes de Roma, cadascun amb la seva inscripció.
+Augustus vowed it before the battle of Philippi (42 BC), where he avenged Caesar. The temple of Mars the Avenger stands at the back, in front of a huge firewall that separates it from the Subura district. In the porticoes are statues of Aeneas, Romulus and the great men of Rome, each with an inscription.
+
+@971a74b2
+=
+=
+
+@49afd9e6
+La primera de les places imperials, inaugurada per Cèsar el 46 aC. Al fons, el temple de Venus Genetrix, la mare d'Enees, de qui la família Júlia deia descendir. A dins hi ha una estàtua de Cleòpatra de bronze daurat.
+The first of the imperial squares, inaugurated by Caesar in 46 BC. At the back, the temple of Venus Genetrix, mother of Aeneas, from whom the Julian family claimed descent. Inside is a gilded bronze statue of Cleopatra.
+
+@d9dd4e4d
+Marc Agripa, el gendre d'August, el va construir el 27-25 aC al Camp de Mart, dedicat a tots els déus. Ha patit incendis, i el del 80 el tornarà a danyar. El gran edifici amb cúpula que encara es veu avui a Roma és la reconstrucció de l'emperador Adrià, cap al 125, que va conservar al frontó la inscripció d'Agripa.
+Marcus Agrippa, Augustus' son-in-law, built it in 27-25 BC in the Campus Martius, dedicated to all the gods. It has suffered fires, and the one of 80 will damage it again. The great domed building still seen in Rome today is the emperor Hadrian's reconstruction, around 125, which kept Agrippa's inscription on the pediment.
+
+@b38b9347
+=
+=
+
+@d8fd1abe
+El primer teatre de pedra de Roma, inaugurat per Pompeu el 55 aC. A dalt de les grades tenia un temple de Venus Victoriosa, perquè el teatre semblés l'escalinata d'un temple. Al darrere, un gran pòrtic amb jardins; a la seva sala de reunions va ser assassinat Juli Cèsar als idus de març del 44 aC.
+Rome's first stone theatre, inaugurated by Pompey in 55 BC. At the top of the seating stood a temple of Venus Victrix, so the theatre would look like a temple's staircase. Behind, a great portico with gardens; in its meeting hall Julius Caesar was murdered on the Ides of March, 44 BC.
+
+@23f7bafb
+=
+=
+
+@bc631add
+August el va dedicar el 13 aC al seu nebot Marcel, mort jove. Té arcades amb columnes toscanes i jòniques, que anticipen les de l'amfiteatre. Hi caben uns quinze mil espectadors.
+Augustus dedicated it in 13 BC to his nephew Marcellus, who died young. It has arcades with Tuscan and Ionic columns, anticipating those of the amphitheatre. It holds about fifteen thousand spectators.
+
+@7d0912c1
+La tomba d'August i la seva família, un gran túmul circular de gairebé noranta metres de diàmetre, amb xiprers i una estàtua de bronze de l'emperador a dalt. A l'entrada, dos obeliscs i dos pilars de bronze amb el text de les seves Res gestae, el relat de la seva vida escrit per ell mateix.
+The tomb of Augustus and his family, a great circular mound almost ninety metres across, with cypresses and a bronze statue of the emperor on top. At the entrance, two obelisks and two bronze pillars bearing the text of his Res gestae, the account of his life written by himself.
+
+@9d066ed8
+=
+=
+
+@1368d1c3
+L'altar de la Pau d'August, dedicat el 9 aC. Els seus relleus de marbre mostren la família imperial en processó, Enees fent un sacrifici i la lloba amb Ròmul i Rem, tot pintat de colors vius.
+The altar of Augustan Peace, dedicated in 9 BC. Its marble reliefs show the imperial family in procession, Aeneas making a sacrifice and the she-wolf with Romulus and Remus, all painted in bright colours.
+
+@560d6085
+Un obelisc egipci de Psammètic II que August va portar d'Heliòpolis i va fer servir com a agulla d'un gegantesc rellotge de sol. Al paviment, unes línies de bronze marquen les hores i els mesos; el 23 de setembre, aniversari d'August, l'ombra apunta a l'Ara Pacis.
+An Egyptian obelisk of Psamtik II that Augustus brought from Heliopolis and used as the pointer of a gigantic sundial. In the paving, bronze lines mark the hours and months; on 23 September, Augustus' birthday, the shadow points to the Ara Pacis.
+
+@a8aabe68
+L'illa del déu metge Esculapi, portat d'Epidaure el 291 aC per acabar amb una pesta. Se li ha donat forma de vaixell, amb una proa de pedra. La uneixen a la ciutat el pont Fabrici, del 62 aC, i el pont Cesti, al Trastevere.
+The island of the healing god Aesculapius, brought from Epidaurus in 291 BC to end a plague. It has been shaped like a ship, with a stone prow. The Fabrician bridge, from 62 BC, joins it to the city, and the Cestian bridge to Trastevere.
+
+@d697f77f
+El port fluvial de Roma, sota l'Aventí. Aquí es descarreguen el blat, l'oli, el vi i el marbre que pugen des d'Òstia, i s'emmagatzemen a l'enorme Pòrtic Emili i als magatzems de Galba. Al darrere s'apilen els bocins de les àmfores d'oli.
+Rome's river port, below the Aventine. Here the grain, oil, wine and marble coming up from Ostia are unloaded and stored in the huge Porticus Aemilia and the warehouses of Galba. Behind, the shards of oil amphorae pile up.
+
+@3ebb09cf
+=
+=
+
+@792af555
+La tomba en forma de piràmide de Gai Cesti, un magistrat que va morir cap al 12 aC, quan Egipte estava de moda a Roma després de la conquesta. Fa uns 37 metres d'alt i es va construir en 330 dies, segons la seva inscripció.
+The pyramid-shaped tomb of Gaius Cestius, a magistrate who died around 12 BC, when Egypt was fashionable in Rome after the conquest. It is about 37 metres high and was built in 330 days, according to its inscription.
+
+@c8387ba6
+La reina de les calçades, oberta pel censor Api Claudi el 312 aC fins a Càpua i prolongada després fins a Bríndisi. El seu paviment és de grans lloses de basalt. Com que la llei prohibeix enterrar dins de la ciutat, als seus costats s'alineen les tombes de les grans famílies.
+The queen of roads, opened by the censor Appius Claudius in 312 BC as far as Capua and later extended to Brundisium. Its paving is of great basalt slabs. Since the law forbids burial inside the city, the tombs of the great families line its sides.
+
+@4ec95d8e
+=
+=
+
+@064d8519
+Començat per Calígula i acabat per Claudi el 52, porta aigua des de les muntanyes, a gairebé setanta quilòmetres. Neró va construir aquest ramal d'arcs sobre el Celi per portar aigua al seu palau del Palatí.
+Begun by Caligula and completed by Claudius in 52, it brings water from the mountains almost seventy kilometres away. Nero built this branch of arches over the Caelian to carry water to his palace on the Palatine.
+
+@7619f874
+Una gruta al vessant del Palatí on, segons la llegenda, la lloba va alletar Ròmul i Rem. Al febrer, a les Lupercals, uns joves mig nus corren des d'aquí al voltant del turó assotant amb tires de pell de cabra els qui troben: diuen que dona fertilitat.
+A cave on the slope of the Palatine where, according to legend, the she-wolf suckled Romulus and Remus. In February, at the Lupercalia, half-naked young men run from here around the hill, lashing anyone they meet with strips of goatskin: they say it brings fertility.
+
+@7159852e
+=
+=
+
+@8d0ec12a
+Un temple rodó de marbre grec al Fòrum Boari, l'antic mercat de bestiar al costat del riu, de finals del segle II aC. És l'edifici de marbre més antic que es conserva a Roma. A prop hi ha l'Ara Màxima, on Hèrcules hauria ofert un sacrifici després de matar el monstre Cacus.
+A round temple of Greek marble in the Forum Boarium, the old cattle market by the river, from the late second century BC. It is the oldest surviving marble building in Rome. Nearby is the Ara Maxima, where Hercules is said to have made a sacrifice after killing the monster Cacus.
+
+@9690a725
+El barri més poblat de Roma, a la vall entre l'Esquilí i el Viminal: ínsules de cinc pisos, tavernes, bordells, tallers i soroll dia i nit. Aquí va néixer Juli Cèsar, en una família patrícia però no rica. Juvenal i Marcial es queixen del fang i de la gentada dels seus carrers.
+The most crowded district of Rome, in the valley between the Esquiline and the Viminal: five-storey insulae, taverns, brothels, workshops and noise day and night. Julius Caesar was born here, into a patrician but not wealthy family. Juvenal and Martial complain of the mud and the crowds in its streets.

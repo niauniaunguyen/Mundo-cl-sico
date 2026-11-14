@@ -1,0 +1,385 @@
+# ROMA_PLAYS: comedias de Plauto y Terencio que se representan en Roma
+
+@d39bbf3e
+=
+=
+
+@666be7e0
+Euclió, vell avar
+Euclio, a miserly old man
+
+@4fa5f1b3
+Megador · Licònides
+Megadorus · Lyconides
+
+@49d3735e
+Estàfila · Estròbil
+Staphyla · Strobilus
+
+@555f0ea0
+Pròleg del Lar
+Prologue of the Lar
+
+@74737b57
+El déu Lar de la casa surt a escena i explica al públic el seu secret: l'avi d'Euclió va enterrar una olla plena d'or sota la llar. El Lar l'hi ha deixat trobar a Euclió per afecte a la seva filla Fèdria, que sempre li fa ofrenes. Però Euclió, de pobre, s'ha tornat l'home més garrepa del món.
+The household god, the Lar, comes on stage and tells the audience his secret: Euclio's grandfather buried a pot full of gold under the hearth. The Lar has let Euclio find it out of fondness for his daughter Phaedria, who always brings him offerings. But Euclio, having been poor, has become the stingiest man in the world.
+
+@5d70bd05
+Euclió fa fora la criada
+Euclio throws out his maid
+
+@1e2ef229
+Euclió treu a empentes la vella criada Estàfila: té por que hagi vist on guarda l'or. Li ordena no deixar entrar ningú, ni tan sols a demanar foc. «Si ve la Fortuna, digues-li que no hi sóc». El públic riu amb cada desconfiança del vell.
+Euclio shoves the old maid Staphyla out of the house: he fears she has seen where he keeps the gold. He orders her to let no one in, not even to borrow a light. «If Fortune comes, tell her I'm out». The audience laughs at each of the old man's suspicions.
+
+@8b3fecac
+Megador demana la mà de Fèdria
+Megadorus asks for Phaedria's hand
+
+@3266f6d5
+El veí ric, Megador, demana casar-se amb Fèdria sense dot. Euclió està convençut que en realitat sap el de l'or i ve a robar-lo. Al final accepta, sempre que sigui sense dot. Megador deixa anar un discurs contra les dones riques que arruïnen els marits amb capricis.
+The rich neighbour, Megadorus, asks to marry Phaedria without a dowry. Euclio is convinced he really knows about the gold and has come to steal it. In the end he agrees, as long as there's no dowry. Megadorus launches into a speech against rich wives who ruin their husbands with whims.
+
+@822639f8
+Els cuiners
+The cooks
+
+@c5de6046
+Arriben cuiners llogats per al casament. Euclió, en veure gent a casa seva, creu que vénen per l'olla i els fa fora a bastonades. Decideix treure l'or de casa i amagar-lo al temple de la Fe: «Fe, a tu te'l confio».
+Hired cooks arrive for the wedding. Euclio, seeing people in his house, thinks they've come for the pot and drives them out with a stick. He decides to take the gold out of the house and hide it in the temple of Good Faith: «Faith, I entrust it to you».
+
+@114523e8
+L'esclau Estròbil
+The slave Strobilus
+
+@93ba1016
+Estròbil, esclau del jove Licònides, ha vist amagar l'olla. Euclió, que el sorprèn rondant, li escorcolla les mans una vegada i una altra: «Ensenya'm l'altra mà… la tercera!». Després canvia l'amagatall al bosc de Silvà, però Estròbil el segueix i roba l'olla.
+Strobilus, slave of young Lyconides, has seen the pot being hidden. Euclio, catching him prowling, searches his hands again and again: «Show me your other hand… the third one!». Then he moves the hiding place to the grove of Silvanus, but Strobilus follows him and steals the pot.
+
+@72be3b46
+«Estic perdut!»
+«I'm ruined!»
+
+@885f8f0e
+Euclió descobreix el robatori i surt desesperat, s'adreça directament al públic: «Qui ha estat? Tu? Tu? Tots us en rieu…». Licònides arriba per confessar una altra cosa: va ser ell qui va deixar embarassada Fèdria. Euclió creu que parla de l'olla. El malentès és el moment més famós de l'obra.
+Euclio discovers the theft and rushes out in despair, speaking straight to the audience: «Who did it? You? You? You're all laughing…». Lyconides arrives to confess something else: it was he who got Phaedria pregnant. Euclio thinks he's talking about the pot. The misunderstanding is the most famous moment of the play.
+
+@6aec1d68
+El final perdut
+The lost ending
+
+@97958472
+Licònides obliga el seu esclau a retornar l'olla i es casa amb Fèdria. El final del text de Plaute s'ha perdut, però els resums antics expliquen que Euclió, curat de la seva avarícia, regala l'or com a dot i per fi dorm tranquil. Els actors es treuen les màscares i demanen l'aplaudiment: «Plaudite!».
+Lyconides makes his slave return the pot and marries Phaedria. The end of Plautus' text is lost, but ancient summaries say that Euclio, cured of his greed, gives the gold as a dowry and at last sleeps soundly. The actors take off their masks and ask for applause: «Plaudite!».
+
+@f84bf50b
+=
+=
+
+@bac9c171
+Tranió, l'esclau
+Tranio, the slave
+
+@2cb02ebf
+Teopròpides, el pare
+Theopropides, the father
+
+@47dec447
+Filòlaques · Simó
+Philolaches · Simo
+
+@d0d6353e
+La casa en festa
+The house in revelry
+
+@36659f72
+El vell Teopròpides fa tres anys que és de viatge per negocis. El seu fill Filòlaques ha demanat diners prestats a un usurer, ha comprat la llibertat de la cortesana que estima i ha convertit la casa en una festa contínua. L'astut esclau Tranió dirigeix el desordre.
+Old Theopropides has been away on business for three years. His son Philolaches has borrowed money from a moneylender, bought the freedom of the courtesan he loves and turned the house into a non-stop party. The cunning slave Tranio runs the chaos.
+
+@da93946a
+Torna l'amo!
+The master's back!
+
+@1ff9c622
+Tranió arriba corrent del port: el vaixell del pare acaba d'atracar. Els joves, borratxos, no saben què fer. Tranió els tanca tots a dins, tanca la porta amb clau i promet: «Jo m'encarrego del vell».
+Tranio comes running from the harbour: the father's ship has just docked. The young men, drunk, don't know what to do. Tranio shuts them all inside, locks the door and promises: «I'll deal with the old man».
+
+@60a9a5cc
+La casa encantada
+The haunted house
+
+@b0e949f7
+Teopròpides vol entrar a casa seva. Tranió l'atura aterrit: ningú no hi viu des de fa set mesos, perquè la casa està encantada. Un hoste va ser assassinat i enterrat a dins per l'antic amo, i el seu fantasma s'apareix de nit. Des de dins se sent un soroll. «No toquis la porta!».
+Theopropides wants to go into his house. Tranio stops him in terror: no one has lived there for seven months, because the house is haunted. A guest was murdered and buried inside by the previous owner, and his ghost appears at night. A noise comes from inside. «Don't touch the door!».
+
+@0f208df4
+L'usurer
+The moneylender
+
+@69f52fc0
+Apareix l'usurer reclamant a crits els interessos. Tranió improvisa: el fill va demanar els diners per comprar una casa nova, la del veí Simó. El pare, encantat amb el negoci, promet pagar.
+The moneylender appears, shouting for his interest. Tranio improvises: the son borrowed the money to buy a new house, the neighbour Simo's. The father, delighted with the deal, promises to pay.
+
+@953919fa
+Visita a la casa del veí
+A visit to the neighbour's house
+
+@b8bdcfa2
+Tranió ha d'ensenyar al vell «la casa nova» sense que el veí s'assabenti de la venda inventada. Porta l'un i l'altre amunt i avall, dient a cadascun una cosa diferent. És l'escena d'embolic més llarga de l'obra.
+Tranio has to show the old man «the new house» without the neighbour finding out about the invented sale. He leads them both back and forth, telling each something different. It's the longest scene of muddle in the play.
+
+@1f325e0d
+Tranió a l'altar
+Tranio at the altar
+
+@b35e0514
+Al final un esclau de la festa ho explica tot. Tranió es refugia en un altar, on ningú no el pot tocar, i es burla del seu amo des d'allà. Un amic del fill aconsegueix el perdó per a tothom: «Avui ja n'ha fet prou; demà en tornarà a fer alguna, i aleshores el castigues per les dues». Plaudite!
+In the end a slave from the party tells all. Tranio takes refuge at an altar, where no one can touch him, and mocks his master from there. A friend of the son wins pardon for everyone: «He's done enough for today; tomorrow he'll do something else, and then you can punish him for both». Plaudite!
+
+@a2bca901
+=
+=
+
+@eda2386c
+Menecme (els dos bessons)
+Menaechmus (the two twins)
+
+@f22e899b
+Messenió · Penícul
+Messenio · Peniculus
+
+@60cd07fe
+Eròtia · l'esposa
+Erotium · the wife
+
+@a3173345
+El pròleg explica l'argument al públic: un mercader de Siracusa tenia dos bessons idèntics. Un es va perdre de petit en una fira de Tàrent i va acabar adoptat a Epidamne. L'altre, a qui també van anomenar Menecme, fa sis anys que el busca per tots els ports. Avui arriba a Epidamne.
+The prologue explains the plot to the audience: a merchant of Syracuse had two identical twins. One got lost as a child at a fair in Tarentum and ended up adopted in Epidamnus. The other, also named Menaechmus, has spent six years searching every port for him. Today he arrives in Epidamnus.
+
+@85b3909a
+Menecme d'Epidamne
+Menaechmus of Epidamnus
+
+@bfb131f6
+El Menecme que viu a Epidamne surt fugint de la seva dona, gelosa, amb un mantell d'ella robat per regalar-lo a la cortesana Eròtia. L'acompanya el paràsit Penícul, «el Raspall», que escombra totes les taules on hi hagi menjar de franc.
+The Menaechmus who lives in Epidamnus comes out fleeing his jealous wife, with a cloak of hers stolen to give to the courtesan Erotium. With him is the parasite Peniculus, «the Brush», who sweeps every table where there's free food.
+
+@83c74517
+Arriba el bessó
+The twin arrives
+
+@c7d977e8
+L'altre Menecme desembarca amb el seu esclau Messenió, que l'adverteix: Epidamne és plena d'estafadors i cortesanes. En aquell moment Eròtia el convida a menjar cridant-lo pel seu nom. Ell no entén res, però accepta el menjar i el mantell.
+The other Menaechmus disembarks with his slave Messenio, who warns him: Epidamnus is full of swindlers and courtesans. At that moment Erotium invites him to dinner, calling him by name. He doesn't understand a thing, but accepts the meal and the cloak.
+
+@281cedf6
+Tothom confós
+Everyone confused
+
+@0fb0a289
+Penícul, ofès perquè «Menecme» ha menjat sense ell, li ho explica tot a l'esposa. Ella acusa el bessó equivocat, que no l'ha vista mai. Eròtia reclama el mantell al Menecme d'Epidamne, que tampoc no entén res. Cadascú creu que l'altre s'ha tornat boig.
+Peniculus, offended that «Menaechmus» has eaten without him, tells the wife everything. She accuses the wrong twin, who has never seen her. Erotium demands the cloak from the Menaechmus of Epidamnus, who doesn't understand either. Each thinks the other has gone mad.
+
+@111e409a
+El metge
+The doctor
+
+@37ee1476
+El sogre porta un metge per curar la bogeria de Menecme. El bessó foraster es fa el boig per lliurar-se'n: crida que Apol·lo li ordena cremar els ulls al vell. El metge recepta el·lèbor durant vint dies. El públic riu de la medicina i dels metges grecs.
+The father-in-law brings a doctor to cure Menaechmus' madness. The visiting twin pretends to be mad to get away: he shouts that Apollo orders him to burn out the old man's eyes. The doctor prescribes hellebore for twenty days. The audience laughs at medicine and Greek doctors.
+
+@9d29e44f
+El reconeixement
+The recognition
+
+@38e68c60
+Messenió veu per fi els dos Menecmes junts i descobreix que són bessons. Preguntes i respostes: el nom del pare, la pàtria, el dia que es va perdre el nen. Els germans s'abracen. Menecme d'Epidamne decideix tornar a Siracusa i subhastar tot el que té, «inclosa l'esposa, si algú la vol».
+Messenio finally sees both Menaechmi together and realises they are twins. Questions and answers: the father's name, the homeland, the day the boy was lost. The brothers embrace. Menaechmus of Epidamnus decides to return to Syracuse and auction everything he owns, «wife included, if anyone wants her».
+
+@f391009b
+=
+=
+
+@93358d5c
+Mició
+Micio
+
+@f835198c
+Dèmea
+Demea
+
+@675f0176
+Èsquin · Sir
+Aeschinus · Syrus
+
+@7f9a25fc
+Terenci no explica l'argument al pròleg, com Plaute: el fa servir per defensar-se dels seus crítics, que l'acusen de barrejar comèdies gregues de Menandre i de deixar-se ajudar per amics nobles. «Que el públic jutgi».
+Terence doesn't tell the plot in the prologue, as Plautus does: he uses it to defend himself against critics who accuse him of mixing Menander's Greek comedies and of getting help from noble friends. «Let the audience judge».
+
+@4f9eb6c2
+Dues maneres d'educar
+Two ways of bringing up a son
+
+@0b20326c
+El vell Mició, solter i de ciutat, ha adoptat el seu nebot Èsquin i l'educa amb llibertat i afecte. El seu germà Dèmea, pagès i sever, cria l'altre fill, Ctesifó, amb disciplina. «És millor que un fill obri bé per vergonya que per por», diu Mició.
+Old Micio, a city bachelor, has adopted his nephew Aeschinus and brings him up with freedom and affection. His brother Demea, a strict countryman, raises the other son, Ctesipho, with discipline. «Better a son does right out of shame than out of fear», says Micio.
+
+@0aa927ff
+L'escàndol
+The scandal
+
+@325a41cc
+Dèmea arriba furiós: Èsquin ha assaltat la casa d'un traficant i s'ha endut una jove citarista. Aquesta és l'educació de Mició! Dèmea posa com a exemple el seu Ctesifó, tan formal. Mició li respon amb calma: que cadascú s'ocupi del seu fill.
+Demea arrives furious: Aeschinus has broken into a slave-dealer's house and carried off a young lyre-girl. So much for Micio's education! Demea holds up his Ctesipho, so well-behaved, as an example. Micio answers calmly: let each man look after his own son.
+
+@2757bbac
+La veritat
+The truth
+
+@4de1ba30
+En realitat Èsquin ha raptat la citarista per al seu germà Ctesifó, que n'està enamorat i no gosa explicar-ho al seu pare. L'astut esclau Sir enganya Dèmea i l'envia a buscar el seu fill per tota la ciutat, amb indicacions impossibles.
+In fact Aeschinus abducted the lyre-girl for his brother Ctesipho, who is in love with her and daren't tell his father. The cunning slave Syrus tricks Demea and sends him looking for his son all over the city, with impossible directions.
+
+@5630e9de
+Dèmea canvia
+Demea changes
+
+@bf7da0af
+Quan Dèmea descobreix la veritat, comprèn que la seva severitat només ha aconseguit que el seu fill li menteixi. Decideix imitar el seu germà i tornar-se generós… amb els diners de Mició: l'obliga a casar-se a la seva edat, a alliberar Sir i a regalar terres.
+When Demea discovers the truth, he realises his severity has only made his son lie to him. He decides to imitate his brother and become generous… with Micio's money: he makes him marry at his age, free Syrus and give away land.
+
+@78e77091
+Qui tenia raó?
+Who was right?
+
+@b4b528de
+Dèmea explica al final que la seva generositat sobtada era una lliçó: la indulgència de Mició no és saviesa, només comoditat. Terenci deixa la pregunta al públic: és millor educar amb llibertat o amb fermesa? Plaudite!
+At the end Demea explains that his sudden generosity was a lesson: Micio's indulgence isn't wisdom, only laziness. Terence leaves the question to the audience: is it better to bring children up with freedom or with firmness? Plaudite!
+
+@ea624ae8
+=
+=
+
+@9c0a98ea
+Pànfil
+Pamphilus
+
+@da3b3e38
+Laques · Sòstrata, la sogra
+Laches · Sostrata, the mother-in-law
+
+@b078305c
+Bàquide
+Bacchis
+
+@534a3ec5
+Un pròleg de fracassos
+A prologue of failures
+
+@3c8d9d55
+El cap de la companyia demana paciència: és la tercera vegada que s'intenta representar aquesta comèdia. A l'estrena, el públic se'n va anar a veure uns funambulistes i uns púgils; al segon intent, va córrer el rumor que hi hauria gladiadors i la gent va envair el teatre a empentes. «Deixeu-nos aquesta vegada arribar al final».
+The head of the company asks for patience: this is the third attempt to stage this comedy. At the premiere, the audience went off to watch tightrope walkers and boxers; at the second attempt, a rumour spread that there would be gladiators and people stormed the theatre. «Let us reach the end this time».
+
+@374733f2
+Un casament sense ganes
+A reluctant marriage
+
+@10bfd8d0
+El jove Pànfil es va casar amb Filúmena per obeir el seu pare, encara que continuava enamorat de la cortesana Bàquide. Amb el temps va començar a estimar la seva esposa, però va haver de marxar de viatge. Durant la seva absència, Filúmena va tornar a casa de la seva mare i no vol tornar.
+Young Pamphilus married Philumena to obey his father, though he was still in love with the courtesan Bacchis. In time he came to love his wife, but had to go away on a journey. While he was gone, Philumena went back to her mother's house and refuses to return.
+
+@f6f47ddf
+La culpa és de la sogra
+It's the mother-in-law's fault
+
+@794fac4b
+Tothom culpa Sòstrata, la sogra: diuen que les sogres sempre es porten malament amb les nores. Ella, que adora Filúmena, pateix en silenci i fins i tot s'ofereix a anar a viure al camp perquè el matrimoni es pugui arreglar. Terenci capgira el tòpic de la sogra dolenta.
+Everyone blames Sostrata, the mother-in-law: they say mothers-in-law never get on with their daughters-in-law. She, who adores Philumena, suffers in silence and even offers to move to the country so the marriage can be mended. Terence turns the cliché of the wicked mother-in-law on its head.
+
+@77e3c54e
+El secret de Filúmena
+Philumena's secret
+
+@40732662
+Pànfil torna i descobreix la veritat: Filúmena espera un nen que no pot ser seu, per una cosa que li va passar una nit abans del casament. Pànfil, ferit, es nega a rebre-la, però promet guardar el secret per no deshonrar-la.
+Pamphilus returns and discovers the truth: Philumena is expecting a child that can't be his, because of something that happened to her one night before the wedding. Pamphilus, hurt, refuses to take her back, but promises to keep the secret so as not to dishonour her.
+
+@2cbf59b8
+L'anell de Bàquide
+Bacchis's ring
+
+@5e9a874e
+La solució la porta la cortesana Bàquide: reconeix l'anell de Filúmena, que Pànfil li va regalar a ella fa mesos. El desconegut d'aquella nit era el mateix Pànfil. El nen és seu i el matrimoni se salva.
+The solution comes from the courtesan Bacchis: she recognises Philumena's ring, which Pamphilus gave her months ago. The stranger that night was Pamphilus himself. The child is his and the marriage is saved.
+
+@19c6c60f
+Un final discret
+A discreet ending
+
+@408550e1
+Bàquide, la persona en qui ningú no confiava, és la que salva tothom, i Pànfil decideix que el que ha passat no s'ha d'explicar a ningú més: «no convé que en aquesta comèdia, com en d'altres, tothom ho sàpiga tot». Plaudite!
+Bacchis, the person no one trusted, is the one who saves everyone, and Pamphilus decides that what happened must be told to no one else: «it is not fitting that in this comedy, as in others, everyone should know everything». Plaudite!
+
+@1161fd6b
+=
+=
+
+@21384d40
+Formió, el paràsit
+Phormio, the parasite
+
+@fde31786
+Demifó · Cremes
+Demipho · Chremes
+
+@804499a1
+Antifó · Geta
+Antipho · Geta
+
+@1243647d
+Els pares són de viatge
+The fathers are away
+
+@7373785c
+Dos germans grans, Demifó i Cremes, han marxat de viatge deixant els seus fills a cura de l'esclau Geta. Antifó s'ha enamorat d'una òrfena pobra, Fani. El seu cosí Fèdria, d'una tocadora de lira que un traficant vol vendre.
+Two elderly brothers, Demipho and Chremes, have gone travelling, leaving their sons in the care of the slave Geta. Antipho has fallen in love with a poor orphan, Phanium. His cousin Phaedria, with a lyre-girl a slave-dealer wants to sell.
+
+@45e22e36
+El truc de Formió
+Phormio's trick
+
+@7693e4b2
+El paràsit Formió, expert en plets, ha ideat un parany legal: segons la llei atenesa, el parent més proper s'ha de casar amb una òrfena. Formió jura que Antifó és el seu parent, el tribunal l'obliga a casar-se amb Fani… i Antifó, encantat, es deixa «obligar».
+The parasite Phormio, an expert in lawsuits, has devised a legal trap: under Athenian law, the nearest kinsman must marry an orphan girl. Phormio swears that Antipho is her kinsman, the court orders him to marry Phanium… and Antipho, delighted, lets himself be «forced».
+
+@0f3281fb
+Torna Demifó
+Demipho returns
+
+@8aaca6c3
+Demifó torna i esclata: el seu fill casat amb una captaire sense dot! Formió s'hi enfronta amb barra i li recita la llei. Demifó consulta tres advocats: un diu que sí, un altre que no i el tercer que cal pensar-hi més.
+Demipho comes home and explodes: his son married to a beggar girl with no dowry! Phormio faces him brazenly and recites the law. Demipho consults three lawyers: one says yes, another no and the third that it needs more thought.
+
+@ad9d5e02
+Trenta mines
+Thirty minas
+
+@01e25b57
+Geta i Formió enganyen els vells: Formió s'endurà Fani si li paguen trenta mines, just el que necessita Fèdria per comprar la seva tocadora. Els vells paguen alleujats. Formió lliura els diners a Fèdria.
+Geta and Phormio trick the old men: Phormio will take Phanium away if they pay him thirty minas, exactly what Phaedria needs to buy his lyre-girl. The old men pay, relieved. Phormio hands the money to Phaedria.
+
+@4cd27c32
+El secret de Lemnos
+The secret of Lemnos
+
+@05fcd09f
+Sorpresa: Fani és filla de Cremes, que durant anys va tenir en secret una altra esposa a l'illa de Lemnos. Ara els vells volen que Antifó continuï casat amb ella… i recuperar els diners de Formió.
+Surprise: Phanium is the daughter of Chremes, who for years secretly had another wife on the island of Lemnos. Now the old men want Antipho to stay married to her… and to get their money back from Phormio.
+
+@3ff91de7
+Formió guanya
+Phormio wins
+
+@998fb65c
+Formió es nega a retornar res i, quan els vells intenten arrossegar-lo al tribunal, crida a Nausístrata, l'esposa de Cremes, i li explica el de Lemnos. Nausístrata perdona el seu marit, però l'hi fa pagar convidant Formió a sopar. Plaudite!
+Phormio refuses to give anything back and, when the old men try to drag him to court, he shouts for Nausistrata, Chremes' wife, and tells her about Lemnos. Nausistrata forgives her husband, but makes him pay by inviting Phormio to dinner. Plaudite!
