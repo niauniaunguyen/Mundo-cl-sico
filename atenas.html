@@ -392,7 +392,7 @@ body.tm #toast{bottom:auto;top:calc(170px + env(safe-area-inset-top,0px));right:
     <div id="conv" hidden aria-live="polite"><div id="convH"></div><div id="convT"></div></div>
     <div id="tut" hidden><div class="tk">Primeros segundos · <span id="tutN"></span></div><div id="tutT"></div><div class="tdots" id="tutD"></div><button id="tutSkip" type="button">Saltar el tutorial</button></div>
     <div id="net" hidden><div><b id="netHead"></b><span id="netState"></span></div><ul id="netPeople"></ul><div id="netLog"></div><input id="netIn" hidden maxlength="200" placeholder="Escribe y pulsa Intro (Esc para cancelar)" autocomplete="off"></div>
-    <div id="keys" class="panel"><div class="kh">Controles</div><div class="kg"><kbd>Tab</kbd><span>menú: tus cualidades y todas las opciones</span><kbd>W A S D</kbd><span>mover</span><kbd>Ratón</kbd><span>mirar</span><kbd>Shift</kbd><span>correr</span><kbd>Espacio</kbd><span>saltar (dos veces: doble salto)</span><kbd>E</kbd><span>hablar / leer</span><kbd>H</kbd><span>caballo</span><kbd>V</kbd><span>vista</span><kbd>F</kbd><span>antorcha</span><kbd>X</kbd><span>alas (si las tienes)</span><kbd>J</kbd><span>diario</span><kbd>M</kbd><span>plano</span><kbd>B</kbd><span>biblioteca</span><kbd>T</kbd><span>hora</span><kbd>N</kbd><span>sonido</span><kbd>K</kbd><span>balanceo de la cámara</span></div></div>
+    <div id="keys" class="panel"><div class="kh">Controles</div><div class="kg"><kbd>Tab</kbd><span>menú: tus cualidades y todas las opciones</span><kbd>W A S D</kbd><span>mover</span><kbd>Ratón</kbd><span>mirar</span><kbd>Shift</kbd><span>correr</span><kbd>Espacio</kbd><span>saltar (dos veces: doble salto)</span><kbd>E</kbd><span>hablar / leer</span><kbd>Clic derecho</kbd><span>mantener: mirar con atención (clic izquierdo: saber más)</span><kbd>R</kbd><span>usar el objeto de la barra</span><kbd>H</kbd><span>caballo</span><kbd>V</kbd><span>vista</span><kbd>F</kbd><span>antorcha</span><kbd>X</kbd><span>alas (si las tienes)</span><kbd>J</kbd><span>diario</span><kbd>M</kbd><span>plano</span><kbd>B</kbd><span>biblioteca</span><kbd>T</kbd><span>hora</span><kbd>N</kbd><span>sonido</span><kbd>K</kbd><span>balanceo de la cámara</span></div></div>
     <div id="bar"><span id="clock"></span><button id="bHorse" class="ib" aria-label="Caballo" title="Caballo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21v-4.5L3.5 14l1.8-3.6 4.2-1.9L11 5l1.6 2.6c3.4.8 6.4 4 6.4 8.4V21"/><path d="M11 5l-.6-2"/><circle cx="9.2" cy="10.6" r=".8" fill="currentColor" stroke="none"/></svg><kbd>H</kbd></button><button id="bView" class="ib" aria-label="Vista" title="Vista"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><kbd>V</kbd></button><button id="bTorch" class="ib" aria-label="Antorcha" title="Antorcha"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 22l1-9h2l1 9z"/><path d="M12 2.5c2.2 2.3 3.2 4 3.2 5.7a3.2 3.2 0 0 1-6.4 0c0-1.7 1-3.4 3.2-5.7z"/><path d="M9.3 13h5.4"/></svg><kbd>F</kbd></button><button id="bLib" class="ib" aria-label="Biblioteca" title="Biblioteca"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h11a2 2 0 0 1 2 2v11"/><path d="M7 4a2 2 0 0 0-2 2v1.5h4V6a2 2 0 0 0-2-2z"/><path d="M9 7.5V18a2 2 0 0 0 2 2h8.5a1.5 1.5 0 0 0 1.5-1.5V17H11"/><path d="M12 9.5h5M12 12.5h5"/></svg><kbd>B</kbd></button><button id="bJournal" class="ib" aria-label="Diario" title="Diario"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H20v14H7.5A2.5 2.5 0 0 0 5 19.5z"/><path d="M5 19.5A2.5 2.5 0 0 0 7.5 22H20v-5"/><path d="M9.5 7.5h6"/></svg><kbd>J</kbd></button><button id="bMap" class="ib" aria-label="Plano" title="Plano"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg><kbd>M</kbd></button><button id="bTime" class="ib" aria-label="Hora" title="Hora"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11M6.5 21h11"/><path d="M8 3c0 5 8 5 8 9s-8 4-8 9"/><path d="M16 3c0 5-8 5-8 9s8 4 8 9"/></svg><kbd>T</kbd></button><button id="bSound" class="ib" aria-pressed="true" aria-label="Sonido" title="Sonido"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L13 5v14l-5.5-4.5H4z"/><path class="sw" d="M16.5 9a4.2 4.2 0 0 1 0 6M19 6.5a7.8 7.8 0 0 1 0 11"/><path class="sx" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg><kbd>N</kbd></button><button id="bKeys" class="ib" aria-label="Controles" title="Controles"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6.5" width="19" height="11.5" rx="2"/><path d="M6.5 10.5h1M10.5 10.5h1M14.5 10.5h1M8 14.5h8"/></svg></button><button id="bEra" class="ib" aria-label="Época" title="Época"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-5 9 5z"/><path d="M5.5 9v8.5M10 9v8.5M14 9v8.5M18.5 9v8.5"/><path d="M3 21h18M4 17.5h16"/></svg></button><select id="bLang" aria-label="Idioma"><option value="es">ES</option><option value="ca">CA</option><option value="en">EN</option></select></div>
     <canvas id="mini" width="220" height="220" aria-label="Minimapa"></canvas>
   </div>
@@ -19434,7 +19434,7 @@ function atPick(){const cam=camera,P=new THREE.Vector3(),D=new THREE.Vector3();c
 function atShow(on){const d=atLay();AT.on=on;d.classList.toggle('on',on);if(!on){AT.cur=null;atCardHide();d.classList.remove('hit');return;}d.querySelector('.tt').textContent=atName()[0]+' · '+atName()[1];atUpdate();}
 function atUpdate(){const d=atLay(),c=atPick(),nm=d.querySelector('.nm');const same=c&&AT.cur&&c.name===AT.cur.name&&c.sub===AT.cur.sub;AT.cur=c;d.classList.toggle('hit',!!c);
   if(!same){AT.stable=0;atCardHide();}
-  nm.innerHTML=c?(c.name+(c.sub?'<small>'+c.sub+'</small>':'')+'<em>'+(document.body.classList.contains('tm')?'mantén la mirada para saber más':'E: saber más')+'</em>'):'<em>'+(typeof regionName==='function'?regionName():'')+'</em>';}
+  nm.innerHTML=c?(c.name+(c.sub?'<small>'+c.sub+'</small>':'')+(c.def?'<i class="df">'+c.def+'</i>':'')+'<em>'+(document.body.classList.contains('tm')?'mantén la mirada para saber más':'clic izquierdo o E: saber más')+'</em>'):'<em>'+(typeof regionName==='function'?regionName():'')+'</em>';}
 function atCardShow(){const c=AT.cur;if(!c)return;atCardHide();const e=document.createElement('div');e.id='atCard';e.innerHTML='<b>'+c.name+'</b>'+(c.sub?'<span class="g">'+c.sub+'</span>':'')+'<p>'+(c.txt()||'').trim()+'</p>';document.body.appendChild(e);AT.card=true;try{if(aOK())sfxTap();}catch(e){}
   try{const k='at:'+c.name;state.atSeen=state.atSeen||{};if(!state.atSeen[k]){state.atSeen[k]=1;const n=Object.keys(state.atSeen).length;if(n%15===0)qAdd('so',1,'Mirar con atención también es aprender.');save();}}catch(e){}}
 function atCardHide(){const e=$('atCard');if(e)e.remove();AT.card=false;}
@@ -19565,7 +19565,7 @@ if(GFX.want)setTimeout(()=>gfxSet(true),4000);
 GM_IC.gfx='<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>';
 
 // ============================================================ LA BARRA DE OBJETOS (como el inventario rápido de Minecraft)
-// Nueve casillas abajo: rueda del ratón o teclas 1-9 para elegir; R o clic derecho para usar (en el móvil: tocar la casilla elegida).
+// Nueve casillas abajo: rueda del ratón o teclas 1-9 para elegir; R para usar (en el móvil: tocar la casilla elegida).
 // Cada objeto se gana dentro de la historia; las casillas vacías muestran la silueta de lo que falta.
 function hbz(){if(!state.hb||typeof state.hb!=='object')state.hb={got:{},sel:0,odre:0,str:-1,odreD:-1};const h=state.hb;h.got=h.got||{};return h;}
 const HB_SVG={
@@ -19592,7 +19592,7 @@ function hbIcon(k){if(k==='amuleto'&&MODE!=='roma')return state&&state.fest&&sta
 function hbAmuletoHas(){if(MODE==='roma'){try{return cz().st>=3||cultz().n>0;}catch(e){return false;}}return !!(hbz().got.espino||(state.fest&&state.fest.orficos));}
 function hbAmuletoName(){if(MODE==='roma')return 'Figurillas de los Lares';return state.fest&&state.fest.orficos?'Laminilla de oro (órfica)':'Ramita de espino';}
 function hbGive(k,why){const h=hbz();if(h.got[k])return;h.got[k]=1;save();const it=HB_ITEMS.find(i=>i.k===k);hbRender(true);try{sfxCoin();}catch(e){}
-  toast('<span class="label">Nuevo objeto · '+(it?it.n():k)+'</span><br>'+why+'<br><span class="sub">Está en tu barra de objetos: elígelo con la rueda o las teclas 1-9 y úsalo con R o con el clic derecho.</span>');}
+  toast('<span class="label">Nuevo objeto · '+(it?it.n():k)+'</span><br>'+why+'<br><span class="sub">Está en tu barra de objetos: elígelo con la rueda o las teclas 1-9 y úsalo con R.</span>');}
 function hbCSS(){if($('hbCSS'))return;const s=document.createElement('style');s.id='hbCSS';s.textContent=
  '#hbar{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;display:flex;gap:4px;padding:4px;background:rgba(20,15,10,.55);border:1px solid rgba(217,135,74,.55);border-radius:10px;pointer-events:auto;user-select:none}'+
  '#hbar .s{position:relative;width:44px;height:44px;border-radius:7px;border:2px solid rgba(241,232,216,.18);background:rgba(241,232,216,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#f1e8d8}'+
@@ -19642,7 +19642,7 @@ const startQuiz0=startQuiz;startQuiz=function(){if(!hbz().got.tablilla)hbGive('t
     if(w){const sp=w.querySelector('span:last-child');if(sp){sp.style.textDecoration='line-through';sp.style.opacity='.45';}w.disabled=true;$('dBody').innerHTML+='<p class="sub">Miras tus apuntes en la tablilla y descartas una respuesta.</p>';}}catch(e){}};
 window.addEventListener('wheel',e=>{if(ui!=='play'||(typeof PH!=='undefined'&&PH.on)||!state)return;if(Math.abs(e.deltaY)<4)return;hbSelect(HBAR.sel+(e.deltaY>0?1:-1));},{passive:true});
 window.addEventListener('keydown',e=>{if(ui!=='play'||!state||(e.target&&e.target.tagName==='INPUT'))return;const m=/^Digit([1-9])$/.exec(e.code);if(m){hbSelect(+m[1]-1);return;}if(e.code==='KeyR'&&!e.repeat)hbUse();});
-window.addEventListener('mousedown',e=>{if(e.button===2&&ui==='play'&&state&&!(typeof PH!=='undefined'&&PH.on))hbUse();});
+/* el clic derecho es ahora para mirar con atención; los objetos se usan con R */
 
 // ============================================================ LOS ESPÍRITUS: Lares, Genio, Manes y Lemures (Roma); Agathós Daímon, Hécate y las Keres (Atenas)
 // Se presenta lo que creían: las «presencias» solo se ven de noche y con la antorcha, en los meses en que se las esperaba.
@@ -22984,7 +22984,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='ca72ec004aa8';
+const NOSTOS_VER='627a57b1d4e6';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -24252,7 +24252,7 @@ function n2Place(sid){const P=player,C=3,R=isTouch?30:40,pal=N2_COL[sid],den=N2_
     const cx0=(i+hash(i*13+5,j*7+1))*C,cz0=(j+hash(i*3+2,j*17+9))*C,dx=cx0-P.x,dz=cz0-P.z;if(dx*dx+dz*dz>R*R)continue;const u=hash(i*29+3,j*31+7);if(u>0.75*den)continue;
     const ce=n2Cell(i,j,cx0,cz0,u);if(!ce)continue;const{x,z,t,verge}=ce;if(!verge&&u>0.2*den)continue;
     let pk=hash(i+7,j+3)*tot,ci=0;for(;ci<pal.length-1;ci++){pk-=pal[ci][1];if(pk<0)break;}col.set(pal[ci][0]);
-    const k=4+Math.floor(hash(i,j*5)*4);NAT2.pts.push([x,z,t]);
+    const k=4+Math.floor(hash(i,j*5)*4);NAT2.pts.push([x,z,t,pal[ci][0]]);
     for(let f=0;f<k&&n<MX;f++){const ox=(hash(i*7+f,j)-0.5)*1.6,oz=(hash(i,j*7+f)-0.5)*1.6,tt=terrainH(x+ox,z+oz),s=0.8+hash(i+f,j+f*3)*0.6;e.set((hash(f,i)-0.5)*0.3,hash(i,f)*TAU,(hash(j,f)-0.5)*0.3);q.setFromEuler(e);sc.set(s,s,s);p.set(x+ox,tt-0.03,z+oz);m.compose(p,q,sc);
       NAT2.fl.setMatrixAt(n,m);NAT2.st.setMatrixAt(n,m);NAT2.fl.setColorAt(n,col);n++;}}
   NAT2.fl.count=NAT2.st.count=n;NAT2.fl.instanceMatrix.needsUpdate=NAT2.st.instanceMatrix.needsUpdate=true;if(NAT2.fl.instanceColor)NAT2.fl.instanceColor.needsUpdate=true;
@@ -24336,7 +24336,7 @@ FORESTS.dodona={sp:{oak:5,holm:1,fir:1},L:['Los robles de Dodona','ΔΩΔΩΝΗ'
 function groveIn(I,x0,z0,w,d,n,sp,seed,skip){const RL=forRng(seed),tot=Object.values(sp).reduce((a,b)=>a+b,0),by={};let c=0;
   for(let k=0;k<n*10&&c<n;k++){const x=x0+(RL()-0.5)*w,z=z0+(RL()-0.5)*d;if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+3:Math.abs(x-f.x)<(f.w||0)/2+3&&Math.abs(z-f.z)<(f.d||0)/2+3))continue;if(!isFree(x,z,2.2)||riverWater(x,z)!==null||(skip&&skip(x,z)))continue;
     let pk=RL()*tot,k2='';for(const q in sp){pk-=sp[q];if(pk<0){k2=q;break;}}if(!k2)k2=Object.keys(sp)[0];const S=BQSP[k2],wv=S.w[0]+RL()*(S.w[1]-S.w[0]),hv=S.h[0]+RL()*(S.h[1]-S.h[0]);
-    (by[S.m]=by[S.m]||[]).push({x,y:terrainH(x,z),z,a:RL()*TAU,sx:wv,sy:hv,sz:wv,cf:new THREE.Color(S.c).offsetHSL(0,0,(RL()-0.5)*0.08)});addCirc(x,z,0.45*wv);c++;}
+    (by[S.m]=by[S.m]||[]).push({x,y:terrainH(x,z),z,a:RL()*TAU,sx:wv,sy:hv,sz:wv,cf:new THREE.Color(S.c).offsetHSL(0,0,(RL()-0.5)*0.08)});addCirc(x,z,0.45*wv);trRec(x,z,k2);c++;}
   if(GLB.ok)for(const m in by)placeModules(m,by[m],{far:1600});}
 const FOREST_ON=[],FOR={k:0};
 function forGeo(tiers,trunkH){const parts=[];for(const[r,h,y]of tiers){const g=new THREE.ConeGeometry(r,h,7,1);g.translate(0,y+h/2,0);parts.push(g.toNonIndexed());}
@@ -24362,7 +24362,7 @@ function forestBuild(I,n,nodry){const F0=FORESTS[I.id];if(F0&&GLB.ok&&!nodry)for
     if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(FP.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;if(riverWater(x,z)!==null)continue;
     let pk=RL()*tot,sp='';for(const s in F.sp){pk-=F.sp[s];if(pk<0){sp=s;break;}}if(!sp)sp=Object.keys(F.sp)[0];const S=BQSP[sp],w=(S.w[0]+RL()*((S.w[1])-(S.w[0]))),hh=(S.h[0]+RL()*((S.h[1])-(S.h[0])));
     (by[S.m]=by[S.m]||[]).push({x,y:h,z,a:RL()*TAU,sx:w,sy:hh,sz:w*(0.92+RL()*((1.08)-(0.92))),cf:new THREE.Color(S.c).offsetHSL((-0.02+RL()*((0.02)-(-0.02))),(-0.05+RL()*((0.05)-(-0.05))),(-0.05+RL()*((0.04)-(-0.05))))});
-    addCirc(x,z,0.4*w);if(mv>thr+0.05)deep.push([x,z]);cnt++;}
+    addCirc(x,z,0.4*w);trRec(x,z,sp);if(mv>thr+0.05)deep.push([x,z]);cnt++;}
   for(const k in by){if(k==='FIR'||k==='CEDAR')forProc(k,by[k]);else placeModules(k,by[k],{far:k==='T_pine'?1900:1600});}
   const fo={I,id:I.id,thr,mask,name:F.L?F.L[0]:null};FOREST_ON.push(fo);
   if(F.L&&deep.length){const q=deep[Math.floor(deep.length/2)];place('bosque_'+I.id,F.L[0],F.L[1],F.L[2],q[0],q[1],0);fo.txt=F.L[2];}}
@@ -24481,6 +24481,71 @@ SIMPLE_RO.teutoburgum={label:'el bosque de Teutoburgo',roman:true,blobs:[[-280,-
    {const x=I.x+40,z=I.z-20,t=new THREE.Mesh(new THREE.SphereGeometry(9,18,8,0,TAU,0,Math.PI/2),lam('#6a7a48'));t.scale.y=0.35;t.position.set(x,terrainH(x,z)-0.3,z);scene.add(t);addCirc(x,z,9);}
    const bm=lam('#e8e0cc');for(let k=0;k<10;k++){const x=I.x-60+RL()*140,z=I.z-80+RL()*60;if(!isFree(x,z,1))continue;const h=terrainH(x,z),g=grp(x,h,z,RL()*TAU);box(0.5,4.5,0.5,lam('#4e3e2e'),0,2.25,0,g);const sk=new THREE.Mesh(new THREE.SphereGeometry(0.13,8,6),bm);sk.position.set(0,2.6,0.3);g.add(sk);addCirc(x,z,0.4);}}};
 NAT_NY.teutoburgum={dx:-40,dz:40,n:'Una sombra de la Legión XIX',s:'un legionario de Varo',c:'#c8c8c0',g:'old',t:'<p>Un soldado sin casco, empapado, te mira desde detrás de un roble. «Llovía. El camino era estrecho, entre el bosque y el pantano, y ellos estaban por todas partes, detrás de los árboles. Tres días andando. Y al final, el muro de tierra…» Se calla y desaparece entre los troncos.</p>',src:'Dion Casio LVI 19-22; Tácito, Anales I 60-62'};
+// ============================================================ MIRAR CON ATENCIÓN (2): con el clic derecho, y muchas más cosas que mirar con su definición
+// Mantén el clic derecho (o Q) para mirar; clic izquierdo o E: la ficha completa. Bajo la mira ya sale una primera definición.
+// Se añaden: edificios con nombre (definición del glosario o de su estela), casas, árboles por especie, flores silvestres, animales salvajes, mariposas y lagartijas.
+{const st=document.createElement('style');st.textContent='#atLay .nm i.df{display:block;max-width:min(520px,80vw);white-space:normal;font:italic 13px Georgia,serif;color:#efe2c8;margin:4px auto 0;line-height:1.35}';document.head.appendChild(st);}
+addEventListener('mousedown',e=>{if(e.button===2&&ui==='play'&&state&&!(typeof PH!=='undefined'&&PH.on)){e.preventDefault();atShow(true);}
+  else if(e.button===0&&AT.on){e.preventDefault();e.stopImmediatePropagation();if(AT.cur)atCardShow();}},true);
+addEventListener('mouseup',e=>{if(e.button===2&&AT.on)atShow(false);},true);
+addEventListener('contextmenu',e=>{if(ui==='play'||AT.on)e.preventDefault();});
+// árboles: se registran al plantarlos (sin tocar el azar), en una rejilla de 30 m
+const TRG=new Map();function trRec(x,z,k){const key=Math.floor(x/30)+','+Math.floor(z/30);let a=TRG.get(key);if(!a){a=[];TRG.set(key,a);}a.push([x,z,k]);}
+{const tg0=treesGLB;treesGLB=function(list){try{for(const t of list)if(t&&isFinite(t.x))trRec(t.x,t.z,t.kind);}catch(e){}return tg0(list);};}
+const TREE_DEF={
+ olive:['Olivo','El árbol de Atenea: lo hizo brotar en la Acrópolis cuando ganó a Poseidón el patronazgo de Atenas. Los olivos sagrados, las moriai, son de la diosa: arrancar uno se juzga en el Areópago (Lisias, discurso 7). Su aceite es el premio de las Panateneas.','Da aceite para comer, para la lámpara y para el cuerpo en las termas. Columela lo llama «el primero de todos los árboles» (Sobre la agricultura 5, 8).'],
+ wolive:['Acebuche','El olivo silvestre. Con sus ramas se tejen las coronas de los vencedores de Olimpia.','El olivo silvestre. Con sus ramas se tejen las coronas de los vencedores de Olimpia.'],
+ cypress:['Ciprés','El árbol de los muertos: se planta junto a las tumbas, y sus ramas adornan la casa en duelo. Dicen que el joven Cipariso, que mató sin querer a su ciervo querido, se convirtió en ciprés de pena.','Los romanos ponen una rama de ciprés en la puerta de la casa donde hay un muerto, para avisar a los que pasan (Plinio, Historia natural 16, 139).'],
+ pine:['Pino','De él salen la resina para sellar las ánforas y calafatear los barcos y la madera de los remos. El tirso de las ménades termina en una piña.','Árbol de Cibeles: su compañero Atis se convirtió en pino, y en marzo un pino cortado entra en procesión en su templo (Ovidio, Fastos 4). Las piñas dan piñones para los postres.'],
+ bpine:['Pino negro','Alto y recto, crece en los montes y da la mejor pez para los barcos.','Alto y recto, crece en los montes (en la Sila, el laricio) y da la mejor pez para los barcos.'],
+ plane:['Plátano','El árbol de la sombra: Sócrates y Fedro conversan tumbados bajo un plátano junto al Iliso (Platón, Fedro 230b). En los gimnasios se plantan en hileras para pasear.','Los romanos ricos lo traen de Grecia solo por su sombra y hasta lo riegan con vino, cuenta Plinio (Historia natural 12, 8).'],
+ fir:['Abeto','Madera recta y ligera: de abeto se hacen los mástiles, los remos largos y las vigas de los techos.','Madera recta y ligera: de abeto se hacen los mástiles, los remos largos y las vigas de los techos.'],
+ cedar:['Cedro','Su madera huele bien y no se pudre: se usa para templos, estatuas de culto y cofres.','Su madera huele bien y no se pudre: se usa para templos, estatuas de culto y cofres; el aceite de cedro protege los libros de la polilla.'],
+ oak:['Roble','El árbol de Zeus: en Dodona el dios habla por el rumor de sus hojas. Los arcadios dicen que sus antepasados vivían de bellotas.','El árbol de Júpiter. La corona de hojas de roble, la corona cívica, se da a quien salva la vida de un ciudadano en la batalla.'],
+ holm:['Encina','De hoja dura y siempre verde; sus bellotas engordan a los cerdos y su leña da el mejor carbón.','De hoja dura y siempre verde; sus bellotas engordan a los cerdos y su leña da el mejor carbón.'],
+ beech:['Haya','Un árbol de los montes frescos del norte; sus frutos, los hayucos, se dan a los cerdos.','Virgilio empieza sus Bucólicas con un pastor tumbado «bajo la cubierta de un haya frondosa» (1, 1).'],
+ chestnut:['Castaño','Sus castañas se comen asadas o en harina en las aldeas de montaña.','Sus castañas se comen asadas o en harina en las aldeas de montaña.'],
+ laurel:['Laurel','El árbol de Apolo: la Pitia masca sus hojas antes de profetizar, y los vencedores de Delfos se coronan con él.','El árbol de Apolo y de la victoria: el general que celebra un triunfo lleva una corona de laurel, y junto a la puerta de la casa de Augusto se plantaron dos laureles (Res Gestae 34).'],
+ wpoplar:['Álamo blanco','El árbol de Heracles, que lo trajo de la orilla del Aqueronte: en Olimpia solo se quema su leña en los sacrificios a Zeus (Pausanias 5, 14, 2).','El árbol de Hércules: sus vencedores se coronan con álamo.']};
+const FLOWER_DEF={'#c8302a':['Amapola','La flor de Deméter y del sueño: crece entre el trigo, y de su jugo se saca un remedio para dormir.','Flor de Ceres, entre las mieses. Livio cuenta que Tarquinio el Soberbio, sin decir palabra, cortó con su bastón las amapolas más altas de su jardín para que su hijo entendiera que debía acabar con los principales de una ciudad (1, 54).'],
+ '#f2efe4':['Manzanilla','Flor pequeña y olorosa: los médicos la usan en infusiones y cataplasmas.','Flor pequeña y olorosa: los médicos la usan en infusiones y cataplasmas.'],
+ '#8a5ab0':['Anémona','Dicen que nació de la sangre de Adonis, el amado de Afrodita: las atenienses lo lloran en verano, en las Adonias, con jardincillos en macetas que suben al tejado.','Ovidio cuenta que Venus la hizo nacer de la sangre de Adonis: una flor hermosa que dura poco, porque el viento la deshoja (Metamorfosis 10, 735-739).'],
+ '#e8c838':['Crisantemo silvestre','Flor amarilla de los campos en primavera, que las cabras mordisquean.','Flor amarilla de los campos en primavera, que las cabras mordisquean.'],
+ '#d9a83a':['Margarita amarilla','Flor de los ribazos secos en verano.','Flor de los ribazos secos en verano.'],
+ '#b07ad0':['Cardo','Sus flores moradas pinchan; los burros lo comen, y de algunos cardos se comen las pencas.','Sus flores moradas pinchan; los burros lo comen, y de algunos cardos se comen las pencas.'],
+ '#b89ad8':['Azafrán silvestre','De sus estigmas rojos se saca un tinte amarillo y un perfume muy caros: de azafrán son las túnicas de las niñas que sirven a Ártemis en Braurón.','De sus estigmas rojos se saca un tinte y un perfume muy caros: en los teatros se rocía al público con agua de azafrán.'],
+ '#f5f0d8':['Narciso','Perséfone cogía narcisos en un prado cuando la tierra se abrió y Hades se la llevó (Himno homérico a Deméter).','Ovidio cuenta que el joven Narciso se enamoró de su propio reflejo y se convirtió en esta flor (Metamorfosis 3).'],
+ '#e8d040':['Flor amarilla de invierno','Una de las pocas flores que se abren con el frío.','Una de las pocas flores que se abren con el frío.']};
+const HOUSE_DEF=['Una casa','Las casas de Atenas son de adobe sobre un zócalo de piedra, cerradas a la calle y abiertas a un patio interior; las ventanas a la calle son pocas y pequeñas.','La mayoría de los romanos viven de alquiler en ínsulas, bloques de varios pisos con tiendas abajo; los ricos, en una domus con atrio y peristilo.'];
+// definición de un edificio: su estela, o el glosario (la palabra más larga que aparezca en el nombre)
+const BLD_C=new Map();function bldDef(nm){if(BLD_C.has(nm))return BLD_C.get(nm);const n=nm.toLowerCase();let r=null;
+  const P=PLACES.find(p=>p.name&&(p.name.toLowerCase()===n||n.includes(p.name.toLowerCase())||p.name.toLowerCase().includes(n)));if(P)r=P.text;
+  if(!r){let best=null,bl=0;for(const G of GLOSS){for(const k of G[1]){if(k.length>bl&&new RegExp('(^|[^a-záéíóúñ])'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'($|[^a-záéíóúñ])').test(n)){best=G;bl=k.length;}}}if(best)r=best[2];}
+  BLD_C.set(nm,r);return r;}
+function atShort(t){const s=atFirst(t);return s.length>150?s.slice(0,147).replace(/\s\S*$/,'')+'…':s;}
+const atC0=atCands;atCands=function(){const C=atC0(),P=player,ro=MODE==='roma',M=ro?2:1;
+  try{
+  // edificios con nombre y casas
+  for(const f of footprints){if(f.reserve||!isFinite(f.x))continue;const dx=f.x-P.x,dz=f.z-P.z;if(Math.abs(dx)>140||Math.abs(dz)>140)continue;const rr2=f.r||Math.max(f.w||0,f.d||0)/2;if(rr2<2)continue;
+    if(f.name){const t=bldDef(f.name);C.push({x:f.x,y:floorAt(f.x,f.z)+Math.min(8,rr2*0.5),z:f.z,r:rr2*0.75,far:160,bias:0.5,name:f.name,sub:'edificio',def:t?atShort(t):'',txt:()=>t?atFirst(t)+' '+atFirst(t.slice(atFirst(t).length).trim()):'Un edificio. Busca su estela para saber más.'});}
+    else if(f.house&&Math.hypot(dx,dz)<70)C.push({x:f.x,y:floorAt(f.x,f.z)+2.5,z:f.z,r:rr2*0.8,far:70,bias:0.6,name:HOUSE_DEF[0],sub:ro?'insula o domus':'oikía',def:atShort(HOUSE_DEF[M]),txt:()=>HOUSE_DEF[M]});}
+  // árboles
+  const cx=Math.floor(P.x/30),cz=Math.floor(P.z/30);for(let i=cx-2;i<=cx+2;i++)for(let j=cz-2;j<=cz+2;j++){const a=TRG.get(i+','+j);if(!a)continue;for(const[x,z,k]of a){const D=TREE_DEF[k];if(!D)continue;if(Math.hypot(x-P.x,z-P.z)>55)continue;C.push({x,y:terrainH(x,z)+3.2,z,r:2.2,far:55,bias:0.35,name:D[0],sub:'árbol',def:atShort(D[M]),txt:()=>D[M]});}}
+  // flores silvestres
+  if(typeof NAT2!=='undefined')for(const f of NAT2.pts){const D=FLOWER_DEF[f[3]];if(!D)continue;if(Math.hypot(f[0]-P.x,f[1]-P.z)>22)continue;C.push({x:f[0],y:f[2]+0.3,z:f[1],r:0.9,far:22,bias:0.25,name:D[0],sub:'flor silvestre',def:atShort(D[M]),txt:()=>D[M]});}
+  // animales salvajes, mariposas y lagartijas
+  if(typeof WFA!=='undefined')for(const A of WFA.list){const g=A.g;if(!g.visible)continue;const I=(FAUNA_INFO[A.k]||{})[ro?'R':'A'];if(!I)continue;C.push({obj:g,x:g.position.x,y:g.position.y+0.6,z:g.position.z,r:A.k==='hare'?0.5:1,name:I[0],sub:'animal salvaje',def:atShort(I[1]),txt:()=>I[1]+(I[2]?' ('+I[2]+')':'')});}
+  if(typeof NAT2!=='undefined'){for(const b of NAT2.bf)if(b.on)C.push({x:b.x,y:b.y,z:b.z,r:0.45,far:20,name:'Mariposa',sub:'insecto',def:'En griego se llama psyché, la misma palabra que «alma».',txt:()=>'En griego, mariposa se dice psyché, la misma palabra que «alma»: por eso se pinta a veces el alma de un muerto como una mariposa que sale volando. Los romanos la llaman papilio.'});
+    for(const L of NAT2.lz)if(L.on&&L.g.visible)C.push({x:L.g.position.x,y:L.g.position.y+0.1,z:L.g.position.z,r:0.4,far:18,name:'Lagartija',sub:'reptil',def:'Toma el sol en las piedras y huye en cuanto te mueves.',txt:()=>ro?'Toma el sol en las piedras y huye en cuanto te mueves. Praxíteles esculpió a un Apolo joven a punto de cazar una lagartija con una flecha: el Apolo Sauróctono, del que en Roma hay copias.':'Toma el sol en las piedras y huye en cuanto te mueves.'});}
+  // las demás cosas: su definición corta bajo la mira
+  for(const c of C)if(c.def===undefined&&!c.place){try{c.def=atShort(c.txt());}catch(e){c.def='';}}
+  }catch(e){console.warn('atCands+',e);}
+  return C;};
+// elegir: cada cosa con su alcance y su prioridad (personas y objetos antes que flores, árboles y edificios)
+atPick=function(){const cam=camera,P=new THREE.Vector3(),D=new THREE.Vector3();cam.getWorldPosition(P);cam.getWorldDirection(D);let best=null,bs=1e9;
+  for(const c of atCands()){const vx=c.x-P.x,vy=c.y-P.y,vz=c.z-P.z,d=Math.hypot(vx,vy,vz);if(d<0.5||d>(c.place?420:c.far||60))continue;const cos=(vx*D.x+vy*D.y+vz*D.z)/d;if(cos<0.6)continue;
+    const ang=Math.acos(Math.min(1,cos)),thr=Math.atan(c.r/d)+(c.place?0.01:0.035);if(ang>thr)continue;const sc=ang/thr+(c.place?1.2:0)+(c.bias||0)+d/400;if(sc<bs){bs=sc;best=c;}}
+  return best;};
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
