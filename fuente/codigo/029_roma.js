@@ -12,7 +12,7 @@ function romaRoads(){
   R2('Vía Ostiense',4.5,[[-200,420],[-260,560],[-180,760],[-80,900],[60,1300]]);
   R2('Puentes de la isla',3.5,[[-300,140],[-440,250],[-520,250],[-600,250],[-760,320],[-950,380]]);
   R2('Vía Labicana',4.5,[[500,60],[800,30],[1300,-30]]);
-  R2('Vía Recta',4,[[-330,-500],[-560,-505],[-900,-520],[-1030,-520]]);
+  R2('Vía Recta',4,[[-420,-640],[-560,-645],[-900,-652],[-1030,-650]]);   // al norte del Panteón y del estadio, hasta el puente de Nerón (Lanciani, láms. 14-15)
   R2('Calle del Velabro',3.5,[[-90,45],[-200,100],[-300,140],[-440,180],[-444,290],[-442,360],[-420,430],[-416,520],[-424,590],[-445,640]]);
   R2('Clivo de Escauro',3.5,[[300,140],[420,240],[560,300],[800,400]]);
   R2('Calle del Trastévere',3.5,[[-760,620],[-760,320],[-820,0],[-820,-60]]);
@@ -290,8 +290,8 @@ function romaCampus(){
    const o={x:cx,z:cz,rot:Math.PI};romanTemple({x:cx,z:cz-40,rot:Math.PI,W:34,L:16,pod:1.2,gy,colD:1.5,colH:12.5,nW:8,deep:3,fullPorch:true,name:'Panteón'});
    addCirc(cx,cz,26.5);footprints.push({x:cx,z:cz,r:26,c:'#e2d6c0',name:'Panteón'});}
   // Saepta Julia y termas de Agripa
-  porticus(-600,-470,-420,-470,9,8,'ionic',1);porticus(-600,-410,-420,-410,9,8,'ionic',-1);
-  {const g=grp(-740,romaH(-740,-470)-0.2,-470,0);box(70,16,50,PLAST,0,8,0,g);const dm=new THREE.Mesh(new THREE.SphereGeometry(13,20,10,0,TAU,0,Math.PI/2),LEAD);dm.position.y=16;g.add(dm);addBox(-740,-470,70,50,0);footprints.push({x:-740,z:-470,w:70,d:50,a:0,c:'#e2d6c0',name:'Termas de Agripa'});}
+  porticus(-500,-600,-500,-430,9,8,'ionic',1);porticus(-445,-600,-445,-430,9,8,'ionic',-1);footprints.push({x:-472,z:-515,w:66,d:174,a:0,c:'#d8ccb4',name:'Saepta Julia'});   // la Saepta, alargada de norte a sur junto a la Vía Lata (Lanciani, láms. 15 y 21)
+  {const g=grp(-640,romaH(-640,-468)-0.2,-468,0);box(70,16,46,PLAST,0,8,0,g);const dm=new THREE.Mesh(new THREE.SphereGeometry(13,20,10,0,TAU,0,Math.PI/2),LEAD);dm.position.y=16;g.add(dm);addBox(-640,-468,70,46,0);footprints.push({x:-640,z:-468,w:70,d:46,a:0,c:'#e2d6c0',name:'Termas de Agripa'});}   // pegadas al sur del Panteón (Lanciani, lám. 21)
   // Teatro de Pompeyo y su gran pórtico con plátanos
   theatre({x:-820,z:-300,rot:Math.PI/2,R0:22,R1:78,H:30,name:'Teatro de Pompeyo'});
   {const gy=romaH(-640,-300);porticus(-720,-360,-560,-360,9,8,'corinthian',1,gy);porticus(-720,-240,-560,-240,9,8,'corinthian',-1,gy);porticus(-560,-360,-560,-240,9,8,'corinthian',1,gy);
@@ -321,6 +321,7 @@ function romaCampus(){
    if(GLB.ok)placeModules('B_obelisk',[{x:cx,y:gy,z:cz,a:0,sx:1.1}],{far:3000});addCirc(cx,cz,2);}
   // Iseo y Serapeo: patio con obeliscos y esfinges entre pórticos, templo de Isis tras un pilono al norte y exedra de Serapis al sur
   romaIseum();
+  try{romaLanciani();}catch(e){console.warn('romaLanciani',e);}
   // pinos y plátanos en el Campo
   const tr=[];for(let i=0;i<260;i++){const x=rr(-1050,-430),z=rr(-1300,-120);if(romaRiverDist(x,z)<romaRiverW(z)+20)continue;tr.push({x,z,kind:pick(['pine','pine','plane','cypress'])});}
   if(GLB.ok)treesGLB(tr.filter(t=>isFree(t.x,t.z,3)&&!footHit(t.x,t.z,6)));
@@ -367,7 +368,7 @@ function romaRiver(){
   // puentes
   const W=z=>romaRiverW(z),X=z=>romaRiverX(z);
   {const z=250,x=X(z);bridge(z,x+W(z)+10,x+ISLA.rx-2,7);bridge(z,x-ISLA.rx+2,x-W(z)-10,7);}
-  for(const[z,wd]of[[120,false],[560,true],[-250,false],[-560,false]]){const x=X(z),w=W(z);bridge(z,x+w+12,x-w-12,wd?6:8,wd);}
+  for(const[z,wd]of[[120,false],[560,true],[-250,false],[-650,false]]){const x=X(z),w=W(z);bridge(z,x+w+12,x-w-12,wd?6:8,wd);}
   // barcas en el río
   for(const[z,dx]of[[480,-10],[520,14],[640,-6],[-80,8],[-700,-12]]){const x=X(z)+dx,g=grp(x,-2.0,z,0.05);box(4,1.2,14,M.wood,0,0.2,0,g);box(4.4,0.3,14.4,lam('#5a3d26'),0,0.85,0,g);for(let i=0;i<5;i++){const a=new THREE.Mesh(PGEO.jar,lam('#b5603a'));a.scale.setScalar(1.6);a.position.set(rr(-1,1),0.9,-4+i*2);g.add(a);}}
   // Emporio: almacenes de bóvedas en la orilla y el montón de ánforas rotas

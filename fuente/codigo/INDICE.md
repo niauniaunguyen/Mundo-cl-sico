@@ -33,7 +33,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `026_roma.js` | 154 | ROMA: constructores |
 | `027_roma.js` | 123 | ROMA: destinos de viaje (año 80 d.C.)<br>HISPANIA URBANA: piezas para reconstruir las ciudades (acueductos, puentes largos, circos) |
 | `028_roma.js` | 431 | ROMA: la domus visitable del Celio |
-| `029_roma.js` | 411 | ROMA: construcción del mundo |
+| `029_roma.js` | 412 | ROMA: construcción del mundo |
 | `030_roma.js` | 178 | ROMA: barrios, densidad y muralla |
 | `031_roma.js` | 174 | ROMA: decoración según las reconstrucciones |
 | `032_glosario_lateral.js` | 757 | glosario lateral |
@@ -145,4 +145,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `139_laurion.js` | 50 | EL LAURIÓN: las minas de plata del sur del Ática (modo Atenas) |
 | `140_creta_kit.js` | 94 | CRETA (1): herramientas para los mapas de Creta (modo Atenas) |
 | `141_creta_centro.js` | 197 | CRETA (2): el centro de la isla (modo Atenas, 386 a.C.) |
+| `142_roma_lanciani.js` | 59 | ROMA: lo que faltaba según la Forma Urbis de Lanciani (revisión lámina a lámina, v217) |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
