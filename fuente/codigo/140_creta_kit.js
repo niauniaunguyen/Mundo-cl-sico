@@ -67,7 +67,9 @@ function mnSite(I,id,o){const gx=I.x+o.x,gz=I.z+o.z,a=o.a||0,gy=o.gy!==undefined
     const hh=H*(hr||1),r=box(th,hh,len+th,MNM.plaster,mx,hh/2,mz,recon);r.rotation.y=ang;const d=box(th+0.04,0.5,len+th,MNM.red,mx,0.25,mz,recon);d.rotation.y=ang;   // reconstrucción: enlucido con zócalo rojo
     const ba=box(th+0.05,0.18,len+th,MNM.wood,mx,hh*0.62,mz,recon);ba.rotation.y=ang;   // las vigas de madera dentro de los muros, contra los terremotos
     const A=W(x1,z1),B=W(x2,z2);addSeg(A[0],A[1],B[0],B[1],th/2+0.15);}
-  for(const[cx,cz,w,d,fl]of o.rooms||[]){const top=H*(fl||1);box(w,0.3,d,MNM.roof,cx,top+0.15,cz,recon);box(w+0.3,0.12,d+0.3,MNM.red,cx,top+0.36,cz,recon);}   // azoteas planas
+  for(const[cx,cz,w,d,fl]of o.rooms||[]){const top=H*(fl||1);box(w,0.3,d,MNM.roof,cx,top+0.15,cz,recon);box(w+0.3,0.12,d+0.3,MNM.red,cx,top+0.36,cz,recon);   // azoteas planas
+    if((fl||1)>1){const hh=top-H;for(const[ww,dd,x,z]of[[w,0.7,cx,cz-d/2],[w,0.7,cx,cz+d/2],[0.7,d,cx-w/2,cz],[0.7,d,cx+w/2,cz]])box(ww,hh,dd,MNM.plaster,x,H+hh/2,z,recon);   // el piso de arriba: sin él la azotea flotaba
+      for(let k=0;k<Math.max(1,Math.floor(w/4));k++)box(0.9,1.1,0.75,MNM.dark,cx-w/2+2+k*4,H+hh*0.55,cz+d/2,recon);box(w,0.25,0.75,MNM.wood,cx,H,cz+d/2,recon);}}   // ventanas y la viga del forjado
   for(const[x,z]of o.cols||[]){mnBase(ruin,x,z);mnColumn(recon,x,z,H*0.92);const p=W(x,z);addCirc(p[0],p[1],0.35);}
   for(const[x,z,y]of o.horns||[])mnHorns(recon,x,(y!==undefined?y:H)+0.45,z,1.1);
   for(const[x,z,ang,mot]of o.fresco||[])mnFresco(recon,x,1.9,z,3.2,1.4,ang,MN_FR[mot]||MN_FR.espirales);
