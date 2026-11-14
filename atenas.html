@@ -2860,7 +2860,8 @@ function donkey(x,z,a){
 function courtyardHouse(x,z,a,w,d,h,two,keep){
   if(!keep&&x<8000&&roadDist(x,z)<Math.hypot(w,d)/2+2.5)return;   // ninguna casa encima de un camino
   {const M=Math.max(w,d),hit=(x,z)=>footprints.some(f=>f.house&&Math.abs(f.x-x)<(Math.max(f.w||0,f.d||0)+M)/2+1.2&&Math.abs(f.z-z)<(Math.max(f.w||0,f.d||0)+M)/2+1.2);   // no levantar una casa encima de otra
-   if(hit(x,z)){let ok=false;for(let k=0;k<12&&!ok;k++){const nx=x+(Math.random()-0.5)*22,nz=z+(Math.random()-0.5)*22;if(!hit(nx,nz)&&Math.abs(terrainH(nx,nz)-terrainH(x,z))<1.5&&terrainH(nx,nz)>0.5){x=nx;z=nz;ok=true;}}if(!ok)return;}}
+   if(hit(x,z)){let ok=false;const rnd=forRng(((x*0.0731+z*0.0317)%1+1)%1);   // generador propio con semilla en la posición: siempre igual y sin tocar R()
+    for(let k=0;k<12&&!ok;k++){const nx=x+(rnd()-0.5)*22,nz=z+(rnd()-0.5)*22;if(!hit(nx,nz)&&Math.abs(terrainH(nx,nz)-terrainH(x,z))<1.5&&terrainH(nx,nz)>0.5){x=nx;z=nz;ok=true;}}if(!ok)return;}}
   {const sl=(px,pz)=>{let lo=1e9,hi=-1e9;for(const[i,j]of[[-1,-1],[1,-1],[-1,1],[1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const p=toW(i*w/2,j*d/2,px,pz,a),h=terrainH(p[0],p[1]);lo=Math.min(lo,h);hi=Math.max(hi,h);}return hi-lo;};
    const busy=(px,pz)=>ISLANDS.some(I=>I.arrive&&Math.hypot(px-I.arrive.x,pz-I.arrive.z)<60)||PLACES.some(q=>Math.hypot(px-q.x,pz-q.z)<Math.max(w,d))||footprints.some(f=>{const fw=f.r?f.r*2:(f.w||0),fd=f.r?f.r*2:(f.d||0);return Math.abs(f.x-px)<(Math.max(fw,fd)+Math.max(w,d))/2+1&&Math.abs(f.z-pz)<(Math.max(fw,fd)+Math.max(w,d))/2+1;});
    if(!keep&&sl(x,z)>2.5){let ok=false;for(let k=0;k<14&&!ok;k++){const nx=x+(R()-0.5)*30,nz=z+(R()-0.5)*30;if(sl(nx,nz)<=2.5&&terrainH(nx,nz)>0.5&&!busy(nx,nz)){x=nx;z=nz;ok=true;}}if(!ok)return;}}   // en ladera fuerte la casa quedaría medio enterrada
@@ -3480,15 +3481,7 @@ function rectWall(cx,cz,w,d,mat,h){
   for(const[a]of sides){const x=cx+a[0],z=cz+a[1];box(6,h+4,6,mat,x,terrainH(x,z)+(h+4)/2-2,z);addCirc(x,z,3.5);}
 }
 // teatro griego excavado en la ladera: gradas algo más allá del semicírculo, orquesta circular de tierra batida
-function greekTheatre(x,z,a,R0,R1,name){
-  const gy=terrainH(x,z),steps=Math.max(8,Math.round((R1-R0)/0.85)),N=40,ext=0.18,rise=0.42;
-  const P=(u,k)=>{const t=Math.PI-ext+u*(Math.PI+2*ext);if(k===0)return[Math.cos(t)*R0,0,Math.sin(t)*R0];const s=Math.floor((k-1)/2),e=(k-1)%2;const r=R0+(s+e)*(R1-R0)/steps;return[Math.cos(t)*r,(s+1)*rise,Math.sin(t)*r];};
-  ringMesh(ringGeo(1+steps*2,N,P,null,k=>k%4<2?'#d9cdb4':'#cbbfa4'),x,gy,z,a);
-  const orc=new THREE.Mesh(new THREE.CircleGeometry(R0-0.3,36),lam('#c9b48b'));orc.rotation.x=-Math.PI/2;orc.position.set(x,gy+0.05,z);orc.receiveShadow=true;scene.add(orc);
-  for(let i=0;i<N;i++){const t0=Math.PI-ext+i/N*(Math.PI+2*ext),t1=Math.PI-ext+(i+1)/N*(Math.PI+2*ext);const p=toW(Math.cos(t0)*(R0+0.5),Math.sin(t0)*(R0+0.5),x,z,a),q=toW(Math.cos(t1)*(R0+0.5),Math.sin(t1)*(R0+0.5),x,z,a);addSeg(p[0],p[1],q[0],q[1],0.3);}
-  const g=grp(x,gy,z,a);box(R0*2.2,4,4,M.limestone,0,2,R0+3,g);const sp=toW(0,R0+3,x,z,a);addBox(sp[0],sp[1],R0*2.2,4,a);
-  footprints.push({x,z,r:R1,c:'#d9cdb4',name,noFlat:true});
-}
+// (aquí había una primera versión de greekTheatre(x,z,a,R0,R1,name) que nunca se usaba: la que vale es greekTheatre(o), en 032_glosario_lateral.js)
 // estadio: pista de arena entre dos taludes, con las líneas de salida y llegada de piedra
 function stadiumG(x,z,a,Lg,W,name){
   const gy=minGround(x,z,W,Lg,a)-0.05,g=grp(x,gy,z,a);
@@ -5821,7 +5814,7 @@ function ringMesh(geo,x,y,z,a){const m=new THREE.Mesh(geo,RING_M);m.position.set
 function stairs(g,o,lx,z0,w,H,gy,a,mat){const n=Math.max(1,Math.ceil(H/0.32)),rise=H/n,run=0.42;
   for(let i=0;i<n;i++){const top=H-i*rise,zc=z0+i*run+run/2;box(w,top+2,run+0.02,mat||TRAV,lx,top/2-1,zc,g);const wp=toW(lx,zc,o.x,o.z,a);addPlat(wp[0],wp[1],w,run,a,gy+top);}
   return z0+n*run;}
-function wseg(o,a,x1,z1,x2,z2,t){const p=toW(x1,z1,o.x,o.z,a),q=toW(x2,z2,o.x,o.z,a);addSeg(p[0],p[1],q[0],q[1],t||0.4);}
+function wsegO(o,a,x1,z1,x2,z2,t){const p=toW(x1,z1,o.x,o.z,a),q=toW(x2,z2,o.x,o.z,a);addSeg(p[0],p[1],q[0],q[1],t||0.4);}
 // templo romano: podio alto con escalinata solo delante, pórtico profundo y cella cerrada (columnas adosadas si pseudo)
 function romanTemple(o){
   const a=o.rot||0,W=o.W,L=o.L,P=o.pod||3.5,cr=o.colD/2,colH=o.colH,ord=o.order||'corinthian';
@@ -5831,8 +5824,8 @@ function romanTemple(o){
   box(W,P+6,L,o.podMat||TRAV,0,P/2-3,0,g);box(W+0.6,0.5,L+0.6,o.podMat||TRAV,0,P-0.25,0,g);box(W+0.5,0.6,L+0.5,o.podMat||TRAV,0,0.3,0,g);
   addPlat(o.x,o.z,W,L,a,gy+P);
   const sw=o.stairW||W*0.86;stairs(g,o,0,L/2,sw,P,gy,a,o.podMat);
-  wseg(o,a,-W/2,-L/2,W/2,-L/2);wseg(o,a,-W/2,-L/2,-W/2,L/2);wseg(o,a,W/2,-L/2,W/2,L/2);wseg(o,a,-W/2,L/2,-sw/2,L/2);wseg(o,a,sw/2,L/2,W/2,L/2);
-  wseg(o,a,-sw/2,L/2,-sw/2,L/2+sN,0.2);wseg(o,a,sw/2,L/2,sw/2,L/2+sN,0.2);
+  wsegO(o,a,-W/2,-L/2,W/2,-L/2);wsegO(o,a,-W/2,-L/2,-W/2,L/2);wsegO(o,a,W/2,-L/2,W/2,L/2);wsegO(o,a,-W/2,L/2,-sw/2,L/2);wsegO(o,a,sw/2,L/2,W/2,L/2);
+  wsegO(o,a,-sw/2,L/2,-sw/2,L/2+sN,0.2);wsegO(o,a,sw/2,L/2,sw/2,L/2+sN,0.2);
   const m=cr*1.15,nW=o.nW,ia=(W-2*m)/(nW-1),deep=o.deep||Math.max(2,Math.round(L*0.33/ia)+1),cellaZ=L/2-m-(deep-1)*ia-ia*0.6;
   const cols=[];for(let i=0;i<nW;i++)for(let j=0;j<deep;j++){if(j>0&&i>0&&i<nW-1&&!o.fullPorch)continue;cols.push([-W/2+m+i*ia,L/2-m-j*ia,false]);}
   if(o.peri){for(let z=L/2-m-deep*ia;z>-L/2+m-0.1;z-=ia){cols.push([-W/2+m,z,false]);cols.push([W/2-m,z,false]);}if(o.peri==='all')for(let i=1;i<nW-1;i++)cols.push([-W/2+m+i*ia,-L/2+m,false]);}
@@ -5840,16 +5833,16 @@ function romanTemple(o){
   if(!o.peri&&o.pseudo){for(let z=cellaZ-ia;z>-L/2+m-0.1;z-=ia){cols.push([-cw/2,z,true]);cols.push([cw/2,z,true]);}}
   for(const c of cols){const wp=toW(c[0],c[1],o.x,o.z,a);addColumn(wp[0],gy+P,wp[1],cr,colH,a,ord,c[2]);}
   const cl=cellaZ+L/2-(o.peri==='all'?m*2:0.1),cz=cellaZ-cl/2,hh=colH;
-  wseg(o,a,-cw/2,cellaZ,-cw/2,cellaZ-cl);wseg(o,a,cw/2,cellaZ,cw/2,cellaZ-cl);wseg(o,a,-cw/2,cellaZ-cl,cw/2,cellaZ-cl);
+  wsegO(o,a,-cw/2,cellaZ,-cw/2,cellaZ-cl);wsegO(o,a,cw/2,cellaZ,cw/2,cellaZ-cl);wsegO(o,a,-cw/2,cellaZ-cl,cw/2,cellaZ-cl);
   const hollow=!o.solid&&cw>7&&cl>8&&tpRule(o.name);
-  if(!hollow){box(cw,hh,cl,o.cellaMat||M.marbleShade,0,P+hh/2,cz,g);box(4.2,hh*0.7,0.1,M.dark,0,P+hh*0.35,cellaZ+0.06,g);box(3.6,hh*0.6,0.12,BRONZE2,0,P+hh*0.3,cellaZ+0.08,g);wseg(o,a,-cw/2,cellaZ,cw/2,cellaZ);}
+  if(!hollow){box(cw,hh,cl,o.cellaMat||M.marbleShade,0,P+hh/2,cz,g);box(4.2,hh*0.7,0.1,M.dark,0,P+hh*0.35,cellaZ+0.06,g);box(3.6,hh*0.6,0.12,BRONZE2,0,P+hh*0.3,cellaZ+0.08,g);wsegO(o,a,-cw/2,cellaZ,cw/2,cellaZ);}
   else{// cella hueca: se puede entrar a ver la estatua de culto
    const cm=o.cellaMat||M.marbleShade,tw=0.8,dw=Math.min(4.4,cw*0.4),sw2=(cw-dw)/2,H2=hh+(o.entH||colH*0.24)*0.4;
    box(tw,H2,cl,cm,-cw/2+tw/2,P+H2/2,cz,g);box(tw,H2,cl,cm,cw/2-tw/2,P+H2/2,cz,g);box(cw,H2,tw,cm,0,P+H2/2,cellaZ-cl+tw/2,g);
    box(sw2,H2,tw,cm,-cw/2+sw2/2,P+H2/2,cellaZ-tw/2,g);box(sw2,H2,tw,cm,cw/2-sw2/2,P+H2/2,cellaZ-tw/2,g);box(dw,H2-hh*0.72,tw,cm,0,P+hh*0.72+(H2-hh*0.72)/2,cellaZ-tw/2,g);
    for(const s of[-1,1]){const d=box(dw/2,hh*0.72,0.15,BRONZE2,0,P+hh*0.36,0,g);d.position.set(s*(dw/2+dw*0.18),P+hh*0.36,cellaZ+dw*0.2);d.rotation.y=s*1.15;}
    box(cw-2*tw,0.1,cl-2*tw,M.marble,0,P+0.05,cz,g);box(cw-0.2,0.2,cl-0.2,M.marbleShade,0,P+H2-0.1,cz,g);
-   wseg(o,a,-cw/2,cellaZ,-dw/2,cellaZ);wseg(o,a,dw/2,cellaZ,cw/2,cellaZ);
+   wsegO(o,a,-cw/2,cellaZ,-dw/2,cellaZ);wsegO(o,a,dw/2,cellaZ,cw/2,cellaZ);
    tpDecorate(o,g,cw-2*tw,cellaZ-cl+tw,cellaZ-tw,P,hh,null,true);}
   tpDecorate(o,null,0,0,0,0,0,toW(W*0.36,L/2+sN+4,o.x,o.z,a),true);
   const e=o.entH||colH*0.24,top=entablature(g,W,L,P+colH,e,{ionic:true,friezeTex:RTEX.rinceau});
@@ -5883,7 +5876,7 @@ function basilica(o){
   const pr=new THREE.Mesh(GABLE,[M.tile,PLAST]);pr.rotation.y=Math.PI/2;pr.scale.set(pd+0.6,1.4,L);pr.position.set(0,base+h1+h2+3.2,D/2-pd/2);g.add(pr);ROOFS.push({r:pr,mat:M.tile,fancy:false});
   gableRoof(g,L+0.6,D-pd+1,base+h1+h2+12,5,M.tile,PLAST,true);
   for(let i=0;i<Math.floor(L/6);i++)box(1.8,2.6,0.2,M.dark,-L/2+4+i*6,base+h1+h2+7,-pd/2+(D-pd)/2+0.06,g);
-  wseg(o,a,-L/2+0.5,-D/2,L/2-0.5,-D/2);wseg(o,a,-L/2+0.5,D/2-pd,L/2-0.5,D/2-pd);wseg(o,a,-L/2+0.5,-D/2,-L/2+0.5,D/2-0.6);wseg(o,a,L/2-0.5,-D/2,L/2-0.5,D/2-0.6);
+  wsegO(o,a,-L/2+0.5,-D/2,L/2-0.5,-D/2);wsegO(o,a,-L/2+0.5,D/2-pd,L/2-0.5,D/2-pd);wsegO(o,a,-L/2+0.5,-D/2,-L/2+0.5,D/2-0.6);wsegO(o,a,L/2-0.5,-D/2,L/2-0.5,D/2-0.6);
   footprints.push({x:o.x,z:o.z,w:L,d:D,a,c:'#e4dac6',name:o.name});return{g,gy};
 }
 // pórtico de columnas (para foros y patios): fila de columnas con techo de una vertiente apoyado en un muro trasero
@@ -5910,7 +5903,7 @@ function theatre(o){
   if(GLB.ok&&GLB.parts.B_bay_tus){placeModules('B_bay_tus',items[0],{far:2200});placeModules('B_bay_ion',items[1],{far:2200});}
   else{const w=new THREE.Mesh(new THREE.CylinderGeometry(R1,R1,22,32,1,true,Math.PI/2,Math.PI),texMat(RTEX.arcade,16,2));w.material.side=THREE.DoubleSide;w.position.set(o.x,gy+11,o.z);w.rotation.y=a;scene.add(w);}
   const wall=ringGeo(2,N,(u,k)=>{const t=Math.PI+u*Math.PI;return[Math.cos(t)*(R1-5),k?H:0,Math.sin(t)*(R1-5)];},null,()=> '#bfb39a');ringMesh(wall,o.x,gy,o.z,a);
-  for(let i=0;i<N;i++){const t0=Math.PI+i/N*Math.PI,t1=Math.PI+(i+1)/N*Math.PI;wseg(o,a,Math.cos(t0)*(R1-5),Math.sin(t0)*(R1-5),Math.cos(t1)*(R1-5),Math.sin(t1)*(R1-5),0.6);}
+  for(let i=0;i<N;i++){const t0=Math.PI+i/N*Math.PI,t1=Math.PI+(i+1)/N*Math.PI;wsegO(o,a,Math.cos(t0)*(R1-5),Math.sin(t0)*(R1-5),Math.cos(t1)*(R1-5),Math.sin(t1)*(R1-5),0.6);}
   // escena: frente de columnas en dos pisos
   // escena: muro de ladrillo con cornisa (por detrás, la fachada que daba a la calle o al pórtico)
   const g=grp(o.x,gy,o.z,a),sw=R1*1.7,scM=texMat(RTEX.brick,Math.max(2,sw/5),Math.max(1,(H+2)/3));box(sw,H+2,7,scM,0,(H+2)/2,R0+5,g);box(sw+0.8,0.7,7.8,M.marble,0,H+2.35,R0+5,g);box(R0*2.2,1.2,8,M.wood,0,0.6,R0+0.5,g);
@@ -5925,8 +5918,8 @@ function theatre(o){
   {const pr=[[R0,0],[R0,1.2]];for(let s=0;s<steps;s++){const y=1.2+(H-6)*(s+1)/steps;pr.push([R0+2+(R1-R0-6)*s/steps,y],[R0+2+(R1-R0-6)*(s+1)/steps,y]);}const Ht=Math.max(H,GLB.ok&&GLB.parts.B_bay_tus?21:22);pr.push([R1-5,H],[R1-5,Ht],[R1,Ht]);
    const pos=[];for(const sg of[-1,1])for(let i=0;i<pr.length-1;i++){const[r0,y0]=pr[i],[r1,y1]=pr[i+1];pos.push(sg*r0,0,0,sg*r1,0,0,sg*r1,y1,0,sg*r0,0,0,sg*r1,y1,0,sg*r0,y0,0);}
    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(pos.filter((v,i)=>i%3!==2).map((v,i)=>i%2?v/10:Math.abs(v)/14),2));geo.computeVertexNormals();const emM=new THREE.MeshLambertMaterial({color:'#cdbfa4',side:THREE.DoubleSide});const em=new THREE.Mesh(geo,emM);em.position.set(o.x,gy,o.z);em.rotation.y=a;em.receiveShadow=true;scene.add(em);
-   for(const sg of[-1,1])wseg(o,a,sg*(R0+2.5),0.7,sg*(R1-5),0.7,0.3);}
-  wseg(o,a,-sw/2,R0+1.5,sw/2,R0+1.5);   // los pasillos laterales (párodos) quedan abiertos: se entra a la orquesta para ver la función
+   for(const sg of[-1,1])wsegO(o,a,sg*(R0+2.5),0.7,sg*(R1-5),0.7,0.3);}
+  wsegO(o,a,-sw/2,R0+1.5,sw/2,R0+1.5);   // los pasillos laterales (párodos) quedan abiertos: se entra a la orquesta para ver la función
   ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name});
   CAVEAS.push({k:'t',x:o.x,z:o.z,a,gy,R0,R1,H,steps,rr:R1+1});   // las gradas se pisan y se suben   // todos tienen funciones (ROMA_PLAYS, por nombre del teatro)
   // huella circular: cubre la cávea y la escena sea cual sea el giro (la rectangular no giraba y dejaba entrar casas en el teatro)
@@ -6777,7 +6770,7 @@ function romaFora(){
   // Templo de la Paz: jardín con estanques y rosales entre pórticos; al fondo, la sala con el botín de Jerusalén
   {const cx=175,cz=-175,gy=romaH(cx,cz);porticus(cx-55,cz-55,cx+40,cz-55,8,9,'corinthian',1,gy);porticus(cx-55,cz+55,cx+40,cz+55,8,9,'corinthian',-1,gy);porticus(cx-55,cz-55,cx-55,cz+55,8,9,'corinthian',-1,gy);
    const g=grp(cx+52,gy,cz,0);box(24,18,110,PLAST,6,9,0,g);gableRoof(g,25,111,18,4,M.tile,PLAST);for(let i=0;i<6;i++){const wp=toW(-7,-15+i*6,cx+52,cz,0);addColumn(wp[0],gy+0.6,wp[1],0.7,13,0,'corinthian');}
-   box(8,0.6,40,TRAV,-5,0.3,0,g);addPlat(cx+47,cz,8,40,0,gy+0.6);wseg({x:cx+52,z:cz},0,-6,-55,-6,55);
+   box(8,0.6,40,TRAV,-5,0.3,0,g);addPlat(cx+47,cz,8,40,0,gy+0.6);wsegO({x:cx+52,z:cz},0,-6,-55,-6,55);
    for(let r=0;r<3;r++)for(const s of[-1,1]){box(50,0.5,3,lam('#4f7f8a'),cx-8-(cx+52),0.25,cz+s*(10+r*13)-cz,g);}
    const roses=[];for(let i=0;i<220;i++){const x=cx+rr(-46,30),z=cz+rr(-46,46);if(Math.abs(Math.abs(z-cz)-10)%13<3)continue;roses.push({x,y:gy,z,a:R()*TAU,sx:rr(0.6,1),cf:new THREE.Color(pick(['#b8455a','#c96a7a','#6f8a45','#d88a9a']))});}
    placeModules('T_bush',roses,{far:700,shadow:false});
@@ -7948,14 +7941,14 @@ function greekTheatre(o){
   const P=(u,k)=>{const t=Math.PI+u*Math.PI*0.94+Math.PI*0.03;let r,y;if(k===0){r=R0;y=0;}else if(k===1){r=R0;y=0.6;}else{const s=Math.floor((k-2)/2),e=(k-2)%2;r=R0+2+(R1-R0-6)*(s+e)/steps;y=0.6+(H-6)*(s+1)/steps+0.6;}return[Math.cos(t)*r,y,Math.sin(t)*r];};
   ringMesh(ringGeo(2+steps*2+1,N,P,null,k=>k%2?'#b89a6a':'#9c7f55'),o.x,gy,o.z,a);
   const back=ringGeo(2,N,(u,k)=>{const t=Math.PI+u*Math.PI*0.94+Math.PI*0.03;return[Math.cos(t)*(R1-4),k?H+0.6:-2,Math.sin(t)*(R1-4)];},null,()=>'#8a7a5a');ringMesh(back,o.x,gy,o.z,a);
-  for(let i=0;i<N;i++){const t0=Math.PI*1.03+i/N*Math.PI*0.94,t1=Math.PI*1.03+(i+1)/N*Math.PI*0.94;wseg(o,a,Math.cos(t0)*(R1-4),Math.sin(t0)*(R1-4),Math.cos(t1)*(R1-4),Math.sin(t1)*(R1-4),0.6);}
+  for(let i=0;i<N;i++){const t0=Math.PI*1.03+i/N*Math.PI*0.94,t1=Math.PI*1.03+(i+1)/N*Math.PI*0.94;wsegO(o,a,Math.cos(t0)*(R1-4),Math.sin(t0)*(R1-4),Math.cos(t1)*(R1-4),Math.sin(t1)*(R1-4),0.6);}
   const orch=new THREE.Mesh(new THREE.CircleGeometry(R0,36),lam('#cdb993'));orch.rotation.x=-Math.PI/2;orch.position.set(o.x,gy+0.04,o.z);scene.add(orch);
   box(1.2,0.9,1.2,M.marble,o.x,gy+0.45,o.z);addCirc(o.x,o.z,0.9);   // la thymele, el altar de Dioniso
   const g=grp(o.x,gy,o.z,a),sw=R0*2.6;box(sw,5.4,4,M.wood,0,2.7,R0+4.3,g);box(sw+1,0.4,4.6,lam('#6a4a2e'),0,5.6,R0+4.3,g);
   box(sw*0.8,0.5,3,lam('#8a6a44'),0,0.25,R0+0.8,g);   // tablado bajo delante de la escena
   for(const dx of[-R0*0.6,0,R0*0.6])box(dx?1.8:2.4,3,0.2,M.dark,dx,1.5+0.5,R0+2.25,g);
   for(const s of[-1,1])box(3,5.4,6,M.wood,s*(sw/2+1.2),2.7,R0+3.3,g);   // paraskenia
-  wseg(o,a,-sw/2-2.7,R0+2.3,sw/2+2.7,R0+2.3);
+  wsegO(o,a,-sw/2-2.7,R0+2.3,sw/2+2.7,R0+2.3);
   ROMA.theatres.push({x:o.x,z:o.z,a,gy,R0,R1,H,name:o.name,greek:true,steps});
   footprints.push({x:o.x,z:o.z-R1*0.4,w:R1*2,d:R1*1.2,a,c:'#b8a07a',name:o.name});
   {const c=toW(0,R0*0.4,o.x,o.z,a);footprints.push({x:c[0],z:c[1],w:R0*3.4,d:R0*2.6,a,c:'#cdb993',name:o.name});}
@@ -22996,7 +22989,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='77437ef95140';
+const NOSTOS_VER='5e204f18bdfa';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';

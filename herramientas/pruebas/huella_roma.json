@@ -1,0 +1,28 @@
+{
+ "huella": "5889e03a",
+ "partes": {
+  "edificios": "feffa36b",
+  "estelas": "3c0af771",
+  "mapas": "a47f2096"
+ },
+ "edificios": 2992,
+ "estelas": 418,
+ "mapas": 85,
+ "muestra": [
+  [
+   0,
+   0,
+   0
+  ],
+  [
+   -70,
+   -8,
+   0
+  ],
+  [
+   -70,
+   -62,
+   0
+  ]
+ ]
+}
