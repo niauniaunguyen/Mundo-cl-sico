@@ -40,7 +40,7 @@ function gzWalk(dt){if(!state||ui==='start')return;const P=player,sp=Math.hypot(
   let n=0;for(const w of walkers){if(w.home||!w.g||!w.g.visible||w.pal)continue;const g=w.g,dx=g.position.x-P.x,dz=g.position.z-P.z;if(Math.abs(dx)>rng||Math.abs(dz)>rng)continue;const d=Math.hypot(dx,dz);if(d>rng)continue;if(++n>16)break;
     const gs=gsRig(g);GS.list.add(g);gs.walk=!!w.moving;
     if(d<R&&sp>1.6&&!(w.bump>0)&&ui==='play'){w.bump=0.5;bump(gs);const ux=dx/(d||1),uz=dz/(d||1),vx=GF.vx/sp,vz=GF.vz/sp,s=(ux*vz-uz*vx)>0?-1:1;w.dux=ux*0.5-vz*s*0.85;w.duz=uz*0.5+vx*s*0.85;}
-    if(w.bump>0){w.bump-=dt;if(w.wait!==Infinity&&w.speed>0){const L=Math.hypot(w.dux,w.duz)||1;if(npcStep(g,w.dux/L,w.duz/L,2.4*dt))g.position.y=terrainH(g.position.x,g.position.z);}}
+    if(w.bump>0){w.bump-=dt;if(w.wait!==Infinity&&w.speed>0&&!w.sat){const L=Math.hypot(w.dux,w.duz)||1;if(npcStep(g,w.dux/L,w.duz/L,2.4*dt))g.position.y=terrainH(g.position.x,g.position.z);}}
     react(gs);gzLook(w,gs,dx,dz,d,dt);gsApply(g,gs,dt);}
   for(const o of npcObjs){if(o.hidden||!o.g||!o.g.visible||o.g===GS.dlgG)continue;const dx=o.g.position.x-P.x,dz=o.g.position.z-P.z;if(Math.abs(dx)>2||Math.abs(dz)>2)continue;const gs=o.g.userData.gs;if(!gs)continue;
     if(Math.hypot(dx,dz)<R&&sp>1.6&&!(o.bump>0)&&ui==='play'){o.bump=2;bump(gs);gsSet(gs,'espalda',1);gs.tgt.hx=-0.15;}if(o.bump>0)o.bump-=dt;react(gs);}}
@@ -87,7 +87,7 @@ function bvTick(dt){if(!state||ui==='start')return;BV.t-=dt;if(BV.t<=0){BV.t=1.5
   // brazos cruzados de verdad: los antebrazos giran hacia dentro, por delante del pecho
   for(const g of GS.list){const gs=g.userData.gs;if(!gs||!gs.fore||!g.visible)continue;const on=Math.abs((gs.tgt.rf||0)-GSET.cruzados[7])<0.01&&Math.abs((gs.tgt.lf||0)-GSET.cruzados[6])<0.01,k=Math.min(1,dt*5);
     for(let i=0;i<2;i++){const f=gs.fore[i];if(!f)continue;const tg=on?-(gs.side?gs.side[i]:(i?1:-1))*0.95:0;f.rotation.z+=(tg-f.rotation.z)*k;}}
-  for(const g of GS.list){const u=g.userData,p=u.post;if(!p||!g.visible||u.pose)continue;const dx=g.position.x-P.x,dz=g.position.z-P.z;if(dx*dx+dz*dz>400)continue;
+  for(const g of GS.list){const u=g.userData,p=u.post;if(!p||!g.visible||u.pose||u.sitting)continue;const dx=g.position.x-P.x,dz=g.position.z-P.z;if(dx*dx+dz*dz>400)continue;
     const mv=u._px!==undefined&&Math.abs(g.position.x-u._px)+Math.abs(g.position.z-u._pz)>0.003;u._px=g.position.x;u._pz=g.position.z;if(mv){u._st=0;continue;}u._st=(u._st||0)+dt;if(u._st<0.6)continue;
     const k=Math.min(1,dt*3),ph=(u.gs&&u.gs.t)||0;
     if(p==='peso'){g.rotation.z+=((0.03+0.012*Math.sin(t*0.45+ph))-g.rotation.z)*k;if(u.legs)u.legs[1].rotation.x+=(-0.13-u.legs[1].rotation.x)*k;}
