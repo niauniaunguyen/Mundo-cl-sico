@@ -60,3 +60,23 @@ function grTick(){if(!GR.on||!state||ui==='start')return;if(!GR.mesh)grInit();co
   GR.mesh.count=n;GR.mesh.instanceMatrix.needsUpdate=true;GR.mesh.instanceColor.needsUpdate=true;}
 // al cambiar de estación, recolorear
 {let lastMo=-1;const f=uxTick;uxTick=function(dt){f(dt);try{let mo=-1;try{mo=calNow().mo;}catch(e){}if(mo!==lastMo){lastMo=mo;GR.cx=1e9;}grTick();}catch(e){}};}
+// ---------------------------------------------------------------- el suelo bajo la hierba: una capa verde que sigue el terreno alrededor del jugador
+// Antes la hierba salía de arena pelada. Ahora una malla (misma rejilla que la hierba) tiñe el suelo donde hay hierba, con bordes suaves
+// (cada vértice promedia las 9 celdas vecinas) y se desvanece en el borde del radio. Va en una capa transparente encima del terreno.
+const GRG={mesh:null,n:0,a:null,c:null,p:null};
+function grgInit(){const R=GR.R,C=GR.C,n=Math.ceil(R*2/C)+3;GRG.n=n;const g=new THREE.PlaneGeometry(1,1,n-1,n-1);g.rotateX(-Math.PI/2);
+  GRG.p=g.attributes.position;GRG.a=new THREE.BufferAttribute(new Float32Array(n*n),1);GRG.c=new THREE.BufferAttribute(new Float32Array(n*n*3),3);g.setAttribute('aA',GRG.a);g.setAttribute('color',GRG.c);
+  const m=new THREE.MeshLambertMaterial({vertexColors:true,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-3,polygonOffsetUnits:-6});
+  m.onBeforeCompile=sh=>{sh.vertexShader='attribute float aA;varying float vA;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvA=aA;');
+    sh.fragmentShader='varying float vA;\n'+sh.fragmentShader.replace('#include <tonemapping_fragment>','gl_FragColor.a*=vA;\n#include <tonemapping_fragment>');};
+  m.customProgramCacheKey=()=>'sueloHierba1';GRG.mesh=new THREE.Mesh(g,m);GRG.mesh.frustumCulled=false;GRG.mesh.receiveShadow=true;GRG.mesh.renderOrder=1;GRG.mesh.userData.noCull=true;GRG.mesh.userData.veg=true;scene.add(GRG.mesh);}
+function grgBuild(){if(!GRG.mesh)grgInit();const P=player,C=GR.C,n=GRG.n,R=GR.R,ci=Math.floor(P.x/C),cj=Math.floor(P.z/C),h=Math.floor(n/2),col=new THREE.Color();
+  let mo=3;try{mo=calNow().mo;}catch(e){}const sum=mo>=5&&mo<=8;const cG=new THREE.Color(sum?'#6a7a38':'#46682a'),cD=new THREE.Color(sum?'#94844a':'#62723a');
+  const d=(i,j)=>{const c=grCell(i,j);return c?c.d:0;};
+  for(let a=0;a<n;a++)for(let b=0;b<n;b++){const i=ci-h+a,j=cj-h+b,x=i*C,z=j*C,k=b*n+a;   // vértice en la esquina (i,j) de la rejilla de la hierba
+    let s=0,gr=0;for(let u=-1;u<=0;u++)for(let v=-1;v<=0;v++){const c=grCell(i+u,j+v);if(c){s+=c.d;if(c.green)gr++;}}
+    s+=0.5*(d(i-2,j-1)+d(i+1,j-1)+d(i-1,j-2)+d(i-1,j+1));s/=6;
+    const dist=Math.hypot(x-P.x,z-P.z),fade=Math.max(0,Math.min(1,(R-dist)/8));
+    GRG.p.setXYZ(k,x,terrainH(x,z)+0.1,z);GRG.a.setX(k,Math.min(0.82,s*1.05)*fade);col.copy(gr>=2?cG:cD);GRG.c.setXYZ(k,col.r,col.g,col.b);}
+  GRG.p.needsUpdate=true;GRG.a.needsUpdate=true;GRG.c.needsUpdate=true;GRG.mesh.geometry.computeVertexNormals();}
+{const f=grTick;grTick=function(){const ox=GR.cx,oz=GR.cz;f();if(!GR.mesh)return;if(GRG.mesh)GRG.mesh.visible=GR.mesh.visible;if(GR.mesh.visible&&(GR.cx!==ox||GR.cz!==oz))grgBuild();};}

@@ -159,5 +159,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `153_taller_templo.js` | 47 | APRENDER HACIENDO (2): el taller del templo — señalar las piezas para repararlo |
 | `154_pruebas_aula.js` | 33 | PROBAR CON ALUMNOS: dónde se atascan, encuesta breve e informe, y menos texto al empezar |
 | `155_vegetacion.js` | 28 | VEGETACIÓN MEJOR: consejos de arte de entornos aplicados |
-| `156_hierba.js` | 63 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
+| `156_hierba.js` | 83 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
