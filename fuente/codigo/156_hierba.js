@@ -7,7 +7,7 @@
 // · se encoge al llegar al borde del radio, para que no aparezca de golpe; colores según la estación (el Ática se agosta en verano; Italia, más verde).
 const GR={on:true,mesh:null,cx:1e9,cz:1e9,C:1.4,R:34,max:0,cache:new Map(),u:{uP:{value:new THREE.Vector3()}}};
 function grGeo(){const pos=[],col=[],nor=[],idx=[];const B=7,S=3;
-  for(let b=0;b<B;b++){const a=b/B*TAU+hash(b,3)*0.9,r=b?0.12+hash(b,5)*0.2:0,ox=Math.cos(a)*r,oz=Math.sin(a)*r,h=0.3+hash(b,7)*0.32,w=0.032+hash(b,9)*0.018,face=hash(b,11)*TAU,lean=0.08+hash(b,13)*0.14,lx=Math.cos(a),lz=Math.sin(a);
+  for(let b=0;b<B;b++){const a=b/B*TAU+hash(b,3)*0.9,r=b?0.09+hash(b,5)*0.15:0,ox=Math.cos(a)*r,oz=Math.sin(a)*r,h=0.22+hash(b,7)*0.22,w=0.026+hash(b,9)*0.014,face=hash(b,11)*TAU,lean=0.08+hash(b,13)*0.14,lx=Math.cos(a),lz=Math.sin(a);
     const fx=Math.cos(face),fz=Math.sin(face),base=pos.length/3;
     for(let s=0;s<=S;s++){const t=s/S,hw=w*(1-t*0.92),bx=ox+lx*lean*t*t,bz=oz+lz*lean*t*t,y=h*t;
       pos.push(bx-fx*hw,y,bz-fz*hw, bx+fx*hw,y,bz+fz*hw);const c=0.62+0.38*t;col.push(c,c,c,c,c,c);nor.push(0,1,0,0,1,0);}
@@ -21,7 +21,7 @@ function grMat(){const m=new THREE.MeshLambertMaterial({color:0xffffff,vertexCol
 wp=instanceMatrix*wp;
 #endif
 wp=modelMatrix*wp;
-float hk=clamp(position.y/0.6,0.0,1.0);hk*=hk;
+float hk=clamp(position.y/0.44,0.0,1.0);hk*=hk;
 float ph=wp.x*0.37+wp.z*0.29;
 float gust=sin(dot(wp.xz,vec2(0.07,0.045))-uWT*1.7)*0.5+0.5;
 float sw=(sin(uWT*2.2+ph)*0.55+sin(uWT*3.9+ph*1.8)*0.2+gust*1.1)*uWS;
@@ -53,8 +53,8 @@ function grTick(){if(!GR.on||!state||ui==='start')return;if(!GR.mesh)grInit();co
   const C=GR.C,R=GR.R,i0=Math.floor((P.x-R)/C),i1=Math.floor((P.x+R)/C),j0=Math.floor((P.z-R)/C),j1=Math.floor((P.z+R)/C),m=new THREE.Matrix4(),q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),sc=new THREE.Vector3(),p=new THREE.Vector3(),col=new THREE.Color();
   const palG=grPal(true).map(c=>new THREE.Color(c)),palD=grPal(false).map(c=>new THREE.Color(c));let n=0;
   for(let i=i0;i<=i1&&n<GR.max;i++)for(let j=j0;j<=j1&&n<GR.max;j++){const c=grCell(i,j);if(!c)continue;const cxx=(i+0.5)*C,czz=(j+0.5)*C,dd=Math.hypot(cxx-P.x,czz-P.z);if(dd>R)continue;
-    const k=Math.round(c.d*6);for(let s=0;s<k&&n<GR.max;s++){const x=(i+hash(i*7+s,j*3))*C,z=(j+hash(i*3,j*7+s))*C,d=Math.hypot(x-P.x,z-P.z);if(d>R)continue;
-      const fade=Math.min(1,(R-d)/7),sz=(0.6+hash(i+s*11,j)*0.6)*(0.7+c.d*0.5)*fade;if(sz<0.08)continue;
+    const k=Math.round(c.d*8);for(let s=0;s<k&&n<GR.max;s++){const x=(i+hash(i*7+s,j*3))*C,z=(j+hash(i*3,j*7+s))*C,d=Math.hypot(x-P.x,z-P.z);if(d>R)continue;
+      const fade=Math.min(1,(R-d)/7),sz=(0.55+hash(i+s*11,j)*0.5)*(0.7+c.d*0.4)*fade;if(sz<0.08)continue;
       q.setFromAxisAngle(up,hash(i,j+s*13)*TAU);sc.set(sz,sz*(0.8+hash(j,i+s)*0.5),sz);p.set(x,terrainH(x,z)-0.03,z);m.compose(p,q,sc);GR.mesh.setMatrixAt(n,m);
       const pal=c.green?palG:palD;col.copy(pal[Math.floor(hash(i+s,j*5)*3)]).offsetHSL((hash(x,z)-0.5)*0.03,0,(hash(z,x)-0.5)*0.08);GR.mesh.setColorAt(n,col);n++;}}
   GR.mesh.count=n;GR.mesh.instanceMatrix.needsUpdate=true;GR.mesh.instanceColor.needsUpdate=true;}
