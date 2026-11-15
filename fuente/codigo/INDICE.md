@@ -152,4 +152,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `146_atencion_mas.js` | 171 | MIRAR CON ATENCIÓN (5): edificios enteros, estatuas con nombre, puentes y ríos con su nombre<br>NADAR EN LOS RÍOS: flotar en la superficie (antes se caminaba por el fondo y el personaje desaparecía bajo el <br>ÁRBOLES: al suelo después de rebajar el terreno bajo los edificios, y fuera de las ínsulas<br>ROMA: barca en el Tíber, junto al Emporio, y Tiberino que te la señala<br>ESFERA DE SUEÑO EN CARTAGO: DIDO Y ENEAS (Eneida IV)<br>CARTAGO: un combate de gladiadores en el anfiteatro (vídeo: «estaría bien algún espectáculo»)<br>AL ENTRAR EN UNA CIUDAD: su nombre en grande en el centro de la pantalla<br>ANDAR Y CORRER MÁS NATURALES |
 | `147_presentacion.js` | 66 | PRESENTACIÓN AL ELEGIR ÉPOCA |
 | `148_aprender.js` | 159 | APRENDER MEJOR: diez ayudas para quien juega para aprender |
-| `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `149_atenea_minerva.js` | 357 | ATENEA EN EL PARTENÓN Y MINERVA EN EL CAPITOLIO: la diosa enseña |
+| `150_hecate.js` | 23 | HÉCATE EN LOS UMBRALES (Atenas) y TRIVIA / LOS DIOSES DE LA PUERTA (Roma) |
+| `151_diez_ideas.js` | 86 | DIEZ MEJORAS DE JUEGO |
+| `900_creta_y_arranque.js` | 633 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
