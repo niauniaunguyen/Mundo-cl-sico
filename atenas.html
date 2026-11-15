@@ -23223,7 +23223,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='540b3175033f';
+const NOSTOS_VER='73346a0590a5';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27640,6 +27640,130 @@ function grgBuild(){if(!GRG.mesh)grgInit();const P=player,C=GR.C,n=GRG.n,R=GR.R,
     GRG.p.setXYZ(k,x,terrainH(x,z)+0.1,z);GRG.a.setX(k,Math.min(0.82,s*1.05)*fade);col.copy(gr>=2?cG:cD);GRG.c.setXYZ(k,col.r,col.g,col.b);}
   GRG.p.needsUpdate=true;GRG.a.needsUpdate=true;GRG.c.needsUpdate=true;GRG.mesh.geometry.computeVertexNormals();}
 {const f=grTick;grTick=function(){const ox=GR.cx,oz=GR.cz;f();if(!GR.mesh)return;if(GRG.mesh)GRG.mesh.visible=GR.mesh.visible;if(GR.mesh.visible&&(GR.cx!==ox||GR.cz!==oz))grgBuild();};}
+// ============================================================ LA LLEGADA: los primeros minutos con un guía, sin carteles de instrucciones
+// En una partida nueva del modo Libre, un guía (Lisias, un muchacho del Pireo / Gaya, una niña de la Subura) te recibe y te lleva:
+// 1 a conocer a alguien (hablar), 2 a una esfera de sueño (soñar), 3 hasta la diosa (aprender), 4 te da el plano (orientarse) y 5 te deja una meta: la honra de la ciudad.
+// Se aprende moviéndose detrás de alguien. Los recordatorios de teclas solo salen si te quedas parado sin saber qué hacer.
+function obz(){if(!state.ob||typeof state.ob!=='object')state.ob={st:0,done:0};return state.ob;}
+const OB={g:null,wp:[],wi:0,stuck:0,last:0,idle:0,ix:0,iz:0,sub:null,subT:0,said:{},hintT:0};
+function obRoute(){const ro=MODE==='roma',Q=(id)=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},N=id=>{const o=npcObjs.find(o=>o.data&&o.data.id===id);return o?[o.x,o.z]:null;},S=id=>{const s=EPI.spheres.find(s=>s.data&&s.data.id===id);return s?[s.x,s.z,s.data]:null;};
+  if(ro)return[{k:'talk',npc:'tacito',to:N('tacito'),wp:[N('tacito')]},{k:'dream',sph:S('sabinas'),wp:[S('sabinas')]},
+    {k:'god',wp:[Q('ro_saturno'),Q('ro_clivus'),[-185,70],[-205,82],[-222,62],[-222,40],AM.o?[AM.o.x,AM.o.z+2.5]:null]},{k:'map'},{k:'end'}];
+  return[{k:'talk',npc:'pritano',to:N('pritano'),wp:[N('pritano')]},{k:'dream',sph:S('orestes'),wp:[[-330,-160],S('orestes')]},
+    {k:'god',wp:[[-210,-20],Q('propileos'),[-40,-22],[30,-22],[78,-6],[78,12],AM.o?[AM.o.x+3,AM.o.z]:null]},{k:'map'},{k:'end'}];}
+const OB_TXT={atenas:{name:_t(119,'Lisias'),sub:'un muchacho del Pireo',
+  hello:'¡Eh, tú, el recién llegado! Soy Lisias. Mi padre dice que a los forasteros hay que enseñarles la ciudad. ¡Sígueme!',
+  talk:'Ese de ahí es Eucles: este mes es prítano, de los que presiden el Consejo. Ve a hablar con él, no muerde.',
+  talkDone:'¿Ves? En Atenas cualquiera te cuenta cómo funciona la ciudad. Ahora te enseño algo raro. ¡Vamos!',
+  dream:'¿Ves esa luz que flota? Es una esfera de sueño. Si la tocas, sueñas lo que pasó aquí hace mucho. Tócala, yo te espero.',
+  dreamDone:'¡Has soñado! Hay esferas así por toda Grecia. Ahora, lo mejor: arriba, en la Acrópolis.',
+  god:'Dentro del Partenón está la estatua de Atenea… y dicen que, a quien mira con atención, la diosa le habla. Entra tú; yo no me atrevo.',
+  godDone:'¿Te ha hablado? ¡Lo sabía! Toma, para que no te pierdas: un plano de la ciudad.',
+  map:'Mira el plano (M). Si un sitio ya lo conoces, puedes ir directo.',
+  end:'Y ahora te dejo. Un consejo: en Atenas te respetan si aprendes, ayudas y hablas bien. Cuanto más hagas, más te honrará la ciudad: lo verás en tu diario. ¡Suerte, forastero!',
+  wait:['¡Por aquí!','¡Venga, que no es lejos!','¡Sígueme!']},
+ roma:{name:'Gaya',sub:'una niña de la Subura',
+  hello:'¡Salve! ¿Eres nuevo en Roma? Soy Gaya y me conozco todas las calles. ¡Sígueme, que te enseño!',
+  talk:'Ese joven es Tácito: acaba de entrar en el Senado. Dicen que escribirá historia. Ve a hablar con él.',
+  talkDone:'¿A que habla bonito? Ven, que te enseño una cosa que brilla.',
+  dream:'Esa luz es una esfera de sueño. Tócala y verás lo que pasó aquí cuando Roma era pequeña. Te espero.',
+  dreamDone:'¡Has soñado! Ahora subimos al Capitolio. El templo se quemó este año, pero Minerva sigue allí.',
+  god:'Ahí, junto a la puerta del templo… ¿la ves? Es Minerva. Habla con ella, que enseña a quien pregunta.',
+  godDone:'¡Te ha hablado una diosa! Toma, mi tío es agrimensor y me dio esto: un plano de Roma.',
+  map:'Mira el plano (M). Desde ahí puedes ir a los sitios que ya conoces.',
+  end:'Me voy, que mi madre me espera en el horno. En Roma importa la honra: si aprendes y ayudas, subirás de rango. Míralo en tu diario. ¡Vale!',
+  wait:['¡Por aquí!','¡Corre, que es aquí al lado!','¡Sígueme!']}};
+const obT=()=>OB_TXT[MODE==='roma'?'roma':'atenas'];
+function obSay(t,dur){if(!OB.sub){const d=document.createElement('div');d.id='obSub';d.style.cssText='position:fixed;left:50%;bottom:118px;transform:translateX(-50%);max-width:min(640px,90vw);background:rgba(20,15,10,.82);color:#f3e6cf;border:1px solid #c98a4a;border-radius:12px;padding:10px 16px;font:16px Alegreya,Georgia,serif;z-index:30;pointer-events:auto;line-height:1.35';document.body.appendChild(d);OB.sub=d;}
+  const T=obT();OB.sub.innerHTML='<b style="color:#e8a85a">'+T.name+'</b> · '+t+' <a href="#" id="obSkip" style="color:#a89a7a;font-size:.8em;margin-left:8px">saltar presentación</a>';OB.sub.hidden=false;OB.subT=dur||9;
+  $('obSkip').onclick=e=>{e.preventDefault();obFinish(true);};try{if(typeof ACC!=='undefined'&&ACC.auto&&typeof accSpeak==='function')accSpeak(t);}catch(e){}}
+function obHint(t){toast(t);}
+function obActive(){return state&&!storyOn()&&obz().st>0&&!obz().done;}
+function obStart(){const z=obz();if(z.done||z.st>0||storyOn())return;z.st=1;save();OB.route=obRoute();OB.stage=0;obSpawn();obStage(0);}
+function obSpawn(){const ro=MODE==='roma',a=player.yaw,x=player.x-Math.sin(a)*4,z=player.z-Math.cos(a)*4;
+  const g=makePerson(ro?{female:true,chiton:'#c9a46a',short:true,noHimation:true,hair:'#3a2a1e',scale:0.78,noVary:true}:{chiton:'#d8ccb4',short:true,noHimation:true,hair:'#5a3a22',scale:0.8,noVary:true});
+  g.position.set(x,floorAt(x,z),z);scene.add(g);OB.g=g;const lb=labelSprite(obT().name,obT().sub,false);lb.position.y=2.2;g.add(lb);OB.lb=lb;}
+function obStage(i){OB.stage=i;const z=obz();z.st=i+1;save();const S=OB.route[i],T=obT();if(!S)return obFinish(false);
+  OB.wp=(S.wp||[]).filter(Boolean);OB.wi=0;OB.stuck=0;
+  if(S.k==='talk')obSay(i===0?T.hello:T.talk,10);else if(S.k==='dream')obSay(T.talkDone,8);else if(S.k==='god')obSay(T.dreamDone,8);
+  else if(S.k==='map'){obSay(T.godDone,8);setTimeout(()=>{if(ui==='play'){openMap();obSay(T.map,8);}},2500);}
+  else if(S.k==='end'){obSay(T.end,12);setTimeout(()=>obFinish(false),12000);}}
+function obDone(S){if(!S)return false;if(S.k==='talk')return seenAny(S.npc);if(S.k==='dream')return S.sph?epiDone(S.sph[2]):true;if(S.k==='god')return!!(typeof amz==='function'&&amz().met);if(S.k==='map')return!!state.steps.map;return false;}
+function obFinish(skip){const z=obz();z.done=1;save();if(OB.sub)OB.sub.hidden=true;state.tut=1;
+  if(OB.g){const g=OB.g;setTimeout(()=>{scene.remove(g);},skip?0:6000);if(!skip){OB.leave=true;}else OB.g=null;}
+  if(skip)toast('Presentación saltada. Tus primeros pasos están en el diario (J).');else{try{qAdd('kl',1,'Has conocido la ciudad');}catch(e){}}}
+function obTick(dt){if(!state||ui==='start')return;const z=obz();
+  if(OB.sub&&!OB.sub.hidden){OB.subT-=dt;if(OB.subT<=0)OB.sub.hidden=true;}
+  if(!OB.g)return;const g=OB.g,P=player;
+  if(OB.leave){g.position.x+=Math.sin(g.rotation.y)*dt*2;g.position.z+=Math.cos(g.rotation.y)*dt*2;g.position.y=floorAt(g.position.x,g.position.z);personWalk(g,performance.now()/160,1);return;}
+  if(z.done||ui!=='play'&&ui!=='dialog'){return;}
+  const S=OB.route[OB.stage];if(obDone(S)){obStage(OB.stage+1);return;}
+  // ¿se ha quedado parado el jugador al principio? un recordatorio discreto
+  if(Math.hypot(P.x-OB.ix,P.z-OB.iz)>1.5){OB.ix=P.x;OB.iz=P.z;OB.idle=0;}else OB.idle+=dt;
+  if(OB.idle>12&&performance.now()-OB.hintT>25000){OB.hintT=performance.now();
+    obHint(S&&S.k==='talk'&&S.to&&Math.hypot(P.x-S.to[0],P.z-S.to[1])<6?(isTouch?'Toca la <b>mano</b> para hablar.':'Pulsa <b>E</b> para hablar.'):S&&S.k==='dream'&&S.sph&&Math.hypot(P.x-S.sph[0],P.z-S.sph[1])<6?(isTouch?'Toca la <b>mano</b> para tocar la esfera.':'Pulsa <b>E</b> para tocar la esfera.'):(isTouch?'Desliza el pulgar izquierdo para <b>caminar</b> y el derecho para <b>mirar</b>.':'Camina con <b>W A S D</b> y mira con el ratón.'));}
+  // el guía va por delante, hasta el siguiente punto; espera si te quedas atrás
+  const gx=g.position.x,gz=g.position.z,dP=Math.hypot(P.x-gx,P.z-gz);let tgt=OB.wp[OB.wi];
+  if(tgt&&Math.hypot(tgt[0]-gx,tgt[1]-gz)<(OB.wi===OB.wp.length-1?3:2.5)){if(OB.wi<OB.wp.length-1){OB.wi++;tgt=OB.wp[OB.wi];}else tgt=null;}
+  let moving=false;
+  if(tgt&&dP<11){const a=Math.atan2(tgt[0]-gx,tgt[1]-gz),sp=3.6;let ok=false;
+    for(const off of[0,0.5,-0.5,1,-1,1.5,-1.5]){const aa=a+off,nx=gx+Math.sin(aa)*sp*dt,nz=gz+Math.cos(aa)*sp*dt;if(isFree(nx,nz,0.3)&&Math.abs(floorAt(nx,nz)-g.position.y)<1.2){g.position.x=nx;g.position.z=nz;g.rotation.y=aa;ok=true;break;}}
+    if(ok){moving=true;OB.stuck=0;}else{OB.stuck+=dt;if(OB.stuck>1.5){g.position.x=tgt[0];g.position.z=tgt[1];OB.stuck=0;}}   // atascado: aparece en el siguiente punto
+    g.position.y=floorAt(g.position.x,g.position.z);}
+  else{const a=Math.atan2(P.x-gx,P.z-gz);let d=a-g.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));g.rotation.y+=d*Math.min(1,dt*3);
+    if(dP>16&&performance.now()-OB.last>9000){OB.last=performance.now();obSay(pick(obT().wait),3);}
+    if(dP>60){const a2=Math.atan2(gx-P.x,gz-P.z);g.position.x=P.x+Math.sin(a2)*6;g.position.z=P.z+Math.cos(a2)*6;g.position.y=floorAt(g.position.x,g.position.z);}}   // te has ido lejos: vuelve a por ti
+  if(moving)personWalk(g,performance.now()/170,1);else personWalk(g,0,0);
+  // al llegar al destino de la etapa, explica qué hacer (una vez)
+  if(!tgt&&S&&!OB.said[OB.stage]&&dP<12){OB.said[OB.stage]=1;const T=obT();if(S.k==='dream')obSay(T.dream,10);else if(S.k==='god')obSay(T.god,10);else if(S.k==='talk'&&OB.stage>0)obSay(T.talk,10);}}
+// la partida nueva del modo libre empieza con el guía en lugar del tutorial de carteles
+{const f=tutStart;tutStart=function(){if(!storyOn()&&!obz().done&&!state.lessons.length&&!state.places.length){state.tut=1;save();obStart();return;}return f.apply(this,arguments);};}
+// si se recarga a mitad de la presentación, el guía vuelve
+{const f=uxTick;uxTick=function(dt){f(dt);try{if(state&&ui==='play'&&!OB.g&&obActive()&&!OB.route){OB.route=obRoute();obSpawn();obStage(Math.max(0,obz().st-1));}obTick(dt);}catch(e){}};}
+// ============================================================ LA HONRA (timḗ / dignitas): el hilo que une todo lo que haces
+// Lo que haces suma honra: lecciones, lugares, sueños, cartas, votos y sesiones, el taller, las lecciones de la diosa y tus cualidades.
+// Se calcula a partir de lo ya hecho (también en partidas antiguas). Cada escalón es un honor real de la época, con su ceremonia y su fuente.
+// Atenas (eres forastero): de xénos a ciudadano por decreto, como el banquero Pasión. Roma (peregrino): de recién llegado a caballero con anillo de oro.
+const HON_R={
+ atenas:[[0,'Xénos recién llegado','Nadie te conoce todavía.'],
+  [15,'Conocido en el Ágora','En las tiendas y en la fuente ya saben tu nombre.','<p>En el Ágora te saludan por tu nombre. Un barbero comenta tus andanzas: en Atenas, las barberías son el lugar donde corren las noticias.</p>','Lisias XXIV 20 (las tertulias en barberías y tiendas).'],
+  [40,'Elogio del Consejo','El Consejo de los Quinientos te ha elogiado públicamente.','<p>El heraldo lee en el Buleuterio un <b>elogio</b> (<i>épainos</i>) a tu nombre: «por su buena disposición hacia el pueblo de los atenienses». Es el primer honor que la ciudad da a un extranjero.</p>','Fórmula habitual de los decretos honoríficos (IG II², siglo IV a.C.).'],
+  [80,'Isotéleia','Pagas los impuestos como un ciudadano: ya no el impuesto de los metecos.','<p>La Asamblea te concede la <b>isotéleia</b>: dejas de pagar el <i>metoíkion</i>, el impuesto anual de los metecos, y contribuyes como un ciudadano. Muy pocos extranjeros la consiguen.</p>','Aristóteles, Const. de los atenienses 58, 2-3; Harpocración, s.v. «isotelés».'],
+  [130,'Corona de olivo y estela','Tu nombre está grabado en una estela en la Acrópolis.','<p>Por decreto del pueblo te coronan con una corona de olivo y tu decreto se graba en una <b>estela de mármol</b> en la Acrópolis, a la vista de todos.</p>','Decretos honoríficos de la Acrópolis (IG II²); Demóstenes XVIII 120 (la corona proclamada).'],
+  [200,'Ciudadano por decreto','La Asamblea te ha hecho ciudadano de Atenas.','<p>En dos asambleas seguidas, y la segunda con al menos seis mil votos secretos, el pueblo te concede la <b>ciudadanía</b>. Lo consiguió muy poca gente: el banquero Pasión, que había sido esclavo, la obtuvo por sus regalos a la ciudad hacia el 376.</p>','[Demóstenes] LIX 88-92 (el procedimiento); Demóstenes XLV 85 (Pasión).']],
+ roma:[[0,'Peregrino recién llegado','Nadie te conoce todavía.'],
+  [15,'Conocido en el barrio','En tu vicus ya saben quién eres.','<p>Los vecinos de tu calle te saludan en el compitum, y el tabernero te fía el vino. En Roma, el barrio lo es todo.</p>','Juvenal III (la vida en el barrio); inscripciones de los vici.'],
+  [40,'Cliente de una gran familia','Una familia noble te acepta entre sus clientes.','<p>Un senador te acepta entre sus <b>clientes</b>: le acompañarás en la <i>salutatio</i> y él te protegerá en los pleitos. Sin un patrono, en Roma no eres nadie.</p>','Marcial III 7; Séneca, Sobre los beneficios VI 34.'],
+  [80,'Ciudadano romano','El emperador te ha concedido la ciudadanía.','<p>Por intercesión de tu patrono, el emperador Tito te concede la <b>ciudadanía romana</b>: tomas su nombre de familia, Flavio, como hicieron miles de provinciales en estos años.</p>','Plinio el Joven, Cartas X 5-7 (peticiones de ciudadanía al emperador); diplomas militares.'],
+  [130,'Magistrado del barrio','Te eligen para cuidar el altar de los Lares de tu vicus.','<p>Los vecinos te eligen <b>vicomagister</b>: cuidarás el altar de los Lares y del Genio de Augusto, organizarás las Compitalia y llevarás la toga praetexta en las fiestas.</p>','Suetonio, Augusto 30; inscripciones de vicomagistri (CIL VI).'],
+  [200,'Anillo de oro: caballero','El emperador te concede el anillo de oro del orden ecuestre.','<p>El emperador te concede el <b>anillo de oro</b> y te inscribe en el orden ecuestre. Normalmente hacían falta 400.000 sestercios; el emperador podía saltarse la norma, y lo hizo con libertos y amigos.</p>','Suetonio, Galba 14 y Vitelio 12 (anillos concedidos por el emperador); Plinio, Historia natural XXXIII 32-33.']]};
+function honz(){if(!state.hon||typeof state.hon!=='object')state.hon={r:0};return state.hon;}
+function honParts(){const s=state,P=[];const dream=Object.keys(s.seen||{}).filter(k=>k.startsWith('ep:')&&!k.startsWith('ep:am_')).length;
+  let am=0,cartas=0,votes=0,tal=0,ql=0;try{am=Object.keys(amz().seen).length;}catch(e){}try{cartas=dzz().cartas||0;}catch(e){}try{votes=asz().votes||0;}catch(e){}try{tal=ttz2().done?1:0;}catch(e){}
+  try{for(const q of QUAL)ql+=qLv(q.k)-1;}catch(e){}
+  P.push(['Lecciones superadas',(s.lessons||[]).length,3],['Lugares descubiertos',(s.places||[]).length,1],['Sueños vividos',dream,2],['Lecciones de '+(MODE==='roma'?_t(4277,'Minerva'):_t(5265,'Atenea')),am,2],
+    ['Cartas entregadas',cartas,3],[MODE==='roma'?'Sesiones del Senado':'Asambleas',votes,3],['Taller del templo',tal,4],['Niveles de cualidades',ql,2]);return P;}
+function honScore(){return honParts().reduce((a,p)=>a+p[1]*p[2],0);}
+function honList(){return HON_R[MODE==='roma'?'roma':'atenas'];}
+function honRank(sc){const L=honList();let r=0;for(let i=0;i<L.length;i++)if(sc>=L[i][0])r=i;return r;}
+function honTitle(){return honList()[honz().r||0][1];}
+function honCheck(){const z=honz(),sc=honScore(),r=honRank(sc);if(r<=(z.r||0))return;
+  let gift=0;for(let k=(z.r||0)+1;k<=r;k++)gift+=k*5;state.obols+=gift;
+  const R=honList()[r];z.r=r;save();updateStats();try{qAdd('kl',2,'Honra: '+R[1]);}catch(e){}try{sfxCoin();}catch(e){}
+  const show=()=>{if(ui!=='play'){setTimeout(show,1500);return;}vmS(MODE==='roma'?'✦':'✦','La honra',R[1],R[3]+'<p class="sub">Fuente: '+R[4]+' · +'+gift+' '+(MODE==='roma'?'sestercios':_t(2607,'óbolos'))+', +2 Kléos</p>'+(r<honList().length-1?'<p class="sub">Siguiente honor: <b>'+honList()[r+1][1]+'</b> ('+sc+'/'+honList()[r+1][0]+' de honra). Míralo en el diario › La honra.</p>':'<p class="sub">Has alcanzado el honor más alto.</p>'),[vmBye]);};
+  setTimeout(show,800);}
+function honPage(){const ro=MODE==='roma',sc=honScore(),L=honList(),r=honRank(sc),nx=L[r+1];
+  let h='<p>'+(ro?'En Roma importa la <b>dignitas</b>: el prestigio que te da lo que haces por los demás.':'En Atenas importa la <b>timḗ</b>, la honra: lo que la ciudad reconoce de ti.')+' Todo lo que haces la aumenta.</p>';
+  h+='<p style="font-size:1.15em">'+(ro?'Tu dignitas':'Tu honra')+': <b>'+sc+'</b> · '+L[r][1]+'</p>';
+  if(nx){const p=Math.min(1,(sc-L[r][0])/(nx[0]-L[r][0]));h+='<div style="height:12px;background:#2a1e14;border:1px solid #6a4a30;border-radius:6px;overflow:hidden;margin:6px 0"><div style="height:100%;width:'+Math.round(p*100)+'%;background:#c98a4a"></div></div><p class="sub">Siguiente: <b>'+nx[1]+'</b> ('+nx[0]+') — '+nx[2]+'</p>';}
+  h+='<h3 style="margin:14px 0 6px">De dónde sale</h3><table style="width:100%;border-collapse:collapse">'+honParts().map(p=>'<tr><td style="padding:3px 0">'+p[0]+'</td><td style="text-align:right">'+p[1]+' × '+p[2]+'</td><td style="text-align:right;width:3em"><b>'+p[1]*p[2]+'</b></td></tr>').join('')+'</table>';
+  h+='<h3 style="margin:14px 0 6px">Los honores</h3>'+L.map((R,i)=>'<p style="margin:4px 0;opacity:'+(i<=r?1:0.55)+'">'+(i<=r?'✦':'·')+' <b>'+R[1]+'</b> <span class="sub">('+R[0]+')</span><br><span class="sub">'+R[2]+'</span></p>').join('');
+  eduOverlay('honBox',ro?'La dignitas':'La honra',h);}
+{const g0=gmRight;gmRight=function(d){g0(d);try{const g=d.querySelector('.gr');if(!g||GM.page)return;const two=g.querySelector('.two');if(two&&!two.querySelector('[data-hon]')){const b=document.createElement('button');b.dataset.hon='1';b.className='wide';
+  b.innerHTML=gmIc('journal')+'<span class="t">'+(MODE==='roma'?'La dignitas':'La honra')+'</span><span class="k">'+honTitle()+' · '+honScore()+'</span>';b.onclick=()=>{gmClose();setTimeout(honPage,80);};two.insertBefore(b,two.firstChild);}}catch(e){}};}
+// el título aparece en el informe del docente y en el saludo de algunos personajes
+{const f=dzReport;dzReport=function(){return f()+'\n'+(MODE==='roma'?'Dignitas':'Honra')+': '+honScore()+' · '+honTitle();};}
+{let t=0;const f=uxTick;uxTick=function(dt){f(dt);t+=dt;if(t<4||!state||ui==='start')return;t=0;try{honCheck();}catch(e){}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -28267,7 +28391,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload,GR,grCell,grTick}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload,GR,grCell,grTick,OB,obz,obStart,obStage,obRoute,obTick,tutStart,honScore,honRank,honPage,honz,honCheck,honParts}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}

@@ -160,4 +160,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `154_pruebas_aula.js` | 33 | PROBAR CON ALUMNOS: dónde se atascan, encuesta breve e informe, y menos texto al empezar |
 | `155_vegetacion.js` | 28 | VEGETACIÓN MEJOR: consejos de arte de entornos aplicados |
 | `156_hierba.js` | 83 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
+| `157_llegada.js` | 81 | LA LLEGADA: los primeros minutos con un guía, sin carteles de instrucciones |
+| `158_honra.js` | 45 | LA HONRA (timḗ / dignitas): el hilo que une todo lo que haces |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
