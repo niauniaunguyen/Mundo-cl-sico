@@ -52,7 +52,12 @@ function vegFix(){if(!FLATS.length&&!footprints.length)return;const G=new Map(),
       if(!FLAT_GRID.has(Math.floor(v.x/FLAT_C)+','+Math.floor(v.z/FLAT_C)))continue;const d=terrainH(v.x,v.z)-terrainH0(v.x,v.z);if(d<-0.05){m.elements[13]+=d;im.setMatrixAt(i,m);ch2=true;moved++;}}
     if(ch2){im.instanceMatrix.needsUpdate=true;}}
   return [moved,gone];}
-{const f=applyFlats;applyFlats=function(){const r=f.apply(this,arguments);try{window.__vegfix=vegFix();}catch(e){console.warn('vegFix',e);}return r;};}
+// calzadas, aceras y caminos pegados al terreno (drape): se construyen antes del rebaje y quedaban flotando (la calzada ante la Casa Dorada)
+function drapeFix(){let n=0;scene.traverse(o=>{if(!o.isMesh||!o.userData.drape||!o.geometry)return;const P=o.geometry.attributes.position;if(!P)return;o.updateMatrixWorld(true);
+  const id=o.matrixWorld.equals(new THREE.Matrix4());if(!id)return;let ch=false;
+  for(let i=0;i<P.count;i++){const x=P.getX(i),z=P.getZ(i);if(x>8000)break;if(!FLAT_GRID.has(Math.floor(x/FLAT_C)+','+Math.floor(z/FLAT_C)))continue;const d=terrainH(x,z)-terrainH0(x,z);if(d<-0.02){P.setY(i,P.getY(i)+d);ch=true;n++;}}
+  if(ch){P.needsUpdate=true;o.geometry.computeVertexNormals();o.geometry.computeBoundingSphere();o.geometry.computeBoundingBox();}});return n;}
+{const f=applyFlats;applyFlats=function(){const r=f.apply(this,arguments);try{window.__vegfix=vegFix();}catch(e){console.warn('vegFix',e);}try{window.__drapefix=drapeFix();}catch(e){console.warn('drapeFix',e);}return r;};}
 // los muretes de los campos se colocan a veces después de las puertas: se vuelve a despejar el paso al terminar la carga
 {const f=rfSetup;rfSetup=function(){try{gateClearWalls();}catch(e){}return f.apply(this,arguments);};}
 // ============================================================ ROMA: barca en el Tíber, junto al Emporio, y Tiberino que te la señala

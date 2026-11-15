@@ -18,7 +18,7 @@ function athensRoadsDecor(){
       if(prev&&prev.ok&&ok){const u0=prev.s/4,u1=s/4,v=r.w/4;q(road,ruv,prev.L,prev.R,cur.R,cur.L,[u0,0],[u0,v],[u1,v],[u1,0]);
         if(prev.city&&city)q(drn,duv,prev.d0,prev.d1,cur.d1,cur.d0,[u0*2,0],[u0*2,1],[u1*2,1],[u1*2,0]);}
       prev=cur;}}
-  const mk=(pos,uv,tex)=>{if(!pos.length)return;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.computeVertexNormals();const m=DMAT(tex);m.side=THREE.DoubleSide;const me=new THREE.Mesh(g,m);me.receiveShadow=true;scene.add(me);};
+  const mk=(pos,uv,tex)=>{if(!pos.length)return;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.computeVertexNormals();const m=DMAT(tex);m.side=THREE.DoubleSide;const me=new THREE.Mesh(g,m);me.receiveShadow=true;me.userData.drape=true;scene.add(me);};
   mk(road,ruv,'gravel');mk(drn,duv,'drain');
 }
 function athensDecor(){

@@ -67,7 +67,7 @@ function romaRoadsDecor(){
         if(prev.city&&city){if(!prev.xl&&!cur.xl){q(walk,wuv,prev.wl[0],prev.wl[1],cur.wl[1],cur.wl[0],[u0,0],[u0,0.9],[u1,0.9],[u1,0]);q(curb,cuv,prev.L,prev.wl[0],cur.wl[0],cur.L,[u0*2,0],[u0*2,1],[u1*2,1],[u1*2,0]);}
           if(!prev.xr&&!cur.xr){q(walk,wuv,prev.wr[1],prev.wr[0],cur.wr[0],cur.wr[1],[u0,0],[u0,0.9],[u1,0.9],[u1,0]);q(curb,cuv,prev.wr[0],prev.R,cur.R,cur.wr[0],[u0*2,1],[u0*2,0],[u1*2,0],[u1*2,1]);}}}
       prev=cur;}}
-  const mk=(pos,uv,tex)=>{if(!pos.length)return;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.computeVertexNormals();const m=DMAT(tex);m.side=THREE.DoubleSide;const me=new THREE.Mesh(g,m);me.receiveShadow=true;scene.add(me);};
+  const mk=(pos,uv,tex)=>{if(!pos.length)return;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.computeVertexNormals();const m=DMAT(tex);m.side=THREE.DoubleSide;const me=new THREE.Mesh(g,m);me.receiveShadow=true;me.userData.drape=true;scene.add(me);};
   mk(road,ruv,'basalt');mk(walk,wuv,'walk');mk(curb,cuv,'curb');
 }
 // arco honorífico: un vano o tres (perfil extruido con los arcos recortados), columnas adosadas, ático con inscripción y grupo de bronce encima

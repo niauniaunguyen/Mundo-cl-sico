@@ -51,7 +51,7 @@ function buildGates(){
   for(const g of GATES_W){
     if(g.path){const pos=[],P=g.path;for(let i=0;i<P.length-1;i++){const[a,b]=[P[i],P[i+1]],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l*2.2,nz=dx/l*2.2,
         q=(x,z)=>[x,terrainH(x,z)+0.07,z],A=q(a[0]+nx,a[1]+nz),Bv=q(a[0]-nx,a[1]-nz),C=q(b[0]-nx,b[1]-nz),D=q(b[0]+nx,b[1]+nz);pos.push(...A,...Bv,...C,...A,...C,...D);}
-      const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.computeVertexNormals();const m=new THREE.Mesh(geo,dirt);m.material.side=THREE.DoubleSide;m.receiveShadow=true;scene.add(m);}
+      const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.computeVertexNormals();const m=new THREE.Mesh(geo,dirt);m.material.side=THREE.DoubleSide;m.receiveShadow=true;m.userData.drape=true;scene.add(m);}
     const a=Math.atan2(g.ox,g.oz),gy=terrainH(g.x,g.z),grpG=grp(g.x,gy,g.z,a);
     // puerta ancha y alta (vídeo de Roma): dos pilares de 7 m a 10 m uno de otro y un dintel, para pasar a pie, a caballo o volando
     for(const s of[-1,1]){box(1.2,7.2,1.2,st,s*5,3.4,0,grpG);box(1.6,0.5,1.6,st,s*5,7.05,0,grpG);const p=toW(s*5,0,g.x,g.z,a);addBox(p[0],p[1],1.2,1.2,a);}
@@ -72,7 +72,7 @@ function drapeStrip(x0,z0,x1,z1,w,mat,lift){const L=Math.hypot(x1-x0,z1-z0),n=Ma
   for(let i=0;i<n;i++){const a=P[i],b=P[i+1];if(Math.max(Math.abs(a[1]-a[4]),Math.abs(b[1]-b[4]),Math.abs(a[1]-b[1]),Math.abs(a[4]-b[4]))>Math.max(2.5,w*0.35))continue;   // en las laderas muy empinadas no se pinta
   pos.push(a[0],a[1],a[2],b[0],b[1],b[2],a[3],a[4],a[5],a[3],a[4],a[5],b[0],b[1],b[2],b[3],b[4],b[5]);}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
-  const m=new THREE.Mesh(g,mat);m.material.side=THREE.DoubleSide;m.material.polygonOffset=true;m.material.polygonOffsetFactor=-4;m.material.polygonOffsetUnits=-4;m.receiveShadow=true;scene.add(m);return m;}
+  const m=new THREE.Mesh(g,mat);m.material.side=THREE.DoubleSide;m.material.polygonOffset=true;m.material.polygonOffsetFactor=-4;m.material.polygonOffsetUnits=-4;m.receiveShadow=true;m.userData.drape=true;scene.add(m);return m;}
 const TRAV_STONE=()=>lam('#d8ccb0');
 // al llegar a una puerta se camina hasta el mapa vecino
 let gateT=0,gateCool=0;
