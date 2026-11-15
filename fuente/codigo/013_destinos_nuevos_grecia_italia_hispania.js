@@ -443,6 +443,14 @@ if(hot&&hot.data&&hot.data.player)Object.assign(player,hot.data.player);
 if(hot&&hot.snapshot)hot.snapshot(()=>({state,player:{x:player.x,z:player.z,yaw:player.yaw,pitch:player.pitch}}));
 const keys={};
 let ui='start'; // start | play | dialog | journal | map | voyage | sea | episode | end
-const isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+// interfaz táctil solo si el puntero principal es un dedo (pointer:coarse) o si no hay ratón; un PC con pantalla táctil o un mini PC
+// que dice tener «puntos táctiles» sigue con teclado y ratón. Se puede forzar con ?tactil=1 / ?tactil=0 o desde Accesibilidad
+const isTouch=(()=>{try{const q=new URLSearchParams(location.search).get('tactil');if(q==='1'||q==='0')return q==='1';const v=localStorage.getItem('nostos_tactil');if(v==='1'||v==='0')return v==='1';}catch(e){}
+  try{const fine=matchMedia('(any-pointer:fine)').matches,coarse=matchMedia('(pointer:coarse)').matches;return coarse||(!fine&&(('ontouchstart' in window)||navigator.maxTouchPoints>0));}catch(e){return('ontouchstart' in window);}})();
+function setTouchPref(on){try{localStorage.setItem('nostos_tactil',on?'1':'0');}catch(e){}location.reload();}
+// si con la interfaz táctil aparece un ratón de verdad, se ofrece cambiar (una vez por sesión)
+if(isTouch)addEventListener('pointermove',function tpm(e){if(e.pointerType!=='mouse')return;removeEventListener('pointermove',tpm);setTimeout(()=>{try{if(sessionStorage.getItem('nostos_tpm'))return;sessionStorage.setItem('nostos_tpm','1');}catch(x){}
+  const d=document.createElement('div');d.className='tpmAsk';d.dataset.keys='1';d.innerHTML='Se ha detectado un ratón. <button>Usar teclado y ratón (1)</button> <button>Seguir con táctil (2)</button>';d.style.cssText='position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:9999;background:#2a2018;color:#f3e6c8;padding:10px 14px;border-radius:8px;font:15px Georgia,serif;box-shadow:0 4px 16px #0008';
+  const b=d.querySelectorAll('button');b[0].onclick=()=>setTouchPref(false);b[1].onclick=()=>{try{localStorage.setItem('nostos_tactil','1');}catch(x){}d.remove();};document.body.appendChild(d);},800);});
 const joy={x:0,y:0};
 

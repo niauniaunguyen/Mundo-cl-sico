@@ -165,7 +165,7 @@ function romaSetup(){
   // textos de la interfaz
   document.title='Nóstos · Roma, 80 d.C.';
   $('hudTitle').textContent='Roma · año 80 d.C.';
-  $('stH1').innerHTML='Roma<span>AÑO 80 d.C.</span>';
+  $('stH1').innerHTML='Roma<span>AÑO 80 d.C.</span>';try{stImgFill();}catch(e){}
   $('stIntro').innerHTML='<p>Tito, hijo de Vespasiano, es emperador desde hace un año. El Vesubio acaba de sepultar Pompeya, y Roma, que se reconstruye aún del incendio de Nerón, celebra cien días de juegos para inaugurar el Anfiteatro Flavio.</p><p>Llegas al Foro Romano. Habla con poetas, filósofos, senadores, gladiadores, libertos y vestales; lee las inscripciones y aprende cómo vive, gobierna y piensa la mayor ciudad del mundo. Cada lección que superes te dará tres sestercios.</p>';
   document.querySelector('#journal [data-tab="myths"]').hidden=true;
   $('libQ').placeholder='Buscar: Marcial, termas, Tíber…';

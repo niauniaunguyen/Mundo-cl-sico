@@ -9,15 +9,15 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `002_colisiones.js` | 66 | colisiones |
 | `003_escena.js` | 57 | escena |
 | `004_sonido_sintesis_sin_archivos.js` | 65 | sonido (síntesis, sin archivos) |
-| `005_modelos_de_blender.js` | 152 | modelos de Blender<br>caminos |
+| `005_modelos_de_blender.js` | 153 | modelos de Blender<br>caminos |
 | `006_murallas_circuito_de_temistocles_reconstruido.js` | 96 | murallas (circuito de Temístocles, reconstruido por Conón)<br>malla del terreno<br>columnas instanciadas (dóricas y jónicas) |
 | `007_campos_del_atica_y_de.js` | 95 | campos del Ática y de la campiña romana<br>texturas pintadas (policromía) |
 | `008_edificios.js` | 139 | edificios |
-| `009_personas.js` | 141 | personas |
+| `009_personas.js` | 145 | personas |
 | `010_contenido.js` | 928 | CONTENIDO |
 | `011_construccion_del_mundo.js` | 838 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
-| `012_escenarios_cuadrados.js` | 205 | ESCENARIOS CUADRADOS |
-| `013_destinos_nuevos_grecia_italia_hispania.js` | 449 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
+| `012_escenarios_cuadrados.js` | 218 | ESCENARIOS CUADRADOS |
+| `013_destinos_nuevos_grecia_italia_hispania.js` | 457 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
 | `014_hud.js` | 152 | HUD |
 | `015_dialogo.js` | 224 | diálogo |
 | `016_viajes_en_barco.js` | 77 | viajes en barco |
@@ -32,19 +32,19 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `025_roma.js` | 42 | ROMA: lugares (estelas) |
 | `026_roma.js` | 154 | ROMA: constructores |
 | `027_roma.js` | 123 | ROMA: destinos de viaje (año 80 d.C.)<br>HISPANIA URBANA: piezas para reconstruir las ciudades (acueductos, puentes largos, circos) |
-| `028_roma.js` | 461 | ROMA: la domus visitable del Celio |
-| `029_roma.js` | 412 | ROMA: construcción del mundo |
+| `028_roma.js` | 472 | ROMA: la domus visitable del Celio |
+| `029_roma.js` | 426 | ROMA: construcción del mundo |
 | `030_roma.js` | 178 | ROMA: barrios, densidad y muralla |
-| `031_roma.js` | 174 | ROMA: decoración según las reconstrucciones |
+| `031_roma.js` | 179 | ROMA: decoración según las reconstrucciones |
 | `032_glosario_lateral.js` | 758 | glosario lateral |
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
 | `034_atenas.js` | 71 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 405 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
 | `036_acabado.js` | 82 | acabado: texturas procedurales y luz |
-| `037_la_escuela_de_atenas_de.js` | 87 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
+| `037_la_escuela_de_atenas_de.js` | 94 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
-| `040_caballo.js` | 337 | caballo |
+| `040_caballo.js` | 343 | caballo |
 | `041_dioses.js` | 193 | dioses |
 | `042_entrada.js` | 83 | entrada<br>interacción |
 | `043_bucle.js` | 99 | bucle<br>arranque |
@@ -56,7 +56,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `049_discipulos.js` | 391 | discípulos: escuelas, encargos y rivalidades<br>tutorial de los primeros segundos (una vez por partida) |
 | `050_calendario_de_fiestas.js` | 415 | calendario de fiestas: un año religioso condensado |
 | `051_conversaciones_que_se_oyen_por.js` | 93 | conversaciones que se oyen por la calle (el jugador solo escucha)<br>carreteros: en cada salida, por unas monedas te llevan hasta el borde del mapa |
-| `052_las_nueve_musas_mnemosine_y.js` | 1519 | las nueve Musas, Mnemósine y el Olimpo |
+| `052_las_nueve_musas_mnemosine_y.js` | 1520 | las nueve Musas, Mnemósine y el Olimpo |
 | `053_forastero_a.js` | 240 | forastero/a: patria, estatus legal (meteco / ciudadanía), hospitalidad, cuaderno de comparaciones y regreso (n |
 | `054_el_culto_domestico_romano.js` | 78 | el culto doméstico romano: Lares, Penates, Genio y Juno, Vesta y el hogar, Manes y Lemures |
 | `055_los_fastos.js` | 46 | los fastos: el calendario romano mes a mes (modo Roma) |
@@ -66,7 +66,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `059_egipto.js` | 148 | Egipto: Náucratis y Menfis (modo Atenas, 386 a.C.); Alejandría y Menfis (modo Roma, 80 d.C.) |
 | `060_egipto_2.js` | 78 | Egipto (2): jeroglíficos, la Gran Pirámide por dentro, el Faro y la crecida del Nilo |
 | `061_sacar_partido_a_los_diez.js` | 273 | sacar partido a los diez destinos del 386: |
-| `062_game_feel.js` | 161 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
+| `062_game_feel.js` | 162 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
 | `063_polvo_bajo_los_cascos_y.js` | 65 | polvo bajo los cascos y la cinemática de la yegua recuperada |
 | `064_game_feel_2.js` | 120 | GAME FEEL 2: caballo vivo, animales que reaccionan, huellas, agua, saludos, |
 | `065_equivalentes_romanos_ano_80.js` | 196 | equivalentes romanos (año 80): comercio desde el Emporio, la carrera del Circo Máximo, |
@@ -78,7 +78,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `071_atalanta_atenas_y_camila_roma.js` | 106 | ATALANTA (Atenas) Y CAMILA (Roma): la carrera de la Areté máxima |
 | `072_misiones_finales_de_las_cualidades.js` | 317 | MISIONES FINALES DE LAS CUALIDADES (y la carrera en 3D)<br>TODAS LAS ESFERAS DE SUEÑO: Hipnos (Atenas) y la casa del Sueño (Roma) |
 | `073_artistas_del_386_a_c.js` | 147 | ARTISTAS DEL 386 a.C. Y DEL 80 d.C., CON MISIONES DE LAS CUALIDADES |
-| `074_urbanismo.js` | 88 | URBANISMO: el Pireo de Hipódamo, puertas y colinas de Atenas; la Roma del incendio del 80 |
+| `074_urbanismo.js` | 92 | URBANISMO: el Pireo de Hipódamo, puertas y colinas de Atenas; la Roma del incendio del 80 |
 | `075_las_metamorfosis_de_ovidio_libros.js` | 160 | LAS METAMORFOSIS DE OVIDIO (libros I-X): un catálogo, un ensayo y «huellas» repartidas por el mapa |
 | `076_progresion.js` | 137 | PROGRESIÓN: un título y un desbloqueo en cada nivel de cada cualidad, con pantalla de subida de nivel |
 | `077_game_feel_3.js` | 108 | GAME FEEL 3: RECOMPENSAS |
@@ -94,32 +94,32 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `087_la_barra_de_objetos_como.js` | 81 | LA BARRA DE OBJETOS (como el inventario rápido de Minecraft) |
 | `088_los_espiritus.js` | 47 | LOS ESPÍRITUS: Lares, Genio, Manes y Lemures (Roma); Agathós Daímon, Hécate y las Keres (Atenas) |
 | `089_mejoras_visuales_2.js` | 51 | MEJORAS VISUALES 2: luna con fases, lejanía según la hora, ventanas encendidas, incienso, |
-| `090_el_tiempo.js` | 115 | EL TIEMPO: sol, nubes, niebla, viento, lluvia, tormenta, calor y nieve, según la estación |
-| `091_para_que_sirven_los_objetos.js` | 98 | PARA QUÉ SIRVEN LOS OBJETOS: antorchas que se gastan, ladrones nocturnos, limosna, guías, vino en el odre,<br>TEJADOS Y CORNISAS: posarse sobre los edificios |
-| `092_ayuda_sin_llevar_de_la.js` | 83 | AYUDA SIN LLEVAR DE LA MANO (modo libre)<br>TREPAR: las laderas empinadas se suben despacio, apoyando las manos, en vez de chocar con ellas |
+| `090_el_tiempo.js` | 120 | EL TIEMPO: sol, nubes, niebla, viento, lluvia, tormenta, calor y nieve, según la estación |
+| `091_para_que_sirven_los_objetos.js` | 114 | PARA QUÉ SIRVEN LOS OBJETOS: antorchas que se gastan, ladrones nocturnos, limosna, guías, vino en el odre,<br>TEJADOS Y CORNISAS: posarse sobre los edificios |
+| `092_ayuda_sin_llevar_de_la.js` | 88 | AYUDA SIN LLEVAR DE LA MANO (modo libre)<br>TREPAR: las laderas empinadas se suben despacio, apoyando las manos, en vez de chocar con ellas |
 | `093_la_naturaleza_entre_las_ciudades.js` | 437 | LA NATURALEZA ENTRE LAS CIUDADES: montes, bosques, cuevas y fuentes con sus ninfas y su fauna<br>LA GUERRA EN EL HORIZONTE: lo que se comenta en la calle en el 386 a.C. y en el 80 d.C. |
 | `094_petteia_y_ludus_latrunculorum.js` | 81 | PETTÉIA Y LUDUS LATRUNCULORUM: el juego de tablero y las grandes batallas |
 | `095_los_caminos_mas_vivos.js` | 74 | LOS CAMINOS, MÁS VIVOS: tráfico, calzadas y rodadas, estaciones de postas, aduanas, tumbas que hablan, |
 | `096_la_ciudad_mas_viva.js` | 79 | LA CIUDAD, MÁS VIVA: oficios con minijuego, instituciones, grafitis, la noche de Roma, agua e higiene, cambist |
 | `097_el_zurron_y_los_objetos.js` | 104 | EL ZURRÓN Y LOS OBJETOS DEL VIAJE: casillas configurables, uso según el contexto y quince objetos nuevos |
 | `098_el_campo.js` | 83 | EL CAMPO: caza, pesca, recolección y herbario, fiestas rurales en su fecha, árboles sagrados y mojones, |
-| `099_para_aprender_y_ensenar.js` | 123 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
+| `099_para_aprender_y_ensenar.js` | 145 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
 | `100_paredes_solidas_en_todos_los.js` | 145 | PAREDES SÓLIDAS EN TODOS LOS EDIFICIOS<br>CUÁNTOS ÉRAMOS: población de Atenas (386 a.C.) y de Roma (80 d.C.)<br>MIRAR CON ATENCIÓN: lo que el juego ha elegido brilla en azul claro |
 | `101_vestuario.js` | 75 | VESTUARIO: ropa, colores, pelo, coronas, calzado y anillos con sus reglas |
 | `102_ambientacion.js` | 125 | AMBIENTACIÓN: detalles pequeños y documentados que se ven o se oyen al pasar |
 | `103_mirar_con_atencion.js` | 50 | MIRAR CON ATENCIÓN: definición y brillo de todo lo interactivo |
-| `104_ambientacion_2.js` | 103 | AMBIENTACIÓN 2: más detalles pequeños |
+| `104_ambientacion_2.js` | 107 | AMBIENTACIÓN 2: más detalles pequeños |
 | `105_mar_abierto.js` | 508 | MAR ABIERTO: la barca sin dueño (Pireo / Emporio de Roma), los tramos de mar, el buceo y la misión del barquer |
 | `106_vida_en_el_mar_sw2.js` | 218 | VIDA EN EL MAR (SW2): periplo, barcos, viento y vela, tormentas, piratas, encuentros míticos, pecios y rumbos  |
 | `107_guia_de_navegacion.js` | 65 | GUÍA DE NAVEGACIÓN: flechas 3D alrededor de la barca hacia cada destino (Y para ocultarlas)<br>AGUA: oleaje animado, reflejo del cielo según el ángulo (Fresnel) y destellos del sol |
-| `108_roma.js` | 112 | ROMA: Sicilia (Siracusa y el Etna), Cerdeña (Caralis) y Córcega (Aleria) |
+| `108_roma.js` | 113 | ROMA: Sicilia (Siracusa y el Etna), Cerdeña (Caralis) y Córcega (Aleria) |
 | `109_roma.js` | 370 | ROMA: el resto de Italia, Sicilia y las provincias (año 80 d.C.) |
 | `110_roma.js` | 86 | ROMA: mapas de transición que unen a pie los destinos nuevos |
 | `111_roma.js` | 162 | ROMA: lo que les faltaba a los mapas nuevos — esferas de sueño, segunda misión del barquero, casas de Oriente<br>ROMA: capítulo extra del modo Historia — «Las historias de Tácito» (se ofrece al terminar la historia)<br>PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva |
 | `112_roma.js` | 45 | ROMA: casas propias de cada provincia y un tercer tema para los personajes nuevos |
-| `113_templos_por_dentro.js` | 181 | TEMPLOS POR DENTRO: estatuas de culto, tesoros, ofrendas y sacerdotes<br>COLUMNAS QUE SE CONSTRUYEN TARDE<br>CARGA POR TROZOS (como los chunks de Minecraft)<br>FUSIÓN DE PIEZAS ESTÁTICAS |
+| `113_templos_por_dentro.js` | 182 | TEMPLOS POR DENTRO: estatuas de culto, tesoros, ofrendas y sacerdotes<br>COLUMNAS QUE SE CONSTRUYEN TARDE<br>CARGA POR TROZOS (como los chunks de Minecraft)<br>FUSIÓN DE PIEZAS ESTÁTICAS |
 | `114_vida_2.js` | 119 | VIDA 2: una ciudad menos estática |
-| `115_rutinas_y_sonido_por_zonas.js` | 113 | RUTINAS Y SONIDO POR ZONAS |
+| `115_rutinas_y_sonido_por_zonas.js` | 114 | RUTINAS Y SONIDO POR ZONAS |
 | `116_veinte_destinos_mas_modo_atenas.js` | 336 | VEINTE DESTINOS MÁS (modo Atenas, 386 a.C.)<br>SUELO: las personas, sobre el suelo que se ve |
 | `117_el_tabano.js` | 79 | EL TÁBANO: la sombra de Sócrates (modo Atenas) |
 | `118_el_perro.js` | 74 | EL PERRO: la sombra de Diógenes (modo Roma) |
@@ -145,8 +145,9 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `139_laurion.js` | 50 | EL LAURIÓN: las minas de plata del sur del Ática (modo Atenas) |
 | `140_creta_kit.js` | 99 | CRETA (1): herramientas para los mapas de Creta (modo Atenas) |
 | `141_creta_centro.js` | 197 | CRETA (2): el centro de la isla (modo Atenas, 386 a.C.) |
-| `142_roma_lanciani.js` | 59 | ROMA: lo que faltaba según la Forma Urbis de Lanciani (revisión lámina a lámina, v217) |
+| `142_roma_lanciani.js` | 67 | ROMA: lo que faltaba según la Forma Urbis de Lanciani (revisión lámina a lámina, v217) |
 | `143_creta_este.js` | 180 | CRETA (3): el este de la isla (modo Atenas, 386 a.C.) |
 | `144_creta_oeste.js` | 61 | CRETA (4): el oeste de la isla (modo Atenas, 386 a.C.) |
 | `145_creta_tercera.js` | 137 | CRETA (5): tercera tanda (modo Atenas, 386 a.C.) |
+| `146_atencion_mas.js` | 134 | MIRAR CON ATENCIÓN (5): edificios enteros, estatuas con nombre, puentes y ríos con su nombre<br>NADAR EN LOS RÍOS: flotar en la superficie (antes se caminaba por el fondo y el personaje desaparecía bajo el <br>ÁRBOLES: al suelo después de rebajar el terreno bajo los edificios, y fuera de las ínsulas<br>ROMA: barca en el Tíber, junto al Emporio, y Tiberino que te la señala<br>ESFERA DE SUEÑO EN CARTAGO: DIDO Y ENEAS (Eneida IV)<br>CARTAGO: un combate de gladiadores en el anfiteatro (vídeo: «estaría bien algún espectáculo») |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

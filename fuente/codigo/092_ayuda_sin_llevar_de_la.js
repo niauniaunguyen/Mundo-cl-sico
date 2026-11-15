@@ -35,8 +35,8 @@ function mtTick(dt){if(!state)return;if(MTR.beacon){MTR.beaconT-=dt;const b=MTR.
   const lim=m.help==='mucha'?90:180;if(MTR.lost>lim&&MTR.walk>80&&!MTR.offer){MTR.lost=0;MTR.walk=0;mtOffer();}}
 function curStepBusy(){return !!($('dialog')&&!$('dialog').hidden);}
 function mtOffer(){const ro=MODE==='roma',who=pick(ro?['Una vendedora de higos','Un aguador','Un liberto con su perro','Una matrona que vuelve del mercado']:['Una vendedora de higos','Un aguador','Un viejo con bastón','Una mujer que vuelve de la fuente']);
-  const o=document.createElement('div');o.id='mtOffer';o.style.cssText='position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;background:rgba(22,16,12,.9);border-left:3px solid #d9874a;padding:10px 14px;color:#f1e8d8;font:15px Alegreya,Georgia,serif;width:min(520px,calc(100% - 32px));border-radius:6px';
-  o.innerHTML='<b>'+who+'</b> se te acerca: «Pareces perdido, forastero. ¿Buscas algo?»<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><button id="mtYes" style="font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #d9874a;background:#d9874a;color:#1a120c">Sí, ¿qué me recomiendas? (G)</button><button id="mtNo" style="font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #d9874a;background:transparent;color:#f1e8d8">No, gracias</button></div>';
+  const o=document.createElement('div');o.id='mtOffer';o.dataset.keys='1';o.style.cssText='position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;background:rgba(22,16,12,.9);border-left:3px solid #d9874a;padding:10px 14px;color:#f1e8d8;font:15px Alegreya,Georgia,serif;width:min(520px,calc(100% - 32px));border-radius:6px';
+  o.innerHTML='<b>'+who+'</b> se te acerca: «Pareces perdido, forastero. ¿Buscas algo?»<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><button id="mtYes" style="font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #d9874a;background:#d9874a;color:#1a120c">Sí, ¿qué me recomiendas? <b>(1 o G)</b></button><button id="mtNo" style="font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #d9874a;background:transparent;color:#f1e8d8">No, gracias <b>(2)</b></button></div>';
   document.body.appendChild(o);MTR.offer=o;const close=(yes)=>{if(!MTR.offer)return;MTR.offer.remove();MTR.offer=null;MTR.cool=yes?120:600;if(yes){const g=mtGoal();if(g){mtz().asks[g.key]=Math.max(1,mtz().asks[g.key]||0);mtAsk();}}};
   $('mtYes').onclick=e=>{e.stopPropagation();close(true);};$('mtNo').onclick=e=>{e.stopPropagation();close(false);};setTimeout(()=>{if(MTR.offer===o)close(false);},20000);MTR.offerClose=close;}
 // tres caminos para empezar
@@ -80,3 +80,8 @@ function clbTick(dt){if(!state||ui!=='play')return;const w=AVATAR.walk;CLB.t-=dt
   if(player.grounded&&!FLY.on&&!MOUNT.riding&&!BOAT.on&&Math.abs(floorAt(player.x,player.z)-terrainH(player.x,player.z))<0.05&&Math.hypot(GF.vx||0,GF.vz||0)>0.5){const x=player.x,z=player.z,gx=(terrainH(x+1,z)-terrainH(x-1,z))/2,gz=(terrainH(x,z+1)-terrainH(x,z-1))/2,g=Math.hypot(gx,gz);
     if(g>1.4&&((GF.vx||0)*gx+(GF.vz||0)*gz)<0){const s=Math.min(3,g)*0.9*dt;tryMove(x-gx/g*s,z-gz/g*s);CLB.dust-=dt;if(CLB.dust<=0){CLB.dust=0.15;pfx(x,player.feet+0.1,z,{col:'#b9a588',vx:-gx/g*1.2,vy:0.5,vz:-gz/g*1.2,g:3,life:0.8,s:0.3,grow:0.8,a:0.45});}}}}
 
+
+// cuadros flotantes con botones (data-keys): se responden con las teclas 1, 2, 3… aunque el ratón esté capturado por la cámara
+addEventListener('keydown',e=>{if(e.repeat||e.ctrlKey||e.altKey||e.metaKey)return;const n=+e.key;if(!(n>=1&&n<=9))return;
+  const box=[...document.querySelectorAll('[data-keys]')].find(b=>b.isConnected&&!b.hidden&&b.offsetParent!==null);if(!box)return;
+  const bs=[...box.querySelectorAll('button')].filter(b=>!b.disabled&&b.offsetParent!==null);const b=bs[n-1];if(!b)return;e.preventDefault();e.stopImmediatePropagation();b.click();},true);

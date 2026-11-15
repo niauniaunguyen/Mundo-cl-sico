@@ -53,14 +53,19 @@ function pieceAt(key,geo,mat,b,lx,ly,lz,sx,sy,sz){const p=toW(lx,lz,b.x,b.z,b.a)
 // calzadas de basalto: banda de rodadura y, en la ciudad, aceras elevadas con bordillo
 function romaRoadsDecor(){
   const road=[],ruv=[],walk=[],wuv=[],curb=[],cuv=[],q=(arr,uvs,a,b,c,d,ta,tb,tc,td)=>{arr.push(...a,...b,...c,...a,...c,...d);uvs.push(...ta,...tb,...tc,...ta,...tc,...td);};
-  for(const r of ROADS){const p=r.pts,pts=[];for(let i=0;i<p.length-1;i++){const L=Math.hypot(p[i+1][0]-p[i][0],p[i+1][1]-p[i][1]),n=Math.max(1,Math.ceil(L/3));for(let k=0;k<n;k++)pts.push([lerp(p[i][0],p[i+1][0],k/n),lerp(p[i][1],p[i+1][1],k/n)]);}pts.push(p[p.length-1]);
+  // cruces: la acera de una calzada no se monta sobre otra (en el Velabro y en otros cruces se veían escalones de acera atravesando la calle),
+  // y cada calzada va un pelo más alta que la anterior para que dos que se cruzan no parpadeen
+  const SG=new Map(),SC=30;ROADS.forEach((r,ri)=>{const p=r.pts;for(let i=0;i<p.length-1;i++){const a=p[i],b=p[i+1];for(let x=Math.floor(Math.min(a[0],b[0])/SC)-1;x<=Math.floor(Math.max(a[0],b[0])/SC)+1;x++)for(let z=Math.floor(Math.min(a[1],b[1])/SC)-1;z<=Math.floor(Math.max(a[1],b[1])/SC)+1;z++){const k=x+','+z;let A=SG.get(k);if(!A)SG.set(k,A=[]);A.push([ri,a,b,r.w/2]);}}});
+  const inOther=(x,z,ri)=>{const A=SG.get(Math.floor(x/SC)+','+Math.floor(z/SC));if(!A)return false;for(const[rj,a,b,hw]of A){if(rj===ri)continue;const vx=b[0]-a[0],vz=b[1]-a[1],L2=vx*vx+vz*vz||1,u=Math.max(0,Math.min(1,((x-a[0])*vx+(z-a[1])*vz)/L2));if(Math.hypot(a[0]+vx*u-x,a[1]+vz*u-z)<hw+0.4)return true;}return false;};
+  let RI=-1;
+  for(const r of ROADS){RI++;const ri=RI,yo=(ri%7)*0.007;const p=r.pts,pts=[];for(let i=0;i<p.length-1;i++){const L=Math.hypot(p[i+1][0]-p[i][0],p[i+1][1]-p[i][1]),n=Math.max(1,Math.ceil(L/3));for(let k=0;k<n;k++)pts.push([lerp(p[i][0],p[i+1][0],k/n),lerp(p[i][1],p[i+1][1],k/n)]);}pts.push(p[p.length-1]);
     let s=0,prev=null;const w=r.w/2;
     for(let i=0;i<pts.length;i++){const a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l,nz=dx/l,[x,z]=pts[i];if(i)s+=Math.hypot(x-pts[i-1][0],z-pts[i-1][1]);
       const ok=romaRiverDist(x,z)>romaRiverW(z)+14&&terrainH(x,z)>-0.5,city=romaInUrbs(x,z),P=(o,y)=>[x+nx*o,terrainH(x+nx*o,z+nz*o)+y,z+nz*o];
-      const cur={ok,city,s,L:P(-w,0.12),R:P(w,0.12),wl:[P(-w,0.38),P(-w-1.8,0.38)],wr:[P(w,0.38),P(w+1.8,0.38)]};
+      const cur={ok,city,s,L:P(-w,0.12+yo),R:P(w,0.12+yo),wl:[P(-w,0.38),P(-w-1.8,0.38)],wr:[P(w,0.38),P(w+1.8,0.38)],xl:inOther(x-nx*(w+0.9),z-nz*(w+0.9),ri),xr:inOther(x+nx*(w+0.9),z+nz*(w+0.9),ri)};
       if(prev&&prev.ok&&ok){const u0=prev.s/3,u1=s/3,v=r.w/3;q(road,ruv,prev.L,prev.R,cur.R,cur.L,[u0,0],[u0,v],[u1,v],[u1,0]);
-        if(prev.city&&city){q(walk,wuv,prev.wl[0],prev.wl[1],cur.wl[1],cur.wl[0],[u0,0],[u0,0.9],[u1,0.9],[u1,0]);q(walk,wuv,prev.wr[1],prev.wr[0],cur.wr[0],cur.wr[1],[u0,0],[u0,0.9],[u1,0.9],[u1,0]);
-          q(curb,cuv,prev.L,prev.wl[0],cur.wl[0],cur.L,[u0*2,0],[u0*2,1],[u1*2,1],[u1*2,0]);q(curb,cuv,prev.wr[0],prev.R,cur.R,cur.wr[0],[u0*2,1],[u0*2,0],[u1*2,0],[u1*2,1]);}}
+        if(prev.city&&city){if(!prev.xl&&!cur.xl){q(walk,wuv,prev.wl[0],prev.wl[1],cur.wl[1],cur.wl[0],[u0,0],[u0,0.9],[u1,0.9],[u1,0]);q(curb,cuv,prev.L,prev.wl[0],cur.wl[0],cur.L,[u0*2,0],[u0*2,1],[u1*2,1],[u1*2,0]);}
+          if(!prev.xr&&!cur.xr){q(walk,wuv,prev.wr[1],prev.wr[0],cur.wr[0],cur.wr[1],[u0,0],[u0,0.9],[u1,0.9],[u1,0]);q(curb,cuv,prev.wr[0],prev.R,cur.R,cur.wr[0],[u0*2,1],[u0*2,0],[u1*2,0],[u1*2,1]);}}}
       prev=cur;}}
   const mk=(pos,uv,tex)=>{if(!pos.length)return;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.computeVertexNormals();const m=DMAT(tex);m.side=THREE.DoubleSide;const me=new THREE.Mesh(g,m);me.receiveShadow=true;scene.add(me);};
   mk(road,ruv,'basalt');mk(walk,wuv,'walk');mk(curb,cuv,'curb');

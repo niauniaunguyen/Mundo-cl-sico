@@ -111,9 +111,10 @@ function buildCountryside(x0,x1,z0,z1,o){
 
 function gableGeo(){
   const A=[-.5,0,-.5],B=[-.5,0,.5],C=[0,1,.5],D=[0,1,-.5],E=[.5,0,-.5],F=[.5,0,.5];
-  const v=[].concat(A,B,C,A,C,D,E,D,C,E,C,F,B,F,C,A,D,E);
+  // con cara inferior (A,E,F y A,F,B, mirando abajo): visto desde la calle el tejado ya no desaparece ni deja ver el cielo
+  const v=[].concat(A,B,C,A,C,D,E,D,C,E,C,F,B,F,C,A,D,E,A,E,F,A,F,B);
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));
-  g.computeVertexNormals();g.addGroup(0,12,0);g.addGroup(12,6,1);return g;
+  g.computeVertexNormals();g.addGroup(0,12,0);g.addGroup(12,12,1);return g;
 }
 const GABLE=gableGeo();
 

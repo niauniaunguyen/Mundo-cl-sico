@@ -6,7 +6,11 @@ function urbScaffold(x,z,w,d,h,a){const gy=floorAt(x,z),g=grp(x,gy,z,a||0),wd=la
   const pole=(px,pz)=>{const wp=toW(px,pz,x,z,a||0),yb=Math.min(0,floorAt(wp[0],wp[1])-gy-0.1);box(0.18,h-yb,0.18,wd,px,(h+yb)/2,pz,g);};
   for(let i=0;i<=Math.round(w/3);i++)for(const s of[-1,1])pole(-w/2+i*w/Math.round(w/3),s*d/2);
   for(let j=0;j<=Math.round(d/3);j++)for(const s of[-1,1])pole(s*w/2,-d/2+j*d/Math.round(d/3));
-  for(let k=1;k<=Math.floor(h/2.5);k++){const y=k*2.5;box(w,0.12,0.5,wd,0,y,-d/2,g);box(w,0.12,0.5,wd,0,y,d/2,g);box(0.5,0.12,d,wd,-w/2,y,0,g);box(0.5,0.12,d,wd,w/2,y,0,g);}return g;}
+  for(let k=1;k<=Math.floor(h/2.5);k++){const y=k*2.5;box(w,0.12,0.5,wd,0,y,-d/2,g);box(w,0.12,0.5,wd,0,y,d/2,g);box(0.5,0.12,d,wd,-w/2,y,0,g);box(0.5,0.12,d,wd,w/2,y,0,g);}
+  // valla de obra con colisión (antes se atravesaba): tablones bajos alrededor, con un paso de 3 m en el centro de las dos caras largas
+  const A=a||0,pl=lam('#7a5c3a');for(const[x1,z1,x2,z2]of[[-w/2,-d/2,-1.5,-d/2],[1.5,-d/2,w/2,-d/2],[-w/2,-d/2,-w/2,d/2],[w/2,-d/2,w/2,d/2],[-w/2,d/2,-1.5,d/2],[1.5,d/2,w/2,d/2]]){
+    wseg(x,z,A,x1,z1,x2,z2,0.3);const L=Math.hypot(x2-x1,z2-z1),b=box(z1===z2?L:0.12,1.1,z1===z2?0.12:L,pl,(x1+x2)/2,0.55,(z1+z2)/2,g);b.castShadow=false;}
+  return g;}
 function urbSmoke(x,z,y,n){for(let i=0;i<(n||6);i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,color:'#5a5450',transparent:true,opacity:0.35,depthWrite:false}));s.position.set(x+rr(-3,3),y+i*3,z+rr(-3,3));s.scale.set(6,6,1);scene.add(s);URB.smoke.push({s,x,z,y,ph:i/(n||6)});}}
 function urbWorkers(x,z,n){for(let i=0;i<n;i++){const f=findFree(x+rr(-8,8),z+rr(-8,8),0.6);const p=makePerson({chiton:pick(['#b8a888','#a89878','#c8b898']),short:true,noHimation:true,hair:'#3a2a1e',carry:R()<0.3?'hydria':null});p.position.set(f[0],floorAt(f[0],f[1]),f[1]);p.rotation.y=R()*TAU;scene.add(p);walkers.push({g:p,mode:'idle',tx:f[0],tz:f[1],wait:Infinity,speed:0,phase:R()*10,x:f[0],z:f[1],barks:MODE==='roma'?['¡Cuidado con esa viga!','El emperador paga bien, pero quiere prisa.','Aquí todo huele todavía a quemado.']:['¡Aparta, que pasa la piedra!','Tres óbolos al día y la comida.']});}}
 // ======================================================== ATENAS

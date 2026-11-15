@@ -53,25 +53,33 @@ function buildGates(){
         q=(x,z)=>[x,terrainH(x,z)+0.07,z],A=q(a[0]+nx,a[1]+nz),Bv=q(a[0]-nx,a[1]-nz),C=q(b[0]-nx,b[1]-nz),D=q(b[0]+nx,b[1]+nz);pos.push(...A,...Bv,...C,...A,...C,...D);}
       const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.computeVertexNormals();const m=new THREE.Mesh(geo,dirt);m.material.side=THREE.DoubleSide;m.receiveShadow=true;scene.add(m);}
     const a=Math.atan2(g.ox,g.oz),gy=terrainH(g.x,g.z),grpG=grp(g.x,gy,g.z,a);
-    for(const s of[-1,1]){box(0.9,2.6,0.9,st,s*3.4,1.2,0,grpG);const p=toW(s*3.4,0,g.x,g.z,a);addBox(p[0],p[1],0.9,0.9,a);}
-    box(0.14,2.2,0.14,M.wood,4.6,1.1,-2,grpG);const sg=box(1.6,0.5,0.08,lam('#c9b48b'),5.1,2.05,-2,grpG);sg.rotation.y=0.3;
+    // puerta ancha y alta (vídeo de Roma): dos pilares de 7 m a 10 m uno de otro y un dintel, para pasar a pie, a caballo o volando
+    for(const s of[-1,1]){box(1.2,7.2,1.2,st,s*5,3.4,0,grpG);box(1.6,0.5,1.6,st,s*5,7.05,0,grpG);const p=toW(s*5,0,g.x,g.z,a);addBox(p[0],p[1],1.2,1.2,a);}
+    box(11.6,0.7,1.3,st,0,7.6,0,grpG);
+    box(0.14,2.2,0.14,M.wood,6.6,1.1,-2,grpG);const sg=box(1.6,0.5,0.08,lam('#c9b48b'),7.1,2.05,-2,grpG);sg.rotation.y=0.3;
     const days=Math.max(1,Math.round(g.br.km/30)),lb=labelSprite('Hacia '+mapName(g.to),'por el '+dirName(g.ox,g.oz)+' · unos '+days+(days>1?' días':' día')+' de camino');
-    lb.position.set(0,3.6,0);lb.visible=false;grpG.add(lb);g.lb=lb;}
+    lb.position.set(0,9,0);lb.visible=false;grpG.add(lb);g.lb=lb;}
+  try{gateClearWalls();}catch(e){}
 }
+// los muretes de piedra seca de los campos no pueden cruzar el paso de una puerta (en la salida hacia Ostia uno la cortaba)
+function gateClearWalls(){const m=new THREE.Matrix4(),v=new THREE.Vector3(),Z=new THREE.Matrix4().makeScale(0,0,0);
+  for(const ch of CHUNKS){const im=ch.im;if(!im||!im.userData.low)continue;let c=false;for(let i=0;i<im.count;i++){im.getMatrixAt(i,m);v.setFromMatrixPosition(m);
+    for(const g of GATES_W){const dx=v.x-g.x,dz=v.z-g.z;if(Math.abs(dx)>40||Math.abs(dz)>40)continue;const along=-(dx*g.ox+dz*g.oz),side=Math.abs(dx*g.oz-dz*g.ox);if(Math.abs(along)<30&&side<8){im.setMatrixAt(i,Z);c=true;break;}}}
+    if(c)im.instanceMatrix.needsUpdate=true;}}
 // franja que sigue el relieve (caminos, cañadas, lindes): una losa plana larga queda enterrada o flotando
-function drapeStrip(x0,z0,x1,z1,w,mat,lift){const L=Math.hypot(x1-x0,z1-z0),n=Math.max(1,Math.ceil(L/4)),nx=-(z1-z0)/L*w/2,nz=(x1-x0)/L*w/2,pos=[],y=(x,z)=>terrainH(x,z)+Math.max(0.22,lift||0);
+function drapeStrip(x0,z0,x1,z1,w,mat,lift){const L=Math.hypot(x1-x0,z1-z0),n=Math.max(1,Math.ceil(L/4)),nx=-(z1-z0)/L*w/2,nz=(x1-x0)/L*w/2,pos=[],y=(x,z)=>terrainH(x,z)+Math.max(w>8?0.4:0.22,lift||0);   // las franjas anchas, un poco más altas: en Cartago la hierba y el camino parpadeaban
   const P=[];for(let i=0;i<=n;i++){const x=lerp(x0,x1,i/n),z=lerp(z0,z1,i/n);P.push([x+nx,y(x+nx,z+nz),z+nz,x-nx,y(x-nx,z-nz),z-nz]);}
   for(let i=0;i<n;i++){const a=P[i],b=P[i+1];if(Math.max(Math.abs(a[1]-a[4]),Math.abs(b[1]-b[4]),Math.abs(a[1]-b[1]),Math.abs(a[4]-b[4]))>Math.max(2.5,w*0.35))continue;   // en las laderas muy empinadas no se pinta
   pos.push(a[0],a[1],a[2],b[0],b[1],b[2],a[3],a[4],a[5],a[3],a[4],a[5],b[0],b[1],b[2],b[3],b[4],b[5]);}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
-  const m=new THREE.Mesh(g,mat);m.material.side=THREE.DoubleSide;m.material.polygonOffset=true;m.material.polygonOffsetFactor=-2;m.material.polygonOffsetUnits=-2;m.receiveShadow=true;scene.add(m);return m;}
+  const m=new THREE.Mesh(g,mat);m.material.side=THREE.DoubleSide;m.material.polygonOffset=true;m.material.polygonOffsetFactor=-4;m.material.polygonOffsetUnits=-4;m.receiveShadow=true;scene.add(m);return m;}
 const TRAV_STONE=()=>lam('#d8ccb0');
 // al llegar a una puerta se camina hasta el mapa vecino
 let gateT=0,gateCool=0;
 function gatesTick(dt){gateCool=Math.max(0,gateCool-dt);gateT+=dt;if(gateT<0.2)return;gateT=0;if(ui!=='play'||!GATES_W.length)return;
   const reg=regionOf(player.x);
   for(const g of GATES_W){if(regionOf(g.x)!==reg)continue;const d=Math.hypot(player.x-g.x,player.z-g.z);if(g.lb)g.lb.visible=d<70;
-    if(d<4.5&&!gateCool){gateTravel(g);return;}}}
+    if(d<5.5&&!gateCool&&player.feet-terrainH(g.x,g.z)<9){gateTravel(g);return;}}}
 function gateTravel(g){
   const tg=GATES_W.find(q=>q.from===g.to&&q.to===g.from);if(!tg)return;
   ui='voyage';releasePointer();if(MOUNT.riding)dismount();if(MOUNT.g){MOUNT.g.visible=false;MOUNT.st='away';}
@@ -86,7 +94,10 @@ function gateTravel(g){
 // mapas de paso que completan Grecia e Italia: un pueblo, un santuario o monumento y una estela
 function defineSimple(I,o){for(const b of o.blobs||[])I.blobs.push({x:I.x+b[0],z:I.z+b[1],R:b[2],H:b[3]});
   if(o.lake)I.lake={x:I.x+o.lake[0],z:I.z+o.lake[1],rx:o.lake[2],rz:o.lake[3]};if(o.tint)I.tint=o.tint;
-  I.arrive=pad(I,...(o.arr||[-I.R*0.72,30]),24,0,3);I.town=pad(I,o.tx||0,o.tz||0,o.tr||70,0,Math.max(4,islandBase(I,I.x+(o.tx||0),I.z+(o.tz||0))));   /* el pueblo, a la altura del terreno: fijado a 4 m, en los mapas de monte abría un pozo de paredes verticales (el Eta, el Liceo, las Escironias…) */I.town.house=true;
+  // el pueblo no puede caer dentro del lago (Nemi, el Estínfalo y Galilea tenían una «isla» con casas en medio del agua): se corre hacia la llegada
+  let TX=o.tx||0,TZ=o.tz||0,TR=o.tr||70;if(o.lake){const L=o.lake,A=o.arr||[-I.R*0.72,30],wet=(x,z,r)=>Math.hypot((x-L[0])/(L[2]+r),(z-L[1])/(L[3]+r))<1.08;
+    if(wet(TX,TZ,TR)){TR=Math.min(TR,45);let ok=false;for(let t=0.05;t<=1.001;t+=0.05){const x=lerp(TX,A[0],t),z=lerp(TZ,A[1],t);if(!wet(x,z,TR)){TX=x;TZ=z;ok=true;break;}}if(!ok){TX=A[0];TZ=A[1];TR=30;}}}
+  I.arrive=pad(I,...(o.arr||[-I.R*0.72,30]),24,0,3);I.town=pad(I,TX,TZ,TR,0,Math.max(4,islandBase(I,I.x+TX,I.z+TZ)));   /* el pueblo, a la altura del terreno: fijado a 4 m, en los mapas de monte abría un pozo de paredes verticales (el Eta, el Liceo, las Escironias…) */I.town.house=true;
   if(o.site)I.site=pad(I,o.site[0],o.site[1],o.site[2]||22,0,o.site[3]);
   for(const q of o.pads||[])pad(I,q[0],q[1],q[2]);}   // espacios libres de árboles para escenas y objetos
 function buildSimple(I,o){const t=I.town,s=I.site;
@@ -167,6 +178,8 @@ function buildPort(key,label,sx,sz,dx,dz,who){
   const ang=Math.atan2(dx,dz),len=44,lx=-dz,lz=dx,cx=sx+dx*(len/2-8),cz=sz+dz*(len/2-8);
   const q=box(8,10,len,M.limestone,cx,1.7-5,cz);q.rotation.y=ang;addPlat(cx,cz,8,len,ang,1.7);
   for(let k=6;k<len-10;k+=8){const bx=sx+dx*k+lx*3.6,bz=sz+dz*k+lz*3.6;box(0.4,0.7,0.4,M.stone,bx,2.05,bz);}
+  // escalinata en el arranque del muelle si queda por encima de la playa (en Cartago había un escalón que no se podía subir)
+  {const ex=sx-dx*8,ez=sz-dz*8,hE=terrainH(ex-dx*1.5,ez-dz*1.5);if(1.7-hE>0.25&&typeof stairs==='function'){const a2=Math.atan2(-dx,-dz),g=grp(ex,hE,ez,a2);stairs(g,{x:ex,z:ez},0,0,8,1.7-hE,hE,a2,M.limestone);}}
   makeShip(sx+dx*(len-20)+lx*8.2,sz+dz*(len-20)+lz*8.2,ang);
   const cpx=sx+dx*(len-26)+lx*2.4,cpz=sz+dz*(len-26)+lz*2.4;const cp=makePerson(W.look||{chiton:'#c9b48b',himation:'#2f4c6e',beard:true,hair:'#3a2a1e'});cp.position.set(cpx,1.7,cpz);cp.rotation.y=ang+Math.PI/2;scene.add(cp);
   PIERS[key]={sx,sz,dx,dz,len,lx,lz};

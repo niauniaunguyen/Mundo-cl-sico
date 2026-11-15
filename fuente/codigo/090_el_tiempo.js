@@ -37,11 +37,16 @@ function wxAnnounce(k,prev){const w=wxz(),ro=MODE==='roma',t=WX_TXT[k][ro?0:1],f
   if(k==='sol'&&prev&&WX_T[prev].rain&&DAYF>0.5)wxRainbow();}
 function wxSpeed(){const k=wxK();let f=1;if(WX_T[k].rain&&!MOUNT.riding)f*=0.92;if(k==='nieve')f*=0.86;if(WXS.heatE>=3)f*=0.85;return f;}
 // ---- arco iris tras la lluvia
-function wxRainbow(){if(WXS.bow){scene.remove(WXS.bow);WXS.bow=null;}const g=new THREE.TorusGeometry(260,10,8,64,Math.PI),cols=[];const p=g.attributes.position,c=new THREE.Color();
-  for(let i=0;i<p.count;i++){const v=new THREE.Vector3(p.getX(i),p.getY(i),p.getZ(i)),r=Math.hypot(v.x,v.y),u=clamp((r-250)/20,0,1);c.setHSL(0.78*u,0.9,0.6);cols.push(c.r,c.g,c.b);}
-  g.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));const m=new THREE.MeshBasicMaterial({vertexColors:true,transparent:true,opacity:0,depthWrite:false,fog:false,blending:THREE.AdditiveBlending});const b=new THREE.Mesh(g,m);
-  const away=new THREE.Vector3(-SUNDIR.x,0,-SUNDIR.z).normalize();b.position.set(camera.position.x+away.x*700,camera.position.y-60,camera.position.z+away.z*700);b.lookAt(camera.position.x,b.position.y,camera.position.z);scene.add(b);WXS.bow=b;WXS.bowT=90;
+function wxRainbow(){if(WXS.bow){scene.remove(WXS.bow);WXS.bow=null;}if(SUNDIR.y>0.62||SUNDIR.y<0.02)return;   // con el sol a más de ~40° el arco iris queda bajo el horizonte: no se ve (Aristóteles, Meteorológicos III 5)
+  // arco iris de verdad: anillo de 42° alrededor del punto opuesto al sol, banda fina (~2°), rojo por fuera y violeta por dentro;
+  // va pegado a la cámara (como el cielo) y lo tapan los edificios. Antes era un toro enorme y cercano que se veía como una cúpula de niebla
+  const D=1800,r0=D*Math.tan(41*Math.PI/180),r1=D*Math.tan(43*Math.PI/180),g=new THREE.RingGeometry(r0,r1,128,1);
+  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,fog:false,blending:THREE.AdditiveBlending,uniforms:{op:{value:0},r0:{value:r0},r1:{value:r1},cy:{value:0}},
+   vertexShader:'varying vec2 vp;varying float wy;void main(){vp=position.xy;wy=(modelMatrix*vec4(position,1.0)).y;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+   fragmentShader:'uniform float op,r0,r1,cy;varying vec2 vp;varying float wy;vec3 hsv(float h){vec3 k=clamp(abs(mod(h*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0,0.0,1.0);return k;}void main(){if(wy<cy)discard;float u=clamp((length(vp)-r0)/(r1-r0),0.0,1.0);float a=sin(u*3.14159);gl_FragColor=vec4(hsv(0.78*(1.0-u))*a*op,1.0);}'});
+  const b=new THREE.Mesh(g,m);b.frustumCulled=false;b.renderOrder=-1;b.userData.D=D;scene.add(b);WXS.bow=b;WXS.bowT=90;wxBowPlace();
   const w=wxz();if(!w.seen.bow){w.seen.bow=1;save();setTimeout(()=>toast('<span class="label">Arco iris</span><br>Para griegos y romanos, el arco iris es Iris, la mensajera de los dioses, que baja por él del Olimpo con sus alas de colores. En la Ilíada es ella quien lleva los mensajes de Zeus.'),2500);}}
+function wxBowPlace(){const b=WXS.bow;if(!b)return;const D=b.userData.D,a=new THREE.Vector3(-SUNDIR.x,-SUNDIR.y,-SUNDIR.z).normalize();b.position.copy(camera.position).addScaledVector(a,D);b.lookAt(camera.position);b.material.uniforms.cy.value=camera.position.y;}
 // ---- partículas de lluvia y nieve alrededor de la cámara
 function wxMakeRain(){const n=2600,p=new Float32Array(n*6);for(let i=0;i<n;i++){const x=(Math.random()-0.5)*90,y=Math.random()*45,z=(Math.random()-0.5)*90;p.set([x,y,z,x+0.08,y-0.9,z],i*6);}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));const m=new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:0xaab6c4,transparent:true,opacity:0,depthWrite:false}));m.frustumCulled=false;scene.add(m);return m;}
@@ -73,7 +78,7 @@ function wxTick(dt){if(!state)return;const w=wxz();if(w.man==='auto'&&wxNow()>=w
   if(WXS.rain<0.2)WXS.torchMsg=false;
   // el calor cansa: cada hora de juego al sol, entre la hora cuarta y la décima, sin beber
   if(WXS.heat>0.5&&!inside&&ui==='play'){WXS.heatE+=dt*clock.speed;if(WXS.heatE>=3&&!WXS.heatMsg){WXS.heatMsg=true;toast('<span class="label">Agotado por el calor</span><br>Caminas más despacio. Bebe del odre (casilla 4) o espera a que caiga la tarde.');}}else if(WXS.heat<0.2){WXS.heatE=Math.max(0,WXS.heatE-dt*clock.speed);if(WXS.heatE<1)WXS.heatMsg=false;}
-  if(WXS.bow){WXS.bowT-=dt;WXS.bow.material.opacity=0.22*clamp(Math.min(WXS.bowT/10,(90-WXS.bowT)/6),0,1)*(1-WXS.cl);if(WXS.bowT<=0){scene.remove(WXS.bow);WXS.bow=null;}}}
+  if(WXS.bow){WXS.bowT-=dt;WXS.bow.material.uniforms.op.value=0.35*clamp(Math.min(WXS.bowT/10,(90-WXS.bowT)/6),0,1)*(1-WXS.cl)*clamp(SUNDIR.y*4,0,1);wxBowPlace();if(WXS.bowT<=0){scene.remove(WXS.bow);WXS.bow=null;}}}
 // sin antorcha bajo la lluvia
 // con lluvia, la antorcha no prende: en su lugar, un farol de cuerno (la llama va dentro de una caja con paredes de cuerno raspado), que alumbra menos
 const toggleTorch0wx=toggleTorch;toggleTorch=function(){if(state&&typeof TORCH!=='undefined'&&!TORCH.on&&WXS.rain>0.4&&!(player.feet>CASA.Y-50)){TORCH.lantern=true;

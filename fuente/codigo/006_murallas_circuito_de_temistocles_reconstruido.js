@@ -69,7 +69,7 @@ function buildTerrain(size,seg,cx,cz,inner){
     // la malla lejana, por debajo de la cercana: cada vértice baja por debajo del punto más bajo del suelo real a su alrededor,
     // para que sus triángulos (de más de 100 m) no asomen donde una colina linda con una zona allanada (el Capitolio junto al Foro; el Pireo)
     const edgeD=half-Math.max(Math.abs(x-INNER.x),Math.abs(z-INNER.z));   // junto al borde de la malla cercana, la lejana conserva la altura real: así empalman sin corte
-    if(!inner&&isIn&&edgeD>step*1.05){let mn=h;for(let a=-2;a<=2;a++)for(let b=-2;b<=2;b++){const v=displayH(x+a*step/2,z+b*step/2);if(v<mn)mn=v;}h=Math.min(h-(pirIn(x,z)?40:8),mn-3);}
+    if(!inner&&isIn&&edgeD>step*1.05){let mn=h;for(let a=-4;a<=4;a++)for(let b=-4;b<=4;b++){const v=displayH(x+a*step/4,z+b*step/4);if(v<mn)mn=v;}h=Math.min(h-(pirIn(x,z)?40:25),mn-12);}   // muestreo cada cuarto de celda y más hondo: en Roma asomaban losas de 40 m sobre rellanos pequeños (Capitolio, la forica)
     pos.setXYZ(i,x,h,z);
     const RH=MODE==='roma'?romaH:rawH;
     const sl=(Math.abs(RH(x+2,z)-RH(x-2,z))+Math.abs(RH(x,z+2)-RH(x,z-2)))/4;

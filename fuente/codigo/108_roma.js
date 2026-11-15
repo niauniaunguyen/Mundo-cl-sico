@@ -1,7 +1,8 @@
 // ============================================================ ROMA: Sicilia (Siracusa y el Etna), Cerdeña (Caralis) y Córcega (Aleria)
 const ISL3={smoke:[]};
-function isl3Smoke(x,y,z,n,sc){for(let i=0;i<(n||8);i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,color:'#8a8580',transparent:true,opacity:0.5,depthWrite:false}));s.userData.noCol=true;s.scale.set(sc||30,sc||30,1);scene.add(s);ISL3.smoke.push({s,x,y,z,ph:i/(n||8),sc:sc||30});}}
-function isl3Tick(dt){if(!ISL3.smoke.length)return;const t=performance.now()/1000;for(const q of ISL3.smoke){if(Math.abs(player.x-q.x)>3000)continue;const u=(t*0.03+q.ph)%1;q.s.position.set(q.x+u*q.sc*1.5,q.y+u*q.sc*3,q.z+Math.sin(u*6+q.ph*9)*q.sc*0.3);const k=q.sc*(0.6+u*1.6);q.s.scale.set(k,k,1);q.s.material.opacity=0.55*(1-u);}}
+function isl3Smoke(x,y,z,n,sc){for(let i=0;i<(n||8);i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:HALO_TEX,color:'#8a8580',transparent:true,opacity:0.5,depthWrite:false}));s.userData.noCol=true;s.scale.set(sc||30,sc||30,1);s.position.set(x,y,z);s.visible=false;scene.add(s);ISL3.smoke.push({s,x,y,z,ph:i/(n||8),sc:sc||30});}}
+function isl3Tick(dt){if(!ISL3.smoke.length)return;const t=performance.now()/1000;for(const q of ISL3.smoke){// lejos, oculto (antes se quedaba en el origen, el centro del Foro de Roma, y se veía como una «niebla» parda)
+    const far=Math.abs(player.x-q.x)>3000||Math.abs(player.z-q.z)>3000;q.s.visible=!far;if(far)continue;const u=(t*0.03+q.ph)%1;q.s.position.set(q.x+u*q.sc*1.5,q.y+u*q.sc*3,q.z+Math.sin(u*6+q.ph*9)*q.sc*0.3);const k=q.sc*(0.6+u*1.6);q.s.scale.set(k,k,1);q.s.material.opacity=0.55*(1-u);}}
 function isl3Flamingos(x,z,n){for(let i=0;i<n;i++){const fx=x+rr(-25,25),fz=z+rr(-10,10),g=grp(fx,terrainH(fx,fz),fz,R()*TAU),m=lam('#e89aa0');const b=new THREE.Mesh(new THREE.SphereGeometry(0.28,8,6),m);b.scale.set(1,0.8,1.5);b.position.y=1.15;g.add(b);
   box(0.03,1,0.03,lam('#d07080'),0.06,0.55,0,g);box(0.03,1,0.03,lam('#d07080'),-0.06,0.55,0,g);const nk=box(0.05,0.6,0.05,m,0,1.5,0.3,g);nk.rotation.x=0.4;box(0.07,0.07,0.16,lam('#2a2a2a'),0,1.8,0.45,g);}}
 Object.assign(SIMPLE_RO,{

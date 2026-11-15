@@ -91,10 +91,16 @@ function updateTorch(dt,t){
 }
 function toggleView(){AVATAR.view3=!AVATAR.view3;toast(AVATAR.view3?'Vista en tercera persona. Pulsa <b>V</b> para volver.':'Vista en primera persona.');}
 function updateAvatar(dt,t){
-  const moved=AVATAR.lx===null?0:Math.hypot(player.x-AVATAR.lx,player.z-AVATAR.lz);AVATAR.lx=player.x;AVATAR.lz=player.z;
+  const mdx=AVATAR.lx===null?0:player.x-AVATAR.lx,mdz=AVATAR.lx===null?0:player.z-AVATAR.lz,moved=Math.hypot(mdx,mdz);AVATAR.lx=player.x;AVATAR.lz=player.z;
   const w=AVATAR.walk;if(w){w.visible=AVATAR.view3&&!MOUNT.riding&&ui!=='start'&&ui!=='episode';
     if(w.visible){w.position.set(player.x,player.feet,player.z);w.rotation.y=player.yaw+Math.PI;const v=moved/Math.max(dt,1e-3);if(v>0.3)AVATAR.ph+=Math.min(moved,1)*(keys.run?3.4:4.6);
-      personWalk(w,AVATAR.ph,v>0.3?(keys.run?1.25:1):0);w.position.y+=v>0.3?Math.abs(Math.sin(AVATAR.ph))*0.05:0;}}
+      if(typeof FLY!=='undefined'&&FLY.on){// volando no se andan las piernas: el cuerpo se inclina hacia donde vas (adelante, atrás, a los lados)
+        personWalk(w,0,0);const id=1/Math.max(dt,1e-3),fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
+        const vf=(mdx*fx+mdz*fz)*id,vr=(mdx*rx+mdz*rz)*id,tp=clamp(vf/14,-1,1)*0.75,tr=clamp(vr/14,-1,1)*0.5,k=Math.min(1,dt*4);
+        AVATAR.pt=(AVATAR.pt||0)+(tp-(AVATAR.pt||0))*k;AVATAR.rl=(AVATAR.rl||0)+(tr-(AVATAR.rl||0))*k;
+        w.rotation.order='YXZ';w.rotation.x=-AVATAR.pt;w.rotation.z=AVATAR.rl;w.position.y+=0.9*Math.abs(Math.sin(AVATAR.pt));}
+      else{if(w.rotation.x||w.rotation.z){w.rotation.x=0;w.rotation.z=0;AVATAR.pt=0;AVATAR.rl=0;}
+      personWalk(w,AVATAR.ph,v>0.3?(keys.run?1.25:1):0);w.position.y+=v>0.3?Math.abs(Math.sin(AVATAR.ph))*0.05:0;}}}
   if(AVATAR.rider){AVATAR.rider.visible=MOUNT.riding;for(const h of AVATAR.riderHead)h.visible=AVATAR.view3;}
 }
 // cámara de diálogo: al hablar con alguien, la cámara se acerca y encuadra a esa persona; al terminar, vuelve con suavidad

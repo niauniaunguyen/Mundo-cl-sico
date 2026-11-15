@@ -778,7 +778,7 @@ function addRiver(pts,w,opt){opt=opt||{};if(!pts||pts.length<2)return null;const
     for(let i=0;i<pts.length;i++){const a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l,nz=dx/l,p=pts[i],y=L[i]-(dry?0.85:0.25);
       for(const s of[-1,1])pos.push(p[0]+nx*ww/2*s,y,p[1]+nz*ww/2*s);if(i)idx.push(k-2,k-1,k,k-1,k+1,k);k+=2;}
     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
-    const m=new THREE.Mesh(g,new THREE.MeshPhongMaterial({color:opt.color||'#3f7f8c',shininess:90,specular:'#a8cad4',transparent:true,opacity:0.88,side:THREE.DoubleSide}));m.renderOrder=1;scene.add(m);r.mesh=m;}
+    const m=new THREE.Mesh(g,new THREE.MeshPhongMaterial({color:opt.color||'#3f7f8c',shininess:90,specular:'#a8cad4',transparent:true,opacity:0.88,side:THREE.DoubleSide,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-2}));m.renderOrder=1;scene.add(m);r.mesh=m;}   // sin escribir profundidad: los tramos que se solapan (afluentes, la isla Tiberina) ya no parpadean entre sí
   if(!dry&&(opt.boat||w>=16))buildDock(r);
   return r;}
 function recarveIsland(I,pts,reach){const g=I.mesh.geometry,pos=g.attributes.position,col=g.attributes.color,G=I.grid;if(!G)return;
@@ -1455,7 +1455,8 @@ function faunaTick(dt){const T=performance.now()/1000,px=player.x,pz=player.z;FA
     else if(A.head&&(F.beh==='still'||F.beh==='lie'||F.beh==='sit')){const near=Math.hypot(px-g.position.x,pz-g.position.z)<8;
       if(near){const a=Math.atan2(px-g.position.x,pz-g.position.z)-g.rotation.y;A.head.rotation.y+=(wrapA(a)*0.8-A.head.rotation.y)*Math.min(1,dt*3);}else A.head.rotation.y=Math.sin(T*0.4+F.ph)*0.7;}
     if(A.tail&&(F.sp==='dog'||F.sp==='cat'))A.tail.rotation.y=Math.sin(T*(F.sp==='dog'?9:1.5)+F.ph)*(F.sp==='dog'?0.5:0.3);
-    if(F.sp==='peacock'&&A.ex.fan){const show=Math.sin(T*0.12+F.ph)>0.55;A.ex.fan.visible=show;if(A.ex.train)A.ex.train.visible=!show;}
+    if(F.sp==='peacock'&&A.ex.fan){if(F.fs===undefined){F.fs=Math.random()*40;F.fk=0;F.fsc=A.ex.fan.scale.clone();}   // la cola se abre unos 8 s cada ~25 s y despacio (antes dependía de los pasos y parpadeaba)
+      const show=((T+F.fs)%25)<8;F.fk+=((show?1:0)-F.fk)*Math.min(1,dt*1.5);const k=F.fk;A.ex.fan.visible=k>0.04;const q=Math.max(0.05,k);A.ex.fan.scale.set(F.fsc.x*q,F.fsc.y*q,F.fsc.z);if(A.ex.train)A.ex.train.visible=k<0.5;}
     if(F.quail){g.position.y=F.y0+Math.max(0,Math.sin(T*5+F.ph))*0.18;g.rotation.y=F.a0+Math.sin(T*2+F.ph)*0.3;}}}
 function faunaArea(n,test,tries){const out=[];for(let k=0;k<(tries||n*40)&&out.length<n;k++){const p=test();if(p&&isFree(p[0],p[1],0.6))out.push(p);}return out;}
 function buildFauna(){FAUNA.length=0;if(!GLB.ok||!GLB.parts.A_dog_body)return;const ro=MODE==='roma';

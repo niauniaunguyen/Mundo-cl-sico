@@ -75,19 +75,35 @@ const RF={ok:false,grid:new Map(),C:16,ray:new THREE.Raycaster(),tmp:null,down:n
 function rfKey(i,j){return i+','+j;}
 function rfAdd(e,b){const C=RF.C;for(let i=Math.floor(b.min.x/C);i<=Math.floor(b.max.x/C);i++)for(let j=Math.floor(b.min.z/C);j<=Math.floor(b.max.z/C);j++){const k=rfKey(i,j);let a=RF.grid.get(k);if(!a){a=[];RF.grid.set(k,a);}a.push(e);}}
 function rfSkip(o){for(let p=o;p;p=p.parent){if(p===scene)return false;if(p.userData&&(p.userData.arms||p.userData.noRoof))return true;if(typeof AVATAR!=='undefined'&&(p===AVATAR.walk||p===AVATAR.rider))return true;if(typeof MOUNT!=='undefined'&&p===MOUNT.g)return true;}return false;}
-function rfSetup(){RF.grid.clear();scene.updateMatrixWorld(true);const bb=new THREE.Box3(),m4=new THREE.Matrix4();let n=0;
+// mallas enormes (toda la ciudad fusionada en una): se indexan sus triángulos por celdas, para poder posarse en sus tejados
+RF.big=[];
+function rfBig(o){const g=o.geometry,P=g.attributes.position,ix=g.index,n=ix?ix.count/3:P.count/3,W=new Float32Array(P.count*3),v=new THREE.Vector3(),C=RF.C;
+  for(let i=0;i<P.count;i++){v.fromBufferAttribute(P,i).applyMatrix4(o.matrixWorld);W[i*3]=v.x;W[i*3+1]=v.y;W[i*3+2]=v.z;}
+  const B={o,W,ix:ix?ix.array:null,grid:new Map()};let c=0;
+  for(let t=0;t<n;t++){const a=ix?ix.array[t*3]:t*3,b=ix?ix.array[t*3+1]:t*3+1,d=ix?ix.array[t*3+2]:t*3+2;
+    const y0=Math.min(W[a*3+1],W[b*3+1],W[d*3+1]),y1=Math.max(W[a*3+1],W[b*3+1],W[d*3+1]);if(y1<1.2)continue;   // lo que está a ras de suelo no hace falta
+    const x0=Math.min(W[a*3],W[b*3],W[d*3]),x1=Math.max(W[a*3],W[b*3],W[d*3]),z0=Math.min(W[a*3+2],W[b*3+2],W[d*3+2]),z1=Math.max(W[a*3+2],W[b*3+2],W[d*3+2]);
+    if(x1-x0>200||z1-z0>200)continue;
+    for(let i=Math.floor(x0/C);i<=Math.floor(x1/C);i++)for(let j=Math.floor(z0/C);j<=Math.floor(z1/C);j++){const k=rfKey(i,j);let L=B.grid.get(k);if(!L){L=[];B.grid.set(k,L);}L.push(t);}c++;}
+  RF.big.push(B);return c;}
+const _rfA=new THREE.Vector3(),_rfB=new THREE.Vector3(),_rfC=new THREE.Vector3(),_rfP=new THREE.Vector3();
+function rfBigHits(keys,res){const r=RF.ray;for(const B of RF.big){if(!B.o.visible)continue;const seen=new Set();for(const k of keys){const L=B.grid.get(k);if(!L)continue;for(const t of L){if(seen.has(t))continue;seen.add(t);
+  const a=B.ix?B.ix[t*3]:t*3,b=B.ix?B.ix[t*3+1]:t*3+1,d=B.ix?B.ix[t*3+2]:t*3+2,W=B.W;_rfA.set(W[a*3],W[a*3+1],W[a*3+2]);_rfB.set(W[b*3],W[b*3+1],W[b*3+2]);_rfC.set(W[d*3],W[d*3+1],W[d*3+2]);
+  if(r.ray.intersectTriangle(_rfA,_rfB,_rfC,false,_rfP)){const dd=r.ray.origin.distanceTo(_rfP);if(dd<=r.far)res.push({distance:dd,object:B.o});}}}}}
+function rfKeyAt(x,z){return rfKey(Math.floor(x/RF.C),Math.floor(z/RF.C));}
+function rfSetup(){RF.grid.clear();RF.big.length=0;scene.updateMatrixWorld(true);const bb=new THREE.Box3(),m4=new THREE.Matrix4();let n=0;
   scene.traverse(o=>{if(!o.isMesh||!o.geometry||!o.geometry.attributes||!o.geometry.attributes.position)return;const mt=Array.isArray(o.material)?o.material[0]:o.material;if(!mt||mt.transparent||mt.isMeshBasicMaterial||mt.isShaderMaterial)return;if(rfSkip(o))return;
     const g=o.geometry;if(!g.boundingBox)g.computeBoundingBox();
-    if(o.isInstancedMesh){if(o.count>4000)return;for(let i=0;i<o.count;i++){o.getMatrixAt(i,m4);m4.premultiply(o.matrixWorld);bb.copy(g.boundingBox).applyMatrix4(m4);if(bb.max.x-bb.min.x>300||bb.max.z-bb.min.z>300)continue;rfAdd({o,i},bb);n++;}return;}
-    bb.copy(g.boundingBox).applyMatrix4(o.matrixWorld);if(bb.max.x-bb.min.x>300||bb.max.z-bb.min.z>300)return;if(bb.max.y-bb.min.y<0.05&&bb.max.x-bb.min.x<0.5)return;rfAdd({o,i:-1},bb);n++;});
+    if(o.isInstancedMesh){if(o.count>60000||o.userData.veg)return;for(let i=0;i<o.count;i++){o.getMatrixAt(i,m4);m4.premultiply(o.matrixWorld);bb.copy(g.boundingBox).applyMatrix4(m4);if(bb.max.x-bb.min.x>300||bb.max.z-bb.min.z>300)continue;rfAdd({o,i},bb);n++;}return;}
+    bb.copy(g.boundingBox).applyMatrix4(o.matrixWorld);if(bb.max.x-bb.min.x>300||bb.max.z-bb.min.z>300){if(!o.isInstancedMesh&&!(typeof TERR_MATS!=='undefined'&&TERR_MATS.includes(mt))&&bb.max.y-bb.min.y>3)n+=rfBig(o);return;}if(bb.max.y-bb.min.y<0.05&&bb.max.x-bb.min.x<0.5)return;rfAdd({o,i:-1},bb);n++;});
   RF.tmp=new THREE.Mesh();RF.ok=true;return n;}
 function rfCands(x,z){return RF.grid.get(rfKey(Math.floor(x/RF.C),Math.floor(z/RF.C)))||[];}
 function rfHit(e,res){const r=RF.ray;if(e.i<0){if(!e.o.visible)return;e.o.raycast(r,res);return;}const t=RF.tmp;t.geometry=e.o.geometry;t.material=e.o.material;e.o.getMatrixAt(e.i,t.matrixWorld);t.matrixWorld.premultiply(e.o.matrixWorld);const L=res.length;t.raycast(r,res);for(let k=L;k<res.length;k++)res[k].object=e.o;}
 // la superficie más alta bajo el punto (x, y, z), si la hay
-function rfSurf(x,z,y){if(!RF.ok)return null;const c=rfCands(x,z);if(!c.length)return null;RF.ray.set(RF.o.set(x,y,z),RF.down);RF.ray.far=60;const res=[];for(const e of c)rfHit(e,res);let best=null;for(const h of res){if(!best||h.distance<best.distance)best=h;}return best?y-best.distance:null;}
+function rfSurf(x,z,y){if(!RF.ok)return null;const c=rfCands(x,z);if(!c.length&&!RF.big.length)return null;RF.ray.set(RF.o.set(x,y,z),RF.down);RF.ray.far=60;const res=[];for(const e of c)rfHit(e,res);rfBigHits([rfKeyAt(x,z)],res);let best=null;for(const h of res){if(!best||h.distance<best.distance)best=h;}return best?y-best.distance:null;}
 // ¿hay una pared entre la posición actual y la nueva, a la altura del cuerpo?
 function rfWall(nx,nz){if(!RF.ok)return false;const dx=nx-player.x,dz=nz-player.z,d=Math.hypot(dx,dz);if(d<1e-5)return false;RF.hv.set(dx/d,0,dz/d);const res=[];
-  for(const yo of[0.5,1.4]){RF.ray.set(RF.o.set(player.x,player.feet+yo,player.z),RF.hv);RF.ray.far=d+0.45;const cs=new Set([...rfCands(player.x,player.z),...rfCands(nx,nz)]);for(const e of cs)rfHit(e,res);if(res.length)return true;}return false;}
+  for(const yo of[0.5,1.4]){RF.ray.set(RF.o.set(player.x,player.feet+yo,player.z),RF.hv);RF.ray.far=d+0.45;const cs=new Set([...rfCands(player.x,player.z),...rfCands(nx,nz)]);for(const e of cs)rfHit(e,res);rfBigHits([...new Set([rfKeyAt(player.x,player.z),rfKeyAt(nx,nz)])],res);if(res.length)return true;}return false;}
 // el suelo bajo los pies: el de siempre, o un tejado si estás por encima de él
 function rfFloor(x,z,y){const fl=floorAt(x,z);if(!RF.ok||y<fl+0.9)return fl;const s=rfSurf(x,z,y+0.35);return s!==null&&s>fl+0.9?s:fl;}
 // moverse por encima del suelo (por un tejado): sin las paredes 2D de abajo, pero con las de verdad

@@ -91,7 +91,8 @@ function gfTick(dt){delterTick();cavTick(dt);atalTick();finTick(dt);dreamTick();
 
 function keysToggle(v){const k=$('keys');if(!k)return;k.classList.toggle('show',v===undefined?!k.classList.contains('show'):v);}
 $('bKeys').onclick=()=>keysToggle();
-let keysAuto=0;function keysAutoTick(){if(keysAuto===0&&ui==='play'&&!isTouch){keysAuto=performance.now();keysToggle(true);}else if(keysAuto>0&&performance.now()-keysAuto>12000){keysAuto=-1;keysToggle(false);}}
+// los controles ya no se abren solos al empezar (tapaban la escena): están en el botón ⌨ de la barra y en el menú (Tab)
+let keysAuto=-1;function keysAutoTick(){}
 
 
 // ---- perros callejeros curiosos: a veces se acercan, te huelen, se sientan moviendo la cola y te siguen un rato

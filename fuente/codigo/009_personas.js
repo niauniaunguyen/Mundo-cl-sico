@@ -124,12 +124,16 @@ function makePersonGLB(c){
   return g;
 }
 function labelSprite(name,sub,fict){
-  const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');
-  x.fillStyle='rgba(22,16,12,0.78)';x.fillRect(16,14,480,100);x.fillStyle='#d9874a';x.fillRect(16,14,4,100);
-  x.textAlign='center';x.fillStyle=fict?'#8fd3c4':'#f1e8d8';x.font='44px Marcellus, Georgia, serif';x.fillText(name,256,62);
-  x.fillStyle='#ecc29a';x.font='italic 28px Alegreya, Georgia, serif';x.fillText(sub||'',256,100);
+  // el ancho se ajusta al texto (antes un rótulo largo se cortaba por los lados); si aun así no cabe, la letra se reduce
+  const c=document.createElement('canvas'),x=c.getContext('2d');let f1=44,f2=28;
+  const meas=()=>{x.font=f1+'px Marcellus, Georgia, serif';const w1=x.measureText(name||'').width;x.font='italic '+f2+'px Alegreya, Georgia, serif';return Math.max(w1,x.measureText(sub||'').width);};
+  let w=meas();while(w>940&&f1>26){f1-=2;f2=Math.max(20,f2-1);w=meas();}
+  const W=Math.max(512,Math.min(1024,Math.ceil((w+70)/64)*64));c.width=W;c.height=128;
+  x.fillStyle='rgba(22,16,12,0.78)';x.fillRect(16,14,W-32,100);x.fillStyle='#d9874a';x.fillRect(16,14,4,100);
+  x.textAlign='center';x.fillStyle=fict?'#8fd3c4':'#f1e8d8';x.font=f1+'px Marcellus, Georgia, serif';x.fillText(name,W/2,62,W-60);
+  x.fillStyle='#ecc29a';x.font='italic '+f2+'px Alegreya, Georgia, serif';x.fillText(sub||'',W/2,100,W-60);
   const t=new THREE.CanvasTexture(c);
-  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,depthTest:false,transparent:true,fog:false}));s.scale.set(2.6,0.65,1);s.renderOrder=10;return s;
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,depthTest:false,transparent:true,fog:false}));s.scale.set(2.6*W/512,0.65,1);s.renderOrder=10;return s;
 }
 function markerSprite(){
   const c=document.createElement('canvas');c.width=64;c.height=64;const x=c.getContext('2d');

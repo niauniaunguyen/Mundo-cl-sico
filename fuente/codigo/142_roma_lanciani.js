@@ -56,3 +56,11 @@ function romaLanciani(){const H=(x,z)=>romaH(x,z),ok=(x,z,r)=>isFree(x,z,r);
    if(GLB.ok&&GLB.parts.B_obelisk)placeModules('B_obelisk',[{x,y:gy+1.2,z,a:0,sx:0.9}],{far:2400});
    footprints.push({x,z,w:224,d:56,a:0,c:'#d8ccb0',name:'Circo de Gayo y Nerón'});
    place('ro_vaticano','El circo del Vaticano','CIRCVS GAI ET NERONIS','Al otro lado del río, en la llanura del Vaticano, Calígula se construyó un circo privado en los jardines de su madre Agripina, y trajo de Egipto, en un barco gigantesco, el obelisco de la espina. Nerón corría aquí con sus caballos. En el 64, tras el incendio, en estos jardines hizo matar a los cristianos, cuenta Tácito; la tradición dirá que Pedro murió aquí.',x+40,z+34,0);}}
+// la roca Tarpeya: el acantilado de toba del Capitolio (antes solo había la estela, un bloque blanco). Peñascos de toba con textura de roca,
+// en la cara que baja (se busca con la pendiente del terreno), y colisión. Toba volcánica, «cappellaccio», como el resto de la colina
+function romaTarpeya(){const P=PLACES.find(q=>q.id==='ro_tarpeya');const x0=P?P.x:-205,z0=P?P.z:66,H=(x,z)=>terrainH(x,z);
+  let gx=H(x0+4,z0)-H(x0-4,z0),gz=H(x0,z0+4)-H(x0,z0-4);const gl=Math.hypot(gx,gz)||1;gx/=gl;gz/=gl;   // hacia abajo: -gradiente
+  const dx=-gx,dz=-gz,px=-dz,pz=dx,mat=triplanar(new THREE.MeshLambertMaterial({color:'#b9a98c'}),PTEX.rock,2.2),r=mulberry32(4242);
+  for(let i=0;i<14;i++){const s=(i-6.5)/6.5,along=s*18+(r()-0.5)*3,out=-(4+r()*22),x=x0+px*along+dx*out,z=z0+pz*along+dz*out,sc=3+r()*4;   // peñascos que asoman de la ladera, cuesta arriba
+    const geo=new THREE.IcosahedronGeometry(1,1),pa=geo.attributes.position;for(let k=0;k<pa.count;k++){const f=0.78+r()*0.4;pa.setXYZ(k,pa.getX(k)*f,pa.getY(k)*f*1.25,pa.getZ(k)*f);}geo.computeVertexNormals();
+    const m=new THREE.Mesh(geo,mat);m.scale.set(sc,sc*1.3,sc*0.9);m.rotation.set(r()*0.4,r()*6,r()*0.4);m.position.set(x,H(x,z)+sc*0.15,z);m.castShadow=true;m.receiveShadow=true;scene.add(m);addCirc(x,z,sc*0.8);}}

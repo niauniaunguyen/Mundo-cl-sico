@@ -49,7 +49,7 @@ for(let i=0;i<36;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.6))<0.55)continue;co
   ['romaFora',()=>{romaFora();}],
   ['romaCampus',()=>{romaCampus();}],
   ['romaTheatres',()=>{romaTheatres();}],
-  ['romaRiver',()=>{romaRiver();}],
+  ['romaRiver',()=>{romaRiver();try{romaTiberDock();}catch(e){console.warn('tiber',e);}}],
   ['romaOutskirts',()=>{romaOutskirts();}],
   ['ROMA_PLACES',()=>{ROMA_PLACES.forEach(p=>place(p[0],p[1],p[2],p[3],p[4][0],p[4][1],p[5]));
   }],
@@ -304,12 +304,26 @@ function romaCampus(){
    romanTemple({x:-505,z:20,rot:-Math.PI/2,W:14,L:24,pod:2.5,gy:gy-0.2,colD:0.9,colH:9,nW:6,deep:2,peri:true,name:'Templo de Juno Regina'});
    romanTemple({x:-475,z:20,rot:-Math.PI/2,W:14,L:24,pod:2.5,gy:gy-0.2,colD:0.9,colH:9,nW:6,deep:2,peri:true,name:'Templo de Júpiter Estátor'});}
   // Mausoleo de Augusto: tambor, túmulo con cipreses y estatua
-  {const cx=-700,cz=-1130,gy=romaH(cx,cz)-0.2,g=grp(cx,gy,cz,0);const d=new THREE.Mesh(new THREE.CylinderGeometry(45,45,12,48),TRAV);d.position.y=6;g.add(d);
+  {const cx=-700,cz=-1130,gy=romaH(cx,cz)-0.2,g=grp(cx,gy,cz,0);const d=new THREE.Mesh(new THREE.CylinderGeometry(45,45,12,96,1,false,0.075,TAU-0.15),TRAV);d.position.y=6;g.add(d);for(const s of[-1,1])box(1.4,12,3,TRAV,s*3.0,6,44.2,g);box(7.4,0.4,12,TRAV,0,11.8,39.5,g);   // el tambor, con el hueco de la puerta
    const m=new THREE.Mesh(new THREE.CylinderGeometry(16,40,22,40),lam('#6f7d48'));m.position.y=23;g.add(m);const t=new THREE.Mesh(new THREE.CylinderGeometry(12,12,8,32),TRAV);t.position.y=38;g.add(t);
    if(GLB.ok){const st=makePerson({chiton:'#8a6a3a',himation:'#7d6a3e',skin:'#9a7a46',hair:'#7d6a3e',toga:true,attrRoles:{cloth:BRONZE2,drape:BRONZE2,skin:lam('#9a7a46'),hair:BRONZE2,sandal:BRONZE2,eye:BRONZE2}});st.scale.setScalar(2.6);st.position.y=42;st.rotation.y=0;g.add(st);
      const cy=[];for(let i=0;i<22;i++){const a=i/22*TAU;cy.push({x:cx+Math.cos(a)*30,y:gy+12+(40-30)*0.9,z:cz+Math.sin(a)*30,kind:'cypress',k:1.2});}for(let i=0;i<14;i++){const a=i/14*TAU;cy.push({x:cx+Math.cos(a)*20,y:gy+29,z:cz+Math.sin(a)*20,kind:'cypress',k:1});}treesGLB(cy);
      placeModules('B_obelisk',[{x:cx-16,y:gy,z:cz+52,a:0,sx:0.62},{x:cx+16,y:gy,z:cz+52,a:0,sx:0.62}],{far:2400});}
-   box(4,6,0.4,M.dark,0,3,45.1,g);addCirc(cx,cz,45.5);footprints.push({x:cx,z:cz,r:45,c:'#cfc3a8',name:'Mausoleo de Augusto'});}
+   // se puede entrar (vídeo de Roma): puerta al sur, corredor (dromos) hasta la cámara central de las urnas. El muro exterior es un anillo
+   // de segmentos con un hueco en la puerta (antes, un círculo macizo). Por dentro, paredes y techo propios: el tambor es un cilindro cerrado
+   {const fl=romaH(cx,cz+40)-gy+0.1,dk=lam('#5a5246'),inn=lam('#b8ab92');inn.side=THREE.DoubleSide;dk.side=THREE.DoubleSide;
+    for(const s of[-1,1]){box(0.8,6.4,1.2,TRAV,s*2.6,3.2,45.3,g);box(1.4,7.6,1.4,BRONZE2,s*4.6,3.8,46.6,g);}box(6,1,1.2,TRAV,0,6.5,45.3,g);box(6.2,5.2,1.6,TRAV,0,9.5,45.2,g);   // jambas, dintel (y el muro sobre él) y los pilares de bronce
+    box(0.5,5.4,37,inn,-2.25,fl+2.7,26.5,g);box(0.5,5.4,37,inn,2.25,fl+2.7,26.5,g);box(5,0.5,37,dk,0,fl+5.6,26.5,g);   // el dromos
+    const ch=new THREE.Mesh(new THREE.CylinderGeometry(7.5,7.5,9,32,1,true),inn);ch.position.y=fl+4.5;g.add(ch);const cp=new THREE.Mesh(new THREE.CircleGeometry(7.5,32),dk);cp.rotation.x=Math.PI/2;cp.position.y=fl+9;g.add(cp);
+    const pil=new THREE.Mesh(new THREE.CylinderGeometry(2.2,2.2,9,20),TRAV);pil.position.y=fl+4.5;g.add(pil);   // el pilar central
+    for(let i=0;i<6;i++){const a=i/6*TAU+0.5;box(1.1,1.4,0.6,M.marble,Math.sin(a)*6.9,fl+1.6,Math.cos(a)*6.9,g).rotation.y=a;}   // nichos con urnas
+    for(let i=0;i<48;i++){const a0=i/48*TAU,a1=(i+1)/48*TAU,mx=Math.sin((a0+a1)/2)*45.2,mz=Math.cos((a0+a1)/2)*45.2;if(mz>0&&Math.abs(mx)<3.2)continue;addSeg(cx+Math.sin(a0)*45.3,cz+Math.cos(a0)*45.3,cx+Math.sin(a1)*45.3,cz+Math.cos(a1)*45.3,0.5);}
+    for(const s of[-1,1])addSeg(cx+s*2.1,cz+44.6,cx+s*2.1,cz+7.6,0.3);
+    for(let i=0;i<32;i++){const a0=i/32*TAU,a1=(i+1)/32*TAU;if(Math.cos((a0+a1)/2)>0.92)continue;addSeg(cx+Math.sin(a0)*7.6,cz+Math.cos(a0)*7.6,cx+Math.sin(a1)*7.6,cz+Math.cos(a1)*7.6,0.3);}
+    addCirc(cx,cz,2.4);
+    place('ro_res_gestae','Las Res Gestae','RES GESTAE DIVI AVGVSTI','A los lados de la puerta, en dos pilares de bronce, Augusto mandó grabar el relato de sus obras: las guerras, los repartos de dinero, los edificios, las tres veces que cerró el templo de Jano. Lo conocemos por la copia que los habitantes de Ancira (hoy Ankara) grabaron en su templo de Roma y Augusto (Suetonio, Augusto 101).',cx+7,cz+50,Math.PI);
+    place('ro_mausoleo_camara','La cámara de las urnas','SEPVLCRVM AVGVSTI','En el centro, alrededor de un gran pilar, la cámara con los nichos de las urnas. Aquí descansan las cenizas de Augusto, de Livia, de su sobrino Marcelo (el primero en ser enterrado, en el 23 a.C.), de Agripa, de Octavia, de Druso y de Tiberio, de Germánico, de Calígula y de Claudio. A su hija Julia, desterrada, Augusto prohibió que la enterraran aquí (Suetonio, Augusto 101). Desde Nerón ya no cabe nadie más: Vespasiano, que murió el año pasado, tendrá su propia tumba.',cx+4,cz+9,Math.PI);}
+   footprints.push({x:cx,z:cz,r:45,c:'#cfc3a8',name:'Mausoleo de Augusto'});}
   // Ara Pacis y el gran reloj de sol con su obelisco
   // situados como los originales: el Ara junto al lado oeste de la Vía Flaminia, unos 500 m al sur del Mausoleo, y el obelisco
   // del reloj unos 110 m al oeste del altar (la sombra apuntaba al Ara el día del cumpleaños de Augusto, el 23 de septiembre)
@@ -321,7 +335,7 @@ function romaCampus(){
    if(GLB.ok)placeModules('B_obelisk',[{x:cx,y:gy,z:cz,a:0,sx:1.1}],{far:3000});addCirc(cx,cz,2);}
   // Iseo y Serapeo: patio con obeliscos y esfinges entre pórticos, templo de Isis tras un pilono al norte y exedra de Serapis al sur
   romaIseum();
-  try{romaLanciani();}catch(e){console.warn('romaLanciani',e);}
+  try{romaLanciani();}catch(e){console.warn('lanciani',e);}try{romaTarpeya();}catch(e){console.warn('tarpeya',e);}
   // pinos y plátanos en el Campo
   const tr=[];for(let i=0;i<260;i++){const x=rr(-1050,-430),z=rr(-1300,-120);if(romaRiverDist(x,z)<romaRiverW(z)+20)continue;tr.push({x,z,kind:pick(['pine','pine','plane','cypress'])});}
   if(GLB.ok)treesGLB(tr.filter(t=>isFree(t.x,t.z,3)&&!footHit(t.x,t.z,6)));
