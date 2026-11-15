@@ -23223,7 +23223,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='73346a0590a5';
+const NOSTOS_VER='2170af1eaed8';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -25032,7 +25032,7 @@ function gsElbow(arm){try{arm.updateMatrixWorld(true);const inv=new THREE.Matrix
       if(!ng.attributes.normal)ng.computeVertexNormals();const me=new THREE.Mesh(ng,m.material);me.castShadow=true;return me;};
     const a=mk2(up,0),b=mk2(lo,ey);if(a)arm.add(a);if(b)fore.add(b);m.parent.remove(m);}
   for(const ch of[...arm.children])if(ch!==fore&&ch.isGroup&&!ch.children.length)arm.remove(ch);
-  if(rn){const cx=ex/rn,cz=ez/rn;fore.position.x=cx;fore.position.z=cz;for(const ch of fore.children){ch.position.x=-cx;ch.position.z=-cz;}const lowM=fore.children[0]&&fore.children[0].material;const r0=Math.max(0.03,Math.min(0.07,rad/rn*0.8));const j=new THREE.Mesh(new THREE.SphereGeometry(r0,8,6),lowM);j.position.set(0,0,0);fore.add(j);}
+  if(rn){const cx=ex/rn,cz=ez/rn;fore.position.x=cx;fore.position.z=cz;for(const ch of fore.children){ch.position.x=-cx;ch.position.z=-cz;}const lowM=fore.children[0]&&fore.children[0].material;const r0=Math.max(0.03,Math.min(0.07,rad/rn*0.8));const jg=new THREE.SphereGeometry(r0,8,6);jg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(jg.attributes.position.count*3).fill(0.82),3));const j=new THREE.Mesh(jg,lowM);j.position.set(0,0,0);fore.add(j);}
   for(const ch of[...arm.children])if(ch!==fore&&ch.userData.keep&&ch.position.y<ey+0.05){arm.remove(ch);ch.position.x-=fore.position.x;ch.position.y-=fore.position.y;ch.position.z-=fore.position.z;fore.add(ch);}
   return fore;}catch(e){return null;}}
 // los gestos con codo: [izq. delante, izq. fuera, der. delante, der. fuera, cabeza abajo, ladeo, codo izq., codo der.]
@@ -27764,6 +27764,66 @@ function honPage(){const ro=MODE==='roma',sc=honScore(),L=honList(),r=honRank(sc
 // el título aparece en el informe del docente y en el saludo de algunos personajes
 {const f=dzReport;dzReport=function(){return f()+'\n'+(MODE==='roma'?'Dignitas':'Honra')+': '+honScore()+' · '+honTitle();};}
 {let t=0;const f=uxTick;uxTick=function(dt){f(dt);t+=dt;if(t<4||!state||ui==='start')return;t=0;try{honCheck();}catch(e){}};}
+// ============================================================ PERSONAS MÁS CUIDADAS: cabeza, pelo, brazos con manos y ropa suavizada
+// Se rehacen al cargar algunas piezas del modelo de persona (las mismas para todos los personajes), sin tocar el archivo de Blender:
+// · cabeza redondeada con mandíbula, barbilla, nariz y orejas; la cara queda a la misma profundidad, así los ojos, cejas y boca siguen en su sitio;
+// · pelo que sigue la cabeza con su línea de nacimiento (rizo corto en los hombres; recogido con moño en las mujeres);
+// · brazos con hombro, codo y muñeca algo doblados, y manos con pulgar;
+// · normales suavizadas en la ropa y las piernas: menos aspecto de caja, más de tela.
+function p2Smooth(geo){const P=geo.attributes.position;if(!P)return;const map=new Map(),key=i=>Math.round(P.getX(i)*500)+','+Math.round(P.getY(i)*500)+','+Math.round(P.getZ(i)*500);
+  if(!geo.attributes.normal)geo.computeVertexNormals();const N=geo.attributes.normal;
+  for(let i=0;i<P.count;i++){const k=key(i);let a=map.get(k);if(!a){a=[0,0,0];map.set(k,a);}a[0]+=N.getX(i);a[1]+=N.getY(i);a[2]+=N.getZ(i);}
+  for(let i=0;i<P.count;i++){const a=map.get(key(i)),l=Math.hypot(a[0],a[1],a[2])||1;N.setXYZ(i,a[0]/l,a[1]/l,a[2]/l);}N.needsUpdate=true;}
+function p2Head(){const cy=1.815,rx=0.094,ry=0.128,rz=0.1;const g=new THREE.SphereGeometry(1,28,22),P=g.attributes.position;
+  for(let i=0;i<P.count;i++){let x=P.getX(i),y=P.getY(i),z=P.getZ(i);const t=Math.max(0,-y);   // t: cuánto por debajo del centro
+    x*=1-0.28*t*t;z*=1-0.12*t;if(y<0&&z>0)z+=0.06*t;   // mandíbula más estrecha y barbilla adelantada
+    if(y>0)z*=1+0.06*y;   // cráneo algo más largo por detrás
+    if(Math.abs(x)>0.55&&y>-0.2&&y<0.35)x*=0.97;   // sienes
+    P.setXYZ(i,x*rx,cy+y*ry,z*rz);}g.computeVertexNormals();
+  const nose=new THREE.ConeGeometry(0.018,0.05,8);nose.rotateX(-Math.PI/2-0.35);nose.translate(0,cy-0.015,0.104);
+  const ear=s=>{const e=new THREE.SphereGeometry(0.02,8,6);e.scale(0.5,1.25,0.9);e.translate(s*0.091,cy+0.005,-0.006);return e;};
+  const neck=new THREE.CylinderGeometry(0.045,0.052,0.14,12,1,true);neck.translate(0,1.66,-0.01);
+  const L=[{g,m:new THREE.Matrix4()},{g:nose,m:new THREE.Matrix4()},{g:ear(1),m:new THREE.Matrix4()},{g:ear(-1),m:new THREE.Matrix4()},{g:neck,m:new THREE.Matrix4()}];
+  for(const o of L)if(!o.g.attributes.normal)o.g.computeVertexNormals();return mergeG(L);}
+function p2Hair(fem){const cy=1.815,g=new THREE.SphereGeometry(1,30,20),P=g.attributes.position;
+  for(let i=0;i<P.count;i++){const x=P.getX(i),y=P.getY(i),z=P.getZ(i);
+    // línea del pelo: alta en la frente, baja por detrás; por debajo, el casquete se mete dentro de la cabeza (no se ve)
+    const front=Math.max(0,z),line=fem?(0.18+0.35*front*front-0.95*Math.max(0,-z)):(0.32+0.3*front*front-0.75*Math.max(0,-z));
+    const on=y>line-(fem?0.12:0.05)*Math.abs(x);
+    const curl=fem?1+0.02*Math.sin(y*30+x*12):1+0.07*(Math.sin(x*41+y*23)*Math.sin(z*37+y*19));
+    const k=on?(fem?1.09:1.1)*curl:0.85;P.setXYZ(i,x*0.094*k,cy+y*0.128*k+(on?0.006:0),z*0.1*k-0.004);}
+  g.computeVertexNormals();if(!fem)return g;
+  const bun=new THREE.SphereGeometry(0.055,12,10);bun.scale(1,0.85,0.8);bun.translate(0,cy+0.03,-0.13);
+  const band=new THREE.TorusGeometry(0.098,0.008,6,24);band.rotateX(Math.PI/2+0.35);band.translate(0,cy+0.07,-0.01);
+  return mergeG([{g,m:new THREE.Matrix4()},{g:bun,m:new THREE.Matrix4()},{g:band,m:new THREE.Matrix4()}]);}
+// brazo: tubo de radio variable por una línea quebrada (hombro, codo, muñeca) + mano
+function p2Tube(pts,rad,seg){const pos=[],idx=[],up=new THREE.Vector3(1,0,0),t=new THREE.Vector3(),n=new THREE.Vector3(),b=new THREE.Vector3();
+  for(let i=0;i<pts.length;i++){const a=pts[Math.max(0,i-1)],c=pts[Math.min(pts.length-1,i+1)];t.subVectors(c,a).normalize();n.crossVectors(t,up).normalize();if(n.lengthSq()<0.1)n.set(0,0,1);b.crossVectors(t,n).normalize();
+    for(let s=0;s<seg;s++){const an=s/seg*TAU,cx=Math.cos(an)*rad[i],sy=Math.sin(an)*rad[i];pos.push(pts[i].x+n.x*cx+b.x*sy,pts[i].y+n.y*cx+b.y*sy,pts[i].z+n.z*cx+b.z*sy);}}
+  for(let i=0;i<pts.length-1;i++)for(let s=0;s<seg;s++){const a=i*seg+s,b2=i*seg+(s+1)%seg,c=a+seg,d=b2+seg;idx.push(a,c,b2,b2,c,d);}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;}
+function p2Arm(s){const V=(x,y,z)=>new THREE.Vector3(x*s,y,z);
+  const pts=[V(0,0.03,0),V(0.005,-0.08,0.0),V(0.01,-0.2,0.005),V(0.012,-0.31,0.015),V(0.01,-0.34,0.02),V(0.008,-0.46,0.045),V(0.006,-0.58,0.07),V(0.005,-0.62,0.078)];
+  const rad=[0.05,0.052,0.046,0.038,0.036,0.035,0.028,0.026];const arm=p2Tube(pts,rad,10);
+  const sh=new THREE.SphereGeometry(0.052,10,8);sh.translate(0,0.02,0);
+  const palm=new THREE.SphereGeometry(1,10,8);palm.scale(0.022,0.05,0.036);palm.translate(0.004*s,-0.665,0.085);
+  const fing=new THREE.SphereGeometry(1,8,6);fing.scale(0.018,0.035,0.03);fing.translate(0.002*s,-0.715,0.09);
+  const th=new THREE.SphereGeometry(1,6,5);th.scale(0.012,0.028,0.012);th.rotateZ(-0.5*s);th.translate(-0.012*s,-0.655,0.112);
+  return mergeG([arm,sh,palm,fing,th].map(g=>{if(!g.attributes.normal)g.computeVertexNormals();return{g,m:new THREE.Matrix4()};}));}
+function p2Apply(){if(!GLB.ok||GLB.p2)return;GLB.p2=1;const I=new THREE.Matrix4();
+  const put=(name,geo)=>{const P=GLB.parts[name];if(!P||!P.meshes.length)return;const m=P.meshes[0];geo.computeBoundingSphere();m.geo=geo;m.mat=I.clone();P.meshes.length=1;};
+  try{put('P_head',p2Head());}catch(e){console.warn('p2 head',e);}
+  try{put('P_hair_m',p2Hair(false));put('P_hair_f',p2Hair(true));}catch(e){console.warn('p2 hair',e);}
+  try{put('P_arm_l',p2Arm(-1));put('P_arm_r',p2Arm(1));}catch(e){console.warn('p2 arm',e);}
+  try{const P=GLB.parts.P_himation_f;if(P&&P.meshes.length){const role=P.meshes[0].role;   // manto femenino: por la espalda, una vuelta en las caderas y un extremo cruzando el pecho
+    const back=new THREE.CylinderGeometry(0.235,0.33,1.08,18,6,true,Math.PI-1.75,3.5);back.translate(0,1.08,-0.01);
+    const hip=new THREE.CylinderGeometry(0.275,0.3,0.42,18,2,true,-1.5,3.0);hip.translate(0,0.86,0.0);
+    const sash=new THREE.BoxGeometry(0.17,0.62,0.025,1,4,1);sash.rotateZ(0.62);sash.translate(0.03,1.33,0.19);
+    for(const g of[back,hip,sash]){const Q=g.attributes.position;for(let i=0;i<Q.count;i++){const y=Q.getY(i),x=Q.getX(i);Q.setX(i,x*(1+0.04*Math.sin(y*22+x*9)));}g.computeVertexNormals();g.computeBoundingSphere();}
+    P.meshes=[back,hip,sash].map(g=>({geo:g,role,mat:I.clone()}));P.ao=0;}}catch(e){console.warn('p2 himation',e);}
+  for(const n of['P_chiton_f','P_chiton_m','P_himation_f','P_himation_m','P_toga','P_tunic_short','P_sleeve_l','P_sleeve_r','P_veil','P_legs','P_beard','P_rider_body','P_rider_legs'])
+    {const P=GLB.parts[n];if(P)for(const m of P.meshes)try{p2Smooth(m.geo);}catch(e){}}}
+{const f=betterTrees;betterTrees=function(){f.apply(this,arguments);try{p2Apply();}catch(e){console.warn('p2',e);}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -28391,7 +28451,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload,GR,grCell,grTick,OB,obz,obStart,obStage,obRoute,obTick,tutStart,honScore,honRank,honPage,honz,honCheck,honParts}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload,GR,grCell,grTick,OB,obz,obStart,obStage,obRoute,obTick,tutStart,GLB,glbPart,honScore,honRank,honPage,honz,honCheck,honParts}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}

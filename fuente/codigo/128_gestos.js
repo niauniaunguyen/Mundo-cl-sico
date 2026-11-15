@@ -95,7 +95,7 @@ function gsElbow(arm){try{arm.updateMatrixWorld(true);const inv=new THREE.Matrix
       if(!ng.attributes.normal)ng.computeVertexNormals();const me=new THREE.Mesh(ng,m.material);me.castShadow=true;return me;};
     const a=mk2(up,0),b=mk2(lo,ey);if(a)arm.add(a);if(b)fore.add(b);m.parent.remove(m);}
   for(const ch of[...arm.children])if(ch!==fore&&ch.isGroup&&!ch.children.length)arm.remove(ch);
-  if(rn){const cx=ex/rn,cz=ez/rn;fore.position.x=cx;fore.position.z=cz;for(const ch of fore.children){ch.position.x=-cx;ch.position.z=-cz;}const lowM=fore.children[0]&&fore.children[0].material;const r0=Math.max(0.03,Math.min(0.07,rad/rn*0.8));const j=new THREE.Mesh(new THREE.SphereGeometry(r0,8,6),lowM);j.position.set(0,0,0);fore.add(j);}
+  if(rn){const cx=ex/rn,cz=ez/rn;fore.position.x=cx;fore.position.z=cz;for(const ch of fore.children){ch.position.x=-cx;ch.position.z=-cz;}const lowM=fore.children[0]&&fore.children[0].material;const r0=Math.max(0.03,Math.min(0.07,rad/rn*0.8));const jg=new THREE.SphereGeometry(r0,8,6);jg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(jg.attributes.position.count*3).fill(0.82),3));const j=new THREE.Mesh(jg,lowM);j.position.set(0,0,0);fore.add(j);}
   for(const ch of[...arm.children])if(ch!==fore&&ch.userData.keep&&ch.position.y<ey+0.05){arm.remove(ch);ch.position.x-=fore.position.x;ch.position.y-=fore.position.y;ch.position.z-=fore.position.z;fore.add(ch);}
   return fore;}catch(e){return null;}}
 // los gestos con codo: [izq. delante, izq. fuera, der. delante, der. fuera, cabeza abajo, ladeo, codo izq., codo der.]
