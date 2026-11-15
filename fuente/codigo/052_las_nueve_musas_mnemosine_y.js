@@ -646,8 +646,9 @@ function clumpGeoOld(h,n,ears,sp){sp=sp||1;const pos=[],idx=[];for(let k=0;k<n;k
 function cropTex(ears,seed){const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');
   for(let i=0;i<170;i++){const px=nz3(i,seed,1)*512,top=6+nz3(i,seed,2)*44,lean=(nz3(i,seed,3)-0.5)*16,g=150+Math.floor(nz3(i,seed,4)*105);x.strokeStyle='rgb('+g+','+g+','+Math.floor(g*0.9)+')';x.lineWidth=1+nz3(i,seed,5)*1.2;
     x.beginPath();x.moveTo(px,128);x.quadraticCurveTo(px+lean*0.3,70,px+lean,top);x.stroke();
-    if(ears){x.fillStyle='rgb('+(g+20>255?255:g+20)+','+(g+10>255?255:g+10)+','+Math.floor(g*0.8)+')';x.beginPath();x.ellipse(px+lean,top+6,2,7,lean*0.02,0,TAU);x.fill();}
-    else if(nz3(i,seed,6)<0.35){x.fillStyle='rgb('+g+','+g+','+Math.floor(g*0.85)+')';x.beginPath();x.ellipse(px+lean+4,top+14,5,2.2,0.5,0,TAU);x.fill();}}
+    if(ears){const ec='rgb('+(g+20>255?255:g+20)+','+(g+10>255?255:g+10)+','+Math.floor(g*0.8)+')';x.fillStyle=ec;x.strokeStyle=ec;x.lineWidth=0.8;   // espiga estrecha con granos alternos y barbas (antes un óvalo gordo que de lejos parecía una bola)
+      for(let k=0;k<5;k++){const yy=top+2+k*2.6,sd=k%2?1:-1;x.beginPath();x.ellipse(px+lean+sd*1.1,yy,1.1,1.9,sd*0.4,0,TAU);x.fill();x.beginPath();x.moveTo(px+lean+sd*1.1,yy-1);x.lineTo(px+lean+sd*3.2,yy-7);x.stroke();}}
+    else if(nz3(i,seed,6)<0.35){x.lineWidth=1.1;x.beginPath();x.moveTo(px+lean*0.6,top+30);x.quadraticCurveTo(px+lean+5,top+20,px+lean+9,top+26);x.stroke();}}   // hoja: un trazo curvo y fino, no una pastilla
   const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;}
 function cropMat(c,ears,seed){const m=new THREE.MeshLambertMaterial({color:c,side:THREE.FrontSide,map:cropTex(ears,seed||1),alphaTest:0.45,transparent:false});
   m.onBeforeCompile=sh=>{sh.uniforms.uT=CROP.t;sh.vertexShader='uniform float uT;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n#ifdef USE_INSTANCING\n float ph=instanceMatrix[3][0]*0.13+instanceMatrix[3][2]*0.09;\n#else\n float ph=0.0;\n#endif\n transformed.x+=sin(uT*1.6+ph)*position.y*0.14; transformed.z+=cos(uT*1.2+ph*1.3)*position.y*0.09;');};return m;}

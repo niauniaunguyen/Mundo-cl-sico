@@ -14294,8 +14294,9 @@ function clumpGeoOld(h,n,ears,sp){sp=sp||1;const pos=[],idx=[];for(let k=0;k<n;k
 function cropTex(ears,seed){const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');
   for(let i=0;i<170;i++){const px=nz3(i,seed,1)*512,top=6+nz3(i,seed,2)*44,lean=(nz3(i,seed,3)-0.5)*16,g=150+Math.floor(nz3(i,seed,4)*105);x.strokeStyle='rgb('+g+','+g+','+Math.floor(g*0.9)+')';x.lineWidth=1+nz3(i,seed,5)*1.2;
     x.beginPath();x.moveTo(px,128);x.quadraticCurveTo(px+lean*0.3,70,px+lean,top);x.stroke();
-    if(ears){x.fillStyle='rgb('+(g+20>255?255:g+20)+','+(g+10>255?255:g+10)+','+Math.floor(g*0.8)+')';x.beginPath();x.ellipse(px+lean,top+6,2,7,lean*0.02,0,TAU);x.fill();}
-    else if(nz3(i,seed,6)<0.35){x.fillStyle='rgb('+g+','+g+','+Math.floor(g*0.85)+')';x.beginPath();x.ellipse(px+lean+4,top+14,5,2.2,0.5,0,TAU);x.fill();}}
+    if(ears){const ec='rgb('+(g+20>255?255:g+20)+','+(g+10>255?255:g+10)+','+Math.floor(g*0.8)+')';x.fillStyle=ec;x.strokeStyle=ec;x.lineWidth=0.8;   // espiga estrecha con granos alternos y barbas (antes un óvalo gordo que de lejos parecía una bola)
+      for(let k=0;k<5;k++){const yy=top+2+k*2.6,sd=k%2?1:-1;x.beginPath();x.ellipse(px+lean+sd*1.1,yy,1.1,1.9,sd*0.4,0,TAU);x.fill();x.beginPath();x.moveTo(px+lean+sd*1.1,yy-1);x.lineTo(px+lean+sd*3.2,yy-7);x.stroke();}}
+    else if(nz3(i,seed,6)<0.35){x.lineWidth=1.1;x.beginPath();x.moveTo(px+lean*0.6,top+30);x.quadraticCurveTo(px+lean+5,top+20,px+lean+9,top+26);x.stroke();}}   // hoja: un trazo curvo y fino, no una pastilla
   const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;}
 function cropMat(c,ears,seed){const m=new THREE.MeshLambertMaterial({color:c,side:THREE.FrontSide,map:cropTex(ears,seed||1),alphaTest:0.45,transparent:false});
   m.onBeforeCompile=sh=>{sh.uniforms.uT=CROP.t;sh.vertexShader='uniform float uT;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n#ifdef USE_INSTANCING\n float ph=instanceMatrix[3][0]*0.13+instanceMatrix[3][2]*0.09;\n#else\n float ph=0.0;\n#endif\n transformed.x+=sin(uT*1.6+ph)*position.y*0.14; transformed.z+=cos(uT*1.2+ph*1.3)*position.y*0.09;');};return m;}
@@ -23222,7 +23223,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='bba78823b142';
+const NOSTOS_VER='39c02eb57991';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27530,6 +27531,95 @@ function ptBrief(){const z=ptz(),want=z.play<480&&!ACC.lvlChosen&&(!state.lesson
   if(want&&!PT.brief){PT.lvl0=ACC.lvl;ACC.lvl='breve';PT.brief=true;}else if(!want&&PT.brief){ACC.lvl=PT.lvl0;PT.brief=false;}}
 {const f=accSave;accSave=function(){if(PT.brief){const cur=ACC.lvl;if(cur!=='breve'){ACC.lvlChosen=1;PT.brief=false;}else ACC.lvl=PT.lvl0;f.apply(this,arguments);if(PT.brief)ACC.lvl='breve';return;}if(ACC.lvl&&ACC.lvl!=='normal')ACC.lvlChosen=1;return f.apply(this,arguments);};}
 {const f=uxTick;uxTick=function(dt){f(dt);if(!state||ui==='start')return;try{ptTick(dt);ptBrief();ptButton();}catch(e){}};}
+// ============================================================ VEGETACIÓN MEJOR: consejos de arte de entornos aplicados
+// 1. Normales «de esfera»: la copa se sombrea como una sola masa y no como un racimo de bolas sueltas (normales transferidas de una forma simple).
+// 2. Oclusión ambiental pintada: más oscuro abajo y por dentro de la copa, más claro arriba (atributo aAO; si falta, vale 0 y no cambia nada).
+// 3. Luz de borde y algo de luz que atraviesa las hojas a contraluz (rim/translucidez barata, calculada en el vértice).
+// 4. Viento en dos capas: el balanceo de siempre + un temblor fino de las hojas desfasado por vértice para que no se mueva todo a la vez.
+// 5. Colocación en grupos: matas al pie de algunos árboles, más densas cerca y más sueltas lejos (caída de densidad), con números deterministas (no tocan R()).
+function vegPrep(geo){if(!geo||geo.userData.vegOk)return;geo.userData.vegOk=1;const p=geo.attributes.position,n=geo.attributes.normal;if(!p||!n)return;
+  geo.computeBoundingBox();const b=geo.boundingBox,cx=(b.min.x+b.max.x)/2,cy=(b.min.y+b.max.y)/2,cz=(b.min.z+b.max.z)/2,hx=Math.max(0.3,(b.max.x-b.min.x)/2),hy=Math.max(0.3,(b.max.y-b.min.y)/2),hz=Math.max(0.3,(b.max.z-b.min.z)/2);
+  const ao=new Float32Array(p.count),v=new THREE.Vector3(),o=new THREE.Vector3();
+  for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i);
+    v.set((x-cx)/(hx*hx),(y-cy)/(hy*hy)*0.85,(z-cz)/(hz*hz));if(v.lengthSq()<1e-8)v.set(0,1,0);v.normalize();o.set(n.getX(i),n.getY(i),n.getZ(i));o.lerp(v,0.7).normalize();n.setXYZ(i,o.x,o.y,o.z);
+    const h=(y-b.min.y)/(2*hy),r=Math.min(1,Math.hypot((x-cx)/hx,(z-cz)/hz));ao[i]=Math.min(0.55,0.42*Math.pow(1-h,1.4)*(1.05-0.55*r)+0.12*(1-r));}
+  n.needsUpdate=true;geo.setAttribute('aAO',new THREE.BufferAttribute(ao,1));}
+{const f=windMat;windMat=function(mat){const w=f(mat);if(w.userData.veg2)return w;w.userData.veg2=1;w.userData.isWind=1;const prev=w.onBeforeCompile;
+  w.onBeforeCompile=function(sh,r){if(prev)prev.call(this,sh,r);
+    sh.vertexShader='attribute float aAO;\nvarying float vAO;varying float vRim;\n'+sh.vertexShader.replace('#include <project_vertex>',
+      '{float fk=max(0.0,position.y-0.6);float ph=dot(position,vec3(4.1,2.7,3.3));transformed+=normal*sin(uWT*6.3+ph)*0.018*fk*uWS;}\n#include <project_vertex>')
+      .replace(/}\s*$/,'vAO=aAO;\n#ifdef USE_INSTANCING\nvec3 wn=normalize(mat3(modelViewMatrix)*mat3(instanceMatrix)*normal);\n#else\nvec3 wn=normalize(normalMatrix*normal);\n#endif\nvRim=pow(1.0-abs(dot(wn,normalize(-mvPosition.xyz))),2.2);\n}');
+    sh.fragmentShader='varying float vAO;varying float vRim;\n'+sh.fragmentShader.replace('#include <tonemapping_fragment>','gl_FragColor.rgb*=(1.0-vAO);gl_FragColor.rgb+=vec3(0.10,0.12,0.04)*vRim*(1.0-vAO);\n#include <tonemapping_fragment>');};
+  const k0=w.customProgramCacheKey;w.customProgramCacheKey=()=>(k0?k0():'')+'veg2';return w;};}
+{const f=chunked;chunked=function(geo,mat,items,opt){try{if(mat&&mat.userData&&mat.userData.isWind)vegPrep(geo);}catch(e){}return f(geo,mat,items,opt);};}
+// 5. matas al pie de los árboles, en grupos con caída de densidad
+{const f=treesGLB;treesGLB=function(list){f(list);try{if(!GLB.parts.T_bush)return;const B=[];
+  for(const t of list){if(t.kind==='cypress')continue;const h0=hash(t.x*0.37,t.z*0.53);if(h0>0.4)continue;const n=1+Math.floor(hash(t.x,t.z*1.7)*3);
+    for(let k=0;k<n;k++){const a=hash(t.x+k*3.1,t.z)*TAU,d=1.6+Math.pow(hash(t.z+k,t.x*0.7),1.6)*3.2,x=t.x+Math.cos(a)*d,z=t.z+Math.sin(a)*d;if(riverWater(x,z)!==null)continue;
+      const s=(0.55+hash(x,z)*0.6)*(1.15-d/6);B.push({x,y:floorAt(x,z)-0.05,z,a:hash(z,x)*TAU,sx:s,sy:s*(0.8+hash(x*2,z)*0.4),sz:s,cf:new THREE.Color('#6f7d4a').offsetHSL((hash(x,z*3)-0.5)*0.04,(hash(z,x*3)-0.5)*0.1,(hash(x*5,z)-0.5)*0.1)});}}
+  if(B.length)placeModules('T_bush',B,{far:700,shadow:false});}catch(e){}};}
+// ============================================================ HIERBA DE VERDAD: briznas instanciadas alrededor del jugador
+// Antes solo había textura en el suelo y matas redondas. Ahora, siguiendo las técnicas habituales (InstancedMesh + viento en el shader):
+// · matojos de 7 briznas finas y curvadas, miles de copias en un radio de ~34 m que se recolocan al andar (siempre iguales en cada sitio: hash de la celda);
+// · raíz oscura y punta clara (color por vértice) y un tinte por matojo; normales hacia arriba para que se iluminen como el suelo y no «brillen» de canto;
+// · viento en el shader: balanceo desfasado por matojo + ráfagas que recorren el campo como una ola; se aparta al pasar el jugador;
+// · manchas: la densidad sale de un ruido (prados y claros), nada en caminos, ciudades, agua, pendientes fuertes ni junto a edificios;
+// · se encoge al llegar al borde del radio, para que no aparezca de golpe; colores según la estación (el Ática se agosta en verano; Italia, más verde).
+const GR={on:true,mesh:null,cx:1e9,cz:1e9,C:1.4,R:34,max:0,cache:new Map(),u:{uP:{value:new THREE.Vector3()}}};
+function grGeo(){const pos=[],col=[],nor=[],idx=[];const B=7,S=3;
+  for(let b=0;b<B;b++){const a=b/B*TAU+hash(b,3)*0.9,r=b?0.12+hash(b,5)*0.2:0,ox=Math.cos(a)*r,oz=Math.sin(a)*r,h=0.3+hash(b,7)*0.32,w=0.032+hash(b,9)*0.018,face=hash(b,11)*TAU,lean=0.08+hash(b,13)*0.14,lx=Math.cos(a),lz=Math.sin(a);
+    const fx=Math.cos(face),fz=Math.sin(face),base=pos.length/3;
+    for(let s=0;s<=S;s++){const t=s/S,hw=w*(1-t*0.92),bx=ox+lx*lean*t*t,bz=oz+lz*lean*t*t,y=h*t;
+      pos.push(bx-fx*hw,y,bz-fz*hw, bx+fx*hw,y,bz+fz*hw);const c=0.62+0.38*t;col.push(c,c,c,c,c,c);nor.push(0,1,0,0,1,0);}
+    for(let s=0;s<S;s++){const i=base+s*2;idx.push(i,i+1,i+3,i,i+3,i+2);}}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setIndex(idx);g.computeBoundingSphere();return g;}
+function grMat(){const m=new THREE.MeshLambertMaterial({color:0xffffff,vertexColors:true,side:THREE.DoubleSide});
+  m.onBeforeCompile=sh=>{sh.uniforms.uWT=WIND.u;sh.uniforms.uWS=WIND.s;sh.uniforms.uP=GR.u.uP;
+    sh.vertexShader='uniform float uWT;uniform float uWS;uniform vec3 uP;\n'+sh.vertexShader.replace('#include <project_vertex>',
+`vec4 wp=vec4(transformed,1.0);
+#ifdef USE_INSTANCING
+wp=instanceMatrix*wp;
+#endif
+wp=modelMatrix*wp;
+float hk=clamp(position.y/0.6,0.0,1.0);hk*=hk;
+float ph=wp.x*0.37+wp.z*0.29;
+float gust=sin(dot(wp.xz,vec2(0.07,0.045))-uWT*1.7)*0.5+0.5;
+float sw=(sin(uWT*2.2+ph)*0.55+sin(uWT*3.9+ph*1.8)*0.2+gust*1.1)*uWS;
+wp.xz+=vec2(0.82,0.57)*sw*0.16*hk;
+vec2 dp=wp.xz-uP.xz;float dl=length(dp);float pu=(1.0-smoothstep(0.2,1.3,dl))*step(abs(wp.y-uP.y),2.0);
+wp.xz+=normalize(dp+vec2(0.0001))*pu*0.38*hk;wp.y-=pu*0.25*hk;
+vec4 mvPosition=viewMatrix*wp;gl_Position=projectionMatrix*mvPosition;`);
+  sh.fragmentShader=sh.fragmentShader.split('gl_FrontFacing').join('true');};
+  m.customProgramCacheKey=()=>'hierba2';return m;}
+function grInit(){const touch=typeof isTouch!=='undefined'&&isTouch,lite=typeof ACC!=='undefined'&&ACC.lite;GR.R=lite?20:touch?26:34;GR.max=lite?3000:touch?6000:14000;
+  GR.mesh=new THREE.InstancedMesh(grGeo(),grMat(),GR.max);GR.mesh.count=0;GR.mesh.frustumCulled=false;GR.mesh.receiveShadow=true;GR.mesh.castShadow=false;GR.mesh.userData.noCull=true;GR.mesh.userData.veg=true;
+  GR.mesh.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(GR.max*3),3);scene.add(GR.mesh);}
+// colores de la punta según estación y lugar
+function grPal(green){let mo=3;try{mo=calNow().mo;}catch(e){}const sum=mo>=5&&mo<=8,aut=mo>=9&&mo<=10;
+  if(green)return sum?['#8a9a4a','#9aa452','#7d9044']:['#6f9a3c','#7fa846','#64903a'];
+  return sum?['#c9b47a','#d6c08a','#bba468']:aut?['#a8a060','#b4a868','#98a058']:['#8ea050','#9cac58','#a8aa62'];}
+function grCell(i,j){const k=i+','+j;let r=GR.cache.get(k);if(r!==undefined)return r;r=0;const C=GR.C,x=(i+0.5)*C,z=(j+0.5)*C;
+  do{const t=terrainH(x,z);if(t<1.4)break;const w=riverWater(x,z);if(w!==null&&w>t-0.6)break;
+    let green=false;if(x>8000){const I=islandOf(x);if(!I||I.desert)break;green=!!I.green;}else{if(MODE==='roma'?romaInUrbs(x,z):insideWalls(x,z))break;green=MODE==='roma';}
+    if(x<8000&&roadDist(x,z)<2.8)break;
+    const sl=(Math.abs(terrainH(x+1,z)-terrainH(x-1,z))+Math.abs(terrainH(x,z+1)-terrainH(x,z-1)))/4;if(sl>0.45)break;
+    if(!isFree(x,z,0.7))break;
+    let fm=1;if(typeof fieldAt==='function'){const ft=fieldAt(x,z);fm=[1,0,0.75,0,0.25,0.6][ft]||1;}if(fm<=0)break;
+    const n=fbm(x*0.035+11,z*0.035-7),d=Math.max(0,Math.min(1,(n-(green?0.3:0.42))*3.2))*(1-sl*1.4)*fm;if(d<=0.05)break;r={d,green};}while(false);
+  if(GR.cache.size>90000)GR.cache.clear();GR.cache.set(k,r);return r;}
+function grTick(){if(!GR.on||!state||ui==='start')return;if(!GR.mesh)grInit();const P=player;GR.u.uP.value.set(P.x,P.feet,P.z);
+  const hide=P.feet>(P.x>8000?400:300)||(typeof EPI!=='undefined'&&EPI.cur);GR.mesh.visible=!hide;if(hide)return;
+  if(Math.hypot(P.x-GR.cx,P.z-GR.cz)<4.5)return;GR.cx=P.x;GR.cz=P.z;
+  const C=GR.C,R=GR.R,i0=Math.floor((P.x-R)/C),i1=Math.floor((P.x+R)/C),j0=Math.floor((P.z-R)/C),j1=Math.floor((P.z+R)/C),m=new THREE.Matrix4(),q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),sc=new THREE.Vector3(),p=new THREE.Vector3(),col=new THREE.Color();
+  const palG=grPal(true).map(c=>new THREE.Color(c)),palD=grPal(false).map(c=>new THREE.Color(c));let n=0;
+  for(let i=i0;i<=i1&&n<GR.max;i++)for(let j=j0;j<=j1&&n<GR.max;j++){const c=grCell(i,j);if(!c)continue;const cxx=(i+0.5)*C,czz=(j+0.5)*C,dd=Math.hypot(cxx-P.x,czz-P.z);if(dd>R)continue;
+    const k=Math.round(c.d*6);for(let s=0;s<k&&n<GR.max;s++){const x=(i+hash(i*7+s,j*3))*C,z=(j+hash(i*3,j*7+s))*C,d=Math.hypot(x-P.x,z-P.z);if(d>R)continue;
+      const fade=Math.min(1,(R-d)/7),sz=(0.6+hash(i+s*11,j)*0.6)*(0.7+c.d*0.5)*fade;if(sz<0.08)continue;
+      q.setFromAxisAngle(up,hash(i,j+s*13)*TAU);sc.set(sz,sz*(0.8+hash(j,i+s)*0.5),sz);p.set(x,terrainH(x,z)-0.03,z);m.compose(p,q,sc);GR.mesh.setMatrixAt(n,m);
+      const pal=c.green?palG:palD;col.copy(pal[Math.floor(hash(i+s,j*5)*3)]).offsetHSL((hash(x,z)-0.5)*0.03,0,(hash(z,x)-0.5)*0.08);GR.mesh.setColorAt(n,col);n++;}}
+  GR.mesh.count=n;GR.mesh.instanceMatrix.needsUpdate=true;GR.mesh.instanceColor.needsUpdate=true;}
+// al cambiar de estación, recolorear
+{let lastMo=-1;const f=uxTick;uxTick=function(dt){f(dt);try{let mo=-1;try{mo=calNow().mo;}catch(e){}if(mo!==lastMo){lastMo=mo;GR.cx=1e9;}grTick();}catch(e){}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -28157,7 +28247,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload,GR,grCell,grTick}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}

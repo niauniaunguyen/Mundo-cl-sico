@@ -56,7 +56,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `049_discipulos.js` | 391 | discípulos: escuelas, encargos y rivalidades<br>tutorial de los primeros segundos (una vez por partida) |
 | `050_calendario_de_fiestas.js` | 415 | calendario de fiestas: un año religioso condensado |
 | `051_conversaciones_que_se_oyen_por.js` | 93 | conversaciones que se oyen por la calle (el jugador solo escucha)<br>carreteros: en cada salida, por unas monedas te llevan hasta el borde del mapa |
-| `052_las_nueve_musas_mnemosine_y.js` | 1524 | las nueve Musas, Mnemósine y el Olimpo |
+| `052_las_nueve_musas_mnemosine_y.js` | 1525 | las nueve Musas, Mnemósine y el Olimpo |
 | `053_forastero_a.js` | 240 | forastero/a: patria, estatus legal (meteco / ciudadanía), hospitalidad, cuaderno de comparaciones y regreso (n |
 | `054_el_culto_domestico_romano.js` | 78 | el culto doméstico romano: Lares, Penates, Genio y Juno, Vesta y el hogar, Manes y Lemures |
 | `055_los_fastos.js` | 46 | los fastos: el calendario romano mes a mes (modo Roma) |
@@ -158,4 +158,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `152_asamblea_senado.js` | 71 | APRENDER HACIENDO (1): votar en la Asamblea (Atenas) y asistir al Senado (Roma) |
 | `153_taller_templo.js` | 47 | APRENDER HACIENDO (2): el taller del templo — señalar las piezas para repararlo |
 | `154_pruebas_aula.js` | 33 | PROBAR CON ALUMNOS: dónde se atascan, encuesta breve e informe, y menos texto al empezar |
+| `155_vegetacion.js` | 28 | VEGETACIÓN MEJOR: consejos de arte de entornos aplicados |
+| `156_hierba.js` | 63 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
