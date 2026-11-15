@@ -10,7 +10,8 @@ function introCSS(){if($('introCSS'))return;const st=document.createElement('sty
 #intro .ititle{position:absolute;top:calc(5% + env(safe-area-inset-top,0px));left:0;right:0;text-align:center;font-family:var(--f-display);font-size:clamp(2.4rem,8vw,5.2rem);letter-spacing:.08em;text-shadow:0 4px 24px rgba(0,0,0,.8);animation:introIn 2.4s ease-out both}
 #intro .ititle span{display:block;font-size:.3em;letter-spacing:.4em;color:#e8b06a;margin-top:8px}
 #intro .icrawlw{position:absolute;left:0;right:0;top:22%;bottom:150px;perspective:380px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%)}
-#intro .icrawl{position:absolute;left:50%;top:100%;width:min(760px,88vw);transform-origin:50% 0;transform:translateX(-50%) rotateX(22deg);animation:introCrawl 75s linear 1.2s forwards;color:#f3d48a;font-size:clamp(1.15rem,2.6vw,1.7rem);line-height:1.55;text-align:justify;text-shadow:0 2px 10px #000}
+#intro .icrawlp{position:absolute;left:50%;top:0;bottom:0;width:min(760px,88vw);transform-origin:50% 100%;transform:translateX(-50%) rotateX(22deg);transform-style:preserve-3d}
+#intro .icrawl{position:absolute;left:0;right:0;top:0;will-change:transform;transform:translateY(100vh);backface-visibility:hidden;color:#f3d48a;font-size:clamp(1.15rem,2.6vw,1.7rem);line-height:1.55;text-align:justify;text-shadow:0 2px 10px #000}
 #intro .icrawl p{margin:0 0 1.1em}
 #intro .ibtns{position:absolute;left:0;right:0;bottom:calc(9% + env(safe-area-inset-bottom,0px));display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding:0 16px;opacity:0;transform:translateY(16px);transition:opacity .9s,transform .9s;pointer-events:none}
 #intro.ready .ibtns{opacity:1;transform:none;pointer-events:auto}
@@ -25,20 +26,23 @@ function introCSS(){if($('introCSS'))return;const st=document.createElement('sty
 #intro .icap{position:absolute;right:12px;bottom:6px;font-size:.7rem;color:#bfb29c;opacity:.75;max-width:min(520px,70vw);text-align:right;font-style:italic}
 body.intro #ldBox{left:50%!important;right:auto!important;top:auto!important;bottom:calc(16px + env(safe-area-inset-bottom,0px))!important;transform:translateX(-50%);width:min(520px,calc(100vw - 32px));z-index:60}
 body.intro #ldBox.gone{transform:translate(-50%,20px)}
-@keyframes introCrawl{from{top:100%}to{top:-260%}}
 @keyframes introZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
 @keyframes introIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#intro .icrawl{animation:none;top:4%;transform:translateX(-50%)}#intro .ibg{animation:none}}`;document.head.appendChild(st);}
+@media (prefers-reduced-motion:reduce){#intro .icrawlp{transform:translateX(-50%)}#intro .icrawl{transform:none!important}#intro .ibg{animation:none}}`;document.head.appendChild(st);}
 function introStart(){if(INTRO.el||!$('start')||$('start').hidden)return;introCSS();const ro=MODE==='roma';
   const src=ro?(typeof LOBA_SRC!=='undefined'?LOBA_SRC:''):(typeof RAFAEL_SRC!=='undefined'?RAFAEL_SRC:'');
   const d=document.createElement('div');d.id='intro';
   const txt=($('stIntro')?$('stIntro').innerHTML:'');
   d.innerHTML='<div class="ibg" style="background-image:url('+src+')"></div><div class="ishade"></div>'+
    '<div class="ititle">'+(ro?'Roma':'Atenas')+'<span>'+(ro?'AÑO 80 d.C.':'PRIMAVERA DEL 386 a.C.')+'</span></div>'+
-   '<div class="icrawlw"><div class="icrawl">'+txt+'</div></div>'+
+   '<div class="icrawlw"><div class="icrawlp"><div class="icrawl">'+txt+'</div></div></div>'+
    '<div class="ibtns"></div><div class="ilinks"></div>'+
    '<div class="icap">'+(ro?'El Vesubio en erupción, de noche (pintura de época moderna). En el 79 sepultó Pompeya.':'La escuela de Atenas, de Rafael (1509-1511): una Atenas imaginada dos mil años después.')+'</div>';
   document.body.appendChild(d);document.body.classList.add('intro');INTRO.el=d;INTRO.step=0;
+  // el texto sube con una animación solo de transform (Web Animations): la ejecuta el compositor, fuera del hilo principal,
+  // así que sigue fluida aunque el juego esté construyendo el mundo (antes se animaba «top» y subía a trompicones)
+  try{const cr=d.querySelector('.icrawl'),wh=d.querySelector('.icrawlp').offsetHeight,th=cr.offsetHeight;
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches)INTRO.anim=cr.animate([{transform:'translateY('+wh+'px)'},{transform:'translateY('+(-th-40)+'px)'}],{duration:Math.max(40000,(wh+th)*42),delay:1200,easing:'linear',fill:'forwards'});}catch(e){}
   INTRO.poll=setInterval(()=>{if(!INTRO.el)return clearInterval(INTRO.poll);
     if($('start').hidden){introEnd();return;}   // la partida ya empezó (p. ej., recuperada)
     if(INTRO.step===0&&$('go')&&!$('go').disabled){INTRO.step=1;introStep1();}},300);}

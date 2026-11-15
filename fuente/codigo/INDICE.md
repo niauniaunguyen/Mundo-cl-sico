@@ -150,5 +150,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `144_creta_oeste.js` | 61 | CRETA (4): el oeste de la isla (modo Atenas, 386 a.C.) |
 | `145_creta_tercera.js` | 137 | CRETA (5): tercera tanda (modo Atenas, 386 a.C.) |
 | `146_atencion_mas.js` | 152 | MIRAR CON ATENCIÓN (5): edificios enteros, estatuas con nombre, puentes y ríos con su nombre<br>NADAR EN LOS RÍOS: flotar en la superficie (antes se caminaba por el fondo y el personaje desaparecía bajo el <br>ÁRBOLES: al suelo después de rebajar el terreno bajo los edificios, y fuera de las ínsulas<br>ROMA: barca en el Tíber, junto al Emporio, y Tiberino que te la señala<br>ESFERA DE SUEÑO EN CARTAGO: DIDO Y ENEAS (Eneida IV)<br>CARTAGO: un combate de gladiadores en el anfiteatro (vídeo: «estaría bien algún espectáculo»)<br>AL ENTRAR EN UNA CIUDAD: su nombre en grande en el centro de la pantalla |
-| `147_presentacion.js` | 60 | PRESENTACIÓN AL ELEGIR ÉPOCA |
+| `147_presentacion.js` | 64 | PRESENTACIÓN AL ELEGIR ÉPOCA |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
