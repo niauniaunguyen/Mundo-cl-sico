@@ -154,3 +154,17 @@ function cityShow(c){const b=$('cityB');if(!b)return;CITYB.timers.forEach(clearT
 function cityTick(dt){if(!state||ui!=='play')return;const now=performance.now();if(now-CITYB.t<400)return;CITYB.t=now;const c=cityHere(),k=c?c.k:null;
   if(k&&k!==CITYB.inside)cityShow(c);CITYB.inside=k;}
 {const f=uxTick;uxTick=function(dt){f(dt);try{cityTick(dt);}catch(e){}};}
+// ============================================================ ANDAR Y CORRER MÁS NATURALES
+// Antes cada pierna oscilaba rígida desde la cadera, igual al andar que al correr. Ahora (en quien está cerca) la rodilla se dobla al adelantar
+// la pierna y se estira al apoyar el pie; al correr la zancada es más larga, la rodilla sube más, los brazos se balancean más y el cuerpo
+// se inclina hacia delante. Las rodillas son las de sentarse (personKnees): se preparan solo en las personas cercanas, unas pocas por fotograma.
+const GAIT={splits:0,frame:0};
+{const pw=personWalk;personWalk=function(g,ph,amp){pw(g,ph,amp);const u=g.userData;if(!u.legs||u.limp||u.sitting)return;
+  const f=(typeof renderer!=='undefined'&&renderer.info)?renderer.info.render.frame:0;if(f!==GAIT.frame){GAIT.frame=f;GAIT.splits=0;}
+  if(u.knees===undefined&&GAIT.splits<2&&typeof personKnees==='function'){const p=g.position;if(g.parent===scene&&Math.abs(p.x-player.x)<28&&Math.abs(p.z-player.z)<28){GAIT.splits++;try{personKnees(g);}catch(e){u.knees=null;}}}
+  const run=clamp((amp-1)/0.25,0,1),k=Math.min(1,amp),la=(u.legAmp||0.42)*(1+0.55*run),kb=0.75+0.65*run,K=u.knees;
+  for(let i=0;i<2;i++){const L=u.legs[i];if(!L)continue;const c=Math.cos(ph+(i?Math.PI:0));   // >0 mientras esa pierna avanza
+    L.rotation.x=(i?1:-1)*Math.sin(ph)*la*k;   // muslo (igual que antes, con más zancada al correr)
+    const kn=K&&K[i];if(kn){const swing=c;kn.rotation.x=k*(kb*Math.pow(Math.max(0,swing),1.4)+0.08+0.12*run*Math.max(0,-swing));}}   // rodilla: se dobla al adelantar la pierna
+  if(u.arms&&!u.armsBusy){const aa=(0.38+0.42*run)*k;u.arms[0].rotation.x=Math.sin(ph)*aa;u.arms[1].rotation.x=-Math.sin(ph)*aa;}
+  const lean=0.13*run*k,prev=u._gl||0;if(Math.abs(lean-prev)>1e-4){g.rotation.x+=lean-prev;u._gl=lean;}};}
