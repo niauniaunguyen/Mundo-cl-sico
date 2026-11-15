@@ -1,10 +1,22 @@
 // ============================================================ caballo
-// H lo llama (llega al galope desde atrás); cerca de él, H para montar y otra vez H para bajar. Montado se va al triple de velocidad.
+// H lo llama (llega al galope desde atrás); cerca de él, E para montar (como todo lo demás) y H para bajar. Montado se va al triple de velocidad.
 const MOUNT={g:null,legs:[],st:'away',ph:0,riding:false,v:0,tc:0};
+// la manta (ephippium) se ciñe al lomo: con rayos se mide la superficie del caballo en varios cortes y ángulos, y la manta se pega
+// a ella 2 cm por fuera (antes era una losa plana que sobresalía por los lados)
+function horseCloth(g){g.updateMatrixWorld(true);const ms=[];g.traverse(o=>{if(o.isMesh)ms.push(o);});if(!ms.length)throw 0;
+  const bb=new THREE.Box3().setFromObject(g),rc=new THREE.Raycaster(),o=new THREE.Vector3(),d=new THREE.Vector3(),gi=new THREE.Matrix4().copy(g.matrixWorld).invert();
+  const top=(z)=>{o.set(0,bb.max.y+1,z).applyMatrix4(g.matrixWorld);rc.set(o,d.set(0,-1,0));const h=rc.intersectObjects(ms,false)[0];return h?h.point.clone().applyMatrix4(gi).y:null;};
+  const z0=0.1,ty=top(z0);if(ty===null)throw 0;const cy=ty-0.42,A=[],NA=15,NZ=6,amax=1.15,L=0.95;
+  const surf=(a,z)=>{const dx=Math.sin(a),dy=Math.cos(a);const c=new THREE.Vector3(0,cy,z).applyMatrix4(g.matrixWorld),dir=new THREE.Vector3(dx,dy,0).transformDirection(g.matrixWorld);
+    rc.set(c.clone().addScaledVector(dir,2),dir.clone().negate());const h=rc.intersectObjects(ms,false)[0];if(!h)return null;const p=h.point.applyMatrix4(gi);return [p.x+dx*0.02,p.y+dy*0.02,z];};
+  const grid=(a0,a1,na,mat)=>{const pos=[],idx=[];for(let j=0;j<NZ;j++){const z=z0-L/2+L*j/(NZ-1);for(let i=0;i<na;i++){const a=a0+(a1-a0)*i/(na-1);let p=surf(a,z);if(!p)p=[Math.sin(a)*0.42,cy+Math.cos(a)*0.42,z];pos.push(...p);}}
+    for(let j=0;j<NZ-1;j++)for(let i=0;i<na-1;i++){const k=j*na+i;idx.push(k,k+na,k+1,k+1,k+na,k+na+1);}
+    const ge=new THREE.BufferGeometry();ge.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));ge.setIndex(idx);ge.computeVertexNormals();const m=new THREE.Mesh(ge,mat);m.material.side=THREE.DoubleSide;m.castShadow=true;g.add(m);};
+  grid(-amax,amax,NA,lam('#a8392b'));for(const sg of[-1,1])grid(sg>0?amax:-amax-0.1,sg>0?amax+0.1:-amax,2,lam('#d9a93a'));}   // la orla dorada, en los bordes de abajo
 function buildMount(){
   const g=new THREE.Group();g.visible=false;scene.add(g);MOUNT.g=g;
   if(GLB.ok){MOUNT.legs=animalGLB('A_horse',g,'#5a3a22','#1e140e');
-    box(0.8,0.05,0.95,lam('#a8392b'),0,1.76,0.1,g);box(0.84,0.02,0.99,lam('#d9a93a'),0,1.735,0.1,g);}   // manta con orla
+    try{horseCloth(g);}catch(e){box(0.8,0.05,0.95,lam('#a8392b'),0,1.76,0.1,g);}}   // manta con orla, ceñida al lomo
   else{const c=lam('#5a3a22'),dk=lam('#1e140e');box(0.75,0.8,1.95,c,0,1.55,0,g);box(0.35,0.9,0.35,c,0,2.2,0.95,g).rotation.x=0.5;box(0.33,0.36,0.8,c,0,2.6,1.3,g);box(0.8,0.06,0.9,lam('#a8392b'),0,1.98,0,g);
     MOUNT.legs=[[0.25,0.75],[-0.25,0.75],[0.25,-0.75],[-0.25,-0.75]].map(([x,z])=>{const p=new THREE.Group();p.position.set(x,1.2,z);box(0.15,1.2,0.15,dk,0,-0.6,0,p);g.add(p);return p;});}
 }
@@ -13,7 +25,7 @@ function callHorse(){
   if(ui!=='play'||!MOUNT.g)return;
   if(MOUNT.riding){dismount();return;}
   if(!hz().own){toast(MODE==='roma'?'Aún no tienes caballo. Félix, el auriga de los Verdes, te dará uno si le haces un favor.':'Aún no tienes caballo. Eudico de Larisa, el criador de caballos tesalio del Ágora, te dará uno si le haces un favor.');return;}
-  if(horseNear()){mountHorse();return;}
+  if(horseNear()){toast('Tu caballo está a tu lado: pulsa <b>'+(isTouch?'la mano naranja':'E')+'</b> para montar.');return;}   // se monta con E, como todo lo demás
   let d=35,fx,fz;
   for(;d>4;d-=8){[fx,fz]=findFree(player.x+Math.sin(player.yaw)*d,player.z+Math.cos(player.yaw)*d,1.2);if(floorAt(fx,fz)>-0.5&&Math.abs(floorAt(fx,fz)-player.feet)<25)break;}
   MOUNT.g.position.set(fx,floorAt(fx,fz),fz);MOUNT.g.visible=true;MOUNT.st='coming';MOUNT.tc=0;sfxWhistle();
@@ -33,7 +45,7 @@ function updateMount(dt){
   if(M2.riding){sp=Math.hypot(player.x-g.position.x,player.z-g.position.z)/Math.max(dt,1e-3);g.position.set(player.x,player.feet,player.z);g.rotation.y+=wrapA(player.yaw+Math.PI-g.rotation.y)*Math.min(1,dt*10);}
   else if(M2.st==='coming'){M2.tc+=dt;const dx=player.x-g.position.x,dz=player.z-g.position.z,d=Math.hypot(dx,dz);
     if(d<4.8||M2.tc>9){if(d>=4.8){const[fx,fz]=findFree(player.x+Math.sin(player.yaw)*3,player.z+Math.cos(player.yaw)*3,1);g.position.set(fx,floorAt(fx,fz),fz);}
-      M2.st='idle';toast((hz().own?horseName():'El caballo')+' ha llegado. Pulsa <b>'+(isTouch?'el botón del caballo':'H')+'</b> para montar.');}
+      M2.st='idle';toast((hz().own?horseName():'El caballo')+' ha llegado. Pulsa <b>'+(isTouch?'la mano naranja':'E')+'</b> para montar.');}
     else{const st=Math.min(d-4,11*dt),p={x:g.position.x+dx/d*st,z:g.position.z+dz/d*st};resolve(p,0.6);g.position.set(p.x,floorAt(p.x,p.z),p.z);g.rotation.y+=wrapA(Math.atan2(dx,dz)-g.rotation.y)*Math.min(1,dt*6);sp=11;}}
   else g.position.y=floorAt(g.position.x,g.position.z);
   // patas en diagonal: paso, trote o galope según la velocidad

@@ -131,3 +131,21 @@ function cmunTick(dt){if(MODE!=='roma'||!state)return;const I=islandOf?islandOf(
   for(let i=0;i<CMUN.crowd.length;i+=3){const p=CMUN.crowd[i];if(p.userData.arms)p.userData.arms[0].rotation.x=-Math.max(0,Math.sin(t*4+i))*2.4;}
   if(!CMUN.said&&Math.hypot(player.x-CMUN.x,player.z-CMUN.z)<60){CMUN.said=true;toast('<span class="label">Munus</span><br>Hoy hay gladiadores: un murmillo, con casco de pez y escudo grande, contra un retiario, con red y tridente y la cabeza descubierta. Los combates los paga un magistrado o un notable de la ciudad para ganarse al pueblo. No todos acaban en muerte: un gladiador era caro, y el que había luchado bien podía salir vivo (missus) aunque perdiera.');}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{cmunTick(dt);}catch(e){}};}
+// ============================================================ AL ENTRAR EN UNA CIUDAD: su nombre en grande en el centro de la pantalla
+// Solo al cruzar las murallas (o al entrar en el núcleo urbano de los mapas sin muralla), no al llegar al mapa. En el modo Atenas
+// el nombre aparece primero en griego y, con un difuminado, se transforma en el del idioma del juego; en Roma, el nombre latino va encima.
+const CITYB={inside:null,t:0,timers:[]};
+function cityHere(){const x=player.x,z=player.z;
+  if(x<8000){if(MODE==='roma')return(typeof romaInUrbs==='function'&&romaInUrbs(x,z))?{k:'roma',n:'Roma',g:'ROMA',s:'La capital del Imperio: un millón de habitantes entre siete colinas y el Tíber.'}:null;
+    return(typeof insideWalls==='function'&&insideWalls(x,z,4))?{k:'atenas',n:'Atenas',g:'ΑΘΗΝΑΙ',s:'La ciudad de Atenea, al pie de la Acrópolis, unida al Pireo por los Muros Largos.'}:null;}
+  let I=null;try{I=islandOf(x);}catch(e){}if(!I||!I.town)return null;const T=I.town;if(Math.hypot(x-T.x,z-T.z)>(T.r||60)*0.85)return null;
+  return{k:I.id,n:I.name,g:I.gr||'',s:I.sub||''};}
+function cityShow(c){const b=$('cityB');if(!b)return;CITYB.timers.forEach(clearTimeout);CITYB.timers=[];const ro=MODE==='roma',greek=!ro&&/[Α-Ωα-ω]/.test(c.g);
+  b.className='';b.querySelector('.cl').textContent=greek?'':(c.g||'');b.querySelector('.cg').textContent=greek?c.g:'';b.querySelector('.cn').textContent=c.n;b.querySelector('.cs').textContent=c.s;
+  if(!greek)b.querySelector('.cn').style.cssText='opacity:1;filter:none;transform:none';else b.querySelector('.cn').style.cssText='';
+  void b.offsetWidth;b.classList.add('show');if(!greek)b.classList.add('lat');document.body.classList.add('cityOn');
+  if(greek)CITYB.timers.push(setTimeout(()=>b.classList.add('morph'),1700));
+  CITYB.timers.push(setTimeout(()=>{b.classList.remove('show');},greek?7000:5500),setTimeout(()=>{document.body.classList.remove('cityOn');},greek?8200:6700));}
+function cityTick(dt){if(!state||ui!=='play')return;const now=performance.now();if(now-CITYB.t<400)return;CITYB.t=now;const c=cityHere(),k=c?c.k:null;
+  if(k&&k!==CITYB.inside)cityShow(c);CITYB.inside=k;}
+{const f=uxTick;uxTick=function(dt){f(dt);try{cityTick(dt);}catch(e){}};}

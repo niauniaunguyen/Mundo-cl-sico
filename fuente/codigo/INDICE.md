@@ -44,7 +44,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `037_la_escuela_de_atenas_de.js` | 94 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
-| `040_caballo.js` | 343 | caballo |
+| `040_caballo.js` | 355 | caballo |
 | `041_dioses.js` | 193 | dioses |
 | `042_entrada.js` | 83 | entrada<br>interacción |
 | `043_bucle.js` | 99 | bucle<br>arranque |
@@ -56,7 +56,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `049_discipulos.js` | 391 | discípulos: escuelas, encargos y rivalidades<br>tutorial de los primeros segundos (una vez por partida) |
 | `050_calendario_de_fiestas.js` | 415 | calendario de fiestas: un año religioso condensado |
 | `051_conversaciones_que_se_oyen_por.js` | 93 | conversaciones que se oyen por la calle (el jugador solo escucha)<br>carreteros: en cada salida, por unas monedas te llevan hasta el borde del mapa |
-| `052_las_nueve_musas_mnemosine_y.js` | 1520 | las nueve Musas, Mnemósine y el Olimpo |
+| `052_las_nueve_musas_mnemosine_y.js` | 1524 | las nueve Musas, Mnemósine y el Olimpo |
 | `053_forastero_a.js` | 240 | forastero/a: patria, estatus legal (meteco / ciudadanía), hospitalidad, cuaderno de comparaciones y regreso (n |
 | `054_el_culto_domestico_romano.js` | 78 | el culto doméstico romano: Lares, Penates, Genio y Juno, Vesta y el hogar, Manes y Lemures |
 | `055_los_fastos.js` | 46 | los fastos: el calendario romano mes a mes (modo Roma) |
@@ -149,5 +149,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `143_creta_este.js` | 180 | CRETA (3): el este de la isla (modo Atenas, 386 a.C.) |
 | `144_creta_oeste.js` | 61 | CRETA (4): el oeste de la isla (modo Atenas, 386 a.C.) |
 | `145_creta_tercera.js` | 137 | CRETA (5): tercera tanda (modo Atenas, 386 a.C.) |
-| `146_atencion_mas.js` | 134 | MIRAR CON ATENCIÓN (5): edificios enteros, estatuas con nombre, puentes y ríos con su nombre<br>NADAR EN LOS RÍOS: flotar en la superficie (antes se caminaba por el fondo y el personaje desaparecía bajo el <br>ÁRBOLES: al suelo después de rebajar el terreno bajo los edificios, y fuera de las ínsulas<br>ROMA: barca en el Tíber, junto al Emporio, y Tiberino que te la señala<br>ESFERA DE SUEÑO EN CARTAGO: DIDO Y ENEAS (Eneida IV)<br>CARTAGO: un combate de gladiadores en el anfiteatro (vídeo: «estaría bien algún espectáculo») |
+| `146_atencion_mas.js` | 152 | MIRAR CON ATENCIÓN (5): edificios enteros, estatuas con nombre, puentes y ríos con su nombre<br>NADAR EN LOS RÍOS: flotar en la superficie (antes se caminaba por el fondo y el personaje desaparecía bajo el <br>ÁRBOLES: al suelo después de rebajar el terreno bajo los edificios, y fuera de las ínsulas<br>ROMA: barca en el Tíber, junto al Emporio, y Tiberino que te la señala<br>ESFERA DE SUEÑO EN CARTAGO: DIDO Y ENEAS (Eneida IV)<br>CARTAGO: un combate de gladiadores en el anfiteatro (vídeo: «estaría bien algún espectáculo»)<br>AL ENTRAR EN UNA CIUDAD: su nombre en grande en el centro de la pantalla |
 | `900_creta_y_arranque.js` | 631 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

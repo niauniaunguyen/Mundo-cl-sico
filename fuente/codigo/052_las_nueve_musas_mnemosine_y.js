@@ -211,7 +211,11 @@ function calNow(d){d=d||(state&&state.day)||1;const m=3+Math.floor((d-1)/SEASON_
 function regionName(){{const fz=fzIn();if(fz)return fz==='race'?(MODE==='roma'?'Un trigal del Lacio':'El estadio'):fz==='tel'?'Eleusis':player.z-6000>155?'Los Campos Elíseos':'Los Infiernos';}if(cavIn())return MODE==='roma'?'El Sueño de Escipión':player.z-CAV.Z<95?'La caverna':player.feet<CAV.Y+50?'Fuera de la caverna':'El mundo de las Ideas';if(player.feet>MOON.y-50)return 'La Luna';if(player.feet>CASA.Y-50)return 'Tu casa';if(OLYM.built&&player.feet>OLYM.y-50)return 'El Olimpo';const I=islandOf(player.x);return I?I.name:(MODE==='roma'?'Roma':'Atenas');}
 let hudKey='';
 function hudTitleTick(){if(!state)return;const c=calNow(),k=regionName()+'|'+c.season.id+'|'+c.year+'|'+!!storyHud;if(k===hudKey)return;hudKey=k;
-  $('hudTitle').textContent=(qLv('kl')>=2&&pjz()&&pjz().name?pjz().name+' · ':'')+regionName()+' · '+c.season.n+' del '+(MODE==='roma'?'año '+c.year+' d.C.':c.year+' a.C.')+(storyHud?' · Historia':'');applySeason(c.season);}
+  $('hudTitle').textContent=(qLv('kl')>=2&&pjz()&&pjz().name?pjz().name+' · ':'')+regionName()+' · '+c.season.n+' del '+(MODE==='roma'?'año '+c.year+' d.C.':c.year+' a.C.')+(storyHud?' · Historia':'');applySeason(c.season);hudPeek(7);}
+// el cartel de arriba a la izquierda aparece unos segundos al cambiar de ciudad o de estación y luego se recoge hacia arriba (menos ruido en pantalla);
+// también asoma si llevas el ratón a esa esquina
+let HUDP_T=null;function hudPeek(s){const e=$('stats');if(!e)return;e.classList.remove('hid');e.classList.add('show');clearTimeout(HUDP_T);HUDP_T=setTimeout(()=>{e.classList.remove('show');e.classList.add('hid');},(s||6)*1000);}
+addEventListener('mousemove',ev=>{const e=$('stats');if(!e||!e.classList.contains('hid')||document.pointerLockElement)return;if(ev.clientX<360&&ev.clientY<140)hudPeek(4);});
 let storyHud=false,seasonOn=null;const TERR_MATS=[];
 function applySeason(s){if(seasonOn===s.id)return;seasonOn=s.id;const f=new THREE.Color(s.fol);
   ['foliage','vine'].forEach(r=>{if(WHITE_ROLE[r])WHITE_ROLE[r].color.copy(f);if(ROLE_MAT[r])ROLE_MAT[r].color.set(ROLE_C[r]).multiply(f);});

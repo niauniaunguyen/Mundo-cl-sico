@@ -35,7 +35,7 @@ window.addEventListener('keydown',e=>{
   if(e.code==='KeyY'&&TLK.last&&TLK.last.d.isConnected){const L=TLK.last;TLK.last=null;L.d.remove();toastOpen(L.T);return;}   // abrir el último aviso
   if(KMAP[e.code]){keys[KMAP[e.code]]=true;e.preventDefault();}
   if(e.code==='Space'&&!e.repeat)jump();
-  if(e.code==='KeyE'){if(BOAT.on)boatExit();else interact();}
+  if(e.code==='KeyE'){if(BOAT.on)boatExit();else if(typeof horseNear==='function'&&horseNear()&&hz().own&&(!focus||Math.hypot(focus.x-player.x,focus.z-player.z)>2.5))mountHorse();else interact();}
   if(e.code==='Enter'&&NET.room){e.preventDefault();netChatOpen();return;}
   if(e.code==='KeyG'&&storyOn())storyGo();
   if(e.code==='KeyX')toggleWings();

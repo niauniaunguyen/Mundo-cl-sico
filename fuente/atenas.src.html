@@ -34,6 +34,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0
 /* HUD */
 #hud{position:absolute;inset:0;pointer-events:none}
 #stats{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:4px;padding:10px 14px;background:rgba(22,16,12,.72);border-left:2px solid var(--clay);font-variant-numeric:tabular-nums}
+#stats{transition:transform .7s cubic-bezier(.5,0,.75,0),opacity .7s ease-in}#stats.hid{transform:translateY(calc(-100% - 40px));opacity:0;pointer-events:none}#stats.show{transition:transform .5s cubic-bezier(.2,.8,.3,1),opacity .4s ease-out}
 #stats .t{font-family:var(--f-display);font-size:1.05rem;color:var(--bone);letter-spacing:.04em}
 #stats .row{display:flex;gap:14px;font-size:.88rem;color:var(--clay-soft);align-items:baseline}
 #tut{position:absolute;top:calc(64px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(440px,calc(100% - 32px));background:rgba(22,16,12,.88);border:1px solid var(--clay);padding:12px 16px 10px;text-align:center;z-index:7;box-shadow:0 6px 24px rgba(0,0,0,.4)}
@@ -50,6 +51,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0
 #compass .c.minor{color:var(--muted);font-size:.7rem;top:8px}
 #compass .c.obj{color:var(--clay);font-size:1rem;top:3px}
 #compass::after{content:"";position:absolute;left:50%;bottom:0;width:2px;height:7px;background:var(--clay);transform:translateX(-50%)}
+#cityB{position:absolute;top:36%;left:0;right:0;text-align:center;pointer-events:none;opacity:0;transition:opacity 1.2s}
+#cityB.show{opacity:1}
+#cityB .cw{position:relative;height:clamp(3.2rem,9vw,6rem)}
+#cityB .cg,#cityB .cn{position:absolute;left:0;right:0;top:0;font-family:var(--f-display);font-size:clamp(2.6rem,8vw,5.4rem);line-height:1.1;color:var(--bone);letter-spacing:.08em;text-shadow:0 3px 22px rgba(0,0,0,.75);transition:opacity 1.6s ease,filter 1.6s ease,transform 1.6s ease}
+#cityB .cg{font-family:"GFS Didot","Palatino Linotype",Georgia,serif;color:#f3dfb8}
+#cityB .cn{opacity:0;filter:blur(14px);transform:scale(1.04)}
+#cityB.morph .cg{opacity:0;filter:blur(14px);transform:scale(.97)}
+#cityB.morph .cn{opacity:1;filter:blur(0);transform:none}
+#cityB .cs{margin:14px auto 0;max-width:min(620px,86vw);color:var(--bone);font-style:italic;font-size:clamp(1rem,2.2vw,1.25rem);text-shadow:0 1px 10px rgba(0,0,0,.95);opacity:0;transition:opacity 1.2s .4s}
+#cityB.morph .cs,#cityB.lat .cs{opacity:1}
+#cityB .cl{font-family:var(--f-display);color:var(--clay-soft);letter-spacing:.35em;font-size:clamp(.8rem,1.6vw,1rem);margin-bottom:6px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+body.cityOn #zone{opacity:0!important}
 #zone{position:absolute;top:22%;left:0;right:0;text-align:center;opacity:0;transition:opacity .8s}
 #zone.show{opacity:1}
 #zone .zn{font-family:var(--f-display);font-size:clamp(1.8rem,5vw,3.2rem);color:var(--bone);text-shadow:0 2px 14px rgba(0,0,0,.7);letter-spacing:.06em}
@@ -387,6 +400,7 @@ body.tm #toast{bottom:auto;top:calc(170px + env(safe-area-inset-top,0px));right:
       <div id="objective"></div>
     </div>
     <div id="compass"></div>
+    <div id="cityB"><div class="cl"></div><div class="cw"><div class="cg"></div><div class="cn"></div></div><div class="cs"></div></div>
     <div id="zone"><div class="zg"></div><div class="zn"></div><div class="zs"></div></div>
     <div id="cross"></div>
     <div id="prompt" hidden></div>
