@@ -23222,7 +23222,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='a4896f3ca658';
+const NOSTOS_VER='bba78823b142';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27382,6 +27382,154 @@ function dzNearPlace(){let b=null,bd=80;for(const p of PLACES){const d=Math.hypo
 // ---------------------------------------------------------------- reloj
 {const f=uxTick;uxTick=function(dt){f(dt);if(!state||ui==='start')return;DZ.t+=dt;
   if(DZ.t<0.5)return;DZ.t=0;try{if(ui==='play'){dzTrail();dzCivicTick();dzRetoTick();}dzMuffle();if(DZ.big!==!!ACC.bigBtn){DZ.big=!!ACC.bigBtn;dzBig();}}catch(e){}};}
+// ============================================================ APRENDER HACIENDO (1): votar en la Asamblea (Atenas) y asistir al Senado (Roma)
+// El contenido va dentro de la mecánica: para votar bien hay que entender el procedimiento y los argumentos.
+// Atenas, 386 a.C.: la Asamblea se reúne en la Pnyx los días de Asamblea (151_diez_ideas.js, dzCivic). Purificación con un lechón, el heraldo pregunta «¿Quién quiere hablar?»,
+// el Consejo trae un proboúleuma, se vota a mano alzada (cheirotonía) y los próedros juzgan la mayoría (Aristóteles, Const. de los atenienses 43-44; Esquines I 23; Aristófanes, Acarnienses 43-45).
+// Roma, 80 d.C.: el Senado se reúne en calendas e idus; Augusto dejó que los hijos de senadores asistieran (Suetonio, Augusto 38.2). El cónsul hace la relatio, pide las sententiae por rango y se vota por discessio.
+function asz(){if(!state.asm||typeof state.asm!=='object')state.asm={done:{},votes:0,ok:0};return state.asm;}
+const AS_ISSUES={
+ atenas:[
+  {id:'paz',t:'La paz que manda el Rey',pb:'El Consejo trae a la Asamblea el texto que el sátrapa Tiribazo leyó en Sardes con el sello del Rey de Persia: las ciudades de Asia y Chipre serán del Rey; las demás ciudades griegas, autónomas; Lemnos, Imbros y Esciros seguirán siendo de Atenas. Quien no acepte, tendrá guerra con el Rey.',
+   sp:[['Un orador del partido de la paz','«Atenienses: la flota de Antálcidas cierra el Helesponto. Sin el trigo del mar Negro, el pan sube cada día. La paz nos deja las islas y nos devuelve el trigo. Aceptémosla.»','si'],
+       ['Un orador contrario a la paz','«¿Y los griegos de Jonia? ¿Y Evágoras de Chipre, nuestro amigo? Esta paz no es del Rey: es de Esparta, que la hará cumplir a su antojo. Votad que no.»','no']],
+   q:'¿Qué votas?',hist:'si',
+   end:'En la historia, Atenas aceptó la paz en el 387/386 a.C., agotada por la guerra y sin trigo. Se la llamó Paz del Rey o Paz de Antálcidas. Esparta la usó para imponerse en Grecia durante quince años.',
+   src:'Jenofonte, Helénicas V 1, 25-36; Diodoro XIV 110.'},
+  {id:'proxenia',t:'Honores para un mercader',pb:'El Consejo propone elogiar a Hegesandro de Quíos, que en el invierno trajo trigo al Pireo y lo vendió al precio de siempre cuando los demás lo subían: corona de olivo, título de próxeno y benefactor del pueblo ateniense, y su nombre en una estela en la Acrópolis.',
+   sp:[['Un prítano, a favor','«Quien ayuda a la ciudad cuando el pan escasea merece que se sepa. Así otros mercaderes querrán venir a nuestro puerto.»','si'],
+       ['Un viejo labrador, en contra','«¿Coronas para un extranjero que ya ganó dinero? Que le den las gracias y basta.»','no']],
+   q:'¿Votas los honores?',hist:'si',
+   end:'Este decreto es imaginado, pero del tipo que se conserva por decenas: Atenas honraba con la proxenía y con estelas a los extranjeros que la ayudaban, sobre todo con el trigo. El próxeno cuidaba de los atenienses en su ciudad.',
+   src:'IG II² 1-100 (decretos de proxenía del siglo IV); Demóstenes XX 29-40 (honores a Leucón del Bósforo por el trigo).'},
+  {id:'estrategos',t:'La elección de los estrategos',pb:'Hoy se eligen los diez estrategos del año. Es de los pocos cargos que no se sortean: la guerra pide gente que sepa.',
+   sp:[['Partidarios de Cabrias','«Cabrias venció a los espartanos en Egina el año pasado: sabe mandar hoplitas y barcos.»','a'],
+       ['Partidarios de Ifícrates','«Ifícrates destrozó una mora espartana con sus peltastas cerca de Corinto. ¡Nadie conoce mejor la guerra ligera!»','b']],
+   q:'¿A quién das tu mano?',choices:[[_t(560,'Cabrias'),'a'],[_t(543,'Ifícrates'),'b'],['A los dos: hay diez puestos','c']],hist:'c',
+   end:'Pregunta con trampa: se eligen diez estrategos y se puede votar a muchos. Cabrias e Ifícrates fueron elegidos estrategos de Atenas muchas veces a lo largo de su vida. Lo importante: los cargos que exigen pericia se votan; casi todos los demás, se sortean.',
+   src:'Aristóteles, Const. de los atenienses 44, 4 y 61, 1; Jenofonte, Helénicas IV 5, 11-18 (Ifícrates en Lequeo) y V 1, 10-13 (Cabrias en Egina).'}],
+ roma:[
+  {id:'campania',t:'Ayuda para Campania',pb:'El cónsul hace la relatio: el año pasado el Vesubio sepultó ciudades de Campania. El emperador Tito propone que se elijan, entre los antiguos cónsules, unos curatores para reconstruir la región, y que los bienes de las víctimas que murieron sin herederos se usen para ello.',
+   sp:[['Un consular, primero en opinar','«Padres conscriptos: que se nombren por sorteo entre los consulares, como quiere el príncipe, y que se haga ya.»','a'],
+       ['Un senador joven','«Que los nombre el Senado votando a los más capaces.»','b']],
+   q:'Tu padre te pregunta en voz baja: «¿Qué sententia crees que ganará?»',choices:[['La del sorteo entre consulares','a'],['La de votarlos','b']],hist:'a',
+   end:'Suetonio cuenta que Tito sacó a suertes a los curatores entre los consulares y destinó a la reconstrucción los bienes de los muertos sin herederos. En el Senado del Imperio, lo que propone el príncipe casi siempre se aprueba.',
+   src:'Suetonio, Tito 8, 3-4; Dion Casio LXVI 24.'},
+  {id:'incendio',t:'Después del incendio',pb:'El cónsul informa del incendio de este año: tres días y tres noches; ardieron el templo de Júpiter en el Capitolio, el Panteón y muchos edificios. Se pregunta al Senado cómo reconstruir.',
+   sp:[['Un senador','«Que paguen las ciudades de Italia, como en otras ocasiones.»','b'],
+       ['Otro senador','«El príncipe ha dicho que cargará él con los daños: que se le den las gracias y se apruebe.»','a']],
+   q:'¿Qué propuesta crees que se aprueba?',choices:[['Agradecer al príncipe, que paga','a'],['Que paguen las ciudades de Italia','b']],hist:'a',
+   end:'Tito declaró que todo el daño correría de su cuenta: quitó los adornos de sus propias villas para los templos y edificios públicos. Votar en el Senado se hacía por discessio: los senadores se movían al lado del que había propuesto la sententia.',
+   src:'Suetonio, Tito 8, 4; Dion Casio LXVI 24.'},
+  {id:'quorum',t:'Cómo vota el Senado',pb:'Hoy hay pocos asuntos. El cónsul pide las sententiae en orden: primero los consulares, después los antiguos pretores, y así hacia abajo.',
+   sp:[['Tu padre te explica','«¿Ves? Los jóvenes casi nunca llegan a hablar: cuando les toca, todo está decidido. Por eso se dice que son pedarii: votan con los pies.»','a']],
+   q:'¿Por qué se llamaba pedarii a los senadores de menor rango?',choices:[['Porque votaban moviéndose de un lado a otro de la sala','a'],['Porque iban a pie a la Curia, y no en carro','b']],hist:'a',hist2:'b',
+   end:'Las dos respuestas son antiguas. Aulo Gelio recoge que se llamaba así a los que no habían tenido una magistratura curul (e iban a pie, no en carro), y también que, sin turno para hablar, votaban «con los pies»: en la discessio caminaban hasta el lado de la propuesta que apoyaban.',
+   src:'Aulo Gelio, Noches áticas III 18; Suetonio, Augusto 35 y 38.'}]};
+function asNext(){const z=asz(),L=AS_ISSUES[MODE==='roma'?'roma':'atenas'];return L.find(i=>!z.done[i.id])||L[(state.day||1)%L.length];}
+function asOpen(){const ro=MODE==='roma',C=dzCivic(),on=C&&clock.h>=C.h0&&clock.h<C.h1;
+  if(!on){let d=0;for(let k=1;k<30;k++){const s=state.day;state.day=s+k;const c=dzCivic();state.day=s;if(c){d=k;break;}}
+    vmS(ro?'S':'Ε',ro?'La Curia':'La Pnyx',ro?'el Senado no se reúne hoy':'hoy no hay Asamblea',ro?'<p>Las puertas de bronce de la Curia están cerradas. El Senado se reúne en las <b>calendas</b> y en los <b>idus</b> de cada mes, por la mañana.</p><p class="sub">Próxima sesión: dentro de '+d+' día'+(d>1?'s':'')+'. Ven entre la hora primera y la sexta.</p>'
+      :'<p>La ladera está vacía: solo el viento y las piedras de la tribuna. La Asamblea se reúne unas cuarenta veces al año, al amanecer.</p><p class="sub">Próxima Asamblea: dentro de '+d+' día'+(d>1?'s':'')+', de las 6 a las 12 h.</p>',[vmBye]);return;}
+  const I=asNext();asStep(I,0,null);}
+function asStep(I,k,mine){const ro=MODE==='roma',gl=ro?'S':'Ε',nm=ro?'El Senado':'La Asamblea';
+  if(k===0){vmS(gl,nm,I.t,(ro?'<p>Entras con tu padre: los hijos de senadores pueden escuchar desde un lado. Se ofrece incienso y vino en el altar de la Victoria; el cónsul toma los auspicios.</p>'
+      :'<p>Los purificadores llevan un lechón alrededor de la asamblea y riegan su sangre. El heraldo maldice a quien engañe al pueblo. Recibes la ficha que te dará la paga: tres óbolos.</p>')+'<p><b>'+(ro?'Relatio del cónsul':'Propuesta del Consejo')+':</b> '+I.pb+'</p>',[[_t(2799,'Seguir'),()=>asStep(I,1,null)]]);return;}
+  if(k===1){const btn=I.sp.map((s,i)=>['Escuchar: '+s[0],()=>{$('dBody').innerHTML='<p><b>'+s[0]+'</b></p><p>'+s[1]+'</p>';}]);
+    if(!ro)btn.push(['Pedir la palabra tú (Lógos '+qLv('lo')+')',()=>asSpeak(I)]);btn.push(['Pasar a la votación',()=>asStep(I,2,mine)]);
+    vmS(gl,nm,I.t,'<p>'+(ro?'El cónsul pide las sententiae por orden de rango.':'El heraldo pregunta: «<b>¿Quién quiere hablar?</b>» (Τίς ἀγορεύειν βούλεται;)')+'</p>',btn);return;}
+  if(k===2){const ch=I.choices||[['Levantar la mano a favor','si'],['Levantar la mano en contra','no']];
+    vmS(gl,nm,I.t,'<p>'+I.q+'</p>'+(ro?'':'<p class="sub">Se vota a mano alzada; los próedros calculan a ojo la mayoría.</p>'),ch.map(c=>[c[0],()=>asEnd(I,c[1],mine)]));}}
+function asSpeak(I){const lv=qLv('lo'),good=lv>=3||Math.random()<0.35+lv*0.12;
+  $('dBody').innerHTML='<p>Subes a la tribuna de piedra, el <b>bema</b>, y te pones la corona de mirto del orador.</p>'+(good?'<p>Hablas claro y breve; algunos asienten, otros silban. Has dicho lo que piensas ante seis mil ciudadanos.</p><p class="sub">+1 Lógos</p>':'<p>Te tiembla la voz; los arqueros escitas no llegan a bajarte, pero las risas te ahogan. Así le pasó a más de uno, cuenta Platón (Protágoras 319c).</p>');
+  if(good)qAdd('lo',1,'Hablaste en la Asamblea');}
+function asEnd(I,v,mine){const z=asz(),ro=MODE==='roma',first=!z.done[I.id];z.done[I.id]=1;z.votes++;const ok=v===I.hist||v===I.hist2;if(ok)z.ok++;save();
+  if(first){qAdd('so',1,ro?'Asististe al Senado':'Votaste en la Asamblea');if(!ro){state.obols+=3;updateStats();}}
+  vmS(ro?'S':'Ε',ro?'El Senado':'La Asamblea','resultado',(ro?(ok?'<p>¡Acertaste! La mayoría se pasa al lado de esa sententia.</p>':'<p>No: la mayoría se pasa al otro lado de la sala.</p>')
+    :(v==='c'?'<p>Votas a los dos, como muchos otros.</p>':'<p>Levantas la mano. Los próedros miran la ladera y anuncian el resultado.</p>'))+'<p>'+I.end+'</p><p class="sub">Fuentes: '+I.src+(first&&!ro?' · +3 óbolos de paga':'')+'</p>',[vmBye]);}
+// la tribuna de la Pnyx y la puerta de la Curia
+function asSetup(){const ro=MODE==='roma';let x,z;if(ro){const p=PLACES.find(q=>q.id==='ro_curia');if(!p)return;const f=findFree(p.x,p.z+12,1);if(!f)return;[x,z]=f;}
+  else{if(typeof PNYX==='undefined')return;const f=findFree(PNYX.x,PNYX.z-(PNYX.rz||20)*0.6,1);if(!f)return;[x,z]=f;}
+  egxObj(x,z,undefined,'asm:open',ro?'La Curia':'La tribuna de la Pnyx',ro?'el Senado, en calendas e idus':'la Asamblea del pueblo',3.4);}
+{const f=egxAct0;egxAct0=function(o){if(String(o.act).startsWith('asm:'))return asOpen();return f(o);};}
+// ============================================================ APRENDER HACIENDO (2): el taller del templo — señalar las piezas para repararlo
+// Atenas: un cantero del taller de la Acrópolis repasa el orden dórico del Partenón (Vitruvio IV 1-3). Roma: el contratista (redemptor) de la obra del Capitolio,
+// quemado este año, necesita que reconozcas las piezas de un templo romano: podio alto y escalinata solo delante, a diferencia del templo griego (Vitruvio III 4 y IV 7).
+function ttz2(){if(!state.tal||typeof state.tal!=='object')state.tal={best:{},done:0};return state.tal;}
+const TAL_PARTS={
+ atenas:{acrotera:['la acrótera','el adorno que corona el vértice y las esquinas del frontón'],fronton:['el frontón','el triángulo de la fachada; dentro, el tímpano con esculturas'],cornisa:['la cornisa','la moldura que sobresale y protege de la lluvia'],
+  triglifo:['un triglifo','la placa con tres bandas verticales del friso dórico'],metopa:['una metopa','la placa lisa o esculpida entre dos triglifos'],arquitrabe:['el arquitrabe','la viga de piedra lisa que descansa sobre los capiteles'],
+  capitel:['un capitel','la cabeza de la columna: en el dórico, un cojín (equino) y una losa (ábaco)'],fuste:['un fuste','el cuerpo de la columna, con estrías; el dórico no tiene basa'],crepidoma:['el crepidoma','los tres escalones de la base; el de arriba es el estilóbato']},
+ roma:{fronton:['el frontón','el triángulo de la fachada'],cornisa:['la cornisa','la moldura saliente que corona el templo'],friso:['el friso','la banda entre arquitrabe y cornisa, a menudo con una inscripción'],arquitrabe:['el arquitrabe','la viga sobre los capiteles'],
+  capitel:['un capitel corintio','la cabeza de la columna, con hojas de acanto'],fuste:['un fuste','el cuerpo de la columna'],basa:['una basa','el pie moldurado de la columna'],podio:['el podio','la plataforma alta de piedra: el templo romano se alza sobre ella'],escalinata:['la escalinata','la única escalera, solo por delante, que sube al podio']}};
+function talSVG(ro){const P=(k,inner)=>'<g class="tp" data-p="'+k+'">'+inner+'</g>',st='fill:#e8dfcc;stroke:#5a4a3a;stroke-width:1.2';let s='<svg viewBox="0 0 400 300" style="width:100%;max-width:620px;display:block;margin:0 auto;background:#1e1712;border-radius:10px">';
+  if(!ro){s+=P('acrotera','<path d="M192 24 L200 12 L208 24 Z" style="'+st+'"/><path d="M52 95 L52 84 L62 95 Z" style="'+st+'"/><path d="M348 95 L348 84 L338 95 Z" style="'+st+'"/>');
+    s+=P('fronton','<path d="M62 95 L200 30 L338 95 Z" style="'+st+';fill:#7a96b0"/>');s+=P('cornisa','<rect x="48" y="95" width="304" height="9" style="'+st+'"/>');
+    let tr='',me='';for(let i=0;i<13;i++){const x=56+i*22.5;tr+='<rect x="'+x+'" y="104" width="9" height="22" style="'+st+';fill:#4a6a8a"/>';if(i<12)me+='<rect x="'+(x+9)+'" y="104" width="13.5" height="22" style="'+st+';fill:#c98a5a"/>';}
+    s+=P('triglifo',tr)+P('metopa',me);s+=P('arquitrabe','<rect x="54" y="126" width="292" height="16" style="'+st+'"/>');
+    let ca='',fu='';for(let i=0;i<6;i++){const x=78+i*48.8;ca+='<rect x="'+(x-15)+'" y="142" width="30" height="5" style="'+st+'"/><path d="M'+(x-14)+' 147 Q'+x+' 158 '+(x+14)+' 147 Z" style="'+st+'"/>';fu+='<path d="M'+(x-11)+' 153 L'+(x-13)+' 252 L'+(x+13)+' 252 L'+(x+11)+' 153 Z" style="'+st+'"/>';for(let k=-1;k<=1;k++)fu+='<line x1="'+(x+k*5)+'" y1="156" x2="'+(x+k*6)+'" y2="250" stroke="#8a7a6a" stroke-width="0.8"/>';}
+    s+=P('capitel',ca)+P('fuste',fu);s+=P('crepidoma','<rect x="44" y="252" width="312" height="10" style="'+st+'"/><rect x="36" y="262" width="328" height="10" style="'+st+'"/><rect x="28" y="272" width="344" height="10" style="'+st+'"/>');}
+  else{s+=P('fronton','<path d="M84 70 L200 26 L316 70 Z" style="'+st+';fill:#a8392b"/>');s+=P('cornisa','<rect x="78" y="70" width="244" height="8" style="'+st+'"/>');
+    s+=P('friso','<rect x="84" y="78" width="232" height="15" style="'+st+';fill:#d9c9a8"/><text x="200" y="89" text-anchor="middle" font-size="8" fill="#5a3a22" font-family="Georgia">I · O · M</text>');s+=P('arquitrabe','<rect x="84" y="93" width="232" height="11" style="'+st+'"/>');
+    let ca='',fu='',ba='';for(let i=0;i<6;i++){const x=104+i*38.4;ca+='<path d="M'+(x-13)+' 104 L'+(x+13)+' 104 L'+(x+9)+' 118 L'+(x-9)+' 118 Z" style="'+st+'"/><ellipse cx="'+(x-5)+'" cy="114" rx="4" ry="3" fill="#7a8a5a"/><ellipse cx="'+(x+5)+'" cy="114" rx="4" ry="3" fill="#7a8a5a"/><ellipse cx="'+x+'" cy="110" rx="4" ry="3" fill="#7a8a5a"/>';
+      fu+='<rect x="'+(x-8)+'" y="118" width="16" height="84" style="'+st+'"/>';ba+='<rect x="'+(x-11)+'" y="202" width="22" height="6" style="'+st+'"/>';}
+    s+=P('capitel',ca)+P('fuste',fu)+P('basa',ba);s+=P('podio','<rect x="60" y="208" width="70" height="72" style="'+st+';fill:#bfb29a"/><rect x="270" y="208" width="70" height="72" style="'+st+';fill:#bfb29a"/><rect x="60" y="208" width="280" height="6" style="'+st+';fill:#bfb29a"/>');
+    let es='';for(let k=0;k<11;k++)es+='<rect x="'+(130-k*0)+'" y="'+(214+k*6)+'" width="140" height="6" style="'+st+';fill:#d8ccb4"/>';s+=P('escalinata',es);}
+  return s+'</svg>';}
+function talOpen(){const ro=MODE==='roma',z=ttz2();vmS('⚒',ro?'El redemptor de la obra':'Un cantero de la Acrópolis',ro?'contratista de la reconstrucción del Capitolio':'taller de mármol junto al Partenón',
+  ro?'<p>«¿Ves esto? El fuego lo ha dejado todo negro y roto. Vamos a reconstruir el templo de Júpiter, y necesito gente que sepa distinguir las piezas: si me traes un fuste cuando te pido un capitel, perdemos un día. ¿Me ayudas?»</p>'
+    :'<p>«Aquí reparamos lo que el tiempo y los rayos rompen. Para ayudar en el taller hay que saber cómo se llama cada piedra del orden dórico. Te pido una pieza y tú me la señalas en el dibujo. ¿Te atreves?»</p>'+(z.best[MODE]!==undefined?'<p class="sub">Tu mejor marca: '+z.best[MODE]+' aciertos a la primera.</p>':''),
+  [['Señalar las piezas',()=>{closeDialog();talGame();}],vmBye]);}
+function talGame(){const ro=MODE==='roma',D=TAL_PARTS[ro?'roma':'atenas'],keys=Object.keys(D).sort(()=>Math.random()-0.5);let i=0,first=0,miss=false,wait=false;
+  const o=eduOverlay('talBox',ro?'Las piezas del templo romano':'Las piezas del orden dórico','<p id="talQ" style="font-size:1.15em;text-align:center"></p>'+talSVG(ro)+'<p id="talF" style="text-align:center;min-height:2.6em"></p><style>#talBox .tp{cursor:pointer}#talBox .tp:hover>*{filter:brightness(1.25)}#talBox .tp.ok>*{fill:#7fbf6a!important}</style>');
+  const ask=()=>{wait=false;if(i>=keys.length)return talEnd(first,keys.length);miss=false;$('talQ').innerHTML='Señala '+'<b>'+D[keys[i]][0]+'</b> ('+(i+1)+'/'+keys.length+')';};
+  o.querySelectorAll('.tp').forEach(g=>g.onclick=()=>{const k=g.dataset.p,want=keys[i];if(!want||wait)return;
+    if(k===want){g.classList.add('ok');if(!miss)first++;$('talF').innerHTML='✓ '+D[k][0][0].toUpperCase()+D[k][0].slice(1)+': '+D[k][1]+'.';try{sfxTap();}catch(e){}wait=true;setTimeout(()=>{i++;ask();},700);}
+    else{miss=true;$('talF').innerHTML='✗ Eso es '+D[k][0]+': '+D[k][1]+'. Busca '+D[want][0]+'.';}});ask();}
+function talEnd(n,N){const ro=MODE==='roma',z=ttz2(),firstTime=!z.done;z.done=(z.done||0)+1;z.best[MODE]=Math.max(z.best[MODE]||0,n);save();$('talBox')&&$('talBox').remove();
+  if(firstTime){state.obols+=5;updateStats();qAdd('so',1,'Aprendiste las piezas del templo');}if(n===N)qAdd('ar',1,'Sin un fallo en el taller');
+  vmS('⚒',ro?'El redemptor':'El cantero',n+' de '+N+' a la primera',(n===N?'<p>«¡Sin un fallo! Mañana empiezas en la obra.»</p>':'<p>«No está mal. Con la práctica, se te quedarán.»</p>')+'<p>Una última pregunta: ¿qué distingue a un templo romano de uno griego?</p>'+(firstTime?'<p class="sub">+5 '+(ro?'sestercios':_t(2607,'óbolos'))+', +1 Sophía</p>':''),
+   [['Que se alza sobre un podio alto y solo se sube por delante',()=>talCmp(true)],['Que tiene columnas',()=>talCmp(false)],['Que tiene frontón',()=>talCmp(false)]]);}
+function talCmp(ok){vmS('⚒',MODE==='roma'?'El redemptor':'El cantero','griego y romano','<p>'+(ok?'Exacto. ':'No: los dos tienen columnas y frontón. ')+'El templo griego se apoya en un crepidoma de escalones que se puede subir por cualquier lado y tiene columnas alrededor. El romano, heredero del etrusco, se alza sobre un <b>podio</b> alto, con una sola <b>escalinata</b> delante y un pórtico profundo: el templo «mira» a la plaza. Fíjate en el Partenón y en el Capitolio.</p><p class="sub">Fuente: Vitruvio III 4 y IV 7 (el templo toscano).</p>',[['Otra vez',()=>{closeDialog();talGame();}],vmBye]);}
+function talSetup(){const ro=MODE==='roma';let f=null;
+  if(ro){const fp=(footprints||[]).find(q=>q.name===_t(4480,'Templo de Júpiter Óptimo Máximo'));if(fp)f=findFree(fp.x-14,fp.z+44,1);}
+  else{const fp=(footprints||[]).find(q=>q.name===_t(10,'Partenón'));if(fp){const p=toW(9,42,fp.x,fp.z,fp.a||0);f=findFree(p[0],p[1],1);}}
+  if(!f)return;const[x,z]=f,y=floorAt(x,z);const p=makePerson({noVary:true,chiton:'#b8a888',short:true,noHimation:true,hair:'#5a4a3a',beard:!ro});p.position.set(x,y,z);p.rotation.y=R()*TAU;scene.add(p);
+  const g=grp(x+1.4,y,z+0.6,0);box(1.2,0.7,0.8,lam('#e8dfcc'),0,0.35,0,g);box(0.9,0.5,0.9,lam('#d8ccb4'),1.2,0.25,0.3,g);addCirc(x+1.4,z+0.6,0.9);
+  egxObj(x,z,y,'tal:open',ro?'El redemptor de la obra':'Un cantero','las piezas del templo',3);}
+{const f=egxAct0;egxAct0=function(o){if(String(o.act).startsWith('tal:'))return talOpen();return f(o);};}
+// ============================================================ PROBAR CON ALUMNOS: dónde se atascan, encuesta breve e informe, y menos texto al empezar
+// Todo se guarda solo en el navegador del alumno (state.pt). Nada se envía a ningún sitio: el informe se descarga y lo entrega quien quiera.
+// ?prueba=1 en el enlace muestra el botón «Terminar la prueba» con la encuesta. Los atascos: 2 minutos de juego sin salir de un radio de 12 m ni hablar con nadie.
+function ptz(){if(!state.pt||typeof state.pt!=='object')state.pt={play:0,dlg:0,qok:0,qko:0,stuck:[],map:0,surv:null,t0:Date.now()};return state.pt;}
+const PT={ax:null,az:null,at:0,dlgAt:0,on:/[?&]prueba=1/.test(location.search),btn:null,brief:false,lvl0:undefined};
+function ptPlace(){try{const p=dzNearPlace();return(p?p.name+' · ':'')+regionName();}catch(e){return regionName();}}
+function ptTick(dt){const z=ptz();if(ui!=='play')return;z.play+=dt;
+  if(PT.ax===null||Math.hypot(player.x-PT.ax,player.z-PT.az)>12){PT.ax=player.x;PT.az=player.z;PT.at=0;return;}PT.at+=dt;
+  if(PT.at>120&&performance.now()-PT.dlgAt>120000){const w=ptPlace(),last=z.stuck[z.stuck.length-1];if(last&&last.w===w)last.m+=2;else z.stuck.push({w,m:2,t:Math.round(z.play/60)});if(z.stuck.length>40)z.stuck.shift();PT.at=0;}}
+{const f=openDialog;openDialog=function(n){PT.dlgAt=performance.now();try{ptz().dlg++;}catch(e){}return f(n);};}
+{const f=answer;answer=function(ok){try{ok?ptz().qok++:ptz().qko++;}catch(e){}return f.apply(this,arguments);};}
+{const f=openMap;openMap=function(){try{ptz().map++;}catch(e){}return f.apply(this,arguments);};}
+function ptText(){const z=ptz(),L=['','— Sesión de prueba —','Tiempo de juego: '+Math.round(z.play/60)+' min · diálogos abiertos: '+z.dlg+' · plano abierto: '+z.map+' veces','Preguntas: '+z.qok+' acertadas, '+z.qko+' falladas'];
+  if(z.stuck.length){L.push('Dónde se quedó parado más de 2 minutos sin hablar con nadie:');for(const s of z.stuck)L.push(' - '+s.w+' (unos '+s.m+' min, hacia el minuto '+s.t+')');}else L.push('No se ha quedado atascado en ningún sitio.');
+  const S=z.surv;if(S){L.push('','— Encuesta —','¿Te has divertido? '+S.fun+'/5','¿Has sabido qué hacer? '+S.clear+'/5','Lo que más te ha gustado: '+(S.like||'—'),'Dónde te has perdido o aburrido: '+(S.lost||'—'),'Algo que has aprendido: '+(S.learn||'—'));}
+  return L.join('\n');}
+{const f=dzReport;dzReport=function(){return f()+'\n'+ptText();};}
+function ptSurvey(then){const sc=k=>'<div style="display:flex;gap:6px;margin:6px 0 14px">'+[1,2,3,4,5].map(v=>'<button data-'+k+'="'+v+'" style="width:44px;height:44px;border-radius:50%;border:1px solid #c98a4a;background:#2a1e14;color:#f3e6cf;font:inherit;font-size:1.1em;cursor:pointer">'+v+'</button>').join('')+'</div>';
+  const ta=(id,ph)=>'<textarea id="'+id+'" rows="2" placeholder="'+ph+'" style="width:100%;box-sizing:border-box;background:#1e1712;color:#f3e6cf;border:1px solid #6a4a30;border-radius:8px;padding:8px;font:inherit;margin:4px 0 12px"></textarea>';
+  const o=eduOverlay('ptBox','Encuesta breve','<div style="max-width:560px;margin:0 auto"><p>Cuatro preguntas. No hay respuestas buenas ni malas: sirven para mejorar el juego.</p><p>¿Te has divertido?</p>'+sc('fun')+'<p>¿Has sabido en todo momento qué hacer?</p>'+sc('clear')+
+    '<p>¿Qué es lo que más te ha gustado?</p>'+ta('ptLike','Escribe aquí…')+'<p>¿Dónde te has perdido o aburrido?</p>'+ta('ptLost','Escribe aquí…')+'<p>Di una cosa que hayas aprendido.</p>'+ta('ptLearn','Escribe aquí…')+
+    '<button id="ptGo" style="padding:10px 18px;border-radius:8px;border:1px solid #c98a4a;background:#c98a4a;color:#1e1712;font:inherit;cursor:pointer">Enviar al informe y descargarlo</button></div>');
+  const S={fun:0,clear:0};for(const k of['fun','clear'])o.querySelectorAll('button[data-'+k+']').forEach(b=>b.onclick=()=>{S[k]=+b.dataset[k];o.querySelectorAll('button[data-'+k+']').forEach(x=>x.style.background=+x.dataset[k]<=S[k]?'#c98a4a':'#2a1e14');});
+  $('ptGo').onclick=()=>{S.like=$('ptLike').value.trim();S.lost=$('ptLost').value.trim();S.learn=$('ptLearn').value.trim();ptz().surv=S;save();o.remove();dzDownload();if(then)then();};}
+{const f=lrnSummary;lrnSummary=function(){f.apply(this,arguments);try{const B=$('lrnBox');if(!B||B.querySelector('.ptSv'))return;const b=document.createElement('button');b.className='ptSv';b.textContent='Encuesta breve (para mejorar el juego)';b.style.cssText='margin:10px 0 0 8px;padding:8px 14px;border-radius:8px;border:1px solid #6a4a30;background:#1e1712;color:#f3e6cf;font:inherit;cursor:pointer';b.onclick=()=>{B.remove();ptSurvey();};(B.querySelector('.dzRep')||{}).parentNode?B.querySelector('.dzRep').parentNode.appendChild(b):B.appendChild(b);}catch(e){}};}
+function ptButton(){if(!PT.on||PT.btn)return;const b=document.createElement('button');b.textContent='Terminar la prueba';b.style.cssText='position:fixed;left:12px;bottom:12px;z-index:40;padding:8px 14px;border-radius:8px;border:1px solid #c98a4a;background:rgba(30,23,18,.9);color:#f3e6cf;font:14px Alegreya,Georgia,serif;cursor:pointer';
+  b.onclick=()=>{releasePointer&&releasePointer();ptSurvey();};document.body.appendChild(b);PT.btn=b;}
+// menos texto al empezar: los primeros 8 minutos de una partida nueva, los diálogos usan la lectura breve (con «…más» para quien quiera); luego, la que haya elegido el jugador
+function ptBrief(){const z=ptz(),want=z.play<480&&!ACC.lvlChosen&&(!state.lessons||state.lessons.length<3);
+  if(want&&!PT.brief){PT.lvl0=ACC.lvl;ACC.lvl='breve';PT.brief=true;}else if(!want&&PT.brief){ACC.lvl=PT.lvl0;PT.brief=false;}}
+{const f=accSave;accSave=function(){if(PT.brief){const cur=ACC.lvl;if(cur!=='breve'){ACC.lvlChosen=1;PT.brief=false;}else ACC.lvl=PT.lvl0;f.apply(this,arguments);if(PT.brief)ACC.lvl='breve';return;}if(ACC.lvl&&ACC.lvl!=='normal')ACC.lvlChosen=1;return f.apply(this,arguments);};}
+{const f=uxTick;uxTick=function(dt){f(dt);if(!state||ui==='start')return;try{ptTick(dt);ptBrief();ptButton();}catch(e){}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -27981,7 +28129,9 @@ function bootWorld(){PROF.marks.push(['arranque',performance.now()]);ldShipShow(
   ['crtSetup',()=>{crtSetup();}],
   ['r5Setup',()=>{r5Setup();}],
   ['amSetup',()=>{amSetup();}],
-  ['hecSetup',()=>{hecSetup();}]
+  ['hecSetup',()=>{hecSetup();}],
+  ['asSetup',()=>{asSetup();}],
+  ['talSetup',()=>{talSetup();}]
   ]);
   ldRun(steps,err=>{console.error(err);ldShipFail();$('loadmsg').textContent=_t(9316,'Algo falló al construir la ciudad: ')+err.message;},()=>{
   PROF.marks.push(['mundo construido',performance.now()]);
@@ -28007,7 +28157,7 @@ function chooseMode(m){
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}
 // para las pruebas automáticas: abrir con #debug expone el estado interno
-if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
+if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,rfSetup,BOAT,CARVE,PLACES,MOUNT,callHorse,horseNear,camera,cityShow,cityHere,CITYB,RSW,TIBER,SC:scene,terrainH,terrainH0,makePerson,personWalk,personKnees,lrnSummary,lrnConcepts,lrnTimeline,lrnRouteStart,lrnRouteMenu,ACC,openDialog,NPCS,LESSONS,accMenu,lrnZ,AM,amTalk,amAmb,amPlay,amz,amCap,amLeft,amLock,AM_TOPICS,amEpisode,amSpot,epiStart,EPI,TP_OBJS,hecAct,spAct,ambAct,dzz,dzReport,dzCivic,dzCivicTick,dzExplored,DZ,dzUnderRoof,phCaption,renderOpts,sail,drawMap,openMap,asOpen,asStep,asz,AS_ISSUES,talOpen,talGame,ttz2,ptz,PT,ptText,ptSurvey,ptBrief,dzDownload}),PROF:()=>PROF,get TORCH(){return TORCH;},herz:()=>herz(),HRC:()=>HRC,herAct:a=>herAct({act:a}),herDuel:()=>herDuel(),pitz:()=>pitz(),PIT:()=>PIT,pitAct:a=>pitAct({act:a}),pitDuel:()=>pitDuel(),dioz:()=>dioz(),DIO:()=>DIO,dioAct:a=>dioAct({act:a}),dioDuel:()=>dioDuel(),socz:()=>socz(),SOC:()=>SOC,socAct:a=>socAct({act:a}),socDuel:()=>socDuel(),SUELO:()=>SUELO,PEOPLE:()=>PEOPLE,groundY:(x,z)=>groundY(x,z),meshH:(x,z)=>meshH(x,z),toggleTorch:()=>toggleTorch(),GD:()=>GD,vegSnap:()=>vegSnap(),RUT:()=>RUT,rutTick:t=>rutTick(t),zsT:()=>{initAudio();const r=[AUD.ctx&&AUD.ctx.state,aOK()];sfxPhrase(0.3,0.02);sfxClang(0.05);sfxKnock(0.05);zsTick(0.3);return r.concat([!!RUT.wat]);},VIV:()=>VIV,W:()=>walkers,v2C:t=>v2Circles(t),v2Act:o=>v2Act(o),v2Sit:()=>v2Sit(),EGXO:()=>EGX_OBJS,REN:()=>renderer,CHK:()=>CHUNKS,CULL:()=>CULL,MERGE:()=>MERGE,mgSize:()=>{const L=[];for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;if(!mgOk(g))continue;let n=0,v=0;g.traverse(m=>{if(mgEligible(m)){n++;v+=m.geometry.attributes.position.count;}});L.push([n,v,Math.round(g.position.x),Math.round(g.position.z)]);}L.sort((a,b)=>b[1]-a[1]);return {grupos:L.length,mallas:L.reduce((a,b)=>a+b[0],0),vert:L.reduce((a,b)=>a+b[1],0),top:L.slice(0,8)};},mgDiag:()=>{const R={grupos:0,gruposNo:0,motivoGrupo:{},mallas:0,ok:0,motivo:{}};const add=(o,k)=>{o[k]=(o[k]||0)+1;};
   for(const g of scene.children){if(g.isMesh||g.isLight||g.userData.chunk)continue;if(Math.hypot(g.position.x-camera.position.x,g.position.z-camera.position.z)>500)continue;R.grupos++;
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
