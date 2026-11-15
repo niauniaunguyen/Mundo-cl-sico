@@ -516,7 +516,7 @@ body.tm #toast{bottom:auto;top:calc(170px + env(safe-area-inset-top,0px));right:
       </div>
       <figure id="stImg" hidden><img alt=""><figcaption></figcaption></figure>
       <details id="stCtr"><summary>Controles</summary>
-      <div class="ctr ctrT"><b>Pulgar izquierdo</b><span>pon el pulgar en la mitad izquierda y deslízalo para caminar; llévalo al borde para correr</span><b>Pulgar derecho</b><span>arrastra por la pantalla para mirar alrededor</span><b>Mano</b><span>aparece abajo a la derecha cuando puedes hablar, leer o tocar algo</span><b>Flecha</b><span>saltar (dos veces: doble salto); volando, subir</span><b>Menú</b><span>arriba a la derecha: diario, plano, biblioteca, hora y todo lo demás</span></div>
+      <div class="ctr ctrT"><b>Pulgar izquierdo</b><span>pon el pulgar en la mitad izquierda y deslízalo para caminar; llévalo al borde para correr</span><b>Pulgar derecho</b><span>arrastra por la pantalla para mirar alrededor</span><b>Mano</b><span>aparece abajo a la derecha cuando puedes hablar, leer o tocar algo</span><b>Toque</b><span>un toque rápido en el joystick salta en el sitio; con el joystick en marcha, un toque con el otro pulgar en la pantalla salta hacia donde vas (dos toques: doble salto). Volando, aparece una flecha para subir</span><b>Menú</b><span>arriba a la derecha: diario, plano, biblioteca, hora y todo lo demás</span></div>
       <div class="ctr">
         <b>W A S D</b><span>caminar (Shift para correr, Espacio para saltar; pulsa otra vez en el aire para el doble salto)</span>
         <b>Ratón</b><span>mirar alrededor con solo moverlo (con un clic se captura y gira sin límite)</span>
@@ -11693,9 +11693,11 @@ if(isTouch){
   jz.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===jid){const r=jz.getBoundingClientRect();let dx=t.clientX-(r.left+r.width/2),dy=t.clientY-(r.top+r.height/2);const L=Math.hypot(dx,dy),m=50;if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
   const endJ=e=>{for(const t of e.changedTouches)if(t.identifier===jid){jid=null;joy.x=joy.y=0;kn.style.transform='';}};
   jz.addEventListener('touchend',endJ);jz.addEventListener('touchcancel',endJ);
-  canvas.addEventListener('touchstart',e=>{if(ui!=='play')return;const t=e.changedTouches[0];lookId=t.identifier;lx=t.clientX;ly=t.clientY;},{passive:true});
-  canvas.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===lookId){player.yaw-=(t.clientX-lx)*0.005;player.pitch=clamp(player.pitch-(t.clientY-ly)*0.005,-1.3,1.3);lx=t.clientX;ly=t.clientY;}e.preventDefault();},{passive:false});
-  canvas.addEventListener('touchend',e=>{for(const t of e.changedTouches)if(t.identifier===lookId)lookId=null;});
+  // toque rápido en la zona de mirar (sin arrastrar) = saltar: con el otro pulgar en el joystick, se salta en la dirección en que vas
+  let lt0=0,lmov=0;
+  canvas.addEventListener('touchstart',e=>{if(ui!=='play')return;const t=e.changedTouches[0];lookId=t.identifier;lx=t.clientX;ly=t.clientY;lt0=performance.now();lmov=0;},{passive:true});
+  canvas.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===lookId){lmov+=Math.abs(t.clientX-lx)+Math.abs(t.clientY-ly);player.yaw-=(t.clientX-lx)*0.005;player.pitch=clamp(player.pitch-(t.clientY-ly)*0.005,-1.3,1.3);lx=t.clientX;ly=t.clientY;}e.preventDefault();},{passive:false});
+  canvas.addEventListener('touchend',e=>{for(const t of e.changedTouches)if(t.identifier===lookId){lookId=null;if(ui==='play'&&!FLY.on&&performance.now()-lt0<250&&lmov<12&&!(typeof AT!=='undefined'&&AT.on))jump();}});
   $('tTalk').onclick=()=>{if(ui==='play')interact();};$('tJump').onclick=()=>jump();
   $('tJournal').onclick=()=>{if(ui==='play')openJournal();};$('tMap').onclick=()=>{if(ui==='play')openMap();};
   $('keys').classList.remove('show');
@@ -16376,13 +16378,14 @@ function tmTick(){if(!isTouch)return;const tc=$('touch');if(!tc)return;tc.classL
   else if(typeof horseNear==='function'&&horseNear()&&!MOUNT.riding){kind='horse';name='Montar el caballo';}
   if(kind!==TM.lastKind){TM.lastKind=kind;b.hidden=!kind;if(kind)b.innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+TM_IC[tmIcon(kind)]+'</svg>';}
   if(name!==TM.lastName){TM.lastName=name;nm.textContent=name;}nm.classList.toggle('on',!!kind&&!!name);
-  const hs=hz();$('tHorse').hidden=!(hs&&hs.own)||kind==='horse';$('tFly').hidden=!(wz().own);$('tTorch').hidden=!(DAYF<0.3||TORCH.on);$('tDown').hidden=!FLY.on;
+  const hs=hz();$('tHorse').hidden=!(hs&&hs.own)||kind==='horse';$('tFly').hidden=!(wz().own);$('tTorch').hidden=!(DAYF<0.3||TORCH.on);$('tDown').hidden=!FLY.on;$('tJump').hidden=!FLY.on;   // el botón de salto solo al volar (para subir); a pie se salta tocando el joystick o la pantalla
   keys.run=Math.hypot(joy.x,joy.y)>0.93;}
 if(isTouch){document.body.classList.add('tm');
   const zone=$('joyZone'),jz=$('joy'),kn=$('knob');let zid=null,cx=0,cy=0;const home=()=>{jz.style.left='';jz.style.top='';jz.style.bottom='';jz.classList.remove('on');};
-  zone.addEventListener('touchstart',e=>{if(ui!=='play'||zid!==null)return;const t=e.changedTouches[0];zid=t.identifier;cx=t.clientX;cy=t.clientY;const r=jz.getBoundingClientRect();jz.style.left=(cx-r.width/2)+'px';jz.style.top=(cy-r.height/2)+'px';jz.style.bottom='auto';jz.classList.add('on');e.preventDefault();},{passive:false});
-  zone.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===zid){let dx=t.clientX-cx,dy=t.clientY-cy;const L=Math.hypot(dx,dy),m=52;if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
-  const endZ=e=>{for(const t of e.changedTouches)if(t.identifier===zid){zid=null;joy.x=joy.y=0;kn.style.transform='';home();}};zone.addEventListener('touchend',endZ);zone.addEventListener('touchcancel',endZ);
+  let zt0=0,zmax=0;   // toque corto en el joystick (poner y quitar el dedo en menos de 250 ms, casi sin moverlo) = saltar
+  zone.addEventListener('touchstart',e=>{if(ui!=='play'||zid!==null)return;const t=e.changedTouches[0];zid=t.identifier;cx=t.clientX;cy=t.clientY;zt0=performance.now();zmax=0;const r=jz.getBoundingClientRect();jz.style.left=(cx-r.width/2)+'px';jz.style.top=(cy-r.height/2)+'px';jz.style.bottom='auto';jz.classList.add('on');e.preventDefault();},{passive:false});
+  zone.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===zid){let dx=t.clientX-cx,dy=t.clientY-cy;const L=Math.hypot(dx,dy),m=52;zmax=Math.max(zmax,L);if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
+  const endZ=e=>{for(const t of e.changedTouches)if(t.identifier===zid){zid=null;joy.x=joy.y=0;kn.style.transform='';home();if(e.type==='touchend'&&ui==='play'&&!FLY.on&&performance.now()-zt0<250&&zmax<12)jump();}};zone.addEventListener('touchend',endZ);zone.addEventListener('touchcancel',endZ);
   // saltar (y, volando, subir mientras se mantiene) y bajar
   const hold=(id,k,tap)=>{const el=$(id);el.onclick=null;el.addEventListener('pointerdown',e=>{e.preventDefault();if(FLY.on)keys[k]=true;else if(tap)tap();});for(const ev of['pointerup','pointerleave','pointercancel'])el.addEventListener(ev,()=>{keys[k]=false;});};
   hold('tJump','jump',()=>jump());hold('tDown','down');
@@ -23219,7 +23222,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='31b642a72c41';
+const NOSTOS_VER='b69211d52784';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';

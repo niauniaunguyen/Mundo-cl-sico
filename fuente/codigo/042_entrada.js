@@ -62,9 +62,11 @@ if(isTouch){
   jz.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===jid){const r=jz.getBoundingClientRect();let dx=t.clientX-(r.left+r.width/2),dy=t.clientY-(r.top+r.height/2);const L=Math.hypot(dx,dy),m=50;if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
   const endJ=e=>{for(const t of e.changedTouches)if(t.identifier===jid){jid=null;joy.x=joy.y=0;kn.style.transform='';}};
   jz.addEventListener('touchend',endJ);jz.addEventListener('touchcancel',endJ);
-  canvas.addEventListener('touchstart',e=>{if(ui!=='play')return;const t=e.changedTouches[0];lookId=t.identifier;lx=t.clientX;ly=t.clientY;},{passive:true});
-  canvas.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===lookId){player.yaw-=(t.clientX-lx)*0.005;player.pitch=clamp(player.pitch-(t.clientY-ly)*0.005,-1.3,1.3);lx=t.clientX;ly=t.clientY;}e.preventDefault();},{passive:false});
-  canvas.addEventListener('touchend',e=>{for(const t of e.changedTouches)if(t.identifier===lookId)lookId=null;});
+  // toque rápido en la zona de mirar (sin arrastrar) = saltar: con el otro pulgar en el joystick, se salta en la dirección en que vas
+  let lt0=0,lmov=0;
+  canvas.addEventListener('touchstart',e=>{if(ui!=='play')return;const t=e.changedTouches[0];lookId=t.identifier;lx=t.clientX;ly=t.clientY;lt0=performance.now();lmov=0;},{passive:true});
+  canvas.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===lookId){lmov+=Math.abs(t.clientX-lx)+Math.abs(t.clientY-ly);player.yaw-=(t.clientX-lx)*0.005;player.pitch=clamp(player.pitch-(t.clientY-ly)*0.005,-1.3,1.3);lx=t.clientX;ly=t.clientY;}e.preventDefault();},{passive:false});
+  canvas.addEventListener('touchend',e=>{for(const t of e.changedTouches)if(t.identifier===lookId){lookId=null;if(ui==='play'&&!FLY.on&&performance.now()-lt0<250&&lmov<12&&!(typeof AT!=='undefined'&&AT.on))jump();}});
   $('tTalk').onclick=()=>{if(ui==='play')interact();};$('tJump').onclick=()=>jump();
   $('tJournal').onclick=()=>{if(ui==='play')openJournal();};$('tMap').onclick=()=>{if(ui==='play')openMap();};
   $('keys').classList.remove('show');

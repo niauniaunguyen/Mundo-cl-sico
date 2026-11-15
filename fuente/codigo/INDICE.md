@@ -46,7 +46,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
 | `040_caballo.js` | 355 | caballo |
 | `041_dioses.js` | 193 | dioses |
-| `042_entrada.js` | 83 | entrada<br>interacción |
+| `042_entrada.js` | 85 | entrada<br>interacción |
 | `043_bucle.js` | 99 | bucle<br>arranque |
 | `044_modo_historia.js` | 417 | MODO HISTORIA |
 | `045_modo_libre_en_linea_hasta.js` | 52 | MODO LIBRE EN LÍNEA (hasta 15 jugadores, capacidad room) |
@@ -66,7 +66,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `059_egipto.js` | 148 | Egipto: Náucratis y Menfis (modo Atenas, 386 a.C.); Alejandría y Menfis (modo Roma, 80 d.C.) |
 | `060_egipto_2.js` | 78 | Egipto (2): jeroglíficos, la Gran Pirámide por dentro, el Faro y la crecida del Nilo |
 | `061_sacar_partido_a_los_diez.js` | 273 | sacar partido a los diez destinos del 386: |
-| `062_game_feel.js` | 162 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
+| `062_game_feel.js` | 163 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
 | `063_polvo_bajo_los_cascos_y.js` | 65 | polvo bajo los cascos y la cinemática de la yegua recuperada |
 | `064_game_feel_2.js` | 120 | GAME FEEL 2: caballo vivo, animales que reaccionan, huellas, agua, saludos, |
 | `065_equivalentes_romanos_ano_80.js` | 196 | equivalentes romanos (año 80): comercio desde el Emporio, la carrera del Circo Máximo, |

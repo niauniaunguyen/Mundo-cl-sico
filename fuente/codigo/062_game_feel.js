@@ -140,13 +140,14 @@ function tmTick(){if(!isTouch)return;const tc=$('touch');if(!tc)return;tc.classL
   else if(typeof horseNear==='function'&&horseNear()&&!MOUNT.riding){kind='horse';name='Montar el caballo';}
   if(kind!==TM.lastKind){TM.lastKind=kind;b.hidden=!kind;if(kind)b.innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+TM_IC[tmIcon(kind)]+'</svg>';}
   if(name!==TM.lastName){TM.lastName=name;nm.textContent=name;}nm.classList.toggle('on',!!kind&&!!name);
-  const hs=hz();$('tHorse').hidden=!(hs&&hs.own)||kind==='horse';$('tFly').hidden=!(wz().own);$('tTorch').hidden=!(DAYF<0.3||TORCH.on);$('tDown').hidden=!FLY.on;
+  const hs=hz();$('tHorse').hidden=!(hs&&hs.own)||kind==='horse';$('tFly').hidden=!(wz().own);$('tTorch').hidden=!(DAYF<0.3||TORCH.on);$('tDown').hidden=!FLY.on;$('tJump').hidden=!FLY.on;   // el botón de salto solo al volar (para subir); a pie se salta tocando el joystick o la pantalla
   keys.run=Math.hypot(joy.x,joy.y)>0.93;}
 if(isTouch){document.body.classList.add('tm');
   const zone=$('joyZone'),jz=$('joy'),kn=$('knob');let zid=null,cx=0,cy=0;const home=()=>{jz.style.left='';jz.style.top='';jz.style.bottom='';jz.classList.remove('on');};
-  zone.addEventListener('touchstart',e=>{if(ui!=='play'||zid!==null)return;const t=e.changedTouches[0];zid=t.identifier;cx=t.clientX;cy=t.clientY;const r=jz.getBoundingClientRect();jz.style.left=(cx-r.width/2)+'px';jz.style.top=(cy-r.height/2)+'px';jz.style.bottom='auto';jz.classList.add('on');e.preventDefault();},{passive:false});
-  zone.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===zid){let dx=t.clientX-cx,dy=t.clientY-cy;const L=Math.hypot(dx,dy),m=52;if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
-  const endZ=e=>{for(const t of e.changedTouches)if(t.identifier===zid){zid=null;joy.x=joy.y=0;kn.style.transform='';home();}};zone.addEventListener('touchend',endZ);zone.addEventListener('touchcancel',endZ);
+  let zt0=0,zmax=0;   // toque corto en el joystick (poner y quitar el dedo en menos de 250 ms, casi sin moverlo) = saltar
+  zone.addEventListener('touchstart',e=>{if(ui!=='play'||zid!==null)return;const t=e.changedTouches[0];zid=t.identifier;cx=t.clientX;cy=t.clientY;zt0=performance.now();zmax=0;const r=jz.getBoundingClientRect();jz.style.left=(cx-r.width/2)+'px';jz.style.top=(cy-r.height/2)+'px';jz.style.bottom='auto';jz.classList.add('on');e.preventDefault();},{passive:false});
+  zone.addEventListener('touchmove',e=>{for(const t of e.changedTouches)if(t.identifier===zid){let dx=t.clientX-cx,dy=t.clientY-cy;const L=Math.hypot(dx,dy),m=52;zmax=Math.max(zmax,L);if(L>m){dx*=m/L;dy*=m/L;}joy.x=dx/m;joy.y=dy/m;kn.style.transform='translate('+dx+'px,'+dy+'px)';}e.preventDefault();},{passive:false});
+  const endZ=e=>{for(const t of e.changedTouches)if(t.identifier===zid){zid=null;joy.x=joy.y=0;kn.style.transform='';home();if(e.type==='touchend'&&ui==='play'&&!FLY.on&&performance.now()-zt0<250&&zmax<12)jump();}};zone.addEventListener('touchend',endZ);zone.addEventListener('touchcancel',endZ);
   // saltar (y, volando, subir mientras se mantiene) y bajar
   const hold=(id,k,tap)=>{const el=$(id);el.onclick=null;el.addEventListener('pointerdown',e=>{e.preventDefault();if(FLY.on)keys[k]=true;else if(tap)tap();});for(const ev of['pointerup','pointerleave','pointercancel'])el.addEventListener(ev,()=>{keys[k]=false;});};
   hold('tJump','jump',()=>jump());hold('tDown','down');
