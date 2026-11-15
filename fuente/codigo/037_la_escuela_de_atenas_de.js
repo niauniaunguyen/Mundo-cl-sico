@@ -86,7 +86,7 @@ function dreamTravel(to){
 
 // imagen real (no generada) en la pantalla de inicio: la Loba Capitolina en Roma, «La escuela de Atenas» en Atenas
 const LOBA_SRC=(()=>{const el=document.getElementById('lobaimg'),t=el?el.textContent.trim():'';return t.length>100?'data:image/jpeg;base64,'+t:'';})();
-const LOBA_CAP='<b>La Loba Capitolina</b>Bronce de los Museos Capitolinos. La loba amamanta a Rómulo y Remo, los gemelos que, según la leyenda, fundaron Roma. Ojo: la loba se tenía por etrusca, pero la datación por radiocarbono (2008) la sitúa en la Edad Media, hacia los siglos XI-XII; los gemelos los añadió un escultor en el siglo XV. <i>Foto: @@LOBA_AUT@@, Wikimedia Commons.</i>';
+const LOBA_CAP='<b>El Vesubio en erupción, de noche</b>Pintura de época moderna (siglos XVIII-XIX), con el faro del puerto de Nápoles. En el año 79, hace solo uno, el volcán sepultó Pompeya y Herculano; Plinio el Viejo murió al acercarse para verlo y ayudar a los vecinos (Plinio el Joven, Cartas VI 16).';
 function stImgFill(){const f=document.getElementById('stImg');if(!f)return;const roma=typeof MODE!=='undefined'&&MODE==='roma';const src=roma?LOBA_SRC:RAFAEL_SRC;if(!src){f.hidden=true;return;}
   f.querySelector('img').src=src;f.querySelector('img').alt=roma?'La Loba Capitolina con Rómulo y Remo':'La escuela de Atenas, de Rafael';
   f.querySelector('figcaption').innerHTML=roma?LOBA_CAP:'<b>La escuela de Atenas</b>Rafael la pintó en el Vaticano en 1509-1511, casi dos mil años después de tu partida: es una Atenas imaginada. En el centro, Platón, que en 386 a.C. empieza a enseñar en la Academia, y su futuro alumno Aristóteles. <i>Dominio público.</i>';f.hidden=false;}

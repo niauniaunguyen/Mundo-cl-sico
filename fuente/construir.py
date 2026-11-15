@@ -17,9 +17,9 @@ assert src.count('@@GLB@@') == 1, 'falta el marcador @@GLB@@'
 assert src.count('@@GLB2@@') == 1, 'falta el marcador @@GLB2@@'
 assert src.count('@@RAFAEL@@') == 1, 'falta el marcador @@RAFAEL@@'
 src, n_tr = i18n.build(src)
-lupa_p = raiz / 'modelos' / 'loba_capitolina.jpg'   # foto de la Loba Capitolina (Wikimedia Commons) para la pantalla de inicio de Roma
+lupa_p = raiz / 'modelos' / 'vesubio_noche.jpg'   # cuadro del Vesubio en erupción de noche: imagen de la presentación de Roma
 lupa = lupa_p.read_bytes() if lupa_p.exists() else b''
-assert src.count('@@LOBA@@') == 1, 'falta el marcador @@LOBA@@'
+assert src.count('@@LOBA@@') == 1, 'falta el marcador @@LOBA@@ (imagen de Roma)'
 out = src.replace('@@LOBA@@', base64.b64encode(lupa).decode('ascii')).replace('@@GLB@@', base64.b64encode(glb).decode('ascii')).replace('@@GLB2@@', base64.b64encode(glb2).decode('ascii')).replace('@@RAFAEL@@', base64.b64encode(img).decode('ascii'))
 ver = hashlib.sha1(out.encode('utf-8')).hexdigest()[:12]   # versión: huella del contenido (para el aviso de versión nueva en la web)
 assert out.count('@@VER@@') == 1, 'falta el marcador @@VER@@'
