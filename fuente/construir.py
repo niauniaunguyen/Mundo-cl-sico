@@ -13,8 +13,10 @@ src = src.replace('@@CODIGO@@', ''.join(m.read_text(encoding='utf-8') for m in m
 glb = (raiz / 'modelos' / 'atenas_modelos.glb').read_bytes()
 glb2 = (raiz / 'modelos' / 'animales.glb').read_bytes()   # animales (modelos/animales.blend)
 img = (raiz / 'modelos' / 'escuela_de_atenas.jpg').read_bytes()
-pj1 = (raiz / 'modelos' / 'personaje_ciudadano_juego.glb').read_bytes()   # personajes hechos en Blender (herramientas/blender/personajes.py)
-pj2 = (raiz / 'modelos' / 'personaje_hoplita_juego.glb').read_bytes()
+import gzip
+# personajes hechos en Blender (herramientas/blender/personajes.py), comprimidos con gzip: el juego los descomprime al cargar
+PJ = ['ciudadano', 'hoplita', 'mujer', 'obrero', 'togado', 'romana', 'legionario']
+pj_tags = ''.join('<script type="application/octet-stream" id="glbpj_%s">%s</script>\n' % (k, base64.b64encode(gzip.compress((raiz / 'modelos' / ('personaje_%s_juego.glb' % k)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ)
 assert src.count('@@GLB@@') == 1, 'falta el marcador @@GLB@@'
 assert src.count('@@GLB2@@') == 1, 'falta el marcador @@GLB2@@'
 assert src.count('@@RAFAEL@@') == 1, 'falta el marcador @@RAFAEL@@'
@@ -22,7 +24,7 @@ src, n_tr = i18n.build(src)
 lupa_p = raiz / 'modelos' / 'vesubio_noche.jpg'   # cuadro del Vesubio en erupción de noche: imagen de la presentación de Roma
 lupa = lupa_p.read_bytes() if lupa_p.exists() else b''
 assert src.count('@@LOBA@@') == 1, 'falta el marcador @@LOBA@@ (imagen de Roma)'
-out = src.replace('@@LOBA@@', base64.b64encode(lupa).decode('ascii')).replace('@@GLB@@', base64.b64encode(glb).decode('ascii')).replace('@@GLB2@@', base64.b64encode(glb2).decode('ascii')).replace('@@RAFAEL@@', base64.b64encode(img).decode('ascii')).replace('@@GLBPJ1@@', base64.b64encode(pj1).decode('ascii')).replace('@@GLBPJ2@@', base64.b64encode(pj2).decode('ascii'))
+out = src.replace('@@LOBA@@', base64.b64encode(lupa).decode('ascii')).replace('@@GLB@@', base64.b64encode(glb).decode('ascii')).replace('@@GLB2@@', base64.b64encode(glb2).decode('ascii')).replace('@@RAFAEL@@', base64.b64encode(img).decode('ascii')).replace('@@GLBPJ@@', pj_tags)
 # firma del relieve: solo el código de los módulos que definen o modifican las funciones de altura y color del terreno.
 # La caché del relieve en el navegador (161_rendimiento.js) usa esta firma: sobrevive a las versiones que no tocan el terreno.
 import re as _re
