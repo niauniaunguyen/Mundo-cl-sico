@@ -34,7 +34,7 @@ const OB_TXT={atenas:{name:'Lisias',sub:'un muchacho del Pireo',
 const obT=()=>OB_TXT[MODE==='roma'?'roma':'atenas'];
 function obSay(t,dur){if(!OB.sub){const d=document.createElement('div');d.id='obSub';d.style.cssText='position:fixed;left:50%;bottom:118px;transform:translateX(-50%);max-width:min(640px,90vw);background:rgba(20,15,10,.82);color:#f3e6cf;border:1px solid #c98a4a;border-radius:12px;padding:10px 16px;font:16px Alegreya,Georgia,serif;z-index:30;pointer-events:auto;line-height:1.35';document.body.appendChild(d);OB.sub=d;}
   const T=obT();OB.sub.innerHTML='<b style="color:#e8a85a">'+T.name+'</b> · '+t+' <a href="#" id="obSkip" style="color:#a89a7a;font-size:.8em;margin-left:8px">saltar presentación</a>';OB.sub.hidden=false;OB.subT=dur||9;
-  $('obSkip').onclick=e=>{e.preventDefault();obFinish(true);};try{if(typeof ACC!=='undefined'&&ACC.auto&&typeof accSpeak==='function')accSpeak(t);}catch(e){}}
+  $('obSkip').onclick=e=>{e.preventDefault();obFinish(true);};}
 function obHint(t){toast(t);}
 function obActive(){return state&&!storyOn()&&obz().st>0&&!obz().done;}
 function obStart(){const z=obz();if(z.done||z.st>0||storyOn())return;z.st=1;save();OB.route=obRoute();OB.stage=0;obSpawn();obStage(0);}
