@@ -93,7 +93,7 @@ def head_shape(x,y,z):   # desplazamiento radial sobre la esfera unidad (delante
     d+=0.11*_g((x,y,z),(0,-0.82,-0.84),0.22)                  # barbilla
     return d
 def head_mesh(name,beard=False):
-    bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=48,v_segments=36,radius=1)
+    bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=72,v_segments=56,radius=1)
     rx,ry,rz=HR
     for v in bm.verts:
         x,y,z=v.co;r=1+head_shape(x,y,z);x*=r;y*=r;z*=r
@@ -101,10 +101,42 @@ def head_mesh(name,beard=False):
         if z<0 and y<0:y-=0.05*t
         if z>0:y*=1+0.08*z
         v.co=Vector((x*rx,y*ry,z*rz))+HC
+    # aberturas de los ojos (almendra): detrás van los globos oculares
+    kill=[]
+    for f in bm.faces:
+        q=f.calc_center_median()-HC;a=math.atan2(q.x,-q.y)
+        for sg in(1,-1):
+            da=a-EYE_A*sg;zz=q.z-EYE_Z-0.004*math.cos(da/EYE_W*1.57)*0   # almendra
+            if (da/EYE_W)**2+(zz/(EYE_H*(1-0.35*(da*sg)/EYE_W)))**2<1:kill.append(f)
+    bmesh.ops.delete(bm,geom=kill,context='FACES')
     me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
     for p in me.polygons:p.use_smooth=True
     head_uv(me)
     return ob
+EYE_A,EYE_Z,EYE_W,EYE_H=0.34,0.008,0.105,0.0072
+def eye_mesh(name,head):   # globos oculares detrás de las aberturas, mirando al frente
+    bm=bmesh.new();hb=BVHTree.FromObject(head,bpy.context.evaluated_depsgraph_get())
+    for sg in(1,-1):
+        d=Vector((math.sin(EYE_A*sg),-math.cos(EYE_A*sg),0)).normalized();o=HC+Vector((0,0,EYE_Z))
+        # radio de la cara junto a la abertura (un poco por encima)
+        hit=hb.ray_cast(o+Vector((0,0,0.018))+d*0.3,-d,0.3);R=(hit[0]-(o+Vector((0,0,0.018)))).length if hit[0] else 0.1
+        c=o+d*(R-0.0135);r=0.0128
+        g=bmesh.ops.create_uvsphere(bm,u_segments=16,v_segments=12,radius=r,matrix=Matrix.Translation(c)@Euler((math.radians(90),0,0)).to_matrix().to_4x4())
+    me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
+    for p in me.polygons:p.use_smooth=True
+    uv=me.uv_layers.new(name='UVMap')   # proyección frontal por ojo: el iris en el centro
+    for poly in me.polygons:
+        for li in poly.loop_indices:
+            co=me.vertices[me.loops[li].vertex_index].co;sg=1 if co.x>0 else -1
+            cx=math.sin(EYE_A*sg)*0.1;q=co-HC
+            uv.data[li].uv=(0.5+(q.x-cx*1.0)/0.03,0.5+(q.z-EYE_Z)/0.03)
+    return ob
+def eye_tex(name,size=128):
+    H=W=size;v,u=np.mgrid[0:H,0:W];x=(u+0.5)/W-0.5;y=(v+0.5)/H-0.5;r=np.hypot(x,y)
+    col=np.ones((H,W,3))*hexc('#ece6dc');col*=(1-0.25*np.clip(r*2,0,1))[...,None]
+    yi=y-0.035;ri=np.hypot(x,yi);iris=ri<0.21;col[iris]=hexc('#5a3a1e')*(0.8+0.4*np.cos(np.arctan2(y,x)*18)[iris][:,None]*0.15+0.0)
+    col[ri<0.09]=hexc('#0a0605');col[(np.hypot(x+0.06,yi-0.06)<0.035)]=hexc('#ffffff')   # brillo
+    return save_png(name,np.clip(blur(col,1),0,1))
 def head_uv(me):   # UV cilíndrica: la cara queda en el centro de la textura
     uv=me.uv_layers.get('UVMap') or me.uv_layers.new(name='UVMap')
     for poly in me.polygons:
@@ -114,7 +146,7 @@ def head_uv(me):   # UV cilíndrica: la cara queda en el centro de la textura
 def nose_mesh(name):   # nariz: puente estrecho que se ensancha hacia la punta, con aletas
     bm=bmesh.new();N=10;K=8;rings=[]
     for i in range(N+1):
-        t=i/N;z=HC.z+0.018-t*0.052;w=0.006+0.009*t**1.5;pr=0.003+0.019*t**1.2   # ancho y cuánto sobresale
+        t=i/N;z=HC.z+0.018-t*0.052;w=0.0065+0.0095*t**1.5;pr=0.004+0.026*t**1.25   # ancho y cuánto sobresale
         yb=HC.y-HR[1]*0.985   # superficie de la cara
         ring=[]
         for k in range(K):
@@ -144,7 +176,7 @@ def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza
     def zone(co):
         q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
         if kind=='pelo':return z>hairline(a)-0.004
-        mouth=(a/0.16)**2+((z+0.072)/0.008)**2<1
+        mouth=(a/0.15)**2+((z+0.0705)/0.0045)**2<1
         return ((z<-0.05+0.045*min(1,max(0,abs(a)-0.25)/0.6) and abs(a)<1.35) or (abs(a)<0.2 and -0.064<z<-0.052)) and not mouth
     keep=set(v for v in bm.verts if zone(v.co))
     bmesh.ops.delete(bm,geom=[f for f in bm.faces if not all(v in keep for v in f.verts)],context='FACES')
@@ -185,6 +217,38 @@ def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0):   # pieza ajustada a un 
             for l,(di,dj) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((i+di)/nu,(j+dj)/nv)
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
     ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.004;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
+def ionic_sleeve(name,sg,sho,elb):
+    sh=Vector(sho);el=Vector(elb);ax=(el-sh).normalized();a0=sh+Vector((-0.06*sg,0,0.06));a1=sh.lerp(el,0.82)
+    up=Vector((sg,0,0.35)).normalized();u1=(up-ax*up.dot(ax)).normalized();u2=ax.cross(u1).normalized()
+    bm=bmesh.new();N=14;K=22;rows=[]
+    for i in range(N+1):
+        t=i/N;p=a0.lerp(a1,t);R=0.08+0.022*t**0.8
+        row=[]
+        for k in range(K):
+            q=k/K*TAU;fold=0.009*(0.3+0.7*t)*math.sin(q*7+t*2)
+            sag=0.02*t*max(0,-math.cos(q))   # cuelga por debajo del brazo
+            hem=(0.012*math.sin(q*5)+0.01*max(0,-math.cos(q))) if i==N else 0
+            row.append(bm.verts.new(p+ax*hem+(u1*math.cos(q)+u2*math.sin(q))*(R+fold)-u1*sag))
+        rows.append(row)
+    uvl=bm.loops.layers.uv.new('UVMap')
+    for i in range(N):
+        for k in range(K):
+            f=bm.faces.new((rows[i][k],rows[i][(k+1)%K],rows[i+1][(k+1)%K],rows[i+1][k]))
+            for l,(dk,di) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((k+dk)/K,1-(i+di)/N)
+    bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
+    ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.005;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
+    b2=bmesh.new()
+    for t in(0.25,0.55,0.85):
+        p=a0.lerp(a1,t)+u1*(0.072+0.03*t**0.8+0.004)
+        bmesh.ops.create_uvsphere(b2,u_segments=8,v_segments=6,radius=0.0075,matrix=Matrix.Translation(p))
+    bt=obj_from_bm('fibulas',b2);smart_uv(bt)
+    return ob,bt
+def drape_weights(ob):   # el extremo del manto cuelga del hombro y del pecho, no de las piernas
+    for g in list(ob.vertex_groups):ob.vertex_groups.remove(g)
+    C=ob.vertex_groups.new(name='chest');S=ob.vertex_groups.new(name='clavicle.L');H=ob.vertex_groups.new(name='hips')
+    for v in ob.data.vertices:
+        z=v.co.z;k=min(1,max(0,(z-0.8)/0.6))
+        C.add([v.index],0.55*k+0.45*(1-k),'REPLACE');S.add([v.index],0.45*k,'REPLACE');H.add([v.index],0.55*(1-k),'REPLACE')
 def drape_end(name,path,width,folds=3,famp=0.03):   # extremo de un manto que cuelga: tira con pliegues en zigzag a lo largo de un camino
     bm=bmesh.new();P=[Vector(p) for p in path];N=24;rows=[];W=8
     pts=[]
@@ -214,8 +278,8 @@ def torso_bvh(body):   # el cuerpo sin los brazos: la ropa se ajusta al torso y 
     kill=[v for v in bm.verts if abs(v.co.x)>0.188 and 0.72<v.co.z<1.39]
     bmesh.ops.delete(bm,geom=kill,context='VERTS');bm.verts.ensure_lookup_table()
     return BVHTree.FromBMesh(bm)
-def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=None,skirt=True,clip=None):
-    bvh=torso_bvh(body)
+def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=None,skirt=True,clip=None,over=None):
+    bvh=torso_bvh(body);bvo=BVHTree.FromObject(over,bpy.context.evaluated_depsgraph_get()) if over else None
     bm=bmesh.new();G=[]
     for j in range(nv+1):
         row=[];t=j/nv
@@ -226,6 +290,9 @@ def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=No
             # distancia del eje a la piel: rayo desde fuera hacia el eje
             o=Vector((0,0,z))+d*0.6;hit=bvh.ray_cast(o,-d,0.6)
             r=(hit[0]-Vector((0,0,z))).length if hit[0] else 0.12
+            if bvo:
+                h2=bvo.ray_cast(o,-d,0.6)
+                if h2[0]:r=max(r,(h2[0]-Vector((0,0,z))).length-off+0.016)
             row.append([a,z,r,t])
         G.append(row)
     # la falda no se pega a las piernas: radio mínimo según la altura, y suavizado alrededor
@@ -236,7 +303,7 @@ def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=No
             z=q[1];hem=max(0,(0.95-z))/0.95
             sm=min(1,max(0,(1.02-z)/0.3));sm=sm*sm*(3-2*sm);rmin=(0.165+(0.035+flare*hem)*sm) if skirt and z<1.02 else 0
             drop=1-q[3]
-            r=max(rs[i],rmin*(1.0+0.06*math.cos(2*q[0]))*(0.95+0.1*abs(math.sin(q[0]))))+off
+            r=max(rs[i],q[2],rmin*(1.0+0.06*math.cos(2*q[0]))*(0.95+0.1*abs(math.sin(q[0]))))+off
             fd=famp*(0.25+0.75*drop)*math.sin(folds*q[0]+1.7*math.sin(q[0]*3+z*4))
             q.append(r+fd)
     vs=[]
@@ -308,18 +375,23 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, ce
     col=np.ones((H,W,3))*hexc(base)
     col*=(0.9+0.12*np.clip(z*4+0.5,0,1))[...,None]
     cheek=np.exp(-((np.abs(a)-0.55)**2/0.04+(z+0.02)**2/0.004));col+=np.array([0.10,0.01,-0.01])*cheek[...,None]*0.6
-    sock=np.exp(-((np.abs(a)-0.36)**2/0.02+(z-0.01)**2/0.0006));col*=(1-0.18*sock)[...,None]   # cuencas de los ojos algo más oscuras
     def layer(mask,c,k=1.0,soft=1):
         m=blur(mask.astype(float),soft)*k;cc=hexc(c) if isinstance(c,str) else c
         col[:]=col*(1-m[...,None])+cc*m[...,None]
+    G=lambda a0,z0,sa,sz:np.exp(-((a-a0)/sa)**2-((z-z0)/sz)**2)
+    light=0.09*G(0,0.075,0.5,0.03)+0.07*np.exp(-(a/0.05)**2)*((z>-0.04)&(z<0.03))+0.06*(G(0.55,-0.012,0.15,0.012)+G(-0.55,-0.012,0.15,0.012))+0.04*G(0,-0.1,0.18,0.012)
+    shade=0.14*(G(0.34,0.024,0.16,0.008)+G(-0.34,0.024,0.16,0.008))+0.09*(G(0.12,-0.025,0.05,0.022)+G(-0.12,-0.025,0.05,0.022))+0.12*G(0,-0.042,0.1,0.006)
+    for s2 in(1,-1):shade+=0.06*np.exp(-((a*s2-(0.17+np.clip(-z-0.04,0,0.06)*1.6))/0.03)**2)*((z<-0.035)&(z>-0.095))   # surcos de la nariz a la boca
+    shade+=0.16*np.clip((-z-0.1)/0.05,0,1)+0.12*np.clip((np.abs(a)-0.9)/0.6,0,1)   # bajo la mandíbula y hacia los lados
+    col*=(1+light-shade)[...,None]
     for s2 in(1,-1):
-        e=((a-0.36*s2)/0.1)**2+((z-0.01)/0.0085)**2<1;layer(e,'#efe8dc',1,1)
-        layer(((a-0.36*s2)/0.042)**2+((z-0.01)/0.0085)**2<1,'#4a2e18',1,1)
-        layer(((a-0.36*s2)/0.018)**2+((z-0.01)/0.004)**2<1,'#0e0906',1,0)
-        layer((np.abs(a-0.36*s2)<0.11)&(np.abs(z-0.0185)<0.0022),'#2a1a10',0.9,1)   # línea del párpado
-        layer((np.abs(a-0.36*s2+0.02*s2)<0.13)&(np.abs(z-0.038-0.01*np.cos((a-0.36*s2)*8))<0.0045),hair,0.85,1)   # ceja
+        da=a-EYE_A*s2
+        rim=((da/(EYE_W*1.25))**2+((z-EYE_Z)/(EYE_H*1.45))**2<1)
+        layer(rim,'#5a3424',0.55,2)   # sombra del párpado alrededor de la abertura
+        layer((np.abs(da)<EYE_W*1.05)&(np.abs(z-EYE_Z-EYE_H*0.95)<0.0022),'#2a1a10',0.85,1)   # línea del párpado superior
+        layer((np.abs(da+0.02*s2)<0.13)&(np.abs(z-0.038-0.01*np.cos(da*8))<0.0045),hair,0.85,1)   # ceja
     layer((np.abs(a)<0.15)&(np.abs(z+0.07)<0.0035),'#8a4a3e',0.85,2)   # labios cerrados
-    layer((np.abs(a)<0.13)&(np.abs(z+0.075)<0.0045),'#b06a58',0.4,2)
+    layer((np.abs(a)<0.13)&(np.abs(z+0.075)<0.0045),'#b06a58',0.25,2)
     hl=0.07-0.035*np.cos(a)+0.006*np.sin(a*13)
     hm=z>hl;strand=0.85+0.25*np.sin(a*60+z*90+np.sin(a*7)*3)*0.5
     hc=hexc(hair)[None,None,:]*strand[...,None];m=blur(hm.astype(float),2);col[:]=col*(1-m[...,None])+hc*m[...,None]
@@ -482,29 +554,28 @@ def build(kind):
     set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d2a07a',beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
     ears=ear_mesh(kind+'_orejas');set_mat(ears,body.data.materials[0])
     nose=nose_mesh(kind+'_nariz');set_mat(nose,head.data.materials[0])
+    eyes=eye_mesh(kind+'_ojos',head);set_mat(eyes,material(kind+'_ojo',eye_tex(kind+'_ojo')))
     hm_=material(kind+'_pelo',hair_tex(kind+'_pelo',hair))
     hs=hair_shell(kind+'_pelo',head,'pelo');set_mat(hs,hm_)
     bd=hair_shell(kind+'_barba',head,'barba');set_mat(bd,material(kind+'_barba',hair_tex(kind+'_barba','#6e4c33' if kind=='ciudadano' else '#4a3424')))
-    pieces=[head,ears,nose,hs,bd];rigid=[]
+    pieces=[head,ears,nose,eyes,hs,bd];rigid=[]
     if kind=='ciudadano':
         # quitón largo de lino (hasta los tobillos en los hombres mayores; con mangas cortas abrochadas) y himation de lana
         ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505+0.035*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton',cloth_tex('quiton','#e8e0cf',border='#2f4c86',band=(0.0,0.05),folds=30,neck='#2f4c86')))
         def htop(u):   # el himation deja libre el hombro y el brazo derechos y cubre el izquierdo
             a=u*TAU;return 1.17+0.31*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
-        hm=garment('himation',body,0.22,1.5,0.05,folds=11,famp=0.026,flare=0.11,top=htop,skirt=True)
+        hm=garment('himation',body,0.22,1.5,0.03,folds=11,famp=0.026,flare=0.11,top=htop,skirt=True,over=ch)
         set_mat(hm,material('himation',cloth_tex('himation','#6d7b9a',border='#2a2a3a',band=(0.0,0.045),folds=11)))
         for o in(ch,hm):pieces.append(o)
         # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
         e1=drape_end('himation_extremo',[(0.12,-0.09,1.49),(0.165,-0.17,1.34),(0.19,-0.21,1.05),(0.2,-0.225,0.75),(0.205,-0.23,0.5)],0.2,folds=2.5,famp=0.022)
         e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
-        # mangas cortas del quitón, abrochadas
-        for s in(1,-1):
-            b2=bmesh.new();sh=Vector(J['sho.'+('L' if s>0 else 'R')]);el=Vector(J['elb.'+('L' if s>0 else 'R')])
-            d=(el-sh).normalized();m=Matrix.Translation(sh+d*0.08)@d.to_track_quat('Z','Y').to_matrix().to_4x4()
-            bmesh.ops.create_cone(b2,cap_ends=False,segments=16,radius1=0.078,radius2=0.075,depth=0.17,matrix=m)
-            sl=obj_from_bm('manga',b2);smart_uv(sl);set_mat(sl,ch.data.materials[0]);pieces.append(sl)
+        # mangas del quitón jonio: la tela cae suelta del hombro hasta el codo y se abrocha con botones (fíbulas) por encima del brazo
+        for k,sg in(('L',1),('R',-1)):
+            sl,bt=ionic_sleeve('manga',sg,J['sho.'+k],J['elb.'+k]);set_mat(sl,ch.data.materials[0]);pieces.append(sl)
+            set_mat(bt,material('oro',plain_tex('oro','#d9a93a',0.1),metal=0.9,rough=0.3));pieces.append(bt)
     else:
         ch=garment('quiton_corto',body,0.66,1.5,0.012,folds=20,famp=0.008,flare=0.03,skirt=True,top=lambda u:1.505+0.035*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton_rojo',cloth_tex('quiton_rojo','#9a2a1e',border='#1a120c',band=(0.0,0.05),folds=20)))
@@ -540,7 +611,8 @@ def build(kind):
         sp.location=Vector(J['fin.R'])+Vector((0,-0.02,0.05));sp.rotation_euler=(math.radians(-8),0,0);rigid.append((sp,'hand.R'))
     skin_to(arm,pieces,body)
     for o in pieces:
-        if o.name.startswith(('quiton','himation','pteryges')):skirt_weights(o)
+        if o.name.startswith(('himation_extremo','himation_espalda')):drape_weights(o)
+        elif o.name.startswith(('quiton','himation','pteryges')):skirt_weights(o)
     for ob,bone in rigid:attach(ob,arm,bone)
     arm.data.pose_position='POSE'
     animate(arm,kind+'_')
