@@ -1,0 +1,443 @@
+# Personajes de Nóstos (prototipo): una sola malla con esqueleto, ropa con caída y texturas pintadas.
+# Se ejecuta con Blender como módulo de Python:  /opt/bvenv/bin/python herramientas/blender/personajes.py
+# Salida: modelos/personajes.glb (no toca modelos/atenas_modelos.blend).
+# Convención del proyecto: Z arriba, el personaje mira hacia -Y, metros. Lado .L = +X.
+# Personajes: «ciudadano» (quitón largo y himation, Atenas 386 a.C.) y «hoplita» (quitón corto, coraza de lino con pteryges,
+# grebas, casco corintio, escudo redondo (aspis) y lanza (dory)). Fuentes: Hope, Costumes of the Greeks and Romans (láms. 1-40);
+# la panoplia del hoplita según la cerámica ática y los ejemplares de Olimpia (casco corintio, escudo de 0,9 m de diámetro).
+import bpy,bmesh,math,random,os,sys
+import numpy as np
+from mathutils import Vector,Matrix,Euler
+from mathutils.bvhtree import BVHTree
+OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','modelos')
+TEX=os.path.join(OUT,'tex_personajes');os.makedirs(TEX,exist_ok=True)
+TAU=math.tau
+bpy.ops.wm.read_factory_settings(use_empty=True)
+scn=bpy.context.scene
+
+# ------------------------------------------------------------------ esqueleto
+# articulaciones (proporciones algo heroicas: hombros anchos, manos y pies algo grandes, 7,3 cabezas)
+J={'hips':(0,0,0.98),'spine':(0,0,1.10),'chest':(0,0,1.30),'neck':(0,0,1.50),'head':(0,0,1.585),'top':(0,0,1.81)}
+for s,k in((1,'L'),(-1,'R')):
+    J['clav.'+k]=(0.035*s,0.0,1.445);J['sho.'+k]=(0.205*s,0.01,1.44);J['elb.'+k]=(0.255*s,0.03,1.16);J['wri.'+k]=(0.275*s,-0.0,0.91);J['fin.'+k]=(0.285*s,-0.02,0.79)
+    J['hip.'+k]=(0.095*s,0,0.95);J['kne.'+k]=(0.105*s,-0.015,0.53);J['ank.'+k]=(0.105*s,0.02,0.085);J['toe.'+k]=(0.11*s,-0.13,0.025)
+BONES=[('hips','hips','spine',None),('spine','spine','chest','hips'),('chest','chest','neck','spine'),('neck','neck','head','chest'),('head','head','top','neck')]
+for k in('L','R'):
+    BONES+=[('clavicle.'+k,'clav.'+k,'sho.'+k,'chest'),('upperarm.'+k,'sho.'+k,'elb.'+k,'clavicle.'+k),('forearm.'+k,'elb.'+k,'wri.'+k,'upperarm.'+k),('hand.'+k,'wri.'+k,'fin.'+k,'forearm.'+k),
+            ('thigh.'+k,'hip.'+k,'kne.'+k,'hips'),('shin.'+k,'kne.'+k,'ank.'+k,'thigh.'+k),('foot.'+k,'ank.'+k,'toe.'+k,'shin.'+k)]
+def make_armature(name):
+    ad=bpy.data.armatures.new(name);ob=bpy.data.objects.new(name,ad);scn.collection.objects.link(ob)
+    bpy.context.view_layer.objects.active=ob;bpy.ops.object.mode_set(mode='EDIT')
+    for bn,a,b,par in BONES:
+        e=ad.edit_bones.new(bn);e.head=J[a];e.tail=J[b]
+        if bn.startswith('foot'):e.roll=0
+        if par:e.parent=ad.edit_bones[par];e.use_connect=False
+    bpy.ops.object.mode_set(mode='OBJECT');return ob
+
+# ------------------------------------------------------------------ cuerpo: modificador de piel sobre un grafo de articulaciones
+def body_mesh(name,female=False):
+    me=bpy.data.meshes.new(name);ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
+    bm=bmesh.new();V={}
+    pts=dict(J);pts['pelvis']=(0,0,0.9);pts['crotch']=(0,0,0.86)
+    for s,k in((1,'L'),(-1,'R')):
+        pts['bic.'+k]=tuple(Vector(J['sho.'+k]).lerp(Vector(J['elb.'+k]),0.45));pts['fore.'+k]=tuple(Vector(J['elb.'+k]).lerp(Vector(J['wri.'+k]),0.35))
+        pts['thi.'+k]=tuple(Vector(J['hip.'+k]).lerp(Vector(J['kne.'+k]),0.4));pts['calf.'+k]=tuple(Vector(J['kne.'+k]).lerp(Vector(J['ank.'+k]),0.3))
+        pts['thu.'+k]=(0.255*s,-0.045,0.86);pts['heel.'+k]=(0.105*s,0.06,0.04);pts['trap.'+k]=(0.1*s,0.012,1.47)
+    del pts['top']
+    for k,p in pts.items():V[k]=bm.verts.new(p)
+    E=[('pelvis','hips'),('hips','spine'),('spine','chest'),('chest','neck'),('neck','head')]
+    for k in('L','R'):
+        E+=[('neck','trap.'+k),('chest','clav.'+k),('clav.'+k,'sho.'+k),('sho.'+k,'bic.'+k),('bic.'+k,'elb.'+k),('elb.'+k,'fore.'+k),('fore.'+k,'wri.'+k),('wri.'+k,'fin.'+k),('wri.'+k,'thu.'+k),
+            ('pelvis','hip.'+k),('hip.'+k,'thi.'+k),('thi.'+k,'kne.'+k),('kne.'+k,'calf.'+k),('calf.'+k,'ank.'+k),('ank.'+k,'toe.'+k),('ank.'+k,'heel.'+k)]
+    for a,b in E:bm.edges.new((V[a],V[b]))
+    bm.to_mesh(me);bm.free()
+    sk=ob.modifiers.new('piel','SKIN')
+    R={'pelvis':(0.16,0.11),'hips':(0.165,0.11),'spine':(0.15,0.1),'chest':(0.185,0.12),'neck':(0.064,0.062),'head':(0.06,0.06),'crotch':(0.1,0.08)}
+    if female:R.update({'hips':(0.175,0.115),'spine':(0.135,0.095),'chest':(0.165,0.115),'pelvis':(0.17,0.115)})
+    for k in('L','R'):
+        R.update({'trap.'+k:(0.055,0.06),'clav.'+k:(0.07,0.07),'sho.'+k:(0.078,0.075),'bic.'+k:(0.066,0.062),'elb.'+k:(0.05,0.05),'fore.'+k:(0.055,0.05),'wri.'+k:(0.036,0.03),'fin.'+k:(0.045,0.02),'thu.'+k:(0.016,0.016),
+                  'hip.'+k:(0.095,0.09),'thi.'+k:(0.09,0.09),'kne.'+k:(0.057,0.06),'calf.'+k:(0.066,0.068),'ank.'+k:(0.038,0.04),'toe.'+k:(0.045,0.025),'heel.'+k:(0.035,0.03)})
+    keys=list(pts.keys())
+    for i,v in enumerate(me.skin_vertices[0].data):
+        r=R.get(keys[i],(0.05,0.05));v.radius=r
+    me.skin_vertices[0].data[keys.index('pelvis')].use_root=True
+    sub=ob.modifiers.new('sub','SUBSURF');sub.levels=1;sub.render_levels=1
+    bpy.context.view_layer.objects.active=ob
+    for m in list(ob.modifiers):bpy.ops.object.modifier_apply(modifier=m.name)
+    fix_normals(ob)
+    return ob
+
+def fix_normals(ob):
+    me=ob.data;me.validate(verbose=False);bm=bmesh.new();bm.from_mesh(me);bmesh.ops.remove_doubles(bm,verts=bm.verts,dist=1e-6)
+    bmesh.ops.recalc_face_normals(bm,faces=bm.faces);bm.to_mesh(me);bm.free()
+    for p in me.polygons:p.use_smooth=True
+# ------------------------------------------------------------------ cabeza con rasgos (malla aparte, con su propia proyección UV)
+def head_mesh(name,beard=False):
+    bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=28,v_segments=20,radius=1)
+    c=Vector((0,-0.01,1.655));rx,ry,rz=0.098,0.112,0.128
+    for v in bm.verts:
+        x,y,z=v.co;t=max(0,-z)
+        x*=1-0.25*t*t;y*=1-0.1*t
+        if z<0 and y<0:y-=0.07*t   # barbilla hacia delante
+        if z>0:y*=1+0.08*z            # cráneo largo por detrás
+        if y<-0.6 and -0.25<z<0.25:y*=1.03   # pómulos
+        if y<-0.75 and 0.18<z<0.4:y-=0.04*(1-abs(x)*2.5)   # arco de las cejas
+        v.co=Vector((x*rx,y*ry,z*rz))+c
+    # nariz
+    n=bmesh.ops.create_cone(bm,cap_ends=True,segments=8,radius1=0.014,radius2=0.005,depth=0.038,matrix=Matrix.Translation(c+Vector((0,-0.108,-0.012)))@Euler((math.radians(-100),0,0)).to_matrix().to_4x4())
+    # orejas
+    for s in(1,-1):bmesh.ops.create_uvsphere(bm,u_segments=8,v_segments=6,radius=1,matrix=Matrix.Translation(c+Vector((0.094*s,0.005,0.0)))@Matrix.Diagonal((0.012,0.022,0.03,1)))
+    me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
+    for p in me.polygons:p.use_smooth=True
+    # UV cilíndrica: la cara queda en el centro de la textura
+    uv=me.uv_layers.new(name='UVMap')
+    for poly in me.polygons:
+        for li in poly.loop_indices:
+            co=me.vertices[me.loops[li].vertex_index].co-c;a=math.atan2(co.x,-co.y)
+            uv.data[li].uv=(0.5+a/TAU,(co.z+0.16)/0.34)
+    return ob
+
+# ------------------------------------------------------------------ prenda: rejilla alrededor del cuerpo (u = vuelta, v = altura)
+def torso_bvh(body):   # el cuerpo sin los brazos: la ropa se ajusta al torso y a las piernas, no envuelve los brazos
+    bm=bmesh.new();bm.from_mesh(body.data)
+    kill=[v for v in bm.verts if abs(v.co.x)>0.188 and 0.72<v.co.z<1.39]
+    bmesh.ops.delete(bm,geom=kill,context='VERTS');bm.verts.ensure_lookup_table()
+    return BVHTree.FromBMesh(bm)
+def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=None,skirt=True,clip=None):
+    bvh=torso_bvh(body)
+    bm=bmesh.new();G=[]
+    for j in range(nv+1):
+        row=[];t=j/nv
+        for i in range(nu):
+            u=i/nu;a=u*TAU
+            zt=top(u) if top else z1;z=z0+(zt-z0)*t
+            d=Vector((math.sin(a),-math.cos(a),0))
+            # distancia del eje a la piel: rayo desde fuera hacia el eje
+            o=Vector((0,0,z))+d*0.6;hit=bvh.ray_cast(o,-d,0.6)
+            r=(hit[0]-Vector((0,0,z))).length if hit[0] else 0.12
+            row.append([a,z,r,t])
+        G.append(row)
+    # la falda no se pega a las piernas: radio mínimo según la altura, y suavizado alrededor
+    for j,row in enumerate(G):
+        rs=[q[2] for q in row]
+        for k in range(3):rs=[max(rs[i],(rs[i-1]+rs[(i+1)%nu])/2) for i in range(nu)]
+        for i,q in enumerate(row):
+            z=q[1];hem=max(0,(0.95-z))/0.95
+            sm=min(1,max(0,(1.02-z)/0.3));sm=sm*sm*(3-2*sm);rmin=(0.165+(0.035+flare*hem)*sm) if skirt and z<1.02 else 0
+            drop=1-q[3]
+            r=max(rs[i],rmin*(1.0+0.06*math.cos(2*q[0]))*(0.95+0.1*abs(math.sin(q[0]))))+off
+            fd=famp*(0.25+0.75*drop)*math.sin(folds*q[0]+1.7*math.sin(q[0]*3+z*4))
+            q.append(r+fd)
+    vs=[]
+    for j,row in enumerate(G):
+        vr=[]
+        for i,q in enumerate(row):
+            a,z,r=q[0],q[1],q[4]
+            if j==0:z+=0.012*math.sin(a*5)+0.008*math.sin(a*11)   # bajo irregular
+            vr.append(bm.verts.new((math.sin(a)*r,-math.cos(a)*r,z)))
+        vs.append(vr)
+    faces=[]
+    for j in range(nv):
+        for i in range(nu):
+            if clip and clip(i/nu,j/nv):continue
+            f=bm.faces.new((vs[j][i],vs[j][(i+1)%nu],vs[j+1][(i+1)%nu],vs[j+1][i]));faces.append((f,i,j))
+    uvl=bm.loops.layers.uv.new('UVMap')
+    for f,i,j in faces:
+        for l,(di,dj) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((i+di)/nu,(j+dj)/nv)
+    loose=[v for v in bm.verts if not v.link_faces]
+    bmesh.ops.delete(bm,geom=loose,context='VERTS')
+    me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
+    bm2=bmesh.new();bm2.from_mesh(me)
+    for f in bm2.faces:   # hacia fuera: la normal apunta en el sentido contrario al eje
+        c=f.calc_center_median();n=f.normal;out=Vector((c.x,c.y,0))
+        if n.dot(out)<0:f.normal_flip()
+    bm2.to_mesh(me);bm2.free()
+    for p in me.polygons:p.use_smooth=True
+    sol=ob.modifiers.new('grosor','SOLIDIFY');sol.thickness=0.006;sol.offset=-1
+    bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='grosor')
+    return ob
+
+# ------------------------------------------------------------------ texturas pintadas (numpy → PNG)
+def save_png(name,arr):
+    h,w,_=arr.shape;img=bpy.data.images.new(name,w,h,alpha=False)
+    rgba=np.concatenate([arr,np.ones((h,w,1))],axis=2).astype(np.float32);img.pixels.foreach_set(rgba.ravel());img.filepath_raw=os.path.join(TEX,name+'.png');img.file_format='PNG';img.save();return img
+def hexc(h):h=h.lstrip('#');return np.array([int(h[i:i+2],16)/255 for i in(0,2,4)])
+def meander(u,v,period):  # greca: 1 en la línea, 0 fuera (u,v en unidades de módulo)
+    x=(u%period)/period*4;y=v*4
+    xi=np.floor(x);yi=np.floor(np.clip(y,0,3.999))
+    pat=np.array([[1,1,1,1],[1,0,0,0],[1,0,1,1],[1,0,0,1]])   # un módulo de 4x4
+    return pat[yi.astype(int),xi.astype(int)]
+def cloth_tex(name,base,border=None,band=(0.0,0.06),folds=22,size=256,neck=None,stripe=None,wool=True):
+    H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
+    a=u*TAU;f=np.sin(folds*a+1.7*np.sin(a*3+v*4))
+    drop=1-v;shade=1+0.16*f*(0.3+0.7*drop)   # pliegues pintados: claro en la cresta, oscuro en el surco
+    shade*=0.82+0.22*v   # algo más oscuro abajo
+    col=hexc(base)[None,None,:]*shade[...,None]
+    if wool:col*=(1+0.05*(np.random.RandomState(3).rand(H,W)-0.5))[...,None]
+    def put_band(v0,v1,c):
+        m=(v>=v0)&(v<v1)
+        if not m.any():return
+        loc=(v-v0)/(v1-v0);pat=meander(u*40,np.clip(loc*1.3-0.15,0,0.999),1.0)
+        cc=hexc(c);bg=hexc(base)*0.55
+        col[m]=np.where((pat[m]==1)[:,None],cc,bg)*shade[m][:,None]
+        edge=m&((loc<0.1)|(loc>0.9));col[edge]=cc*shade[edge][:,None]
+    if border:put_band(band[0]+0.004,band[1],border)
+    if neck:put_band(1-band[1]+0.0,0.996,neck)
+    if stripe:   # franja vertical (clavus) delante
+        for c0 in stripe:
+            m=np.abs(u-c0)<0.012;col[m]=hexc('#7a2a2a')*shade[m][:,None]
+    return save_png(name,np.clip(col,0,1))
+def blur(img,k=2):
+    out=img.copy()
+    for _ in range(k):out=(out+np.roll(out,1,0)+np.roll(out,-1,0)+np.roll(out,1,1)+np.roll(out,-1,1))/5
+    return out
+def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, cejas, ojos, labios y pelo pintados (UV cilíndrica), con bordes suaves
+    H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
+    a=(u-0.5)*TAU;z=v*0.34-0.16
+    col=np.ones((H,W,3))*hexc(base)
+    col*=(0.9+0.12*np.clip(z*4+0.5,0,1))[...,None]
+    cheek=np.exp(-((np.abs(a)-0.55)**2/0.04+(z+0.02)**2/0.004));col+=np.array([0.10,0.01,-0.01])*cheek[...,None]*0.6
+    sock=np.exp(-((np.abs(a)-0.36)**2/0.02+(z-0.01)**2/0.0006));col*=(1-0.18*sock)[...,None]   # cuencas de los ojos algo más oscuras
+    def layer(mask,c,k=1.0,soft=1):
+        m=blur(mask.astype(float),soft)*k;cc=hexc(c) if isinstance(c,str) else c
+        col[:]=col*(1-m[...,None])+cc*m[...,None]
+    for s2 in(1,-1):
+        e=((a-0.36*s2)/0.1)**2+((z-0.01)/0.0085)**2<1;layer(e,'#efe8dc',1,1)
+        layer(((a-0.36*s2)/0.042)**2+((z-0.01)/0.0085)**2<1,'#4a2e18',1,1)
+        layer(((a-0.36*s2)/0.018)**2+((z-0.01)/0.004)**2<1,'#0e0906',1,0)
+        layer((np.abs(a-0.36*s2)<0.11)&(np.abs(z-0.0185)<0.0022),'#2a1a10',0.9,1)   # línea del párpado
+        layer((np.abs(a-0.36*s2+0.02*s2)<0.13)&(np.abs(z-0.038-0.01*np.cos((a-0.36*s2)*8))<0.0045),hair,0.85,1)   # ceja
+    layer((np.abs(a)<0.15)&(np.abs(z+0.07)<0.0035),'#8a4a3e',0.85,2)   # labios cerrados
+    layer((np.abs(a)<0.13)&(np.abs(z+0.075)<0.0045),'#b06a58',0.4,2)
+    hl=0.07-0.035*np.cos(a)+0.006*np.sin(a*13)
+    hm=z>hl;strand=0.85+0.25*np.sin(a*60+z*90+np.sin(a*7)*3)*0.5
+    hc=hexc(hair)[None,None,:]*strand[...,None];m=blur(hm.astype(float),2);col[:]=col*(1-m[...,None])+hc*m[...,None]
+    if beard:
+        bm=(z<-0.025+0.02*np.clip(np.abs(a)-0.6,0,1))&(np.abs(a)<1.35)
+        mouth=((a/0.2)**2+((z+0.072)/0.012)**2)<1
+        bm&=~mouth
+        must=(np.abs(a)<0.22)&(np.abs(z+0.058)<0.009)&(np.abs(a)>0.02)
+        bb=(bm|must).astype(float);bc=hexc(beard)[None,None,:]*(0.8+0.35*np.sin(a*80+z*120)*0.5)[...,None]
+        m=blur(bb,3)*0.95;col[:]=col*(1-m[...,None])+bc*m[...,None]
+    return save_png(name,np.clip(col,0,1))
+def plain_tex(name,base,noise=0.06,size=64):
+    H=W=size;r=np.random.RandomState(5).rand(H,W);col=hexc(base)[None,None,:]*(1+noise*(r-0.5))[...,None];return save_png(name,np.clip(col,0,1))
+def material(name,img=None,color=(1,1,1),metal=0.0,rough=0.8):
+    m=bpy.data.materials.new(name);m.use_nodes=True;b=m.node_tree.nodes.get('Principled BSDF')
+    b.inputs['Base Color'].default_value=(*color,1);b.inputs['Metallic'].default_value=metal;b.inputs['Roughness'].default_value=rough
+    if img:t=m.node_tree.nodes.new('ShaderNodeTexImage');t.image=img;m.node_tree.links.new(t.outputs['Color'],b.inputs['Base Color'])
+    return m
+def smart_uv(ob):
+    bpy.ops.object.select_all(action='DESELECT');ob.select_set(True);bpy.context.view_layer.objects.active=ob
+    bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.uv.smart_project(angle_limit=1.15,island_margin=0.02);bpy.ops.object.mode_set(mode='OBJECT')
+def set_mat(ob,m):ob.data.materials.clear();ob.data.materials.append(m)
+
+# ------------------------------------------------------------------ piezas rígidas del hoplita
+def obj_from_bm(name,bm):
+    me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
+    for p in me.polygons:p.use_smooth=True
+    return ob
+def helmet():   # casco corintio: cuenco, carrilleras, nasal y aberturas de los ojos
+    bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=28,v_segments=18,radius=1)
+    c=Vector((0,-0.012,1.66))
+    kill=[]
+    for v in bm.verts:
+        x,y,z=v.co
+        if z<-0.75 or (z<-0.2 and y>0.55):kill.append(v);continue
+        # abertura en T: ojos y boca
+        if y<-0.4 and ((-0.05<z<0.18 and abs(x)>0.1 and abs(x)<0.62) or (z<-0.05 and abs(x)<0.18)):kill.append(v);continue
+        sx=1.0+0.08*max(0,-z)
+        v.co=Vector((x*0.118*sx,y*0.132,z*0.15+(0.02 if z<0 else 0)))+c
+    bmesh.ops.delete(bm,geom=kill,context='VERTS')
+    ob=obj_from_bm('casco',bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.008;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
+    # cimera de crin: una aleta curva que se afina por delante y por detrás
+    b2=bmesh.new();N=20;rings=[]
+    for i in range(N+1):
+        t=i/N;ang=-1.2+t*2.9;base=Vector((0,math.sin(ang)*0.15-0.012,1.66+math.cos(ang)*0.165))
+        h=0.02+0.11*math.sin(t*math.pi)**0.8;w=0.022*(0.6+0.4*math.sin(t*math.pi))
+        nrm=(base-Vector((0,-0.012,1.66))).normalized()
+        ring=[]
+        for k in range(10):
+            q=k/10*TAU;off=nrm*(h*0.5*(1+math.sin(q)))+Vector((w*math.cos(q),0,0))
+            ring.append(b2.verts.new(base+off))
+        rings.append(ring)
+    for i in range(N):
+        for k in range(10):b2.faces.new((rings[i][k],rings[i][(k+1)%10],rings[i+1][(k+1)%10],rings[i+1][k]))
+    b2.faces.new(rings[0][::-1]);b2.faces.new(rings[-1])
+    bmesh.ops.recalc_face_normals(b2,faces=b2.faces)
+    crest=obj_from_bm('cimera',b2)
+    return ob,crest
+def shield():   # aspis: cuenco de 0,9 m con borde plano, pintado
+    bm=bmesh.new();R=0.45;nu=40;nv=10;rows=[]
+    for j in range(nv+1):
+        t=j/nv;r=R*t;d=0.07*(1-t*t) if t<0.86 else 0.0
+        rows.append([bm.verts.new((r*math.cos(i/nu*TAU),-d,r*math.sin(i/nu*TAU))) for i in range(nu)])
+    rim=[bm.verts.new(((R+0.035)*math.cos(i/nu*TAU),0.008,(R+0.035)*math.sin(i/nu*TAU))) for i in range(nu)]
+    rows.append(rim)
+    uvl=bm.loops.layers.uv.new('UVMap')
+    for j in range(len(rows)-1):
+        for i in range(nu):
+            f=bm.faces.new((rows[j][i],rows[j][(i+1)%nu],rows[j+1][(i+1)%nu],rows[j+1][i]))
+            for l in f.loops:
+                co=l.vert.co;l[uvl].uv=(0.5+co.x/1.0,0.5+co.z/1.0)
+    bmesh.ops.remove_doubles(bm,verts=bm.verts,dist=1e-5)
+    ob=obj_from_bm('escudo',bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.02;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
+    # pintura: fondo rojo, borde de bronce con cable, emblema (episema) de lambda? → un escorpión es frecuente; aquí, un pegaso no: una estrella de 8 puntas (sencilla)
+    S=256;v,u=np.mgrid[0:S,0:S];x=(u+0.5)/S-0.5;y=(v+0.5)/S-0.5;r=np.hypot(x,y);a=np.arctan2(y,x)
+    col=np.ones((S,S,3))*hexc('#a3301f')*(0.9+0.1*(1-r*2))[...,None]
+    bz=(r>0.45*0.86)
+    col[bz]=hexc('#b8893a')*(0.85+0.15*np.cos(a[bz]*60))[:,None]
+    star=(r<0.16*(0.55+0.45*np.abs(np.cos(a*4))**6))
+    col[star]=hexc('#1a120c')
+    img=save_png('escudo',np.clip(col,0,1));return ob,img
+def spear():
+    bm=bmesh.new()
+    bmesh.ops.create_cone(bm,cap_ends=True,segments=8,radius1=0.014,radius2=0.012,depth=2.3,matrix=Matrix.Translation((0,0,0)))
+    bmesh.ops.create_cone(bm,cap_ends=True,segments=8,radius1=0.024,radius2=0.0,depth=0.26,matrix=Matrix.Translation((0,0,1.27)))
+    bmesh.ops.create_cone(bm,cap_ends=True,segments=8,radius1=0.0,radius2=0.016,depth=0.16,matrix=Matrix.Translation((0,0,-1.22)))   # regatón (sauroter)
+    return obj_from_bm('lanza',bm)
+
+# ------------------------------------------------------------------ montaje
+def skin_to(arm,objs,body):
+    # pesos: el cuerpo, automáticos; la ropa y la cabeza, copiados del cuerpo (vértice más cercano)
+    bpy.ops.object.select_all(action='DESELECT');body.select_set(True);arm.select_set(True);bpy.context.view_layer.objects.active=arm
+    bpy.ops.object.parent_set(type='ARMATURE_AUTO')
+    for ob in objs:
+        dt=ob.modifiers.new('dt','DATA_TRANSFER');dt.object=body;dt.use_vert_data=True;dt.data_types_verts={'VGROUP_WEIGHTS'};dt.vert_mapping='POLYINTERP_NEAREST'
+        dt.layers_vgroup_select_src='ALL';dt.layers_vgroup_select_dst='NAME'
+        bpy.context.view_layer.objects.active=ob;bpy.ops.object.datalayout_transfer(modifier='dt');bpy.ops.object.modifier_apply(modifier='dt')
+        am=ob.modifiers.new('arm','ARMATURE');am.object=arm;ob.parent=arm
+def skirt_weights(ob,zc=0.98):
+    # falda: casi toda de la cadera y un poco de cada muslo según el lado (así se mece y no se rasga al andar)
+    names=[g.name for g in ob.vertex_groups]
+    for n in('hips','thigh.L','thigh.R'):
+        if n not in names:ob.vertex_groups.new(name=n)
+    G={g.name:g for g in ob.vertex_groups}
+    for v in ob.data.vertices:
+        z=v.co.z
+        if z>zc:continue
+        k=min(1,(zc-z)/0.15)   # transición suave desde la cintura
+        wl=0.5*min(1,max(0,(zc-z)/0.6));sL=min(1,max(0,0.5+v.co.x/0.28))
+        for g in list(v.groups):g.weight*=(1-k)
+        G['hips'].add([v.index],k*(1-wl),'ADD');G['thigh.L'].add([v.index],k*wl*sL,'ADD');G['thigh.R'].add([v.index],k*wl*(1-sL),'ADD')
+def attach(ob,arm,bone,loc=None):   # pieza rígida: todos sus vértices al 100 % en un hueso (malla con esqueleto, como el resto)
+    bpy.context.view_layer.objects.active=ob;bpy.ops.object.select_all(action='DESELECT');ob.select_set(True);bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
+    g=ob.vertex_groups.new(name=bone);g.add([v.index for v in ob.data.vertices],1.0,'REPLACE')
+    am=ob.modifiers.new('arm','ARMATURE');am.object=arm;ob.parent=arm
+def join(objs,name):
+    bpy.ops.object.select_all(action='DESELECT')
+    for o in objs:o.select_set(True)
+    bpy.context.view_layer.objects.active=objs[0];bpy.ops.object.join();objs[0].name=name;return objs[0]
+
+# ------------------------------------------------------------------ animaciones (andar, quieto)
+def animate(arm,prefix):
+    ad=arm.animation_data_create()
+    def act(name,frames,fn):
+        a=bpy.data.actions.new(prefix+name);ad.action=a
+        for f in range(frames+1):
+            ph=f/frames*TAU
+            for pb in arm.pose.bones:pb.rotation_mode='XYZ';pb.rotation_euler=(0,0,0);pb.location=(0,0,0)
+            fn(ph)
+            for pb in arm.pose.bones:
+                pb.keyframe_insert('rotation_euler',frame=f+1)
+                if pb.name=='hips':pb.keyframe_insert('location',frame=f+1)
+        slot=getattr(ad,'action_slot',None);tr=ad.nla_tracks.new();tr.name=prefix+name;st=tr.strips.new(prefix+name,1,a)
+        if slot is not None and hasattr(st,'action_slot'):st.action_slot=slot
+        ad.action=None
+    P=arm.pose.bones
+    def walk(ph):
+        s=math.sin(ph);c=math.cos(ph)
+        P['thigh.L'].rotation_euler.x=0.3*s;P['thigh.R'].rotation_euler.x=-0.3*s
+        P['shin.L'].rotation_euler.x=-max(0,-math.sin(ph+0.9))*0.6-0.05;P['shin.R'].rotation_euler.x=-max(0,math.sin(ph+0.9))*0.6-0.05
+        P['foot.L'].rotation_euler.x=0.15*math.sin(ph-0.6);P['foot.R'].rotation_euler.x=-0.15*math.sin(ph-0.6)
+        P['upperarm.L'].rotation_euler.x=-0.32*s;P['upperarm.R'].rotation_euler.x=0.32*s
+        P['forearm.L'].rotation_euler.x=-0.25-0.15*max(0,-s);P['forearm.R'].rotation_euler.x=-0.25-0.15*max(0,s)
+        P['hips'].location=(0,0.025*abs(math.cos(ph))-0.012,0);P['hips'].rotation_euler.z=0.06*s;P['chest'].rotation_euler.z=-0.09*s;P['spine'].rotation_euler.x=0.03
+        P['head'].rotation_euler.z=0.04*s
+    def idle(ph):
+        s=math.sin(ph)
+        P['chest'].rotation_euler.x=0.015*s;P['neck'].rotation_euler.x=-0.01*s;P['upperarm.L'].rotation_euler.y=0.02*s;P['upperarm.R'].rotation_euler.y=-0.02*s
+        P['upperarm.L'].rotation_euler.z=0.05;P['upperarm.R'].rotation_euler.z=-0.05;P['forearm.L'].rotation_euler.x=-0.12;P['forearm.R'].rotation_euler.x=-0.12
+        P['head'].rotation_euler.z=0.05*math.sin(ph*0.5)
+    act('andar',24,walk);act('quieto',60,idle)
+
+def build(kind):
+    female=False
+    arm=make_armature(kind+'_esqueleto');arm.data.pose_position='REST'
+    body=body_mesh(kind+'_cuerpo',female);head=head_mesh(kind+'_cabeza',beard=(kind=='ciudadano'))
+    smart_uv(body);skin=plain_tex(kind+'_piel','#d2a07a',0.04)
+    set_mat(body,material(kind+'_piel',skin))
+    hair='#5e4029'
+    set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d2a07a',beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
+    pieces=[head];rigid=[]
+    if kind=='ciudadano':
+        # quitón largo de lino (hasta los tobillos en los hombres mayores; con mangas cortas abrochadas) y himation de lana
+        ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505-0.05*max(0,math.cos(u*TAU))**3)
+        set_mat(ch,material('quiton',cloth_tex('quiton','#e8e0cf',border='#2f4c86',band=(0.0,0.05),folds=30,neck='#2f4c86')))
+        def htop(u):   # el himation deja libre el hombro y el brazo derechos y cubre el izquierdo
+            a=u*TAU;return 1.17+0.31*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
+        hm=garment('himation',body,0.22,1.5,0.05,folds=11,famp=0.016,flare=0.11,top=htop,skirt=True)
+        set_mat(hm,material('himation',cloth_tex('himation','#6d7b9a',border='#2a2a3a',band=(0.0,0.045),folds=11)))
+        for o in(ch,hm):pieces.append(o)
+        # mangas cortas del quitón, abrochadas
+        for s in(1,-1):
+            b2=bmesh.new();sh=Vector(J['sho.'+('L' if s>0 else 'R')]);el=Vector(J['elb.'+('L' if s>0 else 'R')])
+            d=(el-sh).normalized();m=Matrix.Translation(sh+d*0.08)@d.to_track_quat('Z','Y').to_matrix().to_4x4()
+            bmesh.ops.create_cone(b2,cap_ends=False,segments=16,radius1=0.078,radius2=0.075,depth=0.17,matrix=m)
+            sl=obj_from_bm('manga',b2);smart_uv(sl);set_mat(sl,ch.data.materials[0]);pieces.append(sl)
+    else:
+        ch=garment('quiton_corto',body,0.66,1.5,0.012,folds=20,famp=0.008,flare=0.03,skirt=True,top=lambda u:1.505-0.05*max(0,math.cos(u*TAU))**3)
+        set_mat(ch,material('quiton_rojo',cloth_tex('quiton_rojo','#9a2a1e',border='#1a120c',band=(0.0,0.05),folds=20)))
+        # coraza de lino (linothorax): rígida, de la cintura a las axilas, con pteryges (tiras) abajo
+        lt=garment('coraza',body,0.86,1.43,0.03,folds=1,famp=0.0,skirt=False,nu=48,nv=12)
+        set_mat(lt,material('coraza',cloth_tex('coraza','#e6dcc4',border='#a3301f',band=(0.0,0.12),folds=1,neck='#2f4c86',wool=False),rough=0.6))
+        def ptery(u,v):return int(u*36)%2==1 and v<0.999   # tiras sueltas
+        pt=garment('pteryges',body,0.6,0.86,0.04,folds=36,famp=0.004,skirt=True,flare=0.0,nu=72,nv=4,clip=lambda u,v:int(u*36)%3==2)
+        set_mat(pt,lt.data.materials[0])
+        for sgn in(1,-1):   # epomides: las dos piezas que pasan por encima de los hombros y se atan delante
+            b2=bmesh.new();N=10;rows=[]
+            for i in range(N+1):
+                t=i/N;ang=-1.1+t*2.2;c=Vector((0.13*sgn,math.sin(ang)*0.13,1.385+math.cos(ang)*0.1))
+                rows.append([b2.verts.new(c+Vector((0.055*sgn*w,0,-0.012*(w+1)))) for w in(-1,1)])
+            for i in range(N):b2.faces.new((rows[i][0],rows[i][1],rows[i+1][1],rows[i+1][0]))
+            ep=obj_from_bm('hombrera',b2)
+            for f in ep.data.polygons:pass
+            sol=ep.modifiers.new('g','SOLIDIFY');sol.thickness=0.014;bpy.context.view_layer.objects.active=ep;bpy.ops.object.modifier_apply(modifier='g')
+            smart_uv(ep);set_mat(ep,lt.data.materials[0]);pieces.append(ep)
+        # grebas de bronce
+        for k in('L','R'):
+            kn=Vector(J['kne.'+k]);an=Vector(J['ank.'+k]);b2=bmesh.new();d=(kn-an).normalized()
+            m=Matrix.Translation(an.lerp(kn,0.52))@d.to_track_quat('Z','Y').to_matrix().to_4x4()
+            bmesh.ops.create_cone(b2,cap_ends=False,segments=16,radius1=0.058,radius2=0.068,depth=0.4,matrix=m)
+            gr=obj_from_bm('greba',b2);smart_uv(gr);set_mat(gr,material('bronce',plain_tex('bronce','#b8893a',0.1),metal=0.85,rough=0.35));pieces.append(gr)
+        for o in(ch,lt,pt):pieces.append(o)
+        hel,crest=helmet();smart_uv(hel);set_mat(hel,bpy.data.materials['bronce']);smart_uv(crest);set_mat(crest,material('crin',plain_tex('crin','#7a1e14',0.2)))
+        rigid+=[(hel,'head'),(crest,'head')]
+        sh,img=shield();set_mat(sh,material('escudo',img,metal=0.3,rough=0.5))
+        # el escudo en el brazo izquierdo (porpax en el antebrazo)
+        fa=Vector(J['elb.L']).lerp(Vector(J['wri.L']),0.5);sh.location=fa+Vector((0.07,-0.06,0.05));sh.rotation_euler=(0,0,math.radians(-10))
+        rigid.append((sh,'forearm.L'))
+        sp=spear();smart_uv(sp);set_mat(sp,material('madera',plain_tex('madera','#6b4a2e',0.15)))
+        sp.location=Vector(J['fin.R'])+Vector((0,-0.02,0.05));sp.rotation_euler=(math.radians(-8),0,0);rigid.append((sp,'hand.R'))
+    skin_to(arm,pieces,body)
+    for o in pieces:
+        if o.name.startswith(('quiton','himation','pteryges')):skirt_weights(o)
+    for ob,bone in rigid:attach(ob,arm,bone)
+    arm.data.pose_position='POSE'
+    animate(arm,kind+'_')
+    return arm
+
+ARMS={}
+for k in('ciudadano','hoplita'):ARMS[k]=build(k)
+# un archivo por personaje (los huesos se llaman igual en todos y así cada uno se anima por separado)
+tot=0
+for k,a in ARMS.items():
+    bpy.ops.object.select_all(action='DESELECT');a.select_set(True)
+    for o in bpy.data.objects:
+        if o.parent==a:o.select_set(True)
+    f=os.path.join(OUT,'personaje_'+k+'.glb')
+    bpy.ops.export_scene.gltf(filepath=f,export_format='GLB',export_skins=True,export_animations=True,export_animation_mode='NLA_TRACKS',
+        export_image_format='JPEG',export_jpeg_quality=85,export_apply=False,export_yup=True,use_selection=True)
+    tot+=os.path.getsize(f);print('GLB',k,os.path.getsize(f))
+bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT,'personajes.blend'))
+print('PERSONAJES OK',tot)
