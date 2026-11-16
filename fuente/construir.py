@@ -21,6 +21,19 @@ lupa_p = raiz / 'modelos' / 'vesubio_noche.jpg'   # cuadro del Vesubio en erupci
 lupa = lupa_p.read_bytes() if lupa_p.exists() else b''
 assert src.count('@@LOBA@@') == 1, 'falta el marcador @@LOBA@@ (imagen de Roma)'
 out = src.replace('@@LOBA@@', base64.b64encode(lupa).decode('ascii')).replace('@@GLB@@', base64.b64encode(glb).decode('ascii')).replace('@@GLB2@@', base64.b64encode(glb2).decode('ascii')).replace('@@RAFAEL@@', base64.b64encode(img).decode('ascii'))
+# firma del relieve: solo el código de los módulos que definen o modifican las funciones de altura y color del terreno.
+# La caché del relieve en el navegador (161_rendimiento.js) usa esta firma: sobrevive a las versiones que no tocan el terreno.
+import re as _re
+_TN = ['displayH','terrainH','terrainH0','islandH','islandBase','buildTerrain','buildIslandMesh','terrainMat','fieldAt','fieldType','flatAt','padIndex',
+       'defineIslandLayout','defineMainlandLayout','islandOf','riverWater','GRASS_C','GREEN_C','SAND_C','ROCK_C','ISLANDS']
+_tre = _re.compile(r'(?:function\s+(?:%s)\s*\(|(?<![\w$.])(?:%s)\s*=(?!=)|(?:const|let|var)\s+(?:%s)\s*=)' % (('|'.join(_TN),)*3))
+_tmods = [m for m in mods if _tre.search(m.read_text(encoding='utf-8'))]
+def _tpart(m):   # del arranque (900) y de la propia caché (161) solo cuentan las líneas que tocan el relieve: cambian a menudo por otras cosas
+    t = m.read_text(encoding='utf-8')
+    return '\n'.join(l for l in t.split('\n') if _tre.search(l)) if m.name[:3] in ('900', '161') else t
+tsig = hashlib.sha1(''.join(m.name + _tpart(m) for m in _tmods).encode('utf-8')).hexdigest()[:12]
+assert out.count('@@TSIG@@') == 1, 'falta el marcador @@TSIG@@'
+out = out.replace('@@TSIG@@', tsig)
 ver = hashlib.sha1(out.encode('utf-8')).hexdigest()[:12]   # versión: huella del contenido (para el aviso de versión nueva en la web)
 assert out.count('@@VER@@') == 1, 'falta el marcador @@VER@@'
 out = out.replace('@@VER@@', ver)

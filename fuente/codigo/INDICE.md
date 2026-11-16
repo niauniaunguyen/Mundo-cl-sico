@@ -164,7 +164,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `158_honra.js` | 45 | LA HONRA (timḗ / dignitas): el hilo que une todo lo que haces |
 | `159_personas.js` | 61 | PERSONAS MÁS CUIDADAS: cabeza, pelo, brazos con manos y ropa suavizada |
 | `160_voces_musica.js` | 35 | VOCES Y MÚSICA POR MOMENTOS |
-| `161_rendimiento.js` | 31 | RENDIMIENTO: el relieve de los destinos se guarda tras la primera carga |
+| `161_rendimiento.js` | 33 | RENDIMIENTO: el relieve de los destinos se guarda tras la primera carga |
 | `162_panel_docente.js` | 33 | PANEL DE CLASE PARA EL DOCENTE (sin servidor: los datos no salen del ordenador) |
 | `163_atencion_calles_roma.js` | 11 | MIRAR CON ATENCIÓN: altares de las encrucijadas, fuentes y miliarios de las calles de Roma |
 | `164_girarse_al_hablar.js` | 19 | GIRARSE AL HABLAR: quien te habla se vuelve hacia ti |

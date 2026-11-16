@@ -32,8 +32,8 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atTick` | `085_mirar_con_atencion.js` | 2 | `100`:143 · `134`:24 |
 | `buildAvatar` | `040_caballo.js` | 2 | `101`:52 · `900`:411 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
-| `buildIslandMesh` | `012_escenarios_cuadrados.js` | 2 | `161`:11 · `900`:446 |
-| `buildTerrain` | `006_murallas_circuito_de_temistocles_reconstruido.js` | 2 | `161`:24 · `900`:427 |
+| `buildIslandMesh` | `012_escenarios_cuadrados.js` | 2 | `161`:13 · `900`:446 |
+| `buildTerrain` | `006_murallas_circuito_de_temistocles_reconstruido.js` | 2 | `161`:26 · `900`:427 |
 | `checkZone` | `014_hud.js` | 2 | `105`:502 · `900`:310 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
 | `destTrees` | `013_destinos_nuevos_grecia_italia_hispania.js` | 2 | `125`:39 · `900`:451 |
@@ -161,7 +161,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
 | `infBuild` | `072_misiones_finales_de_las_cualidades.js` | 1 | `085`:49 |
 | `jrSetup` | `079_la_jornada_romana_a_partir.js` | 1 | `900`:381 |
-| `ldRun` | `900_creta_y_arranque.js` | 1 | `161`:20 |
+| `ldRun` | `900_creta_y_arranque.js` | 1 | `161`:22 |
 | `libPlain` | `019_biblioteca.js` | 1 | `167`:45 |
 | `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
 | `loadModels` | `005_modelos_de_blender.js` | 1 | `900`:443 |

@@ -3,7 +3,9 @@
 // La primera vez se calcula como siempre y se guarda (alturas y colores) en el almacén del navegador (IndexedDB), con la versión del juego en la clave.
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
-function icKey(){return 'isl-'+(typeof NOSTOS_VER!=='undefined'?NOSTOS_VER:'dev')+'-'+MODE;}
+// la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
+const TERRAIN_SIG='@@TSIG@@';
+function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;
   await new Promise(res=>{try{const g=db.transaction('c','readonly').objectStore('c').get(icKey());g.onsuccess=()=>{ICACHE.map=g.result||{};res();};g.onerror=()=>{ICACHE.map={};res();};}catch(e){ICACHE.map={};res();}});}

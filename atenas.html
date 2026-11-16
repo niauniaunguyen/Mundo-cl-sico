@@ -23225,7 +23225,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='bb0f0d4c0bfa';
+const NOSTOS_VER='39642163dae4';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27865,7 +27865,9 @@ function mmDrone(on){if(!aOK())return;const c=AUD.ctx;if(on&&!MM.drone){const g=
 // La primera vez se calcula como siempre y se guarda (alturas y colores) en el almacén del navegador (IndexedDB), con la versión del juego en la clave.
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
-function icKey(){return 'isl-'+(typeof NOSTOS_VER!=='undefined'?NOSTOS_VER:'dev')+'-'+MODE;}
+// la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
+const TERRAIN_SIG='c4fb986e72f3';
+function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;
   await new Promise(res=>{try{const g=db.transaction('c','readonly').objectStore('c').get(icKey());g.onsuccess=()=>{ICACHE.map=g.result||{};res();};g.onerror=()=>{ICACHE.map={};res();};}catch(e){ICACHE.map={};res();}});}

@@ -36,7 +36,7 @@ if(gf){const names=[...new Set([...gf[1].matchAll(/([A-Za-z_$][\w$]*)\((?:dt)?\)
 // 8. traducciones pegadas: el constructor envuelve los textos en _t(n,'…'); si queda pegado a una palabra («return_t(») el juego falla al llegar ahí
 {const g=[...new Set((code.match(/[\w$]_tt?\(\d+,/g)||[]))];if(g.length)mal('traducciones pegadas a la palabra anterior: '+g.slice(0,5).join(' '));else bien('traducciones bien separadas');}
 // 5. marcadores sin sustituir
-const left=html.match(/@@(GLB2?|RAFAEL|VER|CODIGO)@@/g);   // marcadores de construcción (@@RF@@ es un marcador interno de la biblioteca)
+const left=html.match(/@@(GLB2?|RAFAEL|VER|TSIG|CODIGO)@@/g);   // marcadores de construcción (@@RF@@ es un marcador interno de la biblioteca)
 if(left)mal('marcadores sin sustituir: '+[...new Set(left)].join(', '));else bien('sin marcadores pendientes');
 // 6. tamaño
 const mb=Buffer.byteLength(html)/1e6;if(mb>14)mal('atenas.html pesa '+mb.toFixed(1)+' MB (máximo 14)');else if(mb>12)ojo('atenas.html pesa '+mb.toFixed(1)+' MB (cerca del límite)');else bien('tamaño '+mb.toFixed(2)+' MB');
