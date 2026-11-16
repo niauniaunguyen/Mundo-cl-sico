@@ -15,7 +15,7 @@ window.READY=false;
 new THREE.GLTFLoader().load('../../modelos/personaje_'+(Q.get('pj')||'ciudadano')+'.glb',gl=>{
   const root=gl.scene;s.add(root);const solo=Q.get('solo');if(solo)root.traverse(o=>{if(o.isMesh&&!o.name.includes(solo)&&!(o.parent&&o.parent.name.includes(solo)))o.visible=false;});
   root.traverse(o=>{if(!o.isMesh)return;const m=o.material,met=m.metalness>0.5;
-    const n=met?new THREE.MeshPhongMaterial({map:m.map,color:m.color,shininess:60,specular:0x8a6a3a}):new THREE.MeshLambertMaterial({map:m.map,color:m.color});
+    const n=met?new THREE.MeshPhongMaterial({map:m.map,color:m.color,shininess:70,specular:0xa89868}):new THREE.MeshLambertMaterial({map:m.map,color:m.color});
     n.skinning=!!o.isSkinnedMesh;o.material=n;o.frustumCulled=false;});
   const mix=new THREE.AnimationMixer(root),an=Q.get('anim');
   if(an){for(const c of gl.animations)if(c.name.endsWith(an)){const a=mix.clipAction(c);a.play();}mix.update((+Q.get('t')||0)*1.0);}

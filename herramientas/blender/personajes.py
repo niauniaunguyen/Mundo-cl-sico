@@ -74,7 +74,7 @@ def fix_normals(ob):
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces);bm.to_mesh(me);bm.free()
     for p in me.polygons:p.use_smooth=True
 # ------------------------------------------------------------------ cabeza esculpida (malla aparte, con su propia proyección UV)
-HC=Vector((0,-0.01,1.655));HR=(0.098,0.112,0.128)
+HC=Vector((0,-0.01,1.655));HR=(0.099,0.106,0.127)
 def _g(p,c,s):return math.exp(-((p[0]-c[0])**2+(p[1]-c[1])**2+(p[2]-c[2])**2)/(s*s))
 def head_shape(x,y,z):   # desplazamiento radial sobre la esfera unidad (delante = -Y)
     fr=max(0,-y);d=0
@@ -99,7 +99,7 @@ def head_mesh(name,beard=False):
         x,y,z=v.co;r=1+head_shape(x,y,z);x*=r;y*=r;z*=r
         t=max(0,-z);x*=1-0.24*t*t;y*=1-0.08*t
         if z<0 and y<0:y-=0.05*t
-        if z>0:y*=1+0.06*z;x*=1+0.07*z*(1-z)   # cráneo más redondo arriba
+        if z>0:y*=1+0.03*z;x*=1+0.07*z*(1-z)   # cráneo más redondo arriba
         if z>0.75:z*=1-0.06*(z-0.75)/0.25   # sin coronilla en punta
         v.co=Vector((x*rx,y*ry,z*rz))+HC
     # aberturas de los ojos (almendra): detrás van los globos oculares
@@ -513,7 +513,7 @@ def helmet():   # casco corintio: cuenco, carrilleras, nasal y aberturas de los 
 def helmet_tex(name,size=256):   # bronce batido: pátina, línea grabada sobre las cejas que sube a las sienes, arista central y borde marcado
     H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H;a=(u-0.5)*TAU;z=v*0.34-0.16
     r=np.random.RandomState(7)
-    col=np.ones((H,W,3))*hexc('#c99a45')
+    col=np.ones((H,W,3))*hexc('#bf9f5a')
     col*=(0.86+0.2*np.clip(z*5+0.4,0,1))[...,None]   # más claro arriba (pulido)
     pat=blur(r.rand(H,W),3);col*=(0.92+0.16*pat)[...,None]
     def line(m,c,k):col[m]=col[m]*(1-k)+hexc(c)*k
@@ -525,10 +525,10 @@ def helmet_tex(name,size=256):   # bronce batido: pátina, línea grabada sobre 
 def coraza_tex(name,size=256):   # coraza de lino: tela encolada blanca, banda baja roja con greca, panel de escamas de bronce en los costados
     H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
     col=np.ones((H,W,3))*hexc('#ebe2cc')*(0.9+0.1*v)[...,None]
-    side=np.minimum(np.abs(u-0.25),np.abs(u-0.75))<0.09
+    side=np.minimum(np.abs(u-0.25),np.abs(u-0.75))<0.15
     sc_u=(u*64)%1;row=np.floor(v*22);sc_v=(v*22)%1;sc_u=(sc_u+0.5*(row%2))%1
-    scale=side&(v>0.14)&(v<0.62);d=np.hypot(sc_u-0.5,sc_v*0.9)
-    sc=hexc('#c4943e')*(0.75+0.35*(1-d))[...,None];col[scale]=sc[scale]
+    scale=side&(v>0.14)&(v<0.7);d=np.hypot(sc_u-0.5,sc_v*0.9)
+    sc=hexc('#b89a58')*(0.75+0.35*(1-d))[...,None];col[scale]=sc[scale]
     edge=scale&(d>0.48)&(d<0.56);col[edge]=hexc('#6a4a1e')
     band=(v<0.12);col[band]=hexc('#a3301f')
     loc=v/0.12;pat=meander(u*36,np.clip(loc*1.3-0.15,0,0.999),1.0);m=band&(pat==1)&(loc>0.15)&(loc<0.85);col[m]=hexc('#efe6d0')
@@ -632,10 +632,10 @@ def build(kind):
     female=False
     arm=make_armature(kind+'_esqueleto');arm.data.pose_position='REST'
     body=body_mesh(kind+'_cuerpo',female);head=head_mesh(kind+'_cabeza',beard=(kind=='ciudadano'))
-    smart_uv(body);skin=plain_tex(kind+'_piel','#d2a07a',0.04)
+    smart_uv(body);skin=plain_tex(kind+'_piel','#d9ad88',0.04)
     set_mat(body,material(kind+'_piel',skin))
     hair='#5e4029'
-    set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d2a07a',beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
+    set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d9ad88',beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
     ears=ear_mesh(kind+'_orejas');set_mat(ears,body.data.materials[0])
     nose=nose_mesh(kind+'_nariz');set_mat(nose,head.data.materials[0])
     eyes=eye_mesh(kind+'_ojos',head);set_mat(eyes,material(kind+'_ojo',eye_tex(kind+'_ojo')))
@@ -679,7 +679,7 @@ def build(kind):
         for k in('L','R'):
             kn=Vector(J['kne.'+k]);an=Vector(J['ank.'+k])
             gr=limb_shell('greba',body,an+Vector((0,0,0.05)),kn+Vector((0,0,0.06)),0.007,nu=28,nv=12,knee=0.018,gap=1.0)
-            set_mat(gr,material('bronce',plain_tex('bronce','#c4943e',0.1),metal=0.85,rough=0.35) if 'bronce' not in bpy.data.materials else bpy.data.materials['bronce']);pieces.append(gr)
+            set_mat(gr,material('bronce',plain_tex('bronce','#b49a5c',0.12),metal=0.85,rough=0.35) if 'bronce' not in bpy.data.materials else bpy.data.materials['bronce']);pieces.append(gr)
         for o in(ch,lt,pt):pieces.append(o)
         hel,crest=helmet();head_uv(hel.data);set_mat(hel,material('casco',helmet_tex('casco'),metal=0.85,rough=0.3));smart_uv(crest);set_mat(crest,material('crin',plain_tex('crin','#7a1e14',0.2)))
         rigid+=[(hel,'head'),(crest,'head')]
