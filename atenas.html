@@ -20532,7 +20532,8 @@ function natAppTick(dt){const want=natAppWant();if(want!==NAT_APP.id){if(NAT_APP
 
 // ---- los doce trabajos de Heracles en su sitio (Apolodoro, Biblioteca II 5, 1-12): cuatro mapas de transición nuevos y once esferas de sueño más
 Object.assign(MED_POS,{lerna:[22.72,37.55],erimanto:[21.8,37.97],estinfalo:[22.46,37.85],tenaro:[22.48,36.39]});
-const epiWild0=epiWild;epiWild=function(S,sp,x,z,r,s,c){const A=wildBuild(sp,{s:s||1,c:c||{}});S.g.add(A.g);A.g.position.set(x,0,z);A.g.rotation.y=r||0;return A;};
+// sustituye a la versión anterior: ahora los animales salen de wildBuild
+epiWild=function(S,sp,x,z,r,s,c){const A=wildBuild(sp,{s:s||1,c:c||{}});S.g.add(A.g);A.g.position.set(x,0,z);A.g.rotation.y=r||0;return A;};
 function epiNeck(seg,bx,by,bz,dx,dy,dz,t,ph){seg.forEach((s,i)=>{const k=i/seg.length;s.position.set(bx+dx*k+Math.sin(t*2+ph+k*3)*0.6*k,by+dy*k+Math.sin(t*1.5+ph)*0.4*k,bz+dz*k);});}
 Object.assign(SIMPLE_GR,{
  lerna:{label:'Lerna',blobs:[[-260,-220,220,120],[260,-240,200,90]],lake:[60,120,110,80],houses:4,spread:50,
@@ -23210,7 +23211,8 @@ const STORY_EXTRA_ROMA={cat:_t(121,'Historia'),title:'Las historias de Tácito',
 // ============================================================ PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva
 let R7_T=0;function r7Tick(dt){const now=performance.now();if(now<R7_T||!state)return;R7_T=now+1500;try{const id=regionOf(player.x);if(!id)return;const L=state.mapas||(state.mapas=[]);if(!L.includes(id)){L.push(id);save();}}catch(e){}}
 {const er0=eduReport;eduReport=function(){const r=er0();const st=state.story||{};r.capitulos=st.done||0;r.mapas=(state.mapas||[]).length+' de '+(ISLANDS.length+1);try{const d=dreamCount();r.esferas=d[0]+' de '+d[1];}catch(e){r.esferas='-';}return r;};}
-{const ec0=eduCode;eduCode=function(){const r=eduReport();return btoa(unescape(encodeURIComponent([r.nombre,r.modo[0],r.dia,r.lecciones,r.inscripciones,r.batallas,r.plantas,r.logros,r.capitulos,String(r.mapas).split(' ')[0],String(r.esferas).split(' ')[0]].join('|')))).replace(/=+$/,'');};}
+// sustituye del todo al código corto anterior (este lleva también mapas y esferas)
+eduCode=function(){const r=eduReport();return btoa(unescape(encodeURIComponent([r.nombre,r.modo[0],r.dia,r.lecciones,r.inscripciones,r.batallas,r.plantas,r.logros,r.capitulos,String(r.mapas).split(' ')[0],String(r.esferas).split(' ')[0]].join('|')))).replace(/=+$/,'');};
 function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.slice((c.trim().length+3)%4)))).split('|');if(s.length<8)return null;return s;}catch(e){return null;}}
 {const et0=eduTeacher;eduTeacher=function(){et0();const o=$('teacher');if(!o)return;const r=eduReport(),box=document.createElement('div');
   box.innerHTML='<div class="curio"><p>Capítulos de la historia completados: <b>'+r.capitulos+'</b> · Mapas visitados: <b>'+r.mapas+'</b> · Esferas de sueño: <b>'+r.esferas+'</b></p></div>'+
@@ -23223,7 +23225,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='0511b060f77a';
+const NOSTOS_VER='fa8633497d21';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';

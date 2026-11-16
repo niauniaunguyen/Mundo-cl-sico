@@ -307,7 +307,8 @@ function natAppTick(dt){const want=natAppWant();if(want!==NAT_APP.id){if(NAT_APP
 
 // ---- los doce trabajos de Heracles en su sitio (Apolodoro, Biblioteca II 5, 1-12): cuatro mapas de transición nuevos y once esferas de sueño más
 Object.assign(MED_POS,{lerna:[22.72,37.55],erimanto:[21.8,37.97],estinfalo:[22.46,37.85],tenaro:[22.48,36.39]});
-const epiWild0=epiWild;epiWild=function(S,sp,x,z,r,s,c){const A=wildBuild(sp,{s:s||1,c:c||{}});S.g.add(A.g);A.g.position.set(x,0,z);A.g.rotation.y=r||0;return A;};
+// sustituye a la versión anterior: ahora los animales salen de wildBuild
+epiWild=function(S,sp,x,z,r,s,c){const A=wildBuild(sp,{s:s||1,c:c||{}});S.g.add(A.g);A.g.position.set(x,0,z);A.g.rotation.y=r||0;return A;};
 function epiNeck(seg,bx,by,bz,dx,dy,dz,t,ph){seg.forEach((s,i)=>{const k=i/seg.length;s.position.set(bx+dx*k+Math.sin(t*2+ph+k*3)*0.6*k,by+dy*k+Math.sin(t*1.5+ph)*0.4*k,bz+dz*k);});}
 Object.assign(SIMPLE_GR,{
  lerna:{label:'Lerna',blobs:[[-260,-220,220,120],[260,-240,200,90]],lake:[60,120,110,80],houses:4,spread:50,

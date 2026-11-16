@@ -7,6 +7,7 @@
 | `fuente/atenas.src.html` | Plantilla: HTML, CSS y la interfaz. El código va en el marcador `@@CODIGO@@`. |
 | `fuente/codigo/NNN_nombre.js` | El código del juego, en módulos. Se unen **en orden alfabético** dentro de un único `<script>`. |
 | `fuente/codigo/INDICE.md` | Índice de módulos y de sus secciones (se regenera solo al construir). |
+| `fuente/codigo/ENVOLTURAS.md` | Qué funciones amplían otros módulos y en qué orden (también se regenera al construir). Míralo antes de tocar una función: puede que otros cinco módulos la amplíen. |
 | `fuente/construir.py` | Une plantilla y módulos, aplica las traducciones (`i18n.py`), incrusta modelos e imagen y escribe `atenas.html` y `version.json`. |
 | `fuente/i18n/`, `fuente/i18n.py` | Traducciones al catalán y al inglés. |
 | `modelos/` | Modelos de Blender (`.glb`) e imagen de Rafael. **No sobrescribir `atenas_modelos.blend`.** |
@@ -22,8 +23,10 @@ node herramientas/pruebas/comprobar.js        # siempre, tras cada cambio (unos 
 herramientas/pruebas/todo.sh --navegador      # antes de publicar (varios minutos)
 ```
 
-`comprobar.js` construye y revisa: sintaxis, funciones declaradas dos veces, funciones del bucle que no existen, marcadores
-sin sustituir y tamaño. `todo.sh --navegador` añade, en Atenas y en Roma, la **prueba de humo** (abre todos los diálogos,
+`comprobar.js` construye y revisa: sintaxis, funciones declaradas dos veces, funciones del bucle que no existen, envolturas
+(`{const f=X;X=function(…){f(…);…}}`) sobre algo que no es una función reasignable o que no llaman a la original, textos
+traducidos pegados a la palabra anterior (`return_t(…)`), marcadores sin sustituir y tamaño. Si una envoltura sustituye a
+propósito a la función, escríbelo sin la variable (`X=function…`) y con un comentario. `todo.sh --navegador` añade, en Atenas y en Roma, la **prueba de humo** (abre todos los diálogos,
 estelas, dioses, objetos…) y la **huella del mundo** (ver «El generador aleatorio»). Para las del navegador hace falta
 Chromium con Playwright y `cd herramientas/qa_visual && npm install` (three.js r128 servido en local).
 

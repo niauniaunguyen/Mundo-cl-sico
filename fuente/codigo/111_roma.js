@@ -138,7 +138,8 @@ const STORY_EXTRA_ROMA={cat:'Historia',title:'Las historias de Tácito',extra:tr
 // ============================================================ PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva
 let R7_T=0;function r7Tick(dt){const now=performance.now();if(now<R7_T||!state)return;R7_T=now+1500;try{const id=regionOf(player.x);if(!id)return;const L=state.mapas||(state.mapas=[]);if(!L.includes(id)){L.push(id);save();}}catch(e){}}
 {const er0=eduReport;eduReport=function(){const r=er0();const st=state.story||{};r.capitulos=st.done||0;r.mapas=(state.mapas||[]).length+' de '+(ISLANDS.length+1);try{const d=dreamCount();r.esferas=d[0]+' de '+d[1];}catch(e){r.esferas='-';}return r;};}
-{const ec0=eduCode;eduCode=function(){const r=eduReport();return btoa(unescape(encodeURIComponent([r.nombre,r.modo[0],r.dia,r.lecciones,r.inscripciones,r.batallas,r.plantas,r.logros,r.capitulos,String(r.mapas).split(' ')[0],String(r.esferas).split(' ')[0]].join('|')))).replace(/=+$/,'');};}
+// sustituye del todo al código corto anterior (este lleva también mapas y esferas)
+eduCode=function(){const r=eduReport();return btoa(unescape(encodeURIComponent([r.nombre,r.modo[0],r.dia,r.lecciones,r.inscripciones,r.batallas,r.plantas,r.logros,r.capitulos,String(r.mapas).split(' ')[0],String(r.esferas).split(' ')[0]].join('|')))).replace(/=+$/,'');};
 function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.slice((c.trim().length+3)%4)))).split('|');if(s.length<8)return null;return s;}catch(e){return null;}}
 {const et0=eduTeacher;eduTeacher=function(){et0();const o=$('teacher');if(!o)return;const r=eduReport(),box=document.createElement('div');
   box.innerHTML='<div class="curio"><p>Capítulos de la historia completados: <b>'+r.capitulos+'</b> · Mapas visitados: <b>'+r.mapas+'</b> · Esferas de sueño: <b>'+r.esferas+'</b></p></div>'+

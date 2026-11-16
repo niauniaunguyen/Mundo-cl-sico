@@ -97,7 +97,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `090_el_tiempo.js` | 120 | EL TIEMPO: sol, nubes, niebla, viento, lluvia, tormenta, calor y nieve, según la estación |
 | `091_para_que_sirven_los_objetos.js` | 114 | PARA QUÉ SIRVEN LOS OBJETOS: antorchas que se gastan, ladrones nocturnos, limosna, guías, vino en el odre,<br>TEJADOS Y CORNISAS: posarse sobre los edificios |
 | `092_ayuda_sin_llevar_de_la.js` | 88 | AYUDA SIN LLEVAR DE LA MANO (modo libre)<br>TREPAR: las laderas empinadas se suben despacio, apoyando las manos, en vez de chocar con ellas |
-| `093_la_naturaleza_entre_las_ciudades.js` | 437 | LA NATURALEZA ENTRE LAS CIUDADES: montes, bosques, cuevas y fuentes con sus ninfas y su fauna<br>LA GUERRA EN EL HORIZONTE: lo que se comenta en la calle en el 386 a.C. y en el 80 d.C. |
+| `093_la_naturaleza_entre_las_ciudades.js` | 438 | LA NATURALEZA ENTRE LAS CIUDADES: montes, bosques, cuevas y fuentes con sus ninfas y su fauna<br>LA GUERRA EN EL HORIZONTE: lo que se comenta en la calle en el 386 a.C. y en el 80 d.C. |
 | `094_petteia_y_ludus_latrunculorum.js` | 81 | PETTÉIA Y LUDUS LATRUNCULORUM: el juego de tablero y las grandes batallas |
 | `095_los_caminos_mas_vivos.js` | 74 | LOS CAMINOS, MÁS VIVOS: tráfico, calzadas y rodadas, estaciones de postas, aduanas, tumbas que hablan, |
 | `096_la_ciudad_mas_viva.js` | 79 | LA CIUDAD, MÁS VIVA: oficios con minijuego, instituciones, grafitis, la noche de Roma, agua e higiene, cambist |
@@ -115,7 +115,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `108_roma.js` | 113 | ROMA: Sicilia (Siracusa y el Etna), Cerdeña (Caralis) y Córcega (Aleria) |
 | `109_roma.js` | 370 | ROMA: el resto de Italia, Sicilia y las provincias (año 80 d.C.) |
 | `110_roma.js` | 86 | ROMA: mapas de transición que unen a pie los destinos nuevos |
-| `111_roma.js` | 162 | ROMA: lo que les faltaba a los mapas nuevos — esferas de sueño, segunda misión del barquero, casas de Oriente<br>ROMA: capítulo extra del modo Historia — «Las historias de Tácito» (se ofrece al terminar la historia)<br>PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva |
+| `111_roma.js` | 163 | ROMA: lo que les faltaba a los mapas nuevos — esferas de sueño, segunda misión del barquero, casas de Oriente<br>ROMA: capítulo extra del modo Historia — «Las historias de Tácito» (se ofrece al terminar la historia)<br>PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva |
 | `112_roma.js` | 45 | ROMA: casas propias de cada provincia y un tercer tema para los personajes nuevos |
 | `113_templos_por_dentro.js` | 182 | TEMPLOS POR DENTRO: estatuas de culto, tesoros, ofrendas y sacerdotes<br>COLUMNAS QUE SE CONSTRUYEN TARDE<br>CARGA POR TROZOS (como los chunks de Minecraft)<br>FUSIÓN DE PIEZAS ESTÁTICAS |
 | `114_vida_2.js` | 119 | VIDA 2: una ciudad menos estática |
