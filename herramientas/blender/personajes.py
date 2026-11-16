@@ -176,7 +176,7 @@ def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza
     def zone(co):
         q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
         if kind=='pelo':return z>hairline(a)-0.004
-        mouth=(a/0.15)**2+((z+0.0705)/0.0045)**2<1
+        mouth=False
         return ((z<-0.05+0.045*min(1,max(0,abs(a)-0.25)/0.6) and abs(a)<1.35) or (abs(a)<0.2 and -0.064<z<-0.052)) and not mouth
     keep=set(v for v in bm.verts if zone(v.co))
     bmesh.ops.delete(bm,geom=[f for f in bm.faces if not all(v in keep for v in f.verts)],context='FACES')
@@ -243,6 +243,36 @@ def ionic_sleeve(name,sg,sho,elb):
         bmesh.ops.create_uvsphere(b2,u_segments=8,v_segments=6,radius=0.0075,matrix=Matrix.Translation(p))
     bt=obj_from_bm('fibulas',b2);smart_uv(bt)
     return ob,bt
+def shoulder_flap(name,body,sg):
+    bvh=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get());C=Vector((0.12*sg,0.0,1.36))
+    bm=bmesh.new();N=14;Wn=4;rows=[]
+    for i in range(N+1):
+        t=i/N;ang=-1.25+t*2.5   # de detrás (+Y) a delante (-Y) pasando por encima
+        row=[]
+        for k in range(Wn+1):
+            w=(k/Wn-0.5)*0.11
+            d=Vector((0.25*sg,math.sin(-ang),math.cos(ang))).normalized()
+            o=C+Vector((w*sg*0.9,0,0))
+            hit=bvh.ray_cast(o+d*0.4,-d,0.4);p=(hit[0]+d*0.014) if hit[0] else o+d*0.13
+            row.append(bm.verts.new(p))
+        rows.append(row)
+    for i in range(N):
+        for k in range(Wn):bm.faces.new((rows[i][k],rows[i][k+1],rows[i+1][k+1],rows[i+1][k]))
+    bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
+    ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.012;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
+def sandals(name,body):   # sandalias: suela y correas (tobillo, empeine y dedos)
+    parts=[]
+    for k in('L','R'):
+        an=Vector(J['ank.'+k]);to=Vector(J['toe.'+k]);he=an+Vector((0,0.07,-0.06))
+        b2=bmesh.new();L=(to-he).length+0.04;c=(he+to)/2;c.z=0.0
+        bmesh.ops.create_uvsphere(b2,u_segments=16,v_segments=6,radius=1,matrix=Matrix.Translation(c+Vector((0,-0.01,-0.002)))@Matrix.Diagonal((0.048,L/2,0.009,1)))
+        parts.append(obj_from_bm('suela',b2))
+        for (t,zz,ln) in((0.0,0.07,0.02),(0.45,0.045,0.02),(0.78,0.03,0.016)):
+            p=an.lerp(to,t);p.z=zz if t>0 else an.z+0.02
+            ax=Vector((0,0,1)) if t==0 else (to-an).normalized()
+            parts.append(limb_shell('correa',body,p-ax*ln/2,p+ax*ln/2,0.004,nu=16,nv=1))
+    for o in parts:smart_uv(o)
+    return parts
 def drape_weights(ob):   # el extremo del manto cuelga del hombro y del pecho, no de las piernas
     for g in list(ob.vertex_groups):ob.vertex_groups.remove(g)
     C=ob.vertex_groups.new(name='chest');S=ob.vertex_groups.new(name='clavicle.L');H=ob.vertex_groups.new(name='hips')
@@ -390,8 +420,10 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, ce
         layer(rim,'#5a3424',0.55,2)   # sombra del párpado alrededor de la abertura
         layer((np.abs(da)<EYE_W*1.05)&(np.abs(z-EYE_Z-EYE_H*0.95)<0.0022),'#2a1a10',0.85,1)   # línea del párpado superior
         layer((np.abs(da+0.02*s2)<0.13)&(np.abs(z-0.038-0.01*np.cos(da*8))<0.0045),hair,0.85,1)   # ceja
-    layer((np.abs(a)<0.15)&(np.abs(z+0.07)<0.0035),'#8a4a3e',0.85,2)   # labios cerrados
-    layer((np.abs(a)<0.13)&(np.abs(z+0.075)<0.0045),'#b06a58',0.25,2)
+    lipw=0.15*(1-0.35*np.clip(np.abs(a)/0.15,0,1)**2)
+    layer((np.abs(a)<lipw)&(z>-0.0705)&(z<-0.066),'#7e4236',0.8,1)   # labio superior
+    layer((np.abs(a)<lipw*0.95)&(z>-0.076)&(z<-0.0705),'#9a5a4a',0.7,1)   # labio inferior
+    layer((np.abs(a)<lipw*0.9)&(np.abs(z+0.0705)<0.0011),'#3a1810',0.9,0)   # línea de cierre
     hl=0.07-0.035*np.cos(a)+0.006*np.sin(a*13)
     hm=z>hl;strand=0.85+0.25*np.sin(a*60+z*90+np.sin(a*7)*3)*0.5
     hc=hexc(hair)[None,None,:]*strand[...,None];m=blur(hm.astype(float),2);col[:]=col*(1-m[...,None])+hc*m[...,None]
@@ -559,17 +591,19 @@ def build(kind):
     hs=hair_shell(kind+'_pelo',head,'pelo');set_mat(hs,hm_)
     bd=hair_shell(kind+'_barba',head,'barba');set_mat(bd,material(kind+'_barba',hair_tex(kind+'_barba','#6e4c33' if kind=='ciudadano' else '#4a3424')))
     pieces=[head,ears,nose,eyes,hs,bd];rigid=[]
+    cuero=material('cuero',plain_tex('cuero','#6a4428',0.15),rough=0.7)
+    for o in sandals('sandalia',body):set_mat(o,cuero);pieces.append(o)
     if kind=='ciudadano':
         # quitón largo de lino (hasta los tobillos en los hombres mayores; con mangas cortas abrochadas) y himation de lana
-        ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505+0.035*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
+        ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505+0.06*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton',cloth_tex('quiton','#e8e0cf',border='#2f4c86',band=(0.0,0.05),folds=30,neck='#2f4c86')))
         def htop(u):   # el himation deja libre el hombro y el brazo derechos y cubre el izquierdo
-            a=u*TAU;return 1.17+0.31*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
+            a=u*TAU;return 1.17+0.26*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
         hm=garment('himation',body,0.22,1.5,0.03,folds=11,famp=0.026,flare=0.11,top=htop,skirt=True,over=ch)
         set_mat(hm,material('himation',cloth_tex('himation','#6d7b9a',border='#2a2a3a',band=(0.0,0.045),folds=11)))
         for o in(ch,hm):pieces.append(o)
         # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
-        e1=drape_end('himation_extremo',[(0.12,-0.09,1.49),(0.165,-0.17,1.34),(0.19,-0.21,1.05),(0.2,-0.225,0.75),(0.205,-0.23,0.5)],0.2,folds=2.5,famp=0.022)
+        e1=drape_end('himation_extremo',[(0.1,0.02,1.53),(0.15,-0.08,1.48),(0.165,-0.17,1.34),(0.19,-0.21,1.05),(0.2,-0.225,0.75),(0.205,-0.23,0.5)],0.2,folds=2.5,famp=0.022)
         e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         # mangas del quitón jonio: la tela cae suelta del hombro hasta el codo y se abrocha con botones (fíbulas) por encima del brazo
@@ -577,7 +611,7 @@ def build(kind):
             sl,bt=ionic_sleeve('manga',sg,J['sho.'+k],J['elb.'+k]);set_mat(sl,ch.data.materials[0]);pieces.append(sl)
             set_mat(bt,material('oro',plain_tex('oro','#d9a93a',0.1),metal=0.9,rough=0.3));pieces.append(bt)
     else:
-        ch=garment('quiton_corto',body,0.66,1.5,0.012,folds=20,famp=0.008,flare=0.03,skirt=True,top=lambda u:1.505+0.035*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
+        ch=garment('quiton_corto',body,0.66,1.5,0.012,folds=20,famp=0.008,flare=0.03,skirt=True,top=lambda u:1.505+0.06*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton_rojo',cloth_tex('quiton_rojo','#9a2a1e',border='#1a120c',band=(0.0,0.05),folds=20)))
         # coraza de lino (linothorax): rígida, de la cintura a las axilas, con pteryges (tiras) abajo
         lt=garment('coraza',body,0.86,1.43,0.03,folds=1,famp=0.0,skirt=False,nu=48,nv=12)
@@ -585,16 +619,8 @@ def build(kind):
         def ptery(u,v):return int(u*36)%2==1 and v<0.999   # tiras sueltas
         pt=garment('pteryges',body,0.6,0.86,0.04,folds=36,famp=0.004,skirt=True,flare=0.0,nu=72,nv=4,clip=lambda u,v:int(u*36)%3==2)
         set_mat(pt,lt.data.materials[0])
-        for sgn in(1,-1):   # epomides: las dos piezas que pasan por encima de los hombros y se atan delante
-            b2=bmesh.new();N=10;rows=[]
-            for i in range(N+1):
-                t=i/N;ang=-1.1+t*2.2;c=Vector((0.13*sgn,math.sin(ang)*0.13,1.385+math.cos(ang)*0.1))
-                rows.append([b2.verts.new(c+Vector((0.055*sgn*w,0,-0.012*(w+1)))) for w in(-1,1)])
-            for i in range(N):b2.faces.new((rows[i][0],rows[i][1],rows[i+1][1],rows[i+1][0]))
-            ep=obj_from_bm('hombrera',b2)
-            for f in ep.data.polygons:pass
-            sol=ep.modifiers.new('g','SOLIDIFY');sol.thickness=0.014;bpy.context.view_layer.objects.active=ep;bpy.ops.object.modifier_apply(modifier='g')
-            smart_uv(ep);set_mat(ep,lt.data.materials[0]);pieces.append(ep)
+        for sgn in(1,-1):   # epomides: piezas que pasan por encima del hombro, de la espalda al pecho, ajustadas a él
+            ep=shoulder_flap('hombrera',body,sgn);smart_uv(ep);set_mat(ep,lt.data.materials[0]);pieces.append(ep)
         # grebas de bronce, ajustadas a la pantorrilla y con la rodilla marcada
         for k in('L','R'):
             kn=Vector(J['kne.'+k]);an=Vector(J['ank.'+k])
