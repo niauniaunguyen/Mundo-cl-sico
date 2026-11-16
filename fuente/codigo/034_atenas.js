@@ -31,7 +31,7 @@ function athensDecor(){
   const AW=[lam('#c9a24a'),lam('#a8392b'),lam('#e9dfc8'),lam('#5c6b3f')],JAR=lam('#b5603a'),WIC=lam('#a8864f'),CL=[lam('#7a2a5e'),lam('#2f4c86'),lam('#efe6d2')];
   const sells=[['Higos del Ática, los más dulces de Grecia. ¡Prueba uno!','Aceite nuevo, de olivos de Acarnas.'],['¡Anguilas del Copais, recién llegadas de Beocia!','Pescado del Falero: sardinas, pulpo, atún.'],['Vasijas del Cerámico, con figuras rojas. Barato.','Lámparas, cántaros, ollas: todo para la casa.'],['Telas de Mileto, lana fina. Para un himation de verdad.','Perfume de rosas, en aríbalos de Corinto.'],['Coronas de mirto y violetas para el banquete.','Libros, rollos de papiro egipcio. Eurípides, Homero.']];
   let ns=0;for(let k=0;k<900&&ns<34;k++){const[x,z]=AL(rr(-70,92),rr(-118,62)),a=Math.floor(R()*4)*Math.PI/2+rr(-0.15,0.15);if(roadDist(x,z)<5||!isFree(x,z,2.6)||footHit(x,z,3)||!farNPC(x,z,5))continue;
-    const b={x,y:floorAt(x,z),z,a};pieceAt('stallT',UNIT,M.wood,b,0,0,0,2.0,0.85,0.9);pieceAt('stallA'+(ns%4),UNIT,AW[ns%4],b,0,2.15,-0.15,2.7,0.06,2.1);
+    const b={x,y:floorAt(x,z),z,a};try{atReg(x,z,b.y,'puesto',1.6);}catch(e){}pieceAt('stallT',UNIT,M.wood,b,0,0,0,2.0,0.85,0.9);pieceAt('stallA'+(ns%4),UNIT,AW[ns%4],b,0,2.15,-0.15,2.7,0.06,2.1);
     for(const[px,pz]of[[-1.25,-1.1],[1.25,-1.1],[-1.25,0.8],[1.25,0.8]])pieceAt('stallP',UNITC,M.wood,b,px,0,pz,0.08,2.15,0.08);
     const kind=ns%3;for(let i=0;i<3;i++){if(kind===0)pieceAt('stallJ',PGEO.jar,JAR,b,-0.6+i*0.6,0.85,0,1.3,1.3,1.3);else if(kind===1)pieceAt('stallK',UNITC,WIC,b,-0.6+i*0.6,0.85,0,0.5,0.28,0.5);else pieceAt('stallC'+i,UNIT,CL[i],b,-0.6+i*0.6,0.85,0,0.5,0.22,0.6);}
     addBox(x,z,2.7,2.1,a);

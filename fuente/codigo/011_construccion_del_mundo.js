@@ -99,7 +99,7 @@ function buildAcropolis(){
    const drumG=new THREE.CylinderGeometry(0.95,0.95,1.3,16);drumG.rotateX(Math.PI/2);
    for(let i=0;i<120;i++){const a=pts[i],b=pts[i+1],mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2;if(mx<-100&&mz>-34&&mz<36)continue;
      const len=Math.hypot(b[0]-a[0],b[1]-a[1]),ang=Math.atan2(b[0]-a[0],b[1]-a[1]);const m=box(2.4,18,len+0.4,M.limestone,mx,AY+1.1-9,mz);m.rotation.y=ang;addSeg(a[0],a[1],b[0],b[1],1.2);
-     if(mz<-45&&mx>-70&&mx<70){const ol=Math.hypot(mx,mz),nx=mx/ol,nz=mz/ol;const dg=grp(mx+nx*1.3,AY-6,mz+nz*1.3,ang);
+     if(mz<-45&&mx>-70&&mx<70){const ol=Math.hypot(mx,mz),nx=mx/ol,nz=mz/ol;const dg=grp(mx+nx*1.3,AY-6,mz+nz*1.3,ang);try{atReg(mx+nx*1.3,mz+nz*1.3,AY-6,'tambores',2.2);}catch(e){}
        for(let k=-1;k<=1;k+=2){const d=new THREE.Mesh(drumG,M.marbleShade);d.position.set(0,0,k*len/4);dg.add(d);}
        const tb=new THREE.Mesh(new THREE.BoxGeometry(0.6,1.2,len),friezeMat(len));tb.position.set(0,2.2,0);dg.add(tb);}}}
   // Partenón (Ictino y Calícrates, 447-432): estilóbato 30,88 x 69,50 m, 8 x 17 columnas de 10,43 m
@@ -405,7 +405,7 @@ function buildAgora(){
   {const cols=['#b0462f','#c79a3a','#5e7a96','#8a6b3e','#e3d7bd','#6f8a4e'];
    for(let i=0;i<22;i++){const lx=rr(-20,85),lz=rr(-60,40);const[x,z]=AL(lx,lz);if(roadDist(x,z)<4)continue;if(Math.hypot(lx-10,lz+30)<5||Math.hypot(lx-40,lz+18)<6)continue;
     const gy=terrainH(x,z),r=R()*TAU,g=grp(x,gy,z,r);
-    box(3,0.9,1.4,M.wood,0,0.45,0,g);for(const[px,pz]of[[-1.4,-0.8],[1.4,-0.8],[-1.4,0.8],[1.4,0.8]])box(0.1,2.4,0.1,M.wood,px,1.2,pz,g);
+    box(3,0.9,1.4,M.wood,0,0.45,0,g);for(const[px,pz]of[[-1.4,-0.8],[1.4,-0.8],[-1.4,0.8],[1.4,0.8]])box(0.1,2.4,0.1,M.wood,px,1.2,pz,g);try{atReg(x,z,gy,'puesto',1.6);}catch(e){}
     const cl=box(3.3,0.06,2,lam(pick(cols)),0,2.45,0,g);cl.rotation.x=0.12;
     for(let j=0;j<4;j++){const am=new THREE.Mesh(new THREE.SphereGeometry(0.22,8,6),lam(pick(['#b5683f','#a3552f','#d1a35c','#7c9a4a'])));am.scale.y=1.4;am.position.set(-1+j*0.65,1.1,0);g.add(am);}
     addBox(x,z,3,1.4,r);}}
@@ -488,7 +488,7 @@ function buildKerameikos(){
   // tumbas a lo largo del Dromos y de la Vía Sacra, y túmulos del cementerio público
   {const n=170,im=new THREE.InstancedMesh(new THREE.BoxGeometry(0.7,1,0.2),M.marble,n),mm=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new THREE.Vector3(),p=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
    for(let i=0;i<n;i++){const G=i%3?DROMOS:SG,t=25+R()*(G===DROMOS?500:260),side=R()<0.5?-1:1,off=(G===DROMOS?24:6)+R()*10;const[x,z]=gatePt(G,t,side*off);const h=0.8+R()*1.4;
-     q.setFromAxisAngle(up,Math.atan2(G.ox,G.oz)+Math.PI/2+rr(-0.2,0.2));p.set(x,terrainH(x,z)+h/2,z);s.set(1,h,1);mm.compose(p,q,s);im.setMatrixAt(i,mm);}
+     q.setFromAxisAngle(up,Math.atan2(G.ox,G.oz)+Math.PI/2+rr(-0.2,0.2));p.set(x,terrainH(x,z)+h/2,z);s.set(1,h,1);mm.compose(p,q,s);im.setMatrixAt(i,mm);try{atReg(x,z,terrainH(x,z),'estelaf',0.8);}catch(e){}}
    im.castShadow=true;scene.add(im);
    for(let i=0;i<5;i++){const[x,z]=gatePt(DROMOS,120+i*85,(i%2?1:-1)*34);const mo=new THREE.Mesh(new THREE.SphereGeometry(7,16,8,0,TAU,0,Math.PI/2),lam('#9a8a62'));mo.scale.y=0.45;mo.position.set(x,terrainH(x,z)-0.3,z);scene.add(mo);addCirc(x,z,6.5);
      const[sx,sz]=gatePt(DROMOS,120+i*85,(i%2?1:-1)*26);box(2.2,2.2,0.3,M.marble,sx,terrainH(sx,sz)+1.1,sz).rotation.y=Math.atan2(DROMOS.ox,DROMOS.oz);addCirc(sx,sz,1.1);}}
@@ -542,7 +542,7 @@ function buildWalls(){
     p.set(mx,h1+3+2.6,mz);s.set(2.5,5.2,len+0.6);mm.compose(p,q,s);mud.setMatrixAt(i,mm);addSeg(a[0],a[1],b[0],b[1],1.4);});
   [soc,mud].forEach(m=>{m.castShadow=m.receiveShadow=true;scene.add(m);});
   const it=new THREE.InstancedMesh(unit,lam('#b9a481'),tw.length);
-  tw.forEach((t,i)=>{const h=terrainH(t[0],t[1]);p.set(t[0],h+4,t[1]);q.identity();s.set(7,16,7);mm.compose(p,q,s);it.setMatrixAt(i,mm);addCirc(t[0],t[1],3.9);});
+  tw.forEach((t,i)=>{const h=terrainH(t[0],t[1]);try{atReg(t[0],t[1],h,'wtower',4);}catch(e){}p.set(t[0],h+4,t[1]);q.identity();s.set(7,16,7);mm.compose(p,q,s);it.setMatrixAt(i,mm);addCirc(t[0],t[1],3.9);});
   it.castShadow=true;scene.add(it);
 }
 

@@ -20,7 +20,22 @@ Object.assign(ATX_DEF,{
   'Cada uno se sienta según quién es: los senadores, abajo; los caballeros, en las filas siguientes; los soldados, aparte; las mujeres, arriba del todo. Lo ordenó Augusto (Suetonio, Augusto 44).',1,60],
  drywall:['Muro de piedra seca','linde del campo',
   'Piedras sin argamasa, amontonadas al limpiar el campo: marcan la linde de cada parcela y, en las laderas, sostienen bancales. En el Ática el suelo es pedregoso y estos muros están por todas partes.',
-  'Piedras sin argamasa que separan las parcelas. Los agrimensores romanos miden el campo y lo dividen en lotes, y los mojones y los muros marcan de quién es cada uno.',0.4,30]});
+  'Piedras sin argamasa que separan las parcelas. Los agrimensores romanos miden el campo y lo dividen en lotes, y los mojones y los muros marcan de quién es cada uno.',0.4,30],
+ wtower:['Torre de la muralla','pýrgos',
+  'Una torre de la muralla de Atenas. Los espartanos la hicieron derribar al acabar la guerra (404 a.C.), y hace solo siete años Conón la levantó de nuevo con dinero persa, junto con los Muros Largos hasta el Pireo (Jenofonte, Helénicas 4, 8, 9-10). Sobre un zócalo de piedra, el resto es de adobe. Tucídides cuenta que la primera, la de Temístocles, se hizo con tanta prisa que metieron dentro hasta estelas de las tumbas (1, 93).',
+  'Una torre de muralla.',4,60],
+ tambores:['Tambores de columna en el muro','restos del templo quemado',
+  'Mira el muro norte de la Acrópolis: tiene empotrados tambores de columna y trozos de cornisa. Son de los templos que quemaron los persas en el 480 a.C.; los atenienses los pusieron aquí, a la vista de toda la ciudad, para que nadie olvidara aquella destrucción. Todavía hoy se ven desde el Ágora.',
+  'Tambores de columna empotrados en un muro.',2,60],
+ estelaf:['Estela funeraria','tumba junto al camino',
+  'Los atenienses entierran a sus muertos fuera de las murallas, a lo largo de los caminos, y encima ponen una estela con el nombre del difunto y a veces un relieve de despedida. Aquí, en el Cerámico, se levantó hace ocho años la de Dexileo, un jinete de veinte años muerto en la guerra de Corinto (394 a.C.), que aparece a caballo derribando a un enemigo.',
+  'Una estela funeraria junto al camino.',0.8,30],
+ puesto:['Puesto del mercado','agorá',
+  'Un tenderete de madera con toldo. Los vendedores del Ágora se agrupan por mercancías: el pescado, el aceite, los perfumes, la cerámica… Unos inspectores elegidos por sorteo, los agoránomos, vigilan que lo que se vende sea bueno, y otros revisan las pesas y medidas (lo describirá Aristóteles, Constitución de los atenienses 51, 1-2, escrita unas décadas después).',
+  'Un puesto de mercado con toldo.',1,30],
+ neosoikos:['Cobertizo de trirreme','neósoikos',
+  'Un cobertizo con rampa donde se saca del agua una trirreme para que la madera se seque y no se pudra. Después de la guerra, los Treinta los vendieron para derribo por solo tres talentos, cuando habían costado mil (Isócrates, Areopagítico 66); la ciudad los está volviendo a construir.',
+  'Un cobertizo para barcos.',2,60]});
 // el público de teatros, circo y anfiteatro son figuritas iguales (un cilindro de 0,2-0,26 × 1,15): se busca una vez tras la carga
 // y se apunta una ficha cada 12 m de grada
 function atxCrowdScan(){const seen=new Set(),m=new THREE.Matrix4(),v=new THREE.Vector3();let n=0;

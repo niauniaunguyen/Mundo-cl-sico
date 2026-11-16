@@ -168,5 +168,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `162_panel_docente.js` | 33 | PANEL DE CLASE PARA EL DOCENTE (sin servidor: los datos no salen del ordenador) |
 | `163_atencion_calles_roma.js` | 11 | MIRAR CON ATENCIÓN: altares de las encrucijadas, fuentes y miliarios de las calles de Roma |
 | `164_girarse_al_hablar.js` | 19 | GIRARSE AL HABLAR: quien te habla se vuelve hacia ti |
-| `165_atencion_mas_objetos.js` | 32 | MIRAR CON ATENCIÓN: más objetos repetidos que no tenían ficha |
+| `165_atencion_mas_objetos.js` | 47 | MIRAR CON ATENCIÓN: más objetos repetidos que no tenían ficha |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

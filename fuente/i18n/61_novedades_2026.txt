@@ -3183,3 +3183,183 @@ A public fountain.
 @109549f3
 Un lacus: una pica de pedra on cau sense parar l'aigua dels aqüeductes per un broc. D'aquí la treuen els veïns de les ínsules, que no tenen aigua a casa. Agripa, com a edil el 33 aC, en va fer set-centes (Plini, Història natural 36, 121); Frontí, encarregat de les aigües des del 97 dC (d'aquí a disset anys), en comptarà 591 (Sobre els aqüeductes 78).
 A lacus: a stone basin into which water from the aqueducts pours ceaselessly through a spout. The people of the tenement blocks, who have no water at home, fetch it here. Agrippa, as aedile in 33 BC, built seven hundred (Pliny, Natural History 36.121); Frontinus, in charge of the waters from AD 97 (seventeen years from now), will count 591 (On the Aqueducts 78).
+
+@b2810a20
+Balcó de fusta
+Wooden balcony
+
+@7817e230
+Un balcó de fusta que sobresurt damunt del carrer.
+A wooden balcony jutting out over the street.
+
+@a890c8ae
+Un balcó de fusta que sobresurt damunt del carrer (maenianum). El nom ve de Gai Meni, que, segons Fest, va ser el primer a treure entarimats damunt de les columnes del Fòrum per veure els espectacles (s. v. Maeniana). Amb tanta fusta, els incendis salten de casa en casa: després del del 64, Neró va manar posar porxos davant de les ínsules per apagar el foc des dels seus terrats (Suetoni, Neró 16; Tàcit, Annals 15, 43).
+A wooden balcony jutting out over the street (maenianum). The name comes from Gaius Maenius who, according to Festus, was the first to build platforms over the columns of the Forum to watch the shows (s.v. Maeniana). With so much wood, fires leap from house to house: after the fire of 64, Nero ordered porticoes built in front of the tenement blocks so that fires could be fought from their flat roofs (Suetonius, Nero 16; Tacitus, Annals 15.43).
+
+@f7fee9ec
+Vomitori
+Vomitorium
+
+@7f533e71
+Una boca d'accés a les grades.
+An entrance to the stands.
+
+@4ce8a5dd
+Una de les boques per on el públic entra a les grades i en surt. Macrobi explica que es diuen vomitoria perquè «vomiten» la gent cap a fora (Saturnals 6, 4, 3). Cada espectador porta una tèssera amb el número del seu arc, el seu sector i la seva fila, i així troba el seu lloc sense perdre's.
+One of the openings through which the audience enters and leaves the stands. Macrobius explains that they are called vomitoria because they «spew» people out (Saturnalia 6.4.3). Each spectator carries a token with the number of their arch, section and row, and so finds their seat without getting lost.
+
+@bc25ca04
+Pal del tendal
+Awning mast
+
+@91319a27
+Un pal per a un tendal.
+A mast for an awning.
+
+@29ec31f7
+Un dels pals de fusta que, encaixats en mènsules de pedra a dalt de la façana, sostenen les cordes del velarium, el gran tendal que fa ombra a les grades. El manegen mariners de la flota de Misè, que tenen la caserna al costat de l'amfiteatre (Història Augusta, Còmmode 15, 6).
+One of the wooden masts which, set in stone brackets at the top of the façade, hold the ropes of the velarium, the great awning that shades the stands. It is worked by sailors of the fleet at Misenum, who have their barracks next to the amphitheatre (Historia Augusta, Commodus 15.6).
+
+@73c93bb1
+Fita de travertí
+Travertine marker
+
+@677be1f0
+Una fita de pedra.
+A stone marker.
+
+@c0dcec49
+Una de les fites de pedra que envolten l'amfiteatre a una certa distància. No se sap del cert per a què servien: potser per lligar les cordes del tendal, potser per tancar el pas i ordenar la gentada els dies de jocs.
+One of the stone markers that ring the amphitheatre at some distance. Nobody knows for sure what they were for: perhaps to tie the awning ropes, perhaps to close off the way and control the crowd on games days.
+
+@db200af0
+Testos a la finestra
+Pots at the window
+
+@9d6e1d5a
+plantes en testos
+potted plants
+
+@0f24e845
+Flors i herbes en testos.
+Flowers and herbs in pots.
+
+@b56a8de5
+Qui viu en una ínsula no té jardí: posa flors i herbes en testos a la finestra. Plini el Vell ho explica com a costum de la plebs de Roma, que es fa a les finestres una imatge d'hort (Història natural 19, 59).
+People who live in a tenement block have no garden: they keep flowers and herbs in pots at the window. Pliny the Elder describes it as a custom of the common people of Rome, who make themselves a picture of a garden at their windows (Natural History 19.59).
+
+@9642bb31
+Rètol de botiga
+Shop sign
+
+@396ca86d
+El rètol d'una botiga.
+A shop sign.
+
+@eef81a7a
+El rètol d'una taberna, pintat sobre fusta. Moltes botigues s'anuncien també amb un dibuix del que venen, perquè no tothom sap llegir, com els rètols pintats que es conserven a les façanes de Pompeia.
+The sign of a shop, painted on a board. Many shops also advertise with a picture of what they sell, because not everyone can read, like the painted signs preserved on the façades of Pompeii.
+
+@ff2e5e62
+Públic
+Audience
+
+@bb8cd361
+Els atenencs passen dies sencers al teatre durant les festes de Dionís, veient una obra rere l'altra des de l'alba. Els seients d'honor de la primera fila (proedria) són per a sacerdots, magistrats i benefactors de la ciutat.
+Athenians spend whole days in the theatre during the festivals of Dionysus, watching one play after another from dawn. The seats of honour in the front row (proedria) are for priests, magistrates and benefactors of the city.
+
+@d3d8f473
+Cadascú seu segons qui és: els senadors, a baix; els cavallers, a les files següents; els soldats, a part; les dones, a dalt de tot. Ho va ordenar August (Suetoni, August 44).
+Everyone sits according to who they are: senators at the bottom; knights in the rows behind; soldiers apart; women right at the top. Augustus ordered it so (Suetonius, Augustus 44).
+
+@9eee525e
+Mur de pedra seca
+Dry-stone wall
+
+@43628bb7
+límit del camp
+field boundary
+
+@52875c5f
+Pedres sense morter, amuntegades en netejar el camp: marquen el límit de cada parcel·la i, als vessants, sostenen feixes. A l'Àtica el sòl és pedregós i aquests murs són pertot arreu.
+Stones without mortar, piled up when clearing the field: they mark the edge of each plot and, on slopes, hold up terraces. In Attica the soil is stony and these walls are everywhere.
+
+@1e1e068f
+Pedres sense morter que separen les parcel·les. Els agrimensors romans mesuren el camp i el divideixen en lots, i les fites i els murs marquen de qui és cadascun.
+Stones without mortar that separate the plots. Roman surveyors measure the land and divide it into lots, and the markers and walls show who owns each one.
+
+@4e52a20c
+Torre de la muralla
+Wall tower
+
+@acc6a849
+Una torre de la muralla d'Atenes. Els espartans la van fer enderrocar en acabar la guerra (404 aC), i fa només set anys Conó la va tornar a aixecar amb diners perses, juntament amb els Murs Llargs fins al Pireu (Xenofont, Hel·lèniques 4, 8, 9-10). Sobre un sòcol de pedra, la resta és de tova. Tucídides explica que la primera, la de Temístocles, es va fer amb tantes presses que hi van posar fins i tot esteles de les tombes (1, 93).
+A tower of the wall of Athens. The Spartans had it pulled down at the end of the war (404 BC), and only seven years ago Conon raised it again with Persian money, together with the Long Walls to the Piraeus (Xenophon, Hellenica 4.8.9-10). Above a stone base, the rest is mud brick. Thucydides says the first wall, Themistocles', was built in such haste that even gravestones were put into it (1.93).
+
+@4c5937ea
+Una torre de muralla.
+A wall tower.
+
+@233a4935
+Tambors de columna al mur
+Column drums in the wall
+
+@31f7c333
+restes del temple cremat
+remains of the burnt temple
+
+@8f4d6111
+Mira el mur nord de l'Acròpolis: té encastats tambors de columna i trossos de cornisa. Són dels temples que van cremar els perses el 480 aC; els atenencs els van posar aquí, a la vista de tota la ciutat, perquè ningú no oblidés aquella destrucció. Encara avui es veuen des de l'Àgora.
+Look at the north wall of the Acropolis: column drums and pieces of cornice are built into it. They come from the temples the Persians burned in 480 BC; the Athenians put them here, in sight of the whole city, so that no one would forget that destruction. They can still be seen from the Agora today.
+
+@b69990d5
+Tambors de columna encastats en un mur.
+Column drums built into a wall.
+
+@97f332e7
+Estela funerària
+Grave stele
+
+@3da81be2
+tomba al costat del camí
+tomb by the road
+
+@94f45f40
+Els atenencs enterren els morts fora de les muralles, al llarg dels camins, i a sobre hi posen una estela amb el nom del difunt i de vegades un relleu de comiat. Aquí, al Ceràmic, s'hi va aixecar fa vuit anys la de Dexileu, un genet de vint anys mort a la guerra de Corint (394 aC), que hi apareix a cavall abatent un enemic.
+Athenians bury their dead outside the walls, along the roads, and set a stele over them with the name of the dead person and sometimes a farewell relief. Here, in the Kerameikos, eight years ago the stele of Dexileos was put up: a twenty-year-old horseman killed in the Corinthian War (394 BC), shown on horseback striking down an enemy.
+
+@5613fba2
+Una estela funerària al costat del camí.
+A grave stele by the road.
+
+@d434f6fd
+Parada del mercat
+Market stall
+
+@a813cba1
+=
+agora
+
+@2901c450
+Una parada de fusta amb tendal. Els venedors de l'Àgora s'agrupen per mercaderies: el peix, l'oli, els perfums, la ceràmica… Uns inspectors triats per sorteig, els agorànoms, vigilen que el que es ven sigui bo, i uns altres revisen els pesos i les mesures (ho descriurà Aristòtil, Constitució dels atenencs 51, 1-2, escrita unes dècades després).
+A wooden stall with an awning. The sellers in the Agora are grouped by goods: fish, oil, perfumes, pottery… Inspectors chosen by lot, the agoranomoi, check that what is sold is good, and others check weights and measures (Aristotle will describe it in the Constitution of the Athenians 51.1-2, written a few decades later).
+
+@b4b5cdb9
+Una parada de mercat amb tendal.
+A market stall with an awning.
+
+@c27a99d0
+Cobert de trirrem
+Trireme shed
+
+@22d5719c
+=
+neosoikos
+
+@794f513b
+Un cobert amb rampa on es treu de l'aigua una trirrem perquè la fusta s'assequi i no es podreixi. Després de la guerra, els Trenta els van vendre per enderrocar-los per només tres talents, quan n'havien costat mil (Isòcrates, Areopagític 66); la ciutat els està tornant a construir.
+A shed with a ramp where a trireme is hauled out of the water so the wood can dry and not rot. After the war the Thirty sold them for demolition for just three talents, when they had cost a thousand (Isocrates, Areopagiticus 66); the city is rebuilding them.
+
+@7ed71bcd
+Un cobert per a vaixells.
+A shed for ships.
