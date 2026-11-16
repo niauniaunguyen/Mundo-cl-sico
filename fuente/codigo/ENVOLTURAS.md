@@ -7,11 +7,11 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-233 funciones ampliadas, 354 capas.
+233 funciones ampliadas, 356 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 23 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 24 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 |
 | `egxAct0` | `060_egipto_2.js` | 17 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 |
 | `atCands` | `085_mirar_con_atencion.js` | 7 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 |
 | `dzReport` | `151_diez_ideas.js` | 5 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 |
@@ -43,6 +43,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `egxSetup` | `060_egipto_2.js` | 2 | `140`:98 · `900`:375 |
 | `finishColumns` | `007_campos_del_atica_y_de.js` | 2 | `113`:118 · `900`:434 |
 | `floorAt` | `001_terreno.js` | 2 | `105`:501 · `900`:308 |
+| `glbPart` | `005_modelos_de_blender.js` | 2 | `128`:139 · `176`:7 |
 | `gmDo` | `068_menu_del_juego.js` | 2 | `099`:138 · `101`:73 |
 | `gsRest` | `128_gestos.js` | 2 | `128`:107 · `129`:84 |
 | `gsRig` | `128_gestos.js` | 2 | `128`:105 · `129`:82 |
@@ -146,7 +147,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `fxJournal` | `053_forastero_a.js` | 1 | `083`:37 |
 | `fxRostral` | `173_arreglos_video.js` | 1 | `173`:38 |
 | `gateTravel` | `012_escenarios_cuadrados.js` | 1 | `091`:36 |
-| `glbPart` | `005_modelos_de_blender.js` | 1 | `128`:139 |
 | `gmRender` | `068_menu_del_juego.js` | 1 | `134`:44 |
 | `grTick` | `156_hierba.js` | 1 | `156`:82 |
 | `gsApply` | `128_gestos.js` | 1 | `128`:108 |
