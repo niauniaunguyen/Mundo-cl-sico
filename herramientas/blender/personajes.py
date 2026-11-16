@@ -302,6 +302,27 @@ def sandals(name,body):   # sandalias: suela y correas (tobillo, empeine y dedos
             parts.append(limb_shell('correa',body,p-ax*ln/2,p+ax*ln/2,0.004,nu=16,nv=1))
     for o in parts:smart_uv(o)
     return parts
+def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False):
+    # borra las caras de 'ob' que otras piezas tapan por completo (con un margen de 'erode' anillos junto a los bordes):
+    # lo que no existe no puede atravesar la prenda, ni quieto ni andando; y de paso pesa menos
+    if not covers:return 0
+    cb=bmesh.new()
+    for c in covers:
+        t=bmesh.new();t.from_mesh(c.data);t.transform(c.matrix_world);me=bpy.data.meshes.new('tmp');t.to_mesh(me);t.free();cb.from_mesh(me);bpy.data.meshes.remove(me)
+    bvh=BVHTree.FromBMesh(cb);cb.free()
+    bm=bmesh.new();bm.from_mesh(ob.data);bm.verts.ensure_lookup_table();bm.normal_update()
+    mw=ob.matrix_world;cov=set()
+    for v in bm.verts:
+        co=mw@v.co;n=(mw.to_3x3()@v.normal).normalized()
+        if radial:
+            r=Vector((co.x,co.y,0))
+            if r.length>1e-6 and n.dot(r)<0:n=-n
+        hit=bvh.ray_cast(co+n*0.0015,n,maxd)
+        if hit[0] is not None:cov.add(v)
+    for _ in range(erode):cov={v for v in cov if all(e.other_vert(v) in cov for e in v.link_edges)}
+    dead=[f for f in bm.faces if all(v in cov for v in f.verts)]
+    bmesh.ops.delete(bm,geom=dead,context='FACES');bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
+    bm.to_mesh(ob.data);bm.free();ob.data.update();return len(dead)
 def drape_weights(ob):   # el extremo del manto cuelga del hombro y del pecho, no de las piernas
     for g in list(ob.vertex_groups):ob.vertex_groups.remove(g)
     C=ob.vertex_groups.new(name='chest');S=ob.vertex_groups.new(name='clavicle.L');H=ob.vertex_groups.new(name='hips')
@@ -694,6 +715,14 @@ def build(kind):
         if o.name.startswith(('himation_extremo','himation_espalda')):drape_weights(o)
         elif o.name.startswith(('quiton','himation','pteryges')):skirt_weights(o)
     for ob,bone in rigid:attach(ob,arm,bone)
+    # capas: lo que queda debajo y tapado se borra (piel bajo la ropa, quitón bajo el manto o la coraza, pelo bajo el casco)
+    byn=lambda *ns:[o for o in pieces+[r for r,_ in rigid] if o.name.split('.')[0] in ns]
+    ropa=byn('quiton','quiton_corto','himation','himation_extremo','himation_espalda','manga','coraza','pteryges','pteryges_b','greba','hombrera')
+    n=hide_covered(body,ropa,erode=2)
+    for nm,cv in(('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',))):
+        for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
+    for o in byn(kind+'_pelo'):n+=hide_covered(o,byn('casco'),maxd=0.05,erode=1)
+    print('CARAS OCULTAS BORRADAS',kind,n)
     arm.data.pose_position='POSE'
     animate(arm,kind+'_')
     return arm
