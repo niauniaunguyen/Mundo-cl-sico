@@ -15,8 +15,8 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `008_edificios.js` | 139 | edificios |
 | `009_personas.js` | 145 | personas |
 | `010_contenido.js` | 928 | CONTENIDO |
-| `011_construccion_del_mundo.js` | 838 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
-| `012_escenarios_cuadrados.js` | 218 | ESCENARIOS CUADRADOS |
+| `011_construccion_del_mundo.js` | 839 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
+| `012_escenarios_cuadrados.js` | 220 | ESCENARIOS CUADRADOS |
 | `013_destinos_nuevos_grecia_italia_hispania.js` | 457 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
 | `014_hud.js` | 152 | HUD |
 | `015_dialogo.js` | 224 | diálogo |
@@ -188,4 +188,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `182_relieves_y_detalle.js` | 68 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
 | `184_personajes_blender.js` | 66 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
+| `185_relieve.js` | 61 | RELIEVE DE LOS DESTINOS: MÁS DETALLE Y SIN PAREDES IMPOSIBLES |
 | `900_creta_y_arranque.js` | 643 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

@@ -802,7 +802,8 @@ function regionOf(x){if(x<8000)return 'atenas';return ISLANDS[clamp(Math.round((
 function islandOf(x){if(x<8000)return null;return ISLANDS[clamp(Math.round((x-ISL0)/ISLD),0,ISLANDS.length-1)];}
 function islandBase(I,x,z){const dx=x-I.x,dz=z-I.z,th=Math.atan2(dz,dx);const R=I.R*(1+0.14*Math.sin(3*th+I.seed)+0.07*Math.sin(7*th+I.seed*2.3));const r=Math.hypot(dx,dz)/R;
   let h=r>1?(I.land?1.2+(r-1)*R*(I.flat?0.035:0.06)+fbm(x*0.01,z*0.01)*(I.flat?4:9):1.2-(r-1)*R*0.12):1.2+I.H*Math.pow(1-r,1.5)+(fbm(x*0.012+I.seed,z*0.012)-0.42)*12*Math.min(1,(1-r)*4);
-  for(const b of I.blobs){const d=Math.hypot(x-b.x,z-b.z)/b.R;const H=Math.min(b.H,b.R*0.55),q=1-d*d;const hb=d>1?1.2-(d-1)*b.R*0.15:1.2+H*q*q;if(hb>h)h=hb;}   // montes: perfil suave (sin escalón en el borde) y nunca más empinados de unos 40° (antes, hasta 58°: paredes imposibles en el Eta o el Taigeto)
+  const wn1=vnoise((x-I.x)*0.005+I.seed,(z-I.z)*0.005)-0.5,wn2=vnoise((x-I.x)*0.005-I.seed,(z-I.z)*0.005+7.7)-0.5;   // contorno de los montes deformado: no son círculos
+  for(const b of I.blobs){const wa=Math.min(110,b.R*0.38),d=Math.hypot(x+wn1*wa-b.x,z+wn2*wa-b.z)/b.R;const H=Math.min(b.H,b.R*0.55),q=1-d*d;const hb=d>1?1.2-(d-1)*b.R*0.15:1.2+H*q*q;if(hb>h)h=hb;}   // montes: perfil suave (sin escalón en el borde) y nunca más empinados de unos 40° (antes, hasta 58°: paredes imposibles en el Eta o el Taigeto)
   if(I.coast){const px=x-I.x,pz=z-I.z,d=px*I.coast[0]+pz*I.coast[1]-I.R*I.coastAt+Math.sin((px*I.coast[1]-pz*I.coast[0])*0.012+I.seed)*25;if(d>-40)h=Math.min(h,lerp(h,1.2-d*0.09,clamp((d+40)/40,0,1)));}   // costa: el mar en una dirección
   if(I.lake){const L=I.lake,q=Math.hypot((x-L.x)/L.rx,(z-L.z)/L.rz);if(q<1.3)h=Math.min(h,lerp(-7,h,sstep(clamp((q-0.85)/0.45,0,1))));}   // lago
   return Math.max(carveH(x,z,sqMount(I.id,x,z,h)),-9);}   // escenario cuadrado: montes más allá del borde

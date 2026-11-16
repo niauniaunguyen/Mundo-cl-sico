@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-240 funciones ampliadas, 385 capas.
+241 funciones ampliadas, 386 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -200,6 +200,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `qcSetup` | `082_canteras_y_pigmentos.js` | 1 | `900`:391 |
 | `rcSetup` | `098_el_campo.js` | 1 | `900`:392 |
 | `rdSetup` | `095_los_caminos_mas_vivos.js` | 1 | `900`:393 |
+| `recarveIsland` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `185`:54 |
 | `rfFloor` | `091_para_que_sirven_los_objetos.js` | 1 | `173`:14 |
 | `rfSetup` | `091_para_que_sirven_los_objetos.js` | 1 | `146`:62 |
 | `romaColosseum` | `029_roma.js` | 1 | `086`:7 |

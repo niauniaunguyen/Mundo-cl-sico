@@ -29,7 +29,7 @@ out = src.replace('@@LOBA@@', base64.b64encode(lupa).decode('ascii')).replace('@
 # La caché del relieve en el navegador (161_rendimiento.js) usa esta firma: sobrevive a las versiones que no tocan el terreno.
 import re as _re
 _TN = ['displayH','terrainH','terrainH0','islandH','islandBase','buildTerrain','buildIslandMesh','terrainMat','fieldAt','fieldType','flatAt','padIndex',
-       'defineIslandLayout','defineMainlandLayout','islandOf','riverWater','GRASS_C','GREEN_C','SAND_C','ROCK_C','ISLANDS']
+       'defineIslandLayout','defineMainlandLayout','reliefPost','reliefLimit','reliefGully','reliefMask','RELIEF','islandOf','riverWater','GRASS_C','GREEN_C','SAND_C','ROCK_C','ISLANDS']
 _tre = _re.compile(r'(?:function\s+(?:%s)\s*\(|(?<![\w$.])(?:%s)\s*=(?!=)|(?:const|let|var)\s+(?:%s)\s*=)' % (('|'.join(_TN),)*3))
 _tmods = [m for m in mods if _tre.search(m.read_text(encoding='utf-8'))]
 def _tpart(m):   # del arranque (900) y de la propia caché (161) solo cuentan las líneas que tocan el relieve: cambian a menudo por otras cosas

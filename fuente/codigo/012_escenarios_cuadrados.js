@@ -146,10 +146,12 @@ function buildIslandMesh(I){const S=I.R*2.9,seg=Math.round(S/(I.step||6));const 
   const pos=g.attributes.position,col=new Float32Array(pos.count*3),c=new THREE.Color(),dry=new THREE.Color('#b9ab86');
   // una sola altura por punto; la pendiente se saca de los puntos vecinos (antes se calculaban cinco alturas por punto: la carga tardaba mucho)
   const N1=seg+1,H=new Float32Array(pos.count),st=S/seg;for(let i=0;i<pos.count;i++){const x=pos.getX(i)+I.x,z=pos.getZ(i)+I.z,h=islandH(x,z);H[i]=h;pos.setXYZ(i,x,h,z);}
+  try{reliefPost(I,H,N1,st,I.x-S/2,I.z-S/2);for(let i=0;i<pos.count;i++)pos.setY(i,H[i]);}catch(e){console.warn('relieve',I.id,e);}   // crestas, barrancos y pendientes posibles (185_relieve.js)
   for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i),h=H[i],r=Math.floor(i/N1),cc=i%N1;
     const hx1=H[r*N1+Math.min(N1-1,cc+1)],hx0=H[r*N1+Math.max(0,cc-1)],hz1=H[Math.min(N1-1,r+1)*N1+cc],hz0=H[Math.max(0,r-1)*N1+cc];
     const sl=(Math.abs(hx1-hx0)+Math.abs(hz1-hz0))/(2*st);
     c.copy(GRASS_C).lerp(GREEN_C,clamp(fbm(x*0.05,z*0.05)*1.6-0.4,0,1));if(!I.green&&I.id!=='lesbos'&&I.id!=='egina'&&I.id!=='tebas'&&I.id!=='esparta')c.lerp(dry,0.45);if(I.green)c.lerp(_c2.set('#7f8f55'),0.32);
+    const cv=(hx1+hx0+hz1+hz0-4*h)/(st*st);if(h>3){if(cv>0)c.lerp(GREEN_C,clamp(cv*6,0,0.45));else c.lerp(_c2.set('#c4b48c'),clamp(-cv*5,0,0.35));}   // fondos de barranco más verdes (humedad), crestas más claras y secas
     if(h<3)c.lerp(SAND_C,clamp((3-h)/2,0,1));c.lerp(ROCK_C,clamp((sl-0.4)*1.6,0,1));if(h<-1)c.set('#8a7d60');if(I.tint)I.tint(x,z,h,c);
     const v=0.94+hash(x*0.37,z*0.53)*0.1;col[i*3]=c.r*v;col[i*3+1]=c.g*v;col[i*3+2]=c.b*v;}
   g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();const m=new THREE.Mesh(g,terrainMat());m.receiveShadow=true;scene.add(m);I.mesh=m;gridSet(I,g,S,seg);}
