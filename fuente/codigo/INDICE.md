@@ -145,7 +145,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `139_laurion.js` | 50 | EL LAURIÓN: las minas de plata del sur del Ática (modo Atenas) |
 | `140_creta_kit.js` | 99 | CRETA (1): herramientas para los mapas de Creta (modo Atenas) |
 | `141_creta_centro.js` | 197 | CRETA (2): el centro de la isla (modo Atenas, 386 a.C.) |
-| `142_roma_lanciani.js` | 67 | ROMA: lo que faltaba según la Forma Urbis de Lanciani (revisión lámina a lámina, v217) |
+| `142_roma_lanciani.js` | 68 | ROMA: lo que faltaba según la Forma Urbis de Lanciani (revisión lámina a lámina, v217) |
 | `143_creta_este.js` | 180 | CRETA (3): el este de la isla (modo Atenas, 386 a.C.) |
 | `144_creta_oeste.js` | 61 | CRETA (4): el oeste de la isla (modo Atenas, 386 a.C.) |
 | `145_creta_tercera.js` | 137 | CRETA (5): tercera tanda (modo Atenas, 386 a.C.) |
@@ -176,4 +176,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `170_consecuencias.js` | 47 | CONVERSACIONES CON CONSECUENCIAS: rumores, votos que se recuerdan y recomendaciones |
 | `171_mision_grupo.js` | 50 | MISIÓN DE GRUPO (modo en línea): preparar un banquete entre varios |
 | `172_interiores_roma.js` | 119 | INTERIORES DE ROMA: el Panteón, las Termas de Tito y la Basílica Julia por dentro |
-| `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `173_arreglos_video.js` | 40 | ARREGLOS DEL VÍDEO DE PARTIDA (16-11): avisos, lluvia bajo techo, el Capitolio y el modo atención |
+| `900_creta_y_arranque.js` | 636 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

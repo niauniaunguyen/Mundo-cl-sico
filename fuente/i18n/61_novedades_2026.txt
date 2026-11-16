@@ -4339,3 +4339,91 @@ You vote with the minority: in cases like this the Centumviri usually found for 
 @1118c29e
 " Aquesta reclamació es diu «querella de testament inoficiós»: si un pare desheretava sense motiu els seus fills, el tribunal podia anul·lar el testament i donar-los la seva part.</p><p>El tribunal dels centumvirs jutja herències aquí, a la Basílica Júlia, amb uns 180 jutges repartits en quatre sales; el públic omple les galeries i s'hi aboca per sentir els advocats. Plini el Jove, advocat famós en aquest tribunal, descriu un plet així, el d'Àtia Viriola, desheretada pel seu pare quan ell tenia vuitanta anys (Cartes 6, 33). <span class=\"sub\">(Plini ho escriu cap al 106 dC: d'aquí a uns vint-i-cinc anys.)</span> Quintilià, que ensenya retòrica aquí al costat, parla sovint d'aquest tribunal a la seva Institució oratòria.</p>"
 " This claim is called the «complaint of an undutiful will»: if a father disinherited his children for no reason, the court could annul the will and give them their share.</p><p>The court of the Centumviri judges inheritances here, in the Basilica Julia, with some 180 judges split into four chambers; the public fills the galleries and leans over to hear the advocates. Pliny the Younger, a famous advocate in this court, describes such a case, that of Attia Viriola, disinherited by her eighty-year-old father (Letters 6.33). <span class=\"sub\">(Pliny writes this around AD 106: some twenty-five years from now.)</span> Quintilian, who teaches rhetoric next door, often speaks of this court in his Institutes of Oratory.</p>"
+
+@ca7cd453
+El tresor de l'Estat
+The State treasury
+
+@18e2ce0d
+Columna rostral
+Rostral column
+
+@0a88eac3
+=
+columna rostrata
+
+@8eea0e6a
+Una columna amb els esperons de bronze de naus enemigues.
+A column with the bronze rams of enemy ships.
+
+@67fd6c08
+Una columna adornada amb els esperons de bronze (rostra) arrencats a les naus enemigues, com la que es va aixecar a Gai Duili per la primera victòria naval de Roma sobre Cartago, a Miles (260 aC). August en va dedicar d'altres amb els esperons de la flota d'Antoni i Cleòpatra, vençuda a Àccium (31 aC).
+A column adorned with the bronze rams (rostra) torn from enemy ships, like the one raised to Gaius Duilius for Rome's first naval victory over Carthage, at Mylae (260 BC). Augustus dedicated others with the rams of Antony and Cleopatra's fleet, defeated at Actium (31 BC).
+
+@508d7a08
+Els esperons dels Rostra
+The rams of the Rostra
+
+@89af3afa
+Esperons de bronze de naus.
+Bronze ship rams.
+
+@8bd06134
+Els esperons de bronze que donen nom a la tribuna dels oradors, els Rostra. Els primers es van arrencar a les naus d'Antium, vençuda el 338 aC, i es van clavar aquí (Livi 8, 14, 12). Des de dalt parlen els magistrats al poble.
+The bronze rams that give the speakers' platform, the Rostra, its name. The first were torn from the ships of Antium, defeated in 338 BC, and fixed here (Livy 8.14.12). From the top the magistrates address the people.
+
+@1bebf5e6
+Estàtua honorífica
+Honorary statue
+
+@657e812f
+estàtua de bronze
+bronze statue
+
+@3f5f7f2e
+Una estàtua de bronze sobre un pedestal.
+A bronze statue on a pedestal.
+
+@cbbadf47
+Una estàtua de bronze sobre un alt pedestal amb una inscripció: el Senat la vota a qui ha servit bé Roma. N'hi havia tantes que els censors del 158 aC van fer treure del Fòrum les que no havia aprovat el Senat o el poble (Plini, Història natural 34, 30).
+A bronze statue on a tall pedestal with an inscription: the Senate votes it to someone who has served Rome well. There were so many that the censors of 158 BC had those not approved by the Senate or the people removed from the Forum (Pliny, Natural History 34.30).
+
+@b4525c6c
+Ofrenes del temple
+Temple offerings
+
+@c793e8df
+tresor sagrat
+sacred treasure
+
+@0cbb61bf
+Ofrenes i tresors.
+Offerings and treasures.
+
+@bb6f7416
+Ofrenes que els fidels i els generals deixen al déu: vasos d'or i de plata, corones, armes de l'enemic, monedes. Els temples guarden també diners i documents, perquè ningú no s'atreveix a robar un déu.
+Offerings that worshippers and generals leave to the god: gold and silver vessels, crowns, enemy weapons, coins. Temples also keep money and documents, because no one dares to rob a god.
+
+@ec987c81
+=
+aerarium Saturni
+
+@bdc92387
+El tresor públic.
+The public treasury.
+
+@c71e5765
+Sota el temple de Saturn es guarda el tresor de l'Estat (aerarium Saturni): lingots, monedes i els comptes públics, a més de les lleis gravades en bronze i les ensenyes de les legions. El custodien funcionaris anomenats prefectes de l'erari (Tàcit, Annals 13, 29).
+Beneath the temple of Saturn the State treasury is kept (aerarium Saturni): ingots, coins and the public accounts, as well as laws engraved in bronze and the legions' standards. It is guarded by officials called prefects of the treasury (Tacitus, Annals 13.29).
+
+@98febf52
+Bastida
+Scaffolding
+
+@1c15b4b2
+Una bastida de fusta.
+A wooden scaffold.
+
+@a1215d4f
+Bastides de fusta lligades amb cordes: hi ha obres. L'incendi d'aquest any ha cremat el temple de Júpiter al Capitoli i altres edificis del Camp de Mart, i Titus ha promès refer-los (Suetoni, Titus 8, 3-4; Dió Cassi 66, 24). Ho acabarà el seu germà Domicià.
+Wooden scaffolding tied with ropes: there is building work. This year's fire burned the temple of Jupiter on the Capitol and other buildings on the Campus Martius, and Titus has promised to rebuild them (Suetonius, Titus 8.3-4; Cassius Dio 66.24). His brother Domitian will finish it.

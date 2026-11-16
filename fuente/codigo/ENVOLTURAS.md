@@ -7,13 +7,13 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-224 funciones ampliadas, 336 capas.
+228 funciones ampliadas, 343 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 20 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 21 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 |
 | `egxAct0` | `060_egipto_2.js` | 16 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 |
-| `atCands` | `085_mirar_con_atencion.js` | 6 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 |
+| `atCands` | `085_mirar_con_atencion.js` | 7 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 |
 | `dzReport` | `151_diez_ideas.js` | 5 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `gmRight` | `121_menu_de_esc.js` | 5 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 |
@@ -24,6 +24,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `renderOpts` | `015_dialogo.js` | 3 | `151`:23 · `166`:27 · `170`:37 |
+| `toast` | `014_hud.js` | 3 | `120`:131 · `128`:68 · `173`:8 |
 | `updateSky` | `003_escena.js` | 3 | `089`:6 · `090`:90 · `123`:74 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 2 | `148`:150 · `151`:75 |
 | `applyFlats` | `001_terreno.js` | 2 | `146`:60 · `900`:406 |
@@ -60,7 +61,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `progAct` | `076_progresion.js` | 2 | `083`:82 · `090`:104 |
 | `rdAct` | `095_los_caminos_mas_vivos.js` | 2 | `095`:69 · `098`:81 |
 | `spMenu` | `088_los_espiritus.js` | 2 | `090`:112 · `091`:54 |
-| `toast` | `014_hud.js` | 2 | `120`:131 · `128`:68 |
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
 | `treesGLB` | `005_modelos_de_blender.js` | 2 | `126`:11 · `155`:23 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
@@ -144,6 +144,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `finishRoofs` | `008_edificios.js` | 1 | `900`:435 |
 | `finSetup` | `072_misiones_finales_de_las_cualidades.js` | 1 | `900`:378 |
 | `fxJournal` | `053_forastero_a.js` | 1 | `083`:37 |
+| `fxRostral` | `173_arreglos_video.js` | 1 | `173`:38 |
 | `gateTravel` | `012_escenarios_cuadrados.js` | 1 | `091`:36 |
 | `glbPart` | `005_modelos_de_blender.js` | 1 | `128`:139 |
 | `gmRender` | `068_menu_del_juego.js` | 1 | `134`:44 |
@@ -193,6 +194,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `qcSetup` | `082_canteras_y_pigmentos.js` | 1 | `900`:391 |
 | `rcSetup` | `098_el_campo.js` | 1 | `900`:392 |
 | `rdSetup` | `095_los_caminos_mas_vivos.js` | 1 | `900`:393 |
+| `rfFloor` | `091_para_que_sirven_los_objetos.js` | 1 | `173`:14 |
 | `rfSetup` | `091_para_que_sirven_los_objetos.js` | 1 | `146`:62 |
 | `romaColosseum` | `029_roma.js` | 1 | `086`:7 |
 | `romaTheatres` | `032_glosario_lateral.js` | 1 | `900`:394 |
@@ -217,12 +219,14 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `termoPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:397 |
 | `terrainH` | `001_terreno.js` | 1 | `900`:309 |
 | `terrainH0` | `001_terreno.js` | 1 | `001`:94 |
+| `tpDecorate` | `113_templos_por_dentro.js` | 1 | `173`:36 |
 | `tryMove` | `043_bucle.js` | 1 | `168`:43 |
 | `ttSetup` | `094_petteia_y_ludus_latrunculorum.js` | 1 | `900`:398 |
 | `tutStart` | `049_discipulos.js` | 1 | `157`:78 |
 | `twStart` | `064_game_feel_2.js` | 1 | `078`:345 |
 | `updateStats` | `014_hud.js` | 1 | `077`:78 |
 | `updateTorch` | `040_caballo.js` | 1 | `090`:88 |
+| `urbScaffold` | `074_urbanismo.js` | 1 | `173`:35 |
 | `urbSetup` | `074_urbanismo.js` | 1 | `900`:399 |
 | `visSetup` | `089_mejoras_visuales_2.js` | 1 | `900`:400 |
 | `vmFrum` | `081_vida_y_muerte.js` | 1 | `083`:80 |
