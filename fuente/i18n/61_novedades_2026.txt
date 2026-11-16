@@ -3163,3 +3163,23 @@ Large buttons on touch screens
 @7b506e5a
 Vibració breu en tocar botons (mòbil)
 Short vibration when tapping buttons (mobile)
+
+@1b8cd76d
+compitum · lars compitals
+compitum · Lares Compitales
+
+@2fdd376a
+Un petit santuari en un encreuament de carrers.
+A small shrine at a crossroads.
+
+@fc33e61a
+Un compitum: el santuari dels lars del barri, a l'encreuament de carrers. A la fornícula hi ha pintats o esculpits els dos lars i el geni de l'emperador. August va dividir la ciutat en barris (vici) i cada barri tria cada any els seus magistri, que tenen cura de l'altar (Plini, Història natural 3, 66, compta a la ciutat 265 encreuaments amb el seu altar). A les Compitàlia, a primers de gener, els veïns hi pengen ninots de llana per cada persona lliure de la casa i boles per cada esclau (Fest, s. v. pilae).
+A compitum: the shrine of the neighbourhood Lares, at the crossroads. In the niche the two Lares and the emperor's genius are painted or carved. Augustus divided the city into neighbourhoods (vici), and each one chooses its magistri every year to look after the altar (Pliny, Natural History 3.66, counts 265 crossroads with their altar in the city). At the Compitalia, in early January, the neighbours hang woollen dolls here for each free person in the household and balls for each slave (Festus, s.v. pilae).
+
+@7c56b22d
+Una font pública.
+A public fountain.
+
+@109549f3
+Un lacus: una pica de pedra on cau sense parar l'aigua dels aqüeductes per un broc. D'aquí la treuen els veïns de les ínsules, que no tenen aigua a casa. Agripa, com a edil el 33 aC, en va fer set-centes (Plini, Història natural 36, 121); Frontí, encarregat de les aigües des del 97 dC (d'aquí a disset anys), en comptarà 591 (Sobre els aqüeductes 78).
+A lacus: a stone basin into which water from the aqueducts pours ceaselessly through a spout. The people of the tenement blocks, who have no water at home, fetch it here. Agrippa, as aedile in 33 BC, built seven hundred (Pliny, Natural History 36.121); Frontinus, in charge of the waters from AD 97 (seventeen years from now), will count 591 (On the Aqueducts 78).
