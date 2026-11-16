@@ -164,4 +164,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `158_honra.js` | 45 | LA HONRA (timḗ / dignitas): el hilo que une todo lo que haces |
 | `159_personas.js` | 61 | PERSONAS MÁS CUIDADAS: cabeza, pelo, brazos con manos y ropa suavizada |
 | `160_voces_musica.js` | 35 | VOCES Y MÚSICA POR MOMENTOS |
+| `161_rendimiento.js` | 31 | RENDIMIENTO: el relieve de los destinos se guarda tras la primera carga |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
