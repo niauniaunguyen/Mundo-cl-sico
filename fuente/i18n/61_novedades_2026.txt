@@ -4427,3 +4427,415 @@ A wooden scaffold.
 @a1215d4f
 Bastides de fusta lligades amb cordes: hi ha obres. L'incendi d'aquest any ha cremat el temple de Júpiter al Capitoli i altres edificis del Camp de Mart, i Titus ha promès refer-los (Suetoni, Titus 8, 3-4; Dió Cassi 66, 24). Ho acabarà el seu germà Domicià.
 Wooden scaffolding tied with ropes: there is building work. This year's fire burned the temple of Jupiter on the Capitol and other buildings on the Campus Martius, and Titus has promised to rebuild them (Suetonius, Titus 8.3-4; Cassius Dio 66.24). His brother Domitian will finish it.
+
+@4de58c15
+<span class="label">Sense alè</span><br>T'atures a recuperar l'alè. Camina una mica, o beu en una font.
+<span class="label">Out of breath</span><br>You stop to catch your breath. Walk a little, or drink at a fountain.
+
+@2a164d22
+<span class="label">Aigua fresca</span><br>Beus a la font i recuperes l'alè.
+<span class="label">Fresh water</span><br>You drink at the fountain and get your breath back.
+
+@4c268ece
+<kbd>Espai</kbd>Saltar amb el cavall
+<kbd>Space</kbd>Jump with the horse
+
+@00db95df
+<kbd>E</kbd>Enfilar-se
+<kbd>E</kbd>Climb
+
+@000a9d0b
+<span class="label">Al lladre!</span><br>
+<span class="label">Stop, thief!</span><br>
+
+@0d76f51c
+" Corre darrere seu: si l'atrapes, recuperes el que és teu."
+" Run after him: if you catch him, you get your things back."
+
+@f61a6e83
+L'has atrapat!
+You caught him!
+
+@2f1889b3
+"<span class=\"label\">Atrapat!</span><br>L'agafes pel mantell. Et torna el que t'ha robat i una moneda més «per les molèsties», i s'esmuny entre la gent. "
+"<span class=\"label\">Caught!</span><br>You grab him by the cloak. He gives back what he stole and an extra coin «for the trouble», and slips away into the crowd. "
+
+@c5dbbc62
+No hi ha policia com la nostra: els vigiles persegueixen sobretot incendis i lladres nocturns.
+There is no police as we know it: the vigiles mainly deal with fires and night thieves.
+
+@66b134ef
+A Atenes no hi ha policia: qui enxampa un lladre el pot portar ell mateix davant dels Onze.
+In Athens there is no police: whoever catches a thief can take him himself before the Eleven.
+
+@2e0b98a0
+<span class="label">S'ha escapat</span><br>El lladre es perd pels carrerons.
+<span class="label">He got away</span><br>The thief disappears into the alleys.
+
+@d1971cef
+T'ha empès i s'ha endut la bossa.
+He shoved you and took your purse.
+
+@e9144ea9
+Un carterista t'ha tallat la bossa del cinturó entre la gentada.
+A pickpocket cut the purse from your belt in the crowd.
+
+@e3e9406c
+"Volta "
+"Lap "
+
+@a51a4462
+Empat.
+A draw.
+
+@15cc1ee3
+el gos
+the dog
+
+@c9e3736a
+Els vermells
+The Reds
+
+@81e064ea
+Els blancs
+The Whites
+
+@ad7472c9
+Els verds
+The Greens
+
+@d58e0c21
+<span class="label">Cursa al Circ</span><br>Dues voltes a l'espina, en sentit contrari a les agulles del rellotge. A cavall es corre millor! Les metes són els cons daurats de cada extrem.
+<span class="label">Race in the Circus</span><br>Two laps round the spina, anticlockwise. You go faster on horseback! The turning posts are the golden cones at each end.
+
+@330bf66a
+"Preparats… "
+"Get ready… "
+
+@3d9f4a34
+" · vas "
+" · you're "
+
+@95b554c0
+Has guanyat al Circ!
+You won in the Circus!
+
+@4927c3ee
+Cursa al Circ Màxim
+Race in the Circus Maximus
+
+@9b02839b
+"<p>Arribes "
+"<p>You finish "
+
+@c90b6e32
+" i guanyes! Et donen una palma i deu sestercis."
+" and win! You get a palm branch and ten sesterces."
+
+@c09daf31
+</p><p>Les curses de debò duraven set voltes, d'esquerra a dreta al voltant de l'espina, i el més perillós eren els girs al costat de les metes, on xocaven els carros (el «naufragi»). Els aurigues corrien per a quatre faccions, vermells, blancs, verds i blaus, i la gent n'era seguidora d'una: Plini el Jove es burla que milers d'homes s'apassionin «per un drap de color» (Cartes 9, 6). Alguns aurigues, com Diocles, es van fer riquíssims.</p>
+</p><p>Real races lasted seven laps, from left to right round the spina, and the most dangerous moments were the turns by the posts, where chariots crashed (the «shipwreck»). Charioteers raced for four factions, red, white, green and blue, and people supported one of them: Pliny the Younger mocks thousands of men getting worked up «over a coloured rag» (Letters 9.6). Some charioteers, like Diocles, became extremely rich.</p>
+
+@9e8ab765
+"<span class=\"label\">Cursa de torxes</span><br>L'últim tram de la lampadedròmia: del Dípilon a l'altar dels Dotze Déus, a l'Eleusínion i als Propileus. Tens "
+"<span class=\"label\">Torch race</span><br>The last stretch of the lampadedromia: from the Dipylon to the altar of the Twelve Gods, the Eleusinion and the Propylaia. You have "
+
+@33322386
+" segons. Corre, però no et quedis sense alè."
+" seconds. Run, but don't run out of breath."
+
+@ec1ab883
+Has arribat amb la torxa encesa.
+You arrived with your torch alight.
+
+@10d8f3d6
+Cursa de torxes
+Torch race
+
+@8a168ccf
+"<p>Arribes amb la torxa encesa en "
+"<p>You arrive with your torch alight in "
+
+@b34a3797
+"<p>Arribes, però tard: "
+"<p>You arrive, but late: "
+
+@f180f5e2
+<p>A la lampadedròmia els corredors sortien de nit de l'altar de Prometeu, a l'Acadèmia, i corrien fins a la ciutat amb la torxa encesa: guanya qui arriba primer sense que se li apagui (Pausànias 1, 30, 2). En algunes festes es corria per relleus, per tribus. Al joc només corres el tram final.</p>
+<p>In the lampadedromia runners set out at night from the altar of Prometheus, in the Academy, and ran to the city with a lighted torch: the winner is whoever arrives first without it going out (Pausanias 1.30.2). At some festivals it was a relay, by tribes. In the game you only run the final stretch.</p>
+
+@921b0671
+Se t'ha apagat la torxa.
+Your torch has gone out.
+
+@59f77b07
+"✉ Per a "
+"✉ For "
+
+@418136b2
+El recado ja no serveix: ha arribat massa tard.
+The message is no use now: it arrived too late.
+
+@4ed42728
+"Lliurar l'encàrrec de "
+"Deliver the message from "
+
+@3d9160df
+Has arribat a temps.
+You arrived in time.
+
+@995ef67e
+«Just a temps! Gràcies: té, per la carrera».
+«Just in time! Thanks: here, for running».
+
+@5da059fc
+«Ara? Ja és tard… Bé, gràcies igualment».
+«Now? It's too late… Well, thanks anyway».
+
+@7a4c3694
+. Sense correu públic, els missatges urgents els portaven esclaus o nois corrent: un bon corredor valia or.</p>
+. With no public post, urgent messages were carried by slaves or boys at a run: a good runner was worth his weight in gold.</p>
+
+@bd15d8d0
+«Necessites que porti algun encàrrec?»
+«Do you need me to take a message?»
+
+@2cc25d3e
+<p>«Sí! Porta això a <b>
+<p>«Yes! Take this to <b>
+
+@01c317c3
+"</b>, de pressa: ho ha de saber abans de "
+"</b>, quickly: they must know before "
+
+@07549851
+. T'indico el camí».</p><p class="sub">Corre i busca dreceres: pels carrerons, saltant murets o enfilant-te.</p>
+. I'll mark the way».</p><p class="sub">Run and look for shortcuts: through alleys, vaulting low walls or climbing.</p>
+
+@ff2acc9a
+<span class="label">Foc!</span><br>Crema una casa aquí a prop. Agafa aigua en una font (E) i llença-la al foc (E). Calen cinc galledes abans que s'escampi.
+<span class="label">Fire!</span><br>A house is burning nearby. Fetch water from a fountain (E) and throw it on the fire (E). Five buckets are needed before it spreads.
+
+@1a117b49
+"🔥 Galledes: "
+"🔥 Buckets: "
+
+@4c2352f9
+" de 5"
+" of 5"
+
+@9db10fe2
+" · portes aigua"
+" · carrying water"
+
+@0f1207e2
+<kbd>E</kbd>Omplir la galleda
+<kbd>E</kbd>Fill the bucket
+
+@0b7adc35
+<kbd>E</kbd>Llençar l'aigua al foc
+<kbd>E</kbd>Throw the water on the fire
+
+@a5145c7d
+<span class="label">El foc s'ha escampat</span><br>Els veïns aconsegueixen apagar-lo al final, però la casa s'ha perdut.
+<span class="label">The fire has spread</span><br>The neighbours manage to put it out in the end, but the house is lost.
+
+@b61446ab
+Omples la galleda de cuir. Ràpid, al foc!
+You fill the leather bucket. Quick, to the fire!
+
+@f5d2fb03
+Has ajudat a apagar un incendi.
+You helped put out a fire.
+
+@11ecc457
+Apagat!
+Put out!
+
+@25c9f869
+<p>Entre tots heu apagat el foc.</p>
+<p>Together you have put the fire out.</p>
+
+@80a36138
+<p>A Roma els incendis eren continus: cases de diversos pisos, fusta, braseres i llums d'oli. August va crear els vigiles, set cohorts de lliberts que vigilaven de nit amb galledes, bombes d'aigua i destrals, una per cada dos barris (Suetoni, August 30; Dió Cassi 55, 26). Juvenal diu que viure en un tercer pis és esperar que et desperti el fum (Sàtires 3, 197-202).</p>
+<p>In Rome fires were constant: multi-storey houses, wood, braziers and oil lamps. Augustus created the vigiles, seven cohorts of freedmen who kept watch at night with buckets, water pumps and axes, one for every two districts (Suetonius, Augustus 30; Cassius Dio 55.26). Juvenal says living on a third floor means waiting for the smoke to wake you (Satires 3.197-202).</p>
+
+@758937ed
+<p>A Atenes no hi havia bombers: quan cremava una casa hi acudien els veïns amb galledes i gerres, i s'enderrocava el que calgués perquè el foc no passés a la del costat.</p>
+<p>Athens had no fire brigade: when a house burned, the neighbours came with buckets and jars, and whatever was needed was pulled down so the fire would not spread next door.</p>
+
+@11e59b0f
+"Al foc! Queden "
+"To the fire! Left: "
+
+@4444cba4
+No tens diners per apostar.
+You have no money to bet.
+
+@3207087b
+Venus! (les quatre diferents)
+Venus! (all four different)
+
+@32a8e534
+Afrodita! (les quatre diferents)
+Aphrodite! (all four different)
+
+@5511b4f8
+el gos (quatre uns)
+the dog (four ones)
+
+@e84468e7
+Tabes (tali)
+Knucklebones (tali)
+
+@e363ec52
+Tabes (astràgals)
+Knucklebones (astragaloi)
+
+@cae55be1
+<p>Tu: <b>
+<p>You: <b>
+
+@5ba11d1e
+"Guanyes un "
+"You win one "
+
+@1b67495a
+"Perds un "
+"You lose one "
+
+@048b75ee
+Una altra
+Again
+
+@f409bdf3
+Tirar
+Throw
+
+@19dc9a69
+<span class="n">⚄</span><span>«Fem una partida a les tabes?»</span>
+<span class="n">⚄</span><span>«Fancy a game of knucklebones?»</span>
+
+@0a849896
+<span class="label">Carros de nit</span><br>Una llei de Cèsar prohibeix als carros entrar a Roma de dia; per això la ciutat se n'omple al vespre (Taula d'Heraclea, línies 56-61). Juvenal diu que el soroll de les rodes i dels traginers no deixa dormir ningú (Sàtires 3, 236-238).
+<span class="label">Night carts</span><br>A law of Caesar forbids carts to enter Rome by day; that is why the city fills with them at nightfall (Table of Heraclea, lines 56-61). Juvenal says the noise of wheels and drivers keeps everyone awake (Satires 3.236-238).
+
+@5ea57474
+<span class="label">La porta és tancada</span><br>De nit les portes de la muralla es tanquen. El guardià t'obre el portell per un òbol. Eneas el Tàctic, que escriurà unes dècades després, explica com vigilar les portes de nit i qui n'ha de guardar les claus (Poliorcètica 18-20).
+<span class="label">The gate is shut</span><br>At night the gates in the wall are closed. The gatekeeper opens the wicket for you for an obol. Aeneas Tacticus, writing a few decades later, explains how to guard gates at night and who should keep the keys (Poliorcetica 18-20).
+
+@81b93264
+Busca la pedra que parla en primera persona: ΗΟΡΟΣ ΕΙΜΙ ΤΕΣ ΑΓΟΡΑΣ, «sóc la fita de l'Àgora». Marca on comença la plaça.
+Look for the stone that speaks in the first person: ΗΟΡΟΣ ΕΙΜΙ ΤΕΣ ΑΓΟΡΑΣ, «I am the boundary stone of the Agora». It marks where the square begins.
+
+@179728e1
+Dos homes de bronze amb l'espasa enlaire: ΑΡΜΟΔΙΟΣ ΚΑΙ ΑΡΙΣΤΟΓΕΙΤΩΝ. Els atenencs diuen que van matar un tirà.
+Two bronze men with swords raised: ΑΡΜΟΔΙΟΣ ΚΑΙ ΑΡΙΣΤΟΓΕΙΤΩΝ. The Athenians say they killed a tyrant.
+
+@cbce8db9
+Deu herois en filera sobre un pedestal llarg: ΕΠΩΝΥΜΟΙ. A sota s'hi pengen els avisos de la ciutat.
+Ten heroes in a row on a long pedestal: ΕΠΩΝΥΜΟΙ. The city's notices are hung beneath them.
+
+@27066c6f
+Puja al turó on se senten els martells dels bronzistes: ΗΦΑΙΣΤΕΙΟΝ.
+Climb the hill where you hear the bronze-workers' hammers: ΗΦΑΙΣΤΕΙΟΝ.
+
+@df9808b6
+L'última: on s'encunya la plata amb l'òliba, ΑΡΓΥΡΟΚΟΠΕΙΟΝ.
+The last: where silver is struck with the owl, ΑΡΓΥΡΟΚΟΠΕΙΟΝ.
+
+@d7556cd4
+una tetradracma de plata amb l'òliba d'Atena: val quatre dracmes, vint-i-quatre òbols
+a silver tetradrachm with Athena's owl: worth four drachmas, twenty-four obols
+
+@ddb0f159
+Busca les llistes de magistrats de cada any, gravades en marbre: FASTI. Són al costat de la Règia.
+Look for the lists of each year's magistrates, carved in marble: FASTI. They are next to the Regia.
+
+@41de2ebb
+Ara, la tribuna adornada amb esperons de vaixells: ROSTRA.
+Now, the platform adorned with ships' rams: ROSTRA.
+
+@a1b744d3
+On es guarda el tresor de l'Estat: AEDES SATVRNI, «el temple de Saturn».
+Where the State treasury is kept: AEDES SATVRNI, «the temple of Saturn».
+
+@ae34dcc9
+Puja cap a l'arxiu de l'Estat, amb el seu mur d'arcs: TABVLARIVM.
+Climb towards the State archive, with its wall of arches: TABVLARIVM.
+
+@821776ec
+L'última, al més alt: IOVI OPTIMO MAXIMO, «a Júpiter, el millor i el més gran».
+The last, at the very top: IOVI OPTIMO MAXIMO, «to Jupiter, the best and greatest».
+
+@9c4ed7a1
+un denari de plata de Titus, acabat d'encunyar
+a freshly minted silver denarius of Titus
+
+@6bc032b5
+Una tauleta oblidada
+A forgotten tablet
+
+@cc2f8c21
+un enigma?
+a riddle?
+
+@0da42f19
+Córrer al Circ
+Race in the Circus
+
+@78f7d191
+cursa de quadrigues
+chariot race
+
+@b95d0b30
+l'últim tram
+the last stretch
+
+@5627aa74
+La tauleta
+The tablet
+
+@6bcf4550
+<p>Ja vas trobar el tresor.</p>
+<p>You already found the treasure.</p>
+
+@08f8a9f6
+"Cerca del tresor · pista "
+"Treasure hunt · clue "
+
+@7e194279
+</p><p class="sub">Troba l'estela amb aquesta inscripció i acosta-t'hi. Si et perds, el plànol (M) mostra les esteles.</p>
+</p><p class="sub">Find the stele with that inscription and go up to it. If you get lost, the map (M) shows the steles.</p>
+
+@fd09c5f0
+Has sabut llegir les inscripcions.
+You were able to read the inscriptions.
+
+@df1a538d
+El tresor!
+The treasure!
+
+@95907335
+"<p>Al peu de la inscripció, sota una pedra solta, hi trobes "
+"<p>At the foot of the inscription, under a loose stone, you find "
+
+@b6ffc25c
+".</p><p class=\"sub\">Has llegit cinc inscripcions "
+".</p><p class=\"sub\">You have read five "
+
+@06d5839d
+. Les inscripcions en pedra i bronze són una de les millors fonts de l'Antiguitat: se'n conserven desenes de milers, i moltes, com la fita de l'Àgora, encara es poden veure on eren.</p>
+" inscriptions. Inscriptions in stone and bronze are among the best sources for antiquity: tens of thousands survive, and many, like the Agora boundary stone, can still be seen where they stood.</p>"
+
+@4213eaaa
+<span class="label">Trobada!</span><br>
+<span class="label">Found!</span><br>
+
+@f0682405
+. Pista següent…
+. Next clue…
+
+@3be7fa39
+" treu quatre tabes, ossets de xai amb quatre cares que valen 1, 3, 4 i 6. «Una partida? Una moneda»</p><div id=\"taliB\"></div><div id=\"taliO\" class=\"lrnRow\"></div><p class=\"sub\">La millor tirada és la que treu les quatre cares diferents: «Venus» per als romans, «Afrodita» per als grecs; la pitjor, quatre uns, «el gos». August hi jugava amb els seus amics i ho explica a les seves cartes (Suetoni, August 71).</p>"
+" takes out four knucklebones, little sheep bones with four sides worth 1, 3, 4 and 6. «A game? One coin»</p><div id=\"taliB\"></div><div id=\"taliO\" class=\"lrnRow\"></div><p class=\"sub\">The best throw shows all four sides different: «Venus» to the Romans, «Aphrodite» to the Greeks; the worst, four ones, «the dog». Augustus played this with his friends and mentions it in his letters (Suetonius, Augustus 71).</p>"

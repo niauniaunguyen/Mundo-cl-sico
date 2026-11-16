@@ -7,23 +7,24 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-228 funciones ampliadas, 343 capas.
+233 funciones ampliadas, 354 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 21 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 |
-| `egxAct0` | `060_egipto_2.js` | 16 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 23 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 |
+| `egxAct0` | `060_egipto_2.js` | 17 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 |
 | `atCands` | `085_mirar_con_atencion.js` | 7 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 |
 | `dzReport` | `151_diez_ideas.js` | 5 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `gmRight` | `121_menu_de_esc.js` | 5 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 |
 | `openDialog` | `015_dialogo.js` | 5 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 |
+| `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
 | `answer` | `015_dialogo.js` | 4 | `091`:38 · `092`:46 · `148`:58 · `154`:11 |
 | `fareOf` | `016_viajes_en_barco.js` | 4 | `052`:509 · `090`:102 · `091`:52 · `097`:70 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
-| `renderOpts` | `015_dialogo.js` | 3 | `151`:23 · `166`:27 · `170`:37 |
+| `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
 | `toast` | `014_hud.js` | 3 | `120`:131 · `128`:68 · `173`:8 |
 | `updateSky` | `003_escena.js` | 3 | `089`:6 · `090`:90 · `123`:74 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 2 | `148`:150 · `151`:75 |
@@ -50,7 +51,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbSetup` | `087_la_barra_de_objetos_como.js` | 2 | `120`:108 · `900`:379 |
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
-| `interact` | `042_entrada.js` | 2 | `127`:138 · `168`:44 |
 | `lrnSummary` | `148_aprender.js` | 2 | `151`:41 · `154`:25 |
 | `natAct` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:227 · `097`:89 |
 | `natSetup` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:228 · `900`:386 |
@@ -162,6 +162,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
 | `infBuild` | `072_misiones_finales_de_las_cualidades.js` | 1 | `085`:49 |
 | `jrSetup` | `079_la_jornada_romana_a_partir.js` | 1 | `900`:381 |
+| `jump` | `042_entrada.js` | 1 | `174`:28 |
 | `ldRun` | `900_creta_y_arranque.js` | 1 | `161`:22 |
 | `libPlain` | `019_biblioteca.js` | 1 | `167`:45 |
 | `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
@@ -228,10 +229,14 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `updateTorch` | `040_caballo.js` | 1 | `090`:88 |
 | `urbScaffold` | `074_urbanismo.js` | 1 | `173`:35 |
 | `urbSetup` | `074_urbanismo.js` | 1 | `900`:399 |
+| `uxThiefTick` | `091_para_que_sirven_los_objetos.js` | 1 | `174`:43 |
+| `v2Spd` | `114_vida_2.js` | 1 | `174`:16 |
 | `visSetup` | `089_mejoras_visuales_2.js` | 1 | `900`:400 |
 | `vmFrum` | `081_vida_y_muerte.js` | 1 | `083`:80 |
 | `vmSetup` | `081_vida_y_muerte.js` | 1 | `900`:401 |
 | `vocSetup` | `078_vocabulario.js` | 1 | `900`:402 |
+| `vtProbe` | `168_saltar_muretes.js` | 1 | `174`:22 |
+| `vtTick` | `168_saltar_muretes.js` | 1 | `174`:24 |
 | `vuSetup` | `056_vida_urbana.js` | 1 | `900`:403 |
 | `warSetup` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `900`:404 |
 | `wildBuild` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `093`:232 |

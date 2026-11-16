@@ -177,4 +177,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `171_mision_grupo.js` | 50 | MISIÓN DE GRUPO (modo en línea): preparar un banquete entre varios |
 | `172_interiores_roma.js` | 119 | INTERIORES DE ROMA: el Panteón, las Termas de Tito y la Basílica Julia por dentro |
 | `173_arreglos_video.js` | 40 | ARREGLOS DEL VÍDEO DE PARTIDA (16-11): avisos, lluvia bajo techo, el Capitolio y el modo atención |
-| `900_creta_y_arranque.js` | 636 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `174_movimiento_dinamico.js` | 49 | JUEGO MÁS DINÁMICO (1): aguante, trepar, saltar a caballo y perseguir al ladrón |
+| `175_actividades_dinamicas.js` | 119 | JUEGO MÁS DINÁMICO (2): carreras, recados, incendios, dados, la noche y la búsqueda del tesoro |
+| `900_creta_y_arranque.js` | 637 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
