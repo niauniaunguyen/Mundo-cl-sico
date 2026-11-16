@@ -169,4 +169,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `163_atencion_calles_roma.js` | 11 | MIRAR CON ATENCIÓN: altares de las encrucijadas, fuentes y miliarios de las calles de Roma |
 | `164_girarse_al_hablar.js` | 19 | GIRARSE AL HABLAR: quien te habla se vuelve hacia ti |
 | `165_atencion_mas_objetos.js` | 47 | MIRAR CON ATENCIÓN: más objetos repetidos que no tenían ficha |
+| `166_repaso.js` | 47 | REPASO ESPACIADO: lo aprendido vuelve a preguntarse días después |
+| `167_indice_fuentes.js` | 63 | BIBLIOTECA: ÍNDICE DE FUENTES POR AUTOR |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

@@ -3363,3 +3363,491 @@ A shed with a ramp where a trireme is hauled out of the water so the wood can dr
 @7ed71bcd
 Un cobert per a vaixells.
 A shed for ships.
+
+@960d050c
+" dies"
+" days"
+
+@109e61f1
+" dia"
+" day"
+
+@41424963
+Repàs
+Review
+
+@69083027
+Repassar a temps és aprendre de debò.
+Reviewing in time is real learning.
+
+@d3ba5b85
+"<p><span class=\"label\">Repàs · "
+"<p><span class=\"label\">Review · "
+
+@e1b49a47
+<div class="verdict">Te'n recordes!</div><p class="sub">
+<div class="verdict">You remember it!</div><p class="sub">
+
+@40c34478
+Ja la domines: no tornarà a sortir.
+You've mastered it: it won't come up again.
+
+@b26c6213
+"Tornarà a sortir d'aquí a "
+"It will come up again in "
+
+@910a6751
+" dies."
+" days."
+
+@188f6919
+No era aquesta.
+That's not it.
+
+@78ef10d9
+"</p><p class=\"sub\">T'ho tornaran a preguntar demà. Si ho vols tornar a sentir, parla amb "
+"</p><p class=\"sub\">You'll be asked again tomorrow. If you want to hear it again, talk to "
+
+@aa564659
+</span><span>No me'n recordo</span>
+</span><span>I don't remember</span>
+
+@c590574a
+"<span class=\"n\">↻</span><span>«Te'n recordes del que et va explicar "
+"<span class=\"n\">↻</span><span>«Do you remember what you were told by "
+
+@ba670088
+?»</span>
+?»</span>
+
+@a8ea28b9
+«M'han dit que vas parlar amb <b>
+«I hear you talked to <b>
+
+@0bf9592e
+</b>. A veure si te'n recordes…»
+</b>. Let's see if you remember…»
+
+@342590fb
+<span class="n">1</span><span>Continuar parlant</span>
+<span class="n">1</span><span>Keep talking</span>
+
+@2a2baba5
+Repassar
+Review
+
+@f5c4c42c
+"Dominades: "
+"Mastered: "
+
+@30f3a2d2
+" · encerts en repassos: "
+" · correct reviews: "
+
+@1927dce5
+"<p><b>Has repassat "
+"<p><b>You have reviewed "
+
+@e81c7f8c
+" bé.</p><p class=\"sub\">El que hagis fallat tornarà demà; el que hagis encertat, més endavant.</p>"
+" right.</p><p class=\"sub\">What you got wrong will come back tomorrow; what you got right, later on.</p>"
+
+@217bcc9a
+<p>Avui no et toca repassar res. Torna un altre dia: el que aprens torna a sortir just quan comença a oblidar-se.</p>
+<p>Nothing to review today. Come back another day: what you learn comes back just when it starts to fade.</p>
+
+@833d120f
+Següent (
+Next (
+
+@d77b65c9
+Acabar
+Finish
+
+@df607185
+<span class="t">Repassar
+<span class="t">Review
+
+@6054ce2f
+el que comença a oblidar-se
+what is starting to fade
+
+@cca2a2e7
+avui no toca res
+nothing due today
+
+@2c287235
+"<span class=\"label\">Repàs</span><br>Avui "
+"<span class=\"label\">Review</span><br>Today "
+
+@82d19878
+hi ha una lliçó
+there is one lesson
+
+@66d0c497
+" que comencen a oblidar-se. Qualsevol persona amb qui parlis te'n pot preguntar, o ves a Aprendre › Repassar."
+" starting to fade. Anyone you talk to may ask you, or go to Learn › Review."
+
+@63778e7b
+"Repàs espaiat: "
+"Spaced review: "
+
+@1d0cac3f
+" encerts, "
+" correct, "
+
+@5b4dae68
+" errors, "
+" wrong, "
+
+@ae2a9c3c
+" lliçons dominades, "
+" lessons mastered, "
+
+@e6f71b40
+" pendents avui."
+" due today."
+
+@ccc54188
+Sòfocles
+Sophocles
+
+@40939f46
+Eurípides
+Euripides
+
+@db80d788
+Tàcit
+Tacitus
+
+@366c01d5
+Frontí
+Frontinus
+
+@dec196d6
+Èsquil
+Aeschylus
+
+@99b3195f
+Horaci
+Horace
+
+@f93bc396
+Quintilià
+Quintilian
+
+@f8d9016e
+Vitruvi
+Vitruvius
+
+@1c70aff2
+Suetoni
+Suetonius
+
+@cf3fb189
+Fest
+Festus
+
+@1a72aefe
+poeta èpic
+epic poet
+
+@37af3b1d
+Hesíode
+Hesiod
+
+@37cb9409
+legislador i poeta
+lawgiver and poet
+
+@34445783
+autor de tragèdies
+tragic playwright
+
+@2889286e
+Baquílides
+Bacchylides
+
+@8c5c4088
+Heròdot
+Herodotus
+
+@08bbc365
+metge
+physician
+
+@45a1e499
+autor de comèdies
+comic playwright
+
+@4e2b3088
+Andòcides
+Andocides
+
+@afcb5e8d
+Xenofont
+Xenophon
+
+@6185fcaa
+filòsof
+philosopher
+
+@2737812e
+Èsquines
+Aeschines
+
+@88a2a1b1
+Demòstenes
+Demosthenes
+
+@8fc9848e
+Teofrast
+Theophrastus
+
+@41f92ddb
+Polibi
+Polybius
+
+@fcb25d14
+Cató
+Cato
+
+@7d4cec99
+polític i escriptor
+politician and writer
+
+@afd44411
+Varró
+Varro
+
+@b6e3ecba
+orador i polític
+orator and politician
+
+@68fd398a
+general i escriptor
+general and writer
+
+@65ed9122
+Diodor
+Diodorus
+
+@1db2bd5a
+Dionís d'Halicarnàs
+Dionysius of Halicarnassus
+
+@af57d987
+Estrabó
+Strabo
+
+@741e500c
+geògraf
+geographer
+
+@303bef25
+Columel·la
+Columella
+
+@e34e27e5
+agrònom
+agronomist
+
+@ce45f470
+Petroni
+Petronius
+
+@e4cd9b61
+mestre d'oratòria
+teacher of rhetoric
+
+@08432440
+Marcial
+Martial
+
+@5ed0eb0f
+encarregat de les aigües
+water commissioner
+
+@ab745bbc
+Estaci
+Statius
+
+@5f787f5c
+Plutarc
+Plutarch
+
+@cc8b7fed
+biògraf
+biographer
+
+@46e3106a
+Juvenal
+Juvenal
+
+@93c3aa8c
+poeta satíric
+satirical poet
+
+@3185ee36
+advocat i escriptor
+lawyer and writer
+
+@9694d1d5
+Apol·lodor
+Apollodorus
+
+@b8098df2
+mitògraf (Biblioteca)
+mythographer (Library)
+
+@3a83c304
+Llucià
+Lucian
+
+@89eca5d4
+escriptor satíric
+satirist
+
+@3a63fd26
+viatger i geògraf
+traveller and geographer
+
+@090ffecf
+Aulus Gel·li
+Aulus Gellius
+
+@90d79a88
+Galè
+Galen
+
+@ad503f2b
+Pòl·lux
+Pollux
+
+@ec1a1b8d
+Ateneu
+Athenaeus
+
+@7be3e72d
+Dió Cassi
+Cassius Dio
+
+@d3aef4f4
+Diògenes Laerci
+Diogenes Laertius
+
+@988275a4
+biògraf de filòsofs
+biographer of philosophers
+
+@a48b25cd
+Història Augusta
+Historia Augusta
+
+@2e40dcb1
+col·lecció de biografies
+collection of biographies
+
+@f3756361
+Macrobi
+Macrobius
+
+@6e2e685e
+Isidor
+Isidore
+
+@83265943
+bisbe i enciclopedista
+bishop and encyclopaedist
+
+@48db1d6d
+"anterior: va escriure "
+"earlier: wrote "
+
+@1aef5282
+" anys abans"
+" years before"
+
+@47fdb993
+"posterior: va escriure uns "
+"later: wrote some "
+
+@e095ea1b
+" anys després"
+" years after"
+
+@d17c74f8
+de l'època del joc
+from the time of the game
+
+@5cc44a9e
+Índex de fonts
+Index of sources
+
+@503cfa73
+Abans, durant o després: com llegir les fonts
+Before, during or after: how to read the sources
+
+@ef9271c2
+<span class="label">Índex de fonts</span><h3>Abans, durant o després: com llegir les fonts</h3>
+<span class="label">Index of sources</span><h3>Before, during or after: how to read the sources</h3>
+
+@7b293aab
+"<p>El joc passa el "
+"<p>The game is set in "
+
+@a8cd6212
+, i cada dada ve d'algun autor antic, però no tots hi van viure. Qui escriu <b>a l'època</b> ho va poder veure o parlar amb qui ho va veure; qui escriu <b>després</b> explica el que es recordava o el que va llegir, de vegades segles més tard, i es pot equivocar o adornar-ho. Per això, al joc, el que ve d'una font posterior es marca.</p>
+, and every fact comes from some ancient author, but not all of them lived then. Someone writing <b>at the time</b> could have seen it or spoken to someone who did; someone writing <b>later</b> tells what was remembered or what they read, sometimes centuries later, and may get it wrong or embellish it. That is why, in the game, what comes from a later source is marked.</p>
+
+@2b74568e
+<p class="sub">Pregunta per pensar: per què un historiador que escriu tres-cents anys després pot saber alguna cosa que no explica ningú de l'època? I per què es pot equivocar?</p>
+<p class="sub">A question to think about: why might a historian writing three hundred years later know something no one at the time tells us? And why might they be wrong?</p>
+
+@5597844c
+" cites</span></button>"
+" citations</span></button>"
+
+@f51e5925
+<h5>Anteriors a l'any del joc (
+<h5>Before the year of the game (
+
+@15228c77
+<h5>De l'època (
+<h5>From the time (
+
+@79c58d49
+<h5>Posteriors (
+<h5>Later (
+
+@ce0e03b1
+"<span class=\"label\">Índex de fonts · "
+"<span class=\"label\">Index of sources · "
+
+@99c6c3f9
+"</b> (el joc passa el "
+"</b> (the game is set in "
+
+@f2563b47
+<h5>Obres citades</h5><ul class="src">
+<h5>Works cited</h5><ul class="src">
+
+@5f5edc02
+<h5>On apareix a la Biblioteca (
+<h5>Where it appears in the Library (
+
+@f0f2afc6
+<p class="sub">En cap article.</p>
+<p class="sub">In no article.</p>
+
+@a9e20643
+"<p class=\"sub\">A més, "
+"<p class=\"sub\">Also, "
+
+@b26b5ba8
+" a les fitxes del mode atenció i als temaris de "
+" in the attention mode cards and in the syllabuses of "
+
+@e53ac146
+<p><button data-go="f:guia">← Totes les fonts</button></p>
+<p><button data-go="f:guia">← All sources</button></p>

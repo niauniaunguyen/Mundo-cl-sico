@@ -7,20 +7,20 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-216 funciones ampliadas, 312 capas.
+220 funciones ampliadas, 320 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `egxAct0` | `060_egipto_2.js` | 15 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 |
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 14 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 15 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 |
 | `atCands` | `085_mirar_con_atencion.js` | 6 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
+| `gmRight` | `121_menu_de_esc.js` | 5 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 |
 | `answer` | `015_dialogo.js` | 4 | `091`:38 · `092`:46 · `148`:58 · `154`:11 |
+| `dzReport` | `151_diez_ideas.js` | 4 | `154`:17 · `158`:43 · `162`:10 · `166`:44 |
 | `fareOf` | `016_viajes_en_barco.js` | 4 | `052`:509 · `090`:102 · `091`:52 · `097`:70 |
-| `gmRight` | `121_menu_de_esc.js` | 4 | `134`:26 · `138`:40 · `148`:139 · `158`:40 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
-| `dzReport` | `151_diez_ideas.js` | 3 | `154`:17 · `158`:43 · `162`:10 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `openDialog` | `015_dialogo.js` | 3 | `131`:88 · `151`:63 · `154`:10 |
 | `updateSky` | `003_escena.js` | 3 | `089`:6 · `090`:90 · `123`:74 |
@@ -56,6 +56,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `playerLook` | `040_caballo.js` | 2 | `076`:135 · `101`:50 |
 | `progAct` | `076_progresion.js` | 2 | `083`:82 · `090`:104 |
 | `rdAct` | `095_los_caminos_mas_vivos.js` | 2 | `095`:69 · `098`:81 |
+| `renderOpts` | `015_dialogo.js` | 2 | `151`:23 · `166`:27 |
 | `spMenu` | `088_los_espiritus.js` | 2 | `090`:112 · `091`:54 |
 | `toast` | `014_hud.js` | 2 | `120`:131 · `128`:68 |
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
@@ -159,6 +160,8 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `interact` | `042_entrada.js` | 1 | `127`:138 |
 | `jrSetup` | `079_la_jornada_romana_a_partir.js` | 1 | `900`:381 |
 | `ldRun` | `900_creta_y_arranque.js` | 1 | `161`:20 |
+| `libPlain` | `019_biblioteca.js` | 1 | `167`:45 |
+| `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
 | `loadModels` | `005_modelos_de_blender.js` | 1 | `900`:443 |
 | `m386Setup` | `061_sacar_partido_a_los_diez.js` | 1 | `900`:382 |
 | `makePerson` | `009_personas.js` | 1 | `116`:318 |
@@ -172,6 +175,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `openJournal` | `019_biblioteca.js` | 1 | `128`:74 |
 | `openMap` | `020_plano.js` | 1 | `154`:12 |
 | `ovidSetup` | `075_las_metamorfosis_de_ovidio_libros.js` | 1 | `900`:388 |
+| `pdData` | `162_panel_docente.js` | 1 | `166`:46 |
 | `phCaption` | `086_el_anfiteatro_flavio_por_dentro.js` | 1 | `151`:81 |
 | `pjAvatar` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `101`:51 |
 | `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `129`:79 |
@@ -186,13 +190,13 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `qcSetup` | `082_canteras_y_pigmentos.js` | 1 | `900`:391 |
 | `rcSetup` | `098_el_campo.js` | 1 | `900`:392 |
 | `rdSetup` | `095_los_caminos_mas_vivos.js` | 1 | `900`:393 |
-| `renderOpts` | `015_dialogo.js` | 1 | `151`:23 |
 | `rfSetup` | `091_para_que_sirven_los_objetos.js` | 1 | `146`:62 |
 | `romaColosseum` | `029_roma.js` | 1 | `086`:7 |
 | `romaTheatres` | `032_glosario_lateral.js` | 1 | `900`:394 |
 | `sealFootprints` | `002_colisiones.js` | 1 | `900`:395 |
 | `sfxCoin` | `004_sonido_sintesis_sin_archivos.js` | 1 | `077`:24 |
 | `sfxOficio` | `057_oficios.js` | 1 | `128`:79 |
+| `showArticle` | `019_biblioteca.js` | 1 | `167`:46 |
 | `spAct` | `088_los_espiritus.js` | 1 | `150`:20 |
 | `spSetup` | `088_los_espiritus.js` | 1 | `900`:396 |
 | `startQuiz` | `015_dialogo.js` | 1 | `087`:74 |
