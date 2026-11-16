@@ -180,4 +180,8 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `174_movimiento_dinamico.js` | 49 | JUEGO MÁS DINÁMICO (1): aguante, trepar, saltar a caballo y perseguir al ladrón |
 | `175_actividades_dinamicas.js` | 119 | JUEGO MÁS DINÁMICO (2): carreras, recados, incendios, dados, la noche y la búsqueda del tesoro |
 | `176_personas_variedad.js` | 31 | PERSONAS: más variedad y menos detalle a lo lejos |
-| `900_creta_y_arranque.js` | 638 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `177_oficios.js` | 89 | OFICIOS, TABLILLA DE CERA Y COCINA |
+| `178_competir.js` | 65 | COMPETIR: juegos atléticos, debates y teatro |
+| `179_coleccionar.js` | 76 | COLECCIONAR Y DESCUBRIR: monedas, el cuaderno de viaje y un perro |
+| `180_aula_y_grupo.js` | 70 | AULA Y GRUPO: modo examen, concurso en línea y accesibilidad ampliada |
+| `900_creta_y_arranque.js` | 641 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

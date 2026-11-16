@@ -26,7 +26,7 @@ async function netJoin(name,code){
   return true;
 }
 function netPresence(force){const r=NET.room;if(!r)return;
-  const o={n:NET.name,c:NET.color,x:Math.round(player.x*10)/10,z:Math.round(player.z*10)/10,y:Math.round(player.feet*10)/10,a:Math.round(player.yaw*100)/100,q:NET.q||0};   // q: misión de grupo (171_mision_grupo.js)
+  const o={n:NET.name,c:NET.color,x:Math.round(player.x*10)/10,z:Math.round(player.z*10)/10,y:Math.round(player.feet*10)/10,a:Math.round(player.yaw*100)/100,q:NET.q||0,q2:{qz:NET.qz||0,hu:(state&&state.dyn&&state.dyn.hunt)||0}};   // q2: concurso y búsqueda del tesoro (180)   // q: misión de grupo (171_mision_grupo.js)
   const k=JSON.stringify(o);if(!force&&k===NET.sent)return;NET.sent=k;r.presence(o).catch(()=>{});}
 function netAvatar(p){let a=NET.av.get(p.peer);const pr=p.presence||{};
   if(!a){const col=NET_COLORS.includes(pr.c)?pr.c:'#6a6a6a';const g=makePerson({noVary:true,chiton:col,himation:'#efe6d4',hair:'#3b2a1e'});scene.add(g);

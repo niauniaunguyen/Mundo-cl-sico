@@ -4839,3 +4839,1699 @@ The treasure!
 @3be7fa39
 " treu quatre tabes, ossets de xai amb quatre cares que valen 1, 3, 4 i 6. «Una partida? Una moneda»</p><div id=\"taliB\"></div><div id=\"taliO\" class=\"lrnRow\"></div><p class=\"sub\">La millor tirada és la que treu les quatre cares diferents: «Venus» per als romans, «Afrodita» per als grecs; la pitjor, quatre uns, «el gos». August hi jugava amb els seus amics i ho explica a les seves cartes (Suetoni, August 71).</p>"
 " takes out four knucklebones, little sheep bones with four sides worth 1, 3, 4 and 6. «A game? One coin»</p><div id=\"taliB\"></div><div id=\"taliO\" class=\"lrnRow\"></div><p class=\"sub\">The best throw shows all four sides different: «Venus» to the Romans, «Aphrodite» to the Greeks; the worst, four ones, «the dog». Augustus played this with his friends and mentions it in his letters (Suetonius, Augustus 71).</p>"
+
+@eaa99e6f
+Plini
+Pliny
+
+@66aaa276
+«Coneix-te a tu mateix»
+«Know thyself»
+
+@8bc88fa8
+La cuina
+The kitchen
+
+@92cfbe78
+Arquèstrat
+Archestratus
+
+@3f781ae1
+"Hi ha "
+"There are "
+
+@9e5d7379
+El mestre
+The master
+
+@0ba4820a
+Una altra vegada
+Again
+
+@073d3bc2
+"Temps: "
+"Time: "
+
+@d39575d9
+" més."
+" more."
+
+@93f4b980
+El torn del terrisser
+The potter's wheel
+
+@5067d247
+La forja
+The forge
+
+@d8a329ad
+El forn
+The oven
+
+@8d261144
+A Roma
+In Rome
+
+@07d3edcf
+A Atenes
+In Athens
+
+@d6a6ea2f
+Has après un ofici.
+You have learned a trade.
+
+@8dd885eb
+A l'Emporium es fan i es reparen àmfores a milers: l'oli d'Hispània hi arriba a dins, i els trossos trencats es llancen a una muntanya que no para de créixer.
+At the Emporium amphorae are made and mended by the thousand: the oil of Hispania arrives in them, and the broken pieces are thrown onto a hill that never stops growing.
+
+@2450efeb
+Al Ceràmic, el barri dels terrissers, es fan els vasos pintats que Atenes ven per tot el Mediterrani.
+In the Kerameikos, the potters' quarter, they make the painted vases that Athens sells all over the Mediterranean.
+
+@2ae6f940
+" Un aprenent fa girar el torn amb la mà mentre el mestre aixeca l'argila. <b>Prem i deixa anar</b> (botó o barra espaiadora) per mantenir la velocitat dins la franja verda durant 10 segons.</p>"
+" An apprentice turns the wheel by hand while the master raises the clay. <b>Press and release</b> (button or space bar) to keep the speed inside the green band for 10 seconds.</p>"
+
+@32bf57ee
+Empènyer el torn
+Push the wheel
+
+@f4886277
+" s · ben centrat: "
+" s · well centred: "
+
+@c1408c6e
+Un vas perfecte!
+A perfect vase!
+
+@eb34c515
+Surt un vas acceptable, una mica tort.
+You get an acceptable vase, a little crooked.
+
+@844ea43e
+L'argila s'ha esfondrat: una altra vegada.
+The clay has collapsed: try again.
+
+@7ad86372
+Després es marca amb un segell el nom del taller: per aquests segells sabem d'on venia cada àmfora. La vaixella fina de taula, la «terra sigillata», és vermella i brillant.
+Then the workshop's name is stamped on it: thanks to these stamps we know where each amphora came from. Fine tableware, «terra sigillata», is red and glossy.
+
+@70af728f
+Després es pinta amb vernís negre: en aquests anys, les figures vermelles, que deixen el color de l'argila a les figures i pinten de negre el fons. Els pintors de vegades signen: «tal em va pintar».
+Then it is painted with black gloss: in these years, red figures, which leave the figures the colour of the clay and paint the background black. Painters sometimes sign: «so-and-so painted me».
+
+@694bb290
+Als tallers de la Subura els ferrers (fabri ferrarii) forgen ganivets, claus i eines.
+In the workshops of the Subura the smiths (fabri ferrarii) forge knives, nails and tools.
+
+@421ca8d3
+Al costat del temple d'Hefest treballen els bronzistes i els ferrers; el déu coix de la farga és el seu patró.
+Next to the temple of Hephaestus work the bronzesmiths and blacksmiths; the lame god of the forge is their patron.
+
+@94bba1ec
+" El ferro es colpeja roent. <b>Colpeja</b> quan la marca sigui a la franja verda. Cinc cops.</p>"
+" The iron is struck red-hot. <b>Strike</b> when the marker is in the green band. Five blows.</p>"
+
+@8eead7c1
+Clang! Bon cop (
+Clang! Good blow (
+
+@5a750b6e
+Cop fallat (
+Missed blow (
+
+@5f366847
+Una fulla ben forjada.
+A well-forged blade.
+
+@1c46458d
+Una peça que servirà.
+A piece that will do.
+
+@09720fe3
+La peça s'ha esquerdat.
+The piece has cracked.
+
+@b1cf640d
+".<br><span class=\"sub\">El ferro s'escalfa a la farga amb manxes, es colpeja a l'enclusa i es tempra en aigua freda per endurir-lo. "
+".<br><span class=\"sub\">The iron is heated in the forge with bellows, struck on the anvil and quenched in cold water to harden it. "
+
+@46a5f7ec
+Plini explica que la qualitat de l'aigua del tremp era famosa en alguns llocs, com Bilbilis, a Hispània (Història natural 34, 144).
+Pliny says the quality of the quenching water was famous in some places, such as Bilbilis in Hispania (Natural History 34, 144).
+
+@4496f96d
+Hesíode ja aconsella no aturar-se a escalfar-se a la ferreria a l'hivern, que és on es reuneixen els ociosos (Treballs i dies 493).
+Hesiod already advises not to stop and warm yourself at the smithy in winter, where idlers gather (Works and Days 493).
+
+@5a6623ce
+Colpejar!
+Strike!
+
+@f8cadfcf
+En un pistrinum de la Subura, uns ases fan girar les moles i el forner cou pans rodons marcats en vuit porcions, com els que s'han trobat carbonitzats a Pompeia.
+In a pistrinum in the Subura, donkeys turn the millstones and the baker bakes round loaves scored into eight portions, like the ones found carbonised at Pompeii.
+
+@7e6c4353
+A Atenes el pa de blat (ártos) és car; molta gent menja maza, una coca d'ordi. Les forneres del mercat tenen fama de malparlades.
+In Athens wheat bread (ártos) is expensive; many people eat maza, a barley cake. The bread-women of the market are famous for their sharp tongues.
+
+@ecda449b
+</p><p>Primer <b>pasta</b>: prem 12 vegades sense parar. Després <b>treu el pa</b> quan sigui daurat (marca a la franja).</p><div id="bkO"></div>
+</p><p>First <b>knead</b>: press 12 times without stopping. Then <b>take the bread out</b> when it is golden (marker in the band).</p><div id="bkO"></div>
+
+@6015fc34
+Pastar
+Knead
+
+@a1e587dd
+"Pastant… "
+"Kneading… "
+
+@93605d34
+Al forn (
+Into the oven (
+
+@8c4fb800
+bona massa
+good dough
+
+@4529c7d8
+massa una mica dura
+dough a bit stiff
+
+@65310958
+). Mira com es daura…
+). Watch it turn golden…
+
+@44b6d7ae
+Treure el pa
+Take the bread out
+
+@3257d608
+Pa daurat i cruixent!
+Golden, crusty bread!
+
+@18aecb15
+És cru per dins.
+It is raw inside.
+
+@e193bb57
+Cremat!
+Burnt!
+
+@7bc90330
+A Roma l'Estat reparteix blat gratis a uns dos-cents mil ciutadans cada mes (l'annona), però cal moldre'l i coure'l: per això hi ha tantes fleques.
+In Rome the State hands out free grain to about two hundred thousand citizens each month (the annona), but it has to be ground and baked: that is why there are so many bakeries.
+
+@42ff42b8
+El pa es cou en forns de fang; moltes cases tenen un fornet, i els pans de luxe porten sèsam, mel o cascall.
+Bread is baked in clay ovens; many houses have a small oven, and luxury loaves carry sesame, honey or poppy seed.
+
+@4755f504
+Una altra fornada
+Another batch
+
+@c9456bf8
+«Coneix-te a tu mateix», la màxima escrita al temple de Delfos.
+«Know thyself», the maxim written on the temple at Delphi.
+
+@22eca191
+«Res en excés», l'altra màxima de Delfos.
+«Nothing in excess», the other Delphic maxim.
+
+@8603457e
+«El Senat i el poble romà»: així comencen els documents oficials (SPQR).
+«The Senate and the Roman people»: that is how official documents begin (SPQR).
+
+@05a4340c
+«Aprofita el dia», d'Horaci (Odes 1, 11, 8).
+«Seize the day», from Horace (Odes 1, 11, 8).
+
+@3b187047
+El copista
+The copyist
+
+@ee5a3d85
+Al costat de l'Argiletum, el carrer dels llibreters, els copistes (librarii) copien llibres a mà: un taller amb molts esclaus que copien al dictat pot treure desenes d'exemplars alhora.
+Beside the Argiletum, the booksellers' street, copyists (librarii) copy books by hand: a workshop with many slaves copying from dictation can turn out dozens of copies at once.
+
+@b219193e
+Els escribes copien lleis i decrets per gravar-los en pedra, i els llibres es copien a mà en rotlles de papir.
+Scribes copy laws and decrees to be carved in stone, and books are copied by hand on papyrus rolls.
+
+@de130420
+</p><p>Copia aquesta línia
+</p><p>Copy this line
+
+@ca6b126e
+" (escriu-la amb lletres llatines, tal com es llegeix)"
+" (write it in Latin letters, as it is read)"
+
+@07e4de06
+" en 25 segons:</p><p style=\"font-size:1.5em;letter-spacing:.12em;text-align:center\"><b>"
+" in 25 seconds:</p><p style=\"font-size:1.5em;letter-spacing:.12em;text-align:center\"><b>"
+
+@7ee5d9b4
+Còpia sense errors.
+Copy without mistakes.
+
+@5582015c
+"Amb "
+"With "
+
+@f9174a2a
+" lletres equivocades."
+" wrong letters."
+
+@3e93102d
+<br><span class="sub">A les inscripcions s'escriu tot en majúscules, sovint sense espais entre paraules, i en llatí la V serveix també de U.</span>
+<br><span class="sub">Inscriptions are written all in capitals, often with no spaces between words, and in Latin V also stands for U.</span>
+
+@3e278a6d
+Una altra línia
+Another line
+
+@03c005e4
+Lliurar
+Hand in
+
+@b8a9578c
+òmicron
+omicron
+
+@2340988f
+La tauleta de cera
+The wax tablet
+
+@07c0db1e
+A l'escola s'escriu amb un punxó (stilus) sobre una tauleta de fusta coberta de cera; amb l'altre extrem, pla, s'esborra.
+At school you write with a stylus on a wooden tablet coated with wax; the other, flat end rubs it out.
+
+@a3e07476
+El mestre de lletres (grammatistés) ensenya a escriure sobre tauletes de cera amb un punxó, lletra a lletra.
+The letters teacher (grammatistés) teaches writing on wax tablets with a stylus, letter by letter.
+
+@34a3a44d
+" Traça la lletra que et demana el mestre.</p><p style=\"text-align:center\">Escriu: <b id=\"tabT\" style=\"font-size:2em\"></b> <span id=\"tabN\" class=\"sub\"></span></p><canvas id=\"tabC\" width=\"260\" height=\"260\" style=\"display:block;margin:0 auto;background:#8a6a3a;border:8px solid #5a3d26;border-radius:6px;touch-action:none;cursor:crosshair\"></canvas><p id=\"tabS\" style=\"text-align:center\"></p><div id=\"tabO\" style=\"text-align:center\"></div>"
+" Trace the letter the master asks for.</p><p style=\"text-align:center\">Write: <b id=\"tabT\" style=\"font-size:2em\"></b> <span id=\"tabN\" class=\"sub\"></span></p><canvas id=\"tabC\" width=\"260\" height=\"260\" style=\"display:block;margin:0 auto;background:#8a6a3a;border:8px solid #5a3d26;border-radius:6px;touch-action:none;cursor:crosshair\"></canvas><p id=\"tabS\" style=\"text-align:center\"></p><div id=\"tabO\" style=\"text-align:center\"></div>"
+
+@d7b82b21
+Esborrar
+Erase
+
+@b7145a6b
+Ja està
+Done
+
+@fb831311
+Ben escrita! (
+Well written! (
+
+@7890b787
+El mestre no la reconeix
+The master doesn't recognise it
+
+@998cda15
+": sembla una "
+": it looks like a "
+
+@ec54bfb7
+Ja escrius les lletres amb soltesa.
+You now write your letters fluently.
+
+@d01a47a8
+"El mestre està content: +2 "
+"The master is pleased: +2 "
+
+@99c35c47
+Cal practicar més.
+You need more practice.
+
+@fa3c7b39
+Peix al forn, a la manera d'Arquèstrat
+Baked fish, Archestratus style
+
+@67553f59
+orenga
+oregano
+
+@c9d42496
+Arquèstrat de Gela, un poeta gastrònom d'aquesta època (escriu unes dècades després), aconsella cuinar el bon peix amb molt poca cosa: sal, una mica d'oli i herbes, per no tapar-ne el gust (els seus versos els conserva Ateneu, que escriu cap al 200 dC).
+Archestratus of Gela, a gourmet poet of this period (he writes a few decades later), advises cooking good fish with very little: salt, a little oil and herbs, so as not to hide its flavour (his verses are preserved by Athenaeus, who writes around AD 200).
+
+@c848d796
+Maza, coca d'ordi
+Maza, barley cake
+
+@2d6f652c
+farina d'ordi
+barley flour
+
+@f2cc2705
+La maza, de farina d'ordi pastada amb aigua o llet, és el menjar de cada dia; el pa de blat és més car.
+Maza, barley flour kneaded with water or milk, is everyday food; wheat bread is more expensive.
+
+@9c2e9fca
+Moretum, formatge amb all i herbes
+Moretum, cheese with garlic and herbs
+
+@3860d41e
+Un poema atribuït a Virgili explica com un pagès aixafa al morter formatge, all, herbes, sal, oli i un raig de vinagre per fer el moretum del seu dinar.
+A poem attributed to Virgil tells how a farmer pounds cheese, garlic, herbs, salt, oil and a dash of vinegar in the mortar to make the moretum for his lunch.
+
+@e96807df
+Patina d'ous i llet
+Patina of eggs and milk
+
+@67684b3f
+Apici, el receptari de cuina de Roma, té moltes «patinae»: plats quallats amb ous. El pebre arriba de l'Índia i és caríssim.
+Apicius, Rome's cookbook, has many «patinae»: dishes set with eggs. Pepper comes from India and is very expensive.
+
+@c8eaa616
+arribarà d'Amèrica al segle XVI
+will arrive from America in the 16th century
+
+@0e2b7703
+gairebé no es coneix: es fa servir la mel
+hardly known: honey is used
+
+@2736027e
+<p>Avui toca: <b>
+<p>Today's dish: <b>
+
+@7d766843
+</b>. Tria els ingredients que porta (i només aquests).</p><div id="cocL" style="display:flex;flex-wrap:wrap;gap:6px"></div><div id="cocO"></div><p id="cocS"></p>
+</b>. Choose the ingredients it takes (and only those).</p><div id="cocL" style="display:flex;flex-wrap:wrap;gap:6px"></div><div id="cocO"></div><p id="cocS"></p>
+
+@3ed305ba
+Cuinar
+Cook
+
+@fc95a5b2
+"<b>Això no existeix aquí!</b> "
+"<b>That doesn't exist here!</b> "
+
+@e6c60e7b
+"T'ha faltat: "
+"You were missing: "
+
+@be690224
+"<b>Deliciós!</b> +2 "
+"<b>Delicious!</b> +2 "
+
+@d8fd0857
+Una altra recepta
+Another recipe
+
+@59a89b5d
+Taller de terrisser
+Potter's workshop
+
+@aca0c438
+el torn
+the wheel
+
+@08024091
+Una farga
+A forge
+
+@1bc4b578
+colpejar el ferro
+strike the iron
+
+@4dfd44d8
+Un forn de pa
+A bread oven
+
+@bcca07f9
+pastar i enfornar
+knead and bake
+
+@5e65f4c5
+Taula del copista
+Copyist's desk
+
+@803cde77
+copiar una inscripció
+copy an inscription
+
+@1adaafe6
+Una tauleta de cera
+A wax tablet
+
+@28d51276
+escriure lletres
+write letters
+
+@127ebf6d
+La teva cuina
+Your kitchen
+
+@45c9ffbd
+preparar una recepta
+prepare a recipe
+
+@a98dd0fc
+Taller d'àmfores
+Amphora workshop
+
+@fe03d5b3
+Una ferreria
+A smithy
+
+@8c5889d6
+Un forn (pistrinum)
+A bakery (pistrinum)
+
+@df845472
+Una cuina de taverna
+A tavern kitchen
+
+@aceb7a74
+Baixar
+Step down
+
+@0e0fca16
+Canviar de tema
+Change the subject
+
+@92723c77
+Com comences?
+How do you begin?
+
+@634c2bf1
+Com acabes?
+How do you finish?
+
+@7b1e8aa3
+la palestra
+the palaestra
+
+@0712e12d
+". El teu "
+". Your "
+
+@f467e1f8
+Disc
+Discus
+
+@8b8ef027
+Un disc de bronze d'uns 2 kg. Es llança fent girar el cos, com l'estàtua del Discòbol de Miró.
+A bronze discus of about 2 kg. It is thrown by twisting the body, like Myron's statue of the Discobolus.
+
+@51407e54
+Salt amb peses
+Jump with weights
+
+@50bcf908
+Se salta duent a les mans dues peses de pedra o plom (halteres) que es balancegen i es deixen anar a l'aire per arribar més lluny. Un epigrama diu que Faül·los de Crotona va saltar 55 peus, més de 16 metres: segurament una exageració, o la suma de diversos salts.
+You jump holding two weights of stone or lead (halteres) that are swung and released in mid-air to go further. An epigram says Phayllus of Croton jumped 55 feet, over 16 metres: surely an exaggeration, or the sum of several jumps.
+
+@83b49280
+Javelina
+Javelin
+
+@3a87c581
+La javelina es llança amb una corretja de cuir enrotllada (ankýle) que la fa girar i arribar més lluny.
+The javelin is thrown with a wound leather thong (ankýle) that makes it spin and fly further.
+
+@6ed86ee3
+Cursa de l'estadi
+The stadion race
+
+@1a47efe7
+L'estadi és una recta d'uns 190 metres: la cursa més antiga d'Olímpia. El guanyador donava nom a cada Olimpíada.
+The stadion is a straight of about 190 metres: the oldest race at Olympia. The winner gave his name to each Olympiad.
+
+@e842cfd9
+Exercicis al Camp de Mart
+Exercises on the Campus Martius
+
+@2ffdbaf7
+Jocs a la palestra
+Games at the palaestra
+
+@fb160352
+Al Camp de Mart els joves corren, llancen, munten a cavall i neden al Tíber; Estrabó s'admira de veure'ls (Geografia 5, 3, 8). Els romans miren l'atletisme grec amb una mica de recel, però el practiquen.
+On the Campus Martius young men run, throw, ride and swim in the Tiber; Strabo marvels at the sight (Geography 5, 3, 8). Romans look on Greek athletics with some suspicion, but they practise it.
+
+@7b92ccf3
+A la palestra i al gimnàs els atenencs s'entrenen nus, untats d'oli, al so de l'aulos; després es raspen amb l'estrígil.
+In the palaestra and gymnasium Athenians train naked, rubbed with oil, to the sound of the aulos; then they scrape themselves with the strigil.
+
+@68300752
+</p><p>Tria una prova:</p><div id="athL"></div><p id="athS"></p><div id="athG"></div>
+</p><p>Choose an event:</p><div id="athL"></div><p id="athS"></p><div id="athG"></div>
+
+@485a44cc
+" (rècord "
+" (record "
+
+@a23f9ef0
+Una marca de campió.
+A champion's mark.
+
+@67b06e61
+" · la teva millor marca!"
+" · your best mark!"
+
+@29e662fc
+</p><p class="sub">Els vencedors d'Olímpia rebien només una corona d'olivera, però la seva ciutat els omplia d'honors; a les Panatenees el premi eren àmfores d'oli de les oliveres sagrades.</p>
+</p><p class="sub">Olympic victors received only a crown of olive, but their city heaped honours on them; at the Panathenaia the prize was amphorae of oil from the sacred olive trees.</p>
+
+@e5487bfc
+Una altra prova
+Another event
+
+@7c84bd58
+◀ Esquerra (A)
+◀ Left (A)
+
+@5606baff
+Dreta (D) ▶
+Right (D) ▶
+
+@db498c08
+"</b>: alterna A i D (o els botons). "
+"</b>: alternate A and D (or the buttons). "
+
+@ba77b784
+Ara!
+Now!
+
+@a2f50351
+deixa anar les peses en el moment just
+release the weights at just the right moment
+
+@e407b777
+l'angle: deixa anar a la franja
+the angle: release in the band
+
+@ba26509e
+" (barra espaiadora)"
+" (space bar)"
+
+@2e90c445
+agafa impuls: prem quan la força sigui a dalt de tot
+build momentum: press when the power is at the top
+
+@48513e8f
+Ha d'acceptar Atenes la pau que proposa el rei de Pèrsia i lliurar les ciutats de Jònia?
+Should Athens accept the peace the King of Persia proposes and hand over the cities of Ionia?
+
+@2a5c094e
+Cal·lístrat
+Callistratus
+
+@f3194045
+l'Assemblea: milers de ciutadans, molts remers de la flota
+the Assembly: thousands of citizens, many of them rowers of the fleet
+
+@e40501c7
+«Atenencs: parlo com un de vosaltres, que també ha remat a les naus».
+«Athenians: I speak as one of you, who has also rowed in the ships».
+
+@cab3f700
+Et guanyes el públic: l'orador es presenta com algú de confiança (l'ethos).
+You win the audience over: the speaker presents himself as someone to trust (ethos).
+
+@7bed2f7c
+«Escolteu, ignorants, que jo en sé més que vosaltres».
+«Listen, you ignorant lot, I know more than you».
+
+@91bdf94f
+El públic xiula: ningú no escolta qui l'insulta.
+The audience boos: nobody listens to someone who insults them.
+
+@9671e14a
+«El meu avi tenia un cavall blanc…»
+«My grandfather had a white horse…»
+
+@7fee238f
+Es distreuen: un començament que no porta enlloc.
+They lose interest: an opening that leads nowhere.
+
+@3f2a534a
+Quin argument fas servir davant d'aquest públic?
+What argument do you use before this audience?
+
+@1e441c08
+Recordar els morts de la guerra i les famílies sense pa: «quants més?».
+Recall the war dead and the families without bread: «how many more?».
+
+@2bb21c95
+Mous les emocions (el pathos): amb un públic tan gran, funciona.
+You stir the emotions (pathos): with such a large audience, it works.
+
+@c96408f5
+Una llista de xifres d'impostos de fa vint anys.
+A list of tax figures from twenty years ago.
+
+@ae39ed5e
+Alguns s'avorreixen: la dada és bona, però no s'entén d'oïda.
+Some get bored: the fact is sound, but it can't be followed by ear.
+
+@78395316
+«Ho diu un oracle que em va explicar el meu veí».
+«An oracle my neighbour told me says so».
+
+@302223c4
+Rialles: sense proves, l'argument no convenç.
+Laughter: without proof, the argument doesn't convince.
+
+@10662ab7
+Cal·lístrat respon: «La pau és una vergonya: lliurem els grecs d'Àsia!». Què contestes?
+Callistratus replies: «This peace is a disgrace: we are handing over the Greeks of Asia!». What do you answer?
+
+@c3c03d50
+«Més vergonya és perdre-ho tot: sense blat de l'Hel·lespont, Atenes no aguanta un altre hivern».
+«The greater disgrace is losing everything: without grain from the Hellespont, Athens won't last another winter».
+
+@ed9c21d3
+Respons amb raons (el logos) al que ha dit.
+You answer what he said with reasons (logos).
+
+@6b278b37
+«Cal·lístrat és un borratxo!».
+«Callistratus is a drunk!».
+
+@241d9829
+Atacar la persona en comptes de les seves raons queda lleig, encara que de vegades faci riure.
+Attacking the person instead of his reasons looks bad, even if it sometimes gets a laugh.
+
+@7c172633
+Callar.
+Stay silent.
+
+@3ec4cf33
+Qui calla, atorga.
+Silence gives consent.
+
+@f2f85d83
+Resumint en una frase i demanant el vot: «Pau avui, flota demà: voteu la pau».
+Summing up in one sentence and asking for the vote: «Peace today, a fleet tomorrow: vote for peace».
+
+@854a0b3b
+Un final clar que es recorda (la peroració).
+A clear, memorable ending (the peroration).
+
+@a5ab5820
+Parlant una hora més.
+Speaking for another hour.
+
+@e7dec20b
+Et retiren la paraula: l'aigua de la clepsidra s'ha acabat.
+Your time is up: the water in the clepsydra has run out.
+
+@d5d4d97b
+Marxar sense acomiadar-te.
+Leaving without a word of farewell.
+
+@124df6b4
+Un final fluix.
+A weak ending.
+
+@d912d353
+En aquests anys Isòcrates obre la seva escola de retòrica a Atenes. Aristòtil explicarà més tard els tres mitjans de convèncer —el caràcter de l'orador, les emocions del públic i les raons— a la seva Retòrica (1, 2), escrita cap al 330.
+In these years Isocrates opens his school of rhetoric in Athens. Aristotle will later explain the three means of persuasion —the speaker's character, the audience's emotions and reasons— in his Rhetoric (1, 2), written around 330.
+
+@7f702f69
+Ha de pagar Roma la reconstrucció de les ciutats de la Campània arrasades pel Vesuvi?
+Should Rome pay to rebuild the cities of Campania destroyed by Vesuvius?
+
+@f0fbdc91
+Un senador avar
+A miserly senator
+
+@afa3aa34
+el poble reunit davant dels Rostra
+the people gathered before the Rostra
+
+@4d55f43d
+«Quirites: no vinc a demanar-vos res per a mi, sinó per als vostres germans de la Campània».
+«Quirites: I come to ask nothing for myself, but for your brothers in Campania».
+
+@5b24b923
+Et guanyes la benevolència del públic (la captatio benevolentiae).
+You win the audience's goodwill (captatio benevolentiae).
+
+@714042f9
+«Plebs ignorant, escolteu».
+«Ignorant plebs, listen».
+
+@c73c1d3c
+Esbroncada.
+Booing.
+
+@20e61099
+Llegir en grec un poema llarg.
+Read a long poem in Greek.
+
+@a6a29ede
+La meitat no l'entén.
+Half of them don't understand it.
+
+@ec330ece
+Quin argument fas servir?
+What argument do you use?
+
+@2c70b564
+Descriure Pompeia coberta de cendra, les famílies sense casa.
+Describe Pompeii covered in ash, the families left homeless.
+
+@f8bba82e
+Les imatges vives mouen el públic.
+Vivid images move the audience.
+
+@09be4081
+Citar una llei antiga que ningú no coneix.
+Cite an old law nobody knows.
+
+@5b0160c8
+Ben pensat, però fred.
+Well thought out, but cold.
+
+@e1c3b291
+«M'ho va dir un endeví».
+«A soothsayer told me».
+
+@b9ac1650
+Rialles.
+Laughter.
+
+@fe25542e
+El senador replica: «Que paguin ells: el tresor no és infinit!». Què contestes?
+The senator retorts: «Let them pay: the treasury is not bottomless!». What do you answer?
+
+@eac43898
+«El príncep Titus ja ha donat del que és seu; i el que es perd a la Campània és blat i vi que mengem tots».
+«Prince Titus has already given from his own purse; and what is lost in Campania is grain and wine we all consume».
+
+@da6b1f0e
+Un argument d'interès comú i un exemple que tothom coneix.
+An argument of common interest and an example everyone knows.
+
+@61ac2eb4
+«Avar!».
+«Miser!».
+
+@47f7ab3d
+Insultar no és respondre.
+An insult is no answer.
+
+@ee7512c2
+Canviar de tema.
+Change the subject.
+
+@4d988706
+Es nota la fugida.
+Everyone notices you're dodging.
+
+@a495800e
+«El que fem avui per la Campània ho farem demà per nosaltres».
+«What we do today for Campania we do tomorrow for ourselves».
+
+@ea749b88
+Una frase rodona que es repeteix pel carrer.
+A well-turned phrase repeated in the street.
+
+@1a680f60
+Continuar parlant fins que es fa fosc.
+Keep talking until nightfall.
+
+@495d4eb1
+La gent se'n va a sopar.
+People go home to dinner.
+
+@5a0e0157
+Baixar sense dir res.
+Step down without a word.
+
+@954fb175
+Quintilià, que ensenya aquí al costat, explica les parts del discurs —exordi, narració, argumentació, refutació i peroració— a la seva Institució oratòria (llibres 4-6).
+Quintilian, who teaches right nearby, explains the parts of a speech —exordium, narration, argument, refutation and peroration— in his Institutes of Oratory (books 4-6).
+
+@29787091
+Un debat
+A debate
+
+@02e75df9
+"</b><br><span class=\"sub\">Parles davant "
+"</b><br><span class=\"sub\">You speak before "
+
+@c4a0a1f0
+". El teu rival: "
+". Your opponent: "
+
+@1a70c441
+Esperar la votació
+Wait for the vote
+
+@6849de48
+Has convençut la multitud.
+You have won over the crowd.
+
+@8c400fe8
+La majoria vota amb tu!
+The majority votes with you!
+
+@7cc0a99b
+Perds la votació.
+You lose the vote.
+
+@6a8812a2
+una comèdia sobre el déu Plutos, la Riquesa, que és cec i reparteix els diners sense mirar (Aristòfanes la va estrenar fa dos anys, el 388)
+a comedy about the god Plutus, Wealth, who is blind and hands out money without looking (Aristophanes staged it two years ago, in 388)
+
+@18823407
+l'esclau espavilat
+the clever slave
+
+@2351483a
+Màscara d'esclau: cabells rogencs, boca oberta en una ganyota
+Slave mask: reddish hair, mouth open in a grimace
+
+@642dc4bf
+Màscara de rei tràgic, amb barba solemne
+Tragic king's mask, with a solemn beard
+
+@76cc58f2
+Màscara de noia enamorada
+Mask of a young girl in love
+
+@0eca50fe
+Amo, per què seguim aquest vell cec?
+Master, why are we following this blind old man?
+
+@2f7d43cc
+Diu que és Plutos, la Riquesa en persona.
+He says he is Plutus, Wealth in person.
+
+@cdd86262
+Si recupera la vista, els honrats seran rics!
+If he gets his sight back, honest people will be rich!
+
+@e3e0bc7a
+Doncs anem al temple d'Asclepi a curar-lo.
+Then let's take him to the temple of Asclepius to be cured.
+
+@dce3f1b5
+Al teatre grec tots els actors són homes i porten màscara; a la comèdia hi ha tres actors que es reparteixen els papers i un cor que canta i balla. En aquests anys el cor de la comèdia gairebé ha desaparegut.
+In Greek theatre all actors are men and wear masks; in comedy three actors share the parts and a chorus sings and dances. In these years the comic chorus has almost disappeared.
+
+@6d586dd6
+una comèdia de Plaute sobre un vell avar que amaga una olla plena d'or
+a comedy by Plautus about a miserly old man who hides a pot full of gold
+
+@957890ad
+el vell avar
+the old miser
+
+@1ae7476e
+Màscara de vell amb les celles arrufades
+Mask of an old man with a frown
+
+@ea0cd539
+Màscara de noia jove
+Mask of a young girl
+
+@91c6fea5
+Màscara de soldat fanfarró
+Mask of a braggart soldier
+
+@f28b82b3
+Fora de casa meva, vella tafanera!
+Out of my house, you nosy old woman!
+
+@479c4eb1
+Ningú no ha de saber què amago.
+Nobody must know what I'm hiding.
+
+@6024124b
+La meva olla, la meva preciosa olla… encara hi és?
+My pot, my precious pot… is it still here?
+
+@c94edfc7
+Ai! M'han robat! Lladres!
+Oh! I've been robbed! Thieves!
+
+@b3c4c47b
+A Roma els actors solen ser esclaus o lliberts, i la llei els considera infames, tot i que els millors es fan famosos. Les comèdies de Plaute i Terenci continuen en cartell dos-cents anys després d'escrites; però el que més agrada al públic d'avui és el pantomim, un ballarí que fa tots els papers en silenci.
+In Rome actors are usually slaves or freedmen, and the law treats them as disreputable, though the best become famous. The comedies of Plautus and Terence are still being staged two hundred years after they were written; but what today's audiences like most is the pantomime, a dancer who plays every part in silence.
+
+@0c721fcb
+Pujar a l'escenari
+Go on stage
+
+@f8b7cf4a
+"<p>Avui es representa "
+"<p>Today's play is "
+
+@d9e32879
+. Et donen el paper de <b>
+. You are given the part of <b>
+
+@2a736b20
+</b>.</p><p>Primer, quina màscara et poses?</p><div id="teaO"></div><p id="teaS"></p>
+</b>.</p><p>First, which mask do you put on?</p><div id="teaO"></div><p id="teaS"></p>
+
+@9b3e0e96
+El director nega amb el cap: aquesta màscara no és del teu paper.
+The director shakes his head: that mask isn't for your part.
+
+@95a5a222
+Això mateix! Ara digues les teves frases en ordre: prem la que va primer.
+That's it! Now say your lines in order: press the one that comes first.
+
+@adb4c6fe
+Molt bé! Continua…
+Good! Go on…
+
+@9c8653ae
+T'equivoques de frase: l'apuntador et xiuxiueja la bona.
+Wrong line: the prompter whispers the right one.
+
+@131304a2
+El públic t'aplaudeix!
+The audience applauds you!
+
+@39052b26
+Aplaudiments!
+Applause!
+
+@a42d6fb5
+El públic xiula una mica, però acabes l'escena.
+The audience whistles a little, but you finish the scene.
+
+@e5f0acf4
+" Les frases d'aquesta escena les ha escrit el joc, inspirant-se en l'obra.</span>"
+" The lines in this scene were written by the game, inspired by the play.</span>"
+
+@caa71ec8
+Jocs atlètics
+Athletic games
+
+@7ab8adff
+disc, salt, javelina, estadi
+discus, jump, javelin, stadion
+
+@959f9eeb
+Parlar a l'Assemblea
+Speak in the Assembly
+
+@1cde0756
+un debat
+a debate
+
+@41d7a546
+una escena
+a scene
+
+@40abd90a
+disc, salt, javelina, cursa
+discus, jump, javelin, race
+
+@b7902a96
+Parlar des dels Rostra
+Speak from the Rostra
+
+@638d1029
+Bé
+Right
+
+@5304596e
+L'escut
+The shield
+
+@29c65cc2
+El cavall
+The horse
+
+@d7ff1664
+de Siracusa
+of Syracuse
+
+@ede9c870
+de Tebes
+of Thebes
+
+@caa2f2bb
+de Corint
+of Corinth
+
+@6f93da9e
+d'Atenes
+of Athens
+
+@618bd9e0
+un gos
+a dog
+
+@da1b356f
+Quatre
+Four
+
+@ed8a7983
+Sis
+Six
+
+@ec44a464
+Ruïnes
+Ruins
+
+@6d77294d
+Altar
+Altar
+
+@a3d1a96f
+Tomba
+Tomb
+
+@1f0d54ab
+Torre
+Tower
+
+@ebb8cadd
+Cova
+Cave
+
+@e857e6f4
+de la muralla
+of the wall
+
+@f1c78395
+Tetradracma d'Atenes
+Athenian tetradrachm
+
+@2fa9616a
+plata · uns 17 g
+silver · about 17 g
+
+@f4a36206
+Atena amb casc a una cara; a l'altra, l'òliba, una branca d'olivera i les lletres ΑΘΕ. La moneda més famosa del Mediterrani: per això es diu «portar òlibes a Atenes».
+Athena in a helmet on one side; on the other, the owl, an olive sprig and the letters ΑΘΕ. The most famous coin in the Mediterranean: hence the saying «bringing owls to Athens».
+
+@f0343056
+Dracma d'Atenes
+Athenian drachma
+
+@3ba8db05
+plata · uns 4,3 g
+silver · about 4.3 g
+
+@95293f90
+Sis òbols. És més o menys el jornal d'un treballador especialitzat.
+Six obols. Roughly a skilled worker's daily wage.
+
+@8a80b2af
+Òbol d'Atenes
+Athenian obol
+
+@81c07fec
+plata · uns 0,7 g
+silver · about 0.7 g
+
+@004f2899
+Tan petit que molta gent el porta a la boca per no perdre'l, com explica Aristòfanes. És la paga diària d'un jurat… a mitges: en cobren tres.
+So small that many people carry it in their mouths so as not to lose it, as Aristophanes tells. It is a juror's daily pay… halved: they get three.
+
+@366ab9ce
+Moneda de bronze argentat
+Silver-plated bronze coin
+
+@4f355f4c
+bronze · 406 aC
+bronze · 406 BC
+
+@9fc156fa
+Els últims anys de la guerra, Atenes va encunyar bronze amb un bany de plata. Aristòfanes es burla d'aquesta «moneda dolenta» a Les granotes (725-733). Aviat es va retirar.
+In the last years of the war Athens struck bronze coins with a silver coating. Aristophanes mocks this «bad money» in The Frogs (725-733). It was soon withdrawn.
+
+@0e633138
+Estater d'Egina
+Aeginetan stater
+
+@35f0acb6
+plata · uns 12 g
+silver · about 12 g
+
+@833502e8
+Una tortuga marina; més endavant, de terra. Les «tortugues» d'Egina van córrer per tota Grècia abans que les òlibes.
+A sea turtle; later, a land tortoise. Aegina's «turtles» circulated throughout Greece before the owls.
+
+@daf1b173
+Estater de Corint
+Corinthian stater
+
+@8d4f9bdb
+plata · uns 8,6 g
+silver · about 8.6 g
+
+@b0b29bf3
+El cavall alat Pegàs i la lletra koppa: els «poltres» de Corint.
+The winged horse Pegasus and the letter koppa: the «colts» of Corinth.
+
+@61448188
+Dàric persa
+Persian daric
+
+@4f12f31d
+or · uns 8,4 g
+gold · about 8.4 g
+
+@4d939d6d
+El rei de Pèrsia corrent amb arc i llança. Amb dàrics va pagar Pèrsia uns i altres a la guerra; amb ells es van reconstruir els murs d'Atenes.
+The King of Persia running with bow and spear. Persia paid both sides in the war with darics; with them the walls of Athens were rebuilt.
+
+@43235f28
+Cicicè
+Cyzicene
+
+@99a8da5e
+electre (or i plata)
+electrum (gold and silver)
+
+@85039c21
+Estater de Cízic, al mar de Màrmara, amb una tonyina. Molt usat en el comerç del mar Negre.
+Stater of Cyzicus, on the Sea of Marmara, with a tuna. Widely used in the Black Sea trade.
+
+@0eec4581
+Tetradracma de Siracusa
+Syracusan tetradrachm
+
+@cd79a02b
+La nimfa Aretusa envoltada de dofins: de les monedes més belles que s'han fet mai.
+The nymph Arethusa surrounded by dolphins: among the most beautiful coins ever made.
+
+@73d05718
+Estater de Tebes
+Theban stater
+
+@a91eaef5
+L'escut beoci, amb les seves dues escotadures.
+The Boeotian shield, with its two notches.
+
+@2bed01b4
+Àuri de Titus
+Aureus of Titus
+
+@5eecf901
+or · uns 7,3 g
+gold · about 7.3 g
+
+@b22191b0
+Vint-i-cinc denaris. Amb el cap llorejat de l'emperador i el seu nom i títols al voltant.
+Twenty-five denarii. With the emperor's laureate head and his name and titles around it.
+
+@2182a26a
+Denari de Titus
+Denarius of Titus
+
+@ce4333b1
+plata · uns 3,4 g
+silver · about 3.4 g
+
+@2255a95a
+Quatre sestercis: el jornal d'un treballador. Alguns d'aquest any porten un elefant.
+Four sesterces: a worker's daily wage. Some from this year show an elephant.
+
+@9ca6bd3c
+Sesterci de l'Amfiteatre
+Amphitheatre sestertius
+
+@f0b78f1c
+oricalc · 80-81 dC
+orichalcum · AD 80-81
+
+@c31f0eda
+Titus va fer encunyar sestercis amb l'amfiteatre acabat de fer, vist des de dalt i ple de gent: una de les monedes més famoses de Roma.
+Titus had sesterces struck showing the newly finished amphitheatre, seen from above and full of people: one of Rome's most famous coins.
+
+@6dd3149f
+oricalc (llautó)
+orichalcum (brass)
+
+@ea17f888
+La moneda dels comptes: els preus es donen en sestercis.
+The money of account: prices are given in sesterces.
+
+@4f0b0e2a
+Dupondi
+Dupondius
+
+@2edaf0d7
+Dos asos. Es distingeix de l'as perquè l'emperador porta corona de raigs.
+Two asses. It is told apart from the as because the emperor wears a radiate crown.
+
+@20397802
+Un quart de sesterci: el que costa entrar a les termes són uns quadrants; un got de vi, un as.
+A quarter of a sestertius: entry to the baths costs a few quadrantes; a cup of wine, one as.
+
+@4a799d5c
+La moneda més petita: un quart d'as. «El quadrant del bany».
+The smallest coin: a quarter of an as. «The bath quadrans».
+
+@e7b9cf99
+Denari de Cèsar
+Denarius of Caesar
+
+@bd5d440d
+plata · 49-48 aC
+silver · 49-48 BC
+
+@f0dc444e
+Un elefant que trepitja una serp. Les monedes velles continuen circulant durant dècades.
+An elephant trampling a serpent. Old coins stay in circulation for decades.
+
+@805b1a53
+Sesterci «Judaea capta»
+«Judaea capta» sestertius
+
+@4b933972
+oricalc · 71 dC
+orichalcum · AD 71
+
+@9d7ff0e0
+Vespasià i Titus celebren la presa de Jerusalem: una dona plora sota una palmera.
+Vespasian and Titus celebrate the capture of Jerusalem: a woman weeps beneath a palm tree.
+
+@92cc4242
+Sesterci del port d'Òstia
+Sestertius of the port of Ostia
+
+@266c6ca2
+oricalc · Neró
+orichalcum · Nero
+
+@b48490d6
+El port d'Òstia vist des de dalt, amb els vaixells a dins.
+The port of Ostia seen from above, with the ships inside.
+
+@4d6695b7
+Moneda nova per al teu àlbum
+New coin for your album
+
+@1e653c1e
+Una altra moneda
+Another coin
+
+@24be1add
+El teu àlbum de monedes
+Your coin album
+
+@522736bd
+" monedes. Es troben per terra (mira avall quan alguna cosa brilli), es guanyen a les activitats o es compren al canvista ("
+" coins. You find them on the ground (look down when something glints), earn them in activities or buy them from the money-changer ("
+
+@c4901fd2
+els argentarii de la Basílica Emília
+the argentarii of the Basilica Aemilia
+
+@1130db2a
+els trapezites de l'Àgora
+the trapezitai of the Agora
+
+@b9122ea5
+encara no la tens
+you don't have it yet
+
+@70af1f11
+El teu gos grata al costat d'un mur i treu alguna cosa de la pols:
+Your dog digs beside a wall and pulls something out of the dust:
+
+@2f574420
+Alguna cosa brilla entre les pedres del terra:
+Something glints between the paving stones:
+
+@a71156fe
+A més, et paguen amb
+What's more, they pay you with
+
+@d95e383e
+A l'amagatall hi ha
+In the hiding place there is
+
+@a85b7f5e
+El canvista
+The money-changer
+
+@c8010bd3
+<p>«Ja en tens de totes les que tinc jo. Ets millor col·leccionista que jo!»</p>
+<p>«You already have every one I've got. You're a better collector than I am!»</p>
+
+@66fa985c
+<p>«Canvio monedes de tot arreu: aquí n'arriben de qualsevol port. Pesar, comprovar si són bones, canviar-les i prestar a interès: aquest és el meu ofici». T'ofereix <b>
+<p>«I change coins from everywhere: they come here from every port. Weighing, testing whether they're good, changing them and lending at interest: that is my trade». He offers you <b>
+
+@deff8767
+"</b> per "
+"</b> for "
+
+@f82e7f61
+Comprar-la
+Buy it
+
+@be1aad1f
+No en tens prou.
+You don't have enough.
+
+@02379008
+Te l'emportes:
+You take it:
+
+@0f5d33d1
+Fonts
+Fountains
+
+@23df5675
+Altars de barri
+Neighbourhood shrines
+
+@3855b5e9
+Altars
+Altars
+
+@3b4af934
+Tombes
+Tombs
+
+@e4fae2d0
+Fites i mil·liaris
+Boundary stones and milestones
+
+@4c271a1f
+Torres de la muralla
+Wall towers
+
+@3548720c
+Monuments
+Monuments
+
+@a39bbf8b
+Estàtues
+Statues
+
+@78aed360
+Tresors de temple
+Temple treasuries
+
+@9e1c498b
+Mercat
+Market
+
+@4b3098b7
+Coves
+Caves
+
+@19f858d2
+El teu quadern de viatge creix.
+Your travel notebook grows.
+
+@6d940a88
+"<span class=\"label\">Quadern de viatge</span><br>Ja portes "
+"<span class=\"label\">Travel notebook</span><br>You now have "
+
+@ad341cbf
+" racons apuntats. Mira'l a Aprendre › Quadern de viatge."
+" spots noted down. See it in Learn › Travel notebook."
+
+@8af933cb
+Quadern de viatge
+Travel notebook
+
+@983e7e83
+<p>Has apuntat <b>
+<p>You have noted down <b>
+
+@2ef21223
+</b> racons
+</b> spots
+
+@71b03497
+" · propera meta: "
+" · next goal: "
+
+@9b3a9c53
+" · totes les metes!"
+" · all goals reached!"
+
+@a8fcd575
+</ul><p class="sub">Així viatjava Pausànias, que al segle II dC va recórrer Grècia apuntant cada temple, estàtua, tomba i font, i el que la gent del lloc li explicava d'ells (Descripció de Grècia). Gràcies a ell sabem on eren moltes coses que ja no existeixen. Acosta't a fonts, altars, tombes, fites o estàtues per apuntar-los.</p>
+</ul><p class="sub">This is how Pausanias travelled: in the 2nd century AD he toured Greece noting down every temple, statue, tomb and fountain, and what local people told him about them (Description of Greece). Thanks to him we know where many things that no longer exist once stood. Go close to fountains, altars, tombs, boundary stones or statues to note them down.</p>
+
+@7b4c7959
+El gos
+The dog
+
+@58159c51
+"<p>Ja tens gos: "
+"<p>You already have a dog: "
+
+@2db87ad5
+Un cadell
+A puppy
+
+@c8bd24ca
+"<p>Un venedor té una ventrada de cadells. «Bons gossos: guarden la casa i avisen dels lladres. "
+"<p>A seller has a litter of puppies. «Good dogs: they guard the house and warn you of thieves. "
+
+@5e99b229
+». Com li diràs?</p><input id="dogN" maxlength="16" value="
+». What will you call it?</p><input id="dogN" maxlength="16" value="
+
+@ff5b48a5
+A l'entrada de moltes cases romanes hi ha un mosaic amb un gos i l'avís CAVE CANEM, «compte amb el gos».
+At the entrance of many Roman houses there is a mosaic of a dog with the warning CAVE CANEM, «beware of the dog».
+
+@fa6cae62
+Argos és el gos d'Ulisses, l'únic que el reconeix quan torna a casa després de vint anys (Odissea 17, 290-327).
+Argos is Odysseus' dog, the only one who recognises him when he comes home after twenty years (Odyssey 17, 290-327).
+
+@9ae3e8c0
+Adoptar-lo
+Adopt it
+
+@bb043f1c
+</span><br>El teu gos et segueix a tot arreu. Borda als lladres i de vegades grata i troba alguna cosa.
+</span><br>Your dog follows you everywhere. It barks at thieves and sometimes digs and finds something.
+
+@46dc3210
+" atrapa el lladre i li mossega el mantell: ara corre més a poc a poc!"
+" catches the thief and bites his cloak: now he runs more slowly!"
+
+@3b167ce8
+monedes de tot arreu
+coins from everywhere
+
+@555675b6
+Cadells en venda
+Puppies for sale
+
+@406dddb7
+El canvista (trapezita)
+The money-changer (trapezites)
+
+@840d9d1d
+Àlbum de monedes
+Coin album
+
+@b1775f80
+" racons apuntats"
+" spots noted"
+
+@52e8a31f
+Una tortuga
+A turtle
+
+@56bfff31
+" (tu)"
+" (you)"
+
+@8b1222fc
+Començar
+Start
+
+@77b70c3e
+Pausa
+Pause
+
+@efd0ea8a
+Aquest codi d'examen no és vàlid.
+That exam code is not valid.
+
+@abc6be31
+"Aquest examen és del mode "
+"That exam is for the mode "
+
+@f0a01001
+Examen
+Exam
+
+@2175133b
+<p>Escriu el codi que t'ha donat el teu professor o professora:</p><input id="exI" style="width:100%;font:inherit;padding:6px"><div id="exO"></div>
+<p>Type the code your teacher gave you:</p><input id="exI" style="width:100%;font:inherit;padding:6px"><div id="exO"></div>
+
+@b0854bc4
+<p>Parla amb aquestes persones i respon la seva pregunta (compta el primer intent):</p><ul>
+<p>Talk to these people and answer their question (the first attempt counts):</p><ul>
+
+@aea841e9
+<p>I visita aquests llocs:</p><ul>
+<p>And visit these places:</p><ul>
+
+@5f17abfa
+" bé · "
+" right · "
+
+@cbef2ef0
+" malament · "
+" wrong · "
+
+@4711e259
+" · llocs "
+" · places "
+
+@039554e1
+</b></p><p class="sub">Quan acabis, descarrega el teu informe (Aprendre › Què he après?) i lliura'l: porta el resultat de l'examen.</p><div id="exO"></div>
+</b></p><p class="sub">When you finish, download your report (Learn › What have I learned?) and hand it in: it includes the exam result.</p><div id="exO"></div>
+
+@5a1e8846
+Deixar l'examen
+Leave the exam
+
+@71415dd3
+<span class="label">Examen</span><br>
+<span class="label">Exam</span><br>
+
+@7ec6eabc
+Fallada
+Wrong
+
+@99992200
+" bé, "
+" right, "
+
+@91c65430
+" malament, "
+" wrong, "
+
+@a1464937
+"<span class=\"label\">Examen</span><br>Lloc visitat: "
+"<span class=\"label\">Exam</span><br>Place visited: "
+
+@06f6bd07
+Examen «
+Exam «
+
+@c2c49632
+" sense fer"
+" not done"
+
+@40084eb0
+"; llocs "
+"; places "
+
+@b42fa53d
+<h3 style="margin-top:18px">Exàmens</h3><table style="border-collapse:collapse;width:100%;font-size:.9em"><tr><th style="text-align:left">Alumne</th><th style="text-align:left">Examen</th><th>Bé</th><th>Malament</th><th>Sense fer</th><th>Llocs</th></tr>
+<h3 style="margin-top:18px">Exams</h3><table style="border-collapse:collapse;width:100%;font-size:.9em"><tr><th style="text-align:left">Student</th><th style="text-align:left">Exam</th><th>Right</th><th>Wrong</th><th>Not done</th><th>Places</th></tr>
+
+@70df2799
+Crear un examen
+Create an exam
+
+@a191afa4
+"<p>Títol: <input id=\"exT\" value=\"Examen de "
+"<p>Title: <input id=\"exT\" value=\"Exam: "
+
+@abd278c0
+"\" style=\"font:inherit;padding:4px;width:60%\"></p><p>Tria entre 3 i 10 lliçons:</p><input id=\"exF\" placeholder=\"filtrar…\" style=\"font:inherit;padding:4px\"><div id=\"exL\" style=\"max-height:220px;overflow:auto;border:1px solid #6a4a30;padding:6px;margin:6px 0\"></div><p>Llocs que cal visitar (opcional, fins a 5):</p><div id=\"exP\" style=\"max-height:140px;overflow:auto;border:1px solid #6a4a30;padding:6px\"></div><div id=\"exCO\"></div><p id=\"exCS\"></p>"
+"\" style=\"font:inherit;padding:4px;width:60%\"></p><p>Choose between 3 and 10 lessons:</p><input id=\"exF\" placeholder=\"filter…\" style=\"font:inherit;padding:4px\"><div id=\"exL\" style=\"max-height:220px;overflow:auto;border:1px solid #6a4a30;padding:6px;margin:6px 0\"></div><p>Places to visit (optional, up to 5):</p><div id=\"exP\" style=\"max-height:140px;overflow:auto;border:1px solid #6a4a30;padding:6px\"></div><div id=\"exCO\"></div><p id=\"exCS\"></p>"
+
+@21fc1487
+Generar el codi
+Generate the code
+
+@8528cd25
+Tria entre 3 i 10 lliçons.
+Choose between 3 and 10 lessons.
+
+@6593f03f
+<b>Codi:</b><br><textarea readonly style="width:100%;height:60px">
+<b>Code:</b><br><textarea readonly style="width:100%;height:60px">
+
+@d1fafb73
+</textarea><br><b>Enllaç per a l'alumnat:</b><br><textarea readonly style="width:100%;height:60px">
+</textarea><br><b>Link for students:</b><br><textarea readonly style="width:100%;height:60px">
+
+@26c07133
+Crear examen
+Create exam
+
+@66242b73
+<span class="t">Examen</span><span class="k">
+<span class="t">Exam</span><span class="k">
+
+@c1d122a4
+amb el codi del professor
+with the teacher's code
+
+@8edbbf1e
+El concurs és per jugar en línia: entra abans en una sala.
+The contest is for online play: join a room first.
+
+@013301af
+Concurs
+Contest
+
+@3c0cf03f
+<p>Les mateixes cinc preguntes per a tota la sala (canvien cada dos minuts).</p><div id="qzB"></div><div id="qzO"></div><div id="qzR" style="margin-top:10px"></div>
+<p>The same five questions for the whole room (they change every two minutes).</p><div id="qzB"></div><div id="qzO"></div><div id="qzR" style="margin-top:10px"></div>
+
+@8fed596e
+"<p><b>Has encertat "
+"<p><b>You got "
+
+@d27b3d87
+<b>Classificació</b><ol>
+<b>Leaderboard</b><ol>
+
+@233c6ced
+tresor!
+treasure!
+
+@9b58bb8b
+Colors per al daltonisme (blau en lloc de verd a barres i marques)
+Colour-blind colours (blue instead of green on bars and markers)
+
+@f54b643b
+Subtítols dels sons importants (foc, carros, lladres, trons…)
+Captions for important sounds (fire, carts, thieves, thunder…)
+
+@86534c23
+Aturar l'hora del dia (el sol no es mou)
+Pause the time of day (the sun stands still)
+
+@63dfd20e
+espetec de foc i crits
+crackling fire and shouting
+
+@c53b8e87
+algú crida: «al lladre!»
+someone shouts: «stop, thief!»
+
+@88ea5c7b
+rodes de carro sobre les lloses
+cart wheels on the paving stones
+
+@3c116d3e
+el teu gos borda
+your dog barks
+
+@b0fdf052
+blat de moro
+corn
+
+@59c21812
+sucre
+sugar
