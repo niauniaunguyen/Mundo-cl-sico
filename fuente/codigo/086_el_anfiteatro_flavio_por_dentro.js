@@ -20,7 +20,7 @@ function colPlus(){const C=ROMA.col,{A,B,gy,ai,bi,ST}=COLX,ao=A-7,bo=B-7,tunnel=
   const dark=lam('#1a1410'),lin=lam('#d8ccb4');
   for(const[j,n]of[[9,24],[19,32],[27,36]]){const s=(j+1)/ST,a=lerp(ai,ao,s),b=lerp(bi,bo,s),y=gy+colTier(j);
     for(let i=0;i<n;i++){const t=(i+0.5)/n*TAU;if(Math.abs(Math.sin(t))<0.2&&j<9)continue;const x=C.x+a*Math.cos(t),z=C.z+b*Math.sin(t),g=grp(x,y,z,Math.atan2(-Math.cos(t),-Math.sin(t)));
-      box(2.2,2.6,0.6,dark,0,1.3,0.1,g);box(2.8,0.4,0.8,lin,0,2.8,0.1,g);}}
+      box(2.2,2.6,0.6,dark,0,1.3,0.1,g);box(2.8,0.4,0.8,lin,0,2.8,0.1,g);try{atReg(x,z,y,'vomitorium',1.4);}catch(e){}}}
   // las cuatro entradas del público, con su número de arco
   COLX.ent=[];[[0.33,'XXIV'],[0.67,'LIII'],[0.17,'IX'],[0.83,'LXVII']].forEach(([f,num])=>{const t=f*TAU,x=C.x+(A+3)*Math.cos(t),z=C.z+(B+3)*Math.sin(t);COLX.ent.push({t,num,x,z});});}
 function colSetup(){if(MODE!=='roma'||!COLX.ent)return;COLX.seats.length=0;for(const e of COLX.ent)egxObj(e.x,e.z,undefined,'col:entrada','Arco '+e.num,'entrada del público',4);}

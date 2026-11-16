@@ -7,12 +7,12 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-216 funciones ampliadas, 311 capas.
+216 funciones ampliadas, 312 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `egxAct0` | `060_egipto_2.js` | 15 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 |
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 13 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 14 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:31 |
 | `atCands` | `085_mirar_con_atencion.js` | 6 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `answer` | `015_dialogo.js` | 4 | `091`:38 · `092`:46 · `148`:58 · `154`:11 |

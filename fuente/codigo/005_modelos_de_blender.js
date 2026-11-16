@@ -104,7 +104,7 @@ function buildCountryside(x0,x1,z0,z1,o){
           walls.push({x:x2,y:terrainH(x2,z2)-0.05,z:z2,a:-FCELL.a+(d!==b?Math.PI/2:0),sx:3.05,sy:rr(0.85,1.15),sz:1});}}}
     if(h2>0.86&&t){const[fx,fz]=W(u0+8,v0+8);if(fieldOk(fx,fz)){const gy=minGround(fx,fz,18,14,-FCELL.a);farms.push({x:fx,y:gy,z:fz,a:-FCELL.a+Math.PI,sx:1,sy:1,sz:1,cw:new THREE.Color(pick(['#e6dbc4','#d8c7a5','#cdb994'])),cr:new THREE.Color(pick(['#a24d33','#b0563a','#9a4a35']))});addBox(fx,fz,18,14,-FCELL.a);footprints.push({x:fx,z:fz,w:18,d:14,a:-FCELL.a,c:'#b8a280',house:true});}}
     if(!t){for(let k=0;k<4;k++){const[x2,z2]=W(u0+rr(3,FCELL.u-3),v0+rr(3,FCELL.v-3));if(roadDist(x2,z2)<5)continue;(R()<0.6?bushes:rocks).push({x:x2,y:terrainH(x2,z2)-0.1,z:z2,a:R()*TAU,sx:rr(0.7,1.6)});}}}
-  placeModules('V_vine',vines,{far:800,shadow:false});placeModules('W_drywall',walls,{far:900,shadow:false});placeModules('H_farm',farms,{far:1700});
+  placeModules('V_vine',vines,{far:800,shadow:false});placeModules('W_drywall',walls,{far:900,shadow:false});try{for(let i=0;i<walls.length;i+=3)atReg(walls[i].x,walls[i].z,walls[i].y,'drywall',1.8);}catch(e){}placeModules('H_farm',farms,{far:1700});
   placeModules('T_bush',bushes,{far:900,shadow:false});placeModules('T_rock',rocks,{far:900,shadow:false});
   return trees;
 }

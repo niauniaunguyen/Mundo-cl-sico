@@ -1003,7 +1003,7 @@ function buildCountryside(x0,x1,z0,z1,o){
           walls.push({x:x2,y:terrainH(x2,z2)-0.05,z:z2,a:-FCELL.a+(d!==b?Math.PI/2:0),sx:3.05,sy:rr(0.85,1.15),sz:1});}}}
     if(h2>0.86&&t){const[fx,fz]=W(u0+8,v0+8);if(fieldOk(fx,fz)){const gy=minGround(fx,fz,18,14,-FCELL.a);farms.push({x:fx,y:gy,z:fz,a:-FCELL.a+Math.PI,sx:1,sy:1,sz:1,cw:new THREE.Color(pick(['#e6dbc4','#d8c7a5','#cdb994'])),cr:new THREE.Color(pick(['#a24d33','#b0563a','#9a4a35']))});addBox(fx,fz,18,14,-FCELL.a);footprints.push({x:fx,z:fz,w:18,d:14,a:-FCELL.a,c:'#b8a280',house:true});}}
     if(!t){for(let k=0;k<4;k++){const[x2,z2]=W(u0+rr(3,FCELL.u-3),v0+rr(3,FCELL.v-3));if(roadDist(x2,z2)<5)continue;(R()<0.6?bushes:rocks).push({x:x2,y:terrainH(x2,z2)-0.1,z:z2,a:R()*TAU,sx:rr(0.7,1.6)});}}}
-  placeModules('V_vine',vines,{far:800,shadow:false});placeModules('W_drywall',walls,{far:900,shadow:false});placeModules('H_farm',farms,{far:1700});
+  placeModules('V_vine',vines,{far:800,shadow:false});placeModules('W_drywall',walls,{far:900,shadow:false});try{for(let i=0;i<walls.length;i+=3)atReg(walls[i].x,walls[i].z,walls[i].y,'drywall',1.8);}catch(e){}placeModules('H_farm',farms,{far:1700});
   placeModules('T_bush',bushes,{far:900,shadow:false});placeModules('T_rock',rocks,{far:900,shadow:false});
   return trees;
 }
@@ -7292,7 +7292,7 @@ function romaDecor(){
   // anillo de travertino alrededor del anfiteatro, con los mojones que marcaban el recinto
   {const C=ROMA.col,A=94,B=78,gy=2;const P=(u,k)=>{const t=u*TAU,a=A+1+k*3,b=B+1+k*3;const x=a*Math.cos(t),z=b*Math.sin(t);return[x,terrainH(C.x+x,C.z+z)-gy+0.06,z];};   // siete filas: sigue la cuesta del Celio sin flotar
    const ring=new THREE.Mesh(ringGeo(7,240,P,null,()=>'#ffffff',90),DMAT('trav'));ring.position.set(C.x,gy,C.z);ring.receiveShadow=true;scene.add(ring);
-   for(let i=0;i<80;i++){const t=i/80*TAU,x=C.x+(A+19)*Math.cos(t),z=C.z+(B+19)*Math.sin(t);piece('cippus',UNIT,TRAV,x,terrainH(x,z),z,t,0.7,1.6,0.5);}}
+   for(let i=0;i<80;i++){const t=i/80*TAU,x=C.x+(A+19)*Math.cos(t),z=C.z+(B+19)*Math.sin(t);piece('cippus',UNIT,TRAV,x,terrainH(x,z),z,t,0.7,1.6,0.5);try{atReg(x,z,terrainH(x,z),'cippus',0.7);}catch(e){}}}
   romaRoadsDecor();
   // estatuas en los frontones y sobre los vértices de los templos
   for(const T of ROMA.peds){const f=T.L/2+0.25,top=T.y,kind=T.gold?'gold':'marble';
@@ -7304,7 +7304,7 @@ function romaDecor(){
   {const C=ROMA.col,A=94,B=78,gy=2;for(let i=0;i<80;i++){const t=(i+0.5)/80*TAU,nx=Math.cos(t)/A,nz=Math.sin(t)/B,nl=Math.hypot(nx,nz),a=Math.atan2(nx/nl,nz/nl),x=C.x+(A-1.4)*Math.cos(t),z=C.z+(B-1.4)*Math.sin(t);
      statue(x,gy+10.5+1.3,z,a,1.15,'marble');statue(x,gy+22.3+1.3,z,a,1.15,'marble');
      if(i%2===0){const sx=C.x+(A+0.3)*Math.cos(t),sz=C.z+(B+0.3)*Math.sin(t);const sh=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,0.15,14),BRONZE2);sh.rotation.order='YXZ';sh.rotation.y=a;sh.rotation.x=Math.PI/2;sh.position.set(sx,gy+41,sz);scene.add(sh);}}
-   for(let i=0;i<240;i++){const t=i/240*TAU,x=C.x+(A-1)*Math.cos(t),z=C.z+(B-1)*Math.sin(t);piece('mast',UNITC,M.wood,x,gy+47.5,z,0,0.25,4.2,0.25);}}
+   for(let i=0;i<240;i++){const t=i/240*TAU,x=C.x+(A-1)*Math.cos(t),z=C.z+(B-1)*Math.sin(t);piece('mast',UNITC,M.wood,x,gy+47.5,z,0,0.25,4.2,0.25);if(i%6===0)try{atReg(x,z,gy+45.5,'velarium',2.5);}catch(e){}}}
   // Foro de Augusto: estatuas de los grandes hombres de Roma en los pórticos y Augusto en su cuadriga en el centro
   {const gy=romaH(40,-195);for(let z=-244;z<=-148;z+=6){statue(-21.5,gy+0.6,z,Math.PI/2,1.1,'marble');statue(101.5,gy+0.6,z,-Math.PI/2,1.1,'marble');}
    box(4.2,1.8,5.6,M.marble,40,gy+0.9,-160);box(4.6,0.3,6,M.marble,40,gy+1.95,-160);quadriga(40,gy+2.1,-160,0,true);addBox(40,-160,4.2,5.6,0);}
@@ -7335,7 +7335,7 @@ function romaDecor(){
         if(nc===1)place('ro_compitum',_t(4950,'Altar de los lares de la encrucijada'),_t(4951,'LARES COMPITALES'),_t(4952,'En cada cruce de calles hay un pequeño santuario de los lares compitales, los dioses protectores del barrio. Augusto reorganizó la ciudad en 265 barrios (vici) y unió este culto al de su propio genio: cada barrio elige cuatro magistrados, a menudo libertos, que cuidan el altar y celebran las fiestas Compitalia en enero.'),x-uz*2.5*side,z+ux*2.5*side,ar);}}}}
   // balcones de madera en las fachadas de las ínsulas (maeniana)
   if(ROMA.houses){const WD=lam('#8a6340'),WD2=lam('#a07a4a');for(const[k,f,w,hy]of[['H_insa',8,12,9.0],['H_insb',7,9,8.3]])for(const it of ROMA.houses[k]){if(hash(it.x,it.z)<0.4)continue;const b={x:it.x,y:it.y,z:it.z,a:it.a},y=hy*it.sy;
-     pieceAt(_t(4953,'balF'),UNIT,WD,b,0,y,f+0.65,w,0.18,1.3);pieceAt(_t(4954,'balR'),UNIT,WD2,b,0,y+0.18,f+1.25,w,0.9,0.07);for(const s of[-1,0,1])pieceAt(_t(4955,'balS'),UNIT,WD2,b,s*w*0.45,y-0.9,f+0.4,0.15,0.9,0.15);}}
+     pieceAt(_t(4953,'balF'),UNIT,WD,b,0,y,f+0.65,w,0.18,1.3);try{const p=toW(0,f+0.65,b.x,b.z,b.a);atReg(p[0],p[1],b.y+y,'maenianum',w/2);}catch(e){}pieceAt(_t(4954,'balR'),UNIT,WD2,b,0,y+0.18,f+1.25,w,0.9,0.07);for(const s of[-1,0,1])pieceAt(_t(4955,'balS'),UNIT,WD2,b,s*w*0.45,y-0.9,f+0.4,0.15,0.9,0.15);}}
   place('ro_calzada',_t(4956,'Las calzadas y las aceras'),'VIAE',_t(4957,'Las calles principales de Roma se pavimentan con grandes losas poligonales de basalto (basoli), encajadas como un rompecabezas sobre capas de grava y cal. A los lados, aceras elevadas (crepidines) con bordillos de piedra protegen a los peatones del barro y de los carros, que desde César no pueden circular de día por el centro salvo para obras públicas. Fuera de la ciudad, las calzadas llevan miliarios que marcan la distancia desde Roma.'),-50,-16,0);
   place('ro_miliario',_t(4958,'El Miliario de Oro'),_t(4959,'MILLIARIVM AVREVM'),_t(4960,'Una columna de bronce dorado que Augusto levantó en el 20 a.C. junto a los Rostra, como punto de partida simbólico de todas las calzadas del imperio: en ella estaban escritas las distancias desde Roma a las principales ciudades. De ahí el dicho «todos los caminos llevan a Roma». Muy cerca, el Ombligo de la Ciudad (Umbilicus Urbis) marca su centro.'),-80,-28,0);
   place('ro_curtius',_t(4961,'Lacus Curtius'),_t(4962,'LACVS CVRTIVS'),_t(4963,'Un pequeño recinto con un pozo seco en medio del Foro. Según una leyenda, en el 362 a.C. se abrió aquí una sima que solo se cerraría si Roma sacrificaba lo que más valía; el joven Marco Curcio, entendiendo que eso eran el valor y las armas, se lanzó dentro a caballo. Otra versión lo relaciona con un guerrero sabino de la época de Rómulo. Los romanos echan monedas en él para pedir buena salud al emperador.'),12,-10,0);
@@ -19646,7 +19646,7 @@ function colPlus(){const C=ROMA.col,{A,B,gy,ai,bi,ST}=COLX,ao=A-7,bo=B-7,tunnel=
   const dark=lam('#1a1410'),lin=lam('#d8ccb4');
   for(const[j,n]of[[9,24],[19,32],[27,36]]){const s=(j+1)/ST,a=lerp(ai,ao,s),b=lerp(bi,bo,s),y=gy+colTier(j);
     for(let i=0;i<n;i++){const t=(i+0.5)/n*TAU;if(Math.abs(Math.sin(t))<0.2&&j<9)continue;const x=C.x+a*Math.cos(t),z=C.z+b*Math.sin(t),g=grp(x,y,z,Math.atan2(-Math.cos(t),-Math.sin(t)));
-      box(2.2,2.6,0.6,dark,0,1.3,0.1,g);box(2.8,0.4,0.8,lin,0,2.8,0.1,g);}}
+      box(2.2,2.6,0.6,dark,0,1.3,0.1,g);box(2.8,0.4,0.8,lin,0,2.8,0.1,g);try{atReg(x,z,y,'vomitorium',1.4);}catch(e){}}}
   // las cuatro entradas del público, con su número de arco
   COLX.ent=[];[[0.33,'XXIV'],[0.67,'LIII'],[0.17,'IX'],[0.83,'LXVII']].forEach(([f,num])=>{const t=f*TAU,x=C.x+(A+3)*Math.cos(t),z=C.z+(B+3)*Math.sin(t);COLX.ent.push({t,num,x,z});});}
 function colSetup(){if(MODE!=='roma'||!COLX.ent)return;COLX.seats.length=0;for(const e of COLX.ent)egxObj(e.x,e.z,undefined,'col:entrada','Arco '+e.num,'entrada del público',4);}
@@ -21502,9 +21502,9 @@ function ambSetup(){const ro=MODE==='roma';AMB.smoke.length=0;AMB.owls.length=0;
       for(const k in ROMA.houses)for(const it of ROMA.houses[k]){if(R()>0.12)continue;const ins=k!=='H_dom',w=ins?(k==='H_insa'?22:16):26,d=ins?(k==='H_insa'?14:11):42,y=it.y;
         const front=(lx,ly,lz,obj)=>{const p=toW(lx,d/2+lz,it.x,it.z,it.a);obj.position.set(p[0],y+ly,p[1]);obj.rotation.y=-it.a;scene.add(obj);return obj;};
         if(ins&&n1<70){n1++;const g=new THREE.Group();g.userData.noCol=true;const L=rr(3,6);box(L,0.02,0.02,lam('#5a4630'),0,0,0,g);for(let i=0;i<4;i++)box(rr(0.5,0.9),rr(0.6,1),0.02,lam(pick(cl)),-L/2+0.6+i*L/4,-0.45,0,g);front(rr(-w/3,w/3),rr(6.5,9),0.35,g);}
-        if(ins&&n2<70){n2++;const g=new THREE.Group();g.userData.noCol=true;for(let i=0;i<3;i++){const pt=new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.12,0.28,8),clay);pt.position.set(i*0.5,0.14,0);g.add(pt);const pl=new THREE.Mesh(new THREE.SphereGeometry(0.22,6,5),lam(pick(['#5f7d3a','#4a6a32','#6f8a45'])));pl.position.set(i*0.5,0.4,0);g.add(pl);}front(rr(-w/3,w/3),rr(3.6,4.2),0.3,g);}
+        if(ins&&n2<70){n2++;const g=new THREE.Group();g.userData.noCol=true;for(let i=0;i<3;i++){const pt=new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.12,0.28,8),clay);pt.position.set(i*0.5,0.14,0);g.add(pt);const pl=new THREE.Mesh(new THREE.SphereGeometry(0.22,6,5),lam(pick(['#5f7d3a','#4a6a32','#6f8a45'])));pl.position.set(i*0.5,0.4,0);g.add(pl);}{const o=front(rr(-w/3,w/3),rr(3.6,4.2),0.3,g);try{atReg(o.position.x,o.position.z,o.position.y,'macetas',0.9);}catch(e){}}}
         if(ins&&n3<60){n3++;const g=new THREE.Group();g.userData.noCol=true;const aw=new THREE.Mesh(new THREE.PlaneGeometry(rr(3,4.5),1.6),new THREE.MeshLambertMaterial({color:pick(['#c9b48b','#b5683e','#e9dfcb','#8a3f2f']),side:THREE.DoubleSide}));aw.rotation.x=-Math.PI/2+0.45;aw.position.set(0,0,0.7);g.add(aw);
-          const sg=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.55,0.08),lam('#b0563a'));sg.position.set(0,0.75,0.05);g.add(sg);front(rr(-w/3,w/3),3,0.05,g);}
+          const sg=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.55,0.08),lam('#b0563a'));sg.position.set(0,0.75,0.05);g.add(sg);{const o=front(rr(-w/3,w/3),3,0.05,g);try{atReg(o.position.x,o.position.z,o.position.y,'letrero',0.8);}catch(e){}}}
         if(!ins){const p=toW(0,d/2+1.2,it.x,it.z,it.a),m=new THREE.Mesh(new THREE.PlaneGeometry(1.6,1.1),new THREE.MeshLambertMaterial({map:ambCanem()}));m.rotation.x=-Math.PI/2;m.rotation.z=-it.a;m.position.set(p[0],floorAt(p[0],p[1])+0.04,p[1]);m.userData.noCol=true;scene.add(m);if(R()<0.3)egxObj(p[0],p[1],undefined,'amb:canem','Cave canem','mosaico de la entrada',2);}}}
   }
   // en los mapas de naturaleza y de transición: eras, chozas con redil y colmenas; exvotos en las fuentes
@@ -23225,7 +23225,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='de57b7266b96';
+const NOSTOS_VER='61adc64794b5';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27950,6 +27950,37 @@ function turnTick(dt){try{
     if(Math.abs(a)<0.01){b.g.rotation.y=b.g.userData.turn0;delete b.g.userData.turn0;b.done=1;}}
   if(TURN.back.length)TURN.back=TURN.back.filter(b=>!b.done);}catch(e){}}
 {const f=uxTick;uxTick=function(dt){f(dt);turnTick(dt);};}
+// ============================================================ MIRAR CON ATENCIÓN: más objetos repetidos que no tenían ficha
+// Encontrados con un recuento de todo lo que hay en Atenas y en Roma (qué función crea cada objeto y si el modo atención tiene algo cerca):
+// balcones de las ínsulas, vomitorios, mástiles del toldo y mojones del anfiteatro, macetas y letreros, el público de las gradas
+// y los muros de piedra seca entre los campos. Cada uno se apunta en el registro (atReg) donde se construye.
+Object.assign(ATX_DEF,{
+ maenianum:['Balcón de madera','maenianum','Un balcón de madera volado sobre la calle.',
+  'Un balcón de madera volado sobre la calle (maenianum). El nombre viene de Gayo Menio, que, según Festo, fue el primero en sacar tablados sobre las columnas del Foro para ver los espectáculos (s. v. Maeniana). Con tanta madera, los incendios saltan de casa en casa: tras el del 64, Nerón mandó poner pórticos delante de las ínsulas para apagar el fuego desde sus terrazas (Suetonio, Nerón 16; Tácito, Anales 15, 43).',0.5,40],
+ vomitorium:['Vomitorio','vomitorium','Una boca de acceso a las gradas.',
+  'Una de las bocas por las que el público entra a las gradas y sale de ellas. Macrobio explica que se llaman vomitoria porque «vomitan» a la gente hacia fuera (Saturnales 6, 4, 3). Cada espectador lleva una tésera con el número de su arco, su sector y su fila, y así encuentra su sitio sin perderse.',1.3,40],
+ velarium:['Mástil del toldo','velarium','Un mástil para un toldo.',
+  'Uno de los mástiles de madera que, encajados en ménsulas de piedra en lo alto de la fachada, sostienen las cuerdas del velarium, el gran toldo que da sombra a las gradas. Lo manejan marineros de la flota de Miseno, que tienen su cuartel junto al anfiteatro (Historia Augusta, Cómodo 15, 6).',2,90],
+ cippus:['Mojón de travertino','cippus','Un mojón de piedra.',
+  'Uno de los mojones de piedra que rodean el anfiteatro a cierta distancia. No se sabe con seguridad para qué servían: quizá para atar las cuerdas del toldo, quizá para cerrar el paso y ordenar a la multitud los días de juegos.',1,30],
+ macetas:['Macetas en la ventana','plantas en tiestos','Flores y hierbas en tiestos.',
+  'Quien vive en una ínsula no tiene jardín: pone flores y hierbas en tiestos en la ventana. Plinio el Viejo lo cuenta como costumbre de la plebe de Roma, que se hace en las ventanas una imagen de huerto (Historia natural 19, 59).',0.4,25],
+ letrero:['Letrero de tienda','taberna','El letrero de una tienda.',
+  'El letrero de una taberna, pintado sobre tabla. Muchas tiendas se anuncian también con un dibujo de lo que venden, porque no todo el mundo sabe leer, como los rótulos pintados que se conservan en las fachadas de Pompeya.',0.6,25],
+ publico:['Público','espectadores',
+  'Los atenienses pasan días enteros en el teatro durante las fiestas de Dioniso, viendo una obra tras otra desde el amanecer. Los asientos de honor de la primera fila (proedría) son para sacerdotes, magistrados y benefactores de la ciudad.',
+  'Cada uno se sienta según quién es: los senadores, abajo; los caballeros, en las filas siguientes; los soldados, aparte; las mujeres, arriba del todo. Lo ordenó Augusto (Suetonio, Augusto 44).',1,60],
+ drywall:['Muro de piedra seca','linde del campo',
+  'Piedras sin argamasa, amontonadas al limpiar el campo: marcan la linde de cada parcela y, en las laderas, sostienen bancales. En el Ática el suelo es pedregoso y estos muros están por todas partes.',
+  'Piedras sin argamasa que separan las parcelas. Los agrimensores romanos miden el campo y lo dividen en lotes, y los mojones y los muros marcan de quién es cada uno.',0.4,30]});
+// el público de teatros, circo y anfiteatro son figuritas iguales (un cilindro de 0,2-0,26 × 1,15): se busca una vez tras la carga
+// y se apunta una ficha cada 12 m de grada
+function atxCrowdScan(){const seen=new Set(),m=new THREE.Matrix4(),v=new THREE.Vector3();let n=0;
+  const add=(x,y,z)=>{const k=Math.floor(x/12)+','+Math.floor(z/12);if(seen.has(k))return;seen.add(k);atReg(x,z,y-0.6,'publico',3);n++;};
+  scene.traverse(o=>{const P=o.isMesh&&o.geometry&&o.geometry.parameters;if(!P||P.radiusTop!==0.2||P.radiusBottom!==0.26||P.height!==1.15)return;o.updateMatrixWorld(true);
+    if(o.isInstancedMesh){for(let i=0;i<o.count;i++){o.getMatrixAt(i,m);m.premultiply(o.matrixWorld);v.setFromMatrixPosition(m);add(v.x,v.y,v.z);}}
+    else{o.getWorldPosition(v);add(v.x,v.y,v.z);}});return n;}
+{let done=false;const f=uxTick;uxTick=function(dt){f(dt);if(!done&&state&&ui==='play'){done=true;try{atxCrowdScan();}catch(e){}}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

@@ -99,7 +99,7 @@ function romaDecor(){
   // anillo de travertino alrededor del anfiteatro, con los mojones que marcaban el recinto
   {const C=ROMA.col,A=94,B=78,gy=2;const P=(u,k)=>{const t=u*TAU,a=A+1+k*3,b=B+1+k*3;const x=a*Math.cos(t),z=b*Math.sin(t);return[x,terrainH(C.x+x,C.z+z)-gy+0.06,z];};   // siete filas: sigue la cuesta del Celio sin flotar
    const ring=new THREE.Mesh(ringGeo(7,240,P,null,()=>'#ffffff',90),DMAT('trav'));ring.position.set(C.x,gy,C.z);ring.receiveShadow=true;scene.add(ring);
-   for(let i=0;i<80;i++){const t=i/80*TAU,x=C.x+(A+19)*Math.cos(t),z=C.z+(B+19)*Math.sin(t);piece('cippus',UNIT,TRAV,x,terrainH(x,z),z,t,0.7,1.6,0.5);}}
+   for(let i=0;i<80;i++){const t=i/80*TAU,x=C.x+(A+19)*Math.cos(t),z=C.z+(B+19)*Math.sin(t);piece('cippus',UNIT,TRAV,x,terrainH(x,z),z,t,0.7,1.6,0.5);try{atReg(x,z,terrainH(x,z),'cippus',0.7);}catch(e){}}}
   romaRoadsDecor();
   // estatuas en los frontones y sobre los vértices de los templos
   for(const T of ROMA.peds){const f=T.L/2+0.25,top=T.y,kind=T.gold?'gold':'marble';
@@ -111,7 +111,7 @@ function romaDecor(){
   {const C=ROMA.col,A=94,B=78,gy=2;for(let i=0;i<80;i++){const t=(i+0.5)/80*TAU,nx=Math.cos(t)/A,nz=Math.sin(t)/B,nl=Math.hypot(nx,nz),a=Math.atan2(nx/nl,nz/nl),x=C.x+(A-1.4)*Math.cos(t),z=C.z+(B-1.4)*Math.sin(t);
      statue(x,gy+10.5+1.3,z,a,1.15,'marble');statue(x,gy+22.3+1.3,z,a,1.15,'marble');
      if(i%2===0){const sx=C.x+(A+0.3)*Math.cos(t),sz=C.z+(B+0.3)*Math.sin(t);const sh=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,0.15,14),BRONZE2);sh.rotation.order='YXZ';sh.rotation.y=a;sh.rotation.x=Math.PI/2;sh.position.set(sx,gy+41,sz);scene.add(sh);}}
-   for(let i=0;i<240;i++){const t=i/240*TAU,x=C.x+(A-1)*Math.cos(t),z=C.z+(B-1)*Math.sin(t);piece('mast',UNITC,M.wood,x,gy+47.5,z,0,0.25,4.2,0.25);}}
+   for(let i=0;i<240;i++){const t=i/240*TAU,x=C.x+(A-1)*Math.cos(t),z=C.z+(B-1)*Math.sin(t);piece('mast',UNITC,M.wood,x,gy+47.5,z,0,0.25,4.2,0.25);if(i%6===0)try{atReg(x,z,gy+45.5,'velarium',2.5);}catch(e){}}}
   // Foro de Augusto: estatuas de los grandes hombres de Roma en los pórticos y Augusto en su cuadriga en el centro
   {const gy=romaH(40,-195);for(let z=-244;z<=-148;z+=6){statue(-21.5,gy+0.6,z,Math.PI/2,1.1,'marble');statue(101.5,gy+0.6,z,-Math.PI/2,1.1,'marble');}
    box(4.2,1.8,5.6,M.marble,40,gy+0.9,-160);box(4.6,0.3,6,M.marble,40,gy+1.95,-160);quadriga(40,gy+2.1,-160,0,true);addBox(40,-160,4.2,5.6,0);}
@@ -142,7 +142,7 @@ function romaDecor(){
         if(nc===1)place('ro_compitum','Altar de los lares de la encrucijada','LARES COMPITALES','En cada cruce de calles hay un pequeño santuario de los lares compitales, los dioses protectores del barrio. Augusto reorganizó la ciudad en 265 barrios (vici) y unió este culto al de su propio genio: cada barrio elige cuatro magistrados, a menudo libertos, que cuidan el altar y celebran las fiestas Compitalia en enero.',x-uz*2.5*side,z+ux*2.5*side,ar);}}}}
   // balcones de madera en las fachadas de las ínsulas (maeniana)
   if(ROMA.houses){const WD=lam('#8a6340'),WD2=lam('#a07a4a');for(const[k,f,w,hy]of[['H_insa',8,12,9.0],['H_insb',7,9,8.3]])for(const it of ROMA.houses[k]){if(hash(it.x,it.z)<0.4)continue;const b={x:it.x,y:it.y,z:it.z,a:it.a},y=hy*it.sy;
-     pieceAt('balF',UNIT,WD,b,0,y,f+0.65,w,0.18,1.3);pieceAt('balR',UNIT,WD2,b,0,y+0.18,f+1.25,w,0.9,0.07);for(const s of[-1,0,1])pieceAt('balS',UNIT,WD2,b,s*w*0.45,y-0.9,f+0.4,0.15,0.9,0.15);}}
+     pieceAt('balF',UNIT,WD,b,0,y,f+0.65,w,0.18,1.3);try{const p=toW(0,f+0.65,b.x,b.z,b.a);atReg(p[0],p[1],b.y+y,'maenianum',w/2);}catch(e){}pieceAt('balR',UNIT,WD2,b,0,y+0.18,f+1.25,w,0.9,0.07);for(const s of[-1,0,1])pieceAt('balS',UNIT,WD2,b,s*w*0.45,y-0.9,f+0.4,0.15,0.9,0.15);}}
   place('ro_calzada','Las calzadas y las aceras','VIAE','Las calles principales de Roma se pavimentan con grandes losas poligonales de basalto (basoli), encajadas como un rompecabezas sobre capas de grava y cal. A los lados, aceras elevadas (crepidines) con bordillos de piedra protegen a los peatones del barro y de los carros, que desde César no pueden circular de día por el centro salvo para obras públicas. Fuera de la ciudad, las calzadas llevan miliarios que marcan la distancia desde Roma.',-50,-16,0);
   place('ro_miliario','El Miliario de Oro','MILLIARIVM AVREVM','Una columna de bronce dorado que Augusto levantó en el 20 a.C. junto a los Rostra, como punto de partida simbólico de todas las calzadas del imperio: en ella estaban escritas las distancias desde Roma a las principales ciudades. De ahí el dicho «todos los caminos llevan a Roma». Muy cerca, el Ombligo de la Ciudad (Umbilicus Urbis) marca su centro.',-80,-28,0);
   place('ro_curtius','Lacus Curtius','LACVS CVRTIVS','Un pequeño recinto con un pozo seco en medio del Foro. Según una leyenda, en el 362 a.C. se abrió aquí una sima que solo se cerraría si Roma sacrificaba lo que más valía; el joven Marco Curcio, entendiendo que eso eran el valor y las armas, se lanzó dentro a caballo. Otra versión lo relaciona con un guerrero sabino de la época de Rómulo. Los romanos echan monedas en él para pedir buena salud al emperador.',12,-10,0);
