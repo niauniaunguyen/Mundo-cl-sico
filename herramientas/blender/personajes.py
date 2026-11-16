@@ -706,7 +706,7 @@ def build(kind):
         def htop(u):   # el himation deja libre el hombro y el brazo derechos y cubre el izquierdo
             a=u*TAU;return 1.17+0.13*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
         hm=garment('himation',body,0.22,1.5,0.03,folds=11,famp=0.026,flare=0.11,top=htop,skirt=True,over=ch)
-        set_mat(hm,material('himation',cloth_tex('himation','#6d7b9a',border='#2a2a3a',band=(0.0,0.045),folds=11)))
+        set_mat(hm,material('himation',cloth_tex('himation','#d6d6da',border='#3a3a46',band=(0.0,0.045),folds=11),color=(0.45,0.52,0.72)))   # textura clara: el juego la tiñe con el color de cada persona
         for o in(ch,hm):pieces.append(o)
         # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
         e1=drape_end('himation_extremo',[(0.085,0.02,1.535),(0.1,-0.085,1.49),(0.115,-0.165,1.35),(0.13,-0.205,1.05),(0.14,-0.22,0.75),(0.145,-0.225,0.5)],0.17,folds=2.5,famp=0.022)
@@ -772,5 +772,25 @@ for k,a in ARMS.items():
     bpy.ops.export_scene.gltf(filepath=f,export_format='GLB',export_skins=True,export_animations=True,export_animation_mode='NLA_TRACKS',
         export_image_format='JPEG',export_jpeg_quality=85,export_apply=False,export_yup=True,use_selection=True)
     tot+=os.path.getsize(f);print('GLB',k,os.path.getsize(f))
+# versión ligera para el juego: menos triángulos (decimate por pieza) y JPEG más comprimido
+RATIO={'himation':0.13,'cabeza':0.3,'quiton':0.2,'quiton_corto':0.2,'pelo':0.4,'barba':0.45,'coraza':0.4,'escudo':0.35,'greba':0.35,'manga':0.4,'cuerpo':0.5,'pteryges':0.45,'pteryges_b':0.45,'himation_extremo':0.5,'himation_espalda':0.5,'casco':0.5,'ojos':0.6,'orejas':0.6,'cimera':0.6}
+def rkey(n):
+    n=n.split('.')[0]
+    for k in('ciudadano_','hoplita_'):n=n.replace(k,'')
+    return n
+for k,a in ARMS.items():
+    kids=[o for o in bpy.data.objects if o.parent==a and o.type=='MESH']
+    for o in kids:
+        r=RATIO.get(rkey(o.name))
+        if not r:continue
+        bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o
+        d=o.modifiers.new('dec','DECIMATE');d.ratio=r
+        bpy.ops.object.modifier_move_to_index(modifier='dec',index=0);bpy.ops.object.modifier_apply(modifier='dec')
+    bpy.ops.object.select_all(action='DESELECT');a.select_set(True)
+    for o in kids:o.select_set(True)
+    f=os.path.join(OUT,'personaje_'+k+'_juego.glb')
+    bpy.ops.export_scene.gltf(filepath=f,export_format='GLB',export_skins=True,export_animations=True,export_animation_mode='NLA_TRACKS',
+        export_image_format='JPEG',export_jpeg_quality=72,export_apply=False,export_yup=True,use_selection=True)
+    print('GLB JUEGO',k,os.path.getsize(f),sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in kids),'triángulos')
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT,'personajes.blend'))
 print('PERSONAJES OK',tot)

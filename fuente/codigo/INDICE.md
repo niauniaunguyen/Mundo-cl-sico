@@ -187,4 +187,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `181_materiales.js` | 78 | MATERIALES: variación, desgaste, brillo y visor de modelos |
 | `182_relieves_y_detalle.js` | 68 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
-| `900_creta_y_arranque.js` | 642 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `184_personajes_blender.js` | 60 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
+| `900_creta_y_arranque.js` | 643 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

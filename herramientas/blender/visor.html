@@ -12,7 +12,7 @@ const cam=new THREE.PerspectiveCamera(30,W/H,0.05,100);
 s.add(new THREE.HemisphereLight(0xd6e4f2,0x8a7552,0.62));const sun=new THREE.DirectionalLight(Q.get('luz')==='tarde'?0xffa860:0xfff0d2,1.0);sun.position.set(-3,4,3.5);s.add(sun);
 const g=new THREE.Mesh(new THREE.CircleGeometry(4,40),new THREE.MeshLambertMaterial({color:'#c9b48b'}));g.rotation.x=-Math.PI/2;s.add(g);
 window.READY=false;
-new THREE.GLTFLoader().load('../../modelos/personaje_'+(Q.get('pj')||'ciudadano')+'.glb',gl=>{
+new THREE.GLTFLoader().load('../../modelos/personaje_'+(Q.get('pj')||'ciudadano')+(Q.get('juego')?'_juego':'')+'.glb',gl=>{
   const root=gl.scene;s.add(root);const solo=Q.get('solo');if(solo)root.traverse(o=>{if(o.isMesh&&!o.name.includes(solo)&&!(o.parent&&o.parent.name.includes(solo)))o.visible=false;});
   root.traverse(o=>{if(!o.isMesh)return;const m=o.material,met=m.metalness>0.5;
     const n=met?new THREE.MeshPhongMaterial({map:m.map,color:m.color,shininess:70,specular:0xa89868}):new THREE.MeshLambertMaterial({map:m.map,color:m.color});

@@ -7,11 +7,11 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-240 funciones ampliadas, 382 capas.
+240 funciones ampliadas, 385 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 28 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:67 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 29 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:67 · `184`:42 |
 | `egxAct0` | `060_egipto_2.js` | 20 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 |
 | `atCands` | `085_mirar_con_atencion.js` | 7 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 |
 | `gmRight` | `121_menu_de_esc.js` | 7 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 |
@@ -28,6 +28,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
 | `pdData` | `162_panel_docente.js` | 3 | `166`:46 · `169`:21 · `180`:28 |
+| `personWalk` | `052_las_nueve_musas_mnemosine_y.js` | 3 | `129`:80 · `146`:162 · `184`:35 |
 | `toast` | `014_hud.js` | 3 | `120`:131 · `128`:68 · `173`:8 |
 | `updateSky` | `003_escena.js` | 3 | `089`:6 · `090`:90 · `123`:74 |
 | `applyFlats` | `001_terreno.js` | 2 | `146`:60 · `900`:406 |
@@ -56,11 +57,11 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
 | `lrnSummary` | `148_aprender.js` | 2 | `151`:41 · `154`:25 |
+| `makePerson` | `009_personas.js` | 2 | `116`:318 · `184`:12 |
 | `natAct` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:227 · `097`:89 |
 | `natSetup` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:228 · `900`:386 |
 | `netList` | `045_modo_libre_en_linea_hasta.js` | 2 | `171`:49 · `180`:53 |
 | `pdRender` | `162_panel_docente.js` | 2 | `169`:23 · `180`:29 |
-| `personWalk` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `129`:80 · `146`:162 |
 | `phToggle` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `089`:37 · `134`:22 |
 | `playerLook` | `040_caballo.js` | 2 | `076`:135 · `101`:50 |
 | `profeOpen` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `162`:32 · `180`:41 |
@@ -174,7 +175,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
 | `loadModels` | `005_modelos_de_blender.js` | 1 | `900`:443 |
 | `m386Setup` | `061_sacar_partido_a_los_diez.js` | 1 | `900`:382 |
-| `makePerson` | `009_personas.js` | 1 | `116`:318 |
 | `mareShow` | `046_el_caballo.js` | 1 | `900`:383 |
 | `mgPay` | `177_oficios.js` | 1 | `179`:39 |
 | `mktSetup` | `058_dias_de_mercado.js` | 1 | `900`:384 |
