@@ -167,6 +167,8 @@ def rewrite(code, nodes, ids, skip=lambda nd: False):
             if nd['s'] < s or nd['e'] > e: continue
             out.append(code[p:nd['s']])
             k = None if nd['key'] or skip(nd) else ids.get(nodekey(nd))
+            if k is not None and nd['s'] > 0 and (code[nd['s']-1].isalnum() or code[nd['s']-1] in '_$'):
+                out.append(' ')   # «return'…'» → «return _t(…)», no «return_t(…)»
             if nd['t'] == 's':
                 out.append(code[nd['s']:nd['e']] if k is None else '_t(%d,%s)' % (k, code[nd['s']:nd['e']]))
             elif k is None:
@@ -309,6 +311,8 @@ def groups(code, nodes):
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'pendientes'
     html = (RAIZ / 'fuente' / 'atenas.src.html').read_text(encoding='utf-8')
+    if '@@CODIGO@@' in html:   # el código está en fuente/codigo/ (como en construir.py)
+        html = html.replace('@@CODIGO@@', ''.join(m.read_text(encoding='utf-8') for m in sorted((RAIZ / 'fuente' / 'codigo').glob('*.js'))))
     a, b = main_script(html)
     code = html[a:b]; nodes = literals(code)
     if cmd == 'pendientes':
