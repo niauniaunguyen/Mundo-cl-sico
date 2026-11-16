@@ -79,13 +79,15 @@ def _g(p,c,s):return math.exp(-((p[0]-c[0])**2+(p[1]-c[1])**2+(p[2]-c[2])**2)/(s
 def head_shape(x,y,z):   # desplazamiento radial sobre la esfera unidad (delante = -Y)
     fr=max(0,-y);d=0
     for s in(1,-1):
-        d+=0.06*_g((x,y,z),(0.33*s,-0.9,0.3),0.22)      # arco de las cejas
+        d+=0.075*_g((x,y,z),(0.33*s,-0.9,0.3),0.2)      # arco de las cejas
         d-=0.075*_g((x,y,z),(0.33*s,-0.92,0.07),0.15)   # cuencas de los ojos
-        d+=0.055*_g((x,y,z),(0.55*s,-0.72,-0.1),0.22)   # pómulos
+        d+=0.075*_g((x,y,z),(0.56*s,-0.72,-0.08),0.2)   # pómulos
+        d-=0.03*_g((x,y,z),(0.58*s,-0.62,-0.38),0.18)   # hundimiento bajo el pómulo
         d-=0.04*_g((x,y,z),(0.82*s,-0.35,0.28),0.25)    # sienes
         d+=0.05*_g((x,y,z),(0.11*s,-0.95,-0.3),0.09)    # aletas de la nariz
     rz=min(1,max(0,(0.12-z)/0.4))**1.4;nose=0.2*math.exp(-(x/(0.05+0.04*rz))**2)*rz*(1 if z>-0.28 else math.exp(-((z+0.28)/0.04)**2))*min(1,fr*2.2)
     d+=nose
+    d+=0.03*_g((x,y,z),(0,-0.97,0.22),0.12)   # entrecejo
     d-=0.02*math.exp(-(x/0.25)**2-((z+0.42)/0.12)**2)*fr      # la boca, algo más atrás que la nariz
     d+=0.03*math.exp(-(x/0.2)**2-((z+0.47)/0.06)**2)*fr      # labio superior
     d-=0.03*math.exp(-(x/0.2)**2-((z+0.555)/0.03)**2)*fr      # línea de la boca
@@ -102,6 +104,14 @@ def head_mesh(name,beard=False):
         if z>0:y*=1+0.03*z;x*=1+0.07*z*(1-z)   # cráneo más redondo arriba
         if z>0.75:z*=1-0.06*(z-0.75)/0.25   # sin coronilla en punta
         v.co=Vector((x*rx,y*ry,z*rz))+HC
+    # más resolución alrededor de los ojos, para que la almendra salga curva
+    near=set()
+    for f in bm.faces:
+        q=f.calc_center_median()-HC;a=math.atan2(q.x,-q.y)
+        for sg in(1,-1):
+            if ((a-EYE_A*sg)/(EYE_W*2.2))**2+((q.z-EYE_Z)/(EYE_H*3.2))**2<1:near.add(f)
+    ed=set(e for f in near for e in f.edges)
+    bmesh.ops.subdivide_edges(bm,edges=list(ed),cuts=2,use_grid_fill=True)
     # aberturas de los ojos (almendra): detrás van los globos oculares
     kill=[]
     for f in bm.faces:
@@ -110,6 +120,15 @@ def head_mesh(name,beard=False):
             da=a-EYE_A*sg;zz=q.z-EYE_Z-0.004*math.cos(da/EYE_W*1.57)*0   # almendra
             if (da/EYE_W)**2+(zz/(EYE_H*(1-0.35*(da*sg)/EYE_W)))**2<1:kill.append(f)
     bmesh.ops.delete(bm,geom=kill,context='FACES')
+    bm.normal_update()
+    for v in bm.verts:   # párpados: el superior sobresale y baja un poco sobre el ojo; el inferior marca el borde
+        q=v.co-HC;a=math.atan2(q.x,-q.y)
+        for sg in(1,-1):
+            da=a-EYE_A*sg;dz=q.z-EYE_Z;e=math.sqrt((da/EYE_W)**2+(dz/EYE_H)**2)
+            if 0.85<e<1.9 and abs(da)<EYE_W*1.25:
+                k=max(0,1-(e-0.85)/1.05)
+                if dz>0:v.co+=v.normal*0.0032*k-Vector((0,0,0.0011*k))
+                else:v.co+=v.normal*0.0014*k
     me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
     for p in me.polygons:p.use_smooth=True
     head_uv(me)
@@ -145,14 +164,15 @@ def head_uv(me):   # UV cilíndrica: la cara queda en el centro de la textura
             co=me.vertices[me.loops[li].vertex_index].co-HC;a=math.atan2(co.x,-co.y)
             uv.data[li].uv=(0.5+a/TAU,(co.z+0.16)/0.34)
 def nose_mesh(name):   # nariz: puente estrecho que se ensancha hacia la punta, con aletas
-    bm=bmesh.new();N=10;K=8;rings=[]
+    bm=bmesh.new();N=14;K=14;rings=[]
     for i in range(N+1):
-        t=i/N;z=HC.z+0.018-t*0.052;w=0.0065+0.0095*t**1.5;pr=0.004+0.026*t**1.25   # ancho y cuánto sobresale
+        t=i/N;z=HC.z+0.018-t*0.052;w=0.006+0.0078*t**1.5;pr=0.004+0.025*t**1.25   # ancho y cuánto sobresale
         yb=HC.y-HR[1]*0.985   # superficie de la cara
         ring=[]
         for k in range(K):
             q=k/K*TAU;x=math.cos(q)*w;yy=-max(0,math.sin(q))*pr+0.004
-            if t>0.8:x*=1+0.6*(t-0.8)/0.2*(1-abs(math.sin(q)))   # aletas
+            if t>0.8:x*=1+0.3*(t-0.8)/0.2*(1-abs(math.sin(q)))   # aletas
+            if t>0.9:yy*=1-0.5*(t-0.9)/0.1   # la punta se redondea hacia abajo
             ring.append(bm.verts.new((x,yb+yy,z)))
         rings.append(ring)
     for i in range(N):
@@ -175,6 +195,12 @@ def hairline(a):return 0.07-0.035*math.cos(a)+0.006*math.sin(a*13)
 def _sm(x):x=min(1,max(0,x));return x*x*(3-2*x)
 def hair_weight(kind,co):   # 0 fuera, 1 dentro, con transición suave en el borde
     q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
+    if kind=='cejas':
+        w=0
+        for sg in(1,-1):
+            da=a-EYE_A*sg;zb=0.036-0.008*(da*sg/0.13)**2+0.004*(da*sg/0.13)   # arco que sube hacia fuera
+            w=max(w,_sm((0.0068-abs(z-zb))/0.003)*_sm((0.14-abs(da+0.015*sg))/0.04))
+        return w
     if kind=='pelo':return _sm((z-hairline(a)+0.003)/0.012)
     zl=-0.05+0.045*min(1,max(0,abs(a)-0.25)/0.6)
     w=_sm((zl-z)/0.012)*_sm((1.35-abs(a))/0.18)
@@ -183,13 +209,15 @@ def hair_weight(kind,co):   # 0 fuera, 1 dentro, con transición suave en el bor
 def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza en la zona del pelo, que se afina hasta la piel en el borde
     me=head.data;bm=bmesh.new();bm.from_mesh(me);bm.verts.ensure_lookup_table()
     W={v:hair_weight(kind,v.co) for v in bm.verts}
-    bmesh.ops.delete(bm,geom=[f for f in bm.faces if sum(W[v] for v in f.verts)/len(f.verts)<0.55],context='FACES')
+    thr=0.3 if kind=='cejas' else 0.55
+    bmesh.ops.delete(bm,geom=[f for f in bm.faces if sum(W[v] for v in f.verts)/len(f.verts)<thr],context='FACES')
     bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
     for v in bm.verts:
         w=W[v];q=v.co-HC;a=math.atan2(q.x,-q.y);n=Vector((q.x/HR[0]**2,q.y/HR[1]**2,q.z/HR[2]**2)).normalized()
         lock=max(0,math.sin(a*14+math.sin(q.z*60)*1.5))**1.5*max(0,math.sin(q.z*110+a*5))   # mechones en relieve
         curl=0.5+0.5*math.sin(a*26+q.z*170)*math.sin(a*11-q.z*90)
-        if kind=='pelo':off=0.004+0.006*curl+0.008*lock
+        if kind=='cejas':off=0.0028+0.0012*curl
+        elif kind=='pelo':off=0.004+0.006*curl+0.005*lock
         else:off=0.003+0.006*curl+0.006*lock+0.012*max(0,-(q.z+0.06))/0.07
         v.co+=n*(off*w+0.0006)
     me2=bpy.data.meshes.new(name);bm.to_mesh(me2);bm.free();ob=bpy.data.objects.new(name,me2);scn.collection.objects.link(ob)
@@ -464,12 +492,20 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, ce
     for s2 in(1,-1):shade+=0.06*np.exp(-((a*s2-(0.17+np.clip(-z-0.04,0,0.06)*1.6))/0.03)**2)*((z<-0.035)&(z>-0.095))   # surcos de la nariz a la boca
     shade+=0.16*np.clip((-z-0.1)/0.05,0,1)+0.12*np.clip((np.abs(a)-0.9)/0.6,0,1)   # bajo la mandíbula y hacia los lados
     col*=(1+light-shade)[...,None]
+    red=0.10*(G(0.5,-0.03,0.18,0.02)+G(-0.5,-0.03,0.18,0.02))+0.12*G(0,-0.03,0.06,0.012)   # mejillas y punta de la nariz
+    col+=np.array([0.10,-0.02,-0.03])[None,None,:]*red[...,None]
+    for s2 in(1,-1):
+        col*=(1-0.10*G(EYE_A*s2,EYE_Z+0.016,0.13,0.004)-0.07*G(EYE_A*s2,EYE_Z-0.013,0.12,0.006))[...,None]   # pliegue del párpado y ojera
+    pore=blur(np.random.RandomState(11).rand(H,W),1);col*=(0.97+0.06*pore)[...,None]
     for s2 in(1,-1):
         da=a-EYE_A*s2
         rim=((da/(EYE_W*1.25))**2+((z-EYE_Z)/(EYE_H*1.45))**2<1)
         layer(rim,'#5a3424',0.55,2)   # sombra del párpado alrededor de la abertura
         layer((np.abs(da)<EYE_W*1.05)&(np.abs(z-EYE_Z-EYE_H*0.95)<0.0022),'#2a1a10',0.85,1)   # línea del párpado superior
-        layer((np.abs(da+0.02*s2)<0.13)&(np.abs(z-0.038-0.01*np.cos(da*8))<0.0045),hair,0.85,1)   # ceja
+        zb=0.035-0.006*(da*s2/0.13)**2+0.0015*(da*s2/0.13);th=0.0042*(1-0.4*np.clip((da*s2+0.13)/0.26,0,1))
+        bmask=(np.abs(da+0.015*s2)<0.14)&(np.abs(z-zb)<th)
+        strokes=0.75+0.35*np.sin((a*s2)*260+z*900)
+        layer(bmask,hexc(hair)[None,None,:]*strokes[...,None],0.9,1)   # ceja con trazo de pelo
     lipw=0.15*(1-0.35*np.clip(np.abs(a)/0.15,0,1)**2)
     layer((np.abs(a)<lipw)&(z>-0.0705)&(z<-0.066),'#7e4236',0.8,1)   # labio superior
     layer((np.abs(a)<lipw*0.95)&(z>-0.076)&(z<-0.0705),'#9a5a4a',0.7,1)   # labio inferior
