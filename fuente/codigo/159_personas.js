@@ -38,7 +38,7 @@ function p2Tube(pts,rad,seg){const pos=[],idx=[],up=new THREE.Vector3(1,0,0),t=n
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;}
 function p2Arm(s){const V=(x,y,z)=>new THREE.Vector3(x*s,y,z);
   const pts=[V(0,0.03,0),V(0.005,-0.08,0.0),V(0.01,-0.2,0.005),V(0.012,-0.31,0.015),V(0.01,-0.34,0.02),V(0.008,-0.46,0.045),V(0.006,-0.58,0.07),V(0.005,-0.62,0.078)];
-  const rad=[0.05,0.052,0.046,0.038,0.036,0.035,0.028,0.026];const arm=p2Tube(pts,rad,10);
+  const rad=[0.055,0.057,0.05,0.041,0.038,0.036,0.029,0.027];const arm=p2Tube(pts,rad,10);
   const sh=new THREE.SphereGeometry(0.052,10,8);sh.translate(0,0.02,0);
   const palm=new THREE.SphereGeometry(1,10,8);palm.scale(0.022,0.05,0.036);palm.translate(0.004*s,-0.665,0.085);
   const fing=new THREE.SphereGeometry(1,8,6);fing.scale(0.018,0.035,0.03);fing.translate(0.002*s,-0.715,0.09);

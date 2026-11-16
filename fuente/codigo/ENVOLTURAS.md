@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-239 funciones ampliadas, 379 capas.
+240 funciones ampliadas, 382 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -24,6 +24,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 3 | `148`:150 · `151`:75 · `180`:60 |
+| `chunked` | `005_modelos_de_blender.js` | 3 | `155`:21 · `182`:51 · `183`:58 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
 | `pdData` | `162_panel_docente.js` | 3 | `166`:46 · `169`:21 · `180`:28 |
@@ -33,12 +34,12 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atDescOf` | `103_mirar_con_atencion.js` | 2 | `103`:33 · `103`:48 |
 | `atShow` | `085_mirar_con_atencion.js` | 2 | `100`:142 · `134`:23 |
 | `atTick` | `085_mirar_con_atencion.js` | 2 | `100`:143 · `134`:24 |
+| `betterTrees` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `159`:60 · `183`:49 |
 | `buildAvatar` | `040_caballo.js` | 2 | `101`:52 · `900`:411 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `buildIslandMesh` | `012_escenarios_cuadrados.js` | 2 | `161`:13 · `900`:446 |
 | `buildTerrain` | `006_murallas_circuito_de_temistocles_reconstruido.js` | 2 | `161`:26 · `900`:427 |
 | `checkZone` | `014_hud.js` | 2 | `105`:502 · `900`:310 |
-| `chunked` | `005_modelos_de_blender.js` | 2 | `155`:21 · `182`:51 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
 | `destTrees` | `013_destinos_nuevos_grecia_italia_hispania.js` | 2 | `125`:39 · `900`:451 |
 | `eduReport` | `099_para_aprender_y_ensenar.js` | 2 | `106`:216 · `111`:140 |
@@ -85,7 +86,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `athensDecor` | `034_atenas.js` | 1 | `900`:407 |
 | `atPick` | `085_mirar_con_atencion.js` | 1 | `127`:85 |
 | `atUpdate` | `085_mirar_con_atencion.js` | 1 | `100`:141 |
-| `betterTrees` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `159`:60 |
 | `boatExit` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:500 |
 | `boatTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:499 |
 | `buildAcropolis` | `011_construccion_del_mundo.js` | 1 | `900`:408 |
@@ -186,6 +186,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `openJournal` | `019_biblioteca.js` | 1 | `128`:74 |
 | `openMap` | `020_plano.js` | 1 | `154`:12 |
 | `ovidSetup` | `075_las_metamorfosis_de_ovidio_libros.js` | 1 | `900`:388 |
+| `personMat` | `009_personas.js` | 1 | `183`:18 |
 | `phCaption` | `086_el_anfiteatro_flavio_por_dentro.js` | 1 | `151`:81 |
 | `pjAvatar` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `101`:51 |
 | `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `129`:79 |

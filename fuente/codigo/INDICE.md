@@ -186,4 +186,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `180_aula_y_grupo.js` | 70 | AULA Y GRUPO: modo examen, concurso en línea y accesibilidad ampliada |
 | `181_materiales.js` | 78 | MATERIALES: variación, desgaste, brillo y visor de modelos |
 | `182_relieves_y_detalle.js` | 68 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
+| `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
 | `900_creta_y_arranque.js` | 642 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
