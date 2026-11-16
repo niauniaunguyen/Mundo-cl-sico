@@ -3943,3 +3943,91 @@ Approximate link to the curriculum (lessons passed / available):
 @79c86eca
 <h3 style="margin-top:18px">Per sabers del currículum</h3><p class="sub">Relació orientativa entre les categories de les lliçons i els blocs de sabers de l'ESO (Geografia i Història; Cultura Clàssica, Llatí i Grec). No són codis oficials. Com més intens el color, més lliçons superades d'aquest bloc.</p>
 <h3 style="margin-top:18px">By curriculum area</h3><p class="sub">Approximate link between lesson categories and the areas of the Spanish secondary curriculum (Geography and History; Classical Culture, Latin and Greek). These are not official codes. The stronger the colour, the more lessons passed in that area.</p>
+
+@4d3b3446
+«Et vaig sentir a la Pnyx votar per la pau del Rei. Vas fer bé: amb el blat tallat a l'Hel·lespont no es podia continuar. Tot i que fa mal deixar Jònia als perses».
+«I heard you vote for the King's Peace on the Pnyx. You did right: with the grain cut off at the Hellespont we could not go on. Though it hurts to leave Ionia to the Persians».
+
+@1100eb87
+«Així que vas votar contra la pau… Valent, però la ciutat està esgotada i sense blat. El meu veí diu que ets un exaltat; jo crec que tens orgull d'atenenc».
+«So you voted against the peace… Brave, but the city is exhausted and has no grain. My neighbour says you're a hothead; I think you have Athenian pride».
+
+@b652921e
+«Vas votar els honors per a l'estranger que ens va ajudar. Bé: qui tracta bé Atenes ha de saber que Atenes no oblida».
+«You voted honours for the foreigner who helped us. Good: whoever treats Athens well should know that Athens does not forget».
+
+@a7885718
+«Vas votar contra honrar el pròxen? Hi ha qui pensa com tu: que els honors ja es donen massa fàcilment».
+«You voted against honouring the proxenos? Some people think like you: that honours are given too easily these days».
+
+@6aa4f5be
+«Vas donar la mà a Cabries. Bon soldat, sí, tot i que hi ha deu llocs i n'hi caben més».
+«You raised your hand for Chabrias. A good soldier, yes, though there are ten posts and room for more».
+
+@56a467bd
+«Vas votar Ifícrates, el dels peltastes. Els aristòcrates encara no li perdonen que sigui fill d'un sabater».
+«You voted for Iphicrates, the man of the peltasts. The aristocrats still can't forgive him for being a cobbler's son».
+
+@51e16e0d
+«Vas votar els dos generals. Això és saber comptar: són deu estrategs cada any».
+«You voted for both generals. That's knowing how to count: there are ten generals every year».
+
+@d12e66d6
+«Es diu que al Senat vas apostar pel sorteig entre els consulars. Així es fa: que la sort reparteixi i ningú no s'ofengui».
+«They say in the Senate you bet on drawing lots among the ex-consuls. That's how it's done: let chance decide and nobody takes offence».
+
+@b621950f
+«Diuen que creies que es votarien els comissionats per a Campània. Aquí gairebé tot es deixa a la sort… o al príncep».
+«They say you thought the commissioners for Campania would be voted on. Here nearly everything is left to chance… or to the emperor».
+
+@1d81ba33
+«M'han explicat que a la Cúria vas donar per fet que pagaria el príncep. I així és: Titus obre la bossa, i després se li agraeix».
+«I'm told that in the Curia you took it for granted that the emperor would pay. And so he does: Titus opens his purse, and then he is thanked».
+
+@b4f0b9a3
+«Creies que pagarien les ciutats d'Itàlia? Prou feina tenen amb la cendra del Vesuvi».
+«You thought the cities of Italy would pay? They have enough on their hands with the ash of Vesuvius».
+
+@a06c59e5
+«Ets tu qui va portar la carta des de tan lluny? Aquí això s'agraeix: sense viatgers com tu, no sabríem res dels nostres».
+«Are you the one who brought the letter from so far away? That is appreciated here: without travellers like you we'd know nothing of our people».
+
+@e0e3e4d7
+"«Diuen que has estat parlant amb "
+"«They say you've been talking to "
+
+@38c4fb6d
+. Res menys! És veritat tot el que s'explica?»
+. No less! Is everything they say true?»
+
+@596d7a50
+<span class="n">☞</span><span>«Coneixes algú que en sàpiga més que jo d'altres coses?»</span>
+<span class="n">☞</span><span>«Do you know someone who knows more than me about other things?»</span>
+
+@f8bfa8ca
+<p>«Ja coneixes tots els que jo conec. Ara ets tu qui m'hauria de presentar algú!»</p>
+<p>«You already know everyone I know. Now you should be introducing people to me!»</p>
+
+@beba5c19
+<p>«Ves a veure <b>
+<p>«Go and see <b>
+
+@7eb5c7d3
+. Digues-li que hi vas de part meva: et parlarà de <i>
+. Tell them I sent you: they'll talk to you about <i>
+
+@8b3fde91
+el seu tema
+their subject
+
+@6281f801
+Vens recomanat: això obre portes.
+You come recommended: that opens doors.
+
+@8ad1e18c
+</i>. T'indico per on».</p><p class="sub">Veuràs una columna de llum on és. Entre els antics, una carta o una paraula de recomanació obria portes: Ciceró en va escriure un llibre sencer (Cartes als familiars, llibre 13).</p>
+</i>. I'll show you the way».</p><p class="sub">You'll see a column of light where they are. Among the ancients, a letter or a word of recommendation opened doors: Cicero wrote a whole book of them (Letters to Friends, book 13).</p>
+
+@4c81756b
+<p class="sub" style="border-left:3px solid #c98a4a;padding-left:8px">«Véns de part d'un amic? Doncs passa, seu: per a tu tinc temps».</p>
+<p class="sub" style="border-left:3px solid #c98a4a;padding-left:8px">«A friend sent you? Then come in, sit down: I have time for you».</p>
