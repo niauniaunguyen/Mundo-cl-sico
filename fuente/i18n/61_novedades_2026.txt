@@ -3863,3 +3863,83 @@ You vault more and more smoothly.
 @32835570
 <kbd>E</kbd>Saltar el muret
 <kbd>E</kbd>Vault the wall
+
+@55cc0639
+Geografia i Història
+Geography and History
+
+@2949d543
+Formes de govern i ciutadania
+Forms of government and citizenship
+
+@a4747395
+la polis i la democràcia; la República i l'Imperi; qui hi participa i qui no
+the polis and democracy; the Republic and the Empire; who takes part and who does not
+
+@cb70615a
+Societat, economia i vida quotidiana
+Society, economy and daily life
+
+@085c09d5
+lliures i esclaus, dones, treball, comerç, educació, la casa
+free people and slaves, women, work, trade, education, the home
+
+@e340ce4a
+Fets i processos històrics
+Historical events and processes
+
+@a955a3d2
+guerres, expansió, colònies, el territori i els seus canvis
+wars, expansion, colonies, the land and how it changes
+
+@6d852aeb
+Art i patrimoni
+Art and heritage
+
+@745bb00b
+temples, escultura, urbanisme; com es conserva i s'estudia
+temples, sculpture, town planning; how it is preserved and studied
+
+@0b006312
+Cultura Clàssica, Llatí i Grec
+Classical Culture, Latin and Greek
+
+@7731870a
+Mitologia i religió
+Mythology and religion
+
+@5f502cd5
+déus, herois, ritus, oracles i festes
+gods, heroes, rites, oracles and festivals
+
+@cfafa166
+Pensament i ciència
+Thought and science
+
+@c0f80d49
+filosofia, medicina, astronomia, tècnica
+philosophy, medicine, astronomy, technology
+
+@d86cee07
+Llegat clàssic
+Classical legacy
+
+@dd5fca77
+institucions, paraules, art i idees que han arribat fins avui
+institutions, words, art and ideas that have come down to us
+
+@24cf1b1a
+Relació orientativa amb el currículum (lliçons superades / disponibles):
+Approximate link to the curriculum (lessons passed / available):
+
+@7a4f65fc
+"<p><b>El menys treballat per la classe:</b> "
+"<p><b>Least covered by the class:</b> "
+
+@2bb2183a
+. A Aprendre › Rutes per temes hi ha recorreguts guiats per reforçar-ho.</p>
+. Learn › Routes by topic has guided routes to reinforce it.</p>
+
+@79c86eca
+<h3 style="margin-top:18px">Per sabers del currículum</h3><p class="sub">Relació orientativa entre les categories de les lliçons i els blocs de sabers de l'ESO (Geografia i Història; Cultura Clàssica, Llatí i Grec). No són codis oficials. Com més intens el color, més lliçons superades d'aquest bloc.</p>
+<h3 style="margin-top:18px">By curriculum area</h3><p class="sub">Approximate link between lesson categories and the areas of the Spanish secondary curriculum (Geography and History; Classical Culture, Latin and Greek). These are not official codes. The stronger the colour, the more lessons passed in that area.</p>

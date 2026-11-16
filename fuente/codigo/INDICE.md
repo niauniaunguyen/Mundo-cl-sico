@@ -172,4 +172,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `166_repaso.js` | 47 | REPASO ESPACIADO: lo aprendido vuelve a preguntarse días después |
 | `167_indice_fuentes.js` | 63 | BIBLIOTECA: ÍNDICE DE FUENTES POR AUTOR |
 | `168_saltar_muretes.js` | 57 | SALTAR MURETES: «E · Saltar el murete» y un salto lateral ágil |
+| `169_curriculo.js` | 34 | CURRÍCULO: qué saberes trabaja cada lección (relación orientativa) |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

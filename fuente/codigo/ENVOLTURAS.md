@@ -7,17 +7,17 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-221 funciones ampliadas, 323 capas.
+222 funciones ampliadas, 326 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 16 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 |
 | `egxAct0` | `060_egipto_2.js` | 15 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 |
 | `atCands` | `085_mirar_con_atencion.js` | 6 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 |
+| `dzReport` | `151_diez_ideas.js` | 5 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `gmRight` | `121_menu_de_esc.js` | 5 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 |
 | `answer` | `015_dialogo.js` | 4 | `091`:38 · `092`:46 · `148`:58 · `154`:11 |
-| `dzReport` | `151_diez_ideas.js` | 4 | `154`:17 · `158`:43 · `162`:10 · `166`:44 |
 | `fareOf` | `016_viajes_en_barco.js` | 4 | `052`:509 · `090`:102 · `091`:52 · `097`:70 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
@@ -52,6 +52,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `lrnSummary` | `148_aprender.js` | 2 | `151`:41 · `154`:25 |
 | `natAct` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:227 · `097`:89 |
 | `natSetup` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:228 · `900`:386 |
+| `pdData` | `162_panel_docente.js` | 2 | `166`:46 · `169`:21 |
 | `personWalk` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `129`:80 · `146`:162 |
 | `phToggle` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `089`:37 · `134`:22 |
 | `playerLook` | `040_caballo.js` | 2 | `076`:135 · `101`:50 |
@@ -175,7 +176,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `openJournal` | `019_biblioteca.js` | 1 | `128`:74 |
 | `openMap` | `020_plano.js` | 1 | `154`:12 |
 | `ovidSetup` | `075_las_metamorfosis_de_ovidio_libros.js` | 1 | `900`:388 |
-| `pdData` | `162_panel_docente.js` | 1 | `166`:46 |
+| `pdRender` | `162_panel_docente.js` | 1 | `169`:23 |
 | `phCaption` | `086_el_anfiteatro_flavio_por_dentro.js` | 1 | `151`:81 |
 | `pjAvatar` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `101`:51 |
 | `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `129`:79 |
