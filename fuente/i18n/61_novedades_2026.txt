@@ -4031,3 +4031,159 @@ You come recommended: that opens doors.
 @4c81756b
 <p class="sub" style="border-left:3px solid #c98a4a;padding-left:8px">«Véns de part d'un amic? Doncs passa, seu: per a tu tinc temps».</p>
 <p class="sub" style="border-left:3px solid #c98a4a;padding-left:8px">«A friend sent you? Then come in, sit down: I have time for you».</p>
+
+@88ddb535
+Algú
+Someone
+
+@b6382696
+El vi
+The wine
+
+@ee08358d
+un banquet
+a banquet
+
+@d84ba13d
+Preparar un banquet
+Prepare a banquet
+
+@02a892bf
+casa teva
+your house
+
+@7983ebb6
+Aquesta nit hi ha banquet (sympósion) a casa teva. Repartiu-vos la feina: algú porta la cràtera dels terrissers, algú el vi i algú l'aigua de la font. Quan hi sigui tot, reuniu-vos-hi.
+Tonight there is a banquet (symposion) at your house. Share out the work: someone fetches the krater from the potters, someone the wine and someone the water from the fountain. When you have everything, meet there.
+
+@2cdda270
+La cràtera
+The krater
+
+@33583df1
+Al barri dels terrissers tries una cràtera pintada, el vas gran on es barreja el vi amb l'aigua.
+In the potters' quarter you choose a painted krater, the large bowl where wine is mixed with water.
+
+@ef8fe02e
+Al mercat compres una àmfora de vi de Quios: el millor, i el més car.
+In the market you buy an amphora of Chian wine: the best, and the dearest.
+
+@03d5f750
+L'aigua fresca
+Fresh water
+
+@f4e080f5
+Omples una hídria a la font: el vi es beu barrejat amb molta aigua.
+You fill a hydria at the fountain: wine is drunk mixed with plenty of water.
+
+@f68f4e43
+Preparar un sopar
+Prepare a dinner
+
+@ea2a7e54
+el triclini de la domus
+the triclinium of the domus
+
+@957ec8a8
+Aquesta nit hi ha sopar a la domus. Repartiu-vos la feina: algú va al gran mercat a buscar el menjar, algú al forn de la Subura a buscar el pa, algú a la font a buscar aigua i algú a buscar l'últim convidat a la sortida de les termes. Després, tothom al triclini.
+Tonight there is dinner at the domus. Share out the work: someone goes to the great market for the food, someone to the Subura bakery for bread, someone to the fountain for water and someone to fetch the last guest from the baths. Then everyone to the triclinium.
+
+@5959f525
+El menjar
+The food
+
+@48bed764
+Al mercat de Neró compres peix, olives, ous i un bon tros de porc.
+At Nero's market you buy fish, olives, eggs and a good piece of pork.
+
+@1c03b680
+El pa
+The bread
+
+@e87ad39f
+En un forn (pistrinum) de la Subura compres pans rodons, marcats en vuit porcions.
+At a bakery (pistrinum) in the Subura you buy round loaves, scored into eight portions.
+
+@a8a9a646
+L'aigua
+The water
+
+@4c15d220
+A la font del barri omples una gerra: el vi se serveix amb aigua, de vegades calenta.
+At the neighbourhood fountain you fill a jug: wine is served with water, sometimes hot.
+
+@83d7e92d
+L'últim convidat
+The last guest
+
+@e82a9509
+A la sortida de les Termes de Titus trobes el teu amic… i un que s'hi apunta sense que ningú el convidi. Marcial es burla d'un així, que et persegueix per totes les termes fins que el convides a sopar (Epigrames 12, 82).
+Leaving the Baths of Titus you find your friend… and someone who tags along uninvited. Martial mocks one such man, who follows you round the whole baths until you invite him to dinner (Epigrams 12.82).
+
+@84302d32
+La missió de grup és per jugar en línia: entra abans en una sala (menú › En línia).
+The group mission is for online play: join a room first (menu › Online).
+
+@5c8026df
+✓ aconseguit
+✓ done
+
+@b5dfdf01
+"se n'encarrega: "
+"taken by: "
+
+@451fd6c2
+encara ningú
+nobody yet
+
+@97f34f66
+" <span class=\"sub\">(ves al lloc marcat)</span>"
+" <span class=\"sub\">(go to the marked spot)</span>"
+
+@6b518f52
+">Me n'encarrego jo</button>
+">I'll do it</button>
+
+@342cc0e7
+"<p><b>Ja ho tenim tot! Reuniu-vos a "
+"<p><b>Everything is ready! Meet at "
+
+@f921d37d
+</span><br>Te n'encarregues tu. Ves al lloc marcat amb la columna de llum.
+</span><br>It's your job. Go to the spot marked with the column of light.
+
+@ce442bf0
+"</span><br>Ja ho tenim tot! Reuniu-vos a "
+"</span><br>Everything is ready! Meet at "
+
+@c3f24ff7
+" (columna de llum)."
+" (column of light)."
+
+@bdfd69d9
+" Però cal que hi col·labori algú més: entre tots, almenys dos."
+" But someone else still needs to help: at least two of you in all."
+
+@f05a5eac
+El banquet ha estat un èxit.
+The banquet was a success.
+
+@efe7f1f0
+Missió de grup
+Group mission
+
+@5b12ff36
+<p>Us recolzeu als llits, amb corones al cap. Primer s'aboca una mica de vi pur per al «bon geni» (Agathós Daímon); després el que presideix, el simposiarca, decideix quanta aigua porta cada cràtera. Beure el vi sense barrejar és cosa de bàrbars: s'explica que el rei espartà Cleòmenes va embogir per beure'l pur, com els escites (Heròdot 6, 84).</p><p>Al Banquet de Plató els convidats acorden beure amb moderació per poder parlar de l'amor tota la nit (176a-e); al de Xenofont hi ha música, endevinalles i una ballarina. El banquet és això: vi, conversa i amistat.</p>
+<p>You recline on the couches, with garlands on your heads. First a little unmixed wine is poured for the «good spirit» (Agathos Daimon); then the one presiding, the symposiarch, decides how much water goes into each krater. Drinking wine unmixed is for barbarians: they say the Spartan king Cleomenes went mad from drinking it neat, like the Scythians (Herodotus 6.84).</p><p>In Plato's Symposium the guests agree to drink in moderation so they can talk about love all night (176a-e); in Xenophon's there is music, riddles and a dancer. That is what a symposion is: wine, conversation and friendship.</p>
+
+@3e8f7ac6
+<p>Us recolzeu en tres llits al voltant de la taula, com mana el costum: el triclini. Varró deia que els convidats no han de ser menys que les Gràcies ni més que les Muses: entre tres i nou (a Aule Gel·li, Nits àtiques 13, 11, 2). Primer els entrants amb ous, després els plats forts i, al final, la fruita: «de l'ou a les pomes» (Horaci, Sàtires 1, 3, 6-7).</p><p>Abans de les postres s'ofereix alguna cosa als Lars. Després, conversa, música… i algun esclau que llegeix poesia.</p>
+<p>You recline on three couches round the table, as custom requires: the triclinium. Varro said that guests should be no fewer than the Graces and no more than the Muses: between three and nine (in Aulus Gellius, Attic Nights 13.11.2). First starters with eggs, then the main dishes and, at the end, fruit: «from the egg to the apples» (Horace, Satires 1.3.6-7).</p><p>Before dessert something is offered to the Lares. Then conversation, music… and perhaps a slave reading poetry.</p>
+
+@03229a83
+</p><div id="coopL"></div><p class="sub">Cal que hi col·laborin almenys dues persones. Cadascú veu a la seva pantalla el que han aconseguit els altres.</p>
+</p><div id="coopL"></div><p class="sub">At least two people need to take part. Everyone sees on their screen what the others have got.</p>
+
+@8bd9ed9f
+"<p class=\"sub\">Amb "
+"<p class=\"sub\">With "

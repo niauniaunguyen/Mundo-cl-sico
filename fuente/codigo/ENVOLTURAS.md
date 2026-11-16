@@ -7,11 +7,11 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-223 funciones ampliadas, 331 capas.
+224 funciones ampliadas, 333 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 17 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 18 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 |
 | `egxAct0` | `060_egipto_2.js` | 15 | `113`:112 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 |
 | `atCands` | `085_mirar_con_atencion.js` | 6 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 |
 | `dzReport` | `151_diez_ideas.js` | 5 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 |
@@ -171,6 +171,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `mktSetup` | `058_dias_de_mercado.js` | 1 | `900`:384 |
 | `mtSetup` | `092_ayuda_sin_llevar_de_la.js` | 1 | `900`:385 |
 | `natSpring` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `102`:84 |
+| `netList` | `045_modo_libre_en_linea_hasta.js` | 1 | `171`:49 |
 | `newDay` | `014_hud.js` | 1 | `090`:109 |
 | `obSay` | `157_llegada.js` | 1 | `160`:18 |
 | `ofSetup` | `057_oficios.js` | 1 | `900`:387 |
