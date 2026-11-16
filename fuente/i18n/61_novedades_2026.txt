@@ -4187,3 +4187,155 @@ Group mission
 @8bd9ed9f
 "<p class=\"sub\">Amb "
 "<p class=\"sub\">With "
+
+@7ab18fe0
+pare de Ròmul i avantpassat dels romans
+father of Romulus and ancestor of the Romans
+
+@d5f66d32
+mare d'Enees i de la família Júlia
+mother of Aeneas and of the Julian family
+
+@a971c1f7
+El Diví Juli
+The Divine Julius
+
+@28b4b8ee
+Cèsar, convertit en déu després de la seva mort
+Caesar, made a god after his death
+
+@2d60c05c
+La cúpula i la llum
+The dome and the light
+
+@432d5210
+com era per dins?
+what was it like inside?
+
+@8a4c2726
+Vestidor (apodyterium)
+Changing room (apodyterium)
+
+@7902eb66
+Et despulles i deixes la roba en un forat de la paret. Convé pagar un esclau perquè la vigili: els lladres de roba de les termes són famosos, i hi ha tauletes de maledicció contra ells.
+You undress and leave your clothes in a niche in the wall. It's wise to pay a slave to watch them: bath-house clothes thieves are notorious, and there are curse tablets against them.
+
+@2917a40e
+Sala tèbia (tepidarium)
+Warm room (tepidarium)
+
+@a3aea578
+Una sala tèbia per acostumar el cos a la calor. Aquí t'unten d'oli i te'l rasquen després amb l'estrígil, una fulla corbada de bronze: així es neteja la pell, sense sabó.
+A lukewarm room to get the body used to the heat. Here you are oiled and then scraped with the strigil, a curved bronze blade: that is how skin is cleaned, without soap.
+
+@0298c726
+Sala calenta (caldarium)
+Hot room (caldarium)
+
+@e49486a6
+Calor humida: l'aire calent del forn passa per sota del terra, que es recolza en piles de maó (l'hipocaust), i per tubs dins de les parets. Hi ha una piscina calenta i una gran pica (labrum) per refrescar-se la cara.
+Moist heat: hot air from the furnace passes under the floor, which rests on brick stacks (the hypocaust), and through pipes inside the walls. There is a hot pool and a large basin (labrum) to cool your face.
+
+@2b5db0e7
+Sala freda (frigidarium)
+Cold room (frigidarium)
+
+@096b9dab
+Una capbussada a l'aigua freda per tancar els porus i acabar. És la sala més gran i més alta, i la més fresca a l'estiu.
+A plunge into cold water to close the pores and finish. It is the largest and tallest room, and the coolest in summer.
+
+@2a1dad81
+T'has banyat com un romà.
+You have bathed like a Roman.
+
+@c3edd6e4
+Un bany complet
+A complete bath
+
+@993b7063
+<p>Has fet el recorregut d'un bany romà: vestidor, sala tèbia, sala calenta i, per acabar, l'aigua freda. S'hi anava gairebé cada dia, a la tarda, i per molt pocs diners: un quart d'as (Horaci, Sàtires 1, 3, 137) i de franc els dies que un magistrat o l'emperador ho pagaven.</p><p>Vitruvi explica com s'escalfen les sales amb l'hipocaust i per què la calenta mira al sol de la tarda (Sobre l'arquitectura 5, 10). Sèneca, que vivia damunt d'uns banys, es queixa del soroll: els que aixequen peses bufant, el depilador que crida per anunciar-se, els venedors de pastissos i salsitxes (Cartes 56, 1-2).</p><p class="sub">Les Termes de Titus es van inaugurar aquest any, al costat de l'amfiteatre (Suetoni, Titus 7, 3). La seva planta es coneix pels dibuixos que va fer Andrea Palladio al segle XVI; la distribució de les sales al joc és simplificada.</p>
+<p>You have done the round of a Roman bath: changing room, warm room, hot room and, to finish, the cold water. People went almost every day, in the afternoon, for very little money: a quarter of an as (Horace, Satires 1.3.137), and free on days when a magistrate or the emperor paid.</p><p>Vitruvius explains how the rooms are heated with the hypocaust and why the hot room faces the afternoon sun (On Architecture 5.10). Seneca, who lived above a bath-house, complains of the noise: men grunting as they lift weights, the hair-plucker shouting to advertise himself, the sellers of cakes and sausages (Letters 56.1-2).</p><p class="sub">The Baths of Titus were opened this year, next to the amphitheatre (Suetonius, Titus 7.3). Their plan is known from drawings made by Andrea Palladio in the 16th century; the layout of the rooms in the game is simplified.</p>
+
+@f9abc87b
+Un banyista riu: «A l'aigua freda tan aviat? Primer s'entra en calor: tèbia, calenta… i després la freda».
+A bather laughs: «Into the cold water so soon? First you warm up: warm room, hot room… and then the cold».
+
+@0e47054b
+Tribunal dels centumvirs
+Court of the Centumviri
+
+@486156b2
+plets d'herències
+inheritance cases
+
+@d96e5d35
+Mart, el déu de la guerra i pare de Ròmul. Dió Cassi explica que al Panteó d'Agripa hi havia estàtues de molts déus, entre elles les de Mart i Venus, i una del Diví Juli (Història romana 53, 27, 2-3). Agripa hi va voler posar també una d'August; August no ho va acceptar, i la seva estàtua i la d'Agripa es van posar fora, al pòrtic.
+Mars, the god of war and father of Romulus. Cassius Dio says that Agrippa's Pantheon held statues of many gods, among them Mars and Venus, and one of the Divine Julius (Roman History 53.27.2-3). Agrippa also wanted to put one of Augustus there; Augustus refused, and his statue and Agrippa's were placed outside, in the porch.
+
+@2c21cf26
+Venus, la mare d'Enees: els Julis deien que en descendien, així que honrar-la aquí era honrar la família d'August (Dió Cassi 53, 27, 2). Plini explica que la Venus del Panteó portava a les orelles les dues meitats d'una perla de Cleòpatra (Història natural 9, 121).
+Venus, mother of Aeneas: the Julii claimed descent from her, so honouring her here honoured Augustus's family (Cassius Dio 53.27.2). Pliny says the Venus of the Pantheon wore in her ears the two halves of one of Cleopatra's pearls (Natural History 9.121).
+
+@40aa3232
+El Diví Juli: Juli Cèsar, que el Senat va declarar déu després de la seva mort. La seva estàtua era entre les dels déus (Dió Cassi 53, 27, 3).
+The Divine Julius: Julius Caesar, declared a god by the Senate after his death. His statue stood among those of the gods (Cassius Dio 53.27.3).
+
+@ae8a9044
+<p>Veus una rotonda amb cúpula i una obertura rodona a dalt, l'òcul, per on entra l'única llum i també la pluja (el terra té desguassos).</p><p><b>Compte: així és el Panteó que reconstruirà Adrià cap al 125 dC</b>, el que es conserva. Del d'Agripa (27-25 aC) no en sabem bé la forma: les excavacions mostren que també mirava al nord, però no si tenia cúpula. Plini explica que tenia capitells de bronze i cariàtides de l'escultor atenenc Diògenes (Història natural 34, 13 i 36, 38). I aquest mateix any, el 80, un incendi l'ha malmès (Dió Cassi 66, 24, 2).</p>
+<p>You see a rotunda with a dome and a round opening at the top, the oculus, through which comes the only light, and the rain too (the floor has drains).</p><p><b>Careful: this is the Pantheon Hadrian will rebuild around AD 125</b>, the one that survives. We don't know the shape of Agrippa's (27-25 BC) well: excavations show it also faced north, but not whether it had a dome. Pliny says it had bronze capitals and caryatids by the Athenian sculptor Diogenes (Natural History 34.13 and 36.38). And this very year, 80, a fire has damaged it (Cassius Dio 66.24.2).</p>
+
+@0125fa68
+L'advocat de l'hereu
+The heir's advocate
+
+@22cfff76
+«Jutges: el difunt Luci Valeri era amo dels seus béns i va escriure el testament amb plena raó, davant de set testimonis, amb el seu segell. Ho va deixar tot al seu amic Marc, que el va cuidar en la malaltia. Desfarem la voluntat d'un home lliure?»
+«Judges: the late Lucius Valerius owned his property and wrote his will in his right mind, before seven witnesses, with his seal. He left everything to his friend Marcus, who nursed him in his illness. Shall we undo the will of a free man?»
+
+@0d07662e
+L'advocat del fill
+The son's advocate
+
+@5069b442
+«Jutges: un pare pot deixar els seus béns a qui vulgui, sí. Però deixar el seu fill sense res, sense cap raó, sense ni tan sols esmentar-lo, va contra el deure d'un pare (officium). Un testament així no és fruit de la raó: és com si l'hagués escrit un boig. Demanem que s'anul·li».
+«Judges: a father may leave his property to whom he likes, yes. But to leave his son with nothing, for no reason, without even mentioning him, goes against a father's duty (officium). Such a will is not the fruit of reason: it is as if a madman had written it. We ask that it be annulled».
+
+@34670d72
+Escoltar l'altra part
+Hear the other side
+
+@7937f5ed
+Votar
+Vote
+
+@9019ad54
+<p>Els jutges donen el seu vot. Què votes tu?</p>
+<p>The judges cast their votes. How do you vote?</p>
+
+@b0383582
+Anul·lar el testament: el fill ha de rebre la seva part
+Annul the will: the son must receive his share
+
+@e260fd89
+Mantenir el testament: era la seva voluntat
+Uphold the will: it was his wish
+
+@2dd8e079
+Has jutjat a la Basílica Júlia.
+You have judged in the Basilica Julia.
+
+@af62fa40
+Votes amb la majoria: en casos així els centumvirs solien donar la raó al fill.
+You vote with the majority: in cases like this the Centumviri usually found for the son.
+
+@2220eec2
+Votes amb la minoria: en casos així els centumvirs solien donar la raó al fill.
+You vote with the minority: in cases like this the Centumviri usually found for the son.
+
+@961ddec9
+</p><p class="sub">Recorre les sales en l'ordre d'un bany: vestidor, tèbia, calenta i freda.</p>
+</p><p class="sub">Go through the rooms in the order of a bath: changing room, warm, hot and cold.</p>
+
+@1118c29e
+" Aquesta reclamació es diu «querella de testament inoficiós»: si un pare desheretava sense motiu els seus fills, el tribunal podia anul·lar el testament i donar-los la seva part.</p><p>El tribunal dels centumvirs jutja herències aquí, a la Basílica Júlia, amb uns 180 jutges repartits en quatre sales; el públic omple les galeries i s'hi aboca per sentir els advocats. Plini el Jove, advocat famós en aquest tribunal, descriu un plet així, el d'Àtia Viriola, desheretada pel seu pare quan ell tenia vuitanta anys (Cartes 6, 33). <span class=\"sub\">(Plini ho escriu cap al 106 dC: d'aquí a uns vint-i-cinc anys.)</span> Quintilià, que ensenya retòrica aquí al costat, parla sovint d'aquest tribunal a la seva Institució oratòria.</p>"
+" This claim is called the «complaint of an undutiful will»: if a father disinherited his children for no reason, the court could annul the will and give them their share.</p><p>The court of the Centumviri judges inheritances here, in the Basilica Julia, with some 180 judges split into four chambers; the public fills the galleries and leans over to hear the advocates. Pliny the Younger, a famous advocate in this court, describes such a case, that of Attia Viriola, disinherited by her eighty-year-old father (Letters 6.33). <span class=\"sub\">(Pliny writes this around AD 106: some twenty-five years from now.)</span> Quintilian, who teaches rhetoric next door, often speaks of this court in his Institutes of Oratory.</p>"

@@ -7,7 +7,7 @@ function addCirc(x,z,r){gridAdd({s:0,x,z,r},x-r,z-r,x+r,z+r);}
 function addBox(cx,cz,w,d,a,t=0.2){const c=[[-w/2,-d/2],[w/2,-d/2],[w/2,d/2],[-w/2,d/2]].map(p=>toW(p[0],p[1],cx,cz,a));for(let i=0;i<4;i++){const p=c[i],q=c[(i+1)%4];addSeg(p[0],p[1],q[0],q[1],t);}}
 // Cierra con una caja de colisión los edificios cuyo contorno no tiene paredes sólidas (termas, casas del Palatino,
 // pórticos…). No toca templos, teatros, plazas ni recintos abiertos, ni los edificios con personajes o estelas dentro.
-const OPEN_FP=/Teatro|Anfiteatro|Circo|Foro|Ágora|Agora|Academia|Liceo|Cinosarges|Cnosos|Pnyx|Ilión|Cadmea|Templo|Partenón|Hefestión|Erecteion|Propileos|Olimpieion|Gran templo|Hereo|Mausoleo|Ara|Reloj|Dípilon|Bema|Fuente|Odeón|Tholos/;
+const OPEN_FP=/Teatro|Anfiteatro|Circo|Foro|Ágora|Agora|Academia|Liceo|Cinosarges|Cnosos|Pnyx|Ilión|Cadmea|Templo|Partenón|Hefestión|Erecteion|Propileos|Olimpieion|Gran templo|Hereo|Mausoleo|Ara|Reloj|Dípilon|Bema|Fuente|Odeón|Tholos|Termas de Tito|Basílica Julia/;
 let SEALED=[];
 function sealFootprints(){
   const near=(x,z)=>{const i0=Math.floor(x/CELL),j0=Math.floor(z/CELL);for(let i=i0-1;i<=i0+1;i++)for(let j=j0-1;j<=j0+1;j++){const arr=cgrid.get(ck(i,j));if(!arr)continue;

@@ -124,7 +124,7 @@ function romaForum(){
   if(GLB.ok){const br=lam('#7d6a3e'),gb=lam('#a07c44');for(const[x,z,a]of[[-40,-30,0],[-20,-32,0],[0,-33,0],[20,-32,0],[-35,26,Math.PI],[-10,28,Math.PI],[100,-30,0],[-45,8,Math.PI/2]]){const gy=romaH(x,z),g=grp(x,gy,z,a);box(1.6,2.6,2.2,M.marble,0,1.3,0,g);box(1.9,0.3,2.5,M.marble,0,2.6,0,g);
     const st=makePerson({toga:true,chiton:'#7d6a3e',himation:'#7d6a3e',hair:'#7d6a3e',beard:R()<0.4,attrRoles:{cloth:br,drape:br,skin:gb,hair:br,sandal:br,eye:br}});st.scale.setScalar(1.25);st.position.y=2.75;g.add(st);addBox(x,z,1.6,2.2,a);}}
   basilica({x:20,z:-62,rot:0,L:88,D:28,name:'Basílica Emilia'});
-  basilica({x:-31,z:60,rot:Math.PI,L:101,D:49,name:'Basílica Julia'});   // 101 × 49 m (planta conservada); el borde este sigue en el Vico Tusco
+  basilica({x:-31,z:60,rot:Math.PI,L:101,D:49,name:'Basílica Julia',hollow:true});   // 101 × 49 m (planta conservada); el borde este sigue en el Vico Tusco
   romanTemple({x:-105,z:25,rot:Math.PI/2,W:22,L:40,pod:6,colD:1.4,colH:11,nW:6,deep:2,order:'ionic',pseudo:true,name:'Templo de Saturno'});
   romanTemple({x:-114,z:-28,rot:Math.PI/2,W:26,L:28,pod:4,colD:1.3,colH:12,nW:6,deep:1,name:'Templo de la Concordia'});
   romanTemple({x:45,z:40,rot:Math.PI,W:32,L:50,pod:6.5,colD:1.45,colH:12.5,nW:8,deep:3,peri:true,name:'Templo de Cástor y Pólux'});
@@ -219,12 +219,12 @@ function romaColosseum(){
    const cn=new THREE.Mesh(new THREE.ConeGeometry(2.2,14,16),BRICK);cn.position.y=7.5;g.add(cn);addCirc(300,90,8);}
   // Termas de Tito, sobre una terraza al norte del anfiteatro
   {const cx=480,cz=-140,gy=romaH(cx,cz)-0.1,g=grp(cx,gy,cz,0);
-   box(70,22+3,44,PLAST,0,(22+3)/2-3,-4,g);for(const s of[-1,1])box(28,15+3,56,PLAST,s*47,(15+3)/2-3,-4,g);
+   termasInterior(cx,cz,gy);for(const s of[-1,1])box(28,15+3,56,PLAST,s*47,(15+3)/2-3,-4,g);   // el bloque central se puede visitar (172_interiores_roma.js)
    const v=new THREE.Mesh(new THREE.CylinderGeometry(22,22,70,20,1,false,0,Math.PI),M.tile);v.rotation.z=Math.PI/2;v.scale.set(0.45,1,1);v.position.set(0,22,-4);g.add(v);
    const dm=new THREE.Mesh(new THREE.SphereGeometry(10,20,10,0,TAU,0,Math.PI/2),LEAD);dm.position.set(0,22,-4);g.add(dm);
    for(let i=0;i<8;i++){const lx=-28+i*8,wp=toW(lx,24,cx,cz,0);addColumn(wp[0],gy+0.6,wp[1],0.6,10,0,'corinthian');}
    box(70,1.4,7,M.marbleShade,0,11.3,23.5,g);gableRoof(g,72,8,12,3.4,M.tile,PLAST,true);box(72,0.6,9,TRAV,0,0.3,23.5,g);addPlat(cx,cz+23.5,72,9,0,gy+0.6);
-   addBox(cx,cz-4,124,56,0);footprints.push({x:cx,z:cz-4,w:124,d:56,a:0,c:'#e2d6c0',name:'Termas de Tito'});}
+   for(const s of[-1,1])addBox(cx+s*47,cz-4,28,56,0);footprints.push({x:cx,z:cz-4,w:124,d:56,a:0,c:'#e2d6c0',name:'Termas de Tito'});}
 }
 function romaCircus(){
   const C={x:65,z:405},gy=1,Lh=260,CA=CIRC_A,co=Math.cos(CA),si=Math.sin(CA),cr=(lx,lz)=>[C.x+lx*co+lz*si,C.z-lx*si+lz*co];ROMA.circ=C;   // girado como en la Forma Urbis de Lanciani (lám. 35): del Foro Boario hacia la Puerta Capena
@@ -284,11 +284,15 @@ function romaFora(){
 function romaCampus(){
   // Panteón de Agripa: rotonda con cúpula y pórtico de ocho columnas hacia el norte
   {const cx=-640,cz=-540,gy=romaH(cx,cz)-0.2,g=grp(cx,gy,cz,Math.PI);
-   const ro=new THREE.Mesh(new THREE.CylinderGeometry(26,26,24,40),texMat(RTEX.brick,20,4));ro.position.y=12;ro.castShadow=true;g.add(ro);
-   const dm=new THREE.Mesh(new THREE.SphereGeometry(26,40,14,0,TAU,0,Math.PI/2),LEAD);dm.scale.y=0.62;dm.position.y=24;dm.castShadow=true;g.add(dm);
-   box(34,22,10,PLAST,0,11,28,g);
+   const ro=new THREE.Mesh(new THREE.CylinderGeometry(26,26,24,40),texMat(RTEX.brick,20,4));ro.position.y=12;ro.castShadow=true;ro.userData.noCol=true;g.add(ro);
+   const dm=new THREE.Mesh(new THREE.SphereGeometry(26,40,14,0,TAU,0,Math.PI/2),LEAD);dm.scale.y=0.62;dm.position.y=24;dm.castShadow=true;dm.userData.noCol=true;g.add(dm);
+   for(const sx of[-1,1])box(14,22,10,PLAST,sx*10,11,28,g);box(6,11,10,PLAST,0,16.5,28,g);   // bloque entre pórtico y rotonda, con la puerta (6 m) en medio
    const o={x:cx,z:cz,rot:Math.PI};romanTemple({x:cx,z:cz-40,rot:Math.PI,W:34,L:16,pod:1.2,gy,colD:1.5,colH:12.5,nW:8,deep:3,fullPorch:true,name:'Panteón'});
-   addCirc(cx,cz,26.5);footprints.push({x:cx,z:cz,r:26,c:'#e2d6c0',name:'Panteón'});}
+   // muro de la rotonda: anillo de colisión con hueco frente a la puerta (al norte), y el bloque de la entrada con su paso
+   {const N=48,gap=0.13;for(let i=0;i<N;i++){const a0=i/N*TAU,a1=(i+1)/N*TAU,m=(a0+a1)/2,d=Math.atan2(Math.sin(m+Math.PI/2),Math.cos(m+Math.PI/2));if(Math.abs(d)<gap)continue;
+      addSeg(cx+Math.cos(a0)*26,cz+Math.sin(a0)*26,cx+Math.cos(a1)*26,cz+Math.sin(a1)*26,0.6);}
+    for(const sx of[-1,1]){addBox(cx+sx*10,cz-28,14,10,0,0.25);}addPlat(cx,cz,36,36,0,gy+0.25);}
+   pantheonInterior(cx,cz,gy);footprints.push({x:cx,z:cz,r:26,c:'#e2d6c0',name:'Panteón'});}
   // Saepta Julia y termas de Agripa
   porticus(-500,-600,-500,-430,9,8,'ionic',1);porticus(-445,-600,-445,-430,9,8,'ionic',-1);footprints.push({x:-472,z:-515,w:66,d:174,a:0,c:'#d8ccb4',name:'Saepta Julia'});   // la Saepta, alargada de norte a sur junto a la Vía Lata (Lanciani, láms. 15 y 21)
   {const g=grp(-640,romaH(-640,-468)-0.2,-468,0);box(70,16,46,PLAST,0,8,0,g);const dm=new THREE.Mesh(new THREE.SphereGeometry(13,20,10,0,TAU,0,Math.PI/2),LEAD);dm.position.y=16;g.add(dm);addBox(-640,-468,70,46,0);footprints.push({x:-640,z:-468,w:70,d:46,a:0,c:'#e2d6c0',name:'Termas de Agripa'});}   // pegadas al sur del Panteón (Lanciani, lám. 21)

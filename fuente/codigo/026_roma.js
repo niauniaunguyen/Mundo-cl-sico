@@ -79,12 +79,12 @@ function basilica(o){
   const n=Math.round(L/5.2)+1,ia=(L-1.6)/(n-1);
   for(let i=0;i<n;i++){const lx=-L/2+0.8+i*ia,wp=toW(lx,D/2-0.8,o.x,o.z,a);addColumn(wp[0],gy+base,wp[1],0.48,h1,a,'doric');addColumn(wp[0],gy+base+h1+1.6,wp[1],0.4,h2,a,'ionic',true);}
   box(L,1.6,pd,M.marbleShade,0,base+h1+0.8,D/2-pd/2,g);box(L+0.3,1.2,pd+0.3,M.marbleShade,0,base+h1+1.6+h2+0.6,D/2-pd/2,g);
-  const core=box(L-1,h1+h2+12,D-pd,PLAST,0,base+(h1+h2+12)/2,-pd/2,g);
+  if(o.hollow)basilicaInterior(o,g,gy,base,h1,h2,pd);else box(L-1,h1+h2+12,D-pd,PLAST,0,base+(h1+h2+12)/2,-pd/2,g);   // la Basílica Julia se puede visitar (172_interiores_roma.js)
   for(const s of[-1,1])box(0.9,(h1+h2+3),pd,PLAST,s*(L/2-0.45),base+(h1+h2+3)/2,D/2-pd/2,g);
   const pr=new THREE.Mesh(GABLE,[M.tile,PLAST]);pr.rotation.y=Math.PI/2;pr.scale.set(pd+0.6,1.4,L);pr.position.set(0,base+h1+h2+3.2,D/2-pd/2);g.add(pr);ROOFS.push({r:pr,mat:M.tile,fancy:false});
   gableRoof(g,L+0.6,D-pd+1,base+h1+h2+12,5,M.tile,PLAST,true).position.z=-pd/2;   // centrado sobre la nave (antes iba 3,5 m adelantado: dejaba un hueco de cielo detrás)
   for(let i=0;i<Math.floor(L/6);i++)box(1.8,2.6,0.2,M.dark,-L/2+4+i*6,base+h1+h2+7,-pd/2+(D-pd)/2+0.06,g);
-  wsegO(o,a,-L/2+0.5,-D/2,L/2-0.5,-D/2);wsegO(o,a,-L/2+0.5,D/2-pd,L/2-0.5,D/2-pd);wsegO(o,a,-L/2+0.5,-D/2,-L/2+0.5,D/2-0.6);wsegO(o,a,L/2-0.5,-D/2,L/2-0.5,D/2-0.6);
+  wsegO(o,a,-L/2+0.5,-D/2,L/2-0.5,-D/2);if(!o.hollow)wsegO(o,a,-L/2+0.5,D/2-pd,L/2-0.5,D/2-pd);wsegO(o,a,-L/2+0.5,-D/2,-L/2+0.5,D/2-0.6);wsegO(o,a,L/2-0.5,-D/2,L/2-0.5,D/2-0.6);
   footprints.push({x:o.x,z:o.z,w:L,d:D,a,c:'#e4dac6',name:o.name});return{g,gy};
 }
 // pórtico de columnas (para foros y patios): fila de columnas con techo de una vertiente apoyado en un muro trasero

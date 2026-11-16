@@ -33,7 +33,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `026_roma.js` | 154 | ROMA: constructores |
 | `027_roma.js` | 123 | ROMA: destinos de viaje (año 80 d.C.)<br>HISPANIA URBANA: piezas para reconstruir las ciudades (acueductos, puentes largos, circos) |
 | `028_roma.js` | 472 | ROMA: la domus visitable del Celio |
-| `029_roma.js` | 426 | ROMA: construcción del mundo |
+| `029_roma.js` | 430 | ROMA: construcción del mundo |
 | `030_roma.js` | 178 | ROMA: barrios, densidad y muralla |
 | `031_roma.js` | 179 | ROMA: decoración según las reconstrucciones |
 | `032_glosario_lateral.js` | 758 | glosario lateral |
@@ -175,4 +175,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `169_curriculo.js` | 34 | CURRÍCULO: qué saberes trabaja cada lección (relación orientativa) |
 | `170_consecuencias.js` | 47 | CONVERSACIONES CON CONSECUENCIAS: rumores, votos que se recuerdan y recomendaciones |
 | `171_mision_grupo.js` | 50 | MISIÓN DE GRUPO (modo en línea): preparar un banquete entre varios |
+| `172_interiores_roma.js` | 119 | INTERIORES DE ROMA: el Panteón, las Termas de Tito y la Basílica Julia por dentro |
 | `900_creta_y_arranque.js` | 635 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
