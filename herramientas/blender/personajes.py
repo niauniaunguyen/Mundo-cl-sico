@@ -99,7 +99,8 @@ def head_mesh(name,beard=False):
         x,y,z=v.co;r=1+head_shape(x,y,z);x*=r;y*=r;z*=r
         t=max(0,-z);x*=1-0.24*t*t;y*=1-0.08*t
         if z<0 and y<0:y-=0.05*t
-        if z>0:y*=1+0.08*z
+        if z>0:y*=1+0.06*z;x*=1+0.07*z*(1-z)   # cráneo más redondo arriba
+        if z>0.75:z*=1-0.06*(z-0.75)/0.25   # sin coronilla en punta
         v.co=Vector((x*rx,y*ry,z*rz))+HC
     # aberturas de los ojos (almendra): detrás van los globos oculares
     kill=[]
@@ -171,25 +172,28 @@ def ear_mesh(name):
     for p in me.polygons:p.use_smooth=True
     head_uv(me);return ob
 def hairline(a):return 0.07-0.035*math.cos(a)+0.006*math.sin(a*13)
-def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza en la zona del pelo, separada y con rizos
+def _sm(x):x=min(1,max(0,x));return x*x*(3-2*x)
+def hair_weight(kind,co):   # 0 fuera, 1 dentro, con transición suave en el borde
+    q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
+    if kind=='pelo':return _sm((z-hairline(a)+0.003)/0.012)
+    zl=-0.05+0.045*min(1,max(0,abs(a)-0.25)/0.6)
+    w=_sm((zl-z)/0.012)*_sm((1.35-abs(a))/0.18)
+    wm=_sm((0.2-abs(a))/0.05)*_sm((0.0075-abs(z+0.058))/0.004)   # bigote
+    return max(w,wm)
+def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza en la zona del pelo, que se afina hasta la piel en el borde
     me=head.data;bm=bmesh.new();bm.from_mesh(me);bm.verts.ensure_lookup_table()
-    def zone(co):
-        q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
-        if kind=='pelo':return z>hairline(a)-0.004
-        mouth=False
-        return ((z<-0.05+0.045*min(1,max(0,abs(a)-0.25)/0.6) and abs(a)<1.35) or (abs(a)<0.2 and -0.064<z<-0.052)) and not mouth
-    keep=set(v for v in bm.verts if zone(v.co))
-    bmesh.ops.delete(bm,geom=[f for f in bm.faces if not all(v in keep for v in f.verts)],context='FACES')
+    W={v:hair_weight(kind,v.co) for v in bm.verts}
+    bmesh.ops.delete(bm,geom=[f for f in bm.faces if sum(W[v] for v in f.verts)/len(f.verts)<0.55],context='FACES')
     bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
     for v in bm.verts:
-        q=v.co-HC;a=math.atan2(q.x,-q.y);n=Vector((q.x/HR[0]**2,q.y/HR[1]**2,q.z/HR[2]**2)).normalized()
+        w=W[v];q=v.co-HC;a=math.atan2(q.x,-q.y);n=Vector((q.x/HR[0]**2,q.y/HR[1]**2,q.z/HR[2]**2)).normalized()
+        lock=max(0,math.sin(a*14+math.sin(q.z*60)*1.5))**1.5*max(0,math.sin(q.z*110+a*5))   # mechones en relieve
         curl=0.5+0.5*math.sin(a*26+q.z*170)*math.sin(a*11-q.z*90)
-        if kind=='pelo':off=0.007+0.006*curl+0.004*max(0,q.z)/0.13
-        else:off=0.005+0.007*curl+0.012*max(0,-(q.z+0.06))/0.07
-        v.co+=n*off
+        if kind=='pelo':off=0.004+0.006*curl+0.008*lock
+        else:off=0.003+0.006*curl+0.006*lock+0.012*max(0,-(q.z+0.06))/0.07
+        v.co+=n*(off*w+0.0006)
     me2=bpy.data.meshes.new(name);bm.to_mesh(me2);bm.free();ob=bpy.data.objects.new(name,me2);scn.collection.objects.link(ob)
     for p in me2.polygons:p.use_smooth=True
-    sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.004;sol.offset=-1;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
     head_uv(me2);return ob
 def hair_tex(name,base,size=256):   # mechones: rayas finas en dirección de la caída, con brillo
     H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
@@ -452,13 +456,12 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, ce
     hl=0.07-0.035*np.cos(a)+0.006*np.sin(a*13)
     hm=z>hl;strand=0.85+0.25*np.sin(a*60+z*90+np.sin(a*7)*3)*0.5
     hc=hexc(hair)[None,None,:]*strand[...,None];m=blur(hm.astype(float),2);col[:]=col*(1-m[...,None])+hc*m[...,None]
-    if beard:
-        bm=(z<-0.025+0.02*np.clip(np.abs(a)-0.6,0,1))&(np.abs(a)<1.35)
-        mouth=((a/0.2)**2+((z+0.072)/0.012)**2)<1
-        bm&=~mouth
-        must=(np.abs(a)<0.22)&(np.abs(z+0.058)<0.009)&(np.abs(a)>0.02)
-        bb=(bm|must).astype(float);bc=hexc(beard)[None,None,:]*(0.8+0.35*np.sin(a*80+z*120)*0.5)[...,None]
-        m=blur(bb,3)*0.95;col[:]=col*(1-m[...,None])+bc*m[...,None]
+    if beard:   # la misma zona que la barba con volumen (hair_weight), algo más ancha y con borde suave
+        sm=lambda x:np.clip(x,0,1)**2*(3-2*np.clip(x,0,1))
+        zl=-0.05+0.045*np.clip((np.abs(a)-0.25)/0.6,0,1)
+        w=np.maximum(sm((zl-z+0.004)/0.012)*sm((1.39-np.abs(a))/0.18),sm((0.21-np.abs(a))/0.05)*sm((0.0095-np.abs(z+0.058))/0.004))
+        bc=hexc(beard)[None,None,:]*(0.8+0.35*np.sin(a*80+z*120)*0.5)[...,None]
+        m=blur(w,2)*0.95;col[:]=col*(1-m[...,None])+bc*m[...,None]
     return save_png(name,np.clip(col,0,1))
 def plain_tex(name,base,noise=0.06,size=64):
     H=W=size;r=np.random.RandomState(5).rand(H,W);col=hexc(base)[None,None,:]*(1+noise*(r-0.5))[...,None];return save_png(name,np.clip(col,0,1))
@@ -507,6 +510,30 @@ def helmet():   # casco corintio: cuenco, carrilleras, nasal y aberturas de los 
     bmesh.ops.recalc_face_normals(b2,faces=b2.faces)
     crest=obj_from_bm('cimera',b2)
     return ob,crest
+def helmet_tex(name,size=256):   # bronce batido: pátina, línea grabada sobre las cejas que sube a las sienes, arista central y borde marcado
+    H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H;a=(u-0.5)*TAU;z=v*0.34-0.16
+    r=np.random.RandomState(7)
+    col=np.ones((H,W,3))*hexc('#c99a45')
+    col*=(0.86+0.2*np.clip(z*5+0.4,0,1))[...,None]   # más claro arriba (pulido)
+    pat=blur(r.rand(H,W),3);col*=(0.92+0.16*pat)[...,None]
+    def line(m,c,k):col[m]=col[m]*(1-k)+hexc(c)*k
+    brow=0.035+0.025*np.abs(np.sin(a))**1.5   # línea que sigue las cejas y sube hacia las sienes
+    line(np.abs(z-brow)<0.0025,'#6a4a1e',0.75);line(np.abs(z-brow-0.006)<0.0015,'#6a4a1e',0.5)
+    line((np.abs(a)<0.025)&(z>0.04),'#e8c27a',0.6)   # arista central, brillante
+    line(np.abs(np.abs(a)-1.1)<0.02,'#7a5a26',0.3)
+    return save_png(name,np.clip(col,0,1))
+def coraza_tex(name,size=256):   # coraza de lino: tela encolada blanca, banda baja roja con greca, panel de escamas de bronce en los costados
+    H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
+    col=np.ones((H,W,3))*hexc('#ebe2cc')*(0.9+0.1*v)[...,None]
+    side=np.minimum(np.abs(u-0.25),np.abs(u-0.75))<0.09
+    sc_u=(u*64)%1;row=np.floor(v*22);sc_v=(v*22)%1;sc_u=(sc_u+0.5*(row%2))%1
+    scale=side&(v>0.14)&(v<0.62);d=np.hypot(sc_u-0.5,sc_v*0.9)
+    sc=hexc('#c4943e')*(0.75+0.35*(1-d))[...,None];col[scale]=sc[scale]
+    edge=scale&(d>0.48)&(d<0.56);col[edge]=hexc('#6a4a1e')
+    band=(v<0.12);col[band]=hexc('#a3301f')
+    loc=v/0.12;pat=meander(u*36,np.clip(loc*1.3-0.15,0,0.999),1.0);m=band&(pat==1)&(loc>0.15)&(loc<0.85);col[m]=hexc('#efe6d0')
+    top=v>0.93;col[top]=hexc('#2f4c86')
+    return save_png(name,np.clip(blur(col,1),0,1))
 def shield():   # aspis: cuenco de 0,9 m con borde plano, pintado
     bm=bmesh.new();R=0.45;nu=40;nv=10;rows=[]
     for j in range(nv+1):
@@ -640,10 +667,12 @@ def build(kind):
         set_mat(ch,material('quiton_rojo',cloth_tex('quiton_rojo','#9a2a1e',border='#1a120c',band=(0.0,0.05),folds=20)))
         # coraza de lino (linothorax): rígida, de la cintura a las axilas, con pteryges (tiras) abajo
         lt=garment('coraza',body,0.86,1.43,0.03,folds=1,famp=0.0,skirt=False,nu=48,nv=12)
-        set_mat(lt,material('coraza',cloth_tex('coraza','#e6dcc4',border='#a3301f',band=(0.0,0.12),folds=1,neck='#2f4c86',wool=False),rough=0.6))
+        set_mat(lt,material('coraza',coraza_tex('coraza'),rough=0.6))
         def ptery(u,v):return int(u*36)%2==1 and v<0.999   # tiras sueltas
         pt=garment('pteryges',body,0.6,0.86,0.04,folds=36,famp=0.004,skirt=True,flare=0.0,nu=72,nv=4,clip=lambda u,v:int(u*36)%3==2)
         set_mat(pt,lt.data.materials[0])
+        pt2=garment('pteryges_b',body,0.56,0.8,0.032,folds=36,famp=0.003,skirt=True,flare=0.0,nu=72,nv=4,clip=lambda u,v:int(u*36+1.5)%3==2)
+        set_mat(pt2,material('pteryges_rojo',cloth_tex('pteryges_rojo','#8a2418',border='#e6dcc4',band=(0.0,0.2),folds=1,wool=False)));pieces.append(pt2)
         for sgn in(1,-1):   # epomides: piezas que pasan por encima del hombro, de la espalda al pecho, ajustadas a él
             ep=shoulder_flap('hombrera',body,sgn);smart_uv(ep);set_mat(ep,lt.data.materials[0]);pieces.append(ep)
         # grebas de bronce, ajustadas a la pantorrilla y con la rodilla marcada
@@ -652,7 +681,7 @@ def build(kind):
             gr=limb_shell('greba',body,an+Vector((0,0,0.05)),kn+Vector((0,0,0.06)),0.007,nu=28,nv=12,knee=0.018,gap=1.0)
             set_mat(gr,material('bronce',plain_tex('bronce','#c4943e',0.1),metal=0.85,rough=0.35) if 'bronce' not in bpy.data.materials else bpy.data.materials['bronce']);pieces.append(gr)
         for o in(ch,lt,pt):pieces.append(o)
-        hel,crest=helmet();smart_uv(hel);set_mat(hel,bpy.data.materials['bronce']);smart_uv(crest);set_mat(crest,material('crin',plain_tex('crin','#7a1e14',0.2)))
+        hel,crest=helmet();head_uv(hel.data);set_mat(hel,material('casco',helmet_tex('casco'),metal=0.85,rough=0.3));smart_uv(crest);set_mat(crest,material('crin',plain_tex('crin','#7a1e14',0.2)))
         rigid+=[(hel,'head'),(crest,'head')]
         sh,img=shield();set_mat(sh,material('escudo',img,metal=0.3,rough=0.5))
         # el escudo en el brazo izquierdo (porpax en el antebrazo)
