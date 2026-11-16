@@ -25,6 +25,7 @@ new THREE.GLTFLoader().load('../../modelos/personaje_'+(Q.get('pj')||'ciudadano'
   if(v==='frente'){cam.position.set(c.x,1.1,c.z+4.6);cam.lookAt(c.x,0.95,c.z);}
   else if(v==='lado'){cam.position.set(c.x+4.6,1.1,c.z);cam.lookAt(c.x,0.95,c.z);}
   else if(v==='cerca'){cam.position.set(c.x+0.25,1.68,c.z+1.05);cam.lookAt(c.x,1.6,c.z);}
+  else if(v==='perfil'){cam.position.set(c.x+1.0,1.66,c.z+0.35);cam.lookAt(c.x,1.63,c.z);}
   else if(v==='tres'){cam.position.set(c.x+2.6,1.5,c.z+3.6);cam.lookAt(c.x,0.95,c.z);}
   window.INFO2=JSON.stringify([bb.min,bb.max]);
   r.render(s,cam);window.READY=true;let th=null;root.traverse(o=>{if(o.name==='thighL'||o.name==='thigh.L'||o.name==='thighL_1')th=th||o;});window.INFO=(th?th.name+' q='+th.quaternion.toArray().map(x=>x.toFixed(2)):'sin muslo')+' ';if(th&&an){const q0=th.quaternion.clone();mix.update(0.5);window.INFO+=' q+0.5='+th.quaternion.toArray().map(x=>x.toFixed(2))+' ';const sk=[];root.traverse(o=>{if(o.isSkinnedMesh)sk.push(o.name+':'+o.skeleton.bones.length+':'+(o.skeleton.bones.includes(th)));});window.INFO+=sk.join(',')+' ';}window.INFO+=gl.animations.map(a=>a.name+':'+a.tracks.length+':'+a.duration.toFixed(2)+':'+(a.tracks[0]&&a.tracks[0].name)).join(',');const L=[];root.traverse(o=>{if(o.isMesh)L.push(o.name+(o.isSkinnedMesh?'*':''));});window.INFO+=' | '+L.join(',');

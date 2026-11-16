@@ -42,12 +42,14 @@ def body_mesh(name,female=False):
     for s,k in((1,'L'),(-1,'R')):
         pts['bic.'+k]=tuple(Vector(J['sho.'+k]).lerp(Vector(J['elb.'+k]),0.45));pts['fore.'+k]=tuple(Vector(J['elb.'+k]).lerp(Vector(J['wri.'+k]),0.35))
         pts['thi.'+k]=tuple(Vector(J['hip.'+k]).lerp(Vector(J['kne.'+k]),0.4));pts['calf.'+k]=tuple(Vector(J['kne.'+k]).lerp(Vector(J['ank.'+k]),0.3))
-        pts['thu.'+k]=(0.255*s,-0.045,0.86);pts['heel.'+k]=(0.105*s,0.06,0.04);pts['trap.'+k]=(0.1*s,0.012,1.47)
-    del pts['top']
+        pts['thu.'+k]=(0.262*s,-0.05,0.862);pts['heel.'+k]=(0.105*s,0.06,0.04);pts['trap.'+k]=(0.1*s,0.012,1.47)
+        pts['delt.'+k]=(0.225*s,0.005,1.4);pts['pal.'+k]=(0.281*s,-0.018,0.86)
+        for f,(dx,dy) in enumerate(((-0.018,-0.012),(-0.006,-0.016),(0.006,-0.015),(0.017,-0.01))):pts['f%d.'%f+k]=(0.281*s+dx*s*0.6,-0.018+dy-0.006*abs(dx)/0.018,0.79+0.012*abs(dx)/0.018*(1 if f in(0,3) else 0))
+    del pts['top'];del pts['fin.L'];del pts['fin.R']
     for k,p in pts.items():V[k]=bm.verts.new(p)
     E=[('pelvis','hips'),('hips','spine'),('spine','chest'),('chest','neck'),('neck','head')]
     for k in('L','R'):
-        E+=[('neck','trap.'+k),('chest','clav.'+k),('clav.'+k,'sho.'+k),('sho.'+k,'bic.'+k),('bic.'+k,'elb.'+k),('elb.'+k,'fore.'+k),('fore.'+k,'wri.'+k),('wri.'+k,'fin.'+k),('wri.'+k,'thu.'+k),
+        E+=[('neck','trap.'+k),('chest','clav.'+k),('clav.'+k,'sho.'+k),('sho.'+k,'delt.'+k),('delt.'+k,'bic.'+k),('bic.'+k,'elb.'+k),('elb.'+k,'fore.'+k),('fore.'+k,'wri.'+k),('wri.'+k,'pal.'+k),('pal.'+k,'f0.'+k),('pal.'+k,'f1.'+k),('pal.'+k,'f2.'+k),('pal.'+k,'f3.'+k),('wri.'+k,'thu.'+k),
             ('pelvis','hip.'+k),('hip.'+k,'thi.'+k),('thi.'+k,'kne.'+k),('kne.'+k,'calf.'+k),('calf.'+k,'ank.'+k),('ank.'+k,'toe.'+k),('ank.'+k,'heel.'+k)]
     for a,b in E:bm.edges.new((V[a],V[b]))
     bm.to_mesh(me);bm.free()
@@ -55,7 +57,7 @@ def body_mesh(name,female=False):
     R={'pelvis':(0.16,0.11),'hips':(0.165,0.11),'spine':(0.15,0.1),'chest':(0.185,0.12),'neck':(0.064,0.062),'head':(0.06,0.06),'crotch':(0.1,0.08)}
     if female:R.update({'hips':(0.175,0.115),'spine':(0.135,0.095),'chest':(0.165,0.115),'pelvis':(0.17,0.115)})
     for k in('L','R'):
-        R.update({'trap.'+k:(0.055,0.06),'clav.'+k:(0.07,0.07),'sho.'+k:(0.078,0.075),'bic.'+k:(0.066,0.062),'elb.'+k:(0.05,0.05),'fore.'+k:(0.055,0.05),'wri.'+k:(0.036,0.03),'fin.'+k:(0.045,0.02),'thu.'+k:(0.016,0.016),
+        R.update({'trap.'+k:(0.055,0.06),'clav.'+k:(0.07,0.07),'sho.'+k:(0.078,0.075),'delt.'+k:(0.074,0.072),'bic.'+k:(0.064,0.066),'elb.'+k:(0.048,0.05),'fore.'+k:(0.056,0.05),'wri.'+k:(0.034,0.026),'pal.'+k:(0.04,0.018),'thu.'+k:(0.012,0.012),'f0.'+k:(0.008,0.008),'f1.'+k:(0.009,0.009),'f2.'+k:(0.009,0.009),'f3.'+k:(0.008,0.008),
                   'hip.'+k:(0.095,0.09),'thi.'+k:(0.09,0.09),'kne.'+k:(0.057,0.06),'calf.'+k:(0.066,0.068),'ank.'+k:(0.038,0.04),'toe.'+k:(0.045,0.025),'heel.'+k:(0.035,0.03)})
     keys=list(pts.keys())
     for i,v in enumerate(me.skin_vertices[0].data):
@@ -71,31 +73,140 @@ def fix_normals(ob):
     me=ob.data;me.validate(verbose=False);bm=bmesh.new();bm.from_mesh(me);bmesh.ops.remove_doubles(bm,verts=bm.verts,dist=1e-6)
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces);bm.to_mesh(me);bm.free()
     for p in me.polygons:p.use_smooth=True
-# ------------------------------------------------------------------ cabeza con rasgos (malla aparte, con su propia proyección UV)
+# ------------------------------------------------------------------ cabeza esculpida (malla aparte, con su propia proyección UV)
+HC=Vector((0,-0.01,1.655));HR=(0.098,0.112,0.128)
+def _g(p,c,s):return math.exp(-((p[0]-c[0])**2+(p[1]-c[1])**2+(p[2]-c[2])**2)/(s*s))
+def head_shape(x,y,z):   # desplazamiento radial sobre la esfera unidad (delante = -Y)
+    fr=max(0,-y);d=0
+    for s in(1,-1):
+        d+=0.06*_g((x,y,z),(0.33*s,-0.9,0.3),0.22)      # arco de las cejas
+        d-=0.075*_g((x,y,z),(0.33*s,-0.92,0.07),0.15)   # cuencas de los ojos
+        d+=0.055*_g((x,y,z),(0.55*s,-0.72,-0.1),0.22)   # pómulos
+        d-=0.04*_g((x,y,z),(0.82*s,-0.35,0.28),0.25)    # sienes
+        d+=0.05*_g((x,y,z),(0.11*s,-0.95,-0.3),0.09)    # aletas de la nariz
+    rz=min(1,max(0,(0.12-z)/0.4))**1.4;nose=0.2*math.exp(-(x/(0.05+0.04*rz))**2)*rz*(1 if z>-0.28 else math.exp(-((z+0.28)/0.04)**2))*min(1,fr*2.2)
+    d+=nose
+    d-=0.02*math.exp(-(x/0.25)**2-((z+0.42)/0.12)**2)*fr      # la boca, algo más atrás que la nariz
+    d+=0.03*math.exp(-(x/0.2)**2-((z+0.47)/0.06)**2)*fr      # labio superior
+    d-=0.03*math.exp(-(x/0.2)**2-((z+0.555)/0.03)**2)*fr      # línea de la boca
+    d+=0.04*math.exp(-(x/0.16)**2-((z+0.63)/0.07)**2)*fr      # labio inferior
+    d+=0.11*_g((x,y,z),(0,-0.82,-0.84),0.22)                  # barbilla
+    return d
 def head_mesh(name,beard=False):
-    bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=28,v_segments=20,radius=1)
-    c=Vector((0,-0.01,1.655));rx,ry,rz=0.098,0.112,0.128
+    bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=48,v_segments=36,radius=1)
+    rx,ry,rz=HR
     for v in bm.verts:
-        x,y,z=v.co;t=max(0,-z)
-        x*=1-0.25*t*t;y*=1-0.1*t
-        if z<0 and y<0:y-=0.07*t   # barbilla hacia delante
-        if z>0:y*=1+0.08*z            # cráneo largo por detrás
-        if y<-0.6 and -0.25<z<0.25:y*=1.03   # pómulos
-        if y<-0.75 and 0.18<z<0.4:y-=0.04*(1-abs(x)*2.5)   # arco de las cejas
-        v.co=Vector((x*rx,y*ry,z*rz))+c
-    # nariz
-    n=bmesh.ops.create_cone(bm,cap_ends=True,segments=8,radius1=0.014,radius2=0.005,depth=0.038,matrix=Matrix.Translation(c+Vector((0,-0.108,-0.012)))@Euler((math.radians(-100),0,0)).to_matrix().to_4x4())
-    # orejas
-    for s in(1,-1):bmesh.ops.create_uvsphere(bm,u_segments=8,v_segments=6,radius=1,matrix=Matrix.Translation(c+Vector((0.094*s,0.005,0.0)))@Matrix.Diagonal((0.012,0.022,0.03,1)))
+        x,y,z=v.co;r=1+head_shape(x,y,z);x*=r;y*=r;z*=r
+        t=max(0,-z);x*=1-0.24*t*t;y*=1-0.08*t
+        if z<0 and y<0:y-=0.05*t
+        if z>0:y*=1+0.08*z
+        v.co=Vector((x*rx,y*ry,z*rz))+HC
     me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
     for p in me.polygons:p.use_smooth=True
-    # UV cilíndrica: la cara queda en el centro de la textura
-    uv=me.uv_layers.new(name='UVMap')
+    head_uv(me)
+    return ob
+def head_uv(me):   # UV cilíndrica: la cara queda en el centro de la textura
+    uv=me.uv_layers.get('UVMap') or me.uv_layers.new(name='UVMap')
     for poly in me.polygons:
         for li in poly.loop_indices:
-            co=me.vertices[me.loops[li].vertex_index].co-c;a=math.atan2(co.x,-co.y)
+            co=me.vertices[me.loops[li].vertex_index].co-HC;a=math.atan2(co.x,-co.y)
             uv.data[li].uv=(0.5+a/TAU,(co.z+0.16)/0.34)
-    return ob
+def nose_mesh(name):   # nariz: puente estrecho que se ensancha hacia la punta, con aletas
+    bm=bmesh.new();N=10;K=8;rings=[]
+    for i in range(N+1):
+        t=i/N;z=HC.z+0.018-t*0.052;w=0.006+0.009*t**1.5;pr=0.003+0.019*t**1.2   # ancho y cuánto sobresale
+        yb=HC.y-HR[1]*0.985   # superficie de la cara
+        ring=[]
+        for k in range(K):
+            q=k/K*TAU;x=math.cos(q)*w;yy=-max(0,math.sin(q))*pr+0.004
+            if t>0.8:x*=1+0.6*(t-0.8)/0.2*(1-abs(math.sin(q)))   # aletas
+            ring.append(bm.verts.new((x,yb+yy,z)))
+        rings.append(ring)
+    for i in range(N):
+        for k in range(K):bm.faces.new((rings[i][k],rings[i][(k+1)%K],rings[i+1][(k+1)%K],rings[i+1][k]))
+    bm.faces.new(rings[-1]);bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
+    ob=obj_from_bm(name,bm);head_uv(ob.data);return ob
+def ear_mesh(name):
+    bm=bmesh.new()
+    for s in(1,-1):
+        g=bmesh.ops.create_uvsphere(bm,u_segments=12,v_segments=10,radius=1)
+        for v in g['verts']:
+            x,y,z=v.co
+            if x>0.2:x-=0.55*math.exp(-(y*y+z*z)/0.25)   # concha
+            v.co=Vector((x*0.011*s,y*0.022,z*0.031))
+            v.co=Euler((0,0,math.radians(-14*s))).to_matrix()@v.co+HC+Vector((0.093*s,0.01,0.0))
+    me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
+    for p in me.polygons:p.use_smooth=True
+    head_uv(me);return ob
+def hairline(a):return 0.07-0.035*math.cos(a)+0.006*math.sin(a*13)
+def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza en la zona del pelo, separada y con rizos
+    me=head.data;bm=bmesh.new();bm.from_mesh(me);bm.verts.ensure_lookup_table()
+    def zone(co):
+        q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
+        if kind=='pelo':return z>hairline(a)-0.004
+        mouth=(a/0.16)**2+((z+0.072)/0.008)**2<1
+        return ((z<-0.05+0.045*min(1,max(0,abs(a)-0.25)/0.6) and abs(a)<1.35) or (abs(a)<0.2 and -0.064<z<-0.052)) and not mouth
+    keep=set(v for v in bm.verts if zone(v.co))
+    bmesh.ops.delete(bm,geom=[f for f in bm.faces if not all(v in keep for v in f.verts)],context='FACES')
+    bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
+    for v in bm.verts:
+        q=v.co-HC;a=math.atan2(q.x,-q.y);n=Vector((q.x/HR[0]**2,q.y/HR[1]**2,q.z/HR[2]**2)).normalized()
+        curl=0.5+0.5*math.sin(a*26+q.z*170)*math.sin(a*11-q.z*90)
+        if kind=='pelo':off=0.007+0.006*curl+0.004*max(0,q.z)/0.13
+        else:off=0.005+0.007*curl+0.012*max(0,-(q.z+0.06))/0.07
+        v.co+=n*off
+    me2=bpy.data.meshes.new(name);bm.to_mesh(me2);bm.free();ob=bpy.data.objects.new(name,me2);scn.collection.objects.link(ob)
+    for p in me2.polygons:p.use_smooth=True
+    sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.004;sol.offset=-1;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
+    head_uv(me2);return ob
+def hair_tex(name,base,size=256):   # mechones: rayas finas en dirección de la caída, con brillo
+    H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
+    st=0.75+0.35*(0.5+0.5*np.sin(u*TAU*70+np.sin(v*40)*2))*(0.6+0.4*np.sin(u*TAU*13))
+    col=hexc(base)[None,None,:]*st[...,None]*(0.85+0.3*v)[...,None]
+    return save_png(name,np.clip(col,0,1))
+def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0):   # pieza ajustada a un miembro (grebas): rayos alrededor del eje a→b
+    bvh=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get());a=Vector(a);b=Vector(b);ax=(b-a).normalized()
+    u1=ax.cross(Vector((1,0,0))).normalized();u2=ax.cross(u1).normalized()
+    bm=bmesh.new();rows=[]
+    for j in range(nv+1):
+        t=j/nv;p=a.lerp(b,t);row=[]
+        for i in range(nu):
+            an=i/nu*TAU;d=u1*math.cos(an)+u2*math.sin(an)
+            hit=bvh.ray_cast(p+d*0.25,-d,0.25);r=(hit[0]-p).length if hit[0] else 0.05
+            fr=max(0,-d.y)   # delante (-Y)
+            r+=off+knee*fr**2*math.exp(-((t-0.93)/0.06)**2)   # rodilla
+            if j==nv or j==0:r+=0.004
+            row.append(bm.verts.new(p+d*r))
+        rows.append(row)
+    uvl=bm.loops.layers.uv.new('UVMap')
+    for j in range(nv):
+        for i in range(nu):
+            f=bm.faces.new((rows[j][i],rows[j][(i+1)%nu],rows[j+1][(i+1)%nu],rows[j+1][i]))
+            for l,(di,dj) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((i+di)/nu,(j+dj)/nv)
+    bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
+    ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.004;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
+def drape_end(name,path,width,folds=3,famp=0.03):   # extremo de un manto que cuelga: tira con pliegues en zigzag a lo largo de un camino
+    bm=bmesh.new();P=[Vector(p) for p in path];N=24;rows=[];W=8
+    pts=[]
+    for i in range(N+1):   # interpolación Catmull-Rom
+        t=i/N*(len(P)-1);k=min(int(t),len(P)-2);f=t-k
+        p0=P[max(0,k-1)];p1=P[k];p2=P[k+1];p3=P[min(len(P)-1,k+2)]
+        pts.append(0.5*((2*p1)+(-p0+p2)*f+(2*p0-5*p1+4*p2-p3)*f*f+(-p0+3*p1-3*p2+p3)*f*f*f))
+    for i,p in enumerate(pts):
+        tg=(pts[min(N,i+1)]-pts[max(0,i-1)]).normalized();side=tg.cross(Vector((0,0,1)))
+        if side.length<0.1:side=Vector((1,0,0))
+        side.normalize();nrm=side.cross(tg).normalized();t=i/N;w=width*(0.6+0.5*t)
+        row=[]
+        for k in range(W+1):
+            q=k/W-0.5;z=famp*(0.3+0.7*t)*math.sin(q*TAU*folds/1.0+t*2)
+            row.append(bm.verts.new(p+side*q*w+nrm*z))
+        rows.append(row)
+    uvl=bm.loops.layers.uv.new('UVMap')
+    for i in range(N):
+        for k in range(W):
+            f=bm.faces.new((rows[i][k],rows[i][k+1],rows[i+1][k+1],rows[i+1][k]))
+            for l,(dk,di) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((k+dk)/W*0.25,1-(i+di)/N)
+    ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.008;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
 
 # ------------------------------------------------------------------ prenda: rejilla alrededor del cuerpo (u = vuelta, v = altura)
 def torso_bvh(body):   # el cuerpo sin los brazos: la ropa se ajusta al torso y a las piernas, no envuelve los brazos
@@ -369,16 +480,25 @@ def build(kind):
     set_mat(body,material(kind+'_piel',skin))
     hair='#5e4029'
     set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d2a07a',beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
-    pieces=[head];rigid=[]
+    ears=ear_mesh(kind+'_orejas');set_mat(ears,body.data.materials[0])
+    nose=nose_mesh(kind+'_nariz');set_mat(nose,head.data.materials[0])
+    hm_=material(kind+'_pelo',hair_tex(kind+'_pelo',hair))
+    hs=hair_shell(kind+'_pelo',head,'pelo');set_mat(hs,hm_)
+    bd=hair_shell(kind+'_barba',head,'barba');set_mat(bd,material(kind+'_barba',hair_tex(kind+'_barba','#6e4c33' if kind=='ciudadano' else '#4a3424')))
+    pieces=[head,ears,nose,hs,bd];rigid=[]
     if kind=='ciudadano':
         # quitón largo de lino (hasta los tobillos en los hombres mayores; con mangas cortas abrochadas) y himation de lana
-        ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505-0.05*max(0,math.cos(u*TAU))**3)
+        ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505+0.035*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton',cloth_tex('quiton','#e8e0cf',border='#2f4c86',band=(0.0,0.05),folds=30,neck='#2f4c86')))
         def htop(u):   # el himation deja libre el hombro y el brazo derechos y cubre el izquierdo
             a=u*TAU;return 1.17+0.31*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
-        hm=garment('himation',body,0.22,1.5,0.05,folds=11,famp=0.016,flare=0.11,top=htop,skirt=True)
+        hm=garment('himation',body,0.22,1.5,0.05,folds=11,famp=0.026,flare=0.11,top=htop,skirt=True)
         set_mat(hm,material('himation',cloth_tex('himation','#6d7b9a',border='#2a2a3a',band=(0.0,0.045),folds=11)))
         for o in(ch,hm):pieces.append(o)
+        # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
+        e1=drape_end('himation_extremo',[(0.12,-0.09,1.49),(0.165,-0.17,1.34),(0.19,-0.21,1.05),(0.2,-0.225,0.75),(0.205,-0.23,0.5)],0.2,folds=2.5,famp=0.022)
+        e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02)
+        for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         # mangas cortas del quitón, abrochadas
         for s in(1,-1):
             b2=bmesh.new();sh=Vector(J['sho.'+('L' if s>0 else 'R')]);el=Vector(J['elb.'+('L' if s>0 else 'R')])
@@ -386,7 +506,7 @@ def build(kind):
             bmesh.ops.create_cone(b2,cap_ends=False,segments=16,radius1=0.078,radius2=0.075,depth=0.17,matrix=m)
             sl=obj_from_bm('manga',b2);smart_uv(sl);set_mat(sl,ch.data.materials[0]);pieces.append(sl)
     else:
-        ch=garment('quiton_corto',body,0.66,1.5,0.012,folds=20,famp=0.008,flare=0.03,skirt=True,top=lambda u:1.505-0.05*max(0,math.cos(u*TAU))**3)
+        ch=garment('quiton_corto',body,0.66,1.5,0.012,folds=20,famp=0.008,flare=0.03,skirt=True,top=lambda u:1.505+0.035*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton_rojo',cloth_tex('quiton_rojo','#9a2a1e',border='#1a120c',band=(0.0,0.05),folds=20)))
         # coraza de lino (linothorax): rígida, de la cintura a las axilas, con pteryges (tiras) abajo
         lt=garment('coraza',body,0.86,1.43,0.03,folds=1,famp=0.0,skirt=False,nu=48,nv=12)
@@ -404,12 +524,11 @@ def build(kind):
             for f in ep.data.polygons:pass
             sol=ep.modifiers.new('g','SOLIDIFY');sol.thickness=0.014;bpy.context.view_layer.objects.active=ep;bpy.ops.object.modifier_apply(modifier='g')
             smart_uv(ep);set_mat(ep,lt.data.materials[0]);pieces.append(ep)
-        # grebas de bronce
+        # grebas de bronce, ajustadas a la pantorrilla y con la rodilla marcada
         for k in('L','R'):
-            kn=Vector(J['kne.'+k]);an=Vector(J['ank.'+k]);b2=bmesh.new();d=(kn-an).normalized()
-            m=Matrix.Translation(an.lerp(kn,0.52))@d.to_track_quat('Z','Y').to_matrix().to_4x4()
-            bmesh.ops.create_cone(b2,cap_ends=False,segments=16,radius1=0.058,radius2=0.068,depth=0.4,matrix=m)
-            gr=obj_from_bm('greba',b2);smart_uv(gr);set_mat(gr,material('bronce',plain_tex('bronce','#b8893a',0.1),metal=0.85,rough=0.35));pieces.append(gr)
+            kn=Vector(J['kne.'+k]);an=Vector(J['ank.'+k])
+            gr=limb_shell('greba',body,an+Vector((0,0,0.05)),kn+Vector((0,0,0.06)),0.007,knee=0.018)
+            set_mat(gr,material('bronce',plain_tex('bronce','#c4943e',0.1),metal=0.85,rough=0.35) if 'bronce' not in bpy.data.materials else bpy.data.materials['bronce']);pieces.append(gr)
         for o in(ch,lt,pt):pieces.append(o)
         hel,crest=helmet();smart_uv(hel);set_mat(hel,bpy.data.materials['bronce']);smart_uv(crest);set_mat(crest,material('crin',plain_tex('crin','#7a1e14',0.2)))
         rigid+=[(hel,'head'),(crest,'head')]
