@@ -196,25 +196,43 @@ def hair_tex(name,base,size=256):   # mechones: rayas finas en dirección de la 
     st=0.75+0.35*(0.5+0.5*np.sin(u*TAU*70+np.sin(v*40)*2))*(0.6+0.4*np.sin(u*TAU*13))
     col=hexc(base)[None,None,:]*st[...,None]*(0.85+0.3*v)[...,None]
     return save_png(name,np.clip(col,0,1))
-def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0):   # pieza ajustada a un miembro (grebas): rayos alrededor del eje a→b
+def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0,gap=0.0):   # pieza ajustada a un miembro (grebas, correas): rayos alrededor del eje a→b
     bvh=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get());a=Vector(a);b=Vector(b);ax=(b-a).normalized()
     u1=ax.cross(Vector((1,0,0))).normalized();u2=ax.cross(u1).normalized()
+    # el ángulo 0 mira hacia delante (-Y) para poder dejar abierta la parte de atrás
+    fw=Vector((0,-1,0));fw=(fw-ax*fw.dot(ax)).normalized();u1=fw;u2=ax.cross(u1).normalized()
+    R=[];D=[]
+    for j in range(nv+1):
+        t=j/nv;p=a.lerp(b,t);rr=[];dd=[]
+        for i in range(nu+1):
+            an=-(math.pi-gap/2)+i/nu*(TAU-gap) if gap else i/nu*TAU
+            d=u1*math.cos(an)+u2*math.sin(an)
+            hit=bvh.ray_cast(p+d*0.12,-d,0.12);r=(hit[0]-p).length if hit[0] else None
+            rr.append(r);dd.append(d)
+        good=[r for r in rr if r];med=sorted(good)[len(good)//2] if good else 0.05
+        rr=[r if (r and abs(r-med)<0.025) else med for r in rr]   # fuera los rayos que dan en la otra pierna o se pierden
+        for k in range(3):rr=[(rr[max(0,i-1)]+2*rr[i]+rr[min(len(rr)-1,i+1)])/4 for i in range(len(rr))]
+        R.append(rr);D.append((p,dd))
+    for i in range(nu+1):   # suavizado a lo largo del miembro
+        col=[R[j][i] for j in range(nv+1)]
+        for k in range(2):col=[(col[max(0,j-1)]+2*col[j]+col[min(nv,j+1)])/4 for j in range(nv+1)]
+        for j in range(nv+1):R[j][i]=col[j]
     bm=bmesh.new();rows=[]
     for j in range(nv+1):
-        t=j/nv;p=a.lerp(b,t);row=[]
-        for i in range(nu):
-            an=i/nu*TAU;d=u1*math.cos(an)+u2*math.sin(an)
-            hit=bvh.ray_cast(p+d*0.25,-d,0.25);r=(hit[0]-p).length if hit[0] else 0.05
-            fr=max(0,-d.y)   # delante (-Y)
-            r+=off+knee*fr**2*math.exp(-((t-0.93)/0.06)**2)   # rodilla
-            if j==nv or j==0:r+=0.004
+        t=j/nv;p,dd=D[j];row=[]
+        for i,d in enumerate(dd):
+            if not gap and i==nu:break
+            fr=max(0,d.dot(Vector((0,-1,0))))
+            r=R[j][i]+off+knee*fr**2*math.exp(-((t-0.93)/0.06)**2)
+            if j==nv or j==0:r+=0.003
             row.append(bm.verts.new(p+d*r))
         rows.append(row)
-    uvl=bm.loops.layers.uv.new('UVMap')
+    uvl=bm.loops.layers.uv.new('UVMap');n=len(rows[0])
     for j in range(nv):
-        for i in range(nu):
-            f=bm.faces.new((rows[j][i],rows[j][(i+1)%nu],rows[j+1][(i+1)%nu],rows[j+1][i]))
-            for l,(di,dj) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((i+di)/nu,(j+dj)/nv)
+        for i in range(n if not gap else n-1):
+            i2=(i+1)%n
+            f=bm.faces.new((rows[j][i],rows[j][i2],rows[j+1][i2],rows[j+1][i]))
+            for l,(di,dj) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((i+di)/n,(j+dj)/nv)
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
     ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.004;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
 def ionic_sleeve(name,sg,sho,elb):
@@ -222,11 +240,11 @@ def ionic_sleeve(name,sg,sho,elb):
     up=Vector((sg,0,0.35)).normalized();u1=(up-ax*up.dot(ax)).normalized();u2=ax.cross(u1).normalized()
     bm=bmesh.new();N=14;K=22;rows=[]
     for i in range(N+1):
-        t=i/N;p=a0.lerp(a1,t);R=0.08+0.022*t**0.8
+        t=i/N;p=a0.lerp(a1,t);R=0.102+0.008*t**0.8
         row=[]
         for k in range(K):
-            q=k/K*TAU;fold=0.009*(0.3+0.7*t)*math.sin(q*7+t*2)
-            sag=0.02*t*max(0,-math.cos(q))   # cuelga por debajo del brazo
+            q=k/K*TAU;fold=0.006*(0.3+0.7*t)*(1+math.sin(q*7+t*2))
+            sag=0.006*t*max(0,-math.cos(q))   # cuelga un poco por debajo del brazo
             hem=(0.012*math.sin(q*5)+0.01*max(0,-math.cos(q))) if i==N else 0
             row.append(bm.verts.new(p+ax*hem+(u1*math.cos(q)+u2*math.sin(q))*(R+fold)-u1*sag))
         rows.append(row)
@@ -239,7 +257,7 @@ def ionic_sleeve(name,sg,sho,elb):
     ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.005;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
     b2=bmesh.new()
     for t in(0.25,0.55,0.85):
-        p=a0.lerp(a1,t)+u1*(0.072+0.03*t**0.8+0.004)
+        p=a0.lerp(a1,t)+u1*(0.102+0.008*t**0.8+0.01)
         bmesh.ops.create_uvsphere(b2,u_segments=8,v_segments=6,radius=0.0075,matrix=Matrix.Translation(p))
     bt=obj_from_bm('fibulas',b2);smart_uv(bt)
     return ob,bt
@@ -253,9 +271,16 @@ def shoulder_flap(name,body,sg):
             w=(k/Wn-0.5)*0.11
             d=Vector((0.25*sg,math.sin(-ang),math.cos(ang))).normalized()
             o=C+Vector((w*sg*0.9,0,0))
-            hit=bvh.ray_cast(o+d*0.4,-d,0.4);p=(hit[0]+d*0.014) if hit[0] else o+d*0.13
-            row.append(bm.verts.new(p))
+            hit=bvh.ray_cast(o+d*0.4,-d,0.4);p=(hit[0]+d*0.016) if hit[0] else None
+            row.append([p,o,d])
         rows.append(row)
+    # radios suavizados (sin saltos si algún rayo falla o da en otra parte)
+    for k in range(Wn+1):
+        rs=[((r[k][0]-r[k][1]).length if r[k][0] else None) for r in rows];good=sorted(x for x in rs if x);med=good[len(good)//2] if good else 0.13
+        rs=[x if (x and abs(x-med)<0.04) else med for x in rs]
+        for _ in range(3):rs=[(rs[max(0,i-1)]+2*rs[i]+rs[min(len(rs)-1,i+1)])/4 for i in range(len(rs))]
+        for i,r in enumerate(rows):r[k]=r[k][1]+r[k][2]*rs[i]
+    rows=[[bm.verts.new(p) for p in r] for r in rows]
     for i in range(N):
         for k in range(Wn):bm.faces.new((rows[i][k],rows[i][k+1],rows[i+1][k+1],rows[i+1][k]))
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
@@ -305,7 +330,7 @@ def drape_end(name,path,width,folds=3,famp=0.03):   # extremo de un manto que cu
 # ------------------------------------------------------------------ prenda: rejilla alrededor del cuerpo (u = vuelta, v = altura)
 def torso_bvh(body):   # el cuerpo sin los brazos: la ropa se ajusta al torso y a las piernas, no envuelve los brazos
     bm=bmesh.new();bm.from_mesh(body.data)
-    kill=[v for v in bm.verts if abs(v.co.x)>0.188 and 0.72<v.co.z<1.39]
+    kill=[v for v in bm.verts if (abs(v.co.x)>0.188 and 0.72<v.co.z<1.39) or (abs(v.co.x)>0.17 and 1.39<=v.co.z<1.48)]
     bmesh.ops.delete(bm,geom=kill,context='VERTS');bm.verts.ensure_lookup_table()
     return BVHTree.FromBMesh(bm)
 def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=None,skirt=True,clip=None,over=None):
@@ -598,12 +623,12 @@ def build(kind):
         ch=garment('quiton',body,0.1,1.5,0.012,folds=30,famp=0.006,flare=0.05,skirt=True,top=lambda u:1.505+0.06*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
         set_mat(ch,material('quiton',cloth_tex('quiton','#e8e0cf',border='#2f4c86',band=(0.0,0.05),folds=30,neck='#2f4c86')))
         def htop(u):   # el himation deja libre el hombro y el brazo derechos y cubre el izquierdo
-            a=u*TAU;return 1.17+0.26*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
+            a=u*TAU;return 1.17+0.13*(0.5+0.5*math.sin(a))**1.3   # en diagonal: alto en el hombro izquierdo (+X), bajo en la axila derecha
         hm=garment('himation',body,0.22,1.5,0.03,folds=11,famp=0.026,flare=0.11,top=htop,skirt=True,over=ch)
         set_mat(hm,material('himation',cloth_tex('himation','#6d7b9a',border='#2a2a3a',band=(0.0,0.045),folds=11)))
         for o in(ch,hm):pieces.append(o)
         # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
-        e1=drape_end('himation_extremo',[(0.1,0.02,1.53),(0.15,-0.08,1.48),(0.165,-0.17,1.34),(0.19,-0.21,1.05),(0.2,-0.225,0.75),(0.205,-0.23,0.5)],0.2,folds=2.5,famp=0.022)
+        e1=drape_end('himation_extremo',[(0.085,0.02,1.535),(0.1,-0.085,1.49),(0.115,-0.165,1.35),(0.13,-0.205,1.05),(0.14,-0.22,0.75),(0.145,-0.225,0.5)],0.17,folds=2.5,famp=0.022)
         e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         # mangas del quitón jonio: la tela cae suelta del hombro hasta el codo y se abrocha con botones (fíbulas) por encima del brazo
@@ -624,7 +649,7 @@ def build(kind):
         # grebas de bronce, ajustadas a la pantorrilla y con la rodilla marcada
         for k in('L','R'):
             kn=Vector(J['kne.'+k]);an=Vector(J['ank.'+k])
-            gr=limb_shell('greba',body,an+Vector((0,0,0.05)),kn+Vector((0,0,0.06)),0.007,knee=0.018)
+            gr=limb_shell('greba',body,an+Vector((0,0,0.05)),kn+Vector((0,0,0.06)),0.007,nu=28,nv=12,knee=0.018,gap=1.0)
             set_mat(gr,material('bronce',plain_tex('bronce','#c4943e',0.1),metal=0.85,rough=0.35) if 'bronce' not in bpy.data.materials else bpy.data.materials['bronce']);pieces.append(gr)
         for o in(ch,lt,pt):pieces.append(o)
         hel,crest=helmet();smart_uv(hel);set_mat(hel,bpy.data.materials['bronce']);smart_uv(crest);set_mat(crest,material('crin',plain_tex('crin','#7a1e14',0.2)))
