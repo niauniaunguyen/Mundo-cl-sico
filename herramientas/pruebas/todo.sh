@@ -10,4 +10,7 @@ for m in atenas roma; do
   echo "== $m: huella del mundo";  node herramientas/pruebas/run.js "?modo=$m#debug" herramientas/pruebas/huella.js | grep -v "^    at" || fallo=1
   echo "== $m: prueba de humo";     node herramientas/pruebas/run.js "?modo=$m#debug" herramientas/pruebas/humo_$m.js | grep -v "^    at" | tail -6 || fallo=1
 done
+if [ "$2" = "--recorridos" ]; then   # lenta (5-12 min por ciudad): ¿se llega andando a todo?
+  for m in atenas roma; do echo "== $m: recorridos a pie"; node herramientas/pruebas/run.js "?modo=$m#debug" herramientas/pruebas/recorridos.js | grep -v "^    at" | tail -40 || fallo=1; done
+fi
 exit $fallo

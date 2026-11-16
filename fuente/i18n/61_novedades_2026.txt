@@ -3851,3 +3851,15 @@ Before, during or after: how to read the sources
 @e53ac146
 <p><button data-go="f:guia">← Totes les fonts</button></p>
 <p><button data-go="f:guia">← All sources</button></p>
+
+@a4196069
+<span class="label">Saltar</span><br>Recolzes una mà i hi passes per sobre de costat, sense perdre el pas. Funciona amb murets, piques i bancs baixos.
+<span class="label">Vault</span><br>You put a hand down and go over sideways without breaking stride. It works on low walls, basins and low benches.
+
+@45b01eec
+Cada cop saltes amb més soltesa.
+You vault more and more smoothly.
+
+@32835570
+<kbd>E</kbd>Saltar el muret
+<kbd>E</kbd>Vault the wall

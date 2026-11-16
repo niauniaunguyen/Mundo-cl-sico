@@ -34,7 +34,7 @@ function rawH(x,z){
   {const tx=x-THEA.x,tz=z-THEA.z,r=Math.hypot(tx,tz);if(r<THEA.r1+12){const ph=Math.abs(Math.atan2(tx,-tz)),rc=Math.min(Math.max(r,THEA.r0),THEA.r1),cav=THEA.h0+(rc-THEA.r0)*THEA.step+0.3;
     const out=r>THEA.r1?1-sstep((r-THEA.r1)/12):1,w=1-sstep(clamp((ph-1.55)/0.9,0,1)),e=cav*out*w;if(e>h)h=e;}} // la ladera abraza las gradas
   let a=plateau(x,z,ACRO.x,ACRO.z,ACRO.rx,ACRO.rz,ACRO.h,0.3);
-  if(x>-240&&x<-110){const t=clamp((x+235)/113,0,1);const side=1-sstep(clamp((Math.abs(z+2)-7)/5,0,1));a=Math.max(a,(25+35*t)*side);} // rampa de Mnesicles
+  if(x>-240&&x<-110){const t=clamp((x+235)/95,0,1);const side=1-sstep(clamp((Math.abs(z+2)-7)/5,0,1));a=Math.max(a,(25+35*t)*side);} // rampa de Mnesicles
   return a>0?Math.max(h,a):(s>0||pirWet(x,z))?h:Math.max(h,0);   // bajo el nivel del suelo solo el mar y las dársenas del Pireo
 }
 

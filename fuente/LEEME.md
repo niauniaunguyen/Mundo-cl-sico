@@ -26,7 +26,7 @@ herramientas/pruebas/todo.sh --navegador      # antes de publicar (varios minuto
 `comprobar.js` construye y revisa: sintaxis, funciones declaradas dos veces, funciones del bucle que no existen, envolturas
 (`{const f=X;X=function(…){f(…);…}}`) sobre algo que no es una función reasignable o que no llaman a la original, textos
 traducidos pegados a la palabra anterior (`return_t(…)`), marcadores sin sustituir y tamaño. Si una envoltura sustituye a
-propósito a la función, escríbelo sin la variable (`X=function…`) y con un comentario. `todo.sh --navegador` añade, en Atenas y en Roma, la **prueba de humo** (abre todos los diálogos,
+propósito a la función, escríbelo sin la variable (`X=function…`) y con un comentario. `todo.sh --navegador --recorridos` añade además los **recorridos a pie** (`recorridos.js`: desde la salida explora la ciudad con `tryMove`, como el jugador, y lista personajes, estelas, dioses y objetos inaccesibles; tarda 5-12 min por ciudad). `todo.sh --navegador` añade, en Atenas y en Roma, la **prueba de humo** (abre todos los diálogos,
 estelas, dioses, objetos…) y la **huella del mundo** (ver «El generador aleatorio»). Para las del navegador hace falta
 Chromium con Playwright y `cd herramientas/qa_visual && npm install` (three.js r128 servido en local).
 
