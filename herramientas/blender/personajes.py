@@ -84,8 +84,9 @@ def head_shape(x,y,z):   # desplazamiento radial sobre la esfera unidad (delante
         d+=0.075*_g((x,y,z),(0.56*s,-0.72,-0.08),0.2)   # pómulos
         d-=0.03*_g((x,y,z),(0.58*s,-0.62,-0.38),0.18)   # hundimiento bajo el pómulo
         d-=0.04*_g((x,y,z),(0.82*s,-0.35,0.28),0.25)    # sienes
-        d+=0.05*_g((x,y,z),(0.11*s,-0.95,-0.3),0.09)    # aletas de la nariz
-    rz=min(1,max(0,(0.12-z)/0.4))**1.4;nose=0.2*math.exp(-(x/(0.05+0.04*rz))**2)*rz*(1 if z>-0.28 else math.exp(-((z+0.28)/0.04)**2))*min(1,fr*2.2)
+        d+=0.06*_g((x,y,z),(0.1*s,-0.97,-0.29),0.07)    # aletas de la nariz
+        d-=0.025*_g((x,y,z),(0.16*s,-0.95,-0.22),0.05)   # surco junto a las aletas
+    rz=min(1,max(0,(0.14-z)/0.42))**1.3;nose=0.27*math.exp(-(x/(0.045+0.035*rz))**2)*rz*(1 if z>-0.29 else math.exp(-((z+0.29)/0.035)**2))*min(1,fr*2.2)
     d+=nose
     d+=0.03*_g((x,y,z),(0,-0.97,0.22),0.12)   # entrecejo
     d-=0.02*math.exp(-(x/0.25)**2-((z+0.42)/0.12)**2)*fr      # la boca, algo más atrás que la nariz
@@ -97,6 +98,10 @@ def head_shape(x,y,z):   # desplazamiento radial sobre la esfera unidad (delante
 def head_mesh(name,beard=False):
     bm=bmesh.new();bmesh.ops.create_uvsphere(bm,u_segments=72,v_segments=56,radius=1)
     rx,ry,rz=HR
+    # más resolución en la nariz y alrededor de los ojos (sobre la esfera, antes de esculpir)
+    reg=[f for f in bm.faces if (lambda c:c.y<-0.55 and ((abs(c.x)<0.24 and -0.42<c.z<0.25) or (abs(abs(c.x)-0.33)<0.22 and -0.08<c.z<0.2)))(f.calc_center_median())]
+    bmesh.ops.subdivide_edges(bm,edges=list(set(e for f in reg for e in f.edges)),cuts=2,use_grid_fill=True)
+    for v in bm.verts:v.co.normalize()
     for v in bm.verts:
         x,y,z=v.co;r=1+head_shape(x,y,z);x*=r;y*=r;z*=r
         t=max(0,-z);x*=1-0.24*t*t;y*=1-0.08*t
@@ -104,14 +109,6 @@ def head_mesh(name,beard=False):
         if z>0:y*=1+0.03*z;x*=1+0.07*z*(1-z)   # cráneo más redondo arriba
         if z>0.75:z*=1-0.06*(z-0.75)/0.25   # sin coronilla en punta
         v.co=Vector((x*rx,y*ry,z*rz))+HC
-    # más resolución alrededor de los ojos, para que la almendra salga curva
-    near=set()
-    for f in bm.faces:
-        q=f.calc_center_median()-HC;a=math.atan2(q.x,-q.y)
-        for sg in(1,-1):
-            if ((a-EYE_A*sg)/(EYE_W*2.2))**2+((q.z-EYE_Z)/(EYE_H*3.2))**2<1:near.add(f)
-    ed=set(e for f in near for e in f.edges)
-    bmesh.ops.subdivide_edges(bm,edges=list(ed),cuts=2,use_grid_fill=True)
     # aberturas de los ojos (almendra): detrás van los globos oculares
     kill=[]
     for f in bm.faces:
@@ -477,7 +474,7 @@ def blur(img,k=2):
     out=img.copy()
     for _ in range(k):out=(out+np.roll(out,1,0)+np.roll(out,-1,0)+np.roll(out,1,1)+np.roll(out,-1,1))/5
     return out
-def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, cejas, ojos, labios y pelo pintados (UV cilíndrica), con bordes suaves
+def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512,front_up=0.0):   # cabeza: piel, cejas, ojos, labios y pelo pintados (UV cilíndrica), con bordes suaves
     H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
     a=(u-0.5)*TAU;z=v*0.34-0.16
     col=np.ones((H,W,3))*hexc(base)
@@ -510,7 +507,7 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512):   # cabeza: piel, ce
     layer((np.abs(a)<lipw)&(z>-0.0705)&(z<-0.066),'#7e4236',0.8,1)   # labio superior
     layer((np.abs(a)<lipw*0.95)&(z>-0.076)&(z<-0.0705),'#9a5a4a',0.7,1)   # labio inferior
     layer((np.abs(a)<lipw*0.9)&(np.abs(z+0.0705)<0.0011),'#3a1810',0.9,0)   # línea de cierre
-    hl=0.07-0.035*np.cos(a)+0.006*np.sin(a*13)
+    hl=0.07-0.035*np.cos(a)+0.006*np.sin(a*13)+front_up*np.clip(np.cos(a),0,1)
     hm=z>hl;strand=0.85+0.25*np.sin(a*60+z*90+np.sin(a*7)*3)*0.5
     hc=hexc(hair)[None,None,:]*strand[...,None];m=blur(hm.astype(float),2);col[:]=col*(1-m[...,None])+hc*m[...,None]
     if beard:   # la misma zona que la barba con volumen (hair_weight), algo más ancha y con borde suave
@@ -692,14 +689,14 @@ def build(kind):
     smart_uv(body);skin=plain_tex(kind+'_piel','#d9ad88',0.04)
     set_mat(body,material(kind+'_piel',skin))
     hair='#5e4029'
-    set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d9ad88',beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
+    set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara','#d9ad88',front_up=(0.04 if kind=='hoplita' else 0.0),beard=('#6e4c33' if kind=='ciudadano' else None),hair=hair)))
     ears=ear_mesh(kind+'_orejas');set_mat(ears,body.data.materials[0])
-    nose=nose_mesh(kind+'_nariz');set_mat(nose,head.data.materials[0])
     eyes=eye_mesh(kind+'_ojos',head);set_mat(eyes,material(kind+'_ojo',eye_tex(kind+'_ojo')))
     hm_=material(kind+'_pelo',hair_tex(kind+'_pelo',hair))
-    hs=hair_shell(kind+'_pelo',head,'pelo');set_mat(hs,hm_)
+    hs=None
+    if kind!='hoplita':hs=hair_shell(kind+'_pelo',head,'pelo');set_mat(hs,hm_)
     bd=hair_shell(kind+'_barba',head,'barba');set_mat(bd,material(kind+'_barba',hair_tex(kind+'_barba','#6e4c33' if kind=='ciudadano' else '#4a3424')))
-    pieces=[head,ears,nose,eyes,hs,bd];rigid=[]
+    pieces=[head,ears,eyes,bd]+([hs] if hs else []);rigid=[]
     cuero=material('cuero',plain_tex('cuero','#6a4428',0.15),rough=0.7)
     for o in sandals('sandalia',body):set_mat(o,cuero);pieces.append(o)
     if kind=='ciudadano':
