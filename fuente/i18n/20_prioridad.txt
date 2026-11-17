@@ -3923,3 +3923,349 @@ History is written with sources. Ancient historians, like Thucydides or Tacitus,
 @4b691036
 <span class="n">2</span><span>Capítol extra: «Les històries de Tàcit» (un viatge per les províncies)</span>
 <span class="n">2</span><span>Extra chapter: “The histories of Tacitus” (a journey through the provinces)</span>
+
+# ---- comercio y espíritus
+
+@6a0d86b9
+"<p class=\"sub\">Portes: "
+"<p class=\"sub\">You carry: "
+
+@8ab32b68
+" · Espai: "
+" · Space: "
+
+@a15edcab
+" (el teu vaixell)"
+" (your ship)"
+
+@d4d8a21e
+" (sense vaixell propi: pagaràs 1 "
+" (without your own ship: you will pay 1 "
+
+@6f9b34c6
+" de nòlit per cada fardell en vendre'l)"
+" freight for each bale when you sell it)"
+
+@113bb2b8
+" · Tens "
+" · You have "
+
+@1d89235d
+"Comprar 1 "
+"Buy 1 "
+
+@1e4b04f0
+No t'hi cap res més.
+Nothing more will fit.
+
+@9570acdd
+No et arriben els diners.
+You don't have enough money.
+
+@737cf600
+Fet: es carrega al vaixell.
+Done: it is loaded onto the ship.
+
+@f7b082c6
+Regatejar amb el venedor
+Haggle with the seller
+
+@683cf1f4
+Li recordes el que paguen al port del costat, n'alabes la mercaderia i li promets tornar. Sospira: «Està bé, avui te'l deixo més barat».
+You remind him what they pay at the next port, praise his goods and promise to come back. He sighs: “All right, today I'll let you have it cheaper.”
+
+@a4d99734
+Es creua de braços: «Si no t'agrada el preu, el mar és molt gran». Avui no hi ha rebaixa.
+He folds his arms: “If you don't like the price, the sea is very big.” No discount today.
+
+@df84d77a
+Blat o tonyina: tria. I no triguis, que el vent del nord no espera.
+Grain or tuna: choose. And don't take long, the north wind won't wait.
+
+@70158375
+Aquesta terra blanca la fan servir els pintors: diuen que és el millor blanc que hi ha.
+Painters use this white earth: they say it is the best white there is.
+
+@3de56e60
+El meu marit ven troncs de les muntanyes. Per a rems i per a cascos, res de millor.
+My husband sells logs from the mountains. For oars and hulls, there's nothing better.
+
+@3f9f73a8
+Vi d'Ariúsia, el millor. Te'l carrego jo mateix.
+Wine from Ariusia, the best. I'll load it for you myself.
+
+@e02c4541
+"Notícies del port: "
+"News from the port: "
+
+@fed80d82
+Avui el port està tranquil: ni notícies bones ni dolentes.
+The port is quiet today: no good news and no bad.
+
+@9937e109
+"</b>: et pago "
+"</b>: I pay you "
+
+@63c10542
+" per cadascuna"
+" for each one"
+
+@fbd53b66
+"<p class=\"sub\">Preus de compra a l'origen: "
+"<p class=\"sub\">Purchase prices at origin: "
+
+@383aee2e
+" (més o menys segons l'estació). Guanys acumulats: "
+" (more or less depending on the season). Total profit: "
+
+@f2c7eb57
+Vendre-ho tot
+Sell everything
+
+@09ff158a
+Al Pireu et coneixen com a mercader.
+At the Piraeus they know you as a merchant.
+
+@b20ad9b7
+"<p>Cobres "
+"<p>You receive "
+
+@ed8ea98f
+", i pagues "
+", and you pay "
+
+@6dc9f297
+" de nòlit a l'armador"
+" freight to the shipowner"
+
+@cacbb57c
+". Et queden "
+". You are left with "
+
+@0e59ae00
+" nets.</p><p class=\"sub\">"
+" clear.</p><p class=\"sub\">"
+
+@a09b26a0
+"La teva primera venda. Així vivien milers de mercaders, "
+"Your first sale. This is how thousands of merchants lived, "
+
+@2fe8e87f
+gairebé sempre lliberts i provincials
+almost always freedmen and provincials
+
+@8f0dc8a7
+gairebé sempre meteci o estrangers
+almost always metics or foreigners
+
+@7724c58c
+: comprant barat on alguna cosa sobrava i venent on faltava.
+: buying cheap where something was plentiful and selling where it was scarce.
+
+@602ed93e
+"Portes "
+"You have made "
+
+@5cfbf712
+" vendes i "
+" sales and "
+
+@390e48a0
+" de guany."
+" in profit."
+
+@560c2b16
+Com funciona el comerç per mar?
+How does sea trade work?
+
+@7fd81f14
+Tens un cas per a mi?
+Do you have a case for me?
+
+@8d5bc0ae
+Em portes als jocs de l'amfiteatre?
+Will you take me to the games at the amphitheatre?
+
+@3fe06e5d
+Com honora la ciutat els estrangers?
+How does the city honour foreigners?
+
+@511ca147
+Tornar a assistir a una sessió de l'Acadèmia
+Attend an Academy session again
+
+@b3f785e2
+Assistir a una sessió de l'Acadèmia, en directe
+Attend an Academy session, live
+
+@e61fe6a3
+Veure el meu mapa del coneixement
+See my map of knowledge
+
+@294f4696
+"<p>Les teves figuretes dels Lars: dos nois de bronze que ballen amb una banya de beure. Avui són "
+"<p>Your Lares figurines: two bronze youths dancing with a drinking horn. Today they are "
+
+@773dd3b7
+Anar al larari de casa teva
+Go to the lararium in your house
+
+@da7d35ad
+"<p class=\"sub\">El teu aniversari al joc és el dia "
+"<p class=\"sub\">Your birthday in the game is day "
+
+@85cf6ef6
+" de cada any de seixanta dies"
+" of each sixty-day year"
+
+@7973c9b4
+: <b>és avui!</b>
+: <b>it's today!</b>
+
+@ab168fde
+Honorar la teva Juno
+Honour your Juno
+
+@9dad416b
+Honorar el teu Geni
+Honour your Genius
+
+@a3d81eb1
+" (és el teu aniversari)"
+" (it's your birthday)"
+
+@e2495e82
+La teva Juno
+Your Juno
+
+@fbccfc1e
+El teu Geni
+Your Genius
+
+@c6be0ac4
+el dia del teu aniversari
+on your birthday
+
+@3d2fefa7
+"<p>Et poses una toga neta, encens encens, aboques vi pur i deixes una coca i unes flors davant de l'altar: mai sang, que el dia del teu naixement no es mata. "
+"<p>You put on a clean toga, light incense, pour unmixed wine and leave a cake and some flowers before the altar: never blood, for nothing is killed on the day of your birth. "
+
+@b57c872c
+La Juno és l'esperit que acompanya cada dona, com el Geni cada home.
+The Juno is the spirit that accompanies every woman, as the Genius does every man.
+
+@83284957
+El Geni neix amb tu i t'acompanya tota la vida: és la teva força i la teva bona estrella.
+The Genius is born with you and accompanies you all your life: it is your strength and your lucky star.
+
+@0ec67eeb
+" Els teus amics et feliciten i et regalen alguna cosa.</p><p class=\"sub\">Fonts: Censorí, El dia del naixement 2; Tibul II 2; Horaci, Odes III 17. +2 Pietas</p>"
+" Your friends congratulate you and give you something.</p><p class=\"sub\">Sources: Censorinus, The Birthday 2; Tibullus II 2; Horace, Odes III 17. +2 Pietas</p>"
+
+@75cf030c
+Portar ofrenes als Manes (Parentàlies)
+Bring offerings to the Manes (Parentalia)
+
+@9eb6be6f
+Parentàlies
+Parentalia
+
+@d6ac9794
+febrer, el mes dels morts
+February, the month of the dead
+
+@0c9158e4
+<p>Els teus morts són lluny, a la teva terra. Fas el que fan els romans: compres unes violetes, una mica de pa mullat amb vi, sal i blat, i ho deixes en una tomba de la Via Àpia que ningú no sembla cuidar. Ovidi diu que als Manes els n'hi ha prou amb poc: una teula amb flors és suficient.</p><p class="sub">Fonts: Ovidi, Fastos II 533-570. +2 Pietas</p>
+<p>Your dead are far away, in your homeland. You do what the Romans do: you buy some violets, a little bread soaked in wine, salt and grain, and leave them at a tomb on the Via Appia that nobody seems to tend. Ovid says the Manes need little: a tile with flowers is enough.</p><p class="sub">Sources: Ovid, Fasti II 533-570. +2 Pietas</p>
+
+@f46b14f3
+<p class="sub">És maig: a les nits de les Lemúries vaguen els Lèmurs. Si els veus amb la torxa, fes el ritu de les faves negres a mitjanit davant d'un larari (el de casa teva o el de la Domus del Celi).</p>
+<p class="sub">It is May: on the nights of the Lemuria the Lemures roam. If you see them with your torch, perform the rite of the black beans at midnight before a lararium (your own or the one in the Domus on the Caelian).</p>
+
+@f9e9a0a0
+La teva laminilla d'or dels òrfics: unes línies per orientar-te a l'Hades. Al costat, una brosta d'arç.
+Your Orphic gold leaf: a few lines to guide you in Hades. Beside it, a sprig of hawthorn.
+
+@29fc5354
+La teva brosta d'arç, per allunyar els esperits.
+Your sprig of hawthorn, to keep spirits away.
+
+@adcd839a
+" Avui és "
+" Today is "
+
+@e5946e39
+la lluna nova, el primer dia del mes
+the new moon, the first day of the month
+
+@d22d7464
+"el dia "
+"day "
+
+@26a1d871
+" del mes de "
+" of the month of "
+
+@3f543624
+Donar unes gotes de vi pur a l'Agathós Daímon
+Give a few drops of unmixed wine to the Agathos Daimon
+
+@5e77b587
+Agathós Daímon
+Agathos Daimon
+
+@175136c4
+el bon esperit de la casa
+the good spirit of the house
+
+@6fa4302e
+<p>Abans de beure, aboques unes gotes de vi sense barrejar per a l'<b>Agathós Daímon</b>, el «bon esperit» de la casa, que s'imagina com una serp que viu al costat de la llar i porta l'abundància. Al banquet es fa el mateix en acabar de menjar, abans de barrejar el vi amb aigua.</p><p class="sub">Font: Aristòfanes, Els cavallers 85-106 i Les vespes 525. +1 Eusébeia</p>
+<p>Before drinking, you pour a few drops of unmixed wine for the <b>Agathos Daimon</b>, the “good spirit” of the house, imagined as a snake that lives by the hearth and brings plenty. At a banquet the same is done at the end of the meal, before mixing the wine with water.</p><p class="sub">Source: Aristophanes, Knights 85-106 and Wasps 525. +1 Eusebeia</p>
+
+@e1c1a950
+Deixar el sopar d'Hècate en una cruïlla (és lluna nova)
+Leave Hecate's supper at a crossroads (it is new moon)
+
+@42143d8b
+El sopar d'Hècate
+Hecate's supper
+
+@2810c0b1
+lluna nova
+new moon
+
+@6f3258fb
+<p>Quan cau la tarda deixes en una cruïlla un cistell amb pa, ous i formatge per a <b>Hècate</b>, la deessa de les cruïlles, de la nit i dels fantasmes, que es representa amb tres cossos mirant tres camins. Així la casa queda neta de mals esperits per al mes que comença. Al cap d'una estona, veus que un captaire s'acosta i se'l menja: a Atenes tothom ho sap i ningú no s'escandalitza.</p><p class="sub">Font: Aristòfanes, Plutus 594-597. +2 Eusébeia</p>
+<p>As evening falls you leave at a crossroads a basket with bread, eggs and cheese for <b>Hecate</b>, goddess of crossroads, of the night and of ghosts, shown with three bodies facing three roads. That way the house is cleansed of evil spirits for the month that begins. After a while, you see a beggar come up and eat it: in Athens everyone knows and nobody is shocked.</p><p class="sub">Source: Aristophanes, Wealth 594-597. +2 Eusebeia</p>
+
+@8b7b4524
+Fer el ritu contra les Keres (Antestèries)
+Perform the rite against the Keres (Anthesteria)
+
+@100dc173
+Quins esperits hi ha?
+What spirits are there?
+
+@66433809
+Els esperits
+The spirits
+
+@16086601
+el que creien els romans
+what the Romans believed
+
+@5845a76b
+el que creien els atenesos
+what the Athenians believed
+
+@8d28d415
+<p><b>Lars</b>: els guardians de la casa i de les cruïlles. <b>Penats</b>: els del rebost. <b>Geni</b> i <b>Juno</b>: l'esperit de cada home i de cada dona, que s'honora el dia de l'aniversari. <b>Manes</b>: els morts de la família, a les Parentàlies de febrer. <b>Lèmurs</b>: els morts sense descans, que es fan fora a les Lemúries de maig. Pels carrers veuràs els altars dels <b>Lars de les cruïlles</b>.</p>
+<p><b>Lares</b>: the guardians of the house and of crossroads. <b>Penates</b>: those of the pantry. <b>Genius</b> and <b>Juno</b>: the spirit of each man and each woman, honoured on their birthday. <b>Manes</b>: the family's dead, at the Parentalia in February. <b>Lemures</b>: the restless dead, driven out at the Lemuria in May. In the streets you will see the altars of the <b>Lares of the crossroads</b>.</p>
+
+@f56eeba8
+<p><b>Agathós Daímon</b>: el bon esperit de la casa, una serp. <b>Hècate</b>: la deessa de les cruïlles, que rep un sopar cada lluna nova. <b>Keres</b>: les ànimes dels morts, que surten a les Antestèries. I els <b>herois</b>, morts poderosos als quals es fan ofrenes a la tomba.</p>
+<p><b>Agathos Daimon</b>: the good spirit of the house, a snake. <b>Hecate</b>: goddess of crossroads, who receives a supper every new moon. <b>Keres</b>: the souls of the dead, who come out at the Anthesteria. And the <b>heroes</b>, powerful dead to whom offerings are made at their tombs.</p>
+
+@b33d7ff4
+els ritus dels esperits
+the rites of the spirits
