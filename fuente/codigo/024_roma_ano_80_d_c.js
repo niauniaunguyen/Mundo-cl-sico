@@ -1,6 +1,10 @@
 // ============================================================ ROMA, AÑO 80 d.C.: relieve
 // Origen en el centro del Foro. x = este, z = sur. Distancias comprimidas (más o menos a la mitad), edificios a tamaño real.
 // Colinas: [cx, cz, rx, rz (meseta), altura, borde (fracción del radio que ocupa la ladera)]
+// Alturas sobre el Foro antiguo (hacia 12 m s. n. m., más bajo que hoy por el relleno de los valles): Capitolio ~34 m (46 s. n. m.),
+// Arx ~37, Palatino ~39, Aventino ~35, Celio ~38, Esquilino (Opio) ~44, Quirinal ~49, Viminal ~48 (cotas de Lanciani, Forma Urbis,
+// y de Coarelli, Guida archeologica di Roma). El Quirinal, el Viminal y el Esquilino se subieron en v273 (antes 38, 34 y 34),
+// con laderas algo más anchas para que la pendiente no crezca con las distancias comprimidas.
 const RHILLS=[
  [-228,22,52,44,32,0.42],    // Capitolio: el Capitolium (cumbre sur, con el templo de Júpiter)
  [-218,-108,42,34,38,0.42],  // el Arx (cumbre norte, la más alta, con Juno Moneta y el auguraculum)
@@ -8,9 +12,9 @@ const RHILLS=[
  [40,195,160,82,34,0.7],     // Palatino: más ancho de norte a sur (Lanciani, láms. 29 y 35)
  [-250,590,170,120,30,0.5],  // Aventino
  [520,330,150,95,28,0.6],    // Celio
- [470,-260,200,100,34,0.6],  // Esquilino (Opio)
- [-150,-600,220,90,38,0.6],  // Quirinal
- [180,-640,150,80,34,0.6],   // Viminal
+ [470,-260,200,100,42,0.66], // Esquilino (Opio)
+ [-150,-600,220,90,47,0.68], // Quirinal
+ [180,-640,150,80,44,0.68],  // Viminal
  [-1400,250,150,600,62,0.8]  // Janículo
 ];
 // el Tíber: [z, x] del centro del cauce, de norte a sur; rodea el Campo de Marte por el oeste y pasa junto a la isla

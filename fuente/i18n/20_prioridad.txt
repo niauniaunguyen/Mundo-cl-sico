@@ -4269,3 +4269,855 @@ what the Athenians believed
 @b33d7ff4
 els ritus dels esperits
 the rites of the spirits
+
+# ---- destinos de Grecia y del mar (nombres, descripciones y viajes)
+
+@5c27d2ee
+Larissa
+Larissa
+
+@73c35c21
+La gran plana de Tessàlia, terra de cavalls, al costat del riu Peneu.
+The great plain of Thessaly, land of horses, by the river Peneus.
+
+@10a3dcbb
+sis o set dies de camí per les Termòpiles i la Ftiòtida
+six or seven days' walk through Thermopylae and Phthiotis
+
+@849996d4
+La nova capital dels reis de Macedònia, al costat d'una llacuna.
+The new capital of the kings of Macedon, beside a lagoon.
+
+@789f93c3
+deu dies de camí per Tessàlia i la vall del Tempe
+ten days' walk through Thessaly and the Vale of Tempe
+
+@a9d1c24c
+Dodona
+Dodona
+
+@55c420c9
+L'oracle de Zeus, al costat d'una alzina sagrada a les muntanyes de l'Epir.
+The oracle of Zeus, by a sacred oak in the mountains of Epirus.
+
+@52e91667
+deu o onze dies de camí per Tessàlia i el Pindos
+ten or eleven days' walk through Thessaly and the Pindus
+
+@34d2265b
+Calidó
+Calydon
+
+@1465eb0d
+La ciutat de Meleagre i del senglar, a Etòlia, davant del golf de Corint.
+The city of Meleager and the boar, in Aetolia, facing the Gulf of Corinth.
+
+@8c215917
+sis dies de camí per Delfos, Amfissa i Naupacte
+six days' walk through Delphi, Amphissa and Naupactus
+
+@b7c9e312
+Egi
+Aegium
+
+@6432aa2d
+Una ciutat d'Acaia al costat del golf de Corint.
+A city of Achaea by the Gulf of Corinth.
+
+@fc8ead43
+quatre dies de camí per l'Istme i la costa d'Acaia
+four days' walk across the Isthmus and along the coast of Achaea
+
+@ab61b059
+Itome
+Ithome
+
+@0337cfdb
+La muntanya sagrada de Messènia, la terra dels hilotes.
+The sacred mountain of Messenia, the land of the helots.
+
+@fa927102
+vuit dies de camí per l'Istme, Arcàdia i Esparta
+eight days' walk across the Isthmus, Arcadia and Sparta
+
+@0300292a
+La ciutat de l'Eurip, a Eubea, unida a Beòcia per un pont.
+The city of the Euripus, on Euboea, joined to Boeotia by a bridge.
+
+@b6b232a8
+tres dies de camí per Tànagra i Àulida
+three days' walk through Tanagra and Aulis
+
+@c93adc96
+La muntanya del Citeró
+Mount Cithaeron
+
+@a8452355
+La muntanya de Dionís i de les mènades, entre l'Àtica i Beòcia.
+The mountain of Dionysus and the maenads, between Attica and Boeotia.
+
+@543bc971
+un dia de camí, de pas cap a Platea
+one day's walk, on the way to Plataea
+
+@9a89f84a
+Nemea
+Nemea
+
+@1bed4bde
+La vall del lleó i dels jocs de Zeus, entre Corint i Micenes.
+The valley of the lion and of the games of Zeus, between Corinth and Mycenae.
+
+@4b920d53
+quatre dies de camí per l'Istme
+four days' walk across the Isthmus
+
+@2263fbbc
+La muntanya del Liceu
+Mount Lycaeus
+
+@3f714204
+La muntanya de Zeus Liceu i de Pan, al cor d'Arcàdia.
+The mountain of Zeus Lycaeus and of Pan, in the heart of Arcadia.
+
+@5f3d10db
+sis dies de camí per les muntanyes d'Arcàdia
+six days' walk through the mountains of Arcadia
+
+@c0fea8bf
+La vall del Tempe
+The Vale of Tempe
+
+@e581074c
+La gorja del Peneu entre l'Olimp i l'Ossa: la vall dels llorers.
+The gorge of the Peneus between Olympus and Ossa: the valley of laurels.
+
+@190b09a1
+nou dies de camí per Tessàlia
+nine days' walk through Thessaly
+
+@632f4bf5
+La muntanya del Parnàs
+Mount Parnassus
+
+@a807af30
+La muntanya d'Apol·lo i de les Muses, amb la cova de Pan i de les nimfes, sobre Delfos.
+The mountain of Apollo and the Muses, with the cave of Pan and the nymphs, above Delphi.
+
+@6637db14
+tres dies de camí per Beòcia
+three days' walk through Boeotia
+
+@06e2692a
+La muntanya del Pentèlic
+Mount Pentelicus
+
+@a7ccf0e6
+Entre Atenes i Marató: marbre, arnes i la cova de Pan.
+Between Athens and Marathon: marble, beehives and the cave of Pan.
+
+@594975b2
+mig dia de camí, de pas cap a Marató
+half a day's walk, on the way to Marathon
+
+@b35f86d5
+La muntanya de l'Eta
+Mount Oeta
+
+@5b2b16b4
+La muntanya de la pira d'Hèracles, sobre les Termòpiles.
+The mountain of Heracles's pyre, above Thermopylae.
+
+@d397625c
+quatre dies de camí per Beòcia i la Fòcida
+four days' walk through Boeotia and Phocis
+
+@e3b41ab3
+El riu Aqueloos
+The river Achelous
+
+@6aa61bef
+El riu més gran de Grècia, entre Etòlia i Acarnània.
+The greatest river of Greece, between Aetolia and Acarnania.
+
+@1bbc232b
+vuit dies de camí cap al nord-oest
+eight days' walk to the north-west
+
+@6b259768
+La muntanya del Taíget
+Mount Taygetus
+
+@11ae8089
+La serra d'Àrtemis i dels caçadors, entre Lacònia i Messènia.
+The range of Artemis and the hunters, between Laconia and Messenia.
+
+@8f98aad6
+set dies de camí pel Peloponès
+seven days' walk through the Peloponnese
+
+@f5e99da5
+Les roques Escirònides
+The Scironian Rocks
+
+@1036dd90
+El camí penjat sobre el mar entre Mègara i l'Istme.
+The road hanging over the sea between Megara and the Isthmus.
+
+@ed1543a0
+un dia i mig de camí per Mègara
+a day and a half's walk through Megara
+
+@4ee5b766
+Lerna
+Lerna
+
+@3d64a2fc
+Les fonts i l'aiguamoll de l'Hidra, al sud d'Argos.
+The springs and marsh of the Hydra, south of Argos.
+
+@d8f718e8
+quatre dies de camí per Argos
+four days' walk through Argos
+
+@a2655110
+La muntanya d'Erimant
+Mount Erymanthus
+
+@8d267375
+Boscos i cims nevats entre Acaia i Èlide: la muntanya del senglar.
+Forests and snowy peaks between Achaea and Elis: the mountain of the boar.
+
+@593930ab
+set dies de camí per Acaia
+seven days' walk through Achaea
+
+@cf46232a
+El llac d'Estímfal
+Lake Stymphalus
+
+@9d9f7744
+Un llac de muntanya al nord d'Arcàdia, el dels ocells d'Hèracles.
+A mountain lake in northern Arcadia, the lake of Heracles's birds.
+
+@9aa293c6
+tres dies de camí per Corint
+three days' walk through Corinth
+
+@50a50e4d
+El cap Tènar
+Cape Taenarum
+
+@3ea3cb85
+La punta més al sud de Grècia: el temple de Posidó i la porta de l'Hades.
+The southernmost point of Greece: the temple of Poseidon and the gate of Hades.
+
+@0c871ef4
+set dies de camí per Esparta
+seven days' walk through Sparta
+
+@835b1814
+Lebadea
+Lebadea
+
+@7be63506
+El bosc del riu Hercina i la cova de l'oracle de Trofoni, a Beòcia.
+The grove of the river Hercyna and the cave of the oracle of Trophonius, in Boeotia.
+
+@0729e7c3
+dos dies de camí per Tebes
+two days' walk through Thebes
+
+@e1e314fa
+La gran ciutat de Jònia, amb el temple d'Àrtemis, una de les meravelles del món.
+The great city of Ionia, with the temple of Artemis, one of the wonders of the world.
+
+@238e62f5
+tres o quatre dies de navegació, per les Cíclades i Samos
+three or four days' sailing, by the Cyclades and Samos
+
+@6d0543e4
+La ciutat dels primers filòsofs i de les noranta colònies.
+The city of the first philosophers and of the ninety colonies.
+
+@a49520a1
+quatre dies de navegació, per les Cíclades
+four days' sailing, by the Cyclades
+
+@9f77b3f9
+La ciutat d'Heròdot, entre grecs i caris, a la costa de Cària.
+The city of Herodotus, between Greeks and Carians, on the coast of Caria.
+
+@ae013b11
+quatre o cinc dies de navegació, per Cos
+four or five days' sailing, by Cos
+
+@d5c0acb2
+L'antiga capital de Lídia, avui residència del sàtrapa persa.
+The old capital of Lydia, now the residence of the Persian satrap.
+
+@47cf7088
+per mar fins a Efes i tres dies de camí per la vall del Caïstre
+by sea to Ephesus and three days' walk up the Cayster valley
+
+@a27b64b1
+tres dies de camí des d'Efes
+three days' walk from Ephesus
+
+@6fdbd54e
+Estagira
+Stagira
+
+@9c9a74ea
+Una petita ciutat de la Calcídica, al costat de Macedònia: la pàtria d'Aristòtil.
+A small city of Chalcidice, next to Macedon: Aristotle's birthplace.
+
+@441474b0
+quatre o cinc dies de navegació cap al nord, vorejant Eubea
+four or five days' sailing northwards, along Euboea
+
+@083563c7
+Salamina
+Salamis
+
+@2236e29a
+L'illa d'Àiax, davant del Pireu, on es va vèncer Xerxes.
+The island of Ajax, facing the Piraeus, where Xerxes was defeated.
+
+@136f9475
+mig dia de navegació des del Pireu
+half a day's sailing from the Piraeus
+
+@77c2089d
+Melos
+Melos
+
+@bafc0ac9
+L'illa dòrica que Atenes va castigar el 416 i que ha tornat a ser dels melis.
+The Dorian island that Athens punished in 416 and that belongs to the Melians again.
+
+@aa6831b0
+tres dies de navegació cap al sud de les Cíclades
+three days' sailing to the south of the Cyclades
+
+@0b8416f8
+Samos
+Samos
+
+@b320ea85
+L'illa d'Hera, de Pitàgores i del túnel d'Eupalinos.
+The island of Hera, of Pythagoras and of the tunnel of Eupalinus.
+
+@b5e63af8
+tres dies de navegació per les Cíclades i Icària
+three days' sailing by the Cyclades and Icaria
+
+@60c30e6c
+Quios
+Chios
+
+@45706640
+La rica illa jònia del millor vi de Grècia, que diu ser la pàtria d'Homer.
+The rich Ionian island of the best wine in Greece, which claims to be Homer's birthplace.
+
+@1f73947a
+tres dies de navegació cap a l'est, per Andros
+three days' sailing east, by Andros
+
+@60ca315c
+La ciutat nova que van fundar juntes les tres ciutats de l'illa, consagrada al Sol.
+The new city founded together by the island's three cities, sacred to the Sun.
+
+@8d23893b
+cinc o sis dies de navegació, per les Cíclades i Cos
+five or six days' sailing, by the Cyclades and Cos
+
+@f3d568aa
+La colònia rebel de Corint, a la ruta d'Itàlia: l'illa dels feacis.
+Corinth's rebellious colony, on the route to Italy: the island of the Phaeacians.
+
+@d202d6fa
+uns set dies de navegació, voltant el Peloponès
+about seven days' sailing, round the Peloponnese
+
+@daef8054
+La colònia de Mègara que vigila el Bòsfor i el pas del blat del mar Negre.
+The colony of Megara that guards the Bosporus and the passage of Black Sea grain.
+
+@c77e4e36
+sis dies de navegació per l'Hel·lespont i la Propòntida
+six days' sailing through the Hellespont and the Propontis
+
+@03bcd927
+Olint
+Olynthus
+
+@e5638039
+La capital de la lliga dels calcidis, amb el seu barri de carrers rectes.
+The capital of the Chalcidian League, with its quarter of straight streets.
+
+@0b0d4cf7
+cinc dies de navegació cap al nord, fins al golf Toroneu
+five days' sailing north, to the Toronaic Gulf
+
+@dd5734fc
+Pilos
+Pylos
+
+@0148cbbc
+La badia de Messènia on els espartans es van rendir a Esfactèria.
+The bay of Messenia where the Spartans surrendered on Sphacteria.
+
+@0349f40b
+quatre dies de navegació voltant el Peloponès pel cap Malea
+four days' sailing round the Peloponnese by Cape Malea
+
+@f040a70e
+Decèlia
+Decelea
+
+@d628cdd1
+El demo de l'Àtica, al peu del Parnes, on els espartans van tenir el seu fort.
+The deme of Attica, at the foot of Parnes, where the Spartans had their fort.
+
+@8783bb51
+mig dia de camí cap al nord, al peu del Parnes
+half a day's walk north, at the foot of Parnes
+
+@cdbe08a5
+Nàucratis
+Naucratis
+
+@873834b8
+El port dels grecs al delta del Nil, a l'Egipte lliure del faraó Hakor.
+The port of the Greeks in the Nile delta, in the free Egypt of Pharaoh Hakor.
+
+@f27808c7
+uns deu dies de navegació per Creta, i un dia Nil amunt des de la boca Canòpica
+about ten days' sailing by Crete, and a day up the Nile from the Canopic mouth
+
+@aa673618
+Memfis i les piràmides
+Memphis and the pyramids
+
+@719b8dc6
+La vella capital d'Egipte, el temple de Ptah i les piràmides que va veure Heròdot.
+The old capital of Egypt, the temple of Ptah and the pyramids Herodotus saw.
+
+@b64d3a0e
+en vaixell fins a Nàucratis i uns quatre dies remuntant el Nil
+by ship to Naucratis and about four days up the Nile
+
+@e673498b
+uns quatre dies remuntant el Nil en barca
+about four days up the Nile by boat
+
+@cdd9da0b
+La Dòrida
+Doris
+
+@0783fb07
+La petita vall entre l'Eta i el Parnàs que els doris anomenen la seva mare pàtria.
+The small valley between Oeta and Parnassus that the Dorians call their mother country.
+
+@858041cf
+tres dies de camí, per Beòcia i la Fòcida
+three days' walk, through Boeotia and Phocis
+
+@61e229e2
+Amfissa
+Amphissa
+
+@61039bcd
+La ciutat dels locris ozolis, sobre la plana sagrada de Delfos.
+The city of the Ozolian Locrians, above the sacred plain of Delphi.
+
+@0ce20de8
+dos dies i mig de camí, per Beòcia, fins més enllà de Delfos
+two and a half days' walk, through Boeotia, beyond Delphi
+
+@69d2a8d0
+Opunt
+Opus
+
+@b6aa7efa
+La ciutat dels locris orientals, pàtria d'Àiax el menor i de Pàtrocle.
+The city of the Eastern Locrians, birthplace of the lesser Ajax and of Patroclus.
+
+@55239f87
+dos dies de navegació, pel canal d'Eubea
+two days' sailing, through the Euboean channel
+
+@a0deb65b
+Sició
+Sicyon
+
+@105de866
+La ciutat dels pintors, entre Corint i Acaia.
+The city of painters, between Corinth and Achaea.
+
+@bc0b2b76
+dos dies de camí, per Mègara i l'Istme
+two days' walk, through Megara and the Isthmus
+
+@5238398c
+Ítaca
+Ithaca
+
+@d6813db7
+L'illa aspra d'Ulisses, al mar Jònic.
+The rugged island of Odysseus, in the Ionian Sea.
+
+@a8ffaa00
+uns sis dies de navegació, voltant el Peloponès
+about six days' sailing, round the Peloponnese
+
+@414395f5
+Cefal·lènia
+Cephallenia
+
+@bc292661
+La més gran de les illes Jòniques, amb quatre ciutats.
+The largest of the Ionian islands, with four cities.
+
+@c4c89a20
+Lèucada
+Leucas
+
+@539b4d02
+La colònia de Corint amb el penya-segat blanc d'Apol·lo.
+The Corinthian colony with Apollo's white cliff.
+
+@6ea734f4
+Zacint
+Zacynthus
+
+@398e5959
+L'illa boscosa de les llacunes de pega.
+The wooded island of the pitch lakes.
+
+@ee7b65b4
+uns cinc dies de navegació, voltant el Peloponès
+about five days' sailing, round the Peloponnese
+
+@c75a8d97
+Tasos
+Thasos
+
+@c6a322bf
+L'illa de l'or i del vi, davant de Tràcia.
+The island of gold and wine, facing Thrace.
+
+@9d473f09
+cinc dies de navegació cap al nord, per Eubea i Lemnos
+five days' sailing north, by Euboea and Lemnos
+
+@dde5445b
+Lemnos
+Lemnos
+
+@6d1c3368
+L'illa d'Hefest, que la pau del Rei deixa a Atenes.
+The island of Hephaestus, which the King's Peace leaves to Athens.
+
+@cc868bde
+tres o quatre dies de navegació cap al nord, per Eubea
+three or four days' sailing north, by Euboea
+
+@ab3e8f49
+Samotràcia
+Samothrace
+
+@1d04b2d8
+L'illa muntanyosa dels Misteris dels Grans Déus.
+The mountainous island of the Mysteries of the Great Gods.
+
+@3f841561
+cinc dies de navegació cap al nord
+five days' sailing north
+
+@95b49c21
+Cos
+Cos
+
+@b72cb110
+L'illa d'Hipòcrates i dels metges asclepíades.
+The island of Hippocrates and of the Asclepiad doctors.
+
+@9e7079f8
+Cime
+Cyme
+
+@9fe9a743
+La ciutat eòlia més gran d'Àsia, de nou sota el rei de Pèrsia.
+The largest Aeolian city in Asia, once more under the King of Persia.
+
+@6a2589c3
+tres o quatre dies de navegació, per Quios
+three or four days' sailing, by Chios
+
+@c24906d8
+Cnidos
+Cnidus
+
+@f400d05a
+La ciutat dòria de Cària, de metges i de la gran batalla naval del 394.
+The Dorian city of Caria, of doctors and of the great naval battle of 394.
+
+@c938d9b9
+quatre o cinc dies de navegació, per les Cíclades
+four or five days' sailing, by the Cyclades
+
+@bf532a4b
+La ciutat grega més gran d'Occident, en mans del tirà Dionís.
+The greatest Greek city of the West, in the hands of the tyrant Dionysius.
+
+@95525298
+uns deu dies de navegació, per Corcira i el mar Jònic
+about ten days' sailing, by Corcyra and the Ionian Sea
+
+@c2b2a7a4
+La colònia espartana d'Itàlia, governada pel pitagòric Arquites.
+The Spartan colony in Italy, governed by the Pythagorean Archytas.
+
+@1a1e6495
+uns nou dies de navegació, per Corcira i el mar Jònic
+about nine days' sailing, by Corcyra and the Ionian Sea
+
+@a078e6d6
+La colònia de Tera a Líbia, rica pel silfi.
+The colony of Thera in Libya, rich from silphium.
+
+@9e55a5d4
+uns vuit dies de navegació, per Creta
+about eight days' sailing, by Crete
+
+@cceed740
+La colònia de Milet a la boca del Borístenes, entre els escites.
+The Milesian colony at the mouth of the Borysthenes, among the Scythians.
+
+@43ad9862
+uns quinze dies de navegació, per l'Hel·lespont, el Bòsfor i la costa de Tràcia
+about fifteen days' sailing, through the Hellespont, the Bosporus and along the coast of Thrace
+
+@7c7be8ba
+La capital del regne del Bòsfor, d'on ve el blat d'Atenes.
+The capital of the Bosporan kingdom, where Athens's grain comes from.
+
+@872c7654
+uns setze dies de navegació, per l'Hel·lespont i el Bòsfor
+about sixteen days' sailing, through the Hellespont and the Bosporus
+
+@2553a26c
+La colònia de Milet a la costa sud del mar Negre, pàtria de Diògenes.
+The Milesian colony on the south coast of the Black Sea, birthplace of Diogenes.
+
+@20761f20
+uns dotze dies de navegació, pel Bòsfor i la costa de Bitínia
+about twelve days' sailing, through the Bosporus and along the coast of Bithynia
+
+@9be45a49
+La ciutat dels atletes, dels metges i de Pitàgores, a la Magna Grècia.
+The city of athletes, doctors and Pythagoras, in Magna Graecia.
+
+@0b891580
+El Làurion
+Laurion
+
+@92a743ea
+Les mines de plata del sud de l'Àtica, on treballen milers d'esclaus.
+The silver mines of southern Attica, where thousands of slaves work.
+
+@a192aacf
+un dia de camí cap al sud de l'Àtica
+one day's walk to the south of Attica
+
+# ---- estelas de destinos (Grecia, Regium, Cnosos)
+
+@f3137e6b
+Temple d'Apol·lo de Larissa
+Temple of Apollo of Larissa
+
+@1eccb810
+La plana de Tessàlia
+The plain of Thessaly
+
+@b7c728ad
+La plana més gran de Grècia, regada pel riu Peneu i envoltada de muntanyes: l'Olimp al nord, el Pindos a l'oest, l'Otris al sud. Aquí es crien els millors cavalls i es forma la millor cavalleria grega. La terra és de poques famílies aristocràtiques, com els Alèvades de Larissa, i la treballen els penestes, pagesos sotmesos que no són lliures ni del tot esclaus. Cap al nord s'arriba a Macedònia per l'estreta vall del Tempe; cap a l'oest, travessant el Pindos, a l'Epir.
+The largest plain in Greece, watered by the river Peneus and ringed by mountains: Olympus to the north, Pindus to the west, Othrys to the south. The best horses are bred here and the best Greek cavalry is formed. The land belongs to a few aristocratic families, such as the Aleuadae of Larissa, and is worked by the penestae, subject peasants who are neither free nor quite slaves. To the north, the narrow Vale of Tempe leads to Macedon; to the west, across the Pindus, to Epirus.
+
+@5c9b0356
+Santuari de Pel·la
+Sanctuary of Pella
+
+@49f7d63a
+Pel·la, capital de Macedònia
+Pella, capital of Macedon
+
+@0608dee5
+El rei Arquelau va traslladar fa uns anys la capital de Macedònia des d'Egues fins aquí, al costat d'una llacuna comunicada amb el mar. Va voler fer de la seva cort una petita Atenes: va convidar el pintor Zeuxis a decorar el seu palau i el poeta Eurípides, que va morir a Macedònia el 406. Ara regna Amintes III, que lluita per conservar el tron davant dels il·liris i de la lliga d'Olint. Al sud de Grècia es discuteix si els macedonis són grecs de debò. D'aquí a quatre anys hi naixerà el seu fill Filip, que dominarà Grècia, i de Filip naixerà Alexandre.
+A few years ago King Archelaus moved the capital of Macedon from Aegae to here, beside a lagoon open to the sea. He wanted to make his court a little Athens: he invited the painter Zeuxis to decorate his palace and the poet Euripides, who died in Macedon in 406. Now Amyntas III reigns, fighting to keep his throne against the Illyrians and the league of Olynthus. In southern Greece people argue whether the Macedonians are really Greeks. In four years his son Philip will be born here, who will dominate Greece, and from Philip will come Alexander.
+
+@4318007e
+L'oracle de Dodona
+The oracle of Dodona
+
+@584dcd9b
+L'oracle més antic de Grècia, segons Heròdot. Zeus parla pel murmuri de les fulles d'una alzina sagrada, i els seus sacerdots, els sel·los, dormen a terra i no es renten els peus, com ja explica la Ilíada. Al voltant de l'arbre hi ha un cercle de calders de bronze sobre trípodes: quan en toques un, el so passa de calder en calder. Els fidels escriuen les preguntes en làmines de plom: si els convé casar-se, si el fill que espera la seva dona és seu, si han d'emigrar. Se n'han trobat milers.
+The oldest oracle in Greece, according to Herodotus. Zeus speaks through the rustling of the leaves of a sacred oak, and his priests, the Selloi, sleep on the ground and do not wash their feet, as the Iliad already says. Around the tree stands a circle of bronze cauldrons on tripods: when you strike one, the sound passes from cauldron to cauldron. The faithful write their questions on lead tablets: whether they should marry, whether the child their wife is expecting is theirs, whether they should emigrate. Thousands have been found.
+
+@92badc62
+Temple d'Àrtemis Làfria
+Temple of Artemis Laphria
+
+@c2aa2352
+El senglar de Calidó
+The Calydonian boar
+
+@5191fd30
+Aquí situa el mite la cacera del senglar monstruós que Àrtemis va enviar contra Calidó perquè el rei Eneu l'havia oblidat en els seus sacrificis. Hi van acudir herois de tota Grècia; la caçadora Atalanta va ser la primera a ferir-lo i Meleagre el va matar i li va regalar la pell, cosa que va desfermar la discòrdia. Sobre la ciutat hi ha el santuari d'Àrtemis Làfria. Molts etolis encara viuen en llogarets sense muralles i tenen fama de guerrers d'armes lleugeres: el 426 van derrotar a les seves muntanyes els atenesos de Demòstenes.
+Here myth places the hunt for the monstrous boar that Artemis sent against Calydon because King Oeneus had forgotten her in his sacrifices. Heroes came from all over Greece; the huntress Atalanta was the first to wound it and Meleager killed it and gave her the hide, which sparked strife. Above the city stands the sanctuary of Artemis Laphria. Many Aetolians still live in unwalled villages and are known as light-armed warriors: in 426 they defeated Demosthenes's Athenians in their mountains.
+
+@9479fef0
+Santuari de Zeus Homari
+Sanctuary of Zeus Homarios
+
+@80669e00
+Egi i els aqueus
+Aegium and the Achaeans
+
+@838bca95
+Les ciutats d'Acaia, a la costa nord del Peloponès, formen una lliga que es reuneix al santuari de Posidó d'Hèlice, a poca distància d'aquí. Hèlice no ho sap, però d'aquí a tretze anys, el 373, un terratrèmol nocturn i una onada gegant se l'empassaran sencera, i durant segles els viatgers en veuran les ruïnes sota l'aigua. Després, els aqueus es reuniran aquí, a Egi.
+The cities of Achaea, on the north coast of the Peloponnese, form a league that meets at the sanctuary of Poseidon at Helice, not far from here. Helice does not know it, but in thirteen years, in 373, a night-time earthquake and a giant wave will swallow it whole, and for centuries travellers will see its ruins under the water. Afterwards, the Achaeans will meet here, at Aegium.
+
+@39fdf906
+Santuari de Zeus Itomates
+Sanctuary of Zeus Ithomatas
+
+@34e43167
+Messènia i els hilotes
+Messenia and the helots
+
+@e0b18374
+Messènia és una de les terres més fèrtils de Grècia, i per això Esparta la va conquerir fa segles. Els seus habitants són hilotes: serfs que conreen la terra per als seus amos espartans i els lliuren la meitat de la collita. S'han revoltat diverses vegades; en la gran rebel·lió que va seguir el terratrèmol del 464 van resistir deu anys aquí, a la muntanya d'Itome, al costat del santuari de Zeus Itomates. D'aquí a disset anys, Epaminondes de Tebes alliberarà Messènia i fundarà en aquest vessant la ciutat de Messene.
+Messenia is one of the most fertile lands in Greece, and that is why Sparta conquered it centuries ago. Its people are helots: serfs who farm the land for their Spartan masters and hand over half the harvest. They have rebelled several times; in the great revolt that followed the earthquake of 464 they held out for ten years here, on Mount Ithome, by the sanctuary of Zeus Ithomatas. In seventeen years, Epaminondas of Thebes will free Messenia and found the city of Messene on this slope.
+
+@3c5fe64b
+Temple d'Apol·lo de Calcis
+Temple of Apollo of Chalcis
+
+@b471b30e
+L'Eurip
+The Euripus
+
+@9c27583c
+Calcis és al costat de l'Eurip, l'estret que separa l'illa d'Eubea de Beòcia: a la part més estreta fa uns quaranta metres, i des del 411 el creua un pont. Els seus corrents canvien de sentit diverses vegades al dia, tan de pressa que els vaixells han d'esperar, i ningú no sap per què. Aristòtil, que hi passarà els últims dies, intentarà explicar-ho. Calcis va fundar fa segles colònies per tot el Mediterrani, de Sicília i el sud d'Itàlia a la península que porta el seu nom, la Calcídica.
+Chalcis lies by the Euripus, the strait that separates the island of Euboea from Boeotia: at its narrowest it is about forty metres wide, and since 411 a bridge has crossed it. Its currents change direction several times a day, so fast that ships have to wait, and nobody knows why. Aristotle, who will spend his last days here, will try to explain it. Centuries ago Chalcis founded colonies all over the Mediterranean, from Sicily and southern Italy to the peninsula that bears its name, Chalcidice.
+
+@3ebcaa1e
+Règium
+Rhegium
+
+@98f22652
+Temple de Règium
+Temple of Rhegium
+
+@967eb4cf
+L'estret de Sicília
+The Strait of Sicily
+
+@f204fcd7
+Règium, la Règion que van fundar els grecs de Calcis, vigila l'estret que separa Itàlia de Sicília, de tot just tres quilòmetres a la part més estreta. Els mariners en temen els remolins i els corrents: aquí situa l'Odissea Escil·la, el monstre de la roca, i Caribdis, el remolí que s'empassa els vaixells. A l'altra riba hi ha Messana. Fa uns vint anys va desembarcar en aquest port l'apòstol Pau, presoner, camí de Roma.
+Rhegium, the Rhegion founded by the Greeks of Chalcis, watches over the strait that separates Italy from Sicily, barely three kilometres across at its narrowest. Sailors fear its whirlpools and currents: here the Odyssey places Scylla, the monster of the rock, and Charybdis, the whirlpool that swallows ships. On the other shore lies Messana. About twenty years ago the apostle Paul landed at this port, a prisoner, on his way to Rome.
+
+@a0d69431
+Aquestes ruïnes enormes, cobertes de terra i herba, fa gairebé mil anys que estan abandonades. Els cretencs diuen que eren el palau del rei Minos i que aquí Dèdal va construir el laberint; per això les monedes de la ciutat porten un laberint. Avui sabem que era un palau de l'edat del bronze, d'uns 150 metres de costat, amb un gran pati central, magatzems plens de gerres i columnes de fusta, destruït cap al 1375 aC.
+These enormous ruins, covered with earth and grass, have been abandoned for almost a thousand years. The Cretans say they were the palace of King Minos and that here Daedalus built the labyrinth; that is why the city's coins bear a labyrinth. Today we know it was a Bronze Age palace, about 150 metres across, with a great central court, storerooms full of jars and wooden columns, destroyed around 1375 BC.
+
+@0be5fd71
+El palau que no es veu
+The palace that cannot be seen
+
+@c60a589b
+Anacronisme assenyalat: el palau de columnes vermelles i frescos de colors que surt als llibres és la reconstrucció que va fer l'arqueòleg Arthur Evans a partir del 1900, en part amb formigó. El 386 aC ningú no l'havia vist així: només quedaven aquests murs arrasats. Si somies amb el laberint, veuràs el palau com va poder ser en el seu apogeu.
+Anachronism flagged: the palace of red columns and colourful frescoes in the books is the reconstruction made by the archaeologist Arthur Evans from 1900 onwards, partly in concrete. In 386 BC nobody had seen it like that: only these razed walls remained. If you dream of the labyrinth, you will see the palace as it may have been at its height.
+
+@d6fce128
+Bosc de Rea
+Grove of Rhea
+
+@b09a60eb
+Els fonaments de la casa de Rea
+The foundations of the house of Rhea
+
+@860daca0
+Els de Cnossos ensenyen aquests fonaments, enmig d'un bosc de xiprers molt antic, i diuen que van ser la casa de Rea, la mare de Zeus. Per a ells tots els déus estan emparentats amb Creta.
+The people of Knossos show these foundations, in the middle of a very old cypress grove, and say they were the house of Rhea, the mother of Zeus. For them all the gods are related to Crete.
+
+@12c7e53f
+Diodor de Sicília V 66.1
+Diodorus of Sicily V 66.1
+
+@9ba57a6b
+Stoa de Cnossos
+Stoa of Knossos
+
+@1494841a
+Temple d'Apol·lo Delfini
+Temple of Apollo Delphinios
+
+@9fda44bb
+La ciutat de Cnossos
+The city of Knossos
+
+@f5634409
+Cnossos és una de les tres grans ciutats de Creta, amb Gortina i Licte, i sempre està en guerra o en aliança amb alguna d'elles. Els seus ciutadans mengen junts en menjadors públics, com els espartans, i els seus nois s'eduquen en grups, els «ramats». Homer ja l'anomenava «la gran ciutat on va regnar Minos».
+Knossos is one of the three great cities of Crete, with Gortyn and Lyttos, and it is always at war or in alliance with one of them. Its citizens eat together in public messes, like the Spartans, and its boys are brought up in groups, the “herds”. Homer already called it “the great city where Minos reigned”.
+
+@d8a94634
+Homer, Odissea XIX 178-179
+Homer, Odyssey XIX 178-179
+
+@446a7dca
+Aristòtil, Política II 10 (1271b-1272b)
+Aristotle, Politics II 10 (1271b-1272b)
+
+@d0cbd95d
+Estrabó X 4.7 i 4.16-20
+Strabo X 4.7 and 4.16-20
+
+@05e3b4ee
+Un canvista de Cnossos
+A money-changer of Knossos
+
+@756347b9
+amb monedes del laberint
+with labyrinth coins
+
+@5f970c4b
+Santuari de Demèter
+Sanctuary of Demeter
+
+@09e8381e
+Al vessant d'aquest turó, davant de les ruïnes, els de Cnossos donen culte a Demèter i a la seva filla Persèfone. Els ofereixen figuretes de fang, llànties i gotets amb blat i mel.
+On the slope of this hill, facing the ruins, the people of Knossos worship Demeter and her daughter Persephone. They offer them clay figurines, lamps and little cups with wheat and honey.
+
+@9b02f00e
+Santuari excavat al turó de Gipsades, amb ofrenes des del segle VIII aC fins a època romana (Coldstream, 1973)
+Sanctuary excavated on the Gypsades hill, with offerings from the 8th century BC to Roman times (Coldstream, 1973)
+
+@00dc7c36
+Aquestes ruïnes d'allà baix eren el palau de Minos. El meu avi hi va trobar una gerra enterrada més alta que ell.
+Those ruins down there were the palace of Minos. My grandfather found a buried jar taller than himself.
+
+@594a9338
+Avui mengem al menjador comú: pa, vi aigualit i una mica de formatge. Per a tothom igual.
+Today we eat in the common mess: bread, watered wine and a little cheese. The same for everyone.
+
+@3225b1e3
+Si vas a l'Ida, segueix el camí dels xiprers.
+If you go to Ida, follow the cypress path.
+
+@aa340065
+Una de les grutes on, segons els cretencs, Rea va amagar Zeus acabat de néixer. Els curets ballaven picant els escuts perquè Cronos no sentís el plor. Així es veneraven la cova de la muntanya Ida i la de la muntanya Dicte; totes dues rebien ofrenes des de l'edat del bronze. Aquesta és una gruta petita de la costa; la gran cova de l'Ida és terra endins: segueix el pal «El camí de l'Ida».
+One of the grottoes where, according to the Cretans, Rhea hid the newborn Zeus. The Curetes danced, beating their shields so that Cronus would not hear him cry. That is how the cave of Mount Ida and that of Mount Dicte were revered; both received offerings from the Bronze Age onwards. This is a small grotto on the coast; the great cave of Ida is inland: follow the post “The road to Ida”.

@@ -52,13 +52,14 @@ function tlodHiGeo(lo){// muchos racimos sobre la superficie de la copa sencilla
   let crown=null;for(const nm of['T_olive_crown','T_pine_crown','T_plane_crown','T_cypress']){const P=GLB.parts[nm];if(P&&P.meshes.some(m=>m.geo===geo&&(m.role==='foliage'))){crown=nm;break;}}if(!crown)return;
   const key=crown+'|'+mat.uuid;let S=TLOD.sets.get(key);if(!S){S={lo:geo,mat,ims:[],hi:null,near:new Map(),key};TLOD.sets.set(key,S);}
   for(let i=n0;i<CHUNKS.length;i++)S.ims.push(CHUNKS[i].im);}catch(e){console.warn('tlod',e);}};}
-function tlodTick(dt){TLOD.t-=dt;if(TLOD.t>0||!TLOD.sets.size)return;TLOD.t=0.5;const cx=camera.position.x,cz=camera.position.z,R2=TLOD.R*TLOD.R,m4=new THREE.Matrix4(),v=new THREE.Vector3(),c=new THREE.Color();
-  for(const S of TLOD.sets.values()){
-    if(!S.hi){const geo=plHiGeo(S.lo,S.key.split('|')[0])||tlodHiGeo(S.lo);S.hi=new THREE.InstancedMesh(geo,S.mat,TLOD.max);S.hi.count=0;S.hi.castShadow=true;S.hi.frustumCulled=false;S.hi.userData.veg=true;S.hi.userData.tlod=true;scene.add(S.hi);
-      if(S.ims.some(im=>im.instanceColor))S.hi.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(TLOD.max*3),3);}
-    const want=new Map();for(const im of S.ims){if(!im.parent||!im.visible)continue;const sp=im.geometry.boundingSphere;if(sp&&Math.hypot(sp.center.x-cx,sp.center.z-cz)>sp.radius+TLOD.R)continue;
+function tlodTick(dt){TLOD.t-=dt;if(TLOD.t>0||!TLOD.sets.size)return;TLOD.t=0.5;const cx=camera.position.x,cz=camera.position.z,m4=new THREE.Matrix4(),v=new THREE.Vector3(),c=new THREE.Color();
+  for(const S of TLOD.sets.values()){const SR=S.R||TLOD.R,R2=SR*SR,MX=S.max||TLOD.max;
+    if(!S.hi){let geo=null;if(S.arch){if(!ARCH.tpl){archLoad();continue;}geo=ARCH.tpl['K_'+S.arch.slice(2)];if(!geo)continue;}else geo=plHiGeo(S.lo,S.key.split('|')[0])||tlodHiGeo(S.lo);
+      S.hi=new THREE.InstancedMesh(geo,S.mat,MX);S.hi.count=0;S.hi.castShadow=true;S.hi.receiveShadow=!!S.arch;S.hi.frustumCulled=false;if(!S.arch)S.hi.userData.veg=true;S.hi.userData.tlod=true;scene.add(S.hi);
+      if(S.ims.some(im=>im.instanceColor))S.hi.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(MX*3),3);}
+    const want=new Map();for(const im of S.ims){if(!im.parent||!im.visible)continue;const sp=im.geometry.boundingSphere;if(sp&&Math.hypot(sp.center.x-cx,sp.center.z-cz)>sp.radius+SR)continue;
       const A=im.instanceMatrix.array,orig=im.userData.tlodOrig;for(let i=0;i<im.count;i++){const o=orig&&orig.has(i)?orig.get(i):null,e=o?o.elements:null;const x=e?e[12]:A[i*16+12],z=e?e[14]:A[i*16+14];
-        const dx=x-cx,dz=z-cz;if(dx*dx+dz*dz<R2&&want.size<TLOD.max)want.set(im.uuid+':'+i,[im,i]);}}
+        const dx=x-cx,dz=z-cz;if(dx*dx+dz*dz<R2&&want.size<MX)want.set(im.uuid+':'+i,[im,i]);}}
     // devolver a la copa sencilla los que se alejan
     for(const [k,[im,i]] of S.near){if(want.has(k))continue;const o=im.userData.tlodOrig;if(o&&o.has(i)){im.setMatrixAt(i,o.get(i));o.delete(i);im.instanceMatrix.needsUpdate=true;}S.near.delete(k);}
     let n=0;for(const [k,[im,i]] of want){let o=im.userData.tlodOrig;if(!o)o=im.userData.tlodOrig=new Map();if(!o.has(i)){im.getMatrixAt(i,m4);o.set(i,m4.clone());im.setMatrixAt(i,TLOD.zero);im.instanceMatrix.needsUpdate=true;}
@@ -82,3 +83,17 @@ function plHiGeo(lo,crown){if(!PLH.tpl){plLoad();return null;}const H=PLH.tpl[PL
   const inner=lo.clone();inner.scale(0.86,0.9,0.86);{const c=new THREE.Vector3();b.getCenter(c);inner.translate(c.x*0.14,c.y*0.1,c.z*0.14);}
   const keep=n=>{for(const k of Object.keys(n.attributes))if(k!=='position'&&k!=='normal')n.deleteAttribute(k);return n;};
   const out=mergeG([{g:keep(g),m:new THREE.Matrix4()},{g:keep(inner),m:new THREE.Matrix4()}]);out.computeBoundingSphere();try{if(typeof vegPrep==='function')vegPrep(out);}catch(e){}return out;}
+// ---- columnas de detalle (fase B de los modelos 3D: arquitectura). Las columnas se dibujan con las piezas C_* de atenas_modelos.glb
+// (unos cientos de triángulos) y de lejos con un cilindro; a las más cercanas se les ponen las K_* de herramientas/blender/arquitectura.py
+// (#glbar, datos/glbar.txt, en segundo plano): éntasis, estrías de arista viva y collarino en el dórico; basa ática, estrías con filetes,
+// volutas en espiral con su ojo y ovas en el jónico; acanto en dos filas, caulículos, volutas y ábaco cóncavo en el corintio. Mismas
+// medidas y origen que las C_*: se usa el mismo cambio por cercanía que con las copas de los árboles (TLOD), con su propio radio y tope.
+const ARCH={tpl:null,loading:0,names:['C_doric_shaft','C_doric_echinus','C_ionic_base','C_ionic_shaft','C_ionic_capital','C_corinthian_capital'],
+  R:40,max:{C_doric_shaft:160,C_doric_echinus:160,C_ionic_base:120,C_ionic_shaft:120,C_ionic_capital:60,C_corinthian_capital:40}};
+try{if(typeof isTouch!=='undefined'&&isTouch){ARCH.R=24;for(const k in ARCH.max)ARCH.max[k]=Math.ceil(ARCH.max[k]/3);}if(ACC.lite)ARCH.R=0;}catch(e){}
+function archLoad(){if(ARCH.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;ARCH.loading=1;
+  bpBytes('glbar').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(o.isMesh){o.geometry.computeBoundingSphere();T[o.name]=o.geometry;}});ARCH.tpl=T;},e=>console.warn('arquitectura',e));}).catch(e=>console.warn('arquitectura',e));}
+{const f=chunked;chunked=function(geo,mat,items,opt){const n0=CHUNKS.length;f.apply(this,arguments);try{if(!ARCH.R||(opt&&(opt.veg||opt.near)))return;
+  let nm=null;for(const k of ARCH.names){if(glbGeo(k)===geo){nm=k;break;}}if(!nm)return;
+  const key=nm+'|'+mat.uuid;let S=TLOD.sets.get(key);if(!S){S={lo:geo,mat,ims:[],hi:null,near:new Map(),key,arch:nm,R:ARCH.R,max:ARCH.max[nm]};TLOD.sets.set(key,S);}
+  for(let i=n0;i<CHUNKS.length;i++)S.ims.push(CHUNKS[i].im);}catch(e){console.warn('arch',e);}};}

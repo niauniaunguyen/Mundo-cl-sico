@@ -86,7 +86,11 @@ function tpDecorate(o,g,cw,zBack,zFront,ly,hh,front,roman){const R=tpRule(o.name
 const TP_OBJS=[];
 function tpLook(it){const P=it.R.pr,f=P?P[2]:false;if(it.ro)return f?{female:true,chiton:'#f4efe4',himation:'#f4efe4',veil:true,hair:'#4a3020'}:{chiton:'#f4efe4',himation:'#f1ead8',veil:true,hair:'#5a4a3a'};
   return f?{female:true,chiton:'#f3eee2',himation:'#7a2a3a',veil:true,hair:'#3a2a1e'}:{chiton:'#f3eee2',himation:'#efe6d4',beard:true,hair:'#8d8a85',beardC:'#a8a49c',staff:true,attrs:['G_wreath']};}
-function tpSpawn(){const Q=tpQ();while(Q.length){const it=Q.shift();try{const f=findFree(it.x,it.z,1);if(!f)continue;const P=it.R.pr,i=TP_OBJS.length;TP_OBJS.push(it);
+// el guardián no puede quedar dentro de una casa (findFree mira los choques, no la planta de las casas, que a veces no tienen choque en ese punto)
+function tpInHouse(x,z){return footprints.some(f=>f.house&&!f.r&&Math.abs(x-f.x)<(f.w||0)/2+0.6&&Math.abs(z-f.z)<(f.d||0)/2+0.6);}
+function tpFree(x,z){let f=findFree(x,z,1);if(f&&!tpInHouse(f[0],f[1]))return f;
+  for(let d=3;d<60;d+=3)for(let k=0;k<12;k++){const a=k/12*TAU,px=x+Math.cos(a)*d,pz=z+Math.sin(a)*d;if(!tpInHouse(px,pz)&&isFree(px,pz,1))return[px,pz];}return f;}
+function tpSpawn(){const Q=tpQ();while(Q.length){const it=Q.shift();try{const f=tpFree(it.x,it.z);if(!f)continue;const P=it.R.pr,i=TP_OBJS.length;TP_OBJS.push(it);
   const nm=P?P[0]:(it.ro?'Guardián del templo':'Neócoro'),sub=P&&P[1]?P[1]:(it.ro?'aedituus · '+it.R.god:'guardián del templo · '+(it.R.gr||it.R.god));
   it.g=artPerson(f,tpLook(it),'tp:'+i,nm,sub,3);}catch(e){}}}
 function tpSetup(){TP_OBJS.length=0;tpSpawn();}

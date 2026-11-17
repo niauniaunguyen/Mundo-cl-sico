@@ -28,7 +28,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `021_el_mediterraneo_entero_boton_del.js` | 102 | el Mediterráneo entero (botón del plano) |
 | `022_roma_ano_80_d_c.js` | 619 | ROMA, AÑO 80 d.C.: contenido |
 | `023_roma.js` | 175 | ROMA: dioses fuera de la ciudad |
-| `024_roma_ano_80_d_c.js` | 82 | ROMA, AÑO 80 d.C.: relieve |
+| `024_roma_ano_80_d_c.js` | 86 | ROMA, AÑO 80 d.C.: relieve |
 | `025_roma.js` | 42 | ROMA: lugares (estelas) |
 | `026_roma.js` | 154 | ROMA: constructores |
 | `027_roma.js` | 123 | ROMA: destinos de viaje (año 80 d.C.)<br>HISPANIA URBANA: piezas para reconstruir las ciudades (acueductos, puentes largos, circos) |
@@ -117,7 +117,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `110_roma.js` | 86 | ROMA: mapas de transición que unen a pie los destinos nuevos |
 | `111_roma.js` | 163 | ROMA: lo que les faltaba a los mapas nuevos — esferas de sueño, segunda misión del barquero, casas de Oriente<br>ROMA: capítulo extra del modo Historia — «Las historias de Tácito» (se ofrece al terminar la historia)<br>PROFESORADO Y PUBLICACIÓN: mapas visitados, informe ampliado, hoja de la clase y aviso de versión nueva |
 | `112_roma.js` | 45 | ROMA: casas propias de cada provincia y un tercer tema para los personajes nuevos |
-| `113_templos_por_dentro.js` | 182 | TEMPLOS POR DENTRO: estatuas de culto, tesoros, ofrendas y sacerdotes<br>COLUMNAS QUE SE CONSTRUYEN TARDE<br>CARGA POR TROZOS (como los chunks de Minecraft)<br>FUSIÓN DE PIEZAS ESTÁTICAS |
+| `113_templos_por_dentro.js` | 186 | TEMPLOS POR DENTRO: estatuas de culto, tesoros, ofrendas y sacerdotes<br>COLUMNAS QUE SE CONSTRUYEN TARDE<br>CARGA POR TROZOS (como los chunks de Minecraft)<br>FUSIÓN DE PIEZAS ESTÁTICAS |
 | `114_vida_2.js` | 119 | VIDA 2: una ciudad menos estática |
 | `115_rutinas_y_sonido_por_zonas.js` | 114 | RUTINAS Y SONIDO POR ZONAS |
 | `116_veinte_destinos_mas_modo_atenas.js` | 336 | VEINTE DESTINOS MÁS (modo Atenas, 386 a.C.)<br>SUELO: las personas, sobre el suelo que se ve |
@@ -185,7 +185,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `179_coleccionar.js` | 76 | COLECCIONAR Y DESCUBRIR: monedas, el cuaderno de viaje y un perro |
 | `180_aula_y_grupo.js` | 70 | AULA Y GRUPO: modo examen, concurso en línea y accesibilidad ampliada |
 | `181_materiales.js` | 78 | MATERIALES: variación, desgaste, brillo y visor de modelos |
-| `182_relieves_y_detalle.js` | 85 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
+| `182_relieves_y_detalle.js` | 100 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
 | `184_personajes_blender.js` | 94 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
 | `185_relieve.js` | 77 | RELIEVE DE LOS DESTINOS: MÁS DETALLE Y SIN PAREDES IMPOSIBLES |
