@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-245 funciones ampliadas, 396 capas.
+246 funciones ampliadas, 397 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -73,6 +73,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
 | `accSave` | `099_para_aprender_y_ensenar.js` | 1 | `154`:31 |
 | `accSpeak` | `099_para_aprender_y_ensenar.js` | 1 | `160`:15 |
+| `addRiver` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `188`:62 |
 | `amb2Setup` | `104_ambientacion_2.js` | 1 | `900`:357 |
 | `ambAct` | `102_ambientacion.js` | 1 | `150`:18 |
 | `ambSetup` | `102_ambientacion.js` | 1 | `900`:358 |

@@ -740,7 +740,7 @@ function buildGeoGR(){
   const G=id=>ISLANDS.find(I=>I.id===id);
   // ---- Olimpia: el Cladeo baja del norte y se une al Alfeo; el monte Cronio
   {const I=G('olimpia');if(I&&I.altis){const A=I.altis,re=!!demGet('olimpia'),kx=A.x-(re?190:250),cl=polyPts([[kx+30,I.z-I.R*1.15],[kx,A.z-200],[kx-15,A.z],[kx+10,A.z+150],[kx+40,A.z+(re?392:232)]],6);   // con relieve real: el Cladeo por su valle (unos 200 m al oeste del templo de Zeus)
-    addRiver(cl,8,{dep:1.8,name:'El Cladeo'});riverBanks(cl,12,260,14,'plane');
+    addRiver(cl,8,{dep:1.8,keep:1,name:'El Cladeo'});riverBanks(cl,12,260,14,'plane');
     place('cladeo','El Cladeo','ΚΛΑΔΕΟΣ','El Cladeo baja desde Élide y bordea Olimpia por el oeste antes de juntarse con el Alfeo. Es el río que más honran los eleos después del Alfeo: tiene su altar detrás del Hereo, y en el frontón este del templo de Zeus, en los extremos, los dos ríos aparecen tumbados, como dos hombres que miran la carrera de carros de Pélope.',kx+16,A.z-40,-Math.PI/2);
     place('alfeo','El Alfeo','ΑΛΦΕΙΟΣ','El gran río del Peloponeso, que recoge el agua de siete ríos de Arcadia y de la Élide. Cuenta la leyenda que Alfeo era un cazador enamorado de la cazadora Aretusa; ella, que no quería casarse, huyó hasta la isla de Ortigia, en Siracusa, y se convirtió en fuente, y él, convertido en río, cruza el mar por debajo para mezclar sus aguas con las de ella. Pausanias dice que esto último no lo pone en duda. Una ley de los eleos manda despeñar desde el monte Tipeo a las mujeres casadas que crucen el Alfeo en los días de los Juegos.',A.x+60,A.z+(re?365:205),Math.PI);
     place('cronio','El monte Cronio','ΚΡΟΝΙΟΝ','La colina cubierta de pinos que cierra el santuario por el norte, consagrada a Crono, el padre de Zeus. A su pie se alinean los tesoros de las ciudades. En la cumbre, cuenta Pausanias, unos sacerdotes llamados Básilas, «los reyes», sacrifican a Crono en el equinoccio de primavera.',A.x-40,A.z-126,0);}}
@@ -773,7 +773,7 @@ function addRiver(pts,w,opt){opt=opt||{};if(!pts||pts.length<2)return null;const
   for(let i=0;i<pts.length;i++){let lv=h0[i]-0.4;if(i)lv=Math.min(lv,L[i-1]);lv=Math.max(lv,-1);L.push(lv);if(i>3&&h0[i]-lv>10){cut=i;break;}}
   pts=pts.slice(0,cut);L.length=pts.length;if(pts.length<2)return null;
   const wet=(dep*0.65-0.25)/0.55,reach=w/2+Math.min(40,(Math.max(...h0.slice(0,pts.length).map((h,i)=>h-L[i]))+dep)/0.55+2);
-  const r={pts,w,dep,L,dry,wet,reach,name:opt.name||'',boat:opt.boat},ri=CARVE.rivers.length;CARVE.rivers.push(r);
+  const r={pts,w,dep,L,dry,wet,reach,name:opt.name||'',boat:opt.boat,n0:h0.length,ex:Math.max(...h0.slice(0,pts.length).map((h,i)=>h-L[i]))},ri=CARVE.rivers.length;CARVE.rivers.push(r);
   for(let si=0;si<pts.length-1;si++){const a=pts[si],b=pts[si+1];carveCells(Math.min(a[0],b[0])-reach,Math.min(a[1],b[1])-reach,Math.max(a[0],b[0])+reach,Math.max(a[1],b[1])+reach,k=>{let A=CARVE.grid.get(k);if(!A){A=[];CARVE.grid.set(k,A);}A.push([ri,si]);});}
   r.S=[0];for(let i=1;i<pts.length;i++)r.S.push(r.S[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
   // si el terreno ya está construido (destinos), se excava también la malla

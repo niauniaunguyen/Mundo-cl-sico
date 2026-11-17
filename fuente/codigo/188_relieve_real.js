@@ -36,3 +36,29 @@ function demSea(D,I,f){const n=D.n,o=new Float32Array(n*n),low=new Uint8Array(n*
 // límite superior de los árboles: con el relieve inventado salía de la altura de sus montes (I.H); con el real, el límite del arbolado
 // en las montañas del Mediterráneo, hacia 2.300 m (abetos del Taigeto, del Parnaso o del Eta; el pino de Heldreich del Olimpo llega a unos 2.500), en altura del juego
 function vegTop(I,k){const D=I&&demGet(I.id);if(!D)return k?I.H*k:I.H*3+60;return 2300-(D.e0||0);}
+// ---- los ríos por sus valles. Los ríos de los destinos se trazaron sobre el llano inventado (una línea que cruza el mapa); con el
+// relieve real, una línea así sube y baja por las lomas, y addRiver la corta en la primera subida o abre una zanja. Ahora, en los mapas
+// con relieve real, cada río busca el fondo del valle cerca de su trazado (hasta 220 m a cada lado), sin quiebros (programación dinámica:
+// la altura más un coste por desviarse de un punto al siguiente), sin pasar por los solares ni por los edificios y bajando hacia donde
+// baja el valle. Solo se mueven los que antes quedaban cortados; los que deben quedarse donde están (el Cladeo de Olimpia, situado con
+// sus coordenadas; el Nilo; el meandro del Adigio que rodea Verona) llevan keep.
+function riverPL(I){return(typeof PLACES!=='undefined'?PLACES:[]).filter(p=>Math.abs(p.x-I.x)<I.R*1.4&&Math.abs(p.z-I.z)<I.R*1.4);}
+// ¿pasaría el río por un solar, una estela o un edificio?
+function riverHit(I,x,z,w,PL){for(const p of I.pads)if(Math.hypot(x-p.x,z-p.z)<p.r+w/2+8)return true;for(const p of PL)if(Math.hypot(x-p.x,z-p.z)<w/2+10)return true;
+  try{const q={x,z};resolve(q,w/2+2);if(Math.hypot(q.x-x,q.z-z)>0.05)return true;}catch(e){}return false;}
+function riverValley(I,pts,w){const n=pts.length,K=22,ST=10,R=I.R*1.18,nrm=[],PL=riverPL(I);
+  for(let i=0;i<n;i++){const a=pts[Math.max(0,i-2)],b=pts[Math.min(n-1,i+2)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1;nrm.push([-dz/l,dx/l]);}
+  const at=(i,k)=>[pts[i][0]+nrm[i][0]*k*ST,pts[i][1]+nrm[i][1]*k*ST];
+  const cost=(i,k)=>{const[x,z]=at(i,k),lx=x-I.x,lz=z-I.z;if(Math.abs(lx)>R||Math.abs(lz)>R)return 1e6;return uncarvedH(x,z)+(riverHit(I,x,z,w,PL)?400:0)+0.004*k*k*ST*ST/40;};   // un poco de preferencia por el trazado original
+  const S=2*K+1;let D=new Float64Array(S),B=[];for(let k=-K;k<=K;k++)D[k+K]=cost(0,k);
+  for(let i=1;i<n;i++){const N=new Float64Array(S),bk=new Int8Array(S),seg=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1])||1,mx=Math.max(1,Math.round(seg*0.7/ST));
+    for(let k=0;k<S;k++){let best=1e18,bi=0;for(let j=Math.max(0,k-mx);j<=Math.min(S-1,k+mx);j++){const d=(k-j)*ST,v=D[j]+0.6*d*d/seg;if(v<best){best=v;bi=j;}}N[k]=best+cost(i,k-K);bk[k]=bi;}B.push(bk);D=N;}
+  let k=0;for(let j=1;j<S;j++)if(D[j]<D[k])k=j;const ks=new Array(n);ks[n-1]=k;for(let i=n-1;i>0;i--){k=B[i-1][k];ks[i-1]=k;}
+  let o=ks.map(k=>(k-K)*ST);for(let it=0;it<3;it++)o=o.map((v,i)=>i&&i<n-1?(o[i-1]+2*v+o[i+1])/4:v);
+  let q=pts.map((p,i)=>[p[0]+nrm[i][0]*o[i],p[1]+nrm[i][1]*o[i]]);
+  return q;}
+// hasta dónde llega un trazado antes de que addRiver lo corte (el agua solo baja: se corta donde el terreno sube más de 10 m sobre ella)
+function riverReach(pts){let L=1e9;for(let i=0;i<pts.length;i++){const h=uncarvedH(pts[i][0],pts[i][1]),lv=Math.max(-1,Math.min(L,h-0.4));if(i>3&&h-lv>10)return i;L=lv;}return pts.length;}
+{const f=addRiver;addRiver=function(pts,w,opt){opt=opt||{};
+  if(!opt.keep&&pts&&pts.length>3&&pts[0][0]>8000&&!/sinvalle/.test(location.search)){const I=islandOf(pts[0][0]);if(I&&demGet(I.id)&&I.pads&&riverReach(pts)<pts.length){try{const v=riverValley(I,pts,w),C=[pts,pts.slice().reverse(),v,v.slice().reverse()];const PL=riverPL(I);let b=0,bn=-1e9;C.forEach((c,i)=>{const r=riverReach(c);let k=0;for(let j=0;j<r;j++)if(riverHit(I,c[j][0],c[j][1],w,PL))k++;const sc=r-4*k+(i>1?1:0);if(sc>bn){bn=sc;b=i;}});pts=C[b];}catch(e){console.warn('riverValley',e);}}}   // de los cuatro trazados (el original o por el valle, en un sentido o en el otro), el que llega más lejos sin pasar por solares, estelas ni edificios
+  return f.call(this,pts,w,opt);};}

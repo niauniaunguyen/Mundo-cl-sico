@@ -3148,7 +3148,7 @@ function placeReliefs(){
 
 
 // ------------------------------------------------------------ cinta de agua que sigue el terreno (ríos)
-function riverRibbon(pts,w,color){const r=addRiver(pts,w,{color});return r&&r.mesh;}
+function riverRibbon(pts,w,color,keep){const r=addRiver(pts,w,{color,keep});return r&&r.mesh;}
 function horse(x,z,a){
   if(GLB.ok){const g=grp(x,terrainH(x,z),z,a);animalGLB('A_horse',g,pick(['#6b4a2e','#4a3020','#8a6a4a','#d8cfc0']),'#2e2018');addCirc(x,z,1.1);return;}
   const g=grp(x,terrainH(x,z),z,a),c=lam('#6b4a2e'),dk=lam('#2e2018');g.scale.setScalar(1.5);
@@ -5886,7 +5886,7 @@ function buildRomaDests(){
    romaVillagers(I,t.x,t.z+10,5,[_t(4757,'En nuestros montes no se cultiva: se arranca la tierra a la piedra, bancal a bancal.'),_t(4758,'La madera de Liguria hace los mejores barcos.'),_t(4759,'Los de la costa somos marineros; los del monte, duros como sus robles.'),_t(4760,'En invierno el puerto se llena de barcos que esperan el buen tiempo.')]);}
   // ---------------------------------------- X. Venetia et Histria: Verona
   {const I=G('venetia'),t=I.town;
-   {const pts=[];for(let i=0;i<=40;i++){const a=-Math.PI*0.9+i/40*Math.PI*1.3;pts.push([t.x+40+Math.cos(a)*170,t.z-60+Math.sin(a)*150]);}riverRibbon(pts,30,'#4f8a86');}
+   {const pts=[];for(let i=0;i<=40;i++){const a=-Math.PI*0.9+i/40*Math.PI*1.3;pts.push([t.x+40+Math.cos(a)*170,t.z-60+Math.sin(a)*150]);}riverRibbon(pts,30,'#4f8a86',1);}   // el Adigio rodea Verona en un meandro: se queda como está
    amphi(I.arena.x,I.arena.z,0,60,49,18,_t(4761,'Arena de Verona'));
    {const h=I.thea;theatre({x:h.x,z:h.z+20,rot:0,R0:10,R1:30,H:14,name:_t(4762,'Teatro de Verona'),noPlays:true});}
    rectWall(t.x,t.z,180,170,BRICK,7);forumR(t.x,t.z,44,26,_t(4763,'Foro de Verona'));romanTemple({x:t.x,z:t.z-50,rot:0,W:16,L:28,pod:3.5,colD:1,colH:9,nW:6,deep:2,name:_t(4764,'Capitolio de Verona')});destHouses(I,t.x,t.z,30,80,true,{inside:(x,z)=>Math.abs(x-t.x)<82&&Math.abs(z-t.z)<78});
@@ -13859,7 +13859,7 @@ function buildGeoGR(){
   const G=id=>ISLANDS.find(I=>I.id===id);
   // ---- Olimpia: el Cladeo baja del norte y se une al Alfeo; el monte Cronio
   {const I=G('olimpia');if(I&&I.altis){const A=I.altis,re=!!demGet('olimpia'),kx=A.x-(re?190:250),cl=polyPts([[kx+30,I.z-I.R*1.15],[kx,A.z-200],[kx-15,A.z],[kx+10,A.z+150],[kx+40,A.z+(re?392:232)]],6);   // con relieve real: el Cladeo por su valle (unos 200 m al oeste del templo de Zeus)
-    addRiver(cl,8,{dep:1.8,name:'El Cladeo'});riverBanks(cl,12,260,14,'plane');
+    addRiver(cl,8,{dep:1.8,keep:1,name:'El Cladeo'});riverBanks(cl,12,260,14,'plane');
     place('cladeo','El Cladeo','ΚΛΑΔΕΟΣ','El Cladeo baja desde Élide y bordea Olimpia por el oeste antes de juntarse con el Alfeo. Es el río que más honran los eleos después del Alfeo: tiene su altar detrás del Hereo, y en el frontón este del templo de Zeus, en los extremos, los dos ríos aparecen tumbados, como dos hombres que miran la carrera de carros de Pélope.',kx+16,A.z-40,-Math.PI/2);
     place('alfeo','El Alfeo','ΑΛΦΕΙΟΣ','El gran río del Peloponeso, que recoge el agua de siete ríos de Arcadia y de la Élide. Cuenta la leyenda que Alfeo era un cazador enamorado de la cazadora Aretusa; ella, que no quería casarse, huyó hasta la isla de Ortigia, en Siracusa, y se convirtió en fuente, y él, convertido en río, cruza el mar por debajo para mezclar sus aguas con las de ella. Pausanias dice que esto último no lo pone en duda. Una ley de los eleos manda despeñar desde el monte Tipeo a las mujeres casadas que crucen el Alfeo en los días de los Juegos.',A.x+60,A.z+(re?365:205),Math.PI);
     place('cronio','El monte Cronio','ΚΡΟΝΙΟΝ','La colina cubierta de pinos que cierra el santuario por el norte, consagrada a Crono, el padre de Zeus. A su pie se alinean los tesoros de las ciudades. En la cumbre, cuenta Pausanias, unos sacerdotes llamados Básilas, «los reyes», sacrifican a Crono en el equinoccio de primavera.',A.x-40,A.z-126,0);}}
@@ -13892,7 +13892,7 @@ function addRiver(pts,w,opt){opt=opt||{};if(!pts||pts.length<2)return null;const
   for(let i=0;i<pts.length;i++){let lv=h0[i]-0.4;if(i)lv=Math.min(lv,L[i-1]);lv=Math.max(lv,-1);L.push(lv);if(i>3&&h0[i]-lv>10){cut=i;break;}}
   pts=pts.slice(0,cut);L.length=pts.length;if(pts.length<2)return null;
   const wet=(dep*0.65-0.25)/0.55,reach=w/2+Math.min(40,(Math.max(...h0.slice(0,pts.length).map((h,i)=>h-L[i]))+dep)/0.55+2);
-  const r={pts,w,dep,L,dry,wet,reach,name:opt.name||'',boat:opt.boat},ri=CARVE.rivers.length;CARVE.rivers.push(r);
+  const r={pts,w,dep,L,dry,wet,reach,name:opt.name||'',boat:opt.boat,n0:h0.length,ex:Math.max(...h0.slice(0,pts.length).map((h,i)=>h-L[i]))},ri=CARVE.rivers.length;CARVE.rivers.push(r);
   for(let si=0;si<pts.length-1;si++){const a=pts[si],b=pts[si+1];carveCells(Math.min(a[0],b[0])-reach,Math.min(a[1],b[1])-reach,Math.max(a[0],b[0])+reach,Math.max(a[1],b[1])+reach,k=>{let A=CARVE.grid.get(k);if(!A){A=[];CARVE.grid.set(k,A);}A.push([ri,si]);});}
   r.S=[0];for(let i=1;i<pts.length;i++)r.S.push(r.S[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
   // si el terreno ya está construido (destinos), se excava también la malla
@@ -15217,7 +15217,7 @@ function mktSetup(){const M2=(look,back,side,extra)=>({back,side,make:()=>{const
 const EGC={sand:new THREE.Color('#d8b97a'),green:new THREE.Color('#7a9a4a'),mud:new THREE.Color('#8a7a52')};
 function nileX(I,z){return I.x+300+Math.sin((z-I.z)*0.004)*30;}
 function egTint(id){return(x,z,h,c)=>{const I=destOf(id);if(!I)return;const d=Math.abs(x-nileX(I,z));if(d<230)c.lerp(EGC.green,0.55*(1-d/230));else c.lerp(EGC.sand,Math.min(0.85,(d-230)/160));};}
-function egNile(I,w){const pts=[];for(let i=0;i<=40;i++){const z=I.z-I.R*1.2+i*I.R*2.4/40;pts.push([nileX(I,z),z]);}const r=addRiver(pts,w||80,{dep:3,name:'El Nilo'});
+function egNile(I,w){const pts=[];for(let i=0;i<=40;i++){const z=I.z-I.R*1.2+i*I.R*2.4/40;pts.push([nileX(I,z),z]);}const r=addRiver(pts,w||80,{dep:3,keep:1,name:'El Nilo'});
   const reed=new THREE.ConeGeometry(0.15,2.6,4);reed.translate(0,1.3,0);for(let i=0;i<220;i++){const p=pts[Math.floor(R()*pts.length)],s=R()<0.5?-1:1,x=p[0]+s*((w||80)/2+rr(1,8)),z=p[1]+rr(-12,12);piece('reed',reed,lam('#6f8a45'),x,terrainH(x,z),z,R()*TAU,rr(0.8,1.4));}
   for(let i=0;i<3;i++){const z=I.z-200+i*200;makeShip(nileX(I,z)+rr(-10,10),z,Math.PI*(i%2));}return pts;}
 function egPalms(list){if(!list.length)return;const n=list.length,tg=new THREE.CylinderGeometry(0.2,0.32,7,6);tg.translate(0,3.5,0);const tm=new THREE.InstancedMesh(tg,lam('#7a5a3a'),n);
@@ -22696,7 +22696,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='9b14b2818b65';
+const NOSTOS_VER='d0d8dd9d6e97';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27338,7 +27338,7 @@ function mmDrone(on){if(!aOK())return;const c=AUD.ctx;if(on&&!MM.drone){const g=
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
 // la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
-const TERRAIN_SIG='05610a01184a';
+const TERRAIN_SIG='c1ef2fd1df9e';
 function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;
@@ -28997,6 +28997,32 @@ function demSea(D,I,f){const n=D.n,o=new Float32Array(n*n),low=new Uint8Array(n*
 // límite superior de los árboles: con el relieve inventado salía de la altura de sus montes (I.H); con el real, el límite del arbolado
 // en las montañas del Mediterráneo, hacia 2.300 m (abetos del Taigeto, del Parnaso o del Eta; el pino de Heldreich del Olimpo llega a unos 2.500), en altura del juego
 function vegTop(I,k){const D=I&&demGet(I.id);if(!D)return k?I.H*k:I.H*3+60;return 2300-(D.e0||0);}
+// ---- los ríos por sus valles. Los ríos de los destinos se trazaron sobre el llano inventado (una línea que cruza el mapa); con el
+// relieve real, una línea así sube y baja por las lomas, y addRiver la corta en la primera subida o abre una zanja. Ahora, en los mapas
+// con relieve real, cada río busca el fondo del valle cerca de su trazado (hasta 220 m a cada lado), sin quiebros (programación dinámica:
+// la altura más un coste por desviarse de un punto al siguiente), sin pasar por los solares ni por los edificios y bajando hacia donde
+// baja el valle. Solo se mueven los que antes quedaban cortados; los que deben quedarse donde están (el Cladeo de Olimpia, situado con
+// sus coordenadas; el Nilo; el meandro del Adigio que rodea Verona) llevan keep.
+function riverPL(I){return(typeof PLACES!=='undefined'?PLACES:[]).filter(p=>Math.abs(p.x-I.x)<I.R*1.4&&Math.abs(p.z-I.z)<I.R*1.4);}
+// ¿pasaría el río por un solar, una estela o un edificio?
+function riverHit(I,x,z,w,PL){for(const p of I.pads)if(Math.hypot(x-p.x,z-p.z)<p.r+w/2+8)return true;for(const p of PL)if(Math.hypot(x-p.x,z-p.z)<w/2+10)return true;
+  try{const q={x,z};resolve(q,w/2+2);if(Math.hypot(q.x-x,q.z-z)>0.05)return true;}catch(e){}return false;}
+function riverValley(I,pts,w){const n=pts.length,K=22,ST=10,R=I.R*1.18,nrm=[],PL=riverPL(I);
+  for(let i=0;i<n;i++){const a=pts[Math.max(0,i-2)],b=pts[Math.min(n-1,i+2)],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz)||1;nrm.push([-dz/l,dx/l]);}
+  const at=(i,k)=>[pts[i][0]+nrm[i][0]*k*ST,pts[i][1]+nrm[i][1]*k*ST];
+  const cost=(i,k)=>{const[x,z]=at(i,k),lx=x-I.x,lz=z-I.z;if(Math.abs(lx)>R||Math.abs(lz)>R)return 1e6;return uncarvedH(x,z)+(riverHit(I,x,z,w,PL)?400:0)+0.004*k*k*ST*ST/40;};   // un poco de preferencia por el trazado original
+  const S=2*K+1;let D=new Float64Array(S),B=[];for(let k=-K;k<=K;k++)D[k+K]=cost(0,k);
+  for(let i=1;i<n;i++){const N=new Float64Array(S),bk=new Int8Array(S),seg=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1])||1,mx=Math.max(1,Math.round(seg*0.7/ST));
+    for(let k=0;k<S;k++){let best=1e18,bi=0;for(let j=Math.max(0,k-mx);j<=Math.min(S-1,k+mx);j++){const d=(k-j)*ST,v=D[j]+0.6*d*d/seg;if(v<best){best=v;bi=j;}}N[k]=best+cost(i,k-K);bk[k]=bi;}B.push(bk);D=N;}
+  let k=0;for(let j=1;j<S;j++)if(D[j]<D[k])k=j;const ks=new Array(n);ks[n-1]=k;for(let i=n-1;i>0;i--){k=B[i-1][k];ks[i-1]=k;}
+  let o=ks.map(k=>(k-K)*ST);for(let it=0;it<3;it++)o=o.map((v,i)=>i&&i<n-1?(o[i-1]+2*v+o[i+1])/4:v);
+  let q=pts.map((p,i)=>[p[0]+nrm[i][0]*o[i],p[1]+nrm[i][1]*o[i]]);
+  return q;}
+// hasta dónde llega un trazado antes de que addRiver lo corte (el agua solo baja: se corta donde el terreno sube más de 10 m sobre ella)
+function riverReach(pts){let L=1e9;for(let i=0;i<pts.length;i++){const h=uncarvedH(pts[i][0],pts[i][1]),lv=Math.max(-1,Math.min(L,h-0.4));if(i>3&&h-lv>10)return i;L=lv;}return pts.length;}
+{const f=addRiver;addRiver=function(pts,w,opt){opt=opt||{};
+  if(!opt.keep&&pts&&pts.length>3&&pts[0][0]>8000&&!/sinvalle/.test(location.search)){const I=islandOf(pts[0][0]);if(I&&demGet(I.id)&&I.pads&&riverReach(pts)<pts.length){try{const v=riverValley(I,pts,w),C=[pts,pts.slice().reverse(),v,v.slice().reverse()];const PL=riverPL(I);let b=0,bn=-1e9;C.forEach((c,i)=>{const r=riverReach(c);let k=0;for(let j=0;j<r;j++)if(riverHit(I,c[j][0],c[j][1],w,PL))k++;const sc=r-4*k+(i>1?1:0);if(sc>bn){bn=sc;b=i;}});pts=C[b];}catch(e){console.warn('riverValley',e);}}}   // de los cuatro trazados (el original o por el valle, en un sentido o en el otro), el que llega más lejos sin pasar por solares, estelas ni edificios
+  return f.call(this,pts,w,opt);};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

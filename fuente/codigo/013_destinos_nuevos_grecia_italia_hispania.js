@@ -182,7 +182,7 @@ function placeReliefs(){
 
 
 // ------------------------------------------------------------ cinta de agua que sigue el terreno (ríos)
-function riverRibbon(pts,w,color){const r=addRiver(pts,w,{color});return r&&r.mesh;}
+function riverRibbon(pts,w,color,keep){const r=addRiver(pts,w,{color,keep});return r&&r.mesh;}
 function horse(x,z,a){
   if(GLB.ok){const g=grp(x,terrainH(x,z),z,a);animalGLB('A_horse',g,pick(['#6b4a2e','#4a3020','#8a6a4a','#d8cfc0']),'#2e2018');addCirc(x,z,1.1);return;}
   const g=grp(x,terrainH(x,z),z,a),c=lam('#6b4a2e'),dk=lam('#2e2018');g.scale.setScalar(1.5);

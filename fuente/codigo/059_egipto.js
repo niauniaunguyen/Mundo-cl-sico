@@ -3,7 +3,7 @@
 const EGC={sand:new THREE.Color('#d8b97a'),green:new THREE.Color('#7a9a4a'),mud:new THREE.Color('#8a7a52')};
 function nileX(I,z){return I.x+300+Math.sin((z-I.z)*0.004)*30;}
 function egTint(id){return(x,z,h,c)=>{const I=destOf(id);if(!I)return;const d=Math.abs(x-nileX(I,z));if(d<230)c.lerp(EGC.green,0.55*(1-d/230));else c.lerp(EGC.sand,Math.min(0.85,(d-230)/160));};}
-function egNile(I,w){const pts=[];for(let i=0;i<=40;i++){const z=I.z-I.R*1.2+i*I.R*2.4/40;pts.push([nileX(I,z),z]);}const r=addRiver(pts,w||80,{dep:3,name:'El Nilo'});
+function egNile(I,w){const pts=[];for(let i=0;i<=40;i++){const z=I.z-I.R*1.2+i*I.R*2.4/40;pts.push([nileX(I,z),z]);}const r=addRiver(pts,w||80,{dep:3,keep:1,name:'El Nilo'});
   const reed=new THREE.ConeGeometry(0.15,2.6,4);reed.translate(0,1.3,0);for(let i=0;i<220;i++){const p=pts[Math.floor(R()*pts.length)],s=R()<0.5?-1:1,x=p[0]+s*((w||80)/2+rr(1,8)),z=p[1]+rr(-12,12);piece('reed',reed,lam('#6f8a45'),x,terrainH(x,z),z,R()*TAU,rr(0.8,1.4));}
   for(let i=0;i<3;i++){const z=I.z-200+i*200;makeShip(nileX(I,z)+rr(-10,10),z,Math.PI*(i%2));}return pts;}
 function egPalms(list){if(!list.length)return;const n=list.length,tg=new THREE.CylinderGeometry(0.2,0.32,7,6);tg.translate(0,3.5,0);const tm=new THREE.InstancedMesh(tg,lam('#7a5a3a'),n);

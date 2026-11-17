@@ -303,7 +303,7 @@ function buildRomaDests(){
    romaVillagers(I,t.x,t.z+10,5,['En nuestros montes no se cultiva: se arranca la tierra a la piedra, bancal a bancal.','La madera de Liguria hace los mejores barcos.','Los de la costa somos marineros; los del monte, duros como sus robles.','En invierno el puerto se llena de barcos que esperan el buen tiempo.']);}
   // ---------------------------------------- X. Venetia et Histria: Verona
   {const I=G('venetia'),t=I.town;
-   {const pts=[];for(let i=0;i<=40;i++){const a=-Math.PI*0.9+i/40*Math.PI*1.3;pts.push([t.x+40+Math.cos(a)*170,t.z-60+Math.sin(a)*150]);}riverRibbon(pts,30,'#4f8a86');}
+   {const pts=[];for(let i=0;i<=40;i++){const a=-Math.PI*0.9+i/40*Math.PI*1.3;pts.push([t.x+40+Math.cos(a)*170,t.z-60+Math.sin(a)*150]);}riverRibbon(pts,30,'#4f8a86',1);}   // el Adigio rodea Verona en un meandro: se queda como está
    amphi(I.arena.x,I.arena.z,0,60,49,18,'Arena de Verona');
    {const h=I.thea;theatre({x:h.x,z:h.z+20,rot:0,R0:10,R1:30,H:14,name:'Teatro de Verona',noPlays:true});}
    rectWall(t.x,t.z,180,170,BRICK,7);forumR(t.x,t.z,44,26,'Foro de Verona');romanTemple({x:t.x,z:t.z-50,rot:0,W:16,L:28,pod:3.5,colD:1,colH:9,nW:6,deep:2,name:'Capitolio de Verona'});destHouses(I,t.x,t.z,30,80,true,{inside:(x,z)=>Math.abs(x-t.x)<82&&Math.abs(z-t.z)<78});
