@@ -204,4 +204,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `199_moneda_en_pantalla.js` | 39 | LA MONEDA EN PANTALLA |
 | `200_el_mensajero.js` | 62 | EL MENSAJERO: los avisos van al caduceo |
 | `201_objeto_en_la_mano.js` | 54 | EL OBJETO ELEGIDO, EN LA MANO |
+| `202_figurillas_votivas.js` | 77 | FIGURILLAS VOTIVAS: coleccionar el favor de los dioses |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
