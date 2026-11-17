@@ -217,6 +217,7 @@ LM={'mouth':-0.0705}
 # mezcla por tipo de personaje: (fracción de «viejo», rasgos sueltos). Origen: mediterráneo, sobre todo «caucásico» con algo de los otros dos.
 MHKIND={'ciudadano':(0.45,{'r_nose_hump_incr':0.35,'r_chin_prominent_incr':0.2}),'hoplita':(0.1,{'r_chin_width_incr':0.4,'r_head_square':0.3}),
         'obrero':(0.25,{'r_nose_width1_incr':0.4,'r_head_square':0.2}),'togado':(0.55,{'r_nose_scale_vert_incr':0.3,'r_forehead_trans_backward':0.3}),
+        'tunicado':(0.35,{'r_nose_width1_incr':0.25,'r_chin_width_incr':0.2}),
         'legionario':(0.15,{'r_chin_width_incr':0.3,'r_l_cheek_bones_incr':0.3,'r_r_cheek_bones_incr':0.3}),
         'mujer':(0.05,{'r_mouth_upperlip_volume_incr':0.35,'r_mouth_lowerlip_volume_incr':0.35,'r_head_oval':0.5,'r_chin_width_decr':0.5,'r_nose_scale_horiz_decr':0.4,'r_head_scale_horiz_decr':0.35,'r_chin_prominent_decr':0.3,'r_r_eye_scale_incr':0.25,'r_l_eye_scale_incr':0.25}),
         'romana':(0.2,{'r_mouth_lowerlip_volume_incr':0.25,'r_nose_scale_vert_incr':0.2,'r_head_oval':0.4,'r_chin_width_decr':0.4,'r_head_scale_horiz_decr':0.3,'r_mouth_scale_horiz_decr':0.2})}
@@ -921,7 +922,7 @@ def build(kind):
     skc='#e6c0a0' if female else '#d9ad88'
     smart_uv(body);skin=plain_tex(kind+'_piel',skc,0.04)
     set_mat(body,material(kind+'_piel',skin))
-    hair={'mujer':'#3a2618','romana':'#4a2e1a','legionario':'#3b2a1e'}.get(kind,'#5e4029')
+    hair={'mujer':'#3a2618','romana':'#4a2e1a','legionario':'#3b2a1e','tunicado':'#2e2218'}.get(kind,'#5e4029')
     covered=kind in('hoplita','legionario')
     set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara',skc,front_up=(0.04 if covered else 0.0),beard=BARBA.get(kind),hair=hair,fem=female)))
     set_mat(eyes,material(kind+'_ojo',eye_tex(kind+'_ojo')))
@@ -1058,6 +1059,15 @@ def build(kind):
         sc,img=scutum();set_mat(sc,material('scutum',img,rough=0.5))
         fa=Vector(J['elb.L']).lerp(Vector(J['wri.L']),0.5);sc.location=fa+Vector((0.08,-0.07,0.0));rigid.append((sc,'forearm.L'))
         gl=gladius();smart_uv(gl);set_mat(gl,material('vaina',plain_tex('vaina','#5a3d26',0.15),rough=0.6));rigid.append((gl,'hips'))
+    elif kind=='tunicado':
+        # el romano de a pie (artesanos, bataneros, mozos, esclavos): túnica de lana sin teñir hasta la rodilla, ceñida con un cinturón,
+        # mangas cortas; sin manto. En el 80 d.C. los hombres van afeitados y con el pelo corto (la moda de Tito). Carcopino, cap. VII
+        tu=garment('tunica',body,0.6,1.5,0.012,folds=20,famp=0.008,flare=0.05,skirt=True,top=lambda u:1.505+0.06*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
+        set_mat(tu,material('tunica',cloth_tex('tunica_lana','#bfae8c',folds=20)));pieces.append(tu)
+        for k,sg in(('L',1),('R',-1)):
+            sl,bt=ionic_sleeve('manga',sg,J['sho.'+k],J['elb.'+k]);set_mat(sl,tu.data.materials[0]);pieces.append(sl)
+        bl=garment('cinturon',body,0.98,1.02,0.02,folds=1,famp=0.0,skirt=False,nu=40,nv=2,over=tu)
+        set_mat(bl,material('cinturon_m',plain_tex('cinturon_t','#5a3d26',0.1)));pieces.append(bl)
     skin_to(arm,pieces,body)
     for o in pieces:
         if o.name.startswith(('himation_extremo','himation_espalda','toga_extremo','toga_espalda','palla_extremo')):drape_weights(o)
@@ -1076,7 +1086,7 @@ def build(kind):
     return arm
 
 ARMS={}
-for k in(sys.argv[sys.argv.index('--')+1].split(',') if '--' in sys.argv else ['ciudadano','hoplita','mujer','obrero','togado','romana','legionario']):ARMS[k]=build(k)
+for k in(sys.argv[sys.argv.index('--')+1].split(',') if '--' in sys.argv else ['ciudadano','hoplita','mujer','obrero','togado','romana','legionario','tunicado']):ARMS[k]=build(k)
 # un archivo por personaje (los huesos se llaman igual en todos y así cada uno se anima por separado)
 tot=0
 for k,a in ARMS.items():

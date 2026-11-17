@@ -98,7 +98,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `bpKind` | `184_personajes_blender.js` | 1 | `196`:13 |
 | `bpMake` | `184_personajes_blender.js` | 1 | `186`:68 |
 | `bpSetup` | `184_personajes_blender.js` | 1 | `186`:121 |
-| `bpSwap` | `184_personajes_blender.js` | 1 | `196`:20 |
+| `bpSwap` | `184_personajes_blender.js` | 1 | `196`:25 |
 | `buildAcropolis` | `011_construccion_del_mundo.js` | 1 | `900`:408 |
 | `buildAgora` | `011_construccion_del_mundo.js` | 1 | `900`:409 |
 | `buildAthensSchools` | `033_escuelas_y_clases_atenas_y.js` | 1 | `900`:410 |

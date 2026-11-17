@@ -15,7 +15,7 @@ glb2 = (raiz / 'modelos' / 'animales.glb').read_bytes()   # animales (modelos/an
 img = (raiz / 'modelos' / 'escuela_de_atenas.jpg').read_bytes()
 import gzip
 # personajes hechos en Blender (herramientas/blender/personajes.py), comprimidos con gzip: el juego los descomprime al cargar
-PJ = ['ciudadano', 'hoplita', 'mujer', 'obrero', 'togado', 'romana', 'legionario']
+PJ = ['ciudadano', 'hoplita', 'mujer', 'obrero', 'togado', 'romana', 'legionario', 'tunicado']
 pj_tags = ''.join('<script type="application/octet-stream" id="glbpj_%s">%s</script>\n' % (k, base64.b64encode(gzip.compress((raiz / 'modelos' / ('personaje_%s_juego.glb' % k)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ)
 # copas de detalle de los árboles cercanos (herramientas/blender/plantas.py): se traen en segundo plano
 _pl = raiz / 'modelos' / 'plantas_juego.glb'
