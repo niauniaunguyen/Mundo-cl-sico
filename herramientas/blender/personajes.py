@@ -141,6 +141,11 @@ def head_point(a,h):   # a: ángulo desde delante (0) hacia +X; h: altura sobre 
         d+=out*0.003*g(nx,0,h,0.05,-0.008,0.016)
         d-=Vector((math.copysign(1,x),0,0))*0.003*g(nx,0,h,0.07,0.035,0.02)
     return HC+Vector((x,y,h))+d*fr**0.5
+def head_point_mh(a,h):
+    if HEADBVH is None:return head_point(a,h)
+    o=HC+Vector((0,0,h));d=Vector((math.sin(a),-math.cos(a),0))
+    hit=HEADBVH.ray_cast(o+d*0.3,-d,0.3)
+    return hit[0] if hit[0] is not None else head_point(a,h)
 def head_mesh(name,beard=False):
     NU,NV=112,84;bm=bmesh.new();rows=[]
     hs=[0.13-i*(0.29/NV) for i in range(NV+1)]
@@ -203,6 +208,71 @@ def eye_mesh(name,head):   # globos oculares detrás de las aberturas, mirando a
             co=me.vertices[me.loops[li].vertex_index].co;sg=1 if co.x>0 else -1;c=CEN[sg]
             uv.data[li].uv=(0.5+(co.x-c.x)/0.03,0.5+(co.z-c.z)/0.03)
     return ob
+# ------------------------------------------------------------------ cabeza de MakeHuman (CC0): malla base hm08 con deformaciones de sexo, edad y origen
+# Sustituye a la cabeza esculpida con fórmulas (head_mesh), que de cerca quedaba plana: nariz pintada, labios de raya, mentón en pico.
+# Datos: makehuman/cabeza_mh.npz (ver makehuman/LEEME.md y makehuman_extraer.py). Se lleva al sistema del juego (Z arriba, cara hacia -Y,
+# metros) con los ojos donde estaban (EYE_Z sobre HC) y la coronilla a la misma distancia de los ojos.
+MH=np.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'makehuman','cabeza_mh.npz'))
+LM={'mouth':-0.0705}
+# mezcla por tipo de personaje: (fracción de «viejo», rasgos sueltos). Origen: mediterráneo, sobre todo «caucásico» con algo de los otros dos.
+MHKIND={'ciudadano':(0.45,{'r_nose_hump_incr':0.35,'r_chin_prominent_incr':0.2}),'hoplita':(0.1,{'r_chin_width_incr':0.4,'r_head_square':0.3}),
+        'obrero':(0.25,{'r_nose_width1_incr':0.4,'r_head_square':0.2}),'togado':(0.55,{'r_nose_scale_vert_incr':0.3,'r_forehead_trans_backward':0.3}),
+        'legionario':(0.15,{'r_chin_width_incr':0.3,'r_l_cheek_bones_incr':0.3,'r_r_cheek_bones_incr':0.3}),
+        'mujer':(0.05,{'r_mouth_upperlip_volume_incr':0.35,'r_mouth_lowerlip_volume_incr':0.35,'r_head_oval':0.5,'r_chin_width_decr':0.5,'r_nose_scale_horiz_decr':0.4,'r_head_scale_horiz_decr':0.35,'r_chin_prominent_decr':0.3,'r_r_eye_scale_incr':0.25,'r_l_eye_scale_incr':0.25}),
+        'romana':(0.2,{'r_mouth_lowerlip_volume_incr':0.25,'r_nose_scale_vert_incr':0.2,'r_head_oval':0.4,'r_chin_width_decr':0.4,'r_head_scale_horiz_decr':0.3,'r_mouth_scale_horiz_decr':0.2})}
+def mh_points(kind,female):
+    old,extra=MHKIND.get(kind,(0.2,{}));sx='female' if female else 'male'
+    P=MH['verts'].astype(float).copy()
+    for eth,we in(('caucasian',0.74),('african',0.13),('asian',0.13)):
+        for age,wa in(('young',1-old),('old',old)):
+            if we*wa>0:P+=MH['%s_%s_%s'%(eth,sx,age)].astype(float)*1e-3*we*wa
+    for k,w in extra.items():P+=MH[k].astype(float)*1e-3*w
+    if not female:
+        for k in('r_r_eye_scale_incr','r_l_eye_scale_incr'):P+=MH[k].astype(float)*1e-3*0.2
+    return P
+def mh_head(name,kind,female):
+    global EYE_A,EYE_Z,EYE_W,EYE_H
+    P=mh_points(kind,female);Q=MH['quads'];G=MH['group']
+    eyes=[np.unique(Q[G==g]) for g in(1,2)];ec=[P[e].mean(0) for e in eyes];er=np.mean([np.ptp(P[e][:,0]) for e in eyes])/2
+    em=(ec[0]+ec[1])/2;bv=np.unique(Q[G==0]);u=1.0/0.122*(P[:,1].max()-em[1])   # u: unidades de MakeHuman por cada 0,122 m (aprox.)
+    band=bv[np.abs(P[bv,1]-em[1]-0.025*u)<0.008*u]   # a la altura de las cejas (u: unidades de MakeHuman por metro, aprox.)
+    s=(0.188 if female else 0.196)/np.ptp(P[band,2])   # longitud media de la cabeza adulta (glabela-opistocráneo)
+    tgt=Vector((0,HC.y-0.066,HC.z+0.008))
+    W=np.stack([P[:,0]-em[0],-(P[:,2]-em[2]),P[:,1]-em[1]],1)*s+np.array(tgt)
+    # la cabeza (sin el arranque de los hombros, que tapan el cuerpo y la ropa)
+    keep=[i for i in range(len(Q)) if G[i]==0 and W[Q[i]][:,2].max()>1.462]
+    def mk(nm,faces):
+        used=np.unique(Q[faces]);m={k:j for j,k in enumerate(used)}
+        me=bpy.data.meshes.new(nm);me.from_pydata([tuple(W[k]) for k in used],[],[[m[k] for k in Q[f]] for f in faces]);me.update()
+        ob=bpy.data.objects.new(nm,me);scn.collection.objects.link(ob)
+        for p in me.polygons:p.use_smooth=True
+        return ob
+    head=mk(name,keep)
+    sub=head.modifiers.new('sub','SUBSURF');sub.levels=1;bpy.context.view_layer.objects.active=head;bpy.ops.object.modifier_apply(modifier='sub')
+    fix_normals(head);head_uv(head.data)
+    # los ojos: globos de MakeHuman, con la pupila en el punto que asoma
+    eye=mk(name.replace('_cabeza','')+'_ojos',[i for i in range(len(Q)) if G[i] in(1,2)])
+    CEN={}
+    for sg,e in((1,0),(-1,1)):
+        c=Vector(W[eyes[e]].mean(0));sg2=1 if c.x>0 else -1;CEN[sg2]=c+Vector((0,-er*s,0))
+    uv=eye.data.uv_layers.new(name='UVMap')
+    for poly in eye.data.polygons:
+        for li in poly.loop_indices:
+            co=eye.data.vertices[eye.data.loops[li].vertex_index].co;c=CEN[1 if co.x>0 else -1]
+            uv.data[li].uv=(0.5+(co.x-c.x)/0.03,0.5+(co.z-c.z)/0.03)
+    # referencias para la textura pintada (cejas, párpados, labios) y para el pelo
+    c1=CEN[1]-HC;EYE_A=math.atan2(c1.x,-c1.y);EYE_Z=c1.z;EYE_W=0.95*er*s/math.hypot(c1.x,c1.y);EYE_H=0.33*er*s
+    cl=[(v[2]-HC.z,v[1]) for v in W if abs(v[0])<0.003 and -0.1<v[2]-HC.z<-0.03]
+    if cl:
+        yf=min(y for h,y in cl);nt=min(cl,key=lambda t:t[1])[0]   # la punta de la nariz
+        inner=[h for h,y in cl if yf+0.019<y<yf+0.032 and nt-0.05<h<nt-0.02]   # el interior de la boca, entre los labios
+        if inner:LM['mouth']=sum(inner)/len(inner)
+        print('boca',name,round(LM['mouth'],4),'nariz',round(nt,4))
+    global HEADBVH
+    HEADBVH=BVHTree.FromObject(head,bpy.context.evaluated_depsgraph_get())
+    return head,eye
+HEADBVH=None
+_head_point_formula=None
 def eye_tex(name,size=128):
     H=W=size;v,u=np.mgrid[0:H,0:W];x=(u+0.5)/W-0.5;y=(v+0.5)/H-0.5;r=np.hypot(x,y)
     col=np.ones((H,W,3))*hexc('#ece6dc');col*=(1-0.25*np.clip(r*2,0,1))[...,None]
@@ -244,21 +314,23 @@ def ear_mesh(name):
     me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
     for p in me.polygons:p.use_smooth=True
     head_uv(me);return ob
-def hairline(a):t=abs(a)/math.pi;return 0.074-0.05*_sm(t/0.5)-0.085*_sm((t-0.55)/0.45)+0.004*math.sin(a*13)   # alta en la frente, baja por las sienes y cubre la nuca
+HL0=[0.066]
+def hairline(a):t=abs(a)/math.pi;return HL0[0]-0.05*_sm(t/0.5)-0.085*_sm((t-0.55)/0.45)+0.004*math.sin(a*13)   # alta en la frente, baja por las sienes y cubre la nuca
 def _sm(x):x=min(1,max(0,x));return x*x*(3-2*x)
 def hair_weight(kind,co):   # 0 fuera, 1 dentro, con transición suave en el borde
     q=co-HC;a=math.atan2(q.x,-q.y);z=q.z
     if kind=='cejas':
         w=0
         for sg in(1,-1):
-            da=a-EYE_A*sg;zb=0.036-0.008*(da*sg/0.13)**2+0.004*(da*sg/0.13)   # arco que sube hacia fuera
+            da=a-EYE_A*sg;zb=EYE_Z+0.0195-0.008*(da*sg/0.13)**2+0.004*(da*sg/0.13)   # arco que sube hacia fuera
             w=max(w,_sm((0.0068-abs(z-zb))/0.003)*_sm((0.14-abs(da+0.015*sg))/0.04))
         return w
     if kind=='pelo':return _sm((z-hairline(a)+0.003)/0.012)
     zl=-0.048+0.05*_sm((abs(a)-0.35)/0.9)
     w=_sm((zl-z)/0.01)*_sm((1.45-abs(a))/0.15)
-    wm=_sm((0.2-abs(a))/0.05)*_sm((0.0075-abs(z+0.058))/0.004)   # bigote
-    return max(w,wm)
+    wm=_sm((0.2-abs(a))/0.05)*_sm((0.0065-abs(z-LM['mouth']-0.0135))/0.003)   # bigote, sobre el labio superior
+    hole=_sm((math.hypot(a/0.27,(z-LM['mouth'])/0.0115)-1)/0.35)   # la boca, sin barba (un óvalo)
+    return max(w*hole,wm)
 def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza en la zona del pelo, que se afina hasta la piel en el borde
     me=head.data;bm=bmesh.new();bm.from_mesh(me);bm.verts.ensure_lookup_table()
     W={v:hair_weight(kind,v.co) for v in bm.verts}
@@ -267,7 +339,7 @@ def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza
     bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
     # borde liso: cada vértice del contorno se lleva a la curva en que el peso vale exactamente el umbral (antes, el borde seguía las
     # caras borradas y salía en escalera, en dientes de sierra junto a la frente, las sienes y la barba)
-    Wp=lambda a,h:hair_weight(kind,head_point(a,h))-thr
+    Wp=lambda a,h:hair_weight(kind,head_point_mh(a,h))-thr
     for v in bm.verts:
         if not v.is_boundary:continue
         q=v.co-HC;a=math.atan2(q.x,-q.y);h=q.z;f0=Wp(a,h);best=None
@@ -288,7 +360,7 @@ def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza
             mid=(lo+hi)/2;fm=Wp(mid,h) if best[0]=='a' else Wp(a,mid)
             if (fm>0)==(f0>0):lo=mid
             else:hi=mid
-        v.co=head_point((lo+hi)/2,h) if best[0]=='a' else head_point(a,(lo+hi)/2)
+        v.co=head_point_mh((lo+hi)/2,h) if best[0]=='a' else head_point_mh(a,(lo+hi)/2)
         W[v]=thr
     bm.normal_update()
     for v in bm.verts:
@@ -298,13 +370,14 @@ def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza
         if kind=='cejas':off=0.0028+0.0012*curl
         elif kind=='pelo':off=0.004+0.006*curl+0.005*lock
         else:off=0.003+0.006*curl+0.006*lock+0.012*max(0,-(q.z+0.06))/0.07
-        v.co+=n*(off*w+0.0006)
+        v.co+=n*(off*w*_sm((w-thr)/0.35)+0.0006+0.0012*w)
     me2=bpy.data.meshes.new(name);bm.to_mesh(me2);bm.free();ob=bpy.data.objects.new(name,me2);scn.collection.objects.link(ob)
     for p in me2.polygons:p.use_smooth=True
     head_uv(me2);return ob
 def hair_tex(name,base,size=256):   # mechones: rayas finas en dirección de la caída, con brillo
     H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
-    st=0.75+0.35*(0.5+0.5*np.sin(u*TAU*70+np.sin(v*40)*2))*(0.6+0.4*np.sin(u*TAU*13))
+    rs=np.random.RandomState(5);n1=blur(rs.rand(H,W),1);ph=np.sin(v*31+u*7)*1.4+np.sin(v*11)*0.8
+    st=0.72+0.22*(0.5+0.5*np.sin(u*TAU*150+ph))+0.16*(0.5+0.5*np.sin(u*TAU*47+ph*0.6))*(0.7+0.3*np.sin(u*TAU*9))+0.12*(n1-0.5)
     col=hexc(base)[None,None,:]*st[...,None]*(0.85+0.3*v)[...,None]
     return save_png(name,np.clip(col,0,1))
 def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0,gap=0.0):   # pieza ajustada a un miembro (grebas, correas): rayos alrededor del eje a→b
@@ -585,7 +658,7 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512,front_up=0.0,fem=False
     H=W=size;v,u=np.mgrid[0:H,0:W];u=(u+0.5)/W;v=(v+0.5)/H
     a=(u-0.5)*TAU;z=v*0.34-0.16
     col=np.ones((H,W,3))*hexc(base)
-    col*=(0.9+0.12*np.clip(z*4+0.5,0,1))[...,None]
+    col*=(1.0+0.05*np.clip((z+0.05)*4,0,1))[...,None]   # abajo, el mismo tono que el cuello del cuerpo (sin costura)
     cheek=np.exp(-((np.abs(a)-0.55)**2/0.04+(z+0.02)**2/0.004));col+=np.array([0.10,0.01,-0.01])*cheek[...,None]*0.6
     def layer(mask,c,k=1.0,soft=1):
         m=blur(mask.astype(float),soft)*k;cc=hexc(c) if isinstance(c,str) else c
@@ -595,9 +668,10 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512,front_up=0.0,fem=False
     shade=0.14*(G(0.34,0.024,0.16,0.008)+G(-0.34,0.024,0.16,0.008))+0.09*(G(0.12,-0.025,0.05,0.022)+G(-0.12,-0.025,0.05,0.022))+0.12*G(0,-0.042,0.1,0.006)
     for s2 in(1,-1):shade+=0.06*np.exp(-((a*s2-(0.17+np.clip(-z-0.04,0,0.06)*1.6))/0.03)**2)*((z<-0.035)&(z>-0.095))   # surcos de la nariz a la boca
     shade+=0.16*np.clip((-z-0.1)/0.05,0,1)+0.12*np.clip((np.abs(a)-0.9)/0.6,0,1)   # bajo la mandíbula y hacia los lados
-    shade*=0.5 if fem else 0.75   # la luz del juego ya sombrea la cara: la textura solo insinúa (antes, de cerca, parecía sucia)
+    shade*=0.5 if fem else 0.75
+    light*=0.0;shade=0.5*0.12*np.clip((np.abs(a)-0.9)/0.6,0,1)*np.clip((z+0.1)/0.03,0,1)   # la cabeza de MakeHuman ya tiene relieve: la textura no pinta sombras de nariz ni de surcos   # la luz del juego ya sombrea la cara: la textura solo insinúa (antes, de cerca, parecía sucia)
     col*=(1+light-shade)[...,None]
-    red=0.10*(G(0.5,-0.03,0.18,0.02)+G(-0.5,-0.03,0.18,0.02))+0.12*G(0,-0.03,0.06,0.012)   # mejillas y punta de la nariz
+    red=0.06*(G(0.5,-0.03,0.18,0.02)+G(-0.5,-0.03,0.18,0.02))+0.12*G(0,-0.03,0.06,0.012)   # mejillas y punta de la nariz
     if fem:   # tez clara con albayalde (psimýthion) y colorete en las mejillas: Jenofonte, Económico X 2
         col=col*0.9+np.array([0.96,0.9,0.84])*0.1;red=red*1.7
     col+=np.array([0.10,-0.02,-0.03])[None,None,:]*red[...,None]
@@ -607,24 +681,25 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512,front_up=0.0,fem=False
     for s2 in(1,-1):
         da=a-EYE_A*s2
         rim=((da/(EYE_W*1.25))**2+((z-EYE_Z)/(EYE_H*1.45))**2<1)
-        layer(rim,'#5a3424',0.55,2)   # sombra del párpado alrededor de la abertura
-        layer((np.abs(da)<EYE_W*1.05)&(np.abs(z-EYE_Z-EYE_H*0.95)<0.0022),'#2a1a10',0.85,1)   # línea del párpado superior
-        xb=da*s2/0.13;zb=(0.036 if fem else 0.034)-0.005*(xb-0.1)**2-0.002*xb;th=(0.0018 if fem else 0.0034)*(1-0.4*np.clip((da*s2+0.13)/0.26,0,1))
+        layer(rim,'#5a3424',0.18,2)   # sombra del párpado alrededor de la abertura
+        layer((np.abs(da)<EYE_W*1.0)&(np.abs(z-EYE_Z-EYE_H*1.05)<0.0012),'#2a1a10',0.5,1)   # línea del párpado superior
+        xb=da*s2/0.13;zb=EYE_Z+(0.0215 if fem else 0.0195)-0.005*(xb-0.1)**2-0.002*xb;th=(0.0014 if fem else 0.0028)*(1-0.4*np.clip((da*s2+0.13)/0.26,0,1))
         bmask=(np.abs(da+0.015*s2)<0.14)&(np.abs(z-zb)<th)
         strokes=0.75+0.35*np.sin((a*s2)*260+z*900)
         layer(bmask,hexc(hair)[None,None,:]*strokes[...,None],0.9,1)   # ceja con trazo de pelo
     lipw=0.19*(1-0.35*np.clip(np.abs(a)/0.19,0,1)**2)
-    layer((np.abs(a)<lipw)&(z>-0.0705)&(z<-0.066),'#b06058' if fem else '#a06656',0.35,2)   # labio superior
-    layer((np.abs(a)<lipw*0.95)&(z>-0.077)&(z<-0.0705),'#b8706a' if fem else '#a87264',0.25,2)   # labio inferior
-    layer((np.abs(a)<lipw*0.85)&(np.abs(z+0.0705)<0.0007),'#6a3a30',0.55,1)   # línea de cierre
+    M_=LM['mouth']
+    layer((a/0.2)**2+((z-M_-0.0042)/0.0042)**2<1,'#b06058' if fem else '#a06656',0.4,3)   # labio superior
+    layer((a/0.18)**2+((z-M_+0.0048)/0.005)**2<1,'#b8706a' if fem else '#a87264',0.3,3)   # labio inferior
+    layer((np.abs(a)<0.17)&(np.abs(z-M_)<0.0007),'#6a3a30',0.45,1)   # línea de cierre
     sm_=lambda x:np.clip(x,0,1)**2*(3-2*np.clip(x,0,1));t_=np.abs(a)/np.pi
-    hl=0.074-0.05*sm_(t_/0.5)-0.085*sm_((t_-0.55)/0.45)+0.004*np.sin(a*13)+front_up*np.clip(np.cos(a),0,1)
+    hl=HL0[0]-0.05*sm_(t_/0.5)-0.085*sm_((t_-0.55)/0.45)+0.004*np.sin(a*13)+front_up*np.clip(np.cos(a),0,1)
     hm=z>hl;strand=0.85+0.25*np.sin(a*60+z*90+np.sin(a*7)*3)*0.5
     hc=hexc(hair)[None,None,:]*strand[...,None];m=blur(hm.astype(float),2);col[:]=col*(1-m[...,None])+hc*m[...,None]
     if beard:   # la misma zona que la barba con volumen (hair_weight), algo más ancha y con borde suave
         sm=lambda x:np.clip(x,0,1)**2*(3-2*np.clip(x,0,1))
         zl=-0.048+0.05*sm((np.abs(a)-0.35)/0.9)
-        w=np.maximum(sm((zl-z+0.004)/0.01)*sm((1.49-np.abs(a))/0.15),sm((0.21-np.abs(a))/0.05)*sm((0.0095-np.abs(z+0.058))/0.004))
+        hole=sm((np.hypot(a/0.27,(z-LM['mouth'])/0.0115)-1)/0.35);w=np.maximum(sm((zl-z+0.004)/0.01)*sm((1.49-np.abs(a))/0.15)*hole,sm((0.21-np.abs(a))/0.05)*sm((0.0085-np.abs(z-LM['mouth']-0.0135))/0.004))
         bc=hexc(beard)[None,None,:]*(0.8+0.35*np.sin(a*80+z*120)*0.5)[...,None]
         m=blur(w,2)*0.95;col[:]=col*(1-m[...,None])+bc*m[...,None]
     return save_png(name,np.clip(col,0,1))
@@ -716,7 +791,7 @@ def galea():   # casco de legionario (tipo imperial-gálico): cuenco, guardanuca
         v.co=Vector((x*0.118*fl,y*0.13*fl,z*0.14))+c
     bmesh.ops.delete(bm,geom=kill,context='VERTS')
     for s_ in(1,-1):   # carrilleras
-        bmesh.ops.create_cube(bm,size=1,matrix=Matrix.Translation(c+Vector((0.103*s_,-0.03,-0.055)))@Euler((0,math.radians(8*s_),0)).to_matrix().to_4x4()@Matrix.Diagonal((0.008,0.06,0.075,1)))
+        bmesh.ops.create_cube(bm,size=1,matrix=Matrix.Translation(c+Vector((0.079*s_,-0.045,-0.058)))@Euler((0,math.radians(4*s_),math.radians(-24*s_))).to_matrix().to_4x4()@Matrix.Diagonal((0.008,0.06,0.075,1)))   # pegadas a las mejillas
     bmesh.ops.create_cube(bm,size=1,matrix=Matrix.Translation(c+Vector((0,-0.118,0.03)))@Matrix.Diagonal((0.16,0.01,0.012,1)))   # refuerzo de la frente
     ob=obj_from_bm('galea',bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.006;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
 def scutum():   # escudo curvo rectangular (1,05 x 0,65 m), rojo con bordes y rayos dorados y umbo de bronce
@@ -841,27 +916,28 @@ FEM=('mujer','romana');BARBA={'ciudadano':'#6e4c33','hoplita':'#4a3424','obrero'
 def build(kind):
     female=kind in FEM
     arm=make_armature(kind+'_esqueleto');arm.data.pose_position='REST'
-    HEADFEM[0]=female
-    body=body_mesh(kind+'_cuerpo',female);head=head_mesh(kind+'_cabeza',beard=kind in BARBA)
+    HEADFEM[0]=female;HL0[0]=0.06 if female else 0.066
+    body=body_mesh(kind+'_cuerpo',female);head,eyes=mh_head(kind+'_cabeza',kind,female)
     skc='#e6c0a0' if female else '#d9ad88'
     smart_uv(body);skin=plain_tex(kind+'_piel',skc,0.04)
     set_mat(body,material(kind+'_piel',skin))
     hair={'mujer':'#3a2618','romana':'#4a2e1a','legionario':'#3b2a1e'}.get(kind,'#5e4029')
     covered=kind in('hoplita','legionario')
     set_mat(head,material(kind+'_cara',skin_tex(kind+'_cara',skc,front_up=(0.04 if covered else 0.0),beard=BARBA.get(kind),hair=hair,fem=female)))
-    ears=ear_mesh(kind+'_orejas');set_mat(ears,head.data.materials[0])
-    eyes=eye_mesh(kind+'_ojos',head);set_mat(eyes,material(kind+'_ojo',eye_tex(kind+'_ojo')))
+    set_mat(eyes,material(kind+'_ojo',eye_tex(kind+'_ojo')))
     hm_=material(kind+'_pelo',hair_tex(kind+'_pelo',hair))
-    pieces=[head,ears,eyes];rigid=[]
+    pieces=[head,eyes];rigid=[]
     if not covered:
         hs=hair_shell(kind+'_pelo',head,'pelo');set_mat(hs,hm_);pieces.append(hs)
     if kind in BARBA:
         bd=hair_shell(kind+'_barba',head,'barba');set_mat(bd,material(kind+'_barba',hair_tex(kind+'_barba',BARBA[kind])));pieces.append(bd)
     if female:   # pelo recogido en un moño en la nuca, con una cinta
-        b2=bmesh.new();bmesh.ops.create_uvsphere(b2,u_segments=16,v_segments=12,radius=1,matrix=Matrix.Translation(HC+Vector((0,0.1,0.005)))@Matrix.Diagonal((0.048,0.04,0.042,1)))
-        bmesh.ops.create_uvsphere(b2,u_segments=12,v_segments=8,radius=1,matrix=Matrix.Translation(HC+Vector((0,0.125,-0.02)))@Matrix.Diagonal((0.034,0.03,0.03,1)))
+        b2=bmesh.new();yb=head_point_mh(math.pi,0.0).y-HC.y;bmesh.ops.create_uvsphere(b2,u_segments=16,v_segments=12,radius=1,matrix=Matrix.Translation(HC+Vector((0,yb+0.012,0.005)))@Matrix.Diagonal((0.048,0.04,0.042,1)))
+        bmesh.ops.create_uvsphere(b2,u_segments=12,v_segments=8,radius=1,matrix=Matrix.Translation(HC+Vector((0,yb+0.035,-0.02)))@Matrix.Diagonal((0.034,0.03,0.03,1)))
         bn=obj_from_bm(kind+'_mono',b2);head_uv(bn.data);set_mat(bn,hm_);pieces.append(bn)
-        b3=bmesh.new();bmesh.ops.create_cone(b3,cap_ends=False,segments=24,radius1=0.104,radius2=0.1,depth=0.012,matrix=Matrix.Translation(HC+Vector((0,0.0,0.045)))@Euler((math.radians(-14),0,0)).to_matrix().to_4x4())
+        hp=[head_point_mh(k/36*TAU,h) for k in range(36) for h in(0.03,0.045,0.055)];rx=max(abs(p.x) for p in hp)+0.009
+        y0,y1=min(p.y for p in hp),max(p.y for p in hp);ry=(y1-y0)/2+0.009;cy=(y0+y1)/2;rb=1.0
+        b3=bmesh.new();bmesh.ops.create_cone(b3,cap_ends=False,segments=24,radius1=1.0,radius2=0.965,depth=0.012,matrix=Matrix.Translation(Vector((0,cy,HC.z+0.047)))@Euler((math.radians(-14),0,0)).to_matrix().to_4x4()@Matrix.Diagonal((rx,ry,1,1)))
         cn=obj_from_bm(kind+'_cinta',b3);smart_uv(cn);set_mat(cn,material(kind+'_cinta_m',plain_tex(kind+'_cinta_t','#2f4c86' if kind=='mujer' else '#c9a24a',0.1)));pieces.append(cn)
     cuero=material('cuero',plain_tex('cuero','#6a4428',0.15),rough=0.7)
     for o in sandals('sandalia',body):set_mat(o,cuero);pieces.append(o)
@@ -929,8 +1005,18 @@ def build(kind):
         set_mat(ex,material('exomis',cloth_tex('exomis','#b8a888',border='#5a4a38',band=(0.0,0.04),folds=16)));pieces.append(ex)
         bl=garment('cinturon',body,0.98,1.02,0.02,folds=1,famp=0.0,skirt=False,nu=40,nv=2,over=ex)
         set_mat(bl,material('cinturon_m',plain_tex('cinturon_t','#5a3d26',0.1)));pieces.append(bl)
-        b2=bmesh.new();bmesh.ops.create_cone(b2,cap_ends=True,segments=24,radius1=0.106,radius2=0.03,depth=0.13,matrix=Matrix.Translation(HC+Vector((0,0.008,0.105))))
-        pl=obj_from_bm('pilos',b2);smart_uv(pl);set_mat(pl,material('fieltro',plain_tex('fieltro','#8a7350',0.2)));rigid.append((pl,'head'))
+        hp=[head_point_mh(k/36*TAU,h) for k in range(36) for h in(0.035,0.05,0.065)];rx=max(abs(p.x) for p in hp)+0.017
+        y0,y1=min(p.y for p in hp),max(p.y for p in hp);ry=(y1-y0)/2+0.017;cy=(y0+y1)/2   # ajustado a la cabeza (ovalado), por encima del pelo
+        b2=bmesh.new();bmesh.ops.create_cone(b2,cap_ends=True,segments=32,radius1=1.0,radius2=0.3,depth=0.13,matrix=Matrix.Translation(Vector((0,cy,HC.z+0.105)))@Matrix.Diagonal((rx,ry,1,1)))
+        hsl=[o for o in pieces if o.name.startswith(kind+'_pelo')]
+        for o in hsl:   # el pelo que quedaría por fuera del pilos se mete dentro (y lo que queda tapado se borra)
+            for v in o.data.vertices:
+                h=v.co.z-(HC.z+0.04)
+                if h<0 or h>0.13:continue
+                k=1-0.7*h/0.13;ex=math.sqrt((v.co.x/(rx*k))**2+((v.co.y-cy)/(ry*k))**2)
+                if ex>0.9:v.co.x*=0.9/ex;v.co.y=cy+(v.co.y-cy)*0.9/ex
+            o.data.update()
+        pl=obj_from_bm('pilos',b2);smart_uv(pl);hide_covered(hsl[0],[pl],maxd=0.06) if hsl else None;set_mat(pl,material('fieltro',plain_tex('fieltro','#8a7350',0.2)));rigid.append((pl,'head'))
     elif kind=='togado':
         # túnica blanca hasta la rodilla y toga de lana (toga virilis), larga y envolvente, con el extremo sobre el hombro izquierdo
         tu=garment('tunica',body,0.55,1.5,0.012,folds=18,famp=0.007,flare=0.04,skirt=True,top=lambda u:1.505+0.06*abs(math.sin(u*TAU))**2-0.05*max(0,math.cos(u*TAU))**3)
