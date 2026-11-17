@@ -32,6 +32,14 @@ if(!window.THREE){document.getElementById('loadmsg').textContent='No se pudo car
 // ============================================================ utilidades
 const TAU=Math.PI*2;
 let MODE='atenas';   // 'atenas' (386 a.C.) o 'roma' (80 d.C.); se elige en la pantalla inicial antes de construir el mundo
+// datos del juego (modelos, imágenes, relieve real): en atenas_un_archivo.html van dentro de la página; en atenas.html cada bloque
+// está vacío y lleva data-src (un archivo de datos/), y se trae al pedirlo. El cargador adelanta los que sirven a las dos épocas (window.__pre).
+const DATO={p:{}};
+function datoGet(id){if(DATO.p[id])return DATO.p[id];const el=document.getElementById(id);
+  if(!el||el.textContent.trim().length>2||!el.dataset||!el.dataset.src)return DATO.p[id]=Promise.resolve(el?el.textContent:'');
+  const pre=window.__pre&&window.__pre[id];if(pre)delete window.__pre[id];
+  return DATO.p[id]=(pre||fetch(el.dataset.src).then(r=>{if(!r.ok)throw new Error(el.dataset.src+' ('+r.status+')');return r.text();}))
+    .then(t=>{el.textContent=t;return t;}).catch(e=>{console.warn('No se pudieron traer los datos',id,e);delete DATO.p[id];return '';});}
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const sstep=t=>t*t*(3-2*t);

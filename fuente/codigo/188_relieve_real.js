@@ -11,7 +11,8 @@
 // del Alfeo y del Cladeo). Por eso la costa del juego manda y los solares se allanan a su altura. Las dos ciudades de partida
 // (Atenas y Roma) tienen distancias comprimidas a propósito y no usan estos datos.
 const DEM={c:{},data:null};
-function demData(){if(DEM.data)return DEM.data;let d={};try{if(!/sinrelieve/.test(location.search)){const el=document.getElementById('demdata');if(el&&el.textContent.trim().length>2)d=JSON.parse(el.textContent);}}catch(e){}return DEM.data=d;}
+// un bloque por época (#demdata_atenas, #demdata_roma): se trae al elegirla (chooseMode), antes de construir el mundo
+function demData(){if(DEM.data&&DEM.dm===MODE)return DEM.data;DEM.dm=MODE;let d={};try{if(!/sinrelieve/.test(location.search)){const el=document.getElementById('demdata_'+MODE)||document.getElementById('demdata');if(el&&el.textContent.trim().length>2)d=JSON.parse(el.textContent);}}catch(e){}return DEM.data=d;}
 function demGet(id){const k=MODE+':'+id;if(DEM.c[k]!==undefined)return DEM.c[k];const m=demData()[MODE],d=m&&m[id];if(!d)return DEM.c[k]=null;
   const b=atob(d.b),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return DEM.c[k]=Object.assign({H:new Int16Array(u.buffer)},d);}
 // interpolación cúbica (Catmull-Rom): sin las aristas que dejaría la bilineal en una rejilla de 30 m

@@ -628,7 +628,11 @@ function bootWorld(){PROF.marks.push(['arranque',performance.now()]);ldShipShow(
 // selector de época: tarjetas en pantalla, o ?modo=roma|atenas en la dirección
 function chooseMode(m){
   MODE=m;if(m==='roma')romaSetup();
-  $('modes').hidden=true;$('start').hidden=false;bootWorld();
+  $('modes').hidden=true;$('start').hidden=false;
+  // datos de esta época: los modelos y el relieve se esperan (sin ellos no se construye el mundo); los personajes se adelantan
+  for(const k of(BP_MODE[m]||[]))datoGet('glbpj_'+k);
+  const lm=$('loadmsg');if(lm)lm.textContent='Cargando modelos y relieve…';
+  Promise.all(['glb','glb2','demdata_'+m].map(datoGet)).then(bootWorld);
 }
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}

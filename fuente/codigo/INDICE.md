@@ -4,7 +4,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 
 | Módulo | Líneas | Secciones |
 |---|---:|---|
-| `000_inicio.js` | 50 | idioma (es / ca / en)<br>utilidades |
+| `000_inicio.js` | 58 | idioma (es / ca / en)<br>utilidades |
 | `001_terreno.js` | 117 | terreno |
 | `002_colisiones.js` | 66 | colisiones |
 | `003_escena.js` | 57 | escena |
@@ -41,7 +41,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `034_atenas.js` | 71 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
 | `036_acabado.js` | 82 | acabado: texturas procedurales y luz |
-| `037_la_escuela_de_atenas_de.js` | 94 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
+| `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
 | `040_caballo.js` | 355 | caballo |
@@ -187,8 +187,8 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `181_materiales.js` | 78 | MATERIALES: variación, desgaste, brillo y visor de modelos |
 | `182_relieves_y_detalle.js` | 68 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
-| `184_personajes_blender.js` | 95 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
+| `184_personajes_blender.js` | 94 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
 | `185_relieve.js` | 77 | RELIEVE DE LOS DESTINOS: MÁS DETALLE Y SIN PAREDES IMPOSIBLES |
 | `186_caras_cuerpos_y_estatuas.js` | 173 | CARAS DISTINTAS, CUERPOS DISTINTOS Y ESTATUAS PINTADAS |
-| `188_relieve_real.js` | 38 | RELIEVE REAL DE TODOS LOS DESTINOS |
-| `900_creta_y_arranque.js` | 643 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `188_relieve_real.js` | 39 | RELIEVE REAL DE TODOS LOS DESTINOS |
+| `900_creta_y_arranque.js` | 647 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

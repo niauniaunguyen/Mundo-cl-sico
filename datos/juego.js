@@ -33,6 +33,14 @@ if(!window.THREE){document.getElementById('loadmsg').textContent=_t(0,'No se pud
 // ============================================================ utilidades
 const TAU=Math.PI*2;
 let MODE='atenas';   // 'atenas' (386 a.C.) o 'roma' (80 d.C.); se elige en la pantalla inicial antes de construir el mundo
+// datos del juego (modelos, imágenes, relieve real): en atenas_un_archivo.html van dentro de la página; en atenas.html cada bloque
+// está vacío y lleva data-src (un archivo de datos/), y se trae al pedirlo. El cargador adelanta los que sirven a las dos épocas (window.__pre).
+const DATO={p:{}};
+function datoGet(id){if(DATO.p[id])return DATO.p[id];const el=document.getElementById(id);
+  if(!el||el.textContent.trim().length>2||!el.dataset||!el.dataset.src)return DATO.p[id]=Promise.resolve(el?el.textContent:'');
+  const pre=window.__pre&&window.__pre[id];if(pre)delete window.__pre[id];
+  return DATO.p[id]=(pre||fetch(el.dataset.src).then(r=>{if(!r.ok)throw new Error(el.dataset.src+' ('+r.status+')');return r.text();}))
+    .then(t=>{el.textContent=t;return t;}).catch(e=>{console.warn('No se pudieron traer los datos',id,e);delete DATO.p[id];return '';});}
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const sstep=t=>t*t*(3-2*t);
@@ -8353,7 +8361,7 @@ renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.
 {const sm=2048;sun.shadow.mapSize.set(sm,sm);}   // 4096 costaba mucho en escritorio y apenas se notabaObject.assign(sun.shadow.camera,{left:-130,right:130,top:130,bottom:-130,far:700});sun.shadow.camera.updateProjectionMatrix();sun.shadow.bias=-0.0005;sun.shadow.normalBias=0.5;
 
 // ============================================================ «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón
-const RAFAEL_SRC=(()=>{const el=document.getElementById('rafaelimg'),t=el?el.textContent.trim():'';return t.length>100?'data:image/jpeg;base64,'+t:'';})();
+let RAFAEL_SRC='';   // se rellena al llegar datos/rafaelimg.txt (más abajo, con la imagen de Roma)
 // figuras del fresco: [id, nombre, x %, y %, texto]
 const RAF_FIG=[
  ['platon',_t(83,'Platón'),48.4,58,_t(7040,'Con los rasgos de Leonardo da Vinci, señala al cielo y lleva el <i>Timeo</i>: para él lo verdaderamente real son las Ideas, eternas, que solo capta la razón. En el 386 a.C. tiene unos 42 años y acaba de fundar la Academia.')],
@@ -8439,12 +8447,15 @@ function dreamTravel(to){
 }
 
 // imagen real (no generada) en la pantalla de inicio: la Loba Capitolina en Roma, «La escuela de Atenas» en Atenas
-const LOBA_SRC=(()=>{const el=document.getElementById('lobaimg'),t=el?el.textContent.trim():'';return t.length>100?'data:image/jpeg;base64,'+t:'';})();
+let LOBA_SRC='';
 const LOBA_CAP='<b>El Vesubio en erupción, de noche</b>Pintura de época moderna (siglos XVIII-XIX), con el faro del puerto de Nápoles. En el año 79, hace solo uno, el volcán sepultó Pompeya y Herculano; Plinio el Viejo murió al acercarse para verlo y ayudar a los vecinos (Plinio el Joven, Cartas VI 16).';
 function stImgFill(){const f=document.getElementById('stImg');if(!f)return;const roma=typeof MODE!=='undefined'&&MODE==='roma';const src=roma?LOBA_SRC:RAFAEL_SRC;if(!src){f.hidden=true;return;}
   f.querySelector('img').src=src;f.querySelector('img').alt=roma?'La Loba Capitolina con Rómulo y Remo':'La escuela de Atenas, de Rafael';
   f.querySelector('figcaption').innerHTML=roma?LOBA_CAP:'<b>La escuela de Atenas</b>Rafael la pintó en el Vaticano en 1509-1511, casi dos mil años después de tu partida: es una Atenas imaginada. En el centro, Platón, que en 386 a.C. empieza a enseñar en la Academia, y su futuro alumno Aristóteles. <i>Dominio público.</i>';f.hidden=false;}
 setTimeout(stImgFill,0);
+// las dos imágenes llegan aparte (en atenas.html, de datos/): al llegar, se ponen en la pantalla de inicio y en la presentación si ya estaban abiertas
+for(const[id,set]of[['rafaelimg',v=>RAFAEL_SRC=v],['lobaimg',v=>LOBA_SRC=v]])datoGet(id).then(t=>{t=t.trim();if(t.length<100)return;set('data:image/jpeg;base64,'+t);
+  try{stImgFill();const b=document.querySelector('#intro .ibg');if(b&&!/url\(["']?data:/.test(b.style.backgroundImage))b.style.backgroundImage='url('+((MODE==='roma')?LOBA_SRC:RAFAEL_SRC)+')';}catch(e){}});
 // ============================================================ esferas de sueño: momentos míticos
 // Cada esfera flota junto a un lugar; al tocarla se monta un escenario muy por encima de la ciudad (a 3000 m, donde
 // la niebla oculta el mundo) y una cámara guiada recorre el episodio en escenas que se avanzan con E o Enter.
@@ -22685,7 +22696,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='a14d69b54b7d';
+const NOSTOS_VER='9b14b2818b65';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27327,7 +27338,7 @@ function mmDrone(on){if(!aOK())return;const c=AUD.ctx;if(on&&!MM.drone){const g=
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
 // la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
-const TERRAIN_SIG='35c710993b35';
+const TERRAIN_SIG='05610a01184a';
 function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;
@@ -28619,8 +28630,7 @@ try{if(ACC.lite){BP.MAXC=12;BP.MAXH=6;BP.R=60;BP.K=14;BP.VR=60;BP.MAXT=100;}}cat
 if(typeof isTouch!=='undefined'&&isTouch){BP.MAXC=Math.min(BP.MAXC,18);BP.MAXH=Math.min(BP.MAXH,8);BP.R=90;BP.K=Math.min(BP.K,22);BP.VR=Math.min(BP.VR,90);BP.MAXT=Math.min(BP.MAXT,140);}
 // recordar con qué datos se hizo cada persona (para saber a quién se puede sustituir)
 {const f=makePerson;makePerson=function(c){const g=f.apply(this,arguments);try{if(g&&c)g.userData.cfg=c;}catch(e){}return g;};}
-async function bpBytes(id){const el=document.getElementById(id);let t=el?el.textContent.trim():'';
-  if(t.length<100&&el&&el.dataset&&el.dataset.src){try{const r=await fetch(el.dataset.src);if(r.ok)t=(await r.text()).trim();}catch(e){}}   // datos que se traen después de arrancar (data-lazy)
+async function bpBytes(id){const t=(await datoGet(id)).trim();   // en atenas.html, el archivo datos/<id>.txt se trae ahora
   if(t.length<100)return null;
   const b=atob(t),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);
   if(typeof DecompressionStream==='undefined')return bpGunzip(u).buffer;   // Safari antes de iOS 16.4 y navegadores viejos de Android
@@ -28962,7 +28972,8 @@ function bphTick(){if(!BPH.N)return;const cx=camera.position.x,cy=camera.positio
 // del Alfeo y del Cladeo). Por eso la costa del juego manda y los solares se allanan a su altura. Las dos ciudades de partida
 // (Atenas y Roma) tienen distancias comprimidas a propósito y no usan estos datos.
 const DEM={c:{},data:null};
-function demData(){if(DEM.data)return DEM.data;let d={};try{if(!/sinrelieve/.test(location.search)){const el=document.getElementById('demdata');if(el&&el.textContent.trim().length>2)d=JSON.parse(el.textContent);}}catch(e){}return DEM.data=d;}
+// un bloque por época (#demdata_atenas, #demdata_roma): se trae al elegirla (chooseMode), antes de construir el mundo
+function demData(){if(DEM.data&&DEM.dm===MODE)return DEM.data;DEM.dm=MODE;let d={};try{if(!/sinrelieve/.test(location.search)){const el=document.getElementById('demdata_'+MODE)||document.getElementById('demdata');if(el&&el.textContent.trim().length>2)d=JSON.parse(el.textContent);}}catch(e){}return DEM.data=d;}
 function demGet(id){const k=MODE+':'+id;if(DEM.c[k]!==undefined)return DEM.c[k];const m=demData()[MODE],d=m&&m[id];if(!d)return DEM.c[k]=null;
   const b=atob(d.b),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return DEM.c[k]=Object.assign({H:new Int16Array(u.buffer)},d);}
 // interpolación cúbica (Catmull-Rom): sin las aristas que dejaría la bilineal en una rejilla de 30 m
@@ -29616,7 +29627,11 @@ function bootWorld(){PROF.marks.push(['arranque',performance.now()]);ldShipShow(
 // selector de época: tarjetas en pantalla, o ?modo=roma|atenas en la dirección
 function chooseMode(m){
   MODE=m;if(m==='roma')romaSetup();
-  $('modes').hidden=true;$('start').hidden=false;bootWorld();
+  $('modes').hidden=true;$('start').hidden=false;
+  // datos de esta época: los modelos y el relieve se esperan (sin ellos no se construye el mundo); los personajes se adelantan
+  for(const k of(BP_MODE[m]||[]))datoGet('glbpj_'+k);
+  const lm=$('loadmsg');if(lm)lm.textContent='Cargando modelos y relieve…';
+  Promise.all(['glb','glb2','demdata_'+m].map(datoGet)).then(bootWorld);
 }
 document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>chooseMode(b.dataset.mode));
 {const qm=new URLSearchParams(location.search).get('modo');if(qm==='roma'||qm==='atenas')chooseMode(qm);else setTimeout(()=>{const b=document.querySelector('.mcard');b&&b.focus();},50);}

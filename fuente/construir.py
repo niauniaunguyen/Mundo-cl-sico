@@ -29,7 +29,12 @@ assert src.count('@@LOBA@@') == 1, 'falta el marcador @@LOBA@@ (imagen de Roma)'
 dem_p = raiz / 'modelos' / 'relieve_real.json'   # relieve real de los destinos (Copernicus GLO-30): herramientas/relieve_real/dem_todos.py
 dem = dem_p.read_text(encoding='utf-8') if dem_p.exists() else '{}'
 assert src.count('@@DEM@@') == 1, 'falta el marcador @@DEM@@ (relieve real)'
-src = src.replace('@@DEM@@', dem)
+# un bloque por modo: cada partida solo trae el relieve de su época
+_demj = json.loads(dem) if dem.strip() else {}
+_dl = '<script type="application/json" id="demdata">@@DEM@@</script>'
+assert src.count(_dl) == 1, 'el marcador @@DEM@@ debe ir en <script id="demdata">'
+MODOS = ['atenas', 'roma']
+src = src.replace(_dl, '\n'.join('<script type="application/json" id="demdata_%s">%s</script>' % (m, json.dumps({m: _demj.get(m, {})}, separators=(',', ':'))) for m in MODOS))
 out = src.replace('@@LOBA@@', base64.b64encode(lupa).decode('ascii')).replace('@@GLB@@', base64.b64encode(glb).decode('ascii')).replace('@@GLB2@@', base64.b64encode(glb2).decode('ascii')).replace('@@RAFAEL@@', base64.b64encode(img).decode('ascii')).replace('@@GLBPJ@@', pj_tags)
 # firma del relieve: solo el código de los módulos que definen o modifican las funciones de altura y color del terreno.
 # La caché del relieve en el navegador (161_rendimiento.js) usa esta firma: sobrevive a las versiones que no tocan el terreno.
@@ -57,22 +62,30 @@ datos = raiz / 'datos'; datos.mkdir(exist_ok=True)
 for f in datos.glob('*'):
     if f.suffix in ('.txt', '.js'): f.unlink()
 light = out
-for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + ['rafaelimg', 'lobaimg', 'demdata']:
+# Ninguno se espera para arrancar: el cargador solo espera al código (juego.js) y adelanta la descarga de los que sirven a las dos
+# épocas (data-pre); el juego pide cada bloque cuando lo necesita (datoGet, 000_inicio.js): el relieve y los personajes de la época
+# elegida al elegirla, las imágenes y las versiones altas cuando toca. Cada archivo lleva su propia huella (?v=): al publicar una
+# versión nueva, el navegador solo vuelve a descargar los que han cambiado.
+PRE = {'glb', 'glb2', 'rafaelimg', 'lobaimg'}
+for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
     m = _re.search(r'(<script[^>]*\bid="%s"[^>]*>)([\s\S]*?)(</script>)' % idn, light)
     assert m, 'no encuentro el bloque ' + idn
     (datos / (idn + '.txt')).write_text(m.group(2), encoding='utf-8')
-    light = light[:m.start()] + m.group(1)[:-1] + ' data-src="datos/%s.txt?v=%s">' % (idn, ver) + m.group(3) + light[m.end():]
+    h = hashlib.sha1(m.group(2).encode('utf-8')).hexdigest()[:10]
+    light = light[:m.start()] + m.group(1)[:-1] + ' data-src="datos/%s.txt?v=%s"%s>' % (idn, h, ' data-pre="1"' if idn in PRE else '') + m.group(3) + light[m.end():]
 i = light.rfind('<script>'); j = light.rfind('</script>')
 assert i > 0 and j > i
 (datos / 'juego.js').write_text(light[i + 8:j], encoding='utf-8')
-BOOT = ('<script>/* cargador: trae los datos y el código del juego (datos/) y arranca */(function(){var V="%s",m=document.createElement("div");'
+vj = hashlib.sha1(light[i + 8:j].encode('utf-8')).hexdigest()[:10]
+BOOT = ('<script>/* cargador: trae el código del juego (datos/juego.js) y arranca; los datos los pide el juego cuando le hacen falta */(function(){var m=document.createElement("div");'
         'm.id="cargador";m.style.cssText="position:fixed;left:0;right:0;bottom:14px;text-align:center;font:15px Georgia,serif;color:#e8dcc0;text-shadow:0 1px 3px #000;z-index:9999;pointer-events:none";'
-        'm.textContent="Cargando Nóstos…";document.body.appendChild(m);var E=[].slice.call(document.querySelectorAll("script[data-src]:not([data-lazy])")),n=0,T=E.length+1;'
-        'function p(){m.textContent="Cargando Nóstos… "+Math.round(100*n/T)+" %%";}'
+        'm.textContent="Cargando Nóstos…";document.body.appendChild(m);'
         'function f(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(u+" ("+r.status+")");return r.text();});}'
-        'Promise.all(E.map(function(e){return f(e.getAttribute("data-src")).then(function(t){e.textContent=t;n++;p();});})).then(function(){return f("datos/juego.js?v="+V);})'
-        '.then(function(code){n++;p();var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();})'
-        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % ver
+        'var P=window.__pre={};[].forEach.call(document.querySelectorAll("script[data-pre]"),function(e){P[e.id]=f(e.getAttribute("data-src"));P[e.id].catch(function(){});});'
+        'fetch("datos/juego.js?v=%s").then(function(r){if(!r.ok)throw new Error("datos/juego.js ("+r.status+")");var L=+r.headers.get("content-length")||0;if(!L||r.headers.get("content-encoding")||!r.body||!window.TextDecoder)return r.text();'
+        'var rd=r.body.getReader(),d=new TextDecoder(),s="",n=0;return(function g(){return rd.read().then(function(x){if(x.done)return s+d.decode();n+=x.value.length;s+=d.decode(x.value,{stream:true});m.textContent="Cargando Nóstos… "+Math.min(99,Math.round(100*n/L))+" %%";return g();});})();})'
+        '.then(function(code){var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();})'
+        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % vj
 light = light[:i] + BOOT + light[j + 9:]
 (raiz / 'atenas.html').write_text(light, encoding='utf-8')
 (raiz / 'version.json').write_text(json.dumps({'v': ver}), encoding='utf-8')

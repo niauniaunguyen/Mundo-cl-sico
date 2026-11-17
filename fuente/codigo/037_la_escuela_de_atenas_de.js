@@ -1,5 +1,5 @@
 // ============================================================ «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón
-const RAFAEL_SRC=(()=>{const el=document.getElementById('rafaelimg'),t=el?el.textContent.trim():'';return t.length>100?'data:image/jpeg;base64,'+t:'';})();
+let RAFAEL_SRC='';   // se rellena al llegar datos/rafaelimg.txt (más abajo, con la imagen de Roma)
 // figuras del fresco: [id, nombre, x %, y %, texto]
 const RAF_FIG=[
  ['platon','Platón',48.4,58,'Con los rasgos de Leonardo da Vinci, señala al cielo y lleva el <i>Timeo</i>: para él lo verdaderamente real son las Ideas, eternas, que solo capta la razón. En el 386 a.C. tiene unos 42 años y acaba de fundar la Academia.'],
@@ -85,9 +85,12 @@ function dreamTravel(to){
 }
 
 // imagen real (no generada) en la pantalla de inicio: la Loba Capitolina en Roma, «La escuela de Atenas» en Atenas
-const LOBA_SRC=(()=>{const el=document.getElementById('lobaimg'),t=el?el.textContent.trim():'';return t.length>100?'data:image/jpeg;base64,'+t:'';})();
+let LOBA_SRC='';
 const LOBA_CAP='<b>El Vesubio en erupción, de noche</b>Pintura de época moderna (siglos XVIII-XIX), con el faro del puerto de Nápoles. En el año 79, hace solo uno, el volcán sepultó Pompeya y Herculano; Plinio el Viejo murió al acercarse para verlo y ayudar a los vecinos (Plinio el Joven, Cartas VI 16).';
 function stImgFill(){const f=document.getElementById('stImg');if(!f)return;const roma=typeof MODE!=='undefined'&&MODE==='roma';const src=roma?LOBA_SRC:RAFAEL_SRC;if(!src){f.hidden=true;return;}
   f.querySelector('img').src=src;f.querySelector('img').alt=roma?'La Loba Capitolina con Rómulo y Remo':'La escuela de Atenas, de Rafael';
   f.querySelector('figcaption').innerHTML=roma?LOBA_CAP:'<b>La escuela de Atenas</b>Rafael la pintó en el Vaticano en 1509-1511, casi dos mil años después de tu partida: es una Atenas imaginada. En el centro, Platón, que en 386 a.C. empieza a enseñar en la Academia, y su futuro alumno Aristóteles. <i>Dominio público.</i>';f.hidden=false;}
 setTimeout(stImgFill,0);
+// las dos imágenes llegan aparte (en atenas.html, de datos/): al llegar, se ponen en la pantalla de inicio y en la presentación si ya estaban abiertas
+for(const[id,set]of[['rafaelimg',v=>RAFAEL_SRC=v],['lobaimg',v=>LOBA_SRC=v]])datoGet(id).then(t=>{t=t.trim();if(t.length<100)return;set('data:image/jpeg;base64,'+t);
+  try{stImgFill();const b=document.querySelector('#intro .ibg');if(b&&!/url\(["']?data:/.test(b.style.backgroundImage))b.style.backgroundImage='url('+((MODE==='roma')?LOBA_SRC:RAFAEL_SRC)+')';}catch(e){}});
