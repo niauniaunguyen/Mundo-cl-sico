@@ -22,8 +22,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Preparar la web
         run: |
+          python3 fuente/construir.py
           mkdir -p _site
           cp atenas.html _site/index.html
+          cp -r datos _site/datos
+          cp atenas_un_archivo.html _site/atenas_un_archivo.html
           cp version.json _site/version.json
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5

@@ -8,7 +8,7 @@ const fs=require('fs'),path=require('path'),vm=require('vm'),{execSync}=require(
 const raiz=path.resolve(__dirname,'..','..'),dir=path.join(raiz,'fuente','codigo');let fallos=0,avisos=0;
 const mal=m=>{fallos++;console.log('✗ '+m);},ojo=m=>{avisos++;console.log('· '+m);},bien=m=>console.log('✓ '+m);
 try{const o=execSync('python3 fuente/construir.py',{cwd:raiz,encoding:'utf8'});bien('construido: '+o.trim().split('\n').pop());}catch(e){mal('construir.py ha fallado:\n'+(e.stdout||'')+(e.stderr||''));process.exit(1);}
-const html=fs.readFileSync(path.join(raiz,'atenas.html'),'utf8');
+const html=fs.readFileSync(path.join(raiz,'atenas_un_archivo.html'),'utf8');   // la versión de un solo archivo: el código entero en un <script>
 // 2. sintaxis: el <script> más largo
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]);const code=scripts.reduce((a,b)=>b.length>a.length?b:a,'');
 try{new vm.Script(code,{filename:'atenas.html'});bien('sintaxis correcta ('+Math.round(code.length/1e3)+' KB de código)');}catch(e){
@@ -39,5 +39,8 @@ if(gf){const names=[...new Set([...gf[1].matchAll(/([A-Za-z_$][\w$]*)\((?:dt)?\)
 const left=html.match(/@@(GLB2?|RAFAEL|VER|TSIG|CODIGO)@@/g);   // marcadores de construcción (@@RF@@ es un marcador interno de la biblioteca)
 if(left)mal('marcadores sin sustituir: '+[...new Set(left)].join(', '));else bien('sin marcadores pendientes');
 // 6. tamaño
-const mb=Buffer.byteLength(html)/1e6;if(mb>14)mal('atenas.html pesa '+mb.toFixed(1)+' MB (máximo 14)');else if(mb>12)ojo('atenas.html pesa '+mb.toFixed(1)+' MB (cerca del límite)');else bien('tamaño '+mb.toFixed(2)+' MB');
+{const pg=fs.statSync(path.join(raiz,'atenas.html')).size/1e6,dd=path.join(raiz,'datos'),F=fs.readdirSync(dd).map(f=>[f,fs.statSync(path.join(dd,f)).size/1e6]),big=F.reduce((a,b)=>b[1]>a[1]?b:a,['',0]),tot=F.reduce((a,b)=>a+b[1],0);
+  // una página de Claude admite 16 MB por archivo: la página ligera y cada archivo de datos/ deben quedar por debajo (con margen, 15)
+  if(pg>1)mal('atenas.html pesa '+pg.toFixed(2)+' MB: debería ser la página ligera');else if(big[1]>15)mal('datos/'+big[0]+' pesa '+big[1].toFixed(1)+' MB (máximo 15 por archivo)');else if(big[1]>13)ojo('datos/'+big[0]+' pesa '+big[1].toFixed(1)+' MB (cerca del límite de 15 por archivo)');
+  else bien('atenas.html '+Math.round(pg*1000)+' KB + datos/ '+tot.toFixed(1)+' MB en '+F.length+' archivos (el mayor, '+big[0]+', '+big[1].toFixed(1)+' MB)');}
 console.log(fallos?'\n'+fallos+' fallo(s)'+(avisos?', '+avisos+' aviso(s)':''):'\nTodo bien'+(avisos?' ('+avisos+' aviso(s))':''));process.exit(fallos?1:0);

@@ -1,6 +1,11 @@
 # Publicar Nóstos como web para el alumnado
 
-El juego es un solo archivo, `atenas.html` (unos 10 MB), que funciona sin servidor ni instalación. Hay tres formas de ponerlo en la web.
+El juego se construye en dos formas (`python3 fuente/construir.py`):
+
+- **`atenas.html` + la carpeta `datos/`**: la página es ligera (unos 70 KB) y, al abrirse, trae de `datos/` el código y los datos (modelos, imágenes, relieve real de los destinos), unos 15 MB en total. Es la que se publica en la web y en Claude: ningún archivo pasa de 16 MB. Hay que subir siempre **las dos cosas juntas**, la página y la carpeta. Con doble clic desde el ordenador no funciona (el navegador no deja leer `datos/` sin un servidor).
+- **`atenas_un_archivo.html`**: todo en un solo archivo (unos 15 MB), para usar sin conexión con doble clic o para pasarlo en un pendrive. No se guarda en el repositorio: se genera al construir (y la web de GitHub Pages lo ofrece en `/atenas_un_archivo.html`).
+
+Hay tres formas de ponerlo en la web.
 
 ## 1. GitHub Pages (recomendada: se actualiza sola)
 
@@ -14,7 +19,7 @@ El repositorio ya incluye `.github/workflows/pages.yml`, que publica el juego ca
 
 ## 2. Netlify o Cloudflare Pages (arrastrar y soltar)
 
-1. Crea una carpeta con dos archivos: `atenas.html` renombrado a `index.html`, y `version.json`.
+1. Crea una carpeta con `atenas.html` renombrado a `index.html`, la carpeta `datos/` entera y `version.json` (y, si quieres ofrecer la versión sin conexión, `atenas_un_archivo.html`).
 2. En Netlify («Add new site → Deploy manually») o en Cloudflare Pages («Upload assets»), arrastra la carpeta.
 3. Para actualizar, vuelve a arrastrar la carpeta con los archivos nuevos.
 

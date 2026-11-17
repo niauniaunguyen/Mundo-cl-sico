@@ -146,7 +146,7 @@ function buildIslandMesh(I){const S=I.R*2.9,seg=Math.round(S/(I.step||6));const 
   const pos=g.attributes.position,col=new Float32Array(pos.count*3),c=new THREE.Color(),dry=new THREE.Color('#b9ab86');
   // una sola altura por punto; la pendiente se saca de los puntos vecinos (antes se calculaban cinco alturas por punto: la carga tardaba mucho)
   const N1=seg+1,H=new Float32Array(pos.count),st=S/seg;for(let i=0;i<pos.count;i++){const x=pos.getX(i)+I.x,z=pos.getZ(i)+I.z,h=islandH(x,z);H[i]=h;pos.setXYZ(i,x,h,z);}
-  try{reliefPost(I,H,N1,st,I.x-S/2,I.z-S/2);for(let i=0;i<pos.count;i++)pos.setY(i,H[i]);}catch(e){console.warn('relieve',I.id,e);}   // crestas, barrancos y pendientes posibles (185_relieve.js)
+  try{reliefPost(I,H,N1,st,I.x-S/2,I.z-S/2);for(let i=0;i<pos.count;i++)pos.setY(i,H[i]);}catch(e){console.error('relieve',I.id,e);}   // crestas, barrancos y pendientes posibles (185_relieve.js)
   for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i),h=H[i],r=Math.floor(i/N1),cc=i%N1;
     const hx1=H[r*N1+Math.min(N1-1,cc+1)],hx0=H[r*N1+Math.max(0,cc-1)],hz1=H[Math.min(N1-1,r+1)*N1+cc],hz0=H[Math.max(0,r-1)*N1+cc];
     const sl=(Math.abs(hx1-hx0)+Math.abs(hz1-hz0))/(2*st);
