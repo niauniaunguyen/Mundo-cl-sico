@@ -21,6 +21,8 @@ pj_tags = ''.join('<script type="application/octet-stream" id="glbpj_%s">%s</scr
 _pl = raiz / 'modelos' / 'plantas_juego.glb'
 if _pl.exists(): pj_tags += '<script type="application/octet-stream" id="glbpl" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_pl.read_bytes(), 9, mtime=0)).decode('ascii')
 _qa = raiz / 'modelos' / 'animales_q_juego.glb'   # animales con esqueleto de Quaternius (CC0), se traen en segundo plano
+_ab = raiz / 'modelos' / 'arbustos_juego.glb'   # arbustos de detalle generados con EZ-Tree (herramientas/plantas_eztree), en segundo plano
+if _ab.exists(): pj_tags += '<script type="application/octet-stream" id="glbab" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_ab.read_bytes(), 9, mtime=0)).decode('ascii')
 if _qa.exists(): pj_tags += '<script type="application/octet-stream" id="glbqa" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_qa.read_bytes(), 9, mtime=0)).decode('ascii')
 # lectura fácil (fuente/lectura_facil.json): solo se descarga si se activa la opción
 _lf = raiz / 'fuente' / 'lectura_facil.json'
@@ -77,7 +79,7 @@ light = out
 # elegida al elegirla, las imágenes y las versiones altas cuando toca. Cada archivo lleva su propia huella (?v=): al publicar una
 # versión nueva, el navegador solo vuelve a descargar los que han cambiado.
 PRE = {'glb', 'glb2', 'rafaelimg', 'lobaimg'}
-for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbqa'] if _qa.exists() else []) + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
+for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbqa'] if _qa.exists() else []) + (['glbab'] if _ab.exists() else []) + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
     m = _re.search(r'(<script[^>]*\bid="%s"[^>]*>)([\s\S]*?)(</script>)' % idn, light)
     assert m, 'no encuentro el bloque ' + idn
     (datos / (idn + '.txt')).write_text(m.group(2), encoding='utf-8')

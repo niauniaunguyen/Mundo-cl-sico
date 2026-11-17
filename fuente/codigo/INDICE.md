@@ -205,4 +205,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `200_el_mensajero.js` | 62 | EL MENSAJERO: los avisos van al caduceo |
 | `201_objeto_en_la_mano.js` | 54 | EL OBJETO ELEGIDO, EN LA MANO |
 | `202_figurillas_votivas.js` | 77 | FIGURILLAS VOTIVAS: coleccionar el favor de los dioses |
+| `203_arbustos_de_detalle.js` | 90 | ARBUSTOS DE DETALLE (matorral mediterráneo) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
