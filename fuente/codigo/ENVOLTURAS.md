@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-248 funciones ampliadas, 401 capas.
+248 funciones ampliadas, 402 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -16,11 +16,11 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atCands` | `085_mirar_con_atencion.js` | 7 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 |
 | `gmRight` | `121_menu_de_esc.js` | 7 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 |
 | `dzReport` | `151_diez_ideas.js` | 6 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 |
+| `accMenu` | `099_para_aprender_y_ensenar.js` | 5 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 |
 | `answer` | `015_dialogo.js` | 5 | `091`:38 · `092`:46 · `148`:58 · `154`:11 · `180`:22 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `openDialog` | `015_dialogo.js` | 5 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
-| `accMenu` | `099_para_aprender_y_ensenar.js` | 4 | `148`:150 · `151`:75 · `180`:60 · `189`:34 |
 | `chunked` | `005_modelos_de_blender.js` | 4 | `155`:21 · `182`:51 · `182`:96 · `183`:58 |
 | `fareOf` | `016_viajes_en_barco.js` | 4 | `052`:509 · `090`:102 · `091`:52 · `097`:70 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |

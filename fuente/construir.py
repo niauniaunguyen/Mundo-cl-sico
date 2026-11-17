@@ -20,6 +20,9 @@ pj_tags = ''.join('<script type="application/octet-stream" id="glbpj_%s">%s</scr
 # copas de detalle de los árboles cercanos (herramientas/blender/plantas.py): se traen en segundo plano
 _pl = raiz / 'modelos' / 'plantas_juego.glb'
 if _pl.exists(): pj_tags += '<script type="application/octet-stream" id="glbpl" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_pl.read_bytes(), 9, mtime=0)).decode('ascii')
+# lectura fácil (fuente/lectura_facil.json): solo se descarga si se activa la opción
+_lf = raiz / 'fuente' / 'lectura_facil.json'
+if _lf.exists(): pj_tags += '<script type="application/json" id="lfdata" data-lazy="1">%s</script>\n' % _lf.read_text(encoding='utf-8').replace('</', '<\\/')
 _ar = raiz / 'modelos' / 'arquitectura_juego.glb'   # columnas de detalle (herramientas/blender/arquitectura.py), también en segundo plano
 if _ar.exists(): pj_tags += '<script type="application/octet-stream" id="glbar" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_ar.read_bytes(), 9, mtime=0)).decode('ascii')
 # versión alta (personas cercanas): se carga en segundo plano tras arrancar (data-lazy: el cargador no la espera)
@@ -72,7 +75,7 @@ light = out
 # elegida al elegirla, las imágenes y las versiones altas cuando toca. Cada archivo lleva su propia huella (?v=): al publicar una
 # versión nueva, el navegador solo vuelve a descargar los que han cambiado.
 PRE = {'glb', 'glb2', 'rafaelimg', 'lobaimg'}
-for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbar'] if _ar.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
+for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
     m = _re.search(r'(<script[^>]*\bid="%s"[^>]*>)([\s\S]*?)(</script>)' % idn, light)
     assert m, 'no encuentro el bloque ' + idn
     (datos / (idn + '.txt')).write_text(m.group(2), encoding='utf-8')
