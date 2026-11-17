@@ -192,4 +192,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `186_caras_cuerpos_y_estatuas.js` | 177 | CARAS DISTINTAS, CUERPOS DISTINTOS Y ESTATUAS PINTADAS |
 | `188_relieve_real.js` | 65 | RELIEVE REAL DE TODOS LOS DESTINOS |
 | `189_calidad_automatica.js` | 43 | CALIDAD AUTOMÁTICA SEGÚN EL ORDENADOR (P2) |
+| `190_entonces_y_ahora.js` | 58 | ENTONCES Y AHORA (P4) |
 | `900_creta_y_arranque.js` | 647 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
