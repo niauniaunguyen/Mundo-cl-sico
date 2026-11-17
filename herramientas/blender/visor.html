@@ -28,6 +28,7 @@ new THREE.GLTFLoader().load('../../modelos/personaje_'+(Q.get('pj')||'ciudadano'
   else if(v==='perfil'){cam.position.set(c.x+1.0,1.66,c.z+0.35);cam.lookAt(c.x,1.63,c.z);}
   else if(v==='pies'){cam.position.set(c.x+0.5,0.35,c.z+0.75);cam.lookAt(c.x,0.06,c.z);}
   else if(v==='hombro'){cam.position.set(c.x+0.6,1.65,c.z+0.75);cam.lookAt(c.x+0.08,1.4,c.z);}
+  else if(v==='carafrente'){cam.position.set(c.x,1.665,c.z+0.6);cam.lookAt(c.x,1.66,c.z);}
   else if(v==='cara'){cam.position.set(c.x+0.12,1.67,c.z+0.5);cam.lookAt(c.x,1.645,c.z);}
   else if(v==='cara34'){cam.position.set(c.x+0.36,1.68,c.z+0.38);cam.lookAt(c.x,1.645,c.z);}
   else if(v==='caraperfil'){cam.position.set(c.x+0.52,1.66,c.z-0.02);cam.lookAt(c.x,1.645,c.z-0.02);}

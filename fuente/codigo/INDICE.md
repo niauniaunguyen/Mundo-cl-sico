@@ -189,6 +189,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
 | `184_personajes_blender.js` | 94 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
 | `185_relieve.js` | 77 | RELIEVE DE LOS DESTINOS: MÁS DETALLE Y SIN PAREDES IMPOSIBLES |
-| `186_caras_cuerpos_y_estatuas.js` | 173 | CARAS DISTINTAS, CUERPOS DISTINTOS Y ESTATUAS PINTADAS |
+| `186_caras_cuerpos_y_estatuas.js` | 177 | CARAS DISTINTAS, CUERPOS DISTINTOS Y ESTATUAS PINTADAS |
 | `188_relieve_real.js` | 65 | RELIEVE REAL DE TODOS LOS DESTINOS |
 | `900_creta_y_arranque.js` | 647 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

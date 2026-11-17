@@ -22700,7 +22700,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='a61b80a92317';
+const NOSTOS_VER='d8dec7fec218';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -28877,7 +28877,11 @@ function fvParams(t,fem,rnd){const P=Object.assign({},FV_TYPES[t%FV_TYPES.length
 const FV_HEAD=/_(cabeza|orejas|ojos|pelo|barba|mono|cinta)$/;
 // geometría deformada (compartida por todos los que tienen la misma variante)
 function fvGeo(src,key,P){let g=FV.geo.get(key);if(g)return g;g=src.clone();const a=g.attributes.position,arr=new Float32Array(a.count*3);
-  for(let i=0;i<a.count;i++){const p=fvMove(a.getX(i),a.getY(i),a.getZ(i),P);arr[i*3]=p[0];arr[i*3+1]=p[1];arr[i*3+2]=p[2];}
+  if(/_ojos\|/.test(key)){   // los globos oculares se mueven enteros, sin deformarse: si no, al estrechar la cara el iris (delante) se iba hacia la nariz más que el resto del ojo y la persona quedaba bizca
+    const C=[[0,0,0,0],[0,0,0,0]];for(let i=0;i<a.count;i++){const s=a.getX(i)<0?0:1;C[s][0]+=a.getX(i);C[s][1]+=a.getY(i);C[s][2]+=a.getZ(i);C[s][3]++;}
+    const D=C.map(c=>{if(!c[3])return[0,0,0];const x=c[0]/c[3],y=c[1]/c[3],z=c[2]/c[3],m=fvMove(x,y,z,P);return[m[0]-x,m[1]-y,m[2]-z];});
+    for(let i=0;i<a.count;i++){const d=D[a.getX(i)<0?0:1];arr[i*3]=a.getX(i)+d[0];arr[i*3+1]=a.getY(i)+d[1];arr[i*3+2]=a.getZ(i)+d[2];}}
+  else for(let i=0;i<a.count;i++){const p=fvMove(a.getX(i),a.getY(i),a.getZ(i),P);arr[i*3]=p[0];arr[i*3+1]=p[1];arr[i*3+2]=p[2];}
   g.setAttribute('position',new THREE.BufferAttribute(arr,3));g.computeBoundingSphere();FV.geo.set(key,g);return g;}
 const FV_SKIN=[[1,1,1],[0.9,0.84,0.78],[1.05,1.02,0.98],[0.94,0.9,0.8],[0.84,0.77,0.7]],FV_HAIR=[[1,1,1],[0.55,0.55,0.58],[0.7,0.66,0.64],[1.45,1.2,0.95],[1.55,1.05,0.75]];
 // varía una persona de Blender: cara, piel, pelo y cuerpo

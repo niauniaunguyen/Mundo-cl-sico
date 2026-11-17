@@ -193,7 +193,7 @@ def eye_mesh(name,head):   # globos oculares detrás de las aberturas, mirando a
             dd=Vector((math.sin(EYE_A*sg+da),-math.cos(EYE_A*sg+da),0)).normalized();hit=hb.ray_cast(o+dd*0.3,-dd,0.3)
             if hit[0]:Rs.append((hit[0]-o).length)
         R=sum(Rs)/len(Rs) if Rs else 0.085
-        c=o+d*(R-0.0118);r=0.0118;CEN[sg]=c.copy()
+        c=o+d*(R-0.0118);r=0.0118;CEN[sg]=c+d*r   # la pupila, centrada en el punto del globo que asoma por la abertura (antes en el centro del globo: quedaba 5 mm hacia la nariz y la persona parecía bizca)
         g=bmesh.ops.create_uvsphere(bm,u_segments=16,v_segments=12,radius=r,matrix=Matrix.Translation(c)@Euler((math.radians(90),0,0)).to_matrix().to_4x4())
     me=bpy.data.meshes.new(name);bm.to_mesh(me);bm.free();ob=bpy.data.objects.new(name,me);scn.collection.objects.link(ob)
     for p in me.polygons:p.use_smooth=True
@@ -446,13 +446,24 @@ def drape_weights(ob):   # el extremo del manto cuelga del hombro y del pecho, n
     for v in ob.data.vertices:
         z=v.co.z;k=min(1,max(0,(z-0.8)/0.6))
         C.add([v.index],0.55*k+0.45*(1-k),'REPLACE');S.add([v.index],0.45*k,'REPLACE');H.add([v.index],0.55*(1-k),'REPLACE')
-def drape_end(name,path,width,folds=3,famp=0.03):   # extremo de un manto que cuelga: tira con pliegues en zigzag a lo largo de un camino
+def _bvh_of(objs):
+    cb=bmesh.new()
+    for c in objs:
+        t=bmesh.new();t.from_mesh(c.data);t.transform(c.matrix_world);me=bpy.data.meshes.new('tmp');t.to_mesh(me);t.free();cb.from_mesh(me);bpy.data.meshes.remove(me)
+    b=BVHTree.FromBMesh(cb);cb.free();return b
+def drape_end(name,path,width,folds=3,famp=0.03,snug=None,gap=0.025,far=0.03):   # extremo de un manto que cuelga: tira con pliegues en zigzag a lo largo de un camino
     bm=bmesh.new();P=[Vector(p) for p in path];N=24;rows=[];W=8
     pts=[]
     for i in range(N+1):   # interpolación Catmull-Rom
         t=i/N*(len(P)-1);k=min(int(t),len(P)-2);f=t-k
         p0=P[max(0,k-1)];p1=P[k];p2=P[k+1];p3=P[min(len(P)-1,k+2)]
         pts.append(0.5*((2*p1)+(-p0+p2)*f+(2*p0-5*p1+4*p2-p3)*f*f+(-p0+3*p1-3*p2+p3)*f*f*f))
+    if snug:   # la línea central de la tira se acerca a la ropa de debajo (a 'gap') donde quedaba más lejos que 'far', y se suaviza:
+        bvh=_bvh_of(snug)   # con los puntos a mano, al cambiar el cuerpo y la ropa la tira colgaba a 5-10 cm y hacía un arco sobre el hombro
+        for i,p in enumerate(pts):
+            loc,_,_,d=bvh.find_nearest(p)
+            if loc is not None and d>far:pts[i]=loc+(p-loc).normalized()*gap
+        for _ in range(3):pts=[pts[0]]+[(pts[i-1]+pts[i]*2+pts[i+1])/4 for i in range(1,N)]+[pts[N]]
     prev=None
     for i,p in enumerate(pts):   # el ancho de la tira, siempre de lado (x) y sin cambiar de sentido: antes, donde el camino era casi vertical,
         tg=(pts[min(N,i+1)]-pts[max(0,i-1)]).normalized()   # el lado se calculaba al revés y la tira se daba la vuelta (una X a la altura de la mano)
@@ -864,8 +875,8 @@ def build(kind):
         set_mat(hm,material('himation',cloth_tex('himation','#d6d6da',border='#3a3a46',band=(0.0,0.045),folds=11),color=(0.45,0.52,0.72)))   # textura clara: el juego la tiñe con el color de cada persona
         for o in(ch,hm):pieces.append(o)
         # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
-        e1=drape_end('himation_extremo',[(0.085,0.02,1.535),(0.1,-0.085,1.49),(0.115,-0.165,1.35),(0.13,-0.205,1.05),(0.14,-0.22,0.75),(0.145,-0.225,0.5)],0.17,folds=2.5,famp=0.022)
-        e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02)
+        e1=drape_end('himation_extremo',[(0.085,0.02,1.535),(0.1,-0.085,1.49),(0.115,-0.165,1.35),(0.13,-0.205,1.05),(0.14,-0.22,0.75),(0.145,-0.225,0.5)],0.17,folds=2.5,famp=0.022,snug=[body]+pieces)
+        e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02,snug=[body]+pieces)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         # mangas del quitón jonio: la tela cae suelta del hombro hasta el codo y se abrocha con botones (fíbulas) por encima del brazo
         for k,sg in(('L',1),('R',-1)):
@@ -904,8 +915,8 @@ def build(kind):
         set_mat(ch,material('quiton',cloth_tex('quiton','#ece4d4',border='#a8392b',band=(0.0,0.04),folds=34,neck='#a8392b')))
         hm=garment('himation',body,0.3,1.5,0.03,folds=12,famp=0.024,flare=0.12,top=lambda u:1.17+0.13*(0.5+0.5*math.sin(u*TAU))**1.3,skirt=True,over=ch)
         set_mat(hm,material('himation',cloth_tex('himation','#d6d6da',border='#3a3a46',band=(0.0,0.045),folds=12)))
-        e1=drape_end('himation_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02)
-        e2=drape_end('himation_espalda',[(0.11,0.08,1.5),(0.15,0.15,1.3),(0.16,0.19,1.0),(0.16,0.2,0.75)],0.22,folds=3,famp=0.02)
+        e1=drape_end('himation_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02,snug=[body]+pieces)
+        e2=drape_end('himation_espalda',[(0.11,0.08,1.5),(0.15,0.15,1.3),(0.16,0.19,1.0),(0.16,0.2,0.75)],0.22,folds=3,famp=0.02,snug=[body]+pieces)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         for o in(ch,hm):pieces.append(o)
         for k,sg in(('L',1),('R',-1)):
@@ -928,8 +939,8 @@ def build(kind):
             sl,bt=ionic_sleeve('manga',sg,J['sho.'+k],J['elb.'+k]);set_mat(sl,tu.data.materials[0]);pieces.append(sl)
         tg=garment('toga',body,0.12,1.5,0.035,folds=10,famp=0.03,flare=0.15,top=lambda u:1.2+0.16*(0.5+0.5*math.sin(u*TAU))**1.2,skirt=True,over=tu)
         set_mat(tg,material('toga',cloth_tex('toga','#f0ebe0',folds=10)));pieces.append(tg)
-        e1=drape_end('toga_extremo',[(0.08,0.02,1.54),(0.1,-0.09,1.49),(0.12,-0.18,1.32),(0.13,-0.23,1.0),(0.14,-0.25,0.65),(0.145,-0.255,0.35)],0.22,folds=3,famp=0.03)
-        e2=drape_end('toga_espalda',[(0.11,0.08,1.51),(0.15,0.16,1.3),(0.17,0.21,0.95),(0.17,0.23,0.55)],0.28,folds=3,famp=0.025)
+        e1=drape_end('toga_extremo',[(0.08,0.02,1.54),(0.1,-0.09,1.49),(0.12,-0.18,1.32),(0.13,-0.23,1.0),(0.14,-0.25,0.65),(0.145,-0.255,0.35)],0.22,folds=3,famp=0.03,snug=[body]+pieces)
+        e2=drape_end('toga_espalda',[(0.11,0.08,1.51),(0.15,0.16,1.3),(0.17,0.21,0.95),(0.17,0.23,0.55)],0.28,folds=3,famp=0.025,snug=[body]+pieces)
         for e in(e1,e2):set_mat(e,tg.data.materials[0]);pieces.append(e)
     elif kind=='romana':
         # túnica con mangas, estola encima (vestido largo sin mangas, con tirantes) y palla (manto)
@@ -945,7 +956,7 @@ def build(kind):
             set_mat(ep,st.data.materials[0]);pieces.append(ep)
         pa=garment('palla',body,0.35,1.5,0.03,folds=11,famp=0.024,flare=0.12,top=lambda u:1.18+0.14*(0.5+0.5*math.sin(u*TAU))**1.3,skirt=True,over=st)
         set_mat(pa,material('palla',cloth_tex('palla','#d6d6da',border='#3a3a46',band=(0.0,0.04),folds=11)));pieces.append(pa)
-        e1=drape_end('palla_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02)
+        e1=drape_end('palla_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02,snug=[body]+pieces)
         set_mat(e1,pa.data.materials[0]);pieces.append(e1)
     elif kind=='legionario':
         # túnica roja corta, lorica segmentata (bandas de hierro), hombreras de láminas, casco de tipo imperial-gálico, scutum curvo, gladius y caligae
@@ -969,7 +980,7 @@ def build(kind):
     # capas: lo que queda debajo y tapado se borra (piel bajo la ropa, quitón bajo el manto o la coraza, pelo bajo el casco)
     byn=lambda *ns:[o for o in pieces+[r for r,_ in rigid] if o.name.split('.')[0] in ns]
     ropa=byn('quiton','quiton_corto','himation','himation_extremo','himation_espalda','manga','coraza','pteryges','pteryges_b','greba','hombrera','exomis','tunica','toga','toga_extremo','toga_espalda','estola','palla','palla_extremo','lorica','hombrera_hierro')
-    n=hide_covered(body,ropa,maxd=0.05,erode=3)
+    n=hide_covered(body,ropa,maxd=0.12,erode=3)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
     for nm,cv in(('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',))):
         for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
     for o in byn(kind+'_pelo'):n+=hide_covered(o,byn('casco'),maxd=0.05,erode=1)
