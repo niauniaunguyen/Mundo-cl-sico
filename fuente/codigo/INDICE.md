@@ -4,7 +4,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 
 | Módulo | Líneas | Secciones |
 |---|---:|---|
-| `000_inicio.js` | 58 | idioma (es / ca / en)<br>utilidades |
+| `000_inicio.js` | 61 | idioma (es / ca / en)<br>utilidades |
 | `001_terreno.js` | 117 | terreno |
 | `002_colisiones.js` | 66 | colisiones |
 | `003_escena.js` | 57 | escena |
@@ -194,4 +194,8 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `189_calidad_automatica.js` | 43 | CALIDAD AUTOMÁTICA SEGÚN EL ORDENADOR (P2) |
 | `190_entonces_y_ahora.js` | 58 | ENTONCES Y AHORA (P4) |
 | `191_lectura_facil.js` | 18 | LECTURA FÁCIL (P5) |
+| `192_talleres_de_fuentes.js` | 64 | TALLERES DE FUENTES (P9) |
+| `193_entablamentos_de_detalle.js` | 48 | ENTABLAMENTOS DE DETALLE (P7, arquitectura de detalle, segunda parte) |
+| `194_procesiones.js` | 105 | PROCESIONES (P8, fiestas con multitudes que se mueven) |
+| `195_atenas_romana.js` | 49 | ATENAS ROMANA, AÑO 80 (P10, modo Roma) |
 | `900_creta_y_arranque.js` | 647 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

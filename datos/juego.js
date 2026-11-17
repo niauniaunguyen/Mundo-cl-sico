@@ -8,8 +8,11 @@ const I18N=window.__I18N||{tr:{},html:{}};
 const LANGS=['es','ca','en'],LANG_KEY='mundo-clasico-lang';
 const LANG=(()=>{let l=new URLSearchParams(location.search).get('lang');if(!l)try{l=localStorage.getItem(LANG_KEY);}catch(e){}return LANGS.includes(l)?l:'es';})();
 const _TR=LANG==='es'?null:I18N.tr[LANG]||null;
-function _t(i,s){const v=_TR&&_TR[i];return v==null?s:v;}
-function _tt(i,q,...a){const v=_TR&&_TR[i];if(v==null){let r=q[0];for(let k=0;k<a.length;k++)r+=a[k]+q[k+1];return r;}return v.replace(/\{(\d+)\}/g,(m,k)=>a[+k]);}
+// registro de textos sin traducir que se piden durante la partida (para traducir primero lo que se ve): solo con #debug y ?registro=1
+const _TREC=(location.hash==='#debug'&&/[?&]registro=1/.test(location.search))?(window.__tmiss=new Map()):null;
+function _trec(s){if(_TREC&&window.__trecOn&&typeof s==='string'&&/[a-záéíóúñ]{3}/i.test(s))_TREC.set(s,(_TREC.get(s)||0)+1);}
+function _t(i,s){const v=_TR&&_TR[i];if(v==null&&_TREC)_trec(s);return v==null?s:v;}
+function _tt(i,q,...a){const v=_TR&&_TR[i];if(v==null&&_TREC)_trec(q[0]+q.slice(1).map((x,k)=>'{'+k+'}'+x).join(''));if(v==null){let r=q[0];for(let k=0;k<a.length;k++)r+=a[k]+q[k+1];return r;}return v.replace(/\{(\d+)\}/g,(m,k)=>a[+k]);}
 // cambia de idioma recargando la página (los textos se traducen al definirse); conserva la época si ya se eligió
 function setLang(l){if(l===LANG)return;try{localStorage.setItem(LANG_KEY,l);}catch(e){}
   const u=new URLSearchParams(location.search);u.set('lang',l);
@@ -22700,7 +22703,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='8a501301d0cf';
+const NOSTOS_VER='f8f4d2386321';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -29183,6 +29186,268 @@ setTimeout(()=>{lfWatch();if(lfOn())lfLoad();},1200);
   const lab=document.createElement('label');lab.style.cssText='display:flex;gap:10px;align-items:center;padding:8px;border:1px solid #6a4a30;border-radius:8px;margin:6px 0;cursor:pointer';
   lab.innerHTML='<input type="checkbox" data-k="lf" '+(ACC.lf?'checked':'')+'> Lectura fácil: textos más cortos y sencillos en el modo Historia'+(LANG==='es'?'':' (de momento, solo en castellano)');ref.closest('label').after(lab);
   lab.querySelector('input').onchange=e=>{ACC.lf=e.target.checked;accSave();if(ACC.lf){lfWatch();lfLoad();}};}catch(e){}};}
+// ============================================================ TALLERES DE FUENTES (P9)
+// En algunas estelas aparece «Comparar fuentes»: dos textos antiguos (resumidos con nuestras palabras, no citados) que cuentan lo mismo
+// de forma distinta, dos preguntas de opción múltiple y una conclusión libre. Se guarda en state.talleres y sale en el informe para
+// el docente y en el cuaderno de viaje. Las fuentes escritas después del año del juego se marcan como anacronismo.
+// Casos: Atenas → tiranicidas (Atenas), soros (Maratón), colono_leon (Termópilas); Roma → ro_coliseo, ro_palatino (Roma), pompeya.
+const TALLERES={
+ tiranicidas:{t:'¿Quién mató al tirano?',
+  a:{n:'La versión de los atenienses',f:'Canciones de banquete (escolios) conservadas por Ateneo, Banquete de los sabios XV 695',x:'En los banquetes de Atenas se canta que Harmodio y Aristogitón escondieron la espada entre ramas de mirto, mataron al tirano y dieron a Atenas la igualdad ante la ley. Por eso tienen estatuas en el Ágora y sus descendientes comen en el Pritaneo.'},
+  b:{n:'La versión de Tucídides',f:'Tucídides VI 54-59 y I 20 (escrito hacia el 400 a.C.)',x:'Tucídides dice que casi todos los atenienses se equivocan. Hiparco no era el tirano: lo era su hermano mayor, Hipias. El asesinato nació de una ofensa personal, no de un plan para liberar la ciudad. Después, Hipias gobernó tres años más (cuatro, según Heródoto), con más dureza, y fueron los espartanos quienes lo expulsaron en el 510. Heródoto (V 55-65) coincide en lo esencial.'},
+  q:[{p:'Según Tucídides, ¿quién gobernaba Atenas cuando mataron a Hiparco?',o:['Su hermano Hipias','El propio Hiparco','La Asamblea del pueblo'],c:0},
+     {p:'¿Por qué crees que los atenienses prefieren la versión de las canciones?',o:['Les da unos héroes de la libertad de los que sentirse orgullosos','Porque Tucídides no sabía leer','Porque las canciones son más antiguas y por eso siempre aciertan'],c:0}],
+  r:'Una misma ciudad puede recordar su pasado como le conviene. Tucídides, que buscaba la exactitud, lo corrige comparando testimonios.'},
+ soros:{t:'¿Cuántos murieron en Maratón?',
+  a:{n:_t(11459,'Heródoto'),f:'Heródoto VI 117 (escrito unos cincuenta años después de la batalla)',x:'Heródoto da cifras precisas: murieron unos 6.400 persas y 192 atenienses. Los nombres de los atenienses caídos están escritos en las estelas de este túmulo, tribu por tribu (lo cuenta también Pausanias I 32).'},
+  b:{n:'Justino',f:'Justino, Epítome de Pompeyo Trogo II 9 (hacia el siglo II-III d.C.) · anacronismo señalado: se escribió mucho después del año del juego',x:'Siglos más tarde, Justino resume una historia universal y cuenta que en Maratón murieron doscientos mil persas, y que los atenienses persiguieron a los demás hasta las naves.'},
+  q:[{p:'¿Qué fuente merece más confianza para el número de muertos atenienses?',o:['Heródoto, porque los 192 nombres estaban grabados aquí y se podían contar','Justino, porque su cifra es más grande','Las dos igual: cada una dice una cosa'],c:0},
+     {p:'¿Por qué una cifra puede crecer con el paso de los siglos?',o:['Porque cada autor que copia la historia quiere hacer la victoria más grande','Porque los muertos se cuentan mejor con el tiempo','Porque Heródoto ocultó a la mitad de los persas'],c:0}],
+  r:'Cuanto más lejos de los hechos está una fuente, más fácil es que la cifra se infle. Una prueba material (los nombres en las estelas) ayuda a decidir.'},
+ colono_leon:{t:'¿Cuántos persas había en las Termópilas?',
+  a:{n:_t(11459,'Heródoto'),f:'Heródoto VII 184-186 y VII 21',x:'Heródoto suma soldados, marineros, criados y cocineros y llega a más de cinco millones de personas en el ejército de Jerjes. Dice también que, a su paso, los ríos se quedaban secos porque el ejército se bebía toda el agua.'},
+  b:{n:'Los historiadores de hoy',f:'Estimaciones modernas (por ejemplo, Cawkwell, The Greek Wars, 2005) · anacronismo señalado',x:'Los historiadores actuales calculan cuánta agua y comida hacían falta para tanta gente y cuántos hombres cabían en los caminos. Piensan que el ejército de tierra tendría entre unas decenas de miles y unos doscientos o trescientos mil hombres.'},
+  q:[{p:'¿Qué detalle del propio Heródoto hace dudar de su cifra?',o:['Que los ríos se secaban: ningún país podía alimentar ni dar de beber a cinco millones','Que habla de cocineros','Que escribe en griego'],c:0},
+     {p:'¿Qué usan los historiadores de hoy para corregir la cifra?',o:['Cálculos de agua, comida y espacio en los caminos','Una lista oficial de los persas','La cifra que da el epitafio de la tumba'],c:0}],
+  r:'Heródoto recoge lo que se contaba, y los griegos tenían motivos para hacer al enemigo enorme. Las cuentas de abastecimiento permiten poner límites.'},
+ ro_coliseo:{t:'¿Cuántas fieras se mataron en la inauguración?',
+  a:{n:_t(10562,'Suetonio'),f:'Suetonio, Vida de Tito 7 (hacia el 120 d.C.) · anacronismo señalado: posterior al año del juego',x:'Suetonio cuenta que, al inaugurar el anfiteatro y las termas, Tito dio unos juegos espléndidos y que en un solo día se presentaron cinco mil fieras de todas clases.'},
+  b:{n:_t(11499,'Dion Casio'),f:'Dion Casio LXVI 25 (hacia el 220 d.C.) · anacronismo señalado',x:'Dion, un siglo después, dice que en los juegos de inauguración murieron nueve mil animales, salvajes y domésticos, y que también lucharon mujeres. Los juegos duraron cien días.'},
+  q:[{p:'¿Se contradicen las dos cifras?',o:['No necesariamente: Suetonio habla de un día y Dion de todos los juegos','Sí: una de las dos tiene que ser falsa','No, porque las dos dicen nueve mil'],c:0},
+     {p:'Hay un testigo que sí vivió aquellos juegos: el poeta Marcial, en su Libro de los espectáculos. ¿Por qué sería útil leerlo?',o:['Porque es una fuente de la época, escrita por alguien que estuvo allí','Porque los poetas nunca exageran','Porque da la cifra exacta de fieras'],c:0}],
+  r:'Antes de decir que dos fuentes se contradicen hay que mirar si hablan de lo mismo. Y conviene buscar testigos de la época, aunque sean poetas que alaban al emperador.'},
+ ro_palatino:{t:'¿Era Tito un buen emperador?',
+  a:{n:'Suetonio, el elogio',f:'Suetonio, Vida de Tito 1 y 8 · anacronismo señalado: escrita unos cuarenta años después',x:'Suetonio lo llama «el amor y la delicia del género humano». Cuenta que, si un día no había hecho ningún favor, decía: «Amigos, he perdido el día», y que ayudó a las víctimas del Vesubio y del incendio de Roma.'},
+  b:{n:'Suetonio, la sospecha',f:'Suetonio, Vida de Tito 6-7',x:'El mismo Suetonio cuenta que, antes de ser emperador, Tito tenía fama de cruel, de juerguista y de codicioso, que hizo matar a sospechosos sin juicio y que muchos temían que fuera otro Nerón. Dion Casio (LXVI 18) añade que reinó tan poco, dos años, que quizá por eso se le recordó bien.'},
+  q:[{p:'¿Cómo pueden ser ciertas las dos imágenes de Tito?',o:['La opinión sobre él cambió al llegar al poder; antes y después se le vio distinto','Suetonio se equivocó de emperador','Una de las dos es de otro Tito'],c:0},
+     {p:'¿Por qué duda Dion Casio del buen recuerdo de Tito?',o:['Porque gobernó muy poco tiempo y no le dio tiempo a hacerse odiar','Porque nunca fue emperador','Porque Dion lo conoció en persona'],c:0}],
+  r:'Una fuente no es «buena» o «mala» en bloque: el mismo autor puede dar datos a favor y en contra. Hay que preguntarse también qué periodo de la vida de alguien se juzga.'},
+ pompeya:{t:'¿Cuándo fue la erupción?',
+  a:{n:_t(3394,'Plinio el Joven'),f:'Plinio el Joven, Cartas VI 16 (hacia el 106 d.C.) · anacronismo señalado: escrita años después del juego',x:'Plinio, que vio la erupción desde Miseno con diecisiete años, escribe al historiador Tácito y fecha el comienzo el noveno día antes de las calendas de septiembre, es decir, el 24 de agosto. Pero los manuscritos medievales que copian su carta no coinciden todos en esa fecha.'},
+  b:{n:'Una inscripción de carbón',f:'Inscripción hallada en 2018 en la Regio V de Pompeya · anacronismo señalado: descubrimiento moderno',x:'En una casa en obras apareció una nota escrita con carbón en la pared, con la fecha del decimosexto día antes de las calendas de noviembre: el 17 de octubre. El carbón se borra pronto, así que se escribió poco antes de la erupción. Encajan además las frutas de otoño, el mosto en las tinajas y los braseros encendidos que se han encontrado.'},
+  q:[{p:'¿Por qué la inscripción de carbón es una prueba valiosa?',o:['La escribió alguien en aquellos días y nadie la ha copiado ni cambiado desde entonces','Porque el carbón dura para siempre','Porque la escribió Plinio'],c:0},
+     {p:'¿Qué problema tiene la fecha de la carta de Plinio?',o:['Nos ha llegado copiada a mano durante siglos y las copias no dan todas la misma fecha','Plinio no estaba allí','Plinio escribió la carta el mismo día de la erupción'],c:0}],
+  r:'Los textos antiguos nos llegan a través de copias, y una cifra o una fecha se puede estropear al copiarse. Una prueba arqueológica puede corregir a un texto famoso. Hoy muchos historiadores piensan que la erupción fue en otoño.'}};
+function tlS(){return state.talleres||(state.talleres={});}
+function tlHTML(T){return '<p><span class="label">Comparar fuentes · '+T.t+'</span></p>'+[T.a,T.b].map((s,i)=>'<div class="entry" style="margin:6px 0;padding:6px 10px;border-left:3px solid '+(i?'#8a6a3a':'#4a6a8a')+'"><p><b>'+(i?'B':'A')+'. '+s.n+'</b></p><p>'+s.x+'</p><p class="sub">'+s.f+'</p></div>').join('');}
+function tlRun(id,back,o){const T=TALLERES[id],S=tlS(),ans=[];let i=0;const B=$('dBody');
+  const ask=()=>{const Q=T.q[i];B.innerHTML=tlHTML(T)+'<p><b>Pregunta '+(i+1)+' de '+T.q.length+'.</b> '+Q.p+'</p>';o.innerHTML='';
+    Q.o.map((t,k)=>({t,k})).sort((x,y)=>((x.k*7+i*3+id.length)%5)-((y.k*7+i*3+id.length)%5)).forEach((e,n)=>{const b=document.createElement('button');b.className='quiz';b.innerHTML='<span class="n">'+(n+1)+'</span><span>'+e.t+'</span>';
+      b.onclick=()=>{ans.push(e.k);toast(e.k===Q.c?'Bien visto.':'No del todo: '+Q.o[Q.c]+'.');i++;i<T.q.length?ask():end();};o.appendChild(b);});};
+  const end=()=>{const ok=ans.filter((a,k)=>a===T.q[k].c).length,prev=S[id];
+    B.innerHTML='<p><span class="label">Comparar fuentes · conclusión</span></p><p><b>'+ok+' de '+T.q.length+' respuestas acertadas.</b></p><p>'+T.r+'</p><p>¿Qué has sacado en claro? Escríbelo con tus palabras (opcional; lo verá tu docente en el informe):</p><textarea id="tlTxt" rows="3" maxlength="600" style="width:100%;box-sizing:border-box;font:inherit;padding:6px;border-radius:6px">'+((prev&&prev.c)||'')+'</textarea>';
+    o.innerHTML='';const g=document.createElement('button');g.className='quiz';g.innerHTML='<span class="n">1</span><span>Guardar en el cuaderno</span>';
+    g.onclick=()=>{const c=(($('tlTxt')||{}).value||'').trim().slice(0,600);const first=!prev;S[id]={a:ans.slice(),ok,c,d:state.day||1};
+      if(first&&ok===T.q.length){state.obols=(state.obols||0)+2;toast('Taller de fuentes completado: +2 '+(MODE==='roma'?'sestercios':_t(2851,'óbolos'))+'.');}else toast('Guardado en el cuaderno de viaje.');
+      save();if(typeof updateStats==='function')updateStats();B.innerHTML=back;o.innerHTML='';const s2=document.createElement('button');s2.innerHTML=_t(3083,'<span class="n">1</span><span>Seguir</span>');s2.onclick=closeDialog;o.appendChild(s2);};
+    o.appendChild(g);};
+  ask();}
+{const f=readSign;readSign=function(s){f.apply(this,arguments);try{const pl=s.data,T=TALLERES[pl.id];if(!T)return;const o=$('dOpts');if(!o)return;
+  const b=document.createElement('button');b.className='quiz';const done=tlS()[pl.id];b.innerHTML='<span class="n">F</span><span>Comparar fuentes'+(done?' (hecho: '+done.ok+'/'+T.q.length+')':'')+'</span>';
+  const back=$('dBody').innerHTML;b.onclick=()=>tlRun(pl.id,back,o);o.appendChild(b);}catch(e){console.warn('taller',e);}};}
+// ---- en el informe para el docente y en el cuaderno de viaje
+function tlLines(st){const S=(st&&st.talleres)||{},L=[];for(const[id,v]of Object.entries(S)){const T=TALLERES[id];if(!T)continue;L.push(' - '+T.t+' · '+v.ok+'/'+T.q.length+(v.c?' · «'+v.c+'»':''));}return L;}
+{const f=dzReport;dzReport=function(){let t=f.apply(this,arguments);try{const L=tlLines(state);t+='\n\nTalleres de fuentes ('+L.length+' de '+Object.keys(TALLERES).filter(id=>(MODE==='roma')===/^(ro_|pompeya)/.test(id)).length+'):'+(L.length?'\n'+L.join('\n'):' ninguno todavía');}catch(e){}return t;};}
+{const f=fxCuadTxt;fxCuadTxt=function(d){let t=f.apply(this,arguments);try{const L=tlLines(state);if(L.length)t+='\nTalleres de fuentes:\n'+L.join('\n')+'\n';}catch(e){}return t;};}
+// ============================================================ ENTABLAMENTOS DE DETALLE (P7, arquitectura de detalle, segunda parte)
+// entablature() (007) dibuja arquitrabe, friso y cornisa como cajas con textura: de lejos basta, pero de cerca el friso es plano.
+// Aquí se añade el relieve de verdad, solo visible a menos de unos 500 m (trozos con chunked(), un dibujo por pieza y zona):
+//  dórico  · ténia (la banda que corona el arquitrabe), régulas con sus seis gotas debajo de cada triglifo, triglifos en relieve
+//            (con dos glifos y dos medios glifos; pintados de azul oscuro) y mútulos bajo la cornisa, encima de cada triglifo y de cada metopa
+//            (Vitruvio IV 3; Coulton, Ancient Greek Architects at Work, 1977)
+//  jónico  · arquitrabe de tres fascias que sobresalen una sobre otra, con una moldura de remate; en Roma, además, dentículos bajo la cornisa
+//            (Vitruvio III 5; en el jónico ático del siglo V, como el Erecteion, no hay dentículos)
+// Los triglifos se colocan exactamente donde la textura del friso dibuja los suyos, para que coincidan.
+const ENTQ=[];
+const ENTD={on:true,far:500,box:new THREE.BoxGeometry(1,1,1),gut:new THREE.CylinderGeometry(0.8,1,1,6),tri:null,n:0};
+function entTriMat(){if(ENTD.tri)return ENTD.tri;const c=document.createElement('canvas');c.width=32;c.height=64;const x=c.getContext('2d');
+  x.fillStyle='#2b4479';x.fillRect(0,0,32,64);x.fillStyle='#16244a';
+  x.fillRect(0,6,2,58);x.fillRect(30,6,2,58);x.fillRect(9,6,3,58);x.fillRect(20,6,3,58);   // dos glifos enteros y dos medios en los cantos
+  x.fillStyle='#3a5590';x.fillRect(0,0,32,5);
+  const t=new THREE.CanvasTexture(c);t.magFilter=THREE.LinearFilter;ENTD.tri=new THREE.MeshLambertMaterial({map:t});return ENTD.tri;}
+{const f=entablature;entablature=function(g,W,L,y,e,o){const r=f.apply(this,arguments);try{if(ENTD.on&&g&&W>1&&L>1)ENTQ.push({g,W,L,y,e,o:o||{}});}catch(err){}return r;};}
+// las cuatro caras: origen (s=0) en la esquina donde empieza la textura del friso, dirección a lo largo y normal hacia fuera
+function entFaces(W,L){return[{len:W,bx:-W/2,bz:L/2,ax:1,az:0,nx:0,nz:1,ry:0},{len:W,bx:W/2,bz:-L/2,ax:-1,az:0,nx:0,nz:-1,ry:Math.PI},
+  {len:L,bx:W/2,bz:L/2,ax:0,az:-1,nx:1,nz:0,ry:Math.PI/2},{len:L,bx:-W/2,bz:-L/2,ax:0,az:1,nx:-1,nz:0,ry:-Math.PI/2}];}
+function entPieces(E){const{W,L,y,e,o}=E,ah=e*0.4,fh=e*0.4,ch=e*0.2,P={m:[],t:[],g:[]};
+  const put=(arr,F,s,off,yy,w,h,d)=>arr.push([F.bx+F.ax*s+F.nx*off,yy,F.bz+F.az*s+F.nz*off,F.ry,w,h,d]);
+  if(o.ionic){const k=Math.min(0.05,e*0.02);
+    P.m.push([0,y+ah*0.5,0,0,W+k,ah*0.34,L+k],[0,y+ah*0.81,0,0,W+2*k,ah*0.3,L+2*k],[0,y+ah*0.985,0,0,W+3*k,ah*0.05,L+3*k]);
+    if(MODE==='roma'||o.dentils){const d=Math.max(0.1,ch*0.42),sp=d*1.6;for(const F of entFaces(W,L)){const n=Math.floor((F.len-d)/sp);const s0=(F.len-n*sp)/2;
+      for(let i=0;i<=n;i++)put(P.m,F,s0+i*sp,d*0.45,y+ah+fh-d*0.5,d,d,d*0.9);}}
+    return P;}
+  const ia=o.ia||W/6,th=ah*0.12,rh=ah*0.07,gh=ah*0.08;
+  for(const F of entFaces(W,L)){
+    put(P.m,F,F.len/2,0.03,y+ah-th/2,F.len+0.06,th,0.06);                                   // ténia
+    const u=Math.max(1,2*F.len/ia/4),sp=F.len/(4*u),tw=0.375*sp,n=Math.round(4*u);          // como en friezeTex(): 4 triglifos por repetición
+    for(let i=0;i<n;i++){const sc=i*sp+tw/2;if(sc+tw/2>F.len+0.01)break;
+      put(P.t,F,sc,0.035,y+ah+fh/2,tw,fh,0.1);                                              // triglifo
+      put(P.m,F,sc,0.025,y+ah-th-rh/2,tw,rh,0.05);                                           // régula
+      for(let j=0;j<6;j++)put(P.g,F,sc+(j-2.5)*tw/6.4,0.03,y+ah-th-rh-gh/2,tw/15,gh,tw/15);  // gotas
+      const mh=Math.max(0.04,ch*0.14);put(P.m,F,sc,0.17,y+ah+fh-mh/2,tw,mh,0.32);            // mútulo sobre el triglifo
+      const sm=sc+sp/2;if(sm+tw/2<F.len)put(P.m,F,sm,0.17,y+ah+fh-mh/2,tw,mh,0.32);}}       // y sobre la metopa
+  return P;}
+function entFlush(){if(!ENTQ.length)return;if(typeof ACC!=='undefined'&&ACC.lite){ENTQ.length=0;return;}
+  const L={m:[],t:[],g:[]},mm=new THREE.Matrix4(),lm=new THREE.Matrix4(),q=new THREE.Quaternion(),p=new THREE.Vector3(),s=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
+  for(const E of ENTQ.splice(0)){let r=E.g;while(r.parent)r=r.parent;if(r!==scene)continue;E.g.updateWorldMatrix(true,false);
+    const P=entPieces(E);for(const k in P)for(const a of P[k]){p.set(a[0],a[1],a[2]);q.setFromAxisAngle(up,a[3]);s.set(a[4],a[5],a[6]);lm.compose(p,q,s);mm.multiplyMatrices(E.g.matrixWorld,lm);L[k].push({m:mm.clone()});}}
+  const opt={far:ENTD.far,shadow:false,cell:420};
+  if(L.m.length)chunked(ENTD.box,M.marble,L.m,opt);if(L.t.length)chunked(ENTD.box,entTriMat(),L.t,opt);if(L.g.length)chunked(ENTD.gut,M.marble,L.g,opt);
+  ENTD.n+=L.m.length+L.t.length+L.g.length;}
+{const f=finishColumns;finishColumns=function(){const r=f.apply(this,arguments);try{entFlush();}catch(e){console.warn('entablamentos',e);}return r;};}
+{const f=colsTick;colsTick=function(dt){f.apply(this,arguments);if(ENTQ.length&&_colT===0)try{entFlush();}catch(e){}};}
+// ============================================================ PROCESIONES (P8, fiestas con multitudes que se mueven)
+// Los días de Panateneas (Atenas) y de Juegos Romanos (Roma), además de la multitud quieta de la fiesta (evCrowd, 014), una procesión
+// recorre la ciudad por su camino de verdad, en el orden que cuentan las fuentes, y llega al final antes de que acabe la fiesta.
+// El avance depende de la hora del juego (no del tiempo real): quien llega tarde la encuentra donde debe estar.
+//  Panateneas · del Dípilon a la Acrópolis por la Vía Panatenaica. Orden y grupos según el friso del Partenón (idealizado), Tucídides VI 56-58
+//    (canéforas, hoplitas), Jenofonte, Banquete 4.17 (ancianos con ramas de olivo, talóforos), Eliano, Historias varias VI 1 y Harpocración
+//    s.v. skaphephoroi (metecos con bandejas y sus hijas con cántaros), IG II² 334 (la hecatombe). El peplo de las Grandes Panateneas, colgado
+//    como la vela de un barco con ruedas: un fragmento de Estratis (hacia el 400 a.C.) ya parece aludir a ello; el barco está mejor documentado
+//    en época helenística (anacronismo posible, señalado en el aviso).
+//  Juegos Romanos · pompa circensis, del Capitolio al Circo Máximo por el Foro, el Vico Tusco y el Velabro (Dionisio de Halicarnaso VII 72):
+//    el magistrado que da los juegos, los hijos de los ciudadanos a caballo y a pie, los aurigas, los bailarines armados con sus músicos,
+//    los bailarines vestidos de sátiros, los que llevan el incienso y los vasos de oro y plata, y al final las imágenes de los dioses en andas.
+const PROC={g:null,key:null,ms:[],pts:null,cum:null,L:0,seen:false,h0:0,h1:0};
+function procRoute(id){
+  if(id==='panateneas'){const r=ROADS.find(q=>q.name===_t(11,'Vía Panatenaica'));if(!r)return null;const P=r.pts.map(p=>[p[0],p[1]]);
+    for(const k of['propileos','partenon']){const a=placeAt(k);if(a)P.push([a.x,a.z]);}return P;}
+  if(id==='ludiromani'){const c=ROMA.circus;if(!c||!c.cr)return null;
+    return[[-195,18],[-165,24],[-130,20],[-85,10],[-40,-12],[10,-12],[23,30],[22,84],[-60,98],[-200,112]].concat([c.cr(-c.Lh+25,0),c.cr(-c.Lh*0.4,0),c.cr(c.Lh*0.2,0)]);}
+  return null;}
+function procCum(P){const c=[0];for(let i=1;i<P.length;i++)c.push(c[i-1]+Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]));return c;}
+function procAt(s){const P=PROC.pts,C=PROC.cum;if(s<=0){const dx=P[1][0]-P[0][0],dz=P[1][1]-P[0][1],l=Math.hypot(dx,dz)||1;return{x:P[0][0]+dx/l*s,z:P[0][1]+dz/l*s,tx:dx/l,tz:dz/l};}
+  let i=1;while(i<C.length-1&&C[i]<s)i++;const l=C[i]-C[i-1]||1,t=Math.min(1,(s-C[i-1])/l),dx=(P[i][0]-P[i-1][0])/l,dz=(P[i][1]-P[i-1][1])/l;
+  return{x:P[i-1][0]+(P[i][0]-P[i-1][0])*t,z:P[i-1][1]+(P[i][1]-P[i-1][1])*t,tx:dx,tz:dz};}
+// grupos: [nº, aspecto, por fila, nombre del grupo]
+function procGroups(id){const W=(o)=>Object.assign({noVary:true},o);
+  if(id==='panateneas')return[
+    [1,W({chiton:'#efe6d5',himation:'#3e5a8a',beard:true,staff:true}),1,'el heraldo'],
+    [6,W({female:true,chiton:'#f3ecdc',himation:'#c9a24a',carry:'basket'}),2,'las canéforas, muchachas de buena familia con las cestas del sacrificio'],
+    [2,W({female:true,chiton:'#f3ecdc',himation:'#7a2a2a',veil:true}),2,'la sacerdotisa de Atenea Políade y su ayudante'],
+    [4,W({chiton:'#6a2a5a',himation:'#6a2a5a',beard:true,carry:'basket'}),2,'los metecos, con túnicas de púrpura y bandejas de pasteles y panales'],
+    [4,W({female:true,chiton:'#e2d6c0',himation:'#6a2a5a',carry:'hydria'}),2,'sus hijas, con cántaros de agua'],
+    [6,W({chiton:'#efe6d5',himation:'#d8d0bf',beard:true,hair:'#d8d4cc',branch:true}),2,'los talóforos: los ancianos más hermosos, con ramas de olivo'],
+    [8,'vaca',2,'la hecatombe: las vacas del sacrificio, una por cada demo que la paga'],
+    [8,W({exomis:true,chiton:'#b9a27a',beard:true,rope:true}),2,'los que tiran del barco'],
+    [1,'barco',1,'el barco con ruedas que lleva el peplo nuevo como vela'],
+    [8,W({soldier:true,helmet:true,spear:true,chiton:'#9a3a2a'}),2,'los hoplitas'],
+    [4,'caballo',2,'los jóvenes de la caballería con sus caballos'],
+    [14,null,3,'los ciudadanos, demo por demo']];
+  return[
+    [1,W({toga:true,praetexta:true,chiton:'#f3eee2',himation:'#f3eee2'}),1,'el magistrado que da los juegos'],
+    [4,'caballo',2,'los hijos de los ciudadanos a caballo (y otros a pie)'],
+    [4,null,2,'los aurigas, con los colores de las cuatro facciones'],
+    [8,W({short:true,noHimation:true,chiton:'#b0302a',helmet:true,spear:true}),2,'los bailarines armados, con túnica roja y casco de bronce'],
+    [4,W({short:true,noHimation:true,chiton:'#e8dcc0',branch:true}),2,'los flautistas y los citaristas'],
+    [4,W({short:true,noHimation:true,chiton:'#6b4a2a',beard:true}),2,'los bailarines vestidos de sátiros y silenos, que imitan en broma a los armados'],
+    [6,W({toga:true,chiton:'#efe9dc',himation:'#f3eee2',carry:'amphora'}),2,'los que llevan el incienso y los vasos de oro y plata'],
+    [3,'andas',1,'las imágenes de los dioses en andas, a hombros'],
+    [14,null,3,'los ciudadanos con toga']];}
+function procBranch(o){const b=new THREE.Group();const st=new THREE.Mesh(new THREE.CylinderGeometry(0.015,0.02,1.1,4),lam('#6b4f2e'));st.position.y=0.55;b.add(st);
+  for(let i=0;i<4;i++){const l=new THREE.Mesh(new THREE.SphereGeometry(0.12,5,4),lam('#5f7a45'));l.scale.set(1,0.6,1);l.position.set(rr(-0.08,0.08),0.85+i*0.09,rr(-0.08,0.08));b.add(l);}
+  b.position.set(0.32,1.0,0.1);o.add(b);}
+function procShip(){const g=new THREE.Group(),wd=lam('#7a5434');
+  const h=new THREE.Mesh(new THREE.BoxGeometry(1.6,0.9,7),wd);h.position.y=1.1;g.add(h);
+  const pr=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.6,4),wd);pr.rotation.x=Math.PI/2;pr.position.set(0,1.2,4.2);g.add(pr);
+  for(const sx of[-0.85,0.85])for(const sz of[-2.4,2.4]){const w=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.18,12),lam('#4a3624'));w.rotation.z=Math.PI/2;w.position.set(sx,0.55,sz);g.add(w);}
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.11,7.5,6),wd);m.position.y=1.5+3.75;g.add(m);
+  const y=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.06,5.6,5),wd);y.rotation.z=Math.PI/2;y.position.y=8.4;g.add(y);
+  const c=document.createElement('canvas');c.width=128;c.height=96;const x=c.getContext('2d');x.fillStyle='#d9a43a';x.fillRect(0,0,128,96);
+  x.strokeStyle='#5a2a6a';x.lineWidth=6;x.strokeRect(4,4,120,88);x.fillStyle='#5a2a6a';for(let i=0;i<6;i++){x.beginPath();x.arc(20+i*18,50+(i%2?8:-8),6,0,TAU);x.fill();}   // la gigantomaquia, solo insinuada
+  const sail=new THREE.Mesh(new THREE.PlaneGeometry(5.2,4),new THREE.MeshLambertMaterial({map:new THREE.CanvasTexture(c),side:THREE.DoubleSide}));sail.position.set(0,6.3,0.12);sail.rotation.y=Math.PI/2;g.add(sail);
+  return g;}
+function procLitter(){const g=new THREE.Group();const p=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.14,2.2),lam('#8a6a2a'));p.position.y=1.72;g.add(p);
+  for(const sx of[-0.68,0.68]){const b=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,3.4,5),lam('#6b4f2e'));b.rotation.x=Math.PI/2;b.position.set(sx,1.66,0);g.add(b);}
+  const god=makePerson({noVary:true,chiton:'#d4b048',himation:'#c9a24a',skin:'#d4b048',hair:'#b8902e',beard:true});god.scale.setScalar(0.62);god.position.y=1.79;g.add(god);
+  const bearers=[];for(const sx of[-0.68,0.68])for(const sz of[-1.3,1.3]){const o=makePerson({noVary:true,short:true,noHimation:true,chiton:'#e8dcc0'});o.position.set(sx,0,sz);g.add(o);bearers.push(o);}
+  g.userData.bearers=bearers;return g;}
+function procBuild(id){const g=new THREE.Group();scene.add(g);const ms=[];let d=0;const ro=id!=='panateneas';
+  const civ=ro?[{toga:true,chiton:'#efe9dc',himation:'#f3eee2'},{toga:true,chiton:'#e8e2d4',himation:'#ece5d6'},{short:true,noHimation:true,chiton:'#a89070'}]
+    :[{chiton:'#e8e0cf',himation:'#6d7b9a',beard:true},{chiton:'#efe6d5',himation:'#8a6a3a',beard:true},{chiton:'#d8c9a8',himation:'#4f6a5a',beard:true}];
+  const fac=['#e8e4d8','#b0302a','#3f7a3a','#3a5a9a'];
+  for(const[n,look,row,name]of procGroups(id)){const gap=look==='barco'?9:look==='andas'?4:look==='vaca'||look==='caballo'?2.6:1.5;d+=gap*0.6;
+    for(let i=0;i<n;i++){const r=Math.floor(i/row),c=i%row;let o,kind='p';
+      if(look==='vaca'||look==='caballo'){o=new THREE.Group();g.add(o);makeBeast(look,o,0,0,0);kind='b';{const y=makePerson({noVary:true,short:true,noHimation:true,chiton:ro?'#efe9dc':'#c9b48b',hair:'#3e2c1f'});y.position.set(-0.9,0,0.4);o.add(y);o.userData.lead=y;}}
+      else if(look==='barco'){o=procShip();kind='s';}
+      else if(look==='andas'){o=procLitter();kind='l';}
+      else{const L=look||Object.assign({noVary:true,hair:pick(['#2b1f17','#3e2c1f','#5b4532','#8d8a85'])},pick(civ));
+        const LL=(!look&&ro&&name.startsWith('los aurigas'))?{noVary:true,short:true,noHimation:true,chiton:fac[i%4],helmet:true}:L;
+        o=makePerson(LL);if(LL.branch)procBranch(o);}
+      if(o.parent!==g)g.add(o);const lat=(c-(row-1)/2)*(look==='barco'?0:1.3);
+      ms.push({o,kind,d:d+r*gap,lat,ph:Math.random()*TAU,name});}
+    d+=Math.ceil(n/row)*gap;}
+  PROC.tail=d;return{g,ms};}
+function procOff(){if(PROC.g){scene.remove(PROC.g);PROC.g=null;}PROC.key=null;PROC.ms=[];}
+function procWant(){if(!state||ui==='start')return null;const ev=todayEvent();const f=ev&&ev.fest;if(!f||(f.id!=='panateneas'&&f.id!=='ludiromani'))return null;
+  if(clock.h<ev.h0||clock.h>=ev.h1)return null;return{f,ev,key:f.id+':'+state.day};}
+let _procT=0;
+function procTick(dt){const w=procWant();if(!w){if(PROC.g)procOff();return;}
+  if(w.key!==PROC.key){procOff();const P=procRoute(w.f.id);if(!P||P.length<2)return;PROC.pts=P;PROC.cum=procCum(P);PROC.L=PROC.cum[PROC.cum.length-1];
+    const B=procBuild(w.f.id);PROC.g=B.g;PROC.ms=B.ms;PROC.key=w.key;PROC.id=w.f.id;PROC.h0=w.ev.h0+0.25;PROC.h1=w.ev.h1-0.75;PROC.seen=false;}
+  // la cabeza de la procesión: de la salida (con toda la fila detrás) hasta el final, donde la fila se apretuja
+  const k=Math.max(0,Math.min(1,(clock.h-PROC.h0)/Math.max(0.5,PROC.h1-PROC.h0))),S=k*(PROC.L+PROC.tail*0.75);
+  const hd=procAt(Math.min(S,PROC.L)),far=Math.hypot(hd.x-player.x,hd.z-player.z)>700&&Math.hypot(PROC.pts[PROC.pts.length-1][0]-player.x,PROC.pts[PROC.pts.length-1][1]-player.z)>700;
+  PROC.g.visible=!far;if(far)return;
+  for(const m of PROC.ms){const s=Math.min(S-m.d,PROC.L-m.d*0.25);const moving=S-m.d<PROC.L-m.d*0.25&&k>0&&k<1;const p=procAt(s);
+    const x=p.x-p.tz*m.lat,z=p.z+p.tx*m.lat;const o=m.o;const dx=x-o.position.x,dz=z-o.position.z,mv=Math.hypot(dx,dz);
+    o.position.set(x,floorAt(x,z),z);o.rotation.y=Math.atan2(p.tx,p.tz);
+    if(moving&&mv>0.001){m.ph+=Math.min(mv,1)*4.6;if(m.kind==='p')personWalk(o,m.ph,1);else if(m.kind==='l')for(const b of o.userData.bearers)personWalk(b,m.ph,0.8);
+      else if(m.kind==='b'&&o.userData.lead)personWalk(o.userData.lead,m.ph,1);}
+    else if(m.kind==='p')personWalk(o,0,0);}
+  if(!PROC.seen&&Math.hypot(hd.x-player.x,hd.z-player.z)<40){PROC.seen=true;procNotice();}}
+function procNotice(){const G=procGroups(PROC.id).map(g=>g[3]);const pan=PROC.id==='panateneas';
+  toast('<span class="label">'+(pan?'La procesión de las Panateneas':'La procesión de los Juegos Romanos')+'</span><br>Abre la marcha '+G[0]+'; detrás, '+G.slice(1,-1).join('; ')+'; y al final, '+G[G.length-1]+'.'+
+    (pan?' <i>El barco con ruedas está bien documentado en época helenística; para el 386 a.C. es probable, pero no seguro.</i>':' <i>Así la describe Dionisio de Halicarnaso, que la vio en tiempos de Augusto.</i>'));}
+{const f=evTick;evTick=function(dt){f.apply(this,arguments);try{procTick(dt);}catch(e){if(!_procT){_procT=1;console.warn('procesión',e);}}};}
+// ============================================================ ATENAS ROMANA, AÑO 80 (P10, modo Roma)
+// El destino «Atenas» del modo Roma (SIMPLE_RO.athenae, 109) tenía la Acrópolis con el Partenón, el templete de Roma y Augusto y poco más.
+// Aquí se sustituye su extra() por la ciudad que vería un viajero del 80 d.C., con lo que ya existía entonces (y nada posterior):
+//  · en la Acrópolis, el Erecteion y, en el arquitrabe del Partenón, los agujeros de la inscripción de bronce en honor de Nerón (61/62 d.C.)
+//  · al norte, el mercado de César y Augusto (el «Ágora romana») con su puerta de Atenea Arquegétide y la Torre de los Vientos
+//  · en el Ágora vieja, el Odeón de Agripa y el templo de Ares, traído piedra a piedra de otro lugar del Ática en tiempos de Augusto
+//  · al sureste, el templo de Zeus Olímpico a medio hacer: algunas columnas corintias en pie sobre la plataforma y huecos donde faltan
+// Fuentes: Pausanias I 8.4-6, I 18.6; Vitruvio I 6.4 y VII pref. 15-17; Varrón, Sobre la agricultura III 5.17; Plinio XXXVI 45;
+// IG II² 3175 (dedicatoria de la puerta) e IG II² 3277 (Nerón); Camp, The Archaeology of Athens (2001).
+// No se ponen: la biblioteca de Adriano, el arco de Adriano, el monumento de Filopapo ni la biblioteca de Panteno, todos posteriores al 80.
+function atrTower(x,z){const gy=minGround(x,z,10,10,0),g=grp(x,gy,z,0);
+  const b=new THREE.Mesh(new THREE.CylinderGeometry(3.9,4,12,8),M.marble);b.rotation.y=Math.PI/8;b.position.y=6;g.add(b);
+  const fr=new THREE.Mesh(new THREE.CylinderGeometry(4.02,4.02,1.5,8),lam('#d9cdb2'));fr.rotation.y=Math.PI/8;fr.position.y=10.7;g.add(fr);   // el friso de los ocho vientos
+  const rf=new THREE.Mesh(new THREE.ConeGeometry(4.3,2.4,8),M.marble);rf.rotation.y=Math.PI/8;rf.position.y=13.2;g.add(rf);
+  const tr=new THREE.Mesh(new THREE.ConeGeometry(0.35,1.4,6),M.gold||lam('#c9a24a'));tr.position.y=15;g.add(tr);                              // el tritón de bronce que gira con el viento
+  const rod=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,1.6,4),M.gold||lam('#c9a24a'));rod.rotation.z=Math.PI/2;rod.position.set(0.6,15.2,0);g.add(rod);g.userData.vane=rod;
+  for(const s of[-1,1]){const p=toW(s*1.2,4.6,x,z,0);addColumn(p[0],gy,p[1],0.28,4.2,0,'corinthian');}box(3.6,0.6,1.6,M.marble,0,4.5,4.4,g);
+  const ann=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.6,4,12),M.marble);ann.position.set(0,2,-4.6);g.add(ann);                         // el depósito del reloj de agua
+  addCirc(x,z,4.2);footprints.push({x,z,r:4.5,c:'#efe7d8',name:'Torre de los Vientos'});return g;}
+function atrOlympieion(x,z){const W=41,L=108,gy=minGround(x,z,W,L,Math.PI/2),g=grp(x,gy,z,Math.PI/2);
+  for(let i=0;i<3;i++){const ex=(2-i)*1.1;box(W+ex*2,2.5,L+ex*2,i===0?M.limestone:M.marble,0,(i+1)*0.5-1.25,0,g);}addPlat(x,z,W+1,L+1,Math.PI/2,gy+1.5);
+  let sd=80;const R=()=>(sd=(sd*16807)%2147483647)/2147483647,cols=[],cr=0.95,ch=17.25;
+  for(let i=0;i<8;i++)for(let k of[0,1,18,19])cols.push([-W/2+2.6+i*(W-5.2)/7,-L/2+2.6+k*(L-5.2)/19]);
+  for(let k=2;k<18;k++)for(let i of[0,1,6,7])cols.push([-W/2+2.6+i*(W-5.2)/7,-L/2+2.6+k*(L-5.2)/19]);
+  // en pie sobre todo el lado este y parte del sur (la obra de Cosucio para Antíoco IV); en el resto, solo los primeros tambores
+  for(const[c0,c1]of cols){const p=toW(c0,c1,x,z,Math.PI/2);const stand=(c1>L/2-14)||(c0>W/2-6&&R()<0.5);
+    if(stand)addColumn(p[0],gy+1.5,p[1],cr,ch,0,'corinthian');
+    else if(R()<0.7){const h=0.6+R()*2.4;const d=new THREE.Mesh(new THREE.CylinderGeometry(cr,cr*1.02,h,16),M.marble);d.position.set(p[0],gy+1.5+h/2,p[1]);scene.add(d);addCirc(p[0],p[1],cr);}}
+  footprints.push({x,z,w:L,d:W,a:0,c:'#efe7d8',name:'Templo de Zeus Olímpico'});}
+{const D=typeof SIMPLE_RO!=='undefined'&&SIMPLE_RO.athenae;if(D)D.extra=function(I){
+  r3Sea(I,'el Pireo');const s=I.site;
+  roundTemple({x:s.x+20,z:s.z+30,r:4,colD:0.45,colH:5,n:9,pod:1,gy:s.h,rot:0,name:'Templo de Roma y Augusto'});
+  temple({x:s.x-4,z:s.z-27,gy:s.h,rot:Math.PI/2,W:11.6,L:22,nW:6,nL:2,prostyle:true,order:'ionic',colD:0.7,colH:6.6,name:'El Erecteion',cella:{w:10.4,l:18,door:2.4}});
+  r3Plaque(s.x+30,s.z-6,'neron_partenon','Las letras de Nerón','ΝΕΡΩΝ','En el año 61 o 62, los atenienses clavaron en el arquitrabe del lado este del Partenón, entre los escudos de bronce, una inscripción de letras de bronce en honor de Nerón. Tras su muerte en el 68 seguramente se arrancaron: hoy solo quedan los agujeros de los clavos, y con ellos se ha podido leer el texto (IG II² 3277). Una ciudad libre que ya no se gobierna sola halaga a quien manda.');
+  // el mercado de César y Augusto
+  const ax=I.x+60,az=I.z-320;forumR(ax,az,90,60,'Mercado de César y Augusto');
+  temple({x:ax-48,z:az,rot:-Math.PI/2,W:11.3,L:4.4,nW:4,nL:2,prostyle:true,amphi:true,colD:1.2,colH:8,name:'Puerta de Atenea Arquegétide'});
+  r3Plaque(ax-56,az+9,'puerta_arquegetis','La puerta de Atenea Arquegétide','ΑΘΗΝΑΙ ΑΡΧΗΓΕΤΙΔΙ','Este gran patio con pórticos es un mercado nuevo, pagado con dinero que regalaron Julio César y Augusto. La puerta, de cuatro columnas dóricas, se dedicó hacia el año 10 a.C. a Atenea Arquegétide, «la que guía a la ciudad», según dice la inscripción de su arquitrabe (IG II² 3175). El Ágora vieja se ha llenado de templos y monumentos, y el comercio se ha venido aquí.');
+  atrTower(ax+70,az);
+  r3Plaque(ax+70,az+9,'torre_vientos','La Torre de los Vientos','ΑΝΔΡΟΝΙΚΟΣ ΚΥΡΡΗΣΤΗΣ','Torre de mármol de ocho lados que hizo el astrónomo Andrónico de Cirro, hace más de un siglo. En cada lado hay un relieve con uno de los ocho vientos y un reloj de sol; dentro, un reloj de agua alimentado por una fuente de la Acrópolis marca las horas aunque esté nublado. Arriba, un tritón de bronce gira con el viento y señala con su vara el que sopla. Lo cuentan Vitruvio (I 6.4) y Varrón (Sobre la agricultura III 5.17).');
+  // el Ágora vieja
+  const gx=I.x-60,gz=I.z-330;blockBuilding({name:'Odeón de Agripa',x:gx,z:gz,rot:0,w:43,d:51,h:15,mat:M.marble,door:true,socle:true});
+  r3Plaque(gx,gz+30,'odeon_agripa','El Odeón de Agripa','ΩΙΔΕΙΟΝ','Marco Agripa, el yerno de Augusto, regaló a Atenas hacia el 15 a.C. esta sala de conciertos cubierta, para unas mil personas, en medio del Ágora. Su tejado cubre unos veinticinco metros sin columnas en medio, algo muy difícil. Pausanias (I 8.6) lo llama simplemente el Odeón. Es la primera vez que un gran edificio ocupa la plaza abierta donde votaban los atenienses.');
+  temple({x:I.x-110,z:I.z-392,rot:0,W:15,L:34,nW:6,nL:13,colD:1.0,colH:6.2,name:'Templo de Ares',cella:{w:9,l:20,door:2.4}});
+  r3Plaque(I.x-110,I.z-366,'ares_agora','Un templo que viajó','ARES','Este templo dórico tiene más de cuatrocientos años, pero lleva aquí poco tiempo: en época de Augusto se desmontó en otro lugar del Ática (seguramente en Acarnas), se numeraron las piedras y se volvió a levantar en el Ágora, dedicado a Ares. Las marcas de los canteros todavía se ven. Pausanias lo describe (I 8.4).');
+  atrOlympieion(I.x+215,I.z-50);
+  r3Plaque(I.x+215,I.z-112,'olimpieion_atenas','El templo de Zeus Olímpico','OLYMPIEION','Lo empezaron los hijos del tirano Pisístrato hacia el 520 a.C. y lo dejaron en los cimientos. En el 174 a.C., el rey Antíoco IV de Siria encargó al arquitecto romano Cosucio continuarlo en mármol, con columnas corintias de diecisiete metros (Vitruvio VII, prefacio). Antíoco murió y la obra se paró otra vez. Sila se llevó a Roma algunas columnas para el templo de Júpiter del Capitolio (Plinio XXXVI 45). Anacronismo señalado: lo terminará el emperador Adriano en el 131-132.');
+  r3Ruins(I.x-150,I.z+60,6,10,'#e8e2d0');};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -29827,5 +30092,5 @@ if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,r
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
      if(w)add(R.motivo,w);else R.ok++;});}
-  return R;},mergeAll:(max)=>{let n=0;for(const o of [...scene.children]){if(max&&n>=max)break;if(Math.hypot(o.position.x-camera.position.x,o.position.z-camera.position.z)>500)continue;if(o.isMesh||o.isLight||MERGE.done.has(o)||o.userData.chunk)continue;MERGE.done.add(o);if(!mgOk(o))continue;try{MERGE.saved+=mgGroup(o);n++;}catch(e){}}return [n,MERGE.saved];},cullAll:on=>cullAll(on),cullNow:()=>{while(cullRegister(5000,true));cullEval();return CULL.reg.length;},TP:()=>TP_OBJS,tpAct:o=>tpAct(o),CRT:()=>CRT,SXR:()=>STORY_EXTRA_ROMA,storyFinale:()=>storyFinale(),storyResume:f=>storyResume(f),AUD3:()=>({footprints,isFree:(x,z,r)=>isFree(x,z,r),NPC_POS,PORTS,GATES_W}),r5z:()=>r5z(),R5:()=>R5,r5Vis:()=>r5Vis(),GW:()=>GATES_W,gateT:g=>gateTravel(g),r3:a=>r3Act({act:"r3:"+a}),isl3:a=>isl3Act({act:"isl3:"+a}),setH:h=>{clock.h=h;},ISL:()=>ISLANDS,PORTSd:()=>PORTS,floorAt:(x,z)=>floorAt(x,z),CAV2:()=>CAVEAS,ARV:()=>ARV,CRX:()=>CRX,mnVision,crAct,LAU:()=>LAU,PS:()=>PS,psTick,sfxAulos,sfxLechuza,psNearPlace,PS_TEMPLE,SIT:()=>SIT,personPose,sitShade,sitBuild,sitLowT:sitLow,kneelOrSit,ILR:()=>ILR,ilionRoad,capLvl,capOk,capNo,viaje,viajeHTML,capTick,arvBlock,arvTick,BV:()=>BV,atCands:()=>atCands(),RU:()=>RU,ruBuild,ruAct,MEM:()=>({log:memz(),fama:memFama()}),memSay,memGreet,memTick,needTick,famTick,setH:h=>{clock.h=h;},FAM:()=>FAM,famForm,NEED:()=>NEED,stFeats:()=>{const c={};for(const w of walkers)for(const k of (w.g&&w.g.userData.feat)||[])c[k]=(c[k]||0)+1;for(const o of npcObjs)for(const k of (o.g&&o.g.userData.feat)||[])c['npc '+k]=(c['npc '+k]||0)+1;return c;},bvAllN:()=>{for(const o of npcObjs)if(o.bv===undefined&&o.g)bvNpc(o);},bvAll:()=>{for(const w of walkers)if(w.bv===undefined&&w.g)bvWalker(w);},BVW:()=>walkers.map(w=>[w.g.userData.bt||'',w.g.userData.gait||'',w.g.userData.post||'']),GZ:()=>GZ,gzLook,gzBolt,gzTone,gzExpr,gzBrows,profReport:n=>profReport(n),profReset:()=>profReset(),gsTest:(i,n)=>{const o=npcObjs.filter(o=>!o.hidden&&!o.g.userData.pose)[i];const gs=gsRig(o.g);gsSet(gs,n,1);for(let k=0;k<40;k++)gsApply(o.g,gs,0.05);return [o.x,o.z,o.g.rotation.y,o.data.name,gs.fore?gs.fore.map(f=>!!f).join(','):'sin codo'];},WOB:()=>WOB,gfSeal:(a,b)=>gfSeal(a,b),ATR:()=>ATR,atCandsN:()=>{const t=performance.now();const n=atCands().length;return [n,performance.now()-t];},atGround:()=>atGround(),WFA:()=>WFA,WSP:()=>WSP,wMake:k=>wMake(k),FOREST_ON:()=>FOREST_ON,FORK:()=>FOR,NAT2:()=>NAT2,n2Place:k=>n2Place(k),n2Tick:dt=>n2Tick(dt),TOAST:h=>toast(h),TLK:()=>TLK,regionName:()=>regionName(),crtW:(i,x,z)=>crtW(i,x,z),crtAct:a=>crtAct({act:"crt:"+a}),crtTickF:dt=>crtTick(dt),SWNAV:()=>SWNAV,navTargets:()=>navTargets(),navTick:dt=>navTick(dt),AUDX:()=>({AUD,GFA,WXS,AMB,CY:typeof CY!=='undefined'?CY:null}),sw2Afro:()=>sw2Afro(),sw2AfTake:k=>sw2AfTake(k),SWAF:()=>SWAF,sw2OrbTickF:dt=>sw2OrbTick(dt),sw2TickF:dt=>sw2Tick(dt),SWORB:()=>SWORB,SW2:()=>SW2,sw2z:()=>sw2z(),swPeriplo:()=>swPeriplo(),swShortcut:()=>swShortcut(),sw2RollEnc:s=>sw2RollEnc(s),sw2EncTalk:()=>sw2EncTalk(),sw2ShipTalk:S=>sw2ShipTalk(S),SW:()=>SW,swz:()=>swz(),swBoard:()=>swBoard(),swEnterSeg:(a,b,c)=>swEnterSeg(a,b,c),swLand:i=>swLand(i),swAction:()=>swAction(),swE:()=>swE(),swAct:o=>swAct(o),swMoorOf:i=>swMoorOf(i),LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf,islandBase,islandH,sqMount,RELIEF,regionSquare,bpMake,bpVary,STB,FV_TYPES,BP,bpStatue,bpGunzip,NPB,MED_POS,MED_POS_RO,BPH,PLH,TLOD,ARCH,AQ,LF}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+  return R;},mergeAll:(max)=>{let n=0;for(const o of [...scene.children]){if(max&&n>=max)break;if(Math.hypot(o.position.x-camera.position.x,o.position.z-camera.position.z)>500)continue;if(o.isMesh||o.isLight||MERGE.done.has(o)||o.userData.chunk)continue;MERGE.done.add(o);if(!mgOk(o))continue;try{MERGE.saved+=mgGroup(o);n++;}catch(e){}}return [n,MERGE.saved];},cullAll:on=>cullAll(on),cullNow:()=>{while(cullRegister(5000,true));cullEval();return CULL.reg.length;},TP:()=>TP_OBJS,tpAct:o=>tpAct(o),CRT:()=>CRT,SXR:()=>STORY_EXTRA_ROMA,storyFinale:()=>storyFinale(),storyResume:f=>storyResume(f),AUD3:()=>({footprints,isFree:(x,z,r)=>isFree(x,z,r),NPC_POS,PORTS,GATES_W}),r5z:()=>r5z(),R5:()=>R5,r5Vis:()=>r5Vis(),GW:()=>GATES_W,gateT:g=>gateTravel(g),r3:a=>r3Act({act:"r3:"+a}),isl3:a=>isl3Act({act:"isl3:"+a}),setH:h=>{clock.h=h;},ISL:()=>ISLANDS,PORTSd:()=>PORTS,floorAt:(x,z)=>floorAt(x,z),CAV2:()=>CAVEAS,ARV:()=>ARV,CRX:()=>CRX,mnVision,crAct,LAU:()=>LAU,PS:()=>PS,psTick,sfxAulos,sfxLechuza,psNearPlace,PS_TEMPLE,SIT:()=>SIT,personPose,sitShade,sitBuild,sitLowT:sitLow,kneelOrSit,ILR:()=>ILR,ilionRoad,capLvl,capOk,capNo,viaje,viajeHTML,capTick,arvBlock,arvTick,BV:()=>BV,atCands:()=>atCands(),RU:()=>RU,ruBuild,ruAct,MEM:()=>({log:memz(),fama:memFama()}),memSay,memGreet,memTick,needTick,famTick,setH:h=>{clock.h=h;},FAM:()=>FAM,famForm,NEED:()=>NEED,stFeats:()=>{const c={};for(const w of walkers)for(const k of (w.g&&w.g.userData.feat)||[])c[k]=(c[k]||0)+1;for(const o of npcObjs)for(const k of (o.g&&o.g.userData.feat)||[])c['npc '+k]=(c['npc '+k]||0)+1;return c;},bvAllN:()=>{for(const o of npcObjs)if(o.bv===undefined&&o.g)bvNpc(o);},bvAll:()=>{for(const w of walkers)if(w.bv===undefined&&w.g)bvWalker(w);},BVW:()=>walkers.map(w=>[w.g.userData.bt||'',w.g.userData.gait||'',w.g.userData.post||'']),GZ:()=>GZ,gzLook,gzBolt,gzTone,gzExpr,gzBrows,profReport:n=>profReport(n),profReset:()=>profReset(),gsTest:(i,n)=>{const o=npcObjs.filter(o=>!o.hidden&&!o.g.userData.pose)[i];const gs=gsRig(o.g);gsSet(gs,n,1);for(let k=0;k<40;k++)gsApply(o.g,gs,0.05);return [o.x,o.z,o.g.rotation.y,o.data.name,gs.fore?gs.fore.map(f=>!!f).join(','):'sin codo'];},WOB:()=>WOB,gfSeal:(a,b)=>gfSeal(a,b),ATR:()=>ATR,atCandsN:()=>{const t=performance.now();const n=atCands().length;return [n,performance.now()-t];},atGround:()=>atGround(),WFA:()=>WFA,WSP:()=>WSP,wMake:k=>wMake(k),FOREST_ON:()=>FOREST_ON,FORK:()=>FOR,NAT2:()=>NAT2,n2Place:k=>n2Place(k),n2Tick:dt=>n2Tick(dt),TOAST:h=>toast(h),TLK:()=>TLK,regionName:()=>regionName(),crtW:(i,x,z)=>crtW(i,x,z),crtAct:a=>crtAct({act:"crt:"+a}),crtTickF:dt=>crtTick(dt),SWNAV:()=>SWNAV,navTargets:()=>navTargets(),navTick:dt=>navTick(dt),AUDX:()=>({AUD,GFA,WXS,AMB,CY:typeof CY!=='undefined'?CY:null}),sw2Afro:()=>sw2Afro(),sw2AfTake:k=>sw2AfTake(k),SWAF:()=>SWAF,sw2OrbTickF:dt=>sw2OrbTick(dt),sw2TickF:dt=>sw2Tick(dt),SWORB:()=>SWORB,SW2:()=>SW2,sw2z:()=>sw2z(),swPeriplo:()=>swPeriplo(),swShortcut:()=>swShortcut(),sw2RollEnc:s=>sw2RollEnc(s),sw2EncTalk:()=>sw2EncTalk(),sw2ShipTalk:S=>sw2ShipTalk(S),SW:()=>SW,swz:()=>swz(),swBoard:()=>swBoard(),swEnterSeg:(a,b,c)=>swEnterSeg(a,b,c),swLand:i=>swLand(i),swAction:()=>swAction(),swE:()=>swE(),swAct:o=>swAct(o),swMoorOf:i=>swMoorOf(i),LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf,islandBase,islandH,sqMount,RELIEF,regionSquare,bpMake,bpVary,STB,FV_TYPES,BP,bpStatue,bpGunzip,NPB,MED_POS,MED_POS_RO,BPH,PLH,TLOD,ARCH,AQ,LF,ENTD,TALLERES,tlRun,PROC,todayEvent,festNextDay,FESTS,dzReport,readSign,signObjs}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();

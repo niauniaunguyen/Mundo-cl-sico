@@ -7,8 +7,11 @@ const I18N=/*@@I18N@@*/{tr:{},html:{}};
 const LANGS=['es','ca','en'],LANG_KEY='mundo-clasico-lang';
 const LANG=(()=>{let l=new URLSearchParams(location.search).get('lang');if(!l)try{l=localStorage.getItem(LANG_KEY);}catch(e){}return LANGS.includes(l)?l:'es';})();
 const _TR=LANG==='es'?null:I18N.tr[LANG]||null;
-function _t(i,s){const v=_TR&&_TR[i];return v==null?s:v;}
-function _tt(i,q,...a){const v=_TR&&_TR[i];if(v==null){let r=q[0];for(let k=0;k<a.length;k++)r+=a[k]+q[k+1];return r;}return v.replace(/\{(\d+)\}/g,(m,k)=>a[+k]);}
+// registro de textos sin traducir que se piden durante la partida (para traducir primero lo que se ve): solo con #debug y ?registro=1
+const _TREC=(location.hash==='#debug'&&/[?&]registro=1/.test(location.search))?(window.__tmiss=new Map()):null;
+function _trec(s){if(_TREC&&window.__trecOn&&typeof s==='string'&&/[a-záéíóúñ]{3}/i.test(s))_TREC.set(s,(_TREC.get(s)||0)+1);}
+function _t(i,s){const v=_TR&&_TR[i];if(v==null&&_TREC)_trec(s);return v==null?s:v;}
+function _tt(i,q,...a){const v=_TR&&_TR[i];if(v==null&&_TREC)_trec(q[0]+q.slice(1).map((x,k)=>'{'+k+'}'+x).join(''));if(v==null){let r=q[0];for(let k=0;k<a.length;k++)r+=a[k]+q[k+1];return r;}return v.replace(/\{(\d+)\}/g,(m,k)=>a[+k]);}
 // cambia de idioma recargando la página (los textos se traducen al definirse); conserva la época si ya se eligió
 function setLang(l){if(l===LANG)return;try{localStorage.setItem(LANG_KEY,l);}catch(e){}
   const u=new URLSearchParams(location.search);u.set('lang',l);
