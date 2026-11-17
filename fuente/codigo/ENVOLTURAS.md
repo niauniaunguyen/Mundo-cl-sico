@@ -7,11 +7,11 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-256 funciones ampliadas, 417 capas.
+256 funciones ampliadas, 419 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 34 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `198`:53 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 35 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `198`:53 · `199`:38 |
 | `egxAct0` | `060_egipto_2.js` | 20 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 |
 | `atCands` | `085_mirar_con_atencion.js` | 8 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
@@ -73,6 +73,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `spMenu` | `088_los_espiritus.js` | 2 | `090`:112 · `091`:54 |
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
 | `treesGLB` | `005_modelos_de_blender.js` | 2 | `126`:11 · `155`:23 |
+| `updateStats` | `014_hud.js` | 2 | `077`:78 · `199`:35 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
 | `accApply` | `099_para_aprender_y_ensenar.js` | 1 | `189`:39 |
 | `accSave` | `099_para_aprender_y_ensenar.js` | 1 | `154`:31 |
@@ -248,7 +249,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `ttSetup` | `094_petteia_y_ludus_latrunculorum.js` | 1 | `900`:398 |
 | `tutStart` | `049_discipulos.js` | 1 | `157`:78 |
 | `twStart` | `064_game_feel_2.js` | 1 | `078`:345 |
-| `updateStats` | `014_hud.js` | 1 | `077`:78 |
 | `updateTorch` | `040_caballo.js` | 1 | `090`:88 |
 | `urbScaffold` | `074_urbanismo.js` | 1 | `173`:35 |
 | `urbSetup` | `074_urbanismo.js` | 1 | `900`:399 |
