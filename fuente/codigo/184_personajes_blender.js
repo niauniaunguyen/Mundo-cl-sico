@@ -43,7 +43,7 @@ function bpTint(m,hex,k){const key=m.uuid+hex+k;if(BP.mats.has(key))return BP.ma
 function bpMake(kind,c){const T=BP.tpl[kind];if(!T)return null;const root=bpClone(T.scene);c=c||{};
   root.traverse(o=>{if(!o.isMesh)return;const nm=o.material.name||'';
     if((nm==='himation'||nm==='palla')&&(c.himation||c.veil))o.material=bpTint(o.material,typeof c.veil==='string'?c.veil:c.himation,1.25);
-    else if((nm==='quiton'||nm==='estola'||nm==='exomis')&&c.chiton)o.material=bpTint(o.material,c.chiton,nm==='exomis'?1.15:1.08);});
+    else if((nm==='quiton'||nm==='estola'||nm==='exomis'||nm==='tunica')&&c.chiton)o.material=bpTint(o.material,c.chiton,nm==='exomis'?1.15:1.08);});
   const g=new THREE.Group();g.add(root);const mix=new THREE.AnimationMixer(root),find=s=>T.anims.find(a=>a.name.endsWith(s));
   const wa=find('andar'),ia=find('quieto');const walk=wa?mix.clipAction(wa):null,idle=ia?mix.clipAction(ia):null;
   if(walk){walk.play();walk.setEffectiveWeight(0);}if(idle){idle.play();idle.setEffectiveWeight(1);}
@@ -80,7 +80,8 @@ function bpSwap(){if(!Object.keys(BP.tpl).length)return;const N=BP.n;let made=0;
 function bpLod(){BP.lodN=(BP.lodN||0)+1;if(typeof camera==='undefined')return;const cx=camera.position.x,cz=camera.position.z,VR2=BP.VR*BP.VR,A=[];
   for(const g of BP.list){if(!g.parent)continue;const o=g.userData.old,dx=g.position.x-cx,dz=g.position.z-cz,d2=dx*dx+dz*dz;if(!o){continue;}A.push([d2,g]);}
   A.sort((a,b)=>a[0]-b[0]);A.forEach(([d2,g],i)=>{const near=i<BP.K&&d2<VR2,root=g.children[0],o=g.userData.old;if(root.visible!==near){root.visible=near;o.visible=!near;}});}
-{let acc=0,acc2=0;const f=uxTick;uxTick=function(dt){f(dt);if(!BP.ready)return;acc+=dt;acc2+=dt;try{if(acc>0.3){acc=0;bpLod();}if(acc2>4){acc2=0;bpSwap();}}catch(e){}};}
+{let acc=0,acc2=0;const f=uxTick;uxTick=function(dt){f(dt);if(!BP.ready)return;acc+=dt;acc2+=dt;try{for(const g of BP.list){const o=g.userData.old;if(o&&o.visible&&g.children[0].visible)o.visible=false;}   // el detalle por distancia vuelve a encender la figura sencilla
+    if(acc>0.3){acc=0;bpLod();}if(acc2>4){acc2=0;bpSwap();}}catch(e){}};}
 // patrulla de hoplitas por el ágora (en 386 a.C., Atenas está en guerra con Esparta: la guerra de Corinto)
 function bpPatrol(){if(MODE!=='atenas'||!BP.tpl.hoplita||BP.patrol)return;BP.patrol=true;const R=mulberry32(390),b=[AG.x-30,AG.x+90,AG.z-70,AG.z+45];
   for(let i=0;i<4;i++){let x=0,z=0;for(let k=0;k<20;k++){x=b[0]+R()*(b[1]-b[0]);z=b[2]+R()*(b[3]-b[2]);if(isFree(x,z,0.8))break;}

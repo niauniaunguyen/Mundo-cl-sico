@@ -11,6 +11,7 @@
 //    piel con un tono suave). Fuentes: V. Brinkmann y U. Wünsche (eds.), «Gods in Color», 2007; Plinio, Historia natural XXXV 133;
 //    Pausanias I 24, 5-7 (la Atenea Pártenos de Fidias, de oro y marfil). Los bronces llevaban ojos de piedra y pasta de vidrio y
 //    labios de cobre (los guerreros de Riace, hacia 450).
+const NPB={list:[],R:70,all:[],vis:[],nb:0,MAXB:60};
 const FV={geo:new Map(),E:{x:0,y:1.663,z:0.078}};
 // tipos de cara: nz nariz adelante, nw nariz ancha, aq nariz aguileña, sn nariz respingona, br arco de las cejas, jw mandíbula ancha,
 // ch mentón adelantado, fl cara larga, cb pómulos, cf mejillas llenas, fw cara ancha, lp labios gruesos
@@ -72,7 +73,7 @@ function stKind(c){if(!c||c.glow||c.mask)return null;const n=s=>(s||'').toLowerC
   if(ST_MARBLE.has(sk)&&ST_MARBLE.has(hr||sk)&&ST_MARBLE.has(ch))return 'marble';
   if(ST_GOLD.has(ch)&&(ST_GOLD.has(hr)||ST_MARBLE.has(sk)))return 'gold';
   if(metal(sk)&&metal(ch)&&(!hr||metal(hr))&&(c.attrRoles||sk===ch||sk===hr||sk===n(c.himation)))return 'bronze';return null;}   // piel del color de la ropa: una persona de verdad nunca lo es
-{const f=makePerson;makePerson=function(c){const g=f.apply(this,arguments);try{const k=stKind(c);if(k&&g){g.userData.stKind=k;STB.list.push({g,c,k,n:g.children.length});}}catch(e){}return g;};}
+{const f=makePerson;makePerson=function(c){const g=f.apply(this,arguments);try{const k=stKind(c);if(g&&!k)NPB.all.push(g);if(k&&g){g.userData.stKind=k;STB.list.push({g,c,k,n:g.children.length});}}catch(e){}return g;};}
 // pintura sobre mármol: la textura pintada del personaje se mezcla con el blanco cálido del mármol (paint: cuánto color lleva la pieza)
 function stPaintMat(m,paint,tint,cloth){const n=new THREE.MeshPhongMaterial({map:m.map,shininess:22,specular:0x2a2620,skinning:true});n.name=m.name;if(!m.map)n.color.set(tint||'#ece4d6');
   n.onBeforeCompile=sh=>{sh.uniforms.uPaint={value:paint};sh.uniforms.uTint={value:new THREE.Color(tint||'#ece4d6')};sh.uniforms.uCloth={value:new THREE.Color(cloth||'#ffffff')};
@@ -113,6 +114,38 @@ function stbTick(){if(!STB.ready)return;const cx=camera.position.x,cy=camera.pos
   for(const s of STB.list){if(!s.bp||!s.g.parent)continue;s.g.getWorldPosition(v);const near=(v.x-cx)**2+(v.y-cy)**2+(v.z-cz)**2<R2;if(s.bp.visible!==near){s.bp.visible=near;s.g.visible=!near;}}}
 {let acc=0;const f=uxTick;uxTick=function(dt){f(dt);acc+=dt;if(acc>0.4){acc=0;try{stbTick();}catch(e){}}};}
 // las figuras de las estatuas (ciudadano, mujer y hoplita) se cargan también en Roma
-{const f=bpSetup;bpSetup=function(){f.apply(this,arguments);const need=['ciudadano','mujer','hoplita'],L=BP_MODE[MODE]||[];
+{const f=bpSetup;bpSetup=function(){f.apply(this,arguments);const need=['ciudadano','mujer','hoplita','obrero'],L=BP_MODE[MODE]||[];
   for(const k of need)if(!L.includes(k))bpParse('glbpj_'+k,k,()=>{});
   let tries=0;const w=setInterval(()=>{if(need.every(k=>BP.tpl[k])||++tries>60){clearInterval(w);if(BP.tpl.ciudadano||BP.tpl.mujer){try{stSwap();STB.ready=true;stbTick();}catch(e){console.warn('estatuas',e);}}}},500);};}
+
+// ---------------------------------------------------------------- personajes con nombre
+// Los transeúntes ya llevaban la figura de Blender, pero no los personajes con los que se habla (npcObjs): seguían con la sencilla.
+// A cada uno se le añade la de Blender dentro de su propio grupo (así lo que gira o mueve el grupo —mirar al jugador, gestos— sigue
+// valiendo); su figura sencilla pasa a un contenedor que se oculta de cerca. Los rótulos y marcas (sprites) no se tocan.
+NPB.R=70;NPB.K=14;try{if(typeof isTouch!=='undefined'&&isTouch){NPB.R=45;NPB.K=8;NPB.MAXB=24;}if(ACC.lite){NPB.R=35;NPB.K=6;NPB.MAXB=16;}}catch(e){}
+function npcKind(c){if(!c||c.glow||c.mask||(c.scale&&c.scale<0.95))return null;
+  if(MODE==='roma'){if(c.soldier)return 'legionario';if(c.female)return 'romana';if(c.toga||c.himation&&!c.short)return 'togado';return BP.tpl.obrero?'obrero':null;}   // sin toga ni manto: túnica corta de trabajo
+  if(c.female)return 'mujer';if(c.spear||c.soldier||c.helmet)return 'hoplita';if(c.exomis||c.short||c.noHimation)return 'obrero';return 'ciudadano';}
+const NPB_GREY=new Map();
+// candidatos: se marcan al aparecer; la figura de Blender se crea solo cuando el personaje está entre los NPB.K más cercanos
+// (dos por vez, para no dar tirones) y se suelta cuando hay más de NPB.MAXB creadas y esta es de las más lejanas
+function npcOk(g){if(!g||g.userData.npb||g.userData.pj||g.userData.stKind)return false;g.userData.npb=1;const c=g.userData.cfg;if(!c||c.noVary)return false;const k=npcKind(c);if(!k||!BP.tpl[k])return false;g.userData.npbKind=k;return true;}
+function npcDress(g){const c=g.userData.cfg,k=g.userData.npbKind;const n=bpMake(k,c);if(!n)return null;const root=n.children[0],B=n.userData.bp;n.remove(root);
+  // canas: la textura del pelo es oscura y teñirla no la vuelve gris; se pinta de gris sin textura
+  const hc=c&&c.hair?new THREE.Color(c.hair):null,hs={};if(hc)hc.getHSL(hs);
+  if(hc&&hs.l>0.45&&hs.s<0.25)root.traverse(m=>{if(m.isMesh&&/_(pelo|barba)$/.test(m.material.name||'')){let gm=NPB_GREY.get(c.hair);if(!gm){gm=new THREE.MeshLambertMaterial({color:hc.clone().multiplyScalar(0.85),skinning:true});NPB_GREY.set(c.hair,gm);}m.material=gm;}});
+  if(c&&c.himation&&!(c.toga&&!c.pulla))root.traverse(m=>{if(m.isMesh&&m.material.name==='toga')m.material=bpTint(m.material,c.himation,1.6);});   // sin toga: el manto (pallium) con su color
+  let hold=g.userData.npbHold;if(!hold){hold=new THREE.Group();hold.name='figuraSencilla';for(const ch of [...g.children])if(!ch.isSprite){g.remove(ch);hold.add(ch);}g.add(hold);g.userData.npbHold=hold;}
+  g.add(root);return {root,hold,B};}
+function npbTick(){if(!BP.ready)return;const cx=camera.position.x,cz=camera.position.z,R2=NPB.R*NPB.R,v=new THREE.Vector3(),A=[];NPB.vis.length=0;
+  for(const e of NPB.list){const g=e.g;if(!g.parent)continue;let vis=g.visible;for(let q=g.parent;vis&&q&&q!==scene;q=q.parent)if(!q.visible)vis=false;
+    g.getWorldPosition(v);e.d2=(v.x-cx)**2+(v.z-cz)**2;if(vis&&e.d2<R2&&!g.userData.sitting)A.push(e);else if(e.f&&e.f.root.visible){e.f.root.visible=false;e.f.hold.visible=true;}}
+  A.sort((a,b)=>a.d2-b.d2);let built=0;
+  A.forEach((e,i)=>{let near=i<NPB.K;if(near&&!e.f){if(built<2){e.f=npcDress(e.g);built++;NPB.nb++;}if(!e.f)near=false;}
+    if(e.f){const g=e.g;for(const ch of [...g.children])if(ch!==e.f.root&&ch!==e.f.hold&&!ch.isSprite){g.remove(ch);e.f.hold.add(ch);}   // piezas que se añaden después (detalle de cerca)
+      e.f.root.visible=near;e.f.hold.visible=!near;if(near)NPB.vis.push(e.f);}});
+  if(NPB.nb>NPB.MAXB){const B=NPB.list.filter(e=>e.f&&!e.f.root.visible).sort((a,b)=>b.d2-a.d2);for(const e of B){if(NPB.nb<=NPB.MAXB)break;e.g.remove(e.f.root);e.f.hold.visible=true;e.f=null;NPB.nb--;}}}
+function npbAnim(dt){for(const f of NPB.vis){if(f.hold.visible&&f.root.visible)f.hold.visible=false;   // el detalle por distancia de las personas vuelve a encender sus piezas
+  const B=f.B;if(!B||!B.idle)continue;B.t+=dt;if(B.walk)B.walk.setEffectiveWeight(0);B.idle.setEffectiveWeight(1);B.idle.time=B.t%B.idle.getClip().duration;B.mix.update(0);}}
+{let acc=0,acc2=3;const f=uxTick;uxTick=function(dt){f(dt);if(!BP.ready)return;acc+=dt;acc2+=dt;try{if(acc2>3){acc2=0;const W=new Set(walkers.map(w=>w.g));for(const g of NPB.all){if(g.userData.npb||!g.parent||W.has(g)||(g.parent.userData&&g.parent.userData.old===g))continue;if(npcOk(g))NPB.list.push({g,f:null,d2:1e12});}}
+  if(acc>0.3){acc=0;npbTick();}npbAnim(dt);}catch(e){}};}
