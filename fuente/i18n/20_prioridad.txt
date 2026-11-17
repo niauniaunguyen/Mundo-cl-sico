@@ -1299,3 +1299,2469 @@ an offering for the journey
 @7de5908c
 vi aigualit
 watered wine
+
+# ---- modo Historia (marco), modo foto, objetivos
+
+@f7eb3b97
+"<b>Capítol "
+"<b>Chapter "
+
+@b747423b
+"Capítol "
+"Chapter "
+
+@5d2dbb18
+"</p><p class=\"sub\">Objectiu: "
+"</p><p class=\"sub\">Goal: "
+
+@aebc38c5
+<span class="n">1</span><span>Començar</span>
+<span class="n">1</span><span>Start</span>
+
+@329c99a7
+"<span class=\"label\">Capítol "
+"<span class=\"label\">Chapter "
+
+@448684e0
+" completat · +5 "
+" completed · +5 "
+
+@6c2d7538
+"</p><div class=\"curio\"><span class=\"label\">El que has après · "
+"</p><div class=\"curio\"><span class=\"label\">What you have learned · "
+
+@0ad35659
+"Continuar amb el capítol "
+"Go on to chapter "
+
+@16c80241
+Veure el final
+See the ending
+
+@cb504ce2
+Fi de la història
+The end of the story
+
+@912c3c84
+<span class="n">1</span><span>Continuar explorant lliurement</span>
+<span class="n">1</span><span>Keep exploring freely</span>
+
+@f5f69c1b
+"<p style=\"margin:0 0 12px;max-width:68ch;line-height:1.5\">Mode Història: "
+"<p style=\"margin:0 0 12px;max-width:68ch;line-height:1.5\">Story mode: "
+
+@3430808b
+una família d'Herculà després de l'erupció del Vesuvi
+a family from Herculaneum after the eruption of Vesuvius
+
+@3ede9b3c
+una família d'Acarnes que espera un soldat que no va tornar mai
+a family from Acharnae waiting for a soldier who never came back
+
+@52d5fd4c
+. Segueix el rombe ◆ de la brúixola i l'objectiu de dalt a l'esquerra.</p><div class="entries">
+. Follow the ◆ diamond on the compass and the goal at the top left.</p><div class="entries">
+
+@51209d3e
+"\"><span class=\"label\">Capítol "
+"\"><span class=\"label\">Chapter "
+
+@63a098ea
+" · completat ✓"
+" · completed ✓"
+
+@d5b6286d
+" · en curs"
+" · in progress"
+
+@a679aeea
+Per descobrir
+To be discovered
+
+@67606d69
+Completa el capítol anterior.
+Complete the previous chapter.
+
+@b6bb5d15
+Capítols
+Chapters
+
+@7cbca021
+L'òliba de bronze
+The bronze owl
+
+@63af09ce
+Has acabat la història d'Atenes. Amb la teva família has recorregut tota la ciutat: l'Assemblea i la font, el banc i l'Acròpoli, les tombes del Ceràmic, el port, el teatre, l'Acadèmia i els tribunals. I, amb el teu pare, has vist el mar de la pau del Rei, de Bizanci a Efes.
+You have finished the story of Athens. With your family you have walked the whole city: the Assembly and the fountain, the bank and the Acropolis, the tombs of the Kerameikos, the port, the theatre, the Academy and the courts. And, with your father, you have seen the sea of the King's Peace, from Byzantium to Ephesus.
+
+@4222270b
+Eudem, Fília, Arquip, Trasònides i Doros són personatges inventats, però tot el que els passa podia passar a l'Atenes del 386 aC: presoners de guerra venuts com a esclaus, rescats que no arribaven, noms gravats per error entre els morts, lliberts que refeien la vida i jutges sortejats cada matí.
+Eudemus, Philia, Archippus, Thrasonides and Dorus are invented characters, but everything that happens to them could have happened in the Athens of 386 BC: prisoners of war sold as slaves, ransoms that never came, names carved by mistake among the dead, freedmen rebuilding their lives and judges chosen by lot every morning.
+
+@07293195
+Ara pots continuar explorant lliurement: queden molts personatges, llocs, viatges i somnis per descobrir.
+Now you can keep exploring freely: there are many characters, places, journeys and dreams still to discover.
+
+@ae995d35
+La tauleta de Tèrcia
+Tertia's tablet
+
+@3fe35390
+Has acabat la història de Roma. Buscant la teva germana has recorregut tota la ciutat: la salutatio d'un senador, el temple de Vesta, els registres del tresor, l'Empori, una escola, l'illa d'Esculapi, el Trastevere, l'amfiteatre, l'incendi del Camp de Mart i el Palatí. I, amb Tèrcia, has seguit el blat des d'Àfrica i Egipte fins a l'Empori.
+You have finished the story of Rome. Searching for your sister you have walked the whole city: a senator's salutatio, the temple of Vesta, the treasury records, the Emporium, a school, the island of Aesculapius, Trastevere, the amphitheatre, the fire in the Campus Martius and the Palatine. And, with Tertia, you have followed the grain from Africa and Egypt to the Emporium.
+
+@8af65fa0
+Tèrcia, la teva família, Grat, Hermeros, Dèbora i Prim són inventats. Titus, Plini el Jove, Tàcit, Prisc i la llei de Claudi són reals, i també ho són l'erupció del 79, l'incendi i l'epidèmia del 80, la inauguració de l'amfiteatre i els judicis per la llibertat, com el de Petrònia Justa d'Herculà.
+Tertia, your family, Gratus, Hermeros, Deborah and Primus are invented. Titus, Pliny the Younger, Tacitus, Priscus and the law of Claudius are real, and so are the eruption of 79, the fire and the epidemic of 80, the opening of the amphitheatre and the trials over freedom, like that of Petronia Iusta of Herculaneum.
+
+@09ad17a9
+Ara pots continuar explorant lliurement.
+Now you can keep exploring freely.
+
+@9f21c6de
+Ja hi ets a prop: segueix el rombe ◆ de la brúixola.
+You are close now: follow the ◆ diamond on the compass.
+
+@66f1cfee
+Un carreter
+A carter
+
+@c953c9c0
+" et porta</span><br>Passa una hora de camí."
+" takes you</span><br>An hour on the road goes by."
+
+@235ad3df
+<b>📷 Mode foto</b><button class="main" id="phShot">Fer foto</button><button id="phCap"></button><button id="phZi">＋</button><button id="phZo">－</button><button id="phX">Sortir</button><span class="h">
+<b>📷 Photo mode</b><button class="main" id="phShot">Take photo</button><button id="phCap"></button><button id="phZi">＋</button><button id="phZo">－</button><button id="phX">Exit</button><span class="h">
+
+@92c73d8c
+Clic o Espai: foto · roda o +/−: zoom · P o Esc: sortir
+Click or Space: photo · wheel or +/−: zoom · P or Esc: exit
+
+@83c0758c
+"Peu de foto: "
+"Caption: "
+
+@146d5b32
+" · altura "
+" · height "
+
+@dec65bd9
+"No s'ha pogut fer la foto: "
+"The photo could not be taken: "
+
+@06b55b47
+<img alt="La teva foto"><div class="row"><button class="main" id="phSave">Desar la foto</button><button id="phAgain">Fer-ne una altra</button><button id="phClose">Sortir del mode foto</button></div>
+<img alt="Your photo"><div class="row"><button class="main" id="phSave">Save the photo</button><button id="phAgain">Take another</button><button id="phClose">Exit photo mode</button></div>
+
+@5f22d0fd
+<span class="label">Foto desada</span><br>
+<span class="label">Photo saved</span><br>
+
+@1044e18a
+No s'ha pogut desar: mantén premuda la imatge per desar-la.
+It could not be saved: press and hold the image to save it.
+
+@20aa14e0
+Enfocar
+Focus
+
+@966ae416
+"Enfocat a "
+"Focused at "
+
+@8c6d6404
+"Objectiu: capturar "
+"Goal: catch "
+
+@70ebfb00
+"Objectiu: aguantar "
+"Goal: hold out "
+
+@ad7c8cac
+"Encàrrec: "
+"Task: "
+
+@fb4b982b
+"Missió: "
+"Mission: "
+
+@6de48ef2
+" (busseja)"
+" (dive)"
+
+@431ab659
+"Afrodita: "
+"Aphrodite: "
+
+@910fddf2
+"Torna amb "
+"Go back to "
+
+# ---- guía del diario
+
+@efe44ccc
+Per on començar
+Where to start
+
+@e5a84874
+Ets al mode Història: segueix l'objectiu de dalt a l'esquerra i el rombe ◆ de la brúixola. Si l'objectiu és lluny, prem G i t'hi portaran. A la pestanya Capítols veus en quin punt ets.
+You are in Story mode: follow the goal at the top left and the ◆ diamond on the compass. If the goal is far away, press G and you will be taken there. The Chapters tab shows where you are.
+
+@03d7b8bd
+Fes les deu missions de Primers passos (pestanya Primers passos): cadascuna t'ensenya una part del joc. L'objectiu apareix a dalt a l'esquerra i el rombe ◆ de la brúixola t'indica cap on has d'anar.
+Do the ten First steps missions (First steps tab): each one teaches you a part of the game. The goal appears at the top left and the ◆ diamond on the compass shows you which way to go.
+
+@e3b69a23
+Parlar i aprendre
+Talking and learning
+
+@21365273
+"Acosta't a una persona i prem E. Tria els temes que t'interessin i, quan n'hagis escoltat algun, «Posa'm a prova»: si l'encertes, aprens la seva lliçó i guanyes 3 "
+"Go up to a person and press E. Choose the topics that interest you and, once you have listened to one, “Test me”: if you get it right, you learn their lesson and earn 3 "
+
+@8fbdc9d5
+. Els noms en verd són personatges inventats; els blancs, històrics.
+. Names in green are invented characters; white ones are historical.
+
+@ab99b7a8
+Les esteles amb un rombe daurat expliquen edificis i llocs. En llegir-les queden al teu diari (Llocs) i al plànol (M), des d'on pots viatjar a les que ja coneixes.
+Stelae with a golden diamond explain buildings and places. Once read, they go into your journal (Places) and onto the map (M), from where you can travel to the ones you know.
+
+@0e88221b
+Llegendes
+Legends
+
+@8e82a4ef
+Mites en pedra
+Myths in stone
+
+@3cbc2f2e
+A Roma, les llegendes de la ciutat són als rotlles de la biblioteca i a les esferes de somni.
+In Rome, the city's legends are in the library scrolls and the dream spheres.
+
+@86345517
+Els rombes blaus al costat de frontons i frisos amaguen mites: observa'ls (E) i endevina quin és. Eunice, a la font de l'Àgora, t'explica el joc.
+The blue diamonds by pediments and friezes hide myths: look at them (E) and guess which one it is. Eunice, at the Agora fountain, explains the game.
+
+@48da9d78
+Fora de la ciutat, al costat dels santuaris, s'apareixen els déus: se'ls reconeix per la lluentor. Cadascun et demana un favor.
+Outside the city, next to their sanctuaries, the gods appear: you can recognise them by their glow. Each one asks you a favour.
+
+@532a1c14
+Esferes de somni
+Dream spheres
+
+@765fdd64
+Les esferes de llum et fan viure un mite o un moment històric. Prem E o Espai per avançar.
+The spheres of light let you live a myth or a historical moment. Press E or Space to go on.
+
+@af3bd589
+Viatjar
+Travelling
+
+@68cbc54c
+Hi ha ports i camins per anar a altres ciutats i regions. A la vora de cada mapa, els camins senyalitzats et porten al mapa veí, en la direcció real.
+There are ports and roads to reach other cities and regions. At the edge of each map, the signposted roads take you to the neighbouring map, in the real direction.
+
+@74bc41d1
+Dies i festes
+Days and festivals
+
+@c14b173d
+Cada nit que passa comença un dia nou (T deixa passar unes hores). Cada dos dies se celebra una festa religiosa al seu lloc: busca la multitud i l'oficiant (rombe !), escolta què se celebra i participa en el ritu. Les tens totes a la pestanya Festes. Cada matinada, a més, t'expliquen una curiositat.
+Each night that passes starts a new day (T lets a few hours go by). Every two days a religious festival is held in its place: look for the crowd and the officiant (! diamond), listen to what is being celebrated and take part in the rite. They are all in the Festivals tab. Every dawn you are also told a curiosity.
+
+@53d48def
+La teva fitxa
+Your profile
+
+@af9bcbf0
+Tens cinc qualitats (
+You have five qualities (
+
+@1ff2c1fd
+) que pugen amb el que fas i, sobretot, amb la gent que coneixes. Mira-les a la pestanya Fitxa.
+) that rise with what you do and, above all, with the people you meet. See them in the Profile tab.
+
+@1482bede
+Les grans personalitats tenen un mesurador d'afinitat. Tria «Passar una estona junts» (un cop al dia) i respon com ho faria algú de la seva confiança. Cada trobada demana més nivell a les teves qualitats.
+Great figures have an affinity meter. Choose “Spend some time together” (once a day) and answer as someone they trust would. Each meeting asks for a higher level in your qualities.
+
+@f8964ae3
+Mestres i rivals
+Teachers and rivals
+
+@0df2421b
+Amb la seva confiança, pots demanar ser deixeble d'un mestre: prova d'admissió, quatre lliçons amb encàrrecs i un títol. Els seus rivals et miraran malament i et reptaran a debatre.
+With their trust, you can ask to become a teacher's disciple: an admission test, four lessons with tasks and a title. Their rivals will frown on you and challenge you to debate.
+
+@d8e09277
+Cavall i ales
+Horse and wings
+
+@2ee204ce
+"Al principi no tens cavall: "
+"At first you have no horse: "
+
+@f0f5ea9f
+Fèlix, l'auriga dels Verds,
+Felix, the charioteer of the Greens,
+
+@f35752f6
+Èudic de Larisa, a l'Àgora,
+Eudicus of Larissa, in the Agora,
+
+@69fce9df
+" te'n donarà un si li fas un favor. Quan cavalques, recull les esferes daurades perquè pugi de nivell."
+" will give you one if you do them a favour. While riding, collect the golden spheres so that it levels up."
+
+@0716af92
+" Al somni de Cnossos, Dèdal et pot donar unes ales (X per volar)."
+" In the dream of Knossos, Daedalus can give you wings (X to fly)."
+
+@09563e1d
+Les Muses i l'Olimp
+The Muses and Olympus
+
+@ef068827
+"Les nou Muses esperen als llocs del seu art. Aprèn abans de les persones que en saben i supera el seu examen per rebre'n el do. Amb els nou dons, Mnemòsine et donarà a beure de la Memòria i recordaràs el sender de l'Olimp, on viu "
+"The nine Muses wait in the places of their art. First learn from the people who know about it and pass their test to receive her gift. With the nine gifts, Mnemosyne will let you drink from Memory and you will remember the path to Olympus, where "
+
+@10462ba3
+. Ho tens tot a la pestanya Fitxa.
+" lives. It is all in the Profile tab."
+
+@bb6f5a4b
+"Rutes de "
+"Routes of "
+
+@b4d91eb3
+l'Eneida
+the Aeneid
+
+@c273452b
+l'Odissea
+the Odyssey
+
+@083c70d0
+Sext Corneli, el gramàtic, al costat de l'escola del gramàtic, et porta per la ruta d'Enees, de Troia al Palatí.
+Sextus Cornelius, the grammarian, next to the grammarian's school, takes you along the route of Aeneas, from Troy to the Palatine.
+
+@57e06aa8
+Cleònim, el rapsode, al costat de l'escola de lletres, et porta per la ruta d'Ulisses, de Troia a Ítaca.
+Cleonymus, the rhapsode, next to the school of letters, takes you along the route of Odysseus, from Troy to Ithaca.
+
+@dbcaece5
+" Unes parades són llocs del mapa, i d'altres, trams de mar narrats."
+" Some stops are places on the map, and others are narrated stretches of sea."
+
+@3010a238
+El teu vaixell i la Lluna
+Your ship and the Moon
+
+@cd941b0f
+"Al moll, "
+"At the quay, "
+
+@e9838451
+Gai Fabi Velox
+Gaius Fabius Velox
+
+@2b1714e4
+Fanodem
+Phanodemus
+
+@01b8876b
+", el mestre d'aixa, et construeix un vaixell si li avances 150 "
+", the shipwright, builds you a ship if you pay 150 "
+
+@af7b2bd7
+" i li portes tres materials d'altres mapes. Amb vaixell propi, els viatges per mar són gratis… i pots navegar més enllà de les Columnes d'Hèrcules, fins a la Lluna que va imaginar Llucià de Samòsata."
+" in advance and bring three materials from other maps. With your own ship, sea voyages are free… and you can sail beyond the Pillars of Hercules, to the Moon imagined by Lucian of Samosata."
+
+@7fe69c76
+Per al professorat
+For teachers
+
+@e555a763
+Per ensenyar el joc a classe, prem la tecla º (a l'esquerra de l'1) i escriu la clau «mentor», el nom del mestre de Telèmac a l'Odissea. Podràs anar a l'instant a qualsevol lloc, persona o regió, canviar l'hora i l'estació, saltar a la propera festa i aconseguir el cavall, les ales, la clau de l'Olimp o la casa. Amb el botó «Quaderns de viatge dels alumnes» del mateix tauler pots llegir juntes les respostes de tota la classe a les preguntes «I a la teva terra com és?»: cada alumne les lliura des del Diari, pestanya «Foraster» («Lliurar el meu quadern»), com un arxiu de text que t'envia, i tu obres tots els arxius alhora.
+To show the game in class, press the º key (left of 1) and type the key “mentor”, the name of Telemachus's teacher in the Odyssey. You will be able to jump instantly to any place, person or region, change the time and season, skip to the next festival and get the horse, the wings, the key to Olympus or the house. With the “Students' travel notebooks” button in the same panel you can read together the whole class's answers to the “And what is it like where you come from?” questions: each student hands them in from the Journal, “Stranger” tab (“Hand in my notebook”), as a text file they send you, and you open all the files at once.
+
+@4591c980
+Biblioteca i fonts
+Library and sources
+
+@0db4d7e1
+La biblioteca (B) reuneix totes les fonts antigues i modernes del que veus al joc. Fes-la servir per ampliar o per fer treballs.
+The library (B) brings together all the ancient and modern sources for what you see in the game. Use it to learn more or for projects.
+
+@a0b626d6
+Desar
+Saving
+
+@4e50d379
+La partida es desa sola al teu navegador. Amb «Desar partida» (a dalt, al diari) en baixes una còpia per continuar en un altre ordinador.
+The game saves itself in your browser. With “Save game” (at the top of the journal) you download a copy to continue on another computer.
+
+@8e0eea95
+"<p style=\"margin:0 0 12px;max-width:68ch;line-height:1.5\">Tot el que pots fer a "
+"<p style=\"margin:0 0 12px;max-width:68ch;line-height:1.5\">Everything you can do in "
+
+@263c897d
+, en poques línies.</p><div class="entries">
+, in a few lines.</p><div class="entries">
+
+# ---- modo Historia de Atenas (1)
+
+@c36bb2b6
+Una veu a l'Assemblea
+A voice in the Assembly
+
+@fd4ce246
+Tens quinze anys i véns d'Acarnes, un llogaret de l'Àtica a tres hores de camí. El teu pare, Eudem, va morir a la guerra contra Esparta quan eres petit; si més no, això et van dir. Ara el vostre veí, el ric Trasònides, es vol quedar la terra del teu avi. El teu avi t'ha portat a la ciutat per demanar ajuda.
+You are fifteen and you come from Acharnae, a village in Attica three hours away on foot. Your father, Eudemus, died in the war against Sparta when you were a child; at least, that is what you were told. Now your neighbour, the rich Thrasonides, wants to take your grandfather's land. Your grandfather has brought you to the city to ask for help.
+
+@ed5015ab
+Arquip
+Archippus
+
+@1783913c
+El teu avi
+Your grandfather
+
+@e2cbcbba
+Trasònides
+Thrasonides
+
+@b3a517d1
+El vostre veí
+Your neighbour
+
+@bac6e857
+Escolta el teu avi
+Listen to your grandfather
+
+@08973fbb
+L'Àgora bull de gent: venedors, esclaus amb càntirs, ciutadans que discuteixen a l'ombra dels pòrtics. El teu avi es recolza en el bastó, sense alè.
+The Agora is teeming with people: sellers, slaves with water jars, citizens arguing in the shade of the porticoes. Your grandfather leans on his stick, out of breath.
+
+@107404bb
+Ja no tinc cames per a això. Escolta'm bé: Trasònides diu que li dec dues mil dracmes i que, si no li pago abans de l'estiu, la terra serà seva. Aquesta terra la va plantar el meu pare, olivera a olivera.
+My legs are not up to this any more. Listen carefully: Thrasonides says I owe him two thousand drachmas and that, if I do not pay him before summer, the land will be his. My father planted that land, olive tree by olive tree.
+
+@cd3adbde
+En aquesta ciutat ningú no és amo de ningú, ni tan sols un ric. Ves a la Tolos, l'edifici rodó, i parla amb Eucles, el prítan. Ell et sabrà dir què pot fer un ciutadà pobre contra un de ric.
+In this city nobody owns anybody, not even a rich man. Go to the Tholos, the round building, and speak to Eucles, the prytanis. He will be able to tell you what a poor citizen can do against a rich one.
+
+@2b99065c
+Parla amb Eucles, el prítan, al costat de la Tolos
+Talk to Eucles, the prytanis, by the Tholos
+
+@9a767a4b
+Eucles
+Eucles
+
+@018d613c
+Una disputa per una terra? Això ho decideixen els tribunals, no pas jo. Però abans, noi, aprèn com funciona la teva ciutat.
+A dispute over land? That is for the courts to decide, not me. But first, lad, learn how your city works.
+
+@ab320a6b
+Cada any se sortegen cinc-cents consellers, cinquanta per tribu. Aquest mes ens toca presidir als de la meva tribu: mengem aquí, a la Tolos, i sempre n'hi ha algun de despert, de dia i de nit. Preparem el que es votarà a l'Assemblea.
+Every year five hundred councillors are chosen by lot, fifty from each tribe. This month it is my tribe's turn to preside: we eat here, in the Tholos, and someone is always awake, day and night. We prepare what will be voted on in the Assembly.
+
+@8c3a5ceb
+Qui pot parlar a l'Assemblea de la Pnix?
+Who can speak in the Assembly on the Pnyx?
+
+@d3151a80
+Qualsevol ciutadà home adult que vulgui
+Any adult male citizen who wishes to
+
+@2b7345d9
+Només els rics que paguen impostos
+Only the rich who pay taxes
+
+@3f4e27b0
+Només els membres del Consell
+Only members of the Council
+
+@dc3ea773
+Exacte. L'herald pregunta «Qui vol parlar?», i qualsevol ciutadà pot pujar a la tribuna: en diem isegoria, igualtat de paraula.
+Exactly. The herald asks “Who wishes to speak?”, and any citizen can climb onto the platform: we call it isegoria, equal right to speak.
+
+@b2f62354
+No. Pensa en el que pregunta l'herald: «Qui vol parlar?». No pregunta quants diners tens.
+No. Think about what the herald asks: “Who wishes to speak?”. He does not ask how much money you have.
+
+@fc44bb2f
+Demà hi ha Assemblea. Puja a la Pnix, el turó al sud-oest. El teu veí Trasònides hi sol parlar: li agrada que el vegin.
+Tomorrow there is an Assembly. Go up to the Pnyx, the hill to the south-west. Your neighbour Thrasonides often speaks there: he likes to be seen.
+
+@7a4ae0c9
+Puja al turó de la Pnix i acosta't a la tribuna
+Climb the Pnyx hill and go up to the speakers' platform
+
+@45ce9445
+Milers de ciutadans asseguts al vessant. L'herald alça la veu: «Qui vol parlar?». Puja un home de mantell granat i anells d'or. És Trasònides.
+Thousands of citizens seated on the slope. The herald raises his voice: “Who wishes to speak?”. A man in a crimson cloak and gold rings steps up. It is Thrasonides.
+
+@b8bf3299
+Atenesos: us proposo que la ciutat pagui més als que mantenen les naus. Els rics sostenim aquesta ciutat!
+Athenians: I propose that the city pay more to those who maintain the ships. We, the rich, hold this city up!
+
+@677a38f1
+La gent murmura. Uns aplaudeixen i d'altres xiulen. Et vénen ganes de pujar a la tribuna i dir què us fa.
+People murmur. Some applaud and others whistle. You feel like climbing onto the platform and saying what he is doing to you.
+
+@28d54e0a
+Intentar pujar a la tribuna
+Try to climb onto the platform
+
+@2464a899
+Un arquer escita
+A Scythian archer
+
+@c0d053a1
+Quiet, xaval! Per parlar aquí has de tenir divuit anys i estar inscrit al registre del teu demo. Torna d'aquí a tres anys.
+Stop right there, kid! To speak here you must be eighteen and enrolled in your deme's register. Come back in three years.
+
+@5a4601c9
+Esperar i observar
+Wait and watch
+
+@15695e62
+T'hi fixes, en com parla: sap quan alçar la veu, quan fer riure, quan callar. Parlar en públic és un art, i ell el domina.
+You notice how he speaks: he knows when to raise his voice, when to make people laugh, when to be silent. Public speaking is an art, and he has mastered it.
+
+@84312d82
+Parla amb Trasònides, al costat de la tribuna
+Talk to Thrasonides, by the platform
+
+@a505f225
+Vaja, el nét d'Arquip. T'assembles al teu pare, ho sabies? Llàstima el que li va passar.
+Well, Archippus's grandson. You look like your father, did you know? A pity what happened to him.
+
+@a128a2d7
+El teu avi em va demanar dues mil dracmes fa set anys. Jo les hi vaig deixar, com a bon veí. Tinc la fita amb el deute clavada a la vostra terra, i testimonis. No és res personal: és la llei.
+Your grandfather asked me for two thousand drachmas seven years ago. I lent them to him, as a good neighbour. I have the boundary stone with the debt set in your land, and witnesses. It is nothing personal: it is the law.
+
+@9712e6f8
+Somriu, però els seus ulls no somriuen. Quan se'n va, t'adones que no t'ha dit per a què va demanar el teu avi aquells diners.
+He smiles, but his eyes do not. When he leaves, you realise he has not told you what your grandfather wanted the money for.
+
+@610b4d69
+Has vist la democràcia atenesa per dins: sorollosa, oberta i desigual. Qualsevol pot parlar, però no tothom en sap. I has descobert una pregunta que ningú no et contesta: per a què necessitava el teu avi dues mil dracmes?
+You have seen Athenian democracy from the inside: noisy, open and unequal. Anyone can speak, but not everyone knows how. And you have found a question nobody will answer: why did your grandfather need two thousand drachmas?
+
+@904d7f34
+A l'Atenes del segle IV el Consell dels Cinc-cents, triat per sorteig, prepara els assumptes, i l'Assemblea de tots els ciutadans homes adults els vota a la Pnix. La isegoria permet parlar a qualsevol, però les dones, els estrangers (meteci) i els esclaus no hi participen.
+In fourth-century Athens the Council of Five Hundred, chosen by lot, prepares the business, and the Assembly of all adult male citizens votes on it on the Pnyx. Isegoria lets anyone speak, but women, foreigners (metics) and slaves do not take part.
+
+@58eb835e
+Vida quotidiana i dones
+Daily life and women
+
+@2e4a1d05
+Notícies a la font
+News at the fountain
+
+@19b6084f
+A Atenes, les notícies no corren per l'Assemblea, sinó per les fonts. Allà les dones es troben cada matí, omplen els càntirs i s'expliquen el que els homes no diuen en públic. La cosina de la teva mare, Mirrina, viu al costat de la font de l'Àgora.
+In Athens, news does not travel through the Assembly but through the fountains. There women meet every morning, fill their jars and tell each other what men do not say in public. Your mother's cousin, Myrrhine, lives by the Agora fountain.
+
+@a8137f7b
+Fília
+Philia
+
+@39aa4a45
+La teva mare
+Your mother
+
+@67ea243c
+Però si ets el fill de Fília! Com has crescut. Vine, ajuda'm amb el càntir, que pesa com un bou.
+Why, you are Philia's child! How you have grown. Come, help me with the jar, it weighs as much as an ox.
+
+@3e7f319c
+Una dona honrada gairebé no surt de casa, diuen els homes. Però qui porta l'aigua? Qui va a les festes de Demèter, als funerals, a les noces? Nosaltres ho sabem tot.
+An honest woman hardly ever leaves the house, men say. But who fetches the water? Who goes to the festivals of Demeter, to funerals, to weddings? We know everything.
+
+@b7a92737
+Allò del préstec… El teu avi va demanar aquests diners l'any que van dir que el teu pare era presoner a Corint. Era per pagar-ne el rescat. Trasònides es va oferir a portar-lo ell mateix. Va tornar dient que havia arribat tard: que el teu pare havia mort.
+About the loan… Your grandfather asked for that money the year they said your father was a prisoner in Corinth. It was to pay his ransom. Thrasonides offered to take it himself. He came back saying he had arrived too late: that your father had died.
+
+@7514055a
+En una família atenesa, qui representa legalment una dona?
+In an Athenian family, who legally represents a woman?
+
+@71bed3be
+El seu kyrios: el pare, el marit o el parent home més proper
+Her kyrios: her father, her husband or her closest male relative
+
+@e487b971
+Ella mateixa, si és major d'edat
+She herself, if she is of age
+
+@81543d16
+La sacerdotessa d'Atena
+The priestess of Athena
+
+@dfed15b4
+Així és. Una dona no pot signar contractes importants ni anar a judici per si mateixa: ho fa el seu kyrios, el seu «senyor» o tutor.
+That's right. A woman cannot sign important contracts or go to court on her own: her kyrios, her “lord” or guardian, does it for her.
+
+@179626bd
+No. Encara que les dones porten la casa, la llei exigeix que un home de la família les representi.
+No. Although women run the household, the law requires a man of the family to represent them.
+
+@24eadcdd
+Llegeix l'estela de la fita de l'Àgora (horos)
+Read the stele of the Agora boundary stone (horos)
+
+@51c3cf4f
+Veus aquesta fita? Marca el límit de l'Àgora. Al camp se'n fan servir d'altres de semblants per marcar els deutes: «Horos de la terra empenyorada a Fulano per tantes dracmes». Si no pagues, la terra passa al creditor.
+See that boundary stone? It marks the edge of the Agora. In the countryside similar ones are used to mark debts: “Horos of the land pledged to So-and-so for so many drachmas”. If you do not pay, the land goes to the creditor.
+
+@78d2598b
+I mira qui ve per allà…
+And look who's coming…
+
+@d62d655d
+Parla amb la teva mare, que ha vingut a la ciutat
+Talk to your mother, who has come to the city
+
+@91f8e823
+No em podia quedar a casa esperant. El teu avi no dorm. I jo tampoc.
+I couldn't stay at home waiting. Your grandfather can't sleep. Nor can I.
+
+@a8e6a745
+Té. El teu pare va tallar aquesta òliba de bronze abans d'anar a la guerra. Va dir que era per a tu, perquè Atena et cuidés mentre ell no hi era. L'he guardada set anys.
+Here. Your father carved this bronze owl before he went to war. He said it was for you, so that Athena would look after you while he was away. I have kept it for seven years.
+
+@c4c2eb2a
+L'òliba et cap a la mà. Té una osca en una ala, com si algú l'hagués mossegat sense voler.
+The owl fits in your hand. It has a notch in one wing, as if someone had bitten it by accident.
+
+@d94ab9a0
+Prometre-li que descobriràs la veritat
+Promise her you will find out the truth
+
+@bd2a6490
+No prometis el que no depèn de tu. Promet només que tornaràs.
+Do not promise what is not up to you. Promise only that you will come back.
+
+@bd66ea35
+Preguntar-li si creu que el teu pare és viu
+Ask her whether she believes your father is alive
+
+@6b34d54a
+Cada nit em dic que no. I cada matí miro el camí.
+Every night I tell myself he isn't. And every morning I watch the road.
+
+@d3b754ef
+Mirrina t'ha donat la primera pista: el deute era el rescat del teu pare, i va ser Trasònides qui el va portar a Corint. Portes penjada al coll l'òliba de bronze.
+Myrrhine has given you the first clue: the debt was your father's ransom, and it was Thrasonides who took it to Corinth. You wear the bronze owl around your neck.
+
+@5965d7f0
+La vida de les ateneses girava al voltant de l'oikos, la casa. No votaven ni podien anar a judici, i depenien d'un kyrios. Però dirigien la llar i l'economia domèstica, tenien un gran paper en la religió (festes, funerals, sacerdocis) i llocs de trobada propis, com les fonts.
+The life of Athenian women revolved around the oikos, the household. They did not vote or go to court, and they depended on a kyrios. But they ran the home and the household economy, had a great role in religion (festivals, funerals, priesthoods) and their own meeting places, such as the fountains.
+
+@255574a7
+Economia
+Economy
+
+@1720fd4e
+El banquer que havia estat esclau
+The banker who had been a slave
+
+@a9d30368
+Si Trasònides va deixar diners, potser en queda algun rastre en un banc. El banquer més ric d'Atenes, Pasió, va començar la vida com a esclau en aquesta mateixa taula de canvi que avui és seva.
+If Thrasonides lent money, perhaps some trace remains at a bank. The richest banker in Athens, Pasion, began his life as a slave at the very money-changing table that is his today.
+
+@4495a785
+Esclau i ajudant de Pasió
+Pasion's slave and assistant
+
+@813f6db9
+Parla amb Pasió, el banquer
+Talk to Pasion, the banker
+
+@79a4b0ea
+Els bancs guardem diners, canviem monedes d'altres ciutats i deixem amb interès. I ho apuntem tot, noi. Tot.
+We banks keep money, change coins from other cities and lend at interest. And we write everything down, lad. Everything.
+
+@fd69c0cd
+Aquest préstec no va passar per la meva taula: va ser entre veïns. Però hi ha una cosa estranya… Des de fa tres anys, algú ve cada mes i diposita vint dracmes a nom d'Arquip d'Acarnes. No deixa mai el nom. Signa amb un dibuix: una òliba.
+That loan did not go through my table: it was between neighbours. But there is something odd… For three years now, someone has come every month and deposited twenty drachmas in the name of Archippus of Acharnae. He never leaves his name. He signs with a drawing: an owl.
+
+@5ee9cc80
+Et tremolen les mans. Treus l'òliba de bronze. Pasió la mira una bona estona.
+Your hands are shaking. You take out the bronze owl. Pasion looks at it for a long time.
+
+@0638b1d0
+El dibuix té una osca a l'ala, com aquesta. Parla amb Formió, al mercat: ell atén aquest home.
+The drawing has a notch in the wing, like this one. Talk to Phormion, in the market: he deals with that man.
+
+@aea67398
+Llegeix l'estela del mercat de l'Àgora
+Read the stele of the Agora market
+
+@4a8c9d1d
+D'on surt la plata de les òlibes, les monedes d'Atenes?
+Where does the silver for the owls, the coins of Athens, come from?
+
+@1e5215f1
+De les mines del Làurion, al sud de l'Àtica
+From the mines of Laurion, in the south of Attica
+
+@d11719a8
+Del tribut de Pèrsia
+From the tribute of Persia
+
+@3cd19a01
+D'Egipte, a canvi d'oli
+From Egypt, in exchange for oil
+
+@b4016c0c
+Exacte: les mines del Làurion, on treballen milers d'esclaus en condicions duríssimes.
+Exactly: the mines of Laurion, where thousands of slaves work in very harsh conditions.
+
+@2eb244da
+Pensa en l'Àtica: al sud, a prop del cap Súnion, hi ha unes mines famoses.
+Think of Attica: in the south, near Cape Sounion, there are some famous mines.
+
+@c0e64794
+Busca Formió al mercat
+Look for Phormion in the market
+
+@9e4abb09
+El de l'òliba? Ve a primera hora. Coixeja de la cama esquerra i fa olor de cola i de pintura, com els que treballen als tallers. Parla poc. Una vegada li vaig preguntar el nom i va dir: «Digues-me Doros».
+The one with the owl? He comes first thing. He limps on his left leg and smells of glue and paint, like those who work in the workshops. He says little. Once I asked his name and he said: “Call me Dorus.”
+
+@50ce6f80
+Jo també soc esclau, saps? El meu amo Pasió ho va ser. Diu que, si treballo bé, un dia seré lliure i potser dirigiré el banc. En aquesta ciutat passen aquestes coses, de vegades.
+I am a slave too, you know? My master Pasion was one. He says that if I work well, one day I will be free and perhaps run the bank. Such things happen in this city, sometimes.
+
+@9cc0ab6d
+Algú paga en secret el deute del teu avi, signa amb l'òliba que va tallar el teu pare i coixeja de la cama esquerra. No goses dir en veu alta el que penses.
+Someone is secretly paying your grandfather's debt, signs with the owl your father carved and limps on his left leg. You do not dare say out loud what you are thinking.
+
+@71452c33
+Atenes tenia una economia monetària avançada: bancs (trapezai) que canviaven monedes, guardaven dipòsits i deixaven amb interès. La plata del Làurion, extreta per esclaus, encunyava les famoses òlibes. Alguns esclaus de banquers, com Pasió, van arribar a ser lliures i rics.
+Athens had an advanced money economy: banks (trapezai) that changed coins, kept deposits and lent at interest. Silver from Laurion, mined by slaves, was struck into the famous owls. Some bankers' slaves, like Pasion, became free and rich.
+
+@a1588cf3
+L'ofrena de l'òliba
+The owl offering
+
+@2526f2a7
+Els atenesos donen gràcies als déus amb ofrenes: vasos, estatuetes, relleus. A l'Acròpoli se'n guarden milers, i els tresorers d'Atena les apunten totes als inventaris. Si el teu pare va tornar viu, potser ho va agrair a la deessa.
+Athenians thank the gods with offerings: vases, statuettes, reliefs. Thousands are kept on the Acropolis, and Athena's treasurers record each one in their inventories. If your father came back alive, perhaps he thanked the goddess.
+
+@a97e3039
+Puja a l'Acròpoli i llegeix l'estela de l'olivera d'Atena
+Go up to the Acropolis and read the stele of Athena's olive tree
+
+@20d5df45
+L'olivera sagrada es belluga amb el vent. Diuen que és la que la deessa va fer brotar quan va guanyar Atenes en la disputa amb Posidó.
+The sacred olive tree stirs in the wind. They say it is the one the goddess made sprout when she won Athens in her contest with Poseidon.
+
+@ce6cfd2d
+Parla amb Teano, sacerdotessa d'Atena Polias
+Talk to Theano, priestess of Athena Polias
+
+@6dd23565
+La deessa protegeix aquesta ciutat des d'abans que hi hagués reis. Jo cuido la seva imatge de fusta d'olivera, la més sagrada, i la seva llàntia d'or que no s'apaga mai.
+The goddess has protected this city since before there were kings. I tend her olive-wood image, the most sacred of all, and her golden lamp that never goes out.
+
+@fc970075
+Una òliba de bronze? Deixa'm veure els inventaris… Aquí. Fa tres anys, un home va dedicar una petita òliba de bronze, amb una ala oscada. La inscripció diu: «Eudem d'Acarnes, salvat, a Atena».
+A bronze owl? Let me look at the inventories… Here. Three years ago a man dedicated a small bronze owl with a notched wing. The inscription says: “Eudemus of Acharnae, saved, to Athena”.
+
+@a0088974
+El món s'atura. Fa tres anys. El teu pare no va morir a Corint. El teu pare va tornar. I no va venir a casa.
+The world stops. Three years ago. Your father did not die in Corinth. Your father came back. And he did not come home.
+
+@39c3b091
+Plora si ho necessites, noi. La deessa ha vist plorar molts en aquesta roca.
+Cry if you need to, lad. The goddess has seen many weep on this rock.
+
+@1966c500
+Quina festa celebra cada any l'aniversari d'Atena amb una gran processó fins a l'Acròpoli?
+Which festival celebrates Athena's birthday every year with a great procession up to the Acropolis?
+
+@73320d9c
+Les Panatenees
+The Panathenaea
+
+@ee79dd90
+Les Dionísies
+The Dionysia
+
+@59bf734c
+Les Tesmofòries
+The Thesmophoria
+
+@abf416a6
+Sí: a les Panatenees tota la ciutat puja en processó i porta a la deessa un peple nou teixit per noies ateneses.
+Yes: at the Panathenaea the whole city goes up in procession and brings the goddess a new peplos woven by Athenian girls.
+
+@4c1967f8
+No. Aquesta festa porta el nom de la deessa i de «tots els atenesos».
+No. That festival bears the name of the goddess and of “all the Athenians”.
+
+@fc972039
+Pregar a Atena pel teu pare
+Pray to Athena for your father
+
+@713b1741
+Poses la mà a la pedra freda i demanes una cosa molt simple: tornar-lo a veure.
+You put your hand on the cold stone and ask for something very simple: to see him again.
+
+@5de076d0
+Preguntar a Teano per què no va tornar a casa
+Ask Theano why he did not come home
+
+@2e25c292
+Hi ha ferides que no es veuen. De vegades un home no torna perquè creu que ja no és el que se'n va anar.
+Some wounds cannot be seen. Sometimes a man does not come back because he believes he is no longer the one who left.
+
+@a0955b8d
+El teu pare és viu, o ho era fa tres anys. Va tornar de Corint, va donar les gràcies a Atena… i va desaparèixer.
+Your father is alive, or was three years ago. He came back from Corinth, gave thanks to Athena… and disappeared.
+
+@ddd009b6
+La religió grega no tenia un llibre sagrat ni una església: consistia en ritus, sacrificis, festes i ofrenes. Les sacerdotesses, com la d'Atena Polias, tenien un paper públic molt important. Les ofrenes votives (exvots) es dedicaven per demanar o agrair un favor.
+Greek religion had no sacred book and no church: it consisted of rites, sacrifices, festivals and offerings. Priestesses, like that of Athena Polias, had a very important public role. Votive offerings were dedicated to ask for or give thanks for a favour.
+
+@0c3e5a34
+Guerra i memòria
+War and memory
+
+@3d63caf0
+Els noms dels morts
+The names of the dead
+
+@0401b09f
+Cada any, Atenes enterra al Ceràmic els caiguts a la guerra i grava els seus noms en grans esteles, ordenats per tribus. El teu pare hauria de ser en una d'elles.
+Every year Athens buries its war dead in the Kerameikos and carves their names on great stelae, arranged by tribe. Your father should be on one of them.
+
+@660620b2
+Arquestrata
+Archestrate
+
+@12654510
+Mare d'un caigut
+Mother of a fallen soldier
+
+@4afc9e5e
+Ves al Ceràmic, fora de la porta del Dípilon
+Go to the Kerameikos, outside the Dipylon Gate
+
+@a7732e42
+Les tombes s'arrengleren al costat del camí. Hi ha relleus de joves a cavall, de mares que s'acomiaden de les filles, de soldats que es donen la mà.
+The tombs line the road. There are reliefs of young men on horseback, of mothers saying farewell to their daughters, of soldiers shaking hands.
+
+@3baa3dc7
+A l'estela dels caiguts de l'any 394, a la columna de la tribu Eneida, hi trobes un nom: EUDEM. El toques amb els dits. El van gravar perquè el van creure mort.
+On the stele of the fallen of the year 394, in the column of the Oeneis tribe, you find a name: EUDEMUS. You touch it with your fingers. They carved it because they believed he was dead.
+
+@1bccd081
+Parla amb la dona que plora al costat de les tombes
+Talk to the woman weeping by the tombs
+
+@165c45e8
+El meu fill també és en aquesta pedra. Tenia vint anys. El seu nom hi és, però el seu cos es va quedar a Corint.
+My son is on that stone too. He was twenty. His name is there, but his body stayed in Corinth.
+
+@b87e6ef6
+Tu almenys tens una esperança. Agafa-la fort. I si trobes el teu pare, no li preguntis per què ha trigat: abraça'l.
+At least you have hope. Hold on to it. And if you find your father, don't ask him why it took so long: hug him.
+
+@1f6d0b74
+Parla amb Cleòtim, l'hoplita veterà
+Talk to Cleotimus, the veteran hoplite
+
+@f3577b13
+Eudem d'Acarnes? És clar que me'n recordo! Érem a la mateixa fila de la falange, al costat del riu Nemea, a prop de Corint. Els espartans ens van trencar l'ala.
+Eudemus of Acharnae? Of course I remember him! We were in the same rank of the phalanx, by the river Nemea, near Corinth. The Spartans broke our wing.
+
+@ebbd90f7
+El vaig veure caure amb una llança a la cama. Uns corintis aliats d'Esparta se'l van endur viu. Els presoners que ningú no rescata, els venen com a esclaus. Ho sento, noi.
+I saw him fall with a spear in his leg. Some Corinthians allied with Sparta took him away alive. Prisoners nobody ransoms are sold as slaves. I'm sorry, lad.
+
+@7dad7ab8
+Com lluitaven els hoplites grecs?
+How did Greek hoplites fight?
+
+@1a2fd2a6
+En falange: files atapeïdes, cadascú protegint amb l'escut el company de l'esquerra
+In a phalanx: tight ranks, each man protecting the comrade on his left with his shield
+
+@7ac597b8
+Cadascú pel seu compte, en duels
+Each on his own, in duels
+
+@a49caaf9
+A cavall, amb arcs
+On horseback, with bows
+
+@8bd9c320
+Això mateix. La falange només funciona si ningú no fuig: per això l'escut és el més sagrat de l'hoplita.
+That's it. The phalanx only works if nobody runs away: that is why the shield is the hoplite's most sacred possession.
+
+@7031d2b4
+No. Pensa en el gran escut rodó, l'hoplon: també protegeix el del costat.
+No. Think of the great round shield, the hoplon: it protects the man beside you too.
+
+@3089ba92
+Ara saps què va passar: el teu pare va caure ferit a la cama, el van fer presoner i, com que el rescat no va arribar mai, el van vendre com a esclau.
+Now you know what happened: your father was wounded in the leg, taken prisoner and, since the ransom never came, sold as a slave.
+
+@1afde3ab
+Atenes honorava els seus caiguts amb un funeral públic anual, un discurs fúnebre i llistes de noms al Ceràmic. Els hoplites, ciutadans que es pagaven l'armadura, combatien en falange. A la guerra de Corint (395-387 aC), Atenes, Tebes, Argos i Corint van lluitar contra Esparta.
+Athens honoured its fallen with an annual public funeral, a funeral speech and lists of names in the Kerameikos. Hoplites, citizens who paid for their own armour, fought in a phalanx. In the Corinthian War (395-387 BC), Athens, Thebes, Argos and Corinth fought against Sparta.
+
+@3e256c83
+Esclavitud
+Slavery
+
+@dcbee745
+El que val un home
+What a man is worth
+
+@1a0f236c
+A Atenes hi ha gairebé tants esclaus com ciutadans. Treballen a les cases, als tallers, a les mines. Per entendre el que va viure el teu pare, has d'escoltar-ne un.
+In Athens there are almost as many slaves as citizens. They work in houses, workshops and mines. To understand what your father went through, you must listen to one of them.
+
+@8455e577
+Cal·lias
+Callias
+
+@c35d8b5f
+Broncista del barri d'Hefest
+Bronzesmith of the Hephaestus quarter
+
+@91ea151f
+Parla amb Manes, l'esclau frigi
+Talk to Manes, the Phrygian slave
+
+@c9827792
+Em van portar de Frígia quan tenia deu anys. Em van comprar en un mercat com es compra una mula. El meu amo no és cruel, però no soc amo del meu temps, ni del meu nom: «Manes» és com diuen aquí a tots els frigis.
+They brought me from Phrygia when I was ten. I was bought in a market the way you buy a mule. My master is not cruel, but I am not master of my time, nor of my name: “Manes” is what they call all Phrygians here.
+
+@f83a7805
+Un esclau que treballa en un taller pot guardar una part del que guanya. Si estalvia molt i el seu amo hi està d'acord, compra la llibertat. Llavors és un llibert: lliure, però no ciutadà.
+A slave who works in a workshop can keep some of what he earns. If he saves a lot and his master agrees, he buys his freedom. Then he is a freedman: free, but not a citizen.
+
+@a498f1ce
+Com es convertia en esclau un grec lliure?
+How did a free Greek become a slave?
+
+@3e280aa7
+En ser capturat en una guerra, o pels pirates, i no ser rescatat
+By being captured in a war, or by pirates, and not being ransomed
+
+@46ef6392
+Per no pagar impostos
+By not paying taxes
+
+@9021a806
+Per suspendre a l'escola
+By failing at school
+
+# ---- modo Historia de Atenas (2)
+
+@7badd0ab
+Així és. La guerra era la gran fàbrica d'esclaus. Per això pagar un rescat a temps podia salvar una vida.
+That's right. War was the great factory of slaves. That is why paying a ransom in time could save a life.
+
+@13c6762f
+No. Pensa en el que li va passar al teu pare a Corint.
+No. Think about what happened to your father in Corinth.
+
+@a9e52a7e
+Un llibert que coixeja i fa olor de cola? Hi ha un tal Doros que compra bronze i fusta al barri d'Hefest, al costat del temple. Pregunta-hi.
+A freedman who limps and smells of glue? There is a certain Dorus who buys bronze and wood in the Hephaestus quarter, by the temple. Ask there.
+
+@c299511a
+Busca el broncista Cal·lias, al costat del temple d'Hefest
+Look for Callias the bronzesmith, by the temple of Hephaestus
+
+@ece28df4
+Doros? Em compra fil de bronze per armar… cares. Això fa: cares. És el millor fabricant de màscares de teatre que he vist mai, encara que no vol que ningú ho sàpiga.
+Dorus? He buys bronze wire from me to build… faces. That's what he makes: faces. He is the best maker of theatre masks I have ever seen, though he doesn't want anyone to know.
+
+@40ed9947
+Va arribar de Corint en un vaixell de Ctesó, el naviler del Pireu. Si en vols saber més, pregunta-li a ell.
+He came from Corinth on a ship of Cteson, the shipowner of the Piraeus. If you want to know more, ask him.
+
+@6bc51ff2
+El teu pare va ser esclau. Ara és lliure, però viu amagat amb un altre nom i fabrica màscares per al teatre. I va arribar en un vaixell del Pireu.
+Your father was a slave. Now he is free, but he lives in hiding under another name and makes masks for the theatre. And he arrived on a ship from the Piraeus.
+
+@10b48c72
+L'esclavitud era normal al món grec. Els esclaus venien de la guerra, la pirateria o el comerç amb pobles «bàrbars». Hi havia esclaus domèstics, artesans, miners i públics. Alguns compraven la llibertat i es convertien en lliberts, que vivien com a meteci, sense drets de ciutadania.
+Slavery was normal in the Greek world. Slaves came from war, piracy or trade with “barbarian” peoples. There were domestic slaves, craftsmen, miners and public slaves. Some bought their freedom and became freedmen, who lived as metics, without citizenship rights.
+
+@94ef0043
+Mar i comerç
+Sea and trade
+
+@ad99560b
+El quadern del naviler
+The shipowner's notebook
+
+@6e2a23fb
+Atenes viu del mar: pel Pireu entra el blat del mar Negre que l'alimenta i en surten l'oli, la ceràmica i la plata. Els navilers apunten passatgers i mercaderies, i un bon naviler no oblida mai una cara.
+Athens lives off the sea: through the Piraeus comes the Black Sea grain that feeds it, and out go oil, pottery and silver. Shipowners record passengers and cargo, and a good shipowner never forgets a face.
+
+@a92bce15
+Ves al Pireu (a peu, a cavall o amb el carreter)
+Go to the Piraeus (on foot, on horseback or with the carter)
+
+@17b2493e
+El port fa olor de brea i de peix. Hi ha vaixells d'Egipte, de Sicília, del mar Negre. Algú crida preus en cinc llengües.
+The port smells of tar and fish. There are ships from Egypt, Sicily and the Black Sea. Someone is shouting prices in five languages.
+
+@aa9075ca
+Parla amb Ctesó, el naviler
+Talk to Cteson, the shipowner
+
+@47e7405f
+Doros? El vaig portar jo des del Lequeu, el port de Corint, fa tres anys. Venia amb la cama mal curada i la carta de llibertat a la mà: el va alliberar el seu amo, un fabricant de màscares corinti, al testament.
+Dorus? I brought him myself from Lechaeum, the port of Corinth, three years ago. He came with his leg badly healed and his letter of freedom in his hand: his master, a Corinthian mask-maker, freed him in his will.
+
+@38aa6f64
+I la teva família és d'Acarnes? Quina cosa… Fa set anys també vaig portar a Corint un veí vostre, Trasònides. Anava a pagar el rescat d'un presoner, deia. Però a Corint no va anar a veure cap presoner: va comprar un carregament sencer de vasos corintis i va tornar més ric.
+And your family is from Acharnae? Fancy that… Seven years ago I also took a neighbour of yours to Corinth, Thrasonides. He was going to pay a prisoner's ransom, he said. But in Corinth he did not go to see any prisoner: he bought a whole cargo of Corinthian vases and came back richer.
+
+@79a52a09
+Ara ho entens tot. Trasònides no va pagar mai el rescat. Es va quedar els diners del teu avi, va dir que el teu pare havia mort… i ara vol la vostra terra pel mateix deute.
+Now you understand everything. Thrasonides never paid the ransom. He kept your grandfather's money, said your father had died… and now he wants your land for the same debt.
+
+@9329cc75
+D'on arriba el blat que alimenta Atenes?
+Where does the grain that feeds Athens come from?
+
+@83f48bc5
+Sobretot del mar Negre, pel Bòsfor
+Mostly from the Black Sea, through the Bosporus
+
+@9e7f8d93
+D'Esparta
+From Sparta
+
+@1f4a7d16
+De les mines del Làurion
+From the mines of Laurion
+
+@c4c0836b
+Això mateix. L'Àtica no produeix prou blat; per això a Atenes li importa tant dominar el mar.
+That's it. Attica does not grow enough grain; that is why controlling the sea matters so much to Athens.
+
+@8cdb83de
+No. L'Àtica és seca i pedregosa: el blat ve de molt lluny, per mar.
+No. Attica is dry and stony: grain comes from far away, by sea.
+
+@1f95f64a
+Anar ara mateix a buscar Trasònides
+Go after Thrasonides right now
+
+@d5d31776
+Calma. Si l'acuses sense proves, qui acabarà pagant seràs tu. Jo tinc el meu quadern de passatgers. I estic disposat a declarar.
+Calm down. If you accuse him without proof, you will be the one who pays. I have my passenger book. And I am willing to testify.
+
+@a2052c37
+Demanar a Ctesó que declari en un judici
+Ask Cteson to testify at a trial
+
+@ac5f5146
+Ho faré. Els meus quaderns diuen la veritat, i a mi no m'agraden els que es riuen de les famílies pobres.
+I will. My books tell the truth, and I don't like people who laugh at poor families.
+
+@0723394a
+Per cert, ja que vas pel port: al final del moll hi ha una barca de rems amarrada des de fa dies. Ningú no la reclama. Si algun dia vols veure el mar amb els teus propis ulls, no cal que paguis cap passatge.
+By the way, since you are at the port: at the end of the quay there is a rowing boat that has been moored for days. Nobody claims it. If one day you want to see the sea with your own eyes, you won't need to pay for a passage.
+
+@5299bd5d
+Busca al moll la barca que ningú no reclama
+Look on the quay for the boat nobody claims
+
+@c2ebd1fd
+Al final del moll, entre les grans naus de càrrega, sura una barca de rems. Té dos ulls pintats a la proa, com els trirrems, perquè «vegi» el camí, i a la popa una petita Atena de fusta. No hi ha ningú a prop.
+At the end of the quay, among the great cargo ships, floats a rowing boat. It has two eyes painted on the bow, like the triremes, so that it can “see” the way, and a small wooden Athena on the stern. There is nobody near.
+
+@99c3150c
+Hi podries pujar (E) i remar mar endins: sobre l'aigua, unes fletxes t'indicarien el camí cap a cada illa i cada costa. Però ara tens una cosa més urgent.
+You could get in (E) and row out to sea: on the water, arrows would show you the way to each island and each coast. But right now you have something more urgent.
+
+@f8716475
+Prometre't que hi tornaràs
+Promise yourself you will come back for it
+
+@c72fb2d7
+Et quedes mirant l'horitzó. Egina, les Cíclades, Creta, Àsia… Algun dia.
+You stand looking at the horizon. Aegina, the Cyclades, Crete, Asia… One day.
+
+@c2b87fb6
+Tocar l'estatueta d'Atena perquè et doni sort
+Touch the statuette of Athena for luck
+
+@da8d5a6d
+La fusta està gastada de tantes mans. Abans de salpar, els mariners sempre demanen la protecció dels déus.
+The wood is worn by so many hands. Before setting sail, sailors always ask the gods for protection.
+
+@b741bdb5
+Ja saps la veritat sobre el deute: Trasònides es va quedar el rescat. Tens un testimoni i una prova. Però et falta el més important: el teu pare. I al moll del Pireu t'espera una barca sense amo: quan vulguis, puja-hi i surt al mar.
+Now you know the truth about the debt: Thrasonides kept the ransom. You have a witness and proof. But you are missing the most important thing: your father. And at the quay of the Piraeus an ownerless boat is waiting for you: whenever you like, get in and head out to sea.
+
+@f5d91bfb
+El Pireu era el gran port d'Atenes, unit a la ciutat pels Murs Llargs. Atenes depenia del blat importat del mar Negre, Egipte i Sicília. Els navilers (naukleroi) i els comerciants (emporoi), sovint meteci, movien el comerç de l'Egeu.
+The Piraeus was the great port of Athens, joined to the city by the Long Walls. Athens depended on grain imported from the Black Sea, Egypt and Sicily. Shipowners (naukleroi) and merchants (emporoi), often metics, ran the trade of the Aegean.
+
+@b9d3a257
+Darrere la màscara
+Behind the mask
+
+@fe7198c4
+Al teatre de Dionís els actors porten màscares de lli i guix: el rei, l'esclau, la reina, el déu. Darrere l'escena, algú les fabrica. Avui hi ha funció.
+In the theatre of Dionysus the actors wear masks of linen and plaster: the king, the slave, the queen, the god. Behind the stage, someone makes them. Today there is a performance.
+
+@29425194
+Doros
+Dorus
+
+@ecf635aa
+Fabricant de màscares
+Mask-maker
+
+@317b357b
+Ves al teatre de Dionís, al vessant sud de l'Acròpoli
+Go to the theatre of Dionysus, on the south slope of the Acropolis
+
+@b7a1a160
+Catorze mil persones a les grades. A l'orquestra, el cor canta i balla. Un actor amb màscara de vell plora per un fill perdut. Al teu voltant, la gent també plora.
+Fourteen thousand people in the seats. In the orchestra the chorus sings and dances. An actor in an old man's mask weeps for a lost son. Around you, people are weeping too.
+
+@cec10779
+Parla amb Aristòfanes, el poeta còmic
+Talk to Aristophanes, the comic poet
+
+@bae4decb
+Les màscares són mitja obra, xaval. Amb tres actors has de fer tots els papers: canvies de màscara i ets un altre. El millor mascarer? Doros, sens dubte. És allà darrere, entre els decorats. No surt mai al sol.
+Masks are half the play, kid. With three actors you have to do every part: you change your mask and you are someone else. The best mask-maker? Dorus, no doubt. He's back there, among the scenery. He never comes out into the sun.
+
+@f4c0b57c
+Quants actors amb paper parlat hi podia haver en una tragèdia, a més del cor?
+How many speaking actors could there be in a tragedy, besides the chorus?
+
+@bfab982a
+Un
+One
+
+@b0849ec3
+Vint
+Twenty
+
+@6ea4f8e8
+Tres: protagonista, deuteragonista i tritagonista. Les màscares els permetien fer molts papers cadascun.
+Three: protagonist, deuteragonist and tritagonist. Masks let each of them play many parts.
+
+@b850b003
+Menys dels que et penses: per això calien tantes màscares.
+Fewer than you think: that is why so many masks were needed.
+
+@b21156f7
+Busca Doros darrere l'escena
+Look for Dorus behind the stage
+
+@84cde8a4
+Aquí no es pot passar, noi. Torna a les grades.
+You can't come through here, lad. Go back to the seats.
+
+@83cfeb3e
+Et mira. Tu treus l'òliba de bronze. Ell es queda quiet, com una de les seves màscares.
+He looks at you. You take out the bronze owl. He stands still, like one of his masks.
+
+@d2016553
+L'osca de l'ala… te la vas fer tu, amb les dents, quan tenies tres anys. La teva mare es va enfadar moltíssim.
+The notch in the wing… you made it yourself, with your teeth, when you were three. Your mother was furious.
+
+@0da0d5d9
+Eudem
+Eudemus
+
+@de1aebcb
+Sí. Soc jo. Soc el teu pare.
+Yes. It's me. I am your father.
+
+@be5d850b
+No em miris així. Què volies que fes? Tornar a Acarnes coix, sense un òbol, després de cinc anys d'esclau? Per al teu avi, jo vaig morir com un heroi al costat del riu Nemea. Era millor així. Per això pago el seu deute en secret.
+Don't look at me like that. What did you want me to do? Go back to Acharnae lame, without an obol, after five years as a slave? For your grandfather, I died a hero by the river Nemea. It was better that way. That is why I pay his debt in secret.
+
+@efdd97fe
+Abraçar-lo sense dir res
+Hug him without a word
+
+@90c80d24
+Fa olor de cola i de pintura. Tremola. Durant una llarga estona cap dels dos no diu res.
+He smells of glue and paint. He is trembling. For a long while neither of you says anything.
+
+@a6d29681
+Has crescut tant…
+You've grown so much…
+
+@b4170d2e
+Dir-li que l'heu esperat set anys
+Tell him you have waited seven years for him
+
+@555d03ba
+Ho sé. Cada dia ho sabia. I cada dia tenia menys valor per tornar.
+I know. Every day I knew it. And every day I had less courage to come back.
+
+@ba565f3b
+He de pensar. Deixa'm sol. Si us plau.
+I need to think. Leave me alone. Please.
+
+@d464a772
+Has trobat el teu pare. Però un home que s'amaga darrere màscares no es treu la seva tan fàcilment.
+You have found your father. But a man who hides behind masks does not take off his own so easily.
+
+@21e63b40
+El teatre grec va néixer a les festes de Dionís. Cada any es representaven tragèdies, comèdies i drames satírics en un concurs. Els actors, sempre homes, portaven màscares i podien fer diversos papers. La ciutat pagava l'entrada als pobres perquè ningú no se'n quedés fora.
+Greek theatre was born in the festivals of Dionysus. Every year tragedies, comedies and satyr plays were staged in a competition. The actors, always men, wore masks and could play several parts. The city paid the entrance for the poor so that nobody was left out.
+
+@ef995a0f
+És pitjor patir la injustícia o cometre-la?
+Is it worse to suffer injustice or to commit it?
+
+@876d15fc
+El teu pare creu que la seva vergonya val més que la veritat. Tu no saps què dir-li. Al bosc d'Acadèmos, fora de les muralles, un tal Plató ha obert una escola per pensar aquestes coses a poc a poc.
+Your father believes his shame is worth more than the truth. You don't know what to say to him. In the grove of Academus, outside the walls, a certain Plato has opened a school to think about these things slowly.
+
+@5345a5d2
+El teu pare
+Your father
+
+@3d8f52c5
+Ves a l'Acadèmia, al nord-oest de la ciutat
+Go to the Academy, north-west of the city
+
+@844725f3
+Oliveres, un gimnàs, joves que discuteixen a l'ombra. Ningú no crida, com a l'Àgora. Aquí s'escolta.
+Olive trees, a gymnasium, young men arguing in the shade. Nobody shouts, as in the Agora. Here people listen.
+
+@636d2a0b
+Parla amb Plató
+Talk to Plato
+
+@05660c87
+El meu mestre Sòcrates deia que és pitjor cometre una injustícia que patir-la. Qui pateix una injustícia perd diners, o salut. Qui la comet s'espatlla per dins, a l'ànima.
+My teacher Socrates said that it is worse to commit an injustice than to suffer one. Whoever suffers injustice loses money, or health. Whoever commits it is spoiled within, in the soul.
+
+@5d7d878c
+El teu pare va ser esclau. I això el fa pitjor? L'ànima no es ven al mercat. Qui s'hauria d'avergonyir és qui es va quedar el rescat, no qui va ser venut.
+Your father was a slave. Does that make him worse? The soul is not sold in the market. The one who should be ashamed is the man who kept the ransom, not the one who was sold.
+
+@f638c66f
+Segons Sòcrates, què és pitjor?
+According to Socrates, what is worse?
+
+@f8a2944a
+Cometre una injustícia
+Committing an injustice
+
+@8dd5df90
+Patir una injustícia
+Suffering an injustice
+
+@98a14417
+Les dues coses són igual de dolentes
+Both are equally bad
+
+@fbb1cf06
+Això deia Sòcrates, i per això va acceptar morir abans que fugir de la presó saltant-se les lleis.
+That is what Socrates said, and that is why he accepted death rather than escape from prison by breaking the laws.
+
+@f9edf43e
+Pensa en l'ànima: a qui espatlla la injustícia, al que la pateix o al que la fa?
+Think of the soul: whom does injustice spoil, the one who suffers it or the one who does it?
+
+@ea60c93e
+Per cert: algú t'ha seguit des de la ciutat. Fa una estona que escolta darrere d'aquella olivera.
+By the way: someone has followed you from the city. He has been listening behind that olive tree for a while.
+
+@dd6c2238
+Parla amb el teu pare, al costat de les oliveres
+Talk to your father, by the olive trees
+
+@db3a007d
+Ho he sentit tot. El filòsof té raó, i m'ha dolgut sentir-ho d'un altre abans que de mi mateix.
+I heard everything. The philosopher is right, and it hurt to hear it from someone else before hearing it from myself.
+
+@0f4abf35
+Trasònides em va robar set anys. I jo l'he deixat robar-me també la vergonya. S'ha acabat. Declararé al judici, amb el meu nom vertader.
+Thrasonides stole seven years from me. And I have let him steal my shame as well. No more. I will testify at the trial, under my true name.
+
+@775cdcd7
+Dir-li que n'estàs orgullós
+Tell him you are proud of him
+
+@a22d1770
+Calla, que em faràs plorar davant dels filòsofs.
+Hush, you'll make me cry in front of the philosophers.
+
+@dcf35f24
+Preguntar-li si tornarà a casa
+Ask him whether he will come home
+
+@f94d9903
+Primer el judici. Després… després hauré de mirar la teva mare als ulls. Això em fa més por que els espartans.
+First the trial. Then… then I will have to look your mother in the eye. That frightens me more than the Spartans.
+
+@4dea11b1
+El teu pare declararà. Ja no està sol, i tu tampoc.
+Your father is going to testify. He is no longer alone, and neither are you.
+
+@7665def8
+Plató va fundar l'Acadèmia cap al 387 aC al costat del gimnàs d'Acadèmos. Seguint Sòcrates, va defensar que la justícia és la salut de l'ànima i que és pitjor cometre una injustícia que patir-la (diàleg Gòrgias). La filosofia grega buscava respostes racionals a com viure bé.
+Plato founded the Academy around 387 BC by the gymnasium of Academus. Following Socrates, he argued that justice is the health of the soul and that it is worse to commit an injustice than to suffer one (dialogue Gorgias). Greek philosophy sought rational answers to how to live well.
+
+@c3fb4fe5
+Justícia
+Justice
+
+@9974515c
+Cinc-centes una pedres
+Five hundred and one stones
+
+@e2eef67a
+Avui es jutja la demanda de Trasònides contra el teu avi. Els jutges no són professionals: són ciutadans sortejats aquell mateix matí, centenars, perquè ningú no els pugui subornar a tots.
+Today Thrasonides's suit against your grandfather is being tried. The judges are not professionals: they are citizens chosen by lot that very morning, hundreds of them, so that nobody can bribe them all.
+
+@26770b02
+L'acusador
+The accuser
+
+@28fe6394
+Ves a les màquines de sorteig (kleroterion), a l'Àgora
+Go to the allotment machines (kleroterion), in the Agora
+
+@fd76656c
+Els ciutadans fiquen les plaquetes de bronze amb el seu nom a les ranures d'una pedra. Un funcionari tira boles blanques i negres per un tub: les blanques trien jutges, les negres els envien a casa.
+Citizens slot their small bronze plates with their names into the grooves of a stone. An official drops white and black balls down a tube: the white ones choose judges, the black ones send them home.
+
+@502412b6
+Per què els atenesos sortejaven els jutges cada matí?
+Why did the Athenians choose their judges by lot every morning?
+
+@ed78c814
+Perquè ningú no sabés per endavant qui jutjaria i fos impossible subornar-los
+So that nobody knew in advance who would judge and bribing them was impossible
+
+@b74a4e79
+Perquè ningú no volia ser jutge
+Because nobody wanted to be a judge
+
+@06bdb46c
+Per estalviar diners
+To save money
+
+@471c649e
+Exacte. A més, n'eren tants —centenars per tribunal— que comprar-los tots era impossible.
+Exactly. Besides, there were so many —hundreds per court— that buying them all was impossible.
+
+@7188e05a
+Pensa en Trasònides: un home ric. Què podria intentar si sabés qui serà jutge?
+Think of Thrasonides: a rich man. What might he try if he knew who would be a judge?
+
+@c8c18a9e
+Parla amb el teu avi abans del judici
+Talk to your grandfather before the trial
+
+@0b2a54da
+Per què em mires així? I qui és aquest home coix que…?
+Why are you looking at me like that? And who is this lame man who…?
+
+@d19dbb2d
+El teu avi es queda sense veu. Deixa caure el bastó.
+Your grandfather loses his voice. He drops his stick.
+
+@7c3813cf
+Eudem? Fill?
+Eudemus? My son?
+
+@5ec51c59
+Perdona'm, pare. Perdona'm per tot.
+Forgive me, father. Forgive me for everything.
+
+@d82d7605
+El teu avi no diu res. Li posa les dues mans a la cara, com quan era petit, i plora.
+Your grandfather says nothing. He puts both hands on his face, as when he was a boy, and weeps.
+
+@5c7b97ad
+Enfronta't a Trasònides al judici
+Face Thrasonides at the trial
+
+@f8da6f07
+L'aigua de la clepsidra comença a caure: cada part té el mateix temps per parlar. Trasònides parla primer. Ho fa bé: deute, fita, testimonis.
+The water of the clepsydra begins to run: each side has the same time to speak. Thrasonides speaks first. He does it well: debt, boundary stone, witnesses.
+
+@449bc659
+Després parleu vosaltres. Ctesó llegeix el quadern: Trasònides a Corint, sense anar a veure cap presoner. Pasió ensenya els pagaments de l'òliba. I llavors s'aixeca un home coix.
+Then it is your turn. Cteson reads from his book: Thrasonides in Corinth, never visiting any prisoner. Pasion shows the owl payments. And then a lame man stands up.
+
+@e2dbae30
+Atenesos: el meu nom està gravat a l'estela dels caiguts del Ceràmic. Però soc viu. Em van vendre com a esclau perquè el rescat del meu pare no va arribar mai a Corint. Aquest home ho sabia. Em va donar per mort per quedar-se els diners.
+Athenians: my name is carved on the stele of the fallen in the Kerameikos. But I am alive. I was sold as a slave because my father's ransom never reached Corinth. That man knew it. He declared me dead to keep the money.
+
+@86d7e4cd
+Mentida! Qui creurà un esclau?
+Lies! Who will believe a slave?
+
+@d3ec3342
+Un llibert, Trasònides. I ciutadà d'Acarnes, inscrit al meu demo. Pregunta als de la meva tribu: alguns eren al meu costat a la falange.
+A freedman, Thrasonides. And a citizen of Acharnae, enrolled in my deme. Ask the men of my tribe: some stood beside me in the phalanx.
+
+@3a146f22
+Amb què voten els jutges atenesos?
+What do Athenian judges vote with?
+
+@4fe5b76e
+Amb fitxes de bronze: la d'eix buit per condemnar i la d'eix massís per absoldre
+With bronze ballots: the one with a hollow axle to convict and the one with a solid axle to acquit
+
+@05e879af
+Aixecant la mà
+By raising their hands
+
+@dca36412
+Escrivint en una tauleta de cera
+By writing on a wax tablet
+
+@f9c00901
+Així és: cada jutge tapa l'eix amb els dits perquè ningú no vegi quina tira a l'urna. El vot és secret.
+That's right: each judge covers the axle with his fingers so that nobody can see which one he drops into the urn. The vote is secret.
+
+@22e6e997
+Recorda: el vot és secret. Es fa amb objectes de bronze que es fiquen en una urna.
+Remember: the vote is secret. It is cast with bronze objects put into an urn.
+
+@86494627
+Es compten els vots: 402 fitxes a favor vostre, 99 en contra. La demanda de Trasònides queda rebutjada, i com que no ha aconseguit ni la cinquena part dels vots, haurà de pagar una multa: un òbol per cada dracma que reclamava.
+The votes are counted: 402 ballots in your favour, 99 against. Thrasonides's suit is rejected, and since he did not get even a fifth of the votes, he will have to pay a fine: one obol for every drachma he claimed.
+
+@008edb37
+Puja al capvespre al costat de l'olivera d'Atena
+Go up at sunset to Athena's olive tree
+
+@1a803e74
+El sol es pon sobre el golf. Allà hi ha la teva mare: Mirrina l'ha portada corrents des de la font. Veu el teu pare. S'atura.
+The sun sets over the gulf. There is your mother: Myrrhine has brought her running from the fountain. She sees your father. She stops.
+
+@f6251a42
+Set anys, Eudem.
+Seven years, Eudemus.
+
+@584a472d
+Set anys, Fília.
+Seven years, Philia.
+
+@63bbb108
+No calen més paraules. El teu avi riu i plora alhora. Tu treus l'òliba de bronze i la poses a la mà del teu pare.
+No more words are needed. Your grandfather laughs and cries at once. You take out the bronze owl and place it in your father's hand.
+
+@6c3f3455
+No. És teva. Perquè Atena et cuidi. Encara que, la veritat, aquesta vegada ens has cuidat tu a nosaltres.
+No. It's yours. So that Athena looks after you. Although, to tell the truth, this time it was you who looked after us.
+
+@e390a44a
+La terra del teu avi està a salvo, Trasònides ha estat condemnat i la teva família torna a estar completa. Als inventaris d'Atena queda una òliba de bronze que explica, sense paraules, tota aquesta història.
+Your grandfather's land is safe, Thrasonides has been condemned and your family is whole again. In Athena's inventories remains a bronze owl that tells, without words, this whole story.
+
+@2fef3bf8
+Els tribunals populars d'Atenes (l'Heliea) estaven formats per centenars de ciutadans sortejats. No hi havia advocats ni fiscals: cada part parlava per si mateixa, amb un temps mesurat per la clepsidra, sovint amb discursos escrits per logògrafs com Lísias. El vot era secret i es decidia per majoria.
+The popular courts of Athens (the Heliaia) were made up of hundreds of citizens chosen by lot. There were no lawyers or prosecutors: each side spoke for itself, with time measured by the clepsydra, often with speeches written by logographers such as Lysias. The vote was secret and decided by majority.
+
+# ---- modo Historia de Roma
+
+@5f5887d6
+Una carta de Neàpolis
+A letter from Neapolis
+
+@53774f14
+Fa uns mesos el Vesuvi va colgar Pompeia i Herculà. Tu ets d'Herculà. Aquella nit el teu pare, barquer, va ajudar la gent a pujar a les barques i no va tornar. La teva mare va quedar ferida i ara viu a Neàpolis. La teva germana petita, Tèrcia, de nou anys, va pujar a una barca diferent de la teva i no vau saber mai on la van portar. Arribes a Roma amb una carta de la teva mare per a un senador que va ser amic de la família.
+A few months ago Vesuvius buried Pompeii and Herculaneum. You are from Herculaneum. That night your father, a boatman, helped people into the boats and never came back. Your mother was injured and now lives in Neapolis. Your little sister, Tertia, nine years old, got into a different boat from yours and you never found out where she was taken. You arrive in Rome with a letter from your mother for a senator who was a friend of the family.
+
+@c8679f46
+Quint Veti Grat
+Quintus Vettius Gratus
+
+@906b8bbc
+Senador, patró de la teva família
+Senator, patron of your family
+
+@0718ee3b
+Llegeix la carta de la teva mare
+Read your mother's letter
+
+@7459a649
+Roma és enorme: un milió de persones, el soroll dels carros a la nit, l'olor del pa i del fum. Desplegues la carta de la teva mare, escrita amb mà tremolosa.
+Rome is enormous: a million people, the noise of carts at night, the smell of bread and smoke. You unfold your mother's letter, written in a shaky hand.
+
+@1aead043
+Carta de la teva mare
+Your mother's letter
+
+@e153c725
+«Fill meu: busca Quint Veti Grat. El teu avi va ser client del seu pare. A Roma, qui no té patró no té ningú. Demana-li que ens ajudi a trobar Tèrcia. I menja alguna cosa calenta, que et conec.»
+“My son: look for Quintus Vettius Gratus. Your grandfather was a client of his father. In Rome, whoever has no patron has nobody. Ask him to help us find Tertia. And eat something hot, I know you.”
+
+@005532eb
+Al matí, a la porta de les cases dels rics, es fa cua. Pregunta a algun dels que esperen.
+In the morning, people queue at the doors of the rich. Ask one of those waiting.
+
+@880a5474
+Parla amb Luci Fabi, que espera a la salutatio
+Talk to Lucius Fabius, who is waiting at the salutatio
+
+@edfd9973
+Que véns a veure el senador Grat? Posa't a la cua, com tothom. Cada matí els clients venim a saludar el nostre patró, amb la toga ben posada. Ell ens dona l'espòrtula, unes monedes o un cistell de menjar, i a canvi l'acompanyem al Fòrum i l'aplaudim.
+You've come to see Senator Gratus? Join the queue, like everyone. Every morning we clients come to greet our patron, with our togas properly on. He gives us the sportula, a few coins or a basket of food, and in return we escort him to the Forum and applaud him.
+
+@034e87f2
+Què rep el client del seu patró a la salutatio?
+What does the client receive from his patron at the salutatio?
+
+@cbb780f3
+L'espòrtula: diners o menjar
+The sportula: money or food
+
+@ab69149d
+Un vot al Senat
+A vote in the Senate
+
+@2c406b1a
+Un sou fix de soldat
+A soldier's fixed pay
+
+@20482b87
+Això. I si tens un problema amb la justícia, el patró et protegeix. Almenys en teoria.
+That's it. And if you have trouble with the law, the patron protects you. In theory, at least.
+
+@b7ccaa41
+No. Pensa en la «cistelleta»: això vol dir sportula.
+No. Think of the “little basket”: that is what sportula means.
+
+@397ad5c1
+Parla amb el senador Quint Veti Grat
+Talk to Senator Quintus Vettius Gratus
+
+@95be85bd
+Grat
+Gratus
+
+@d13f3e4b
+Herculà? Terrible, terrible. Té, noi, la teva espòrtula. Ja veuré què es pot fer. Torna d'aquí a unes setmanes.
+Herculaneum? Terrible, terrible. Here, lad, your sportula. I'll see what can be done. Come back in a few weeks.
+
+@40bced02
+I ja està. Es gira i continua saludant els altres clients. Ni tan sols ha obert la carta de la teva mare.
+And that's that. He turns away and carries on greeting the other clients. He hasn't even opened your mother's letter.
+
+@face125f
+Un jove que era a prop ho ha vist tot. S'acosta.
+A young man nearby has seen everything. He comes over.
+
+@e18998e8
+Parla amb el jove que t'ha vist: Plini
+Talk to the young man who saw you: Pliny
+
+@b9278fc4
+Perdona que m'hi fiqui. Em dic Gai Plini. Jo també hi era, a Misè, aquella nit. El meu oncle manava la flota. Va sortir amb les naus a rescatar la gent de la costa… i no va tornar.
+Sorry to intrude. My name is Gaius Plinius. I was there too, at Misenum, that night. My uncle commanded the fleet. He set out with the ships to rescue people from the coast… and did not come back.
+
+@9db67567
+Les naus del meu oncle van recollir gent a la platja. Potser algú va apuntar els noms. Escriuré a Misè. Mentrestant, ves a veure les vestals: l'emperador ha manat repartir ajuda als refugiats de Campània, i elles saben qui s'ha acollit als temples.
+My uncle's ships picked people up from the beach. Perhaps someone wrote down the names. I will write to Misenum. Meanwhile, go and see the Vestals: the emperor has ordered aid for the refugees from Campania, and they know who has been taken in at the temples.
+
+@91e5f639
+Donar-li les gràcies i dir-li que ho sents pel seu oncle
+Thank him and say you are sorry about his uncle
+
+@2d5b4d5c
+Gràcies. Era un home que no deixava mai de llegir, ni al bany. Va morir per anar a ajudar. M'agradaria que això servís d'alguna cosa.
+Thank you. He was a man who never stopped reading, not even in the bath. He died going to help. I would like that to count for something.
+
+@7beaf5c5
+Preguntar-li per què t'ajuda
+Ask him why he is helping you
+
+@02e48a36
+Perquè si el meu oncle t'hagués vist, ja t'estaria ajudant. I perquè estic fart dels senadors que no obren les cartes.
+Because if my uncle had seen you, he would already be helping you. And because I'm sick of senators who don't open their letters.
+
+@c723deeb
+I quan vagis a veure la teva mare a Neàpolis, ves-hi per mar, com feia el teu pare. A l'Empori, al costat del Tíber, hi ha una barca vella amarrada que ningú no fa servir des de fa dies. Riu avall s'arriba a Òstia i, costejant cap al sud, al golf de Neàpolis.
+And when you go to see your mother in Neapolis, go by sea, as your father did. At the Emporium, by the Tiber, there is an old boat moored that nobody has used for days. Downriver you reach Ostia and, hugging the coast southwards, the gulf of Neapolis.
+
+@4017d912
+Busca a l'Empori la barca que ningú no fa servir
+Look at the Emporium for the boat nobody uses
+
+@6e698bac
+Entre les barcasses que descarreguen àmfores, sura una barca de rems. Té dos ulls pintats a la proa, un coll de cigne de fusta a la popa i una petita estatueta de Neptú amb el trident. No hi ha ningú a prop.
+Among the barges unloading amphorae floats a rowing boat. It has two eyes painted on the bow, a wooden swan's neck on the stern and a small statuette of Neptune with his trident. There is nobody near.
+
+@a301fa3a
+Et recordes del teu pare, el barquer d'Herculà. Hi podries pujar (E) i baixar pel riu fins al mar: sobre l'aigua, unes fletxes t'indicarien el camí. Però abans has de continuar buscant Tèrcia.
+You remember your father, the boatman of Herculaneum. You could get in (E) and go down the river to the sea: on the water, arrows would show you the way. But first you must keep looking for Tertia.
+
+@bf9f7f6c
+Prometre't que hi aniràs a veure la teva mare
+Promise yourself you will take it to see your mother
+
+@dacfb304
+Neàpolis, el golf, el Vesuvi encara fumejant… Algun dia travessaràs aquest mar.
+Neapolis, the gulf, Vesuvius still smoking… One day you will cross that sea.
+
+@b84ddb7b
+Tocar l'estatueta de Neptú, com feia el teu pare
+Touch the statuette of Neptune, as your father did
+
+@dc7c0d4a
+El teu pare sempre tocava l'estatueta abans de deixar anar amarres. Els mariners demanen a Neptú que els torni sans a casa.
+Your father always touched the statuette before casting off. Sailors ask Neptune to bring them home safe.
+
+@5ed834ba
+El teu patró no t'ha fet cas, però has trobat un amic inesperat: Plini, que va perdre el seu oncle en la mateixa erupció. I a l'Empori t'espera una barca sense amo: quan vulguis, puja-hi i baixa al mar.
+Your patron ignored you, but you have found an unexpected friend: Pliny, who lost his uncle in the same eruption. And at the Emporium an ownerless boat is waiting for you: whenever you like, get in and go down to the sea.
+
+@7deff27f
+La societat romana es basava en el clientelisme: els clients saludaven cada matí el seu patró (salutatio), l'acompanyaven en públic i rebien a canvi protecció i l'espòrtula. Les relacions personals importaven més que les institucions per resoldre problemes.
+Roman society was based on patronage: clients greeted their patron every morning (salutatio), escorted him in public and received protection and the sportula in return. Personal relationships mattered more than institutions for solving problems.
+
+@3af92fe4
+Religió romana
+Roman religion
+
+@0a537cab
+El foc que no s'apaga mai
+The fire that never goes out
+
+@f1396856
+Al temple rodó de Vesta crema el foc sagrat de Roma. Sis sacerdotesses, les vestals, el cuiden dia i nit. Són dones molt respectades: poden testificar, fer testament i fins i tot salvar un condemnat si se'l creuen.
+In the round temple of Vesta burns the sacred fire of Rome. Six priestesses, the Vestals, tend it day and night. They are highly respected women: they can testify, make a will and even save a condemned man if they cross his path.
+
+@7deb4237
+Llegeix l'estela del temple de Vesta, al Fòrum
+Read the stele of the temple of Vesta, in the Forum
+
+@07d5b960
+Dins del temple no hi ha estàtua: només el foc. Si s'apagués, seria el pitjor dels senyals per a Roma.
+Inside the temple there is no statue: only the fire. If it went out, it would be the worst of omens for Rome.
+
+@70f2afd0
+Parla amb Cornèlia, la vestal
+Talk to Cornelia, the Vestal
+
+@2d9c6d13
+Des de l'erupció, l'emperador Titus ha nomenat comissionats per ajudar Campània. Els temples han acollit nens que arribaven sols en vaixells de gra o de la flota.
+Since the eruption, the emperor Titus has appointed commissioners to help Campania. The temples have taken in children who arrived alone on grain ships or fleet vessels.
+
+@8b0a9f2c
+Recordo una nena d'Herculà. S'asseia a l'escalinata d'aquest temple i repetia una cançó de barquers. Preguntava pel seu germà. La vam anotar a les llistes del tresor del temple de Saturn, com a tothom.
+I remember a girl from Herculaneum. She used to sit on the steps of this temple and repeat a boatmen's song. She asked about her brother. We wrote her down in the treasury lists of the temple of Saturn, like everyone.
+
+@cc9f1099
+Però un dia ja no va venir. Ho sento. Busca el seu nom al temple de Saturn.
+But one day she stopped coming. I'm sorry. Look for her name at the temple of Saturn.
+
+@afa091d8
+Què guarden les vestals al temple de Vesta?
+What do the Vestals keep in the temple of Vesta?
+
+@d0459900
+El foc sagrat de Roma, que no es pot apagar mai
+The sacred fire of Rome, which must never go out
+
+@b2f3115d
+Les armes de Ròmul
+The weapons of Romulus
+
+@c768e91b
+El foc i alguns objectes sagrats que només elles poden veure. El tresor és al temple de Saturn: allà aniràs ara.
+The fire and some sacred objects that only they may see. The treasury is in the temple of Saturn: that is where you go now.
+
+@65bb778c
+Pensa en el nom de la deessa: Vesta és la deessa de la llar.
+Think of the goddess's name: Vesta is the goddess of the hearth.
+
+@95fa1bce
+Tèrcia va ser aquí, a pocs passos del foc de Vesta, cantant la cançó dels barquers del vostre pare. És viva. O ho era.
+Tertia was here, a few steps from Vesta's fire, singing your father's boatmen's song. She is alive. Or she was.
+
+@69a05596
+La religió romana era una religió de l'Estat: els seus ritus garantien la «pau amb els déus». Les vestals, escollides de nenes, servien trenta anys cuidant el foc de Vesta, símbol de la llar de Roma. Tenien privilegis que cap altra dona romana no tenia.
+Roman religion was a state religion: its rites guaranteed the “peace with the gods”. The Vestals, chosen as girls, served thirty years tending Vesta's fire, the symbol of Rome's hearth. They had privileges no other Roman woman had.
+
+@ee473284
+Dret i ciutadania
+Law and citizenship
+
+@ab91fe17
+Una línia al registre
+A line in the register
+
+@f1d642ee
+Al temple de Saturn es guarda el tresor de l'Estat i molts registres. Allà s'apunten, entre altres coses, els naixements dels fills de ciutadans. Però els registres també poden explicar mentides.
+The temple of Saturn holds the state treasury and many registers. Among other things, the births of citizens' children are recorded there. But registers can tell lies too.
+
+@afbcc6ed
+Eros
+Eros
+
+@a816ce9c
+Esclau públic del tresor
+Public slave of the treasury
+
+@39168be5
+Llegeix l'estela del temple de Saturn
+Read the stele of the temple of Saturn
+
+@5c9b1f5a
+Parla amb Eros, l'escrivà del tresor
+Talk to Eros, the treasury scribe
+
+@ab22d674
+Una nena d'Herculà que es diu Tèrcia? Deixa'm mirar… Aquí hi ha la llista dels refugiats. I aquí… vaja.
+A girl from Herculaneum called Tertia? Let me look… Here is the list of refugees. And here… oh dear.
+
+@1666d665
+Hi ha una anotació posterior, d'una venda: «Una nena campana, anomenada Tèrcia, comprada a Putèoli per Gai Pompeu Hermeros, llibert». La té registrada com a esclava seva.
+There is a later note, of a sale: “A Campanian girl, called Tertia, bought at Puteoli by Gaius Pompeius Hermeros, freedman”. He has her registered as his slave.
+
+@4dd4adcc
+Sents que et falta l'aire. La teva germana, venuda com a esclava.
+You feel the air go out of you. Your sister, sold as a slave.
+
+@6a3a9dd1
+Si és filla de ciutadans, això no val res. Però cal demostrar-ho. Pregunta a un advocat o a un senador jove. Per aquí volta Tàcit.
+If she is the daughter of citizens, this is worth nothing. But it has to be proved. Ask a lawyer or a young senator. Tacitus is around here.
+
+@f573e69e
+Parla amb Tàcit, el jove senador
+Talk to Tacitus, the young senator
+
+@e5bfc317
+Un ciutadà nascut lliure no pot ser esclau, encara que algú el vengui. Es fa un judici per la llibertat, una causa liberalis. Algú lliure l'ha de defensar en nom seu: tu mateix, si ets major d'edat, o un amic.
+A citizen born free cannot be a slave, even if someone sells him. A trial for freedom is held, a causa liberalis. Someone free must defend the case on their behalf: you yourself, if you are of age, or a friend.
+
+@337d005e
+Fa poc hi va haver un cas així a Herculà: una tal Petrònia Justa va haver de demostrar que havia nascut lliure. La millor prova és la declaració de naixement. Però les de la vostra família s'hauran cremat amb la ciutat, oi?
+Not long ago there was a case like this in Herculaneum: a certain Petronia Iusta had to prove she had been born free. The best proof is the birth declaration. But your family's will have burned with the city, won't they?
+
+@abbca3d9
+Si un ciutadà romà nascut lliure és venut com a esclau, què diu la llei?
+If a freeborn Roman citizen is sold as a slave, what does the law say?
+
+@dfc96d04
+Continua sent lliure: ho pot reclamar en un judici per la llibertat
+They remain free: they can claim it in a trial for freedom
+
+@f275af5f
+Passa a ser esclau del comprador
+They become the buyer's slave
+
+@16575243
+Perd la ciutadania per sempre
+They lose citizenship for ever
+
+@8818ccda
+Exacte. La llibertat d'un ciutadà no es pot comprar ni vendre. Però cal provar-la davant d'un jutge.
+Exactly. A citizen's freedom cannot be bought or sold. But it has to be proved before a judge.
+
+@dc588677
+No. A Roma la llibertat de naixement era una cosa que no es podia perdre per una venda.
+No. In Rome, freedom by birth was something that could not be lost through a sale.
+
+@3e8e9ba6
+Primer, esbrina qui és aquest Hermeros i per què la va comprar. De vegades la veritat és més complicada que una línia en un registre.
+First, find out who this Hermeros is and why he bought her. Sometimes the truth is more complicated than a line in a register.
+
+@f4a8a7ab
+Tèrcia està registrada com a esclava d'un llibert ric, Hermeros. La llei és de la teva part, però necessitaràs proves.
+Tertia is registered as the slave of a rich freedman, Hermeros. The law is on your side, but you will need proof.
+
+@ec7c48c0
+Roma distingia entre ciutadans, estrangers (peregrins), esclaus i lliberts. El naixement dels fills de ciutadans es declarava oficialment (professio liberorum). Qui era esclavitzat injustament podia recuperar la llibertat mitjançant una causa liberalis, en què un home lliure el defensava.
+Rome distinguished between citizens, foreigners (peregrini), slaves and freedmen. The birth of citizens' children was officially declared (professio liberorum). Anyone unjustly enslaved could recover their freedom through a causa liberalis, in which a free man defended them.
+
+@d3542bb9
+Economia i esclavitud
+Economy and slavery
+
+@3678b261
+El llibert que va comprar una nena
+The freedman who bought a girl
+
+@3ea07fdd
+Gai Pompeu Hermeros va ser esclau, va comprar la llibertat i ara és ric gràcies al comerç. Molts senadors el menyspreen pel seu passat. Tu ni tan sols saps si és un dolent.
+Gaius Pompeius Hermeros was a slave, bought his freedom and is now rich from trade. Many senators despise him for his past. You don't even know whether he is a villain.
+
+@03778c7d
+Pregunta per Hermeros a Eutiques, el comerciant de l'Empori
+Ask Eutyches, the Emporium merchant, about Hermeros
+
+@aa830c96
+Eutiques
+Eutyches
+
+@cb0f47ee
+Hermeros? Porta vi d'Hispània i blat d'Egipte. Va començar sense res: el van vendre de petit al mercat de Delos, com una mercaderia. Ara té tres vaixells.
+Hermeros? He brings wine from Hispania and grain from Egypt. He started with nothing: he was sold as a child in the market of Delos, like merchandise. Now he has three ships.
+
+@e09436ee
+Per aquí passa de tot, noi: gra, oli, marbre… i persones. Després de l'erupció van aparèixer traficants que recollien nens perduts a la costa i els venien a Putèoli. Una vergonya.
+Everything passes through here, lad: grain, oil, marble… and people. After the eruption, traffickers appeared who picked up lost children on the coast and sold them at Puteoli. A disgrace.
+
+@747b8dd8
+Què era l'annona?
+What was the annona?
+
+@742ec887
+El repartiment de blat gratuït o barat als ciutadans de Roma
+The distribution of free or cheap grain to the citizens of Rome
+
+@e862794b
+Un impost sobre els esclaus
+A tax on slaves
+
+@9332e0f1
+Una festa de la collita
+A harvest festival
+
+@2d03494c
+Això. Més de dos-cents mil romans reben blat de l'annona, que arriba sobretot d'Egipte i d'Àfrica.
+That's it. More than two hundred thousand Romans receive grain from the annona, which comes mainly from Egypt and Africa.
+
+@47e806e6
+No. Pensa en el que necessita una ciutat d'un milió de persones per no passar gana.
+No. Think of what a city of a million people needs so as not to go hungry.
+
+@332ffd66
+Parla amb Hermeros, el llibert
+Talk to Hermeros, the freedman
+
+@a21a1f51
+Hermeros
+Hermeros
+
+@40ad0ed7
+Tèrcia? Ets el seu germà? Seu. T'explicaré la veritat, encara que no em deixi en bon lloc.
+Tertia? Are you her brother? Sit down. I will tell you the truth, even if it does not reflect well on me.
+
+@8c0a466b
+La vaig veure a Putèoli, en un estrat de venda, amb un cartell penjat del coll. Un traficant se la volia endur a Orient. Jo vaig ser en un estrat així, a la seva edat. Vaig pagar el que demanaven. No la podia deixar allà.
+I saw her at Puteoli, on a sale platform, with a placard hanging round her neck. A trafficker was going to take her to the East. I stood on a platform like that at her age. I paid what they asked. I couldn't leave her there.
+
+@26a33e1d
+La vaig apuntar com a esclava perquè era l'única manera legal de treure-la d'allà. A casa meva estudiava amb els meus fills. Però fa un mes, quan va arribar l'epidèmia, es va posar malalta. Jo era a Òstia. El meu majordom va tenir por del contagi i… la va portar a l'illa del Tíber, amb els malalts.
+I registered her as a slave because it was the only legal way to get her out of there. In my house she studied with my children. But a month ago, when the epidemic came, she fell ill. I was in Ostia. My steward was afraid of contagion and… took her to the Tiber island, with the sick.
+
+@f3de278d
+Quan vaig tornar ja no hi era. No he dormit bé des de llavors.
+When I came back she was gone. I haven't slept well since.
+
+@22195c16
+Perdonar-lo
+Forgive him
+
+@45dd4fad
+No sé si m'ho mereixo. Però declararé davant del jutge que la teva germana va néixer lliure. T'ho juro pels meus Lars.
+I don't know if I deserve it. But I will declare before the judge that your sister was born free. I swear it by my Lares.
+
+@aa4ce148
+Retreure-li el que va fer el seu majordom
+Reproach him for what his steward did
+
+@2b44fa93
+Tens raó. A casa meva, la culpa del que fan els meus esclaus és meva. Declararé que la teva germana va néixer lliure; és el mínim.
+You're right. In my house, the blame for what my slaves do is mine. I will declare that your sister was born free; it is the least I can do.
+
+@b25e4df5
+Abans d'anar a l'illa, passa per l'escola dels meus fills. Tèrcia hi va deixar una cosa que voldràs veure.
+Before you go to the island, stop by my children's school. Tertia left something there you will want to see.
+
+@f1b6d20b
+Hermeros no és un dolent: és un antic esclau que va comprar la teva germana per salvar-la, encara que després li va fallar. I Tèrcia va estar malalta a l'illa del Tíber.
+Hermeros is not a villain: he is a former slave who bought your sister to save her, even though he later failed her. And Tertia was ill on the Tiber island.
+
+@409a9af9
+Roma era una societat esclavista. Els esclaus es compraven en grans mercats com Delos o Putèoli. Molts lliberts, com Hermeros, es van fer rics amb el comerç, encara que l'elit els menyspreava. L'annona garantia el blat a la plebs de Roma.
+Rome was a slave society. Slaves were bought in great markets such as Delos or Puteoli. Many freedmen, like Hermeros, grew rich through trade, although the elite despised them. The annona guaranteed grain for the plebs of Rome.
+
+@c77e9b86
+Educació
+Education
+
+@d55f538a
+El que va escriure Tèrcia
+What Tertia wrote
+
+@5fc98312
+Els nens romans de famílies amb una mica de diners aprenen a llegir, escriure i comptar amb un mestre de primeres lletres, des dels set anys. Escriuen en tauletes de cera amb un punxó.
+Roman children from families with some money learn to read, write and count with an elementary teacher, from the age of seven. They write on wax tablets with a stylus.
+
+@3c5e8197
+Prim
+Primus
+
+@05778e28
+Fill d'Hermeros, company de Tèrcia
+Son of Hermeros, Tertia's classmate
+
+@7758b468
+Parla amb Flavi, el mestre de primeres lletres
+Talk to Flavius, the elementary teacher
+
+@cc83bd29
+El germà de Tèrcia? Era la millor de la classe amb els números, i la pitjor callant. Es nota que és de família de barquers: cantava remant amb els braços.
+Tertia's brother? She was the best in the class with numbers, and the worst at keeping quiet. You can tell she comes from a family of boatmen: she sang while rowing with her arms.
+
+@8a0a604e
+Es va oblidar això aquí. La seva tauleta de cera.
+She forgot this here. Her wax tablet.
+
+@71c6f83f
+A la cera hi ha lletres tortes: MATER · FRATER · DOMVS. I a sota, un dibuix: una muntanya que treu fum, el mar, una barca. I dues figures petites agafades de la mà.
+In the wax there are crooked letters: MATER · FRATER · DOMVS. And below, a drawing: a mountain belching smoke, the sea, a boat. And two small figures holding hands.
+
+@526506cb
+Amb què escriuen els nens a la tauleta de cera?
+What do children write with on a wax tablet?
+
+@971c7de5
+Amb un estil o punxó: la punta escriu i l'altre extrem, pla, esborra
+With a stylus: the point writes and the other, flat end erases
+
+@79986deb
+Amb ploma i tinta
+With pen and ink
+
+@bf8af547
+Amb guix
+With chalk
+
+@ce482dc3
+Així és. La cera es pot allisar i tornar a fer servir mil vegades. El papir és car i es reserva per a les coses importants.
+That's right. The wax can be smoothed and reused a thousand times. Papyrus is expensive and kept for important things.
+
+@09d39329
+No. Pensa en com s'esborra la cera: cal un instrument amb dos extrems diferents.
+No. Think of how the wax is erased: you need a tool with two different ends.
+
+@9956c333
+Parla amb Prim, el fill d'Hermeros
+Talk to Primus, Hermeros's son
+
+@6eecbf05
+Tèrcia em va ensenyar a xiular amb dos dits. Va dir que el seu germà li ho havia ensenyat a ella.
+Tertia taught me to whistle with two fingers. She said her brother had taught her.
+
+@295348ea
+Quan se la van endur a l'illa, plorava. Em va dir: «Si ve el meu germà, digues-li que l'espero».
+When they took her to the island, she was crying. She told me: “If my brother comes, tell him I'm waiting.”
+
+@7d733ec8
+Ensenyar a Prim el xiulet amb dos dits
+Show Primus the two-finger whistle
+
+@38487bbb
+Xiuleu tots dos alhora. Per un moment, és com si Tèrcia fos aquí.
+You both whistle at once. For a moment, it is as if Tertia were here.
+
+@ab222c67
+Prometre a Prim que la portaràs
+Promise Primus you will bring her back
+
+@9c5b433e
+De debò? Doncs t'espero.
+Really? Then I'll wait for you.
+
+@6870fcb7
+Portes la tauleta de cera de Tèrcia: un dibuix de casa vostra abans del volcà. I saps que t'està esperant.
+You carry Tertia's wax tablet: a drawing of your house before the volcano. And you know she is waiting for you.
+
+@ef04760c
+L'educació romana tenia tres etapes: el mestre de primeres lletres (ludi magister), el gramàtic, que ensenyava literatura grega i llatina, i el rètor, que ensenyava a parlar en públic. No era obligatòria ni gratuïta, i moltes nenes només feien la primera etapa.
+Roman education had three stages: the elementary teacher (ludi magister), the grammarian, who taught Greek and Latin literature, and the rhetor, who taught public speaking. It was neither compulsory nor free, and many girls only did the first stage.
+
+@8745df3f
+Medicina
+Medicine
+
+@981bdf37
+L'illa d'Esculapi
+The island of Aesculapius
+
+@4e2bb209
+Al mig del Tíber hi ha una illa en forma de vaixell. Allà hi ha el temple d'Esculapi, el déu de la medicina, que va arribar a Roma fa tres segles durant una epidèmia. Avui és ple de malalts.
+In the middle of the Tiber there is a ship-shaped island. There stands the temple of Aesculapius, the god of medicine, who came to Rome three centuries ago during an epidemic. Today it is full of the sick.
+
+@288a3ac2
+Ves a l'illa del Tíber i llegeix-ne l'estela
+Go to the Tiber island and read its stele
+
+@f4aa991e
+Hi ha malalts estirats als pòrtics, dormint al costat del temple amb l'esperança que el déu els curi en somnis. D'altres només esperen.
+The sick lie in the porticoes, sleeping by the temple in the hope that the god will heal them in their dreams. Others just wait.
+
+@370f57b7
+Parla amb Asclepíades, el metge grec
+Talk to Asclepiades, the Greek doctor
+
+@ff32857e
+Aquesta epidèmia és de les pitjors que recordo. Molts amos porten aquí els seus esclaus malalts per no pagar metge. Per això l'emperador Claudi va donar una llei: l'esclau abandonat en aquesta illa que es curi queda lliure, i el seu amo perd tot dret sobre ell.
+This epidemic is one of the worst I remember. Many masters bring their sick slaves here so as not to pay a doctor. That is why the emperor Claudius passed a law: a slave abandoned on this island who recovers becomes free, and his master loses all rights over him.
+
+@b8077d50
+Una nena d'Herculà amb febre? Sí, me'n recordo. Es va curar. I gràcies a aquesta llei, és lliure davant de qualsevol jutge! La cuidava una dona del Trastevere, una teixidora jueva. Se la va endur a casa quan es va curar.
+A girl from Herculaneum with a fever? Yes, I remember her. She recovered. And thanks to that law, she is free before any judge! A woman from Trastevere looked after her, a Jewish weaver. She took her home when she got better.
+
+@49c40663
+Què establia la llei de Claudi sobre els esclaus abandonats a l'illa del Tíber?
+What did the law of Claudius establish about slaves abandoned on the Tiber island?
+
+@e68385ee
+Si es curaven, quedaven lliures
+If they recovered, they became free
+
+@772f99b4
+Havien de tornar amb el seu amo
+They had to go back to their master
+
+@bfa796ff
+Passaven a ser esclaus del temple
+They became slaves of the temple
+
+@daab72b3
+Això mateix. Va ser una de les primeres lleis romanes que protegia els esclaus de la crueltat dels seus amos.
+That's it. It was one of the first Roman laws to protect slaves from the cruelty of their masters.
+
+@2e6a7877
+No. L'emperador va voler castigar els amos que abandonaven els seus esclaus malalts.
+No. The emperor wanted to punish masters who abandoned their sick slaves.
+
+@ffb9084d
+I tu, noi, renta't les mans abans de marxar. No em refio d'aquesta febre.
+And you, lad, wash your hands before you leave. I don't trust this fever.
+
+@1c41b0a5
+Tèrcia va sobreviure a l'epidèmia, i a més la llei l'ha feta lliure. Ara viu al Trastevere, amb una teixidora jueva.
+Tertia survived the epidemic, and the law has also made her free. She now lives in Trastevere, with a Jewish weaver.
+
+@03b28761
+La medicina romana barrejava la religió (el culte a Esculapi, somnis curatius als temples) amb la ciència dels metges, gairebé sempre grecs. Suetoni explica que l'any 80 hi va haver a Roma una epidèmia gravíssima. L'emperador Claudi va donar la llei que alliberava els esclaus malalts abandonats a l'illa.
+Roman medicine mixed religion (the cult of Aesculapius, healing dreams in temples) with the science of doctors, almost always Greek. Suetonius says that in the year 80 there was a very severe epidemic in Rome. The emperor Claudius passed the law freeing sick slaves abandoned on the island.
+
+@5591b3c6
+Religions i comunitats
+Religions and communities
+
+@def2e87b
+Una espelma encesa al Trastevere
+A candle lit in Trastevere
+
+@1f7f3656
+A l'altra banda del Tíber, al Trastevere, hi viuen mariners, artesans i molts estrangers: siris, egipcis, jueus. Cada comunitat té els seus déus, les seves festes i els seus costums, i Roma, en general, les deixa viure.
+Across the Tiber, in Trastevere, live sailors, craftsmen and many foreigners: Syrians, Egyptians, Jews. Each community has its gods, its festivals and its customs, and Rome, as a rule, lets them be.
+
+@36613a16
+Busca Dèbora, la teixidora, al Trastevere
+Look for Deborah, the weaver, in Trastevere
+
+@0c9273c2
+Així que tu ets el germà. Tèrcia no parava de parlar de tu. Passa, passa. Avui és divendres: quan es pongui el sol comença el dissabte, el dia de descans. Encendrem una llàntia.
+So you're the brother. Tertia never stopped talking about you. Come in, come in. Today is Friday: when the sun sets the Sabbath begins, the day of rest. We will light a lamp.
+
+@21e326e3
+Jo vaig venir de Judea fa deu anys, després que les legions de Titus destruïssin Jerusalem i el nostre Temple. Hi vaig perdre la meva filla, que ara tindria l'edat de Tèrcia. Quan la vaig veure sola a l'illa, cremant de febre, no la vaig poder deixar.
+I came from Judaea ten years ago, after the legions of Titus destroyed Jerusalem and our Temple. I lost my daughter there, who would now be Tertia's age. When I saw her alone on the island, burning with fever, I could not leave her.
+
+@b017efe6
+Però no és aquí. Aquest matí se n'ha anat amb el meu nebot a portar teles al mercat del Camp de Mart, al costat dels temples d'Isis. I volia veure l'amfiteatre nou: no parla d'altra cosa.
+But she isn't here. This morning she went with my nephew to take cloth to the market in the Campus Martius, by the temples of Isis. And she wanted to see the new amphitheatre: she talks of nothing else.
+
+@3d667737
+Quin dia de la setmana descansen els jueus?
+On which day of the week do Jews rest?
+
+@5820bfa6
+El dissabte (sabbat), des de la posta de sol del divendres
+Saturday (the Sabbath), from sunset on Friday
+
+@dec437e9
+El diumenge
+Sunday
+
+@4d197127
+El primer dia de cada mes
+The first day of each month
+
+@f4b61661
+Així és. Als romans els semblava molt estrany que algú descansés un dia de cada set; alguns se'n burlaven, i d'altres ho imitaven.
+That's right. The Romans found it very strange that anyone would rest one day in seven; some mocked it, and others copied it.
+
+@eeb3bbef
+No. El descans comença el divendres, quan es pon el sol.
+No. The rest begins on Friday, when the sun sets.
+
+@dbc2835a
+Donar les gràcies a Dèbora per cuidar la teva germana
+Thank Deborah for looking after your sister
+
+@d87a3e8a
+No me les donis. M'ha tornat una cosa que creia perduda: les ganes de cantar.
+Don't thank me. She has given me back something I thought was lost: the wish to sing.
+
+@90b22de5
+Preguntar-li com és viure a Roma essent jueva
+Ask her what it is like to live in Rome as a Jew
+
+@fd73ec37
+Paguem un impost especial des de la caiguda de Jerusalem i alguns es riuen dels nostres costums. Però aquí tenim les nostres sinagogues, els nostres veïns i el nostre dissabte. Es viu.
+We have paid a special tax since the fall of Jerusalem and some laugh at our customs. But here we have our synagogues, our neighbours and our Sabbath. One gets by.
+
+@fb2c6c3c
+Per un moment, a casa de Dèbora, has sentit què és una família un altre cop. Tèrcia és molt a prop, en algun lloc entre l'amfiteatre i el Camp de Mart.
+For a moment, in Deborah's house, you have felt what a family is again. Tertia is very close, somewhere between the amphitheatre and the Campus Martius.
+
+@9f906119
+Roma acollia moltes religions: els cultes tradicionals, els d'Orient (Isis, la Gran Mare, Mitra) i comunitats com la jueva, nombrosa al Trastevere, o els primers cristians. Es toleraven mentre no amenacessin l'ordre públic; després de la guerra de Judea (66-70), els jueus pagaven un impost especial.
+Rome welcomed many religions: the traditional cults, those from the East (Isis, the Great Mother, Mithras) and communities such as the Jews, numerous in Trastevere, or the first Christians. They were tolerated as long as they did not threaten public order; after the Judaean war (66-70), Jews paid a special tax.
+
+@46b8d2c2
+Cent dies de jocs
+A hundred days of games
+
+@9d9f1e78
+Titus inaugura l'Amfiteatre Flavi amb cent dies d'espectacles: caceres d'animals, combats de gladiadors, fins i tot batalles navals. Cinquanta mil persones omplen les grades. Trobar-hi una nena és com buscar un gra de blat en un graner.
+Titus opens the Flavian Amphitheatre with a hundred days of shows: animal hunts, gladiator fights, even naval battles. Fifty thousand people fill the stands. Finding a girl there is like looking for a grain of wheat in a granary.
+
+@17fb02cb
+Ves a l'Amfiteatre Flavi
+Go to the Flavian Amphitheatre
+
+@7f14c150
+El soroll és eixordador. Cadascú seu segons el seu rang: els senadors, a baix, amb togues blanques; després els cavallers, els ciutadans… i a dalt de tot, les dones i els esclaus.
+The noise is deafening. Everyone sits according to rank: the senators below, in white togas; then the knights, the citizens… and right at the top, the women and the slaves.
+
+@2c21f384
+Parla amb Prisc, el gladiador alliberat
+Talk to Priscus, the freed gladiator
+
+@68eb735f
+El dia de la inauguració vaig lluitar contra Ver. Vam estar-nos hores, cap dels dos no queia. El públic va demanar que ens alliberessin tots dos, i Titus ens va donar a cadascun l'espasa de fusta de la llibertat. El poeta Marcial ho ha escrit en versos.
+On the opening day I fought against Verus. We went on for hours, neither of us fell. The crowd called for us both to be freed, and Titus gave each of us the wooden sword of freedom. The poet Martial has written it in verse.
+
+@bd703e7f
+Busques una nena? Puja amb mi a les grades de dalt, que des d'allà es veu tot… Mira, allà, a l'últim pis: una criatura amb un mocador vermell xiulant amb dos dits.
+Looking for a girl? Come up with me to the top stands, you can see everything from there… Look, there, on the top tier: a little girl with a red scarf whistling with two fingers.
+
+@0bc086a1
+És ella. Crides el seu nom, però el rugit del públic se l'empassa. Baixeu les escales corrent i, quan hi arribeu, ja no hi és. La gentada surt com un riu.
+It's her. You shout her name, but the roar of the crowd swallows it. You run down the stairs and, when you get there, she's gone. The crowd pours out like a river.
+
+@b9a6dfb7
+On seien les dones a l'amfiteatre?
+Where did women sit in the amphitheatre?
+
+@604fffa9
+A les grades més altes, separades dels homes
+In the highest stands, separated from the men
+
+@9de48122
+A primera fila
+In the front row
+
+@76a2f196
+No hi podien entrar
+They could not enter
+
+@119b3e05
+August va ordenar que cada grup segués al seu lloc. Les dones, llevat de les vestals, anaven a dalt de tot.
+Augustus ordered each group to sit in its place. Women, except the Vestals, went right at the top.
+
+@e945713e
+No. Les lleis d'August ordenaven els seients per rang, i a les dones els tocava el pitjor.
+No. Augustus's laws arranged the seats by rank, and women got the worst ones.
+
+@9ba230d6
+No et rendeixis. Si anava al Camp de Mart, la hi trobaràs. Però afanya't: diuen que es veu fum cap al nord.
+Don't give up. If she was going to the Campus Martius, you'll find her there. But hurry: they say there's smoke to the north.
+
+@6720fa9b
+L'has vista. És viva, sana, xiulant com li vas ensenyar. Però se t'ha escapat entre cinquanta mil persones, i hi ha fum al cel.
+You have seen her. She is alive, healthy, whistling as you taught her. But she slipped away among fifty thousand people, and there is smoke in the sky.
+
+@6cdf2321
+Els espectacles (munera i venationes) eren un regal de l'emperador al poble i una forma de propaganda. L'Amfiteatre Flavi es va inaugurar l'any 80 amb cent dies de jocs. Els gladiadors eren majoritàriament esclaus, però alguns guanyaven fama i la llibertat, simbolitzada per l'espasa de fusta (rudis).
+The shows (munera and venationes) were the emperor's gift to the people and a form of propaganda. The Flavian Amphitheatre opened in the year 80 with a hundred days of games. Gladiators were mostly slaves, but some won fame and freedom, symbolised by the wooden sword (rudis).
+
+@5033037f
+Ciutat i catàstrofes
+City and disasters
+
+@6a8e1a32
+Tres dies de foc
+Three days of fire
+
+@9a43ab91
+És l'any 80, i mentre Titus és a Campània ajudant els refugiats del Vesuvi, un incendi terrible arrasa durant tres dies el Camp de Mart i el Capitoli: el temple d'Isis, el Panteó, el temple de Júpiter… Roma, construïda de fusta i maó, crema amb facilitat.
+It is the year 80, and while Titus is in Campania helping the refugees from Vesuvius, a terrible fire ravages the Campus Martius and the Capitol for three days: the temple of Isis, the Pantheon, the temple of Jupiter… Rome, built of wood and brick, burns easily.
+
+@2fbd0c1d
+Dècim
+Decimus
+
+@2852537d
+Vígil de la VII cohort
+Vigil of the 7th cohort
+
+@8175a968
+Tèrcia
+Tertia
+
+@7480ae33
+La teva germana
+Your sister
+
+@e4c9ca23
+Corre al temple d'Isis, al Camp de Mart
+Run to the temple of Isis, in the Campus Martius
+
+@909151d1
+El cel és vermell. Hi ha fum, crits, gent que fuig amb el que pot carregar. Les flames surten pel teulat del temple d'Isis.
+The sky is red. There is smoke, shouting, people fleeing with whatever they can carry. Flames are bursting through the roof of the temple of Isis.
+
+@0b90df99
+Parla amb Dècim, el vígil
+Talk to Decimus, the vigil
+
+@2faf08c2
+Enrere, que cau el pòrtic! Els vígils fem cadenes de galledes des de les fonts, fem servir bombes d'aigua i, si cal, enderroquem cases senceres perquè el foc no salti.
+Get back, the portico is coming down! We vigiles make bucket chains from the fountains, use water pumps and, if need be, pull down whole houses so the fire can't jump.
+
+@fa8407db
+Qui eren els vígils?
+Who were the vigiles?
+
+@df14d0ef
+Bombers i vigilants nocturns de Roma, creats per August
+Rome's firemen and night watchmen, created by Augustus
+
+@c31990a9
+Els guardaespatlles de l'emperador
+The emperor's bodyguards
+
+@40ed99fa
+Els sacerdots que vigilaven el foc de Vesta
+The priests who guarded Vesta's fire
+
+@277faaba
+Això som: set cohorts de lliberts, una per cada dos barris. Apaguem focs i patrullem de nit.
+That's what we are: seven cohorts of freedmen, one for every two districts. We put out fires and patrol at night.
+
+@7211dafe
+No. Pensa en el que estic fent ara mateix, amb aquesta galleda.
+No. Think of what I'm doing right now, with this bucket.
+
+@b908e507
+Una nena? Hi ha un grup de nens que s'han refugiat sota el pòrtic del Panteó. Ves-hi, ràpid, abans que hi arribi el foc!
+A girl? There's a group of children who've taken shelter under the portico of the Pantheon. Go, quickly, before the fire gets there!
+
+@a20a1479
+Busca Tèrcia al costat del Panteó
+Look for Tertia by the Pantheon
+
+@9aac1526
+Entre el fum sents un xiulet de dos dits. Xiules tu també. Et contesta.
+Through the smoke you hear a two-finger whistle. You whistle too. It answers.
+
+@8889866a
+Ets tu? Ets tu de debò?
+Is it you? Is it really you?
+
+@9e9ab6a7
+Se't tira a sobre tan fort que gairebé caieu. Fa olor de fum i de llana. Ha crescut. Té una cicatriu petita al front.
+She throws herself at you so hard you almost fall. She smells of smoke and wool. She has grown. She has a small scar on her forehead.
+
+@511e40ef
+Li vaig dir a Prim que vindries. Ho vaig dir a tothom. Ningú no em creia.
+I told Primus you'd come. I told everybody. Nobody believed me.
+
+@7bdac3fe
+Ensenyar-li la seva tauleta de cera
+Show her her wax tablet
+
+@b47e2724
+El meu dibuix! És casa nostra. I aquest ets tu, i aquesta soc jo. On és el pare?
+My drawing! It's our house. And that's you, and that's me. Where's father?
+
+@b612dbaa
+No saps què contestar. Ella ho entén en el teu silenci i t'estreny la mà. Ja en parlareu. Ara cal sortir d'aquí.
+You don't know what to answer. She understands from your silence and squeezes your hand. You will talk about it later. Now you have to get out of here.
+
+@293abad8
+Agafar-la en braços i córrer lluny del foc
+Pick her up and run away from the fire
+
+@d8dd1240
+Corres amb ella fins al Tíber, on l'aire es pot respirar. Allà, per primera vegada en mesos, rieu tots dos sense motiu.
+You run with her to the Tiber, where the air is breathable. There, for the first time in months, you both laugh for no reason.
+
+@57fc2024
+Has trobat Tèrcia. Ja res no us separarà… llevat d'una línia en un registre, que encara diu que és esclava.
+You have found Tertia. Nothing will separate you now… except a line in a register, which still says she is a slave.
+
+@cd69525d
+Roma patia incendis freqüents per les cases de fusta i els carrers estrets. August va crear els vígils, bombers i policia nocturna. L'any 80 un incendi va destruir gran part del Camp de Mart i el Capitoli, i aquell mateix any hi va haver a més una epidèmia: Titus va haver de fer front a tres desastres seguits.
+Rome suffered frequent fires because of its wooden houses and narrow streets. Augustus created the vigiles, firemen and night police. In the year 80 a fire destroyed much of the Campus Martius and the Capitol, and that same year there was also an epidemic: Titus had to face three disasters in a row.
+
+@928428c4
+Poder imperial
+Imperial power
+
+@4cbd9772
+Ningú no ha de marxar trist
+No one should leave sad
+
+@79aec6a9
+Titus ha tornat de Campània. Expliquen que un dia, en adonar-se que no havia fet cap favor a ningú, va dir: «Amics, he perdut el dia». Avui rep peticions al Palatí. És la teva oportunitat.
+Titus has come back from Campania. They say that one day, realising he had done nobody a favour, he said: “Friends, I have lost a day.” Today he is receiving petitions on the Palatine. This is your chance.
+
+@25c46083
+Fànnia
+Fannia
+
+@8b2d75b2
+Parla amb el pretorià Pudent per entrar al Palatí
+Talk to Pudens, the praetorian, to get into the Palatine
+
+@d2c013e8
+Pudent
+Pudens
+
+@ef2c774c
+Una petició a l'emperador? Tothom en vol una. Però Titus diu que ningú no ha de marxar trist després de parlar amb ell, així que… passa. Amb respecte, i sense parlar més del compte.
+A petition to the emperor? Everybody wants one. But Titus says nobody should leave sad after speaking with him, so… go in. Respectfully, and without saying more than you need to.
+
+@eb83cbed
+Què era la guàrdia pretoriana?
+What was the praetorian guard?
+
+@0baf4aa8
+La guàrdia personal de l'emperador, acampada a Roma
+The emperor's personal guard, camped in Rome
+
+@341c6d2e
+La policia dels barris
+The district police
+
+@6de6d1b0
+Els soldats de les fronteres
+The frontier soldiers
+
+@bb8309be
+Així és. Som nou cohorts, les millor pagades de l'exèrcit. I de vegades hem decidit qui era emperador.
+That's right. We are nine cohorts, the best paid in the army. And sometimes we have decided who was emperor.
+
+@5d0bdc9a
+No. El nostre nom ve del «pretori», la tenda del general.
+No. Our name comes from the “praetorium”, the general's tent.
+
+@83b4c3be
+Presenta la teva petició a l'emperador Titus
+Present your petition to the emperor Titus
+
+@4978b7be
+Herculà… Hi vaig ser fa unes setmanes. No en queda res dret. Parla.
+Herculaneum… I was there a few weeks ago. Nothing is left standing. Speak.
+
+@82154cbe
+Li ho expliques tot: la barca, la venda a Putèoli, Hermeros, l'illa, l'incendi. Plini declara que la flota del seu oncle va recollir nens a la costa. Hermeros jura que la va comprar a un traficant i que va néixer lliure. I tu li ensenyes la tauleta de cera.
+You tell him everything: the boat, the sale at Puteoli, Hermeros, the island, the fire. Pliny testifies that his uncle's fleet picked up children on the coast. Hermeros swears he bought her from a trafficker and that she was born free. And you show him the wax tablet.
+
+@93981c9d
+Què hi diu, aquí?
+What does it say here?
+
+@55111649
+Mater, frater, domus. Mare, germà, casa. I aquesta és la muntanya abans d'esclatar.
+Mater, frater, domus. Mother, brother, home. And that is the mountain before it exploded.
+
+@73c4193c
+Titus pregunta: per què Tèrcia és lliure segons la llei, encara que la venguessin?
+Titus asks: why is Tertia free under the law, even though she was sold?
+
+@09054e82
+Perquè va néixer lliure, filla de ciutadans, i a més la llei de Claudi allibera els esclaus abandonats malalts a l'illa
+Because she was born free, the daughter of citizens, and moreover the law of Claudius frees slaves abandoned sick on the island
+
+@636bcf0f
+Perquè l'emperador pot fer el que vulgui
+Because the emperor can do whatever he likes
+
+@b4983c70
+Perquè Hermeros és un llibert
+Because Hermeros is a freedman
+
+@9e489ae3
+«Per partida doble», diu Titus, somrient. «Ningú no pot vendre la llibertat d'un ciutadà, i Claudi ja havia decidit sobre els que s'abandonen a l'illa».
+“On two counts,” says Titus, smiling. “Nobody can sell a citizen's freedom, and Claudius had already ruled on those abandoned on the island.”
+
+@08a60a17
+Recorda el que et van dir Tàcit i el metge Asclepíades.
+Remember what Tacitus and the doctor Asclepiades told you.
+
+@95753630
+Que s'esborri aquesta venda del registre de Saturn. Tèrcia, filla de ciutadans d'Herculà, és lliure. I que la comissió de Campània pagui a la vostra família una casa a Neàpolis, amb els béns dels que van morir sense hereus.
+Let that sale be struck from the register of Saturn. Tertia, daughter of citizens of Herculaneum, is free. And let the Campania commission pay for a house in Neapolis for your family, from the property of those who died without heirs.
+
+@3cffb83b
+Avui no he perdut el dia.
+Today I have not lost a day.
+
+@bd86d469
+Ves amb Tèrcia a l'amfiteatre: algú us espera
+Go with Tertia to the amphitheatre: someone is waiting for you
+
+@7800144c
+Al costat dels arcs de l'amfiteatre hi ha una dona amb un bastó i un mantell blau. Plini li ha pagat el viatge des de Neàpolis.
+By the arches of the amphitheatre there is a woman with a stick and a blue cloak. Pliny has paid for her journey from Neapolis.
+
+@94b159ed
+Mater!
+Mater!
+
+@ae6e7aaa
+Els meus fills. Els meus dos fills.
+My children. My two children.
+
+@d239343b
+La teva mare us abraça a tots dos. No diu res més durant una bona estona. Després mira la tauleta de cera i riu entre llàgrimes.
+Your mother hugs you both. She says nothing more for a long while. Then she looks at the wax tablet and laughs through her tears.
+
+@7d2abb88
+Haurem de tornar a dibuixar la casa. La nova.
+We'll have to draw the house again. The new one.
+
+@5d3e54e9
+Tèrcia és lliure, la teva família torna a estar unida i teniu una casa nova a Neàpolis. Darrere vostre, l'amfiteatre continua rugint, com si no hagués passat res.
+Tertia is free, your family is together again and you have a new house in Neapolis. Behind you, the amphitheatre keeps roaring, as if nothing had happened.
+
+@c26c7905
+L'emperador concentrava tot el poder, però es presentava com «el primer ciutadà» i s'havia de mostrar generós: escoltava peticions, donava jocs i repartia ajudes. Titus (79-81) va ser molt popular per la seva reacció davant el Vesuvi, l'incendi i l'epidèmia; va regnar només dos anys.
+The emperor held all power, but presented himself as “the first citizen” and had to appear generous: he heard petitions, gave games and handed out aid. Titus (79-81) was very popular for his response to Vesuvius, the fire and the epidemic; he reigned for only two years.
