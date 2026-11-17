@@ -54,7 +54,7 @@ function tlodHiGeo(lo){// muchos racimos sobre la superficie de la copa sencilla
   for(let i=n0;i<CHUNKS.length;i++)S.ims.push(CHUNKS[i].im);}catch(e){console.warn('tlod',e);}};}
 function tlodTick(dt){TLOD.t-=dt;if(TLOD.t>0||!TLOD.sets.size)return;TLOD.t=0.5;const cx=camera.position.x,cz=camera.position.z,R2=TLOD.R*TLOD.R,m4=new THREE.Matrix4(),v=new THREE.Vector3(),c=new THREE.Color();
   for(const S of TLOD.sets.values()){
-    if(!S.hi){const geo=tlodHiGeo(S.lo);S.hi=new THREE.InstancedMesh(geo,S.mat,TLOD.max);S.hi.count=0;S.hi.castShadow=true;S.hi.frustumCulled=false;S.hi.userData.veg=true;S.hi.userData.tlod=true;scene.add(S.hi);
+    if(!S.hi){const geo=plHiGeo(S.lo,S.key.split('|')[0])||tlodHiGeo(S.lo);S.hi=new THREE.InstancedMesh(geo,S.mat,TLOD.max);S.hi.count=0;S.hi.castShadow=true;S.hi.frustumCulled=false;S.hi.userData.veg=true;S.hi.userData.tlod=true;scene.add(S.hi);
       if(S.ims.some(im=>im.instanceColor))S.hi.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(TLOD.max*3),3);}
     const want=new Map();for(const im of S.ims){if(!im.parent||!im.visible)continue;const sp=im.geometry.boundingSphere;if(sp&&Math.hypot(sp.center.x-cx,sp.center.z-cz)>sp.radius+TLOD.R)continue;
       const A=im.instanceMatrix.array,orig=im.userData.tlodOrig;for(let i=0;i<im.count;i++){const o=orig&&orig.has(i)?orig.get(i):null,e=o?o.elements:null;const x=e?e[12]:A[i*16+12],z=e?e[14]:A[i*16+14];
@@ -65,3 +65,20 @@ function tlodTick(dt){TLOD.t-=dt;if(TLOD.t>0||!TLOD.sets.size)return;TLOD.t=0.5;
       S.near.set(k,[im,i]);S.hi.setMatrixAt(n,o.get(i));if(S.hi.instanceColor&&im.instanceColor){im.getColorAt(i,c);S.hi.setColorAt(n,c);}n++;}
     S.hi.count=n;S.hi.instanceMatrix.needsUpdate=true;if(S.hi.instanceColor)S.hi.instanceColor.needsUpdate=true;}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{tlodTick(dt);}catch(e){}};}
+// ---- copas de detalle hechas en Blender (herramientas/blender/plantas.py → #glbpl): racimos de hojas deformados, unos 3.500
+// triángulos por copa. Se traen en segundo plano (datos/glbpl.txt) la primera vez que hay árboles cerca; mientras tanto, y si no
+// llegan, se usan las de tlodHiGeo. Cada copa de Blender está en la caja [-0,5,0,5]×[0,1]×[-0,5,0,5] y se estira a la de la copa
+// sencilla (encaja con su tronco, su escala y su giro); dentro se deja la sencilla algo encogida, que tapa los huecos entre racimos.
+const PLH={tpl:null,loading:0,map:{T_olive_crown:'H_olive',T_pine_crown:'H_pine',T_plane_crown:'H_plane',T_cypress:'H_cypress'}};
+function plLoad(){if(PLH.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;PLH.loading=1;
+  bpBytes('glbpl').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(o.isMesh)T[o.name]=o.geometry;});PLH.tpl=T;
+    for(const S of TLOD.sets.values()){if(!S.hi)continue;const g=plHiGeo(S.lo,S.key.split('|')[0]);if(g){S.hi.geometry=g;}}},e=>console.warn('plantas',e));}).catch(e=>console.warn('plantas',e));}
+function plHiGeo(lo,crown){if(!PLH.tpl){plLoad();return null;}const H=PLH.tpl[PLH.map[crown]];if(!H)return null;
+  lo.computeBoundingBox();const b=lo.boundingBox,cx=(b.min.x+b.max.x)/2,cz=(b.min.z+b.max.z)/2,y0=b.min.y+(crown==='T_cypress'?0.3:0),w=(b.max.x-b.min.x)*1.04,d=(b.max.z-b.min.z)*1.04,h=b.max.y-y0;
+  const g=H.clone();g.deleteAttribute&&g.attributes.uv&&g.deleteAttribute('uv');const p=g.attributes.position;for(let i=0;i<p.count;i++)p.setXYZ(i,cx+p.getX(i)*w,y0+p.getY(i)*h,cz+p.getZ(i)*d);
+  if(g.attributes.normal&&g.attributes.normal.normalized){const n=g.attributes.normal,a=new Float32Array(n.count*3);for(let i=0;i<n.count;i++){a[i*3]=n.getX(i);a[i*3+1]=n.getY(i);a[i*3+2]=n.getZ(i);}g.setAttribute('normal',new THREE.Float32BufferAttribute(a,3));}
+  g.computeVertexNormals();{const n=g.attributes.normal,cy=y0+h*0.45;for(let i=0;i<n.count;i++){let rx=(p.getX(i)-cx)/w,ry=(p.getY(i)-cy)/h,rz=(p.getZ(i)-cz)/d;const L=Math.hypot(rx,ry,rz)||1;   // normales hacia fuera de la copa: la luz la envuelve como un follaje, sin facetas
+    let nx=n.getX(i)*0.4+rx/L*0.6,ny=n.getY(i)*0.4+ry/L*0.6,nz=n.getZ(i)*0.4+rz/L*0.6;const M=Math.hypot(nx,ny,nz)||1;n.setXYZ(i,nx/M,ny/M,nz/M);}}
+  const inner=lo.clone();inner.scale(0.86,0.9,0.86);{const c=new THREE.Vector3();b.getCenter(c);inner.translate(c.x*0.14,c.y*0.1,c.z*0.14);}
+  const keep=n=>{for(const k of Object.keys(n.attributes))if(k!=='position'&&k!=='normal')n.deleteAttribute(k);return n;};
+  const out=mergeG([{g:keep(g),m:new THREE.Matrix4()},{g:keep(inner),m:new THREE.Matrix4()}]);out.computeBoundingSphere();try{if(typeof vegPrep==='function')vegPrep(out);}catch(e){}return out;}

@@ -185,7 +185,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `179_coleccionar.js` | 76 | COLECCIONAR Y DESCUBRIR: monedas, el cuaderno de viaje y un perro |
 | `180_aula_y_grupo.js` | 70 | AULA Y GRUPO: modo examen, concurso en línea y accesibilidad ampliada |
 | `181_materiales.js` | 78 | MATERIALES: variación, desgaste, brillo y visor de modelos |
-| `182_relieves_y_detalle.js` | 68 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
+| `182_relieves_y_detalle.js` | 85 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
 | `184_personajes_blender.js` | 94 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
 | `185_relieve.js` | 77 | RELIEVE DE LOS DESTINOS: MÁS DETALLE Y SIN PAREDES IMPOSIBLES |
