@@ -70,7 +70,7 @@ for(let i=0;i<40;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.5))<0.5)continue;con
   }],
   ['buildRaphaelHall',()=>{buildRaphaelHall();
   }],
-  ['athensDecor',()=>{athensDecor();
+  ['athensDecor',()=>{const n0=PLACES.length;athensDecor();for(const pl of PLACES.slice(n0)){const st=stele(pl.x,pl.z,pl.rot,pl.id);signObjs.push({kind:'sign',data:pl,g:st.g,mk:st.mk,x:pl.x,z:pl.z});}   // las estelas que pone athensDecor llegan después del paso PLACES
   }],
   ['placeNPCs',()=>{placeNPCs();
   }],

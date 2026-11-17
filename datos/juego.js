@@ -1982,7 +1982,7 @@ for(let i=0;i<40;i++){const a=r()*TAU;if(Math.abs(wrapA(a-2.5))<0.5)continue;con
   }],
   ['buildRaphaelHall',()=>{buildRaphaelHall();
   }],
-  ['athensDecor',()=>{athensDecor();
+  ['athensDecor',()=>{const n0=PLACES.length;athensDecor();for(const pl of PLACES.slice(n0)){const st=stele(pl.x,pl.z,pl.rot,pl.id);signObjs.push({kind:'sign',data:pl,g:st.g,mk:st.mk,x:pl.x,z:pl.z});}   // las estelas que pone athensDecor llegan después del paso PLACES
   }],
   ['placeNPCs',()=>{placeNPCs();
   }],
@@ -7853,7 +7853,8 @@ function athensDecor(){
   // los plátanos que plantó Cimón en el Ágora
   {const tr=[];for(let k=0;k<200&&tr.length<16;k++){const[x,z]=AL(rr(-80,100),R()<0.5?rr(55,75):rr(-130,-112));if(roadDist(x,z)>3&&isFree(x,z,3)&&!footHit(x,z,4)&&farNPC(x,z,4))tr.push({x,z,kind:'plane',k:rr(1.0,1.25),collide:true});}if(GLB.ok)treesGLB(tr);}
   // los Tiranicidas, Harmodio y Aristogitón
-  {const[x,z]=findFree(...AL(-59,-26),3),gy=floorAt(x,z),a=-Math.PI/2;   // «más o menos enfrente del Metroon» (Arriano, Anábasis III 16.8)box(3.4,1.5,1.9,M.marble,x,gy+0.75,z).rotation.y=a;addBox(x,z,3.4,1.9,a);
+  {const[x,z]=findFree(...AL(-59,-26),3),gy=floorAt(x,z),a=-Math.PI/2;   // «más o menos enfrente del Metroon» (Arriano, Anábasis III 16.8)
+   box(3.4,1.5,1.9,M.marble,x,gy+0.75,z).rotation.y=a;addBox(x,z,3.4,1.9,a);
    const p1=toW(-0.75,0,x,z,a),p2=toW(0.75,0,x,z,a);const f1=bronzeFig(p1[0],gy+1.5,p1[1],a+0.3,{short:true,beard:false}),f2=bronzeFig(p2[0],gy+1.5,p2[1],a-0.3,{short:true,beard:true});
    if(f1.userData.arms){f1.userData.arms[1].rotation.x=-2.7;f1.userData.arms[0].rotation.x=-0.6;}if(f2.userData.arms){f2.userData.arms[0].rotation.x=-1.4;f2.userData.arms[1].rotation.x=0.4;}
    place('tiranicidas',_t(6866,'Los Tiranicidas'),'ΑΡΜΟΔΙΟΣ ΚΑΙ ΑΡΙΣΤΟΓΕΙΤΩΝ',_t(6867,'Harmodio y Aristogitón mataron en el 514 a Hiparco, hermano del tirano Hipias, durante las Panateneas. Murieron por ello, pero los atenienses los honran como fundadores de la libertad: sus descendientes comen gratis en el Pritaneo y nadie más puede tener una estatua junto a ellos. El primer grupo de bronce, de Antenor, se lo llevó Jerjes a Persia en el 480; este es el que hicieron Critio y Nesiotes en el 477.'),...toW(0,2.6,x,z,a),a);}
@@ -22703,7 +22704,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='e6fb4547430b';
+const NOSTOS_VER='2b1afebaf153';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -27349,7 +27350,7 @@ function mmDrone(on){if(!aOK())return;const c=AUD.ctx;if(on&&!MM.drone){const g=
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
 // la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
-const TERRAIN_SIG='c1ef2fd1df9e';
+const TERRAIN_SIG='bc433897dda2';
 function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;

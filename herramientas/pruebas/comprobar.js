@@ -27,7 +27,7 @@ if(gf){const names=[...new Set([...gf[1].matchAll(/([A-Za-z_$][\w$]*)\((?:dt)?\)
 //    Falla si X no es una función ni un let/var (sería un error al cargar); avisa si la envoltura no llama nunca a f (la sustituye sin decirlo).
 {const reW=/(?<![\w$.])const\s+([\w$]+)\s*=\s*([A-Za-z_$][\w$]*)\s*;\s*\2\s*=\s*(?:async\s+)?function\s*\([^)]*\)\s*\{/g;let nW=0,malW=[],sinF=[];
   for(const f of mods){const s=fs.readFileSync(path.join(dir,f),'utf8');let m;reW.lastIndex=0;while((m=reW.exec(s))){nW++;const v=m[1],X=m[2],ln=s.slice(0,m.index).split('\n').length;
-    if(!new RegExp('(^|\\n)(async\\s+)?function\\s+'+X.replace(/\$/g,'\\$')+'\\s*\\(|(^|\\n)(let|var)\\s+'+X.replace(/\$/g,'\\$')+'\\s*=').test(all))malW.push(X+' ('+f+':'+ln+')');
+    if(!new RegExp('(^|[\\n;])\\s*(async\\s+)?function\\s+'+X.replace(/\$/g,'\\$')+'\\s*\\(|(^|\\n)(let|var)\\s+'+X.replace(/\$/g,'\\$')+'\\s*=').test(all))malW.push(X+' ('+f+':'+ln+')');
     if(/^\s*\}/.test(s.slice(reW.lastIndex))){nW--;continue;}   // X=function(){}: silenciar un momento, no es ampliar
     let i=reW.lastIndex,d=1;while(i<s.length&&d){const c=s[i++];if(c==='{')d++;else if(c==='}')d--;}
     if(!new RegExp('(^|[^\\w$.])'+v.replace(/\$/g,'\\$')+'\\s*(\\(|\\.apply|\\.call)').test(s.slice(reW.lastIndex,i)))sinF.push(X+' ('+f+':'+ln+')');}}

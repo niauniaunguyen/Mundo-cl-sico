@@ -40,7 +40,8 @@ function athensDecor(){
   // los plátanos que plantó Cimón en el Ágora
   {const tr=[];for(let k=0;k<200&&tr.length<16;k++){const[x,z]=AL(rr(-80,100),R()<0.5?rr(55,75):rr(-130,-112));if(roadDist(x,z)>3&&isFree(x,z,3)&&!footHit(x,z,4)&&farNPC(x,z,4))tr.push({x,z,kind:'plane',k:rr(1.0,1.25),collide:true});}if(GLB.ok)treesGLB(tr);}
   // los Tiranicidas, Harmodio y Aristogitón
-  {const[x,z]=findFree(...AL(-59,-26),3),gy=floorAt(x,z),a=-Math.PI/2;   // «más o menos enfrente del Metroon» (Arriano, Anábasis III 16.8)box(3.4,1.5,1.9,M.marble,x,gy+0.75,z).rotation.y=a;addBox(x,z,3.4,1.9,a);
+  {const[x,z]=findFree(...AL(-59,-26),3),gy=floorAt(x,z),a=-Math.PI/2;   // «más o menos enfrente del Metroon» (Arriano, Anábasis III 16.8)
+   box(3.4,1.5,1.9,M.marble,x,gy+0.75,z).rotation.y=a;addBox(x,z,3.4,1.9,a);
    const p1=toW(-0.75,0,x,z,a),p2=toW(0.75,0,x,z,a);const f1=bronzeFig(p1[0],gy+1.5,p1[1],a+0.3,{short:true,beard:false}),f2=bronzeFig(p2[0],gy+1.5,p2[1],a-0.3,{short:true,beard:true});
    if(f1.userData.arms){f1.userData.arms[1].rotation.x=-2.7;f1.userData.arms[0].rotation.x=-0.6;}if(f2.userData.arms){f2.userData.arms[0].rotation.x=-1.4;f2.userData.arms[1].rotation.x=0.4;}
    place('tiranicidas','Los Tiranicidas','ΑΡΜΟΔΙΟΣ ΚΑΙ ΑΡΙΣΤΟΓΕΙΤΩΝ','Harmodio y Aristogitón mataron en el 514 a Hiparco, hermano del tirano Hipias, durante las Panateneas. Murieron por ello, pero los atenienses los honran como fundadores de la libertad: sus descendientes comen gratis en el Pritaneo y nadie más puede tener una estatua junto a ellos. El primer grupo de bronce, de Antenor, se lo llevó Jerjes a Persia en el 480; este es el que hicieron Critio y Nesiotes en el 477.',...toW(0,2.6,x,z,a),a);}

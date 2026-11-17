@@ -38,7 +38,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `031_roma.js` | 179 | ROMA: decoración según las reconstrucciones |
 | `032_glosario_lateral.js` | 758 | glosario lateral |
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
-| `034_atenas.js` | 71 | ATENAS: decoración de la polis (siglo IV a.C.) |
+| `034_atenas.js` | 72 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
 | `036_acabado.js` | 82 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
