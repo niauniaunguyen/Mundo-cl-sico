@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-256 funciones ampliadas, 422 capas.
+256 funciones ampliadas, 423 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -74,6 +74,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
 | `treesGLB` | `005_modelos_de_blender.js` | 2 | `126`:11 · `155`:23 |
 | `updateStats` | `014_hud.js` | 2 | `077`:78 · `199`:35 |
+| `updateTorch` | `040_caballo.js` | 2 | `090`:88 · `201`:53 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
 | `accApply` | `099_para_aprender_y_ensenar.js` | 1 | `189`:39 |
 | `accSave` | `099_para_aprender_y_ensenar.js` | 1 | `154`:31 |
@@ -95,10 +96,10 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atUpdate` | `085_mirar_con_atencion.js` | 1 | `100`:141 |
 | `boatExit` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:500 |
 | `boatTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:499 |
-| `bpKind` | `184_personajes_blender.js` | 1 | `196`:13 |
+| `bpKind` | `184_personajes_blender.js` | 1 | `196`:16 |
 | `bpMake` | `184_personajes_blender.js` | 1 | `186`:68 |
 | `bpSetup` | `184_personajes_blender.js` | 1 | `186`:121 |
-| `bpSwap` | `184_personajes_blender.js` | 1 | `196`:25 |
+| `bpSwap` | `184_personajes_blender.js` | 1 | `196`:28 |
 | `buildAcropolis` | `011_construccion_del_mundo.js` | 1 | `900`:408 |
 | `buildAgora` | `011_construccion_del_mundo.js` | 1 | `900`:409 |
 | `buildAthensSchools` | `033_escuelas_y_clases_atenas_y.js` | 1 | `900`:410 |
@@ -249,7 +250,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `ttSetup` | `094_petteia_y_ludus_latrunculorum.js` | 1 | `900`:398 |
 | `tutStart` | `049_discipulos.js` | 1 | `157`:78 |
 | `twStart` | `064_game_feel_2.js` | 1 | `078`:345 |
-| `updateTorch` | `040_caballo.js` | 1 | `090`:88 |
 | `urbScaffold` | `074_urbanismo.js` | 1 | `173`:35 |
 | `urbSetup` | `074_urbanismo.js` | 1 | `900`:399 |
 | `uxThiefTick` | `091_para_que_sirven_los_objetos.js` | 1 | `174`:43 |

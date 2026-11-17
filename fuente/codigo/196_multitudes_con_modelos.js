@@ -2,7 +2,10 @@
 // bpSwap (184) solo cambiaba a los transeúntes que andan (walkers): la gente de las fiestas y acontecimientos (evCrowd, 014) y la de las
 // procesiones (194) seguía con la figura sencilla de antes. Ahora se cambian también, con el mismo detalle por distancia (bpLod: de cerca
 // el modelo de Blender, de lejos la figura sencilla). Quien lleva bastón ya no se queda fuera (el bastón no se ve en el modelo).
-function bpConv(g){if(!g||!g.parent||g.userData.pj||g.userData.bpNo||!g.userData.cfg)return null;if(BP.list.length>=BP.MAXT)return null;
+// force: los de oficios, fiestas y procesiones cercanos entran aunque la lista esté llena (en el móvil, BP.MAXT es menor y los
+// transeúntes la llenaban antes: los bataneros de la fullonica se quedaban con la figura antigua)
+function bpNear(g,R){try{const v=new THREE.Vector3();g.getWorldPosition(v);return Math.hypot(v.x-camera.position.x,v.z-camera.position.z)<R;}catch(e){return false;}}
+function bpConv(g,force){if(!g||!g.parent||g.userData.pj||g.userData.bpNo||!g.userData.cfg)return null;if(BP.list.length>=BP.MAXT&&!(force&&bpNear(g,150)))return null;
   const c=g.userData.cfg,k=bpKind(c.staff?Object.assign({},c,{staff:false}):c);if(!k||!BP.tpl[k]){g.userData.bpNo=1;return null;}
   const n=bpMake(k,c);if(!n){g.userData.bpNo=1;return null;}
   for(const key in g.userData)if(!['arms','legs','cfg','pvFine','pvFar','pvDone','pvNoBeard','part'].includes(key)&&n.userData[key]===undefined)n.userData[key]=g.userData[key];
@@ -17,9 +20,9 @@ try{if(BP_MODE.roma.indexOf('tunicado')<0)BP_MODE.roma.push('tunicado');BP_CAP.t
 function bpCrowds(){if(!Object.keys(BP.tpl).length)return 0;let made=0;
   // quien se fue con la multitud de un día anterior (evCrowd quita el grupo de la escena) deja su sitio en la lista
   const live=g=>{let r=g;while(r.parent)r=r.parent;return r===scene;};for(let i=BP.list.length-1;i>=0;i--)if(!live(BP.list[i]))BP.list.splice(i,1);
-  if(typeof EVC!=='undefined'&&EVC.g)for(const o of[...EVC.g.children])if(bpConv(o))made++;
+  if(typeof EVC!=='undefined'&&EVC.g)for(const o of[...EVC.g.children])if(bpConv(o,true))made++;
   // la gente de los puestos de oficios (057: bataneros, herreros, alfareros…), que trabaja quieta en su sitio; su gesto sigue (personWalk)
-  if(typeof OFIC!=='undefined')for(const O of OFIC)for(const p of O.ppl||[]){const n=bpConv(p.m);if(n){p.m=n;made++;}}
-  if(typeof PROC!=='undefined'&&PROC.g)for(const m of PROC.ms){if(m.kind!=='p')continue;const n=bpConv(m.o);if(n){m.o=n;made++;}}
+  if(typeof OFIC!=='undefined')for(const O of OFIC)for(const p of O.ppl||[]){const n=bpConv(p.m,true);if(n){p.m=n;made++;}}
+  if(typeof PROC!=='undefined'&&PROC.g)for(const m of PROC.ms){if(m.kind!=='p')continue;const n=bpConv(m.o,true);if(n){m.o=n;made++;}}
   return made;}
 {const f=bpSwap;bpSwap=function(){let made=f.apply(this,arguments)||0;try{const k=bpCrowds();if(k){made+=k;bpLod();}}catch(e){console.warn('multitud',e);}return made;};}
