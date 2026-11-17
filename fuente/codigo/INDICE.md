@@ -198,4 +198,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `193_entablamentos_de_detalle.js` | 48 | ENTABLAMENTOS DE DETALLE (P7, arquitectura de detalle, segunda parte) |
 | `194_procesiones.js` | 105 | PROCESIONES (P8, fiestas con multitudes que se mueven) |
 | `195_atenas_romana.js` | 49 | ATENAS ROMANA, AÑO 80 (P10, modo Roma) |
-| `900_creta_y_arranque.js` | 647 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
+| `196_multitudes_con_modelos.js` | 21 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
+| `197_estatuas_a_la_vista.js` | 14 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
+| `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

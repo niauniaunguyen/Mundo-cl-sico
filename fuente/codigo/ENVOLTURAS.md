@@ -7,13 +7,13 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-251 funciones ampliadas, 409 capas.
+254 funciones ampliadas, 413 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 33 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 |
 | `egxAct0` | `060_egipto_2.js` | 20 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 |
-| `atCands` | `085_mirar_con_atencion.js` | 7 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 |
+| `atCands` | `085_mirar_con_atencion.js` | 8 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
 | `gmRight` | `121_menu_de_esc.js` | 7 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 5 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 |
@@ -93,8 +93,10 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atUpdate` | `085_mirar_con_atencion.js` | 1 | `100`:141 |
 | `boatExit` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:500 |
 | `boatTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:499 |
+| `bpKind` | `184_personajes_blender.js` | 1 | `196`:13 |
 | `bpMake` | `184_personajes_blender.js` | 1 | `186`:68 |
 | `bpSetup` | `184_personajes_blender.js` | 1 | `186`:121 |
+| `bpSwap` | `184_personajes_blender.js` | 1 | `196`:20 |
 | `buildAcropolis` | `011_construccion_del_mundo.js` | 1 | `900`:408 |
 | `buildAgora` | `011_construccion_del_mundo.js` | 1 | `900`:409 |
 | `buildAthensSchools` | `033_escuelas_y_clases_atenas_y.js` | 1 | `900`:410 |
@@ -239,6 +241,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `thfSpawn` | `174_movimiento_dinamico.js` | 1 | `180`:66 |
 | `thfTick` | `174_movimiento_dinamico.js` | 1 | `179`:68 |
 | `tpDecorate` | `113_templos_por_dentro.js` | 1 | `173`:36 |
+| `tpStatue` | `113_templos_por_dentro.js` | 1 | `197`:5 |
 | `tryMove` | `043_bucle.js` | 1 | `168`:43 |
 | `ttSetup` | `094_petteia_y_ludus_latrunculorum.js` | 1 | `900`:398 |
 | `tutStart` | `049_discipulos.js` | 1 | `157`:78 |
