@@ -1,0 +1,1301 @@
+# Traducciones por prioridad de uso (M1): interfaz fija, carga, partidas guardadas, viajes por los caminos.
+
+@c1e89808
+Nóstos · Atenes, 386 aC
+Nóstos · Athens, 386 BC
+
+@97b7985c
+Primers segons ·
+First seconds ·
+
+@a63dd049
+Saltar el tutorial
+Skip the tutorial
+
+@0ba15df1
+Controls
+Controls
+
+@3fafede6
+menú: les teves qualitats i totes les opcions
+menu: your qualities and all the options
+
+@9e10e28c
+moure't
+move
+
+@b70d2de7
+mirar
+look
+
+@469d5b18
+Maj
+Shift
+
+@43e97870
+córrer
+run
+
+@90ff8e15
+Espai
+Space
+
+@5b8e6f2f
+saltar (dues vegades: doble salt)
+jump (twice: double jump)
+
+@80e8e6fd
+parlar / llegir
+talk / read
+
+@7bb38c69
+Clic dret
+Right click
+
+@b1d276e2
+mantenir: mirar amb atenció (clic esquerre: saber-ne més)
+hold: look closely (left click: learn more)
+
+@49e79913
+fer servir l'objecte de la barra
+use the item in the bar
+
+@62b912d0
+cavall
+horse
+
+@75a31fd0
+vista
+view
+
+@e61eff38
+torxa
+torch
+
+@37236ec4
+ales (si en tens)
+wings (if you have them)
+
+@37b3214f
+diari
+journal
+
+@d7d88964
+plànol
+map
+
+@973f3077
+biblioteca
+library
+
+@623aeb8c
+hora
+time
+
+@cf5c0fd4
+so
+sound
+
+@e629e0f2
+balanceig de la càmera
+camera sway
+
+@8c4be283
+Guia
+Guide
+
+@58dc18f9
+Fitxa
+Profile
+
+@14e84c4f
+Festes
+Festivals
+
+@4e1b4781
+Curiositats
+Curiosities
+
+@f57c5b65
+Foraster
+Stranger
+
+@f5471837
+Balanceig
+Sway
+
+@7808857f
+Pantalla completa
+Full screen
+
+@748850cd
+«el retorn a casa», en grec
+“the homecoming”, in Greek
+
+@7cf7c1ad
+A cada època pots jugar el mode Història (deu capítols guiats) o explorar lliurement, sol o amb els companys. El progrés de cada època i de cada mode es desa per separat.
+In each era you can play Story mode (ten guided chapters) or explore freely, alone or with your classmates. Progress in each era and each mode is saved separately.
+
+@91db45ac
+Polze esquerre
+Left thumb
+
+@ec768be9
+posa el polze a la meitat esquerra i fes-lo lliscar per caminar; porta'l a la vora per córrer
+put your thumb on the left half and slide it to walk; take it to the edge to run
+
+@18c313d1
+Polze dret
+Right thumb
+
+@ce76cf4c
+arrossega per la pantalla per mirar al voltant
+drag across the screen to look around
+
+@faea25a8
+Mà
+Hand
+
+@55fb0060
+apareix a baix a la dreta quan pots parlar, llegir o tocar alguna cosa
+appears at the bottom right when you can talk, read or touch something
+
+@c855287f
+Toc
+Tap
+
+@c4e7987b
+un toc ràpid al joystick salta al lloc; amb el joystick en marxa, un toc amb l'altre polze a la pantalla salta cap on vas (dos tocs: doble salt). Volant, apareix una fletxa per pujar
+a quick tap on the joystick jumps on the spot; with the joystick moving, a tap with the other thumb on the screen jumps where you are going (two taps: double jump). When flying, an arrow appears to go up
+
+@17ea0a18
+Menú
+Menu
+
+@6b0d6d88
+a dalt a la dreta: diari, plànol, biblioteca, hora i tota la resta
+top right: journal, map, library, time and everything else
+
+@9ef9ab7f
+cavall (l'aconsegueixes fent un favor a un criador de cavalls) · vista en primera o tercera persona · torxa per a la nit · balanceig de la càmera (desactiva'l si et mareges)
+horse (you get it by doing a favour for a horse breeder) · first- or third-person view · torch for the night · camera sway (turn it off if you feel dizzy)
+
+@b321a6a3
+al mode Història, que et portin a l'objectiu · ales de Dèdal, si les aconsegueixes (C per baixar) · xat al mode en línia
+in Story mode, be taken to the goal · Daedalus's wings, if you get them (C to go down) · chat in online mode
+
+@874b1d6a
+Recomanat per començar
+Recommended to start
+
+@7fb4c6fd
+Deu capítols guiats, amb una història que recorre la ciutat
+Ten guided chapters, with a story that takes you around the city
+
+@a6885111
+Lliure
+Free
+
+@4326aed9
+Explora al teu ritme, amb deu missions per començar
+Explore at your own pace, with ten missions to start
+
+@418661fd
+Lliure en línia
+Free online
+
+@86fbc14a
+Explora amb fins a 15 companys
+Explore with up to 15 classmates
+
+@f07e1b89
+El teu nom
+Your name
+
+@5de7e5b9
+Codi de sala
+Room code
+
+@e97a405d
+Entrar a la sala
+Join the room
+
+@e9f6d4df
+Tots els jugadors d'una sala comparteixen la mateixa època i es veuen al mateix món. Per jugar junts, el propietari d'aquesta pàgina l'ha de compartir amb els companys des del menú Compartir de claude.ai; per escriure al xat cal permís de participant. Màxim 15 jugadors per sala.
+All players in a room share the same era and see each other in the same world. To play together, the owner of this page must share it with classmates from the Share menu on claude.ai; writing in the chat needs participant permission. Up to 15 players per room.
+
+@e7d6531c
+Carregar partida
+Load game
+
+@88487504
+Escriu i prem Retorn (Esc per cancel·lar)
+Type and press Enter (Esc to cancel)
+
+@3329298d
+Tancar el diàleg
+Close the dialogue
+
+@83ebc161
+Tancar (Esc)
+Close (Esc)
+
+@46ee46f3
+Desar partida
+Save game
+
+@4b0816bb
+Tancar
+Close
+
+@8620a7da
+Interactuar
+Interact
+
+@d8d6a908
+Ales
+Wings
+
+@59465079
+buit: sala nova
+empty: new room
+
+@e07b8099
+No s'han pogut portar les dades
+Could not fetch the data
+
+@1d279e89
+"dia "
+"day "
+
+@045b1319
+"Camines cap al "
+"You walk to the "
+
+@aaf7288b
+", en direcció a "
+", heading for "
+
+@99855a1f
+"Uns "
+"About "
+
+@bd8bcd63
+" quilòmetres: "
+" kilometres: "
+
+@2a0f0869
+un dia
+a day
+
+@ff56914e
+" de camí."
+" on the road."
+
+@5d442825
+"<span class=\"label\">Arribes a "
+"<span class=\"label\">You reach "
+
+@bd0df99c
+"</span><br>El camí de tornada cap a "
+"</span><br>The way back to "
+
+@42f4f0ef
+" surt pel "
+" leaves by the "
+
+@f24a4766
+Partides desades
+Saved games
+
+@994aa00a
+<p>El teu progrés només es desa en aquest navegador. Per endur-te'l a un altre ordinador o tenir-ne una còpia, baixa l'arxiu o copia aquest text i desa'l on vulguis. Es carrega amb «Carregar partida».</p><textarea id="saveTxt" readonly style="width:100%;height:90px;font-size:.75rem">
+<p>Your progress is only saved in this browser. To take it to another computer or keep a copy, download the file or copy this text and keep it wherever you like. Load it with “Load game”.</p><textarea id="saveTxt" readonly style="width:100%;height:90px;font-size:.75rem">
+
+@902060e8
+"Baixar l'arxiu "
+"Download the file "
+
+@e1a606d2
+Copiar el text
+Copy the text
+
+@d51835f5
+Text de la partida copiat.
+Game text copied.
+
+@5327802d
+Arxiu baixat
+File downloaded
+
+@a0e09c8d
+Partida desada
+Game saved
+
+@98b5232f
+No s'ha pogut baixar l'arxiu aquí: copia el text i desa'l en un document.
+The file could not be downloaded here: copy the text and keep it in a document.
+
+@e6d5f5ce
+Això no és una partida desada d'aquest joc.
+That is not a saved game from this game.
+
+@c0782380
+<p>Tria un arxiu de partida o enganxa aquí el text que vas copiar. La partida que tinguis ara en aquesta època se substituirà.</p><textarea id="loadTxt" style="width:100%;height:90px;font-size:.75rem" placeholder="Enganxa aquí el text de la partida"></textarea>
+<p>Choose a saved game file or paste here the text you copied. The game you now have in that era will be replaced.</p><textarea id="loadTxt" style="width:100%;height:90px;font-size:.75rem" placeholder="Paste the game text here"></textarea>
+
+@3038d657
+Triar un arxiu…
+Choose a file…
+
+@3304ceb4
+Carregar el text enganxat
+Load the pasted text
+
+@d450db86
+S'ha detectat un ratolí. <button>Fer servir teclat i ratolí (1)</button> <button>Continuar amb tàctil (2)</button>
+A mouse has been detected. <button>Use keyboard and mouse (1)</button> <button>Keep using touch (2)</button>
+
+@be98954a
+"<span class=\"label\">Clareja el dia "
+"<span class=\"label\">Dawn of day "
+
+@9dc55715
+"<br>Avui: "
+"<br>Today: "
+
+@0e33cd35
+<span class="label">Curiositat del dia</span><br>
+<span class="label">Curiosity of the day</span><br>
+
+@b19afbd5
+"<span class=\"label\">Partida recuperada</span><br>Tornes on ho havies deixat: dia "
+"<span class=\"label\">Game restored</span><br>You are back where you left off: day "
+
+@e3556699
+No tens permís per escriure al xat: demana al propietari de la pàgina accés de participant.
+You do not have permission to write in the chat: ask the page owner for participant access.
+
+@c7634f7d
+No s'ha pogut enviar el missatge.
+The message could not be sent.
+
+@2ac9e48e
+Càrrega del món
+Loading the world
+
+@70b218b2
+Una corbita, el vaixell mercant romà de vela: duia gra, vi i oli per tot el Mediterrani fins als ports de Roma.
+A corbita, the Roman merchant sailing ship: it carried grain, wine and oil all over the Mediterranean to the ports of Rome.
+
+@64c8394d
+Una trirrem atenesa: uns 170 remers en tres fileres movien el vaixell; els ulls pintats a la proa «miraven» el camí.
+An Athenian trireme: about 170 rowers in three rows drove the ship; the eyes painted on the bow “watched” the way.
+
+@28bd57a4
+"Aixecant Roma… "
+"Raising Rome… "
+
+@3ae8ec30
+"Aixecant la ciutat… "
+"Raising the city… "
+
+@b251f449
+Roma és a punt. Benvingut a port!
+Rome is ready. Welcome to port!
+
+@6be61b91
+La ciutat és a punt. Benvingut a port!
+The city is ready. Welcome to port!
+
+@a6b4c876
+Alguna cosa ha fallat en construir la ciutat.
+Something went wrong while building the city.
+
+@24b44b1b
+Carregant models i relleu…
+Loading models and relief…
+
+# ---- más interfaz por prioridad: zonas, modo profesor, cualidades, inventario, vestuario
+
+@e55405a3
+Un camp de blat del Laci
+A wheatfield in Latium
+
+@0ee378e2
+Eneida VII 803-817
+Aeneid VII 803-817
+
+@761d8c9a
+La cursa contra Atalanta
+The race against Atalanta
+
+@1d905c88
+El Telesterion
+The Telesterion
+
+@e13bc223
+Eleusis, la nit dels Misteris
+Eleusis, the night of the Mysteries
+
+@a544bb96
+Els Inferns
+The Underworld
+
+@e9e7758d
+Eneida, llibre VI
+Aeneid, book VI
+
+@204a6f8d
+Els Camps Elisis
+The Elysian Fields
+
+@fb0b453d
+Eneida VI 637-678
+Aeneid VI 637-678
+
+@42ddfadd
+El Somni d'Escipió
+The Dream of Scipio
+
+@96fe5430
+Ciceró, República, llibre VI
+Cicero, Republic, book VI
+
+@2e66e1e8
+La caverna
+The cave
+
+@229d75e8
+Plató, República, llibre VII
+Plato, Republic, book VII
+
+@912eb398
+Fora de la caverna
+Outside the cave
+
+@fbfbf4d0
+La llum del sol
+The light of the sun
+
+@754b1773
+El món de les Idees
+The world of Ideas
+
+@6a8655e4
+El que és sempre
+What always is
+
+@8afbb626
+La Lluna
+The Moon
+
+@4907e659
+El regne d'Endimió, segons Llucià
+The kingdom of Endymion, according to Lucian
+
+@f7c4a1a2
+Al Quirinal
+On the Quirinal
+
+@a6cae5a4
+A Melite
+In Melite
+
+@19a5ca96
+L'Olimp
+Olympus
+
+@2a728ede
+La casa dels déus
+The home of the gods
+
+@c0e773c7
+<h2>Mode professor</h2><p>Aquest tauler permet anar a l'instant a qualsevol lloc per ensenyar el joc a classe. Escriu la clau del professorat.</p><input id="profeK" type="password" placeholder="Clau" autocomplete="off"><div class="acts"><button id="profeX">Tancar</button></div><p class="sub">La clau és a la Guia del diari, a «Per al professorat».</p>
+<h2>Teacher mode</h2><p>This panel lets you jump instantly to any place to show the game in class. Type the teachers' key.</p><input id="profeK" type="password" placeholder="Key" autocomplete="off"><div class="acts"><button id="profeX">Close</button></div><p class="sub">The key is in the journal's Guide, under “For teachers”.</p>
+
+@d53e51a1
+Clau incorrecta
+Wrong key
+
+@45887107
+<h2>Mode professor</h2><input id="profeQ" placeholder="Cercar un lloc, una persona o una regió… (Retorn per anar-hi)" autocomplete="off"><div class="acts" id="profeA"></div><div class="list" id="profeL"></div><p class="sub">Les dreceres canvien la partida desada en aquest navegador. Per a una demostració neta, fes servir després «Tornar a començar». Esc tanca.</p>
+<h2>Teacher mode</h2><input id="profeQ" placeholder="Search for a place, a person or a region… (Enter to go)" autocomplete="off"><div class="acts" id="profeA"></div><div class="list" id="profeL"></div><p class="sub">Shortcuts change the game saved in this browser. For a clean demonstration, use “Start again” afterwards. Esc closes.</p>
+
+@f5a274fd
+Alba
+Dawn
+
+@958a7e24
+Migdia
+Midday
+
+@a1b16ea2
+Nit
+Night
+
+@39e1c0fd
+Estació següent
+Next season
+
+@d3baf059
+Propera festa
+Next festival
+
+@31eca4d4
+Ales de Dèdal
+Daedalus's wings
+
+@760c2ad3
+Canviar de personatge
+Change character
+
+@5aeb92ca
+Clau de l'Olimp
+Key to Olympus
+
+@c69f93e8
+Casa pròpia
+Own house
+
+@6e23cf65
+Vaixell propi
+Own ship
+
+@c16c2613
+Quaderns de viatge dels alumnes
+Students' travel notebooks
+
+@7d2637ca
+", nivell "
+", level "
+
+@4d2573d6
+nivell màxim
+top level
+
+@2e33b90e
+</text><text x="146" y="46" fill="#a8977f" font-size="8.5" text-anchor="end">NIVELL</text>
+</text><text x="146" y="46" fill="#a8977f" font-size="8.5" text-anchor="end">LEVEL</text>
+
+@afbac14a
+"<text x=\"12\" y=\"42\" fill=\"#c9a67a\" font-size=\"11\">Dia "
+"<text x=\"12\" y=\"42\" fill=\"#c9a67a\" font-size=\"11\">Day "
+
+@2064119e
+" lliçons apreses</text>"
+" lessons learned</text>"
+
+@f708fbd3
+" llocs coneguts</text></g>"
+" places known</text></g>"
+
+@53ad6299
+Fer una classe als seus alumnes (un cop al dia)
+Teach a class to their students (once a day)
+
+@adda721d
+<p>«Avui ja has fet classe. Demà».</p>
+<p>“You already taught today. Tomorrow.”</p>
+
+@1c4a0531
+" et deixa el seu lloc. Expliques als alumnes el que has après: «"
+" gives you their place. You explain to the students what you have learned: “"
+
+@ed9d8ba8
+el que saps
+what you know
+
+@f22d1fef
+"». T'escolten amb atenció, i un fa una pregunta que t'obliga a pensar. Et paguen "
+".” They listen carefully, and one asks a question that makes you think. They pay you "
+
+@50e11986
+"Discutir amb "
+"Argue with "
+
+@bb5c577f
+" d'igual a igual"
+" as equals"
+
+@12dd17de
+<p>Li poses una objecció a la seva idea: «
+<p>You raise an objection to their idea: “
+
+@2f023a2b
+la seva manera de pensar
+their way of thinking
+
+@59c7de62
+" se sorprèn, ho pensa en veu alta, et dona la raó en una part i et rebat l'altra amb un exemple que no esperaves. Al final, rieu tots dos: així s'aprèn, discutint.</p>"
+" is surprised, thinks it over aloud, agrees with you on one part and refutes the other with an example you did not expect. In the end you both laugh: that is how you learn, by arguing.</p>"
+
+@3518ee4f
+Escriure un discurs per encàrrec (un cop al dia)
+Write a speech to order (once a day)
+
+@0e7bda5e
+<p>«Ja n'has escrit un avui. Els clients poden esperar».</p>
+<p>“You already wrote one today. The clients can wait.”</p>
+
+@33a50af4
+Un comerciant de la Subura s'ha de defensar d'una reclamació
+A Subura merchant needs to defend himself against a claim
+
+@e038b0cf
+Un veí del Pireu té un judici per un deute
+A man from the Piraeus has a trial over a debt
+
+@eebc44e5
+". Li escrius el discurs a la mida, amb les seves paraules i la seva manera de parlar, perquè sembli seu: així treballava Lísias. Et paga "
+". You write the speech to fit him, with his words and his way of speaking, so that it sounds like his own: that is how Lysias worked. He pays you "
+
+@9685eaac
+Acceptar la invitació a fer una classe de retòrica
+Accept the invitation to teach a rhetoric class
+
+@67837dbe
+"Has fet classe a l'escola de "
+"You have taught at the school of "
+
+@5022eef2
+"<p>Els alumnes de "
+"<p>The students of "
+
+@ca75e620
+" t'escolten en silenci. Els ensenyes el que has après: que un discurs es pensa abans de parlar, que cal conèixer el públic i que la paraula sense veritat no dura. En acabar, aplaudeixen. "
+" listen to you in silence. You teach them what you have learned: that a speech is thought out before speaking, that you must know your audience and that words without truth do not last. When you finish, they applaud. "
+
+@23b64a79
+" et paga deu "
+" pays you ten "
+
+@2f99f16d
+" i et diu: «Torna quan vulguis».</p>"
+" and tells you: “Come back whenever you like.”</p>"
+
+@9d6cf2fa
+Plini et vol demanar consell
+Pliny wants to ask your advice
+
+@a39531f5
+El nen et vol fer una pregunta
+The boy wants to ask you a question
+
+@2cdaaad1
+<p>«Vull ser advocat i escriure cartes que es llegeixin d'aquí a mil anys. Què em recomanes?». Li dius que escrigui cada dia, que en guardi còpia de tot i que no tingui por d'explicar el que veu. Plini somriu: «El meu oncle deia el mateix». Les seves cartes, en efecte, es llegiran dos mil anys després.</p>
+<p>“I want to be a lawyer and write letters that will be read a thousand years from now. What do you advise me?” You tell him to write every day, keep a copy of everything and not be afraid to tell what he sees. Pliny smiles: “My uncle said the same.” His letters will indeed be read two thousand years later.</p>
+
+@3a3bfe06
+<p>El petit Aristòtil et mira molt seriós: «Si tots els homes desitgen saber, per què uns estudien i d'altres no?». Li contestes que tots tenen la llavor, però que cal regar-la. El nen ho apunta en una tauleta. Molts anys després començarà un llibre així: «Tots els homes desitgen per naturalesa saber» (Metafísica I 1).</p>
+<p>Young Aristotle looks at you very seriously: “If all men desire to know, why do some study and others not?” You answer that everyone has the seed, but it must be watered. The boy writes it down on a tablet. Many years later he will begin a book like this: “All men by nature desire to know” (Metaphysics I 1).</p>
+
+@cf475a81
+Pagar el metoíkion d'aquest any (
+Pay this year's metoikion (
+
+@6b4263b9
+" òbols. No triguis».</p>"
+" obols. Don't be late.”</p>"
+
+@dbb25b97
+"<p>Nausícrates ratlla el teu nom a la llista de deutors. "
+"<p>Nausicrates crosses your name off the list of debtors. "
+
+@f0714fd8
+«T'has escapat per poc: t'havien denunciat davant el polemarc per no pagar. Amb la multa queda arreglat, però una altra vegada podries acabar al mercat d'esclaus».
+“You got off lightly: you had been reported to the polemarch for not paying. The fine settles it, but next time you could end up in the slave market.”
+
+@2aa8ff09
+«Al dia, com ha de ser».
+“Up to date, as it should be.”
+
+@0352f004
+Pagar la contribució de guerra, l'eisphorá (30 òbols)
+Pay the war contribution, the eisphora (30 obols)
+
+@6e561aff
+" òbols».</p>"
+" obols.”</p>"
+
+@68bb1b40
+<p>«L'eisphorá és un impost extraordinari per a la guerra, i els meteci paguen la seva part, com els ciutadans rics. La ciutat no ho oblidarà».</p><p class="sub">Els meteci pagaven l'eisphorá en una proporció més gran que els ciutadans.</p>
+<p>“The eisphora is an extraordinary tax for the war, and metics pay their share, like rich citizens. The city will not forget it.”</p><p class="sub">Metics paid the eisphora at a higher rate than citizens.</p>
+
+@0b71be26
+Oferir-me per servir a la flota
+Volunteer to serve in the fleet
+
+@d864665b
+<p>«Bé. Els meteci remen als trirrems i formen com a hoplites quan la ciutat els crida. A la guerra que s'acaba d'acabar, molts meteci van lluitar per Atenes, i en temps de Trasibul alguns es van guanyar així la ciutadania». T'apunta en una llista.</p>
+<p>“Good. Metics row in the triremes and stand as hoplites when the city calls them. In the war that has just ended, many metics fought for Athens, and in Thrasybulus's time some earned citizenship that way.” He puts you on a list.</p>
+
+@9598d71c
+Puc deixar de pagar el metoíkion? (isotéleia)
+Can I stop paying the metoikion? (isoteleia)
+
+@4c0bc89e
+"<p>«La isotéleia, pagar com un ciutadà, la vota l'Assemblea a qui ha servit bé la ciutat. Et falta: "
+"<p>“Isoteleia, paying like a citizen, is voted by the Assembly for those who have served the city well. You still need: "
+
+@67f700bc
+servir la ciutat (
+to serve the city (
+
+@a22ed4ff
+" de 3: mira el teu Diari)"
+" of 3: see your Journal)"
+
+@af95f2c5
+"Kléos 5 (en tens "
+"Kleos 5 (you have "
+
+@84f08d25
+<p>Uns dies després, l'Assemblea vota la teva isotéleia: «per la seva bona disposició envers el poble dels atenesos». Ja no pagues el metoíkion i tributes com un ciutadà.</p>
+<p>A few days later the Assembly votes your isoteleia: “for their goodwill towards the people of the Athenians”. You no longer pay the metoikion and are taxed like a citizen.</p>
+
+@1882bc1b
+<span class="label">Isotéleia</span><br>Ja no pagues l'impost dels meteci.
+<span class="label">Isoteleia</span><br>You no longer pay the metics' tax.
+
+@6a7f166c
+Vull demanar la ciutadania d'Atenes
+I want to ask for Athenian citizenship
+
+@b95147e3
+Em pot honorar la ciutat pel que he fet?
+Can the city honour me for what I have done?
+
+@d2b0a65d
+"<p>«Primer necessites el dret a casa i terra i una gran fama (Kléos 8; en tens "
+"<p>“First you need the right to own a house and land and great fame (Kleos 8; you have "
+
+@7b0c443a
+<p>L'Assemblea vota un decret en el teu honor: lloar-te i coronar-te amb una corona d'olivera «per la seva virtut i la seva bona disposició envers el poble dels atenesos». Es grava en una estela.</p><p class="sub">Com a dona, a Atenes no podies ser ciutadana amb drets polítics: ni les ateneses ho eren. Però sí que podies rebre honors.</p>
+<p>The Assembly votes a decree in your honour: to praise you and crown you with an olive wreath “for their virtue and goodwill towards the people of the Athenians”. It is carved on a stele.</p><p class="sub">As a woman, in Athens you could not be a citizen with political rights: not even Athenian women were. But you could receive honours.</p>
+
+@ea6851e0
+Quins camins hi ha per fer-me ciutadà romà?
+What ways are there to become a Roman citizen?
+
+@4d28fb60
+<p>«N'hi ha diversos, i cap no és curt. El dels magistrats d'un municipi llatí, com la nostra Malaca. El dels soldats de les tropes auxiliars, després de vint-i-cinc anys. El dels llatins que porten blat a Roma amb el seu vaixell durant sis anys. El dels bombers llatins, després de sis. I el més ràpid: que un amic important ho demani a l'emperador».</p><p class="sub">Al teu Diari, pestanya «Foraster», tens el camí pas a pas.</p>
+<p>“There are several, and none is short. That of the magistrates of a Latin town, like our Malaca. That of soldiers in the auxiliary troops, after twenty-five years. That of Latins who bring grain to Rome in their ship for six years. That of Latin firemen, after six. And the fastest: an important friend asking the emperor for it.”</p><p class="sub">In your Journal, “Stranger” tab, you have the path step by step.</p>
+
+@9fd3fbe1
+Torxa (fax)
+Torch (fax)
+
+@3e246a16
+Torxa (lampás)
+Torch (lampas)
+
+@e4e8457a
+La portes des del principi.
+You carry it from the start.
+
+@73d0f14c
+Tauleta de cera (tabulae)
+Wax tablet (tabulae)
+
+@4808c19d
+Tauleta de cera (pínax)
+Wax tablet (pinax)
+
+@9bcfe382
+Te la dona el primer mestre, a la primera lliçó.
+The first teacher gives it to you, in your first lesson.
+
+@8b1ee7be
+Bossa (marsupium)
+Purse (marsupium)
+
+@0633148c
+Bossa (balántion)
+Purse (balantion)
+
+@10c972e5
+Bot (uter)
+Wineskin (uter)
+
+@9efa2676
+Bot (askós)
+Wineskin (askos)
+
+@982ddfa5
+Te'l regala un cotxer al primer viatge fora de Roma.
+A carter gives it to you on your first trip out of Rome.
+
+@adf18fcb
+Te'l regala un traginer o un mariner al primer viatge fora de l'Àtica.
+A muleteer or a sailor gives it to you on your first trip out of Attica.
+
+@9568ba72
+Estrígil i oli (strigilis)
+Strigil and oil (strigilis)
+
+@84a65cc3
+Estrígil i oli (stlengís)
+Strigil and oil (stlengis)
+
+@8465a1d6
+L'aconsegueixes la primera vegada que vas a les termes.
+You get it the first time you go to the baths.
+
+@b5cc5496
+L'aconsegueixes la primera vegada que vas a la palestra.
+You get it the first time you go to the palaestra.
+
+@bfc97617
+Cridar el cavall (equus)
+Call the horse (equus)
+
+@21a18d40
+Cridar el cavall (híppos)
+Call the horse (hippos)
+
+@9b73a045
+Quan completis l'encàrrec del cavall.
+When you complete the horse errand.
+
+@c4d705c3
+Ales de cera (alae)
+Wax wings (alae)
+
+@d3691ae6
+Ales de cera (ptéryges)
+Wax wings (pteryges)
+
+@35c56d3a
+Després d'ajudar Dèdal a Creta.
+After helping Daedalus in Crete.
+
+@8b03cf7f
+Itinerari (itinerarium)
+Itinerary (itinerarium)
+
+@69b6a187
+Periple (períplous)
+Periplus (periplous)
+
+@3629b9e0
+Te'l dona el capità al primer viatge per mar.
+The captain gives it to you on your first sea voyage.
+
+@3b173ea2
+Les figuretes dels Lars: en comprar la casa o després de la primera ofrena en un larari.
+The figurines of the Lares: when you buy your house or after your first offering at a lararium.
+
+@c1600255
+Una brosta d'arç (al mes d'Antesterió) o la laminilla d'or dels òrfics.
+A sprig of hawthorn (in the month of Anthesterion) or the gold leaf of the Orphics.
+
+@a2fe5bb2
+">Posar-me'l</button>
+">Put it on</button>
+
+@bb9c3b3e
+">Comprar (
+">Buy (
+
+@78af0aac
+Vestuari
+Wardrobe
+
+@a1be1fe7
+Ets ciutadà romà: pots vestir la toga, l'estola i els calcei.
+You are a Roman citizen: you may wear the toga, the stola and the calcei.
+
+@89448516
+Ets un foraster (peregrinus): pots vestir gairebé tot, però no la toga, l'estola ni els calcei, que són dels ciutadans. Aconsegueix la ciutadania i podràs.
+You are a foreigner (peregrinus): you may wear almost everything, but not the toga, the stola or the calcei, which belong to citizens. Get citizenship and you will be able to.
+
+@0d4b84b3
+A Atenes no hi ha lleis sobre la roba: un meteco o un foraster pot vestir el mateix que un ciutadà. «Aquí no distingiries per la roba un ciutadà d'un meteco o d'un esclau», es queixa un autor atenès (Pseudo-Xenofont, Constitució dels atenesos 1.10).
+In Athens there are no laws about clothing: a metic or a foreigner may dress the same as a citizen. “Here you could not tell a citizen from a metic or a slave by their clothes”, complains an Athenian author (Pseudo-Xenophon, Constitution of the Athenians 1.10).
+
+@5da0a11f
+" Monedes: "
+" Coins: "
+
+@38139870
+Color del mantell
+Cloak colour
+
+@0b26db86
+Color de la túnica
+Tunic colour
+
+@bc80f632
+<p class="sub" style="opacity:.75">Mira-ho en tercera persona (V) o al mode foto.</p>
+<p class="sub" style="opacity:.75">See it in third person (V) or in photo mode.</p>
+
+@675b614a
+Un vianant es queda mirant-te: tanta porpra sense tenir rang és de mal gust, i Neró va arribar a prohibir alguns tons (Suetoni, Neró 32).
+A passer-by stares at you: so much purple without rank is in poor taste, and Nero even banned some shades (Suetonius, Nero 32).
+
+@c38952f6
+Et miren pel carrer: la porpra és caríssima, i qui la porta presumeix de ric.
+People stare at you in the street: purple is very expensive, and whoever wears it is showing off their wealth.
+
+# ---- tutorial, maestros y amistad, antorcha, odre, tablilla, ofrendas del camino
+
+@3449065d
+"<p class=\"sub\">Afinitat amb "
+"<p class=\"sub\">Affinity with "
+
+@83aa09df
+" et mira amb cortesia, però sense interès. Primer demostra-li que has escoltat el que ensenya: supera la seva lliçó («Posa'm a prova»).</p>"
+" looks at you politely, but without interest. First show that you have listened to what they teach: pass their lesson (“Test me”).</p>"
+
+@0ccf1f04
+Avui ja heu passat una estona junts. L'amistat no es força: torna un altre dia.
+You have already spent time together today. Friendship cannot be forced: come back another day.
+
+@769be168
+" desconfia dels deixebles de "
+" distrusts the disciples of "
+
+@2cc5cc13
+, així que t'exigeix més.</p>
+, so they ask more of you.</p>
+
+@3f641146
+" encara no t'obre aquesta porta. Per guanyar-te més confiança necessites: "
+" does not open that door to you yet. To earn more trust you need: "
+
+@35caafef
+"</b> (en tens "
+"</b> (you have "
+
+@175cb218
+.</p><p class="sub">Puja les teves qualitats a la fitxa (diari, pestanya Fitxa).</p>
+.</p><p class="sub">Raise your qualities in your profile (journal, Profile tab).</p>
+
+@3f54048d
+"</p><p class=\"sub\">L'afinitat puja a "
+"</p><p class=\"sub\">Affinity rises to "
+
+@a4255cf2
+"L'amistat de "
+"The friendship of "
+
+@66ca79dd
+" et fa millor."
+" makes you better."
+
+@8f44bdb1
+"Tothom sap que ets amic de "
+"Everyone knows you are a friend of "
+
+@2003db1d
+</p><p class="sub">No era el que esperava de tu. L'afinitat gairebé no puja (
+</p><p class="sub">It was not what they expected of you. Affinity barely rises (
+
+@081292b9
+" / 100). Torna un altre dia i torna-ho a provar.</p>"
+" / 100). Come back another day and try again.</p>"
+
+@0ad312fc
+" arrufa les celles: «Ja tens mestre: "
+" frowns: “You already have a teacher: "
+
+@73b8256c
+. Ningú no serveix bé dues escoles alhora. Si un dia el deixes, en parlarem».</p>
+. Nobody serves two schools well at once. If you leave one day, we will talk.”</p>
+
+@893c1c53
+superar la seva lliçó
+pass their lesson
+
+@aa4f2dac
+arribar a Confiança en la vostra amistat (afinitat 40)
+reach Trust in your friendship (affinity 40)
+
+@cce03af5
+" (en tens "
+" (you have "
+
+@1054983c
+"</p><p class=\"sub\">Perquè t'accepti com a aspirant necessites: "
+"</p><p class=\"sub\">For them to accept you as a candidate you need: "
+
+@a283cc27
+</p><p class="sub">Si ets el seu deixeble, els seus rivals (
+</p><p class="sub">If you are their disciple, their rivals (
+
+@f7ba31fc
+) et miraran amb recel.</p>
+) will look at you with suspicion.</p>
+
+@ceb630af
+<span class="n">1</span><span>Vull ser el teu deixeble</span>
+<span class="n">1</span><span>I want to be your disciple</span>
+
+@c48daed7
+<span class="n">2</span><span>Encara no</span>
+<span class="n">2</span><span>Not yet</span>
+
+@4bd2a056
+Prova d'admissió
+Admission test
+
+@9e14c023
+"Lliçó "
+"Lesson "
+
+@bd58aa52
+"</p><p><b>Encàrrec:</b> "
+"</p><p><b>Task:</b> "
+
+@1f3d5354
+<span class="n">1</span><span>Hi aniré</span>
+<span class="n">1</span><span>I'll go and do it</span>
+
+@87080f22
+<span class="n">2</span><span>Deixar de ser el seu deixeble</span>
+<span class="n">2</span><span>Stop being their disciple</span>
+
+@34d34d0a
+<p>«Ja n'hi ha prou per avui. El que has après necessita una nit per assentar-se. Torna demà».</p>
+<p>“Enough for today. What you have learned needs a night to settle. Come back tomorrow.”</p>
+
+@51d24c49
+"<div class=\"curio\"><span class=\"label\">Ara ets deixeble de "
+"<div class=\"curio\"><span class=\"label\">You are now a disciple of "
+
+@82248cbf
+"Has completat la teva formació amb "
+"You have completed your training with "
+
+@4600caaa
+"<p class=\"sub\">Encàrrec següent: "
+"<p class=\"sub\">Next task: "
+
+@ffdd3690
+<p class="sub">«No. Pensa-t'ho millor i torna un altre dia».</p>
+<p class="sub">“No. Think it over and come back another day.”</p>
+
+@ffa10f41
+"<p class=\"sub\">Debat: deixeble de "
+"<p class=\"sub\">Debate: disciple of "
+
+@3be93f1c
+Has guanyat un debat.
+You have won a debate.
+
+@e90d981c
+<span class="n">1</span><span>Tornar</span>
+<span class="n">1</span><span>Back</span>
+
+@7fa9e131
+Arrossega el dit per la pantalla per <b>mirar al voltant</b>.
+Drag your finger across the screen to <b>look around</b>.
+
+@344c2575
+Mou el ratolí per <b>mirar al voltant</b>.
+Move the mouse to <b>look around</b>.
+
+@ccb77e6f
+Posa el polze a la meitat esquerra de la pantalla i fes-lo lliscar per <b>caminar</b>.
+Put your thumb on the left half of the screen and slide it to <b>walk</b>.
+
+@9062fad8
+Camina amb <b>W A S D</b>. Amb Maj corres.
+Walk with <b>W A S D</b>. Hold Shift to run.
+
+@00e61006
+A dalt a l'esquerra hi ha el teu <b>objectiu</b>. El rombe <b>◆</b> de la brúixola, a dalt al centre, et diu cap on has d'anar.
+Top left is your <b>goal</b>. The <b>◆</b> diamond on the compass, top centre, tells you which way to go.
+
+@43662b16
+Acosta't a una persona i prem <b>
+Go up to a person and press <b>
+
+@72cd79aa
+</b> per <b>parlar</b> amb ella.
+</b> to <b>talk</b> to them.
+
+@df84eea7
+Obre el <b>menú</b> de dalt a la dreta i toca <b>Diari</b>.
+Open the <b>menu</b> at the top right and tap <b>Journal</b>.
+
+@6bb8e79d
+Prem <b>J</b> per obrir el <b>diari</b>.
+Press <b>J</b> to open the <b>journal</b>.
+
+@cb901bd7
+" A la pestanya <b>Guia</b> hi ha tot el que pots fer."
+" The <b>Guide</b> tab has everything you can do."
+
+@da71f898
+<span class="label">Ja saps el bàsic!</span><br>
+<span class="label">You know the basics!</span><br>
+
+@35d2440e
+Segueix l'objectiu del teu capítol.
+Follow your chapter's goal.
+
+@cf6471e0
+Comença pels <b>primers passos</b>: els tens al diari i a dalt a l'esquerra.
+Start with the <b>first steps</b>: they are in the journal and at the top left.
+
+@276176e7
+<p>En sortir, llegeixes un altre cop la inscripció del prónaos: <b>«Coneix-te a tu mateix»</b>. Un profeta et diu en veu baixa: «La Pítia ha afegit una cosa per a tu: “Cerca la llum sota terra, amb el que ensenya al bosc d'Acadèmos”».</p>
+<p>On the way out you read the inscription in the pronaos again: <b>“Know thyself”</b>. A prophet tells you quietly: “The Pythia has added something for you: ‘Seek the light underground, with the one who teaches in the grove of Academus’.”</p>
+
+@b5b767e8
+Cir
+Cyrus
+
+@67c104de
+tonsor de la Subura
+tonsor of the Subura
+
+@6c866544
+Fortunat
+Fortunatus
+
+@dbeebb43
+balneator de les termes de Titus
+balneator of the Baths of Titus
+
+@058374fa
+Sext Nevi
+Sextus Naevius
+
+@eeb04695
+patró ric, convida a sopar
+rich patron, invites you to dinner
+
+@63a805a8
+ociós del Pòrtic d'Octàvia
+idler of the Portico of Octavia
+
+@ad522dd1
+El rellotge d'August
+The clock of Augustus
+
+@617ba123
+quina hora és a Roma?
+what time is it in Rome?
+
+@9cabc5f9
+Unir-te a l'aquaelicium (hi ha sequera)
+Join the aquaelicium (there is a drought)
+
+@01cb353e
+Pujar a l'Himet a demanar pluja a Zeus (hi ha sequera)
+Climb Hymettus to pray to Zeus for rain (there is a drought)
+
+@8303738a
+"<span class=\"label\">No et queden torxes</span><br>Compra'n més amb la bossa (casella 3): dues per "
+"<span class=\"label\">You have no torches left</span><br>Buy more with the purse (slot 3): two for "
+
+@ec359c5b
+un sesterci
+one sestertius
+
+@5736ad32
+un òbol
+one obol
+
+@9174d430
+. Són pals amb draps o estopa xops de pega.
+. They are sticks with rags or tow soaked in pitch.
+
+@c34b4580
+"La torxa es consumeix i n'encens una altra. Et queden "
+"The torch burns out and you light another. You have left: "
+
+@05da3f7f
+<span class="label">La torxa s'ha consumit</span><br>Compra'n més amb la bossa (casella 3).
+<span class="label">The torch has burned out</span><br>Buy more with the purse (slot 3).
+
+@55377b12
+La posca et reconforta: durant un parell d'hores el fred i la neu no t'aturen.
+The posca warms you up: for a couple of hours the cold and the snow do not slow you down.
+
+@269c177f
+El vi aigualit t'escalfa el cos: durant un parell d'hores el fred i la neu no t'aturen.
+The watered wine warms your body: for a couple of hours the cold and the snow do not slow you down.
+
+@0bc8e8cf
+"Pel camí beus del bot. En queden "
+"On the way you drink from your wineskin. Left: "
+
+@6f8be9bf
+Fas el camí sense aigua, però trobes fonts a temps. Has tingut sort.
+You travel without water, but you find springs in time. You were lucky.
+
+@e7acff5c
+<span class="label">Arribes assedegat</span><br>Has fet el camí sense aigua i arribes esgotat: caminaràs més a poc a poc fins que beguis. Porta sempre el bot ple als viatges per terra.
+<span class="label">You arrive thirsty</span><br>You made the journey without water and arrive exhausted: you will walk more slowly until you drink. Always carry a full wineskin on overland journeys.
+
+@04193cb0
+"Net i fent olor d'oli, causes bona impressió: el mestre et dona un "
+"Clean and smelling of oil, you make a good impression: the teacher gives you a "
+
+@6932afee
+"El mestre arrufa el nas: fas olor de suor i de pols del camí. Passa per "
+"The teacher wrinkles their nose: you smell of sweat and road dust. Go by "
+
+@fe30c742
+les termes
+the baths
+
+@07416e2d
+" amb el teu estrígil."
+" with your strigil."
+
+@6aaa7366
+<p><span class="label">Les teves notes</span></p><textarea id="uxNotas" rows="4" style="width:100%;box-sizing:border-box;font:15px Alegreya,Georgia,serif;background:#1d1610;color:#f1e8d8;border:1px solid #6a4a30;border-radius:6px;padding:6px" placeholder="Escriu aquí el que vulguis recordar…"></textarea>
+<p><span class="label">Your notes</span></p><textarea id="uxNotas" rows="4" style="width:100%;box-sizing:border-box;font:15px Alegreya,Georgia,serif;background:#1d1610;color:#f1e8d8;border:1px solid #6a4a30;border-radius:6px;padding:6px" placeholder="Write here whatever you want to remember…"></textarea>
+
+@21e149a5
+"<details><summary><b>Inscripcions copiades · "
+"<details><summary><b>Copied inscriptions · "
+
+@b48d99d9
+<p class="sub">Llegeix les esteles i els rètols dels monuments: n'hi copiaràs la inscripció.</p>
+<p class="sub">Read the stelae and the signs on monuments: you will copy their inscription here.</p>
+
+@e4e3e351
+Deixar una ofrena a l'altar de la cantonada (et protegeix avui)
+Leave an offering at the corner altar (protects you today)
+
+@910f1ad5
+Deixar una ofrena en una herma del camí (et protegeix avui)
+Leave an offering at a wayside herm (protects you today)
+
+@5c90580b
+Els Lars Vials
+The Lares Viales
+
+@47593f3c
+L'herma del camí
+The wayside herm
+
+@c8fe1aea
+una ofrena per al viatge
+an offering for the journey
+
+@03950b02
+<p>Deixes unes flors i una mica d'encens a l'altar dels Lars de la cantonada. Els romans també honoraven els Lars Vials, protectors dels camins, abans de sortir de viatge.</p><p class="sub">Avui els lladres i els camins sense aigua et donaran menys problemes. +1 Pietas</p>
+<p>You leave some flowers and a little incense at the altar of the Lares on the corner. Romans also honoured the Lares Viales, protectors of roads, before setting out on a journey.</p><p class="sub">Today thieves and waterless roads will give you less trouble. +1 Pietas</p>
+
+@4b47030c
+<p>Deixes un pastís de mel al peu d'una herma, un pilar amb el cap d'Hermes que hi ha a les cruïlles i a les portes de les cases. Hermes guia els viatgers, i els caminants li tiren una pedra en passar: així creixen els munts de pedres dels camins.</p><p class="sub">Avui els lladres i els camins sense aigua et donaran menys problemes. +1 Eusébeia</p>
+<p>You leave a honey cake at the foot of a herm, a pillar with the head of Hermes found at crossroads and at house doors. Hermes guides travellers, and walkers throw a stone at it as they pass: that is how the cairns along the roads grow.</p><p class="sub">Today thieves and waterless roads will give you less trouble. +1 Eusebeia</p>
+
+@94eaf4d0
+"Bot: "
+"Wineskin: "
+
+@918f10d0
+" glops de "
+" swigs of "
+
+@7de5908c
+vi aigualit
+watered wine
