@@ -540,20 +540,27 @@ body.tm #toast{bottom:auto;top:calc(170px + env(safe-area-inset-top,0px));right:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <!-- modelos de Blender (atenas_modelos.glb en base64); si falta o no carga, el juego usa sus primitivas -->
-<script type="application/octet-stream" id="glb" data-src="datos/glb.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glb2" data-src="datos/glb2.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_ciudadano" data-src="datos/glbpj_ciudadano.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_hoplita" data-src="datos/glbpj_hoplita.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_mujer" data-src="datos/glbpj_mujer.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_obrero" data-src="datos/glbpj_obrero.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_togado" data-src="datos/glbpj_togado.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_romana" data-src="datos/glbpj_romana.txt?v=014d84fb93d6"></script>
-<script type="application/octet-stream" id="glbpj_legionario" data-src="datos/glbpj_legionario.txt?v=014d84fb93d6"></script>
+<script type="application/octet-stream" id="glb" data-src="datos/glb.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glb2" data-src="datos/glb2.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_ciudadano" data-src="datos/glbpj_ciudadano.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_hoplita" data-src="datos/glbpj_hoplita.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_mujer" data-src="datos/glbpj_mujer.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_obrero" data-src="datos/glbpj_obrero.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_togado" data-src="datos/glbpj_togado.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_romana" data-src="datos/glbpj_romana.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_legionario" data-src="datos/glbpj_legionario.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_ciudadano_alta" data-lazy="1" data-src="datos/glbpj_ciudadano_alta.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_hoplita_alta" data-lazy="1" data-src="datos/glbpj_hoplita_alta.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_mujer_alta" data-lazy="1" data-src="datos/glbpj_mujer_alta.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_obrero_alta" data-lazy="1" data-src="datos/glbpj_obrero_alta.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_togado_alta" data-lazy="1" data-src="datos/glbpj_togado_alta.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_romana_alta" data-lazy="1" data-src="datos/glbpj_romana_alta.txt?v=a14d69b54b7d"></script>
+<script type="application/octet-stream" id="glbpj_legionario_alta" data-lazy="1" data-src="datos/glbpj_legionario_alta.txt?v=a14d69b54b7d"></script>
 
 <!-- «La escuela de Atenas» de Rafael (dominio público), para la biblioteca -->
-<script type="text/plain" id="rafaelimg" data-src="datos/rafaelimg.txt?v=014d84fb93d6"></script>
+<script type="text/plain" id="rafaelimg" data-src="datos/rafaelimg.txt?v=a14d69b54b7d"></script>
 <!-- imagen de la presentación de Roma: el Vesubio en erupción de noche (cuadro aportado para el proyecto) -->
-<script type="text/plain" id="lobaimg" data-src="datos/lobaimg.txt?v=014d84fb93d6"></script>
+<script type="text/plain" id="lobaimg" data-src="datos/lobaimg.txt?v=a14d69b54b7d"></script>
 <!-- relieve real de los destinos (modelos/relieve_real.json, de herramientas/relieve_real/dem_todos.py) -->
-<script type="application/json" id="demdata" data-src="datos/demdata.txt?v=014d84fb93d6"></script>
-<script>/* cargador: trae los datos y el código del juego (datos/) y arranca */(function(){var V="014d84fb93d6",m=document.createElement("div");m.id="cargador";m.style.cssText="position:fixed;left:0;right:0;bottom:14px;text-align:center;font:15px Georgia,serif;color:#e8dcc0;text-shadow:0 1px 3px #000;z-index:9999;pointer-events:none";m.textContent="Cargando Nóstos…";document.body.appendChild(m);var E=[].slice.call(document.querySelectorAll("script[data-src]")),n=0,T=E.length+1;function p(){m.textContent="Cargando Nóstos… "+Math.round(100*n/T)+" %";}function f(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(u+" ("+r.status+")");return r.text();});}Promise.all(E.map(function(e){return f(e.getAttribute("data-src")).then(function(t){e.textContent=t;n++;p();});})).then(function(){return f("datos/juego.js?v="+V);}).then(function(code){n++;p();var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();}).catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>
+<script type="application/json" id="demdata" data-src="datos/demdata.txt?v=a14d69b54b7d"></script>
+<script>/* cargador: trae los datos y el código del juego (datos/) y arranca */(function(){var V="a14d69b54b7d",m=document.createElement("div");m.id="cargador";m.style.cssText="position:fixed;left:0;right:0;bottom:14px;text-align:center;font:15px Georgia,serif;color:#e8dcc0;text-shadow:0 1px 3px #000;z-index:9999;pointer-events:none";m.textContent="Cargando Nóstos…";document.body.appendChild(m);var E=[].slice.call(document.querySelectorAll("script[data-src]:not([data-lazy])")),n=0,T=E.length+1;function p(){m.textContent="Cargando Nóstos… "+Math.round(100*n/T)+" %";}function f(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(u+" ("+r.status+")");return r.text();});}Promise.all(E.map(function(e){return f(e.getAttribute("data-src")).then(function(t){e.textContent=t;n++;p();});})).then(function(){return f("datos/juego.js?v="+V);}).then(function(code){n++;p();var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();}).catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>

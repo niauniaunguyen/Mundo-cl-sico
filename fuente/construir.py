@@ -17,6 +17,8 @@ import gzip
 # personajes hechos en Blender (herramientas/blender/personajes.py), comprimidos con gzip: el juego los descomprime al cargar
 PJ = ['ciudadano', 'hoplita', 'mujer', 'obrero', 'togado', 'romana', 'legionario']
 pj_tags = ''.join('<script type="application/octet-stream" id="glbpj_%s">%s</script>\n' % (k, base64.b64encode(gzip.compress((raiz / 'modelos' / ('personaje_%s_juego.glb' % k)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ)
+# versión alta (personas cercanas): se carga en segundo plano tras arrancar (data-lazy: el cargador no la espera)
+pj_tags += ''.join('<script type="application/octet-stream" id="glbpj_%s_alta" data-lazy="1">%s</script>\n' % (k, base64.b64encode(gzip.compress((raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists())
 assert src.count('@@GLB@@') == 1, 'falta el marcador @@GLB@@'
 assert src.count('@@GLB2@@') == 1, 'falta el marcador @@GLB2@@'
 assert src.count('@@RAFAEL@@') == 1, 'falta el marcador @@RAFAEL@@'
@@ -55,7 +57,7 @@ datos = raiz / 'datos'; datos.mkdir(exist_ok=True)
 for f in datos.glob('*'):
     if f.suffix in ('.txt', '.js'): f.unlink()
 light = out
-for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['rafaelimg', 'lobaimg', 'demdata']:
+for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + ['rafaelimg', 'lobaimg', 'demdata']:
     m = _re.search(r'(<script[^>]*\bid="%s"[^>]*>)([\s\S]*?)(</script>)' % idn, light)
     assert m, 'no encuentro el bloque ' + idn
     (datos / (idn + '.txt')).write_text(m.group(2), encoding='utf-8')
@@ -65,7 +67,7 @@ assert i > 0 and j > i
 (datos / 'juego.js').write_text(light[i + 8:j], encoding='utf-8')
 BOOT = ('<script>/* cargador: trae los datos y el código del juego (datos/) y arranca */(function(){var V="%s",m=document.createElement("div");'
         'm.id="cargador";m.style.cssText="position:fixed;left:0;right:0;bottom:14px;text-align:center;font:15px Georgia,serif;color:#e8dcc0;text-shadow:0 1px 3px #000;z-index:9999;pointer-events:none";'
-        'm.textContent="Cargando Nóstos…";document.body.appendChild(m);var E=[].slice.call(document.querySelectorAll("script[data-src]")),n=0,T=E.length+1;'
+        'm.textContent="Cargando Nóstos…";document.body.appendChild(m);var E=[].slice.call(document.querySelectorAll("script[data-src]:not([data-lazy])")),n=0,T=E.length+1;'
         'function p(){m.textContent="Cargando Nóstos… "+Math.round(100*n/T)+" %%";}'
         'function f(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(u+" ("+r.status+")");return r.text();});}'
         'Promise.all(E.map(function(e){return f(e.getAttribute("data-src")).then(function(t){e.textContent=t;n++;p();});})).then(function(){return f("datos/juego.js?v="+V);})'

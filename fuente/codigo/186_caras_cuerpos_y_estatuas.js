@@ -55,7 +55,7 @@ const FV_SKIN=[[1,1,1],[0.9,0.84,0.78],[1.05,1.02,0.98],[0.94,0.9,0.8],[0.84,0.7
 function bpVary(g,kind,seed,ft){const R=mulberry32(seed>>>0),fem=kind==='mujer'||kind==='romana',t0=Math.floor(R()*FV_TYPES.length),t=ft!==undefined?ft:t0,v=Math.floor(R()*3),P=fvParams(t,fem,mulberry32((t*7+v*131+(fem?1:0))*977));
   const sk=FV_SKIN[fem?[0,2,2,3][Math.floor(R()*4)]:Math.floor(R()*R()*FV_SKIN.length)],hr=FV_HAIR[R()<0.6?0:1+Math.floor(R()*(R()<0.85?2:4))];
   const root=g.children[0];g.traverse(o=>{if(!o.isMesh)return;const nm=o.name||'',mn=o.material&&o.material.name||'';
-    if(FV_HEAD.test(nm))o.geometry=fvGeo(o.geometry,kind+'|'+nm+'|'+t+'|'+v,P);
+    if(FV_HEAD.test(nm)){o.userData.fvKey=kind+'|'+nm+'|'+t+'|'+v;o.userData.fvP=P;o.geometry=fvGeo(o.geometry,o.userData.fvKey,P);}
     if(/_(cara|piel)$/.test(mn))o.material=fvTint(o.material,sk);else if(/_(pelo|barba)$/.test(mn))o.material=fvTint(o.material,hr);});
   // altura: media y desviación de los esqueletos áticos (el modelo mide unos 1,75 m); complexión: ancho de hombros y cintura
   const hm=fem?1.56/1.75*1.05:1.68/1.75*1.03,h=hm*(1+(R()+R()+R()-1.5)*0.05),w=h*(0.95+R()*0.1);root.scale.set(w,h,w);
@@ -101,7 +101,7 @@ function bpStatue(c,k){const mk=stModel(c),base=mk==='atenea'?'mujer':mk;if(!BP.
   if(mk==='atenea'&&BP.tpl.hoplita){stGraft(root,bpClone(BP.tpl.hoplita.scene),/^(casco|cimera|escudo|lanza)$/);root.traverse(o=>{if(/_mono$|_cinta$/.test(o.name))o.visible=false;});}
   const mix=new THREE.AnimationMixer(root),idle=T.anims.find(a=>a.name.endsWith('quieto'));if(idle){mix.clipAction(idle).play();mix.update(0.4);}   // postura fija
   const pi=(STB.pi=(STB.pi||0)+1);root.traverse(o=>{if(!o.isMesh)return;o.material=stMat(o.material,k,fem,pi);o.castShadow=true;o.frustumCulled=false;});
-  const g=new THREE.Group();g.add(root);g.userData.statue=k;return g;}
+  const g=new THREE.Group();g.add(root);g.userData.statue=k;g.userData.pj=base;return g;}
 // cambia, de cerca, cada estatua sencilla por la de Blender (a la altura y en el sitio de la sencilla)
 function stSwap(){let made=0;const W=new Set(walkers.map(w=>w.g));for(const s of STB.list){if(s.bp||s.skip||!s.g.parent)continue;const g=s.g;if(W.has(g)){s.skip=true;continue;}
     if(g.children.length!==s.n){s.skip=true;continue;}   // le han colgado algo (la Nike de la Pártenos...): se queda la sencilla
@@ -149,3 +149,24 @@ function npbAnim(dt){for(const f of NPB.vis){if(f.hold.visible&&f.root.visible)f
   const B=f.B;if(!B||!B.idle)continue;B.t+=dt;if(B.walk)B.walk.setEffectiveWeight(0);B.idle.setEffectiveWeight(1);B.idle.time=B.t%B.idle.getClip().duration;B.mix.update(0);}}
 {let acc=0,acc2=3;const f=uxTick;uxTick=function(dt){f(dt);if(!BP.ready)return;acc+=dt;acc2+=dt;try{if(acc2>3){acc2=0;const W=new Set(walkers.map(w=>w.g));for(const g of NPB.all){if(g.userData.npb||!g.parent||W.has(g)||(g.parent.userData&&g.parent.userData.old===g))continue;if(npcOk(g))NPB.list.push({g,f:null,d2:1e12});}}
   if(acc>0.3){acc=0;npbTick();}npbAnim(dt);}catch(e){}};}
+
+// ---------------------------------------------------------------- versión alta de cerca
+// Cada personaje tiene dos versiones: la ligera (unos 11 000-12 000 triángulos) para todos y la alta (39 000-50 000: cabeza, pelo, ropa y
+// manos con mucho más detalle) para los pocos que están más cerca. La alta se trae en segundo plano después de arrancar (datos/glbpj_*_alta,
+// data-lazy) y no se clona: a la persona cercana se le cambia la geometría de cada pieza por la de la alta (mismos huesos y en el mismo
+// orden, comprobado al exportar), con la misma deformación de cara. Las más cercanas: BPH.N a menos de BPH.D metros.
+const BPH={tpl:{},N:6,D:16,on:new Set()};try{if(typeof isTouch!=='undefined'&&isTouch){BPH.N=3;BPH.D=11;}if(ACC.lite)BPH.N=0;}catch(e){}
+function bphLoad(){if(BPH.loading||!BPH.N)return;BPH.loading=1;const L=Object.keys(BP.tpl).filter(k=>k[0]!=='@');let i=0;
+  const next=()=>{if(i>=L.length)return;const k=L[i++];bpParse('glbpj_'+k+'_alta','@'+k,()=>{const T=BP.tpl['@'+k];delete BP.tpl['@'+k];
+    if(T){const M={};T.scene.traverse(o=>{if(o.isMesh)M[o.name]=o.geometry;});BPH.tpl[k]=M;}setTimeout(next,400);});};setTimeout(next,4000);}
+function bphSet(root,kind,on){const M=BPH.tpl[kind];if(!M&&on)return false;root.traverse(o=>{if(!o.isMesh)return;const u=o.userData;
+    if(on){const hg=M[o.name];if(!hg)return;if(!u.loGeo)u.loGeo=o.geometry;o.geometry=u.fvKey?fvGeo(hg,u.fvKey+'|alta',u.fvP):hg;}
+    else if(u.loGeo){o.geometry=u.loGeo;}});return true;}
+function bphTick(){if(!BPH.N)return;const cx=camera.position.x,cy=camera.position.y,cz=camera.position.z,D2=BPH.D*BPH.D,v=new THREE.Vector3(),C=[];
+  const add=(root,kind,obj)=>{if(!root||!root.visible||!BPH.tpl[kind])return;let vis=true;for(let q=obj;q&&q!==scene;q=q.parent)if(!q.visible){vis=false;break;}if(!vis)return;obj.getWorldPosition(v);const d2=(v.x-cx)**2+(v.y-cy)**2*0.3+(v.z-cz)**2;if(d2<D2)C.push([d2,root,kind]);};
+  for(const g of BP.list)add(g.children[0],g.userData.pj,g);
+  for(const e of NPB.list)if(e.f)add(e.f.root,e.g.userData.npbKind,e.g);
+  for(const s of STB.list)if(s.bp)add(s.bp.children[0],s.bp.userData.pj,s.bp);
+  C.sort((a,b)=>a[0]-b[0]);const want=new Set();for(let i=0;i<Math.min(BPH.N,C.length);i++){const[,root,kind]=C[i];want.add(root);if(!BPH.on.has(root)&&bphSet(root,kind,true))BPH.on.add(root);}
+  for(const r of BPH.on)if(!want.has(r)){bphSet(r,null,false);BPH.on.delete(r);}}
+{let acc=0;const f=uxTick;uxTick=function(dt){f(dt);if(!BP.ready)return;if(!BPH.loading)bphLoad();acc+=dt;if(acc>0.3){acc=0;try{bphTick();}catch(e){}}};}

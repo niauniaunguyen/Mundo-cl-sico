@@ -69,7 +69,7 @@ def body_mesh(name,female=False):
         if female and any(keys[i].startswith(p) for p in('kne','calf','ank')):r=(r[0]*0.9,r[1]*0.9)
         v.radius=r
     me.skin_vertices[0].data[keys.index('pelvis')].use_root=True
-    sub=ob.modifiers.new('sub','SUBSURF');sub.levels=1;sub.render_levels=1
+    sub=ob.modifiers.new('sub','SUBSURF');sub.levels=2;sub.render_levels=2   # dos niveles: cuello, hombros, brazos y manos redondeados (con uno, el cuello salía en aristas)
     bpy.context.view_layer.objects.active=ob
     for m in list(ob.modifiers):bpy.ops.object.modifier_apply(modifier=m.name)
     fix_normals(ob)
@@ -265,6 +265,32 @@ def hair_shell(name,head,kind):   # pelo o barba con volumen: copia de la cabeza
     thr=0.3 if kind=='cejas' else 0.55
     bmesh.ops.delete(bm,geom=[f for f in bm.faces if sum(W[v] for v in f.verts)/len(f.verts)<thr],context='FACES');bm.normal_update()
     bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
+    # borde liso: cada vértice del contorno se lleva a la curva en que el peso vale exactamente el umbral (antes, el borde seguía las
+    # caras borradas y salía en escalera, en dientes de sierra junto a la frente, las sienes y la barba)
+    Wp=lambda a,h:hair_weight(kind,head_point(a,h))-thr
+    for v in bm.verts:
+        if not v.is_boundary:continue
+        q=v.co-HC;a=math.atan2(q.x,-q.y);h=q.z;f0=Wp(a,h);best=None
+        for dz in(0.0015,0.003,0.005,0.008,0.012,0.018):
+            for sgn in(1,-1):
+                h2=h+sgn*dz
+                if (Wp(a,h2)>0)!=(f0>0):best=('h',h,h2);break
+            if best:break
+        if not best:
+            for da in(0.01,0.02,0.035,0.05,0.08):
+                for sgn in(1,-1):
+                    a2=a+sgn*da
+                    if (Wp(a2,h)>0)!=(f0>0):best=('a',a,a2);break
+                if best:break
+        if not best:continue
+        lo,hi=best[1],best[2]
+        for _ in range(16):
+            mid=(lo+hi)/2;fm=Wp(mid,h) if best[0]=='a' else Wp(a,mid)
+            if (fm>0)==(f0>0):lo=mid
+            else:hi=mid
+        v.co=head_point((lo+hi)/2,h) if best[0]=='a' else head_point(a,(lo+hi)/2)
+        W[v]=thr
+    bm.normal_update()
     for v in bm.verts:
         w=W[v];q=v.co-HC;a=math.atan2(q.x,-q.y);n=v.normal.copy()
         lock=max(0,math.sin(a*14+math.sin(q.z*60)*1.5))**1.5*max(0,math.sin(q.z*110+a*5))   # mechones en relieve
@@ -340,10 +366,14 @@ def ionic_sleeve(name,sg,sho,elb):
         rows.append(row)
     N=len(rows)-1
     uvl=bm.loops.layers.uv.new('UVMap')
+    pole=bm.verts.new(a0-ax*R0*0.86)   # polo de la cúpula: la manga queda cerrada del todo por arriba
+    for k in range(K):
+        f=bm.faces.new((pole,rows[0][(k+1)%K],rows[0][k]))
+        for l in f.loops:l[uvl].uv=(k/K,1-M/N)
     for i in range(N):
         for k in range(K):
             f=bm.faces.new((rows[i][k],rows[i][(k+1)%K],rows[i+1][(k+1)%K],rows[i+1][k]))
-            for l,(dk,di) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((k+dk)/K,1-(i+di)/N)
+            for l,(dk,di) in zip(f.loops,((0,0),(1,0),(1,1),(0,1))):l[uvl].uv=((k+dk)/K,1-max(i+di,M)/N)   # la cúpula, con la tela lisa (sin la cenefa del borde)
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
     ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.005;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
     b2=bmesh.new()
@@ -966,12 +996,29 @@ def rkey(n):
     n=n.split('.')[0]
     for k in ARMS:n=n.replace(k+'_','')
     return n
+# versión alta para el juego (las personas más cercanas): unas cuatro veces más triángulos que la ligera; se exporta antes de reducir más
+KA=3.6
+for k,a in ARMS.items():
+    kids=[o for o in bpy.data.objects if o.parent==a and o.type=='MESH']
+    for o in kids:
+        r=RATIO.get(rkey(o.name))
+        if not r or r*KA>=1:continue
+        bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o
+        d=o.modifiers.new('dec','DECIMATE');d.ratio=r*KA
+        bpy.ops.object.modifier_move_to_index(modifier='dec',index=0);bpy.ops.object.modifier_apply(modifier='dec')
+    bpy.ops.object.select_all(action='DESELECT');a.select_set(True)
+    for o in kids:o.select_set(True)
+    f=os.path.join(OUT,'personaje_'+k+'_alta.glb')
+    bpy.ops.export_scene.gltf(filepath=f,export_format='GLB',export_skins=True,export_animations=True,export_animation_mode='NLA_TRACKS',
+        export_image_format='JPEG',export_jpeg_quality=70,export_apply=False,export_yup=True,use_selection=True)
+    sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));import compactar_glb;compactar_glb.main(f,f)
+    print('GLB ALTA',k,os.path.getsize(f),sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in kids),'triángulos')
 for k,a in ARMS.items():
     kids=[o for o in bpy.data.objects if o.parent==a and o.type=='MESH']
     for o in kids:
         r=RATIO.get(rkey(o.name))
         if not r:continue
-        r*=0.62   # margen de peso: el juego incrusta 7 personajes
+        r=r*0.62/min(1,r*KA)   # la ligera, sobre lo que dejó la alta
         bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o
         d=o.modifiers.new('dec','DECIMATE');d.ratio=r
         bpy.ops.object.modifier_move_to_index(modifier='dec',index=0);bpy.ops.object.modifier_apply(modifier='dec')

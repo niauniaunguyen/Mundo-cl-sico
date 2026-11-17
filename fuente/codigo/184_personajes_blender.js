@@ -10,7 +10,9 @@ try{if(ACC.lite){BP.MAXC=12;BP.MAXH=6;BP.R=60;BP.K=14;BP.VR=60;BP.MAXT=100;}}cat
 if(typeof isTouch!=='undefined'&&isTouch){BP.MAXC=Math.min(BP.MAXC,18);BP.MAXH=Math.min(BP.MAXH,8);BP.R=90;BP.K=Math.min(BP.K,22);BP.VR=Math.min(BP.VR,90);BP.MAXT=Math.min(BP.MAXT,140);}
 // recordar con qué datos se hizo cada persona (para saber a quién se puede sustituir)
 {const f=makePerson;makePerson=function(c){const g=f.apply(this,arguments);try{if(g&&c)g.userData.cfg=c;}catch(e){}return g;};}
-async function bpBytes(id){const el=document.getElementById(id),t=el?el.textContent.trim():'';if(t.length<100)return null;
+async function bpBytes(id){const el=document.getElementById(id);let t=el?el.textContent.trim():'';
+  if(t.length<100&&el&&el.dataset&&el.dataset.src){try{const r=await fetch(el.dataset.src);if(r.ok)t=(await r.text()).trim();}catch(e){}}   // datos que se traen después de arrancar (data-lazy)
+  if(t.length<100)return null;
   const b=atob(t),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);
   if(typeof DecompressionStream==='undefined')return bpGunzip(u).buffer;   // Safari antes de iOS 16.4 y navegadores viejos de Android
   const st=new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(st).arrayBuffer();}

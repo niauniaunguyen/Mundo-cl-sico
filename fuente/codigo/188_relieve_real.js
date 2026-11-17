@@ -31,7 +31,7 @@ function demSea(D,I,f){const n=D.n,o=new Float32Array(n*n),low=new Uint8Array(n*
   if(D.cs){if(!D.S)D.S=demSea(D,I,f);const s=clamp(demGrid(D,D.S,lx,lz,1),0,1);if(s>0.001)r=lerp(r,f(I,x,z),sstep(s));}   // el mar del juego
   return r;};}
 // los solares con altura fija (pensados para el llano inventado) toman la del relieve real en su sitio
-{const f=pad;pad=function(I,lx,lz,r,dh,fixed){if(I&&demGet(I.id)&&fixed!==undefined)fixed=undefined;return f.call(this,I,lx,lz,r,dh,fixed);};}
+{const f=pad;pad=function(I,lx,lz,r,dh,fixed){if(I&&demGet(I.id)&&fixed!==undefined&&islandBase(I,I.x+lx,I.z+lz)>0.6)fixed=undefined;return f.call(this,I,lx,lz,r,dh,fixed);};}   // salvo en el mar del juego: ahí el solar fijo es un muelle o una llegada ganada al agua
 // límite superior de los árboles: con el relieve inventado salía de la altura de sus montes (I.H); con el real, el límite del arbolado
 // en las montañas del Mediterráneo, hacia 2.300 m (abetos del Taigeto, del Parnaso o del Eta; el pino de Heldreich del Olimpo llega a unos 2.500), en altura del juego
 function vegTop(I,k){const D=I&&demGet(I.id);if(!D)return k?I.H*k:I.H*3+60;return 2300-(D.e0||0);}
