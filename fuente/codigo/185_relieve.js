@@ -37,7 +37,7 @@ function reliefPost(I,H,N1,st,x0,z0){if(!RELIEF.on)return;const t0=performance.n
   // 1. crestas y barrancos en las laderas
   for(let j=1;j<N1-1;j++)for(let i=1;i<N1-1;i++){const k=j*N1+i,h=B[k],free=1-P[k];if(free<=0||h<4)continue;
     const gx=(B[k+1]-B[k-1])/(2*st),gz=(B[k+N1]-B[k-N1])/(2*st),g=Math.hypot(gx,gz);
-    const amp=clamp((h-4)/45,0,1)*free;if(amp<=0)continue;const lx=x0+i*st-I.x,lz=z0+j*st-I.z;
+    const amp=clamp((h-4)/45,0,1)*free*(I.dem?0.35:1);   // con relieve real (188), solo un poco de detalle encimaif(amp<=0)continue;const lx=x0+i*st-I.x,lz=z0+j*st-I.z;
     // relieve de cresta (picos y collados) que crece con la altura
     const rn=1-Math.abs(2*vnoise(lx*0.011+sd,lz*0.011)-1),rn2=1-Math.abs(2*vnoise(lx*0.027-sd,lz*0.027+3.1)-1);
     let d=(rn*rn-0.35)*Math.min(14,h*0.09)+(rn2*rn2-0.35)*Math.min(5,h*0.035);

@@ -39,7 +39,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `032_glosario_lateral.js` | 758 | glosario lateral |
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
 | `034_atenas.js` | 71 | ATENAS: decoración de la polis (siglo IV a.C.) |
-| `035_esparta_386_a_c_y.js` | 405 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
+| `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
 | `036_acabado.js` | 82 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 94 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
@@ -190,4 +190,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `184_personajes_blender.js` | 93 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
 | `185_relieve.js` | 76 | RELIEVE DE LOS DESTINOS: MÁS DETALLE Y SIN PAREDES IMPOSIBLES |
 | `186_caras_cuerpos_y_estatuas.js` | 152 | CARAS DISTINTAS, CUERPOS DISTINTOS Y ESTATUAS PINTADAS |
+| `187_relieve_real_datos.js` | 4 | (inicio del código) |
+| `188_relieve_real.js` | 22 | RELIEVE REAL (prueba: Olimpia y Delfos) |
 | `900_creta_y_arranque.js` | 643 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

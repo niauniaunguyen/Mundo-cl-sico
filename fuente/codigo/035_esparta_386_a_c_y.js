@@ -113,7 +113,8 @@ function defineGreece2(){
   Me.blobs.push({x:Me.x+70,z:Me.z-150,R:85,H:26},{x:Me.x-70,z:Me.z-160,R:75,H:22});Me.town=pad(Me,0,20,60,0,4);Me.fount=pad(Me,90,70,14,0,4);Me.oly=pad(Me,-90,60,18,0,4);Me.sch=pad(Me,40,-50,14,0,4);
   Co.blobs.push({x:Co.x+20,z:Co.z+280,R:190,H:130},{x:Co.x+70,z:Co.z-70,R:50,H:7});Co.acro=pad(Co,20,280,20);Co.apollo=pad(Co,70,-70,30);Co.town=pad(Co,-40,20,70,0,4);Co.peir=pad(Co,-70,-60,14,0,4);
   Pl.blobs.push({x:Pl.x,z:Pl.z+400,R:330,H:130});Pl.town=pad(Pl,0,-20,80,0,4);Pl.hera=pad(Pl,80,-90,22,0,4);Pl.altar=pad(Pl,-110,70,14,0,4);Pl.tombs=pad(Pl,-170,170,30,0,4);
-  De.blobs.push({x:De.x,z:De.z-480,R:420,H:300});De.temple=pad(De,0,-40,36);De.treas=pad(De,-50,30,12);De.cast=pad(De,120,30,14);De.stad=pad(De,-40,-150,60);De.col=pad(De,30,10,8);
+  De.blobs.push({x:De.x,z:De.z-480,R:420,H:300});{const re=!!demGet('delfos'),dx=re?-150:0;   // con relieve real (188_relieve_real.js): el santuario 150 m al oeste y la Castalia y el estadio en su sitio real respecto al templo
+   De.temple=pad(De,dx,-40,36);De.treas=pad(De,dx-50,30,12);De.cast=re?pad(De,310,83,14):pad(De,120,30,14);De.stad=re?pad(De,-416,-225,60):pad(De,-40,-150,60);De.col=pad(De,dx+30,10,8);}
   Ar.blobs.push({x:Ar.x-120,z:Ar.z-160,R:120,H:72},{x:Ar.x+80,z:Ar.z-200,R:60,H:22});Ar.lar=pad(Ar,-120,-160,36);Ar.aspis=pad(Ar,80,-200,14);Ar.town=pad(Ar,20,50,80,0,4);Ar.thea=pad(Ar,-50,-70,24);
   Ep.blobs.push({x:Ep.x-170,z:Ep.z-140,R:110,H:55},{x:Ep.x+200,z:Ep.z+120,R:150,H:60});Ep.mal=pad(Ep,-170,-140,14);Ep.sanct=pad(Ep,20,0,90,0,4);
   for(let i=0;i<9;i++){const a=i/9*TAU;Ma.blobs.push({x:Ma.x+Math.cos(a)*Ma.R*1.15,z:Ma.z+Math.sin(a)*Ma.R*1.15,R:200,H:90+40*Math.sin(i*2.3)});}Ma.town=pad(Ma,0,0,160,0,4);
@@ -258,7 +259,7 @@ function buildGreece2(){
    {const lw=lam('#b9aa8a');for(const[x0,z0,x1,z1]of[[-110,-150,110,-150],[110,-150,110,110],[110,110,-110,110],[-110,110,-110,-150]]){const L2=Math.hypot(x1-x0,z1-z0),n=Math.round(L2/20);for(let i=0;i<n;i++){if(i===Math.floor(n/2))continue;const ax=A.x+lerp(x0,x1,i/n),az=A.z+lerp(z0,z1,i/n),bx=A.x+lerp(x0,x1,(i+1)/n),bz=A.z+lerp(z0,z1,(i+1)/n);box(0.8,1.6,Math.hypot(bx-ax,bz-az),lw,(ax+bx)/2,terrainH(ax,az)+0.6,(az+bz)/2).rotation.y=Math.atan2(bx-ax,bz-az);addSeg(ax,az,bx,bz,0.4);}}}
    {const s=I.stad;stadiumG(s.x,s.z,Math.PI/2,192,30,'Estadio de Olimpia');}
    {const w=I.ws;blockBuilding({name:'Taller de Fidias',x:w.x,z:w.z,rot:0,w:14.5,d:32,h:12,mat:M.limestone,door:true});}
-   {const pts=[];for(let i=0;i<=30;i++){const tt=i/30;pts.push([A.x-I.R*1.2+tt*I.R*2.4,A.z+230+Math.sin(tt*6)*20]);}riverRibbon(pts,34);}
+   {const pts=[];for(let i=0;i<=30;i++){const tt=i/30;pts.push([A.x-I.R*1.2+tt*I.R*2.4,A.z+(demGet('olimpia')?390:230)+Math.sin(tt*6)*20]);}riverRibbon(pts,34);}
    // el Altis, el bosque sagrado: acebuches (de ellos se cortan las coronas), plátanos y álamos blancos (la única leña de los sacrificios a Zeus)
    try{groveIn(I,A.x,A.z-20,210,250,110,{wolive:3,plane:2,wpoplar:2},55.5);
      if(GLB.ok){const kx=A.x+20,kz=A.z-18;placeModules('T_olive',[{x:kx,y:floorAt(kx,kz),z:kz,a:0.7,sx:2.1,sy:1.9,sz:2.1,cf:new THREE.Color('#6e7a52')}],{far:1600});addCirc(kx,kz,1.2);}
