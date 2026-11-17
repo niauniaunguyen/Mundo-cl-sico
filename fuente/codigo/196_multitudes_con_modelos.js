@@ -26,3 +26,13 @@ function bpCrowds(){if(!Object.keys(BP.tpl).length)return 0;let made=0;
   if(typeof PROC!=='undefined'&&PROC.g)for(const m of PROC.ms){if(m.kind!=='p')continue;const n=bpConv(m.o,true);if(n){m.o=n;made++;}}
   return made;}
 {const f=bpSwap;bpSwap=function(){let made=f.apply(this,arguments)||0;try{const k=bpCrowds();if(k){made+=k;bpLod();}}catch(e){console.warn('multitud',e);}return made;};}
+// ---- nadie dentro de la cámara: si una persona queda a menos de medio metro, no se dibuja (si no, el plano cercano de la cámara la corta
+// y se ve el interior de la cabeza —como una segunda cara— y la ropa en tiras)
+const CAMHIDE={list:new Set()};
+function camHideSet(root,hide){root.traverse(o=>{if(o.isMesh){if(hide){if(o.userData.camVis===undefined){o.userData.camVis=o.visible;o.visible=false;}}else if(o.userData.camVis!==undefined){o.visible=o.userData.camVis;delete o.userData.camVis;}}});}
+function camHideTick(){if(typeof camera==='undefined')return;const c=camera.position,v=new THREE.Vector3(),R=[];
+  for(const g of BP.list)if(g.parent&&g.children[0])R.push(g);try{for(const f of NPB.vis)if(f.root)R.push(f.root);}catch(e){}
+  for(const r of R){r.getWorldPosition(v);const d=Math.hypot(v.x-c.x,v.z-c.z),inside=d<0.5&&c.y>v.y-0.2&&c.y<v.y+2.1;const root=r.userData&&r.userData.bp?r.children[0]:r;
+    if(inside&&!CAMHIDE.list.has(root)){camHideSet(root,true);CAMHIDE.list.add(root);}}
+  for(const root of [...CAMHIDE.list]){root.getWorldPosition(v);const d=Math.hypot(v.x-c.x,v.z-c.z);if(d>0.7||!(c.y>v.y-0.2&&c.y<v.y+2.1)){camHideSet(root,false);CAMHIDE.list.delete(root);}}}
+{const f=uxTick;uxTick=function(dt){f(dt);try{camHideTick();}catch(e){}};}
