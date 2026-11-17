@@ -321,11 +321,16 @@ def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0,gap=0.0):   # pieza ajusta
     bmesh.ops.recalc_face_normals(bm,faces=bm.faces)
     ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.004;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g');return ob
 def ionic_sleeve(name,sg,sho,elb):
-    sh=Vector(sho);el=Vector(elb);ax=(el-sh).normalized();a0=sh+Vector((-0.06*sg,0,0.06));a1=sh.lerp(el,0.82)
+    # manga: tubo holgado del hombro al codo, cerrado arriba con una cúpula que cubre el hombro (antes la boca de arriba quedaba
+    # abierta y, vista desde arriba, se veía por dentro como un cilindro hueco)
+    sh=Vector(sho);el=Vector(elb);ax=(el-sh).normalized();a0=sh+Vector((-0.02*sg,0,0.02));a1=sh.lerp(el,0.82)
     up=Vector((sg,0,0.35)).normalized();u1=(up-ax*up.dot(ax)).normalized();u2=ax.cross(u1).normalized()
-    bm=bmesh.new();N=14;K=22;rows=[]
+    bm=bmesh.new();N=14;K=22;M=4;rows=[];R0=0.066
+    for j in range(M,0,-1):   # cúpula: anillos cada vez más pequeños hacia arriba y hacia el cuello
+        ph=j/M*math.pi/2*0.92;c=a0-ax*R0*math.sin(ph)*0.85;r=R0*math.cos(ph)
+        rows.append([bm.verts.new(c+(u1*math.cos(k/K*TAU)+u2*math.sin(k/K*TAU))*r) for k in range(K)])
     for i in range(N+1):
-        t=i/N;p=a0.lerp(a1,t);R=0.102+0.008*t**0.8
+        t=i/N;p=a0.lerp(a1,t);R=R0+0.042*min(1,t/0.5)**0.8
         row=[]
         for k in range(K):
             q=k/K*TAU;fold=0.006*(0.3+0.7*t)*(1+math.sin(q*7+t*2))
@@ -333,6 +338,7 @@ def ionic_sleeve(name,sg,sho,elb):
             hem=(0.012*math.sin(q*5)+0.01*max(0,-math.cos(q))) if i==N else 0
             row.append(bm.verts.new(p+ax*hem+(u1*math.cos(q)+u2*math.sin(q))*(R+fold)-u1*sag))
         rows.append(row)
+    N=len(rows)-1
     uvl=bm.loops.layers.uv.new('UVMap')
     for i in range(N):
         for k in range(K):
@@ -342,7 +348,7 @@ def ionic_sleeve(name,sg,sho,elb):
     ob=obj_from_bm(name,bm);sol=ob.modifiers.new('g','SOLIDIFY');sol.thickness=0.005;bpy.context.view_layer.objects.active=ob;bpy.ops.object.modifier_apply(modifier='g')
     b2=bmesh.new()
     for t in(0.25,0.55,0.85):
-        p=a0.lerp(a1,t)+u1*(0.102+0.008*t**0.8+0.01)
+        p=a0.lerp(a1,t)+u1*(R0+0.042*min(1,t/0.5)**0.8+0.01)
         bmesh.ops.create_uvsphere(b2,u_segments=8,v_segments=6,radius=0.0075,matrix=Matrix.Translation(p))
     bt=obj_from_bm('fibulas',b2);smart_uv(bt)
     return ob,bt
@@ -417,10 +423,14 @@ def drape_end(name,path,width,folds=3,famp=0.03):   # extremo de un manto que cu
         t=i/N*(len(P)-1);k=min(int(t),len(P)-2);f=t-k
         p0=P[max(0,k-1)];p1=P[k];p2=P[k+1];p3=P[min(len(P)-1,k+2)]
         pts.append(0.5*((2*p1)+(-p0+p2)*f+(2*p0-5*p1+4*p2-p3)*f*f+(-p0+3*p1-3*p2+p3)*f*f*f))
-    for i,p in enumerate(pts):
-        tg=(pts[min(N,i+1)]-pts[max(0,i-1)]).normalized();side=tg.cross(Vector((0,0,1)))
-        if side.length<0.1:side=Vector((1,0,0))
-        side.normalize();nrm=side.cross(tg).normalized();t=i/N;w=width*(0.6+0.5*t)
+    prev=None
+    for i,p in enumerate(pts):   # el ancho de la tira, siempre de lado (x) y sin cambiar de sentido: antes, donde el camino era casi vertical,
+        tg=(pts[min(N,i+1)]-pts[max(0,i-1)]).normalized()   # el lado se calculaba al revés y la tira se daba la vuelta (una X a la altura de la mano)
+        side=Vector((1,0,0))-tg*tg.x
+        if side.length<0.1:side=Vector((0,1,0))-tg*tg.y
+        side.normalize()
+        if prev is not None and side.dot(prev)<0:side=-side
+        prev=side;nrm=side.cross(tg).normalized();t=i/N;w=width*(0.6+0.5*t)
         row=[]
         for k in range(W+1):
             q=k/W-0.5;z=famp*(0.3+0.7*t)*math.sin(q*TAU*folds/1.0+t*2)
