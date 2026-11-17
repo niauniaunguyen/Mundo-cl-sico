@@ -202,4 +202,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `197_estatuas_a_la_vista.js` | 14 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
 | `198_animales_con_esqueleto.js` | 54 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
 | `199_moneda_en_pantalla.js` | 39 | LA MONEDA EN PANTALLA |
+| `200_el_mensajero.js` | 62 | EL MENSAJERO: los avisos van al caduceo |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
