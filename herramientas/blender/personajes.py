@@ -544,8 +544,11 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512,front_up=0.0,fem=False
     shade=0.14*(G(0.34,0.024,0.16,0.008)+G(-0.34,0.024,0.16,0.008))+0.09*(G(0.12,-0.025,0.05,0.022)+G(-0.12,-0.025,0.05,0.022))+0.12*G(0,-0.042,0.1,0.006)
     for s2 in(1,-1):shade+=0.06*np.exp(-((a*s2-(0.17+np.clip(-z-0.04,0,0.06)*1.6))/0.03)**2)*((z<-0.035)&(z>-0.095))   # surcos de la nariz a la boca
     shade+=0.16*np.clip((-z-0.1)/0.05,0,1)+0.12*np.clip((np.abs(a)-0.9)/0.6,0,1)   # bajo la mandíbula y hacia los lados
+    shade*=0.5 if fem else 0.75   # la luz del juego ya sombrea la cara: la textura solo insinúa (antes, de cerca, parecía sucia)
     col*=(1+light-shade)[...,None]
     red=0.10*(G(0.5,-0.03,0.18,0.02)+G(-0.5,-0.03,0.18,0.02))+0.12*G(0,-0.03,0.06,0.012)   # mejillas y punta de la nariz
+    if fem:   # tez clara con albayalde (psimýthion) y colorete en las mejillas: Jenofonte, Económico X 2
+        col=col*0.9+np.array([0.96,0.9,0.84])*0.1;red=red*1.7
     col+=np.array([0.10,-0.02,-0.03])[None,None,:]*red[...,None]
     for s2 in(1,-1):
         col*=(1-0.10*G(EYE_A*s2,EYE_Z+0.016,0.13,0.004)-0.07*G(EYE_A*s2,EYE_Z-0.013,0.12,0.006))[...,None]   # pliegue del párpado y ojera
