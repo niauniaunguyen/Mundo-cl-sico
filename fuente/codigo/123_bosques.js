@@ -53,7 +53,7 @@ function forProc(kind,items){if(!items.length)return;if(!FOR_G)FOR_G={FIR:forGeo
   let fm=whiteRole('foliage');try{fm=windMat(fm);}catch(e){}chunked(G,fm,L,{far:1900,veg:true});chunked(T,lam('#5a4330'),L.map(o=>({m:o.m,c:null})),{far:1200,veg:true});}
 function forFP(I,R){const m=R+12;return footprints.filter(f=>{const e=(f.r||Math.max(f.w||0,f.d||0))+6;return Math.abs(f.x-I.x)<m+e&&Math.abs(f.z-I.z)<m+e;});}   // solo las huellas cercanas: mismo resultado, mucho más rápido
 // consume del azar global exactamente lo mismo que el antiguo destTrees, para que lo que se construye después no cambie de sitio
-function forDry(I,n,kinds){let c=0;const FP=forFP(I,I.R*1.25);for(let k=0;k<n*4&&c<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+function forDry(I,n,kinds){let c=0;const FP=forFP(I,I.R*1.25);for(let k=0;k<n*4&&c<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>vegTop(I))continue;
   if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(FP.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;pick(kinds);c++;if(riverWater(x,z)===null)for(let q=0;q<7;q++)R();}}   /* treesGLB: escala, giro, ancho, fondo y tres del color */
 function forRng(seed){let t=Math.floor(seed*1e6)>>>0;return()=>{t+=0x6D2B79F5;let r=Math.imul(t^t>>>15,1|t);r^=r+Math.imul(r^r>>>7,61|r);return((r^r>>>14)>>>0)/4294967296;};}
 function forestBuild(I,n,nodry){const F0=FORESTS[I.id];if(F0&&GLB.ok&&!nodry)forDry(I,n,['pine','plane','pine','cypress']);const F=FORESTS[I.id];if(!F||!GLB.ok)return destTrees(I,n,F?Object.keys(F.sp).map(k=>BQSP[k].m==='T_olive'?'olive':BQSP[k].m==='T_cypress'?'cypress':BQSP[k].m==='T_plane'?'plane':'pine'):['pine','plane','pine','cypress']);
@@ -62,7 +62,7 @@ function forestBuild(I,n,nodry){const F0=FORESTS[I.id];if(F0&&GLB.ok&&!nodry)for
   const vals=[];for(let k=0;k<1500;k++){const a=RL()*TAU,d=Math.sqrt(RL())*Rr;vals.push(mask(I.x+Math.cos(a)*d,I.z+Math.sin(a)*d));}vals.sort((a,b)=>a-b);
   const frac=Math.min(0.8,Math.max(F.cover||0.05,N*32/(Math.PI*Rr*Rr))),thr=vals[Math.floor((1-frac)*vals.length)];
   const tot=Object.values(F.sp).reduce((a,b)=>a+b,0),by={},deep=[];let cnt=0;
-  for(let k=0;k<N*8&&cnt<N;k++){const a=RL()*TAU,d=Math.sqrt(RL())*Rr,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d,mv=mask(x,z);if(mv<thr)continue;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+  for(let k=0;k<N*8&&cnt<N;k++){const a=RL()*TAU,d=Math.sqrt(RL())*Rr,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d,mv=mask(x,z);if(mv<thr)continue;const h=terrainH(x,z);if(h<2||h>vegTop(I))continue;
     if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(FP.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;if(riverWater(x,z)!==null)continue;
     let pk=RL()*tot,sp='';for(const s in F.sp){pk-=F.sp[s];if(pk<0){sp=s;break;}}if(!sp)sp=Object.keys(F.sp)[0];const S=BQSP[sp],w=(S.w[0]+RL()*((S.w[1])-(S.w[0]))),hh=(S.h[0]+RL()*((S.h[1])-(S.h[0])));
     (by[S.m]=by[S.m]||[]).push({x,y:h,z,a:RL()*TAU,sx:w,sy:hh,sz:w*(0.92+RL()*((1.08)-(0.92))),cf:new THREE.Color(S.c).offsetHSL((-0.02+RL()*((0.02)-(-0.02))),(-0.05+RL()*((0.05)-(-0.05))),(-0.05+RL()*((0.04)-(-0.05))))});

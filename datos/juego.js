@@ -3011,7 +3011,7 @@ function destHouses(I,cx,cz,n,spread,roman,opt){opt=opt||{};let k=0;const G={H_d
 function romaVillagers(I,cx,cz,n,barks){for(let i=0;i<n;i++){const fem=R()<0.4,x=cx+rr(-16,16),z=cz+rr(-16,16);
   const g=makePerson(fem?{female:true,chiton:pick(['#e8dfcc','#d7c9ab','#e2c7a0']),himation:pick(['#7a5a3a','#4f6a7d','#8a3f2f','#6a5a7a']),hair:pick(['#3b2a1e','#5b4532','#2a1a12'])}:{short:true,noHimation:true,chiton:pick(['#c9b48b','#a08a62','#d7c9ab','#8a7350']),hair:pick(['#3b2a1e','#5b4532','#2a1a12']),beard:R()<0.2});
   const p=findFree(x,z,0.8);g.position.set(p[0],floorAt(p[0],p[1]),p[1]);g.rotation.y=R()*TAU;scene.add(g);walkers.push({g,mode:'idle',tx:p[0],tz:p[1],wait:Infinity,speed:0,phase:R()*10,x:p[0],z:p[1],barks});}}
-function destTrees(I,n,kinds){const tr=[];for(let k=0;k<n*4&&tr.length<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+function destTrees(I,n,kinds){const tr=[];for(let k=0;k<n*4&&tr.length<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>vegTop(I))continue;
   if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;tr.push({x,z,kind:pick(kinds)});}
   if(GLB.ok)treesGLB(tr);else islandTrees(tr.map(t=>[t.x,t.z]));}
 function caveMouth(x,z,a){const gy=minGround(x,z,4,3,a),gt=Math.max(gy,terrainH(x,z)),g=grp(x,gy,z,a);box(4,3.2+(gt-gy),3,lam('#1a1512'),0,(3.2+(gt-gy))/2,-1.2,g);
@@ -3025,7 +3025,7 @@ function buildIslands(){
     const sh=I.land?[I.x-I.R*0.6,I.z]:shoreAlong(I.x,I.z,I.dir[0],I.dir[1],I.R*1.6);
     if(!I.land)buildPort(I.id,I.name,sh[0],sh[1],I.dir[0],I.dir[1]);
     I.port=sh;
-    for(let k=0;k<(I.desert?0:500);k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*0.95,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<3||h>I.H*0.8)continue;if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+8))continue;if(Math.hypot(x-sh[0],z-sh[1])<40)continue;treePts.push([x,z]);}
+    for(let k=0;k<(I.desert?0:500);k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*0.95,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<3||h>vegTop(I,0.8))continue;if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+8))continue;if(Math.hypot(x-sh[0],z-sh[1])<40)continue;treePts.push([x,z]);}
   }
   const[E,De,N,C,L]=ISLANDS;
   // Egina: templo de Afaya (c. 500), 13,77 x 28,82 m, 6 x 12 columnas
@@ -22685,7 +22685,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='25a4d4c4090a';
+const NOSTOS_VER='014d84fb93d6';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -24053,7 +24053,7 @@ function forProc(kind,items){if(!items.length)return;if(!FOR_G)FOR_G={FIR:forGeo
   let fm=whiteRole('foliage');try{fm=windMat(fm);}catch(e){}chunked(G,fm,L,{far:1900,veg:true});chunked(T,lam('#5a4330'),L.map(o=>({m:o.m,c:null})),{far:1200,veg:true});}
 function forFP(I,R){const m=R+12;return footprints.filter(f=>{const e=(f.r||Math.max(f.w||0,f.d||0))+6;return Math.abs(f.x-I.x)<m+e&&Math.abs(f.z-I.z)<m+e;});}   // solo las huellas cercanas: mismo resultado, mucho más rápido
 // consume del azar global exactamente lo mismo que el antiguo destTrees, para que lo que se construye después no cambie de sitio
-function forDry(I,n,kinds){let c=0;const FP=forFP(I,I.R*1.25);for(let k=0;k<n*4&&c<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+function forDry(I,n,kinds){let c=0;const FP=forFP(I,I.R*1.25);for(let k=0;k<n*4&&c<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>vegTop(I))continue;
   if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(FP.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;pick(kinds);c++;if(riverWater(x,z)===null)for(let q=0;q<7;q++)R();}}   /* treesGLB: escala, giro, ancho, fondo y tres del color */
 function forRng(seed){let t=Math.floor(seed*1e6)>>>0;return()=>{t+=0x6D2B79F5;let r=Math.imul(t^t>>>15,1|t);r^=r+Math.imul(r^r>>>7,61|r);return((r^r>>>14)>>>0)/4294967296;};}
 function forestBuild(I,n,nodry){const F0=FORESTS[I.id];if(F0&&GLB.ok&&!nodry)forDry(I,n,['pine','plane','pine','cypress']);const F=FORESTS[I.id];if(!F||!GLB.ok)return destTrees(I,n,F?Object.keys(F.sp).map(k=>BQSP[k].m==='T_olive'?'olive':BQSP[k].m==='T_cypress'?'cypress':BQSP[k].m==='T_plane'?'plane':'pine'):['pine','plane','pine','cypress']);
@@ -24062,7 +24062,7 @@ function forestBuild(I,n,nodry){const F0=FORESTS[I.id];if(F0&&GLB.ok&&!nodry)for
   const vals=[];for(let k=0;k<1500;k++){const a=RL()*TAU,d=Math.sqrt(RL())*Rr;vals.push(mask(I.x+Math.cos(a)*d,I.z+Math.sin(a)*d));}vals.sort((a,b)=>a-b);
   const frac=Math.min(0.8,Math.max(F.cover||0.05,N*32/(Math.PI*Rr*Rr))),thr=vals[Math.floor((1-frac)*vals.length)];
   const tot=Object.values(F.sp).reduce((a,b)=>a+b,0),by={},deep=[];let cnt=0;
-  for(let k=0;k<N*8&&cnt<N;k++){const a=RL()*TAU,d=Math.sqrt(RL())*Rr,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d,mv=mask(x,z);if(mv<thr)continue;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+  for(let k=0;k<N*8&&cnt<N;k++){const a=RL()*TAU,d=Math.sqrt(RL())*Rr,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d,mv=mask(x,z);if(mv<thr)continue;const h=terrainH(x,z);if(h<2||h>vegTop(I))continue;
     if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(FP.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;if(riverWater(x,z)!==null)continue;
     let pk=RL()*tot,sp='';for(const s in F.sp){pk-=F.sp[s];if(pk<0){sp=s;break;}}if(!sp)sp=Object.keys(F.sp)[0];const S=BQSP[sp],w=(S.w[0]+RL()*((S.w[1])-(S.w[0]))),hh=(S.h[0]+RL()*((S.h[1])-(S.h[0])));
     (by[S.m]=by[S.m]||[]).push({x,y:h,z,a:RL()*TAU,sx:w,sy:hh,sz:w*(0.92+RL()*((1.08)-(0.92))),cf:new THREE.Color(S.c).offsetHSL((-0.02+RL()*((0.02)-(-0.02))),(-0.05+RL()*((0.05)-(-0.05))),(-0.05+RL()*((0.04)-(-0.05))))});
@@ -27327,7 +27327,7 @@ function mmDrone(on){if(!aOK())return;const c=AUD.ctx;if(on&&!MM.drone){const g=
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
 // la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
-const TERRAIN_SIG='229ae66204d8';
+const TERRAIN_SIG='a2ed60cd861d';
 function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;
@@ -28960,6 +28960,9 @@ function demSea(D,I,f){const n=D.n,o=new Float32Array(n*n),low=new Uint8Array(n*
   return r;};}
 // los solares con altura fija (pensados para el llano inventado) toman la del relieve real en su sitio
 {const f=pad;pad=function(I,lx,lz,r,dh,fixed){if(I&&demGet(I.id)&&fixed!==undefined)fixed=undefined;return f.call(this,I,lx,lz,r,dh,fixed);};}
+// límite superior de los árboles: con el relieve inventado salía de la altura de sus montes (I.H); con el real, el límite del arbolado
+// en las montañas del Mediterráneo, hacia 2.300 m (abetos del Taigeto, del Parnaso o del Eta; el pino de Heldreich del Olimpo llega a unos 2.500), en altura del juego
+function vegTop(I,k){const D=I&&demGet(I.id);if(!D)return k?I.H*k:I.H*3+60;return 2300-(D.e0||0);}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

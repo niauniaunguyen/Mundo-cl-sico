@@ -53,7 +53,7 @@ function destHouses(I,cx,cz,n,spread,roman,opt){opt=opt||{};let k=0;const G={H_d
 function romaVillagers(I,cx,cz,n,barks){for(let i=0;i<n;i++){const fem=R()<0.4,x=cx+rr(-16,16),z=cz+rr(-16,16);
   const g=makePerson(fem?{female:true,chiton:pick(['#e8dfcc','#d7c9ab','#e2c7a0']),himation:pick(['#7a5a3a','#4f6a7d','#8a3f2f','#6a5a7a']),hair:pick(['#3b2a1e','#5b4532','#2a1a12'])}:{short:true,noHimation:true,chiton:pick(['#c9b48b','#a08a62','#d7c9ab','#8a7350']),hair:pick(['#3b2a1e','#5b4532','#2a1a12']),beard:R()<0.2});
   const p=findFree(x,z,0.8);g.position.set(p[0],floorAt(p[0],p[1]),p[1]);g.rotation.y=R()*TAU;scene.add(g);walkers.push({g,mode:'idle',tx:p[0],tz:p[1],wait:Infinity,speed:0,phase:R()*10,x:p[0],z:p[1],barks});}}
-function destTrees(I,n,kinds){const tr=[];for(let k=0;k<n*4&&tr.length<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>I.H*3+60)continue;
+function destTrees(I,n,kinds){const tr=[];for(let k=0;k<n*4&&tr.length<n;k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*1.25,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<2||h>vegTop(I))continue;
   if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+10))continue;if(footprints.some(f=>f.r?Math.hypot(x-f.x,z-f.z)<f.r+4:Math.abs(x-f.x)<(f.w||0)/2+5&&Math.abs(z-f.z)<(f.d||0)/2+5))continue;tr.push({x,z,kind:pick(kinds)});}
   if(GLB.ok)treesGLB(tr);else islandTrees(tr.map(t=>[t.x,t.z]));}
 function caveMouth(x,z,a){const gy=minGround(x,z,4,3,a),gt=Math.max(gy,terrainH(x,z)),g=grp(x,gy,z,a);box(4,3.2+(gt-gy),3,lam('#1a1512'),0,(3.2+(gt-gy))/2,-1.2,g);
@@ -67,7 +67,7 @@ function buildIslands(){
     const sh=I.land?[I.x-I.R*0.6,I.z]:shoreAlong(I.x,I.z,I.dir[0],I.dir[1],I.R*1.6);
     if(!I.land)buildPort(I.id,I.name,sh[0],sh[1],I.dir[0],I.dir[1]);
     I.port=sh;
-    for(let k=0;k<(I.desert?0:500);k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*0.95,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<3||h>I.H*0.8)continue;if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+8))continue;if(Math.hypot(x-sh[0],z-sh[1])<40)continue;treePts.push([x,z]);}
+    for(let k=0;k<(I.desert?0:500);k++){const a=R()*TAU,d=Math.sqrt(R())*I.R*0.95,x=I.x+Math.cos(a)*d,z=I.z+Math.sin(a)*d;const h=terrainH(x,z);if(h<3||h>vegTop(I,0.8))continue;if(I.pads.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+8))continue;if(Math.hypot(x-sh[0],z-sh[1])<40)continue;treePts.push([x,z]);}
   }
   const[E,De,N,C,L]=ISLANDS;
   // Egina: templo de Afaya (c. 500), 13,77 x 28,82 m, 6 x 12 columnas
