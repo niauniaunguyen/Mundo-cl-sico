@@ -80,8 +80,18 @@ for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k f
     light = light[:m.start()] + m.group(1)[:-1] + ' data-src="datos/%s.txt?v=%s"%s>' % (idn, h, ' data-pre="1"' if idn in PRE else '') + m.group(3) + light[m.end():]
 i = light.rfind('<script>'); j = light.rfind('</script>')
 assert i > 0 and j > i
-(datos / 'juego.js').write_text(light[i + 8:j], encoding='utf-8')
-vj = hashlib.sha1(light[i + 8:j].encode('utf-8')).hexdigest()[:10]
+# las traducciones (unos 2,4 MB: catalán e inglés) salen del código a un archivo por idioma (datos/i18n_ca.txt, i18n_en.txt):
+# el cargador trae solo el del idioma elegido (en castellano, ninguno) y lo deja en window.__I18N antes de ejecutar el juego
+_code = light[i + 8:j]
+_k = _code.index('const I18N=') + len('const I18N=')
+_obj, _end = json.JSONDecoder().raw_decode(_code, _k)
+_code = _code[:_k] + 'window.__I18N||{tr:{},html:{}}' + _code[_end:]
+I18N_V = {}
+for _lg in _obj['tr']:
+    _t = json.dumps({'tr': {_lg: _obj['tr'][_lg]}, 'html': {_lg: _obj['html'].get(_lg, {})}}, ensure_ascii=False, separators=(',', ':'))
+    (datos / ('i18n_%s.txt' % _lg)).write_text(_t, encoding='utf-8'); I18N_V[_lg] = hashlib.sha1(_t.encode('utf-8')).hexdigest()[:10]
+(datos / 'juego.js').write_text(_code, encoding='utf-8')
+vj = hashlib.sha1(_code.encode('utf-8')).hexdigest()[:10]
 BOOT = ('<script>/* cargador: trae el código del juego (datos/juego.js) y arranca; los datos los pide el juego cuando le hacen falta */(function(){var m=document.createElement("div");'
         'm.id="cargador";m.style.cssText="position:fixed;left:0;right:0;bottom:14px;text-align:center;font:15px Georgia,serif;color:#e8dcc0;text-shadow:0 1px 3px #000;z-index:9999;pointer-events:none";'
         'm.textContent="Cargando Nóstos…";document.body.appendChild(m);'
@@ -89,11 +99,13 @@ BOOT = ('<script>/* cargador: trae el código del juego (datos/juego.js) y arran
         'var PW=(location.protocol=="https:"||location.hostname=="localhost")&&"serviceWorker" in navigator&&(location.hash!="#debug"||/[?&]sw=1/.test(location.search));try{if(window.top!==window)PW=false;}catch(e){PW=false;}'
         'if(PW){var ml=document.createElement("link");ml.rel="manifest";ml.href="manifest.webmanifest";document.head.appendChild(ml);navigator.serviceWorker.register("sw.js").catch(function(){});}'
         'var P=window.__pre={};[].forEach.call(document.querySelectorAll("script[data-pre]"),function(e){P[e.id]=f(e.getAttribute("data-src"));P[e.id].catch(function(){});});'
+        'var LG=null;try{LG=new URLSearchParams(location.search).get("lang")||localStorage.getItem("mundo-clasico-lang");}catch(e){}var IV=%s,TRP=IV[LG]?f("datos/i18n_"+LG+".txt?v="+IV[LG]).then(function(t){window.__I18N=JSON.parse(t);}).catch(function(){}):Promise.resolve();'
         'fetch("datos/juego.js?v=%s").then(function(r){if(!r.ok)throw new Error("datos/juego.js ("+r.status+")");var L=+r.headers.get("content-length")||0;if(!L||r.headers.get("content-encoding")||!r.body||!window.TextDecoder)return r.text();'
         'var rd=r.body.getReader(),d=new TextDecoder(),s="",n=0;return(function g(){return rd.read().then(function(x){if(x.done)return s+d.decode();n+=x.value.length;s+=d.decode(x.value,{stream:true});m.textContent="Cargando Nóstos… "+Math.min(99,Math.round(100*n/L))+" %%";return g();});})();})'
+        '.then(function(code){return TRP.then(function(){return code;});})'
         '.then(function(code){var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();'
-        'if(PW)navigator.serviceWorker.ready.then(function(r){var L=[].map.call(document.querySelectorAll("script[data-src]"),function(e){return e.getAttribute("data-src");});L.push("datos/juego.js?v=%s",location.pathname);if(r.active)r.active.postMessage({datos:L});}).catch(function(){});})'
-        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % (vj, vj)
+        'if(PW)navigator.serviceWorker.ready.then(function(r){var L=[].map.call(document.querySelectorAll("script[data-src]"),function(e){return e.getAttribute("data-src");});L.push("datos/juego.js?v=%s",location.pathname);for(var lg in IV)L.push("datos/i18n_"+lg+".txt?v="+IV[lg]);if(r.active)r.active.postMessage({datos:L});}).catch(function(){});})'
+        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % (json.dumps(I18N_V), vj, vj)
 light = light[:i] + BOOT + light[j + 9:]
 (raiz / 'atenas.html').write_text(light, encoding='utf-8')
 # juego instalable y sin conexión (fuente/pwa: service worker, manifiesto e iconos): se copian junto a atenas.html para servirlos desde la
