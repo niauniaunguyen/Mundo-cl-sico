@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-241 funciones ampliadas, 386 capas.
+241 funciones ampliadas, 387 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -24,6 +24,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 3 | `148`:150 · `151`:75 · `180`:60 |
+| `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:63 · `900`:406 |
 | `chunked` | `005_modelos_de_blender.js` | 3 | `155`:21 · `182`:51 · `183`:58 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
@@ -31,7 +32,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `personWalk` | `052_las_nueve_musas_mnemosine_y.js` | 3 | `129`:80 · `146`:162 · `184`:37 |
 | `toast` | `014_hud.js` | 3 | `120`:131 · `128`:68 · `173`:8 |
 | `updateSky` | `003_escena.js` | 3 | `089`:6 · `090`:90 · `123`:74 |
-| `applyFlats` | `001_terreno.js` | 2 | `146`:60 · `900`:406 |
 | `atDescOf` | `103_mirar_con_atencion.js` | 2 | `103`:33 · `103`:48 |
 | `atShow` | `085_mirar_con_atencion.js` | 2 | `100`:142 · `134`:23 |
 | `atTick` | `085_mirar_con_atencion.js` | 2 | `100`:143 · `134`:24 |
