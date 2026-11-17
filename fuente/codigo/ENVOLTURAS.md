@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-246 funciones ampliadas, 398 capas.
+247 funciones ampliadas, 400 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -20,11 +20,11 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `openDialog` | `015_dialogo.js` | 5 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
+| `accMenu` | `099_para_aprender_y_ensenar.js` | 4 | `148`:150 · `151`:75 · `180`:60 · `189`:34 |
 | `chunked` | `005_modelos_de_blender.js` | 4 | `155`:21 · `182`:51 · `182`:96 · `183`:58 |
 | `fareOf` | `016_viajes_en_barco.js` | 4 | `052`:509 · `090`:102 · `091`:52 · `097`:70 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
-| `accMenu` | `099_para_aprender_y_ensenar.js` | 3 | `148`:150 · `151`:75 · `180`:60 |
 | `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:64 · `900`:406 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
@@ -71,6 +71,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
 | `treesGLB` | `005_modelos_de_blender.js` | 2 | `126`:11 · `155`:23 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
+| `accApply` | `099_para_aprender_y_ensenar.js` | 1 | `189`:39 |
 | `accSave` | `099_para_aprender_y_ensenar.js` | 1 | `154`:31 |
 | `accSpeak` | `099_para_aprender_y_ensenar.js` | 1 | `160`:15 |
 | `addRiver` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `188`:62 |
