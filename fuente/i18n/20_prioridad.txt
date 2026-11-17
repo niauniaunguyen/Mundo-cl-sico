@@ -3765,3 +3765,161 @@ Tertia is free, your family is together again and you have a new house in Neapol
 @c26c7905
 L'emperador concentrava tot el poder, però es presentava com «el primer ciutadà» i s'havia de mostrar generós: escoltava peticions, donava jocs i repartia ajudes. Titus (79-81) va ser molt popular per la seva reacció davant el Vesuvi, l'incendi i l'epidèmia; va regnar només dos anys.
 The emperor held all power, but presented himself as “the first citizen” and had to appear generous: he heard petitions, gave games and handed out aid. Titus (79-81) was very popular for his response to Vesuvius, the fire and the epidemic; he reigned for only two years.
+
+# ---- capítulo extra de Roma (Tácito)
+
+@7a9a4836
+Les històries de Tàcit
+The histories of Tacitus
+
+@9bc449b6
+Tàcit, el jove senador que et va aconsellar quan buscaves Tèrcia, està casat amb la filla de Gneu Juli Agrícola, el governador de Britània. Somia escriure algun dia la història del seu temps, «sense ira i sense parcialitat». Per això necessita testimonis. I tu tens una barca, i ganes de veure món.
+Tacitus, the young senator who advised you when you were looking for Tertia, is married to the daughter of Gnaeus Julius Agricola, the governor of Britain. He dreams of one day writing the history of his time, “without anger and without partiality”. For that he needs witnesses. And you have a boat, and a wish to see the world.
+
+@f4637195
+Parla amb Tàcit, al costat de la Cúria
+Talk to Tacitus, by the Curia
+
+@d7c2ec67
+Has demostrat que saps buscar la veritat entre papers i mentides. Et proposo una feina. Vull escriure la història d'aquests anys: la guerra de Judea, la rebel·lió del Rin, Britània… i el Vesuvi. Però no em refio del que s'explica als banquets.
+You have shown that you know how to find the truth among papers and lies. I have a job for you. I want to write the history of these years: the Judaean war, the Rhine rebellion, Britain… and Vesuvius. But I don't trust what is told at banquets.
+
+@c832de39
+Busca quatre testimonis: un supervivent de Pompeia, un veterà de Jerusalem, algú de Colònia que visqués la rebel·lió de Civilis, i un soldat del meu sogre a Britània. Pregunta'ls què van veure. Jo pago el viatge.
+Find four witnesses: a survivor of Pompeii, a veteran of Jerusalem, someone from Colonia who lived through the revolt of Civilis, and a soldier of my father-in-law's in Britain. Ask them what they saw. I will pay for the journey.
+
+@c329f8eb
+Per què Tàcit vol parlar amb testimonis en lloc de copiar el que s'explica?
+Why does Tacitus want to talk to witnesses instead of copying what people say?
+
+@2902c3c5
+Perquè un historiador ha de buscar fonts fiables, no rumors
+Because a historian must look for reliable sources, not rumours
+
+@b20b57df
+Perquè així li paguen més
+Because that way he is paid more
+
+@396d50ec
+Perquè els testimonis escriuen millor que ell
+Because the witnesses write better than he does
+
+@b41c86f7
+Exacte. Tucídides ja ho deia: cal preguntar als que hi van ser, i tot i així comparar el que diuen.
+Exactly. Thucydides already said it: you must ask those who were there, and even then compare what they say.
+
+@5348c2e2
+No: un bon historiador busca fonts fiables i les compara. Els rumors de banquet no serveixen.
+No: a good historian looks for reliable sources and compares them. Banquet gossip is useless.
+
+@a163990d
+Busca a Pompeia Herenni, el supervivent
+Look in Pompeii for Herennius, the survivor
+
+@63c504f6
+Un historiador? Digues-li que no va ser només la cendra. Primer van caure pedres lleugeres tota la tarda i tota la nit; les teulades s'enfonsaven. Molts es van quedar a casa, esperant. El que els va matar va ser el del matí: un núvol ardent que va baixar corrent per la muntanya.
+A historian? Tell him it was not just the ash. First light stones fell all afternoon and all night; the roofs caved in. Many stayed at home, waiting. What killed them came in the morning: a burning cloud that came rushing down the mountain.
+
+@32f844f7
+I digues-li també que l'emperador va enviar ajuda. Això cal reconèixer-li a Titus.
+And tell him too that the emperor sent help. You have to give Titus that.
+
+@af9b76f5
+Apuntes les seves paraules a les tauletes de cera. Primer testimoni.
+You write his words on your wax tablets. First testimony.
+
+@9bffa80a
+Busca a Jerusalem Luci Antoni, el veterà
+Look in Jerusalem for Lucius Antonius, the veteran
+
+@25399641
+Que escrigui el que va ser: un setge terrible per a tots dos bàndols. Fam dins de la ciutat, crucifixions a fora. Quan va cremar el temple, ningú no em va saber dir qui va donar l'ordre.
+Let him write what it was: a terrible siege for both sides. Hunger inside the city, crucifixions outside. When the temple burned, nobody could tell me who gave the order.
+
+@ea8135e5
+I que no escrigui que els jueus són covards: van lluitar fins al final. Ho sé perquè jo era al davant.
+And don't let him write that the Jews are cowards: they fought to the end. I know because I was facing them.
+
+@2147abc4
+Molts anys després, Tàcit escriurà sobre els jueus amb menyspreu i molts errors. Els historiadors no sempre escolten els seus testimonis.
+Many years later, Tacitus will write about the Jews with contempt and many errors. Historians do not always listen to their witnesses.
+
+@166de09b
+Busca a Colònia Enni, el bufador de vidre
+Look in Colonia for Ennius, the glassblower
+
+@6373b325
+La rebel·lió de Civilis… Els germànics de l'altra riba ens demanaven que matéssim tots els romans de la ciutat i enderroquéssim les muralles. Nosaltres vam dir que no: aquí vivim barrejats, els nostres fills tenen mares romanes.
+The revolt of Civilis… The Germans from the other bank asked us to kill all the Romans in the city and pull down the walls. We said no: here we live mixed together, our children have Roman mothers.
+
+@46b7e4fc
+Vam haver de fingir que érem amb els rebels per sobreviure. Quan van tornar les legions, ens van acusar de traïdors. Així és la guerra en una frontera.
+We had to pretend to be with the rebels to survive. When the legions came back, they accused us of treason. That is war on a frontier.
+
+@cd6eff0f
+Busca al campament d'Agrícola Titus Flavi
+Look in Agricola's camp for Titus Flavius
+
+@fc649b0f
+T'envia el gendre del general? Doncs digues-li que el seu sogre és un bon cap: tria ell mateix on acampar, no deixa que els oficials robin i castiga poc però de debò.
+The general's son-in-law sent you? Then tell him his father-in-law is a good commander: he chooses where to camp himself, doesn't let the officers steal and punishes rarely but seriously.
+
+@f71dfcc7
+I digues-li també el que no diuen els informes: que als britans els cremem les collites, i que molts dels seus fills acaben venuts al mercat de Londinium.
+And tell him too what the reports don't say: that we burn the Britons' crops, and that many of their children end up sold in the market of Londinium.
+
+@794e27d3
+Què passa amb el testimoni d'un soldat sobre el seu propi general?
+What about a soldier's testimony about his own general?
+
+@aae85b05
+Pot ser sincer, però també interessat: cal comparar-lo amb d'altres
+It may be sincere, but also biased: it must be compared with others
+
+@bcd51e0b
+Sempre és fals
+It is always false
+
+@e1410983
+Sempre és veritat
+It is always true
+
+@13fce032
+Això és pensar com un historiador.
+That is thinking like a historian.
+
+@79fe29cb
+Ni sempre veritat ni sempre mentida: cal comparar-lo amb altres fonts.
+Neither always true nor always false: it must be compared with other sources.
+
+@a24ddaa7
+Torna amb Tàcit, al costat de la Cúria
+Go back to Tacitus, by the Curia
+
+@58135844
+Quatre testimonis, quatre guerres diferents, i en tots el mateix: la gent corrent paga els errors dels poderosos. Ho escriuré, encara que trigui anys.
+Four witnesses, four different wars, and the same in all of them: ordinary people pay for the mistakes of the powerful. I will write it, even if it takes years.
+
+@b59b7154
+I ho faré. Escriuré la vida del meu sogre, i després les Històries, i després els Annals. I posaré en boca d'un cap britó el que m'has portat de Britània: «On creen un desert, en diuen pau».
+And I will. I will write my father-in-law's life, then the Histories, then the Annals. And I will put into the mouth of a British chieftain what you have brought me from Britain: “Where they make a desert, they call it peace.”
+
+@b387c715
+Tàcit escriurà la Vida d'Agrícola el 98, les Històries cap al 105 i els Annals cap al 115. De les seves obres només se'n conserva una part.
+Tacitus will write the Life of Agricola in 98, the Histories around 105 and the Annals around 115. Only part of his works survives.
+
+@c6506529
+Has recorregut l'imperi d'una punta a l'altra buscant testimonis: Pompeia sota la cendra, Jerusalem en ruïnes, Colònia a la frontera del Rin i el campament d'Agrícola al nord de Britània.
+You have travelled the empire from end to end looking for witnesses: Pompeii under the ash, Jerusalem in ruins, Colonia on the Rhine frontier and Agricola's camp in the north of Britain.
+
+@8e9aeadf
+La història s'escriu amb fonts. Els historiadors antics, com Tucídides o Tàcit, buscaven testimonis i documents, però també tenien els seus prejudicis i els seus interessos. Per això, avui, comparem sempre diverses fonts i ens preguntem qui parla, quan i per què.
+History is written with sources. Ancient historians, like Thucydides or Tacitus, looked for witnesses and documents, but they also had their prejudices and interests. That is why today we always compare several sources and ask who is speaking, when and why.
+
+@cd462f3d
+<p class="sub">Has completat també el capítol extra, «Les històries de Tàcit».</p>
+<p class="sub">You have also completed the extra chapter, “The histories of Tacitus”.</p>
+
+@4b691036
+<span class="n">2</span><span>Capítol extra: «Les històries de Tàcit» (un viatge per les províncies)</span>
+<span class="n">2</span><span>Extra chapter: “The histories of Tacitus” (a journey through the provinces)</span>
