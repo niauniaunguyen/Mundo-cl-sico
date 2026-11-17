@@ -22704,7 +22704,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='805f31212d1c';
+const NOSTOS_VER='cf0bbf6b6a47';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -29486,15 +29486,22 @@ const ST_NOTE={marble:['Estatua de mármol pintado','Las estatuas griegas y roma
 // Los caballos, burros, bueyes, toros, perros, ciervos, lobos y zorros de animales.blend son figuras por piezas (cuerpo, cabeza y patas
 // sueltas que se mueven por código). De cerca se cambian por los del pack «Ultimate Animated Animals» de Quaternius (CC0, dominio público;
 // ver herramientas/blender/animales_quaternius.py): una sola malla con esqueleto y animaciones de verdad (andar, galope, quieto, comer).
+// Perros: el moloso, el laconio, el cretense, el umbro y el maltés (meliteo) salen del mismo perro con la malla deformada por zonas y
+// otros colores (animales_quaternius.py, BREEDS); comparten sus animaciones.
 // Funciona sobre cualquier grupo que represente un animal: lo que crean animalGLB (caballos y burros), makeBeast (vacas, toros, lobos,
 // caballos de los sueños) y animal() (la fauna de calles, casas y bosques). Las piezas siguen ahí (de lejos, o si el archivo no ha llegado).
 // La animación sale de la velocidad del grupo en el mundo: quieto, al paso o al galope, y a veces pace cuando está quieto.
-const QA={tpl:null,loading:0,hosts:[],act:[],N:22,R:70,SP:{horse:'horse',donkey:'donkey',dog:'dog',moloss:'dog',laconian:'dog',cretan:'dog',deer:'deer',stag:'stag',wolf:'wolf',fox:'fox',vaca:'cow',toro:'bull',lobo:'wolf',caballo:'horse',cow:'cow',bull:'bull',ox:'bull'},
-  SC:{moloss:1.25,laconian:0.95,cretan:0.85}};
+const QA={tpl:null,loading:0,hosts:[],act:[],N:22,R:70,SP:{horse:'horse',donkey:'donkey',dog:'dog',moloss:'moloss',laconian:'laconian',cretan:'cretan',melitan:'melitan',umbrian:'umbrian',deer:'deer',stag:'stag',wolf:'wolf',fox:'fox',vaca:'cow',toro:'bull',lobo:'wolf',caballo:'horse',cow:'cow',bull:'bull',ox:'bull'},
+  SC:{moloss:1.25,laconian:1.0,cretan:0.9,melitan:0.45,umbrian:0.95}};
 try{if(ACC.lite){QA.N=8;QA.R=40;}else if(typeof isTouch!=='undefined'&&isTouch){QA.N=12;QA.R=50;}}catch(e){}
 function qaLoad(){if(QA.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;QA.loading=1;
   bpBytes('glbqa').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};
     for(const o of gl.scene.children){const m=/^Q_([a-z]+)$/.exec(o.name);if(m){o.position.set(0,0,0);T[m[1]]={scene:o,anims:gl.animations.filter(a=>a.name.startsWith(m[1]+'|'))};}}
+    // las razas de perro comparten esqueleto y animaciones con el perro; el cargador da nombres únicos a los huesos repetidos
+    // (Body_8 en el perro, Body_5 en el moloso…), así que cada pista se pasa al hueso de la raza con el mismo nombre de base
+    const base=n=>n.replace(/_\d+$/,''),bones=o=>{const M={};o.traverse(x=>{if(x.isBone)M[base(x.name)]=x.name;});return M;};
+    if(T.dog){const DB=bones(T.dog.scene);for(const k in T){if(T[k].anims.length)continue;const BB=bones(T[k].scene),ren={};for(const b in DB)if(BB[b])ren[DB[b]]=BB[b];
+      T[k].anims=T.dog.anims.map(c=>{const n=c.clone();n.name=k+'|'+c.name.split('|')[1];for(const t of n.tracks){const i=t.name.lastIndexOf('.'),nd=t.name.slice(0,i);if(ren[nd])t.name=ren[nd]+t.name.slice(i);}return n;});}}
     QA.tpl=T;},e=>console.warn('animales',e));}).catch(e=>console.warn('animales',e));}
 // un grupo de animal: se apunta para cambiarlo de cerca
 function qaHost(g,sp,o){try{const q=QA.SP[sp];if(!g||!q||g.userData.qa)return;g.userData.qa={q,sp,s:(o&&o.s)||QA.SC[sp]||1,tint:o&&o.tint,last:null,v:0,old:[...g.children]};QA.hosts.push(g);}catch(e){}}
