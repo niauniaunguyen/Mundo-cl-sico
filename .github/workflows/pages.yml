@@ -28,6 +28,7 @@ jobs:
           cp -r datos _site/datos
           cp atenas_un_archivo.html _site/atenas_un_archivo.html
           cp version.json _site/version.json
+          cp fuente/pwa/* _site/   # instalable y sin conexión
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

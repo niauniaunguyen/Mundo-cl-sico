@@ -27,6 +27,12 @@ El repositorio ya incluye `.github/workflows/pages.yml`, que publica el juego ca
 
 `atenas.html` se puede copiar a un pendrive, al aula virtual (Moodle, Classroom) o al escritorio de los ordenadores del aula y abrirse con doble clic. El progreso se guarda en el navegador de cada ordenador.
 
+## Instalar el juego y usarlo sin conexión
+
+En la web (GitHub Pages, Netlify, Cloudflare Pages…), el juego se puede **instalar** como una aplicación: en Chrome o Edge, con el botón de instalar de la barra de direcciones; en una tableta o un móvil, con «Añadir a la pantalla de inicio». Después de la primera partida con conexión, el juego guarda en el navegador la página, el código y todos los datos (unos 23 MB), y **funciona sin conexión**, útil si la wifi del centro falla. Cuando se publica una versión nueva, solo se vuelven a descargar los archivos que han cambiado.
+
+Para Netlify o Cloudflare Pages hay que subir también, junto a `index.html`, los archivos de `fuente/pwa/` (`sw.js`, `manifest.webmanifest` y los dos iconos); `construir.py` los copia junto a `atenas.html`. GitHub Pages ya los copia solo. Dentro de Claude no se usa (la página va dentro de un marco y el navegador no lo permite).
+
 ## Aviso de versión nueva
 
 `construir.py` escribe en `atenas.html` y en `version.json` una huella del contenido. Cuando el juego se sirve desde una web (GitHub Pages, Netlify…), comprueba cada diez minutos si hay una versión nueva y, si la hay, muestra un aviso con un botón para recargar. La partida se guarda antes de recargar.

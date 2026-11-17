@@ -86,13 +86,20 @@ BOOT = ('<script>/* cargador: trae el código del juego (datos/juego.js) y arran
         'm.id="cargador";m.style.cssText="position:fixed;left:0;right:0;bottom:14px;text-align:center;font:15px Georgia,serif;color:#e8dcc0;text-shadow:0 1px 3px #000;z-index:9999;pointer-events:none";'
         'm.textContent="Cargando Nóstos…";document.body.appendChild(m);'
         'function f(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(u+" ("+r.status+")");return r.text();});}'
+        'var PW=(location.protocol=="https:"||location.hostname=="localhost")&&"serviceWorker" in navigator&&(location.hash!="#debug"||/[?&]sw=1/.test(location.search));try{if(window.top!==window)PW=false;}catch(e){PW=false;}'
+        'if(PW){var ml=document.createElement("link");ml.rel="manifest";ml.href="manifest.webmanifest";document.head.appendChild(ml);navigator.serviceWorker.register("sw.js").catch(function(){});}'
         'var P=window.__pre={};[].forEach.call(document.querySelectorAll("script[data-pre]"),function(e){P[e.id]=f(e.getAttribute("data-src"));P[e.id].catch(function(){});});'
         'fetch("datos/juego.js?v=%s").then(function(r){if(!r.ok)throw new Error("datos/juego.js ("+r.status+")");var L=+r.headers.get("content-length")||0;if(!L||r.headers.get("content-encoding")||!r.body||!window.TextDecoder)return r.text();'
         'var rd=r.body.getReader(),d=new TextDecoder(),s="",n=0;return(function g(){return rd.read().then(function(x){if(x.done)return s+d.decode();n+=x.value.length;s+=d.decode(x.value,{stream:true});m.textContent="Cargando Nóstos… "+Math.min(99,Math.round(100*n/L))+" %%";return g();});})();})'
-        '.then(function(code){var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();})'
-        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % vj
+        '.then(function(code){var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();'
+        'if(PW)navigator.serviceWorker.ready.then(function(r){var L=[].map.call(document.querySelectorAll("script[data-src]"),function(e){return e.getAttribute("data-src");});L.push("datos/juego.js?v=%s",location.pathname);if(r.active)r.active.postMessage({datos:L});}).catch(function(){});})'
+        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % (vj, vj)
 light = light[:i] + BOOT + light[j + 9:]
 (raiz / 'atenas.html').write_text(light, encoding='utf-8')
+# juego instalable y sin conexión (fuente/pwa: service worker, manifiesto e iconos): se copian junto a atenas.html para servirlos desde la
+# misma carpeta (la web de GitHub Pages los copia junto a index.html); no se guardan en git
+import shutil
+for _f in (raiz / 'fuente' / 'pwa').glob('*'): shutil.copy(_f, raiz / _f.name)
 (raiz / 'version.json').write_text(json.dumps({'v': ver}), encoding='utf-8')
 try:
     import runpy; runpy.run_path(str(raiz / 'herramientas' / 'indice_modulos.py'))   # índice de módulos al día
