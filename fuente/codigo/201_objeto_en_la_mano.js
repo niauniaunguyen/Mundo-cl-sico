@@ -49,5 +49,5 @@ function heldUpdate(dt){const k=heldWant();HELD.t+=dt||0;
   if(AVATAR.view3){const body=MOUNT.riding?AVATAR.rider:AVATAR.walk,arm=body&&body.visible!==false&&body.userData.arms&&body.userData.arms[1];
     if(arm){arm.rotation.x=-0.6;body.updateMatrixWorld(true);_hv.set(0,-0.58,0.08);arm.localToWorld(_hv);g.position.copy(_hv);g.rotation.set(0,player.yaw,0);g.rotateX(-0.4);g.scale.setScalar(1);}
     else{const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);g.position.set(player.x+rx*0.32+fx*0.3,player.feet+(MOUNT.riding?2.2:1.15),player.z+rz*0.32+fz*0.3);g.rotation.set(0,player.yaw,0);}}
-  else{camera.updateMatrixWorld();_hv.set(0.3,-0.3+bob,-0.62);camera.localToWorld(_hv);g.position.copy(_hv);g.quaternion.copy(camera.quaternion);g.rotateY(-0.35);g.rotateX(0.25);g.scale.setScalar(1);}}
+  else{camera.updateMatrixWorld();_hv.set(0.26,-0.19+bob,-0.58);camera.localToWorld(_hv);g.position.copy(_hv);g.quaternion.copy(camera.quaternion);g.rotateY(-0.35);g.rotateX(0.2);g.scale.setScalar(0.8);}}
 {const f=updateTorch;updateTorch=function(dt,t){const r=f.apply(this,arguments);try{heldUpdate(dt);}catch(e){if(!HELD.err){HELD.err=1;console.warn('objeto en la mano',e);}}return r;};}
