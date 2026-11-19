@@ -24,3 +24,22 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
 - Enemigos: vida 30·1,25^(N−1), ataque 4·1,2^(N−1). El jefe tiene ×4 de vida y ×1,4 de ataque.
 - Recompensa: 5·1,2^(N−1), ×6 si es jefe.
 - Una simulación con juego óptimo da este ritmo: la primera partida se estanca hacia el nivel 25 (unos 50 minutos), y cada evolución permite llegar más lejos.
+
+## Dirección artística (versión 2)
+- **Escena:** campo oscuro de microscopio de fluorescencia. El fondo es plasma sanguíneo con eritrocitos, plaquetas, anticuerpos libres, hebras de fibrina y haces de luz del condensador. Encima hay una viñeta de ocular (`#scope`).
+- **Material de membrana** (`mem()`): un `MeshStandardMaterial` con un borde de Fresnel añadido en `onBeforeCompile`. Las membranas brillan en el contorno y son translúcidas por dentro. Las texturas son procedurales y se generan en un canvas: relieve, cromatina, crestas mitocondriales y tilacoides.
+- **Modelos** (`BUILD`, `buildMacrophage`): usan una semilla fija (`SEED`), así que cada organismo sale siempre igual. Algunos detalles:
+  - **Macrófago:** núcleo arriñonado, Golgi, RER con ribosomas, mitocondrias, lisosomas, filopodios y un pseudópodo que se estira al fagocitar.
+  - **E. coli:** doble membrana, nucleoide, fimbrias y flagelos perítricos.
+  - **Gripe:** hemaglutinina y neuraminidasa, y los 8 segmentos de ARN.
+  - **Célula vegetal:** grana y ciclosis.
+  - **Paramecio:** surco oral, unos 900 cilios con onda metacrónica y vacuolas contráctiles en estrella.
+  - **Tumor:** mitosis anómala y angiogénesis.
+  - **Bacillus:** endospora con núcleo, córtex y cubierta.
+  - **Prion:** fibrilla amiloide de láminas β que recluta PrP sana.
+- **Interfaz:**
+  - Las tarjetas tienen doble membrana. Los separadores son una bicapa de fosfolípidos (máscara SVG `--bilayer`) y los paneles llevan un patrón de tejido (`--tissue`).
+  - Las herramientas y los orgánulos van dentro de vesículas con iconos SVG propios (`IC`).
+  - La ficha del enemigo es una preparación, con su técnica de tinción y su tamaño real (`LAB`).
+  - El Atlas es una caja de preparaciones con miniaturas en un campo circular. Las miniaturas se generan con `thumb()`, que usa un segundo renderizador.
+  - La pestaña Evolución dibuja el árbol del linaje desde LUCA.
