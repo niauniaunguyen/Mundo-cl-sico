@@ -1,0 +1,1216 @@
+<meta charset="utf-8">
+<title>Microcosmos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: la escena 3D ocupa toda la pantalla, como el campo oscuro de un microscopio de fluorescencia.
+   El HUD flota encima: nivel y recursos arriba, ficha del enemigo arriba a la derecha, herramientas abajo.
+   Diseño deliberadamente de un solo tema (oscuro): los fluoróforos solo se ven sobre fondo negro. */
+:root{
+  --slide:#04080d;          /* campo oscuro */
+  --glass:rgba(8,18,27,.84);/* paneles: cubreobjetos */
+  --line:#1b3446;
+  --fg:#dcecf3;
+  --muted:#86a2b3;
+  --dapi:#6c95ff;           /* azul DAPI: núcleos */
+  --gfp:#4dffa0;            /* verde GFP: eficaz */
+  --mcherry:#ff4f7b;        /* rojo mCherry: daño, enemigo */
+  --fitc:#ffc65c;           /* ámbar: ATP */
+  --gram:#a67bff;           /* violeta cristal: ADN, evolución */
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --f-data:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+html,body{height:100%;overflow:hidden;background:var(--slide);color:var(--fg);font-family:var(--f-body);font-size:15px}
+#app{position:fixed;inset:0;overflow:hidden;user-select:none;-webkit-user-select:none}
+#c{display:block;width:100%;height:100%;touch-action:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+
+/* ---------- HUD superior ---------- */
+#hud{position:absolute;top:0;left:0;right:0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  padding:calc(10px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  background:linear-gradient(var(--slide),rgba(4,8,13,0));pointer-events:none}
+#hud > *{pointer-events:auto}
+.brand{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.04em;color:var(--fg)}
+.brand b{color:var(--gfp);font-weight:700}
+.lvl{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--glass)}
+.lvl .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lvl .v{font-family:var(--f-display);font-size:16px}
+.pips{display:flex;gap:4px;align-items:center}
+.pip{width:8px;height:8px;border-radius:50%;border:1px solid var(--muted)}
+.pip.on{background:var(--gfp);border-color:var(--gfp);box-shadow:0 0 6px var(--gfp)}
+.pip.boss{width:12px;height:12px;border-color:var(--mcherry)}
+.pip.boss.on{background:var(--mcherry);box-shadow:0 0 8px var(--mcherry)}
+.res{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.chip{display:flex;align-items:baseline;gap:6px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--glass)}
+.chip .k{font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.chip.atp .v{color:var(--fitc)} .chip.adn .v{color:var(--gram)}
+.chip small{color:var(--muted);font-size:11px}
+.ctrls{display:flex;gap:6px}
+.tog{padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--glass);font-size:13px;font-weight:600;display:flex;gap:6px;align-items:center}
+.tog .led{width:8px;height:8px;border-radius:50%;background:#2a3a46}
+.tog[aria-pressed="true"] .led{background:var(--gfp);box-shadow:0 0 6px var(--gfp)}
+.tog:disabled{opacity:.45;cursor:not-allowed}
+.tog.lab{border-color:var(--fitc);color:var(--fitc);position:relative}
+.tog.lab .dot{position:absolute;top:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--fitc);box-shadow:0 0 6px var(--fitc)}
+
+/* ---------- Fichas de combate ---------- */
+.card{position:absolute;background:var(--glass);border:1px solid var(--line);border-radius:8px;padding:10px 12px;backdrop-filter:blur(6px)}
+#foe{top:calc(66px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:min(340px,calc(100% - 32px))}
+#foe .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mcherry)}
+#foe h2{margin:2px 0 0;font-family:var(--f-display);font-weight:500;font-size:17px;text-wrap:balance}
+#foe .sci{font-style:italic;color:var(--muted);font-size:13px}
+.bar{position:relative;height:10px;border-radius:5px;background:#0d1b26;overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--mcherry);transition:width .25s}
+.bar.me i{background:var(--gfp)}
+.barlbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:3px}
+.traits{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.trait{font-size:12px;padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--fg);background:#0b1720}
+.trait.st{border-color:var(--fitc);color:var(--fitc)}
+.trait.good{border-color:var(--gfp);color:var(--gfp)}
+
+#me{left:max(16px,env(safe-area-inset-left,0px));bottom:calc(var(--toolsH,120px) + 12px);width:min(260px,calc(50% - 24px))}
+#me .who{font-family:var(--f-display);font-size:14px}
+#me .who small{font-family:var(--f-body);color:var(--muted);font-size:12px;margin-left:4px}
+
+#msg{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(var(--toolsH,120px) + 12px);width:min(440px,calc(50% - 24px));
+  background:var(--glass);border:1px solid var(--line);border-left:3px solid var(--muted);border-radius:8px;padding:9px 12px;font-size:14px;line-height:1.4}
+#msg .verdict{font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+#msg.v-great{border-left-color:var(--gfp)} #msg.v-great .verdict{color:var(--gfp)}
+#msg.v-ok{border-left-color:var(--dapi)} #msg.v-ok .verdict{color:var(--dapi)}
+#msg.v-bad{border-left-color:var(--fitc)} #msg.v-bad .verdict{color:var(--fitc)}
+#msg.v-none{border-left-color:var(--mcherry)} #msg.v-none .verdict{color:var(--mcherry)}
+#msg .extra{color:var(--muted);font-size:13px;margin-top:3px}
+
+/* ---------- Herramientas ---------- */
+#tools{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:6px;
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  background:linear-gradient(rgba(4,8,13,0),var(--slide) 30%)}
+.tool{position:relative;text-align:left;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:var(--glass);min-height:52px;display:flex;flex-direction:column;justify-content:space-between;gap:3px;overflow:hidden}
+.tool:hover:not(:disabled){border-color:var(--dapi)}
+.tool:disabled{cursor:not-allowed}
+.tool .tn{font-weight:700;font-size:13px;line-height:1.15}
+.tool .tm{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
+.tool .sw{width:10px;height:10px;border-radius:50%;flex:none}
+.badge{font-family:var(--f-data);font-size:11px;font-weight:700;padding:1px 5px;border-radius:4px;border:1px solid currentColor}
+.badge.great{color:var(--gfp)} .badge.ok{color:var(--dapi)} .badge.bad{color:var(--fitc)} .badge.none{color:var(--mcherry)} .badge.unk{color:var(--muted);border-style:dashed}
+.tool .cd{position:absolute;inset:0;background:rgba(4,8,13,.78);display:flex;align-items:center;justify-content:center;font-family:var(--f-data);font-size:13px;color:var(--muted)}
+.tool.best{box-shadow:inset 0 0 0 1px var(--gfp)}
+
+/* ---------- Números flotantes ---------- */
+#floats{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ft{position:absolute;transform:translate(-50%,-50%);font-family:var(--f-data);font-weight:700;font-size:20px;text-shadow:0 0 8px rgba(0,0,0,.9);animation:rise 1.1s ease-out forwards;white-space:nowrap}
+.ft.dmg{color:#fff} .ft.great{color:var(--gfp);font-size:26px} .ft.bad{color:var(--fitc)} .ft.none{color:var(--mcherry)}
+.ft.hurt{color:var(--mcherry)} .ft.heal{color:var(--gfp);font-size:16px} .ft.atp{color:var(--fitc);font-size:17px} .ft.info{color:var(--muted);font-size:15px;font-family:var(--f-body)}
+@keyframes rise{0%{opacity:0;margin-top:8px}15%{opacity:1}100%{opacity:0;margin-top:-56px}}
+@media (prefers-reduced-motion:reduce){.ft{animation-duration:1.6s}}
+
+/* ---------- Laboratorio (panel) ---------- */
+#panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:#06111a;border-left:1px solid var(--line);display:flex;flex-direction:column;z-index:5;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px);box-shadow:-20px 0 40px rgba(0,0,0,.5)}
+#panel header{display:flex;align-items:center;gap:10px;padding:14px 16px 8px}
+#panel header h3{margin:0;font-family:var(--f-display);font-weight:500;font-size:17px;flex:1}
+#panel header .atp{color:var(--fitc)}
+.x{width:34px;height:34px;border:1px solid var(--line);border-radius:6px;font-size:18px;line-height:1}
+.tabs{display:flex;gap:4px;padding:0 16px;border-bottom:1px solid var(--line)}
+.tab{padding:9px 10px;font-size:13px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--gfp)}
+.pbody{flex:1;overflow-y:auto;padding:14px 16px 24px;display:flex;flex-direction:column;gap:10px}
+.pbody p.lead{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#081620}
+.item h4{margin:0;font-size:14px;display:flex;gap:6px;align-items:center}
+.item .lv{font-family:var(--f-data);font-size:12px;color:var(--muted);font-weight:500}
+.item p{margin:0;grid-column:1;font-size:13px;color:var(--muted);line-height:1.4}
+.item .eff{grid-column:1;font-size:12px;color:var(--gfp);font-family:var(--f-data)}
+.buy{grid-column:2;grid-row:1 / span 3;align-self:center;min-width:92px;padding:8px 10px;border-radius:6px;border:1px solid var(--fitc);color:var(--fitc);font-family:var(--f-data);font-weight:700;font-size:13px}
+.buy:disabled{border-color:var(--line);color:#4c6272;cursor:not-allowed}
+.buy.done{border-color:var(--gfp);color:var(--gfp)}
+.buy.evo{border-color:var(--gram);color:var(--gram)}
+.atlas{display:grid;gap:10px}
+.sp{padding:12px;border:1px solid var(--line);border-radius:8px;background:#081620}
+.sp h4{margin:0;font-family:var(--f-display);font-weight:500;font-size:15px;display:flex;align-items:center;gap:8px}
+.sp .sw{width:12px;height:12px;border-radius:50%}
+.sp .sci{font-style:italic;color:var(--muted);font-size:12px}
+.sp p{margin:6px 0 0;font-size:13px;line-height:1.45;color:#b9cfdb}
+.sp .known{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.sp.locked{opacity:.5}
+.stat{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:8px}
+.stat span:nth-child(odd){color:var(--muted)}
+.stat span:nth-child(even){font-family:var(--f-data);text-align:right}
+
+/* ---------- Ventanas modales ---------- */
+#modal{position:absolute;inset:0;z-index:8;background:rgba(2,5,8,.72);display:flex;align-items:center;justify-content:center;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.mbox{width:min(560px,100%);max-height:calc(100% - 32px);overflow-y:auto;background:#06111a;border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+.mbox .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gfp)}
+.mbox h2{margin:4px 0 2px;font-family:var(--f-display);font-weight:700;font-size:24px;text-wrap:balance}
+.mbox h2.big{font-size:34px}
+.mbox .sci{font-style:italic;color:var(--muted)}
+.mbox p{line-height:1.5;color:#c4d8e3;margin:10px 0 0}
+.mbox ul{margin:10px 0 0;padding-left:18px;line-height:1.5;color:#c4d8e3}
+.mbox li+li{margin-top:4px}
+.mbox .go{margin-top:16px;padding:10px 18px;border-radius:7px;background:var(--gfp);color:#03150b;font-weight:700}
+.mbox b{color:var(--fg)}
+
+#toast{position:absolute;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:9;background:#06111a;border:1px solid var(--fitc);color:var(--fg);padding:9px 14px;border-radius:8px;font-size:14px;max-width:calc(100% - 32px)}
+
+/* ---------- Móvil ---------- */
+@media (max-width:720px){
+  html,body{font-size:14px}
+  .brand{display:none}
+  #hud{gap:6px}
+  .res{margin-left:0}
+  .chip{padding:5px 8px}
+  .tog{padding:6px 8px;font-size:12px}
+  #foe{top:auto;bottom:auto;top:calc(var(--hudH,96px) + 4px);padding:8px 10px}
+  #foe h2{font-size:15px}
+  .traits{margin-top:6px}
+  .trait{font-size:11px;padding:1px 6px}
+  #foe .sci{display:none}
+  #tools{grid-template-columns:repeat(4,1fr);gap:4px;padding-top:6px}
+  .tool{min-height:42px;padding:5px 6px;gap:2px}
+  .tool .tn{font-size:11.5px}
+  .tool .rc{display:none}
+  .badge{font-size:10px;padding:0 4px}
+  #me{width:auto;right:max(16px,env(safe-area-inset-right,0px));padding:6px 10px;bottom:calc(var(--toolsH,120px) + 6px);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:0 10px}
+  #me .who small{display:none}
+  #me .bar{margin-top:0}
+  #me .barlbl{margin-top:0}
+  #me .barlbl span:last-child{display:none}
+  #msg{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;bottom:calc(var(--toolsH,120px) + 50px);font-size:13px;padding:6px 10px;line-height:1.35}
+  #msg .extra{font-size:12px}
+}
+</style>
+
+<div id="app">
+  <canvas id="c" aria-label="Escena del combate"></canvas>
+  <div id="floats"></div>
+
+  <header id="hud">
+    <div class="brand">Micro<b>cosmos</b></div>
+    <div class="lvl"><span class="k">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
+    <div class="res">
+      <div class="chip atp"><span class="k">ATP</span><span class="v num" id="hAtp">0</span><small class="num" id="hAtps"></small></div>
+      <div class="chip adn" id="hAdnBox" hidden><span class="k">ADN</span><span class="v num" id="hAdn">0</span></div>
+    </div>
+    <div class="ctrls">
+      <button class="tog" id="bAuto" aria-pressed="false" title="Combate automático: usa la mejor herramienta que ya conozcas contra cada organismo"><span class="led"></span>Auto</button>
+      <button class="tog" id="bAdv" aria-pressed="true" title="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span class="led"></span>Avanzar</button>
+      <button class="tog" id="bSnd" aria-pressed="true" title="Sonido"><span class="led"></span>Sonido</button>
+      <button class="tog lab" id="bLab">Laboratorio<span class="dot" id="labDot" hidden></span></button>
+    </div>
+  </header>
+
+  <section id="foe" class="card" aria-live="polite">
+    <div class="eyebrow" id="fEye">Organismo</div>
+    <h2 id="fName">—</h2>
+    <div class="sci" id="fSci"></div>
+    <div class="bar"><i id="fBar" style="width:100%"></i></div>
+    <div class="barlbl"><span class="num" id="fHp"></span><span id="fAtk" class="num"></span></div>
+    <div class="traits" id="fTraits"></div>
+  </section>
+
+  <section id="me" class="card">
+    <div class="who">Macrófago<small>tu célula</small></div>
+    <div class="bar me"><i id="mBar" style="width:100%"></i></div>
+    <div class="barlbl"><span class="num" id="mHp"></span><span class="num" id="mAtk"></span></div>
+  </section>
+
+  <div id="msg" class="v-ok" aria-live="polite"><div class="verdict" id="msgV">Listo</div><div id="msgT">Elige una herramienta.</div><div class="extra" id="msgX"></div></div>
+
+  <nav id="tools" aria-label="Herramientas de combate"></nav>
+
+  <aside id="panel" hidden aria-label="Laboratorio">
+    <header><h3>Laboratorio</h3><span class="num atp" id="pAtp"></span><button class="x" id="pClose" aria-label="Cerrar">×</button></header>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="mej" aria-selected="true">Orgánulos</button>
+      <button class="tab" role="tab" data-tab="her" aria-selected="false">Herramientas</button>
+      <button class="tab" role="tab" data-tab="atl" aria-selected="false">Atlas</button>
+      <button class="tab" role="tab" data-tab="evo" aria-selected="false">Evolución</button>
+    </div>
+    <div class="pbody" id="pBody"></div>
+  </aside>
+
+  <div id="modal" hidden><div class="mbox" id="mBox"></div></div>
+  <div id="toast" hidden></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const rnd = (a,b) => a + Math.random()*(b-a);
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+
+/* =====================================================================
+   DATOS DE BIOLOGÍA
+   ===================================================================== */
+const KPL = 5; // combates normales por nivel antes del jefe
+
+// Organismos. min = nivel en el que aparecen por primera vez.
+const TYPES = {
+  gp:{n:'Estafilococo',sci:'Staphylococcus aureus',min:1,col:0xa67bff,boss:'Biofilm de estafilococos',
+    traits:['Bacteria Gram+','Pared de peptidoglucano gruesa','Fisión binaria'],
+    desc:'Bacteria esférica (coco) que forma racimos. En la tinción de Gram queda violeta porque su gruesa pared de peptidoglucano retiene el cristal violeta. Cada pocos turnos se divide por fisión binaria y recupera vida.'},
+  gn:{n:'Bacilo Gram−',sci:'Escherichia coli',min:3,col:0xff6fae,boss:'Colonia de E. coli',dodge:.15,dodgeWhy:'Su flagelo gira como una hélice y la aparta del golpe.',
+    traits:['Bacteria Gram−','Membrana externa con LPS','Peptidoglucano fino','Flagelo'],
+    desc:'Bacilo (bastón) que se tiñe de rosa en la tinción de Gram: su capa de peptidoglucano es fina y está escondida bajo una membrana externa de lipopolisacárido (LPS). Esa membrana frena a la lisozima y a muchos antibióticos. Su flagelo le permite esquivar.'},
+  vir:{n:'Virus de la gripe',sci:'Influenzavirus A',min:6,col:0xffb547,boss:'Viremia',
+    traits:['Acelular','Envoltura con espículas','Parásito intracelular obligado'],
+    desc:'No es una célula: es material genético (ARN) dentro de una cápside y una envoltura con espículas de hemaglutinina y neuraminidasa. No tiene metabolismo propio, así que los antibióticos no le hacen nada. Turno sí, turno no, se esconde dentro de una célula del huésped para replicarse.'},
+  lev:{n:'Levadura',sci:'Candida albicans',min:9,col:0xe0b35e,boss:'Candidiasis',
+    traits:['Hongo unicelular','Pared de quitina','Ergosterol en la membrana','Gemación'],
+    desc:'Hongo unicelular eucariota. Su pared es de quitina y glucanos (no de celulosa ni de peptidoglucano) y su membrana usa ergosterol en lugar de colesterol. Se reproduce por gemación: le brota una yema que crece.'},
+  ame:{n:'Ameba',sci:'Amoeba proteus',min:12,col:0xb8f06a,boss:'Ameba gigante',dodge:.2,dodgeWhy:'Cambia de forma con sus pseudópodos y se escurre.',
+    traits:['Protozoo','Sin pared celular','Pseudópodos','Vacuola contráctil pequeña'],
+    desc:'Protozoo que se mueve emitiendo pseudópodos, prolongaciones de su citoplasma. No tiene pared celular: solo su membrana plasmática la separa del medio. Por eso cambia de forma y esquiva con facilidad.'},
+  veg:{n:'Célula vegetal',sci:'Elodea canadensis (parénquima)',min:15,col:0x5dff8a,boss:'Tejido de parénquima',
+    traits:['Pared de celulosa','Cloroplastos','Vacuola central','Fotosíntesis'],
+    desc:'Célula eucariota con pared de celulosa, una gran vacuola central y cloroplastos. Mientras haya luz hace la fotosíntesis y se repara cada turno. Fíjate en la ciclosis: los cloroplastos giran arrastrados por el citoplasma.'},
+  par:{n:'Paramecio',sci:'Paramecium caudatum',min:18,col:0xc6b3ff,boss:'Enjambre de paramecios',hits:2,
+    traits:['Protozoo ciliado','Vacuola contráctil','Miles de cilios','Sin pared celular'],
+    desc:'Protozoo cubierto de cilios que baten en ondas: ataca dos veces por turno. Vive en agua dulce, un medio hipotónico, y tiene vacuolas contráctiles con forma de estrella que expulsan sin parar el agua que le entra por ósmosis.'},
+  myc:{n:'Micoplasma',sci:'Mycoplasma pneumoniae',min:21,col:0xff9f6b,boss:'Neumonía atípica',dodge:.1,dodgeWhy:'Es tan pequeño y deformable que se cuela entre tus pseudópodos.',
+    traits:['Bacteria sin pared','Colesterol en la membrana','Pleomórfica','Diminuta'],
+    desc:'Una de las bacterias más pequeñas que existen y una excepción: no tiene pared celular. Toma colesterol del huésped para reforzar su membrana. Sin pared, los antibióticos que atacan el peptidoglucano no le hacen nada.'},
+  can:{n:'Célula tumoral',sci:'Carcinoma (célula propia mutada)',min:24,col:0xff3b5c,boss:'Tumor',
+    traits:['Célula propia mutada','Sin pared celular','Mitosis descontrolada','Evita la apoptosis'],
+    desc:'Una célula de tu propio cuerpo con mutaciones en genes que controlan el ciclo celular (como p53). Se divide sin freno: cada turno recupera vida por mitosis. Como es propia, el sistema inmune la reconoce mal.'},
+  bac:{n:'Bacilo esporulado',sci:'Bacillus cereus',min:27,col:0x8f6bff,boss:'Colonia esporulada',
+    traits:['Bacteria Gram+','Forma endosporas'],
+    desc:'Bacilo Gram+. Cuando las condiciones empeoran forma una endospora: una estructura deshidratada, con capas de proteína y ácido dipicolínico, que resiste el calor seco, la radiación y los desinfectantes. Solo el vapor a presión del autoclave la destruye.'},
+  pri:{n:'Prion',sci:'PrPSc (proteína priónica mal plegada)',min:30,col:0xffe066,boss:'Placa amiloide',
+    traits:['Proteína mal plegada','Sin ácidos nucleicos','Resistente a proteasas','Contagia su plegamiento'],
+    desc:'Ni siquiera es un ser vivo: es una proteína propia (PrP) plegada de forma anómala, rica en láminas β. Cuando toca una PrP normal, la obliga a plegarse igual: su ataque crece cada turno. No tiene ADN ni ARN y el sistema inmune no la ve como extraña.'},
+};
+const TYPE_ORDER = Object.keys(TYPES);
+
+// Herramientas: pow = potencia, cd = turnos de recarga, cost = ATP para desbloquear
+const TOOLS = [
+  {id:'fago',n:'Fagocitosis',col:0x7fe0ff,pow:1,cd:0,cost:0,
+    d:'Rodeas al invasor con pseudópodos, lo encierras en un fagosoma y lo digieres con las enzimas de tus lisosomas.'},
+  {id:'lis',n:'Lisozima',col:0x9be7ff,pow:1.4,cd:1,cost:25,
+    d:'Enzima de las lágrimas y la saliva. Rompe los enlaces β(1→4) entre NAM y NAG, los azúcares del peptidoglucano.'},
+  {id:'pen',n:'Penicilina',col:0x4dffa0,pow:1.8,cd:2,cost:110,
+    d:'Antibiótico β-lactámico. Bloquea las transpeptidasas que entrelazan el peptidoglucano: la bacteria crece sin poder reparar su pared y estalla.'},
+  {id:'uv',n:'Luz ultravioleta',col:0xb98cff,pow:1.2,cd:1,cost:260,
+    d:'La UV-C une timinas vecinas del ADN (dímeros de timina) y bloquea la replicación y la transcripción.'},
+  {id:'ac',n:'Anticuerpos',col:0xffd36b,pow:.8,cd:3,cost:420,
+    d:'Inmunoglobulinas en forma de Y que se unen a antígenos concretos. Neutralizan virus y marcan (opsonizan) al objetivo: +60 % de daño durante 3 turnos.'},
+  {id:'anf',n:'Anfotericina B',col:0xff9f6b,pow:1.7,cd:2,cost:900,
+    d:'Antifúngico que se une al ergosterol de la membrana de los hongos y abre poros por donde se escapan iones.'},
+  {id:'osm',n:'Choque osmótico',col:0x6c95ff,pow:1.3,cd:2,cost:1700,
+    d:'Agua destilada: un medio hipotónico. El agua entra en la célula por ósmosis; si no tiene pared que la contenga, se hincha hasta reventar (lisis).'},
+  {id:'luz',n:'Apagar la luz',col:0x334455,pow:0,cd:4,cost:2800,
+    d:'Sin luz no hay fase luminosa de la fotosíntesis: los cloroplastos dejan de producir ATP y NADPH, y la célula no puede repararse.'},
+  {id:'cel',n:'Celulasa',col:0x5dff8a,pow:1.6,cd:2,cost:3500,
+    d:'Enzima que hidroliza la celulosa, el polisacárido que forma la pared de las células vegetales.'},
+  {id:'tc',n:'Linfocito T citotóxico',col:0xff6fd8,pow:1.5,cd:2,cost:6500,
+    d:'Linfocito CD8 que reconoce péptidos extraños presentados en el MHC-I de una célula y le ordena entrar en apoptosis. Ataca células infectadas o tumorales, aunque el virus esté escondido dentro.'},
+  {id:'tax',n:'Taxol',col:0xff4f7b,pow:1.4,cd:3,cost:11000,
+    d:'Antimitótico (paclitaxel). Estabiliza los microtúbulos e impide que se forme y se desmonte el huso mitótico. Bloquea la división durante 3 turnos.'},
+  {id:'aut',n:'Autoclave',col:0xffffff,pow:2.4,cd:4,cost:18000,
+    d:'Vapor de agua a 121–134 °C y alta presión. Desnaturaliza las proteínas y destruye incluso endosporas y priones.'},
+];
+const TOOL = Object.fromEntries(TOOLS.map(t=>[t.id,t]));
+
+// Eficacia [multiplicador, explicación] de cada herramienta contra cada organismo
+const NOWALL_PG = 'No tiene peptidoglucano: esa molécula solo existe en la pared de las bacterias.';
+const EFF = {
+  fago:{def:[1,'La fagocitosis sirve contra casi cualquier partícula: la engulles y la digieres.'],
+    vir:[.7,'Las partículas víricas miden unos 100 nm: muchas se te escapan.'],
+    veg:[.4,'La célula vegetal es grande y su pared rígida no se deja englobar.'],
+    can:[.6,'Las células tumorales exhiben la señal «no me comas» (CD47) y frenan a los macrófagos.'],
+    pri:[.5,'Los agregados de prion no se pueden digerir en los lisosomas: se acumulan.'],
+    ame:[.8,'La ameba también fagocita: es difícil engullir a quien hace lo mismo que tú.']},
+  lis:{def:[0,NOWALL_PG],
+    gp:[2.5,'Su peptidoglucano es grueso y está expuesto: la lisozima lo corta y la pared se deshace.'],
+    gn:[.5,'La membrana externa de las Gram− tapa su fina capa de peptidoglucano.'],
+    bac:[2,'Bacillus es Gram+: pared gruesa de peptidoglucano al descubierto.'],
+    myc:[0,'El micoplasma no tiene pared celular: no hay peptidoglucano que romper.'],
+    vir:[0,'Un virus no tiene pared ni peptidoglucano.'],
+    lev:[0,'La pared de los hongos es de quitina y glucanos, no de peptidoglucano.'],
+    veg:[0,'La pared vegetal es de celulosa: la lisozima no la reconoce.'],
+    pri:[0,'Un prion es una proteína: no tiene pared que romper.']},
+  pen:{def:[0,'La penicilina solo impide fabricar la pared de peptidoglucano de las bacterias.'],
+    gp:[2.5,'Sin transpeptidasas, la bacteria no puede reforzar su pared al crecer: estalla.'],
+    bac:[2.2,'Gram+: la penicilina llega a su pared sin obstáculos.'],
+    gn:[.6,'La membrana externa frena la entrada de la penicilina; muchas Gram− le resisten.'],
+    myc:[0,'Sin pared celular, la penicilina no tiene diana. Por eso las neumonías por micoplasma se tratan con otros antibióticos.'],
+    vir:[0,'Los antibióticos no afectan a los virus: no tienen pared ni metabolismo propio.'],
+    lev:[0,'Los hongos son eucariotas con pared de quitina: la penicilina no les afecta.']},
+  uv:{def:[1,'La UV daña el ADN de cualquier célula.'],
+    gp:[1.5,'Las bacterias tienen un solo cromosoma desnudo: la UV lo daña con facilidad.'],
+    gn:[1.5,'Las bacterias tienen un solo cromosoma desnudo: la UV lo daña con facilidad.'],
+    myc:[1.5,'Un genoma diminuto y sin pared que lo proteja.'],
+    vir:[1.6,'Los dímeros que forma la UV en su genoma impiden que el virus se replique.'],
+    veg:[.6,'Los pigmentos y la pared filtran parte de la radiación.'],
+    bac:[1.3,'Mientras no forme la endospora, su ADN es vulnerable.'],
+    pri:[0,'Un prion es solo proteína: no tiene ADN ni ARN que dañar.']},
+  ac:{def:[1,'Los anticuerpos reconocen sus antígenos de superficie y lo marcan.'],
+    vir:[2.5,'Los anticuerpos neutralizan el virus: tapan la hemaglutinina con la que se une a tus células.'],
+    gp:[1.2,'Los anticuerpos opsonizan la bacteria: la marcan para que la destruyas.'],
+    gn:[1.2,'Los anticuerpos opsonizan la bacteria y activan el complemento contra su membrana externa.'],
+    veg:[.5,'La pared impide que lleguen a la membrana, pero la marcan.'],
+    can:[.5,'Es una célula propia: tiene pocos antígenos que tu sistema inmune vea como extraños.'],
+    pri:[0,'El prion es una proteína propia mal plegada: tu sistema inmune no la reconoce como extraña.']},
+  anf:{def:[.3,'Las células animales usan colesterol, no ergosterol: les afecta poco.'],
+    lev:[3,'La anfotericina B se une al ergosterol de su membrana y abre poros: la levadura pierde iones y muere.'],
+    gp:[0,'Las bacterias no tienen esteroles en la membrana.'],gn:[0,'Las bacterias no tienen esteroles en la membrana.'],bac:[0,'Las bacterias no tienen esteroles en la membrana.'],
+    myc:[.6,'El micoplasma toma colesterol del huésped para su membrana: algo le afecta.'],
+    vir:[0,'Su envoltura viene de la membrana de la célula huésped y no tiene ergosterol.'],
+    veg:[.4,'Las plantas usan fitoesteroles, parecidos al ergosterol pero no iguales.'],
+    ame:[.5,'Algunos protozoos tienen esteroles parecidos al ergosterol.'],par:[.5,'Algunos protozoos tienen esteroles parecidos al ergosterol.'],
+    pri:[0,'Un prion no tiene membrana.']},
+  osm:{def:[.3,'Su pared celular resiste la presión del agua que entra: queda turgente, pero no revienta.'],
+    ame:[2.5,'Sin pared celular, el agua entra por ósmosis hasta que la membrana estalla.'],
+    myc:[2.5,'El micoplasma no tiene pared: la lisis osmótica es inmediata.'],
+    can:[2.2,'Una célula animal no tiene pared: se hincha y revienta.'],
+    par:[.6,'Sus vacuolas contráctiles bombean fuera el agua que entra: está adaptado al agua dulce.'],
+    veg:[.3,'La pared de celulosa aguanta la presión de turgencia: la célula se pone turgente, no revienta.'],
+    vir:[0,'Un virus no es una célula: no hay ósmosis que lo haga reventar.'],
+    pri:[0,'Un prion es una proteína: no tiene membrana ni citoplasma.']},
+  luz:{def:[0,'No hace la fotosíntesis: la oscuridad no le afecta.'],
+    veg:[1,'Sin luz, los cloroplastos no pueden hacer la fase luminosa: se acabó la reparación por fotosíntesis.']},
+  cel:{def:[0,'No tiene pared de celulosa.'],
+    veg:[3,'La celulasa digiere su pared de celulosa y la deja indefensa.'],
+    lev:[0,'La pared de los hongos es de quitina, no de celulosa.']},
+  tc:{def:[.5,'Los linfocitos T citotóxicos atacan células propias infectadas o alteradas, no microbios libres.'],
+    vir:[2.5,'Reconoce los péptidos víricos que la célula infectada presenta en su MHC-I y la destruye, con el virus dentro.'],
+    can:[2,'Reconoce antígenos tumorales y le ordena entrar en apoptosis.'],
+    pri:[0,'El prion es una proteína propia: no hay antígeno extraño que reconocer.']},
+  tax:{def:[1,'Los eucariotas usan microtúbulos para dividirse: el taxol les afecta.'],
+    can:[2.5,'Se divide sin control: si bloqueas su huso mitótico, se detiene y muere.'],
+    gp:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
+    gn:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
+    bac:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
+    myc:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
+    vir:[0,'Un virus no se divide: lo copia la maquinaria de la célula que infecta.'],
+    pri:[0,'Un prion no se divide: convierte proteínas sanas.'],
+    ame:[1.2,'La ameba se divide por mitosis: el huso le es imprescindible.'],par:[1.2,'El paramecio usa microtúbulos para dividirse y para sus cilios.']},
+  aut:{def:[1.2,'El vapor a presión desnaturaliza sus proteínas.'],
+    bac:[1.5,'El autoclave es lo único que destruye endosporas.'],
+    pri:[1.6,'Hacen falta 134 °C durante 18 minutos para inactivar priones: un autoclave prolongado.']},
+};
+
+function eff(toolId, e){
+  const t = EFF[toolId];
+  let [m, why] = t[e.type] || t.def;
+  if (e.hidden && toolId !== 'tc' && toolId !== 'luz'){ m *= .15; why = 'El virus está escondido dentro de una célula: casi nada lo alcanza. Solo un linfocito T reconoce la célula infectada.'; }
+  if (e.spore && toolId !== 'aut' && toolId !== 'luz'){ m *= .1; why = 'La endospora está deshidratada y blindada con proteínas y ácido dipicolínico. Solo el autoclave la destruye.'; }
+  return {m, why};
+}
+function verdict(m){
+  if (m >= 2) return ['great','Muy eficaz'];
+  if (m >= 1) return ['ok','Eficaz'];
+  if (m > 0) return ['bad','Poco eficaz'];
+  return ['none','No le afecta'];
+}
+
+const UPG = [
+  {id:'fue',n:'Enzimas lisosomales',d:'Más hidrolasas ácidas en tus lisosomas para digerir lo que capturas.',e:'Ataque ×1,15',base:10,k:1.4},
+  {id:'mem',n:'Membrana reforzada',d:'Más fosfolípidos y colesterol: una bicapa más estable.',e:'Vida ×1,15',base:10,k:1.4},
+  {id:'cit',n:'Citoesqueleto',d:'Filamentos de actina e intermedios que sostienen la célula ante los golpes.',e:'−4 % de daño recibido',base:30,k:1.4,max:15},
+  {id:'rib',n:'Ribosomas',d:'Más síntesis de proteínas: aprovechas mejor lo que digieres.',e:'ATP por victoria ×1,2',base:25,k:1.55},
+  {id:'mit',n:'Mitocondrias',d:'Respiración celular: C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + ATP. Producen ATP aunque no combatas.',e:'+ATP por segundo',base:15,k:1.3},
+  {id:'ref',n:'Señalización rápida',d:'Segundos mensajeros (AMPc, Ca²⁺) que aceleran tu respuesta.',e:'Combate automático más rápido',base:80,k:1.8,max:6},
+];
+
+/* =====================================================================
+   ESTADO Y FÓRMULAS
+   ===================================================================== */
+const SAVE_KEY = 'microcosmos.v1';
+const fresh = () => ({v:1,level:1,kills:0,runMax:1,best:1,atp:0,adn:0,evos:0,totalKills:0,
+  upg:{fue:0,mem:0,cit:0,rib:0,mit:0,ref:0},memoria:false,tools:{fago:true},known:{},seen:{},defeated:{},
+  auto:false,advance:true,sound:true,intro:false,t:Date.now()});
+let S = fresh();
+
+const adnM = () => 1 + .1*S.adn;
+const atk = () => 10*Math.pow(1.15,S.upg.fue)*adnM();
+const maxHp = () => 100*Math.pow(1.15,S.upg.mem)*adnM();
+const taken = () => Math.pow(.96,S.upg.cit);
+const atps = () => S.upg.mit*.3*Math.pow(1.15,S.runMax-1)*adnM();
+const reward = (L,boss) => 5*Math.pow(1.2,L-1)*(boss?6:1)*Math.pow(1.2,S.upg.rib)*adnM();
+const upgCost = u => Math.ceil(u.base*Math.pow(u.k,S.upg[u.id]));
+const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5,2)) : 0;
+const speed = () => Math.pow(1.25,S.upg.ref);
+
+const SI = ['','k','M','G','T','P','E'];
+function fmt(n){
+  if (!isFinite(n)) return '∞';
+  if (n < 1000) return n < 10 && n % 1 ? n.toFixed(1).replace('.',',') : Math.floor(n).toString();
+  const i = Math.min(SI.length-1, Math.floor(Math.log10(n)/3));
+  if (i === SI.length-1 && n >= 1e21) return n.toExponential(2).replace('.',',');
+  const v = n/Math.pow(1000,i);
+  return (v < 10 ? v.toFixed(2) : v < 100 ? v.toFixed(1) : v.toFixed(0)).replace('.',',') + ' ' + SI[i];
+}
+
+function save(){ S.t = Date.now(); try{ localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }catch(_){} }
+function load(data){
+  let d = data && data.S;
+  if (!d){ try{ d = JSON.parse(localStorage.getItem(SAVE_KEY)||'null'); }catch(_){ d = null; } }
+  if (d && d.v === 1){ const f = fresh(), up = f.upg; S = Object.assign(f, d); S.upg = Object.assign(up, d.upg||{}); for (const k in S.upg) if (!isFinite(S.upg[k])) S.upg[k] = 0; if (!isFinite(S.atp)) S.atp = 0; S.best = Math.max(S.best||1, S.runMax||1, S.level||1); S.runMax = Math.max(S.runMax||1, S.level||1); return true; }
+  return false;
+}
+
+/* =====================================================================
+   SONIDO (sintetizado)
+   ===================================================================== */
+let AC = null;
+function tone(f, dur=.12, type='sine', vol=.08, slide=0){
+  if (!S.sound) return;
+  try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime;
+    o.type = type; o.frequency.setValueAtTime(f,t);
+    if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(30,f*slide), t+dur);
+    g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g).connect(AC.destination); o.start(t); o.stop(t+dur+.02);
+  }catch(_){}
+}
+const sfx = {
+  shoot:()=>tone(520,.18,'triangle',.06,1.8),
+  hit:m=>m>=2?(tone(880,.12,'square',.05),setTimeout(()=>tone(1320,.15,'square',.04),60)):m>0?tone(300,.12,'triangle',.07,.6):tone(140,.2,'sawtooth',.04,.8),
+  hurt:()=>tone(160,.18,'sawtooth',.05,.5),
+  win:()=>{tone(660,.12,'triangle',.06);setTimeout(()=>tone(990,.18,'triangle',.06),90);},
+  buy:()=>tone(740,.1,'sine',.07,1.5),
+  lose:()=>tone(220,.5,'sawtooth',.05,.4),
+};
+
+/* =====================================================================
+   ESCENA 3D
+   ===================================================================== */
+const canvas = $('#c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+const scene = new THREE.Scene();
+const BG = new THREE.Color(0x03070c);
+scene.background = BG;
+scene.fog = new THREE.FogExp2(0x03070c, .035);
+const camera = new THREE.PerspectiveCamera(48, 1, .1, 200);
+
+const hemi = new THREE.HemisphereLight(0x8fc4ff, 0x14081c, .5); scene.add(hemi);
+const key = new THREE.DirectionalLight(0xffffff, .5); key.position.set(-3,6,6); scene.add(key);
+const pLight = new THREE.PointLight(0x5fd8ff, 1.4, 14); scene.add(pLight);
+const eLight = new THREE.PointLight(0xff4f7b, 1.2, 14); scene.add(eLight);
+
+const P_POS = new THREE.Vector3(-2.3, -.1, .9);
+const E_POS = new THREE.Vector3(2.3, .25, -.5);
+pLight.position.copy(P_POS).add(new THREE.Vector3(0,2,2));
+eLight.position.copy(E_POS).add(new THREE.Vector3(0,2,2));
+
+// Textura de brillo para partículas
+function glowTex(){
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d'), r = g.createRadialGradient(32,32,0,32,32,32);
+  r.addColorStop(0,'rgba(255,255,255,1)'); r.addColorStop(.35,'rgba(255,255,255,.55)'); r.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle = r; g.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(c);
+}
+const GLOW = glowTex();
+
+// Fondo: plasma con vesículas en suspensión
+const dust = (() => {
+  const N = 700, pos = new Float32Array(N*3), col = new Float32Array(N*3);
+  const pal = [0x6c95ff,0x4dffa0,0xff4f7b,0xa67bff,0x8fd3ff].map(h=>new THREE.Color(h));
+  for (let i=0;i<N;i++){
+    pos[i*3] = rnd(-30,30); pos[i*3+1] = rnd(-14,16); pos[i*3+2] = rnd(-30,8);
+    const c = pal[i%pal.length]; col[i*3]=c.r*.6; col[i*3+1]=c.g*.6; col[i*3+2]=c.b*.6;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  g.setAttribute('color', new THREE.BufferAttribute(col,3));
+  const m = new THREE.PointsMaterial({size:.22,map:GLOW,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+  const p = new THREE.Points(g,m); scene.add(p); return p;
+})();
+
+// Eritrocitos al fondo: disco bicóncavo hecho por revolución (LatheGeometry)
+const RBC = [];
+(function(){
+  // perfil: más fino en el centro que en el borde (bicóncavo)
+  const pts = [];
+  for (let i=0;i<=20;i++){ const r = i/20; const h = .12 + .28*r*r - .2*Math.pow(r,8); pts.push(new THREE.Vector2(r, h)); }
+  for (let i=20;i>=0;i--){ const r = i/20; const h = .12 + .28*r*r - .2*Math.pow(r,8); pts.push(new THREE.Vector2(r, -h)); }
+  const geo = new THREE.LatheGeometry(pts, 40);
+  const mat = new THREE.MeshStandardMaterial({color:0x7a1022,roughness:.6,emissive:0x2a0308});
+  for (let i=0;i<9;i++){
+    const m = new THREE.Mesh(geo, mat);
+    m.position.set(rnd(-26,26), rnd(-8,10), rnd(-34,-20));
+    m.scale.setScalar(rnd(1.8,2.6));
+    m.rotation.set(rnd(0,3),rnd(0,3),rnd(0,3));
+    m.userData.spin = new THREE.Vector3(rnd(-.2,.2),rnd(-.2,.2),rnd(-.2,.2));
+    m.userData.drift = rnd(.15,.4);
+    scene.add(m); RBC.push(m);
+  }
+})();
+
+// Esfera deformable (membranas vivas)
+function blob(r, color, opts={}){
+  const geo = new THREE.SphereGeometry(r, opts.ws||40, opts.hs||28);
+  const base = geo.attributes.position.array.slice();
+  const mat = new THREE.MeshStandardMaterial({color, roughness:opts.rough??.35, metalness:0, transparent:opts.op!=null, opacity:opts.op??1,
+    emissive:opts.emi??new THREE.Color(color).multiplyScalar(.18), depthWrite:opts.op==null});
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.userData.wob = (t, amp=.08, f=2.2, sp=1) => {
+    const a = geo.attributes.position.array;
+    for (let i=0;i<a.length;i+=3){
+      const x=base[i], y=base[i+1], z=base[i+2];
+      const n = Math.sin(x*f + t*sp)*Math.sin(y*f*1.3 + t*1.1*sp)*Math.sin(z*f*.9 + t*.7*sp) + .5*Math.sin((x+z)*f*1.7 - t*1.3*sp);
+      const s = 1 + amp*n;
+      a[i]=x*s; a[i+1]=y*s; a[i+2]=z*s;
+    }
+    geo.attributes.position.needsUpdate = true; geo.computeVertexNormals();
+  };
+  return mesh;
+}
+const std = (color, o={}) => new THREE.MeshStandardMaterial(Object.assign({color, roughness:.55, emissive:new THREE.Color(color).multiplyScalar(.12)}, o));
+const sph = (r, mat, ws=20, hs=14) => new THREE.Mesh(new THREE.SphereGeometry(r, ws, hs), mat);
+function capsule(len, r, mat){
+  const g = new THREE.Group();
+  const c = new THREE.Mesh(new THREE.CylinderGeometry(r,r,len,24,1,true), mat); g.add(c);
+  const a = sph(r, mat, 24, 16); a.position.y = len/2; g.add(a);
+  const b = sph(r, mat, 24, 16); b.position.y = -len/2; g.add(b);
+  return g;
+}
+
+// ---- Jugador: macrófago ----
+const player = new THREE.Group();
+const pBody = blob(1.15, 0x58c8ff, {op:.55, emi:new THREE.Color(0x0b3550)});
+player.add(pBody);
+const pNuc = blob(.45, 0x6c95ff, {emi:new THREE.Color(0x1a2a80), ws:24, hs:16}); pNuc.position.set(.15,.1,0); player.add(pNuc);
+const pLys = [];
+for (let i=0;i<9;i++){ const l = sph(.08, std(0xffd36b,{emissive:new THREE.Color(0x664400)}),10,8); l.position.set(rnd(-.7,.7),rnd(-.6,.6),rnd(-.6,.6)); player.add(l); pLys.push(l); }
+player.position.copy(P_POS); scene.add(player);
+
+// ---- Constructores de enemigos ----
+const BUILD = {
+  gp(){ const g = new THREE.Group(), m = std(0xa67bff,{roughness:.3});
+    const pts = [[0,0,0],[.75,.1,0],[-.72,.05,.15],[.35,.66,.1],[-.35,.62,-.1],[.38,-.62,.05],[-.4,-.6,.1],[0,.1,.72],[0,0,-.7],[.7,.6,-.4],[-.7,-.5,-.5]];
+    const cs = pts.map(p=>{ const s = sph(.42,m,24,16); s.position.set(...p); g.add(s); return s; });
+    return {g, up(t){ cs.forEach((s,i)=>s.scale.setScalar(1+.05*Math.sin(t*2+i))); g.rotation.y = t*.2; }}; },
+  gn(){ const g = new THREE.Group(), m = std(0xff6fae,{roughness:.35});
+    const body = capsule(1.7,.48,m); body.rotation.z = Math.PI/2; g.add(body);
+    const fl = new THREE.Group(); g.add(fl);
+    const fm = new THREE.MeshBasicMaterial({color:0xffb3d4});
+    for (let k=0;k<4;k++){
+      const pts = []; for (let i=0;i<=40;i++){ const s=i/40; pts.push(new THREE.Vector3(1.3 + s*2.2, Math.sin(s*12)*.16*s, Math.cos(s*12)*.16*s)); }
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),60,.02,5), fm);
+      tube.rotation.x = k/4*Math.PI*2; tube.position.y = rnd(-.15,.15); fl.add(tube);
+    }
+    return {g, up(t){ fl.rotation.x = t*6; g.rotation.y = Math.sin(t*.6)*.4 + .5; g.position.y = Math.sin(t*1.4)*.1; }}; },
+  vir(){ const g = new THREE.Group();
+    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(.85,1), std(0xffb547,{flatShading:true,roughness:.5})); g.add(core);
+    const dirs = new THREE.IcosahedronGeometry(1,1).attributes.position;
+    const seen = new Set(), sm = std(0xffe2a0), tm = std(0xff6b3d), tm2 = std(0x6c95ff);
+    for (let i=0;i<dirs.count;i++){
+      const v = new THREE.Vector3().fromBufferAttribute(dirs,i).normalize(); const k = v.toArray().map(x=>x.toFixed(2)).join();
+      if (seen.has(k)) continue; seen.add(k);
+      const st = new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.38,6), sm);
+      st.position.copy(v).multiplyScalar(1.02); st.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), v); g.add(st);
+      const tip = sph(.08, seen.size%3?tm:tm2, 8, 6); tip.position.copy(v).multiplyScalar(1.22); g.add(tip);
+    }
+    return {g, up(t,e){ g.rotation.y = t*.5; g.rotation.x = t*.3; const target = e&&e.hidden ? .35 : 1; g.scale.lerp(new THREE.Vector3(target,target,target), .08); }}; },
+  lev(){ const g = new THREE.Group(), m = std(0xe0b35e,{roughness:.7});
+    const a = sph(.9,m,32,24); a.scale.set(1,1.2,1); g.add(a);
+    const b = sph(.5,m,24,16); b.position.set(.55,.95,.1); g.add(b);
+    const sc = sph(.12, std(0xd1a86a),10,8); sc.position.set(-.5,-.9,.4); g.add(sc);
+    const v = sph(.35, std(0xffffff,{transparent:true,opacity:.35}),16,12); v.position.set(-.1,-.1,.65); g.add(v);
+    return {g, up(t){ b.scale.setScalar(.7+.35*(.5+.5*Math.sin(t*.8))); g.rotation.y = t*.25; }}; },
+  ame(){ const g = new THREE.Group();
+    const body = blob(1.2, 0xb8f06a, {op:.62, emi:new THREE.Color(0x2a4008)}); g.add(body);
+    const n = sph(.32, std(0x6c95ff),16,12); n.position.set(.2,0,0); g.add(n);
+    const vs = []; for (let i=0;i<6;i++){ const v = sph(.1+Math.random()*.08, std(0xfff0a0,{emissive:new THREE.Color(0x443300)}),10,8); v.position.set(rnd(-.6,.6),rnd(-.5,.5),rnd(-.5,.5)); g.add(v); vs.push(v); }
+    return {g, up(t){ body.userData.wob(t, .28, 1.6, .8); vs.forEach((v,i)=>v.position.x += Math.sin(t+i)*.002); g.rotation.y = Math.sin(t*.3)*.4; }}; },
+  veg(e){ const g = new THREE.Group();
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(2.2,1.6,1.6), new THREE.MeshStandardMaterial({color:0x5dff8a,transparent:true,opacity:.18,roughness:.2,depthWrite:false}));
+    g.add(wall); g.add(new THREE.LineSegments(new THREE.EdgesGeometry(wall.geometry), new THREE.LineBasicMaterial({color:0x7dffa4})));
+    const vac = sph(.6, new THREE.MeshStandardMaterial({color:0xaee8ff,transparent:true,opacity:.25,depthWrite:false}),24,16); vac.scale.set(1.3,1,1); g.add(vac);
+    const nuc = sph(.22, std(0x6c95ff),16,12); nuc.position.set(-.75,.45,.4); g.add(nuc);
+    const cm = std(0x2fe36a,{emissive:new THREE.Color(0x0c5a22)});
+    const chl = []; for (let i=0;i<14;i++){ const c = sph(.1,cm,12,8); c.scale.set(1.6,.8,.9); c.userData.a = i/14*Math.PI*2; c.userData.z = rnd(-.55,.55); g.add(c); chl.push(c); }
+    return {g, up(t,e){ const sp = e && e.dark ? .05 : .5;
+      chl.forEach(c=>{ c.userData.a += .016*sp; const a=c.userData.a; c.position.set(Math.cos(a)*.92, Math.sin(a)*.62, c.userData.z); c.rotation.z = a+Math.PI/2; c.material.emissiveIntensity = e&&e.dark?.2:1; });
+      g.rotation.y = -.5 + Math.sin(t*.3)*.2; g.rotation.x = .15; }}; },
+  par(){ const g = new THREE.Group();
+    const body = sph(1, new THREE.MeshStandardMaterial({color:0xc6b3ff,transparent:true,opacity:.55,roughness:.3,emissive:0x221a44,depthWrite:false}),40,24);
+    body.scale.set(.75,.6,1.9); g.add(body);
+    const n = sph(.3, std(0x6c95ff),16,12); n.scale.set(1,1,1.6); g.add(n);
+    const cvs = [-.95,.95].map(z=>{ const c = sph(.16, std(0x8fd3ff,{transparent:true,opacity:.8}),12,8); c.position.set(0,.3,z); g.add(c); return c; });
+    // cilios: segmentos normales a la superficie, animados como ondas metacrónicas
+    const N = 420, pos = new Float32Array(N*6), base = [];
+    for (let i=0;i<N;i++){ const u = Math.acos(rnd(-1,1)), v = rnd(0,Math.PI*2);
+      const p = new THREE.Vector3(Math.sin(u)*Math.cos(v)*.75, Math.sin(u)*Math.sin(v)*.6, Math.cos(u)*1.9);
+      const nrm = new THREE.Vector3(p.x/.5625, p.y/.36, p.z/3.61).normalize(); base.push([p,nrm,u]); }
+    const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+    const cil = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color:0xf0e8ff})); g.add(cil);
+    return {g, up(t){ for (let i=0;i<N;i++){ const [p,nrm,u] = base[i]; const w = Math.sin(t*9 - u*6)*.5;
+        pos[i*6]=p.x; pos[i*6+1]=p.y; pos[i*6+2]=p.z;
+        pos[i*6+3]=p.x+nrm.x*.28; pos[i*6+4]=p.y+nrm.y*.28; pos[i*6+5]=p.z+nrm.z*.28 + w*.18; }
+      lg.attributes.position.needsUpdate = true;
+      cvs.forEach((c,i)=>c.scale.setScalar(.6+.5*Math.abs(Math.sin(t*2+i*1.5))));
+      g.rotation.y = Math.PI/2 + Math.sin(t*.5)*.3; g.rotation.z = Math.sin(t*.7)*.15; }}; },
+  myc(){ const g = new THREE.Group();
+    const b = blob(.7, 0xff9f6b, {emi:new THREE.Color(0x40180a)}); g.add(b);
+    const tip = sph(.18, std(0xffc29e),12,8); tip.position.set(.7,.2,0); g.add(tip);
+    return {g, up(t){ b.userData.wob(t, .3, 2.5, 1.2); g.rotation.y = t*.4; }}; },
+  can(){ const g = new THREE.Group();
+    const b = blob(1.15, 0xff3b5c, {emi:new THREE.Color(0x3a0610), rough:.55}); g.add(b);
+    const ns = [[.3,.2,.3],[-.35,-.1,.2],[0,.3,-.4]].map(p=>{ const n = sph(.28, std(0x6c95ff),16,12); n.position.set(...p); n.scale.set(1,.8,1.2); g.add(n); return n; });
+    const sat = blob(.5, 0xff3b5c, {emi:new THREE.Color(0x3a0610), ws:24, hs:16}); sat.position.set(-1.1,.7,-.2); g.add(sat);
+    return {g, up(t,e){ b.userData.wob(t, .18, 1.4, .5); sat.userData.wob(t+3, .2, 2, .6);
+      const s = e && e.block>0 ? .5 : .75+.25*Math.sin(t*1.2); sat.scale.setScalar(s); g.rotation.y = t*.15; }}; },
+  bac(){ const g = new THREE.Group();
+    const m = std(0x8f6bff,{transparent:true,opacity:1,roughness:.35});
+    const body = capsule(1.9,.42,m); body.rotation.z = Math.PI/2; g.add(body);
+    const sp = sph(.34, std(0x8fffe8,{emissive:new THREE.Color(0x2affc8),emissiveIntensity:1.4}),20,14); sp.scale.set(1.6,1,1); sp.visible = false; g.add(sp);
+    return {g, up(t,e){ const on = e && e.spore; sp.visible = on; m.opacity = on ? .25 : 1; m.depthWrite = !on;
+      g.rotation.y = .4 + Math.sin(t*.5)*.4; g.rotation.x = Math.sin(t*.4)*.2; }}; },
+  pri(){ const g = new THREE.Group(), m = std(0xffe066,{roughness:.3,emissive:new THREE.Color(0x4a3a00)});
+    const fibs = [];
+    for (let k=0;k<3;k++){
+      const pts = []; for (let i=0;i<=60;i++){ const s=i/60; const zig = ((i%10)<5 ? (i%5)/5 : 1-(i%5)/5) - .5;
+        pts.push(new THREE.Vector3(zig*.7, s*2.4-1.2, Math.sin(s*Math.PI*3)*.3)); }
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),180,.07,6), m);
+      tube.rotation.y = k*2.1; tube.position.x = (k-1)*.35; g.add(tube); fibs.push(tube);
+    }
+    return {g, up(t,e){ g.rotation.y = t*.6; const s = e ? Math.min(1.5, .85+.15*(e.grow||1)) : 1; g.scale.lerp(new THREE.Vector3(s,s,s),.05); }}; },
+};
+
+let foeObj = null;
+function setFoe(e){
+  if (foeObj) scene.remove(foeObj.g);
+  foeObj = BUILD[e.type](e);
+  const s = e.boss ? 1.45 : 1;
+  foeObj.g.scale.setScalar(.01); foeObj.base = s;
+  foeObj.g.position.copy(E_POS);
+  scene.add(foeObj.g);
+  eLight.color.setHex(TYPES[e.type].col);
+  tween(500, p => foeObj && foeObj.g.scale.setScalar(s*easeOut(p)));
+}
+
+// ---- Animaciones (tweens y partículas) ----
+const tweens = [];
+const easeOut = p => 1 - Math.pow(1-p,3);
+function tween(ms, fn, done){ tweens.push({t0:performance.now(), ms:ms/Math.max(1,(B&&S.auto?speed():1)), fn, done}); }
+const parts = [];
+function spark(pos, vel, color, life=.8, size=.35){
+  const m = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+  m.position.copy(pos); m.scale.setScalar(size); scene.add(m);
+  parts.push({m, vel, life, max:life});
+}
+function burst(pos, color, n=24, sp=3){
+  for (let i=0;i<n;i++) spark(pos, new THREE.Vector3(rnd(-1,1),rnd(-1,1),rnd(-1,1)).normalize().multiplyScalar(rnd(.5,sp)), color, rnd(.4,.9), rnd(.2,.45));
+}
+function projectile(from, to, color, n, ms, cb){
+  const shots = [];
+  for (let i=0;i<n;i++){
+    const m = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+    m.scale.setScalar(rnd(.25,.5)); scene.add(m);
+    shots.push({m, off:new THREE.Vector3(rnd(-.4,.4),rnd(-.4,.4),rnd(-.4,.4)), d:i/n*.35, arc:rnd(.5,1.4)});
+  }
+  tween(ms, p => {
+    shots.forEach(s => { const q = clamp((p - s.d)/(1 - .35),0,1);
+      s.m.position.lerpVectors(from, to, q).add(s.off.clone().multiplyScalar(Math.sin(q*Math.PI)));
+      s.m.position.y += Math.sin(q*Math.PI)*s.arc; s.m.visible = q>0 && q<1; });
+  }, () => { shots.forEach(s=>scene.remove(s.m)); cb && cb(); });
+}
+function lunge(obj, dir, ms, cb){
+  const o = obj.position.clone();
+  tween(ms, p => obj.position.copy(o).addScaledVector(dir, Math.sin(p*Math.PI)), () => { obj.position.copy(o); cb && cb(); });
+}
+let shake = 0;
+
+// ---- Números flotantes ----
+const floats = $('#floats');
+function worldToScreen(v){
+  const p = v.clone().project(camera);
+  return [(p.x*.5+.5)*canvas.clientWidth, (-p.y*.5+.5)*canvas.clientHeight];
+}
+function floatText(txt, pos, cls){
+  const [x,y] = worldToScreen(pos);
+  const d = document.createElement('div'); d.className = 'ft ' + cls; d.textContent = txt;
+  d.style.left = (x + rnd(-24,24)) + 'px'; d.style.top = (y + rnd(-10,10)) + 'px';
+  floats.appendChild(d); setTimeout(() => d.remove(), 1700);
+}
+
+// ---- Cámara y tamaño ----
+const LOOK = new THREE.Vector3(0,.2,0);
+function resize(){
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false); camera.aspect = w/h;
+  // en vertical, las dos células se colocan en diagonal y la cámara se aleja lo justo para que quepan a lo ancho
+  const a = w/h, portrait = a < .9;
+  if (portrait){ P_POS.set(-1.3,-1.6,.9); E_POS.set(1.3,1.1,-.5); } else { P_POS.set(-2.3,-.1,.9); E_POS.set(2.3,.25,-.5); }
+  // franja libre entre las fichas: la escena se encuadra en ella
+  document.documentElement.style.setProperty('--toolsH', $('#tools').offsetHeight + 'px');
+  document.documentElement.style.setProperty('--hudH', $('#hud').offsetHeight + 'px');
+  const r = el => $(el).getBoundingClientRect();
+  const top = portrait ? r('#foe').bottom : r('#hud').bottom;
+  const bot = Math.min(r('#msg').top, r('#me').top);
+  const band = Math.max(140, bot - top);
+  const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+  const halfW = portrait ? 2.7 : 4.2, halfH = portrait ? 2.9 : 2.1;
+  const dist = Math.max(8, halfW/(tanV*a), halfH*(h/band)/tanV);
+  camera.position.set(-.5, 1.7, dist);
+  LOOK.set(0, (P_POS.y + E_POS.y)/2, 0);
+  camera.setViewOffset(w, h, 0, Math.round(h/2 - (top + bot)/2), w, h);
+  camera.updateProjectionMatrix();
+  if (!tweens.length){ player.position.copy(P_POS); if (foeObj) foeObj.g.position.copy(E_POS); }
+  pLight.position.copy(P_POS).add(new THREE.Vector3(0,2,2));
+  eLight.position.copy(E_POS).add(new THREE.Vector3(0,2,2));
+}
+window.addEventListener('resize', resize);
+
+/* =====================================================================
+   COMBATE
+   ===================================================================== */
+let B = null; // combate actual
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function pickType(){
+  const pool = TYPE_ORDER.filter(id => TYPES[id].min <= S.level);
+  const newest = pool[pool.length-1];
+  if (Math.random() < .4) return newest;
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+function bossType(){
+  const pool = TYPE_ORDER.filter(id => TYPES[id].min <= S.level);
+  // el jefe rota entre los tres organismos más recientes
+  return pool[Math.max(0, pool.length-1 - ((S.level-1) % Math.min(3,pool.length)))];
+}
+
+function newBattle(keepHp){
+  const boss = S.kills >= KPL && S.advance;
+  const type = boss ? bossType() : pickType();
+  const L = S.level;
+  const max = 30*Math.pow(1.25,L-1)*(boss?4:1);
+  const e = {type, boss, L, hp:max, max, atk:4*Math.pow(1.2,L-1)*(boss?1.4:1), turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1};
+  const php = keepHp != null ? keepHp : maxHp();
+  B = {e, php: Math.min(php, maxHp()), cds:{}, busy:false, over:false, timer:null};
+  setFoe(e);
+  scene.background.setHex(0x03070c);
+  renderFoe(); renderMe(); renderTools(); renderHud(); resize();
+  setMsg('ok', boss ? '¡Jefe!' : 'Nuevo organismo', boss ? `${TYPES[type].boss}: más vida y más ataque. Vencerlo te lleva al nivel ${L+1}.` : `Observa sus características y elige la herramienta que las aproveche.`);
+  if (!S.seen[type]){ S.seen[type] = true; save(); showSpecies(type, true); }
+  else scheduleAuto();
+}
+
+function useTool(id){
+  if (!B || B.busy || B.over || !S.tools[id] || (B.cds[id]||0) > 0 || !$('#modal').hidden) return;
+  const T = TOOL[id], e = B.e;
+  B.busy = true; clearTimeout(B.timer);
+  const r = eff(id, e);
+  (S.known[e.type] = S.known[e.type] || {})[id] = true;
+  if (T.cd) B.cds[id] = T.cd + 1;
+  renderTools();
+  sfx.shoot();
+  const from = P_POS.clone().add(new THREE.Vector3(.6,.3,0)), to = E_POS.clone();
+  const go = () => {
+    const Ty = TYPES[e.type];
+    const dodge = (Ty.dodge||0) && id !== 'luz' && !e.spore && Math.random() < Ty.dodge;
+    if (dodge){
+      floatText('Esquiva', E_POS.clone().add(new THREE.Vector3(0,1.2,0)), 'info');
+      setMsg('bad','Esquiva', Ty.dodgeWhy, '');
+      tone(200,.1,'sine',.04);
+    } else if (id === 'luz'){
+      if (e.type === 'veg' && !e.dark){ e.dark = true; floatText('Sin fotosíntesis', E_POS.clone().add(new THREE.Vector3(0,1.4,0)), 'great'); }
+      else floatText('Sin efecto', E_POS.clone().add(new THREE.Vector3(0,1.4,0)), 'none');
+      const [v,l] = r.m > 0 ? ['great','Muy eficaz'] : ['none','No le afecta'];
+      setMsg(v, `${T.n} · ${l}`, r.why);
+      sfx.hit(r.m*2);
+    } else {
+      const mark = e.marked > 0 ? 1.6 : 1;
+      const dmg = atk()*T.pow*r.m*mark*rnd(.9,1.1);
+      e.hp = Math.max(0, e.hp - dmg);
+      const [v,l] = verdict(r.m);
+      floatText(r.m > 0 ? fmt(dmg) : 'Inmune', E_POS.clone().add(new THREE.Vector3(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
+      let extra = '';
+      if (id === 'ac' && r.m > 0 && !e.hidden){ e.marked = 4; extra = 'Opsonizado: +60 % de daño durante 3 turnos.'; }
+      if (id === 'tax' && r.m > 0){ e.block = 3; extra = 'Huso mitótico bloqueado durante 3 turnos.'; }
+      if (mark > 1 && r.m > 0) extra = (extra ? extra + ' ' : '') + 'Daño aumentado por la opsonización.';
+      setMsg(v, `${T.n} · ${l} (×${String(r.m).replace('.',',')})`, r.why, extra);
+      if (r.m > 0){ burst(to, T.col, r.m >= 2 ? 40 : 18, r.m >= 2 ? 4 : 2.5); shake = r.m >= 2 ? .25 : .1; }
+      sfx.hit(r.m);
+    }
+    renderFoe(); renderTools();
+    if (e.hp <= 0) return setTimeout(win, 250);
+    B.timer = setTimeout(enemyTurn, 420/(S.auto?speed():1));
+  };
+  if (id === 'fago') lunge(player, new THREE.Vector3(1.6,.15,-.5), 420, go);
+  else projectile(from, to, T.col, id === 'luz' ? 1 : 12, 480, go);
+  if (id === 'luz') { scene.background.setHex(0x010203); }
+}
+
+function enemyTurn(){
+  if (!B || B.over) return;
+  const e = B.e, Ty = TYPES[e.type];
+  e.turn++;
+  const notes = [];
+  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+'+fmt(h), E_POS.clone().add(new THREE.Vector3(.6,1.5,0)), 'heal'); notes.push(why); };
+  switch (e.type){
+    case 'gp': if (e.turn % 3 === 0) heal(.15,'Fisión binaria: la colonia se divide y recupera un 15 % de vida.'); break;
+    case 'lev': if (e.turn % 3 === 0) heal(.15,'Gemación: le brota una yema nueva (+15 % de vida).'); break;
+    case 'vir': e.hidden = !e.hidden; notes.push(e.hidden ? 'El virus entra en una célula y se replica a escondidas.' : 'Nuevos viriones salen de la célula huésped: vuelve a estar expuesto.'); break;
+    case 'veg': if (!e.dark) heal(.08,'Fotosíntesis: con la luz fabrica glucosa y se repara (+8 %).'); break;
+    case 'can': if (e.block > 0) notes.push('El taxol frena su división.'); else heal(.12,'Mitosis descontrolada: +12 % de vida.'); break;
+    case 'bac': if (!e.spore && e.hp < e.max*.35){ e.spore = true; notes.push('Esporulación: forma una endospora resistente y deja de atacar.'); burst(E_POS, 0x8fffe8, 30, 2); } break;
+    case 'pri': e.grow *= 1.12; notes.push('Convierte proteínas sanas en priones: su ataque crece un 12 %.'); break;
+  }
+  const finish = () => {
+    for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
+    if (e.marked > 0) e.marked--;
+    if (e.block > 0) e.block--;
+    if (notes.length) $('#msgX').textContent = notes.join(' ');
+    if (B.php > 0) B.busy = false;
+    renderFoe(); renderMe(); renderTools();
+    if (B.php <= 0) return setTimeout(lose, 300);
+    scheduleAuto();
+  };
+  if (e.spore){ notes.push('La endospora está en reposo: no ataca.'); return setTimeout(finish, 200); }
+  const hits = Ty.hits || 1;
+  let i = 0;
+  const hit = () => {
+    const dir = P_POS.clone().sub(E_POS).normalize().multiplyScalar(1.4);
+    lunge(foeObj.g, dir, 360, () => {
+      const dmg = e.atk*e.grow*taken()*rnd(.85,1.15)/(hits>1?1.6:1);
+      B.php = Math.max(0, B.php - dmg);
+      floatText('−'+fmt(dmg), P_POS.clone().add(new THREE.Vector3(0,1.3,0)), 'hurt');
+      burst(P_POS, 0xff4f7b, 12, 2); shake = .12; sfx.hurt();
+      renderMe();
+      if (++i < hits && B.php > 0) hit(); else finish();
+    });
+  };
+  if (hits > 1) notes.push('Sus cilios baten en ondas: ataca dos veces.');
+  hit();
+}
+
+function win(){
+  const e = B.e; B.over = true;
+  const g = reward(e.L, e.boss);
+  S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type]||0) + 1;
+  floatText('+'+fmt(g)+' ATP', E_POS.clone().add(new THREE.Vector3(0,.6,0)), 'atp');
+  burst(E_POS, TYPES[e.type].col, 60, 4.5); sfx.win();
+  const obj = foeObj;
+  tween(450, p => obj.g.scale.setScalar(obj.base*(1-easeOut(p))), () => { scene.remove(obj.g); });
+  let hp;
+  if (e.boss){
+    S.level++; S.kills = 0; S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
+    hp = maxHp();
+    toast(`Nivel ${S.level}. ${newTypeAt(S.level) ? 'Aparece un organismo nuevo.' : ''}`);
+  } else {
+    S.kills = Math.min(KPL, S.kills + 1);
+    hp = Math.min(maxHp(), B.php + maxHp()*.35);
+  }
+  setMsg('great','Victoria', `+${fmt(g)} ATP. ${e.boss ? 'Jefe derrotado.' : 'Recuperas un 35 % de vida.'}`);
+  save(); renderHud();
+  setTimeout(() => newBattle(hp), 900/(S.auto?speed():1));
+}
+const newTypeAt = L => TYPE_ORDER.some(id => TYPES[id].min === L);
+
+function lose(){
+  B.over = true; sfx.lose();
+  const e = B.e;
+  let txt;
+  if (e.boss){ S.advance = false; txt = 'El jefe te ha vencido. Se ha desactivado «Avanzar»: reúne ATP, mejora tus orgánulos y vuelve a intentarlo.'; }
+  else { S.level = Math.max(1, S.level-1); S.kills = 0; txt = `Te retiras al nivel ${S.level} para recuperarte.`; }
+  burst(P_POS, 0xff4f7b, 40, 3);
+  setMsg('none','Derrota', txt);
+  toast(txt);
+  save(); renderHud();
+  setTimeout(() => newBattle(), 1500);
+}
+
+function autoPick(){
+  const e = B.e; let best = null, bs = -1;
+  for (const T of TOOLS){
+    if (!S.tools[T.id] || (B.cds[T.id]||0) > 0) continue;
+    const known = T.id === 'fago' || (S.known[e.type] && S.known[e.type][T.id]);
+    if (!known) continue;
+    const r = eff(T.id, e);
+    let s;
+    if (T.id === 'luz') s = e.type === 'veg' && !e.dark ? 99 : -1;
+    else {
+      s = T.pow*r.m;
+      if (T.id === 'ac' && r.m > 0 && e.marked === 0 && !e.hidden) s *= 1.9;
+      if (T.id === 'tax' && e.type === 'can' && e.block === 0) s *= 1.6;
+    }
+    if (s > bs){ bs = s; best = T.id; }
+  }
+  return best || 'fago';
+}
+function scheduleAuto(){
+  if (!B || B.over || B.busy) return;
+  clearTimeout(B.timer);
+  if (S.auto && S.memoria && $('#modal').hidden) B.timer = setTimeout(() => useTool(autoPick()), 650/speed());
+}
+
+/* =====================================================================
+   INTERFAZ
+   ===================================================================== */
+function setMsg(v, head, txt, extra=''){
+  const m = $('#msg'); m.className = 'v-' + v;
+  $('#msgV').textContent = head; $('#msgT').textContent = txt; $('#msgX').textContent = extra;
+}
+let toastT;
+function toast(t){ const el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 3200); }
+
+function renderHud(){
+  $('#hLvl').textContent = S.level;
+  const pips = $('#hPips'); let h = '';
+  for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
+  h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="Jefe"></span>`;
+  pips.innerHTML = h;
+  $('#hAtp').textContent = fmt(S.atp);
+  const r = atps(); $('#hAtps').textContent = r > 0 ? `+${fmt(r)}/s` : '';
+  $('#hAdnBox').hidden = !(S.adn > 0 || S.evos > 0); $('#hAdn').textContent = fmt(S.adn);
+  const bA = $('#bAuto'); bA.setAttribute('aria-pressed', S.auto && S.memoria); bA.disabled = !S.memoria;
+  bA.title = S.memoria ? 'Combate automático: usa la mejor herramienta que ya hayas probado contra cada organismo' : 'Compra «Memoria inmunitaria» en el laboratorio para desbloquearlo';
+  $('#bAdv').setAttribute('aria-pressed', S.advance);
+  $('#bSnd').setAttribute('aria-pressed', S.sound);
+  $('#pAtp').textContent = fmt(S.atp) + ' ATP';
+  $('#labDot').hidden = !anyAffordable();
+}
+function anyAffordable(){
+  if (!S.memoria && S.atp >= 50) return true;
+  if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost)) return true;
+  return UPG.some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
+}
+
+function renderFoe(){
+  if (!B) return;
+  const e = B.e, Ty = TYPES[e.type];
+  $('#fEye').textContent = e.boss ? 'Jefe · nivel ' + e.L : 'Organismo · nivel ' + e.L;
+  $('#fName').textContent = e.boss ? Ty.boss : Ty.n;
+  $('#fSci').textContent = Ty.sci;
+  $('#fBar').style.width = (e.hp/e.max*100) + '%';
+  $('#fHp').textContent = `${fmt(Math.ceil(e.hp))} / ${fmt(e.max)}`;
+  $('#fAtk').textContent = `ataque ${fmt(e.atk*e.grow)}`;
+  let t = Ty.traits.map(x => `<span class="trait">${x}</span>`).join('');
+  if (e.hidden) t += '<span class="trait st">Dentro de una célula</span>';
+  if (e.spore) t += '<span class="trait st">Endospora</span>';
+  if (e.dark) t += '<span class="trait good">A oscuras</span>';
+  if (e.marked > 0) t += `<span class="trait good">Opsonizado · ${Math.min(3,e.marked)}</span>`;
+  if (e.block > 0) t += '<span class="trait good">Mitosis bloqueada</span>';
+  if (e.grow > 1) t += `<span class="trait st">Ataque ×${e.grow.toFixed(2).replace('.',',')}</span>`;
+  $('#fTraits').innerHTML = t;
+}
+function renderMe(){
+  if (!B) return;
+  const m = maxHp();
+  $('#mBar').style.width = (B.php/m*100) + '%';
+  $('#mHp').textContent = `${fmt(Math.ceil(B.php))} / ${fmt(m)}`;
+  $('#mAtk').textContent = `ataque ${fmt(atk())}`;
+}
+function renderTools(){
+  const nav = $('#tools');
+  const e = B && B.e;
+  nav.innerHTML = TOOLS.filter(t => S.tools[t.id]).map(T => {
+    const cd = B ? (B.cds[T.id]||0) : 0;
+    const left = Math.max(1, cd - (B && B.busy ? 1 : 0)); // turnos que faltan
+    let badge = '<span class="badge unk">?</span>';
+    if (e && S.known[e.type] && S.known[e.type][T.id]){
+      const r = eff(T.id, e);
+      if (T.id === 'luz') badge = r.m > 0 ? (e.dark ? '<span class="badge bad">hecho</span>' : '<span class="badge great">útil</span>') : '<span class="badge none">×0</span>';
+      else { const [v] = verdict(r.m); badge = `<span class="badge ${v}">×${(Math.round(r.m*100)/100).toString().replace('.',',')}</span>`; }
+    }
+    const col = '#' + T.col.toString(16).padStart(6,'0');
+    return `<button class="tool" data-tool="${T.id}" ${cd>0||!B||B.busy||B.over?'disabled':''} title="${T.d}">
+      <span class="tn">${T.n}</span>
+      <span class="tm"><span class="sw" style="background:${col};box-shadow:0 0 6px ${col}"></span><span class="rc">${T.cd ? `recarga ${T.cd}` : 'sin recarga'}</span>${badge}</span>
+      ${cd>0?`<span class="cd">${left} turno${left > 1 ? 's' : ''}</span>`:''}
+    </button>`;
+  }).join('');
+  document.documentElement.style.setProperty('--toolsH', nav.offsetHeight + 'px');
+}
+$('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (b) useTool(b.dataset.tool); });
+
+// ---- Laboratorio ----
+let tab = 'mej';
+function openLab(){ $('#panel').hidden = false; renderPanel(); }
+function closeLab(){ $('#panel').hidden = true; }
+$('#bLab').onclick = () => $('#panel').hidden ? openLab() : closeLab();
+$('#pClose').onclick = closeLab;
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => { tab = b.dataset.tab; renderPanel(); });
+
+function renderPanel(){
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  const P = $('#pBody'); let h = '';
+  if (tab === 'mej'){
+    h += `<p class="lead">Invierte ATP en tus orgánulos. Cada mejora cuesta más que la anterior: el crecimiento es exponencial, como el de una población de bacterias.</p>`;
+    h += `<div class="item"><h4>Memoria inmunitaria</h4><p>Los linfocitos B y T de memoria recuerdan cada patógeno. Desbloquea el combate automático: usará la mejor herramienta que ya hayas probado contra cada organismo.</p><div class="eff">Desbloquea «Auto»</div>
+      ${S.memoria ? '<button class="buy done" disabled>Activa</button>' : `<button class="buy" data-mem data-cost="50">50 ATP</button>`}</div>`;
+    for (const u of UPG){
+      const maxed = u.max != null && S.upg[u.id] >= u.max, c = upgCost(u);
+      h += `<div class="item"><h4>${u.n} <span class="lv">nv ${S.upg[u.id]}${u.max?'/'+u.max:''}</span></h4><p>${u.d}</p><div class="eff">${u.e}</div>
+        ${maxed ? '<button class="buy done" disabled>Máximo</button>' : `<button class="buy" data-upg="${u.id}" data-cost="${c}">${fmt(c)} ATP</button>`}</div>`;
+    }
+    h += `<div class="stat"><span>Ataque</span><span>${fmt(atk())}</span><span>Vida máxima</span><span>${fmt(maxHp())}</span><span>Daño recibido</span><span>${Math.round(taken()*100)} %</span><span>ATP por segundo</span><span>${fmt(atps())}</span><span>ATP por victoria (nivel ${S.level})</span><span>${fmt(reward(S.level,false))}</span></div>`;
+  } else if (tab === 'her'){
+    h += `<p class="lead">Cada herramienta aprovecha una característica concreta de un tipo de célula. Pruébalas: cuando uses una contra un organismo, su eficacia quedará anotada en tus botones y en el Atlas.</p>`;
+    for (const T of TOOLS){
+      const col = '#' + T.col.toString(16).padStart(6,'0');
+      h += `<div class="item"><h4><span class="sw" style="width:10px;height:10px;border-radius:50%;background:${col};display:inline-block"></span>${T.n} <span class="lv">pot. ${String(T.pow).replace('.',',')} · recarga ${T.cd}</span></h4><p>${T.d}</p>
+        ${S.tools[T.id] ? '<button class="buy done" disabled>Tuya</button>' : `<button class="buy" data-tool-buy="${T.id}" data-cost="${T.cost}">${fmt(T.cost)} ATP</button>`}</div>`;
+    }
+  } else if (tab === 'atl'){
+    h += `<p class="lead">Lo que has aprendido de cada organismo. Las herramientas aparecen cuando las has probado contra él.</p><div class="atlas">`;
+    for (const id of TYPE_ORDER){
+      const Ty = TYPES[id], col = '#' + Ty.col.toString(16).padStart(6,'0');
+      if (!S.seen[id]){ h += `<div class="sp locked"><h4><span class="sw" style="background:#26343f"></span>Sin descubrir</h4><div class="sci">Aparece en el nivel ${Ty.min}</div></div>`; continue; }
+      const kn = S.known[id] ? Object.keys(S.known[id]) : [];
+      const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return `<span class="badge ${v}">${t.n} ×${String(r.m).replace('.',',')}</span>`; }).join('');
+      h += `<div class="sp"><h4><span class="sw" style="background:${col};box-shadow:0 0 6px ${col}"></span>${Ty.n}</h4><div class="sci">${Ty.sci} · vencidos: ${S.defeated[id]||0}</div>
+        <p>${Ty.desc}</p><div class="known">${chips || '<span class="badge unk">Aún no has probado nada</span>'}</div></div>`;
+    }
+    h += '</div>';
+  } else if (tab === 'evo'){
+    const g = evoGain();
+    h += `<p class="lead">Selección natural: al evolucionar empiezas de nuevo en el nivel 1, sin ATP ni mejoras de orgánulos, pero tu linaje hereda <b>ADN</b>. Cada punto de ADN da +10 % de ataque, vida y ATP para siempre. Conservas las herramientas, el Atlas y la memoria inmunitaria.</p>`;
+    h += `<div class="stat"><span>ADN actual</span><span>${fmt(S.adn)} (×${adnM().toFixed(1).replace('.',',')})</span><span>Nivel máximo en esta vida</span><span>${S.runMax}</span><span>Récord</span><span>${S.best}</span><span>Evoluciones</span><span>${S.evos}</span><span>ADN si evolucionas ahora</span><span style="color:var(--gram)">+${g}</span></div>`;
+    h += `<div class="item"><h4>Evolucionar</h4><p>${g > 0 ? `Ganarás ${g} de ADN. La ganancia crece con el cuadrado del nivel máximo alcanzado: (nivel ÷ 5)².` : 'Alcanza el nivel 10 para poder evolucionar.'}</p>
+      <button class="buy evo" id="evoBtn" ${g>0?'':'disabled'}>Evolucionar</button></div>`;
+    h += `<div class="item"><h4>Borrar partida</h4><p>Empieza desde cero: se pierde todo, también el ADN y el Atlas.</p><button class="buy" id="wipeBtn" style="border-color:var(--mcherry);color:var(--mcherry)">Borrar</button></div>`;
+  }
+  P.innerHTML = h;
+  refreshAfford();
+}
+function refreshAfford(){
+  document.querySelectorAll('#pBody [data-cost]').forEach(b => b.disabled = S.atp < +b.dataset.cost);
+}
+$('#pBody').addEventListener('click', ev => {
+  const b = ev.target.closest('button'); if (!b || b.disabled) return;
+  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return; S.atp -= c; S.upg[u.id]++; if (u.id === 'mem' && B) B.php += maxHp() - maxHp()/1.15; sfx.buy(); }
+  else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; sfx.buy(); toast(`Nueva herramienta: ${T.n}`); renderTools(); }
+  else if (b.hasAttribute('data-mem')){ if (S.atp < 50) return; S.atp -= 50; S.memoria = true; sfx.buy(); toast('Memoria inmunitaria: ya puedes activar «Auto».'); }
+  else if (b.id === 'evoBtn'){
+    if (b.dataset.sure){ evolve(); return; }
+    b.dataset.sure = '1'; b.textContent = '¿Seguro? Confirmar'; return;
+  } else if (b.id === 'wipeBtn'){
+    if (b.dataset.sure){ if (B){ B.over = true; clearTimeout(B.timer); } try{ localStorage.removeItem(SAVE_KEY); }catch(_){} S = fresh(); closeLab(); renderHud(); showIntro(newBattle); return; }
+    b.dataset.sure = '1'; b.textContent = 'Confirmar borrado'; return;
+  } else return;
+  save(); renderHud(); renderMe(); renderPanel();
+});
+function evolve(){
+  const g = evoGain(); if (!g) return;
+  if (B){ B.over = true; clearTimeout(B.timer); }
+  S.adn += g; S.evos++;
+  S.level = 1; S.kills = 0; S.runMax = 1; S.atp = 0; S.advance = true;
+  for (const k in S.upg) S.upg[k] = 0;
+  save(); closeLab(); renderHud();
+  showModal(`<div class="eyebrow" style="color:var(--gram)">Evolución ${S.evos}</div><h2>Tu linaje hereda ${g} de ADN</h2>
+    <p>Ahora tienes ${S.adn} de ADN: ×${adnM().toFixed(1).replace('.',',')} de ataque, vida y ATP. Vuelves al nivel 1 con las herramientas y todo lo que has aprendido.</p>
+    <button class="go" id="mGo">Seguir</button>`, () => newBattle());
+}
+
+$('#bAuto').onclick = () => { if (!S.memoria) return; S.auto = !S.auto; save(); renderHud(); scheduleAuto(); };
+$('#bAdv').onclick = () => { S.advance = !S.advance; save(); renderHud(); };
+$('#bSnd').onclick = () => { S.sound = !S.sound; save(); renderHud(); };
+window.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape'){ if (!$('#panel').hidden) closeLab(); }
+  const n = parseInt(ev.key, 10);
+  if (n >= 1 && n <= 9 && $('#modal').hidden){ const owned = TOOLS.filter(t => S.tools[t.id]); if (owned[n-1]) useTool(owned[n-1].id); }
+});
+
+// ---- Modales ----
+let modalDone = null;
+function showModal(html, done){
+  $('#mBox').innerHTML = html; $('#modal').hidden = false; modalDone = done || null;
+  const g = $('#mGo'); if (g){ g.onclick = closeModal; g.focus(); }
+}
+function closeModal(){ $('#modal').hidden = true; const d = modalDone; modalDone = null; if (d) d(); scheduleAuto(); }
+function showSpecies(id, isNew){
+  const Ty = TYPES[id], col = '#' + Ty.col.toString(16).padStart(6,'0');
+  showModal(`<div class="eyebrow" style="color:${col}">${isNew ? 'Organismo nuevo · añadido al Atlas' : 'Atlas'}</div>
+    <h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div>
+    <p>${Ty.desc}</p>
+    <div class="traits" style="margin-top:10px">${Ty.traits.map(x => `<span class="trait">${x}</span>`).join('')}</div>
+    <p style="color:var(--muted);font-size:13px">Pista: piensa qué característica suya puede aprovechar cada herramienta. Los botones muestran «?» hasta que las pruebas.</p>
+    <button class="go" id="mGo">Al combate</button>`);
+}
+function showIntro(then){
+  showModal(`<div class="eyebrow">Un RPG incremental de biología celular</div><h2 class="big">Microcosmos</h2>
+    <p>Eres un <b>macrófago</b>, un glóbulo blanco que patrulla el cuerpo. Te enfrentarás por turnos a bacterias, virus, hongos, protozoos, células tumorales y hasta priones.</p>
+    <ul>
+      <li><b>Aprovecha sus características.</b> La penicilina destruye la pared de peptidoglucano, pero un virus no tiene pared. El agua destilada revienta a una célula sin pared, pero no a una vegetal.</li>
+      <li><b>Gana ATP</b> en cada victoria y gástalo en el Laboratorio: orgánulos más potentes y herramientas nuevas.</li>
+      <li>Cada nivel tiene <b>5 combates y un jefe</b>. Con la <b>Memoria inmunitaria</b>, el combate automático usará lo que ya has aprendido.</li>
+      <li>Cuando te atasques, <b>evoluciona</b>: empiezas de nuevo con ADN que te hace más fuerte.</li>
+    </ul>
+    <p style="color:var(--muted);font-size:13px">Teclas 1–9: usar herramientas. El progreso se guarda en este navegador.</p>
+    <button class="go" id="mGo">Empezar</button>`, () => { S.intro = true; save(); then && then(); });
+}
+
+/* =====================================================================
+   BUCLE PRINCIPAL
+   ===================================================================== */
+let last = performance.now(), hudAcc = 0, saveAcc = 0;
+const clock = new THREE.Clock();
+function loop(now){
+  requestAnimationFrame(loop);
+  const dt = Math.min(.1, (now - last)/1000); last = now;
+  const t = clock.getElapsedTime();
+  // producción pasiva
+  S.atp += atps()*dt;
+  hudAcc += dt; saveAcc += dt;
+  if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); $('#pAtp').textContent = fmt(S.atp) + ' ATP'; $('#labDot').hidden = !anyAffordable(); if (!$('#panel').hidden) refreshAfford(); }
+  if (saveAcc > 5){ saveAcc = 0; save(); }
+  // tweens
+  for (let i = tweens.length-1; i >= 0; i--){
+    const w = tweens[i], p = clamp((now - w.t0)/w.ms, 0, 1);
+    w.fn(p); if (p >= 1){ tweens.splice(i,1); w.done && w.done(); }
+  }
+  // partículas
+  for (let i = parts.length-1; i >= 0; i--){
+    const p = parts[i]; p.life -= dt;
+    p.m.position.addScaledVector(p.vel, dt); p.vel.multiplyScalar(.94);
+    p.m.material.opacity = Math.max(0, p.life/p.max);
+    if (p.life <= 0){ scene.remove(p.m); p.m.material.dispose(); parts.splice(i,1); }
+  }
+  // seres vivos
+  const mot = reduceMotion ? .3 : 1;
+  pBody.userData.wob(t*mot, .09, 2.2, 1);
+  pNuc.userData.wob(t*mot+5, .05, 3, .6);
+  pLys.forEach((l,i) => { l.position.x += Math.sin(t*1.3+i)*.002*mot; l.position.y += Math.cos(t*1.1+i*2)*.002*mot; });
+  player.rotation.y = Math.sin(t*.4)*.3;
+  if (foeObj) foeObj.up(t*mot, B && B.e);
+  dust.rotation.y = t*.01*mot; dust.position.y = Math.sin(t*.2)*.3;
+  RBC.forEach(m => { m.rotation.x += m.userData.spin.x*dt*mot; m.rotation.y += m.userData.spin.y*dt*mot; m.position.x += m.userData.drift*dt*mot; if (m.position.x > 24) m.position.x = -24; });
+  // cámara
+  const sx = shake > 0 ? rnd(-shake,shake) : 0, sy = shake > 0 ? rnd(-shake,shake) : 0; shake = Math.max(0, shake - dt*.8);
+  const bx = camera.position.x, by = camera.position.y;
+  camera.position.x += Math.sin(t*.25)*.25*mot + sx; camera.position.y += Math.sin(t*.31)*.12*mot + sy;
+  camera.lookAt(LOOK);
+  renderer.render(scene, camera);
+  camera.position.x = bx; camera.position.y = by;
+}
+
+/* =====================================================================
+   ARRANQUE
+   ===================================================================== */
+function start(data){
+  const had = load(data);
+  // progreso sin conexión (máximo 8 horas)
+  if (had){
+    const away = clamp((Date.now() - (S.t||Date.now()))/1000, 0, 8*3600);
+    const g = atps()*away;
+    if (g > 1 && away > 30) setTimeout(() => toast(`Mientras no estabas, tus mitocondrias produjeron ${fmt(g)} ATP.`), 600);
+    S.atp += g;
+  }
+  window.claude?.hot?.snapshot?.(() => ({S}));
+  resize(); renderHud();
+  if (!S.intro) showIntro(newBattle); else newBattle();
+  requestAnimationFrame(t => { last = t; loop(t); });
+  setTimeout(resize, 300);
+  window.addEventListener('beforeunload', save);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+}
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>
