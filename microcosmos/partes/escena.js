@@ -470,6 +470,89 @@ const BUILD = {
       g.rotation.z = Math.sin(t*.3)*.2; }}; },
 };
 
+/* ---------- Organismos del segundo acto ---------- */
+// disco bicóncavo de un eritrocito
+function rbcGeo(){
+  const pts = [];
+  for (let i=0;i<=20;i++){ const r = i/20, h = .12 + .28*r*r - .2*Math.pow(r, 8); pts.push(new THREE.Vector2(r, h)); }
+  for (let i=20;i>=0;i--){ const r = i/20, h = .12 + .28*r*r - .2*Math.pow(r, 8); pts.push(new THREE.Vector2(r, -h)); }
+  return new THREE.LatheGeometry(pts, 48);
+}
+Object.assign(BUILD, {
+  // Tuberculosis: bacilos finos en cordón serpenteante, pared cérea (rojos como en la tinción de Ziehl-Neelsen)
+  tbc(){ SEED = 1301; const g = new THREE.Group();
+    const m = mem(0xd83a3a, {rim:0xff9a8a, rimK:.7, rough:.85, bumpScale:.04, emiK:.18});
+    const wax = mem(0xfff0d8, {op:.15, rim:0xffe0d0, rimK:.45, rimA:.35, bump:false});
+    const rods = [];
+    for (let k=0;k<3;k++) for (let i=0;i<9;i++){
+      const s = i/8, x = -1.6 + s*3.2, y = Math.sin(s*Math.PI*2 + k)*.35 + (k-1)*.32, z = Math.cos(s*Math.PI*1.5 + k)*.25;
+      const r = new THREE.Group(); r.position.set(x + srn(-.05,.05), y, z);
+      r.rotation.z = Math.PI/2 + Math.cos(s*Math.PI*2 + k)*.6 + srn(-.2,.2); r.rotation.x = srn(-.3,.3);
+      r.add(mesh(capG(.42, .1, 14, 5), m)); r.add(mesh(capG(.44, .14, 14, 5), wax, 10));
+      r.userData.ph = sr()*6; g.add(r); rods.push(r);
+    }
+    return {g, up(t){ rods.forEach(r => r.position.y += Math.sin(t*.8 + r.userData.ph)*.0008); g.rotation.y = Math.sin(t*.25)*.35 - .2; g.rotation.x = Math.sin(t*.2)*.15; }}; },
+
+  // Malaria: eritrocito con un anillo (trofozoíto) dentro; al reventar salen merozoítos
+  mal(){ SEED = 1401; const g = new THREE.Group();
+    const rbcM = mem(0xc0283c, {op:.55, rim:0xff9aa8, rimK:1, rimA:.7, rough:.5, bumpScale:.01});
+    const rbc = mesh(rbcGeo(), rbcM, 10); rbc.scale.set(1.3, 1.3, 1.3); rbc.rotation.x = Math.PI/2 - .35; g.add(rbc);
+    const para = new THREE.Group(); rbc.add(para);
+    const ringM = mem(0xa66bff, {emiK:.5, rim:0xe0c8ff, bump:false});
+    const ring = mesh(new THREE.TorusGeometry(.32, .06, 10, 32), ringM); ring.rotation.x = Math.PI/2; para.add(ring);
+    const dot = mesh(sphG(.1, 14, 10), mem(0x4a2a9a, {emiK:.4, bump:false})); dot.position.set(.32, 0, 0); para.add(dot);
+    para.position.set(.2, .05, .1);
+    const others = [];
+    for (let i=0;i<2;i++){ const o = mesh(rbcGeo(), mem(0x9a1426, {rim:0xff7a7a, rimK:.6, bumpScale:.01})); o.scale.setScalar(.85); o.position.set(i ? 1.4 : -1.3, i ? -.9 : .9, -.6); o.rotation.set(srn(0,3), srn(0,3), 0); g.add(o); others.push(o); }
+    const mzM = mem(0xc77dff, {emiK:.5, rim:0xffffff, rimK:.6, bump:false});
+    const mzs = [];
+    for (let i=0;i<12;i++){ const mz = mesh(sphG(.08, 10, 8), mzM); mz.scale.set(1, 1.5, 1); mz.userData.d = V(srn(-1,1), srn(-1,1), srn(-1,1)).normalize(); g.add(mz); mzs.push(mz); }
+    let out = 0;
+    return {g, up(t, e){ out += ((e && !e.inRbc ? 1 : 0) - out)*.06;
+      rbc.scale.setScalar(1.3*(1 - .55*out)); rbcM.opacity = .55*(1 - .7*out);
+      mzs.forEach((mz, i) => { mz.visible = out > .05; mz.position.copy(mz.userData.d).multiplyScalar(.3 + out*(1.1 + .2*Math.sin(t*2 + i))); mz.lookAt(0, 0, 0); });
+      para.rotation.z = t*.6; others.forEach((o, i) => { o.rotation.y += .003; o.position.y += Math.sin(t + i)*.001; });
+      g.rotation.y = Math.sin(t*.3)*.4; }}; },
+
+  // VIH: envoltura con pocas espículas gp120 (trímeros) y cápside cónica con dos ARN
+  vih(){ SEED = 1501; const g = new THREE.Group(), core = new THREE.Group(); g.add(core);
+    const R = .62;
+    core.add(mesh(sphG(R, 48, 32), mem(0xff8fab, {op:.42, rim:0xffd0dc, rimK:1.4, rimA:.8, bumpScale:.04}), 10));
+    core.add(mesh(sphG(R*.92, 32, 20), mem(0x8a2a4a, {op:.22, rimK:.3, rimA:.3, bump:false}), 6));
+    const pts = [];
+    for (let i=0;i<=12;i++){ const s = i/12; pts.push(new THREE.Vector2(.04 + .22*s, -.42 + s*.84)); }
+    pts.push(new THREE.Vector2(.001, .44)); pts.unshift(new THREE.Vector2(.001, -.44));
+    const cone = mesh(new THREE.LatheGeometry(pts, 32), mem(0xffd36b, {op:.7, rim:0xfff0c0, rimK:.8, rimA:.6, bump:false}), 7);
+    cone.rotation.z = .5; core.add(cone);
+    const rna = mem(0x6c95ff, {emiK:.5, bump:false});
+    [-.05, .05].forEach(x => { const h = mesh(helixG(.6, .04, 6, .015, false), rna); h.position.set(x, -.3, 0); cone.add(h); });
+    const spM = mem(0xffe0ea, {emiK:.3, bump:false}), stM = mem(0xff6b8f, {bump:false});
+    const knobs = [];
+    fibDirs(14).forEach(d => { const k = new THREE.Group(); k.position.copy(d).multiplyScalar(R); k.quaternion.setFromUnitVectors(UP, d);
+      k.add(mesh(new THREE.CylinderGeometry(.015, .015, .1, 5).translate(0, .05, 0), stM));
+      for (let j=0;j<3;j++){ const a = j/3*Math.PI*2, b = mesh(sphG(.045, 10, 8), spM); b.position.set(Math.cos(a)*.04, .13, Math.sin(a)*.04); k.add(b); }
+      core.add(k); knobs.push(k); });
+    return {g, up(t, e){ core.rotation.y = t*.35; core.rotation.x = Math.sin(t*.3)*.3; const s = e && e.hidden ? .55 : 1; core.scale.lerp(V(s,s,s), .06); }}; },
+
+  // Tenia: escólex con ventosas y ganchos, y una cadena de proglótides que ondula
+  ten(){ SEED = 1601; const g = new THREE.Group();
+    const m = mem(0xf1e3c8, {rim:0xffffff, rimK:.7, rough:.7, bumpScale:.05, emiK:.08});
+    const segs = [], N = 16;
+    for (let i=0;i<N;i++){ const w = .18 + .32*Math.min(1, i/9), l = .08 + .14*Math.min(1, i/8);
+      const sg = mesh(rboxG(l, w*1.6, w*.35, Math.min(.06, w*.15), 4), m); sg.userData = {l, i}; g.add(sg); segs.push(sg); }
+    const head = new THREE.Group(); g.add(head);
+    head.add(mesh(sphG(.16, 20, 14), m));
+    const suckM = mem(0xd9c4a0, {bump:false});
+    for (let k=0;k<4;k++){ const a = k/4*Math.PI*2 + .4, su = mesh(new THREE.TorusGeometry(.055, .022, 8, 16), suckM); su.position.set(-.04, Math.cos(a)*.13, Math.sin(a)*.13); su.lookAt(su.position.clone().multiplyScalar(3)); head.add(su); }
+    const hookM = mem(0xfff6e0, {emiK:.4, bump:false});
+    for (let k=0;k<12;k++){ const a = k/12*Math.PI*2, hk = mesh(new THREE.ConeGeometry(.015, .08, 5), hookM); hk.position.set(-.16, Math.cos(a)*.07, Math.sin(a)*.07); hk.rotation.z = Math.PI/2; head.add(hk); }
+    return {g, up(t){ let x = -1.75;
+      head.position.set(x, Math.sin(t*1.5)*.12, 0);
+      segs.forEach(sg => { const u = sg.userData; x += u.l*.5 + .03 + (u.i ? segs[u.i-1].userData.l*.5 : .16);
+        sg.position.set(x, Math.sin(t*1.5 - u.i*.45)*.15, Math.cos(t*1.1 - u.i*.35)*.08); sg.rotation.z = Math.cos(t*1.5 - u.i*.45)*.25; });
+      g.rotation.y = -.25 + Math.sin(t*.25)*.15; }}; },
+});
+
 /* ---------- Entorno: plasma sanguíneo ---------- */
 let darkTarget = 0, tintTarget = new THREE.Vector3();
 const setZoneTint = z => { const t = (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };

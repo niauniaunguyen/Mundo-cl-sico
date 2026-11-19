@@ -82,3 +82,32 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - Datos de partida (`S.stats`) para ajustar el equilibrio.
 - **Accesibilidad:** la eficacia se indica también con símbolos (▲▲ ● ▼ ✕) y las pestañas se recorren con las flechas.
 - **Modo automático:** muestra su velocidad y un registro de los últimos combates.
+
+## Versión 4
+- **Partes nuevas del código fuente:**
+  - `datos_extra.js`: efectos secundarios, árbol, historia, partes del microscopio, diagnóstico y narradora.
+  - `interfaz2.js`: la interfaz de todo lo anterior.
+  - `idiomas_ui2.js` e `idiomas_datos2.js`: sus traducciones.
+  - Los textos nuevos se marcan con `T_('…')` y se traducen con `tr()`, usando como clave el texto en español.
+- **Modo historia** (`STORY`, botón del libro): cinco capítulos (herida, inflamación, presentación de antígenos, anticuerpos y sepsis) y un epílogo sobre la memoria inmunitaria. Cada capítulo fija la célula, la zona, el nivel y las herramientas disponibles (`storyCh()`, `effLevel()`). Completarlo da +3 ADN y +1 punto del árbol.
+- **Segundo acto:** cuatro organismos nuevos con modelo 3D y mecánica propia:
+  - Tuberculosis (nivel 33): pared cérea; solo ataca un turno de cada dos.
+  - Malaria (nivel 36): se esconde en los eritrocitos y tiene accesos de fiebre.
+  - VIH (nivel 39): destruye tus linfocitos CD4 y entra en latencia.
+  - Tenia (nivel 42): regenera proglótides.
+  - También hay cuatro herramientas nuevas: isoniazida, artemisinina, antirretrovirales y praziquantel. Y un quinto jefe especial: malaria cerebral.
+- **Efectos secundarios** (`SIDE`): algunas herramientas te restan una parte de tu vida.
+- **Árbol inmunitario** (`TREE`): tres ramas (innata, humoral y celular) de cuatro nodos cada una. Los puntos (`S.lpts`) se ganan así: 2 por evolución, 1 por jefe especial y 1 por completar la historia.
+- **Microscopio interactivo** (`openScope`, `PARTS`): segundo renderizador, rotación, zoom y puntos sobre las partes de cada modelo.
+- **Laboratorio de diagnóstico** (pestaña Diagnóstico; `DIAG_TESTS`, `DIAG_KEY`): una muestra desconocida, ocho pruebas reales y hasta tres por caso.
+- **Tablón de la clase:**
+  - Capacidad `db` de la página publicada: colección `board`, un documento por persona (`board/<id de usuario>`).
+  - Reglas: todos leen; cada uno escribe solo su fila; la propietaria puede moderar.
+  - Se guarda: nivel máximo, victorias, logros, aciertos del cuestionario y del diagnóstico, si ha completado la historia y el reto semanal de la clase (`wkNoAb`).
+  - Los nombres se resuelven con la capacidad `user` y nunca se guardan.
+  - Fuera de la página publicada, el tablón se desactiva solo.
+- **Narradora** (`NARR`, `narr()`): la doctora Olmo, un personaje inventado. Puede leer en voz alta con la capacidad `tts`; si no está disponible, usa la voz del navegador (`speechSynthesis`).
+- **Sonido:**
+  - Paisaje sonoro generativo por zona (`ambient()`): latido, respiración, borborigmos, aire, pulsos neuronales o burbujas.
+  - Un sonido propio para cada herramienta (`TOOL_SFX`).
+- **Publicación:** al republicar el artefacto, mantener `capabilities: {db:{rules:[{path:"board",read:"view",write:"owner"},{path:"board/{self}",read:"view",write:"interact"}]}, user:{scopes:["profile"]}, tts:{}}`.

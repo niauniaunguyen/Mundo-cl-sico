@@ -269,7 +269,8 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   .meta{margin-top:5px}
   .traits{margin-top:6px;gap:4px}
   .trait{font-size:11px;padding:1px 7px 1px 6px}
-  #tools{grid-template-columns:repeat(4,1fr);gap:5px;padding-top:8px}
+  #tools{grid-template-columns:none;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:calc((100% - 15px)/4.35);overflow-x:auto;scrollbar-width:none;gap:5px;padding-top:8px}
+  #tools::-webkit-scrollbar{display:none}
   .tool{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;text-align:center;row-gap:3px;border-radius:16px;padding:5px 3px 6px;min-height:0}
   .ves{grid-row:auto;width:32px;height:32px}
   .ves .ic{width:18px;height:18px}
@@ -397,6 +398,74 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   #achc{top:calc(var(--hudH,96px) + 8px)}
   #toast{top:calc(var(--hudH,96px) + 6px);font-size:13px}
 }
+/* ---------- v4 ---------- */
+#narr{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:calc(var(--hudH,60px) + 10px);z-index:6;width:min(380px,calc(100% - 32px));display:grid;grid-template-columns:40px 1fr 28px;gap:10px;align-items:start;padding:10px 12px;animation:drop .35s ease-out}
+#narr .nav .ic{width:38px;height:38px;color:var(--gfp);padding:6px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(77,255,160,.6);box-sizing:border-box}
+#narr b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gfp)}
+#narr p{margin:2px 0 0;font-size:13.5px;line-height:1.45}
+#narr .nx{font-size:18px;color:var(--muted);line-height:1}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.row .go{margin-top:0}
+.ghost{padding:10px 18px;border-radius:999px;border:1px solid var(--line2);font-weight:600;color:var(--fg)}
+.mbox .row{margin-top:16px}
+.chap{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px}
+.chap li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line2);border-radius:14px}
+.chap li .num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line2);font-size:12px}
+.chap li b{display:block;font-size:14px} .chap li small{color:var(--muted);font-size:12px}
+.chap li.ok{border-color:rgba(77,255,160,.5)} .chap li.ok .num{background:rgba(77,255,160,.2);border-color:var(--gfp);color:var(--gfp)}
+.chap li.now{border-color:var(--fitc);box-shadow:inset 0 0 12px rgba(255,198,92,.12)} .chap li.now .num{border-color:var(--fitc);color:var(--fitc)}
+.mbox:has(.scope){width:min(980px,100%)}
+.scope{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px}
+.sview{position:relative;aspect-ratio:1;max-width:100%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 45%,#0e2230,#03080d 72%);box-shadow:inset 0 0 40px rgba(0,0,0,.95),0 0 0 4px #08121a,0 0 0 5px var(--line2)}
+#scv{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scv:active{cursor:grabbing}
+#sdots{position:absolute;inset:0;pointer-events:none}
+.sdot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;pointer-events:auto;display:grid;place-items:center;transition:opacity .2s}
+.sdot i{width:12px;height:12px;border-radius:50%;background:var(--fitc);box-shadow:0 0 0 3px rgba(255,198,92,.35),0 0 10px var(--fitc)}
+.sdot.on i{background:var(--gfp);box-shadow:0 0 0 4px rgba(77,255,160,.4),0 0 12px var(--gfp)}
+.sdot.back{opacity:.25}
+.szoom{position:absolute;right:12%;bottom:10%;display:flex;flex-direction:column;gap:6px}
+.szoom button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);background:var(--glass);font-size:18px;font-weight:700}
+.sinfo .eyebrow{display:flex;align-items:center;gap:6px}
+.sinfo .eyebrow .ic{width:16px;height:16px}
+.spart{margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:14px;min-height:64px;background:rgba(6,18,27,.8)}
+.spart b{font-family:var(--f-display);font-weight:600} .spart p{margin:4px 0 0;font-size:13.5px}
+.plist{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.plist button{padding:5px 11px;border-radius:999px;border:1px solid var(--line2);font-size:12.5px;font-weight:600}
+.plist button.on{border-color:var(--gfp);color:var(--gfp)}
+.case{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border:1px solid var(--line2);border-radius:18px;background:rgba(6,18,27,.92)}
+.case .ch{display:flex;align-items:center;gap:8px} .case .ch .ic{color:var(--fitc)} .case .ch small{margin-left:auto;color:var(--muted);font-family:var(--f-data)}
+.tests,.guess{display:flex;flex-wrap:wrap;gap:6px}
+.tests button,.guess button{padding:6px 11px;border-radius:999px;border:1px solid var(--line2);font-size:12.5px;font-weight:600}
+.tests button:not(:disabled):hover,.guess button:not(:disabled):hover{border-color:var(--fitc)}
+.tests button:disabled,.guess button:disabled{opacity:.45;cursor:not-allowed}
+.results{margin:0;padding-left:18px;font-size:13px;line-height:1.5;color:#c4d8e3} .results li+li{margin-top:4px}
+.verd{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:start;padding:10px;border-radius:14px;border:1px solid var(--line2)}
+.verd.ok{border-color:rgba(77,255,160,.6)} .verd.no{border-color:rgba(255,79,123,.6)}
+.verd b{font-size:14px} .verd p{margin:4px 0 0;font-size:13px;color:#c4d8e3}
+.tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.branch{display:flex;flex-direction:column;gap:6px}
+.branch > b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.node{display:grid;grid-template-columns:24px 1fr;gap:6px;align-items:start;text-align:left;padding:8px;border:1px solid var(--line2);border-radius:12px;opacity:.5}
+.node .nc{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line2);font-size:11px}
+.node b{display:block;font-size:12.5px} .node small{display:block;font-size:11px;line-height:1.35;color:var(--muted);margin-top:2px}
+.node.av{opacity:1;border-color:var(--fitc)} .node.av .nc{border-color:var(--fitc);color:var(--fitc)}
+.node.own{opacity:1;border-color:rgba(77,255,160,.6);background:rgba(77,255,160,.06)} .node.own .nc{background:var(--gfp);color:#03150b;border-color:var(--gfp)}
+.node:disabled{cursor:default}
+.board{list-style:none;margin:0;padding:0;display:grid;gap:4px;counter-reset:b}
+.board li{display:grid;grid-template-columns:22px 1fr auto auto auto;gap:10px;align-items:center;padding:7px 10px;border:1px solid var(--line2);border-radius:12px;font-size:13px;counter-increment:b}
+.board li::before{content:counter(b);font-family:var(--f-data);color:var(--muted);font-size:12px}
+.board li.me{border-color:var(--gfp)} .board .who{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.board .num{font-size:12px;color:#a9c0cd}
+.nb .ic{width:14px;height:14px}
+@media (max-width:720px){
+  .scope{grid-template-columns:1fr}
+  .tree{grid-template-columns:1fr}
+  .verd{grid-template-columns:80px 1fr}
+  #narr{top:auto;bottom:calc(var(--toolsH,120px) + 104px)}
+  .board li{grid-template-columns:20px 1fr auto auto;}
+  .board li .num:last-child{display:none}
+}
 </style>
 
 <div id="app">
@@ -406,7 +475,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 
   <header id="hud">
     <div class="brand"><span data-ic="cell"></span><span>Micro<b>cosmos</b></span></div>
-    <div class="lvl"><span class="k" data-t="Nivel">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
+    <div class="lvl"><span class="k" id="hLvlK">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
     <div class="res">
       <div class="chip atp" data-tt="ATP: la moneda energética de la célula"><span data-ic="atp"></span><span class="v num" id="hAtp">0</span><small class="num" id="hAtps"></small></div>
       <div class="chip adn" id="hAdnBox" hidden data-tt="ADN heredado de tus evoluciones"><span data-ic="dna"></span><span class="v num" id="hAdn">0</span></div>
@@ -416,6 +485,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tog" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
       <button class="tog" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span><span class="lbl" data-t="Avanzar">Avanzar</span></button>
       <button class="tog icon" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
+      <button class="tog icon" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span></button>
       <button class="tog" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
       <button class="tog lab" id="bLab"><span data-ic="flask"></span><span class="lbl" data-t="Laboratorio">Laboratorio</span><span class="dot" id="labDot" hidden></span></button>
     </div>
@@ -448,6 +518,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tab" role="tab" data-tab="mej" aria-selected="true"><span data-ic="mito"></span><span data-t="Orgánulos">Orgánulos</span></button>
       <button class="tab" role="tab" data-tab="her" aria-selected="false"><span data-ic="pipette"></span><span data-t="Herramientas">Herramientas</span></button>
       <button class="tab" role="tab" data-tab="atl" aria-selected="false"><span data-ic="slide"></span><span data-t="Atlas">Atlas</span></button>
+      <button class="tab" role="tab" data-tab="dia" aria-selected="false"><span data-ic="tube"></span><span data-t="Diagnóstico">Diagnóstico</span></button>
       <button class="tab" role="tab" data-tab="ret" aria-selected="false"><span data-ic="trophy"></span><span data-t="Retos">Retos</span></button>
       <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span></button>
       <button class="tab" role="tab" data-tab="aju" aria-selected="false"><span data-ic="gear"></span><span data-t="Ajustes">Ajustes</span></button>
@@ -458,6 +529,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   <div id="modal" hidden><div class="mbox cell" id="mBox"></div></div>
   <div id="toast" hidden></div>
   <div id="achc" class="cell" hidden aria-live="polite"></div>
+  <div id="narr" class="cell" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><div><b>Dra. Olmo</b><p></p></div><button class="nx" data-tt="Cerrar">×</button></div>
   <div id="cine" hidden aria-live="polite"><i class="lb t"></i><i class="lb b"></i><div class="ctx"><div class="ce"></div><div class="ct"></div></div></div>
 </div>
 
@@ -509,9 +581,22 @@ const TYPES = {
   pri:{n:'Prion',sci:'PrPSc (proteína priónica mal plegada)',min:30,col:0xffe066,boss:'Placa amiloide',
     traits:[['Proteína mal plegada','protein'],['Sin ácidos nucleicos','nonuc'],['Resistente a proteasas','protres'],['Contagia su plegamiento','conv']],
     desc:'Ni siquiera es un ser vivo: es una proteína propia (PrP) plegada de forma anómala, rica en láminas β. Cuando toca una PrP normal, la obliga a plegarse igual: su ataque crece cada turno. No tiene ADN ni ARN y el sistema inmune no la ve como extraña.'},
+  // ---- Segundo acto (desde el nivel 33) ----
+  tbc:{n:'Bacilo de la tuberculosis',sci:'Mycobacterium tuberculosis',min:33,col:0xe0605c,boss:'Tuberculosis miliar',hpK:1.6,
+    traits:[['Bacteria ácido-alcohol resistente','gram'],['Pared cérea de ácidos micólicos','wax'],['Vive dentro de los macrófagos','intra'],['Crecimiento lento','slow']],
+    desc:'Su pared tiene una gruesa capa cérea de ácidos micólicos que la protege de casi todo: colorantes, anticuerpos y muchos antibióticos. Sobrevive dentro de los macrófagos, porque impide que el fagosoma se fusione con el lisosoma. Crece muy despacio (se divide cada 18–24 horas), así que solo ataca un turno de cada dos, pero es muy resistente.'},
+  mal:{n:'Plasmodio de la malaria',sci:'Plasmodium falciparum',min:36,col:0xc77dff,boss:'Malaria grave',
+    traits:[['Protozoo apicomplejo','protist'],['Se esconde en los eritrocitos','rbc'],['Invisible para los linfocitos T','nomhc'],['Ciclos de fiebre','fever']],
+    desc:'Protozoo que transmite el mosquito Anopheles. Pasa la mayor parte del tiempo dentro de los glóbulos rojos, que no tienen MHC-I: ningún linfocito T puede verlo allí. Durante dos turnos está escondido en un eritrocito y en el tercero lo revienta y salen merozoítos expuestos. Cada pocos turnos provoca un acceso de fiebre que golpea más fuerte.'},
+  vih:{n:'VIH',sci:'Virus de la inmunodeficiencia humana 1',min:39,col:0xff8fab,boss:'Sida',
+    traits:[['Retrovirus','retro'],['Ataca a tus linfocitos T CD4','cd4'],['Muta muy deprisa','mut'],['Se integra en tu ADN','intra']],
+    desc:'Retrovirus: copia su ARN a ADN con la transcriptasa inversa y se integra en el genoma de la célula. Infecta a los linfocitos T CD4, los que coordinan la respuesta inmune: cada turno que pasa, tus anticuerpos y tus linfocitos T funcionan peor. Cada tres turnos se oculta en estado latente.'},
+  ten:{n:'Tenia',sci:'Taenia solium',min:42,col:0xf1e3c8,boss:'Teniasis',hpK:2.5,
+    traits:[['Gusano plano pluricelular','worm'],['Varios metros de largo','big'],['Tegumento protector','teg'],['Regenera proglótides','regen']],
+    desc:'Un animal pluricelular, no una célula: un gusano plano que vive en el intestino y puede medir varios metros. Se agarra con las ventosas y los ganchos de su escólex y no para de formar nuevos segmentos (proglótides) desde el cuello: recupera vida cada turno. Es demasiado grande para fagocitarla; contra ella luchan los eosinófilos.'},
 };
 const TYPE_ORDER = Object.keys(TYPES);
-const BACTERIA = ['gp','gn','myc','bac'];
+const BACTERIA = ['gp','gn','myc','bac','tbc'];
 
 // Herramientas: pow = potencia, cd = turnos de recarga, cost = ATP para desbloquear
 const TOOLS = [
@@ -527,17 +612,24 @@ const TOOLS = [
   {id:'tc',n:'Linfocito T citotóxico',col:0xff6fd8,pow:1.5,cd:2,cost:6500,d:'Linfocito CD8 que reconoce péptidos extraños presentados en el MHC-I de una célula y le ordena entrar en apoptosis. Ataca células infectadas o tumorales, aunque el virus esté escondido dentro.'},
   {id:'tax',n:'Taxol',col:0xff4f7b,pow:1.4,cd:3,cost:11000,d:'Antimitótico (paclitaxel). Estabiliza los microtúbulos e impide que se forme y se desmonte el huso mitótico. Bloquea la división durante 3 turnos.'},
   {id:'aut',n:'Autoclave',col:0xffffff,pow:2.4,cd:4,cost:18000,d:'Vapor de agua a 121–134 °C y alta presión. Desnaturaliza las proteínas y destruye incluso endosporas y priones.'},
+  {id:'iso',n:'Isoniazida',col:0xe0605c,pow:1.6,cd:2,cost:30000,ab:true,d:'Antibiótico que impide fabricar los ácidos micólicos, los lípidos céreos de la pared de las micobacterias. Sin ellos, la pared se desmorona.'},
+  {id:'art',n:'Artemisinina',col:0xc77dff,pow:1.6,cd:2,cost:50000,d:'Fármaco extraído del ajenjo dulce (Artemisia annua). El hierro del hemo que el parásito digiere activa su puente de peróxido y genera radicales libres. Tu Youyou recibió el Nobel en 2015 por descubrirla.'},
+  {id:'arv',n:'Antirretrovirales',col:0xff8fab,pow:1.5,cd:2,cost:80000,d:'Inhibidores de la transcriptasa inversa: impiden que el ARN del VIH se copie a ADN y se integre en tu genoma.'},
+  {id:'pzq',n:'Praziquantel',col:0xf1e3c8,pow:1.8,cd:3,cost:120000,d:'Antiparasitario que abre la entrada de calcio en el tegumento de los gusanos planos: el gusano se contrae, se paraliza y se suelta del intestino.'},
 ];
 const TOOL = Object.fromEntries(TOOLS.map(t => [t.id, t]));
 // Rasgos que explican el resultado de cada herramienta (se resaltan en la ficha)
 const KEYTRAIT = {fago:['acell','self','protein','cellulose','pseudo','tiny'], lis:['pg','outer','nowall','acell','chitin','cellulose','protein'], pen:['pg','outer','nowall','acell','chitin','cellulose','protein'],
   uv:['nonuc','cellulose','chloro'], ac:['self','protein','intra','cellulose','env'], anf:['ergo','chol','gram','acell','protein','protist'], osm:['nowall','pg','chitin','cellulose','vac','acell','protein'],
-  luz:['photo','chloro'], cel:['cellulose','chitin','pg'], tc:['intra','self','gram','protist','fungus'], tax:['mitosis','fission','acell','protein','budding'], aut:['spore','protein']};
+  luz:['photo','chloro'], cel:['cellulose','chitin','pg'], tc:['intra','self','gram','protist','fungus','rbc','nomhc','cd4'], tax:['mitosis','fission','acell','protein','budding','worm'], aut:['spore','protein'],
+  iso:['wax','gram'], art:['rbc','protist'], arv:['retro','acell'], pzq:['worm','teg']};
+['fago','lis','pen'].forEach(k => KEYTRAIT[k].push('wax','big')); KEYTRAIT.ac.push('cd4','rbc','mut'); KEYTRAIT.osm.push('teg');
 
 // Eficacia [multiplicador, explicación] de cada herramienta contra cada organismo
 const NOWALL_PG = 'No tiene peptidoglucano: esa molécula solo existe en la pared de las bacterias.';
 const EFF = {
   fago:{def:[1,'La fagocitosis sirve contra casi cualquier partícula: la engulles y la digieres.'],
+    tbc:[.3,'Mycobacterium tuberculosis sobrevive dentro de los macrófagos: impide que el fagosoma se fusione con el lisosoma.'],mal:[.5,'Solo puedes engullir los merozoítos sueltos o los eritrocitos infectados.'],vih:[.6,'El VIH es diminuto y además puede infectar a los propios macrófagos.'],ten:[.1,'Una tenia mide varios metros: es imposible fagocitarla.'],
     vir:[.7,'Las partículas víricas miden unos 100 nm: muchas se te escapan.'],
     veg:[.4,'La célula vegetal es grande y su pared rígida no se deja englobar.'],
     can:[.6,'Las células tumorales exhiben la señal «no me comas» (CD47) y frenan a los macrófagos.'],
@@ -545,6 +637,7 @@ const EFF = {
     ame:[.8,'La ameba también fagocita: es difícil engullir a quien hace lo mismo que tú.'],
     par:[.6,'Un paramecio mide unas 200 µm, diez veces más que tú: solo puedes morder trozos.']},
   lis:{def:[0,NOWALL_PG],
+    tbc:[.2,'La pared cérea de ácidos micólicos protege su peptidoglucano.'],
     gp:[2.5,'Su peptidoglucano es grueso y está expuesto: la lisozima lo corta y la pared se deshace.'],
     gn:[.5,'La membrana externa de las Gram− tapa su fina capa de peptidoglucano.'],
     bac:[2,'Bacillus es Gram+: pared gruesa de peptidoglucano al descubierto.'],
@@ -554,6 +647,7 @@ const EFF = {
     veg:[0,'La pared vegetal es de celulosa: la lisozima no la reconoce.'],
     pri:[0,'Un prion es una proteína: no tiene pared que romper.']},
   pen:{def:[0,'La penicilina solo impide fabricar la pared de peptidoglucano de las bacterias.'],
+    tbc:[.1,'Las micobacterias resisten a los β-lactámicos: su pared cérea frena la entrada y fabrican β-lactamasas.'],
     gp:[2.5,'Sin transpeptidasas, la bacteria no puede reforzar su pared al crecer: estalla.'],
     bac:[2.2,'Gram+: la penicilina llega a su pared sin obstáculos.'],
     gn:[.6,'La membrana externa frena la entrada de la penicilina; muchas Gram− le resisten.'],
@@ -561,6 +655,7 @@ const EFF = {
     vir:[0,'Los antibióticos no afectan a los virus: no tienen pared ni metabolismo propio.'],
     lev:[0,'Los hongos son eucariotas con pared de quitina: la penicilina no les afecta. De hecho, la penicilina la fabrica un hongo, Penicillium.']},
   uv:{def:[1,'La UV daña el ADN de cualquier célula.'],
+    tbc:[.8,'Su pared gruesa la protege algo, aunque la UV sí la daña: se usa para desinfectar el aire en las salas de tuberculosis.'],mal:[.5,'Está dentro de los eritrocitos, en la sangre: la UV apenas llega.'],vih:[1.3,'La UV daña su ARN.'],ten:[.3,'Un gusano pluricelular tiene tejidos que protegen su ADN.'],
     gp:[1.5,'Las bacterias tienen un solo cromosoma desnudo: la UV lo daña con facilidad.'],
     gn:[1.5,'Las bacterias tienen un solo cromosoma desnudo: la UV lo daña con facilidad.'],
     myc:[1.5,'Un genoma diminuto y sin pared que lo proteja.'],
@@ -569,6 +664,7 @@ const EFF = {
     bac:[1.3,'Mientras no forme la endospora, su ADN es vulnerable.'],
     pri:[0,'Un prion es solo proteína: no tiene ADN ni ARN que dañar.']},
   ac:{def:[1,'Los anticuerpos reconocen sus antígenos de superficie y lo marcan.'],
+    tbc:[.5,'Los anticuerpos sirven de poco contra una bacteria que vive dentro de los macrófagos.'],vih:[1.2,'Hay anticuerpos neutralizantes contra el VIH, pero el virus muta tan deprisa que se les escapa.'],ten:[1.2,'La IgE marca al gusano para que los eosinófilos lo ataquen.'],
     vir:[2.5,'Los anticuerpos neutralizan el virus: tapan la hemaglutinina con la que se une a tus células.'],
     gp:[1.2,'Los anticuerpos opsonizan la bacteria: la marcan para que la destruyas.'],
     gn:[1.2,'Los anticuerpos opsonizan la bacteria y activan el complemento contra su membrana externa.'],
@@ -576,6 +672,7 @@ const EFF = {
     can:[.5,'Es una célula propia: tiene pocos antígenos que tu sistema inmune vea como extraños.'],
     pri:[0,'El prion es una proteína propia mal plegada: tu sistema inmune no la reconoce como extraña.']},
   anf:{def:[.3,'Las células animales usan colesterol, no ergosterol: les afecta poco.'],
+    tbc:[0,'Las bacterias no tienen esteroles en la membrana.'],vih:[0,'Su envoltura viene de la membrana de la célula huésped y no tiene ergosterol.'],
     lev:[3,'La anfotericina B se une al ergosterol de su membrana y abre poros: la levadura pierde iones y muere.'],
     gp:[0,'Las bacterias no tienen esteroles en la membrana.'],gn:[0,'Las bacterias no tienen esteroles en la membrana.'],bac:[0,'Las bacterias no tienen esteroles en la membrana.'],
     myc:[.6,'El micoplasma toma colesterol del huésped para su membrana: algo le afecta.'],
@@ -585,6 +682,7 @@ const EFF = {
     par:[.5,'El paramecio usa otros esteroles (como el tetrahimanol): le afecta poco.'],
     pri:[0,'Un prion no tiene membrana.']},
   osm:{def:[.3,'Su pared celular resiste la presión del agua que entra: queda turgente, pero no revienta.'],
+    mal:[1.2,'Ni el eritrocito ni el parásito tienen pared: el agua los hincha.'],vih:[0,'Un virus no es una célula: no hay ósmosis que lo haga reventar.'],ten:[.3,'Un gusano pluricelular regula el agua con sus células excretoras (protonefridios).'],
     ame:[2.5,'Sin pared celular, el agua entra por ósmosis hasta que la membrana estalla.'],
     myc:[2.5,'El micoplasma no tiene pared: la lisis osmótica es inmediata.'],
     can:[2.2,'Una célula animal no tiene pared: se hincha y revienta.'],
@@ -598,11 +696,13 @@ const EFF = {
     veg:[3,'La celulasa digiere su pared de celulosa y la deja indefensa.'],
     lev:[0,'La pared de los hongos es de quitina, no de celulosa.']},
   tc:{def:[.5,'Los linfocitos T citotóxicos atacan células propias infectadas o alteradas, no microbios libres.'],
+    tbc:[.8,'Los linfocitos T ayudan a encerrar a la micobacteria en un granuloma, pero no la eliminan del todo.'],mal:[.3,'Los eritrocitos no tienen MHC-I: los linfocitos T solo detectan al parásito en su fase hepática.'],vih:[1.5,'Destruye las células infectadas, aunque el VIH ataca precisamente a los linfocitos T colaboradores.'],
     vir:[2.5,'Reconoce los péptidos víricos que la célula infectada presenta en su MHC-I y la destruye, con el virus dentro.'],
     can:[2,'Reconoce antígenos tumorales y le ordena entrar en apoptosis.'],
     lev:[.7,'Contra los hongos son más útiles los neutrófilos y los linfocitos Th17 que los T citotóxicos.'],
     pri:[0,'El prion es una proteína propia: no hay antígeno extraño que reconocer.']},
   tax:{def:[1,'Los eucariotas usan microtúbulos para dividirse: el taxol les afecta.'],
+    tbc:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],vih:[0,'Un virus no se divide: lo copia la maquinaria de la célula que infecta.'],ten:[1.4,'Los gusanos son sensibles a los fármacos que atacan sus microtúbulos: así funciona el albendazol.'],
     can:[2.5,'Se divide sin control: si bloqueas su huso mitótico, se detiene y muere.'],
     gp:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
     gn:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
@@ -611,6 +711,17 @@ const EFF = {
     vir:[0,'Un virus no se divide: lo copia la maquinaria de la célula que infecta.'],
     pri:[0,'Un prion no se divide: convierte proteínas sanas.'],
     ame:[1.2,'La ameba se divide por mitosis: el huso le es imprescindible.'],par:[1.2,'El paramecio usa microtúbulos para dividirse y para sus cilios.']},
+  iso:{def:[0,'Solo afecta a las micobacterias: los demás organismos no fabrican ácidos micólicos.'],
+    tbc:[3,'La isoniazida bloquea la síntesis de ácidos micólicos: sin su capa cérea, la micobacteria queda indefensa.'],
+    gp:[0,'Los estafilococos no tienen ácidos micólicos en la pared.'],bac:[0,'Bacillus no tiene ácidos micólicos en la pared.']},
+  art:{def:[0,'La artemisinina actúa sobre los parásitos de la malaria: necesita el hierro del hemo que digieren dentro del eritrocito.'],
+    mal:[2.8,'El hierro del hemo que digiere el parásito activa la artemisinina, que lo destruye con radicales libres, incluso dentro del eritrocito.'],
+    can:[.5,'Se investiga contra algunos tumores ricos en hierro, pero aquí apenas les afecta.']},
+  arv:{def:[0,'Solo actúa sobre los retrovirus, que copian su ARN a ADN con la transcriptasa inversa.'],
+    vih:[3,'Sin transcriptasa inversa, el ARN del VIH no puede pasar a ADN ni integrarse: el virus deja de multiplicarse.'],
+    vir:[0,'La gripe no tiene transcriptasa inversa: copia su ARN directamente a ARN.']},
+  pzq:{def:[0,'El praziquantel actúa sobre los gusanos planos: los organismos unicelulares no tienen su tegumento.'],
+    ten:[3,'El calcio entra de golpe en su tegumento: la tenia se contrae, se paraliza y se suelta.']},
   aut:{def:[1.2,'El vapor a presión desnaturaliza sus proteínas.'],
     bac:[1.5,'El autoclave es lo único que destruye endosporas.'],
     pri:[1.6,'Hacen falta 134 °C durante 18 minutos para inactivar priones: un autoclave prolongado.']},
@@ -638,11 +749,11 @@ const UPG = [
 const CELLS = {
   mac:{n:'Macrófago',size:'≈ 21 µm',need:0,hp:1,atk:1,bonus:{},nuc:'bean',gran:0xd8ff6b,
     d:'Fagocito grande y longevo que vive en los tejidos. Presenta antígenos a los linfocitos y equilibrado en todo.'},
-  neu:{n:'Neutrófilo',size:'≈ 12 µm',need:1,hp:.85,atk:1.1,bonus:{gp:1.4,gn:1.4,bac:1.4,lev:1.4,myc:1.3},nuc:'lobes',gran:0xe8e0ff,
+  neu:{n:'Neutrófilo',size:'≈ 12 µm',need:1,hp:.85,atk:1.1,bonus:{gp:1.4,gn:1.4,bac:1.4,lev:1.4,myc:1.3,tbc:1.2},nuc:'lobes',gran:0xe8e0ff,
     d:'El leucocito más abundante: llega el primero a las infecciones y lanza trampas de ADN (NET) contra bacterias y hongos. ×1,4 contra bacterias y levaduras; algo menos de vida.'},
-  nk:{n:'Linfocito NK',size:'≈ 10 µm',need:2,hp:.9,atk:1,bonus:{vir:1.5,can:1.5},nuc:'round',gran:0xff4f7b,hidden:true,
+  nk:{n:'Linfocito NK',size:'≈ 10 µm',need:2,hp:.9,atk:1,bonus:{vir:1.5,can:1.5,vih:1.5},nuc:'round',gran:0xff4f7b,hidden:true,
     d:'Asesino natural: detecta células que han perdido el MHC-I, como las infectadas o las tumorales, y las destruye con perforina y granzimas. ×1,5 contra virus y tumores, y alcanza al virus escondido.'},
-  eos:{n:'Eosinófilo',size:'≈ 14 µm',need:3,hp:1.1,atk:1,bonus:{ame:1.5,par:1.5},nuc:'bilobed',gran:0xff7a3a,
+  eos:{n:'Eosinófilo',size:'≈ 14 µm',need:3,hp:1.1,atk:1,bonus:{ame:1.5,par:1.5,mal:1.3,ten:2},nuc:'bilobed',gran:0xff7a3a,
     d:'Sus gránulos de proteína básica mayor atacan a parásitos demasiado grandes para fagocitarlos. ×1,5 contra protozoos y algo más de vida.'},
 };
 
@@ -659,10 +770,10 @@ const SKINS = {
 // Zonas del cuerpo (el mapa)
 const ZONES = {
   san:{n:'Sangre',types:null,tint:[0,0,0],d:'Todo el torrente sanguíneo: puede aparecer cualquier organismo.'},
-  pul:{n:'Pulmones',types:['gp','gn','vir','myc','lev'],tint:[.0,.02,.05],d:'Alvéolos pulmonares: gripe, neumonías bacterianas y atípicas.'},
-  int:{n:'Intestino',types:['gn','ame','bac','lev','can'],tint:[.04,.02,0],d:'Intestino: E. coli, amebas, bacilos que forman esporas y tumores de colon.'},
+  pul:{n:'Pulmones',types:['gp','gn','vir','myc','lev','tbc'],tint:[.0,.02,.05],d:'Alvéolos pulmonares: gripe, neumonías bacterianas y atípicas.'},
+  int:{n:'Intestino',types:['gn','ame','bac','lev','can','ten'],tint:[.04,.02,0],d:'Intestino: E. coli, amebas, bacilos que forman esporas y tumores de colon.'},
   pie:{n:'Piel',types:['gp','lev','bac'],tint:[.04,.0,.02],d:'Heridas y piel: estafilococos, Candida y bacilos del suelo.'},
-  cer:{n:'Cerebro',types:['pri','vir','ame'],tint:[.02,0,.05],d:'Sistema nervioso: priones, encefalitis víricas y Naegleria, la ameba que entra por la nariz.'},
+  cer:{n:'Cerebro',types:['pri','vir','ame','mal','vih'],tint:[.02,0,.05],d:'Sistema nervioso: priones, encefalitis víricas y Naegleria, la ameba que entra por la nariz.'},
   cha:{n:'Charca',types:['par','ame','veg'],tint:[0,.05,.02],d:'Una gota de agua de charca en el portaobjetos: protozoos y hojas de Elodea. (Aquí no estás dentro de un cuerpo: es una práctica de laboratorio.)'},
 };
 
@@ -681,6 +792,7 @@ const SPECIAL = [
   {type:'vir',n:'Gripe pandémica',p2:'Tormenta de citocinas: tu propia inflamación se desboca y los dos hacéis un 30 % más de daño.'},
   {type:'can',n:'Tumor maligno',p2:'Angiogénesis: nuevos vasos sanguíneos lo alimentan y se cura cada turno, salvo si bloqueas su mitosis.'},
   {type:'pri',n:'Placa amiloide',p2:'Agregación: la placa crece y su ataque aumenta un 20 % cada turno.'},
+  {type:'mal',n:'Malaria cerebral',p2:'Citoadherencia: los eritrocitos infectados se pegan a los vasos del cerebro y el parásito recupera un 8 % cada turno.'},
 ];
 
 // Logros: cada uno trae un dato curioso
@@ -722,6 +834,8 @@ const LAB = {
   lev:['Blanco de calcoflúor (se une a la quitina)','4–6 µm'], ame:['Contraste de fases','≈ 500 µm'], veg:['Campo claro, sin teñir: la clorofila ya es verde','≈ 50 µm'],
   par:['Campo oscuro','≈ 200 µm'], myc:['Microscopio electrónico de barrido','0,2–0,3 µm'], can:['Hematoxilina y eosina','15–30 µm'],
   bac:['Verde de malaquita (tinción de esporas)','3–5 × 1 µm'], pri:['Rojo Congo (birrefringencia verde manzana)','fibrillas de ≈ 10 nm'],
+  tbc:['Tinción de Ziehl-Neelsen (ácido-alcohol resistente)','2–4 × 0,3 µm'], mal:['Frotis de sangre con Giemsa','≈ 2 µm dentro de un eritrocito de 7,5 µm'],
+  vih:['Microscopio electrónico de transmisión','≈ 120 nm'], ten:['Lupa binocular (proglótides)','2–7 m'],
 };
 
 const SOURCES = [
@@ -733,6 +847,8 @@ const SOURCES = [
   'OMS (1999). WHO Infection Control Guidelines for Transmissible Spongiform Encephalopathies.',
   'Sender, R. y Milo, R. (2021). The distribution of cellular turnover in the human body. Nature Medicine, 27, 45–48.',
   'Tsien, R. Y. (1998). The green fluorescent protein. Annual Review of Biochemistry, 67, 509–544.',
+  'OMS (2023). Informe mundial sobre el paludismo / Global tuberculosis report.',
+  'Tu, Y. (2011). The discovery of artemisinin (qinghaosu) and gifts from Chinese medicine. Nature Medicine, 17, 1217–1220.',
 ];
 const LICENSES = [
   'Un macrófago no fabrica antibióticos ni enciende autoclaves: las herramientas representan lo que el sistema inmune y la medicina pueden hacer contra cada organismo.',
@@ -740,6 +856,128 @@ const LICENSES = [
   'Los números de daño, vida y ATP son abstracciones de juego. Los multiplicadores de eficacia son orientativos y comparan unos organismos con otros.',
   'Las proporciones de los modelos 3D están exageradas para que se vean los orgánulos.',
 ];
+
+/* =====================================================================
+   DATOS DE LA VERSIÓN 4 (textos marcados con T_() y traducidos con tr())
+   ===================================================================== */
+const T_ = s => s; // marca un texto traducible que se guarda en los datos
+
+// Efectos secundarios: fracción de tu vida máxima que pierdes al usar la herramienta
+const SIDE = {
+  anf:[.04, T_('Efecto secundario: la anfotericina también daña un poco las membranas con colesterol, como la tuya.')],
+  uv:[.03, T_('Efecto secundario: la radiación ultravioleta también daña tu propio ADN.')],
+  tax:[.03, T_('Efecto secundario: el taxol también frena tus propios microtúbulos.')],
+  aut:[.06, T_('Efecto secundario: el vapor caliente también te quema a ti.')],
+  art:[.02, T_('Efecto secundario: los radicales libres de la artemisinina también te dañan un poco.')],
+  arv:[.02, T_('Efecto secundario: algunos antirretrovirales dañan las mitocondrias.')],
+  iso:[.02, T_('Efecto secundario: la isoniazida puede dañar el hígado.')],
+};
+
+// Árbol de habilidades del sistema inmune: tres ramas; cada nodo pide el anterior de su rama
+const TREE = [
+  {b:'inn', n:T_('Inmunidad innata'), nodes:[
+    {id:'i1', cost:1, n:T_('Pseudópodos rápidos'), d:T_('La fagocitosis hace ×1,5 de daño.')},
+    {id:'i2', cost:2, n:T_('Estallido respiratorio'), d:T_('Tus enzimas y especies reactivas de oxígeno: +25 % de daño contra bacterias.')},
+    {id:'i3', cost:1, n:T_('Destoxificación'), d:T_('Los efectos secundarios de tus herramientas te dañan un 60 % menos.')},
+    {id:'i4', cost:2, n:T_('Inflamación controlada'), d:T_('Recuperas un 4 % de vida al final de cada turno del enemigo.')}]},
+  {b:'hum', n:T_('Inmunidad humoral'), nodes:[
+    {id:'h1', cost:1, n:T_('Maduración de la afinidad'), d:T_('La opsonización de los anticuerpos dura 5 turnos en lugar de 3.')},
+    {id:'h2', cost:2, n:T_('Cambio de clase'), d:T_('La opsonización da +100 % de daño en lugar de +60 %.')},
+    {id:'h3', cost:1, n:T_('Células B de memoria'), d:T_('El cuestionario de cada organismo nuevo da el doble de ATP.')},
+    {id:'h4', cost:2, n:T_('Células plasmáticas'), d:T_('Los anticuerpos se recargan un turno antes.')}]},
+  {b:'cel', n:T_('Inmunidad celular'), nodes:[
+    {id:'c1', cost:1, n:T_('Linfocitos T de memoria'), d:T_('El linfocito T citotóxico hace ×1,4 de daño.')},
+    {id:'c2', cost:2, n:T_('Perforina'), d:T_('15 % de probabilidad de un golpe crítico que hace el doble de daño.')},
+    {id:'c3', cost:1, n:T_('Granzimas'), d:T_('El linfocito T y el taxol se recargan un turno antes.')},
+    {id:'c4', cost:2, n:T_('Vigilancia inmunitaria'), d:T_('+30 % de daño contra virus, VIH y células tumorales.')}]},
+];
+const TREE_NODES = Object.fromEntries(TREE.flatMap(br => br.nodes.map((n, i) => [n.id, Object.assign({b:br.b, prev:i ? br.nodes[i-1].id : null}, n)])));
+
+// Modo historia: «Una infección de principio a fin»
+const STORY = [
+  {n:T_('La herida'), cell:'mac', zone:'pie', L:2, tools:['fago','lis'], battles:['gp','gp'],
+    t:T_('Una espina de rosal atraviesa la piel. Por la herida entran estafilococos que vivían tranquilos sobre ella. Eres un macrófago que vive en el tejido: el primero en llegar. Esto es la inmunidad innata, que actúa en minutos y no necesita haber visto antes al invasor.')},
+  {n:T_('Inflamación'), cell:'neu', zone:'pie', L:4, tools:['fago','lis','pen'], battles:['gp','gn','gp'],
+    t:T_('Los macrófagos liberan citocinas. Los vasos se dilatan: la zona se pone roja, caliente, hinchada y duele. Por la sangre llegan miles de neutrófilos, y ahora eres uno de ellos. Lanzas trampas de ADN contra las bacterias.')},
+  {n:T_('Presentación de antígenos'), cell:'mac', zone:'san', L:6, tools:['fago','lis','pen','uv'], battles:['gn','vir'],
+    t:T_('Una célula dendrítica recoge trozos de las bacterias y viaja hasta un ganglio linfático. Allí los muestra en su MHC a los linfocitos T. Si alguno los reconoce, se activa y se multiplica. Mientras tanto, tú sigues defendiendo la herida, y por ella también ha entrado un virus.')},
+  {n:T_('Anticuerpos'), cell:'mac', zone:'san', L:8, tools:['fago','lis','pen','uv','ac','tc'], battles:['vir','gn','vir'],
+    t:T_('Los linfocitos T colaboradores activan a los linfocitos B, que se convierten en células plasmáticas y fabrican anticuerpos. Ya puedes usar anticuerpos y linfocitos T citotóxicos. Prueba la combinación de anticuerpos y fagocitosis: la opsonización.')},
+  {n:T_('Sepsis'), cell:'mac', zone:'san', L:10, tools:['fago','lis','pen','uv','ac','tc','osm'], battles:['@sepsis'],
+    t:T_('Algunas bacterias han llegado a la sangre. Si la respuesta se descontrola, la inflamación se extiende por todo el cuerpo: es la sepsis, una urgencia médica. Es el combate final.')},
+];
+const STORY_END = T_('Tras la infección quedan linfocitos B y T de memoria. Si los mismos microbios vuelven, la respuesta será mucho más rápida y ni siquiera notarás que has estado enfermo. Así funcionan las vacunas: enseñan a tu sistema inmune sin tener que pasar la enfermedad.');
+
+// Microscopio interactivo: partes de cada modelo [nombre, descripción, posición]
+const PARTS = {
+  me:[[T_('Núcleo'),T_('Guarda el ADN. En el macrófago tiene forma de riñón.'),[.12,.05,0]],[T_('Aparato de Golgi'),T_('Cisternas apiladas que empaquetan proteínas en vesículas.'),[-.55,.35,.25]],
+    [T_('Mitocondria'),T_('Produce ATP con la respiración celular. Fíjate en las crestas.'),[.45,-.35,.3]],[T_('Lisosomas'),T_('Vesículas con enzimas que digieren lo que fagocitas.'),[-.3,-.4,.5]],
+    [T_('Retículo endoplasmático rugoso'),T_('Membranas con ribosomas que fabrican proteínas.'),[.62,0,.2]],[T_('Membrana plasmática'),T_('Bicapa de fosfolípidos que separa la célula del exterior.'),[0,1.15,.2]],
+    [T_('Filopodio'),T_('Prolongación fina que explora el entorno.'),[.85,.7,.4]]],
+  gp:[[T_('Coco'),T_('Célula esférica de 1 µm. En racimo, típica de Staphylococcus.'),[0,.1,.75]],[T_('Tabique de división'),T_('Por aquí se separan dos cocos en la fisión binaria.'),[.6,.5,.2]],
+    [T_('Biopelícula'),T_('Matriz de polisacáridos que protege a la colonia.'),[1.25,.6,.4]],[T_('Adhesinas'),T_('Proteínas de superficie que se pegan a los tejidos.'),[.3,.62,.6]]],
+  gn:[[T_('Membrana externa con LPS'),T_('Exclusiva de las Gram−. Frena la lisozima y muchos antibióticos.'),[0,.5,.1]],[T_('Nucleoide'),T_('ADN circular sin membrana nuclear.'),[0,0,0]],
+    [T_('Ribosomas'),T_('Ribosomas 70S, más pequeños que los tuyos.'),[.4,.1,.25]],[T_('Fimbrias'),T_('Pelos cortos para adherirse.'),[-.4,.58,0]],[T_('Flagelo'),T_('Gira como una hélice impulsado por un motor de protones.'),[1.9,.2,0]]],
+  vir:[[T_('Hemaglutinina'),T_('Espícula con la que el virus se une a tus células. Es la «H» de H1N1.'),[0,.98,0]],[T_('Neuraminidasa'),T_('Espícula que libera los virus nuevos. Es la «N» de H1N1.'),[.6,.6,.4]],
+    [T_('Envoltura lipídica'),T_('Membrana robada a la célula que infectó.'),[.74,0,.1]],[T_('Segmentos de ARN'),T_('Ocho trozos de ARN: por eso la gripe se recombina con facilidad.'),[0,-.2,.2]]],
+  lev:[[T_('Pared de quitina'),T_('La misma molécula que el caparazón de los insectos.'),[.78,0,0]],[T_('Núcleo'),T_('Es eucariota: tiene núcleo con membrana.'),[.15,.15,.2]],
+    [T_('Vacuola'),T_('Almacena agua y sustancias.'),[-.12,-.25,.05]],[T_('Yema'),T_('La hija que está brotando.'),[.35,1.05,.1]],[T_('Cicatriz de gemación'),T_('Marca que deja cada yema al separarse.'),[.47,.38,.39]],[T_('Pseudohifa'),T_('Células alargadas en cadena: así invade los tejidos.'),[-.55,-1.25,0]]],
+  ame:[[T_('Pseudópodo'),T_('Prolongación del citoplasma para moverse y comer.'),[1.3,.2,.1]],[T_('Núcleo'),T_('Núcleo grande y aplanado.'),[0,0,0]],[T_('Vacuola contráctil'),T_('Expulsa el agua que entra por ósmosis.'),[-.5,.3,.35]],
+    [T_('Vacuola digestiva'),T_('Contiene algas que ha fagocitado.'),[.3,-.3,.35]],[T_('Ectoplasma'),T_('Capa externa, clara y sin gránulos.'),[0,1.12,.3]]],
+  veg:[[T_('Pared de celulosa'),T_('Rígida: aguanta la presión de turgencia.'),[1.15,.45,.8]],[T_('Cloroplasto'),T_('Hace la fotosíntesis. Las pilas de discos son los grana.'),[.95,0,.3]],
+    [T_('Vacuola central'),T_('Ocupa casi toda la célula y la mantiene turgente.'),[0,0,.45]],[T_('Núcleo'),T_('Desplazado a un lado por la vacuola.'),[-.78,.48,.38]],[T_('Plasmodesmos'),T_('Canales que comunican con las células vecinas.'),[.2,.85,.3]]],
+  par:[[T_('Cilios'),T_('Miles de cilios que baten en ondas metacrónicas.'),[0,.55,0]],[T_('Macronúcleo'),T_('Controla el día a día de la célula.'),[-.05,0,.15]],[T_('Micronúcleo'),T_('Se usa en la reproducción sexual (conjugación).'),[.2,.05,.45]],
+    [T_('Vacuola contráctil'),T_('Con forma de estrella: bombea fuera el agua.'),[0,.3,1]],[T_('Surco oral'),T_('Embudo por el que entra la comida.'),[.5,0,-.05]]],
+  myc:[[T_('Orgánulo de adhesión'),T_('Punta con la que se pega a las células del pulmón.'),[.65,.9,0]],[T_('Membrana sin pared'),T_('Reforzada con colesterol robado al huésped.'),[-.6,0,.3]],[T_('ADN'),T_('Uno de los genomas más pequeños de cualquier ser vivo.'),[0,-.1,0]]],
+  can:[[T_('Núcleos múltiples'),T_('Núcleos grandes y de tamaño desigual: señal de malignidad.'),[.2,.2,.3]],[T_('Nucléolo prominente'),T_('Fabrica ribosomas a toda velocidad para crecer.'),[.3,.32,.5]],
+    [T_('Vesículas de membrana'),T_('Burbujas que forma al moverse e invadir.'),[1.1,.2,.5]],[T_('Mitosis anómala'),T_('Los cromosomas se reparten mal: aneuploidía.'),[-1.1,.8,-.25]],[T_('Vaso sanguíneo nuevo'),T_('Angiogénesis: el tumor fabrica sus propios vasos.'),[.6,-1.6,-.5]]],
+  bac:[[T_('Bacilo'),T_('Bacteria en forma de bastón, en cadena.'),[0,.32,0]],[T_('Endospora'),T_('Núcleo deshidratado, córtex y cubierta de proteína. Aparece al esporular.'),[0,0,0]],[T_('Nucleoide'),T_('ADN bacteriano.'),[1.05,0,0]]],
+  pri:[[T_('Lámina β'),T_('Cada flecha es un tramo de proteína plegado en lámina β.'),[.3,0,0]],[T_('Fibrilla amiloide'),T_('Las láminas se apilan en una fibra retorcida.'),[0,1.1,0]],[T_('PrP sana'),T_('Proteína normal, rica en hélices α. Al tocar la fibrilla se convierte.'),[1.5,.5,0]]],
+  tbc:[[T_('Pared cérea'),T_('Ácidos micólicos: por eso retiene la fucsina en la tinción de Ziehl-Neelsen.'),[0,.25,.2]],[T_('Cordón'),T_('Las micobacterias se agrupan en cordones serpenteantes.'),[.9,-.1,0]]],
+  mal:[[T_('Eritrocito infectado'),T_('Glóbulo rojo sin núcleo ni MHC-I: el escondite perfecto.'),[0,0,.3]],[T_('Anillo'),T_('Trofozoíto joven con forma de anillo de sello.'),[.15,.05,.2]],[T_('Merozoítos'),T_('Salen al reventar el eritrocito e invaden otros nuevos.'),[1,.6,.3]]],
+  vih:[[T_('Glicoproteína gp120'),T_('Se une al receptor CD4 de tus linfocitos T.'),[0,.68,0]],[T_('Cápside cónica'),T_('Contiene dos copias de ARN y la transcriptasa inversa.'),[0,0,.2]],[T_('Envoltura'),T_('Membrana tomada de la célula infectada.'),[.6,0,0]]],
+  ten:[[T_('Escólex'),T_('Cabeza con ventosas y una corona de ganchos para agarrarse al intestino.'),[-1.7,.1,0]],[T_('Proglótide'),T_('Cada segmento tiene órganos reproductores propios y se llena de huevos.'),[.6,0,0]],[T_('Tegumento'),T_('Piel viva que absorbe nutrientes: no tiene boca ni intestino.'),[1.4,.1,.1]]],
+};
+
+// Laboratorio de diagnóstico: resultado de cada prueba según el organismo
+const DIAG_TESTS = {
+  gram:{n:T_('Tinción de Gram'), r:{pos:T_('Se tiñe de violeta: bacteria Gram positiva.'), neg:T_('Se tiñe de rosa: bacteria Gram negativa.'), acid:T_('Se tiñe mal (Gram variable): una pared cérea impide que entren los colorantes.'),
+    nowall:T_('Apenas se ve: no retiene el colorante, como si no tuviera pared.'), invis:T_('No se ve nada: es demasiado pequeño para el microscopio óptico.'), euk:T_('No es una bacteria: se ven células grandes con núcleo.'), macro:T_('No hace falta microscopio: se ve a simple vista.')}},
+  fresco:{n:T_('Observación en fresco'), r:{gp:T_('Cocos agrupados en racimos, inmóviles.'), gn:T_('Bacilos que nadan deprisa con flagelos.'), bac:T_('Bacilos largos en cadena, inmóviles.'), tbc:T_('Bacilos finos agrupados en cordones serpenteantes.'),
+    myc:T_('Células diminutas de forma variable.'), invis:T_('Demasiado pequeño para el microscopio óptico.'), lev:T_('Células ovaladas, algunas con yemas.'), ame:T_('Una célula grande que cambia de forma y se arrastra con pseudópodos.'),
+    par:T_('Una célula con forma de zapatilla que nada girando gracias a sus cilios.'), veg:T_('Células rectangulares y verdes que forman un tejido.'), can:T_('Células grandes e irregulares, con núcleos de tamaño desigual.'),
+    mal:T_('Algunos glóbulos rojos tienen un pequeño anillo dentro.'), ten:T_('Segmentos blancos y aplanados, visibles a simple vista.')}},
+  zn:{n:T_('Tinción de Ziehl-Neelsen'), r:{pos:T_('Bacilos rojos sobre fondo azul: ácido-alcohol resistentes.'), neg:T_('Se ven azules: no son ácido-alcohol resistentes.'), na:T_('Prueba no útil: no hay bacterias que teñir.')}},
+  esp:{n:T_('Tinción de esporas'), r:{pos:T_('Esporas verdes dentro de bacilos rosas.'), neg:T_('No se ven esporas.'), na:T_('Prueba no útil: no hay bacterias.')}},
+  calco:{n:T_('Blanco de calcoflúor'), r:{chitin:T_('Brilla azul intenso con luz UV: pared de quitina, es un hongo.'), cell:T_('Brilla débilmente: el calcoflúor también se une a la celulosa.'), no:T_('No brilla: no tiene quitina ni celulosa.')}},
+  me:{n:T_('Microscopio electrónico'), r:{vir:T_('Partículas esféricas de unos 100 nm con espículas en la envoltura.'), vih:T_('Partículas de unos 120 nm con una cápside interna en forma de cono.'),
+    pri:T_('Fibrillas largas y retorcidas de unos 10 nm: amiloide.'), cell:T_('Se ven células completas con sus orgánulos: no es un virus.')}},
+  giemsa:{n:T_('Frotis de sangre con Giemsa'), r:{pos:T_('Anillos morados dentro de los glóbulos rojos.'), neg:T_('Los glóbulos rojos están limpios.')}},
+  congo:{n:T_('Rojo Congo con luz polarizada'), r:{pos:T_('Brillo verde manzana: hay depósitos de amiloide.'), neg:T_('Negativo: no hay amiloide.')}},
+};
+const DIAG_KEY = {
+  gram:{gp:'pos',gn:'neg',bac:'pos',tbc:'acid',myc:'nowall',vir:'invis',vih:'invis',pri:'invis',lev:'euk',ame:'euk',par:'euk',veg:'euk',can:'euk',mal:'euk',ten:'macro'},
+  fresco:{gp:'gp',gn:'gn',bac:'bac',tbc:'tbc',myc:'myc',vir:'invis',vih:'invis',pri:'invis',lev:'lev',ame:'ame',par:'par',veg:'veg',can:'can',mal:'mal',ten:'ten'},
+  zn:{tbc:'pos',gp:'neg',gn:'neg',bac:'neg',myc:'neg'}, esp:{bac:'pos',gp:'neg',gn:'neg',tbc:'neg',myc:'neg'},
+  calco:{lev:'chitin',veg:'cell'}, me:{vir:'vir',vih:'vih',pri:'pri'}, giemsa:{mal:'pos'}, congo:{pri:'pos'},
+};
+const DIAG_DEF = {zn:'na', esp:'na', calco:'no', me:'cell', giemsa:'neg', congo:'neg'};
+
+// Narrador: la doctora Olmo, del laboratorio
+const NARR = {
+  new:T_('Lee sus rasgos: la pared, la membrana y el tipo de célula te dicen qué herramienta usar.'),
+  immune:T_('No le ha hecho nada. Mira el rasgo resaltado en su ficha: ahí está la explicación.'),
+  great:T_('¡Eso es! Has aprovechado su punto débil.'),
+  lowhp:T_('Te queda poca vida. Si pierdes, retrocederás un nivel.'),
+  boss:T_('Es un jefe: tiene mucha más vida. Es buen momento para una combinación.'),
+  combo:T_('¡Una combinación! Quedará apuntada en el Laboratorio, en Herramientas.'),
+  sarm:T_('Mira: una cepa resistente. Es lo que pasa cuando se abusa de un antibiótico.'),
+  side:T_('Cuidado: esa herramienta también te daña a ti. Los fármacos tienen efectos secundarios.'),
+  vih:T_('El VIH ataca a tus linfocitos T: cuanto más dure el combate, peor funcionarán los anticuerpos y los linfocitos T.'),
+  mal:T_('Mientras esté dentro del glóbulo rojo, solo la artemisinina lo alcanza bien. Espera a que salgan los merozoítos.'),
+  tbc:T_('La tuberculosis sobrevive dentro de los macrófagos: fagocitarla no basta. Necesitas un antibiótico específico.'),
+  story:T_('Bienvenido al modo historia. Seguiremos una infección real, paso a paso.'),
+};
 
 /* =====================================================================
    IDIOMAS: español (original), català, English
@@ -901,6 +1139,162 @@ const I18N_RAW = {
 };
 const I18N = {ca:{}, en:{}};
 for (const k in I18N_RAW){ I18N.ca[k] = I18N_RAW[k][0]; I18N.en[k] = I18N_RAW[k][1]; }
+
+// Textos de la versión 4: «español»: [català, English]
+const I18N_RAW2 = {
+  "Capítulo":["Capítol","Chapter"], "Examinar":["Examinar","Examine"], "Narrador y sonido":["Narrador i so","Narrator and sound"], "Narradora":["Narradora","Narrator"],
+  "La doctora Olmo, del laboratorio, comenta las jugadas importantes.":["La doctora Olmo, del laboratori, comenta les jugades importants.","Dr Olmo, from the lab, comments on the key moments."],
+  "Leer en voz alta":["Llegir en veu alta","Read aloud"], "La narradora lee sus comentarios en voz alta.":["La narradora llegeix els seus comentaris en veu alta.","The narrator reads her comments aloud."],
+  "Música y ambiente":["Música i ambient","Music and ambience"],
+  "Paisaje sonoro de cada zona: el latido en la sangre, la respiración en los pulmones, las burbujas de la charca…":["Paisatge sonor de cada zona: el batec a la sang, la respiració als pulmons, les bombolles de la bassa…","A soundscape for each area: the heartbeat in the blood, breathing in the lungs, bubbles in the pond…"],
+  "Modo historia":["Mode història","Story mode"], "Una infección de principio a fin":["Una infecció de principi a fi","An infection from start to finish"],
+  "Una campaña corta que sigue paso a paso una infección real, desde una herida en la piel hasta la sepsis. Cada capítulo explica una parte de la respuesta inmune. Tu partida normal se conserva.":["Una campanya curta que segueix pas a pas una infecció real, des d'una ferida a la pell fins a la sèpsia. Cada capítol explica una part de la resposta immunitària. La teva partida normal es conserva.","A short campaign that follows a real infection step by step, from a cut in the skin to sepsis. Each chapter explains part of the immune response. Your normal game is kept."],
+  "Continuar la historia":["Continuar la història","Continue the story"], "Salir de la historia":["Sortir de la història","Leave the story"], "Volver a jugarla":["Tornar-la a jugar","Play it again"], "Empezar la historia":["Començar la història","Start the story"],
+  "Capítulo {i} de {n}":["Capítol {i} de {n}","Chapter {i} of {n}"], "Juegas como":["Jugues com a","You play as"], "Combates":["Combats","Battles"], "Epílogo":["Epíleg","Epilogue"],
+  "Historia completada: +3 ADN y +1 punto del árbol inmunitario.":["Història completada: +3 ADN i +1 punt de l'arbre immunitari.","Story complete: +3 DNA and +1 immune tree point."],
+  "Modelo 3D de {n}":["Model 3D de {n}","3D model of {n}"], "Acercar":["Apropar","Zoom in"], "Alejar":["Allunyar","Zoom out"], "Microscopio":["Microscopi","Microscope"],
+  "Arrastra para girar el modelo, usa la rueda o pellizca para acercarte y toca los puntos para ver cada parte.":["Arrossega per girar el model, fes servir la roda o pessiga per apropar-te i toca els punts per veure cada part.","Drag to turn the model, use the wheel or pinch to zoom, and tap the dots to see each part."],
+  "Elige una parte":["Tria una part","Choose a part"], "Laboratorio de diagnóstico":["Laboratori de diagnòstic","Diagnostic lab"],
+  "Llega una muestra sin etiquetar. Puedes hacer hasta tres pruebas: elige bien cuáles y después da tu diagnóstico. Cuantas menos pruebas uses, más ATP ganas.":["Arriba una mostra sense etiquetar. Pots fer fins a tres proves: tria bé quines i després dona el teu diagnòstic. Com menys proves facis servir, més ATP guanyes.","An unlabelled sample arrives. You can run up to three tests: choose them well, then give your diagnosis. The fewer tests you use, the more ATP you earn."],
+  "Diagnósticos correctos":["Diagnòstics correctes","Correct diagnoses"], "Muestra nº {n}":["Mostra núm. {n}","Sample no. {n}"], "Pruebas: {u} de 3":["Proves: {u} de 3","Tests: {u} of 3"], "Tu diagnóstico":["El teu diagnòstic","Your diagnosis"],
+  "Haz al menos una prueba antes de diagnosticar.":["Fes almenys una prova abans de diagnosticar.","Run at least one test before diagnosing."], "¡Diagnóstico correcto!":["Diagnòstic correcte!","Correct diagnosis!"],
+  "No era {n}.":["No era {n}.","It wasn't {n}."], "Era {n} ({s}).":["Era {n} ({s}).","It was {n} ({s})."], "Técnica habitual":["Tècnica habitual","Usual technique"], "Siguiente muestra":["Mostra següent","Next sample"],
+  "Árbol inmunitario":["Arbre immunitari","Immune tree"], "{n} puntos libres":["{n} punts lliures","{n} free points"],
+  "Ganas 2 puntos cada vez que evolucionas y 1 por cada jefe especial. Cada rama se desbloquea en orden. Puedes reiniciar el árbol gratis.":["Guanyes 2 punts cada vegada que evolucions i 1 per cada cap especial. Cada branca es desbloqueja en ordre. Pots reiniciar l'arbre de franc.","You earn 2 points each time you evolve and 1 for each special boss. Each branch unlocks in order. You can reset the tree for free."],
+  "Reiniciar el árbol":["Reiniciar l'arbre","Reset the tree"], "Tablón de la clase":["Tauler de la classe","Class board"],
+  "El tablón compartido solo funciona en la página publicada y con la sesión iniciada. Comparte el enlace con tu clase para que cada alumno aparezca aquí.":["El tauler compartit només funciona a la pàgina publicada i amb la sessió iniciada. Comparteix l'enllaç amb la classe perquè cada alumne hi aparegui.","The shared board only works on the published page while signed in. Share the link with your class so each student appears here."],
+  "Cargando el tablón…":["Carregant el tauler…","Loading the board…"], "No se puede contactar con el tablón ahora mismo. Lo intentará de nuevo solo.":["Ara mateix no es pot contactar amb el tauler. Ho tornarà a provar sol.","The board can't be reached right now. It will keep trying by itself."],
+  "El tablón no está disponible en esta visita.":["El tauler no està disponible en aquesta visita.","The board isn't available on this visit."], "Reto de la clase esta semana":["Repte de la classe aquesta setmana","This week's class challenge"],
+  "Entre todos: vencer {g} bacterias sin usar antibióticos.":["Entre tots: vèncer {g} bacteris sense fer servir antibiòtics.","Together: beat {g} bacteria without using antibiotics."], "vict.":["vict.","wins"],
+  "Todavía no hay nadie. ¡Sé el primero!":["Encara no hi ha ningú. Sigues el primer!","Nobody here yet. Be the first!"], "Puedes ver el tablón, pero no tienes permiso para aparecer en él.":["Pots veure el tauler, però no tens permís per aparèixer-hi.","You can see the board, but you don't have permission to appear on it."],
+  "Tus datos se publican solos al jugar: nivel, victorias, logros y diagnósticos. Solo tú puedes cambiar tu fila.":["Les teves dades es publiquen soles en jugar: nivell, victòries, assoliments i diagnòstics. Només tu pots canviar la teva fila.","Your data is posted as you play: level, wins, achievements and diagnoses. Only you can change your row."],
+  "Alguien":["Algú","Someone"],
+  "El plasmodio está dentro de un glóbulo rojo: casi nada lo alcanza. La artemisinina sí, porque la activa el hierro del hemo.":["El plasmodi és dins d'un glòbul vermell: gairebé res no l'abasta. L'artemisinina sí, perquè l'activa el ferro de l'hemo.","The plasmodium is inside a red blood cell: almost nothing reaches it. Artemisinin does, because the iron in haem activates it."],
+  "El VIH ha destruido parte de tus linfocitos T CD4 (×{k}).":["El VIH ha destruït part dels teus limfòcits T CD4 (×{k}).","HIV has destroyed some of your CD4 T cells (×{k})."], "¡Golpe crítico de perforina!":["Cop crític de perforina!","Perforin critical hit!"],
+  "Opsonizado: más daño durante 5 turnos.":["Opsonitzat: més dany durant 5 torns.","Opsonized: extra damage for 5 turns."], "El plasmodio se oculta dentro de un glóbulo rojo.":["El plasmodi s'amaga dins d'un glòbul vermell.","The plasmodium hides inside a red blood cell."],
+  "El eritrocito revienta y salen merozoítos: ahora está expuesto.":["L'eritròcit rebenta i en surten merozoïts: ara està exposat.","The red cell bursts and merozoites come out: now it is exposed."],
+  "El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.":["El VIH infecta més limfòcits T CD4: els teus anticossos i limfòcits T perden eficàcia.","HIV infects more CD4 T cells: your antibodies and T cells lose effectiveness."],
+  "Además entra en latencia, integrado en el ADN de una célula.":["A més entra en latència, integrat en l'ADN d'una cèl·lula.","It also goes latent, built into a cell's DNA."], "Su cuello forma nuevas proglótides: recupera un 6 %.":["El seu coll forma noves proglòtides: recupera un 6 %.","Its neck grows new proglottids: it recovers 6 %."],
+  "Citoadherencia: recupera un 8 %.":["Citoadherència: recupera un 8 %.","Cytoadherence: it recovers 8 %."], "Crecimiento lento: esta vez no ataca.":["Creixement lent: aquesta vegada no ataca.","Slow growth: it doesn't attack this time."],
+  "Acceso de fiebre: al reventar a la vez muchos eritrocitos, el golpe es más fuerte.":["Accés de febre: en rebentar alhora molts eritròcits, el cop és més fort.","Fever attack: many red cells burst at once, so the blow is stronger."],
+  "+1 punto del árbol inmunitario":["+1 punt de l'arbre immunitari","+1 immune tree point"], "Vuelve a intentarlo: este paso de la historia empieza de nuevo.":["Torna-ho a provar: aquest pas de la història torna a començar.","Try again: this step of the story starts over."],
+  "Efecto secundario: la anfotericina también daña un poco las membranas con colesterol, como la tuya.":["Efecte secundari: l'amfotericina també danya una mica les membranes amb colesterol, com la teva.","Side effect: amphotericin also slightly damages cholesterol membranes, like yours."],
+  "Efecto secundario: la radiación ultravioleta también daña tu propio ADN.":["Efecte secundari: la radiació ultraviolada també danya el teu propi ADN.","Side effect: ultraviolet radiation also damages your own DNA."],
+  "Efecto secundario: el taxol también frena tus propios microtúbulos.":["Efecte secundari: el taxol també frena els teus propis microtúbuls.","Side effect: taxol also stalls your own microtubules."],
+  "Efecto secundario: el vapor caliente también te quema a ti.":["Efecte secundari: el vapor calent també et crema a tu.","Side effect: the hot steam burns you too."],
+  "Efecto secundario: los radicales libres de la artemisinina también te dañan un poco.":["Efecte secundari: els radicals lliures de l'artemisinina també et danyen una mica.","Side effect: artemisinin's free radicals harm you a little too."],
+  "Efecto secundario: algunos antirretrovirales dañan las mitocondrias.":["Efecte secundari: alguns antiretrovirals danyen els mitocondris.","Side effect: some antiretrovirals damage mitochondria."],
+  "Efecto secundario: la isoniazida puede dañar el hígado.":["Efecte secundari: la isoniazida pot danyar el fetge.","Side effect: isoniazid can damage the liver."],
+  "Inmunidad innata":["Immunitat innata","Innate immunity"], "Pseudópodos rápidos":["Pseudòpodes ràpids","Fast pseudopods"], "La fagocitosis hace ×1,5 de daño.":["La fagocitosi fa ×1,5 de dany.","Phagocytosis deals ×1.5 damage."],
+  "Estallido respiratorio":["Esclat respiratori","Respiratory burst"], "Tus enzimas y especies reactivas de oxígeno: +25 % de daño contra bacterias.":["Els teus enzims i espècies reactives d'oxigen: +25 % de dany contra bacteris.","Your enzymes and reactive oxygen species: +25 % damage against bacteria."],
+  "Destoxificación":["Destoxificació","Detoxification"], "Los efectos secundarios de tus herramientas te dañan un 60 % menos.":["Els efectes secundaris de les teves eines et danyen un 60 % menys.","Your tools' side effects hurt you 60 % less."],
+  "Inflamación controlada":["Inflamació controlada","Controlled inflammation"], "Recuperas un 4 % de vida al final de cada turno del enemigo.":["Recuperes un 4 % de vida al final de cada torn de l'enemic.","You recover 4 % health at the end of each enemy turn."],
+  "Inmunidad humoral":["Immunitat humoral","Humoral immunity"], "Maduración de la afinidad":["Maduració de l'afinitat","Affinity maturation"], "La opsonización de los anticuerpos dura 5 turnos en lugar de 3.":["L'opsonització dels anticossos dura 5 torns en lloc de 3.","Antibody opsonization lasts 5 turns instead of 3."],
+  "Cambio de clase":["Canvi de classe","Class switching"], "La opsonización da +100 % de daño en lugar de +60 %.":["L'opsonització dona +100 % de dany en lloc de +60 %.","Opsonization gives +100 % damage instead of +60 %."],
+  "Células B de memoria":["Cèl·lules B de memòria","Memory B cells"], "El cuestionario de cada organismo nuevo da el doble de ATP.":["El qüestionari de cada organisme nou dona el doble d'ATP.","The quiz for each new organism gives double ATP."],
+  "Células plasmáticas":["Cèl·lules plasmàtiques","Plasma cells"], "Los anticuerpos se recargan un turno antes.":["Els anticossos es recarreguen un torn abans.","Antibodies recharge one turn sooner."],
+  "Inmunidad celular":["Immunitat cel·lular","Cellular immunity"], "Linfocitos T de memoria":["Limfòcits T de memòria","Memory T cells"], "El linfocito T citotóxico hace ×1,4 de daño.":["El limfòcit T citotòxic fa ×1,4 de dany.","The cytotoxic T cell deals ×1.4 damage."],
+  "Perforina":["Perforina","Perforin"], "15 % de probabilidad de un golpe crítico que hace el doble de daño.":["15 % de probabilitat d'un cop crític que fa el doble de dany.","15 % chance of a critical hit that deals double damage."],
+  "Granzimas":["Granzims","Granzymes"], "El linfocito T y el taxol se recargan un turno antes.":["El limfòcit T i el taxol es recarreguen un torn abans.","The T cell and taxol recharge one turn sooner."],
+  "Vigilancia inmunitaria":["Vigilància immunitària","Immune surveillance"], "+30 % de daño contra virus, VIH y células tumorales.":["+30 % de dany contra virus, VIH i cèl·lules tumorals.","+30 % damage against viruses, HIV and tumour cells."],
+  "La herida":["La ferida","The wound"],
+  "Una espina de rosal atraviesa la piel. Por la herida entran estafilococos que vivían tranquilos sobre ella. Eres un macrófago que vive en el tejido: el primero en llegar. Esto es la inmunidad innata, que actúa en minutos y no necesita haber visto antes al invasor.":["Una espina de roser travessa la pell. Per la ferida entren estafilococs que hi vivien tranquil·lament a sobre. Ets un macròfag que viu al teixit: el primer a arribar. Això és la immunitat innata, que actua en minuts i no necessita haver vist abans l'invasor.","A rose thorn pierces the skin. Staphylococci that were living quietly on it get in through the wound. You are a macrophage living in the tissue: the first to arrive. This is innate immunity, which acts within minutes and doesn't need to have met the invader before."],
+  "Inflamación":["Inflamació","Inflammation"],
+  "Los macrófagos liberan citocinas. Los vasos se dilatan: la zona se pone roja, caliente, hinchada y duele. Por la sangre llegan miles de neutrófilos, y ahora eres uno de ellos. Lanzas trampas de ADN contra las bacterias.":["Els macròfags alliberen citocines. Els vasos es dilaten: la zona es posa vermella, calenta, inflada i fa mal. Per la sang arriben milers de neutròfils, i ara ets un d'ells. Llances trampes d'ADN contra els bacteris.","Macrophages release cytokines. Blood vessels dilate: the area turns red, hot, swollen and sore. Thousands of neutrophils arrive through the blood, and now you are one of them. You cast DNA traps at the bacteria."],
+  "Presentación de antígenos":["Presentació d'antígens","Antigen presentation"],
+  "Una célula dendrítica recoge trozos de las bacterias y viaja hasta un ganglio linfático. Allí los muestra en su MHC a los linfocitos T. Si alguno los reconoce, se activa y se multiplica. Mientras tanto, tú sigues defendiendo la herida, y por ella también ha entrado un virus.":["Una cèl·lula dendrítica recull trossos dels bacteris i viatja fins a un gangli limfàtic. Allà els mostra en el seu MHC als limfòcits T. Si algun els reconeix, s'activa i es multiplica. Mentrestant, tu continues defensant la ferida, i per ella també hi ha entrat un virus.","A dendritic cell picks up pieces of the bacteria and travels to a lymph node. There it shows them on its MHC to T cells. If one recognises them, it activates and multiplies. Meanwhile you keep defending the wound, and a virus has got in through it too."],
+  "Los linfocitos T colaboradores activan a los linfocitos B, que se convierten en células plasmáticas y fabrican anticuerpos. Ya puedes usar anticuerpos y linfocitos T citotóxicos. Prueba la combinación de anticuerpos y fagocitosis: la opsonización.":["Els limfòcits T col·laboradors activen els limfòcits B, que es converteixen en cèl·lules plasmàtiques i fabriquen anticossos. Ja pots fer servir anticossos i limfòcits T citotòxics. Prova la combinació d'anticossos i fagocitosi: l'opsonització.","Helper T cells activate B cells, which become plasma cells and make antibodies. You can now use antibodies and cytotoxic T cells. Try combining antibodies and phagocytosis: opsonization."],
+  "Sepsis":["Sèpsia","Sepsis"],
+  "Algunas bacterias han llegado a la sangre. Si la respuesta se descontrola, la inflamación se extiende por todo el cuerpo: es la sepsis, una urgencia médica. Es el combate final.":["Alguns bacteris han arribat a la sang. Si la resposta es descontrola, la inflamació s'estén per tot el cos: és la sèpsia, una urgència mèdica. És el combat final.","Some bacteria have reached the blood. If the response runs out of control, inflammation spreads through the whole body: that is sepsis, a medical emergency. This is the final battle."],
+  "Tras la infección quedan linfocitos B y T de memoria. Si los mismos microbios vuelven, la respuesta será mucho más rápida y ni siquiera notarás que has estado enfermo. Así funcionan las vacunas: enseñan a tu sistema inmune sin tener que pasar la enfermedad.":["Després de la infecció queden limfòcits B i T de memòria. Si els mateixos microbis tornen, la resposta serà molt més ràpida i ni tan sols notaràs que has estat malalt. Així funcionen les vacunes: ensenyen el teu sistema immunitari sense haver de passar la malaltia.","After the infection, memory B and T cells remain. If the same microbes come back, the response will be much faster and you won't even notice you were ill. That's how vaccines work: they teach your immune system without you having to catch the disease."],
+  "Núcleo":["Nucli","Nucleus"], "Guarda el ADN. En el macrófago tiene forma de riñón.":["Guarda l'ADN. En el macròfag té forma de ronyó.","It holds the DNA. In a macrophage it is kidney-shaped."],
+  "Aparato de Golgi":["Aparell de Golgi","Golgi apparatus"], "Cisternas apiladas que empaquetan proteínas en vesículas.":["Cisternes apilades que empaqueten proteïnes en vesícules.","Stacked cisternae that package proteins into vesicles."],
+  "Mitocondria":["Mitocondri","Mitochondrion"], "Produce ATP con la respiración celular. Fíjate en las crestas.":["Produeix ATP amb la respiració cel·lular. Fixa't en les crestes.","It makes ATP by cellular respiration. Look at the cristae."],
+  "Lisosomas":["Lisosomes","Lysosomes"], "Vesículas con enzimas que digieren lo que fagocitas.":["Vesícules amb enzims que digereixen el que fagocites.","Vesicles full of enzymes that digest what you engulf."],
+  "Retículo endoplasmático rugoso":["Reticle endoplasmàtic rugós","Rough endoplasmic reticulum"], "Membranas con ribosomas que fabrican proteínas.":["Membranes amb ribosomes que fabriquen proteïnes.","Membranes studded with ribosomes that make proteins."],
+  "Membrana plasmática":["Membrana plasmàtica","Plasma membrane"], "Bicapa de fosfolípidos que separa la célula del exterior.":["Bicapa de fosfolípids que separa la cèl·lula de l'exterior.","A phospholipid bilayer that separates the cell from the outside."],
+  "Filopodio":["Filopodi","Filopodium"], "Prolongación fina que explora el entorno.":["Prolongació fina que explora l'entorn.","A thin extension that explores the surroundings."],
+  "Coco":["Coc","Coccus"], "Célula esférica de 1 µm. En racimo, típica de Staphylococcus.":["Cèl·lula esfèrica d'1 µm. En raïm, típica de Staphylococcus.","A spherical cell 1 µm across. In clusters, typical of Staphylococcus."],
+  "Tabique de división":["Septe de divisió","Division septum"], "Por aquí se separan dos cocos en la fisión binaria.":["Per aquí se separen dos cocs en la fissió binària.","Where two cocci separate during binary fission."],
+  "Matriz de polisacáridos que protege a la colonia.":["Matriu de polisacàrids que protegeix la colònia.","A polysaccharide matrix that protects the colony."],
+  "Adhesinas":["Adhesines","Adhesins"], "Proteínas de superficie que se pegan a los tejidos.":["Proteïnes de superfície que s'enganxen als teixits.","Surface proteins that stick to tissues."],
+  "Membrana externa con LPS":["Membrana externa amb LPS","Outer membrane with LPS"], "Exclusiva de las Gram−. Frena la lisozima y muchos antibióticos.":["Exclusiva dels gram−. Frena el lisozim i molts antibiòtics.","Found only in Gram-negative bacteria. It holds back lysozyme and many antibiotics."],
+  "Nucleoide":["Nucleoide","Nucleoid"], "ADN circular sin membrana nuclear.":["ADN circular sense membrana nuclear.","Circular DNA with no nuclear membrane."],
+  "Ribosomas":["Ribosomes","Ribosomes"], "Ribosomas 70S, más pequeños que los tuyos.":["Ribosomes 70S, més petits que els teus.","70S ribosomes, smaller than yours."], "Fimbrias":["Fímbries","Fimbriae"], "Pelos cortos para adherirse.":["Pèls curts per adherir-se.","Short hairs for sticking to surfaces."],
+  "Flagelo":["Flagel","Flagellum"], "Gira como una hélice impulsado por un motor de protones.":["Gira com una hèlix impulsat per un motor de protons.","It spins like a propeller driven by a proton motor."],
+  "Hemaglutinina":["Hemaglutinina","Haemagglutinin"], "Espícula con la que el virus se une a tus células. Es la «H» de H1N1.":["Espícula amb què el virus s'uneix a les teves cèl·lules. És la «H» d'H1N1.","The spike the virus uses to bind your cells. It is the «H» in H1N1."],
+  "Neuraminidasa":["Neuraminidasa","Neuraminidase"], "Espícula que libera los virus nuevos. Es la «N» de H1N1.":["Espícula que allibera els virus nous. És la «N» d'H1N1.","The spike that releases new viruses. It is the «N» in H1N1."],
+  "Envoltura lipídica":["Embolcall lipídic","Lipid envelope"], "Membrana robada a la célula que infectó.":["Membrana robada a la cèl·lula que va infectar.","Membrane stolen from the cell it infected."],
+  "Segmentos de ARN":["Segments d'ARN","RNA segments"], "Ocho trozos de ARN: por eso la gripe se recombina con facilidad.":["Vuit trossos d'ARN: per això la grip es recombina amb facilitat.","Eight pieces of RNA: that's why flu reshuffles so easily."],
+  "Pared de quitina":["Paret de quitina","Chitin wall"], "La misma molécula que el caparazón de los insectos.":["La mateixa molècula que la closca dels insectes.","The same molecule as insect shells."], "Es eucariota: tiene núcleo con membrana.":["És eucariota: té nucli amb membrana.","It is a eukaryote: it has a membrane-bound nucleus."],
+  "Vacuola":["Vacúol","Vacuole"], "Almacena agua y sustancias.":["Emmagatzema aigua i substàncies.","It stores water and other substances."], "Yema":["Gemma","Bud"], "La hija que está brotando.":["La filla que està brotant.","The daughter cell sprouting off."],
+  "Cicatriz de gemación":["Cicatriu de gemmació","Bud scar"], "Marca que deja cada yema al separarse.":["Marca que deixa cada gemma en separar-se.","The mark each bud leaves when it separates."],
+  "Pseudohifa":["Pseudohifa","Pseudohypha"], "Células alargadas en cadena: así invade los tejidos.":["Cèl·lules allargades en cadena: així envaeix els teixits.","Elongated cells in a chain: this is how it invades tissues."],
+  "Pseudópodo":["Pseudòpode","Pseudopod"], "Prolongación del citoplasma para moverse y comer.":["Prolongació del citoplasma per moure's i menjar.","An extension of the cytoplasm for moving and feeding."], "Núcleo grande y aplanado.":["Nucli gran i aplanat.","A large, flattened nucleus."],
+  "Vacuola contráctil":["Vacúol contràctil","Contractile vacuole"], "Expulsa el agua que entra por ósmosis.":["Expulsa l'aigua que entra per osmosi.","It pumps out the water that enters by osmosis."],
+  "Vacuola digestiva":["Vacúol digestiu","Food vacuole"], "Contiene algas que ha fagocitado.":["Conté algues que ha fagocitat.","It contains algae it has engulfed."], "Ectoplasma":["Ectoplasma","Ectoplasm"], "Capa externa, clara y sin gránulos.":["Capa externa, clara i sense grànuls.","The outer layer, clear and without granules."],
+  "Pared de celulosa":["Paret de cel·lulosa","Cellulose wall"], "Rígida: aguanta la presión de turgencia.":["Rígida: aguanta la pressió de turgència.","Rigid: it withstands turgor pressure."],
+  "Cloroplasto":["Cloroplast","Chloroplast"], "Hace la fotosíntesis. Las pilas de discos son los grana.":["Fa la fotosíntesi. Les piles de discos són els grana.","It carries out photosynthesis. The stacks of discs are the grana."],
+  "Vacuola central":["Vacúol central","Central vacuole"], "Ocupa casi toda la célula y la mantiene turgente.":["Ocupa gairebé tota la cèl·lula i la manté turgent.","It fills almost the whole cell and keeps it turgid."], "Desplazado a un lado por la vacuola.":["Desplaçat a un costat pel vacúol.","Pushed to one side by the vacuole."],
+  "Plasmodesmos":["Plasmodesmes","Plasmodesmata"], "Canales que comunican con las células vecinas.":["Canals que comuniquen amb les cèl·lules veïnes.","Channels connecting to neighbouring cells."],
+  "Cilios":["Cilis","Cilia"], "Miles de cilios que baten en ondas metacrónicas.":["Milers de cilis que baten en ones metacròniques.","Thousands of cilia beating in metachronal waves."], "Macronúcleo":["Macronucli","Macronucleus"], "Controla el día a día de la célula.":["Controla el dia a dia de la cèl·lula.","It runs the cell's day-to-day life."],
+  "Micronúcleo":["Micronucli","Micronucleus"], "Se usa en la reproducción sexual (conjugación).":["S'utilitza en la reproducció sexual (conjugació).","It is used in sexual reproduction (conjugation)."], "Con forma de estrella: bombea fuera el agua.":["En forma d'estrella: bomba l'aigua cap a fora.","Star-shaped: it pumps the water out."],
+  "Surco oral":["Solc oral","Oral groove"], "Embudo por el que entra la comida.":["Embut per on entra el menjar.","The funnel food goes in through."], "Orgánulo de adhesión":["Orgànul d'adhesió","Attachment organelle"], "Punta con la que se pega a las células del pulmón.":["Punta amb què s'enganxa a les cèl·lules del pulmó.","The tip it uses to stick to lung cells."],
+  "Membrana sin pared":["Membrana sense paret","Wall-less membrane"], "Reforzada con colesterol robado al huésped.":["Reforçada amb colesterol robat a l'hoste.","Strengthened with cholesterol stolen from the host."], "ADN":["ADN","DNA"], "Uno de los genomas más pequeños de cualquier ser vivo.":["Un dels genomes més petits de qualsevol ésser viu.","One of the smallest genomes of any living thing."],
+  "Núcleos múltiples":["Nuclis múltiples","Multiple nuclei"], "Núcleos grandes y de tamaño desigual: señal de malignidad.":["Nuclis grans i de mida desigual: senyal de malignitat.","Large nuclei of uneven size: a sign of malignancy."],
+  "Nucléolo prominente":["Nuclèol prominent","Prominent nucleolus"], "Fabrica ribosomas a toda velocidad para crecer.":["Fabrica ribosomes a tota velocitat per créixer.","It makes ribosomes at full speed to grow."],
+  "Vesículas de membrana":["Vesícules de membrana","Membrane blebs"], "Burbujas que forma al moverse e invadir.":["Bombolles que forma en moure's i envair.","Bubbles it forms as it moves and invades."],
+  "Mitosis anómala":["Mitosi anòmala","Abnormal mitosis"], "Los cromosomas se reparten mal: aneuploidía.":["Els cromosomes es reparteixen malament: aneuploïdia.","Chromosomes are shared out wrongly: aneuploidy."],
+  "Vaso sanguíneo nuevo":["Vas sanguini nou","New blood vessel"], "Angiogénesis: el tumor fabrica sus propios vasos.":["Angiogènesi: el tumor fabrica els seus propis vasos.","Angiogenesis: the tumour builds its own vessels."],
+  "Bacilo":["Bacil","Bacillus"], "Bacteria en forma de bastón, en cadena.":["Bacteri en forma de bastó, en cadena.","A rod-shaped bacterium, in a chain."], "Núcleo deshidratado, córtex y cubierta de proteína. Aparece al esporular.":["Nucli deshidratat, còrtex i coberta de proteïna. Apareix en esporular.","A dehydrated core, cortex and protein coat. It appears on sporulation."],
+  "ADN bacteriano.":["ADN bacterià.","Bacterial DNA."], "Lámina β":["Làmina β","β-sheet"], "Cada flecha es un tramo de proteína plegado en lámina β.":["Cada fletxa és un tram de proteïna plegat en làmina β.","Each arrow is a stretch of protein folded into a β-sheet."],
+  "Fibrilla amiloide":["Fibril·la amiloide","Amyloid fibril"], "Las láminas se apilan en una fibra retorcida.":["Les làmines s'apilen en una fibra retorçada.","The sheets stack into a twisted fibre."],
+  "PrP sana":["PrP sana","Healthy PrP"], "Proteína normal, rica en hélices α. Al tocar la fibrilla se convierte.":["Proteïna normal, rica en hèlixs α. En tocar la fibril·la es converteix.","A normal protein, rich in α-helices. It converts when it touches the fibril."],
+  "Pared cérea":["Paret cèria","Waxy wall"], "Ácidos micólicos: por eso retiene la fucsina en la tinción de Ziehl-Neelsen.":["Àcids micòlics: per això reté la fucsina en la tinció de Ziehl-Neelsen.","Mycolic acids: that's why it keeps the fuchsin in the Ziehl-Neelsen stain."],
+  "Cordón":["Cordó","Cord"], "Las micobacterias se agrupan en cordones serpenteantes.":["Els micobacteris s'agrupen en cordons serpentejants.","Mycobacteria group into snaking cords."],
+  "Eritrocito infectado":["Eritròcit infectat","Infected red cell"], "Glóbulo rojo sin núcleo ni MHC-I: el escondite perfecto.":["Glòbul vermell sense nucli ni MHC-I: l'amagatall perfecte.","A red blood cell with no nucleus or MHC-I: the perfect hiding place."],
+  "Anillo":["Anell","Ring"], "Trofozoíto joven con forma de anillo de sello.":["Trofozoït jove en forma d'anell de segell.","A young trophozoite shaped like a signet ring."],
+  "Merozoítos":["Merozoïts","Merozoites"], "Salen al reventar el eritrocito e invaden otros nuevos.":["Surten en rebentar l'eritròcit i n'envaeixen d'altres de nous.","They come out when the red cell bursts and invade new ones."],
+  "Glicoproteína gp120":["Glicoproteïna gp120","gp120 glycoprotein"], "Se une al receptor CD4 de tus linfocitos T.":["S'uneix al receptor CD4 dels teus limfòcits T.","It binds the CD4 receptor on your T cells."],
+  "Cápside cónica":["Càpsida cònica","Conical capsid"], "Contiene dos copias de ARN y la transcriptasa inversa.":["Conté dues còpies d'ARN i la transcriptasa inversa.","It holds two copies of RNA and the reverse transcriptase."],
+  "Envoltura":["Embolcall","Envelope"], "Membrana tomada de la célula infectada.":["Membrana presa de la cèl·lula infectada.","Membrane taken from the infected cell."],
+  "Escólex":["Escòlex","Scolex"], "Cabeza con ventosas y una corona de ganchos para agarrarse al intestino.":["Cap amb ventoses i una corona de ganxos per agafar-se a l'intestí.","A head with suckers and a crown of hooks to grip the gut."],
+  "Proglótide":["Proglòtide","Proglottid"], "Cada segmento tiene órganos reproductores propios y se llena de huevos.":["Cada segment té òrgans reproductors propis i s'omple d'ous.","Each segment has its own reproductive organs and fills with eggs."],
+  "Tegumento":["Tegument","Tegument"], "Piel viva que absorbe nutrientes: no tiene boca ni intestino.":["Pell viva que absorbeix nutrients: no té boca ni intestí.","A living skin that absorbs nutrients: it has no mouth or gut."],
+  "Tinción de Gram":["Tinció de Gram","Gram stain"], "Se tiñe de violeta: bacteria Gram positiva.":["Es tenyeix de violeta: bacteri gram positiu.","Stains purple: a Gram-positive bacterium."], "Se tiñe de rosa: bacteria Gram negativa.":["Es tenyeix de rosa: bacteri gram negatiu.","Stains pink: a Gram-negative bacterium."],
+  "Se tiñe mal (Gram variable): una pared cérea impide que entren los colorantes.":["Es tenyeix malament (gram variable): una paret cèria impedeix que hi entrin els colorants.","Stains poorly (Gram-variable): a waxy wall keeps the dyes out."],
+  "Apenas se ve: no retiene el colorante, como si no tuviera pared.":["Gairebé no es veu: no reté el colorant, com si no tingués paret.","Barely visible: it doesn't hold the dye, as if it had no wall."],
+  "No se ve nada: es demasiado pequeño para el microscopio óptico.":["No es veu res: és massa petit per al microscopi òptic.","Nothing visible: it's too small for a light microscope."], "No es una bacteria: se ven células grandes con núcleo.":["No és un bacteri: es veuen cèl·lules grans amb nucli.","Not a bacterium: you see large cells with a nucleus."],
+  "No hace falta microscopio: se ve a simple vista.":["No cal microscopi: es veu a ull nu.","No microscope needed: you can see it with the naked eye."], "Observación en fresco":["Observació en fresc","Wet mount"],
+  "Cocos agrupados en racimos, inmóviles.":["Cocs agrupats en raïms, immòbils.","Cocci in clusters, not moving."], "Bacilos que nadan deprisa con flagelos.":["Bacils que neden de pressa amb flagels.","Rods swimming fast with flagella."], "Bacilos largos en cadena, inmóviles.":["Bacils llargs en cadena, immòbils.","Long rods in chains, not moving."],
+  "Bacilos finos agrupados en cordones serpenteantes.":["Bacils fins agrupats en cordons serpentejants.","Thin rods grouped into snaking cords."], "Células diminutas de forma variable.":["Cèl·lules diminutes de forma variable.","Tiny cells of varying shape."], "Demasiado pequeño para el microscopio óptico.":["Massa petit per al microscopi òptic.","Too small for a light microscope."],
+  "Células ovaladas, algunas con yemas.":["Cèl·lules ovalades, algunes amb gemmes.","Oval cells, some with buds."], "Una célula grande que cambia de forma y se arrastra con pseudópodos.":["Una cèl·lula gran que canvia de forma i s'arrossega amb pseudòpodes.","A large cell that changes shape and crawls with pseudopods."],
+  "Una célula con forma de zapatilla que nada girando gracias a sus cilios.":["Una cèl·lula en forma de sabatilla que neda girant gràcies als cilis.","A slipper-shaped cell that swims in spirals using its cilia."], "Células rectangulares y verdes que forman un tejido.":["Cèl·lules rectangulars i verdes que formen un teixit.","Green, rectangular cells forming a tissue."],
+  "Células grandes e irregulares, con núcleos de tamaño desigual.":["Cèl·lules grans i irregulars, amb nuclis de mida desigual.","Large, irregular cells with nuclei of uneven size."], "Algunos glóbulos rojos tienen un pequeño anillo dentro.":["Alguns glòbuls vermells tenen un petit anell a dins.","Some red blood cells have a small ring inside."],
+  "Segmentos blancos y aplanados, visibles a simple vista.":["Segments blancs i aplanats, visibles a ull nu.","Flat white segments, visible to the naked eye."], "Tinción de Ziehl-Neelsen":["Tinció de Ziehl-Neelsen","Ziehl-Neelsen stain"],
+  "Bacilos rojos sobre fondo azul: ácido-alcohol resistentes.":["Bacils vermells sobre fons blau: àcid-alcohol resistents.","Red rods on a blue background: acid-fast."], "Se ven azules: no son ácido-alcohol resistentes.":["Es veuen blaus: no són àcid-alcohol resistents.","They look blue: not acid-fast."],
+  "Prueba no útil: no hay bacterias que teñir.":["Prova no útil: no hi ha bacteris per tenyir.","Not useful: there are no bacteria to stain."], "Tinción de esporas":["Tinció d'espores","Spore stain"], "Esporas verdes dentro de bacilos rosas.":["Espores verdes dins de bacils roses.","Green spores inside pink rods."],
+  "No se ven esporas.":["No es veuen espores.","No spores seen."], "Prueba no útil: no hay bacterias.":["Prova no útil: no hi ha bacteris.","Not useful: there are no bacteria."], "Blanco de calcoflúor":["Blanc de calcoflúor","Calcofluor white"],
+  "Brilla azul intenso con luz UV: pared de quitina, es un hongo.":["Brilla blau intens amb llum UV: paret de quitina, és un fong.","Glows bright blue under UV: a chitin wall, so it's a fungus."], "Brilla débilmente: el calcoflúor también se une a la celulosa.":["Brilla feblement: el calcoflúor també s'uneix a la cel·lulosa.","Glows faintly: calcofluor also binds cellulose."],
+  "No brilla: no tiene quitina ni celulosa.":["No brilla: no té quitina ni cel·lulosa.","No glow: no chitin or cellulose."], "Microscopio electrónico":["Microscopi electrònic","Electron microscope"],
+  "Partículas esféricas de unos 100 nm con espículas en la envoltura.":["Partícules esfèriques d'uns 100 nm amb espícules a l'embolcall.","Spherical particles about 100 nm across with spikes on the envelope."], "Partículas de unos 120 nm con una cápside interna en forma de cono.":["Partícules d'uns 120 nm amb una càpsida interna en forma de con.","Particles about 120 nm across with a cone-shaped inner capsid."],
+  "Fibrillas largas y retorcidas de unos 10 nm: amiloide.":["Fibril·les llargues i retorçades d'uns 10 nm: amiloide.","Long twisted fibrils about 10 nm wide: amyloid."], "Se ven células completas con sus orgánulos: no es un virus.":["Es veuen cèl·lules completes amb els seus orgànuls: no és un virus.","Whole cells with organelles are visible: it isn't a virus."],
+  "Frotis de sangre con Giemsa":["Frotis de sang amb Giemsa","Giemsa blood smear"], "Anillos morados dentro de los glóbulos rojos.":["Anells morats dins dels glòbuls vermells.","Purple rings inside the red blood cells."], "Los glóbulos rojos están limpios.":["Els glòbuls vermells estan nets.","The red blood cells are clean."],
+  "Rojo Congo con luz polarizada":["Vermell Congo amb llum polaritzada","Congo red under polarised light"], "Brillo verde manzana: hay depósitos de amiloide.":["Brillantor verd poma: hi ha dipòsits d'amiloide.","Apple-green glow: amyloid deposits present."], "Negativo: no hay amiloide.":["Negatiu: no hi ha amiloide.","Negative: no amyloid."],
+  "Lee sus rasgos: la pared, la membrana y el tipo de célula te dicen qué herramienta usar.":["Llegeix-ne els trets: la paret, la membrana i el tipus de cèl·lula et diuen quina eina fer servir.","Read its features: the wall, the membrane and the cell type tell you which tool to use."],
+  "No le ha hecho nada. Mira el rasgo resaltado en su ficha: ahí está la explicación.":["No li ha fet res. Mira el tret destacat a la seva fitxa: hi ha l'explicació.","That did nothing. Look at the highlighted feature on its card: that's the explanation."],
+  "¡Eso es! Has aprovechado su punto débil.":["Això és! Has aprofitat el seu punt feble.","That's it! You exploited its weak spot."], "Te queda poca vida. Si pierdes, retrocederás un nivel.":["Et queda poca vida. Si perds, retrocediràs un nivell.","You're low on health. If you lose, you'll drop a level."],
+  "Es un jefe: tiene mucha más vida. Es buen momento para una combinación.":["És un cap: té molta més vida. És un bon moment per a una combinació.","It's a boss: it has much more health. A good time for a combo."],
+  "¡Una combinación! Quedará apuntada en el Laboratorio, en Herramientas.":["Una combinació! Quedarà apuntada al Laboratori, a Eines.","A combo! It'll be noted in the Lab, under Tools."],
+  "Mira: una cepa resistente. Es lo que pasa cuando se abusa de un antibiótico.":["Mira: una soca resistent. És el que passa quan s'abusa d'un antibiòtic.","Look: a resistant strain. That's what happens when an antibiotic is overused."],
+  "Cuidado: esa herramienta también te daña a ti. Los fármacos tienen efectos secundarios.":["Compte: aquesta eina també et danya a tu. Els fàrmacs tenen efectes secundaris.","Careful: that tool hurts you too. Drugs have side effects."],
+  "El VIH ataca a tus linfocitos T: cuanto más dure el combate, peor funcionarán los anticuerpos y los linfocitos T.":["El VIH ataca els teus limfòcits T: com més duri el combat, pitjor funcionaran els anticossos i els limfòcits T.","HIV attacks your T cells: the longer the battle lasts, the worse antibodies and T cells will work."],
+  "Mientras esté dentro del glóbulo rojo, solo la artemisinina lo alcanza bien. Espera a que salgan los merozoítos.":["Mentre sigui dins del glòbul vermell, només l'artemisinina l'abasta bé. Espera que surtin els merozoïts.","While it's inside the red cell, only artemisinin reaches it properly. Wait for the merozoites to come out."],
+  "La tuberculosis sobrevive dentro de los macrófagos: fagocitarla no basta. Necesitas un antibiótico específico.":["La tuberculosi sobreviu dins dels macròfags: fagocitar-la no n'hi ha prou. Necessites un antibiòtic específic.","TB survives inside macrophages: engulfing it isn't enough. You need a specific antibiotic."],
+  "Bienvenido al modo historia. Seguiremos una infección real, paso a paso.":["Benvingut al mode història. Seguirem una infecció real, pas a pas.","Welcome to story mode. We'll follow a real infection, step by step."],
+  "Diagnóstico":["Diagnòstic","Diagnosis"], "Anticuerpos":["Anticossos","Antibodies"],
+};
+for (const k in I18N_RAW2){ I18N.ca[k] = I18N_RAW2[k][0]; I18N.en[k] = I18N_RAW2[k][1]; }
 
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
 const DT = {
@@ -1102,6 +1496,73 @@ en:{
 },
 };
 
+// Traducción de los datos de la versión 4 (se añaden a DT)
+(function(){
+const add = (l, o) => { const D = DT[l]; for (const k in o){ if (Array.isArray(o[k]) && Array.isArray(D[k])) D[k].push(...o[k]); else if (k === 'E'){ for (const t in o.E) D.E[t] = Object.assign(D.E[t] || {}, o.E[t]); } else Object.assign(D[k], o[k]); } };
+add('ca', {
+  T:{
+    tbc:['Bacil de la tuberculosi','Tuberculosi miliar','La seva paret té una gruixuda capa cèria d\'àcids micòlics que la protegeix de gairebé tot: colorants, anticossos i molts antibiòtics. Sobreviu dins dels macròfags, perquè impedeix que el fagosoma es fusioni amb el lisosoma. Creix molt a poc a poc (es divideix cada 18–24 hores), així que només ataca un torn de cada dos, però és molt resistent.',['Bacteri àcid-alcohol resistent','Paret cèria d\'àcids micòlics','Viu dins dels macròfags','Creixement lent']],
+    mal:['Plasmodi de la malària','Malària greu','Protozou que transmet el mosquit Anopheles. Passa la major part del temps dins dels glòbuls vermells, que no tenen MHC-I: cap limfòcit T no el pot veure allà. Durant dos torns està amagat en un eritròcit i al tercer el rebenta i en surten merozoïts exposats. Cada pocs torns provoca un accés de febre que colpeja més fort.',['Protozou apicomplex','S\'amaga als eritròcits','Invisible per als limfòcits T','Cicles de febre']],
+    vih:['VIH','Sida','Retrovirus: copia el seu ARN a ADN amb la transcriptasa inversa i s\'integra en el genoma de la cèl·lula. Infecta els limfòcits T CD4, els que coordinen la resposta immunitària: cada torn que passa, els teus anticossos i limfòcits T funcionen pitjor. Cada tres torns s\'amaga en estat latent.',['Retrovirus','Ataca els teus limfòcits T CD4','Muta molt de pressa','S\'integra en el teu ADN'],null,'Virus de la immunodeficiència humana 1'],
+    ten:['Tènia','Teniasi','Un animal pluricel·lular, no una cèl·lula: un cuc pla que viu a l\'intestí i pot fer diversos metres. S\'agafa amb les ventoses i els ganxos del seu escòlex i no para de formar nous segments (proglòtides) des del coll: recupera vida cada torn. És massa gran per fagocitar-la; contra ella lluiten els eosinòfils.',['Cuc pla pluricel·lular','Diversos metres de llarg','Tegument protector','Regenera proglòtides']],
+  },
+  TL:{
+    iso:['Isoniazida','Antibiòtic que impedeix fabricar els àcids micòlics, els lípids cerosos de la paret dels micobacteris. Sense ells, la paret s\'esfondra.'],
+    art:['Artemisinina','Fàrmac extret de l\'artemísia anual (Artemisia annua). El ferro de l\'hemo que digereix el paràsit activa el seu pont de peròxid i genera radicals lliures. Tu Youyou va rebre el Nobel el 2015 per descobrir-la.'],
+    arv:['Antiretrovirals','Inhibidors de la transcriptasa inversa: impedeixen que l\'ARN del VIH es copiï a ADN i s\'integri en el teu genoma.'],
+    pzq:['Praziquantel','Antiparasitari que obre l\'entrada de calci al tegument dels cucs plans: el cuc es contrau, es paralitza i es deixa anar de l\'intestí.'],
+  },
+  E:{
+    fago:{tbc:'Mycobacterium tuberculosis sobreviu dins dels macròfags: impedeix que el fagosoma es fusioni amb el lisosoma.',mal:'Només pots engolir els merozoïts solts o els eritròcits infectats.',vih:'El VIH és diminut i a més pot infectar els mateixos macròfags.',ten:'Una tènia fa diversos metres: és impossible fagocitar-la.'},
+    lis:{tbc:'La paret cèria d\'àcids micòlics protegeix el seu peptidoglicà.'},
+    pen:{tbc:'Els micobacteris resisteixen els β-lactàmics: la seva paret cèria en frena l\'entrada i fabriquen β-lactamases.'},
+    uv:{tbc:'La paret gruixuda la protegeix una mica, tot i que la UV sí que la danya: s\'utilitza per desinfectar l\'aire a les sales de tuberculosi.',mal:'És dins dels eritròcits, a la sang: la UV amb prou feines hi arriba.',vih:'La UV danya el seu ARN.',ten:'Un cuc pluricel·lular té teixits que protegeixen el seu ADN.'},
+    ac:{tbc:'Els anticossos serveixen de poc contra un bacteri que viu dins dels macròfags.',vih:'Hi ha anticossos neutralitzants contra el VIH, però el virus muta tan de pressa que se\'ls escapa.',ten:'La IgE marca el cuc perquè els eosinòfils l\'ataquin.'},
+    anf:{tbc:'Els bacteris no tenen esterols a la membrana.',vih:'El seu embolcall prové de la membrana de la cèl·lula hoste i no té ergosterol.'},
+    osm:{mal:'Ni l\'eritròcit ni el paràsit tenen paret: l\'aigua els infla.',vih:'Un virus no és una cèl·lula: no hi ha osmosi que el faci rebentar.',ten:'Un cuc pluricel·lular regula l\'aigua amb les seves cèl·lules excretores (protonefridis).'},
+    tc:{tbc:'Els limfòcits T ajuden a tancar el micobacteri en un granuloma, però no l\'eliminen del tot.',mal:'Els eritròcits no tenen MHC-I: els limfòcits T només detecten el paràsit en la fase hepàtica.',vih:'Destrueix les cèl·lules infectades, tot i que el VIH ataca precisament els limfòcits T col·laboradors.'},
+    tax:{tbc:'Els bacteris no tenen microtúbuls ni mitosi: es divideixen per fissió binària.',vih:'Un virus no es divideix: el copia la maquinària de la cèl·lula que infecta.',ten:'Els cucs són sensibles als fàrmacs que ataquen els seus microtúbuls: així funciona l\'albendazole.'},
+    iso:{def:'Només afecta els micobacteris: els altres organismes no fabriquen àcids micòlics.',tbc:'La isoniazida bloqueja la síntesi d\'àcids micòlics: sense la seva capa cèria, el micobacteri queda indefens.',gp:'Els estafilococs no tenen àcids micòlics a la paret.',bac:'Bacillus no té àcids micòlics a la paret.'},
+    art:{def:'L\'artemisinina actua sobre els paràsits de la malària: necessita el ferro de l\'hemo que digereixen dins de l\'eritròcit.',mal:'El ferro de l\'hemo que digereix el paràsit activa l\'artemisinina, que el destrueix amb radicals lliures, fins i tot dins de l\'eritròcit.',can:'S\'investiga contra alguns tumors rics en ferro, però aquí amb prou feines els afecta.'},
+    arv:{def:'Només actua sobre els retrovirus, que copien el seu ARN a ADN amb la transcriptasa inversa.',vih:'Sense transcriptasa inversa, l\'ARN del VIH no pot passar a ADN ni integrar-se: el virus deixa de multiplicar-se.',vir:'La grip no té transcriptasa inversa: copia el seu ARN directament a ARN.'},
+    pzq:{def:'El praziquantel actua sobre els cucs plans: els organismes unicel·lulars no tenen el seu tegument.',ten:'El calci entra de cop al seu tegument: la tènia es contrau, es paralitza i es deixa anar.'},
+  },
+  LB:{tbc:['Tinció de Ziehl-Neelsen (àcid-alcohol resistent)','2–4 × 0,3 µm'],mal:['Frotis de sang amb Giemsa','≈ 2 µm dins d\'un eritròcit de 7,5 µm'],vih:['Microscopi electrònic de transmissió','≈ 120 nm'],ten:['Lupa binocular (proglòtides)','2–7 m']},
+  SP:[['Malària cerebral','Citoadherència: els eritròcits infectats s\'enganxen als vasos del cervell i el paràsit recupera un 8 % cada torn.']],
+});
+add('en', {
+  T:{
+    tbc:['Tuberculosis bacillus','Miliary tuberculosis','Its wall has a thick waxy layer of mycolic acids that protects it from almost everything: dyes, antibodies and many antibiotics. It survives inside macrophages, because it stops the phagosome fusing with the lysosome. It grows very slowly (dividing every 18–24 hours), so it only attacks every other turn, but it is very tough.',['Acid-fast bacterium','Waxy mycolic-acid wall','Lives inside macrophages','Slow growth']],
+    mal:['Malaria parasite','Severe malaria','A protozoan spread by the Anopheles mosquito. It spends most of its time inside red blood cells, which have no MHC-I: no T cell can see it there. For two turns it hides in a red cell, and on the third it bursts it and exposed merozoites come out. Every few turns it triggers a fever attack that hits harder.',['Apicomplexan protozoan','Hides in red blood cells','Invisible to T cells','Fever cycles']],
+    vih:['HIV','AIDS','A retrovirus: it copies its RNA into DNA with reverse transcriptase and integrates into the cell\'s genome. It infects CD4 T cells, the ones that coordinate the immune response: with every turn that passes, your antibodies and T cells work worse. Every three turns it hides in a latent state.',['Retrovirus','Attacks your CD4 T cells','Mutates very fast','Integrates into your DNA'],null,'Human immunodeficiency virus 1'],
+    ten:['Tapeworm','Taeniasis','A multicellular animal, not a cell: a flatworm that lives in the gut and can be several metres long. It holds on with the suckers and hooks of its scolex and keeps growing new segments (proglottids) from its neck: it recovers health every turn. It is far too big to engulf; eosinophils are the ones that fight it.',['Multicellular flatworm','Several metres long','Protective tegument','Regrows proglottids']],
+  },
+  TL:{
+    iso:['Isoniazid','An antibiotic that stops mycobacteria from making mycolic acids, the waxy lipids of their wall. Without them, the wall falls apart.'],
+    art:['Artemisinin','A drug extracted from sweet wormwood (Artemisia annua). The iron in the haem the parasite digests activates its peroxide bridge and releases free radicals. Tu Youyou won the 2015 Nobel Prize for discovering it.'],
+    arv:['Antiretrovirals','Reverse transcriptase inhibitors: they stop HIV RNA from being copied into DNA and integrating into your genome.'],
+    pzq:['Praziquantel','An antiparasitic drug that lets calcium flood into the tegument of flatworms: the worm contracts, is paralysed and lets go of the gut.'],
+  },
+  E:{
+    fago:{tbc:'Mycobacterium tuberculosis survives inside macrophages: it stops the phagosome fusing with the lysosome.',mal:'You can only engulf loose merozoites or infected red cells.',vih:'HIV is tiny and can even infect macrophages themselves.',ten:'A tapeworm is several metres long: there is no way to engulf it.'},
+    lis:{tbc:'The waxy mycolic-acid wall protects its peptidoglycan.'},
+    pen:{tbc:'Mycobacteria resist β-lactams: their waxy wall keeps them out and they make β-lactamases.'},
+    uv:{tbc:'Its thick wall protects it somewhat, though UV does damage it: it is used to disinfect the air in TB wards.',mal:'It is inside red cells, in the blood: UV barely reaches it.',vih:'UV damages its RNA.',ten:'A multicellular worm has tissues that shield its DNA.'},
+    ac:{tbc:'Antibodies are of little use against a bacterium that lives inside macrophages.',vih:'There are neutralising antibodies against HIV, but the virus mutates so fast it escapes them.',ten:'IgE tags the worm so eosinophils attack it.'},
+    anf:{tbc:'Bacteria have no sterols in their membrane.',vih:'Its envelope comes from the host cell membrane and has no ergosterol.'},
+    osm:{mal:'Neither the red cell nor the parasite has a wall: water swells them.',vih:'A virus is not a cell: there is no osmosis to make it burst.',ten:'A multicellular worm controls its water with excretory cells (protonephridia).'},
+    tc:{tbc:'T cells help wall the mycobacterium off in a granuloma, but they don\'t wipe it out.',mal:'Red blood cells have no MHC-I: T cells only spot the parasite in its liver stage.',vih:'It destroys infected cells, even though HIV attacks precisely the helper T cells.'},
+    tax:{tbc:'Bacteria have no microtubules and no mitosis: they divide by binary fission.',vih:'A virus does not divide: it is copied by the machinery of the cell it infects.',ten:'Worms are sensitive to drugs that attack their microtubules: that is how albendazole works.'},
+    iso:{def:'It only affects mycobacteria: other organisms don\'t make mycolic acids.',tbc:'Isoniazid blocks mycolic acid synthesis: without its waxy layer, the mycobacterium is defenceless.',gp:'Staphylococci have no mycolic acids in their wall.',bac:'Bacillus has no mycolic acids in its wall.'},
+    art:{def:'Artemisinin acts on malaria parasites: it needs the iron in the haem they digest inside the red cell.',mal:'The iron in the haem the parasite digests activates artemisinin, which destroys it with free radicals, even inside the red cell.',can:'It is being studied against some iron-rich tumours, but here it barely affects them.'},
+    arv:{def:'It only acts on retroviruses, which copy their RNA into DNA with reverse transcriptase.',vih:'Without reverse transcriptase, HIV RNA can\'t become DNA or integrate: the virus stops multiplying.',vir:'Flu has no reverse transcriptase: it copies its RNA straight into RNA.'},
+    pzq:{def:'Praziquantel acts on flatworms: single-celled organisms don\'t have their tegument.',ten:'Calcium floods into its tegument: the tapeworm contracts, is paralysed and lets go.'},
+  },
+  LB:{tbc:['Ziehl-Neelsen stain (acid-fast)','2–4 × 0.3 µm'],mal:['Giemsa blood smear','≈ 2 µm inside a 7.5 µm red cell'],vih:['Transmission electron microscope','≈ 120 nm'],ten:['Stereo microscope (proglottids)','2–7 m']},
+  SP:[['Cerebral malaria','Cytoadherence: infected red cells stick to the brain\'s blood vessels and the parasite recovers 8 % every turn.']],
+});
+})();
+
 /* =====================================================================
    ESTADO Y FÓRMULAS
    ===================================================================== */
@@ -1112,17 +1573,27 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   auto:false, advance:true, sound:true, intro:false, t:Date.now(),
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
-  sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null});
+  sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
+  tree:{}, lpts:0, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
-const cellD = () => CELLS[S.cell] || CELLS.mac;
-const owns = id => S.clase || !!S.tools[id];
-const canAuto = () => S.memoria || S.clase;
+// Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
+const storyCh = () => S.story ? STORY[S.story.ch] : null;
+const effLevel = () => storyCh() ? storyCh().L : S.level;
+const fixedStats = () => S.clase || !!storyCh();
+const cellD = () => CELLS[(storyCh() && storyCh().cell) || S.cell] || CELLS.mac;
+const owns = id => storyCh() ? storyCh().tools.includes(id) : S.clase || !!S.tools[id];
+const canAuto = () => S.memoria || S.clase || !!storyCh();
+// Árbol de habilidades
+const has = id => !!S.tree[id];
+const treeSpent = () => Object.keys(S.tree).reduce((a, id) => a + (TREE_NODES[id] ? TREE_NODES[id].cost : 0), 0);
+const treeFree = () => S.lpts - treeSpent();
+const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (S.clase ? 10*Math.pow(1.24, S.level-1) : 10*Math.pow(1.15, S.upg.fue)*adnM())*cellD().atk;
-const maxHp = () => (S.clase ? 120*Math.pow(1.2, S.level-1) : 100*Math.pow(1.15, S.upg.mem)*adnM())*cellD().hp;
-const taken = () => S.clase ? .8 : Math.pow(.96, S.upg.cit);
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*adnM())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*adnM())*cellD().hp;
+const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
 const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM();
 const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM();
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
@@ -1146,12 +1617,13 @@ function load(data){
   let d = data && data.S;
   if (!d){ try{ d = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); }catch(_){ d = null; } }
   if (!d || d.v !== 1) return false;
-  const f = fresh(), nested = ['upg', 'quiz', 'first', 'daily', 'stats'];
+  const f = fresh(), nested = ['upg', 'quiz', 'first', 'daily', 'stats', 'diag'];
   const keep = {}; nested.forEach(k => keep[k] = f[k]);
   S = Object.assign(f, d);
   nested.forEach(k => S[k] = Object.assign(keep[k], d[k] || {}));
   for (const k in S.upg) if (!isFinite(S.upg[k])) S.upg[k] = 0;
   if (!isFinite(S.atp)) S.atp = 0;
+  if (S.story && !STORY[S.story.ch]) S.story = null;
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);
   return true;
@@ -1235,6 +1707,91 @@ function startMusic(epic){
 }
 function stopMusic(){ clearInterval(musicT); musicT = null; musicStep = 0; }
 
+// Sonido propio de cada herramienta
+const TOOL_SFX = {
+  fago:() => tone(140, .25, 'sine', .09, .5),
+  lis:() => [0, 50, 100].forEach(d => setTimeout(() => tone(900 + d*3, .04, 'square', .03), d)),
+  pen:() => { tone(1568, .25, 'sine', .05); setTimeout(() => tone(2093, .3, 'sine', .03), 70); },
+  uv:() => tone(2400, .3, 'sawtooth', .02, 1.2),
+  ac:() => [0, 70, 140].forEach((d, i) => setTimeout(() => tone([1046, 1318, 1568][i], .1, 'triangle', .05), d)),
+  anf:() => tone(600, .08, 'square', .05, .4),
+  osm:() => { noiseBurst(.25, 600, .05); tone(300, .2, 'sine', .05, 2); },
+  luz:() => tone(800, .6, 'triangle', .05, .2),
+  cel:() => tone(220, .25, 'sawtooth', .04, .7),
+  tc:() => { tone(1200, .05, 'square', .04); setTimeout(() => tone(1800, .08, 'square', .04), 50); },
+  tax:() => tone(3000, .4, 'sine', .025, .9),
+  aut:() => noiseBurst(.5, 3000, .06),
+  iso:() => tone(90, .2, 'sine', .1, .6),
+  art:() => [0, 90].forEach((d, i) => setTimeout(() => tone(i ? 1760 : 1320, .3, 'sine', .04), d)),
+  arv:() => [0, 40, 80, 120].forEach(d => setTimeout(() => tone(1500 + Math.random()*500, .03, 'square', .025), d)),
+  pzq:() => tone(70, .5, 'triangle', .1, 1.5),
+};
+sfx.tool = id => (TOOL_SFX[id] || sfx.shoot)();
+let NOISE = null;
+function noiseBuf(){
+  if (NOISE) return NOISE;
+  const n = AC.sampleRate*2, b = AC.createBuffer(1, n, AC.sampleRate), d = b.getChannelData(0);
+  for (let i=0;i<n;i++) d[i] = Math.random()*2 - 1;
+  return NOISE = b;
+}
+function noiseBurst(dur, freq, vol){
+  if (!S.sound) return;
+  try{ AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    const src = AC.createBufferSource(), f = AC.createBiquadFilter(), g = AC.createGain(), t = AC.currentTime;
+    src.buffer = noiseBuf(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = .8;
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    src.connect(f).connect(g).connect(AC.destination); src.start(t); src.stop(t + dur + .05);
+  }catch(_){}
+}
+// Paisaje sonoro de cada zona (generativo): latido en la sangre, respiración en los pulmones...
+let AMB = null, ambZone = null;
+function stopAmbient(){
+  if (!AMB) return;
+  AMB.timers.forEach(clearInterval);
+  try{ const t = AC.currentTime; AMB.master.gain.setTargetAtTime(0, t, .4); const nodes = AMB.nodes; setTimeout(() => nodes.forEach(n => { try{ n.stop && n.stop(); n.disconnect(); }catch(_){} }), 1500); }catch(_){}
+  AMB = null; ambZone = null;
+}
+function ambient(zone){
+  if (!S.sound || !S.music){ stopAmbient(); return; }
+  if (zone === ambZone && AMB) return;
+  if (!AC || AC.state !== 'running') return; // espera a que el jugador interactúe
+  stopAmbient(); ambZone = zone;
+  const t0 = AC.currentTime, master = AC.createGain(); master.gain.setValueAtTime(0, t0); master.gain.linearRampToValueAtTime(1, t0 + 2); master.connect(AC.destination);
+  const A = AMB = {master, nodes:[], timers:[]};
+  const noise = (type, freq, vol, q=.7) => { const src = AC.createBufferSource(), f = AC.createBiquadFilter(), g = AC.createGain();
+    src.buffer = noiseBuf(); src.loop = true; f.type = type; f.frequency.value = freq; f.Q.value = q; g.gain.value = vol;
+    src.connect(f).connect(g).connect(master); src.start(); A.nodes.push(src); return g; };
+  const drone = (freq, vol, type='sine') => { const o = AC.createOscillator(), g = AC.createGain(); o.type = type; o.frequency.value = freq; g.gain.value = vol; o.connect(g).connect(master); o.start(); A.nodes.push(o); return g; };
+  const ping = (f, dur, type, vol, slide) => { try{ const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime; o.type = type; o.frequency.setValueAtTime(f, t);
+    if (slide) o.frequency.exponentialRampToValueAtTime(f*slide, t + dur); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g).connect(master); o.start(t); o.stop(t + dur + .05); }catch(_){} };
+  const every = (ms, fn) => A.timers.push(setInterval(() => { if (AMB === A && !document.hidden) fn(); }, ms));
+  if (zone === 'san'){ // latido a 70 pulsaciones por minuto y flujo de sangre
+    noise('lowpass', 260, .035);
+    every(857, () => { ping(58, .16, 'sine', .14, .6); setTimeout(() => ping(52, .14, 'sine', .1, .6), 240); });
+  } else if (zone === 'pul'){ // respiración
+    const g = noise('bandpass', 900, 0, .5);
+    every(100, () => { g.gain.setTargetAtTime(.05*(.5 + .5*Math.sin(Date.now()/1000*Math.PI/2.5)), AC.currentTime, .1); });
+    drone(110, .012);
+  } else if (zone === 'int'){ // borborigmos
+    drone(45, .03); noise('lowpass', 180, .02);
+    every(1400, () => { if (Math.random() < .6) ping(140 + Math.random()*80, .35, 'sine', .07, .45); });
+  } else if (zone === 'pie'){ // aire sobre la piel
+    noise('highpass', 2500, .012);
+    every(2300, () => { if (Math.random() < .5) ping(1200 + Math.random()*900, .6, 'triangle', .015); });
+  } else if (zone === 'cer'){ // pulsos eléctricos de neuronas sobre un fondo etéreo
+    drone(220, .012); drone(221.6, .012); drone(330, .008, 'triangle');
+    every(600, () => { if (Math.random() < .5) ping(2200, .02, 'square', .02); });
+  } else if (zone === 'cha'){ // agua y burbujas
+    noise('lowpass', 500, .025);
+    every(700, () => { if (Math.random() < .7) ping(400 + Math.random()*300, .09, 'sine', .04, 2.2); });
+  }
+}
+// el audio solo puede empezar tras una interacción
+window.addEventListener('pointerdown', () => {
+  try{ AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    (AC.state === 'running' ? Promise.resolve() : AC.resume()).then(() => ambient(storyCh() ? storyCh().zone : S.zone), () => {}); }catch(_){}
+}, {passive:true});
 /* =====================================================================
    ESCENA 3D
    ===================================================================== */
@@ -1707,6 +2264,89 @@ const BUILD = {
       g.rotation.z = Math.sin(t*.3)*.2; }}; },
 };
 
+/* ---------- Organismos del segundo acto ---------- */
+// disco bicóncavo de un eritrocito
+function rbcGeo(){
+  const pts = [];
+  for (let i=0;i<=20;i++){ const r = i/20, h = .12 + .28*r*r - .2*Math.pow(r, 8); pts.push(new THREE.Vector2(r, h)); }
+  for (let i=20;i>=0;i--){ const r = i/20, h = .12 + .28*r*r - .2*Math.pow(r, 8); pts.push(new THREE.Vector2(r, -h)); }
+  return new THREE.LatheGeometry(pts, 48);
+}
+Object.assign(BUILD, {
+  // Tuberculosis: bacilos finos en cordón serpenteante, pared cérea (rojos como en la tinción de Ziehl-Neelsen)
+  tbc(){ SEED = 1301; const g = new THREE.Group();
+    const m = mem(0xd83a3a, {rim:0xff9a8a, rimK:.7, rough:.85, bumpScale:.04, emiK:.18});
+    const wax = mem(0xfff0d8, {op:.15, rim:0xffe0d0, rimK:.45, rimA:.35, bump:false});
+    const rods = [];
+    for (let k=0;k<3;k++) for (let i=0;i<9;i++){
+      const s = i/8, x = -1.6 + s*3.2, y = Math.sin(s*Math.PI*2 + k)*.35 + (k-1)*.32, z = Math.cos(s*Math.PI*1.5 + k)*.25;
+      const r = new THREE.Group(); r.position.set(x + srn(-.05,.05), y, z);
+      r.rotation.z = Math.PI/2 + Math.cos(s*Math.PI*2 + k)*.6 + srn(-.2,.2); r.rotation.x = srn(-.3,.3);
+      r.add(mesh(capG(.42, .1, 14, 5), m)); r.add(mesh(capG(.44, .14, 14, 5), wax, 10));
+      r.userData.ph = sr()*6; g.add(r); rods.push(r);
+    }
+    return {g, up(t){ rods.forEach(r => r.position.y += Math.sin(t*.8 + r.userData.ph)*.0008); g.rotation.y = Math.sin(t*.25)*.35 - .2; g.rotation.x = Math.sin(t*.2)*.15; }}; },
+
+  // Malaria: eritrocito con un anillo (trofozoíto) dentro; al reventar salen merozoítos
+  mal(){ SEED = 1401; const g = new THREE.Group();
+    const rbcM = mem(0xc0283c, {op:.55, rim:0xff9aa8, rimK:1, rimA:.7, rough:.5, bumpScale:.01});
+    const rbc = mesh(rbcGeo(), rbcM, 10); rbc.scale.set(1.3, 1.3, 1.3); rbc.rotation.x = Math.PI/2 - .35; g.add(rbc);
+    const para = new THREE.Group(); rbc.add(para);
+    const ringM = mem(0xa66bff, {emiK:.5, rim:0xe0c8ff, bump:false});
+    const ring = mesh(new THREE.TorusGeometry(.32, .06, 10, 32), ringM); ring.rotation.x = Math.PI/2; para.add(ring);
+    const dot = mesh(sphG(.1, 14, 10), mem(0x4a2a9a, {emiK:.4, bump:false})); dot.position.set(.32, 0, 0); para.add(dot);
+    para.position.set(.2, .05, .1);
+    const others = [];
+    for (let i=0;i<2;i++){ const o = mesh(rbcGeo(), mem(0x9a1426, {rim:0xff7a7a, rimK:.6, bumpScale:.01})); o.scale.setScalar(.85); o.position.set(i ? 1.4 : -1.3, i ? -.9 : .9, -.6); o.rotation.set(srn(0,3), srn(0,3), 0); g.add(o); others.push(o); }
+    const mzM = mem(0xc77dff, {emiK:.5, rim:0xffffff, rimK:.6, bump:false});
+    const mzs = [];
+    for (let i=0;i<12;i++){ const mz = mesh(sphG(.08, 10, 8), mzM); mz.scale.set(1, 1.5, 1); mz.userData.d = V(srn(-1,1), srn(-1,1), srn(-1,1)).normalize(); g.add(mz); mzs.push(mz); }
+    let out = 0;
+    return {g, up(t, e){ out += ((e && !e.inRbc ? 1 : 0) - out)*.06;
+      rbc.scale.setScalar(1.3*(1 - .55*out)); rbcM.opacity = .55*(1 - .7*out);
+      mzs.forEach((mz, i) => { mz.visible = out > .05; mz.position.copy(mz.userData.d).multiplyScalar(.3 + out*(1.1 + .2*Math.sin(t*2 + i))); mz.lookAt(0, 0, 0); });
+      para.rotation.z = t*.6; others.forEach((o, i) => { o.rotation.y += .003; o.position.y += Math.sin(t + i)*.001; });
+      g.rotation.y = Math.sin(t*.3)*.4; }}; },
+
+  // VIH: envoltura con pocas espículas gp120 (trímeros) y cápside cónica con dos ARN
+  vih(){ SEED = 1501; const g = new THREE.Group(), core = new THREE.Group(); g.add(core);
+    const R = .62;
+    core.add(mesh(sphG(R, 48, 32), mem(0xff8fab, {op:.42, rim:0xffd0dc, rimK:1.4, rimA:.8, bumpScale:.04}), 10));
+    core.add(mesh(sphG(R*.92, 32, 20), mem(0x8a2a4a, {op:.22, rimK:.3, rimA:.3, bump:false}), 6));
+    const pts = [];
+    for (let i=0;i<=12;i++){ const s = i/12; pts.push(new THREE.Vector2(.04 + .22*s, -.42 + s*.84)); }
+    pts.push(new THREE.Vector2(.001, .44)); pts.unshift(new THREE.Vector2(.001, -.44));
+    const cone = mesh(new THREE.LatheGeometry(pts, 32), mem(0xffd36b, {op:.7, rim:0xfff0c0, rimK:.8, rimA:.6, bump:false}), 7);
+    cone.rotation.z = .5; core.add(cone);
+    const rna = mem(0x6c95ff, {emiK:.5, bump:false});
+    [-.05, .05].forEach(x => { const h = mesh(helixG(.6, .04, 6, .015, false), rna); h.position.set(x, -.3, 0); cone.add(h); });
+    const spM = mem(0xffe0ea, {emiK:.3, bump:false}), stM = mem(0xff6b8f, {bump:false});
+    const knobs = [];
+    fibDirs(14).forEach(d => { const k = new THREE.Group(); k.position.copy(d).multiplyScalar(R); k.quaternion.setFromUnitVectors(UP, d);
+      k.add(mesh(new THREE.CylinderGeometry(.015, .015, .1, 5).translate(0, .05, 0), stM));
+      for (let j=0;j<3;j++){ const a = j/3*Math.PI*2, b = mesh(sphG(.045, 10, 8), spM); b.position.set(Math.cos(a)*.04, .13, Math.sin(a)*.04); k.add(b); }
+      core.add(k); knobs.push(k); });
+    return {g, up(t, e){ core.rotation.y = t*.35; core.rotation.x = Math.sin(t*.3)*.3; const s = e && e.hidden ? .55 : 1; core.scale.lerp(V(s,s,s), .06); }}; },
+
+  // Tenia: escólex con ventosas y ganchos, y una cadena de proglótides que ondula
+  ten(){ SEED = 1601; const g = new THREE.Group();
+    const m = mem(0xf1e3c8, {rim:0xffffff, rimK:.7, rough:.7, bumpScale:.05, emiK:.08});
+    const segs = [], N = 16;
+    for (let i=0;i<N;i++){ const w = .18 + .32*Math.min(1, i/9), l = .08 + .14*Math.min(1, i/8);
+      const sg = mesh(rboxG(l, w*1.6, w*.35, Math.min(.06, w*.15), 4), m); sg.userData = {l, i}; g.add(sg); segs.push(sg); }
+    const head = new THREE.Group(); g.add(head);
+    head.add(mesh(sphG(.16, 20, 14), m));
+    const suckM = mem(0xd9c4a0, {bump:false});
+    for (let k=0;k<4;k++){ const a = k/4*Math.PI*2 + .4, su = mesh(new THREE.TorusGeometry(.055, .022, 8, 16), suckM); su.position.set(-.04, Math.cos(a)*.13, Math.sin(a)*.13); su.lookAt(su.position.clone().multiplyScalar(3)); head.add(su); }
+    const hookM = mem(0xfff6e0, {emiK:.4, bump:false});
+    for (let k=0;k<12;k++){ const a = k/12*Math.PI*2, hk = mesh(new THREE.ConeGeometry(.015, .08, 5), hookM); hk.position.set(-.16, Math.cos(a)*.07, Math.sin(a)*.07); hk.rotation.z = Math.PI/2; head.add(hk); }
+    return {g, up(t){ let x = -1.75;
+      head.position.set(x, Math.sin(t*1.5)*.12, 0);
+      segs.forEach(sg => { const u = sg.userData; x += u.l*.5 + .03 + (u.i ? segs[u.i-1].userData.l*.5 : .16);
+        sg.position.set(x, Math.sin(t*1.5 - u.i*.45)*.15, Math.cos(t*1.1 - u.i*.35)*.08); sg.rotation.z = Math.cos(t*1.5 - u.i*.45)*.25; });
+      g.rotation.y = -.25 + Math.sin(t*.25)*.15; }}; },
+});
+
 /* ---------- Entorno: plasma sanguíneo ---------- */
 let darkTarget = 0, tintTarget = new THREE.Vector3();
 const setZoneTint = z => { const t = (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };
@@ -1960,6 +2600,8 @@ function eff(toolId, e, opt={}){
     m *= cellD().hidden ? .5 : .15;
     why = cellD().hidden ? tr('El virus está dentro de una célula, pero como linfocito NK detectas que esa célula ha perdido el MHC-I.') : tr('El virus está escondido dentro de una célula: casi nada lo alcanza. Solo un linfocito T reconoce la célula infectada.');
   }
+  if (e.inRbc && toolId !== 'art' && toolId !== 'luz'){ m *= .1; why = tr('El plasmodio está dentro de un glóbulo rojo: casi nada lo alcanza. La artemisinina sí, porque la activa el hierro del hemo.'); }
+  if (e.cd4 && (toolId === 'ac' || toolId === 'tc')){ m *= Math.pow(.75, e.cd4); why += ' ' + tr('El VIH ha destruido parte de tus linfocitos T CD4 (×{k}).', {k:dec(Math.pow(.75, e.cd4).toFixed(2))}); }
   if (e.spore && toolId !== 'aut' && toolId !== 'luz'){ m *= .1; why = tr('La endospora está deshidratada y blindada con proteínas y ácido dipicolínico. Solo el autoclave la destruye.'); }
   if (e.biofilm && toolId !== 'aut' && toolId !== 'luz' && m > 0){ m *= .6; why += ' ' + tr('La biopelícula frena el ataque (×0,6).'); }
   if (B && B.e === e && B.lastOk && !e.spore && !e.hidden){
@@ -1974,6 +2616,15 @@ function verdict(m){
   if (m > 0) return ['bad', tr('Poco eficaz')];
   return ['none', tr('No le afecta')];
 }
+// multiplicadores del árbol de habilidades para una herramienta contra un organismo
+function treeMods(id, e){
+  let k = 1;
+  if (id === 'fago' && has('i1')) k *= 1.5;
+  if (has('i2') && BACT.has(e.type)) k *= 1.25;
+  if (id === 'tc' && has('c1')) k *= 1.4;
+  if (has('c4') && ['vir', 'vih', 'can'].includes(e.type)) k *= 1.3;
+  return k;
+}
 // multiplicadores de los eventos y de la fase 2 de los jefes
 function dmgMods(e, forPlayer){
   let k = 1;
@@ -1985,23 +2636,27 @@ function dmgMods(e, forPlayer){
 
 function newBattle(keepHp){
   ensureDaily(); stopMusic();
-  const L = S.level, boss = S.kills >= KPL && S.advance && !S.practice;
-  const sp = boss && L % 10 === 0 ? (L/10 - 1) % SPECIAL.length : -1;
+  const ch = storyCh();
+  const L = effLevel();
+  let boss = !ch && S.kills >= KPL && S.advance && !S.practice;
+  let sp = boss && L % 10 === 0 ? (L/10 - 1) % SPECIAL.length : -1;
   let type;
-  if (S.practice){ type = S.practice; S.practice = null; }
+  if (ch){ const b = ch.battles[S.story.step]; if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else type = b; }
+  else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1);
+  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1);
   const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1),
-    turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null};
-  if (type === 'gp' && !boss && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
-  if (!boss && L >= 3 && Math.random() < .15){
+    turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
+    inRbc:type === 'mal', cd4:0};
+  if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
+  if (!boss && !ch && L >= 3 && Math.random() < .15){
     const ks = Object.keys(EVENTS); e.ev = ks[Math.floor(Math.random()*ks.length)];
     if (e.ev === 'antib' && !BACT.has(type)) e.ev = 'fiebre';
     if (e.ev === 'vacuna'){ const k = S.known[type] = S.known[type] || {}; TOOLS.forEach(t => k[t.id] = true); }
   }
   B = {e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
     last:null, lastOk:false, usedAb:false, onlyFago:true, turns:0, firstDone:false, why:null};
-  setFoe(e); setDark(false); setZoneTint(S.zone);
+  setFoe(e); setDark(false); setZoneTint(ch ? ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
   renderFoe(); renderMe(); renderTools(); renderHud();
   const name = foeName(e);
   if (sp >= 0) setMsg('none', tr('Jefe especial'), tr('{n}: tiene dos fases. Al bajar a la mitad de vida cambiará de comportamiento.', {n:name}));
@@ -2011,7 +2666,10 @@ function newBattle(keepHp){
   resize(); // después del mensaje: su altura cambia el encuadre
   if (e.ev) toast(EVENTS[e.ev].n);
   if (boss) startMusic(sp >= 0);
-  const go = () => { if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); } else scheduleAuto(); };
+  const go = () => {
+    if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
+    else { scheduleAuto(); if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
+  };
   if (sp >= 0) cinematic(tr('Jefe · nivel {l}', {l:L}), name, go); else go();
 }
 const foeName = e => e.special >= 0 ? SPECIAL[e.special].n : e.boss ? TYPES[e.type].boss : e.res ? tr('Estafilococo resistente (SARM)') : TYPES[e.type].n;
@@ -2022,12 +2680,12 @@ function useTool(id){
   B.busy = true; clearTimeout(B.timer); B.turns++;
   const r = eff(id, e);
   (S.known[e.type] = S.known[e.type] || {})[id] = true;
-  if (T.cd) B.cds[id] = T.cd + 1;
+  if (toolCd(T)) B.cds[id] = toolCd(T) + 1;
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
   if (id !== 'fago') B.onlyFago = false;
   B.why = {tool:id, m:r.m};
   renderTools();
-  sfx.shoot();
+  sfx.tool(id);
   const from = P_POS.clone().add(V(.6,.3,0)), to = E_POS.clone();
   const go = () => {
     const Ty = TYPES[e.type];
@@ -2045,8 +2703,9 @@ function useTool(id){
       sfx.hit(r.m*2);
     } else {
       ok = r.m > 0;
-      const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? 1.6 : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
-      const dmg = atk()*T.pow*r.m*mark*cb*vac*dmgMods(e, true)*rnd(.9, 1.1);
+      const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
+      const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
+      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
       e.hp = Math.max(0, e.hp - dmg);
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
@@ -2054,13 +2713,20 @@ function useTool(id){
       if (r.combo){ extra.push(tr('Combinación: {n}.', {n:r.combo.n}));
         if (!S.combos[r.combo.id]){ S.combos[r.combo.id] = true; toast(tr('¡Combinación descubierta: {n}!', {n:r.combo.n})); }
         S.comboCount++; dailyProg('combo'); }
-      if (id === 'ac' && r.m > 0 && !e.hidden){ e.marked = 4; extra.push(tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
+      if (crit > 1) extra.push(tr('¡Golpe crítico de perforina!'));
+      if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = has('h1') ? 6 : 4; extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
       if (id === 'tax' && r.m > 0){ e.block = 3; extra.push(tr('Huso mitótico bloqueado durante 3 turnos.')); }
       if (mark > 1 && r.m > 0) extra.push(tr('Daño aumentado por la opsonización.'));
       if (cb > 1 && r.m > 0) extra.push(tr('{c}: ×{k} contra este organismo.', {c:cellD().n, k:dec(cb)}));
       setMsg(v, `${T.n} · ${l} (×${dec(Math.round(r.m*100)/100)})`, r.why, extra.join(' '));
       if (r.m > 0){ burst(to, T.col, r.m >= 2 ? 40 : 18, r.m >= 2 ? 4 : 2.5); shake = S.calm ? 0 : r.m >= 2 ? .25 : .1; if (r.m >= 2) impact(to, T.col); }
-      if (r.m >= 2) dailyProg('great');
+      if (r.m >= 2){ dailyProg('great'); narr('great'); }
+      else if (r.m === 0) narr('immune');
+      if (r.combo) narr('combo');
+      // efecto secundario sobre tu propia célula
+      if (SIDE[id]){ const sd = maxHp()*SIDE[id][0]*(has('i3') ? .4 : 1); B.php = Math.max(1, B.php - sd);
+        floatText('−' + fmt(sd), P_POS.clone().add(V(0,1.3,0)), 'hurt'); extra.push(tr(SIDE[id][1])); narr('side'); renderMe(); }
+      if (extra.length) $('#msgX').textContent = extra.join(' ');
       sfx.hit(r.m);
     }
     if (!B.firstDone){ B.firstDone = true; S.first.n++; if (r.m >= 2) S.first.ok++; }
@@ -2094,6 +2760,11 @@ function enemyTurn(){
     case 'can': if (e.block > 0) notes.push(tr('El taxol frena su división.')); else heal(.12, tr('Mitosis descontrolada: +12 % de vida.')); break;
     case 'bac': if (!e.spore && e.hp < e.max*.35){ e.spore = true; notes.push(tr('Esporulación: forma una endospora resistente y deja de atacar.')); burst(E_POS, 0x8fffe8, 30, 2); } break;
     case 'pri': e.grow *= 1.12; notes.push(tr('Convierte proteínas sanas en priones: su ataque crece un 12 %.')); break;
+    case 'mal': { const c = e.turn % 3; e.inRbc = c !== 2;
+      notes.push(e.inRbc ? tr('El plasmodio se oculta dentro de un glóbulo rojo.') : tr('El eritrocito revienta y salen merozoítos: ahora está expuesto.')); break; }
+    case 'vih': e.cd4++; e.hidden = e.turn % 3 === 0;
+      notes.push(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : '')); break;
+    case 'ten': heal(.06, tr('Su cuello forma nuevas proglótides: recupera un 6 %.')); break;
   }
   if ((e.type === 'gp' || e.type === 'gn') && e.turn === 6 && !e.biofilm){ e.biofilm = true; notes.push(tr('Biopelícula: se rodea de una matriz de polisacáridos que frena tus ataques (×0,6). El autoclave la atraviesa.')); }
   // eventos
@@ -2104,7 +2775,9 @@ function enemyTurn(){
     if (e.special === 0){ const d = maxHp()*.05; B.php = Math.max(0, B.php - d); notes.push(tr('Choque endotóxico: el LPS te resta un 5 % de vida.')); }
     if (e.special === 2 && !(e.block > 0)) heal(.1, tr('Angiogénesis: los vasos nuevos lo curan un 10 %.'));
     if (e.special === 3){ e.grow *= 1.2; notes.push(tr('Agregación: su ataque crece un 20 %.')); }
+    if (e.special === 4) heal(.08, tr('Citoadherencia: recupera un 8 %.'));
   }
+  if (has('i4') && B.php > 0){ const h = maxHp()*.04; B.php = Math.min(maxHp(), B.php + h); }
   if (e.hp <= 0){ renderFoe(); return setTimeout(win, 250); }
   const finish = () => {
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
@@ -2115,16 +2788,20 @@ function enemyTurn(){
     B.why = null;
     renderFoe(); renderMe(); renderTools();
     if (B.php <= 0) return setTimeout(lose, 300);
+    if (B.php < maxHp()*.25) narr('lowhp');
     scheduleAuto();
   };
   if (e.spore){ notes.push(tr('La endospora está en reposo: no ataca.')); return setTimeout(finish, 200); }
+  if (e.type === 'tbc' && e.turn % 2){ notes.push(tr('Crecimiento lento: esta vez no ataca.')); return setTimeout(finish, 200); }
+  const fever = e.type === 'mal' && e.turn % 3 === 0;
+  if (fever) notes.push(tr('Acceso de fiebre: al reventar a la vez muchos eritrocitos, el golpe es más fuerte.'));
   const hits = Ty.hits || 1;
   let i = 0;
   if (hits > 1) notes.push(tr('Sus cilios baten en ondas: ataca dos veces.'));
   const hit = () => {
     const dir = P_POS.clone().sub(E_POS).normalize().multiplyScalar(1.4);
     lunge(foeObj.g, dir, 360, () => {
-      const dmg = e.atk*e.grow*taken()*dmgMods(e, false)*rnd(.85, 1.15)/(hits > 1 ? 1.6 : 1);
+      const dmg = e.atk*e.grow*taken()*dmgMods(e, false)*(fever ? 1.5 : 1)*rnd(.85, 1.15)/(hits > 1 ? 1.6 : 1);
       B.php = Math.max(0, B.php - dmg);
       floatText('−' + fmt(dmg), P_POS.clone().add(V(0,1.3,0)), 'hurt');
       burst(P_POS, 0xff4f7b, 12, 2); shake = S.calm ? 0 : .12; sfx.hurt();
@@ -2137,10 +2814,11 @@ function enemyTurn(){
 
 function win(){
   const e = B.e; if (B.over) return; B.over = true; stopMusic();
+  if (storyCh()) return storyWin(e);
   const g = reward(e.L, e.boss)*(e.ev === 'hipoxia' ? 1.5 : 1)*(e.special >= 0 ? 2 : 1);
   S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
-  if (e.special >= 0) S.specialWins++;
-  if (BACT.has(e.type) && !B.usedAb){ S.press = Math.max(0, S.press - 2); dailyProg('noab'); }
+  if (e.special >= 0){ S.specialWins++; S.lpts++; toast(tr('+1 punto del árbol inmunitario')); }
+  if (BACT.has(e.type) && !B.usedAb){ S.press = Math.max(0, S.press - 2); dailyProg('noab'); if (S.wk !== weekKey()){ S.wk = weekKey(); S.wkNoAb = 0; } S.wkNoAb = (S.wkNoAb || 0) + 1; }
   if (B.onlyFago) dailyProg('fago');
   if (B.turns <= 3) dailyProg('quick');
   if (e.boss) dailyProg('boss');
@@ -2162,13 +2840,14 @@ function win(){
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')));
-  checkAch(); save(); renderHud(); renderLog();
+  checkAch(); save(); renderHud(); renderLog(); pushBoard();
   setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
 }
 
 function lose(){
   if (B.over) return; B.over = true; sfx.lose(); stopMusic();
   const e = B.e;
+  if (storyCh()){ setMsg('none', tr('Derrota'), tr('Vuelve a intentarlo: este paso de la historia empieza de nuevo.')); burst(P_POS, 0xff4f7b, 40, 3); save(); return setTimeout(() => newBattle(), 1500); }
   S.stats.deaths[e.L] = (S.stats.deaths[e.L] || 0) + 1;
   LOG.unshift({L:e.L, n:foeName(e), turns:B.turns, g:0, win:false}); LOG.length = Math.min(LOG.length, 8);
   let txt;
@@ -2207,6 +2886,32 @@ function scheduleAuto(){
   if (S.auto && canAuto() && $('#modal').hidden && !CINE) B.timer = setTimeout(() => useTool(autoPick()), 650/speed());
 }
 
+
+// ---- Modo historia ----
+function storyWin(e){
+  const g = reward(e.L, e.boss);
+  S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
+  floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
+  burst(E_POS, TYPES[e.type].col, S.calm ? 20 : 60, 4.5); sfx.win();
+  const obj = foeObj; tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => scene.remove(obj.g));
+  const ch = storyCh(); S.story.step++;
+  setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}));
+  if (S.story.step < ch.battles.length){ save(); renderHud(); return setTimeout(() => newBattle(), 900); }
+  S.story.ch++; S.story.step = 0;
+  if (S.story.ch >= STORY.length){ S.story = null; const first = !S.storyDone; S.storyDone = true; if (first){ S.adn += 3; S.lpts += 1; } save(); rebuildPlayer(); renderHud();
+    return setTimeout(() => showStoryEnd(first), 900); }
+  save(); rebuildPlayer(); renderHud();
+  setTimeout(() => showChapter(newBattle), 900);
+}
+function startStory(){
+  if (B){ B.over = true; clearTimeout(B.timer); }
+  S.story = {ch:0, step:0}; save(); rebuildPlayer(); renderHud(); narr('story', true);
+  showChapter(newBattle);
+}
+function leaveStory(){
+  if (B){ B.over = true; clearTimeout(B.timer); }
+  S.story = null; save(); rebuildPlayer(); renderHud(); newBattle();
+}
 /* =====================================================================
    INTERFAZ
    ===================================================================== */
@@ -2303,10 +3008,14 @@ function renderLog(){
 }
 
 function renderHud(){
-  $('#hLvl').textContent = S.level;
+  const ch = storyCh();
+  $('#hLvlK').textContent = ch ? tr('Capítulo') : tr('Nivel');
+  $('#hLvl').textContent = ch ? `${S.story.ch + 1}/${STORY.length}` : S.level;
   let h = '';
-  for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
-  h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`;
+  if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' ? 'boss' : ''}"></span>`);
+  else { for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
+    h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
+  $('#bStory').setAttribute('aria-pressed', !!ch);
   $('#hPips').innerHTML = h;
   $('#hAtp').textContent = fmt(S.atp);
   const r = atps(); $('#hAtps').textContent = r > 0 ? `+${fmt(r)}/s` : '';
@@ -2482,12 +3191,15 @@ function renderPanel(){
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
         <h4 style="color:${hex(Ty.col)}">${Ty.n}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
-        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div>${practice}</div></div>`;
+        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${practice}</div></div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
+  } else if (tab === 'dia'){
+    h += diagHtml();
   } else if (tab === 'ret'){
     ensureDaily();
+    h += boardHtml();
     h += `<div class="nb">${tr('Retos de hoy')}</div><p class="lead">${tr('Cada día hay dos retos nuevos. Cada uno da 1 punto de ADN y desbloquea colores para tu célula.')}</p>`;
     h += S.daily.list.map(q => { const D = DAILY.find(x => x.id === q.id);
       return `<div class="org daily ${q.done ? 'ok' : ''}">${vesicle(q.done ? 'trophy' : 'flask', q.done ? 0x4dffa0 : 0xffc65c)}<h4>${D.n}</h4><div class="meter"><i style="width:${q.p/D.goal*100}%"></i></div><div class="eff">${q.p} / ${D.goal}${q.done ? ' · ' + tr('completado') : ''}</div></div>`; }).join('');
@@ -2496,6 +3208,7 @@ function renderPanel(){
   } else if (tab === 'evo'){
     const g = evoGain();
     h += `<div class="nb">${tr('Linaje')}</div>${phylo()}`;
+    h += treeHtml();
     h += `<div class="nb">${tr('Tu tipo de célula')}</div><div class="cells">` + Object.entries(CELLS).map(([id, c]) => {
       const ok = S.evos >= c.need, sel = S.cell === id;
       return `<button class="cellc ${sel ? 'sel' : ''}" data-cell="${id}" ${ok ? '' : 'disabled'} aria-pressed="${sel}">
@@ -2515,6 +3228,10 @@ function renderPanel(){
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));
     h += `<div class="org"><h4>${tr('Informe para el profesor')}</h4><p>${tr('Resumen de lo aprendido: organismos, herramientas probadas, aciertos al primer intento y cuestionario.')}</p><textarea id="repTa" readonly rows="7">${esc(reportText())}</textarea><button class="buy" id="repBtn">${tr('Copiar informe')}</button></div>`;
+    h += `<div class="nb">${tr('Narrador y sonido')}</div>`;
+    h += toggleRow('narr', S.narr, tr('Narradora'), tr('La doctora Olmo, del laboratorio, comenta las jugadas importantes.'));
+    h += toggleRow('voice', S.voice, tr('Leer en voz alta'), tr('La narradora lee sus comentarios en voz alta.'));
+    h += toggleRow('music', S.music, tr('Música y ambiente'), tr('Paisaje sonoro de cada zona: el latido en la sangre, la respiración en los pulmones, las burbujas de la charca…'));
     h += `<div class="nb">${tr('Accesibilidad')}</div>`;
     h += toggleRow('big', S.big, tr('Texto grande'), tr('Aumenta el tamaño de los menús y las fichas.'));
     h += toggleRow('calm', S.calm, tr('Reducir efectos'), tr('Menos partículas, sin temblores de cámara y animaciones más suaves.'));
@@ -2529,12 +3246,17 @@ function renderPanel(){
   }
   $('#pBody').innerHTML = h;
   refreshAfford();
+  if (tab === 'ret') fillBoardNames();
 }
 function refreshAfford(){
   document.querySelectorAll('#pBody [data-cost]').forEach(b => b.disabled = S.atp < +b.dataset.cost);
 }
 $('#pBody').addEventListener('click', ev => {
   const b = ev.target.closest('button'); if (!b || b.disabled) return;
+  if (tab === 'dia' && diagClick(b)) return;
+  if (b.dataset.scope){ openScope(b.dataset.scope); return; }
+  if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
+  if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
   if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return; S.atp -= c; S.upg[u.id]++; if (u.id === 'mem' && B) B.php += maxHp() - maxHp()/1.15; buy(u.id); }
   else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
@@ -2545,6 +3267,7 @@ $('#pBody').addEventListener('click', ev => {
   else if (b.dataset.lang){ setLang(b.dataset.lang); }
   else if (b.dataset.q){ S.q = b.dataset.q === 'auto' ? 'auto' : +b.dataset.q; applyQuality(S.q === 'auto' ? 2 : S.q); }
   else if (b.dataset.set){ const k = b.dataset.set; S[k] = !S[k];
+    if (k === 'music' || k === 'voice') ambient(storyCh() ? storyCh().zone : S.zone);
     if (k === 'clase'){ if (B){ B.over = true; clearTimeout(B.timer); } S.auto = S.auto && canAuto(); renderTools(); newBattle(); toast(S.clase ? tr('Modo clase activado') : tr('Modo clase desactivado')); } }
   else if (b.id === 'repBtn') return copyText(reportText(), $('#repTa'));
   else if (b.id === 'expBtn') return copyText(exportCode(), $('#expTa'));
@@ -2565,7 +3288,7 @@ $('#pBody').addEventListener('click', ev => {
 function evolve(){
   const g = evoGain(); if (!g) return;
   if (B){ B.over = true; clearTimeout(B.timer); }
-  S.adn += g; S.evos++;
+  S.adn += g; S.evos++; S.lpts += 2;
   S.level = 1; S.kills = 0; S.runMax = 1; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
   for (const k in S.upg) S.upg[k] = 0;
   checkAch(); rebuildPlayer(); save(); closeLab(); renderHud();
@@ -2612,7 +3335,7 @@ function showMap(){
   showModal(`<div class="eyebrow">${tr('Mapa')}</div><h2>${tr('¿Dónde está la infección?')}</h2><p>${tr('Cada zona tiene sus organismos típicos. Tu nivel no cambia: solo eliges contra qué luchar.')}</p>
     <div class="mapw">${svg}<div class="zones">${list}</div></div><button class="go" id="mGo">${tr('Cerrar')}</button>`);
   $('#mBox').querySelectorAll('[data-zone]').forEach(el => {
-    const pick = () => { S.zone = el.dataset.zone; save(); setZoneTint(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
+    const pick = () => { S.zone = el.dataset.zone; save(); setZoneTint(S.zone); ambient(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
     el.addEventListener('click', pick); el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(); } });
   });
 }
@@ -2640,7 +3363,7 @@ function showSpecies(id, isNew){
       $('#quiz').querySelectorAll('[data-q]').forEach(x => { x.disabled = true; if (x.dataset.q === best.t.id) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
       (S.known[id] = S.known[id] || {})[best.t.id] = true;
       let msg = (ok ? tr('¡Correcto!') : tr('No exactamente: la mejor es {t}.', {t:best.t.n})) + ' ' + eff(best.t.id, fake).why;
-      if (ok){ S.quiz.ok++; const g = reward(S.level, false)*8; if (!S.clase) S.atp += g; msg += S.clase ? '' : ' ' + tr('+{g} ATP.', {g:fmt(g)}); sfx.ach(); }
+      if (ok){ S.quiz.ok++; const g = reward(S.level, false)*8*(has('h3') ? 2 : 1); if (!S.clase) S.atp += g; msg += S.clase ? '' : ' ' + tr('+{g} ATP.', {g:fmt(g)}); sfx.ach(); }
       if (!owns(best.t.id)) msg += ' ' + tr('Todavía no la tienes: búscala en el Laboratorio.');
       $('#qres').textContent = msg; $('#qres').className = 'qres ' + (ok ? 'ok' : 'no');
       const go = $('#mGo'); go.hidden = false; go.onclick = closeModal; go.focus();
@@ -2715,6 +3438,240 @@ function loop(now){
 }
 
 /* =====================================================================
+   INTERFAZ v4: narrador, historia, microscopio, diagnóstico, árbol y tablón de la clase
+   ===================================================================== */
+Object.assign(IC, {
+  book:'<path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v15.5H5.5A1.5 1.5 0 0 0 4 21z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v15.5h5.5c.8 0 1.5.7 1.5 1.5z"/><path d="M6.5 8h2.5M6.5 11h2.5M15 8h2.5"/>',
+  scope:'<path d="M9 3.5l4 2.3-3 5.2-4-2.3z"/><path d="M11 9.5l2 1.2M8.6 13a5 5 0 1 0 8.3 4.2"/><path d="M5 21h14M12 17.5V21"/><circle cx="16.4" cy="14.2" r="1.3"/>',
+  tree:'<circle cx="12" cy="4.5" r="2"/><circle cx="5.5" cy="12" r="2"/><circle cx="18.5" cy="12" r="2"/><circle cx="5.5" cy="19.5" r="2"/><circle cx="12" cy="19.5" r="2"/><circle cx="18.5" cy="19.5" r="2"/><path d="M12 6.5v11M10.5 6l-3.6 4.4M13.5 6l3.6 4.4M5.5 14v3.5M18.5 14v3.5"/>',
+  board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
+  tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  doctor:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/><path d="M9.5 15l2.5 3.5 2.5-3.5"/><path d="M16.5 17v2.2a1.3 1.3 0 0 0 2.6 0V17"/>',
+});
+document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.ic));
+
+// ---- Narrador: la doctora Olmo ----
+let TTS = null;
+try{ window.claude?.use?.('tts').then(t => { TTS = t; }, () => {}); }catch(_){}
+const narrShown = new Set();
+let narrT = null;
+function speak(text){
+  if (!S.voice) return;
+  const fallback = () => { try{ const u = new SpeechSynthesisUtterance(text); u.lang = {es:'es-ES', ca:'ca-ES', en:'en-GB'}[LANG]; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(_){} };
+  if (TTS) TTS.speak(text, {language:LANG}).catch(fallback); else fallback();
+}
+function narr(key, force){
+  if (!S.narr || !NARR[key] || (!force && narrShown.has(key))) return;
+  narrShown.add(key);
+  const el = $('#narr'), txt = tr(NARR[key]);
+  el.querySelector('p').textContent = txt; el.hidden = false;
+  clearTimeout(narrT); narrT = setTimeout(() => el.hidden = true, 7000);
+  speak(txt);
+}
+$('#narr .nx').onclick = () => { $('#narr').hidden = true; try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
+
+// ---- Modo historia ----
+$('#bStory').onclick = () => showStoryMenu();
+function showStoryMenu(){
+  const cur = S.story ? S.story.ch : -1;
+  const rows = STORY.map((c, i) => {
+    const st = S.storyDone || i < cur ? 'ok' : i === cur ? 'now' : '';
+    return `<li class="${st}"><span class="num">${i + 1}</span><div><b>${tr(c.n)}</b><small>${CELLS[c.cell].n} · ${ZONES[c.zone].n}</small></div></li>`; }).join('');
+  showModal(`<div class="eyebrow">${tr('Modo historia')}</div><h2>${tr('Una infección de principio a fin')}</h2>
+    <p>${tr('Una campaña corta que sigue paso a paso una infección real, desde una herida en la piel hasta la sepsis. Cada capítulo explica una parte de la respuesta inmune. Tu partida normal se conserva.')}</p>
+    <ol class="chap">${rows}</ol>
+    <div class="row">${S.story ? `<button class="go" id="stGo">${tr('Continuar la historia')}</button><button class="ghost" id="stLeave">${tr('Salir de la historia')}</button>`
+      : `<button class="go" id="stGo">${S.storyDone ? tr('Volver a jugarla') : tr('Empezar la historia')}</button><button class="ghost" id="mGo">${tr('Cerrar')}</button>`}</div>`);
+  $('#stGo').onclick = () => { $('#modal').hidden = true; if (S.story) showChapter(() => { if (!B || B.over) newBattle(); else scheduleAuto(); }); else startStory(); };
+  const lv = $('#stLeave'); if (lv) lv.onclick = () => { $('#modal').hidden = true; leaveStory(); };
+}
+function showChapter(then){
+  const ch = storyCh(); if (!ch){ then && then(); return; }
+  const first = ch.battles[0] === '@sepsis' ? 'gn' : ch.battles[0];
+  showModal(`<div class="spec">${fov(first, 'big', ZONES[ch.zone].n)}<div>
+    <div class="eyebrow">${tr('Capítulo {i} de {n}', {i:S.story.ch + 1, n:STORY.length})}</div><h2>${tr(ch.n)}</h2>
+    <p>${tr(ch.t)}</p>
+    <div class="stat"><span>${tr('Juegas como')}</span><span>${CELLS[ch.cell].n}</span><span>${tr('Combates')}</span><span>${ch.battles.length}</span><span>${tr('Herramientas')}</span><span>${ch.tools.map(t => TOOL[t].n).join(', ')}</span></div>
+    <button class="go" id="mGo">${tr('Al combate')}</button></div></div>`, then);
+}
+function showStoryEnd(first){
+  showModal(`<div class="intro"><div class="fov big">${thumb('me') ? `<img src="${thumb('me')}" alt="">` : ''}</div><div>
+    <div class="eyebrow">${tr('Epílogo')}</div><h2>${tr('Memoria inmunitaria')}</h2><p>${tr(STORY_END)}</p>
+    ${first ? `<p><b>${tr('Historia completada: +3 ADN y +1 punto del árbol inmunitario.')}</b></p>` : ''}</div></div>
+    <button class="go" id="mGo">${tr('Seguir')}</button>`, () => { checkAch(); newBattle(); });
+}
+
+// ---- Microscopio interactivo ----
+let SCOPE = null;
+function openScope(id){
+  closeScope();
+  const name = id === 'me' ? cellD().n : TYPES[id].n, parts = PARTS[id] || [];
+  showModal(`<div class="scope"><div class="sview"><canvas id="scv" aria-label="${tr('Modelo 3D de {n}', {n:esc(name)})}"></canvas><div id="sdots"></div>
+      <div class="szoom"><button id="szi" aria-label="${tr('Acercar')}">+</button><button id="szo" aria-label="${tr('Alejar')}">−</button></div></div>
+    <div class="sinfo"><div class="eyebrow">${ico('scope')}${tr('Microscopio')}</div><h2>${esc(name)}</h2>
+      <p class="hint">${tr('Arrastra para girar el modelo, usa la rueda o pellizca para acercarte y toca los puntos para ver cada parte.')}</p>
+      <div class="spart" id="spart" aria-live="polite"><b>${tr('Elige una parte')}</b></div>
+      <div class="plist">${parts.map((p, i) => `<button data-part="${i}">${esc(tr(p[0]))}</button>`).join('')}</div>
+      <button class="go" id="mGo">${tr('Cerrar')}</button></div></div>`, closeScope);
+  const cv = $('#scv');
+  let R;
+  try{ R = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true}); }catch(_){ return; }
+  R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2)); R.outputEncoding = THREE.sRGBEncoding; R.toneMapping = THREE.ACESFilmicToneMapping;
+  const sc = new THREE.Scene(); sc.add(new THREE.HemisphereLight(0x9fd0ff, 0x1a0820, .7));
+  const d1 = new THREE.DirectionalLight(0xffffff, .8); d1.position.set(-3,4,6); sc.add(d1);
+  const d2 = new THREE.DirectionalLight(0x6c95ff, 1); d2.position.set(2,2,-6); sc.add(d2);
+  const cam = new THREE.PerspectiveCamera(35, 1, .05, 100);
+  const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:id === 'bac', inRbc:true};
+  const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos) : BUILD[id](fake);
+  o.up(2, fake); sc.add(o.g); o.g.updateMatrixWorld(true);
+  const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
+  const rad = Math.min(sph.radius, 2.4), center = sph.center.clone();
+  const st = {yaw:-.4, pitch:.25, zoom:1, drag:null, pts:new Map()};
+  const dots = $('#sdots');
+  dots.innerHTML = parts.map((p, i) => `<button class="sdot" data-part="${i}" aria-label="${esc(tr(p[0]))}"><i></i></button>`).join('');
+  const show = i => { const p = parts[i]; $('#spart').innerHTML = `<b>${esc(tr(p[0]))}</b><p>${esc(tr(p[1]))}</p>`;
+    document.querySelectorAll('[data-part]').forEach(b => b.classList.toggle('on', +b.dataset.part === i)); };
+  document.querySelectorAll('#mBox [data-part]').forEach(b => b.onclick = () => show(+b.dataset.part));
+  cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); st.pts.set(e.pointerId, [e.clientX, e.clientY]); });
+  cv.addEventListener('pointermove', e => {
+    if (!st.pts.has(e.pointerId)) return;
+    const prev = st.pts.get(e.pointerId);
+    if (st.pts.size === 1){ st.yaw -= (e.clientX - prev[0])*.007; st.pitch = clamp(st.pitch + (e.clientY - prev[1])*.007, -1.3, 1.3); }
+    else { const [a, b] = [...st.pts.values()], d0 = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      st.pts.set(e.pointerId, [e.clientX, e.clientY]); const [c, d] = [...st.pts.values()], d1 = Math.hypot(c[0] - d[0], c[1] - d[1]);
+      st.zoom = clamp(st.zoom*d0/Math.max(1, d1), .35, 1.6); return; }
+    st.pts.set(e.pointerId, [e.clientX, e.clientY]);
+  });
+  const up = e => st.pts.delete(e.pointerId);
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  cv.addEventListener('wheel', e => { e.preventDefault(); st.zoom = clamp(st.zoom*(e.deltaY > 0 ? 1.1 : .9), .35, 1.6); }, {passive:false});
+  $('#szi').onclick = () => st.zoom = clamp(st.zoom*.8, .35, 1.6);
+  $('#szo').onclick = () => st.zoom = clamp(st.zoom*1.25, .35, 1.6);
+  const clock0 = performance.now(), v = V(), toCam = V(), rel = V();
+  SCOPE = {R, raf:0};
+  const frame = () => {
+    if (!SCOPE) return;
+    SCOPE.raf = requestAnimationFrame(frame);
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (cv.width !== Math.round(w*R.getPixelRatio()) || cv.height !== Math.round(h*R.getPixelRatio())){ R.setSize(w, h, false); cam.aspect = w/Math.max(1, h); cam.updateProjectionMatrix(); }
+    const t = (performance.now() - clock0)/1000;
+    o.up(2 + (reduceMotion || S.calm ? t*.3 : t), fake);
+    const dist = rad/Math.sin(THREE.MathUtils.degToRad(17))*st.zoom;
+    cam.position.set(center.x + Math.sin(st.yaw)*Math.cos(st.pitch)*dist, center.y + Math.sin(st.pitch)*dist, center.z + Math.cos(st.yaw)*Math.cos(st.pitch)*dist);
+    cam.lookAt(center); R.render(sc, cam);
+    toCam.copy(cam.position).sub(center);
+    parts.forEach((p, i) => { const el = dots.children[i]; if (!el) return;
+      v.set(p[2][0], p[2][1], p[2][2]).applyMatrix4(o.g.matrixWorld); rel.copy(v).sub(center);
+      const back = rel.dot(toCam) < -rad*.15;
+      v.project(cam); el.style.left = ((v.x*.5 + .5)*w) + 'px'; el.style.top = ((-v.y*.5 + .5)*h) + 'px'; el.classList.toggle('back', back); });
+  };
+  frame();
+}
+function closeScope(){ if (!SCOPE) return; cancelAnimationFrame(SCOPE.raf); try{ SCOPE.R.dispose(); SCOPE.R.forceContextLoss(); }catch(_){} SCOPE = null; }
+
+// ---- Laboratorio de diagnóstico ----
+let DG = null;
+function newCase(){
+  let pool = S.clase ? TYPE_ORDER.slice() : TYPE_ORDER.filter(id => S.seen[id]);
+  if (pool.length < 3) pool = TYPE_ORDER.slice(0, 3);
+  DG = {type:pool[Math.floor(Math.random()*pool.length)], cand:pool, tests:[], guess:null, n:S.diag.n + 1};
+}
+function diagResult(test, type){ const T = DIAG_TESTS[test], k = (DIAG_KEY[test] || {})[type] || DIAG_DEF[test]; return tr(T.r[k]); }
+function diagHtml(){
+  if (!DG) newCase();
+  let h = `<div class="nb">${tr('Laboratorio de diagnóstico')}</div><p class="lead">${tr('Llega una muestra sin etiquetar. Puedes hacer hasta tres pruebas: elige bien cuáles y después da tu diagnóstico. Cuantas menos pruebas uses, más ATP ganas.')}</p>`;
+  h += `<div class="stat"><span>${tr('Diagnósticos correctos')}</span><span>${S.diag.ok} / ${S.diag.n}</span></div>`;
+  h += `<div class="case"><div class="ch">${ico('tube')}<b>${tr('Muestra nº {n}', {n:DG.n})}</b><small>${tr('Pruebas: {u} de 3', {u:DG.tests.length})}</small></div>`;
+  h += `<div class="tests">${Object.entries(DIAG_TESTS).map(([k, T]) => `<button data-test="${k}" ${DG.tests.includes(k) || DG.tests.length >= 3 || DG.guess ? 'disabled' : ''}>${tr(T.n)}</button>`).join('')}</div>`;
+  if (DG.tests.length) h += `<ul class="results">${DG.tests.map(k => `<li><b>${tr(DIAG_TESTS[k].n)}:</b> ${diagResult(k, DG.type)}</li>`).join('')}</ul>`;
+  if (!DG.guess){
+    h += `<div class="nb">${tr('Tu diagnóstico')}</div><div class="guess">${DG.cand.map(id => `<button data-guess="${id}" ${DG.tests.length ? '' : 'disabled'}>${TYPES[id].n}</button>`).join('')}</div>`;
+    if (!DG.tests.length) h += `<p class="hint">${tr('Haz al menos una prueba antes de diagnosticar.')}</p>`;
+  } else {
+    const ok = DG.guess === DG.type, Ty = TYPES[DG.type];
+    h += `<div class="verd ${ok ? 'ok' : 'no'}">${fov(DG.type, '', LAB[DG.type][1])}<div><b>${ok ? tr('¡Diagnóstico correcto!') : tr('No era {n}.', {n:TYPES[DG.guess].n})}</b>
+      <p>${tr('Era {n} ({s}).', {n:Ty.n, s:Ty.sci})} ${tr('Técnica habitual')}: ${LAB[DG.type][0]}.</p>${DG.gain ? `<p class="num">+${fmt(DG.gain)} ATP</p>` : ''}
+      <div class="row"><button class="buy" id="dgNext">${tr('Siguiente muestra')}</button><button class="buy" data-scope="${DG.type}">${tr('Examinar')}</button></div></div></div>`;
+  }
+  return h + '</div>';
+}
+function diagClick(b){
+  if (b.dataset.test){ if (DG.tests.length < 3 && !DG.tests.includes(b.dataset.test)){ DG.tests.push(b.dataset.test); tone(500 + DG.tests.length*120, .08, 'sine', .04); } }
+  else if (b.dataset.guess){
+    DG.guess = b.dataset.guess; S.diag.n++; const ok = DG.guess === DG.type;
+    if (ok){ S.diag.ok++; DG.gain = S.clase ? 0 : reward(S.level, false)*(2 + (3 - DG.tests.length)); S.atp += DG.gain; sfx.ach(); } else sfx.hurt();
+    S.seen[DG.type] = true; save(); renderHud(); pushBoard();
+  } else if (b.id === 'dgNext') newCase();
+  else return false;
+  renderPanel(); return true;
+}
+
+// ---- Árbol inmunitario ----
+function treeHtml(){
+  let h = `<div class="nb">${tr('Árbol inmunitario')} · ${tr('{n} puntos libres', {n:treeFree()})}</div>
+    <p class="lead">${tr('Ganas 2 puntos cada vez que evolucionas y 1 por cada jefe especial. Cada rama se desbloquea en orden. Puedes reiniciar el árbol gratis.')}</p><div class="tree">`;
+  for (const br of TREE){
+    h += `<div class="branch"><b>${tr(br.n)}</b>`;
+    br.nodes.forEach(n => { const N = TREE_NODES[n.id], own = has(n.id), avail = !own && (!N.prev || has(N.prev)) && treeFree() >= n.cost;
+      h += `<button class="node ${own ? 'own' : avail ? 'av' : ''}" data-node="${n.id}" ${own || !avail ? 'disabled' : ''} aria-pressed="${own}">
+        <span class="nc num">${own ? '✓' : n.cost}</span><span><b>${tr(n.n)}</b><small>${tr(n.d)}</small></span></button>`; });
+    h += '</div>';
+  }
+  return h + `</div><button class="buy wide" id="treeReset" ${treeSpent() ? '' : 'disabled'}>${tr('Reiniciar el árbol')}</button>`;
+}
+
+// ---- Tablón de la clase (datos compartidos de la página) ----
+let DB = null, USER = null, ME = null, boardDocs = [], boardState = 'off', lastBoard = '', boardT = 0;
+const weekKey = () => { const d = new Date(), j = new Date(d.getFullYear(), 0, 1); return d.getFullYear() + '-W' + Math.ceil(((d - j)/864e5 + j.getDay() + 1)/7); };
+const CLASS_GOAL = 300;
+async function initClass(){
+  try{
+    if (!window.claude || !window.claude.use){ boardState = 'none'; return; }
+    const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+    if (!db || !user){ boardState = 'none'; rerenderBoard(); return; }
+    DB = db; USER = user; ME = await user.id();
+    if (!ME){ boardState = 'none'; rerenderBoard(); return; }
+    boardState = 'loading';
+    const timer = setTimeout(() => { if (boardState === 'loading'){ boardState = 'slow'; rerenderBoard(); } }, 10000);
+    db.collection('board').onSnapshot(snap => {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      boardDocs = snap.docs.map(d => Object.assign({id:d.id}, d.data())); boardState = 'ok'; rerenderBoard();
+    }, () => { clearTimeout(timer); boardState = 'error'; rerenderBoard(); });
+    pushBoard(true);
+  }catch(_){ boardState = 'none'; }
+}
+function rerenderBoard(){ if (!$('#panel').hidden && tab === 'ret') renderPanel(); }
+async function pushBoard(force){
+  if (!DB || !ME || boardState === 'readonly') return;
+  const wk = weekKey(); if (S.wk !== wk){ S.wk = wk; S.wkNoAb = 0; }
+  const body = {best:S.best, kills:S.totalKills, ach:Object.keys(S.ach).length, quiz:S.quiz.ok, diag:S.diag.ok, story:!!S.storyDone, wk, wkNoAb:S.wkNoAb || 0};
+  const j = JSON.stringify(body); if (j === lastBoard) return;
+  if (!force && Date.now() - boardT < 30000) return; // como mucho una escritura cada 30 s
+  boardT = Date.now(); lastBoard = j;
+  try{ await DB.doc('board/' + ME).set(body); }catch(e){ if (e && e.code === 'invalid_argument'){ boardState = 'readonly'; rerenderBoard(); } }
+}
+function boardHtml(){
+  let h = `<div class="nb">${ico('board')}${tr('Tablón de la clase')}</div>`;
+  if (boardState === 'none' || boardState === 'off') return h + `<p class="lead">${tr('El tablón compartido solo funciona en la página publicada y con la sesión iniciada. Comparte el enlace con tu clase para que cada alumno aparezca aquí.')}</p>`;
+  if (boardState === 'loading') return h + `<p class="lead">${tr('Cargando el tablón…')}</p>`;
+  if (boardState === 'slow') return h + `<p class="lead">${tr('No se puede contactar con el tablón ahora mismo. Lo intentará de nuevo solo.')}</p>`;
+  if (boardState === 'error') return h + `<p class="lead">${tr('El tablón no está disponible en esta visita.')}</p>`;
+  const wk = weekKey(), total = boardDocs.filter(d => d.wk === wk).reduce((a, d) => a + (+d.wkNoAb || 0), 0);
+  h += `<div class="org daily">${vesicle('board', 0x4dffa0)}<h4>${tr('Reto de la clase esta semana')}</h4><p>${tr('Entre todos: vencer {g} bacterias sin usar antibióticos.', {g:CLASS_GOAL})}</p>
+    <div class="meter"><i style="width:${Math.min(100, total/CLASS_GOAL*100)}%"></i></div><div class="eff">${total} / ${CLASS_GOAL}</div></div>`;
+  const rows = boardDocs.slice().sort((a, b) => (b.best - a.best) || (b.kills - a.kills)).slice(0, 30);
+  h += `<ol class="board">${rows.map(d => `<li class="${d.id === ME ? 'me' : ''}"><span class="who" data-uid="${esc(d.id)}">…</span><span class="num">${tr('Nv')} ${+d.best || 1}</span><span class="num">${+d.kills || 0} ${tr('vict.')}</span><span class="num">${+d.ach || 0} ★</span></li>`).join('') || `<li>${tr('Todavía no hay nadie. ¡Sé el primero!')}</li>`}</ol>`;
+  if (boardState === 'readonly') h += `<p class="hint">${tr('Puedes ver el tablón, pero no tienes permiso para aparecer en él.')}</p>`;
+  else h += `<p class="hint">${tr('Tus datos se publican solos al jugar: nivel, victorias, logros y diagnósticos. Solo tú puedes cambiar tu fila.')}</p>`;
+  return h;
+}
+function fillBoardNames(){
+  if (!USER) return;
+  const els = [...document.querySelectorAll('#pBody [data-uid]')]; if (!els.length) return;
+  USER.profiles(els.map(e => e.dataset.uid)).then(ps => els.forEach(e => { const p = ps[e.dataset.uid]; e.textContent = (p && p.name || tr('Alguien')) + (e.dataset.uid === ME ? ' (' + tr('tú') + ')' : ''); }));
+}
+
+/* =====================================================================
    ARRANQUE
    ===================================================================== */
 function start(data){
@@ -2727,7 +3684,7 @@ function start(data){
   const g = atps()*away;
   if (g > 1 && away > 30){ S.atp += g; setTimeout(() => toast(tr('Mientras no estabas, tus mitocondrias produjeron {g} ATP.', {g:fmt(g)})), 600); }
   window.claude?.hot?.snapshot?.(() => ({S}));
-  resize(); renderHud();
+  resize(); renderHud(); initClass();
   if (!S.intro) showIntro(newBattle); else newBattle();
   requestAnimationFrame(t => { last = t; loop(t); });
   setTimeout(resize, 300);

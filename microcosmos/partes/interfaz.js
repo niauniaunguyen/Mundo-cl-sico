@@ -94,10 +94,14 @@ function renderLog(){
 }
 
 function renderHud(){
-  $('#hLvl').textContent = S.level;
+  const ch = storyCh();
+  $('#hLvlK').textContent = ch ? tr('Capítulo') : tr('Nivel');
+  $('#hLvl').textContent = ch ? `${S.story.ch + 1}/${STORY.length}` : S.level;
   let h = '';
-  for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
-  h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`;
+  if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' ? 'boss' : ''}"></span>`);
+  else { for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
+    h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
+  $('#bStory').setAttribute('aria-pressed', !!ch);
   $('#hPips').innerHTML = h;
   $('#hAtp').textContent = fmt(S.atp);
   const r = atps(); $('#hAtps').textContent = r > 0 ? `+${fmt(r)}/s` : '';
@@ -273,12 +277,15 @@ function renderPanel(){
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
         <h4 style="color:${hex(Ty.col)}">${Ty.n}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
-        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div>${practice}</div></div>`;
+        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${practice}</div></div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
+  } else if (tab === 'dia'){
+    h += diagHtml();
   } else if (tab === 'ret'){
     ensureDaily();
+    h += boardHtml();
     h += `<div class="nb">${tr('Retos de hoy')}</div><p class="lead">${tr('Cada día hay dos retos nuevos. Cada uno da 1 punto de ADN y desbloquea colores para tu célula.')}</p>`;
     h += S.daily.list.map(q => { const D = DAILY.find(x => x.id === q.id);
       return `<div class="org daily ${q.done ? 'ok' : ''}">${vesicle(q.done ? 'trophy' : 'flask', q.done ? 0x4dffa0 : 0xffc65c)}<h4>${D.n}</h4><div class="meter"><i style="width:${q.p/D.goal*100}%"></i></div><div class="eff">${q.p} / ${D.goal}${q.done ? ' · ' + tr('completado') : ''}</div></div>`; }).join('');
@@ -287,6 +294,7 @@ function renderPanel(){
   } else if (tab === 'evo'){
     const g = evoGain();
     h += `<div class="nb">${tr('Linaje')}</div>${phylo()}`;
+    h += treeHtml();
     h += `<div class="nb">${tr('Tu tipo de célula')}</div><div class="cells">` + Object.entries(CELLS).map(([id, c]) => {
       const ok = S.evos >= c.need, sel = S.cell === id;
       return `<button class="cellc ${sel ? 'sel' : ''}" data-cell="${id}" ${ok ? '' : 'disabled'} aria-pressed="${sel}">
@@ -306,6 +314,10 @@ function renderPanel(){
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));
     h += `<div class="org"><h4>${tr('Informe para el profesor')}</h4><p>${tr('Resumen de lo aprendido: organismos, herramientas probadas, aciertos al primer intento y cuestionario.')}</p><textarea id="repTa" readonly rows="7">${esc(reportText())}</textarea><button class="buy" id="repBtn">${tr('Copiar informe')}</button></div>`;
+    h += `<div class="nb">${tr('Narrador y sonido')}</div>`;
+    h += toggleRow('narr', S.narr, tr('Narradora'), tr('La doctora Olmo, del laboratorio, comenta las jugadas importantes.'));
+    h += toggleRow('voice', S.voice, tr('Leer en voz alta'), tr('La narradora lee sus comentarios en voz alta.'));
+    h += toggleRow('music', S.music, tr('Música y ambiente'), tr('Paisaje sonoro de cada zona: el latido en la sangre, la respiración en los pulmones, las burbujas de la charca…'));
     h += `<div class="nb">${tr('Accesibilidad')}</div>`;
     h += toggleRow('big', S.big, tr('Texto grande'), tr('Aumenta el tamaño de los menús y las fichas.'));
     h += toggleRow('calm', S.calm, tr('Reducir efectos'), tr('Menos partículas, sin temblores de cámara y animaciones más suaves.'));
@@ -320,12 +332,17 @@ function renderPanel(){
   }
   $('#pBody').innerHTML = h;
   refreshAfford();
+  if (tab === 'ret') fillBoardNames();
 }
 function refreshAfford(){
   document.querySelectorAll('#pBody [data-cost]').forEach(b => b.disabled = S.atp < +b.dataset.cost);
 }
 $('#pBody').addEventListener('click', ev => {
   const b = ev.target.closest('button'); if (!b || b.disabled) return;
+  if (tab === 'dia' && diagClick(b)) return;
+  if (b.dataset.scope){ openScope(b.dataset.scope); return; }
+  if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
+  if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
   if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return; S.atp -= c; S.upg[u.id]++; if (u.id === 'mem' && B) B.php += maxHp() - maxHp()/1.15; buy(u.id); }
   else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
@@ -336,6 +353,7 @@ $('#pBody').addEventListener('click', ev => {
   else if (b.dataset.lang){ setLang(b.dataset.lang); }
   else if (b.dataset.q){ S.q = b.dataset.q === 'auto' ? 'auto' : +b.dataset.q; applyQuality(S.q === 'auto' ? 2 : S.q); }
   else if (b.dataset.set){ const k = b.dataset.set; S[k] = !S[k];
+    if (k === 'music' || k === 'voice') ambient(storyCh() ? storyCh().zone : S.zone);
     if (k === 'clase'){ if (B){ B.over = true; clearTimeout(B.timer); } S.auto = S.auto && canAuto(); renderTools(); newBattle(); toast(S.clase ? tr('Modo clase activado') : tr('Modo clase desactivado')); } }
   else if (b.id === 'repBtn') return copyText(reportText(), $('#repTa'));
   else if (b.id === 'expBtn') return copyText(exportCode(), $('#expTa'));
@@ -356,7 +374,7 @@ $('#pBody').addEventListener('click', ev => {
 function evolve(){
   const g = evoGain(); if (!g) return;
   if (B){ B.over = true; clearTimeout(B.timer); }
-  S.adn += g; S.evos++;
+  S.adn += g; S.evos++; S.lpts += 2;
   S.level = 1; S.kills = 0; S.runMax = 1; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
   for (const k in S.upg) S.upg[k] = 0;
   checkAch(); rebuildPlayer(); save(); closeLab(); renderHud();
@@ -403,7 +421,7 @@ function showMap(){
   showModal(`<div class="eyebrow">${tr('Mapa')}</div><h2>${tr('¿Dónde está la infección?')}</h2><p>${tr('Cada zona tiene sus organismos típicos. Tu nivel no cambia: solo eliges contra qué luchar.')}</p>
     <div class="mapw">${svg}<div class="zones">${list}</div></div><button class="go" id="mGo">${tr('Cerrar')}</button>`);
   $('#mBox').querySelectorAll('[data-zone]').forEach(el => {
-    const pick = () => { S.zone = el.dataset.zone; save(); setZoneTint(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
+    const pick = () => { S.zone = el.dataset.zone; save(); setZoneTint(S.zone); ambient(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
     el.addEventListener('click', pick); el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(); } });
   });
 }
@@ -431,7 +449,7 @@ function showSpecies(id, isNew){
       $('#quiz').querySelectorAll('[data-q]').forEach(x => { x.disabled = true; if (x.dataset.q === best.t.id) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
       (S.known[id] = S.known[id] || {})[best.t.id] = true;
       let msg = (ok ? tr('¡Correcto!') : tr('No exactamente: la mejor es {t}.', {t:best.t.n})) + ' ' + eff(best.t.id, fake).why;
-      if (ok){ S.quiz.ok++; const g = reward(S.level, false)*8; if (!S.clase) S.atp += g; msg += S.clase ? '' : ' ' + tr('+{g} ATP.', {g:fmt(g)}); sfx.ach(); }
+      if (ok){ S.quiz.ok++; const g = reward(S.level, false)*8*(has('h3') ? 2 : 1); if (!S.clase) S.atp += g; msg += S.clase ? '' : ' ' + tr('+{g} ATP.', {g:fmt(g)}); sfx.ach(); }
       if (!owns(best.t.id)) msg += ' ' + tr('Todavía no la tienes: búscala en el Laboratorio.');
       $('#qres').textContent = msg; $('#qres').className = 'qres ' + (ok ? 'ok' : 'no');
       const go = $('#mGo'); go.hidden = false; go.onclick = closeModal; go.focus();

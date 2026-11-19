@@ -38,9 +38,22 @@ const TYPES = {
   pri:{n:'Prion',sci:'PrPSc (proteína priónica mal plegada)',min:30,col:0xffe066,boss:'Placa amiloide',
     traits:[['Proteína mal plegada','protein'],['Sin ácidos nucleicos','nonuc'],['Resistente a proteasas','protres'],['Contagia su plegamiento','conv']],
     desc:'Ni siquiera es un ser vivo: es una proteína propia (PrP) plegada de forma anómala, rica en láminas β. Cuando toca una PrP normal, la obliga a plegarse igual: su ataque crece cada turno. No tiene ADN ni ARN y el sistema inmune no la ve como extraña.'},
+  // ---- Segundo acto (desde el nivel 33) ----
+  tbc:{n:'Bacilo de la tuberculosis',sci:'Mycobacterium tuberculosis',min:33,col:0xe0605c,boss:'Tuberculosis miliar',hpK:1.6,
+    traits:[['Bacteria ácido-alcohol resistente','gram'],['Pared cérea de ácidos micólicos','wax'],['Vive dentro de los macrófagos','intra'],['Crecimiento lento','slow']],
+    desc:'Su pared tiene una gruesa capa cérea de ácidos micólicos que la protege de casi todo: colorantes, anticuerpos y muchos antibióticos. Sobrevive dentro de los macrófagos, porque impide que el fagosoma se fusione con el lisosoma. Crece muy despacio (se divide cada 18–24 horas), así que solo ataca un turno de cada dos, pero es muy resistente.'},
+  mal:{n:'Plasmodio de la malaria',sci:'Plasmodium falciparum',min:36,col:0xc77dff,boss:'Malaria grave',
+    traits:[['Protozoo apicomplejo','protist'],['Se esconde en los eritrocitos','rbc'],['Invisible para los linfocitos T','nomhc'],['Ciclos de fiebre','fever']],
+    desc:'Protozoo que transmite el mosquito Anopheles. Pasa la mayor parte del tiempo dentro de los glóbulos rojos, que no tienen MHC-I: ningún linfocito T puede verlo allí. Durante dos turnos está escondido en un eritrocito y en el tercero lo revienta y salen merozoítos expuestos. Cada pocos turnos provoca un acceso de fiebre que golpea más fuerte.'},
+  vih:{n:'VIH',sci:'Virus de la inmunodeficiencia humana 1',min:39,col:0xff8fab,boss:'Sida',
+    traits:[['Retrovirus','retro'],['Ataca a tus linfocitos T CD4','cd4'],['Muta muy deprisa','mut'],['Se integra en tu ADN','intra']],
+    desc:'Retrovirus: copia su ARN a ADN con la transcriptasa inversa y se integra en el genoma de la célula. Infecta a los linfocitos T CD4, los que coordinan la respuesta inmune: cada turno que pasa, tus anticuerpos y tus linfocitos T funcionan peor. Cada tres turnos se oculta en estado latente.'},
+  ten:{n:'Tenia',sci:'Taenia solium',min:42,col:0xf1e3c8,boss:'Teniasis',hpK:2.5,
+    traits:[['Gusano plano pluricelular','worm'],['Varios metros de largo','big'],['Tegumento protector','teg'],['Regenera proglótides','regen']],
+    desc:'Un animal pluricelular, no una célula: un gusano plano que vive en el intestino y puede medir varios metros. Se agarra con las ventosas y los ganchos de su escólex y no para de formar nuevos segmentos (proglótides) desde el cuello: recupera vida cada turno. Es demasiado grande para fagocitarla; contra ella luchan los eosinófilos.'},
 };
 const TYPE_ORDER = Object.keys(TYPES);
-const BACTERIA = ['gp','gn','myc','bac'];
+const BACTERIA = ['gp','gn','myc','bac','tbc'];
 
 // Herramientas: pow = potencia, cd = turnos de recarga, cost = ATP para desbloquear
 const TOOLS = [
@@ -56,17 +69,24 @@ const TOOLS = [
   {id:'tc',n:'Linfocito T citotóxico',col:0xff6fd8,pow:1.5,cd:2,cost:6500,d:'Linfocito CD8 que reconoce péptidos extraños presentados en el MHC-I de una célula y le ordena entrar en apoptosis. Ataca células infectadas o tumorales, aunque el virus esté escondido dentro.'},
   {id:'tax',n:'Taxol',col:0xff4f7b,pow:1.4,cd:3,cost:11000,d:'Antimitótico (paclitaxel). Estabiliza los microtúbulos e impide que se forme y se desmonte el huso mitótico. Bloquea la división durante 3 turnos.'},
   {id:'aut',n:'Autoclave',col:0xffffff,pow:2.4,cd:4,cost:18000,d:'Vapor de agua a 121–134 °C y alta presión. Desnaturaliza las proteínas y destruye incluso endosporas y priones.'},
+  {id:'iso',n:'Isoniazida',col:0xe0605c,pow:1.6,cd:2,cost:30000,ab:true,d:'Antibiótico que impide fabricar los ácidos micólicos, los lípidos céreos de la pared de las micobacterias. Sin ellos, la pared se desmorona.'},
+  {id:'art',n:'Artemisinina',col:0xc77dff,pow:1.6,cd:2,cost:50000,d:'Fármaco extraído del ajenjo dulce (Artemisia annua). El hierro del hemo que el parásito digiere activa su puente de peróxido y genera radicales libres. Tu Youyou recibió el Nobel en 2015 por descubrirla.'},
+  {id:'arv',n:'Antirretrovirales',col:0xff8fab,pow:1.5,cd:2,cost:80000,d:'Inhibidores de la transcriptasa inversa: impiden que el ARN del VIH se copie a ADN y se integre en tu genoma.'},
+  {id:'pzq',n:'Praziquantel',col:0xf1e3c8,pow:1.8,cd:3,cost:120000,d:'Antiparasitario que abre la entrada de calcio en el tegumento de los gusanos planos: el gusano se contrae, se paraliza y se suelta del intestino.'},
 ];
 const TOOL = Object.fromEntries(TOOLS.map(t => [t.id, t]));
 // Rasgos que explican el resultado de cada herramienta (se resaltan en la ficha)
 const KEYTRAIT = {fago:['acell','self','protein','cellulose','pseudo','tiny'], lis:['pg','outer','nowall','acell','chitin','cellulose','protein'], pen:['pg','outer','nowall','acell','chitin','cellulose','protein'],
   uv:['nonuc','cellulose','chloro'], ac:['self','protein','intra','cellulose','env'], anf:['ergo','chol','gram','acell','protein','protist'], osm:['nowall','pg','chitin','cellulose','vac','acell','protein'],
-  luz:['photo','chloro'], cel:['cellulose','chitin','pg'], tc:['intra','self','gram','protist','fungus'], tax:['mitosis','fission','acell','protein','budding'], aut:['spore','protein']};
+  luz:['photo','chloro'], cel:['cellulose','chitin','pg'], tc:['intra','self','gram','protist','fungus','rbc','nomhc','cd4'], tax:['mitosis','fission','acell','protein','budding','worm'], aut:['spore','protein'],
+  iso:['wax','gram'], art:['rbc','protist'], arv:['retro','acell'], pzq:['worm','teg']};
+['fago','lis','pen'].forEach(k => KEYTRAIT[k].push('wax','big')); KEYTRAIT.ac.push('cd4','rbc','mut'); KEYTRAIT.osm.push('teg');
 
 // Eficacia [multiplicador, explicación] de cada herramienta contra cada organismo
 const NOWALL_PG = 'No tiene peptidoglucano: esa molécula solo existe en la pared de las bacterias.';
 const EFF = {
   fago:{def:[1,'La fagocitosis sirve contra casi cualquier partícula: la engulles y la digieres.'],
+    tbc:[.3,'Mycobacterium tuberculosis sobrevive dentro de los macrófagos: impide que el fagosoma se fusione con el lisosoma.'],mal:[.5,'Solo puedes engullir los merozoítos sueltos o los eritrocitos infectados.'],vih:[.6,'El VIH es diminuto y además puede infectar a los propios macrófagos.'],ten:[.1,'Una tenia mide varios metros: es imposible fagocitarla.'],
     vir:[.7,'Las partículas víricas miden unos 100 nm: muchas se te escapan.'],
     veg:[.4,'La célula vegetal es grande y su pared rígida no se deja englobar.'],
     can:[.6,'Las células tumorales exhiben la señal «no me comas» (CD47) y frenan a los macrófagos.'],
@@ -74,6 +94,7 @@ const EFF = {
     ame:[.8,'La ameba también fagocita: es difícil engullir a quien hace lo mismo que tú.'],
     par:[.6,'Un paramecio mide unas 200 µm, diez veces más que tú: solo puedes morder trozos.']},
   lis:{def:[0,NOWALL_PG],
+    tbc:[.2,'La pared cérea de ácidos micólicos protege su peptidoglucano.'],
     gp:[2.5,'Su peptidoglucano es grueso y está expuesto: la lisozima lo corta y la pared se deshace.'],
     gn:[.5,'La membrana externa de las Gram− tapa su fina capa de peptidoglucano.'],
     bac:[2,'Bacillus es Gram+: pared gruesa de peptidoglucano al descubierto.'],
@@ -83,6 +104,7 @@ const EFF = {
     veg:[0,'La pared vegetal es de celulosa: la lisozima no la reconoce.'],
     pri:[0,'Un prion es una proteína: no tiene pared que romper.']},
   pen:{def:[0,'La penicilina solo impide fabricar la pared de peptidoglucano de las bacterias.'],
+    tbc:[.1,'Las micobacterias resisten a los β-lactámicos: su pared cérea frena la entrada y fabrican β-lactamasas.'],
     gp:[2.5,'Sin transpeptidasas, la bacteria no puede reforzar su pared al crecer: estalla.'],
     bac:[2.2,'Gram+: la penicilina llega a su pared sin obstáculos.'],
     gn:[.6,'La membrana externa frena la entrada de la penicilina; muchas Gram− le resisten.'],
@@ -90,6 +112,7 @@ const EFF = {
     vir:[0,'Los antibióticos no afectan a los virus: no tienen pared ni metabolismo propio.'],
     lev:[0,'Los hongos son eucariotas con pared de quitina: la penicilina no les afecta. De hecho, la penicilina la fabrica un hongo, Penicillium.']},
   uv:{def:[1,'La UV daña el ADN de cualquier célula.'],
+    tbc:[.8,'Su pared gruesa la protege algo, aunque la UV sí la daña: se usa para desinfectar el aire en las salas de tuberculosis.'],mal:[.5,'Está dentro de los eritrocitos, en la sangre: la UV apenas llega.'],vih:[1.3,'La UV daña su ARN.'],ten:[.3,'Un gusano pluricelular tiene tejidos que protegen su ADN.'],
     gp:[1.5,'Las bacterias tienen un solo cromosoma desnudo: la UV lo daña con facilidad.'],
     gn:[1.5,'Las bacterias tienen un solo cromosoma desnudo: la UV lo daña con facilidad.'],
     myc:[1.5,'Un genoma diminuto y sin pared que lo proteja.'],
@@ -98,6 +121,7 @@ const EFF = {
     bac:[1.3,'Mientras no forme la endospora, su ADN es vulnerable.'],
     pri:[0,'Un prion es solo proteína: no tiene ADN ni ARN que dañar.']},
   ac:{def:[1,'Los anticuerpos reconocen sus antígenos de superficie y lo marcan.'],
+    tbc:[.5,'Los anticuerpos sirven de poco contra una bacteria que vive dentro de los macrófagos.'],vih:[1.2,'Hay anticuerpos neutralizantes contra el VIH, pero el virus muta tan deprisa que se les escapa.'],ten:[1.2,'La IgE marca al gusano para que los eosinófilos lo ataquen.'],
     vir:[2.5,'Los anticuerpos neutralizan el virus: tapan la hemaglutinina con la que se une a tus células.'],
     gp:[1.2,'Los anticuerpos opsonizan la bacteria: la marcan para que la destruyas.'],
     gn:[1.2,'Los anticuerpos opsonizan la bacteria y activan el complemento contra su membrana externa.'],
@@ -105,6 +129,7 @@ const EFF = {
     can:[.5,'Es una célula propia: tiene pocos antígenos que tu sistema inmune vea como extraños.'],
     pri:[0,'El prion es una proteína propia mal plegada: tu sistema inmune no la reconoce como extraña.']},
   anf:{def:[.3,'Las células animales usan colesterol, no ergosterol: les afecta poco.'],
+    tbc:[0,'Las bacterias no tienen esteroles en la membrana.'],vih:[0,'Su envoltura viene de la membrana de la célula huésped y no tiene ergosterol.'],
     lev:[3,'La anfotericina B se une al ergosterol de su membrana y abre poros: la levadura pierde iones y muere.'],
     gp:[0,'Las bacterias no tienen esteroles en la membrana.'],gn:[0,'Las bacterias no tienen esteroles en la membrana.'],bac:[0,'Las bacterias no tienen esteroles en la membrana.'],
     myc:[.6,'El micoplasma toma colesterol del huésped para su membrana: algo le afecta.'],
@@ -114,6 +139,7 @@ const EFF = {
     par:[.5,'El paramecio usa otros esteroles (como el tetrahimanol): le afecta poco.'],
     pri:[0,'Un prion no tiene membrana.']},
   osm:{def:[.3,'Su pared celular resiste la presión del agua que entra: queda turgente, pero no revienta.'],
+    mal:[1.2,'Ni el eritrocito ni el parásito tienen pared: el agua los hincha.'],vih:[0,'Un virus no es una célula: no hay ósmosis que lo haga reventar.'],ten:[.3,'Un gusano pluricelular regula el agua con sus células excretoras (protonefridios).'],
     ame:[2.5,'Sin pared celular, el agua entra por ósmosis hasta que la membrana estalla.'],
     myc:[2.5,'El micoplasma no tiene pared: la lisis osmótica es inmediata.'],
     can:[2.2,'Una célula animal no tiene pared: se hincha y revienta.'],
@@ -127,11 +153,13 @@ const EFF = {
     veg:[3,'La celulasa digiere su pared de celulosa y la deja indefensa.'],
     lev:[0,'La pared de los hongos es de quitina, no de celulosa.']},
   tc:{def:[.5,'Los linfocitos T citotóxicos atacan células propias infectadas o alteradas, no microbios libres.'],
+    tbc:[.8,'Los linfocitos T ayudan a encerrar a la micobacteria en un granuloma, pero no la eliminan del todo.'],mal:[.3,'Los eritrocitos no tienen MHC-I: los linfocitos T solo detectan al parásito en su fase hepática.'],vih:[1.5,'Destruye las células infectadas, aunque el VIH ataca precisamente a los linfocitos T colaboradores.'],
     vir:[2.5,'Reconoce los péptidos víricos que la célula infectada presenta en su MHC-I y la destruye, con el virus dentro.'],
     can:[2,'Reconoce antígenos tumorales y le ordena entrar en apoptosis.'],
     lev:[.7,'Contra los hongos son más útiles los neutrófilos y los linfocitos Th17 que los T citotóxicos.'],
     pri:[0,'El prion es una proteína propia: no hay antígeno extraño que reconocer.']},
   tax:{def:[1,'Los eucariotas usan microtúbulos para dividirse: el taxol les afecta.'],
+    tbc:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],vih:[0,'Un virus no se divide: lo copia la maquinaria de la célula que infecta.'],ten:[1.4,'Los gusanos son sensibles a los fármacos que atacan sus microtúbulos: así funciona el albendazol.'],
     can:[2.5,'Se divide sin control: si bloqueas su huso mitótico, se detiene y muere.'],
     gp:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
     gn:[0,'Las bacterias no tienen microtúbulos ni mitosis: se dividen por fisión binaria.'],
@@ -140,6 +168,17 @@ const EFF = {
     vir:[0,'Un virus no se divide: lo copia la maquinaria de la célula que infecta.'],
     pri:[0,'Un prion no se divide: convierte proteínas sanas.'],
     ame:[1.2,'La ameba se divide por mitosis: el huso le es imprescindible.'],par:[1.2,'El paramecio usa microtúbulos para dividirse y para sus cilios.']},
+  iso:{def:[0,'Solo afecta a las micobacterias: los demás organismos no fabrican ácidos micólicos.'],
+    tbc:[3,'La isoniazida bloquea la síntesis de ácidos micólicos: sin su capa cérea, la micobacteria queda indefensa.'],
+    gp:[0,'Los estafilococos no tienen ácidos micólicos en la pared.'],bac:[0,'Bacillus no tiene ácidos micólicos en la pared.']},
+  art:{def:[0,'La artemisinina actúa sobre los parásitos de la malaria: necesita el hierro del hemo que digieren dentro del eritrocito.'],
+    mal:[2.8,'El hierro del hemo que digiere el parásito activa la artemisinina, que lo destruye con radicales libres, incluso dentro del eritrocito.'],
+    can:[.5,'Se investiga contra algunos tumores ricos en hierro, pero aquí apenas les afecta.']},
+  arv:{def:[0,'Solo actúa sobre los retrovirus, que copian su ARN a ADN con la transcriptasa inversa.'],
+    vih:[3,'Sin transcriptasa inversa, el ARN del VIH no puede pasar a ADN ni integrarse: el virus deja de multiplicarse.'],
+    vir:[0,'La gripe no tiene transcriptasa inversa: copia su ARN directamente a ARN.']},
+  pzq:{def:[0,'El praziquantel actúa sobre los gusanos planos: los organismos unicelulares no tienen su tegumento.'],
+    ten:[3,'El calcio entra de golpe en su tegumento: la tenia se contrae, se paraliza y se suelta.']},
   aut:{def:[1.2,'El vapor a presión desnaturaliza sus proteínas.'],
     bac:[1.5,'El autoclave es lo único que destruye endosporas.'],
     pri:[1.6,'Hacen falta 134 °C durante 18 minutos para inactivar priones: un autoclave prolongado.']},
@@ -167,11 +206,11 @@ const UPG = [
 const CELLS = {
   mac:{n:'Macrófago',size:'≈ 21 µm',need:0,hp:1,atk:1,bonus:{},nuc:'bean',gran:0xd8ff6b,
     d:'Fagocito grande y longevo que vive en los tejidos. Presenta antígenos a los linfocitos y equilibrado en todo.'},
-  neu:{n:'Neutrófilo',size:'≈ 12 µm',need:1,hp:.85,atk:1.1,bonus:{gp:1.4,gn:1.4,bac:1.4,lev:1.4,myc:1.3},nuc:'lobes',gran:0xe8e0ff,
+  neu:{n:'Neutrófilo',size:'≈ 12 µm',need:1,hp:.85,atk:1.1,bonus:{gp:1.4,gn:1.4,bac:1.4,lev:1.4,myc:1.3,tbc:1.2},nuc:'lobes',gran:0xe8e0ff,
     d:'El leucocito más abundante: llega el primero a las infecciones y lanza trampas de ADN (NET) contra bacterias y hongos. ×1,4 contra bacterias y levaduras; algo menos de vida.'},
-  nk:{n:'Linfocito NK',size:'≈ 10 µm',need:2,hp:.9,atk:1,bonus:{vir:1.5,can:1.5},nuc:'round',gran:0xff4f7b,hidden:true,
+  nk:{n:'Linfocito NK',size:'≈ 10 µm',need:2,hp:.9,atk:1,bonus:{vir:1.5,can:1.5,vih:1.5},nuc:'round',gran:0xff4f7b,hidden:true,
     d:'Asesino natural: detecta células que han perdido el MHC-I, como las infectadas o las tumorales, y las destruye con perforina y granzimas. ×1,5 contra virus y tumores, y alcanza al virus escondido.'},
-  eos:{n:'Eosinófilo',size:'≈ 14 µm',need:3,hp:1.1,atk:1,bonus:{ame:1.5,par:1.5},nuc:'bilobed',gran:0xff7a3a,
+  eos:{n:'Eosinófilo',size:'≈ 14 µm',need:3,hp:1.1,atk:1,bonus:{ame:1.5,par:1.5,mal:1.3,ten:2},nuc:'bilobed',gran:0xff7a3a,
     d:'Sus gránulos de proteína básica mayor atacan a parásitos demasiado grandes para fagocitarlos. ×1,5 contra protozoos y algo más de vida.'},
 };
 
@@ -188,10 +227,10 @@ const SKINS = {
 // Zonas del cuerpo (el mapa)
 const ZONES = {
   san:{n:'Sangre',types:null,tint:[0,0,0],d:'Todo el torrente sanguíneo: puede aparecer cualquier organismo.'},
-  pul:{n:'Pulmones',types:['gp','gn','vir','myc','lev'],tint:[.0,.02,.05],d:'Alvéolos pulmonares: gripe, neumonías bacterianas y atípicas.'},
-  int:{n:'Intestino',types:['gn','ame','bac','lev','can'],tint:[.04,.02,0],d:'Intestino: E. coli, amebas, bacilos que forman esporas y tumores de colon.'},
+  pul:{n:'Pulmones',types:['gp','gn','vir','myc','lev','tbc'],tint:[.0,.02,.05],d:'Alvéolos pulmonares: gripe, neumonías bacterianas y atípicas.'},
+  int:{n:'Intestino',types:['gn','ame','bac','lev','can','ten'],tint:[.04,.02,0],d:'Intestino: E. coli, amebas, bacilos que forman esporas y tumores de colon.'},
   pie:{n:'Piel',types:['gp','lev','bac'],tint:[.04,.0,.02],d:'Heridas y piel: estafilococos, Candida y bacilos del suelo.'},
-  cer:{n:'Cerebro',types:['pri','vir','ame'],tint:[.02,0,.05],d:'Sistema nervioso: priones, encefalitis víricas y Naegleria, la ameba que entra por la nariz.'},
+  cer:{n:'Cerebro',types:['pri','vir','ame','mal','vih'],tint:[.02,0,.05],d:'Sistema nervioso: priones, encefalitis víricas y Naegleria, la ameba que entra por la nariz.'},
   cha:{n:'Charca',types:['par','ame','veg'],tint:[0,.05,.02],d:'Una gota de agua de charca en el portaobjetos: protozoos y hojas de Elodea. (Aquí no estás dentro de un cuerpo: es una práctica de laboratorio.)'},
 };
 
@@ -210,6 +249,7 @@ const SPECIAL = [
   {type:'vir',n:'Gripe pandémica',p2:'Tormenta de citocinas: tu propia inflamación se desboca y los dos hacéis un 30 % más de daño.'},
   {type:'can',n:'Tumor maligno',p2:'Angiogénesis: nuevos vasos sanguíneos lo alimentan y se cura cada turno, salvo si bloqueas su mitosis.'},
   {type:'pri',n:'Placa amiloide',p2:'Agregación: la placa crece y su ataque aumenta un 20 % cada turno.'},
+  {type:'mal',n:'Malaria cerebral',p2:'Citoadherencia: los eritrocitos infectados se pegan a los vasos del cerebro y el parásito recupera un 8 % cada turno.'},
 ];
 
 // Logros: cada uno trae un dato curioso
@@ -251,6 +291,8 @@ const LAB = {
   lev:['Blanco de calcoflúor (se une a la quitina)','4–6 µm'], ame:['Contraste de fases','≈ 500 µm'], veg:['Campo claro, sin teñir: la clorofila ya es verde','≈ 50 µm'],
   par:['Campo oscuro','≈ 200 µm'], myc:['Microscopio electrónico de barrido','0,2–0,3 µm'], can:['Hematoxilina y eosina','15–30 µm'],
   bac:['Verde de malaquita (tinción de esporas)','3–5 × 1 µm'], pri:['Rojo Congo (birrefringencia verde manzana)','fibrillas de ≈ 10 nm'],
+  tbc:['Tinción de Ziehl-Neelsen (ácido-alcohol resistente)','2–4 × 0,3 µm'], mal:['Frotis de sangre con Giemsa','≈ 2 µm dentro de un eritrocito de 7,5 µm'],
+  vih:['Microscopio electrónico de transmisión','≈ 120 nm'], ten:['Lupa binocular (proglótides)','2–7 m'],
 };
 
 const SOURCES = [
@@ -262,6 +304,8 @@ const SOURCES = [
   'OMS (1999). WHO Infection Control Guidelines for Transmissible Spongiform Encephalopathies.',
   'Sender, R. y Milo, R. (2021). The distribution of cellular turnover in the human body. Nature Medicine, 27, 45–48.',
   'Tsien, R. Y. (1998). The green fluorescent protein. Annual Review of Biochemistry, 67, 509–544.',
+  'OMS (2023). Informe mundial sobre el paludismo / Global tuberculosis report.',
+  'Tu, Y. (2011). The discovery of artemisinin (qinghaosu) and gifts from Chinese medicine. Nature Medicine, 17, 1217–1220.',
 ];
 const LICENSES = [
   'Un macrófago no fabrica antibióticos ni enciende autoclaves: las herramientas representan lo que el sistema inmune y la medicina pueden hacer contra cada organismo.',

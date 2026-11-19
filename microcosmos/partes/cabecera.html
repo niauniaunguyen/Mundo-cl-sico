@@ -269,7 +269,8 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   .meta{margin-top:5px}
   .traits{margin-top:6px;gap:4px}
   .trait{font-size:11px;padding:1px 7px 1px 6px}
-  #tools{grid-template-columns:repeat(4,1fr);gap:5px;padding-top:8px}
+  #tools{grid-template-columns:none;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:calc((100% - 15px)/4.35);overflow-x:auto;scrollbar-width:none;gap:5px;padding-top:8px}
+  #tools::-webkit-scrollbar{display:none}
   .tool{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;text-align:center;row-gap:3px;border-radius:16px;padding:5px 3px 6px;min-height:0}
   .ves{grid-row:auto;width:32px;height:32px}
   .ves .ic{width:18px;height:18px}
@@ -397,6 +398,74 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   #achc{top:calc(var(--hudH,96px) + 8px)}
   #toast{top:calc(var(--hudH,96px) + 6px);font-size:13px}
 }
+/* ---------- v4 ---------- */
+#narr{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:calc(var(--hudH,60px) + 10px);z-index:6;width:min(380px,calc(100% - 32px));display:grid;grid-template-columns:40px 1fr 28px;gap:10px;align-items:start;padding:10px 12px;animation:drop .35s ease-out}
+#narr .nav .ic{width:38px;height:38px;color:var(--gfp);padding:6px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(77,255,160,.6);box-sizing:border-box}
+#narr b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gfp)}
+#narr p{margin:2px 0 0;font-size:13.5px;line-height:1.45}
+#narr .nx{font-size:18px;color:var(--muted);line-height:1}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.row .go{margin-top:0}
+.ghost{padding:10px 18px;border-radius:999px;border:1px solid var(--line2);font-weight:600;color:var(--fg)}
+.mbox .row{margin-top:16px}
+.chap{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px}
+.chap li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line2);border-radius:14px}
+.chap li .num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line2);font-size:12px}
+.chap li b{display:block;font-size:14px} .chap li small{color:var(--muted);font-size:12px}
+.chap li.ok{border-color:rgba(77,255,160,.5)} .chap li.ok .num{background:rgba(77,255,160,.2);border-color:var(--gfp);color:var(--gfp)}
+.chap li.now{border-color:var(--fitc);box-shadow:inset 0 0 12px rgba(255,198,92,.12)} .chap li.now .num{border-color:var(--fitc);color:var(--fitc)}
+.mbox:has(.scope){width:min(980px,100%)}
+.scope{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px}
+.sview{position:relative;aspect-ratio:1;max-width:100%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 45%,#0e2230,#03080d 72%);box-shadow:inset 0 0 40px rgba(0,0,0,.95),0 0 0 4px #08121a,0 0 0 5px var(--line2)}
+#scv{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scv:active{cursor:grabbing}
+#sdots{position:absolute;inset:0;pointer-events:none}
+.sdot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;pointer-events:auto;display:grid;place-items:center;transition:opacity .2s}
+.sdot i{width:12px;height:12px;border-radius:50%;background:var(--fitc);box-shadow:0 0 0 3px rgba(255,198,92,.35),0 0 10px var(--fitc)}
+.sdot.on i{background:var(--gfp);box-shadow:0 0 0 4px rgba(77,255,160,.4),0 0 12px var(--gfp)}
+.sdot.back{opacity:.25}
+.szoom{position:absolute;right:12%;bottom:10%;display:flex;flex-direction:column;gap:6px}
+.szoom button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);background:var(--glass);font-size:18px;font-weight:700}
+.sinfo .eyebrow{display:flex;align-items:center;gap:6px}
+.sinfo .eyebrow .ic{width:16px;height:16px}
+.spart{margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:14px;min-height:64px;background:rgba(6,18,27,.8)}
+.spart b{font-family:var(--f-display);font-weight:600} .spart p{margin:4px 0 0;font-size:13.5px}
+.plist{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.plist button{padding:5px 11px;border-radius:999px;border:1px solid var(--line2);font-size:12.5px;font-weight:600}
+.plist button.on{border-color:var(--gfp);color:var(--gfp)}
+.case{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border:1px solid var(--line2);border-radius:18px;background:rgba(6,18,27,.92)}
+.case .ch{display:flex;align-items:center;gap:8px} .case .ch .ic{color:var(--fitc)} .case .ch small{margin-left:auto;color:var(--muted);font-family:var(--f-data)}
+.tests,.guess{display:flex;flex-wrap:wrap;gap:6px}
+.tests button,.guess button{padding:6px 11px;border-radius:999px;border:1px solid var(--line2);font-size:12.5px;font-weight:600}
+.tests button:not(:disabled):hover,.guess button:not(:disabled):hover{border-color:var(--fitc)}
+.tests button:disabled,.guess button:disabled{opacity:.45;cursor:not-allowed}
+.results{margin:0;padding-left:18px;font-size:13px;line-height:1.5;color:#c4d8e3} .results li+li{margin-top:4px}
+.verd{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:start;padding:10px;border-radius:14px;border:1px solid var(--line2)}
+.verd.ok{border-color:rgba(77,255,160,.6)} .verd.no{border-color:rgba(255,79,123,.6)}
+.verd b{font-size:14px} .verd p{margin:4px 0 0;font-size:13px;color:#c4d8e3}
+.tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.branch{display:flex;flex-direction:column;gap:6px}
+.branch > b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.node{display:grid;grid-template-columns:24px 1fr;gap:6px;align-items:start;text-align:left;padding:8px;border:1px solid var(--line2);border-radius:12px;opacity:.5}
+.node .nc{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line2);font-size:11px}
+.node b{display:block;font-size:12.5px} .node small{display:block;font-size:11px;line-height:1.35;color:var(--muted);margin-top:2px}
+.node.av{opacity:1;border-color:var(--fitc)} .node.av .nc{border-color:var(--fitc);color:var(--fitc)}
+.node.own{opacity:1;border-color:rgba(77,255,160,.6);background:rgba(77,255,160,.06)} .node.own .nc{background:var(--gfp);color:#03150b;border-color:var(--gfp)}
+.node:disabled{cursor:default}
+.board{list-style:none;margin:0;padding:0;display:grid;gap:4px;counter-reset:b}
+.board li{display:grid;grid-template-columns:22px 1fr auto auto auto;gap:10px;align-items:center;padding:7px 10px;border:1px solid var(--line2);border-radius:12px;font-size:13px;counter-increment:b}
+.board li::before{content:counter(b);font-family:var(--f-data);color:var(--muted);font-size:12px}
+.board li.me{border-color:var(--gfp)} .board .who{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.board .num{font-size:12px;color:#a9c0cd}
+.nb .ic{width:14px;height:14px}
+@media (max-width:720px){
+  .scope{grid-template-columns:1fr}
+  .tree{grid-template-columns:1fr}
+  .verd{grid-template-columns:80px 1fr}
+  #narr{top:auto;bottom:calc(var(--toolsH,120px) + 104px)}
+  .board li{grid-template-columns:20px 1fr auto auto;}
+  .board li .num:last-child{display:none}
+}
 </style>
 
 <div id="app">
@@ -406,7 +475,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 
   <header id="hud">
     <div class="brand"><span data-ic="cell"></span><span>Micro<b>cosmos</b></span></div>
-    <div class="lvl"><span class="k" data-t="Nivel">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
+    <div class="lvl"><span class="k" id="hLvlK">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
     <div class="res">
       <div class="chip atp" data-tt="ATP: la moneda energética de la célula"><span data-ic="atp"></span><span class="v num" id="hAtp">0</span><small class="num" id="hAtps"></small></div>
       <div class="chip adn" id="hAdnBox" hidden data-tt="ADN heredado de tus evoluciones"><span data-ic="dna"></span><span class="v num" id="hAdn">0</span></div>
@@ -416,6 +485,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tog" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
       <button class="tog" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span><span class="lbl" data-t="Avanzar">Avanzar</span></button>
       <button class="tog icon" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
+      <button class="tog icon" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span></button>
       <button class="tog" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
       <button class="tog lab" id="bLab"><span data-ic="flask"></span><span class="lbl" data-t="Laboratorio">Laboratorio</span><span class="dot" id="labDot" hidden></span></button>
     </div>
@@ -448,6 +518,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tab" role="tab" data-tab="mej" aria-selected="true"><span data-ic="mito"></span><span data-t="Orgánulos">Orgánulos</span></button>
       <button class="tab" role="tab" data-tab="her" aria-selected="false"><span data-ic="pipette"></span><span data-t="Herramientas">Herramientas</span></button>
       <button class="tab" role="tab" data-tab="atl" aria-selected="false"><span data-ic="slide"></span><span data-t="Atlas">Atlas</span></button>
+      <button class="tab" role="tab" data-tab="dia" aria-selected="false"><span data-ic="tube"></span><span data-t="Diagnóstico">Diagnóstico</span></button>
       <button class="tab" role="tab" data-tab="ret" aria-selected="false"><span data-ic="trophy"></span><span data-t="Retos">Retos</span></button>
       <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span></button>
       <button class="tab" role="tab" data-tab="aju" aria-selected="false"><span data-ic="gear"></span><span data-t="Ajustes">Ajustes</span></button>
@@ -458,6 +529,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   <div id="modal" hidden><div class="mbox cell" id="mBox"></div></div>
   <div id="toast" hidden></div>
   <div id="achc" class="cell" hidden aria-live="polite"></div>
+  <div id="narr" class="cell" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><div><b>Dra. Olmo</b><p></p></div><button class="nx" data-tt="Cerrar">×</button></div>
   <div id="cine" hidden aria-live="polite"><i class="lb t"></i><i class="lb b"></i><div class="ctx"><div class="ce"></div><div class="ct"></div></div></div>
 </div>
 

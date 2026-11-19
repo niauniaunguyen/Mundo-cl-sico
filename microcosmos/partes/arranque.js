@@ -11,7 +11,7 @@ function start(data){
   const g = atps()*away;
   if (g > 1 && away > 30){ S.atp += g; setTimeout(() => toast(tr('Mientras no estabas, tus mitocondrias produjeron {g} ATP.', {g:fmt(g)})), 600); }
   window.claude?.hot?.snapshot?.(() => ({S}));
-  resize(); renderHud();
+  resize(); renderHud(); initClass();
   if (!S.intro) showIntro(newBattle); else newBattle();
   requestAnimationFrame(t => { last = t; loop(t); });
   setTimeout(resize, 300);

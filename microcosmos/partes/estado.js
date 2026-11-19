@@ -8,17 +8,27 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   auto:false, advance:true, sound:true, intro:false, t:Date.now(),
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
-  sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null});
+  sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
+  tree:{}, lpts:0, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
-const cellD = () => CELLS[S.cell] || CELLS.mac;
-const owns = id => S.clase || !!S.tools[id];
-const canAuto = () => S.memoria || S.clase;
+// Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
+const storyCh = () => S.story ? STORY[S.story.ch] : null;
+const effLevel = () => storyCh() ? storyCh().L : S.level;
+const fixedStats = () => S.clase || !!storyCh();
+const cellD = () => CELLS[(storyCh() && storyCh().cell) || S.cell] || CELLS.mac;
+const owns = id => storyCh() ? storyCh().tools.includes(id) : S.clase || !!S.tools[id];
+const canAuto = () => S.memoria || S.clase || !!storyCh();
+// Árbol de habilidades
+const has = id => !!S.tree[id];
+const treeSpent = () => Object.keys(S.tree).reduce((a, id) => a + (TREE_NODES[id] ? TREE_NODES[id].cost : 0), 0);
+const treeFree = () => S.lpts - treeSpent();
+const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (S.clase ? 10*Math.pow(1.24, S.level-1) : 10*Math.pow(1.15, S.upg.fue)*adnM())*cellD().atk;
-const maxHp = () => (S.clase ? 120*Math.pow(1.2, S.level-1) : 100*Math.pow(1.15, S.upg.mem)*adnM())*cellD().hp;
-const taken = () => S.clase ? .8 : Math.pow(.96, S.upg.cit);
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*adnM())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*adnM())*cellD().hp;
+const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
 const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM();
 const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM();
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
@@ -42,12 +52,13 @@ function load(data){
   let d = data && data.S;
   if (!d){ try{ d = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); }catch(_){ d = null; } }
   if (!d || d.v !== 1) return false;
-  const f = fresh(), nested = ['upg', 'quiz', 'first', 'daily', 'stats'];
+  const f = fresh(), nested = ['upg', 'quiz', 'first', 'daily', 'stats', 'diag'];
   const keep = {}; nested.forEach(k => keep[k] = f[k]);
   S = Object.assign(f, d);
   nested.forEach(k => S[k] = Object.assign(keep[k], d[k] || {}));
   for (const k in S.upg) if (!isFinite(S.upg[k])) S.upg[k] = 0;
   if (!isFinite(S.atp)) S.atp = 0;
+  if (S.story && !STORY[S.story.ch]) S.story = null;
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);
   return true;
