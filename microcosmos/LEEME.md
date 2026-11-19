@@ -2,7 +2,17 @@
 
 RPG incremental de biología celular con combates por turnos en 3D, en español. El jugador es un **macrófago** que se enfrenta a bacterias, virus, hongos, protozoos, células tumorales y priones. Para vencerlos tiene que aprovechar sus características: la penicilina rompe el peptidoglucano, pero un virus no tiene pared; el agua destilada revienta a una célula sin pared, pero no a una vegetal.
 
-- **Archivo jugable:** `microcosmos/microcosmos.html`: un solo archivo con HTML, CSS y JS. No hace falta compilarlo. Se abre directamente en el navegador.
+- **Archivo jugable:** `microcosmos/microcosmos.html`: un solo archivo que se abre directamente en el navegador.
+- **Código fuente:** `microcosmos/partes/`. **Se edita siempre ahí** y luego se ejecuta `python microcosmos/partes/construir.py`, que une las partes en `microcosmos.html`. Las partes son:
+  - `cabecera.html`: CSS y HTML.
+  - `datos.js`: la biología, en español.
+  - `idiomas_*.js`: las traducciones.
+  - `estado.js`: guardado, fórmulas, retos y logros.
+  - `sonido.js`.
+  - `escena.js`: Three.js.
+  - `combate.js`.
+  - `interfaz.js`: interfaz y bucle principal.
+  - `arranque.js`.
 - **Motor:** Three.js r128 (UMD desde cdnjs). Todos los modelos son procedurales: no hay GLB.
 - **Guardado:** `localStorage`, clave `microcosmos.v1`. Hay progreso sin conexión (las mitocondrias producen ATP, como máximo 8 horas).
 
@@ -43,3 +53,32 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - La ficha del enemigo es una preparación, con su técnica de tinción y su tamaño real (`LAB`).
   - El Atlas es una caja de preparaciones con miniaturas en un campo circular. Las miniaturas se generan con `thumb()`, que usa un segundo renderizador.
   - La pestaña Evolución dibuja el árbol del linaje desde LUCA.
+
+## Versión 3: mejoras y mecánicas nuevas
+- **Combinaciones** (`COMBOS`): una herramienta usada justo después de otra con efecto multiplica su eficacia. Son cinco: lisozima → choque osmótico (protoplasto), anticuerpos → fagocitosis (opsonización), celulasa → osmótico, anfotericina → osmótico y taxol → linfocito T. Se descubren jugando.
+- **Resistencia:** cada uso de penicilina sube la presión selectiva (`S.press`) y aumenta la probabilidad de que aparezca un estafilococo SARM, contra el que la penicilina vale ×0,1. Vencer bacterias sin antibióticos hace bajar la presión.
+- **Cambios durante el combate:**
+  - La gripe sufre deriva antigénica cada 4 turnos, y los anticuerpos pierden eficacia.
+  - Estafilococos y E. coli forman biopelícula en el turno 6 (×0,6, salvo el autoclave).
+- **Eventos** (`EVENTS`, 15 % de los combates desde el nivel 3): fiebre, antibiótico en sangre, vacuna, inflamación e hipoxia.
+- **Jefes especiales** cada 10 niveles (`SPECIAL`): sepsis, gripe pandémica, tumor maligno y placa amiloide. Tienen dos fases, una presentación cinematográfica (`cinematic`, `CINE`) y música sintetizada.
+- **Células aliadas** (`CELLS`): se desbloquean al evolucionar. Son el neutrófilo (núcleo multilobulado), el linfocito NK (alcanza al virus escondido) y el eosinófilo. Cada una tiene su propio modelo.
+- **Colores de proteínas fluorescentes** (`SKINS`): se desbloquean con evoluciones, retos y logros. Además, el linaje gana filopodios con cada evolución.
+- **Mapa** (`ZONES`): sangre, pulmones, intestino, piel, cerebro y charca. Cada zona filtra los organismos y tiñe el fondo.
+- **Retos diarios** (`DAILY`): dos al día, elegidos según la fecha; cada uno da +1 ADN.
+- **Logros** (`ACH`): 18, cada uno con un dato curioso real.
+- **Aprendizaje:**
+  - Cuestionario al descubrir un organismo.
+  - Los rasgos que explican cada resultado se resaltan (`KEYTRAIT`).
+  - Fuentes y licencias del juego al final del Atlas.
+- **Aula:**
+  - Modo clase: todas las herramientas, sin ATP ni mejoras, estadísticas según el nivel y práctica libre con cualquier organismo desde el Atlas.
+  - Informe para el profesor, copiable.
+- **Ajustes:**
+  - Idioma: español, català o English (`tr()` para la interfaz, `applyData()` para los datos).
+  - Texto grande y opción para reducir efectos.
+  - Calidad gráfica automática, alta, media o baja; la automática baja sola si el juego va lento.
+  - Código de partida para exportar e importar.
+  - Datos de partida (`S.stats`) para ajustar el equilibrio.
+- **Accesibilidad:** la eficacia se indica también con símbolos (▲▲ ● ▼ ✕) y las pestañas se recorren con las flechas.
+- **Modo automático:** muestra su velocidad y un registro de los últimos combates.
