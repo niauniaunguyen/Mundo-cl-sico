@@ -538,6 +538,30 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   .evt .ves{width:30px;height:30px}
   .evt .fx{font-size:12px}
 }
+/* ---------- v6: HUD compacto en el móvil ---------- */
+@media (max-width:720px){
+  #hud{padding-top:calc(6px + env(safe-area-inset-top,0px));padding-bottom:6px;row-gap:6px;column-gap:6px}
+  .lvl{padding:4px 10px 4px 9px;gap:6px}
+  .lvl .k{font-size:9px;letter-spacing:.12em}
+  .lvl .v{font-size:15px}
+  .pips{gap:3px}
+  .pip{width:9px;height:9px} .pip::after{inset:2.5px}
+  .pip.boss{width:12px;height:12px} .pip.boss::after{inset:3px}
+  .labbtn{height:40px;padding:0 11px 0 8px;gap:7px;border-radius:13px}
+  .labbtn > [data-ic] .ic{width:20px;height:20px}
+  .labbtn .lbl{font-size:12.5px}
+  .labbtn .la{font-size:11.5px}
+  .labbtn .dot{width:12px;height:12px;top:-4px;right:-4px}
+  .sec,.qb{height:30px} .quiet{padding:2px}
+  #foe{padding:8px 10px}
+  #foe .slide{margin-bottom:4px}
+  .meta{display:none}
+  #toast,#achc{top:calc(var(--foeB,200px) + 8px)}
+  #narr{top:auto;bottom:var(--narrB,260px);grid-template-columns:30px 1fr 22px;gap:8px;padding:7px 10px}
+  #narr .nav .ic{width:28px;height:28px;padding:4px}
+  #narr p{font-size:12.5px;line-height:1.35}
+}
+@media (max-width:360px){ .lvl .k{display:none} }
 </style>
 
 <div id="app">

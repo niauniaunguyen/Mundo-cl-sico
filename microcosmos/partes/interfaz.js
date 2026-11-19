@@ -69,6 +69,7 @@ document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.
 function setMsg(v, head, txt, extra=''){
   const m = $('#msg'); m.className = 'v-' + v;
   $('#msgV').textContent = head; $('#msgT').textContent = txt; $('#msgX').textContent = extra;
+  if (typeof placeNarr === 'function') placeNarr();
 }
 let toastT;
 function toast(t){ const el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 3200); }
@@ -172,6 +173,8 @@ function renderFoe(){
       ${open ? `<span class="ed">${esc(EVENTS[e.ev].d)}</span>` : ''}</span><span class="ei" aria-hidden="true">${open ? '−' : '?'}</span>`;
     ev.setAttribute('aria-expanded', open); ev.hidden = false;
   } else { ev.hidden = true; ev.dataset.ev = ''; ev.dataset.open = ''; }
+  // si la ficha cambia de alto (estados nuevos), reencuadra la escena para que no tape al organismo
+  if ($('#foe').offsetHeight !== lastFoeH) resize();
 }
 $('#fEvt').addEventListener('click', () => { const ev = $('#fEvt'); ev.dataset.open = ev.dataset.open === '1' ? '' : '1'; renderFoe(); resize(); });
 function renderMe(){

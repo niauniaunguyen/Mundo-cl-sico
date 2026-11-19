@@ -745,6 +745,7 @@ function floatText(txt, pos, cls){
 
 // ---- Cámara y tamaño ----
 const LOOK = V(0, .2, 0);
+let lastFoeH = 0;
 function resize(){
   const w = canvas.clientWidth, h = canvas.clientHeight;
   renderer.setSize(w, h, false); camera.aspect = w/h;
@@ -756,6 +757,9 @@ function resize(){
   document.documentElement.style.setProperty('--hudH', $('#hud').offsetHeight + 'px');
   const r = el => $(el).getBoundingClientRect();
   const top = portrait ? r('#foe').bottom : Math.max(r('#hud').bottom, r('#foe').bottom - 70);
+  document.documentElement.style.setProperty('--foeB', Math.round(r('#foe').bottom) + 'px');
+  document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(r('#msg').top, r('#me').top) + 6) + 'px');
+  lastFoeH = $('#foe').offsetHeight;
   const bot = Math.min(r('#msg').top, r('#me').top);
   const band = Math.max(140, bot - top);
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));

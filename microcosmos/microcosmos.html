@@ -538,6 +538,30 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   .evt .ves{width:30px;height:30px}
   .evt .fx{font-size:12px}
 }
+/* ---------- v6: HUD compacto en el móvil ---------- */
+@media (max-width:720px){
+  #hud{padding-top:calc(6px + env(safe-area-inset-top,0px));padding-bottom:6px;row-gap:6px;column-gap:6px}
+  .lvl{padding:4px 10px 4px 9px;gap:6px}
+  .lvl .k{font-size:9px;letter-spacing:.12em}
+  .lvl .v{font-size:15px}
+  .pips{gap:3px}
+  .pip{width:9px;height:9px} .pip::after{inset:2.5px}
+  .pip.boss{width:12px;height:12px} .pip.boss::after{inset:3px}
+  .labbtn{height:40px;padding:0 11px 0 8px;gap:7px;border-radius:13px}
+  .labbtn > [data-ic] .ic{width:20px;height:20px}
+  .labbtn .lbl{font-size:12.5px}
+  .labbtn .la{font-size:11.5px}
+  .labbtn .dot{width:12px;height:12px;top:-4px;right:-4px}
+  .sec,.qb{height:30px} .quiet{padding:2px}
+  #foe{padding:8px 10px}
+  #foe .slide{margin-bottom:4px}
+  .meta{display:none}
+  #toast,#achc{top:calc(var(--foeB,200px) + 8px)}
+  #narr{top:auto;bottom:var(--narrB,260px);grid-template-columns:30px 1fr 22px;gap:8px;padding:7px 10px}
+  #narr .nav .ic{width:28px;height:28px;padding:4px}
+  #narr p{font-size:12.5px;line-height:1.35}
+}
+@media (max-width:360px){ .lvl .k{display:none} }
 </style>
 
 <div id="app">
@@ -2681,6 +2705,7 @@ function floatText(txt, pos, cls){
 
 // ---- Cámara y tamaño ----
 const LOOK = V(0, .2, 0);
+let lastFoeH = 0;
 function resize(){
   const w = canvas.clientWidth, h = canvas.clientHeight;
   renderer.setSize(w, h, false); camera.aspect = w/h;
@@ -2692,6 +2717,9 @@ function resize(){
   document.documentElement.style.setProperty('--hudH', $('#hud').offsetHeight + 'px');
   const r = el => $(el).getBoundingClientRect();
   const top = portrait ? r('#foe').bottom : Math.max(r('#hud').bottom, r('#foe').bottom - 70);
+  document.documentElement.style.setProperty('--foeB', Math.round(r('#foe').bottom) + 'px');
+  document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(r('#msg').top, r('#me').top) + 6) + 'px');
+  lastFoeH = $('#foe').offsetHeight;
   const bot = Math.min(r('#msg').top, r('#me').top);
   const band = Math.max(140, bot - top);
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
@@ -2871,7 +2899,7 @@ function useTool(id){
       // efecto secundario sobre tu propia célula
       if (SIDE[id]){ const sd = maxHp()*SIDE[id][0]*(has('i3') ? .4 : 1); B.php = Math.max(1, B.php - sd);
         floatText('−' + fmt(sd), P_POS.clone().add(V(0,1.3,0)), 'hurt'); extra.push(tr(SIDE[id][1])); narr('side'); renderMe(); }
-      if (extra.length) $('#msgX').textContent = extra.join(' ');
+      if (extra.length){ $('#msgX').textContent = extra.join(' '); placeNarr(); }
       sfx.hit(r.m);
     }
     if (!B.firstDone){ B.firstDone = true; S.first.n++; if (r.m >= 2) S.first.ok++; }
@@ -2929,7 +2957,7 @@ function enemyTurn(){
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
     if (e.marked > 0) e.marked--;
     if (e.block > 0) e.block--;
-    if (notes.length) $('#msgX').textContent = notes.join(' ');
+    if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
     B.why = null;
     renderFoe(); renderMe(); renderTools();
@@ -3129,6 +3157,7 @@ document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.
 function setMsg(v, head, txt, extra=''){
   const m = $('#msg'); m.className = 'v-' + v;
   $('#msgV').textContent = head; $('#msgT').textContent = txt; $('#msgX').textContent = extra;
+  if (typeof placeNarr === 'function') placeNarr();
 }
 let toastT;
 function toast(t){ const el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 3200); }
@@ -3232,6 +3261,8 @@ function renderFoe(){
       ${open ? `<span class="ed">${esc(EVENTS[e.ev].d)}</span>` : ''}</span><span class="ei" aria-hidden="true">${open ? '−' : '?'}</span>`;
     ev.setAttribute('aria-expanded', open); ev.hidden = false;
   } else { ev.hidden = true; ev.dataset.ev = ''; ev.dataset.open = ''; }
+  // si la ficha cambia de alto (estados nuevos), reencuadra la escena para que no tape al organismo
+  if ($('#foe').offsetHeight !== lastFoeH) resize();
 }
 $('#fEvt').addEventListener('click', () => { const ev = $('#fEvt'); ev.dataset.open = ev.dataset.open === '1' ? '' : '1'; renderFoe(); resize(); });
 function renderMe(){
@@ -3640,9 +3671,16 @@ function narr(key, force){
   if (!S.narr || !NARR[key] || (!force && narrShown.has(key))) return;
   narrShown.add(key);
   const el = $('#narr'), txt = tr(NARR[key]);
-  el.querySelector('p').textContent = txt; el.hidden = false;
+  el.querySelector('p').textContent = txt; el.hidden = false; placeNarr();
   clearTimeout(narrT); narrT = setTimeout(() => el.hidden = true, 7000);
   speak(txt);
+}
+// en el móvil, la narradora se coloca justo encima del mensaje del combate (su alto cambia cada turno)
+function placeNarr(){
+  const el = $('#narr'); if (el.hidden) return;
+  if (window.innerWidth > 720){ el.style.bottom = ''; return; }
+  const top = Math.min($('#msg').getBoundingClientRect().top, $('#me').getBoundingClientRect().top);
+  el.style.bottom = Math.round(window.innerHeight - top + 6) + 'px';
 }
 $('#narr .nx').onclick = () => { $('#narr').hidden = true; try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 

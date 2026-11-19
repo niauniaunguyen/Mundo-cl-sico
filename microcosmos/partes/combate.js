@@ -162,7 +162,7 @@ function useTool(id){
       // efecto secundario sobre tu propia célula
       if (SIDE[id]){ const sd = maxHp()*SIDE[id][0]*(has('i3') ? .4 : 1); B.php = Math.max(1, B.php - sd);
         floatText('−' + fmt(sd), P_POS.clone().add(V(0,1.3,0)), 'hurt'); extra.push(tr(SIDE[id][1])); narr('side'); renderMe(); }
-      if (extra.length) $('#msgX').textContent = extra.join(' ');
+      if (extra.length){ $('#msgX').textContent = extra.join(' '); placeNarr(); }
       sfx.hit(r.m);
     }
     if (!B.firstDone){ B.firstDone = true; S.first.n++; if (r.m >= 2) S.first.ok++; }
@@ -220,7 +220,7 @@ function enemyTurn(){
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
     if (e.marked > 0) e.marked--;
     if (e.block > 0) e.block--;
-    if (notes.length) $('#msgX').textContent = notes.join(' ');
+    if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
     B.why = null;
     renderFoe(); renderMe(); renderTools();
