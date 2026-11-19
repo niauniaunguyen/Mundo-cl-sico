@@ -179,7 +179,7 @@ const EFF = {
     vir:[0,'La gripe no tiene transcriptasa inversa: copia su ARN directamente a ARN.']},
   pzq:{def:[0,'El praziquantel actúa sobre los gusanos planos: los organismos unicelulares no tienen su tegumento.'],
     ten:[3,'El calcio entra de golpe en su tegumento: la tenia se contrae, se paraliza y se suelta.']},
-  aut:{def:[1.2,'El vapor a presión desnaturaliza sus proteínas.'],
+  aut:{def:[1,'El vapor a presión desnaturaliza sus proteínas.'],
     bac:[1.5,'El autoclave es lo único que destruye endosporas.'],
     pri:[1.6,'Hacen falta 134 °C durante 18 minutos para inactivar priones: un autoclave prolongado.']},
 };

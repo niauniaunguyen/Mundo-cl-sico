@@ -431,7 +431,8 @@ function showSpecies(id, isNew){
   let quiz = '';
   if (isNew){
     const fake = {type:id};
-    const scored = TOOLS.filter(t => t.id !== 'luz' || id === 'veg').map(t => ({t, m:eff(t.id, fake).m*(t.pow || 1)}));
+    // la mejor = la de mayor eficacia contra ESTE organismo; la potencia solo desempata
+    const scored = TOOLS.filter(t => t.id !== 'luz' || id === 'veg').map(t => ({t, m:eff(t.id, fake).m + (t.pow || 0)*.01}));
     const best = scored.reduce((a, b) => b.m > a.m ? b : a);
     const pool = scored.filter(s => s.t !== best.t && s.m < best.m*.7);
     SEED = hashStr(id) % 1000 + 7; const pick = [];

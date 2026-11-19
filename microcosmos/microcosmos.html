@@ -722,7 +722,7 @@ const EFF = {
     vir:[0,'La gripe no tiene transcriptasa inversa: copia su ARN directamente a ARN.']},
   pzq:{def:[0,'El praziquantel actúa sobre los gusanos planos: los organismos unicelulares no tienen su tegumento.'],
     ten:[3,'El calcio entra de golpe en su tegumento: la tenia se contrae, se paraliza y se suelta.']},
-  aut:{def:[1.2,'El vapor a presión desnaturaliza sus proteínas.'],
+  aut:{def:[1,'El vapor a presión desnaturaliza sus proteínas.'],
     bac:[1.5,'El autoclave es lo único que destruye endosporas.'],
     pri:[1.6,'Hacen falta 134 °C durante 18 minutos para inactivar priones: un autoclave prolongado.']},
 };
@@ -3345,7 +3345,8 @@ function showSpecies(id, isNew){
   let quiz = '';
   if (isNew){
     const fake = {type:id};
-    const scored = TOOLS.filter(t => t.id !== 'luz' || id === 'veg').map(t => ({t, m:eff(t.id, fake).m*(t.pow || 1)}));
+    // la mejor = la de mayor eficacia contra ESTE organismo; la potencia solo desempata
+    const scored = TOOLS.filter(t => t.id !== 'luz' || id === 'veg').map(t => ({t, m:eff(t.id, fake).m + (t.pow || 0)*.01}));
     const best = scored.reduce((a, b) => b.m > a.m ? b : a);
     const pool = scored.filter(s => s.t !== best.t && s.m < best.m*.7);
     SEED = hashStr(id) % 1000 + 7; const pick = [];
