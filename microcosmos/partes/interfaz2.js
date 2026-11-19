@@ -25,18 +25,13 @@ function narr(key, force){
   if (!S.narr || !NARR[key] || (!force && narrShown.has(key))) return;
   narrShown.add(key);
   const el = $('#narr'), txt = tr(NARR[key]);
-  el.querySelector('p').textContent = txt; el.hidden = false; placeNarr();
-  clearTimeout(narrT); narrT = setTimeout(() => el.hidden = true, 7000);
+  el.querySelector('.nt').textContent = txt; el.hidden = false; resize(); // la tarjeta crece: la cámara se reencuadra
+  clearTimeout(narrT); narrT = setTimeout(hideNarr, 9000);
   speak(txt);
 }
-// en el móvil, la narradora se coloca justo encima del mensaje del combate (su alto cambia cada turno)
-function placeNarr(){
-  const el = $('#narr'); if (el.hidden) return;
-  if (window.innerWidth > 720){ el.style.bottom = ''; return; }
-  const top = Math.min($('#msg').getBoundingClientRect().top, $('#me').getBoundingClientRect().top);
-  el.style.bottom = Math.round(window.innerHeight - top + 6) + 'px';
-}
-$('#narr .nx').onclick = () => { $('#narr').hidden = true; try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
+function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
+function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); }
+$('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
 // ---- Modo historia ----
 $('#bStory').onclick = () => showStoryMenu();

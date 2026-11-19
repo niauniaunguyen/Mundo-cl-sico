@@ -745,6 +745,12 @@ function floatText(txt, pos, cls){
 
 // ---- Cámara y tamaño ----
 const LOOK = V(0, .2, 0);
+const CAMT = {dist:9, off:0, w:1, h:1}, CAMC = {dist:9, off:0, ok:false};
+function applyCam(){ camera.position.set(-.5, 1.7, CAMC.dist); camera.setViewOffset(CAMT.w, CAMT.h, 0, Math.round(CAMC.off), CAMT.w, CAMT.h); camera.updateProjectionMatrix(); }
+function stepCam(dt){
+  if (Math.abs(CAMT.dist - CAMC.dist) < .002 && Math.abs(CAMT.off - CAMC.off) < .5) return;
+  const k = Math.min(1, dt*5); CAMC.dist += (CAMT.dist - CAMC.dist)*k; CAMC.off += (CAMT.off - CAMC.off)*k; applyCam();
+}
 let lastFoeH = 0;
 function resize(){
   const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -765,10 +771,12 @@ function resize(){
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
   const halfW = portrait ? 2.7 : 4.2, halfH = portrait ? 2.9 : 2.1;
   const dist = Math.max(8, halfW/(tanV*a), halfH*(h/band)/tanV);
-  camera.position.set(-.5, 1.7, dist);
+  // destino del encuadre; si solo cambian las fichas, la cámara llega suavemente (stepCam), si cambia la ventana, de golpe
+  const snap = !CAMC.ok || CAMT.w !== w || CAMT.h !== h;
+  CAMT.dist = dist; CAMT.off = h/2 - (top + bot)/2; CAMT.w = w; CAMT.h = h;
+  if (snap){ CAMC.dist = CAMT.dist; CAMC.off = CAMT.off; CAMC.ok = true; }
   LOOK.set(0, (P_POS.y + E_POS.y)/2, 0);
-  camera.setViewOffset(w, h, 0, Math.round(h/2 - (top + bot)/2), w, h);
-  camera.updateProjectionMatrix();
+  applyCam();
   if (!tweens.length){ player.position.copy(P_POS); if (foeObj) foeObj.g.position.copy(E_POS); }
   pLight.position.copy(P_POS).add(V(0,2,2));
   eLight.position.copy(E_POS).add(V(0,2,2));

@@ -547,6 +547,7 @@ function loop(now){
   hemi.intensity = .55*(1 - .55*ENV.dark.value);
   ENV.up(t, dt, mot);
   const sx = shake > 0 ? rnd(-shake, shake) : 0, sy = shake > 0 ? rnd(-shake, shake) : 0; shake = Math.max(0, shake - dt*.8);
+  stepCam(dt);
   const bp = camera.position.clone();
   camera.position.x += Math.sin(t*.25)*.25*mot + sx; camera.position.y += Math.sin(t*.31)*.12*mot + sy;
   // plano cinematográfico: la cámara se acerca al jefe

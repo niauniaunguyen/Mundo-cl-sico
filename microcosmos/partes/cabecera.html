@@ -562,6 +562,16 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   #narr p{font-size:12.5px;line-height:1.35}
 }
 @media (max-width:360px){ .lvl .k{display:none} }
+/* ---------- v7: la narradora vive dentro de la tarjeta de mensajes (no tapa la batalla) ---------- */
+#msg #narr{position:static;width:auto;inset:auto;display:grid;grid-template-columns:24px 1fr 20px;gap:8px;align-items:start;margin:0 0 7px;padding:0 0 7px;
+  border:0;border-bottom:1px dashed var(--line2);border-radius:0;background:none;box-shadow:none;backdrop-filter:none;animation:narrin .35s ease-out}
+#msg #narr[hidden]{display:none}
+#msg #narr .nav .ic{width:24px;height:24px;padding:3px;color:var(--gfp);border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(77,255,160,.6);box-sizing:border-box}
+#msg #narr p{margin:0;font-size:13px;line-height:1.4;color:var(--fg)}
+#msg #narr b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gfp);margin-right:2px}
+#msg #narr .nx{font-size:16px;color:var(--muted);line-height:1;padding:0}
+@keyframes narrin{from{opacity:0}}
+@media (max-width:720px){ #msg #narr p{font-size:12.5px} }
 </style>
 
 <div id="app">
@@ -602,7 +612,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="barlbl"><span class="num" id="mHp"></span><span class="num" id="mAtk"></span></div>
   </section>
 
-  <div id="msg" class="v-ok" aria-live="polite"><div class="verdict" id="msgV" data-t="Listo">Listo</div><div id="msgT" data-t="Elige una herramienta.">Elige una herramienta.</div><div class="extra" id="msgX"></div></div>
+  <div id="msg" class="v-ok" aria-live="polite"><div id="narr" class="nline" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><p><b>Dra. Olmo</b> <span class="nt"></span></p><button class="nx" data-tt="Cerrar">×</button></div><div class="verdict" id="msgV" data-t="Listo">Listo</div><div id="msgT" data-t="Elige una herramienta.">Elige una herramienta.</div><div class="extra" id="msgX"></div></div>
 
   <div id="log" hidden></div>
   <nav id="tools" data-tt="Herramientas de combate"></nav>
@@ -625,7 +635,6 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   <div id="modal" hidden><div class="mbox cell" id="mBox"></div></div>
   <div id="toast" hidden></div>
   <button id="achc" class="cell" hidden aria-live="polite"></button>
-  <div id="narr" class="cell" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><div><b>Dra. Olmo</b><p></p></div><button class="nx" data-tt="Cerrar">×</button></div>
   <div id="cine" hidden aria-live="polite"><i class="lb t"></i><i class="lb b"></i><div class="ctx"><div class="ce"></div><div class="ct"></div></div></div>
 </div>
 

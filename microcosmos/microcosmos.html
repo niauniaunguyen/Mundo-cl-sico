@@ -562,6 +562,16 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   #narr p{font-size:12.5px;line-height:1.35}
 }
 @media (max-width:360px){ .lvl .k{display:none} }
+/* ---------- v7: la narradora vive dentro de la tarjeta de mensajes (no tapa la batalla) ---------- */
+#msg #narr{position:static;width:auto;inset:auto;display:grid;grid-template-columns:24px 1fr 20px;gap:8px;align-items:start;margin:0 0 7px;padding:0 0 7px;
+  border:0;border-bottom:1px dashed var(--line2);border-radius:0;background:none;box-shadow:none;backdrop-filter:none;animation:narrin .35s ease-out}
+#msg #narr[hidden]{display:none}
+#msg #narr .nav .ic{width:24px;height:24px;padding:3px;color:var(--gfp);border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(77,255,160,.6);box-sizing:border-box}
+#msg #narr p{margin:0;font-size:13px;line-height:1.4;color:var(--fg)}
+#msg #narr b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gfp);margin-right:2px}
+#msg #narr .nx{font-size:16px;color:var(--muted);line-height:1;padding:0}
+@keyframes narrin{from{opacity:0}}
+@media (max-width:720px){ #msg #narr p{font-size:12.5px} }
 </style>
 
 <div id="app">
@@ -602,7 +612,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="barlbl"><span class="num" id="mHp"></span><span class="num" id="mAtk"></span></div>
   </section>
 
-  <div id="msg" class="v-ok" aria-live="polite"><div class="verdict" id="msgV" data-t="Listo">Listo</div><div id="msgT" data-t="Elige una herramienta.">Elige una herramienta.</div><div class="extra" id="msgX"></div></div>
+  <div id="msg" class="v-ok" aria-live="polite"><div id="narr" class="nline" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><p><b>Dra. Olmo</b> <span class="nt"></span></p><button class="nx" data-tt="Cerrar">×</button></div><div class="verdict" id="msgV" data-t="Listo">Listo</div><div id="msgT" data-t="Elige una herramienta.">Elige una herramienta.</div><div class="extra" id="msgX"></div></div>
 
   <div id="log" hidden></div>
   <nav id="tools" data-tt="Herramientas de combate"></nav>
@@ -625,7 +635,6 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   <div id="modal" hidden><div class="mbox cell" id="mBox"></div></div>
   <div id="toast" hidden></div>
   <button id="achc" class="cell" hidden aria-live="polite"></button>
-  <div id="narr" class="cell" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><div><b>Dra. Olmo</b><p></p></div><button class="nx" data-tt="Cerrar">×</button></div>
   <div id="cine" hidden aria-live="polite"><i class="lb t"></i><i class="lb b"></i><div class="ctx"><div class="ce"></div><div class="ct"></div></div></div>
 </div>
 
@@ -2705,6 +2714,12 @@ function floatText(txt, pos, cls){
 
 // ---- Cámara y tamaño ----
 const LOOK = V(0, .2, 0);
+const CAMT = {dist:9, off:0, w:1, h:1}, CAMC = {dist:9, off:0, ok:false};
+function applyCam(){ camera.position.set(-.5, 1.7, CAMC.dist); camera.setViewOffset(CAMT.w, CAMT.h, 0, Math.round(CAMC.off), CAMT.w, CAMT.h); camera.updateProjectionMatrix(); }
+function stepCam(dt){
+  if (Math.abs(CAMT.dist - CAMC.dist) < .002 && Math.abs(CAMT.off - CAMC.off) < .5) return;
+  const k = Math.min(1, dt*5); CAMC.dist += (CAMT.dist - CAMC.dist)*k; CAMC.off += (CAMT.off - CAMC.off)*k; applyCam();
+}
 let lastFoeH = 0;
 function resize(){
   const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -2725,10 +2740,12 @@ function resize(){
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
   const halfW = portrait ? 2.7 : 4.2, halfH = portrait ? 2.9 : 2.1;
   const dist = Math.max(8, halfW/(tanV*a), halfH*(h/band)/tanV);
-  camera.position.set(-.5, 1.7, dist);
+  // destino del encuadre; si solo cambian las fichas, la cámara llega suavemente (stepCam), si cambia la ventana, de golpe
+  const snap = !CAMC.ok || CAMT.w !== w || CAMT.h !== h;
+  CAMT.dist = dist; CAMT.off = h/2 - (top + bot)/2; CAMT.w = w; CAMT.h = h;
+  if (snap){ CAMC.dist = CAMT.dist; CAMC.off = CAMT.off; CAMC.ok = true; }
   LOOK.set(0, (P_POS.y + E_POS.y)/2, 0);
-  camera.setViewOffset(w, h, 0, Math.round(h/2 - (top + bot)/2), w, h);
-  camera.updateProjectionMatrix();
+  applyCam();
   if (!tweens.length){ player.position.copy(P_POS); if (foeObj) foeObj.g.position.copy(E_POS); }
   pLight.position.copy(P_POS).add(V(0,2,2));
   eLight.position.copy(E_POS).add(V(0,2,2));
@@ -3635,6 +3652,7 @@ function loop(now){
   hemi.intensity = .55*(1 - .55*ENV.dark.value);
   ENV.up(t, dt, mot);
   const sx = shake > 0 ? rnd(-shake, shake) : 0, sy = shake > 0 ? rnd(-shake, shake) : 0; shake = Math.max(0, shake - dt*.8);
+  stepCam(dt);
   const bp = camera.position.clone();
   camera.position.x += Math.sin(t*.25)*.25*mot + sx; camera.position.y += Math.sin(t*.31)*.12*mot + sy;
   // plano cinematográfico: la cámara se acerca al jefe
@@ -3671,18 +3689,13 @@ function narr(key, force){
   if (!S.narr || !NARR[key] || (!force && narrShown.has(key))) return;
   narrShown.add(key);
   const el = $('#narr'), txt = tr(NARR[key]);
-  el.querySelector('p').textContent = txt; el.hidden = false; placeNarr();
-  clearTimeout(narrT); narrT = setTimeout(() => el.hidden = true, 7000);
+  el.querySelector('.nt').textContent = txt; el.hidden = false; resize(); // la tarjeta crece: la cámara se reencuadra
+  clearTimeout(narrT); narrT = setTimeout(hideNarr, 9000);
   speak(txt);
 }
-// en el móvil, la narradora se coloca justo encima del mensaje del combate (su alto cambia cada turno)
-function placeNarr(){
-  const el = $('#narr'); if (el.hidden) return;
-  if (window.innerWidth > 720){ el.style.bottom = ''; return; }
-  const top = Math.min($('#msg').getBoundingClientRect().top, $('#me').getBoundingClientRect().top);
-  el.style.bottom = Math.round(window.innerHeight - top + 6) + 'px';
-}
-$('#narr .nx').onclick = () => { $('#narr').hidden = true; try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
+function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
+function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); }
+$('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
 // ---- Modo historia ----
 $('#bStory').onclick = () => showStoryMenu();

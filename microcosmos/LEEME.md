@@ -128,3 +128,4 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - Al pulsarlo se abre la curiosidad ganada.
   - Si no se pulsa, queda pendiente en Retos (punto en la pestaña, `S.achSeen`).
   - Los logros bloqueados explican cómo conseguirlos (`ACH_GOAL`).
+- **La narradora** (`#narr`) va dentro de la tarjeta de mensajes (`#msg`), no flota sobre la escena. Cuando habla, la tarjeta crece y la cámara se reencuadra con suavidad (`CAMT`/`CAMC`, `stepCam`); si cambia el tamaño de la ventana, el reencuadre es inmediato.
