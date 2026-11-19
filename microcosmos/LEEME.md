@@ -111,3 +111,20 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - Paisaje sonoro generativo por zona (`ambient()`): latido, respiración, borborigmos, aire, pulsos neuronales o burbujas.
   - Un sonido propio para cada herramienta (`TOOL_SFX`).
 - **Publicación:** al republicar el artefacto, mantener `capabilities: {db:{rules:[{path:"board",read:"view",write:"owner"},{path:"board/{self}",read:"view",write:"interact"}]}, user:{scopes:["profile"]}, tts:{}}`.
+
+## Versión 5: claridad
+- **Eventos** (`EVENT_UI`):
+  - Banda «Evento del combate» dentro de la ficha del organismo (`#fEvt`), con el efecto concreto en una línea; al pulsarla se ve la explicación.
+  - Color de ambiente en la escena (clases `ev-*` en `#app`) y números flotantes con su causa («+6 % · inflamación»).
+  - Cada golpe afectado indica el modificador.
+  - La narradora explica cada tipo de evento la primera vez que aparece.
+- **Jerarquía del HUD:**
+  - Laboratorio es el botón principal: relleno ámbar, con el ATP dentro y un punto verde cuando puedes comprar algo.
+  - Historia y Mapa son botones secundarios con contorno.
+  - Auto, Avanzar y Sonido forman un grupo discreto de iconos (`.quiet`).
+  - Se ha quitado el texto de recarga de los botones de herramientas.
+- **Logros:**
+  - El aviso dice por qué lo has conseguido (`ACH_WHY`) y cuánto ATP ganas.
+  - Al pulsarlo se abre la curiosidad ganada.
+  - Si no se pulsa, queda pendiente en Retos (punto en la pestaña, `S.achSeen`).
+  - Los logros bloqueados explican cómo conseguirlos (`ACH_GOAL`).

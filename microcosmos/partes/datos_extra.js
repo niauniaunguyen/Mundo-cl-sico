@@ -120,3 +120,33 @@ const NARR = {
   story:T_('Bienvenido al modo historia. Seguiremos una infección real, paso a paso.'),
 };
 
+// Eventos: icono, color y efecto concreto (en una línea) que se ve en la ficha del organismo
+const EVENT_UI = {
+  fiebre:{ic:'aut', col:0xff9f40, fx:T_('Los dos hacéis un 25 % más de daño.')},
+  antib:{ic:'pen', col:0x4dffa0, fx:T_('La bacteria pierde un 8 % de su vida cada turno.')},
+  vacuna:{ic:'ac', col:0x6c95ff, fx:T_('Ves la eficacia de todas tus herramientas y los anticuerpos hacen el doble.')},
+  inflam:{ic:'cell', col:0xff6f9f, fx:T_('Recuperas un 6 % de vida cada turno.')},
+  hipoxia:{ic:'mito', col:0x8fa8c8, fx:T_('Haces un 20 % menos de daño, pero ganas un 50 % más de ATP.')},
+};
+Object.assign(NARR, {
+  ev_fiebre:T_('Hay fiebre. Al subir la temperatura, las enzimas trabajan más deprisa: las tuyas y también las del invasor.'),
+  ev_antib:T_('Un antibiótico viaja por la sangre y daña a esta bacteria cada turno, sin que tengas que hacer nada.'),
+  ev_vacuna:T_('Este organismo ya es conocido gracias a una vacuna: tus botones muestran la eficacia de todas las herramientas.'),
+  ev_inflam:T_('La inflamación trae más sangre y más células a la zona: te recuperas un poco cada turno.'),
+  ev_hipoxia:T_('Falta oxígeno. Sin él, tus mitocondrias producen menos energía y te debilitas.'),
+});
+// Logros: por qué lo has conseguido (pasado) y cómo conseguirlo (para los bloqueados)
+const ACH_WHY = {
+  k1:T_('Has ganado tu primer combate.'), k100:T_('Has ganado 100 combates.'), gp:T_('Has vencido a 50 estafilococos.'), gn:T_('Has vencido a 50 bacilos de E. coli.'),
+  vir:T_('Has vencido a 25 virus de la gripe.'), lev:T_('Has vencido a 25 levaduras.'), veg:T_('Has vencido a 20 células vegetales.'), par:T_('Has vencido a 20 paramecios.'),
+  can:T_('Has vencido a 15 células tumorales.'), pri:T_('Has vencido a 10 priones.'), combo:T_('Has hecho 3 combinaciones de herramientas.'), quiz:T_('Has acertado 5 preguntas del cuestionario.'),
+  sarm:T_('Te has encontrado con una cepa resistente (SARM).'), evo:T_('Has evolucionado por primera vez.'), l25:T_('Has llegado al nivel 25.'), atlas:T_('Has descubierto todos los organismos del Atlas.'),
+  daily:T_('Has completado 3 retos diarios.'), boss:T_('Has vencido a tu primer jefe especial.'),
+};
+const ACH_GOAL = {
+  k1:T_('Gana tu primer combate.'), k100:T_('Gana 100 combates.'), gp:T_('Vence a 50 estafilococos.'), gn:T_('Vence a 50 bacilos de E. coli.'),
+  vir:T_('Vence a 25 virus de la gripe.'), lev:T_('Vence a 25 levaduras.'), veg:T_('Vence a 20 células vegetales.'), par:T_('Vence a 20 paramecios.'),
+  can:T_('Vence a 15 células tumorales.'), pri:T_('Vence a 10 priones.'), combo:T_('Haz 3 combinaciones de herramientas.'), quiz:T_('Acierta 5 preguntas del cuestionario.'),
+  sarm:T_('Encuéntrate con una cepa resistente (abusa de la penicilina…).'), evo:T_('Evoluciona por primera vez.'), l25:T_('Llega al nivel 25.'), atlas:T_('Descubre todos los organismos del Atlas.'),
+  daily:T_('Completa 3 retos diarios.'), boss:T_('Vence a un jefe especial (cada 10 niveles).'),
+};

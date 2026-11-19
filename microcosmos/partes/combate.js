@@ -95,13 +95,13 @@ function newBattle(keepHp){
   if (sp >= 0) setMsg('none', tr('Jefe especial'), tr('{n}: tiene dos fases. Al bajar a la mitad de vida cambiará de comportamiento.', {n:name}));
   else if (boss) setMsg('ok', tr('¡Jefe!'), tr('{n}: más vida y más ataque. Vencerlo te lleva al nivel {l}.', {n:name, l:L+1}));
   else setMsg('ok', tr('Nuevo organismo'), tr('Observa sus características y elige la herramienta que las aproveche.'),
-    e.ev ? EVENTS[e.ev].n + ': ' + EVENTS[e.ev].d : e.res ? tr('¡Cepa resistente! El uso repetido de penicilina ha seleccionado estafilococos SARM.') : '');
+    e.ev ? tr('Evento') + ' · ' + EVENTS[e.ev].n + ': ' + tr(EVENT_UI[e.ev].fx) : e.res ? tr('¡Cepa resistente! El uso repetido de penicilina ha seleccionado estafilococos SARM.') : '');
   resize(); // después del mensaje: su altura cambia el encuadre
-  if (e.ev) toast(EVENTS[e.ev].n);
+  setEventFx(e.ev);
   if (boss) startMusic(sp >= 0);
   const go = () => {
     if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
-    else { scheduleAuto(); if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
+    else { scheduleAuto(); if (e.ev) narr('ev_' + e.ev); else if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
   };
   if (sp >= 0) cinematic(tr('Jefe · nivel {l}', {l:L}), name, go); else go();
 }
@@ -147,6 +147,9 @@ function useTool(id){
         if (!S.combos[r.combo.id]){ S.combos[r.combo.id] = true; toast(tr('¡Combinación descubierta: {n}!', {n:r.combo.n})); }
         S.comboCount++; dailyProg('combo'); }
       if (crit > 1) extra.push(tr('¡Golpe crítico de perforina!'));
+      if (r.m > 0 && e.ev === 'fiebre') extra.push(tr('Fiebre: +25 % de daño.'));
+      if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
+      if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
       if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = has('h1') ? 6 : 4; extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
       if (id === 'tax' && r.m > 0){ e.block = 3; extra.push(tr('Huso mitótico bloqueado durante 3 turnos.')); }
       if (mark > 1 && r.m > 0) extra.push(tr('Daño aumentado por la opsonización.'));
@@ -201,8 +204,9 @@ function enemyTurn(){
   }
   if ((e.type === 'gp' || e.type === 'gn') && e.turn === 6 && !e.biofilm){ e.biofilm = true; notes.push(tr('Biopelícula: se rodea de una matriz de polisacáridos que frena tus ataques (×0,6). El autoclave la atraviesa.')); }
   // eventos
-  if (e.ev === 'antib' && BACT.has(e.type)){ const d = e.max*.08; e.hp = Math.max(0, e.hp - d); floatText('−' + fmt(d), E_POS.clone().add(V(-.5,1.5,0)), 'bad'); notes.push(tr('El antibiótico en sangre le resta un 8 %.')); }
-  if (e.ev === 'inflam'){ const h = maxHp()*.06; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h), P_POS.clone().add(V(0,1.5,0)), 'heal'); }
+  if (e.ev === 'antib' && BACT.has(e.type)){ const d = e.max*.08; e.hp = Math.max(0, e.hp - d); floatText('−' + fmt(d) + ' · ' + tr('antibiótico'), E_POS.clone().add(V(-.5,1.5,0)), 'evt ev-antib'); notes.push(tr('El antibiótico en sangre le resta un 8 %.')); }
+  if (e.ev === 'inflam'){ const h = maxHp()*.06; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h) + ' · ' + tr('inflamación'), P_POS.clone().add(V(0,1.5,0)), 'evt ev-inflam'); notes.push(tr('Inflamación: recuperas un 6 % de vida.')); }
+  if (e.ev === 'fiebre' && e.turn === 1) notes.push(tr('La fiebre también aumenta su daño (+25 %).'));
   // fase 2 de jefes especiales
   if (e.phase === 2){
     if (e.special === 0){ const d = maxHp()*.05; B.php = Math.max(0, B.php - d); notes.push(tr('Choque endotóxico: el LPS te resta un 5 % de vida.')); }
@@ -272,7 +276,7 @@ function win(){
     S.kills = Math.min(KPL, S.kills + 1);
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
-  setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')));
+  setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
   checkAch(); save(); renderHud(); renderLog(); pushBoard();
   setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
 }

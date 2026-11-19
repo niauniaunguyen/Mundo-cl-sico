@@ -466,6 +466,78 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   .board li{grid-template-columns:20px 1fr auto auto;}
   .board li .num:last-child{display:none}
 }
+/* ---------- v5: jerarquía del HUD, eventos y logros ---------- */
+.hud-r{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.hbr{display:none}
+.quiet{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:rgba(7,17,26,.55)}
+.qb{display:flex;align-items:center;gap:5px;height:28px;min-width:28px;justify-content:center;padding:0 8px;border-radius:999px;font-size:12px;font-weight:600;color:var(--muted)}
+.qb .ic{width:16px;height:16px}
+.qb[aria-pressed="true"]{color:var(--gfp);background:rgba(77,255,160,.1)}
+.qb:disabled{opacity:.35;cursor:not-allowed}
+.sec{display:flex;align-items:center;gap:6px;height:34px;padding:0 13px 0 10px;border:1px solid var(--line2);border-radius:999px;background:var(--glass);font-size:13px;font-weight:600;color:var(--fg)}
+.sec .ic{width:17px;height:17px;color:var(--muted)}
+.sec:hover{border-color:var(--muted)}
+.sec[aria-pressed="true"]{border-color:var(--gfp);color:var(--gfp)} .sec[aria-pressed="true"] .ic{color:var(--gfp)}
+.labbtn{position:relative;display:flex;align-items:center;gap:10px;height:50px;padding:0 18px 0 12px;border-radius:16px;color:#2a1700;
+  background:linear-gradient(180deg,#ffd987,#f4a62a);box-shadow:0 0 0 3px rgba(255,198,92,.25),0 8px 26px rgba(244,166,42,.35);transition:filter .15s,transform .15s}
+.labbtn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.labbtn[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(255,255,255,.55),0 8px 26px rgba(244,166,42,.35)}
+.labbtn > [data-ic] .ic{width:26px;height:26px;stroke-width:1.9;color:#2a1700}
+.labbtn .lt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.labbtn .lbl{font-family:var(--f-display);font-size:14.5px;font-weight:700}
+.labbtn .la{display:flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:#5a3500}
+.labbtn .la .ic{width:16px;height:16px}
+.labbtn .la small{font-weight:500;margin-left:3px;opacity:.85}
+.labbtn .dot{position:absolute;top:-6px;right:-6px;width:15px;height:15px;border-radius:50%;background:var(--gfp);box-shadow:0 0 0 3px var(--slide),0 0 12px var(--gfp);animation:pulse 1.4s ease-in-out infinite}
+.tool .rc{display:none}
+.tab{position:relative} .tdot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--fitc);box-shadow:0 0 6px var(--fitc)}
+/* evento del combate, dentro de la ficha del organismo */
+.evt{display:grid;grid-template-columns:36px 1fr 22px;gap:10px;align-items:center;width:100%;margin-top:10px;padding:8px 10px;text-align:left;
+  border:1px solid var(--ec);border-left-width:4px;border-radius:12px;background:rgba(7,17,26,.6)}
+.evt .ves{width:36px;height:36px} .evt .ves .ic{width:20px;height:20px}
+.evt .et{display:flex;flex-direction:column;gap:1px;min-width:0}
+.evt .eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ec)}
+.evt b{font-size:14px}
+.evt .fx{font-size:12.5px;line-height:1.4;color:var(--fg)}
+.evt .ed{font-size:12px;line-height:1.45;color:var(--muted);margin-top:4px}
+.evt .ei{width:22px;height:22px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font-size:12px;color:var(--muted)}
+.evt.flash{animation:evflash 1.2s ease-out 2}
+@keyframes evflash{0%{box-shadow:0 0 0 0 var(--ec)}60%{box-shadow:0 0 0 8px transparent}}
+.ft.evt{font-size:15px;font-family:var(--f-body);font-weight:700}
+.ft.ev-antib{color:var(--gfp)} .ft.ev-inflam{color:#ff8fb4}
+/* ambiente de la escena según el evento */
+#app.ev-fiebre #scope{background:radial-gradient(ellipse 78% 92% at 50% 47%,rgba(255,120,30,0) 50%,rgba(255,110,30,.22) 82%,rgba(70,20,0,.85) 100%);animation:fever 2.4s ease-in-out infinite}
+@keyframes fever{50%{opacity:.75}}
+#app.ev-hipoxia #c{filter:saturate(.45) brightness(.8)}
+#app.ev-hipoxia #scope{background:radial-gradient(ellipse 78% 92% at 50% 47%,rgba(120,150,200,0) 50%,rgba(90,120,170,.25) 82%,rgba(5,10,25,.9) 100%)}
+#app.ev-inflam #scope{background:radial-gradient(ellipse 78% 92% at 50% 47%,rgba(255,90,140,0) 55%,rgba(255,90,140,.16) 84%,rgba(40,5,15,.85) 100%)}
+#app.ev-antib #scope{background:radial-gradient(ellipse 78% 92% at 50% 47%,rgba(77,255,160,0) 58%,rgba(77,255,160,.12) 85%,rgba(2,20,10,.85) 100%)}
+#app.ev-vacuna .tool .badge:not(.unk){animation:vacp 1.2s ease-in-out 3}
+@keyframes vacp{50%{box-shadow:0 0 0 4px rgba(108,149,255,.5)}}
+/* aviso de logro y curiosidad */
+#achc{text-align:left;cursor:pointer;grid-template-columns:46px 1fr;font:inherit;color:var(--fg)}
+#achc .at{display:flex;flex-direction:column;gap:2px}
+#achc .why{font-size:13.5px;line-height:1.4}
+#achc .cta{margin-top:4px;font-size:12.5px;font-weight:700;color:var(--fitc)}
+#achc:hover .cta{text-decoration:underline}
+.curio{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start}
+.curio .ves{width:52px;height:52px} .curio .eyebrow{color:var(--fitc)}
+.curio .cw{color:var(--muted);font-size:13.5px;margin-top:6px} .curio .cf{font-size:17px;line-height:1.5;color:var(--fg)}
+.ach .cw{color:var(--gfp)} .ach.new{border-color:var(--fitc);opacity:1} .ach .buy{margin-top:6px;display:inline-flex;min-width:0}
+@media (prefers-reduced-motion:reduce){#app.ev-fiebre #scope,.evt.flash,.labbtn .dot{animation:none}}
+#app.calm #scope,#app.calm .evt.flash,#app.calm .labbtn .dot{animation:none}
+@media (max-width:720px){
+  .hud-r{display:contents}
+  .lvl{order:1} .labbtn{order:2;margin-left:auto} .hbr{display:block;order:3;flex-basis:100%;height:0} .chip.adn,.quiet,.sec{order:4}
+  .sec .lbl,.qb .lbl,.labbtn .la small{display:none}
+  .sec{padding:0 9px;height:32px}
+  .labbtn{height:44px;padding:0 12px 0 10px;gap:8px}
+  .labbtn > [data-ic] .ic{width:22px;height:22px}
+  .labbtn .lbl{font-size:13px}
+  .evt{margin-top:6px;padding:6px 8px;grid-template-columns:30px 1fr 20px}
+  .evt .ves{width:30px;height:30px}
+  .evt .fx{font-size:12px}
+}
 </style>
 
 <div id="app">
@@ -476,18 +548,17 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   <header id="hud">
     <div class="brand"><span data-ic="cell"></span><span>Micro<b>cosmos</b></span></div>
     <div class="lvl"><span class="k" id="hLvlK">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
-    <div class="res">
-      <div class="chip atp" data-tt="ATP: la moneda energética de la célula"><span data-ic="atp"></span><span class="v num" id="hAtp">0</span><small class="num" id="hAtps"></small></div>
+    <div class="hud-r">
       <div class="chip adn" id="hAdnBox" hidden data-tt="ADN heredado de tus evoluciones"><span data-ic="dna"></span><span class="v num" id="hAdn">0</span></div>
-      <div class="chip evt" id="hEvt" hidden></div>
-    </div>
-    <div class="ctrls">
-      <button class="tog" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
-      <button class="tog" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span><span class="lbl" data-t="Avanzar">Avanzar</span></button>
-      <button class="tog icon" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
-      <button class="tog icon" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span></button>
-      <button class="tog" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
-      <button class="tog lab" id="bLab"><span data-ic="flask"></span><span class="lbl" data-t="Laboratorio">Laboratorio</span><span class="dot" id="labDot" hidden></span></button>
+      <i class="hbr" aria-hidden="true"></i>
+      <div class="quiet" role="group">
+        <button class="qb" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
+        <button class="qb" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span></button>
+        <button class="qb" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
+      </div>
+      <button class="sec" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span><span class="lbl" data-t="Historia">Historia</span></button>
+      <button class="sec" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
+      <button class="labbtn" id="bLab" aria-expanded="false"><span data-ic="flask"></span><span class="lt"><span class="lbl" data-t="Laboratorio">Laboratorio</span><span class="la num" data-tt="ATP: la moneda energética de la célula"><span data-ic="atp"></span><span id="hAtp">0</span><small id="hAtps"></small></span></span><span class="dot" id="labDot" hidden></span></button>
     </div>
   </header>
 
@@ -498,6 +569,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="hp"><div class="hpl"><span data-t="Integridad de membrana">Integridad de membrana</span><span class="num" id="fHp"></span></div><div class="bar"><i id="fBar" style="width:100%"></i></div></div>
     <div class="meta"><span class="scalebar num" id="fSize"></span><span class="num" id="fAtk"></span></div>
     <div class="traits" id="fTraits"></div>
+    <button class="evt" id="fEvt" hidden aria-expanded="false"></button>
   </section>
 
   <section id="me" class="cell">
@@ -519,7 +591,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tab" role="tab" data-tab="her" aria-selected="false"><span data-ic="pipette"></span><span data-t="Herramientas">Herramientas</span></button>
       <button class="tab" role="tab" data-tab="atl" aria-selected="false"><span data-ic="slide"></span><span data-t="Atlas">Atlas</span></button>
       <button class="tab" role="tab" data-tab="dia" aria-selected="false"><span data-ic="tube"></span><span data-t="Diagnóstico">Diagnóstico</span></button>
-      <button class="tab" role="tab" data-tab="ret" aria-selected="false"><span data-ic="trophy"></span><span data-t="Retos">Retos</span></button>
+      <button class="tab" role="tab" data-tab="ret" aria-selected="false"><span data-ic="trophy"></span><span data-t="Retos">Retos</span><i class="tdot" id="retDot" hidden></i></button>
       <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span></button>
       <button class="tab" role="tab" data-tab="aju" aria-selected="false"><span data-ic="gear"></span><span data-t="Ajustes">Ajustes</span></button>
     </div>
@@ -528,7 +600,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 
   <div id="modal" hidden><div class="mbox cell" id="mBox"></div></div>
   <div id="toast" hidden></div>
-  <div id="achc" class="cell" hidden aria-live="polite"></div>
+  <button id="achc" class="cell" hidden aria-live="polite"></button>
   <div id="narr" class="cell" hidden aria-live="polite"><span class="nav" data-ic="doctor"></span><div><b>Dra. Olmo</b><p></p></div><button class="nx" data-tt="Cerrar">×</button></div>
   <div id="cine" hidden aria-live="polite"><i class="lb t"></i><i class="lb b"></i><div class="ctx"><div class="ce"></div><div class="ct"></div></div></div>
 </div>

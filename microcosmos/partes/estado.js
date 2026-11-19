@@ -9,7 +9,7 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -59,6 +59,7 @@ function load(data){
   for (const k in S.upg) if (!isFinite(S.upg[k])) S.upg[k] = 0;
   if (!isFinite(S.atp)) S.atp = 0;
   if (S.story && !STORY[S.story.ch]) S.story = null;
+  if (!d.achSeen) S.achSeen = Object.fromEntries(Object.keys(S.ach || {}).map(k => [k, true])); // partidas anteriores: ya las vieron
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);
   return true;
@@ -96,7 +97,7 @@ const ACH_TEST = {
 };
 const achQueue = [];
 function checkAch(){
-  for (const a of ACH) if (!S.ach[a.id] && ACH_TEST[a.id](S)){ S.ach[a.id] = Date.now(); S.atp += reward(S.level, false)*10; achQueue.push(a.id); }
+  for (const a of ACH) if (!S.ach[a.id] && ACH_TEST[a.id](S)){ const g = reward(S.level, false)*10; S.ach[a.id] = Date.now(); S.atp += g; achQueue.push({id:a.id, g}); }
   showAchQueue();
 }
 const skinUnlocked = id => { const n = SKINS[id].need; if (!n) return true;

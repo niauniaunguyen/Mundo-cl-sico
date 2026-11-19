@@ -73,13 +73,29 @@ function setMsg(v, head, txt, extra=''){
 let toastT;
 function toast(t){ const el = $('#toast'); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 3200); }
 // tarjeta de logro con su dato curioso
-let achBusy = false;
+// Aviso de logro: dice por qué lo has conseguido; al pulsarlo, se abre la curiosidad que has ganado
+let achBusy = false, achT = null, achCur = null;
 function showAchQueue(){
   if (achBusy || !achQueue.length) return;
-  const id = achQueue.shift(), a = ACH.find(x => x.id === id); if (!a) return showAchQueue(); achBusy = true; sfx.ach();
-  const el = $('#achc'); el.innerHTML = `${vesicle('trophy', 0xffc65c)}<div><div class="eyebrow">${tr('Logro')}</div><b>${esc(a.n)}</b><p>${esc(a.f)}</p></div>`; el.hidden = false;
-  setTimeout(() => { el.hidden = true; achBusy = false; showAchQueue(); }, 6500);
+  const q = achQueue.shift(), a = ACH.find(x => x.id === q.id); if (!a) return showAchQueue(); achBusy = true; achCur = a.id; sfx.ach();
+  const el = $('#achc');
+  el.innerHTML = `${vesicle('trophy', 0xffc65c)}<span class="at"><span class="eyebrow">${tr('Logro conseguido')} · +${fmt(q.g)} ATP</span><b>${esc(a.n)}</b><span class="why">${esc(tr(ACH_WHY[a.id]))}</span>
+    <span class="cta">${tr('Has ganado una curiosidad: pulsa para descubrirla')}</span></span>`;
+  el.hidden = false;
+  clearTimeout(achT); achT = setTimeout(hideAch, 8000);
 }
+function hideAch(){ $('#achc').hidden = true; achBusy = false; achCur = null; showAchQueue(); }
+function showCurio(id){
+  const a = ACH.find(x => x.id === id); if (!a) return;
+  S.achSeen[id] = true; save(); renderHud();
+  if (!$('#modal').hidden){ openLab('ret'); return; } // no tapar una ventana abierta (por ejemplo, el cuestionario)
+  showModal(`<div class="curio">${vesicle('trophy', 0xffc65c)}<div><div class="eyebrow">${tr('Curiosidad')} · ${esc(a.n)}</div>
+    <p class="cw">${esc(tr(ACH_WHY[id]))}</p><p class="cf">${esc(a.f)}</p><button class="go" id="mGo">${tr('Seguir')}</button></div></div>`);
+}
+$('#achc').addEventListener('click', () => { const id = achCur; clearTimeout(achT); $('#achc').hidden = true; achBusy = false; achCur = null; if (id) showCurio(id); showAchQueue(); });
+const unseenCurios = () => Object.keys(S.ach).filter(id => !S.achSeen[id]).length;
+// Evento del combate: color de ambiente en la escena
+function setEventFx(ev){ const app = $('#app'); [...app.classList].filter(c => c.startsWith('ev-')).forEach(c => app.classList.remove(c)); if (ev) app.classList.add('ev-' + ev); }
 // título de jefe especial
 function cinematic(eyebrow, title, then){
   const c = $('#cine'); c.querySelector('.ce').textContent = eyebrow; c.querySelector('.ct').textContent = title; c.hidden = false;
@@ -114,7 +130,8 @@ function renderHud(){
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
   $('#pAtp').innerHTML = S.clase ? tr('Modo clase') : ico('atp') + fmt(S.atp);
   $('#labDot').hidden = !anyAffordable();
-  const ev = B && B.e.ev; $('#hEvt').hidden = !ev; if (ev){ $('#hEvt').textContent = EVENTS[ev].n; $('#hEvt').title = EVENTS[ev].d; }
+  $('#bLab').setAttribute('aria-expanded', !$('#panel').hidden);
+  const uc = unseenCurios(); $('#retDot').hidden = !uc;
   $('#app').classList.toggle('big', !!S.big); $('#app').classList.toggle('calm', !!S.calm);
 }
 function anyAffordable(){
@@ -147,7 +164,16 @@ function renderFoe(){
   if (e.block > 0) t += `<span class="trait good">${tr('Mitosis bloqueada')}</span>`;
   if (e.grow > 1) t += `<span class="trait st">${tr('Ataque')} ×${dec(e.grow.toFixed(2))}</span>`;
   $('#fTraits').innerHTML = t;
+  const ev = $('#fEvt');
+  if (e.ev){ const U = EVENT_UI[e.ev], open = ev.dataset.ev === e.ev && ev.dataset.open === '1';
+    if (ev.dataset.ev !== e.ev){ ev.classList.remove('flash'); void ev.offsetWidth; ev.classList.add('flash'); }
+    ev.dataset.ev = e.ev; ev.style.setProperty('--ec', hex(U.col));
+    ev.innerHTML = `${vesicle(U.ic, U.col)}<span class="et"><span class="eyebrow">${tr('Evento del combate')}</span><b>${esc(EVENTS[e.ev].n)}</b><span class="fx">${esc(tr(U.fx))}</span>
+      ${open ? `<span class="ed">${esc(EVENTS[e.ev].d)}</span>` : ''}</span><span class="ei" aria-hidden="true">${open ? '−' : '?'}</span>`;
+    ev.setAttribute('aria-expanded', open); ev.hidden = false;
+  } else { ev.hidden = true; ev.dataset.ev = ''; ev.dataset.open = ''; }
 }
+$('#fEvt').addEventListener('click', () => { const ev = $('#fEvt'); ev.dataset.open = ev.dataset.open === '1' ? '' : '1'; renderFoe(); resize(); });
 function renderMe(){
   if (!B) return;
   const m = maxHp();
@@ -179,8 +205,8 @@ $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data
 // ---- Laboratorio ----
 let tab = 'mej';
 function openLab(t){ if (t) tab = t; $('#panel').hidden = false; renderPanel(); }
-function closeLab(){ $('#panel').hidden = true; }
-$('#bLab').onclick = () => $('#panel').hidden ? openLab() : closeLab();
+function closeLab(){ $('#panel').hidden = true; if ($('#bLab')) $('#bLab').setAttribute('aria-expanded', false); }
+$('#bLab').onclick = () => { $('#panel').hidden ? openLab() : closeLab(); renderHud(); };
 $('#pClose').onclick = closeLab;
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => { tab = b.dataset.tab; renderPanel(); $('#pBody').scrollTop = 0; });
 $('.tabs').addEventListener('keydown', ev => { // flechas entre pestañas
@@ -290,7 +316,9 @@ function renderPanel(){
     h += S.daily.list.map(q => { const D = DAILY.find(x => x.id === q.id);
       return `<div class="org daily ${q.done ? 'ok' : ''}">${vesicle(q.done ? 'trophy' : 'flask', q.done ? 0x4dffa0 : 0xffc65c)}<h4>${D.n}</h4><div class="meter"><i style="width:${q.p/D.goal*100}%"></i></div><div class="eff">${q.p} / ${D.goal}${q.done ? ' · ' + tr('completado') : ''}</div></div>`; }).join('');
     h += `<div class="nb">${tr('Logros')} · ${Object.keys(S.ach).length} / ${ACH.length}</div><div class="achs">`;
-    h += ACH.map(a => S.ach[a.id] ? `<div class="ach ok">${ico('trophy')}<div><b>${a.n}</b><p>${a.f}</p></div></div>` : `<div class="ach">${ico('trophy')}<div><b>${a.n}</b><p>${tr('Bloqueado')}</p></div></div>`).join('') + '</div>';
+    h += ACH.map(a => !S.ach[a.id] ? `<div class="ach">${ico('trophy')}<div><b>${a.n}</b><p>${tr('Cómo conseguirlo')}: ${esc(tr(ACH_GOAL[a.id]))}</p></div></div>`
+      : S.achSeen[a.id] ? `<div class="ach ok">${ico('trophy')}<div><b>${a.n}</b><p class="cw">${esc(tr(ACH_WHY[a.id]))}</p><p>${a.f}</p></div></div>`
+      : `<div class="ach ok new">${ico('trophy')}<div><b>${a.n}</b><p class="cw">${esc(tr(ACH_WHY[a.id]))}</p><button class="buy" data-curio="${a.id}">${tr('Descubrir curiosidad')}</button></div></div>`).join('') + '</div>';
   } else if (tab === 'evo'){
     const g = evoGain();
     h += `<div class="nb">${tr('Linaje')}</div>${phylo()}`;
@@ -341,6 +369,7 @@ $('#pBody').addEventListener('click', ev => {
   const b = ev.target.closest('button'); if (!b || b.disabled) return;
   if (tab === 'dia' && diagClick(b)) return;
   if (b.dataset.scope){ openScope(b.dataset.scope); return; }
+  if (b.dataset.curio){ S.achSeen[b.dataset.curio] = true; save(); renderPanel(); renderHud(); return; }
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
   if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
