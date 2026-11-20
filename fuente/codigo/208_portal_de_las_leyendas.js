@@ -9,7 +9,7 @@
 // bajo el que creció la Hidra; Pausanias cree que tenía una sola cabeza y que el poeta Pisandro le dio muchas). Niké: Teogonía 383-385.
 // Reutiliza las puertas e interiores de 204 (INT2): la leyenda es un «interior» al aire libre, en su sitio lejano.
 const LEY={on:false,n:0,hits:0,heads:[],shots:[],orbs:[],t:0,inv:0,won:false,grace:0,lp:null,pv:{x:0,z:0},hud:null,fl:null,GOAL:20,MAXH:3,R:null};
-const LEY_RA=15,LEY_HZ=-10;   // radio de la ciénaga y dónde está la Hidra (z local)
+const LEY_RA=15,LEY_HZ=-10,LEY_ROOMS=['hidra','aves','leon','caco'];   // radio de la ciénaga y dónde está la Hidra (z local)
 function leyRo(){return MODE==='roma';}
 function leyN(gr,la){return leyRo()?la:gr;}
 function leyz(){if(!state.leyendas||typeof state.leyendas!=='object')state.leyendas={hidra:{best:0,won:0,tries:0}};return state.leyendas;}
@@ -52,7 +52,7 @@ function leyRoom(){const R=int2Base('hidra');R.g=grp(R.X,R.Y,R.Z,0);INT2.rooms.h
   return R;}
 // una cabeza: cuello de esferas a lo largo de una curva, y la cabeza (hocico, mandíbula, ojos)
 const LEY_NG=new THREE.SphereGeometry(1,10,7),LEY_EYE=new THREE.MeshBasicMaterial({color:'#ffd23a'});
-function leyAddHead(){const R=LEY.R;if(!R)return;const i=LEY.heads.length,g=R.g;const H={k:i,neck:[],t:2+Math.random()*2,warn:0,ph:Math.random()*TAU,grow:0};
+function leyAddHead(){const R=INT2.rooms.hidra;if(!R)return;const i=LEY.heads.length,g=R.g;const H={k:i,neck:[],t:2+Math.random()*2,warn:0,ph:Math.random()*TAU,grow:0};
   for(let j=0;j<20;j++){const s=new THREE.Mesh(LEY_NG,LEY.hm);s.castShadow=true;g.add(s);H.neck.push(s);}
   const hd=new THREE.Group();const sk=new THREE.Mesh(LEY_NG,LEY.hm);sk.scale.set(0.38,0.3,0.6);hd.add(sk);
   const jw=new THREE.Mesh(new THREE.ConeGeometry(0.22,0.55,8),LEY.bel);jw.rotation.x=Math.PI/2;jw.position.set(0,-0.14,0.42);jw.scale.set(1,1,0.5);hd.add(jw);
@@ -71,7 +71,7 @@ function leyShoot(H,tipW){const P=player,R=LEY.R;const tgt=new THREE.Vector3(P.x
   LEY.shots.push({m,v,life:4});if(H&&H.mdl)H.mdl.snap=1;try{leySfx('spit');}catch(e){}}
 // ---- orbes de Niké
 const LEY_OG=new THREE.OctahedronGeometry(0.28,1),LEY_OM=new THREE.MeshBasicMaterial({color:'#ffe08a'});
-function leyOrb(){const R=LEY.R;for(let k=0;k<40;k++){const a=Math.random()*TAU,r=3+Math.random()*(LEY_RA-4.5),x=Math.cos(a)*r,z=Math.sin(a)*r;if(z<LEY_HZ+5)continue;
+function leyOrb(){const R=LEY.R;for(let k=0;k<40;k++){const a=Math.random()*TAU,r=3+Math.random()*(LEY_RA-4.5),x=Math.cos(a)*r,z=Math.sin(a)*r;if(LEY.kind==='hidra'&&z<LEY_HZ+5)continue;if(LEY.orbOk&&!LEY.orbOk(x,z))continue;
     if(LEY.orbs.some(o=>Math.hypot(o.x-x,o.z-z)<4))continue;if(Math.hypot(R.X+x-player.x,R.Z+z-player.z)<4)continue;
     const g=new THREE.Group();g.position.set(R.X+x,R.Y+1.1,R.Z+z);const c=new THREE.Mesh(LEY_OG,LEY_OM);g.add(c);
     const s=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ffd25a',transparent:true,opacity:0.9,blending:THREE.AdditiveBlending,depthWrite:false}));s.scale.set(1.6,2.0,1);g.add(s);
@@ -87,7 +87,7 @@ function leySfx(k){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;
 function leyHud(){if(!LEY.hud){const d=document.createElement('div');d.id='leyHud';d.style.cssText='position:fixed;top:52px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;background:rgba(26,20,14,.82);color:#f3e6c8;border:1px solid #c9a64a;border-radius:8px;padding:5px 14px;font:600 15px/1.3 var(--text,system-ui);display:flex;gap:16px;white-space:nowrap';document.body.appendChild(d);LEY.hud=d;
     const fl=document.createElement('div');fl.style.cssText='position:fixed;inset:0;z-index:29;pointer-events:none;background:radial-gradient(ellipse at center,rgba(120,255,60,0) 40%,rgba(90,200,40,.55));opacity:0;transition:opacity .25s';document.body.appendChild(fl);LEY.fl=fl;}
   LEY.hud.hidden=!LEY.on;if(!LEY.on)return;const hearts='●'.repeat(3-LEY.hits)+'○'.repeat(LEY.hits);
-  LEY.hud.innerHTML='<span style="color:#ffd25a">'+leyN('Orbes de Niké','Orbes de Victoria')+' '+LEY.n+'/'+LEY.GOAL+'</span><span title="golpes que aguantas">Vida '+hearts+'</span><span>Cabezas '+LEY.heads.length+'</span>';}
+  LEY.hud.innerHTML='<span style="color:#ffd25a">'+leyN('Orbes de Niké','Orbes de Victoria')+' '+LEY.n+'/'+LEY.GOAL+'</span><span title="golpes que aguantas">Vida '+hearts+'</span>'+(LEY.kind==='hidra'?'<span>Cabezas '+LEY.heads.length+'</span>':(LEY.extra||''))+(typeof legShieldHud==='function'?legShieldHud():'');}
 // ---- empezar, perder, ganar
 function leyReset(){for(const s of LEY.shots)scene.remove(s.m);for(const o of LEY.orbs)scene.remove(o.g);LEY.shots=[];LEY.orbs=[];
   const R=LEY.R;if(R)for(const H of LEY.heads){for(const s of H.neck)R.g.remove(s);R.g.remove(H.head);}LEY.heads=[];LEY.n=0;LEY.hits=0;LEY.inv=0;LEY.won=false;LEY.t=0;LEY.lp=null;
@@ -111,8 +111,9 @@ function leyWin(){LEY.on=false;LEY.won=true;leyHud();const z=leyz();z.hidra.best
   int2Dlg('Ν',leyN('Niké','Victoria'),'¡Victoria!','<p>«Veinte orbes, y ni una gota de veneno de más. La Hidra se hunde en la ciénaga, como en el mito se hundió bajo la roca su cabeza inmortal.»</p><p>'+(first?'Ganas la <b>corona de '+leyN('Niké','Victoria')+'</b>: queda anotada en tu viaje.':'Ya tenías la corona: esta es tu victoria número '+z.hidra.won+'.')+'</p><p class="sub">El premio definitivo está por decidir; de momento, la victoria queda guardada en la partida.</p>');
   try{rwDiscover('La corona de '+leyN('Niké','Victoria'),'has vencido en la leyenda de la Hidra');}catch(e){}}
 // ---- cada fotograma
-function leyTick(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';
+function leyTick(dt){const inH=INT2.in&&LEY_ROOMS.includes(INT2.in.o.room);if(inH){LEY.kind=INT2.in.o.room;LEY.R=INT2.in.R;}
   if(!inH){if(!skyMesh.visible)skyMesh.visible=true;if(LEY.on||LEY.shots.length||LEY.orbs.length){LEY.on=false;leyReset();}if(LEY.hud&&!LEY.hud.hidden)leyHud();LEY.started=false;return;}
+  if(LEY.kind!=='hidra'){if(typeof legTick==='function')legTick(dt);return;}   // las otras leyendas (210)
   if(!LEY.started&&!INT2.busy&&ui==='play'){LEY.started=true;player.yaw=0;player.pitch=0.05;leyStart();return;}
   const R=LEY.R,t=(LEY.t+=dt),P=player;
   // la Hidra (también quieta mientras se lee un diálogo, pero sin disparar)
@@ -131,7 +132,7 @@ function leyTick(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';
     H.t-=dt;if(H.t<=0)H.warn=0.7;}
   const lo=new THREE.Vector3(P.x,P.feet+0.25,P.z),hi=new THREE.Vector3(P.x,P.feet+1.65,P.z),_c=new THREE.Vector3(),seg=new THREE.Line3(lo,hi);
   for(let i=LEY.shots.length-1;i>=0;i--){const s=LEY.shots[i];s.life-=dt;s.v.y-=1.5*dt;s.m.position.addScaledVector(s.v,dt);const p=s.m.position;
-    seg.closestPointToPoint(p,true,_c);const hit=_c.distanceTo(p)<0.5&&LEY.inv<=0;
+    seg.closestPointToPoint(p,true,_c);let hit=_c.distanceTo(p)<0.5&&LEY.inv<=0;if(hit&&typeof legBlock==='function'&&legBlock(s)){hit=false;s.life=0;}
     if(hit||s.life<=0||p.y<R.Y+0.05||Math.hypot(p.x-R.X,p.z-R.Z)>LEY_RA+6){scene.remove(s.m);LEY.shots.splice(i,1);
       if(hit){LEY.hits++;LEY.inv=1.2;leySfx('hit');if(LEY.fl){LEY.fl.style.opacity=1;setTimeout(()=>LEY.fl&&(LEY.fl.style.opacity=0),280);}leyHud();if(LEY.hits>=3){leyLose();return;}}}}
   // orbes: siempre dos a la vista; se cogen pasando por encima
@@ -156,10 +157,10 @@ function leyHyLoad(){if(LEY.loading||typeof bpBytes!=='function'||!THREE.GLTFLoa
       if(!cache.has(m)){const eye=/ojo/.test(m.name),pm=new THREE.MeshPhongMaterial({map:m.map||null,normalMap:m.normalMap||null,color:m.map?new THREE.Color(1.55,1.55,1.5):m.color.clone(),shininess:eye?90:28,specular:new THREE.Color(eye?'#ffffff':'#3a3a2c'),
         emissive:eye?new THREE.Color('#ffffff'):new THREE.Color('#000000'),emissiveMap:eye?m.map:null,emissiveIntensity:eye?0.35:0,side:/lengua/.test(m.name)?THREE.DoubleSide:THREE.FrontSide});if(m.map){m.map.anisotropy=4;m.map.encoding=THREE.LinearEncoding;}cache.set(m,pm);}
       o.material=cache.get(m);});
-    if(LEY.R)leyMdlBody();},e=>console.warn('hidra',e));}).catch(e=>console.warn('hidra',e));}
-function leyMdlBody(){const R=LEY.R,T=LEY.tpl;if(!R||!T||LEY.mbody)return;const b=T.body.clone();b.position.set(0,0,LEY_HZ-0.6);b.userData.hy=1;R.g.add(b);LEY.mbody=b;
+    if(INT2.rooms.hidra)leyMdlBody();},e=>console.warn('hidra',e));}).catch(e=>console.warn('hidra',e));}
+function leyMdlBody(){const R=INT2.rooms.hidra,T=LEY.tpl;if(!R||!T||LEY.mbody)return;const b=T.body.clone();b.position.set(0,0,LEY_HZ-0.6);b.userData.hy=1;R.g.add(b);LEY.mbody=b;
   for(const c of R.g.children)if(c.userData.proc)c.visible=false;for(const H of LEY.heads)if(!H.mdl)leyMdlHead(H);}
-function leyMdlHead(H){const R=LEY.R,T=LEY.tpl;if(!R||!T)return;if(!LEY.mbody)leyMdlBody();
+function leyMdlHead(H){const R=INT2.rooms.hidra,T=LEY.tpl;if(!R||!T)return;if(!LEY.mbody)leyMdlBody();
   const g=T.neck.clone();g.attributes.position=g.attributes.position.clone();g.attributes.normal=g.attributes.normal.clone();
   const nk=new THREE.Mesh(g,T.nmat);nk.castShadow=true;nk.frustumCulled=false;nk.userData.hy=1;R.g.add(nk);
   const hd=T.head.clone(true);hd.position.set(0,0,0);hd.rotation.set(0,0,0);hd.userData.hy=1;R.g.add(hd);const jaw=hd.getObjectByName('HY_mandibula');
@@ -192,8 +193,8 @@ function leyStormSky(){if(LEY.skyLoading||typeof bpBytes!=='function')return;LEY
   bpBytes('imgtm').then(buf=>{if(!buf)return;const url=URL.createObjectURL(new Blob([buf],{type:'image/jpeg'})),im=new Image();
     im.onload=()=>{const tx=new THREE.Texture(im);tx.needsUpdate=true;const m=new THREE.MeshBasicMaterial({map:tx,side:THREE.BackSide,fog:false});
       const sp=new THREE.Mesh(new THREE.SphereGeometry(900,48,24),m);sp.frustumCulled=false;LEY.sky=sp;if(LEY.R)LEY.R.g.add(sp);};im.src=url;}).catch(e=>console.warn('cielo',e));}
-function leyStormLight(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';if(!inH)return;
-  if(LEY.sky&&LEY.R&&LEY.sky.parent!==LEY.R.g)LEY.R.g.add(LEY.sky);
+function leyStormLight(dt){const inH=INT2.in&&LEY_ROOMS.includes(INT2.in.o.room);if(!inH)return;if(!LEY.sky&&!LEY.skyLoading)leyStormSky();
+  if(LEY.sky&&INT2.in.R&&LEY.sky.parent!==INT2.in.R.g)INT2.in.R.g.add(LEY.sky);
   LEY.flT=(LEY.flT===undefined?6:LEY.flT)-(dt||0);if(LEY.flT<=0){LEY.flT=7+Math.random()*10;LEY.flash=1;setTimeout(()=>{try{if(typeof sfxThunder==='function'&&INT2.in)sfxThunder();}catch(e){}},600+Math.random()*1400);}
   const f=LEY.flash>0?Math.max(0,LEY.flash)*(0.6+0.4*Math.sin(LEY.flash*40)):0;if(LEY.flash>0)LEY.flash-=(dt||0)*3.2;
   sun.intensity=0.5+1.2*f;sun.color.set('#b9c3d6');hemi.intensity=0.5+1.1*f;hemi.color.set('#8c97aa');hemi.groundColor.set('#3a3529');

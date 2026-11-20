@@ -22706,7 +22706,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='66cb8c39de78';
+const NOSTOS_VER='cc5982f3a8ba';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -30376,7 +30376,7 @@ function solHoy(){solCalc();const fm=x=>Math.floor(x)+':'+String(Math.round((x%1
 // bajo el que creció la Hidra; Pausanias cree que tenía una sola cabeza y que el poeta Pisandro le dio muchas). Niké: Teogonía 383-385.
 // Reutiliza las puertas e interiores de 204 (INT2): la leyenda es un «interior» al aire libre, en su sitio lejano.
 const LEY={on:false,n:0,hits:0,heads:[],shots:[],orbs:[],t:0,inv:0,won:false,grace:0,lp:null,pv:{x:0,z:0},hud:null,fl:null,GOAL:20,MAXH:3,R:null};
-const LEY_RA=15,LEY_HZ=-10;   // radio de la ciénaga y dónde está la Hidra (z local)
+const LEY_RA=15,LEY_HZ=-10,LEY_ROOMS=['hidra','aves','leon','caco'];   // radio de la ciénaga y dónde está la Hidra (z local)
 function leyRo(){return MODE==='roma';}
 function leyN(gr,la){return leyRo()?la:gr;}
 function leyz(){if(!state.leyendas||typeof state.leyendas!=='object')state.leyendas={hidra:{best:0,won:0,tries:0}};return state.leyendas;}
@@ -30419,7 +30419,7 @@ function leyRoom(){const R=int2Base('hidra');R.g=grp(R.X,R.Y,R.Z,0);INT2.rooms.h
   return R;}
 // una cabeza: cuello de esferas a lo largo de una curva, y la cabeza (hocico, mandíbula, ojos)
 const LEY_NG=new THREE.SphereGeometry(1,10,7),LEY_EYE=new THREE.MeshBasicMaterial({color:'#ffd23a'});
-function leyAddHead(){const R=LEY.R;if(!R)return;const i=LEY.heads.length,g=R.g;const H={k:i,neck:[],t:2+Math.random()*2,warn:0,ph:Math.random()*TAU,grow:0};
+function leyAddHead(){const R=INT2.rooms.hidra;if(!R)return;const i=LEY.heads.length,g=R.g;const H={k:i,neck:[],t:2+Math.random()*2,warn:0,ph:Math.random()*TAU,grow:0};
   for(let j=0;j<20;j++){const s=new THREE.Mesh(LEY_NG,LEY.hm);s.castShadow=true;g.add(s);H.neck.push(s);}
   const hd=new THREE.Group();const sk=new THREE.Mesh(LEY_NG,LEY.hm);sk.scale.set(0.38,0.3,0.6);hd.add(sk);
   const jw=new THREE.Mesh(new THREE.ConeGeometry(0.22,0.55,8),LEY.bel);jw.rotation.x=Math.PI/2;jw.position.set(0,-0.14,0.42);jw.scale.set(1,1,0.5);hd.add(jw);
@@ -30438,7 +30438,7 @@ function leyShoot(H,tipW){const P=player,R=LEY.R;const tgt=new THREE.Vector3(P.x
   LEY.shots.push({m,v,life:4});if(H&&H.mdl)H.mdl.snap=1;try{leySfx('spit');}catch(e){}}
 // ---- orbes de Niké
 const LEY_OG=new THREE.OctahedronGeometry(0.28,1),LEY_OM=new THREE.MeshBasicMaterial({color:'#ffe08a'});
-function leyOrb(){const R=LEY.R;for(let k=0;k<40;k++){const a=Math.random()*TAU,r=3+Math.random()*(LEY_RA-4.5),x=Math.cos(a)*r,z=Math.sin(a)*r;if(z<LEY_HZ+5)continue;
+function leyOrb(){const R=LEY.R;for(let k=0;k<40;k++){const a=Math.random()*TAU,r=3+Math.random()*(LEY_RA-4.5),x=Math.cos(a)*r,z=Math.sin(a)*r;if(LEY.kind==='hidra'&&z<LEY_HZ+5)continue;if(LEY.orbOk&&!LEY.orbOk(x,z))continue;
     if(LEY.orbs.some(o=>Math.hypot(o.x-x,o.z-z)<4))continue;if(Math.hypot(R.X+x-player.x,R.Z+z-player.z)<4)continue;
     const g=new THREE.Group();g.position.set(R.X+x,R.Y+1.1,R.Z+z);const c=new THREE.Mesh(LEY_OG,LEY_OM);g.add(c);
     const s=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ffd25a',transparent:true,opacity:0.9,blending:THREE.AdditiveBlending,depthWrite:false}));s.scale.set(1.6,2.0,1);g.add(s);
@@ -30454,7 +30454,7 @@ function leySfx(k){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;
 function leyHud(){if(!LEY.hud){const d=document.createElement('div');d.id='leyHud';d.style.cssText='position:fixed;top:52px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;background:rgba(26,20,14,.82);color:#f3e6c8;border:1px solid #c9a64a;border-radius:8px;padding:5px 14px;font:600 15px/1.3 var(--text,system-ui);display:flex;gap:16px;white-space:nowrap';document.body.appendChild(d);LEY.hud=d;
     const fl=document.createElement('div');fl.style.cssText='position:fixed;inset:0;z-index:29;pointer-events:none;background:radial-gradient(ellipse at center,rgba(120,255,60,0) 40%,rgba(90,200,40,.55));opacity:0;transition:opacity .25s';document.body.appendChild(fl);LEY.fl=fl;}
   LEY.hud.hidden=!LEY.on;if(!LEY.on)return;const hearts='●'.repeat(3-LEY.hits)+'○'.repeat(LEY.hits);
-  LEY.hud.innerHTML='<span style="color:#ffd25a">'+leyN('Orbes de Niké','Orbes de Victoria')+' '+LEY.n+'/'+LEY.GOAL+'</span><span title="golpes que aguantas">Vida '+hearts+'</span><span>Cabezas '+LEY.heads.length+'</span>';}
+  LEY.hud.innerHTML='<span style="color:#ffd25a">'+leyN('Orbes de Niké','Orbes de Victoria')+' '+LEY.n+'/'+LEY.GOAL+'</span><span title="golpes que aguantas">Vida '+hearts+'</span>'+(LEY.kind==='hidra'?'<span>Cabezas '+LEY.heads.length+'</span>':(LEY.extra||''))+(typeof legShieldHud==='function'?legShieldHud():'');}
 // ---- empezar, perder, ganar
 function leyReset(){for(const s of LEY.shots)scene.remove(s.m);for(const o of LEY.orbs)scene.remove(o.g);LEY.shots=[];LEY.orbs=[];
   const R=LEY.R;if(R)for(const H of LEY.heads){for(const s of H.neck)R.g.remove(s);R.g.remove(H.head);}LEY.heads=[];LEY.n=0;LEY.hits=0;LEY.inv=0;LEY.won=false;LEY.t=0;LEY.lp=null;
@@ -30478,8 +30478,9 @@ function leyWin(){LEY.on=false;LEY.won=true;leyHud();const z=leyz();z.hidra.best
   int2Dlg('Ν',leyN('Niké','Victoria'),'¡Victoria!','<p>«Veinte orbes, y ni una gota de veneno de más. La Hidra se hunde en la ciénaga, como en el mito se hundió bajo la roca su cabeza inmortal.»</p><p>'+(first?'Ganas la <b>corona de '+leyN('Niké','Victoria')+'</b>: queda anotada en tu viaje.':'Ya tenías la corona: esta es tu victoria número '+z.hidra.won+'.')+'</p><p class="sub">El premio definitivo está por decidir; de momento, la victoria queda guardada en la partida.</p>');
   try{rwDiscover('La corona de '+leyN('Niké','Victoria'),'has vencido en la leyenda de la Hidra');}catch(e){}}
 // ---- cada fotograma
-function leyTick(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';
+function leyTick(dt){const inH=INT2.in&&LEY_ROOMS.includes(INT2.in.o.room);if(inH){LEY.kind=INT2.in.o.room;LEY.R=INT2.in.R;}
   if(!inH){if(!skyMesh.visible)skyMesh.visible=true;if(LEY.on||LEY.shots.length||LEY.orbs.length){LEY.on=false;leyReset();}if(LEY.hud&&!LEY.hud.hidden)leyHud();LEY.started=false;return;}
+  if(LEY.kind!=='hidra'){if(typeof legTick==='function')legTick(dt);return;}   // las otras leyendas (210)
   if(!LEY.started&&!INT2.busy&&ui==='play'){LEY.started=true;player.yaw=0;player.pitch=0.05;leyStart();return;}
   const R=LEY.R,t=(LEY.t+=dt),P=player;
   // la Hidra (también quieta mientras se lee un diálogo, pero sin disparar)
@@ -30498,7 +30499,7 @@ function leyTick(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';
     H.t-=dt;if(H.t<=0)H.warn=0.7;}
   const lo=new THREE.Vector3(P.x,P.feet+0.25,P.z),hi=new THREE.Vector3(P.x,P.feet+1.65,P.z),_c=new THREE.Vector3(),seg=new THREE.Line3(lo,hi);
   for(let i=LEY.shots.length-1;i>=0;i--){const s=LEY.shots[i];s.life-=dt;s.v.y-=1.5*dt;s.m.position.addScaledVector(s.v,dt);const p=s.m.position;
-    seg.closestPointToPoint(p,true,_c);const hit=_c.distanceTo(p)<0.5&&LEY.inv<=0;
+    seg.closestPointToPoint(p,true,_c);let hit=_c.distanceTo(p)<0.5&&LEY.inv<=0;if(hit&&typeof legBlock==='function'&&legBlock(s)){hit=false;s.life=0;}
     if(hit||s.life<=0||p.y<R.Y+0.05||Math.hypot(p.x-R.X,p.z-R.Z)>LEY_RA+6){scene.remove(s.m);LEY.shots.splice(i,1);
       if(hit){LEY.hits++;LEY.inv=1.2;leySfx('hit');if(LEY.fl){LEY.fl.style.opacity=1;setTimeout(()=>LEY.fl&&(LEY.fl.style.opacity=0),280);}leyHud();if(LEY.hits>=3){leyLose();return;}}}}
   // orbes: siempre dos a la vista; se cogen pasando por encima
@@ -30523,10 +30524,10 @@ function leyHyLoad(){if(LEY.loading||typeof bpBytes!=='function'||!THREE.GLTFLoa
       if(!cache.has(m)){const eye=/ojo/.test(m.name),pm=new THREE.MeshPhongMaterial({map:m.map||null,normalMap:m.normalMap||null,color:m.map?new THREE.Color(1.55,1.55,1.5):m.color.clone(),shininess:eye?90:28,specular:new THREE.Color(eye?'#ffffff':'#3a3a2c'),
         emissive:eye?new THREE.Color('#ffffff'):new THREE.Color('#000000'),emissiveMap:eye?m.map:null,emissiveIntensity:eye?0.35:0,side:/lengua/.test(m.name)?THREE.DoubleSide:THREE.FrontSide});if(m.map){m.map.anisotropy=4;m.map.encoding=THREE.LinearEncoding;}cache.set(m,pm);}
       o.material=cache.get(m);});
-    if(LEY.R)leyMdlBody();},e=>console.warn('hidra',e));}).catch(e=>console.warn('hidra',e));}
-function leyMdlBody(){const R=LEY.R,T=LEY.tpl;if(!R||!T||LEY.mbody)return;const b=T.body.clone();b.position.set(0,0,LEY_HZ-0.6);b.userData.hy=1;R.g.add(b);LEY.mbody=b;
+    if(INT2.rooms.hidra)leyMdlBody();},e=>console.warn('hidra',e));}).catch(e=>console.warn('hidra',e));}
+function leyMdlBody(){const R=INT2.rooms.hidra,T=LEY.tpl;if(!R||!T||LEY.mbody)return;const b=T.body.clone();b.position.set(0,0,LEY_HZ-0.6);b.userData.hy=1;R.g.add(b);LEY.mbody=b;
   for(const c of R.g.children)if(c.userData.proc)c.visible=false;for(const H of LEY.heads)if(!H.mdl)leyMdlHead(H);}
-function leyMdlHead(H){const R=LEY.R,T=LEY.tpl;if(!R||!T)return;if(!LEY.mbody)leyMdlBody();
+function leyMdlHead(H){const R=INT2.rooms.hidra,T=LEY.tpl;if(!R||!T)return;if(!LEY.mbody)leyMdlBody();
   const g=T.neck.clone();g.attributes.position=g.attributes.position.clone();g.attributes.normal=g.attributes.normal.clone();
   const nk=new THREE.Mesh(g,T.nmat);nk.castShadow=true;nk.frustumCulled=false;nk.userData.hy=1;R.g.add(nk);
   const hd=T.head.clone(true);hd.position.set(0,0,0);hd.rotation.set(0,0,0);hd.userData.hy=1;R.g.add(hd);const jaw=hd.getObjectByName('HY_mandibula');
@@ -30559,8 +30560,8 @@ function leyStormSky(){if(LEY.skyLoading||typeof bpBytes!=='function')return;LEY
   bpBytes('imgtm').then(buf=>{if(!buf)return;const url=URL.createObjectURL(new Blob([buf],{type:'image/jpeg'})),im=new Image();
     im.onload=()=>{const tx=new THREE.Texture(im);tx.needsUpdate=true;const m=new THREE.MeshBasicMaterial({map:tx,side:THREE.BackSide,fog:false});
       const sp=new THREE.Mesh(new THREE.SphereGeometry(900,48,24),m);sp.frustumCulled=false;LEY.sky=sp;if(LEY.R)LEY.R.g.add(sp);};im.src=url;}).catch(e=>console.warn('cielo',e));}
-function leyStormLight(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';if(!inH)return;
-  if(LEY.sky&&LEY.R&&LEY.sky.parent!==LEY.R.g)LEY.R.g.add(LEY.sky);
+function leyStormLight(dt){const inH=INT2.in&&LEY_ROOMS.includes(INT2.in.o.room);if(!inH)return;if(!LEY.sky&&!LEY.skyLoading)leyStormSky();
+  if(LEY.sky&&INT2.in.R&&LEY.sky.parent!==INT2.in.R.g)INT2.in.R.g.add(LEY.sky);
   LEY.flT=(LEY.flT===undefined?6:LEY.flT)-(dt||0);if(LEY.flT<=0){LEY.flT=7+Math.random()*10;LEY.flash=1;setTimeout(()=>{try{if(typeof sfxThunder==='function'&&INT2.in)sfxThunder();}catch(e){}},600+Math.random()*1400);}
   const f=LEY.flash>0?Math.max(0,LEY.flash)*(0.6+0.4*Math.sin(LEY.flash*40)):0;if(LEY.flash>0)LEY.flash-=(dt||0)*3.2;
   sun.intensity=0.5+1.2*f;sun.color.set('#b9c3d6');hemi.intensity=0.5+1.1*f;hemi.color.set('#8c97aa');hemi.groundColor.set('#3a3529');
@@ -30583,6 +30584,207 @@ function suLoad(){if(SU.loading||typeof bpBytes!=='function'||typeof TERR_U==='u
       im.onload=()=>{const t=new THREE.Texture(im);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());t.generateMipmaps=true;t.minFilter=THREE.LinearMipmapLinearFilter;t.needsUpdate=true;
         TERR_U[u].value=t;TERR_U[s].value=sc;SU.done++;};im.src=url;}).catch(e=>{SU.err=String(e);});}}
 {const f=uxTick;uxTick=function(dt){f(dt);if(SU.loading)return;if(!state||ui==='start')return;if(!SU.t0)SU.t0=performance.now();if(performance.now()-SU.t0<6000)return;try{suLoad();}catch(e){SU.err=String(e);}};}   // 6 s después de empezar
+// ============================================================ MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208)
+// El portal dorado lleva ahora a elegir una leyenda. En ninguna se hiere a nadie: se esquiva, se protege uno con el escudo y se
+// recogen los orbes de Niké (Victoria). Al entrar se avisa de qué cuenta el mito y de que aquí no se mata a la criatura.
+//  · La Hidra de Lerna (208).
+//  · Las aves del Estínfalo (Arcadia): sueltan plumas de bronce desde el cielo (la sombra roja avisa dónde caen). Con los crótalos de
+//    bronce que Atenea dio a Heracles (hechos por Hefesto), el ruido las espanta un rato. Apolodoro II 5,6; Pausanias VIII 22,4;
+//    las plumas como dardos, en Apolonio de Rodas, Argonáuticas II 1030-1089.
+//  · El león de Nemea: ninguna arma atravesaba su piel. Acecha, se agazapa (aviso) y embiste en línea recta: hay que apartarse a tiempo.
+//    Apolodoro II 5,1; Hesíodo, Teogonía 326-332.
+//  · Caco en el Aventino (leyenda romana): el hijo de Vulcano escupe fuego y humo desde su cueva; el fuego deja el suelo ardiendo un
+//    momento. Virgilio, Eneida VIII 190-267; Livio I 7,4-7; Ovidio, Fastos I 543-578.
+// Escudo (todas): mantener Q o el botón derecho del ratón (en el móvil, el botón «Escudo»). Para lo que llega de frente (y lo que cae
+// desde arriba) mientras le quede aguante; se cansa al sostenerlo y al parar golpes, y se recupera bajándolo.
+const LEG={},LEG_ORDER=['hidra','aves','leon','caco'];
+const LEY_SH={up:false,st:1,tired:false,key:false,mouse:false,btn:false,crT:0,el:null};
+function legIn(){return !!(INT2.in&&LEY_ROOMS.includes(INT2.in.o.room));}
+function legZ(k){const z=leyz();if(!z[k])z[k]={best:0,won:0,tries:0};return z[k];}
+// ---- elegir leyenda al cruzar el portal
+{const f=int2Enter;int2Enter=function(o){if(o&&o.id==='ley'&&!o._go){legChoose(o);return;}if(o)o._go=false;return f.apply(this,arguments);};}
+function legChoose(o){if(ui!=='play')return;const P=player;P.x=o.x+Math.sin(o.a)*1.7;P.z=o.z+Math.cos(o.a)*1.7;
+  const ro=leyRo(),Ni=leyN('Niké','Victoria');
+  int2Dlg('Ν',Ni,'El portal de las leyendas','<p>«Elige la leyenda en la que quieres entrar. En todas te pido lo mismo: <b>reúne '+LEY.GOAL+' de mis orbes</b> sin que te alcancen tres veces. Nadie sale herido: ni tú, ni la criatura.»</p><p class="sub">Escudo: mantén <b>Q</b> o el botón derecho del ratón. En el Estínfalo, los crótalos con <b>R</b>.</p>');
+  const box=$('dOpts');box.innerHTML='';let n=0;
+  for(const k of LEG_ORDER){const L=LEG[k];if(!L)continue;const z=legZ(k),b=document.createElement('button');n++;
+    b.innerHTML='<span class="n">'+n+'</span><span>'+L.title()+(z.won?' · <b>vencida</b>':z.best?' · récord '+z.best:'')+'</span>';
+    b.onclick=()=>{closeDialog();o.room=k;o._go=true;int2Enter(o);};box.appendChild(b);}
+  const c=document.createElement('button');c.innerHTML='<span class="n">'+(n+1)+'</span><span>Ahora no</span>';c.onclick=closeDialog;box.appendChild(c);}
+LEG.hidra={title:()=>'La Hidra de Lerna'};
+// ---- el escenario común: suelo, borde, salida dorada, cielo de tormenta (208)
+function legArena(room,col,col2){const R=int2Base(room);R.g=grp(R.X,R.Y,R.Z,0);INT2.rooms[room]=R;const g=R.g;
+  const fl=new THREE.Mesh(new THREE.CircleGeometry(70,48),lam(col2||'#5a5440'));fl.rotation.x=-Math.PI/2;fl.receiveShadow=true;g.add(fl);
+  const in1=new THREE.Mesh(new THREE.CircleGeometry(LEY_RA+1,48),lam(col));in1.rotation.x=-Math.PI/2;in1.position.y=0.01;in1.receiveShadow=true;g.add(in1);
+  addPlat(R.X,R.Z,140,140,0,R.Y);
+  for(let i=0;i<28;i++){const a=i/28*TAU,b=(i+1)/28*TAU;addSeg(R.X+Math.cos(a)*LEY_RA,R.Z+Math.sin(a)*LEY_RA,R.X+Math.cos(b)*LEY_RA,R.Z+Math.sin(b)*LEY_RA,0.3);}
+  R.exit={x:R.X,z:R.Z+13.6,a:Math.PI};const eg=grp(R.X,R.Y,R.Z+13.6,Math.PI);const A=int2Aura(eg,1.6,2.6,false);A.m.color.set('#ffd25a');A.sm.color.set('#ffd25a');R.exitA=A;R.exitG=eg;
+  egxObj(R.X,R.Z+13.6-0.9,R.Y,()=>int2Leave(),'Salir de la leyenda','',2.2);R.spawn=[0,11,Math.PI];return R;}
+function legRocks(R,n,r0,r1,col,seed){const m=lam(col||'#8d8476'),g=R.g,rr=mulberry32(seed||7);
+  for(let i=0;i<n;i++){const a=rr()*TAU,r=r0+rr()*(r1-r0),s=1.5+rr()*4;const k=new THREE.Mesh(new THREE.DodecahedronGeometry(s,1),m);k.position.set(Math.cos(a)*r,s*0.35,Math.sin(a)*r);k.rotation.set(rr()*3,rr()*3,rr()*3);k.scale.y=0.6+rr()*0.8;k.castShadow=k.receiveShadow=true;g.add(k);}}
+{const f=int2Room;int2Room=function(room){if(INT2.rooms[room]||!LEG[room]||!LEG[room].build)return f.apply(this,arguments);return LEG[room].build();};}
+// ---- proyectiles comunes
+const LEG_FEATHER=new THREE.ConeGeometry(0.05,0.75,5),LEG_BRONZE=new THREE.MeshPhongMaterial({color:'#b08a4a',shininess:70,specular:new THREE.Color('#ffe2a0')});
+const LEG_FIRE=new THREE.SphereGeometry(0.34,10,8),LEG_FIREM=new THREE.MeshBasicMaterial({color:'#ffb040'});
+function legShot(mesh,pos,vel,o){mesh.position.copy(pos);scene.add(mesh);const s=Object.assign({m:mesh,v:vel,life:5,g:1.5,r:0.5},o||{});LEY.shots.push(s);return s;}
+// ---- el escudo
+function legBlock(s){const S=LEY_SH;if(!S.up||S.st<=0)return false;const v=s.v.clone().normalize(),f=new THREE.Vector3(-Math.sin(player.yaw),0,-Math.cos(player.yaw));
+  const front=f.dot(new THREE.Vector3(-v.x,0,-v.z).normalize())>0.25,above=v.y<-0.75;if(!front&&!above)return false;
+  S.st=Math.max(0,S.st-(s.cost||0.18));legSfx('clang');if(S.st<=0){S.tired=true;toast('<span class="label">Escudo</span><br>Tienes el brazo cansado: bájalo un momento para recuperar el aguante.');}return true;}
+function legShieldTick(dt){const S=LEY_SH,want=(S.key||S.mouse||S.btn)&&!S.tired&&legIn()&&LEY.on;S.up=want&&S.st>0;
+  if(S.up)S.st=Math.max(0,S.st-0.22*dt);else S.st=Math.min(1,S.st+0.2*dt);if(S.tired&&S.st>0.35)S.tired=false;if(S.st<=0&&S.up){S.up=false;S.tired=true;}
+  if(!S.el){const d=document.createElement('div');d.style.cssText='position:fixed;left:30%;bottom:-70px;width:280px;height:280px;margin-left:-140px;z-index:28;pointer-events:none;transition:transform .15s,opacity .15s;opacity:0;transform:translateY(120px)';
+    // un hoplon (escudo redondo griego) con borde de bronce, visto desde detrás del brazo
+    d.innerHTML='<svg viewBox="0 0 100 100" width="100%" height="100%"><defs><radialGradient id="lsg" cx="45%" cy="40%"><stop offset="0" stop-color="#d9b56a"/><stop offset=".7" stop-color="#9a7434"/><stop offset="1" stop-color="#5c4118"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="#3b2a16"/><circle cx="50" cy="50" r="44" fill="url(#lsg)"/><circle cx="50" cy="50" r="36" fill="none" stroke="#e6c886" stroke-width="1.2" opacity=".6"/><circle cx="50" cy="50" r="8" fill="#b89048" stroke="#6a4a1c" stroke-width="1"/></svg>';
+    document.body.appendChild(d);S.el=d;}
+  S.el.style.opacity=S.up?0.92:0;S.el.style.transform=S.up?'translateY(0)':'translateY(120px)';}
+function legShieldHud(){const S=LEY_SH,w=Math.round(S.st*100);return '<span title="aguante del escudo (Q)">Escudo <span style="display:inline-block;width:52px;height:8px;border:1px solid #c9a64a;border-radius:4px;vertical-align:middle;background:linear-gradient(90deg,'+(S.tired?'#a05030':'#e6c886')+' '+w+'%,transparent '+w+'%)"></span></span>'+
+  (LEY.kind==='aves'?'<span>Crótalos '+(S.crT>0?Math.ceil(S.crT)+' s':'listos (R)')+'</span>':'');}
+window.addEventListener('keydown',e=>{if(!legIn()||ui!=='play')return;if(e.code==='KeyQ'){LEY_SH.key=true;e.stopImmediatePropagation();e.preventDefault();}
+  else if(e.code==='KeyR'&&!e.repeat&&LEY.kind==='aves'){legCrotalos();e.stopImmediatePropagation();e.preventDefault();}},true);
+window.addEventListener('keyup',e=>{if(e.code==='KeyQ'&&LEY_SH.key){LEY_SH.key=false;if(legIn())e.stopImmediatePropagation();}},true);
+window.addEventListener('mousedown',e=>{if(e.button===2&&legIn()){LEY_SH.mouse=true;e.preventDefault();}},true);
+window.addEventListener('mouseup',e=>{if(e.button===2)LEY_SH.mouse=false;},true);
+window.addEventListener('contextmenu',e=>{if(legIn())e.preventDefault();},true);
+function legTouchBtns(){if(LEY.tb||typeof isTouch==='undefined'||!isTouch)return;const mk=(t,css)=>{const b=document.createElement('button');b.textContent=t;b.style.cssText='position:fixed;z-index:31;right:18px;width:86px;height:86px;border-radius:50%;border:2px solid #c9a64a;background:rgba(40,30,18,.75);color:#f3e6c8;font:600 14px var(--text,system-ui);'+css;document.body.appendChild(b);return b;};
+  const a=mk('Escudo','bottom:190px'),c=mk('Crótalos','bottom:290px');a.addEventListener('touchstart',e=>{LEY_SH.btn=true;e.preventDefault();});a.addEventListener('touchend',()=>LEY_SH.btn=false);c.addEventListener('touchstart',e=>{legCrotalos();e.preventDefault();});LEY.tb=[a,c];}
+// ---- sonidos
+function legSfx(k){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;
+  if(k==='clang'){[880,1320,1980].forEach((f,i)=>{const o=c.createOscillator();o.type='triangle';o.frequency.value=f*(0.98+Math.random()*0.04);o.connect(envGain(t,0.06/(i+1),0.002,0.5));o.start(t);o.stop(t+0.55);});}
+  else if(k==='crot'){for(let i=0;i<9;i++){const o=c.createOscillator();o.type='square';o.frequency.value=1500+Math.random()*900;o.connect(envGain(t+i*0.07,0.035,0.002,0.05));o.start(t+i*0.07);o.stop(t+i*0.07+0.08);}}
+  else if(k==='fire'){const s=c.createBufferSource();s.buffer=AUD.noise;const f=c.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(220,t+0.7);s.connect(f).connect(envGain(t,0.14,0.03,0.7));s.start(t,Math.random());s.stop(t+0.8);}
+  else if(k==='screech'){const o=c.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(900,t+0.3);o.connect(envGain(t,0.05,0.01,0.3));o.start(t);o.stop(t+0.35);}
+  else leySfx(k);}
+function legHurt(msg){LEY.hits++;LEY.inv=1.2;leySfx('hit');if(LEY.fl){LEY.fl.style.opacity=1;setTimeout(()=>LEY.fl&&(LEY.fl.style.opacity=0),280);}leyHud();if(LEY.hits>=3)legLose();}
+// ---- empezar, perder, ganar (las tres leyendas nuevas; la Hidra sigue con lo suyo en 208)
+function legStart(){const L=LEG[LEY.kind];leyReset();LEY.orbOk=L.orbOk||null;L.reset(LEY.R);LEY.on=true;LEY.grace=2.5;LEY_SH.st=1;LEY_SH.tired=false;LEY_SH.crT=0;const z=legZ(LEY.kind);z.tries++;save();legTouchBtns();leyHud();
+  const ro=leyRo(),Ni=leyN('Niké','Victoria');
+  int2Dlg('Ν',Ni,'Una leyenda: '+L.title(),'<p class="sub"><b>Esto no es historia: es un mito</b>, tal como lo contaban '+(ro?'griegos y romanos':'los griegos')+'. Entras en él como en un sueño, y aquí nadie hace daño a nadie.</p>'+
+   '<p><b>Recoge '+LEY.GOAL+' orbes de '+Ni+'</b>. '+L.rule+'</p><p><b>Escudo:</b> mantén Q o el botón derecho. Para lo que llega de frente, pero se cansa.'+(LEY.kind==='aves'?' <b>Crótalos:</b> R espanta a las aves un rato.':'')+'</p><p><b>Tres golpes</b> y la leyenda te expulsa.</p>'+L.myth);}
+function legLose(){LEY.on=false;leyHud();const L=LEG[LEY.kind],z=legZ(LEY.kind);z.best=Math.max(z.best||0,LEY.n);save();
+  toast('<span class="label">La leyenda te expulsa</span><br>'+L.lose+' Has reunido '+LEY.n+' orbes'+(z.best>LEY.n?' (tu récord: '+z.best+')':'')+'.');INT2.busy=false;int2Leave();}
+function legWin(){LEY.on=false;LEY.won=true;leyHud();const L=LEG[LEY.kind],z=legZ(LEY.kind);z.best=LEY.GOAL;const first=!z.won;z.won++;save();
+  for(const s of LEY.shots)scene.remove(s.m);LEY.shots=[];for(const o of LEY.orbs)scene.remove(o.g);LEY.orbs=[];try{sfxCoin();setTimeout(sfxCoin,250);}catch(e){}if(L.end)L.end();
+  int2Dlg('Ν',leyN('Niké','Victoria'),'¡Victoria!','<p>'+L.win+'</p><p>'+(first?'Ganas la <b>corona de '+leyN('Niké','Victoria')+'</b> de esta leyenda: queda anotada en tu viaje.':'Ya la habías vencido: esta es tu victoria número '+z.won+'.')+'</p>');
+  try{rwDiscover('La corona de '+leyN('Niké','Victoria')+': '+L.title(),'has vencido sin herir a nadie');}catch(e){}}
+// ---- cada fotograma
+function legTick(dt){const L=LEG[LEY.kind],R=LEY.R,P=player;if(!L||!R)return;
+  if(!LEY.started&&!INT2.busy&&ui==='play'){LEY.started=true;player.yaw=0;player.pitch=0.05;legStart();return;}
+  const t=(LEY.t+=dt);legShieldTick(dt);if(LEY_SH.crT>0)LEY_SH.crT=Math.max(0,LEY_SH.crT-dt);
+  L.tick(dt,t,LEY.on&&ui==='play'&&LEY.grace<=0);
+  if(!LEY.on||ui!=='play')return;
+  if(LEY.lp&&dt>0){LEY.pv.x=LEY.pv.x*0.8+((P.x-LEY.lp.x)/dt)*0.2;LEY.pv.z=LEY.pv.z*0.8+((P.z-LEY.lp.z)/dt)*0.2;}LEY.lp={x:P.x,z:P.z};
+  if(LEY.grace>0)LEY.grace-=dt;LEY.inv=Math.max(0,LEY.inv-dt);
+  const lo=new THREE.Vector3(P.x,P.feet+0.25,P.z),hi=new THREE.Vector3(P.x,P.feet+1.65,P.z),_c=new THREE.Vector3(),seg=new THREE.Line3(lo,hi);
+  for(let i=LEY.shots.length-1;i>=0;i--){const s=LEY.shots[i];s.life-=dt;s.v.y-=s.g*dt;s.m.position.addScaledVector(s.v,dt);const p=s.m.position;if(s.orient)s.m.quaternion.setFromUnitVectors(new THREE.Vector3(0,-1,0),s.v.clone().normalize());
+    seg.closestPointToPoint(p,true,_c);let hit=_c.distanceTo(p)<s.r&&LEY.inv<=0;if(hit&&legBlock(s)){hit=false;s.life=0;}
+    const ground=p.y<R.Y+0.05;if(hit||s.life<=0||ground||Math.hypot(p.x-R.X,p.z-R.Z)>LEY_RA+8){scene.remove(s.m);LEY.shots.splice(i,1);if(ground&&s.onGround)s.onGround(p);if(hit){legHurt();if(!LEY.on)return;}}}
+  if(L.hitTest&&LEY.inv<=0&&L.hitTest(P)){legHurt();if(!LEY.on)return;}
+  while(LEY.orbs.length<2)leyOrb();
+  for(let i=LEY.orbs.length-1;i>=0;i--){const o=LEY.orbs[i];o.g.position.y=R.Y+1.1+Math.sin(t*2.4+o.ph)*0.18;o.c.rotation.y+=dt*2;
+    if(Math.hypot(o.x-P.x,o.z-P.z)<1.3&&Math.abs(P.feet-R.Y)<2.2){scene.remove(o.g);LEY.orbs.splice(i,1);LEY.n++;leySfx('orb');if(typeof legNetOrb==='function')legNetOrb();leyHud();
+      if(LEY.n>=LEY.GOAL){legWin();return;}if(L.onOrb)L.onOrb(LEY.n);}}}
+// el escudo también en la Hidra (208 no lo actualiza)
+{const f=leyTick;leyTick=function(dt){f(dt);try{if(legIn()&&LEY.kind==='hidra'){LEY.orbOk=null;legShieldTick(dt);legTouchBtns();if(LEY.on)leyHud();}else if(!legIn()){LEY_SH.up=false;if(LEY_SH.el)LEY_SH.el.style.opacity=0;if(LEY.tb)LEY.tb.forEach(b=>b.hidden=true);}if(legIn()&&LEY.tb)LEY.tb.forEach((b,i)=>b.hidden=i===1&&LEY.kind!=='aves');}catch(e){}};}
+
+// ============ LAS AVES DEL ESTÍNFALO
+LEG.aves={title:()=>'Las aves del Estínfalo',rule:'Las aves sueltan <b>plumas de bronce</b>: una sombra roja en el suelo avisa dónde van a caer. Cada 3 orbes llegan más aves.',
+  lose:'Las plumas de bronce te han alcanzado tres veces.',win:'«Veinte orbes bajo una lluvia de bronce. El ruido de los crótalos aún resuena en el lago: las aves se van volando y no vuelven a Arcadia.»',
+  myth:'<p class="sub">En el mito, el lago Estínfalo (Arcadia) estaba lleno de aves que se refugiaban en el bosque. Atenea dio a Heracles unos crótalos de bronce hechos por Hefesto; con su ruido las espantó y salieron volando (Apolodoro II 5,6). Pausanias (VIII 22,4) vio aves así en el templo de Ártemis Estinfalia; Apolonio de Rodas cuenta que soltaban sus plumas como dardos (Argonáuticas II 1030-1089). En el mito Heracles las abatió con flechas; aquí solo se las espanta.</p>',
+  build(){const R=legArena('aves','#5e6645','#4b5a3a');const g=R.g;
+    const lake=new THREE.Mesh(new THREE.CircleGeometry(40,40,Math.PI*0.15,Math.PI*0.7),new THREE.MeshPhongMaterial({color:'#3a5560',shininess:90,specular:new THREE.Color('#99aabb')}));lake.rotation.x=-Math.PI/2;lake.rotation.z=Math.PI;lake.position.set(0,0.04,-14);g.add(lake);
+    const reedM=lam('#8a8a50');for(let i=0;i<160;i++){const a=Math.random()*TAU,r=LEY_RA+0.5+Math.random()*8,h=1+Math.random()*1.8,c=new THREE.Mesh(new THREE.ConeGeometry(0.04,h,4),reedM);c.position.set(Math.cos(a)*r,h/2,Math.sin(a)*r);g.add(c);}
+    for(let i=0;i<22;i++){const a=Math.random()*TAU,r=LEY_RA+6+Math.random()*14;const t=new THREE.Mesh(new THREE.ConeGeometry(1.6+Math.random(),6+Math.random()*4,7),lam('#3e5232'));t.position.set(Math.cos(a)*r,4,Math.sin(a)*r);g.add(t);}   // el bosque donde se escondían
+    INT2_ZN.aves=[_t(2458,'El lago Estínfalo'),'ΣΤΥΜΦΑΛΟΣ','Leyenda · Apolodoro, Biblioteca II 5,6'];return R;},
+  reset(R){const A=this;if(A.birds)for(const b of A.birds)R.g.remove(b.g);A.birds=[];A.t=2.5;A.flee=0;A.marks=A.marks||[];for(const m of A.marks)R.g.remove(m.m);A.marks=[];for(let i=0;i<6;i++)A.add(R);LEY.extra='<span>Aves '+A.birds.length+'</span>';},
+  add(R){const g=new THREE.Group(),dark=new THREE.MeshPhongMaterial({color:'#3a3026',shininess:30});
+    const body=new THREE.Mesh(new THREE.SphereGeometry(0.3,10,8),dark);body.scale.set(0.8,0.7,1.8);g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(0.17,8,6),dark);head.position.set(0,0.12,0.55);g.add(head);
+    const beak=new THREE.Mesh(new THREE.ConeGeometry(0.06,0.45,6),LEG_BRONZE);beak.rotation.x=Math.PI/2;beak.position.set(0,0.1,0.85);g.add(beak);
+    const wings=[];for(const sg of[-1,1]){const p=new THREE.Group();p.position.set(sg*0.18,0.08,0);const w=new THREE.Mesh(new THREE.PlaneGeometry(1.3,0.5),new THREE.MeshPhongMaterial({color:'#6a5432',side:THREE.DoubleSide,shininess:50,specular:new THREE.Color('#c8a060')}));w.rotation.x=-Math.PI/2;w.position.x=sg*0.65;p.add(w);g.add(p);wings.push(p);}
+    const tail=new THREE.Mesh(new THREE.PlaneGeometry(0.4,0.5),wings[0].children[0].material);tail.rotation.x=-Math.PI/2;tail.position.z=-0.7;g.add(tail);
+    R.g.add(g);this.birds.push({g,wings,a:Math.random()*TAU,r:6+Math.random()*6,h:7+Math.random()*3,sp:(0.25+Math.random()*0.2)*(Math.random()<0.5?1:-1),ph:Math.random()*TAU});},
+  tick(dt,t,act){const R=LEY.R,A=this,P=player;if(!A.birds)return;if(A.flee>0)A.flee-=dt;
+    for(const b of A.birds){b.a+=b.sp*dt;const h=A.flee>0?Math.min(26,b.g.position.y+dt*8):b.h+Math.sin(t*0.7+b.ph)*0.8,x=Math.cos(b.a)*b.r,z=Math.sin(b.a)*b.r;
+      b.g.position.set(x,A.flee>0?h:b.g.position.y+(h-b.g.position.y)*Math.min(1,dt*2),z);b.g.rotation.y=Math.atan2(-Math.sin(b.a)*Math.sign(b.sp),Math.cos(b.a)*Math.sign(b.sp))+Math.PI/2*0;
+      const tx=-Math.sin(b.a)*b.sp,tz=Math.cos(b.a)*b.sp;b.g.rotation.y=Math.atan2(tx,tz);const fl=Math.sin(t*(A.flee>0?18:9)+b.ph)*0.6;b.wings[0].rotation.z=fl;b.wings[1].rotation.z=-fl;}
+    for(let i=A.marks.length-1;i>=0;i--){const m=A.marks[i];m.t-=dt;m.m.material.opacity=0.25+0.5*(1-m.t/1.1);if(m.t<=0){R.g.remove(m.m);A.marks.splice(i,1);}}
+    if(!act||A.flee>0)return;A.t-=dt;if(A.t>0)return;A.t=Math.max(1.0,2.8-0.12*A.birds.length)*(0.7+Math.random()*0.6);
+    // una ave suelta tres plumas hacia donde vas a estar; la sombra avisa 1,1 s antes
+    const b=A.birds[Math.floor(Math.random()*A.birds.length)],tx=P.x-R.X+LEY.pv.x*1.0,tz=P.z-R.Z+LEY.pv.z*1.0;legSfx('screech');
+    const mk=new THREE.Mesh(new THREE.RingGeometry(0.2,1.5,24),new THREE.MeshBasicMaterial({color:'#c0402a',transparent:true,opacity:0.3,depthWrite:false}));mk.rotation.x=-Math.PI/2;mk.position.set(tx,0.06,tz);R.g.add(mk);A.marks.push({m:mk,t:1.1});
+    for(let k=0;k<3;k++){const ex=tx+(Math.random()-0.5)*1.6,ez=tz+(Math.random()-0.5)*1.6,from=new THREE.Vector3(R.X+b.g.position.x,R.Y+b.g.position.y,R.Z+b.g.position.z),to=new THREE.Vector3(R.X+ex,R.Y,R.Z+ez),T=1.1;
+      const v=to.clone().sub(from).divideScalar(T);v.y+=0.5*2*T;legShot(new THREE.Mesh(LEG_FEATHER,LEG_BRONZE),from,v,{g:2,r:0.42,orient:true,life:3});}},
+  onOrb(n){if(n%3===0&&this.birds.length<14){this.add(LEY.R);LEY.extra='<span>Aves '+this.birds.length+'</span>';legSfx('screech');}},
+  end(){this.flee=99;}};
+function legCrotalos(){if(LEY.kind!=='aves'||!LEY.on||LEY_SH.crT>0)return;LEY_SH.crT=10;LEG.aves.flee=4.5;legSfx('crot');setTimeout(()=>legSfx('crot'),300);
+  toast('<span class="label">Crótalos</span><br>¡Clac, clac! El ruido de bronce espanta a las aves.');}
+
+// ============ EL LEÓN DE NEMEA
+LEG.leon={title:()=>'El león de Nemea',rule:'El león acecha a tu alrededor; cuando <b>se agazapa y ruge</b>, va a embestir en línea recta: apártate de lado. Cada 4 orbes embiste más a menudo.',
+  lose:'El león te ha derribado tres veces.',win:'«Veinte orbes, y el león, cansado de embestir al aire, se tumba a la entrada de su cueva. Hoy nadie ha tenido que vencerlo.»',
+  myth:'<p class="sub">En el mito, el león de Nemea, hijo de Tifón (o criado por Hera, según Hesíodo, Teogonía 326-332), tenía una piel que ninguna arma atravesaba. Heracles lo encerró en su cueva de dos bocas y lo venció con las manos; luego se vistió con su piel (Apolodoro II 5,1). Aquí basta con esquivarlo.</p>',
+  build(){const R=legArena('leon','#a08a5c','#8a7650');legRocks(R,26,LEY_RA+3,LEY_RA+16,'#9b8a6c',11);
+    const cave=new THREE.Mesh(new THREE.CircleGeometry(2.6,20,0,Math.PI),new THREE.MeshBasicMaterial({color:'#120d09'}));cave.position.set(0,0,-LEY_RA-2);cave.scale.y=1.3;R.g.add(cave);
+    for(const sg of[-1,1]){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(4.5,1),lam('#8f7d60'));r.position.set(sg*4.6,2.2,-LEY_RA-3);r.castShadow=true;R.g.add(r);}
+    INT2_ZN.leon=[_t(2425,'Nemea'),'ΝΕΜΕΑ','Leyenda · Apolodoro, Biblioteca II 5,1'];return R;},
+  mk(R){const g=new THREE.Group(),fur=new THREE.MeshLambertMaterial({color:'#b98d52'}),mane=new THREE.MeshLambertMaterial({color:'#6a4524'});
+    const body=new THREE.Mesh(new THREE.SphereGeometry(0.5,14,10),fur);body.scale.set(0.95,0.95,2.0);body.position.y=1.0;g.add(body);
+    const mn=new THREE.Mesh(new THREE.SphereGeometry(0.62,14,10),mane);mn.position.set(0,1.25,0.85);mn.scale.set(1,1.05,0.8);g.add(mn);
+    const hd=new THREE.Mesh(new THREE.SphereGeometry(0.33,12,9),fur);hd.position.set(0,1.3,1.25);hd.scale.set(1,0.95,1.1);g.add(hd);
+    const mz=new THREE.Mesh(new THREE.SphereGeometry(0.18,10,8),new THREE.MeshLambertMaterial({color:'#d8b080'}));mz.position.set(0,1.18,1.52);mz.scale.set(1,0.8,1);g.add(mz);
+    const nose=new THREE.Mesh(new THREE.SphereGeometry(0.06,8,6),lam('#2a1c14'));nose.position.set(0,1.25,1.68);g.add(nose);
+    for(const sx of[-0.12,0.12]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.035,6,5),new THREE.MeshBasicMaterial({color:'#e8b030'}));e.position.set(sx,1.38,1.5);g.add(e);}
+    const legs=[];for(const [x,z] of [[-0.3,0.65],[0.3,0.65],[-0.3,-0.7],[0.3,-0.7]]){const p=new THREE.Group();p.position.set(x,0.95,z);const l=new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.09,0.95,8),fur);l.position.y=-0.47;p.add(l);const paw=new THREE.Mesh(new THREE.SphereGeometry(0.12,8,6),fur);paw.position.y=-0.92;paw.scale.set(1,0.6,1.3);p.add(paw);g.add(p);legs.push(p);}
+    const tail=new THREE.Mesh(new THREE.CylinderGeometry(0.035,0.05,1.1,6),fur);tail.position.set(0,1.05,-1.45);tail.rotation.x=-1.0;g.add(tail);const tuft=new THREE.Mesh(new THREE.SphereGeometry(0.1,6,5),mane);tuft.position.set(0,1.5,-1.9);g.add(tuft);
+    g.traverse(o=>{if(o.isMesh)o.castShadow=true;});R.g.add(g);return {g,legs,body};},
+  reset(R){const A=this;if(!A.lion)A.lion=A.mk(R);A.lion.g.visible=true;A.lion.g.position.set(0,0,-8);A.lion.g.rotation.set(0,0,0);A.st='acecha';A.t=3;A.ang=-Math.PI/2;A.waitK=1;A.rested=false;LEY.extra='<span>León: acecha</span>';},
+  tick(dt,t,act){const A=this,L=A.lion,R=LEY.R,P=player;if(!L)return;const px=P.x-R.X,pz=P.z-R.Z,lp=L.g.position;
+    if(A.rested){L.g.rotation.z=0;L.body.position.y=0.75;return;}
+    let speed=0;
+    if(A.st==='acecha'){A.ang+=dt*0.35;const tx=px+Math.cos(A.ang)*8,tz=pz+Math.sin(A.ang)*8,dx=tx-lp.x,dz=tz-lp.z,d=Math.hypot(dx,dz);if(d>0.1){const s=Math.min(d,dt*3.2);lp.x+=dx/d*s;lp.z+=dz/d*s;speed=3.2;}
+      const r=Math.hypot(lp.x,lp.z);if(r>LEY_RA-1.5){lp.x*=(LEY_RA-1.5)/r;lp.z*=(LEY_RA-1.5)/r;}
+      L.g.rotation.y=Math.atan2(px-lp.x,pz-lp.z);L.body.position.y=1.0;if(act){A.t-=dt;if(A.t<=0){A.st='agazapa';A.t=0.9;LEY.extra='<span style="color:#ff9a5a">León: ¡va a embestir!</span>';leyHud();if(typeof sfxRoar==='function')sfxRoar(1);}}}
+    else if(A.st==='agazapa'){A.t-=dt;L.body.position.y=0.78;L.g.rotation.y=Math.atan2(px-lp.x,pz-lp.z);if(A.t<=0){const dx=px+LEY.pv.x*0.3-lp.x,dz=pz+LEY.pv.z*0.3-lp.z,d=Math.hypot(dx,dz)||1;A.dir={x:dx/d,z:dz/d};A.st='embiste';A.t=Math.min(1.5,(d+5)/17);}}
+    else if(A.st==='embiste'){A.t-=dt;lp.x+=A.dir.x*17*dt;lp.z+=A.dir.z*17*dt;speed=17;L.g.rotation.y=Math.atan2(A.dir.x,A.dir.z);const r=Math.hypot(lp.x,lp.z);if(r>LEY_RA-1){lp.x*=(LEY_RA-1)/r;lp.z*=(LEY_RA-1)/r;A.t=0;}
+      if(A.t<=0){A.st='jadea';A.t=1.3;LEY.extra='<span>León: jadea</span>';leyHud();}}
+    else if(A.st==='jadea'){A.t-=dt;L.body.position.y=0.95+Math.sin(t*12)*0.03;if(A.t<=0){A.st='acecha';A.t=(2.2+Math.random()*2.2)*A.waitK;LEY.extra='<span>León: acecha</span>';leyHud();}}
+    const ph=t*(speed>5?16:7);L.legs.forEach((l,i)=>{l.rotation.x=speed>0.5?Math.sin(ph+(i%2?Math.PI:0)+(i>1?Math.PI/2:0))*(speed>5?0.9:0.45):0;});},
+  hitTest(P){const A=this;if(A.st!=='embiste')return false;const R=LEY.R,L=A.lion.g.position,hx=R.X+L.x+Math.sin(A.lion.g.rotation.y)*1.3,hz=R.Z+L.z+Math.cos(A.lion.g.rotation.y)*1.3;
+    if(Math.hypot(hx-P.x,hz-P.z)>1.25||Math.abs(P.feet-R.Y)>1.6)return false;
+    // con el escudo alzado y de cara al león, el golpe se para (te empuja), pero cansa mucho el brazo
+    const S=LEY_SH;if(S.up&&S.st>0){const f=-Math.sin(player.yaw)*A.dir.x+-Math.cos(player.yaw)*A.dir.z;if(f<-0.3){S.st=Math.max(0,S.st-0.55);legSfx('clang');player.x+=A.dir.x*2;player.z+=A.dir.z*2;A.st='jadea';A.t=1.5;LEY.inv=0.8;if(S.st<=0)S.tired=true;return false;}}
+    A.st='jadea';A.t=1.5;return true;},
+  onOrb(n){if(n%4===0)this.waitK=Math.max(0.45,this.waitK-0.15);},
+  end(){this.rested=true;LEY.extra='<span>León: descansa</span>';}};
+
+// ============ CACO EN EL AVENTINO (leyenda romana)
+LEG.caco={title:()=>'Caco en el Aventino',rule:'Caco escupe <b>bolas de fuego</b> que caen en arco y dejan el suelo ardiendo un momento: no te quedes en las llamas. A veces llena la cueva de humo.',
+  lose:'El fuego de Caco te ha alcanzado tres veces.',win:'«Veinte orbes entre el humo y las llamas. Caco se queda sin fuego y las vacas que robó salen solas de la cueva, como volvieron a Hércules en la leyenda.»',
+  myth:'<p class="sub">En la leyenda romana, Caco, hijo de Vulcano, vivía en una cueva del Aventino y escupía fuego y humo. Robó parte de los bueyes de Hércules y los metió en su cueva arrastrándolos de la cola, de espaldas, para que las huellas engañaran; pero los mugidos lo delataron (Livio I 7,4-7; Virgilio, Eneida VIII 190-267; Ovidio, Fastos I 543-578). Junto a ese lugar estaba el Ara Máxima de Hércules, en el Foro Boario. En la leyenda Hércules lo mató; aquí solo hay que esquivar su fuego.</p>',
+  build(){const R=legArena('caco','#5a4c40','#3e342c');legRocks(R,34,LEY_RA+1.5,LEY_RA+9,'#5e5248',23);
+    const ledge=new THREE.Mesh(new THREE.CylinderGeometry(3.4,4.2,2.6,10),lam('#6a5a4c'));ledge.position.set(0,1.3,-12.5);ledge.castShadow=ledge.receiveShadow=true;R.g.add(ledge);addCirc(R.X,R.Z-12.5,4.2);
+    INT2_ZN.caco=['La cueva de Caco','CACVS','Leyenda · Virgilio, Eneida VIII'];return R;},
+  reset(R){const A=this;if(!A.giant){const p=makePerson({chiton:'#2a1d16',short:true,noHimation:true,hair:'#1a1210',beard:true});p.scale.setScalar(2.3);p.position.set(0,2.6,-12.5);R.g.add(p);A.giant=p;
+      A.glow=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ff7a2a',transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));A.glow.scale.set(2.4,2.4,1);A.glow.position.set(0,2.6+3.7,-12.0);R.g.add(A.glow);}
+    if(A.fires)for(const f of A.fires)R.g.remove(f.m);A.fires=[];if(A.smoke)for(const s of A.smoke)R.g.remove(s.m);A.smoke=[];A.t=2.5;A.st=6;A.warn=0;A.per=2.6;
+    if(!A.cows){A.cows=[];}for(const c of A.cows)R.g.remove(c);A.cows=[];LEY.extra='';},
+  tick(dt,t,act){const A=this,R=LEY.R,P=player;if(!A.giant)return;A.giant.rotation.y=Math.atan2(P.x-R.X,P.z-R.Z-(-12.5));
+    for(let i=A.fires.length-1;i>=0;i--){const f=A.fires[i];f.t-=dt;f.m.material.opacity=Math.min(0.9,f.t)*0.9;f.m.scale.setScalar(1+Math.sin(t*20+i)*0.08);if(f.t<=0){R.g.remove(f.m);A.fires.splice(i,1);}}
+    for(let i=A.smoke.length-1;i>=0;i--){const s=A.smoke[i];s.t-=dt;s.m.position.x+=s.vx*dt;s.m.position.z+=s.vz*dt;s.m.material.opacity=Math.min(0.55,s.t*0.12);if(s.t<=0){R.g.remove(s.m);A.smoke.splice(i,1);}}
+    A.glow.material.opacity=A.warn>0?0.9*(1-A.warn/0.8):0.15;
+    if(!act)return;
+    if(A.warn>0){A.warn-=dt;if(A.warn<=0){legSfx('fire');const from=new THREE.Vector3(R.X,R.Y+6.3,R.Z-12.0),to=new THREE.Vector3(P.x+LEY.pv.x*1.1,R.Y,P.z+LEY.pv.z*1.1),T=1.3,v=to.clone().sub(from).divideScalar(T);v.y+=0.5*9*T;
+        const m=new THREE.Mesh(LEG_FIRE,LEG_FIREM),gl=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ff8a30',transparent:true,opacity:0.85,blending:THREE.AdditiveBlending,depthWrite:false}));gl.scale.set(1.6,1.6,1);m.add(gl);
+        legShot(m,from,v,{g:9,r:0.55,life:3,cost:0.25,onGround:p=>{const fm=new THREE.Mesh(new THREE.CircleGeometry(1.3,18),new THREE.MeshBasicMaterial({color:'#ff6a20',transparent:true,opacity:0.9,blending:THREE.AdditiveBlending,depthWrite:false}));fm.rotation.x=-Math.PI/2;fm.position.set(p.x-R.X,0.07,p.z-R.Z);R.g.add(fm);A.fires.push({m:fm,t:3});}});}}
+    else{A.t-=dt;if(A.t<=0){A.warn=0.8;A.t=A.per*(0.7+Math.random()*0.6);}}
+    A.st-=dt;if(A.st<=0){A.st=9+Math.random()*5;for(let k=0;k<7;k++){const m=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#3a3632',transparent:true,opacity:0.5,depthWrite:false}));m.scale.set(9,6,1);m.position.set((Math.random()-0.5)*6,2+Math.random()*2,-9+Math.random()*4);R.g.add(m);A.smoke.push({m,t:9,vx:(Math.random()-0.5)*1.5,vz:1.2+Math.random()*1.4});}}},
+  orbOk:(x,z)=>z>-8.5,
+  hitTest(P){const R=LEY.R;if(Math.abs(P.feet-R.Y)>0.6)return false;for(const f of this.fires)if(f.t>0.4&&Math.hypot(R.X+f.m.position.x-P.x,R.Z+f.m.position.z-P.z)<1.1)return true;return false;},
+  onOrb(n){if(n%4===0)this.per=Math.max(1.3,this.per-0.3);},
+  end(){const R=LEY.R;   // las vacas: siluetas que salen de la cueva
+    const cm=lam('#7a5a3a');for(let i=0;i<4;i++){const g=new THREE.Group(),b=new THREE.Mesh(new THREE.BoxGeometry(0.7,0.7,1.6),cm);b.position.y=0.9;g.add(b);const h=new THREE.Mesh(new THREE.BoxGeometry(0.4,0.4,0.5),cm);h.position.set(0,1.2,0.95);g.add(h);
+      for(const [x,z] of [[-0.25,0.6],[0.25,0.6],[-0.25,-0.6],[0.25,-0.6]]){const l=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.6,0.14),cm);l.position.set(x,0.3,z);g.add(l);}
+      g.position.set(-4+i*2.6,0,-9+i*0.5);R.g.add(g);this.cows.push(g);}}};
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -31230,5 +31432,5 @@ if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,r
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
      if(w)add(R.motivo,w);else R.ok++;});}
-  return R;},mergeAll:(max)=>{let n=0;for(const o of [...scene.children]){if(max&&n>=max)break;if(Math.hypot(o.position.x-camera.position.x,o.position.z-camera.position.z)>500)continue;if(o.isMesh||o.isLight||MERGE.done.has(o)||o.userData.chunk)continue;MERGE.done.add(o);if(!mgOk(o))continue;try{MERGE.saved+=mgGroup(o);n++;}catch(e){}}return [n,MERGE.saved];},cullAll:on=>cullAll(on),cullNow:()=>{while(cullRegister(5000,true));cullEval();return CULL.reg.length;},TP:()=>TP_OBJS,tpAct:o=>tpAct(o),CRT:()=>CRT,SXR:()=>STORY_EXTRA_ROMA,storyFinale:()=>storyFinale(),storyResume:f=>storyResume(f),AUD3:()=>({footprints,isFree:(x,z,r)=>isFree(x,z,r),NPC_POS,PORTS,GATES_W}),r5z:()=>r5z(),R5:()=>R5,r5Vis:()=>r5Vis(),GW:()=>GATES_W,gateT:g=>gateTravel(g),r3:a=>r3Act({act:"r3:"+a}),isl3:a=>isl3Act({act:"isl3:"+a}),setH:h=>{clock.h=h;},ISL:()=>ISLANDS,PORTSd:()=>PORTS,floorAt:(x,z)=>floorAt(x,z),CAV2:()=>CAVEAS,ARV:()=>ARV,CRX:()=>CRX,mnVision,crAct,LAU:()=>LAU,PS:()=>PS,psTick,sfxAulos,sfxLechuza,psNearPlace,PS_TEMPLE,SIT:()=>SIT,personPose,sitShade,sitBuild,sitLowT:sitLow,kneelOrSit,ILR:()=>ILR,ilionRoad,capLvl,capOk,capNo,viaje,viajeHTML,capTick,arvBlock,arvTick,BV:()=>BV,atCands:()=>atCands(),RU:()=>RU,ruBuild,ruAct,MEM:()=>({log:memz(),fama:memFama()}),memSay,memGreet,memTick,needTick,famTick,setH:h=>{clock.h=h;},FAM:()=>FAM,famForm,NEED:()=>NEED,stFeats:()=>{const c={};for(const w of walkers)for(const k of (w.g&&w.g.userData.feat)||[])c[k]=(c[k]||0)+1;for(const o of npcObjs)for(const k of (o.g&&o.g.userData.feat)||[])c['npc '+k]=(c['npc '+k]||0)+1;return c;},bvAllN:()=>{for(const o of npcObjs)if(o.bv===undefined&&o.g)bvNpc(o);},bvAll:()=>{for(const w of walkers)if(w.bv===undefined&&w.g)bvWalker(w);},BVW:()=>walkers.map(w=>[w.g.userData.bt||'',w.g.userData.gait||'',w.g.userData.post||'']),GZ:()=>GZ,gzLook,gzBolt,gzTone,gzExpr,gzBrows,profReport:n=>profReport(n),profReset:()=>profReset(),gsTest:(i,n)=>{const o=npcObjs.filter(o=>!o.hidden&&!o.g.userData.pose)[i];const gs=gsRig(o.g);gsSet(gs,n,1);for(let k=0;k<40;k++)gsApply(o.g,gs,0.05);return [o.x,o.z,o.g.rotation.y,o.data.name,gs.fore?gs.fore.map(f=>!!f).join(','):'sin codo'];},WOB:()=>WOB,gfSeal:(a,b)=>gfSeal(a,b),ATR:()=>ATR,atCandsN:()=>{const t=performance.now();const n=atCands().length;return [n,performance.now()-t];},atGround:()=>atGround(),WFA:()=>WFA,WSP:()=>WSP,wMake:k=>wMake(k),FOREST_ON:()=>FOREST_ON,FORK:()=>FOR,NAT2:()=>NAT2,n2Place:k=>n2Place(k),n2Tick:dt=>n2Tick(dt),TOAST:h=>toast(h),TLK:()=>TLK,regionName:()=>regionName(),crtW:(i,x,z)=>crtW(i,x,z),crtAct:a=>crtAct({act:"crt:"+a}),crtTickF:dt=>crtTick(dt),SWNAV:()=>SWNAV,navTargets:()=>navTargets(),navTick:dt=>navTick(dt),AUDX:()=>({AUD,GFA,WXS,AMB,CY:typeof CY!=='undefined'?CY:null}),sw2Afro:()=>sw2Afro(),sw2AfTake:k=>sw2AfTake(k),SWAF:()=>SWAF,sw2OrbTickF:dt=>sw2OrbTick(dt),sw2TickF:dt=>sw2Tick(dt),SWORB:()=>SWORB,SW2:()=>SW2,sw2z:()=>sw2z(),swPeriplo:()=>swPeriplo(),swShortcut:()=>swShortcut(),sw2RollEnc:s=>sw2RollEnc(s),sw2EncTalk:()=>sw2EncTalk(),sw2ShipTalk:S=>sw2ShipTalk(S),SW:()=>SW,swz:()=>swz(),swBoard:()=>swBoard(),swEnterSeg:(a,b,c)=>swEnterSeg(a,b,c),swLand:i=>swLand(i),swAction:()=>swAction(),swE:()=>swE(),swAct:o=>swAct(o),swMoorOf:i=>swMoorOf(i),LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf,islandBase,islandH,sqMount,RELIEF,regionSquare,bpMake,bpVary,STB,FV_TYPES,BP,bpStatue,bpGunzip,NPB,MED_POS,MED_POS_RO,BPH,PLH,TLOD,ARCH,AQ,LF,ENTD,TALLERES,tlRun,PROC,toast,todayEvent,festNextDay,FESTS,dzReport,readSign,signObjs,clock,EVC,bpCrowds,QA,OFIC,HELD,hbSelect,BPH,BP,bphSet,FG,fgz,fgHas,fgPanel,fgCount,AB,GD,abTBIms,INT2,int2Enter,int2Leave,int2Room,HM,hmz,hmTalk,hmStart,hmEnd,HM_M,RK,rkSlope,rkCliffs,SOL,solHoy,solCalc,LEY,leyStart,leyAddHead,leyShoot,leyTick,INT2,SU,TERR_U,PTEX}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+  return R;},mergeAll:(max)=>{let n=0;for(const o of [...scene.children]){if(max&&n>=max)break;if(Math.hypot(o.position.x-camera.position.x,o.position.z-camera.position.z)>500)continue;if(o.isMesh||o.isLight||MERGE.done.has(o)||o.userData.chunk)continue;MERGE.done.add(o);if(!mgOk(o))continue;try{MERGE.saved+=mgGroup(o);n++;}catch(e){}}return [n,MERGE.saved];},cullAll:on=>cullAll(on),cullNow:()=>{while(cullRegister(5000,true));cullEval();return CULL.reg.length;},TP:()=>TP_OBJS,tpAct:o=>tpAct(o),CRT:()=>CRT,SXR:()=>STORY_EXTRA_ROMA,storyFinale:()=>storyFinale(),storyResume:f=>storyResume(f),AUD3:()=>({footprints,isFree:(x,z,r)=>isFree(x,z,r),NPC_POS,PORTS,GATES_W}),r5z:()=>r5z(),R5:()=>R5,r5Vis:()=>r5Vis(),GW:()=>GATES_W,gateT:g=>gateTravel(g),r3:a=>r3Act({act:"r3:"+a}),isl3:a=>isl3Act({act:"isl3:"+a}),setH:h=>{clock.h=h;},ISL:()=>ISLANDS,PORTSd:()=>PORTS,floorAt:(x,z)=>floorAt(x,z),CAV2:()=>CAVEAS,ARV:()=>ARV,CRX:()=>CRX,mnVision,crAct,LAU:()=>LAU,PS:()=>PS,psTick,sfxAulos,sfxLechuza,psNearPlace,PS_TEMPLE,SIT:()=>SIT,personPose,sitShade,sitBuild,sitLowT:sitLow,kneelOrSit,ILR:()=>ILR,ilionRoad,capLvl,capOk,capNo,viaje,viajeHTML,capTick,arvBlock,arvTick,BV:()=>BV,atCands:()=>atCands(),RU:()=>RU,ruBuild,ruAct,MEM:()=>({log:memz(),fama:memFama()}),memSay,memGreet,memTick,needTick,famTick,setH:h=>{clock.h=h;},FAM:()=>FAM,famForm,NEED:()=>NEED,stFeats:()=>{const c={};for(const w of walkers)for(const k of (w.g&&w.g.userData.feat)||[])c[k]=(c[k]||0)+1;for(const o of npcObjs)for(const k of (o.g&&o.g.userData.feat)||[])c['npc '+k]=(c['npc '+k]||0)+1;return c;},bvAllN:()=>{for(const o of npcObjs)if(o.bv===undefined&&o.g)bvNpc(o);},bvAll:()=>{for(const w of walkers)if(w.bv===undefined&&w.g)bvWalker(w);},BVW:()=>walkers.map(w=>[w.g.userData.bt||'',w.g.userData.gait||'',w.g.userData.post||'']),GZ:()=>GZ,gzLook,gzBolt,gzTone,gzExpr,gzBrows,profReport:n=>profReport(n),profReset:()=>profReset(),gsTest:(i,n)=>{const o=npcObjs.filter(o=>!o.hidden&&!o.g.userData.pose)[i];const gs=gsRig(o.g);gsSet(gs,n,1);for(let k=0;k<40;k++)gsApply(o.g,gs,0.05);return [o.x,o.z,o.g.rotation.y,o.data.name,gs.fore?gs.fore.map(f=>!!f).join(','):'sin codo'];},WOB:()=>WOB,gfSeal:(a,b)=>gfSeal(a,b),ATR:()=>ATR,atCandsN:()=>{const t=performance.now();const n=atCands().length;return [n,performance.now()-t];},atGround:()=>atGround(),WFA:()=>WFA,WSP:()=>WSP,wMake:k=>wMake(k),FOREST_ON:()=>FOREST_ON,FORK:()=>FOR,NAT2:()=>NAT2,n2Place:k=>n2Place(k),n2Tick:dt=>n2Tick(dt),TOAST:h=>toast(h),TLK:()=>TLK,regionName:()=>regionName(),crtW:(i,x,z)=>crtW(i,x,z),crtAct:a=>crtAct({act:"crt:"+a}),crtTickF:dt=>crtTick(dt),SWNAV:()=>SWNAV,navTargets:()=>navTargets(),navTick:dt=>navTick(dt),AUDX:()=>({AUD,GFA,WXS,AMB,CY:typeof CY!=='undefined'?CY:null}),sw2Afro:()=>sw2Afro(),sw2AfTake:k=>sw2AfTake(k),SWAF:()=>SWAF,sw2OrbTickF:dt=>sw2OrbTick(dt),sw2TickF:dt=>sw2Tick(dt),SWORB:()=>SWORB,SW2:()=>SW2,sw2z:()=>sw2z(),swPeriplo:()=>swPeriplo(),swShortcut:()=>swShortcut(),sw2RollEnc:s=>sw2RollEnc(s),sw2EncTalk:()=>sw2EncTalk(),sw2ShipTalk:S=>sw2ShipTalk(S),SW:()=>SW,swz:()=>swz(),swBoard:()=>swBoard(),swEnterSeg:(a,b,c)=>swEnterSeg(a,b,c),swLand:i=>swLand(i),swAction:()=>swAction(),swE:()=>swE(),swAct:o=>swAct(o),swMoorOf:i=>swMoorOf(i),LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf,islandBase,islandH,sqMount,RELIEF,regionSquare,bpMake,bpVary,STB,FV_TYPES,BP,bpStatue,bpGunzip,NPB,MED_POS,MED_POS_RO,BPH,PLH,TLOD,ARCH,AQ,LF,ENTD,TALLERES,tlRun,PROC,toast,todayEvent,festNextDay,FESTS,dzReport,readSign,signObjs,clock,EVC,bpCrowds,QA,OFIC,HELD,hbSelect,BPH,BP,bphSet,FG,fgz,fgHas,fgPanel,fgCount,AB,GD,abTBIms,INT2,int2Enter,int2Leave,int2Room,HM,hmz,hmTalk,hmStart,hmEnd,HM_M,RK,rkSlope,rkCliffs,SOL,solHoy,solCalc,LEY,leyStart,leyAddHead,leyShoot,leyTick,INT2,SU,TERR_U,PTEX,LEG,legTick,LEY_SH}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();
