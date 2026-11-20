@@ -8,6 +8,7 @@ Object.assign(IC, {
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
   eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
   spark:'<path d="M12 2.5l1.8 5.2 5.2 1.8-5.2 1.8L12 16.5l-1.8-5.2-5.2-1.8 5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
   planet:'<circle cx="12" cy="12" r="5.5"/><path d="M4.2 15.8C1.8 17.6 1 19.2 1.8 20s3.5-.3 6.7-2.3M16 6.4c3.4-2.1 6-3 6.6-2.3.8.8-.4 2.8-3 5"/><path d="M7.8 17.7c3.3-1.6 7.6-4.8 11.8-8.6"/>',
   doctor:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/><path d="M9.5 15l2.5 3.5 2.5-3.5"/><path d="M16.5 17v2.2a1.3 1.3 0 0 0 2.6 0V17"/>',
@@ -95,16 +96,18 @@ function showVariant(id){
   const sc = tools.filter(t => t !== 'luz').map(t => ({t:TOOL[t], m:eff(t, fake).m + TOOL[t].pow*.01}));
   const best = (Vr.qbest && sc.find(x => x.t.id === Vr.qbest)) || sc.reduce((a, b) => b.m > a.m ? b : a);
   const tr0 = Ob.traits.map(([x]) => `<span class="trait">${esc(x)}</span>`).join('');
-  const tr1 = Ty.traits.map(([x, , m]) => `<span class="trait ${m ? 'mut' : ''}">${m ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  const tr1 = Ty.traits.map(traitTag).join('');
+  const okQ = q => Vr.qbest ? q === Vr.qbest : best.m - .01*best.t.pow <= eff(q, fake).m;
   showModal(`<div class="eyebrow" style="color:${hex(Vr.col)}">${tr('Variante')} · ${tr('pariente de {n}', {n:Ob.n})}</div><h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div>
     <div class="vcmp"><div>${fov(Vr.base, '', tr('Original'))}<b>${Ob.n}</b><div class="traits">${tr0}</div></div>
       <div>${fov(id, '', tr('Variante'))}<b>${Ty.n}</b><div class="traits">${tr1}</div></div></div>
     <p><b>${tr('Qué ha cambiado')}:</b> ${tr(Vr.diff)}</p>
     <div class="quiz" id="quiz"><div class="eyebrow">${tr('Pregunta')}</div><b>${tr('Con este cambio, ¿qué herramienta funcionará mejor?')}</b>
-      <div class="qopts">${sc.sort((a, b) => a.t.id < b.t.id ? -1 : 1).map(o => `<button data-q="${o.t.id}">${vesicle(o.t.id, o.t.col)}${o.t.n}</button>`).join('')}</div><p class="qres" id="qres" aria-live="polite"></p></div>
+      <div class="qopts">${sc.sort((a, b) => a.t.id < b.t.id ? -1 : 1).map(o => `<button data-q="${o.t.id}">${vesicle(o.t.id, o.t.col)}${o.t.n}</button>`).join('')}</div>${hintHtml()}<p class="qres" id="qres" aria-live="polite"></p></div>
     <button class="go" id="mGo" hidden>${tr('Al combate')}</button>`, () => narr('variant'));
+  wireHint({best:best.t.id, tags:hintTags(Ty.traits, best.t.id), ok:okQ});
   $('#quiz').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
-    const ok = Vr.qbest ? b.dataset.q === Vr.qbest : best.m - .01*best.t.pow <= eff(b.dataset.q, fake).m; S.quiz.n++;
+    const ok = okQ(b.dataset.q); S.quiz.n++; $('#qHint').disabled = true;
     $('#quiz').querySelectorAll('[data-q]').forEach(x => { x.disabled = true; if (x.dataset.q === best.t.id || (x === b && ok)) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
     (S.known[id] = S.known[id] || {})[b.dataset.q] = true; S.known[id][best.t.id] = true;
     if (ok){ S.quiz.ok++; sfx.ach(); }

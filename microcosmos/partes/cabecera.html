@@ -369,6 +369,12 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .qopts button.right{border-color:var(--gfp);background:rgba(77,255,160,.12)}
 .qopts button.wrong{border-color:var(--mcherry);background:rgba(255,79,123,.1)}
 .qopts button:disabled{cursor:default}
+.qopts button.out{opacity:.35;text-decoration:line-through}
+.qhint{display:flex;align-items:flex-start;gap:10px;margin-top:10px}
+.hintb{display:inline-flex;align-items:center;gap:6px;flex:none;padding:6px 12px;border:1px solid rgba(255,198,92,.6);border-radius:999px;color:var(--fitc);font-size:13px;font-weight:600}
+.hintb .ic{width:16px;height:16px} .hintb:disabled{opacity:.4;cursor:default}
+#qtip{margin:4px 0 0;font-size:13px;line-height:1.45;color:var(--fitc)} #qtip:empty{display:none}
+.trait.hint{border-color:var(--fitc);color:var(--fitc);box-shadow:0 0 0 2px rgba(255,198,92,.35);animation:why 1s ease-in-out 2}
 .qres{margin:10px 0 0;font-size:13.5px;line-height:1.5}
 .qres.ok{color:var(--gfp)} .qres.no{color:var(--fitc)}
 /* v9: eventos especiales y variantes */

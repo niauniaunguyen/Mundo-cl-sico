@@ -473,6 +473,54 @@ function showMap(){
     el.addEventListener('click', pick); el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(); } });
   });
 }
+// ---- Pistas de las preguntas: 1) rasgo clave y una pregunta que orienta; 2) descarta opciones incorrectas ----
+const HINT_TOOL = {
+  fago:T_('No tiene defensas especiales contra lo más básico: engullir y digerir.'),
+  lis:T_('Busca una enzima que corte la pared de las bacterias cuando está al descubierto.'),
+  pen:T_('Piensa en un fármaco que impida a la bacteria construir su pared.'),
+  uv:T_('Fíjate en su material genético: hay una radiación que lo daña.'),
+  ac:T_('Tu sistema inmune puede pegarse a lo que tiene en la superficie y marcarlo.'),
+  anf:T_('Fíjate en qué esterol usa su membrana.'),
+  osm:T_('¿Qué le pasa en agua destilada a una célula que no tiene nada que la sujete?'),
+  luz:T_('Se repara con algo que viene del sol.'),
+  cel:T_('Su pared está hecha del polisacárido de las plantas.'),
+  tc:T_('Hay células de tu sistema inmune que destruyen células enteras infectadas o alteradas.'),
+  tax:T_('Se divide sin parar: bloquea la maquinaria de la división.'),
+  aut:T_('Cuando algo lo resiste casi todo, el calor y la presión no fallan.'),
+  iso:T_('Su pared tiene una capa de ceras: ataca su fabricación.'),
+  art:T_('Vive en los glóbulos rojos y digiere la hemoglobina, rica en hierro.'),
+  arv:T_('Copia su ARN a ADN con una enzima que tus células no usan.'),
+  pzq:T_('Es un gusano: busca algo que paralice su tegumento.'),
+};
+// rasgos que explican la respuesta; en una variante, mejor los que han cambiado
+function hintTags(traits, bestId){
+  const k = KEYTRAIT[bestId] || [];
+  let t = traits.filter(x => k.includes(x[1]));
+  const mut = traits.filter(x => x[2]);
+  if (mut.length){ const both = t.filter(x => x[2]); t = both.length ? both : mut; }
+  return t.map(x => x[1]);
+}
+const traitTag = ([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''}" data-tag="${tag}">${mut ? '✦ ' : ''}${esc(x)}</span>`;
+const hintHtml = () => `<div class="qhint"><button class="hintb" id="qHint" type="button">${ico('bulb')}<span id="qHintL">${tr('Pista')}</span></button><p id="qtip" aria-live="polite"></p></div>`;
+// q = {best, tags, ok(id)}; devuelve un objeto con el número de pistas usadas
+function wireHint(q){
+  const st = {n:0}, b = $('#qHint');
+  b.onclick = () => {
+    st.n++;
+    if (st.n === 1){
+      $('#mBox').querySelectorAll('.traits [data-tag]').forEach(x => { if (q.tags.includes(x.dataset.tag)) x.classList.add('hint'); });
+      $('#qtip').textContent = (q.tags.length ? tr('Fíjate en los rasgos resaltados.') + ' ' : '') + tr(HINT_TOOL[q.best] || '');
+      const L = $('#qHintL'); if (L) L.textContent = tr('Otra pista');
+    } else {
+      const wrong = [...$('#quiz').querySelectorAll('[data-q]')].filter(x => !q.ok(x.dataset.q) && !x.disabled);
+      wrong.slice(0, Math.max(1, Math.ceil(wrong.length/2))).forEach(x => { x.disabled = true; x.classList.add('out'); });
+      $('#qtip').textContent += ' ' + tr('He tachado algunas opciones que no sirven.');
+      b.disabled = true;
+    }
+  };
+  return st;
+}
+
 // Ficha de organismo nuevo con pregunta: ¿qué herramienta funcionará mejor?
 function showSpecies(id, isNew){
   const Ty = TYPES[id];
@@ -487,18 +535,19 @@ function showSpecies(id, isNew){
     while (pick.length < 3 && pool.length) pick.push(pool.splice(Math.floor(sr()*pool.length), 1)[0]);
     const opts = [best, ...pick].sort(() => sr() - .5);
     quiz = `<div class="quiz" id="quiz"><div class="eyebrow">${tr('Pregunta')}</div><b>${tr('¿Qué herramienta crees que funcionará mejor?')}</b>
-      <div class="qopts">${opts.map(o => `<button data-q="${o.t.id}">${vesicle(o.t.id, o.t.col)}${o.t.n}</button>`).join('')}</div><p class="qres" id="qres" aria-live="polite"></p></div>`;
+      <div class="qopts">${opts.map(o => `<button data-q="${o.t.id}">${vesicle(o.t.id, o.t.col)}${o.t.n}</button>`).join('')}</div>${hintHtml()}<p class="qres" id="qres" aria-live="polite"></p></div>`;
     showModal(`<div class="spec">${fov(id, 'big', LAB[id][1])}<div>
       <div class="eyebrow" style="color:${hex(Ty.col)}">${tr('Organismo nuevo · añadido al Atlas')} · ${tr('prep. nº')} ${prep(id)}</div>
       <h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div><div class="stain">${ico('slide')}${LAB[id][0]}</div>
-      <p>${Ty.desc}</p><div class="traits">${Ty.traits.map(([x]) => `<span class="trait">${esc(x)}</span>`).join('')}</div></div></div>
+      <p>${Ty.desc}</p><div class="traits">${Ty.traits.map(traitTag).join('')}</div></div></div>
       ${quiz}<button class="go" id="mGo" hidden>${tr('Al combate')}</button>`);
+    const H = wireHint({best:best.t.id, tags:hintTags(Ty.traits, best.t.id), ok:q => q === best.t.id});
     $('#quiz').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
-      const ok = b.dataset.q === best.t.id; S.quiz.n++;
+      const ok = b.dataset.q === best.t.id; S.quiz.n++; $('#qHint').disabled = true;
       $('#quiz').querySelectorAll('[data-q]').forEach(x => { x.disabled = true; if (x.dataset.q === best.t.id) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
       (S.known[id] = S.known[id] || {})[best.t.id] = true;
       let msg = (ok ? tr('¡Correcto!') : tr('No exactamente: la mejor es {t}.', {t:best.t.n})) + ' ' + eff(best.t.id, fake).why;
-      if (ok){ S.quiz.ok++; const g = reward(S.level, false)*8*(has('h3') ? 2 : 1); if (!S.clase) S.atp += g; msg += S.clase ? '' : ' ' + tr('+{g} ATP.', {g:fmt(g)}); sfx.ach(); }
+      if (ok){ S.quiz.ok++; const g = reward(S.level, false)*8*(has('h3') ? 2 : 1)*[1, .6, .3][H.n]; if (!S.clase) S.atp += g; msg += S.clase ? '' : ' ' + tr('+{g} ATP.', {g:fmt(g)}) + (H.n ? ' ' + tr('(Menos ATP por usar pistas.)') : ''); sfx.ach(); }
       if (!owns(best.t.id)) msg += ' ' + tr('Todavía no la tienes: búscala en el Laboratorio.');
       $('#qres').textContent = msg; $('#qres').className = 'qres ' + (ok ? 'ok' : 'no');
       const go = $('#mGo'); go.hidden = false; go.onclick = closeModal; go.focus();

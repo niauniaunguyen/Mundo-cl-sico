@@ -191,3 +191,7 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - una curiosidad real.
 - **Aspecto 3D** (`variantLook`): `tint`, `shell` (capa extra), `spikes` (flagelos), `dots` (cloroplastos o ribosomas), `ghost`, `soft` (se deforma), `mirror` (reflejada) y `model` (usar el modelo de otro organismo).
 - **Textos:** catalán e inglés en `idiomas_ui5.js`; los colores nuevos, en `idiomas_datos2.js`.
+- **Pistas en las preguntas** («¿qué herramienta funcionará mejor?»), tanto de los organismos nuevos como de las variantes (`wireHint`, `hintTags`, `HINT_TOOL`):
+  - 1.ª pista: resalta los rasgos clave y muestra una pregunta que orienta sin decir el nombre de la herramienta. En una variante, resalta sobre todo los rasgos cambiados.
+  - 2.ª pista: tacha la mitad de las opciones incorrectas.
+  - Si aciertas con pistas, ganas menos ATP: ×0,6 con una y ×0,3 con dos.
