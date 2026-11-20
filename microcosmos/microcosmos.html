@@ -371,6 +371,22 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .qopts button:disabled{cursor:default}
 .qres{margin:10px 0 0;font-size:13.5px;line-height:1.5}
 .qres.ok{color:var(--gfp)} .qres.no{color:var(--fitc)}
+/* v9: eventos especiales y variantes */
+.trait.mut{border-color:#ff8fe0;color:#ffc2f0;background:rgba(255,111,216,.12)} .trait.mut::before{display:none}
+.exl{display:grid;gap:8px;margin-top:12px}
+.exc{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;text-align:left;padding:10px 12px;border:1px solid var(--line2);border-left:3px solid var(--k);border-radius:14px;background:rgba(10,24,33,.6);color:inherit;font:inherit;cursor:pointer}
+.exc:hover:not([disabled]){background:rgba(20,40,52,.8)} .exc[disabled]{opacity:.5;cursor:default}
+.exc .ves{width:44px;height:44px} .exc .et{display:flex;flex-direction:column;gap:3px;min-width:0}
+.exc b{font-size:15px} .exc small{font-size:12.5px;line-height:1.4;color:var(--muted)}
+.exc .rw{font-size:12px;color:var(--k);font-weight:600}
+.exc.done .rw{color:var(--gfp)} .exc.now{box-shadow:inset 0 0 14px rgba(255,198,92,.14);border-color:var(--fitc)}
+.vcmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:12px 0}
+.vcmp>div{display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--line2);border-radius:14px}
+.vcmp>div:last-child{border-color:rgba(255,143,224,.55)}
+.vcmp .fov{width:100%;height:auto;aspect-ratio:1;max-width:150px;align-self:center} .vcmp .traits{margin-top:2px}
+.vcmp b{font-size:13.5px} .vcmp .traits{flex-wrap:wrap;overflow:visible}
+@media (max-width:560px){.vcmp>div{padding:8px} .vcmp .fov{max-width:110px} .vcmp .trait{font-size:11px}}
+.vfact{display:block;margin-top:8px;color:var(--fg);font-size:13px}
 .mapw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px;align-items:start}
 .body{width:100%;height:auto}
 .body .sil{fill:#0b1d29;stroke:var(--line2);stroke-width:1.5}
@@ -629,7 +645,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
         <button class="qb" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
         <button class="qb" id="bFocus" aria-pressed="false" data-tt="Ver la batalla: oculta los rasgos y los mensajes"><span data-ic="eye"></span></button>
       </div>
-      <button class="sec" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span><span class="lbl" data-t="Historia">Historia</span></button>
+      <button class="sec" id="bStory" aria-pressed="false" data-tt="Eventos especiales"><span data-ic="spark"></span><span class="lbl" data-t="Eventos">Eventos</span></button>
       <button class="sec" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
       <button class="labbtn" id="bLab" aria-expanded="false"><span data-ic="flask"></span><span class="lt"><span class="lbl" data-t="Laboratorio">Laboratorio</span><span class="la num" data-tt="ATP: la moneda energética de la célula"><span data-ic="atp"></span><span id="hAtp">0</span><small id="hAtps"></small></span></span><span class="dot" id="labDot" hidden></span></button>
     </div>
@@ -909,6 +925,9 @@ const SKINS = {
   bfp:{n:'BFP (azul)',col:0x7f8cff,need:['evos',3],d:'Variante azul de la GFP.'},
   mch:{n:'mCherry (roja)',col:0xff4f7b,need:['daily',3],d:'Proteína roja derivada de DsRed, del coral Discosoma.'},
   mor:{n:'mOrange',col:0xff9f40,need:['ach',8],d:'Otra variante de DsRed, de color naranja.'},
+  mng:{n:'mNeonGreen',col:0xb4ff3a,need:['ev','rev'],d:'Proteína verde amarillenta del anfioxo Branchiostoma lanceolatum. Brilla más que la GFP.'},
+  tdt:{n:'tdTomato',col:0xff6a4a,need:['ev','org'],d:'Dos copias de una proteína roja unidas en tándem: una de las proteínas fluorescentes más brillantes.'},
+  xen:{n:'Xenofluorina',col:0xe0e8ff,need:['ev','xen'],d:'Proteína fluorescente que trajo la sonda de Xenón b. Es inventada: solo existe en este juego.'},
 };
 
 // Zonas del cuerpo (el mapa)
@@ -1177,6 +1196,173 @@ const MILESTONE = {
   tN:T_('Nivel {l} alcanzado'),
   rN:T_('Recompensa: +3 ADN y +1 punto del árbol inmunitario.'),
 };
+/* =====================================================================
+   EVENTOS ESPECIALES: campañas cortas con recompensa
+   Cada variante es un organismo conocido con alguna característica cambiada.
+   Al compararla con el original se entiende para qué sirve esa característica.
+   ===================================================================== */
+
+// Variantes: base = organismo original; traits con 1 al final = rasgo cambiado;
+// eff = eficacias que cambian respecto al original; vis = cómo se ve distinto
+const VARIANTS = {
+  // ---- Bacterias del revés ----
+  v_lform:{base:'gp', n:T_('Estafilococo sin pared'), sci:T_('Staphylococcus aureus, forma L'), col:0xd6b8ff,
+    traits:[[T_('Bacteria Gram+'),'gram'],[T_('Sin pared celular'),'nowall',1],[T_('Fisión binaria'),'fission']],
+    diff:T_('Ha perdido la pared de peptidoglucano. Es más blanda, pero ya no aguanta la presión del agua.'),
+    fact:T_('Existen de verdad: se llaman formas L. Algunas bacterias pierden la pared cuando las tratan con penicilina y sobreviven así, sin pared, en medios con mucha sal.'),
+    eff:{lis:[0,T_('Ha perdido la pared: la lisozima no tiene peptidoglucano que cortar.')],
+      pen:[0,T_('La penicilina impide fabricar la pared… pero esta bacteria ya vive sin ella.')],
+      osm:[2.6,T_('Sin pared que la sujete, el agua entra por ósmosis y revienta. Para eso sirve la pared: aguanta la presión.')],
+      fago:[1.4,T_('Sin pared rígida es blanda y fácil de digerir.')]},
+    vis:{tint:.55, soft:true}},
+  v_nolps:{base:'gn', n:T_('Bacilo sin membrana externa'), sci:T_('Escherichia coli mutante'), col:0xffb3d6,
+    traits:[[T_('Bacteria Gram−'),'gram'],[T_('Sin membrana externa'),'outer',1],[T_('Peptidoglucano fino'),'pg'],[T_('Flagelo'),'flag']],
+    diff:T_('No tiene la membrana externa de LPS que cubre a las Gram−. Su fina pared de peptidoglucano queda al aire.'),
+    fact:T_('En el laboratorio se fabrican «esferoplastos» quitando la membrana externa con EDTA: así la lisozima llega a la pared.'),
+    eff:{lis:[2.2,T_('Sin membrana externa, su peptidoglucano queda expuesto y la lisozima lo corta. La membrana externa era su escudo.')],
+      pen:[2.2,T_('La penicilina llega sin obstáculos hasta su pared.')]},
+    vis:{tint:.5}},
+  v_lpsgp:{base:'gp', n:T_('Coco acorazado'), sci:T_('Staphylococcus con membrana externa'), col:0xff8fcf,
+    traits:[[T_('Pared gruesa de peptidoglucano'),'pg'],[T_('Membrana externa de LPS'),'outer',1],[T_('Fisión binaria'),'fission']],
+    diff:T_('Es un Gram+ que ha «tomado prestada» la membrana externa de las Gram−. Su pared gruesa queda tapada.'),
+    fact:T_('Ninguna bacteria real tiene a la vez una pared tan gruesa y una membrana externa, pero las micobacterias se acercan: su pared lleva encima una capa de ceras.'),
+    eff:{lis:[.4,T_('La membrana externa tapa la pared: la lisozima casi no llega al peptidoglucano.')],
+      pen:[.5,T_('La membrana externa frena la entrada de la penicilina, igual que en las Gram−.')],
+      ac:[1.6,T_('Los anticuerpos activan el complemento, que perfora las membranas externas.')],
+      uv:[1.5,T_('La membrana no protege su ADN de la radiación.')]},
+    vis:{shell:0xff8fcf}},
+  v_flagp:{base:'gp', n:T_('Estafilococo con flagelo'), sci:T_('Staphylococcus motilis'), col:0xb08bff, boss:T_('Enjambre con flagelo'),
+    traits:[[T_('Bacteria Gram+'),'gram'],[T_('Pared de peptidoglucano gruesa'),'pg'],[T_('Flagelo'),'flag',1],[T_('Fisión binaria'),'fission']],
+    diff:T_('Los estafilococos no se mueven, pero este ha ganado un flagelo: esquiva muchos golpes. Los anticuerpos se pegan al flagelo y lo frenan.'),
+    fact:T_('Los anticuerpos contra la flagelina inmovilizan de verdad a las bacterias: es una de las formas en que te protegen.'),
+    dodge:.35, dodgeWhy:T_('Su flagelo gira como una hélice y lo aparta del golpe.'), markStops:true, qbest:'ac',
+    eff:{ac:[1.8,T_('Los anticuerpos se pegan al flagelo y lo inmovilizan: mientras esté opsonizado no podrá esquivar.')]},
+    vis:{spikes:0xb08bff}},
+  // ---- Expedición a Xenón b ----
+  v_xplant:{base:'veg', n:T_('Fotoameba de Xenón'), sci:T_('Chlorameba xenonensis'), col:0x9dff5d,
+    traits:[[T_('Cloroplastos'),'chloro'],[T_('Fotosíntesis'),'photo'],[T_('Sin pared celular'),'nowall',1],[T_('Pseudópodos'),'pseudo',1]],
+    diff:T_('Hace la fotosíntesis como una planta, pero no tiene pared de celulosa: se mueve con pseudópodos como una ameba.'),
+    fact:T_('En la Tierra existe algo parecido: la babosa marina Elysia chlorotica roba los cloroplastos de las algas que come y hace la fotosíntesis durante meses.'),
+    eff:{cel:[0,T_('No tiene pared de celulosa: la celulasa no tiene nada que digerir.')],
+      osm:[2.6,T_('Tiene cloroplastos, pero no pared: el agua la hincha hasta reventar. Pared y cloroplastos son cosas distintas.')],
+      fago:[1.3,T_('Sin pared rígida, se deja engullir.')]},
+    vis:{model:'ame', tint:.3, dots:[0x5dff8a, 90, .07]}},
+  v_xyeast:{base:'lev', n:T_('Levadura de colesterol'), sci:T_('Candida xenonensis'), col:0xffd27a,
+    traits:[[T_('Hongo unicelular'),'fungus'],[T_('Pared de quitina'),'chitin'],[T_('Colesterol en la membrana'),'chol',1],[T_('Gemación'),'budding']],
+    diff:T_('Su membrana usa colesterol, como tus células, en lugar de ergosterol. La anfotericina B ya no tiene a qué agarrarse.'),
+    fact:T_('Por eso la anfotericina B tiene efectos secundarios: el colesterol de tus células se parece al ergosterol y también se une a él.'),
+    eff:{anf:[.3,T_('La anfotericina B busca el ergosterol; esta levadura usa colesterol, como tú. Le afecta tan poco como a tus células.')],
+      tax:[1.6,T_('Sigue dividiéndose por gemación con microtúbulos: el taxol la frena.')]},
+    vis:{tint:.45, shell:0xffd27a}},
+  v_xshell:{base:'ame', n:T_('Ameba de vidrio'), sci:T_('Vitramoeba xenonensis'), col:0x9ff0ff,
+    traits:[[T_('Protozoo'),'protist'],[T_('Caparazón de sílice'),'wall',1],[T_('Pseudópodos'),'pseudo'],[T_('Vacuola contráctil pequeña'),'vac']],
+    diff:T_('Es una ameba dentro de un caparazón de sílice, el mismo material que el vidrio. Hace de pared: aguanta la presión del agua.'),
+    fact:T_('Existen amebas con caparazón, como Arcella, y algas con caparazón de vidrio, las diatomeas.'),
+    dodge:0,
+    eff:{osm:[.2,T_('El caparazón de sílice aguanta la presión del agua, igual que la pared de una planta.')],
+      fago:[.3,T_('Un caparazón de vidrio no se puede digerir.')],
+      cel:[0,T_('La sílice no es celulosa: la celulasa no la reconoce.')],
+      uv:[1.5,T_('El vidrio deja pasar la luz, también la ultravioleta.')],
+      aut:[1.6,T_('El vapor a presión entra por la abertura del caparazón.')]},
+    vis:{shell:0x9ff0ff}},
+  v_mirror:{base:'ame', n:T_('Célula espejo'), sci:T_('Vida especular de Xenón'), col:0xb9c6ff, boss:T_('Colonia espejo'),
+    traits:[[T_('Proteínas con aminoácidos D'),'chir',1],[T_('Azúcares L'),'chir',1],[T_('Sin pared celular'),'nowall'],[T_('Pseudópodos'),'pseudo']],
+    diff:T_('Está hecha de las mismas moléculas que tú, pero en su imagen en el espejo. Las enzimas, los anticuerpos y los fármacos reconocen formas, y ninguna encaja.'),
+    fact:T_('La «vida espejo» no existe, pero en 2024 un grupo de científicos pidió no fabricarla: ni tu sistema inmune ni los antibióticos la reconocerían.'),
+    dodge:.1, dodgeWhy:T_('Se escurre con sus pseudópodos.'),
+    eff:{fago:[.2,T_('Puedes engullirla, pero tus enzimas no encajan en sus moléculas especulares: no la digieres.')],
+      ac:[0,T_('Un anticuerpo encaja en una forma concreta, como una llave. En el espejo, la forma está al revés y ninguno encaja.')],
+      tc:[0,T_('Sus péptidos especulares no caben en tu MHC: los linfocitos T no ven nada extraño.')],
+      tax:[.2,T_('El taxol también es una molécula con forma: no encaja en sus microtúbulos especulares.')],
+      anf:[.2,T_('La anfotericina B no encaja en sus esteroles especulares.')],
+      uv:[1.6,T_('La luz no distingue derecha de izquierda: la UV daña su ADN igual que el tuyo.')],
+      osm:[2.2,T_('La ósmosis es física: no depende de la forma de las moléculas. Sin pared, revienta.')],
+      aut:[2,T_('El calor desnaturaliza cualquier proteína, sea cual sea su forma.')]},
+    vis:{mirror:true, tint:.55, dots:[0xe0e6ff, 60, .05]}},
+  // ---- Clones a medio hacer ----
+  v_nomit:{base:'ame', n:T_('Ameba sin mitocondrias'), sci:T_('Amoeba proteus, clon 1'), col:0x7d9a5a, atkK:.35,
+    traits:[[T_('Protozoo'),'protist'],[T_('Sin mitocondrias'),'mito',1],[T_('Pseudópodos'),'pseudo'],[T_('Sin pared celular'),'nowall']],
+    diff:T_('Sin mitocondrias solo obtiene ATP de la glucólisis: 2 moléculas por glucosa en lugar de unas 30. Le falta energía y ataca muy débil.'),
+    fact:T_('Monocercomonoides es el único eucariota conocido sin mitocondrias. Vive en el intestino de las chinchillas, donde casi no hay oxígeno.'),
+    eff:{}, vis:{tint:.5}},
+  v_nocyt:{base:'ame', n:T_('Ameba sin citoesqueleto'), sci:T_('Amoeba proteus, clon 2'), col:0xd8f09a, vul:1.4, dodge:0,
+    traits:[[T_('Protozoo'),'protist'],[T_('Sin citoesqueleto'),'cyto',1],[T_('Sin pseudópodos'),'pseudo',1],[T_('Sin pared celular'),'nowall']],
+    diff:T_('Sin actina ni microtúbulos no puede formar pseudópodos ni mantener su forma: ni esquiva ni aguanta los golpes (+40 % de daño recibido).'),
+    fact:T_('La citocalasina, una toxina de hongos, desmonta la actina: las células tratadas con ella se quedan redondas y quietas.'),
+    eff:{fago:[2,T_('Sin pseudópodos no puede escapar: la engulles sin esfuerzo.')],
+      tax:[0,T_('No tiene microtúbulos: el taxol no tiene diana. (Tampoco puede dividirse.)')]},
+    vis:{ghost:true}},
+  v_novac:{base:'par', n:T_('Paramecio sin vacuolas'), sci:T_('Paramecium caudatum, clon 3'), col:0xe3d6ff,
+    traits:[[T_('Protozoo ciliado'),'protist'],[T_('Sin vacuola contráctil'),'vac',1],[T_('Miles de cilios'),'cilia'],[T_('Sin pared celular'),'nowall']],
+    diff:T_('No tiene vacuolas contráctiles: no puede bombear fuera el agua que le entra por ósmosis.'),
+    fact:T_('Un paramecio normal vacía su vacuola contráctil cada pocos segundos. Si se la bloquean, revienta en agua dulce en unos minutos.'),
+    eff:{osm:[3,T_('Sin vacuolas contráctiles no puede expulsar el agua que entra: revienta. Para eso sirven.')]},
+    vis:{tint:.4}},
+  v_ribo:{base:'ame', n:T_('Ameba superribosómica'), sci:T_('Amoeba proteus, clon 4'), col:0x7fe0ff, boss:T_('Fábrica de proteínas'), regen:.09,
+    traits:[[T_('Protozoo'),'protist'],[T_('Millones de ribosomas'),'ribo',1],[T_('Se repara cada turno'),'regen',1],[T_('Sin pared celular'),'nowall']],
+    diff:T_('Tiene muchísimos ribosomas: fabrica proteínas sin parar y se repara un 9 % cada turno. Pero los ribosomas necesitan las instrucciones del ADN.'),
+    fact:T_('Tus ribosomas son como los de esta ameba: leen el ARNm que se copia del ADN. Si el ADN está dañado, no llegan instrucciones.'),
+    uvStall:2, qbest:'uv',
+    eff:{uv:[1.8,T_('La UV daña su ADN: sin ARNm nuevo, sus ribosomas se quedan sin instrucciones y deja de repararse durante 2 turnos.')]},
+    vis:{dots:[0x7fe0ff, 260, .035], tint:.35}},
+};
+for (const id in VARIANTS){ VARIANTS[id].id = id; }
+
+// Eventos: capítulos con combates fijos. battles: id de organismo o de variante; {t, boss} para un jefe
+const EXPED = [
+  {id:'inf', n:T_('Una infección de principio a fin'), ic:'book', col:0xff6fae, need:0,
+    d:T_('Sigue paso a paso una infección real, desde una herida en la piel hasta la sepsis. Cada capítulo explica una parte de la respuesta inmune.'),
+    reward:{adn:3, lpts:1}, chapters:STORY, end:[T_('Memoria inmunitaria'), STORY_END]},
+  {id:'rev', n:T_('Bacterias del revés'), ic:'flask', col:0xd6b8ff, need:3,
+    d:T_('En el laboratorio de la Dra. Olmo han crecido bacterias extrañas: cada una tiene una característica al revés que sus parientes. Si entiendes qué ha cambiado, sabrás qué herramienta usar.'),
+    reward:{adn:2, lpts:1, skin:'mng'},
+    chapters:[
+      {n:T_('Sin pared'), cell:'mac', zone:'pie', L:4, tools:['fago','lis','pen','uv','osm'], battles:['gp','v_lform'],
+        t:T_('Primero, un estafilococo normal: recuerda qué le hace daño. Después aparece un pariente que ha perdido la pared. ¿Sigue funcionando lo mismo?')},
+      {n:T_('Una Gram− desnuda'), cell:'mac', zone:'int', L:5, tools:['fago','lis','pen','uv','osm'], battles:['gn','v_nolps'],
+        t:T_('Las Gram− se protegen con una membrana externa. Lucha contra una normal y luego contra una mutante que no la tiene.')},
+      {n:T_('Un coco con escudo'), cell:'mac', zone:'pie', L:6, tools:['fago','lis','pen','uv','osm','ac'], battles:['v_lpsgp','v_lpsgp'],
+        t:T_('Y al revés: un estafilococo que se ha puesto la membrana externa de las Gram−. Lo que antes era muy eficaz ya no lo es tanto.')},
+      {n:T_('El flagelo prestado'), cell:'mac', zone:'san', L:8, tools:['fago','lis','pen','uv','osm','ac'], battles:[{t:'v_flagp', boss:true}],
+        t:T_('Último cultivo: estafilococos que han ganado un flagelo. Se mueven tan deprisa que es difícil acertarles. Piensa qué podría frenarlos.')}],
+    end:[T_('Cada pieza tiene su función'), T_('La pared aguanta la presión del agua, la membrana externa protege la pared y el flagelo sirve para moverse. Al quitar o añadir una pieza, cambia lo que funciona contra la bacteria. Así razonan los microbiólogos cuando buscan un antibiótico: atacan una pieza que la bacteria necesita y tus células no tienen.')]},
+  {id:'org', n:T_('Clones a medio hacer'), ic:'mito', col:0x7fe0ff, need:6,
+    d:T_('La Dra. Olmo ha clonado amebas a las que les falta o les sobra un orgánulo. Al enfrentarte a ellas verás para qué sirve cada orgánulo, también los de tu célula.'),
+    reward:{adn:2, lpts:1, skin:'tdt'},
+    chapters:[
+      {n:T_('Sin mitocondrias'), cell:'mac', zone:'cha', L:10, tools:['fago','uv','osm','tax','tc'], battles:['ame','v_nomit'],
+        t:T_('Primero, una ameba normal. Después, un clon sin mitocondrias. Fíjate en su ataque: las mitocondrias son la central de energía de la célula.')},
+      {n:T_('Sin citoesqueleto'), cell:'mac', zone:'cha', L:11, tools:['fago','uv','osm','tax','tc'], battles:['v_nocyt','v_nocyt'],
+        t:T_('Este clon no tiene citoesqueleto. Tu mejora de citoesqueleto reduce el daño que recibes: aquí verás qué pasa cuando falta.')},
+      {n:T_('Sin vacuolas'), cell:'mac', zone:'cha', L:12, tools:['fago','uv','osm','tax','tc'], battles:['par','v_novac'],
+        t:T_('Los paramecios aguantan el agua dulce gracias a sus vacuolas contráctiles. ¿Y si no las tuvieran?')},
+      {n:T_('Demasiados ribosomas'), cell:'mac', zone:'cha', L:14, tools:['fago','uv','osm','tax','tc'], battles:[{t:'v_ribo', boss:true}],
+        t:T_('El último clon tiene ribosomas de sobra y se repara sin parar. Los ribosomas fabrican proteínas siguiendo instrucciones. ¿De dónde vienen esas instrucciones?')}],
+    end:[T_('Una célula es un equipo'), T_('Las mitocondrias dan energía, el citoesqueleto da forma y movimiento, las vacuolas contráctiles controlan el agua y los ribosomas fabrican proteínas según las órdenes del ADN. Son los mismos orgánulos que mejoras en tu Laboratorio.')]},
+  {id:'xen', n:T_('Expedición a Xenón b'), ic:'planet', col:0x9dff5d, need:10,
+    d:T_('Una sonda ha traído muestras de un planeta lejano. Sus células se parecen a las de la Tierra, pero no del todo. Usa lo que sabes para descubrir en qué se diferencian.'),
+    reward:{adn:2, lpts:1, skin:'xen'},
+    chapters:[
+      {n:T_('Plantas que caminan'), cell:'mac', zone:'cha', pl:T_('Xenón b'), tint:[.0,.06,.05], L:10, tools:['fago','uv','osm','luz','cel','tax','aut'], battles:['veg','v_xplant'],
+        t:T_('Primero, una célula vegetal de la Tierra para comparar. Luego, una célula de Xenón que hace la fotosíntesis pero se mueve como una ameba.')},
+      {n:T_('Levaduras de colesterol'), cell:'mac', zone:'cha', pl:T_('Xenón b'), tint:[.03,.05,0], L:12, tools:['fago','uv','anf','osm','tax','aut'], battles:['lev','v_xyeast'],
+        t:T_('Una levadura terrestre y su prima de Xenón. Compara cómo les afecta la anfotericina B.')},
+      {n:T_('Cristales vivos'), cell:'mac', zone:'cha', pl:T_('Xenón b'), tint:[0,.04,.07], L:14, tools:['fago','uv','osm','cel','tax','aut'], battles:['v_xshell','v_xshell'],
+        t:T_('Amebas que viven dentro de un caparazón de vidrio. Una ameba normal revienta con el choque osmótico. ¿Y estas?')},
+      {n:T_('La célula espejo'), cell:'mac', zone:'cha', pl:T_('Xenón b'), tint:[.05,.05,.07], L:16, tools:['fago','uv','ac','anf','osm','tc','tax','aut'], battles:[{t:'v_mirror', boss:true}],
+        t:T_('El hallazgo más extraño: una célula hecha de moléculas «al revés», como tu mano izquierda frente a la derecha. Casi todo lo que usas reconoce formas. Busca lo que no depende de la forma.')}],
+    end:[T_('La forma importa'), T_('Las enzimas, los anticuerpos y los fármacos funcionan como una llave en su cerradura: reconocen una forma concreta. Por eso cada herramienta sirve contra unos organismos y no contra otros. El calor, la radiación y la ósmosis, en cambio, son físicos y dañan casi cualquier cosa.')]},
+];
+const EXPED_BY = Object.fromEntries(EXPED.map(x => [x.id, x]));
+
+// La Dra. Olmo presenta cada evento
+Object.assign(NARR, {
+  ex_inf:T_('Seguiremos una infección real, paso a paso.'),
+  ex_rev:T_('Estas bacterias tienen una pieza cambiada. Fíjate en los rasgos marcados con ✦: ahí está la clave.'),
+  ex_org:T_('A cada clon le falta o le sobra un orgánulo. Mira qué cambia en su forma de luchar.'),
+  ex_xen:T_('Bienvenido a Xenón b. Aquí nada es exactamente como en la Tierra.'),
+  variant:T_('Es una variante: los rasgos con ✦ son los que han cambiado respecto al original.'),
+});
 /* =====================================================================
    IDIOMAS: español (original), català, English
    ===================================================================== */
@@ -1568,6 +1754,155 @@ const I18N_RAW4 = {
 };
 for (const k in I18N_RAW4){ I18N.ca[k] = I18N_RAW4[k][0]; I18N.en[k] = I18N_RAW4[k][1]; }
 
+// Textos de la versión 9 (eventos especiales y variantes): «español»: [català, English]
+const I18N_RAW5 = {
+  // interfaz
+  "Eventos":["Esdeveniments","Events"], "Eventos especiales":["Esdeveniments especials","Special events"], "Evento":["Esdeveniment","Event"],
+  "Campañas cortas con combates preparados. La primera vez que completas un evento te llevas su recompensa. Tu partida normal se conserva.":["Campanyes curtes amb combats preparats. La primera vegada que completes un esdeveniment t'emportes la recompensa. La teva partida normal es conserva.","Short campaigns with set battles. The first time you complete an event you get its reward. Your normal game is kept."],
+  "Se desbloquea al llegar al nivel {l}":["Es desbloqueja en arribar al nivell {l}","Unlocks when you reach level {l}"],
+  "En curso · capítulo {i} de {n}":["En curs · capítol {i} de {n}","In progress · chapter {i} of {n}"], "Completado":["Completat","Completed"], "Recompensa":["Recompensa","Reward"],
+  "+{n} ADN":["+{n} ADN","+{n} DNA"], "+{n} punto del árbol inmunitario":["+{n} punt de l'arbre immunitari","+{n} immune tree point"], "el color «{n}»":["el color «{n}»","the “{n}” colour"],
+  "Saldrás del evento «{n}», que tienes a medias.":["Sortiràs de l'esdeveniment «{n}», que tens a mitges.","You'll leave “{n}”, which you haven't finished."],
+  "Ya conseguiste la recompensa.":["Ja vas aconseguir la recompensa.","You already got the reward."], "Continuar":["Continuar","Continue"], "Salir del evento":["Sortir de l'esdeveniment","Leave the event"],
+  "Volver a jugarlo":["Tornar-hi a jugar","Play it again"], "Empezar":["Començar","Start"], "Volver":["Tornar","Back"], "Sepsis":["Sèpsia","Sepsis"],
+  "Evento completado":["Esdeveniment completat","Event completed"], "Encontrarás el color nuevo en el Laboratorio, en «Tu célula».":["Trobaràs el color nou al Laboratori, a «La teva cèl·lula».","You'll find the new colour in the Lab, under “Your cell”."],
+  "Completa el evento «{n}»":["Completa l'esdeveniment «{n}»","Complete the “{n}” event"],
+  "Variante":["Variant","Variant"], "Variante de {n}":["Variant de {n}","Variant of {n}"], "pariente de {n}":["parent de {n}","relative of {n}"], "Original":["Original","Original"],
+  "Qué ha cambiado":["Què ha canviat","What has changed"], "Con este cambio, ¿qué herramienta funcionará mejor?":["Amb aquest canvi, quina eina funcionarà millor?","With this change, which tool will work best?"],
+  "Curiosidad":["Curiositat","Fun fact"], "Sin instrucciones del ADN":["Sense instruccions de l'ADN","No DNA instructions"],
+  "Sin citoesqueleto: +40 % de daño.":["Sense citoesquelet: +40 % de dany.","No cytoskeleton: +40 % damage."],
+  "Sus ribosomas se quedan sin instrucciones: no se repara durante 2 turnos.":["Els seus ribosomes es queden sense instruccions: no es repara durant 2 torns.","Its ribosomes run out of instructions: it can't repair for 2 turns."],
+  "Sin ARNm nuevo, sus ribosomas están parados: no se repara.":["Sense ARNm nou, els seus ribosomes estan aturats: no es repara.","Without new mRNA its ribosomes are idle: it doesn't repair."],
+  "Sus ribosomas fabrican proteínas sin parar: se repara un 9 %.":["Els seus ribosomes fabriquen proteïnes sense parar: es repara un 9 %.","Its ribosomes make proteins non-stop: it repairs 9 %."],
+  "Sin mitocondrias le falta ATP: ataca muy débil.":["Sense mitocondris li falta ATP: ataca molt feble.","Without mitochondria it lacks ATP: its attacks are very weak."],
+  // narradora
+  "Seguiremos una infección real, paso a paso.":["Seguirem una infecció real, pas a pas.","We'll follow a real infection, step by step."],
+  "Estas bacterias tienen una pieza cambiada. Fíjate en los rasgos marcados con ✦: ahí está la clave.":["Aquests bacteris tenen una peça canviada. Fixa't en els trets marcats amb ✦: aquí hi ha la clau.","These bacteria have one part changed. Look at the features marked ✦: that's the key."],
+  "A cada clon le falta o le sobra un orgánulo. Mira qué cambia en su forma de luchar.":["A cada clon li falta o li sobra un orgànul. Mira què canvia en la seva manera de lluitar.","Each clone is missing an organelle or has too much of one. See how it changes the way it fights."],
+  "Bienvenido a Xenón b. Aquí nada es exactamente como en la Tierra.":["Benvingut a Xenó b. Aquí res no és exactament com a la Terra.","Welcome to Xenon b. Nothing here is quite like on Earth."],
+  "Es una variante: los rasgos con ✦ son los que han cambiado respecto al original.":["És una variant: els trets amb ✦ són els que han canviat respecte a l'original.","It's a variant: the features marked ✦ are the ones that differ from the original."],
+  // eventos
+  "Una infección de principio a fin":["Una infecció de principi a fi","An infection from start to finish"],
+  "Sigue paso a paso una infección real, desde una herida en la piel hasta la sepsis. Cada capítulo explica una parte de la respuesta inmune.":["Segueix pas a pas una infecció real, des d'una ferida a la pell fins a la sèpsia. Cada capítol explica una part de la resposta immunitària.","Follow a real infection step by step, from a cut in the skin to sepsis. Each chapter explains part of the immune response."],
+  "Bacterias del revés":["Bacteris del revés","Inside-out bacteria"],
+  "En el laboratorio de la Dra. Olmo han crecido bacterias extrañas: cada una tiene una característica al revés que sus parientes. Si entiendes qué ha cambiado, sabrás qué herramienta usar.":["Al laboratori de la Dra. Olmo han crescut bacteris estranys: cadascun té una característica al revés que els seus parents. Si entens què ha canviat, sabràs quina eina fer servir.","Strange bacteria have grown in Dr Olmo's lab: each has one feature the opposite of its relatives. If you understand what changed, you'll know which tool to use."],
+  "Sin pared":["Sense paret","No wall"],
+  "Primero, un estafilococo normal: recuerda qué le hace daño. Después aparece un pariente que ha perdido la pared. ¿Sigue funcionando lo mismo?":["Primer, un estafilococ normal: recorda què li fa mal. Després apareix un parent que ha perdut la paret. Continua funcionant el mateix?","First, a normal staphylococcus: remember what hurts it. Then a relative appears that has lost its wall. Does the same thing still work?"],
+  "Una Gram− desnuda":["Una Gram− nua","A naked Gram−"],
+  "Las Gram− se protegen con una membrana externa. Lucha contra una normal y luego contra una mutante que no la tiene.":["Les Gram− es protegeixen amb una membrana externa. Lluita contra una de normal i després contra una mutant que no en té.","Gram− bacteria protect themselves with an outer membrane. Fight a normal one, then a mutant without it."],
+  "Un coco con escudo":["Un coc amb escut","A coccus with a shield"],
+  "Y al revés: un estafilococo que se ha puesto la membrana externa de las Gram−. Lo que antes era muy eficaz ya no lo es tanto.":["I al revés: un estafilococ que s'ha posat la membrana externa de les Gram−. El que abans era molt eficaç ja no ho és tant.","And the other way round: a staphylococcus wearing the outer membrane of Gram− bacteria. What used to be very effective isn't any more."],
+  "El flagelo prestado":["El flagel manllevat","The borrowed flagellum"],
+  "Último cultivo: estafilococos que han ganado un flagelo. Se mueven tan deprisa que es difícil acertarles. Piensa qué podría frenarlos.":["Últim cultiu: estafilococs que han guanyat un flagel. Es mouen tan de pressa que és difícil encertar-los. Pensa què els podria frenar.","Last culture: staphylococci that have gained a flagellum. They move so fast they're hard to hit. Think about what could slow them down."],
+  "Cada pieza tiene su función":["Cada peça té la seva funció","Every part has a job"],
+  "La pared aguanta la presión del agua, la membrana externa protege la pared y el flagelo sirve para moverse. Al quitar o añadir una pieza, cambia lo que funciona contra la bacteria. Así razonan los microbiólogos cuando buscan un antibiótico: atacan una pieza que la bacteria necesita y tus células no tienen.":["La paret aguanta la pressió de l'aigua, la membrana externa protegeix la paret i el flagel serveix per moure's. Si treus o afegeixes una peça, canvia el que funciona contra el bacteri. Així raonen els microbiòlegs quan busquen un antibiòtic: ataquen una peça que el bacteri necessita i les teves cèl·lules no tenen.","The wall withstands water pressure, the outer membrane protects the wall and the flagellum is for moving. Remove or add a part and what works against the bacterium changes. That's how microbiologists think when they look for an antibiotic: they target a part the bacterium needs and your cells don't have."],
+  "Clones a medio hacer":["Clons a mig fer","Half-finished clones"],
+  "La Dra. Olmo ha clonado amebas a las que les falta o les sobra un orgánulo. Al enfrentarte a ellas verás para qué sirve cada orgánulo, también los de tu célula.":["La Dra. Olmo ha clonat amebes a les quals falta o sobra un orgànul. En enfrontar-t'hi veuràs per a què serveix cada orgànul, també els de la teva cèl·lula.","Dr Olmo has cloned amoebas that are missing an organelle or have too much of one. Fighting them shows what each organelle does, including your own cell's."],
+  "Sin mitocondrias":["Sense mitocondris","No mitochondria"],
+  "Primero, una ameba normal. Después, un clon sin mitocondrias. Fíjate en su ataque: las mitocondrias son la central de energía de la célula.":["Primer, una ameba normal. Després, un clon sense mitocondris. Fixa't en el seu atac: els mitocondris són la central d'energia de la cèl·lula.","First, a normal amoeba. Then a clone without mitochondria. Watch its attack: mitochondria are the cell's power station."],
+  "Sin citoesqueleto":["Sense citoesquelet","No cytoskeleton"],
+  "Este clon no tiene citoesqueleto. Tu mejora de citoesqueleto reduce el daño que recibes: aquí verás qué pasa cuando falta.":["Aquest clon no té citoesquelet. La teva millora de citoesquelet redueix el dany que reps: aquí veuràs què passa quan falta.","This clone has no cytoskeleton. Your cytoskeleton upgrade reduces the damage you take: here you'll see what happens without one."],
+  "Sin vacuolas":["Sense vacúols","No vacuoles"],
+  "Los paramecios aguantan el agua dulce gracias a sus vacuolas contráctiles. ¿Y si no las tuvieran?":["Els paramecis aguanten l'aigua dolça gràcies als seus vacúols contràctils. I si no en tinguessin?","Paramecia survive fresh water thanks to their contractile vacuoles. What if they didn't have them?"],
+  "Demasiados ribosomas":["Massa ribosomes","Too many ribosomes"],
+  "El último clon tiene ribosomas de sobra y se repara sin parar. Los ribosomas fabrican proteínas siguiendo instrucciones. ¿De dónde vienen esas instrucciones?":["L'últim clon té ribosomes de sobres i es repara sense parar. Els ribosomes fabriquen proteïnes seguint instruccions. D'on vénen aquestes instruccions?","The last clone has ribosomes to spare and repairs itself non-stop. Ribosomes make proteins by following instructions. Where do those instructions come from?"],
+  "Una célula es un equipo":["Una cèl·lula és un equip","A cell is a team"],
+  "Las mitocondrias dan energía, el citoesqueleto da forma y movimiento, las vacuolas contráctiles controlan el agua y los ribosomas fabrican proteínas según las órdenes del ADN. Son los mismos orgánulos que mejoras en tu Laboratorio.":["Els mitocondris donen energia, el citoesquelet dona forma i moviment, els vacúols contràctils controlen l'aigua i els ribosomes fabriquen proteïnes segons les ordres de l'ADN. Són els mateixos orgànuls que millores al teu Laboratori.","Mitochondria provide energy, the cytoskeleton gives shape and movement, contractile vacuoles control water and ribosomes make proteins following the DNA's orders. They're the same organelles you upgrade in your Lab."],
+  "Expedición a Xenón b":["Expedició a Xenó b","Expedition to Xenon b"], "Xenón b":["Xenó b","Xenon b"],
+  "Una sonda ha traído muestras de un planeta lejano. Sus células se parecen a las de la Tierra, pero no del todo. Usa lo que sabes para descubrir en qué se diferencian.":["Una sonda ha portat mostres d'un planeta llunyà. Les seves cèl·lules s'assemblen a les de la Terra, però no del tot. Fes servir el que saps per descobrir en què es diferencien.","A probe has brought back samples from a distant planet. Its cells look like Earth's, but not quite. Use what you know to find out how they differ."],
+  "Plantas que caminan":["Plantes que caminen","Walking plants"],
+  "Primero, una célula vegetal de la Tierra para comparar. Luego, una célula de Xenón que hace la fotosíntesis pero se mueve como una ameba.":["Primer, una cèl·lula vegetal de la Terra per comparar. Després, una cèl·lula de Xenó que fa la fotosíntesi però es mou com una ameba.","First, a plant cell from Earth for comparison. Then a cell from Xenon that photosynthesises but moves like an amoeba."],
+  "Levaduras de colesterol":["Llevats de colesterol","Cholesterol yeasts"],
+  "Una levadura terrestre y su prima de Xenón. Compara cómo les afecta la anfotericina B.":["Un llevat terrestre i el seu cosí de Xenó. Compara com els afecta l'amfotericina B.","An Earth yeast and its cousin from Xenon. Compare how amphotericin B affects them."],
+  "Cristales vivos":["Cristalls vius","Living crystals"],
+  "Amebas que viven dentro de un caparazón de vidrio. Una ameba normal revienta con el choque osmótico. ¿Y estas?":["Amebes que viuen dins d'una closca de vidre. Una ameba normal rebenta amb el xoc osmòtic. I aquestes?","Amoebas living inside a glass shell. A normal amoeba bursts with osmotic shock. What about these?"],
+  "La célula espejo":["La cèl·lula mirall","The mirror cell"],
+  "El hallazgo más extraño: una célula hecha de moléculas «al revés», como tu mano izquierda frente a la derecha. Casi todo lo que usas reconoce formas. Busca lo que no depende de la forma.":["La troballa més estranya: una cèl·lula feta de molècules «al revés», com la mà esquerra davant la dreta. Gairebé tot el que fas servir reconeix formes. Busca el que no depèn de la forma.","The strangest find: a cell made of “back-to-front” molecules, like your left hand next to your right. Almost everything you use recognises shapes. Look for what doesn't depend on shape."],
+  "La forma importa":["La forma importa","Shape matters"],
+  "Las enzimas, los anticuerpos y los fármacos funcionan como una llave en su cerradura: reconocen una forma concreta. Por eso cada herramienta sirve contra unos organismos y no contra otros. El calor, la radiación y la ósmosis, en cambio, son físicos y dañan casi cualquier cosa.":["Els enzims, els anticossos i els fàrmacs funcionen com una clau al seu pany: reconeixen una forma concreta. Per això cada eina serveix contra uns organismes i no contra d'altres. La calor, la radiació i l'osmosi, en canvi, són físics i danyen gairebé qualsevol cosa.","Enzymes, antibodies and drugs work like a key in a lock: they recognise a particular shape. That's why each tool works against some organisms and not others. Heat, radiation and osmosis, on the other hand, are physical and damage almost anything."],
+  // variantes: nombres y rasgos
+  "Estafilococo sin pared":["Estafilococ sense paret","Wall-less staphylococcus"], "Staphylococcus aureus, forma L":["Staphylococcus aureus, forma L","Staphylococcus aureus, L-form"],
+  "Bacteria Gram+":["Bacteri Gram+","Gram+ bacterium"], "Sin pared celular":["Sense paret cel·lular","No cell wall"], "Fisión binaria":["Fissió binària","Binary fission"],
+  "Bacilo sin membrana externa":["Bacil sense membrana externa","Bacillus without an outer membrane"], "Escherichia coli mutante":["Escherichia coli mutant","Mutant Escherichia coli"],
+  "Bacteria Gram−":["Bacteri Gram−","Gram− bacterium"], "Sin membrana externa":["Sense membrana externa","No outer membrane"], "Peptidoglucano fino":["Peptidoglicà prim","Thin peptidoglycan"], "Flagelo":["Flagel","Flagellum"],
+  "Coco acorazado":["Coc cuirassat","Armoured coccus"], "Staphylococcus con membrana externa":["Staphylococcus amb membrana externa","Staphylococcus with an outer membrane"],
+  "Pared gruesa de peptidoglucano":["Paret gruixuda de peptidoglicà","Thick peptidoglycan wall"], "Membrana externa de LPS":["Membrana externa de LPS","LPS outer membrane"],
+  "Estafilococo con flagelo":["Estafilococ amb flagel","Flagellated staphylococcus"], "Enjambre con flagelo":["Eixam amb flagel","Flagellated swarm"], "Pared de peptidoglucano gruesa":["Paret de peptidoglicà gruixuda","Thick peptidoglycan wall"],
+  "Fotoameba de Xenón":["Fotoameba de Xenó","Xenon photoamoeba"], "Cloroplastos":["Cloroplasts","Chloroplasts"], "Fotosíntesis":["Fotosíntesi","Photosynthesis"], "Pseudópodos":["Pseudòpodes","Pseudopods"],
+  "Levadura de colesterol":["Llevat de colesterol","Cholesterol yeast"], "Hongo unicelular":["Fong unicel·lular","Unicellular fungus"], "Pared de quitina":["Paret de quitina","Chitin wall"], "Colesterol en la membrana":["Colesterol a la membrana","Cholesterol in the membrane"], "Gemación":["Gemmació","Budding"],
+  "Ameba de vidrio":["Ameba de vidre","Glass amoeba"], "Protozoo":["Protozou","Protozoan"], "Caparazón de sílice":["Closca de sílice","Silica shell"], "Vacuola contráctil pequeña":["Vacúol contràctil petit","Small contractile vacuole"],
+  "Célula espejo":["Cèl·lula mirall","Mirror cell"], "Vida especular de Xenón":["Vida especular de Xenó","Mirror life from Xenon"], "Colonia espejo":["Colònia mirall","Mirror colony"],
+  "Proteínas con aminoácidos D":["Proteïnes amb aminoàcids D","Proteins with D-amino acids"], "Azúcares L":["Sucres L","L-sugars"],
+  "Ameba sin mitocondrias":["Ameba sense mitocondris","Amoeba without mitochondria"], "Amoeba proteus, clon 1":["Amoeba proteus, clon 1","Amoeba proteus, clone 1"],
+  "Ameba sin citoesqueleto":["Ameba sense citoesquelet","Amoeba without a cytoskeleton"], "Amoeba proteus, clon 2":["Amoeba proteus, clon 2","Amoeba proteus, clone 2"], "Sin pseudópodos":["Sense pseudòpodes","No pseudopods"],
+  "Paramecio sin vacuolas":["Parameci sense vacúols","Paramecium without vacuoles"], "Paramecium caudatum, clon 3":["Paramecium caudatum, clon 3","Paramecium caudatum, clone 3"],
+  "Protozoo ciliado":["Protozou ciliat","Ciliate protozoan"], "Sin vacuola contráctil":["Sense vacúol contràctil","No contractile vacuole"], "Miles de cilios":["Milers de cilis","Thousands of cilia"],
+  "Ameba superribosómica":["Ameba superribosòmica","Super-ribosome amoeba"], "Amoeba proteus, clon 4":["Amoeba proteus, clon 4","Amoeba proteus, clone 4"], "Fábrica de proteínas":["Fàbrica de proteïnes","Protein factory"],
+  "Millones de ribosomas":["Milions de ribosomes","Millions of ribosomes"], "Se repara cada turno":["Es repara cada torn","Repairs every turn"],
+  "Su flagelo gira como una hélice y lo aparta del golpe.":["El seu flagel gira com una hèlix i l'aparta del cop.","Its flagellum spins like a propeller and pulls it out of the way."],
+  "Se escurre con sus pseudópodos.":["S'escapoleix amb els pseudòpodes.","It slips away on its pseudopods."],
+  // variantes: qué cambia
+  "Ha perdido la pared de peptidoglucano. Es más blanda, pero ya no aguanta la presión del agua.":["Ha perdut la paret de peptidoglicà. És més tova, però ja no aguanta la pressió de l'aigua.","It has lost its peptidoglycan wall. It's softer, but it can no longer withstand water pressure."],
+  "No tiene la membrana externa de LPS que cubre a las Gram−. Su fina pared de peptidoglucano queda al aire.":["No té la membrana externa de LPS que cobreix les Gram−. La seva paret prima de peptidoglicà queda a l'aire.","It lacks the LPS outer membrane that covers Gram− bacteria. Its thin peptidoglycan wall is exposed."],
+  "Es un Gram+ que ha «tomado prestada» la membrana externa de las Gram−. Su pared gruesa queda tapada.":["És un Gram+ que ha «manllevat» la membrana externa de les Gram−. La seva paret gruixuda queda tapada.","It's a Gram+ that has “borrowed” the outer membrane of Gram− bacteria. Its thick wall is covered up."],
+  "Los estafilococos no se mueven, pero este ha ganado un flagelo: esquiva muchos golpes. Los anticuerpos se pegan al flagelo y lo frenan.":["Els estafilococs no es mouen, però aquest ha guanyat un flagel: esquiva molts cops. Els anticossos s'enganxen al flagel i el frenen.","Staphylococci don't move, but this one has gained a flagellum: it dodges many attacks. Antibodies stick to the flagellum and slow it down."],
+  "Hace la fotosíntesis como una planta, pero no tiene pared de celulosa: se mueve con pseudópodos como una ameba.":["Fa la fotosíntesi com una planta, però no té paret de cel·lulosa: es mou amb pseudòpodes com una ameba.","It photosynthesises like a plant but has no cellulose wall: it moves on pseudopods like an amoeba."],
+  "Su membrana usa colesterol, como tus células, en lugar de ergosterol. La anfotericina B ya no tiene a qué agarrarse.":["La seva membrana fa servir colesterol, com les teves cèl·lules, en lloc d'ergosterol. L'amfotericina B ja no té on agafar-se.","Its membrane uses cholesterol, like your cells, instead of ergosterol. Amphotericin B has nothing to grab on to."],
+  "Es una ameba dentro de un caparazón de sílice, el mismo material que el vidrio. Hace de pared: aguanta la presión del agua.":["És una ameba dins d'una closca de sílice, el mateix material que el vidre. Fa de paret: aguanta la pressió de l'aigua.","It's an amoeba inside a silica shell, the same material as glass. It acts as a wall: it withstands water pressure."],
+  "Está hecha de las mismas moléculas que tú, pero en su imagen en el espejo. Las enzimas, los anticuerpos y los fármacos reconocen formas, y ninguna encaja.":["Està feta de les mateixes molècules que tu, però en la seva imatge al mirall. Els enzims, els anticossos i els fàrmacs reconeixen formes, i cap no hi encaixa.","It's made of the same molecules as you, but as their mirror image. Enzymes, antibodies and drugs recognise shapes, and none of them fit."],
+  "Sin mitocondrias solo obtiene ATP de la glucólisis: 2 moléculas por glucosa en lugar de unas 30. Le falta energía y ataca muy débil.":["Sense mitocondris només obté ATP de la glucòlisi: 2 molècules per glucosa en lloc d'unes 30. Li falta energia i ataca molt feble.","Without mitochondria it only gets ATP from glycolysis: 2 molecules per glucose instead of about 30. It lacks energy and attacks very weakly."],
+  "Sin actina ni microtúbulos no puede formar pseudópodos ni mantener su forma: ni esquiva ni aguanta los golpes (+40 % de daño recibido).":["Sense actina ni microtúbuls no pot formar pseudòpodes ni mantenir la forma: ni esquiva ni aguanta els cops (+40 % de dany rebut).","Without actin or microtubules it can't form pseudopods or keep its shape: it neither dodges nor withstands blows (+40 % damage taken)."],
+  "No tiene vacuolas contráctiles: no puede bombear fuera el agua que le entra por ósmosis.":["No té vacúols contràctils: no pot bombar fora l'aigua que li entra per osmosi.","It has no contractile vacuoles: it can't pump out the water that enters by osmosis."],
+  "Tiene muchísimos ribosomas: fabrica proteínas sin parar y se repara un 9 % cada turno. Pero los ribosomas necesitan las instrucciones del ADN.":["Té moltíssims ribosomes: fabrica proteïnes sense parar i es repara un 9 % cada torn. Però els ribosomes necessiten les instruccions de l'ADN.","It has a huge number of ribosomes: it makes proteins non-stop and repairs 9 % every turn. But ribosomes need the DNA's instructions."],
+  // variantes: curiosidades
+  "Existen de verdad: se llaman formas L. Algunas bacterias pierden la pared cuando las tratan con penicilina y sobreviven así, sin pared, en medios con mucha sal.":["Existeixen de veritat: es diuen formes L. Alguns bacteris perden la paret quan els tracten amb penicil·lina i sobreviuen així, sense paret, en medis amb molta sal.","They really exist: they're called L-forms. Some bacteria lose their wall when treated with penicillin and survive without it in very salty media."],
+  "En el laboratorio se fabrican «esferoplastos» quitando la membrana externa con EDTA: así la lisozima llega a la pared.":["Al laboratori es fabriquen «esferoplasts» traient la membrana externa amb EDTA: així el lisozim arriba a la paret.","Labs make “spheroplasts” by stripping the outer membrane with EDTA: that way lysozyme can reach the wall."],
+  "Ninguna bacteria real tiene a la vez una pared tan gruesa y una membrana externa, pero las micobacterias se acercan: su pared lleva encima una capa de ceras.":["Cap bacteri real no té alhora una paret tan gruixuda i una membrana externa, però els micobacteris s'hi acosten: la seva paret porta a sobre una capa de ceres.","No real bacterium has both such a thick wall and an outer membrane, but mycobacteria come close: their wall is topped with a layer of waxes."],
+  "Los anticuerpos contra la flagelina inmovilizan de verdad a las bacterias: es una de las formas en que te protegen.":["Els anticossos contra la flagel·lina immobilitzen de veritat els bacteris: és una de les maneres com et protegeixen.","Antibodies against flagellin really do immobilise bacteria: it's one of the ways they protect you."],
+  "En la Tierra existe algo parecido: la babosa marina Elysia chlorotica roba los cloroplastos de las algas que come y hace la fotosíntesis durante meses.":["A la Terra hi ha una cosa semblant: el llimac marí Elysia chlorotica roba els cloroplasts de les algues que menja i fa la fotosíntesi durant mesos.","There's something similar on Earth: the sea slug Elysia chlorotica steals chloroplasts from the algae it eats and photosynthesises for months."],
+  "Por eso la anfotericina B tiene efectos secundarios: el colesterol de tus células se parece al ergosterol y también se une a él.":["Per això l'amfotericina B té efectes secundaris: el colesterol de les teves cèl·lules s'assembla a l'ergosterol i també s'hi uneix.","That's why amphotericin B has side effects: the cholesterol in your cells resembles ergosterol and it binds to it too."],
+  "Existen amebas con caparazón, como Arcella, y algas con caparazón de vidrio, las diatomeas.":["Hi ha amebes amb closca, com Arcella, i algues amb closca de vidre, les diatomees.","There are shelled amoebas, such as Arcella, and algae with glass shells, the diatoms."],
+  "La «vida espejo» no existe, pero en 2024 un grupo de científicos pidió no fabricarla: ni tu sistema inmune ni los antibióticos la reconocerían.":["La «vida mirall» no existeix, però el 2024 un grup de científics va demanar que no es fabriqui: ni el teu sistema immunitari ni els antibiòtics la reconeixerien.","“Mirror life” doesn't exist, but in 2024 a group of scientists called for it never to be made: neither your immune system nor antibiotics would recognise it."],
+  "Monocercomonoides es el único eucariota conocido sin mitocondrias. Vive en el intestino de las chinchillas, donde casi no hay oxígeno.":["Monocercomonoides és l'únic eucariota conegut sense mitocondris. Viu a l'intestí de les xinxilles, on gairebé no hi ha oxigen.","Monocercomonoides is the only known eukaryote without mitochondria. It lives in chinchilla guts, where there's almost no oxygen."],
+  "La citocalasina, una toxina de hongos, desmonta la actina: las células tratadas con ella se quedan redondas y quietas.":["La citocalasina, una toxina de fongs, desmunta l'actina: les cèl·lules tractades amb ella es queden rodones i quietes.","Cytochalasin, a fungal toxin, takes actin apart: cells treated with it go round and still."],
+  "Un paramecio normal vacía su vacuola contráctil cada pocos segundos. Si se la bloquean, revienta en agua dulce en unos minutos.":["Un parameci normal buida el vacúol contràctil cada pocs segons. Si l'hi bloquegen, rebenta en aigua dolça en pocs minuts.","A normal paramecium empties its contractile vacuole every few seconds. If it's blocked, it bursts in fresh water within minutes."],
+  "Tus ribosomas son como los de esta ameba: leen el ARNm que se copia del ADN. Si el ADN está dañado, no llegan instrucciones.":["Els teus ribosomes són com els d'aquesta ameba: llegeixen l'ARNm que es copia de l'ADN. Si l'ADN està danyat, no arriben instruccions.","Your ribosomes are like this amoeba's: they read the mRNA copied from DNA. If the DNA is damaged, no instructions arrive."],
+  // variantes: eficacias
+  "Ha perdido la pared: la lisozima no tiene peptidoglucano que cortar.":["Ha perdut la paret: el lisozim no té peptidoglicà per tallar.","It has lost its wall: lysozyme has no peptidoglycan to cut."],
+  "La penicilina impide fabricar la pared… pero esta bacteria ya vive sin ella.":["La penicil·lina impedeix fabricar la paret… però aquest bacteri ja viu sense.","Penicillin stops the wall being made… but this bacterium already lives without one."],
+  "Sin pared que la sujete, el agua entra por ósmosis y revienta. Para eso sirve la pared: aguanta la presión.":["Sense paret que la subjecti, l'aigua entra per osmosi i rebenta. Per a això serveix la paret: aguanta la pressió.","With no wall to hold it, water rushes in by osmosis and it bursts. That's what the wall is for: it withstands the pressure."],
+  "Sin pared rígida es blanda y fácil de digerir.":["Sense paret rígida és tova i fàcil de digerir.","Without a rigid wall it's soft and easy to digest."],
+  "Sin membrana externa, su peptidoglucano queda expuesto y la lisozima lo corta. La membrana externa era su escudo.":["Sense membrana externa, el seu peptidoglicà queda exposat i el lisozim el talla. La membrana externa era el seu escut.","Without an outer membrane its peptidoglycan is exposed and lysozyme cuts it. The outer membrane was its shield."],
+  "La penicilina llega sin obstáculos hasta su pared.":["La penicil·lina arriba sense obstacles fins a la paret.","Penicillin reaches its wall unhindered."],
+  "La membrana externa tapa la pared: la lisozima casi no llega al peptidoglucano.":["La membrana externa tapa la paret: el lisozim gairebé no arriba al peptidoglicà.","The outer membrane covers the wall: lysozyme barely reaches the peptidoglycan."],
+  "La membrana externa frena la entrada de la penicilina, igual que en las Gram−.":["La membrana externa frena l'entrada de la penicil·lina, igual que a les Gram−.","The outer membrane slows penicillin's entry, just as in Gram− bacteria."],
+  "Los anticuerpos activan el complemento, que perfora las membranas externas.":["Els anticossos activen el complement, que perfora les membranes externes.","Antibodies activate complement, which punches holes in outer membranes."],
+  "La membrana no protege su ADN de la radiación.":["La membrana no protegeix el seu ADN de la radiació.","The membrane doesn't shield its DNA from radiation."],
+  "Los anticuerpos se pegan al flagelo y lo inmovilizan: mientras esté opsonizado no podrá esquivar.":["Els anticossos s'enganxen al flagel i l'immobilitzen: mentre estigui opsonitzat no podrà esquivar.","Antibodies stick to the flagellum and immobilise it: while it's opsonised it can't dodge."],
+  "No tiene pared de celulosa: la celulasa no tiene nada que digerir.":["No té paret de cel·lulosa: la cel·lulasa no té res per digerir.","It has no cellulose wall: cellulase has nothing to digest."],
+  "Tiene cloroplastos, pero no pared: el agua la hincha hasta reventar. Pared y cloroplastos son cosas distintas.":["Té cloroplasts, però no paret: l'aigua la infla fins que rebenta. Paret i cloroplasts són coses diferents.","It has chloroplasts but no wall: water swells it until it bursts. Walls and chloroplasts are different things."],
+  "Sin pared rígida, se deja engullir.":["Sense paret rígida, es deixa engolir.","Without a rigid wall, it can be engulfed."],
+  "La anfotericina B busca el ergosterol; esta levadura usa colesterol, como tú. Le afecta tan poco como a tus células.":["L'amfotericina B busca l'ergosterol; aquest llevat fa servir colesterol, com tu. L'afecta tan poc com a les teves cèl·lules.","Amphotericin B looks for ergosterol; this yeast uses cholesterol, like you. It affects it as little as your cells."],
+  "Sigue dividiéndose por gemación con microtúbulos: el taxol la frena.":["Continua dividint-se per gemmació amb microtúbuls: el taxol el frena.","It still divides by budding using microtubules: taxol slows it down."],
+  "El caparazón de sílice aguanta la presión del agua, igual que la pared de una planta.":["La closca de sílice aguanta la pressió de l'aigua, igual que la paret d'una planta.","The silica shell withstands water pressure, just like a plant's wall."],
+  "Un caparazón de vidrio no se puede digerir.":["Una closca de vidre no es pot digerir.","A glass shell can't be digested."],
+  "La sílice no es celulosa: la celulasa no la reconoce.":["La sílice no és cel·lulosa: la cel·lulasa no la reconeix.","Silica isn't cellulose: cellulase doesn't recognise it."],
+  "El vidrio deja pasar la luz, también la ultravioleta.":["El vidre deixa passar la llum, també l'ultraviolada.","Glass lets light through, ultraviolet included."],
+  "El vapor a presión entra por la abertura del caparazón.":["El vapor a pressió entra per l'obertura de la closca.","Pressurised steam gets in through the shell's opening."],
+  "Puedes engullirla, pero tus enzimas no encajan en sus moléculas especulares: no la digieres.":["La pots engolir, però els teus enzims no encaixen en les seves molècules especulars: no la digereixes.","You can engulf it, but your enzymes don't fit its mirror-image molecules: you can't digest it."],
+  "Un anticuerpo encaja en una forma concreta, como una llave. En el espejo, la forma está al revés y ninguno encaja.":["Un anticòs encaixa en una forma concreta, com una clau. Al mirall, la forma està al revés i cap no hi encaixa.","An antibody fits one particular shape, like a key. In the mirror the shape is reversed and none fit."],
+  "Sus péptidos especulares no caben en tu MHC: los linfocitos T no ven nada extraño.":["Els seus pèptids especulars no caben al teu MHC: els limfòcits T no hi veuen res d'estrany.","Its mirror-image peptides don't fit your MHC: T cells see nothing foreign."],
+  "El taxol también es una molécula con forma: no encaja en sus microtúbulos especulares.":["El taxol també és una molècula amb forma: no encaixa en els seus microtúbuls especulars.","Taxol is a shaped molecule too: it doesn't fit its mirror-image microtubules."],
+  "La anfotericina B no encaja en sus esteroles especulares.":["L'amfotericina B no encaixa en els seus esterols especulars.","Amphotericin B doesn't fit its mirror-image sterols."],
+  "La luz no distingue derecha de izquierda: la UV daña su ADN igual que el tuyo.":["La llum no distingeix la dreta de l'esquerra: la UV danya el seu ADN igual que el teu.","Light can't tell left from right: UV damages its DNA just like yours."],
+  "La ósmosis es física: no depende de la forma de las moléculas. Sin pared, revienta.":["L'osmosi és física: no depèn de la forma de les molècules. Sense paret, rebenta.","Osmosis is physics: it doesn't depend on the shape of molecules. With no wall, it bursts."],
+  "El calor desnaturaliza cualquier proteína, sea cual sea su forma.":["La calor desnaturalitza qualsevol proteïna, sigui quina sigui la seva forma.","Heat denatures any protein, whatever its shape."],
+  "Sin pseudópodos no puede escapar: la engulles sin esfuerzo.":["Sense pseudòpodes no pot escapar: l'engoleixes sense esforç.","Without pseudopods it can't escape: you engulf it effortlessly."],
+  "No tiene microtúbulos: el taxol no tiene diana. (Tampoco puede dividirse.)":["No té microtúbuls: el taxol no té diana. (Tampoc no es pot dividir.)","It has no microtubules: taxol has no target. (It can't divide either.)"],
+  "Sin vacuolas contráctiles no puede expulsar el agua que entra: revienta. Para eso sirven.":["Sense vacúols contràctils no pot expulsar l'aigua que entra: rebenta. Per a això serveixen.","Without contractile vacuoles it can't expel the water coming in: it bursts. That's what they're for."],
+  "La UV daña su ADN: sin ARNm nuevo, sus ribosomas se quedan sin instrucciones y deja de repararse durante 2 turnos.":["La UV danya el seu ADN: sense ARNm nou, els seus ribosomes es queden sense instruccions i deixa de reparar-se durant 2 torns.","UV damages its DNA: with no new mRNA its ribosomes run out of instructions and it stops repairing for 2 turns."],
+};
+for (const k in I18N_RAW5){ I18N.ca[k] = I18N_RAW5[k][0]; I18N.en[k] = I18N_RAW5[k][1]; }
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
 const DT = {
 ca:{
@@ -1835,6 +2170,14 @@ add('en', {
 });
 })();
 
+
+// Colores de los eventos especiales (v9)
+Object.assign(DT.ca.SK, {mng:['mNeonGreen',"Proteïna verda groguenca de l'amfiox Branchiostoma lanceolatum. Brilla més que la GFP."],
+  tdt:['tdTomato','Dues còpies d’una proteïna vermella unides en tàndem: una de les proteïnes fluorescents més brillants.'],
+  xen:['Xenofluorina','Proteïna fluorescent que va portar la sonda de Xenó b. És inventada: només existeix en aquest joc.']});
+Object.assign(DT.en.SK, {mng:['mNeonGreen','A yellow-green protein from the lancelet Branchiostoma lanceolatum. It shines brighter than GFP.'],
+  tdt:['tdTomato','Two copies of a red protein joined in tandem: one of the brightest fluorescent proteins.'],
+  xen:['Xenofluorin','A fluorescent protein brought back by the Xenon b probe. It’s made up: it only exists in this game.']});
 /* =====================================================================
    ESTADO Y FÓRMULAS
    ===================================================================== */
@@ -1846,11 +2189,24 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
-const storyCh = () => S.story ? STORY[S.story.ch] : null;
+// Eventos especiales (antes «modo historia»): S.story = {ev, ch, step}
+const curEx = () => S.story ? EXPED_BY[S.story.ev || 'inf'] : null;
+const storyCh = () => S.story && curEx() ? curEx().chapters[S.story.ch] : null;
+// ficha del organismo: el original o la variante (un organismo con alguna característica cambiada)
+const VTY_C = {};
+function VTY(id){
+  const V = VARIANTS[id], k = id + LANG;
+  if (VTY_C[k]) return VTY_C[k];
+  const b = TYPES[V.base];
+  return VTY_C[k] = Object.assign({}, b, {n:tr(V.n), sci:tr(V.sci), boss:tr(V.boss || V.n), col:V.col, desc:tr(V.diff),
+    traits:V.traits.map(t => [tr(t[0]), t[1], t[2]]), dodge:V.dodge != null ? V.dodge : b.dodge, dodgeWhy:V.dodgeWhy ? tr(V.dodgeWhy) : b.dodgeWhy, V});
+}
+const TY = e => e.var ? VTY(e.var) : TYPES[e.type];
+const knowKey = e => e.var || e.type;
 const effLevel = () => storyCh() ? storyCh().L : S.level;
 const fixedStats = () => S.clase || !!storyCh();
 const cellD = () => CELLS[(storyCh() && storyCh().cell) || S.cell] || CELLS.mac;
@@ -1901,7 +2257,9 @@ function load(data){
   nested.forEach(k => S[k] = Object.assign(keep[k], d[k] || {}));
   for (const k in S.upg) if (!isFinite(S.upg[k])) S.upg[k] = 0;
   if (!isFinite(S.atp)) S.atp = 0;
-  if (S.story && !STORY[S.story.ch]) S.story = null;
+  if (S.story && !S.story.ev) S.story.ev = 'inf';
+  if (S.story && !storyCh()) S.story = null;
+  if (S.storyDone) S.evDone.inf = true;
   if (!d.achSeen) S.achSeen = Object.fromEntries(Object.keys(S.ach || {}).map(k => [k, true])); // partidas anteriores: ya las vieron
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);
@@ -1944,7 +2302,7 @@ function checkAch(){
   showAchQueue();
 }
 const skinUnlocked = id => { const n = SKINS[id].need; if (!n) return true;
-  return n[0] === 'evos' ? S.evos >= n[1] : n[0] === 'daily' ? S.dailyDone >= n[1] : Object.keys(S.ach).length >= n[1]; };
+  return n[0] === 'ev' ? !!S.evDone[n[1]] : n[0] === 'evos' ? S.evos >= n[1] : n[0] === 'daily' ? S.dailyDone >= n[1] : Object.keys(S.ach).length >= n[1]; };
 
 /* =====================================================================
    SONIDO (sintetizado)
@@ -2659,7 +3017,7 @@ Object.assign(BUILD, {
 
 /* ---------- Entorno: plasma sanguíneo ---------- */
 let darkTarget = 0, tintTarget = new THREE.Vector3();
-const setZoneTint = z => { const t = (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };
+const setZoneTint = z => { const t = Array.isArray(z) ? z : (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };
 // Calidad gráfica: 2 alta, 1 media, 0 baja
 let QL = 2, FRAME = 0;
 function applyQuality(lv){ QL = lv; renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lv === 2 ? 2 : lv === 1 ? 1.25 : 1)); if (typeof ENV !== 'undefined') ENV.quality(lv); resize(); }
@@ -2734,16 +3092,57 @@ function rebuildPlayer(){
 let foeObj = null;
 function setFoe(e){
   if (foeObj) scene.remove(foeObj.g);
-  foeObj = BUILD[e.type](e);
+  foeObj = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
+  if (e.var) variantLook(foeObj, VARIANTS[e.var]);
   const s = e.boss ? 1.45 : 1;
   if (e.boss){ // aura del jefe
-    const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TYPES[e.type].col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
+    const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TY(e).col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
     aura.scale.setScalar(5); foeObj.g.add(aura); }
   foeObj.g.scale.setScalar(.01); foeObj.base = s;
   foeObj.g.position.copy(E_POS);
   scene.add(foeObj.g);
-  eLight.color.setHex(TYPES[e.type].col); eLight.intensity = e.boss ? 1.8 : 1.1;
+  eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1;
   tween(500, p => foeObj && foeObj.g.scale.setScalar(s*easeOut(p)));
+}
+
+// Variantes: el mismo modelo con su característica cambiada a la vista
+function variantLook(o, Vr){
+  const vis = Vr.vis || {}, c = new THREE.Color(Vr.col), k = vis.tint != null ? vis.tint : .35;
+  o.g.updateMatrixWorld(true);
+  const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere()), r = Math.min(sph.radius, 1.6);
+  o.g.traverse(n => { const ms = n.material ? [].concat(n.material) : []; ms.forEach(m => {
+    if (m.color) m.color.lerp(c, k);
+    if (m.emissive) m.emissive.lerp(c.clone().multiplyScalar(.25), k);
+    if (m.userData && m.userData.U) m.userData.U.rimC.value.lerp(c, k);
+    if (vis.ghost && m.opacity != null){ m.transparent = true; m.opacity *= .72; m.depthWrite = false; }
+  }); });
+  const add = [];
+  if (vis.shell){ // capa extra: membrana externa o caparazón
+    const sh = new THREE.Mesh(new THREE.IcosahedronGeometry(r*1.08, 2), mem(vis.shell, {op:.16, rimA:.9, rimK:1.6, flat:true, side:THREE.DoubleSide, bump:false}));
+    sh.position.copy(sph.center); add.push(sh);
+  }
+  if (vis.spikes){ // flagelos y prolongaciones nuevas
+    const mat = mem(vis.spikes, {emiK:.2, rimK:.8});
+    for (let i = 0; i < 7; i++){
+      const d = V(Math.cos(i*2.4), Math.sin(i*1.7)*.8, Math.sin(i*2.4)).normalize();
+      const pts = []; for (let j = 0; j <= 8; j++){ const t = j/8; pts.push(d.clone().multiplyScalar(r*(.85 + t*.75)).add(V(0, Math.sin(t*6 + i)*.08*t, Math.cos(t*6 + i)*.08*t))); }
+      const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, .025, 5), mat);
+      m.position.copy(sph.center); add.push(m);
+    }
+  }
+  if (vis.dots){ // partículas: cloroplastos o ribosomas de sobra
+    const [col, n, sz] = vis.dots, im = new THREE.InstancedMesh(new THREE.SphereGeometry(sz, 7, 5), mem(col, {emiK:.55, bump:false}), n), M = new THREE.Matrix4();
+    SEED = 91; for (let i = 0; i < n; i++){ const d = V(srn(-1, 1), srn(-1, 1), srn(-1, 1)).normalize().multiplyScalar(r*.72*Math.cbrt(sr())); M.makeTranslation(d.x, d.y, d.z); im.setMatrixAt(i, M); }
+    im.position.copy(sph.center); add.push(im);
+  }
+  add.forEach(m => o.g.add(m));
+  if (vis.soft){ const w = o.up; o.up = (t, e) => { w(t, e); o.g.children.forEach((c, i) => c.scale.set(1 + .06*Math.sin(t*2.2 + i), 1 - .05*Math.sin(t*2.2 + i), 1)); }; }
+  if (vis.mirror){ // imagen especular: toda la célula reflejada
+    const inner = new THREE.Group(); [...o.g.children].forEach(ch => inner.add(ch)); inner.scale.x = -1; o.g.add(inner);
+    o.g.traverse(n => { if (n.material) [].concat(n.material).forEach(m => { m.side = THREE.DoubleSide; }); });
+  }
+  const spin = o.up;
+  if (vis.shell || vis.spikes) o.up = (t, e) => { spin(t, e); add.forEach((m, i) => m.rotation.y = Math.sin(t*.6 + i)*.15); };
 }
 
 // ---- Miniaturas para el Atlas y las fichas (renderizador aparte) ----
@@ -2760,11 +3159,12 @@ function thumb(id){
       const b = new THREE.DirectionalLight(0x6c95ff, 1); b.position.set(2,2,-6); TS.add(b);
       TC = new THREE.PerspectiveCamera(32, 1, .1, 100);
     }
-    const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:false};
-    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[id](fake);
+    const Vr = VARIANTS[id], fake = {type:Vr ? Vr.base : id, grow:1, hidden:false, dark:false, block:0, spore:false};
+    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[Vr && Vr.vis.model || fake.type](fake);
+    if (Vr) variantLook(o, Vr);
     o.up(2, fake); TS.add(o.g); o.g.updateMatrixWorld(true);
     const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
-    const r = Math.min(sph.radius, id === 'veg' ? 1.7 : id === 'can' ? 1.6 : 9);
+    const bt = Vr ? Vr.base : id, r = Math.min(sph.radius, bt === 'veg' ? 1.7 : bt === 'can' ? 1.6 : 9);
     const dist = r/Math.sin(THREE.MathUtils.degToRad(16))*.8;
     TC.position.copy(sph.center).add(V(-.25,.3,1).normalize().multiplyScalar(dist)); TC.lookAt(sph.center);
     TR.render(TS, TC);
@@ -2930,6 +3330,7 @@ const special = e => e.special >= 0 ? SPECIAL[e.special] : null;
 function eff(toolId, e, opt={}){
   const t = EFF[toolId];
   let [m, why] = t[e.type] || t.def, combo = null;
+  const VE = e.var && VARIANTS[e.var].eff[toolId]; if (VE){ m = VE[0]; why = tr(VE[1]); }
   if (e.res && toolId === 'pen'){ m = .1; why = tr('Cepa resistente (SARM): su transpeptidasa PBP2a no se une a la penicilina. La lisozima sí la ataca.'); }
   if (e.drift && toolId === 'ac'){ m *= Math.pow(.5, e.drift); why = tr('Deriva antigénica: sus espículas han mutado y tus anticuerpos ya no encajan tan bien.'); }
   if (e.hidden && toolId !== 'tc' && toolId !== 'luz'){
@@ -2977,12 +3378,14 @@ function newBattle(keepHp){
   let boss = !ch && S.kills >= KPL && S.advance && !S.practice;
   let sp = boss && L % 10 === 0 ? (L/10 - 1) % SPECIAL.length : -1;
   let type;
-  if (ch){ const b = ch.battles[S.story.step]; if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else type = b; }
+  let vr = null;
+  if (ch){ let b = ch.battles[S.story.step]; if (b && b.t){ boss = true; b = b.t; }
+    if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else if (VARIANTS[b]){ vr = VARIANTS[b]; type = vr.base; } else type = b; }
   else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L);
-  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L),
-    turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
+  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
+  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L)*(vr && vr.atkK || 1),
+    var:vr ? vr.id : null, stall:0, turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
     inRbc:type === 'mal', cd4:0};
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
@@ -2992,7 +3395,7 @@ function newBattle(keepHp){
   }
   B = {e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
     last:null, lastOk:false, usedAb:false, onlyFago:true, turns:0, firstDone:false, why:null};
-  setFoe(e); setDark(false); setZoneTint(ch ? ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
+  setFoe(e); setDark(false); setZoneTint(ch ? ch.tint || ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
   renderFoe(); renderMe(); renderTools(); renderHud();
   const name = foeName(e);
   if (sp >= 0) setMsg('none', tr('Jefe especial'), tr('{n}: tiene dos fases. Al bajar a la mitad de vida cambiará de comportamiento.', {n:name}));
@@ -3003,19 +3406,20 @@ function newBattle(keepHp){
   setEventFx(e.ev);
   if (boss) startMusic(sp >= 0);
   const go = () => {
-    if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
+    if (vr){ if (!S.varSeen[vr.id]){ S.varSeen[vr.id] = true; save(); showVariant(vr.id); } else { scheduleAuto(); narr('variant'); } }
+    else if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
     else { scheduleAuto(); if (e.ev) narr('ev_' + e.ev); else if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
   };
   if (sp >= 0) cinematic(tr('Jefe · nivel {l}', {l:L}), name, go); else go();
 }
-const foeName = e => e.special >= 0 ? SPECIAL[e.special].n : e.boss ? TYPES[e.type].boss : e.res ? tr('Estafilococo resistente (SARM)') : TYPES[e.type].n;
+const foeName = e => e.special >= 0 ? SPECIAL[e.special].n : e.var ? (e.boss ? TY(e).boss : TY(e).n) : e.boss ? TYPES[e.type].boss : e.res ? tr('Estafilococo resistente (SARM)') : TYPES[e.type].n;
 
 function useTool(id){
   if (!B || B.busy || B.over || !owns(id) || (B.cds[id] || 0) > 0 || !$('#modal').hidden) return;
   const T = TOOL[id], e = B.e;
   B.busy = true; clearTimeout(B.timer); B.turns++;
   const r = eff(id, e);
-  (S.known[e.type] = S.known[e.type] || {})[id] = true;
+  (S.known[knowKey(e)] = S.known[knowKey(e)] || {})[id] = true;
   let cenProc = false;
   if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
@@ -3025,8 +3429,8 @@ function useTool(id){
   sfx.tool(id);
   const from = P_POS.clone().add(V(.6,.3,0)), to = E_POS.clone();
   const go = () => {
-    const Ty = TYPES[e.type];
-    const dodge = (Ty.dodge || 0) && id !== 'luz' && !e.spore && Math.random() < Ty.dodge;
+    const Ty = TY(e);
+    const dodge = (Ty.dodge || 0) && id !== 'luz' && !e.spore && !(Ty.V && Ty.V.markStops && e.marked > 0) && Math.random() < Ty.dodge;
     let ok = false;
     if (dodge){
       floatText(tr('Esquiva'), E_POS.clone().add(V(0,1.2,0)), 'info');
@@ -3042,7 +3446,8 @@ function useTool(id){
       ok = r.m > 0;
       const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
-      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
+      const vul = e.var && VARIANTS[e.var].vul || 1;
+      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
       e.hp = Math.max(0, e.hp - dmg);
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
@@ -3056,6 +3461,8 @@ function useTool(id){
       if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
       if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
       if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = has('h1') ? 6 : 4; extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
+      if (vul > 1 && r.m > 0) extra.push(tr('Sin citoesqueleto: +40 % de daño.'));
+      if (id === 'uv' && r.m > 0 && e.var && VARIANTS[e.var].uvStall){ e.stall = VARIANTS[e.var].uvStall + 1; extra.push(tr('Sus ribosomas se quedan sin instrucciones: no se repara durante 2 turnos.')); }
       if (id === 'tax' && r.m > 0){ e.block = 3; extra.push(tr('Huso mitótico bloqueado durante 3 turnos.')); }
       if (mark > 1 && r.m > 0) extra.push(tr('Daño aumentado por la opsonización.'));
       if (cb > 1 && r.m > 0) extra.push(tr('{c}: ×{k} contra este organismo.', {c:cellD().n, k:dec(cb)}));
@@ -3087,7 +3494,7 @@ function useTool(id){
 
 function enemyTurn(){
   if (!B || B.over) return;
-  const e = B.e, Ty = TYPES[e.type];
+  const e = B.e, Ty = TY(e);
   e.turn++;
   // Golgi: tus vesículas secretadas dañan al organismo cada turno
   if (adv('gol') && e.hp > 0){ const d = atk()*.06*adv('gol'); e.hp = Math.max(0, e.hp - d);
@@ -3110,6 +3517,9 @@ function enemyTurn(){
       notes.push(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : '')); break;
     case 'ten': heal(.06, tr('Su cuello forma nuevas proglótides: recupera un 6 %.')); break;
   }
+  const VR = e.var && VARIANTS[e.var];
+  if (VR && VR.regen){ if (e.stall > 0) notes.push(tr('Sin ARNm nuevo, sus ribosomas están parados: no se repara.')); else heal(VR.regen, tr('Sus ribosomas fabrican proteínas sin parar: se repara un 9 %.')); }
+  if (VR && VR.atkK && VR.atkK < 1 && e.turn === 1) notes.push(tr('Sin mitocondrias le falta ATP: ataca muy débil.'));
   if ((e.type === 'gp' || e.type === 'gn') && e.turn === 6 && !e.biofilm){ e.biofilm = true; notes.push(tr('Biopelícula: se rodea de una matriz de polisacáridos que frena tus ataques (×0,6). El autoclave la atraviesa.')); }
   // eventos
   if (e.ev === 'antib' && BACT.has(e.type)){ const d = e.max*.08; e.hp = Math.max(0, e.hp - d); floatText('−' + fmt(d) + ' · ' + tr('antibiótico'), E_POS.clone().add(V(-.5,1.5,0)), 'evt ev-antib'); notes.push(tr('El antibiótico en sangre le resta un 8 %.')); }
@@ -3130,6 +3540,7 @@ function enemyTurn(){
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
     if (e.marked > 0) e.marked--;
     if (e.block > 0) e.block--;
+    if (e.stall > 0) e.stall--;
     if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
     B.why = null;
@@ -3172,7 +3583,7 @@ function win(){
   dailyProg('kills');
   LOG.unshift({L:e.L, n:foeName(e), turns:B.turns, g, win:true}); LOG.length = Math.min(LOG.length, 8);
   floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
-  burst(E_POS, TYPES[e.type].col, S.calm ? 20 : 60, 4.5); sfx.win();
+  burst(E_POS, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
   const obj = foeObj;
   tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => { scene.remove(obj.g); });
   let hp;
@@ -3213,7 +3624,7 @@ function autoPick(){
   const e = B.e; let best = null, bs = -1;
   for (const T of TOOLS){
     if (!owns(T.id) || (B.cds[T.id] || 0) > 0) continue;
-    const known = T.id === 'fago' || (S.known[e.type] && S.known[e.type][T.id]);
+    const known = T.id === 'fago' || (S.known[knowKey(e)] && S.known[knowKey(e)][T.id]);
     if (!known) continue;
     const r = eff(T.id, e, {known:true});
     let s;
@@ -3236,25 +3647,28 @@ function scheduleAuto(){
 }
 
 
-// ---- Modo historia ----
+// ---- Eventos especiales (campañas con capítulos) ----
 function storyWin(e){
   const g = reward(e.L, e.boss);
-  S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
+  S.atp += g; S.totalKills++; if (!e.var) S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
   floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
-  burst(E_POS, TYPES[e.type].col, S.calm ? 20 : 60, 4.5); sfx.win();
+  burst(E_POS, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
   const obj = foeObj; tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => scene.remove(obj.g));
-  const ch = storyCh(); S.story.step++;
+  const X = curEx(), ch = storyCh(); S.story.step++;
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}));
   if (S.story.step < ch.battles.length){ save(); renderHud(); return setTimeout(() => newBattle(), 900); }
   S.story.ch++; S.story.step = 0;
-  if (S.story.ch >= STORY.length){ S.story = null; const first = !S.storyDone; S.storyDone = true; if (first){ S.adn += 3; S.lpts += 1; } save(); rebuildPlayer(); renderHud();
-    return setTimeout(() => showStoryEnd(first), 900); }
+  if (S.story.ch >= X.chapters.length){
+    S.story = null; const first = !S.evDone[X.id]; S.evDone[X.id] = true; if (X.id === 'inf') S.storyDone = true;
+    if (first){ S.adn += X.reward.adn || 0; S.lpts += X.reward.lpts || 0; }
+    save(); rebuildPlayer(); renderHud();
+    return setTimeout(() => showStoryEnd(X, first), 900); }
   save(); rebuildPlayer(); renderHud();
   setTimeout(() => showChapter(newBattle), 900);
 }
-function startStory(){
+function startStory(id){
   if (B){ B.over = true; clearTimeout(B.timer); }
-  S.story = {ch:0, step:0}; save(); rebuildPlayer(); renderHud(); narr('story', true);
+  S.story = {ev:id, ch:0, step:0}; save(); rebuildPlayer(); renderHud(); narr('ex_' + id, true);
   showChapter(newBattle);
 }
 function leaveStory(){
@@ -3388,9 +3802,9 @@ function renderLog(){
 function renderHud(){
   const ch = storyCh();
   $('#hLvlK').textContent = ch ? tr('Capítulo') : tr('Nivel');
-  $('#hLvl').textContent = ch ? `${S.story.ch + 1}/${STORY.length}` : S.level;
+  $('#hLvl').textContent = ch ? `${S.story.ch + 1}/${curEx().chapters.length}` : S.level;
   let h = '';
-  if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' ? 'boss' : ''}"></span>`);
+  if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' || b.boss ? 'boss' : ''}"></span>`);
   else { for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
     h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
   $('#bStory').setAttribute('aria-pressed', !!ch);
@@ -3420,8 +3834,8 @@ function anyAffordable(){
 
 function renderFoe(){
   if (!B) return;
-  const e = B.e, Ty = TYPES[e.type];
-  $('#fEye').textContent = `${tr('Prep. nº')} ${prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
+  const e = B.e, Ty = TY(e);
+  $('#fEye').textContent = `${e.var ? tr('Variante de {n}', {n:TYPES[e.type].n}) : tr('Prep. nº') + ' ' + prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
   $('#fStain').textContent = LAB[e.type][0];
   $('#fName').textContent = foeName(e);
   $('#fSci').textContent = Ty.sci;
@@ -3430,7 +3844,8 @@ function renderFoe(){
   $('#fSize').textContent = LAB[e.type][1];
   $('#fAtk').textContent = `${tr('ataque')} ${fmt(e.atk*e.grow)}`;
   const tags = B.why ? KEYTRAIT[B.why.tool] || [] : [];
-  let t = Ty.traits.map(([x, tag]) => `<span class="trait ${tags.includes(tag) ? 'why' : ''}">${esc(x)}</span>`).join('');
+  let t = Ty.traits.map(([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''} ${tags.includes(tag) ? 'why' : ''}">${mut ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  if (e.stall > 0) t += `<span class="trait good">${tr('Sin instrucciones del ADN')}</span>`;
   if (e.res) t += `<span class="trait st ${B.why && B.why.tool === 'pen' ? 'why' : ''}">${tr('Resistente a β-lactámicos')}</span>`;
   if (e.hidden) t += `<span class="trait st ${B.why ? 'why' : ''}">${tr('Dentro de una célula')}</span>`;
   if (e.spore) t += `<span class="trait st ${B.why ? 'why' : ''}">${tr('Endospora')}</span>`;
@@ -3467,7 +3882,7 @@ function renderTools(){
     const cd = B ? (B.cds[T.id] || 0) : 0;
     const left = Math.max(1, cd - (B && B.busy ? 1 : 0)); // turnos que faltan
     let bd = badge('unk', '');
-    if (e && S.known[e.type] && S.known[e.type][T.id]){
+    if (e && S.known[knowKey(e)] && S.known[knowKey(e)][T.id]){
       const r = eff(T.id, e, {known:true});
       if (T.id === 'luz') bd = r.m > 0 ? (e.dark ? badge('bad', tr('hecho')) : badge('great', tr('útil'))) : badge('none', '×0');
       else { const [v] = verdict(r.m); bd = badge(v, `×${dec(Math.round(r.m*100)/100)}`); }
@@ -3615,7 +4030,7 @@ function renderPanel(){
         <b>${c.n}</b><small>${ok ? c.size : tr('Evoluciona {n} veces', {n:c.need})}</small><span>${c.d}</span></button>`; }).join('') + '</div>';
     h += `<div class="nb">${tr('Color de fluorescencia')}</div><div class="skins">` + Object.entries(SKINS).map(([id, k]) => {
       const ok = skinUnlocked(id), n = k.need;
-      const why = !n ? '' : n[0] === 'evos' ? tr('Evoluciona {n} veces', {n:n[1]}) : n[0] === 'daily' ? tr('Completa {n} retos diarios', {n:n[1]}) : tr('Consigue {n} logros', {n:n[1]});
+      const why = !n ? '' : n[0] === 'ev' ? tr('Completa el evento «{n}»', {n:tr(EXPED_BY[n[1]].n)}) : n[0] === 'evos' ? tr('Evoluciona {n} veces', {n:n[1]}) : n[0] === 'daily' ? tr('Completa {n} retos diarios', {n:n[1]}) : tr('Consigue {n} logros', {n:n[1]});
       return `<button class="skin ${S.skin === id ? 'sel' : ''}" data-skin="${id}" ${ok ? '' : 'disabled'} style="--k:${hex(k.col)}" aria-pressed="${S.skin === id}" title="${esc(k.d)}"><i></i><b>${k.n}</b><small>${ok ? esc(k.d) : why}</small></button>`; }).join('') + '</div>';
     if (!S.clase){
       h += `<div class="nb">${tr('Evolución')}</div><p class="lead">${tr('Selección natural: al evolucionar empiezas de nuevo en el nivel 1, sin ATP ni mejoras de orgánulos, pero tu linaje hereda ADN. Cada punto de ADN da +10 % de ataque, vida y ATP para siempre. Conservas las herramientas, el Atlas y la memoria inmunitaria.')}</p>`;
@@ -3857,6 +4272,8 @@ Object.assign(IC, {
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
   eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  spark:'<path d="M12 2.5l1.8 5.2 5.2 1.8-5.2 1.8L12 16.5l-1.8-5.2-5.2-1.8 5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+  planet:'<circle cx="12" cy="12" r="5.5"/><path d="M4.2 15.8C1.8 17.6 1 19.2 1.8 20s3.5-.3 6.7-2.3M16 6.4c3.4-2.1 6-3 6.6-2.3.8.8-.4 2.8-3 5"/><path d="M7.8 17.7c3.3-1.6 7.6-4.8 11.8-8.6"/>',
   doctor:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/><path d="M9.5 15l2.5 3.5 2.5-3.5"/><path d="M16.5 17v2.2a1.3 1.3 0 0 0 2.6 0V17"/>',
 });
 document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.ic));
@@ -3883,35 +4300,83 @@ function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de m
 function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
-// ---- Modo historia ----
-$('#bStory').onclick = () => showStoryMenu();
-function showStoryMenu(){
-  const cur = S.story ? S.story.ch : -1;
-  const rows = STORY.map((c, i) => {
-    const st = S.storyDone || i < cur ? 'ok' : i === cur ? 'now' : '';
-    return `<li class="${st}"><span class="num">${i + 1}</span><div><b>${tr(c.n)}</b><small>${CELLS[c.cell].n} · ${ZONES[c.zone].n}</small></div></li>`; }).join('');
-  showModal(`<div class="eyebrow">${tr('Modo historia')}</div><h2>${tr('Una infección de principio a fin')}</h2>
-    <p>${tr('Una campaña corta que sigue paso a paso una infección real, desde una herida en la piel hasta la sepsis. Cada capítulo explica una parte de la respuesta inmune. Tu partida normal se conserva.')}</p>
-    <ol class="chap">${rows}</ol>
-    <div class="row">${S.story ? `<button class="go" id="stGo">${tr('Continuar la historia')}</button><button class="ghost" id="stLeave">${tr('Salir de la historia')}</button>`
-      : `<button class="go" id="stGo">${S.storyDone ? tr('Volver a jugarla') : tr('Empezar la historia')}</button><button class="ghost" id="mGo">${tr('Cerrar')}</button>`}</div>`);
-  $('#stGo').onclick = () => { $('#modal').hidden = true; if (S.story) showChapter(() => { if (!B || B.over) newBattle(); else scheduleAuto(); }); else startStory(); };
+// ---- Eventos especiales ----
+$('#bStory').onclick = () => showEvents();
+const exLocked = X => S.best < X.need && !S.evDone[X.id] && !(S.story && S.story.ev === X.id);
+function exReward(X){
+  const r = X.reward, p = [];
+  if (r.adn) p.push(tr('+{n} ADN', {n:r.adn})); if (r.lpts) p.push(tr('+{n} punto del árbol inmunitario', {n:r.lpts}));
+  if (r.skin) p.push(tr('el color «{n}»', {n:SKINS[r.skin].n}));
+  return p.join(' · ');
+}
+function showEvents(){
+  const cards = EXPED.map(X => {
+    const lock = exLocked(X), done = !!S.evDone[X.id], now = S.story && S.story.ev === X.id;
+    return `<button class="exc ${done ? 'done' : ''} ${now ? 'now' : ''}" data-ex="${X.id}" ${lock ? 'disabled' : ''} style="--k:${hex(X.col)}">
+      ${vesicle(X.ic, X.col)}<span class="et"><b>${tr(X.n)}</b><small>${lock ? tr('Se desbloquea al llegar al nivel {l}', {l:X.need}) : tr(X.d)}</small>
+      <span class="rw">${now ? tr('En curso · capítulo {i} de {n}', {i:S.story.ch + 1, n:X.chapters.length}) : done ? '✓ ' + tr('Completado') : tr('Recompensa') + ': ' + exReward(X)}</span></span></button>`; }).join('');
+  showModal(`<div class="eyebrow">${ico('spark')}${tr('Eventos especiales')}</div><h2>${tr('Eventos')}</h2>
+    <p>${tr('Campañas cortas con combates preparados. La primera vez que completas un evento te llevas su recompensa. Tu partida normal se conserva.')}</p>
+    <div class="exl">${cards}</div><div class="row"><button class="ghost" id="mGo">${tr('Cerrar')}</button></div>`);
+  $('#mBox').querySelectorAll('[data-ex]').forEach(b => b.onclick = () => showEvent(b.dataset.ex));
+}
+function showEvent(id){
+  const X = EXPED_BY[id], here = S.story && S.story.ev === id, cur = here ? S.story.ch : -1;
+  const rows = X.chapters.map((c, i) => {
+    const st = S.evDone[id] && !here || i < cur ? 'ok' : i === cur ? 'now' : '';
+    return `<li class="${st}"><span class="num">${i + 1}</span><div><b>${tr(c.n)}</b><small>${CELLS[c.cell].n} · ${c.pl ? tr(c.pl) : ZONES[c.zone].n}</small></div></li>`; }).join('');
+  const other = S.story && !here ? `<p class="hint">${tr('Saldrás del evento «{n}», que tienes a medias.', {n:tr(curEx().n)})}</p>` : '';
+  showModal(`<div class="eyebrow" style="color:${hex(X.col)}">${ico(X.ic)}${tr('Evento')}</div><h2>${tr(X.n)}</h2>
+    <p>${tr(X.d)}</p><p><b>${S.evDone[id] ? tr('Ya conseguiste la recompensa.') : tr('Recompensa') + ': ' + exReward(X)}</b></p>
+    <ol class="chap">${rows}</ol>${other}
+    <div class="row">${here ? `<button class="go" id="stGo">${tr('Continuar')}</button><button class="ghost" id="stLeave">${tr('Salir del evento')}</button>`
+      : `<button class="go" id="stGo">${S.evDone[id] ? tr('Volver a jugarlo') : tr('Empezar')}</button><button class="ghost" id="stBack">${tr('Volver')}</button>`}</div>`);
+  $('#stGo').onclick = () => { $('#modal').hidden = true; if (here) showChapter(() => { if (!B || B.over) newBattle(); else scheduleAuto(); }); else startStory(id); };
   const lv = $('#stLeave'); if (lv) lv.onclick = () => { $('#modal').hidden = true; leaveStory(); };
+  const bk = $('#stBack'); if (bk) bk.onclick = showEvents;
 }
 function showChapter(then){
-  const ch = storyCh(); if (!ch){ then && then(); return; }
-  const first = ch.battles[0] === '@sepsis' ? 'gn' : ch.battles[0];
-  showModal(`<div class="spec">${fov(first, 'big', ZONES[ch.zone].n)}<div>
-    <div class="eyebrow">${tr('Capítulo {i} de {n}', {i:S.story.ch + 1, n:STORY.length})}</div><h2>${tr(ch.n)}</h2>
+  const ch = storyCh(), X = curEx(); if (!ch){ then && then(); return; }
+  let first = ch.battles[0]; if (first.t) first = first.t; if (first === '@sepsis') first = 'gn';
+  const nm = b => { b = b.t || b; return b === '@sepsis' ? tr('Sepsis') : VARIANTS[b] ? tr(VARIANTS[b].n) : TYPES[b].n; };
+  showModal(`<div class="spec">${fov(first, 'big', ch.pl ? tr(ch.pl) : ZONES[ch.zone].n)}<div>
+    <div class="eyebrow" style="color:${hex(X.col)}">${tr(X.n)} · ${tr('Capítulo {i} de {n}', {i:S.story.ch + 1, n:X.chapters.length})}</div><h2>${tr(ch.n)}</h2>
     <p>${tr(ch.t)}</p>
-    <div class="stat"><span>${tr('Juegas como')}</span><span>${CELLS[ch.cell].n}</span><span>${tr('Combates')}</span><span>${ch.battles.length}</span><span>${tr('Herramientas')}</span><span>${ch.tools.map(t => TOOL[t].n).join(', ')}</span></div>
+    <div class="stat"><span>${tr('Juegas como')}</span><span>${CELLS[ch.cell].n}</span><span>${tr('Combates')}</span><span>${ch.battles.map(nm).join(' → ')}</span><span>${tr('Herramientas')}</span><span>${ch.tools.map(t => TOOL[t].n).join(', ')}</span></div>
     <button class="go" id="mGo">${tr('Al combate')}</button></div></div>`, then);
 }
-function showStoryEnd(first){
+function showStoryEnd(X, first){
+  const sk = X.reward.skin;
   showModal(`<div class="intro"><div class="fov big">${thumb('me') ? `<img src="${thumb('me')}" alt="">` : ''}</div><div>
-    <div class="eyebrow">${tr('Epílogo')}</div><h2>${tr('Memoria inmunitaria')}</h2><p>${tr(STORY_END)}</p>
-    ${first ? `<p><b>${tr('Historia completada: +3 ADN y +1 punto del árbol inmunitario.')}</b></p>` : ''}</div></div>
+    <div class="eyebrow">${tr(X.n)} · ${tr('Epílogo')}</div><h2>${tr(X.end[0])}</h2><p>${tr(X.end[1])}</p>
+    ${first ? `<p><b>${tr('Evento completado')}: ${exReward(X)}.</b></p>${sk ? `<p class="hint">${tr('Encontrarás el color nuevo en el Laboratorio, en «Tu célula».')}</p>` : ''}` : ''}</div></div>
     <button class="go" id="mGo">${tr('Seguir')}</button>`, () => { checkAch(); newBattle(); });
+}
+// Primera vez que aparece una variante: compárala con el original y adivina qué funcionará
+function showVariant(id){
+  const Vr = VARIANTS[id], Ty = VTY(id), Ob = TYPES[Vr.base], ch = storyCh();
+  const fake = {type:Vr.base, var:id}, tools = ch ? ch.tools : TOOLS.map(t => t.id);
+  const sc = tools.filter(t => t !== 'luz').map(t => ({t:TOOL[t], m:eff(t, fake).m + TOOL[t].pow*.01}));
+  const best = (Vr.qbest && sc.find(x => x.t.id === Vr.qbest)) || sc.reduce((a, b) => b.m > a.m ? b : a);
+  const tr0 = Ob.traits.map(([x]) => `<span class="trait">${esc(x)}</span>`).join('');
+  const tr1 = Ty.traits.map(([x, , m]) => `<span class="trait ${m ? 'mut' : ''}">${m ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  showModal(`<div class="eyebrow" style="color:${hex(Vr.col)}">${tr('Variante')} · ${tr('pariente de {n}', {n:Ob.n})}</div><h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div>
+    <div class="vcmp"><div>${fov(Vr.base, '', tr('Original'))}<b>${Ob.n}</b><div class="traits">${tr0}</div></div>
+      <div>${fov(id, '', tr('Variante'))}<b>${Ty.n}</b><div class="traits">${tr1}</div></div></div>
+    <p><b>${tr('Qué ha cambiado')}:</b> ${tr(Vr.diff)}</p>
+    <div class="quiz" id="quiz"><div class="eyebrow">${tr('Pregunta')}</div><b>${tr('Con este cambio, ¿qué herramienta funcionará mejor?')}</b>
+      <div class="qopts">${sc.sort((a, b) => a.t.id < b.t.id ? -1 : 1).map(o => `<button data-q="${o.t.id}">${vesicle(o.t.id, o.t.col)}${o.t.n}</button>`).join('')}</div><p class="qres" id="qres" aria-live="polite"></p></div>
+    <button class="go" id="mGo" hidden>${tr('Al combate')}</button>`, () => narr('variant'));
+  $('#quiz').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+    const ok = Vr.qbest ? b.dataset.q === Vr.qbest : best.m - .01*best.t.pow <= eff(b.dataset.q, fake).m; S.quiz.n++;
+    $('#quiz').querySelectorAll('[data-q]').forEach(x => { x.disabled = true; if (x.dataset.q === best.t.id || (x === b && ok)) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
+    (S.known[id] = S.known[id] || {})[b.dataset.q] = true; S.known[id][best.t.id] = true;
+    if (ok){ S.quiz.ok++; sfx.ach(); }
+    $('#qres').innerHTML = esc((ok ? tr('¡Correcto!') : tr('No exactamente: la mejor es {t}.', {t:best.t.n})) + ' ' + eff(best.t.id, fake).why) + `<span class="vfact"><b>${tr('Curiosidad')}:</b> ${esc(tr(Vr.fact))}</span>`;
+    $('#qres').className = 'qres ' + (ok ? 'ok' : 'no');
+    const go = $('#mGo'); go.hidden = false; go.focus();
+    checkAch(); save(); renderTools();
+  });
 }
 
 // ---- Microscopio interactivo ----

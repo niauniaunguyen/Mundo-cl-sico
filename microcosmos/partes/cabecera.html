@@ -371,6 +371,22 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .qopts button:disabled{cursor:default}
 .qres{margin:10px 0 0;font-size:13.5px;line-height:1.5}
 .qres.ok{color:var(--gfp)} .qres.no{color:var(--fitc)}
+/* v9: eventos especiales y variantes */
+.trait.mut{border-color:#ff8fe0;color:#ffc2f0;background:rgba(255,111,216,.12)} .trait.mut::before{display:none}
+.exl{display:grid;gap:8px;margin-top:12px}
+.exc{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;text-align:left;padding:10px 12px;border:1px solid var(--line2);border-left:3px solid var(--k);border-radius:14px;background:rgba(10,24,33,.6);color:inherit;font:inherit;cursor:pointer}
+.exc:hover:not([disabled]){background:rgba(20,40,52,.8)} .exc[disabled]{opacity:.5;cursor:default}
+.exc .ves{width:44px;height:44px} .exc .et{display:flex;flex-direction:column;gap:3px;min-width:0}
+.exc b{font-size:15px} .exc small{font-size:12.5px;line-height:1.4;color:var(--muted)}
+.exc .rw{font-size:12px;color:var(--k);font-weight:600}
+.exc.done .rw{color:var(--gfp)} .exc.now{box-shadow:inset 0 0 14px rgba(255,198,92,.14);border-color:var(--fitc)}
+.vcmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:12px 0}
+.vcmp>div{display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--line2);border-radius:14px}
+.vcmp>div:last-child{border-color:rgba(255,143,224,.55)}
+.vcmp .fov{width:100%;height:auto;aspect-ratio:1;max-width:150px;align-self:center} .vcmp .traits{margin-top:2px}
+.vcmp b{font-size:13.5px} .vcmp .traits{flex-wrap:wrap;overflow:visible}
+@media (max-width:560px){.vcmp>div{padding:8px} .vcmp .fov{max-width:110px} .vcmp .trait{font-size:11px}}
+.vfact{display:block;margin-top:8px;color:var(--fg);font-size:13px}
 .mapw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px;align-items:start}
 .body{width:100%;height:auto}
 .body .sil{fill:#0b1d29;stroke:var(--line2);stroke-width:1.5}
@@ -629,7 +645,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
         <button class="qb" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
         <button class="qb" id="bFocus" aria-pressed="false" data-tt="Ver la batalla: oculta los rasgos y los mensajes"><span data-ic="eye"></span></button>
       </div>
-      <button class="sec" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span><span class="lbl" data-t="Historia">Historia</span></button>
+      <button class="sec" id="bStory" aria-pressed="false" data-tt="Eventos especiales"><span data-ic="spark"></span><span class="lbl" data-t="Eventos">Eventos</span></button>
       <button class="sec" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
       <button class="labbtn" id="bLab" aria-expanded="false"><span data-ic="flask"></span><span class="lt"><span class="lbl" data-t="Laboratorio">Laboratorio</span><span class="la num" data-tt="ATP: la moneda energética de la célula"><span data-ic="atp"></span><span id="hAtp">0</span><small id="hAtps"></small></span></span><span class="dot" id="labDot" hidden></span></button>
     </div>

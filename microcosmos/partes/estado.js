@@ -9,11 +9,24 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
-const storyCh = () => S.story ? STORY[S.story.ch] : null;
+// Eventos especiales (antes «modo historia»): S.story = {ev, ch, step}
+const curEx = () => S.story ? EXPED_BY[S.story.ev || 'inf'] : null;
+const storyCh = () => S.story && curEx() ? curEx().chapters[S.story.ch] : null;
+// ficha del organismo: el original o la variante (un organismo con alguna característica cambiada)
+const VTY_C = {};
+function VTY(id){
+  const V = VARIANTS[id], k = id + LANG;
+  if (VTY_C[k]) return VTY_C[k];
+  const b = TYPES[V.base];
+  return VTY_C[k] = Object.assign({}, b, {n:tr(V.n), sci:tr(V.sci), boss:tr(V.boss || V.n), col:V.col, desc:tr(V.diff),
+    traits:V.traits.map(t => [tr(t[0]), t[1], t[2]]), dodge:V.dodge != null ? V.dodge : b.dodge, dodgeWhy:V.dodgeWhy ? tr(V.dodgeWhy) : b.dodgeWhy, V});
+}
+const TY = e => e.var ? VTY(e.var) : TYPES[e.type];
+const knowKey = e => e.var || e.type;
 const effLevel = () => storyCh() ? storyCh().L : S.level;
 const fixedStats = () => S.clase || !!storyCh();
 const cellD = () => CELLS[(storyCh() && storyCh().cell) || S.cell] || CELLS.mac;
@@ -64,7 +77,9 @@ function load(data){
   nested.forEach(k => S[k] = Object.assign(keep[k], d[k] || {}));
   for (const k in S.upg) if (!isFinite(S.upg[k])) S.upg[k] = 0;
   if (!isFinite(S.atp)) S.atp = 0;
-  if (S.story && !STORY[S.story.ch]) S.story = null;
+  if (S.story && !S.story.ev) S.story.ev = 'inf';
+  if (S.story && !storyCh()) S.story = null;
+  if (S.storyDone) S.evDone.inf = true;
   if (!d.achSeen) S.achSeen = Object.fromEntries(Object.keys(S.ach || {}).map(k => [k, true])); // partidas anteriores: ya las vieron
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);
@@ -107,5 +122,5 @@ function checkAch(){
   showAchQueue();
 }
 const skinUnlocked = id => { const n = SKINS[id].need; if (!n) return true;
-  return n[0] === 'evos' ? S.evos >= n[1] : n[0] === 'daily' ? S.dailyDone >= n[1] : Object.keys(S.ach).length >= n[1]; };
+  return n[0] === 'ev' ? !!S.evDone[n[1]] : n[0] === 'evos' ? S.evos >= n[1] : n[0] === 'daily' ? S.dailyDone >= n[1] : Object.keys(S.ach).length >= n[1]; };
 

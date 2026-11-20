@@ -222,6 +222,9 @@ const SKINS = {
   bfp:{n:'BFP (azul)',col:0x7f8cff,need:['evos',3],d:'Variante azul de la GFP.'},
   mch:{n:'mCherry (roja)',col:0xff4f7b,need:['daily',3],d:'Proteína roja derivada de DsRed, del coral Discosoma.'},
   mor:{n:'mOrange',col:0xff9f40,need:['ach',8],d:'Otra variante de DsRed, de color naranja.'},
+  mng:{n:'mNeonGreen',col:0xb4ff3a,need:['ev','rev'],d:'Proteína verde amarillenta del anfioxo Branchiostoma lanceolatum. Brilla más que la GFP.'},
+  tdt:{n:'tdTomato',col:0xff6a4a,need:['ev','org'],d:'Dos copias de una proteína roja unidas en tándem: una de las proteínas fluorescentes más brillantes.'},
+  xen:{n:'Xenofluorina',col:0xe0e8ff,need:['ev','xen'],d:'Proteína fluorescente que trajo la sonda de Xenón b. Es inventada: solo existe en este juego.'},
 };
 
 // Zonas del cuerpo (el mapa)

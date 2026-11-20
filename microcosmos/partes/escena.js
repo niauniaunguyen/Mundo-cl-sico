@@ -586,7 +586,7 @@ Object.assign(BUILD, {
 
 /* ---------- Entorno: plasma sanguíneo ---------- */
 let darkTarget = 0, tintTarget = new THREE.Vector3();
-const setZoneTint = z => { const t = (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };
+const setZoneTint = z => { const t = Array.isArray(z) ? z : (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };
 // Calidad gráfica: 2 alta, 1 media, 0 baja
 let QL = 2, FRAME = 0;
 function applyQuality(lv){ QL = lv; renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lv === 2 ? 2 : lv === 1 ? 1.25 : 1)); if (typeof ENV !== 'undefined') ENV.quality(lv); resize(); }
@@ -661,16 +661,57 @@ function rebuildPlayer(){
 let foeObj = null;
 function setFoe(e){
   if (foeObj) scene.remove(foeObj.g);
-  foeObj = BUILD[e.type](e);
+  foeObj = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
+  if (e.var) variantLook(foeObj, VARIANTS[e.var]);
   const s = e.boss ? 1.45 : 1;
   if (e.boss){ // aura del jefe
-    const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TYPES[e.type].col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
+    const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TY(e).col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
     aura.scale.setScalar(5); foeObj.g.add(aura); }
   foeObj.g.scale.setScalar(.01); foeObj.base = s;
   foeObj.g.position.copy(E_POS);
   scene.add(foeObj.g);
-  eLight.color.setHex(TYPES[e.type].col); eLight.intensity = e.boss ? 1.8 : 1.1;
+  eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1;
   tween(500, p => foeObj && foeObj.g.scale.setScalar(s*easeOut(p)));
+}
+
+// Variantes: el mismo modelo con su característica cambiada a la vista
+function variantLook(o, Vr){
+  const vis = Vr.vis || {}, c = new THREE.Color(Vr.col), k = vis.tint != null ? vis.tint : .35;
+  o.g.updateMatrixWorld(true);
+  const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere()), r = Math.min(sph.radius, 1.6);
+  o.g.traverse(n => { const ms = n.material ? [].concat(n.material) : []; ms.forEach(m => {
+    if (m.color) m.color.lerp(c, k);
+    if (m.emissive) m.emissive.lerp(c.clone().multiplyScalar(.25), k);
+    if (m.userData && m.userData.U) m.userData.U.rimC.value.lerp(c, k);
+    if (vis.ghost && m.opacity != null){ m.transparent = true; m.opacity *= .72; m.depthWrite = false; }
+  }); });
+  const add = [];
+  if (vis.shell){ // capa extra: membrana externa o caparazón
+    const sh = new THREE.Mesh(new THREE.IcosahedronGeometry(r*1.08, 2), mem(vis.shell, {op:.16, rimA:.9, rimK:1.6, flat:true, side:THREE.DoubleSide, bump:false}));
+    sh.position.copy(sph.center); add.push(sh);
+  }
+  if (vis.spikes){ // flagelos y prolongaciones nuevas
+    const mat = mem(vis.spikes, {emiK:.2, rimK:.8});
+    for (let i = 0; i < 7; i++){
+      const d = V(Math.cos(i*2.4), Math.sin(i*1.7)*.8, Math.sin(i*2.4)).normalize();
+      const pts = []; for (let j = 0; j <= 8; j++){ const t = j/8; pts.push(d.clone().multiplyScalar(r*(.85 + t*.75)).add(V(0, Math.sin(t*6 + i)*.08*t, Math.cos(t*6 + i)*.08*t))); }
+      const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 16, .025, 5), mat);
+      m.position.copy(sph.center); add.push(m);
+    }
+  }
+  if (vis.dots){ // partículas: cloroplastos o ribosomas de sobra
+    const [col, n, sz] = vis.dots, im = new THREE.InstancedMesh(new THREE.SphereGeometry(sz, 7, 5), mem(col, {emiK:.55, bump:false}), n), M = new THREE.Matrix4();
+    SEED = 91; for (let i = 0; i < n; i++){ const d = V(srn(-1, 1), srn(-1, 1), srn(-1, 1)).normalize().multiplyScalar(r*.72*Math.cbrt(sr())); M.makeTranslation(d.x, d.y, d.z); im.setMatrixAt(i, M); }
+    im.position.copy(sph.center); add.push(im);
+  }
+  add.forEach(m => o.g.add(m));
+  if (vis.soft){ const w = o.up; o.up = (t, e) => { w(t, e); o.g.children.forEach((c, i) => c.scale.set(1 + .06*Math.sin(t*2.2 + i), 1 - .05*Math.sin(t*2.2 + i), 1)); }; }
+  if (vis.mirror){ // imagen especular: toda la célula reflejada
+    const inner = new THREE.Group(); [...o.g.children].forEach(ch => inner.add(ch)); inner.scale.x = -1; o.g.add(inner);
+    o.g.traverse(n => { if (n.material) [].concat(n.material).forEach(m => { m.side = THREE.DoubleSide; }); });
+  }
+  const spin = o.up;
+  if (vis.shell || vis.spikes) o.up = (t, e) => { spin(t, e); add.forEach((m, i) => m.rotation.y = Math.sin(t*.6 + i)*.15); };
 }
 
 // ---- Miniaturas para el Atlas y las fichas (renderizador aparte) ----
@@ -687,11 +728,12 @@ function thumb(id){
       const b = new THREE.DirectionalLight(0x6c95ff, 1); b.position.set(2,2,-6); TS.add(b);
       TC = new THREE.PerspectiveCamera(32, 1, .1, 100);
     }
-    const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:false};
-    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[id](fake);
+    const Vr = VARIANTS[id], fake = {type:Vr ? Vr.base : id, grow:1, hidden:false, dark:false, block:0, spore:false};
+    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[Vr && Vr.vis.model || fake.type](fake);
+    if (Vr) variantLook(o, Vr);
     o.up(2, fake); TS.add(o.g); o.g.updateMatrixWorld(true);
     const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
-    const r = Math.min(sph.radius, id === 'veg' ? 1.7 : id === 'can' ? 1.6 : 9);
+    const bt = Vr ? Vr.base : id, r = Math.min(sph.radius, bt === 'veg' ? 1.7 : bt === 'can' ? 1.6 : 9);
     const dist = r/Math.sin(THREE.MathUtils.degToRad(16))*.8;
     TC.position.copy(sph.center).add(V(-.25,.3,1).normalize().multiplyScalar(dist)); TC.lookAt(sph.center);
     TR.render(TS, TC);

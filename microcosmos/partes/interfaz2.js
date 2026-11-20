@@ -8,6 +8,8 @@ Object.assign(IC, {
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
   eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  spark:'<path d="M12 2.5l1.8 5.2 5.2 1.8-5.2 1.8L12 16.5l-1.8-5.2-5.2-1.8 5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+  planet:'<circle cx="12" cy="12" r="5.5"/><path d="M4.2 15.8C1.8 17.6 1 19.2 1.8 20s3.5-.3 6.7-2.3M16 6.4c3.4-2.1 6-3 6.6-2.3.8.8-.4 2.8-3 5"/><path d="M7.8 17.7c3.3-1.6 7.6-4.8 11.8-8.6"/>',
   doctor:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/><path d="M9.5 15l2.5 3.5 2.5-3.5"/><path d="M16.5 17v2.2a1.3 1.3 0 0 0 2.6 0V17"/>',
 });
 document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.ic));
@@ -34,35 +36,83 @@ function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de m
 function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
-// ---- Modo historia ----
-$('#bStory').onclick = () => showStoryMenu();
-function showStoryMenu(){
-  const cur = S.story ? S.story.ch : -1;
-  const rows = STORY.map((c, i) => {
-    const st = S.storyDone || i < cur ? 'ok' : i === cur ? 'now' : '';
-    return `<li class="${st}"><span class="num">${i + 1}</span><div><b>${tr(c.n)}</b><small>${CELLS[c.cell].n} · ${ZONES[c.zone].n}</small></div></li>`; }).join('');
-  showModal(`<div class="eyebrow">${tr('Modo historia')}</div><h2>${tr('Una infección de principio a fin')}</h2>
-    <p>${tr('Una campaña corta que sigue paso a paso una infección real, desde una herida en la piel hasta la sepsis. Cada capítulo explica una parte de la respuesta inmune. Tu partida normal se conserva.')}</p>
-    <ol class="chap">${rows}</ol>
-    <div class="row">${S.story ? `<button class="go" id="stGo">${tr('Continuar la historia')}</button><button class="ghost" id="stLeave">${tr('Salir de la historia')}</button>`
-      : `<button class="go" id="stGo">${S.storyDone ? tr('Volver a jugarla') : tr('Empezar la historia')}</button><button class="ghost" id="mGo">${tr('Cerrar')}</button>`}</div>`);
-  $('#stGo').onclick = () => { $('#modal').hidden = true; if (S.story) showChapter(() => { if (!B || B.over) newBattle(); else scheduleAuto(); }); else startStory(); };
+// ---- Eventos especiales ----
+$('#bStory').onclick = () => showEvents();
+const exLocked = X => S.best < X.need && !S.evDone[X.id] && !(S.story && S.story.ev === X.id);
+function exReward(X){
+  const r = X.reward, p = [];
+  if (r.adn) p.push(tr('+{n} ADN', {n:r.adn})); if (r.lpts) p.push(tr('+{n} punto del árbol inmunitario', {n:r.lpts}));
+  if (r.skin) p.push(tr('el color «{n}»', {n:SKINS[r.skin].n}));
+  return p.join(' · ');
+}
+function showEvents(){
+  const cards = EXPED.map(X => {
+    const lock = exLocked(X), done = !!S.evDone[X.id], now = S.story && S.story.ev === X.id;
+    return `<button class="exc ${done ? 'done' : ''} ${now ? 'now' : ''}" data-ex="${X.id}" ${lock ? 'disabled' : ''} style="--k:${hex(X.col)}">
+      ${vesicle(X.ic, X.col)}<span class="et"><b>${tr(X.n)}</b><small>${lock ? tr('Se desbloquea al llegar al nivel {l}', {l:X.need}) : tr(X.d)}</small>
+      <span class="rw">${now ? tr('En curso · capítulo {i} de {n}', {i:S.story.ch + 1, n:X.chapters.length}) : done ? '✓ ' + tr('Completado') : tr('Recompensa') + ': ' + exReward(X)}</span></span></button>`; }).join('');
+  showModal(`<div class="eyebrow">${ico('spark')}${tr('Eventos especiales')}</div><h2>${tr('Eventos')}</h2>
+    <p>${tr('Campañas cortas con combates preparados. La primera vez que completas un evento te llevas su recompensa. Tu partida normal se conserva.')}</p>
+    <div class="exl">${cards}</div><div class="row"><button class="ghost" id="mGo">${tr('Cerrar')}</button></div>`);
+  $('#mBox').querySelectorAll('[data-ex]').forEach(b => b.onclick = () => showEvent(b.dataset.ex));
+}
+function showEvent(id){
+  const X = EXPED_BY[id], here = S.story && S.story.ev === id, cur = here ? S.story.ch : -1;
+  const rows = X.chapters.map((c, i) => {
+    const st = S.evDone[id] && !here || i < cur ? 'ok' : i === cur ? 'now' : '';
+    return `<li class="${st}"><span class="num">${i + 1}</span><div><b>${tr(c.n)}</b><small>${CELLS[c.cell].n} · ${c.pl ? tr(c.pl) : ZONES[c.zone].n}</small></div></li>`; }).join('');
+  const other = S.story && !here ? `<p class="hint">${tr('Saldrás del evento «{n}», que tienes a medias.', {n:tr(curEx().n)})}</p>` : '';
+  showModal(`<div class="eyebrow" style="color:${hex(X.col)}">${ico(X.ic)}${tr('Evento')}</div><h2>${tr(X.n)}</h2>
+    <p>${tr(X.d)}</p><p><b>${S.evDone[id] ? tr('Ya conseguiste la recompensa.') : tr('Recompensa') + ': ' + exReward(X)}</b></p>
+    <ol class="chap">${rows}</ol>${other}
+    <div class="row">${here ? `<button class="go" id="stGo">${tr('Continuar')}</button><button class="ghost" id="stLeave">${tr('Salir del evento')}</button>`
+      : `<button class="go" id="stGo">${S.evDone[id] ? tr('Volver a jugarlo') : tr('Empezar')}</button><button class="ghost" id="stBack">${tr('Volver')}</button>`}</div>`);
+  $('#stGo').onclick = () => { $('#modal').hidden = true; if (here) showChapter(() => { if (!B || B.over) newBattle(); else scheduleAuto(); }); else startStory(id); };
   const lv = $('#stLeave'); if (lv) lv.onclick = () => { $('#modal').hidden = true; leaveStory(); };
+  const bk = $('#stBack'); if (bk) bk.onclick = showEvents;
 }
 function showChapter(then){
-  const ch = storyCh(); if (!ch){ then && then(); return; }
-  const first = ch.battles[0] === '@sepsis' ? 'gn' : ch.battles[0];
-  showModal(`<div class="spec">${fov(first, 'big', ZONES[ch.zone].n)}<div>
-    <div class="eyebrow">${tr('Capítulo {i} de {n}', {i:S.story.ch + 1, n:STORY.length})}</div><h2>${tr(ch.n)}</h2>
+  const ch = storyCh(), X = curEx(); if (!ch){ then && then(); return; }
+  let first = ch.battles[0]; if (first.t) first = first.t; if (first === '@sepsis') first = 'gn';
+  const nm = b => { b = b.t || b; return b === '@sepsis' ? tr('Sepsis') : VARIANTS[b] ? tr(VARIANTS[b].n) : TYPES[b].n; };
+  showModal(`<div class="spec">${fov(first, 'big', ch.pl ? tr(ch.pl) : ZONES[ch.zone].n)}<div>
+    <div class="eyebrow" style="color:${hex(X.col)}">${tr(X.n)} · ${tr('Capítulo {i} de {n}', {i:S.story.ch + 1, n:X.chapters.length})}</div><h2>${tr(ch.n)}</h2>
     <p>${tr(ch.t)}</p>
-    <div class="stat"><span>${tr('Juegas como')}</span><span>${CELLS[ch.cell].n}</span><span>${tr('Combates')}</span><span>${ch.battles.length}</span><span>${tr('Herramientas')}</span><span>${ch.tools.map(t => TOOL[t].n).join(', ')}</span></div>
+    <div class="stat"><span>${tr('Juegas como')}</span><span>${CELLS[ch.cell].n}</span><span>${tr('Combates')}</span><span>${ch.battles.map(nm).join(' → ')}</span><span>${tr('Herramientas')}</span><span>${ch.tools.map(t => TOOL[t].n).join(', ')}</span></div>
     <button class="go" id="mGo">${tr('Al combate')}</button></div></div>`, then);
 }
-function showStoryEnd(first){
+function showStoryEnd(X, first){
+  const sk = X.reward.skin;
   showModal(`<div class="intro"><div class="fov big">${thumb('me') ? `<img src="${thumb('me')}" alt="">` : ''}</div><div>
-    <div class="eyebrow">${tr('Epílogo')}</div><h2>${tr('Memoria inmunitaria')}</h2><p>${tr(STORY_END)}</p>
-    ${first ? `<p><b>${tr('Historia completada: +3 ADN y +1 punto del árbol inmunitario.')}</b></p>` : ''}</div></div>
+    <div class="eyebrow">${tr(X.n)} · ${tr('Epílogo')}</div><h2>${tr(X.end[0])}</h2><p>${tr(X.end[1])}</p>
+    ${first ? `<p><b>${tr('Evento completado')}: ${exReward(X)}.</b></p>${sk ? `<p class="hint">${tr('Encontrarás el color nuevo en el Laboratorio, en «Tu célula».')}</p>` : ''}` : ''}</div></div>
     <button class="go" id="mGo">${tr('Seguir')}</button>`, () => { checkAch(); newBattle(); });
+}
+// Primera vez que aparece una variante: compárala con el original y adivina qué funcionará
+function showVariant(id){
+  const Vr = VARIANTS[id], Ty = VTY(id), Ob = TYPES[Vr.base], ch = storyCh();
+  const fake = {type:Vr.base, var:id}, tools = ch ? ch.tools : TOOLS.map(t => t.id);
+  const sc = tools.filter(t => t !== 'luz').map(t => ({t:TOOL[t], m:eff(t, fake).m + TOOL[t].pow*.01}));
+  const best = (Vr.qbest && sc.find(x => x.t.id === Vr.qbest)) || sc.reduce((a, b) => b.m > a.m ? b : a);
+  const tr0 = Ob.traits.map(([x]) => `<span class="trait">${esc(x)}</span>`).join('');
+  const tr1 = Ty.traits.map(([x, , m]) => `<span class="trait ${m ? 'mut' : ''}">${m ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  showModal(`<div class="eyebrow" style="color:${hex(Vr.col)}">${tr('Variante')} · ${tr('pariente de {n}', {n:Ob.n})}</div><h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div>
+    <div class="vcmp"><div>${fov(Vr.base, '', tr('Original'))}<b>${Ob.n}</b><div class="traits">${tr0}</div></div>
+      <div>${fov(id, '', tr('Variante'))}<b>${Ty.n}</b><div class="traits">${tr1}</div></div></div>
+    <p><b>${tr('Qué ha cambiado')}:</b> ${tr(Vr.diff)}</p>
+    <div class="quiz" id="quiz"><div class="eyebrow">${tr('Pregunta')}</div><b>${tr('Con este cambio, ¿qué herramienta funcionará mejor?')}</b>
+      <div class="qopts">${sc.sort((a, b) => a.t.id < b.t.id ? -1 : 1).map(o => `<button data-q="${o.t.id}">${vesicle(o.t.id, o.t.col)}${o.t.n}</button>`).join('')}</div><p class="qres" id="qres" aria-live="polite"></p></div>
+    <button class="go" id="mGo" hidden>${tr('Al combate')}</button>`, () => narr('variant'));
+  $('#quiz').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+    const ok = Vr.qbest ? b.dataset.q === Vr.qbest : best.m - .01*best.t.pow <= eff(b.dataset.q, fake).m; S.quiz.n++;
+    $('#quiz').querySelectorAll('[data-q]').forEach(x => { x.disabled = true; if (x.dataset.q === best.t.id || (x === b && ok)) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
+    (S.known[id] = S.known[id] || {})[b.dataset.q] = true; S.known[id][best.t.id] = true;
+    if (ok){ S.quiz.ok++; sfx.ach(); }
+    $('#qres').innerHTML = esc((ok ? tr('¡Correcto!') : tr('No exactamente: la mejor es {t}.', {t:best.t.n})) + ' ' + eff(best.t.id, fake).why) + `<span class="vfact"><b>${tr('Curiosidad')}:</b> ${esc(tr(Vr.fact))}</span>`;
+    $('#qres').className = 'qres ' + (ok ? 'ok' : 'no');
+    const go = $('#mGo'); go.hidden = false; go.focus();
+    checkAch(); save(); renderTools();
+  });
 }
 
 // ---- Microscopio interactivo ----

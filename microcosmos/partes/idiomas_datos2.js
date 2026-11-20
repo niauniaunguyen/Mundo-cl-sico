@@ -65,3 +65,11 @@ add('en', {
 });
 })();
 
+
+// Colores de los eventos especiales (v9)
+Object.assign(DT.ca.SK, {mng:['mNeonGreen',"Proteïna verda groguenca de l'amfiox Branchiostoma lanceolatum. Brilla més que la GFP."],
+  tdt:['tdTomato','Dues còpies d’una proteïna vermella unides en tàndem: una de les proteïnes fluorescents més brillants.'],
+  xen:['Xenofluorina','Proteïna fluorescent que va portar la sonda de Xenó b. És inventada: només existeix en aquest joc.']});
+Object.assign(DT.en.SK, {mng:['mNeonGreen','A yellow-green protein from the lancelet Branchiostoma lanceolatum. It shines brighter than GFP.'],
+  tdt:['tdTomato','Two copies of a red protein joined in tandem: one of the brightest fluorescent proteins.'],
+  xen:['Xenofluorin','A fluorescent protein brought back by the Xenon b probe. It’s made up: it only exists in this game.']});

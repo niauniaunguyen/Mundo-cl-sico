@@ -156,3 +156,38 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - El mensaje del combate se pliega a una línea a los 5 s; al pulsarlo se despliega.
   - Los rasgos del organismo van en una fila deslizable.
   - Botón con forma de ojo para el modo «ver la batalla» (`S.focus`): oculta rasgos, mensajes y eventos.
+
+## Versión 9: eventos especiales y organismos variantes
+- **El modo historia pasa a ser un evento.** El botón «Eventos» abre `showEvents()`; cada evento tiene capítulos con combates fijos y una recompensa la primera vez que se completa (`S.evDone`).
+  - Estado: `S.story = {ev, ch, step}`. Las partidas antiguas sin `ev` se convierten a `'inf'`, y `storyDone` pasa a `evDone.inf`.
+  - Datos en `partes/eventos.js`: `EXPED` (eventos) y `VARIANTS` (organismos variantes).
+- **Eventos:**
+
+  | Evento | Se desbloquea | Recompensa |
+  |---|---|---|
+  | Una infección de principio a fin (el antiguo modo historia) | Desde el principio | +3 ADN y +1 punto del árbol |
+  | Bacterias del revés | Nivel 3 | +2 ADN, +1 punto del árbol y el color mNeonGreen |
+  | Clones a medio hacer | Nivel 6 | +2 ADN, +1 punto del árbol y el color tdTomato |
+  | Expedición a Xenón b | Nivel 10 | +2 ADN, +1 punto del árbol y el color Xenofluorina (inventada) |
+
+- **Variantes:** cada una es un organismo conocido (`base`) con algunas características cambiadas.
+  - En el combate llevan `e.var`.
+  - `TY(e)` devuelve la ficha de la variante mezclada con la del original.
+  - `eff` aplica primero las eficacias propias de la variante.
+  - El conocimiento de cada herramienta se guarda aparte para la variante (`knowKey`).
+  - Campos opcionales:
+    - `dodge`: probabilidad de esquivar.
+    - `markStops`: los anticuerpos impiden esquivar.
+    - `atkK` y `hpK`: multiplican el ataque y la vida.
+    - `vul`: más daño recibido.
+    - `regen`: se cura cada turno.
+    - `uvStall`: la UV detiene la regeneración.
+    - `qbest`: respuesta correcta de la pregunta.
+- **La primera vez que aparece una variante** sale `showVariant()`:
+  - el original y la variante, uno al lado del otro;
+  - los rasgos cambiados, marcados con ✦;
+  - qué ha cambiado;
+  - una pregunta sobre qué herramienta funcionará mejor;
+  - una curiosidad real.
+- **Aspecto 3D** (`variantLook`): `tint`, `shell` (capa extra), `spikes` (flagelos), `dots` (cloroplastos o ribosomas), `ghost`, `soft` (se deforma), `mirror` (reflejada) y `model` (usar el modelo de otro organismo).
+- **Textos:** catalán e inglés en `idiomas_ui5.js`; los colores nuevos, en `idiomas_datos2.js`.

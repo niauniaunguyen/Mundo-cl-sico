@@ -117,9 +117,9 @@ function renderLog(){
 function renderHud(){
   const ch = storyCh();
   $('#hLvlK').textContent = ch ? tr('Capítulo') : tr('Nivel');
-  $('#hLvl').textContent = ch ? `${S.story.ch + 1}/${STORY.length}` : S.level;
+  $('#hLvl').textContent = ch ? `${S.story.ch + 1}/${curEx().chapters.length}` : S.level;
   let h = '';
-  if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' ? 'boss' : ''}"></span>`);
+  if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' || b.boss ? 'boss' : ''}"></span>`);
   else { for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
     h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
   $('#bStory').setAttribute('aria-pressed', !!ch);
@@ -149,8 +149,8 @@ function anyAffordable(){
 
 function renderFoe(){
   if (!B) return;
-  const e = B.e, Ty = TYPES[e.type];
-  $('#fEye').textContent = `${tr('Prep. nº')} ${prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
+  const e = B.e, Ty = TY(e);
+  $('#fEye').textContent = `${e.var ? tr('Variante de {n}', {n:TYPES[e.type].n}) : tr('Prep. nº') + ' ' + prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
   $('#fStain').textContent = LAB[e.type][0];
   $('#fName').textContent = foeName(e);
   $('#fSci').textContent = Ty.sci;
@@ -159,7 +159,8 @@ function renderFoe(){
   $('#fSize').textContent = LAB[e.type][1];
   $('#fAtk').textContent = `${tr('ataque')} ${fmt(e.atk*e.grow)}`;
   const tags = B.why ? KEYTRAIT[B.why.tool] || [] : [];
-  let t = Ty.traits.map(([x, tag]) => `<span class="trait ${tags.includes(tag) ? 'why' : ''}">${esc(x)}</span>`).join('');
+  let t = Ty.traits.map(([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''} ${tags.includes(tag) ? 'why' : ''}">${mut ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  if (e.stall > 0) t += `<span class="trait good">${tr('Sin instrucciones del ADN')}</span>`;
   if (e.res) t += `<span class="trait st ${B.why && B.why.tool === 'pen' ? 'why' : ''}">${tr('Resistente a β-lactámicos')}</span>`;
   if (e.hidden) t += `<span class="trait st ${B.why ? 'why' : ''}">${tr('Dentro de una célula')}</span>`;
   if (e.spore) t += `<span class="trait st ${B.why ? 'why' : ''}">${tr('Endospora')}</span>`;
@@ -196,7 +197,7 @@ function renderTools(){
     const cd = B ? (B.cds[T.id] || 0) : 0;
     const left = Math.max(1, cd - (B && B.busy ? 1 : 0)); // turnos que faltan
     let bd = badge('unk', '');
-    if (e && S.known[e.type] && S.known[e.type][T.id]){
+    if (e && S.known[knowKey(e)] && S.known[knowKey(e)][T.id]){
       const r = eff(T.id, e, {known:true});
       if (T.id === 'luz') bd = r.m > 0 ? (e.dark ? badge('bad', tr('hecho')) : badge('great', tr('útil'))) : badge('none', '×0');
       else { const [v] = verdict(r.m); bd = badge(v, `×${dec(Math.round(r.m*100)/100)}`); }
@@ -344,7 +345,7 @@ function renderPanel(){
         <b>${c.n}</b><small>${ok ? c.size : tr('Evoluciona {n} veces', {n:c.need})}</small><span>${c.d}</span></button>`; }).join('') + '</div>';
     h += `<div class="nb">${tr('Color de fluorescencia')}</div><div class="skins">` + Object.entries(SKINS).map(([id, k]) => {
       const ok = skinUnlocked(id), n = k.need;
-      const why = !n ? '' : n[0] === 'evos' ? tr('Evoluciona {n} veces', {n:n[1]}) : n[0] === 'daily' ? tr('Completa {n} retos diarios', {n:n[1]}) : tr('Consigue {n} logros', {n:n[1]});
+      const why = !n ? '' : n[0] === 'ev' ? tr('Completa el evento «{n}»', {n:tr(EXPED_BY[n[1]].n)}) : n[0] === 'evos' ? tr('Evoluciona {n} veces', {n:n[1]}) : n[0] === 'daily' ? tr('Completa {n} retos diarios', {n:n[1]}) : tr('Consigue {n} logros', {n:n[1]});
       return `<button class="skin ${S.skin === id ? 'sel' : ''}" data-skin="${id}" ${ok ? '' : 'disabled'} style="--k:${hex(k.col)}" aria-pressed="${S.skin === id}" title="${esc(k.d)}"><i></i><b>${k.n}</b><small>${ok ? esc(k.d) : why}</small></button>`; }).join('') + '</div>';
     if (!S.clase){
       h += `<div class="nb">${tr('Evolución')}</div><p class="lead">${tr('Selección natural: al evolucionar empiezas de nuevo en el nivel 1, sin ATP ni mejoras de orgánulos, pero tu linaje hereda ADN. Cada punto de ADN da +10 % de ataque, vida y ATP para siempre. Conservas las herramientas, el Atlas y la memoria inmunitaria.')}</p>`;

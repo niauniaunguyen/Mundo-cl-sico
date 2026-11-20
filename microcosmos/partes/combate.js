@@ -27,6 +27,7 @@ const special = e => e.special >= 0 ? SPECIAL[e.special] : null;
 function eff(toolId, e, opt={}){
   const t = EFF[toolId];
   let [m, why] = t[e.type] || t.def, combo = null;
+  const VE = e.var && VARIANTS[e.var].eff[toolId]; if (VE){ m = VE[0]; why = tr(VE[1]); }
   if (e.res && toolId === 'pen'){ m = .1; why = tr('Cepa resistente (SARM): su transpeptidasa PBP2a no se une a la penicilina. La lisozima sí la ataca.'); }
   if (e.drift && toolId === 'ac'){ m *= Math.pow(.5, e.drift); why = tr('Deriva antigénica: sus espículas han mutado y tus anticuerpos ya no encajan tan bien.'); }
   if (e.hidden && toolId !== 'tc' && toolId !== 'luz'){
@@ -74,12 +75,14 @@ function newBattle(keepHp){
   let boss = !ch && S.kills >= KPL && S.advance && !S.practice;
   let sp = boss && L % 10 === 0 ? (L/10 - 1) % SPECIAL.length : -1;
   let type;
-  if (ch){ const b = ch.battles[S.story.step]; if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else type = b; }
+  let vr = null;
+  if (ch){ let b = ch.battles[S.story.step]; if (b && b.t){ boss = true; b = b.t; }
+    if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else if (VARIANTS[b]){ vr = VARIANTS[b]; type = vr.base; } else type = b; }
   else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L);
-  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L),
-    turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
+  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
+  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L)*(vr && vr.atkK || 1),
+    var:vr ? vr.id : null, stall:0, turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
     inRbc:type === 'mal', cd4:0};
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
@@ -89,7 +92,7 @@ function newBattle(keepHp){
   }
   B = {e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
     last:null, lastOk:false, usedAb:false, onlyFago:true, turns:0, firstDone:false, why:null};
-  setFoe(e); setDark(false); setZoneTint(ch ? ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
+  setFoe(e); setDark(false); setZoneTint(ch ? ch.tint || ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
   renderFoe(); renderMe(); renderTools(); renderHud();
   const name = foeName(e);
   if (sp >= 0) setMsg('none', tr('Jefe especial'), tr('{n}: tiene dos fases. Al bajar a la mitad de vida cambiará de comportamiento.', {n:name}));
@@ -100,19 +103,20 @@ function newBattle(keepHp){
   setEventFx(e.ev);
   if (boss) startMusic(sp >= 0);
   const go = () => {
-    if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
+    if (vr){ if (!S.varSeen[vr.id]){ S.varSeen[vr.id] = true; save(); showVariant(vr.id); } else { scheduleAuto(); narr('variant'); } }
+    else if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
     else { scheduleAuto(); if (e.ev) narr('ev_' + e.ev); else if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
   };
   if (sp >= 0) cinematic(tr('Jefe · nivel {l}', {l:L}), name, go); else go();
 }
-const foeName = e => e.special >= 0 ? SPECIAL[e.special].n : e.boss ? TYPES[e.type].boss : e.res ? tr('Estafilococo resistente (SARM)') : TYPES[e.type].n;
+const foeName = e => e.special >= 0 ? SPECIAL[e.special].n : e.var ? (e.boss ? TY(e).boss : TY(e).n) : e.boss ? TYPES[e.type].boss : e.res ? tr('Estafilococo resistente (SARM)') : TYPES[e.type].n;
 
 function useTool(id){
   if (!B || B.busy || B.over || !owns(id) || (B.cds[id] || 0) > 0 || !$('#modal').hidden) return;
   const T = TOOL[id], e = B.e;
   B.busy = true; clearTimeout(B.timer); B.turns++;
   const r = eff(id, e);
-  (S.known[e.type] = S.known[e.type] || {})[id] = true;
+  (S.known[knowKey(e)] = S.known[knowKey(e)] || {})[id] = true;
   let cenProc = false;
   if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
@@ -122,8 +126,8 @@ function useTool(id){
   sfx.tool(id);
   const from = P_POS.clone().add(V(.6,.3,0)), to = E_POS.clone();
   const go = () => {
-    const Ty = TYPES[e.type];
-    const dodge = (Ty.dodge || 0) && id !== 'luz' && !e.spore && Math.random() < Ty.dodge;
+    const Ty = TY(e);
+    const dodge = (Ty.dodge || 0) && id !== 'luz' && !e.spore && !(Ty.V && Ty.V.markStops && e.marked > 0) && Math.random() < Ty.dodge;
     let ok = false;
     if (dodge){
       floatText(tr('Esquiva'), E_POS.clone().add(V(0,1.2,0)), 'info');
@@ -139,7 +143,8 @@ function useTool(id){
       ok = r.m > 0;
       const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
-      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
+      const vul = e.var && VARIANTS[e.var].vul || 1;
+      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
       e.hp = Math.max(0, e.hp - dmg);
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
@@ -153,6 +158,8 @@ function useTool(id){
       if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
       if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
       if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = has('h1') ? 6 : 4; extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
+      if (vul > 1 && r.m > 0) extra.push(tr('Sin citoesqueleto: +40 % de daño.'));
+      if (id === 'uv' && r.m > 0 && e.var && VARIANTS[e.var].uvStall){ e.stall = VARIANTS[e.var].uvStall + 1; extra.push(tr('Sus ribosomas se quedan sin instrucciones: no se repara durante 2 turnos.')); }
       if (id === 'tax' && r.m > 0){ e.block = 3; extra.push(tr('Huso mitótico bloqueado durante 3 turnos.')); }
       if (mark > 1 && r.m > 0) extra.push(tr('Daño aumentado por la opsonización.'));
       if (cb > 1 && r.m > 0) extra.push(tr('{c}: ×{k} contra este organismo.', {c:cellD().n, k:dec(cb)}));
@@ -184,7 +191,7 @@ function useTool(id){
 
 function enemyTurn(){
   if (!B || B.over) return;
-  const e = B.e, Ty = TYPES[e.type];
+  const e = B.e, Ty = TY(e);
   e.turn++;
   // Golgi: tus vesículas secretadas dañan al organismo cada turno
   if (adv('gol') && e.hp > 0){ const d = atk()*.06*adv('gol'); e.hp = Math.max(0, e.hp - d);
@@ -207,6 +214,9 @@ function enemyTurn(){
       notes.push(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : '')); break;
     case 'ten': heal(.06, tr('Su cuello forma nuevas proglótides: recupera un 6 %.')); break;
   }
+  const VR = e.var && VARIANTS[e.var];
+  if (VR && VR.regen){ if (e.stall > 0) notes.push(tr('Sin ARNm nuevo, sus ribosomas están parados: no se repara.')); else heal(VR.regen, tr('Sus ribosomas fabrican proteínas sin parar: se repara un 9 %.')); }
+  if (VR && VR.atkK && VR.atkK < 1 && e.turn === 1) notes.push(tr('Sin mitocondrias le falta ATP: ataca muy débil.'));
   if ((e.type === 'gp' || e.type === 'gn') && e.turn === 6 && !e.biofilm){ e.biofilm = true; notes.push(tr('Biopelícula: se rodea de una matriz de polisacáridos que frena tus ataques (×0,6). El autoclave la atraviesa.')); }
   // eventos
   if (e.ev === 'antib' && BACT.has(e.type)){ const d = e.max*.08; e.hp = Math.max(0, e.hp - d); floatText('−' + fmt(d) + ' · ' + tr('antibiótico'), E_POS.clone().add(V(-.5,1.5,0)), 'evt ev-antib'); notes.push(tr('El antibiótico en sangre le resta un 8 %.')); }
@@ -227,6 +237,7 @@ function enemyTurn(){
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
     if (e.marked > 0) e.marked--;
     if (e.block > 0) e.block--;
+    if (e.stall > 0) e.stall--;
     if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
     B.why = null;
@@ -269,7 +280,7 @@ function win(){
   dailyProg('kills');
   LOG.unshift({L:e.L, n:foeName(e), turns:B.turns, g, win:true}); LOG.length = Math.min(LOG.length, 8);
   floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
-  burst(E_POS, TYPES[e.type].col, S.calm ? 20 : 60, 4.5); sfx.win();
+  burst(E_POS, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
   const obj = foeObj;
   tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => { scene.remove(obj.g); });
   let hp;
@@ -310,7 +321,7 @@ function autoPick(){
   const e = B.e; let best = null, bs = -1;
   for (const T of TOOLS){
     if (!owns(T.id) || (B.cds[T.id] || 0) > 0) continue;
-    const known = T.id === 'fago' || (S.known[e.type] && S.known[e.type][T.id]);
+    const known = T.id === 'fago' || (S.known[knowKey(e)] && S.known[knowKey(e)][T.id]);
     if (!known) continue;
     const r = eff(T.id, e, {known:true});
     let s;
@@ -333,25 +344,28 @@ function scheduleAuto(){
 }
 
 
-// ---- Modo historia ----
+// ---- Eventos especiales (campañas con capítulos) ----
 function storyWin(e){
   const g = reward(e.L, e.boss);
-  S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
+  S.atp += g; S.totalKills++; if (!e.var) S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
   floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
-  burst(E_POS, TYPES[e.type].col, S.calm ? 20 : 60, 4.5); sfx.win();
+  burst(E_POS, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
   const obj = foeObj; tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => scene.remove(obj.g));
-  const ch = storyCh(); S.story.step++;
+  const X = curEx(), ch = storyCh(); S.story.step++;
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}));
   if (S.story.step < ch.battles.length){ save(); renderHud(); return setTimeout(() => newBattle(), 900); }
   S.story.ch++; S.story.step = 0;
-  if (S.story.ch >= STORY.length){ S.story = null; const first = !S.storyDone; S.storyDone = true; if (first){ S.adn += 3; S.lpts += 1; } save(); rebuildPlayer(); renderHud();
-    return setTimeout(() => showStoryEnd(first), 900); }
+  if (S.story.ch >= X.chapters.length){
+    S.story = null; const first = !S.evDone[X.id]; S.evDone[X.id] = true; if (X.id === 'inf') S.storyDone = true;
+    if (first){ S.adn += X.reward.adn || 0; S.lpts += X.reward.lpts || 0; }
+    save(); rebuildPlayer(); renderHud();
+    return setTimeout(() => showStoryEnd(X, first), 900); }
   save(); rebuildPlayer(); renderHud();
   setTimeout(() => showChapter(newBattle), 900);
 }
-function startStory(){
+function startStory(id){
   if (B){ B.over = true; clearTimeout(B.timer); }
-  S.story = {ch:0, step:0}; save(); rebuildPlayer(); renderHud(); narr('story', true);
+  S.story = {ev:id, ch:0, step:0}; save(); rebuildPlayer(); renderHud(); narr('ex_' + id, true);
   showChapter(newBattle);
 }
 function leaveStory(){
