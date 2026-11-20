@@ -572,6 +572,44 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 #msg #narr .nx{font-size:16px;color:var(--muted);line-height:1;padding:0}
 @keyframes narrin{from{opacity:0}}
 @media (max-width:720px){ #msg #narr p{font-size:12.5px} }
+/* ---------- v8: más batalla y menos interfaz ---------- */
+/* herramientas: una sola fila deslizable, botones compactos */
+#tools{grid-template-columns:none;grid-auto-flow:column;grid-template-rows:auto;grid-auto-columns:88px;overflow-x:auto;scrollbar-width:thin;gap:6px;padding-top:8px}
+.tool{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;text-align:center;row-gap:3px;border-radius:16px;padding:6px 4px 7px;min-height:0}
+.tool .ves{grid-row:auto;width:34px;height:34px} .tool .ves .ic{width:19px;height:19px}
+.tool .tn{font-size:11.5px;align-self:auto;line-height:1.15}
+.tool .tm{position:absolute;top:3px;right:3px}
+.tool .badge{font-size:10px;padding:0 4px}
+/* tu vida: una barra fina sobre las herramientas, sin tarjeta */
+#me{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;bottom:calc(var(--toolsH,90px) + 2px);padding:2px 4px;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:0 12px;background:none;border:0;box-shadow:none;backdrop-filter:none;border-radius:0}
+#me .who{margin:0;font-size:13px} #me .who small,#me .barlbl span:last-child{display:none}
+#me .bar{height:9px} #me .barlbl{margin-top:0;font-size:12px}
+#msg{bottom:calc(var(--toolsH,90px) + 34px);cursor:pointer}
+/* mensaje plegado: una sola línea */
+#msg.mini{padding-top:6px;padding-bottom:6px}
+#msg.mini #msgT{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+#msg.mini .extra,#msg.mini #narr{display:none}
+/* ficha del organismo: rasgos en una fila deslizable */
+.traits{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 88%,transparent);mask:linear-gradient(90deg,#000 88%,transparent);padding-right:18px}
+.traits::-webkit-scrollbar{display:none}
+.trait{flex:none}
+/* «ver la batalla»: solo nombres y vida */
+#app.focus #msg,#app.focus .traits,#app.focus .slide,#app.focus .evt,#app.focus .meta,#app.focus #foe .sci{display:none}
+#app.focus #foe{padding-top:8px;padding-bottom:9px}
+.org .vis{grid-column:2;font-size:12px;color:#a9c0cd;font-style:italic}
+.org.locked{opacity:.65}
+.nb.adv{color:var(--fitc)} .nb.adv::after{background:rgba(255,198,92,.4)}
+.ft.ev-golgi{color:var(--fitc)} .ft.ev-org{color:#fff;font-size:16px}
+@media (max-width:720px){
+  #tools{grid-auto-columns:calc((100% - 24px)/5.3);gap:5px;padding-top:6px}
+  .tool .ves{width:30px;height:30px} .tool .ves .ic{width:17px;height:17px}
+  .tool .tn{font-size:10.5px}
+  #me{padding:0 2px;border-radius:0}
+  #msg{bottom:calc(var(--toolsH,90px) + 30px)}
+  .org .vis{grid-column:1 / 3}
+}
+#achc{z-index:7}
 </style>
 
 <div id="app">
@@ -589,6 +627,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
         <button class="qb" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
         <button class="qb" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span></button>
         <button class="qb" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
+        <button class="qb" id="bFocus" aria-pressed="false" data-tt="Ver la batalla: oculta los rasgos y los mensajes"><span data-ic="eye"></span></button>
       </div>
       <button class="sec" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span><span class="lbl" data-t="Historia">Historia</span></button>
       <button class="sec" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>

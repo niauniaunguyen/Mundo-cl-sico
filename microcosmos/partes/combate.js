@@ -77,8 +77,8 @@ function newBattle(keepHp){
   if (ch){ const b = ch.battles[S.story.step]; if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else type = b; }
   else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1);
-  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1),
+  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L);
+  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L),
     turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
     inRbc:type === 'mal', cd4:0};
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
@@ -113,7 +113,8 @@ function useTool(id){
   B.busy = true; clearTimeout(B.timer); B.turns++;
   const r = eff(id, e);
   (S.known[e.type] = S.known[e.type] || {})[id] = true;
-  if (toolCd(T)) B.cds[id] = toolCd(T) + 1;
+  let cenProc = false;
+  if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
   if (id !== 'fago') B.onlyFago = false;
   B.why = {tool:id, m:r.m};
@@ -147,6 +148,7 @@ function useTool(id){
         if (!S.combos[r.combo.id]){ S.combos[r.combo.id] = true; toast(tr('¡Combinación descubierta: {n}!', {n:r.combo.n})); }
         S.comboCount++; dailyProg('combo'); }
       if (crit > 1) extra.push(tr('¡Golpe crítico de perforina!'));
+      if (cenProc) extra.push(tr('Centrosoma: esta herramienta no gasta recarga.'));
       if (r.m > 0 && e.ev === 'fiebre') extra.push(tr('Fiebre: +25 % de daño.'));
       if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
       if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
@@ -184,6 +186,9 @@ function enemyTurn(){
   if (!B || B.over) return;
   const e = B.e, Ty = TYPES[e.type];
   e.turn++;
+  // Golgi: tus vesículas secretadas dañan al organismo cada turno
+  if (adv('gol') && e.hp > 0){ const d = atk()*.06*adv('gol'); e.hp = Math.max(0, e.hp - d);
+    projectile(P_POS.clone().add(V(.5,.3,0)), E_POS.clone(), 0xffc65c, 3 + adv('gol'), 420, () => floatText('−' + fmt(d) + ' · Golgi', E_POS.clone().add(V(.4,1.6,0)), 'evt ev-golgi'), null); }
   const notes = [];
   const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), E_POS.clone().add(V(.6,1.5,0)), 'heal'); notes.push(why); };
   switch (e.type){
@@ -215,6 +220,8 @@ function enemyTurn(){
     if (e.special === 4) heal(.08, tr('Citoadherencia: recupera un 8 %.'));
   }
   if (has('i4') && B.php > 0){ const h = maxHp()*.04; B.php = Math.min(maxHp(), B.php + h); }
+  // peroxisomas: la catalasa te cura cada turno
+  if (adv('per') && B.php > 0){ const h = maxHp()*.015*adv('per'); B.php = Math.min(maxHp(), B.php + h); burst(P_POS, 0x8fff9a, 6 + 2*adv('per'), 1.2); floatText('+' + fmt(h) + ' · ' + tr('peroxisomas'), P_POS.clone().add(V(-.5,1.6,0)), 'evt ev-inflam'); }
   if (e.hp <= 0){ renderFoe(); return setTimeout(win, 250); }
   const finish = () => {
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
@@ -269,6 +276,7 @@ function win(){
   if (e.boss){
     S.stats.lvl[e.L] = Math.round((Date.now() - (S.stats.lvlStart || Date.now()))/1000); S.stats.lvlStart = Date.now();
     S.level++; S.kills = 0; S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
+    var mile = milestone(S.level);
     hp = maxHp();
     const nt = TYPE_ORDER.some(id => TYPES[id].min === S.level);
     toast(tr('Nivel {l}.', {l:S.level}) + (nt ? ' ' + tr('Aparece un organismo nuevo.') : ''));
@@ -278,7 +286,8 @@ function win(){
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
   checkAch(); save(); renderHud(); renderLog(); pushBoard();
-  setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
+  if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);
+  else setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
 }
 
 function lose(){
@@ -348,4 +357,12 @@ function startStory(){
 function leaveStory(){
   if (B){ B.over = true; clearTimeout(B.timer); }
   S.story = null; save(); rebuildPlayer(); renderHud(); newBattle();
+}
+
+// ---- Hitos: el nivel 30 abre los tejidos profundos ----
+function milestone(L){
+  if (L < 30 || L % 10 || S.miles[L]) return null;
+  S.miles[L] = true;
+  if (L === 30){ S.adn += 8; S.lpts += 3; return {L, t:tr(MILESTONE.t30), d:tr(MILESTONE.d30), r:tr(MILESTONE.r30)}; }
+  S.adn += 3; S.lpts += 1; return {L, t:tr(MILESTONE.tN, {l:L}), d:'', r:tr(MILESTONE.rN)};
 }

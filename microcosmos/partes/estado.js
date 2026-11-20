@@ -4,12 +4,12 @@
 const SAVE_KEY = 'microcosmos.v1';
 const today = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); };
 const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evos:0, totalKills:0,
-  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
+  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0, nuc:0, rel:0, gol:0, per:0, cen:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
   auto:false, advance:true, sound:true, intro:false, t:Date.now(),
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -26,11 +26,17 @@ const treeFree = () => S.lpts - treeSpent();
 const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*adnM())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*adnM())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM())*cellD().hp;
+// orgánulos avanzados: solo en la partida normal
+const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
+const advUnlocked = () => S.best >= 30;
+// salto de dificultad a partir del nivel 31 (tejidos profundos)
+const deepHp = L => L > 30 ? 3.5*Math.pow(1.15, L - 31) : 1;
+const deepAtk = L => L > 30 ? 2*Math.pow(1.1, L - 31) : 1;
 const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
 const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM();
-const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM();
+const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*(L > 30 ? 1.5 : 1);
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
 const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5, 2)) : 0;
 const speed = () => Math.pow(1.25, S.upg.ref);

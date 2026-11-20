@@ -572,6 +572,44 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 #msg #narr .nx{font-size:16px;color:var(--muted);line-height:1;padding:0}
 @keyframes narrin{from{opacity:0}}
 @media (max-width:720px){ #msg #narr p{font-size:12.5px} }
+/* ---------- v8: más batalla y menos interfaz ---------- */
+/* herramientas: una sola fila deslizable, botones compactos */
+#tools{grid-template-columns:none;grid-auto-flow:column;grid-template-rows:auto;grid-auto-columns:88px;overflow-x:auto;scrollbar-width:thin;gap:6px;padding-top:8px}
+.tool{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;text-align:center;row-gap:3px;border-radius:16px;padding:6px 4px 7px;min-height:0}
+.tool .ves{grid-row:auto;width:34px;height:34px} .tool .ves .ic{width:19px;height:19px}
+.tool .tn{font-size:11.5px;align-self:auto;line-height:1.15}
+.tool .tm{position:absolute;top:3px;right:3px}
+.tool .badge{font-size:10px;padding:0 4px}
+/* tu vida: una barra fina sobre las herramientas, sin tarjeta */
+#me{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;bottom:calc(var(--toolsH,90px) + 2px);padding:2px 4px;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:0 12px;background:none;border:0;box-shadow:none;backdrop-filter:none;border-radius:0}
+#me .who{margin:0;font-size:13px} #me .who small,#me .barlbl span:last-child{display:none}
+#me .bar{height:9px} #me .barlbl{margin-top:0;font-size:12px}
+#msg{bottom:calc(var(--toolsH,90px) + 34px);cursor:pointer}
+/* mensaje plegado: una sola línea */
+#msg.mini{padding-top:6px;padding-bottom:6px}
+#msg.mini #msgT{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+#msg.mini .extra,#msg.mini #narr{display:none}
+/* ficha del organismo: rasgos en una fila deslizable */
+.traits{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 88%,transparent);mask:linear-gradient(90deg,#000 88%,transparent);padding-right:18px}
+.traits::-webkit-scrollbar{display:none}
+.trait{flex:none}
+/* «ver la batalla»: solo nombres y vida */
+#app.focus #msg,#app.focus .traits,#app.focus .slide,#app.focus .evt,#app.focus .meta,#app.focus #foe .sci{display:none}
+#app.focus #foe{padding-top:8px;padding-bottom:9px}
+.org .vis{grid-column:2;font-size:12px;color:#a9c0cd;font-style:italic}
+.org.locked{opacity:.65}
+.nb.adv{color:var(--fitc)} .nb.adv::after{background:rgba(255,198,92,.4)}
+.ft.ev-golgi{color:var(--fitc)} .ft.ev-org{color:#fff;font-size:16px}
+@media (max-width:720px){
+  #tools{grid-auto-columns:calc((100% - 24px)/5.3);gap:5px;padding-top:6px}
+  .tool .ves{width:30px;height:30px} .tool .ves .ic{width:17px;height:17px}
+  .tool .tn{font-size:10.5px}
+  #me{padding:0 2px;border-radius:0}
+  #msg{bottom:calc(var(--toolsH,90px) + 30px)}
+  .org .vis{grid-column:1 / 3}
+}
+#achc{z-index:7}
 </style>
 
 <div id="app">
@@ -589,6 +627,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
         <button class="qb" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
         <button class="qb" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span></button>
         <button class="qb" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
+        <button class="qb" id="bFocus" aria-pressed="false" data-tt="Ver la batalla: oculta los rasgos y los mensajes"><span data-ic="eye"></span></button>
       </div>
       <button class="sec" id="bStory" aria-pressed="false" data-tt="Modo historia"><span data-ic="book"></span><span class="lbl" data-t="Historia">Historia</span></button>
       <button class="sec" id="bMap" data-tt="Mapa del cuerpo"><span data-ic="map"></span><span class="lbl">Sangre</span></button>
@@ -1114,6 +1153,30 @@ const ACH_GOAL = {
   sarm:T_('Encuéntrate con una cepa resistente (abusa de la penicilina…).'), evo:T_('Evoluciona por primera vez.'), l25:T_('Llega al nivel 25.'), atlas:T_('Descubre todos los organismos del Atlas.'),
   daily:T_('Completa 3 retos diarios.'), boss:T_('Vence a un jefe especial (cada 10 niveles).'),
 };
+// Orgánulos avanzados (se desbloquean al llegar al nivel 30)
+const UPG2 = [
+  {id:'nuc', n:T_('Núcleo activo'), d:T_('Transcribe más genes de defensa: tu célula fabrica más enzimas y receptores.'), e:T_('Ataque ×1,12'), base:20000, k:1.6, col:0x7b8cff, ic:'cell'},
+  {id:'rel', n:T_('Retículo endoplasmático liso'), d:T_('Fabrica los lípidos de la membrana y neutraliza toxinas.'), e:T_('Vida ×1,12'), base:20000, k:1.6, col:0x9ff0ff, ic:'bilayer'},
+  {id:'gol', n:T_('Aparato de Golgi'), d:T_('Empaqueta y secreta citocinas y enzimas: cada turno, tus vesículas dañan al organismo.'), e:T_('+6 % de tu ataque como daño cada turno'), base:40000, k:1.7, max:10, col:0xffc65c, ic:'flask'},
+  {id:'per', n:T_('Peroxisomas'), d:T_('Su catalasa descompone el peróxido de hidrógeno que te daña.'), e:T_('Recuperas un 1,5 % de vida cada turno'), base:30000, k:1.7, max:8, col:0x8fff9a, ic:'lyso'},
+  {id:'cen', n:T_('Centrosoma'), d:T_('Organiza los microtúbulos: tus vesículas y pseudópodos se mueven antes.'), e:T_('+7 % de probabilidad de que una herramienta no gaste recarga'), base:60000, k:1.9, max:6, col:0xff9fd8, ic:'tax'},
+];
+// Cómo se ve cada mejora en tu célula
+const UPG_VIS = {
+  fue:T_('En tu célula: más lisosomas, y más brillantes.'), mem:T_('En tu célula: un contorno más grueso; desde el nivel 8, una segunda capa.'),
+  cit:T_('En tu célula: aparecen filamentos de actina.'), rib:T_('En tu célula: el retículo se llena de ribosomas.'),
+  mit:T_('En tu célula: más mitocondrias, que laten y sueltan chispas de ATP.'), ref:T_('En tu célula: ondas de señalización en el modo automático.'),
+  nuc:T_('En tu célula: un núcleo más grande y luminoso.'), rel:T_('En tu célula: tubos de retículo liso.'), gol:T_('En tu célula: un Golgi más grande que dispara vesículas cada turno.'),
+  per:T_('En tu célula: peroxisomas verdes que te curan cada turno.'), cen:T_('En tu célula: un centrosoma con su áster de microtúbulos.'),
+};
+// Hitos de nivel: el 30 abre los tejidos profundos
+const MILESTONE = {
+  t30:T_('Has llegado a los tejidos profundos'),
+  d30:T_('Has superado 30 niveles: tu célula es un veterano del sistema inmune. A partir del nivel 31, los organismos son mucho más resistentes y crecen más deprisa. Para hacerles frente se desbloquean los orgánulos avanzados en el Laboratorio.'),
+  r30:T_('Recompensa: +8 ADN, +3 puntos del árbol inmunitario y los orgánulos avanzados.'),
+  tN:T_('Nivel {l} alcanzado'),
+  rN:T_('Recompensa: +3 ADN y +1 punto del árbol inmunitario.'),
+};
 /* =====================================================================
    IDIOMAS: español (original), català, English
    ===================================================================== */
@@ -1470,6 +1533,41 @@ const I18N_RAW3 = {
 };
 for (const k in I18N_RAW3){ I18N.ca[k] = I18N_RAW3[k][0]; I18N.en[k] = I18N_RAW3[k][1]; }
 
+// Textos de la versión 8: «español»: [català, English]
+const I18N_RAW4 = {
+  "Orgánulos avanzados":["Orgànuls avançats","Advanced organelles"],
+  "Desde el nivel 31, los organismos de los tejidos profundos son mucho más duros. Estos orgánulos te ayudan a seguir avanzando.":["Des del nivell 31, els organismes dels teixits profunds són molt més durs. Aquests orgànuls t'ajuden a continuar avançant.","From level 31, organisms in the deep tissues are much tougher. These organelles help you keep going."],
+  "Llega al nivel 30 para desbloquear el núcleo activo, el retículo liso, el aparato de Golgi, los peroxisomas y el centrosoma.":["Arriba al nivell 30 per desbloquejar el nucli actiu, el reticle llis, l'aparell de Golgi, els peroxisomes i el centrosoma.","Reach level 30 to unlock the active nucleus, smooth ER, Golgi apparatus, peroxisomes and centrosome."],
+  "nv":["nv","lv"], "Hito":["Fita","Milestone"], "Ver orgánulos avanzados":["Veure els orgànuls avançats","See advanced organelles"],
+  "Centrosoma: esta herramienta no gasta recarga.":["Centrosoma: aquesta eina no gasta recàrrega.","Centrosome: this tool skips its cooldown."], "peroxisomas":["peroxisomes","peroxisomes"],
+  "Núcleo activo":["Nucli actiu","Active nucleus"], "Transcribe más genes de defensa: tu célula fabrica más enzimas y receptores.":["Transcriu més gens de defensa: la teva cèl·lula fabrica més enzims i receptors.","It transcribes more defence genes: your cell makes more enzymes and receptors."],
+  "Ataque ×1,12":["Atac ×1,12","Attack ×1.12"], "Retículo endoplasmático liso":["Reticle endoplasmàtic llis","Smooth endoplasmic reticulum"],
+  "Fabrica los lípidos de la membrana y neutraliza toxinas.":["Fabrica els lípids de la membrana i neutralitza toxines.","It makes membrane lipids and neutralises toxins."], "Vida ×1,12":["Vida ×1,12","Health ×1.12"],
+  "Empaqueta y secreta citocinas y enzimas: cada turno, tus vesículas dañan al organismo.":["Empaqueta i secreta citocines i enzims: cada torn, les teves vesícules danyen l'organisme.","It packages and secretes cytokines and enzymes: every turn, your vesicles damage the organism."],
+  "+6 % de tu ataque como daño cada turno":["+6 % del teu atac com a dany cada torn","+6 % of your attack as damage every turn"], "Peroxisomas":["Peroxisomes","Peroxisomes"],
+  "Su catalasa descompone el peróxido de hidrógeno que te daña.":["La seva catalasa descompon el peròxid d'hidrogen que et danya.","Their catalase breaks down the hydrogen peroxide that harms you."],
+  "Recuperas un 1,5 % de vida cada turno":["Recuperes un 1,5 % de vida cada torn","You recover 1.5 % health every turn"], "Centrosoma":["Centrosoma","Centrosome"],
+  "Organiza los microtúbulos: tus vesículas y pseudópodos se mueven antes.":["Organitza els microtúbuls: les teves vesícules i pseudòpodes es mouen abans.","It organises microtubules: your vesicles and pseudopods move sooner."],
+  "+7 % de probabilidad de que una herramienta no gaste recarga":["+7 % de probabilitat que una eina no gasti recàrrega","+7 % chance that a tool skips its cooldown"],
+  "En tu célula: más lisosomas, y más brillantes.":["A la teva cèl·lula: més lisosomes, i més brillants.","In your cell: more lysosomes, and brighter ones."],
+  "En tu célula: un contorno más grueso; desde el nivel 8, una segunda capa.":["A la teva cèl·lula: un contorn més gruixut; des del nivell 8, una segona capa.","In your cell: a thicker outline; from level 8, a second layer."],
+  "En tu célula: aparecen filamentos de actina.":["A la teva cèl·lula: apareixen filaments d'actina.","In your cell: actin filaments appear."],
+  "En tu célula: el retículo se llena de ribosomas.":["A la teva cèl·lula: el reticle s'omple de ribosomes.","In your cell: the reticulum fills with ribosomes."],
+  "En tu célula: más mitocondrias, que laten y sueltan chispas de ATP.":["A la teva cèl·lula: més mitocondris, que bateguen i deixen anar espurnes d'ATP.","In your cell: more mitochondria, which pulse and give off sparks of ATP."],
+  "En tu célula: ondas de señalización en el modo automático.":["A la teva cèl·lula: ones de senyalització en el mode automàtic.","In your cell: signalling waves in auto mode."],
+  "En tu célula: un núcleo más grande y luminoso.":["A la teva cèl·lula: un nucli més gran i lluminós.","In your cell: a bigger, brighter nucleus."],
+  "En tu célula: tubos de retículo liso.":["A la teva cèl·lula: tubs de reticle llis.","In your cell: tubes of smooth reticulum."],
+  "En tu célula: un Golgi más grande que dispara vesículas cada turno.":["A la teva cèl·lula: un Golgi més gran que dispara vesícules cada torn.","In your cell: a bigger Golgi that fires vesicles every turn."],
+  "En tu célula: peroxisomas verdes que te curan cada turno.":["A la teva cèl·lula: peroxisomes verds que et curen cada torn.","In your cell: green peroxisomes that heal you every turn."],
+  "En tu célula: un centrosoma con su áster de microtúbulos.":["A la teva cèl·lula: un centrosoma amb el seu àster de microtúbuls.","In your cell: a centrosome with its aster of microtubules."],
+  "Has llegado a los tejidos profundos":["Has arribat als teixits profunds","You've reached the deep tissues"],
+  "Has superado 30 niveles: tu célula es un veterano del sistema inmune. A partir del nivel 31, los organismos son mucho más resistentes y crecen más deprisa. Para hacerles frente se desbloquean los orgánulos avanzados en el Laboratorio.":["Has superat 30 nivells: la teva cèl·lula és una veterana del sistema immunitari. A partir del nivell 31, els organismes són molt més resistents i creixen més de pressa. Per fer-los front es desbloquegen els orgànuls avançats al Laboratori.","You've cleared 30 levels: your cell is an immune-system veteran. From level 31, organisms are much tougher and grow faster. To face them, advanced organelles unlock in the Lab."],
+  "Recompensa: +8 ADN, +3 puntos del árbol inmunitario y los orgánulos avanzados.":["Recompensa: +8 ADN, +3 punts de l'arbre immunitari i els orgànuls avançats.","Reward: +8 DNA, +3 immune tree points and the advanced organelles."],
+  "Nivel {l} alcanzado":["Nivell {l} assolit","Level {l} reached"], "Recompensa: +3 ADN y +1 punto del árbol inmunitario.":["Recompensa: +3 ADN i +1 punt de l'arbre immunitari.","Reward: +3 DNA and +1 immune tree point."],
+  "Ver la batalla: oculta los rasgos y los mensajes":["Veure la batalla: amaga els trets i els missatges","Watch the battle: hides features and messages"],
+};
+for (const k in I18N_RAW4){ I18N.ca[k] = I18N_RAW4[k][0]; I18N.en[k] = I18N_RAW4[k][1]; }
+
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
 const DT = {
 ca:{
@@ -1743,12 +1841,12 @@ add('en', {
 const SAVE_KEY = 'microcosmos.v1';
 const today = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); };
 const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evos:0, totalKills:0,
-  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
+  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0, nuc:0, rel:0, gol:0, per:0, cen:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
   auto:false, advance:true, sound:true, intro:false, t:Date.now(),
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -1765,11 +1863,17 @@ const treeFree = () => S.lpts - treeSpent();
 const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*adnM())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*adnM())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM())*cellD().hp;
+// orgánulos avanzados: solo en la partida normal
+const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
+const advUnlocked = () => S.best >= 30;
+// salto de dificultad a partir del nivel 31 (tejidos profundos)
+const deepHp = L => L > 30 ? 3.5*Math.pow(1.15, L - 31) : 1;
+const deepAtk = L => L > 30 ? 2*Math.pow(1.1, L - 31) : 1;
 const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
 const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM();
-const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM();
+const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*(L > 30 ? 1.5 : 1);
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
 const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5, 2)) : 0;
 const speed = () => Math.pow(1.25, S.upg.ref);
@@ -2127,21 +2231,26 @@ function antibody(mat, s=1){
 }
 
 /* ---------- Tu célula: macrófago ---------- */
-function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0){
+// U = niveles de los orgánulos: cada mejora cambia la célula de forma visible
+function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
   SEED = 101;
+  const lv = k => U[k] || 0;
   const CD = CELLS[cellId] || CELLS.mac, rimCol = new THREE.Color(col).lerp(new THREE.Color(0xffffff), .45).getHex();
   const g = new THREE.Group();
   const lobes = [{d:V(1,0,0), a:0, k:5},
     {d:V(-.3,.9,.3).normalize(), a:.16, k:7, b:.16, ph:0}, {d:V(-.7,-.6,.4).normalize(), a:.2, k:7, b:.2, ph:2},
     {d:V(.3,-.5,-.8).normalize(), a:.14, k:7, b:.14, ph:4}, {d:V(-.4,.2,-.9).normalize(), a:.12, k:7, b:.12, ph:1}];
   const sc = cellId === 'mac' ? 1 : cellId === 'neu' ? .82 : cellId === 'nk' ? .74 : .88; // tamaño relativo
-  const memb = blob(1.2*sc, mem(col, {op:.34, rim:rimCol, rimK:1.7, rimP:2.2, rimA:.85, rough:.25, bumpScale:.03}), {lobes, ro:10});
+  // membrana reforzada: contorno más grueso y brillante; desde el nivel 8, una segunda capa
+  const memM = mem(col, {op:Math.min(.42, .34 + .008*lv('mem')), rim:rimCol, rimK:1.7 + .05*Math.min(lv('mem'), 15), rimP:2.2 - .04*Math.min(lv('mem'), 15), rimA:.85, rough:.25, bumpScale:.03 + .002*lv('mem')});
+  const memb = blob(1.2*sc, memM, {lobes, ro:10});
+  if (lv('mem') >= 8) g.add(blob(1.27*sc, mem(rimCol, {op:.06, rim:rimCol, rimK:1.2, rimA:.4, bump:false}), {w:32, h:20, ro:11}));
   const cyto = blob(1.0*sc, mem(new THREE.Color(col).multiplyScalar(.35).getHex(), {op:.16, rimK:.3, rimA:.2, bump:false}), {w:32, h:20, ro:4});
   g.add(memb, cyto);
   const inner = new THREE.Group(); g.add(inner);
   inner.scale.setScalar(sc);
   // núcleo: arriñonado (macrófago), multilobulado (neutrófilo), redondo y grande (NK) o bilobulado (eosinófilo)
-  const nm = mem(0x7b8cff, {map:CHROM, rim:0xc4ceff, rimK:.7, emiK:.18});
+  const nm = mem(0x7b8cff, {map:CHROM, rim:0xc4ceff, rimK:.7 + .08*lv('nuc'), emiK:.18 + .04*lv('nuc')});
   let nuc;
   if (CD.nuc === 'bean'){ nuc = blob(.42, nm, {w:36, h:24, shape:bean}); nuc.position.set(.12,.05,0); nuc.rotation.z = .3; inner.add(nuc); }
   else if (CD.nuc === 'round'){ nuc = blob(.55, nm, {w:36, h:24}); nuc.position.set(.08,.04,0); inner.add(nuc); }
@@ -2152,31 +2261,55 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0){
       if (i){ const a = lobesN[i-1], len = a.distanceTo(p); const br = mesh(new THREE.CylinderGeometry(.05, .05, len, 8), nm); br.position.copy(a).lerp(p, .5); br.quaternion.setFromUnitVectors(UP, p.clone().sub(a).normalize()); nuc.add(br); } });
     inner.add(nuc);
   }
+  if (lv('nuc')) nuc.scale.setScalar(1 + Math.min(.3, .03*lv('nuc')));
   // gránulos característicos (rojos en el NK, naranjas en el eosinófilo)
   if (cellId !== 'mac') inner.add(inst(sphG(.055, 10, 8), mem(CD.gran, {emiK:.7, rim:0xffffff, rimK:.5, bump:false}), Array.from({length:cellId === 'eos' ? 40 : 24}, () => ({p:randIn(.8,.65,.65)}))));
   // aparato de Golgi: cisternas curvas apiladas y vesículas
   const gm = mem(0xffc65c, {emiK:.3, rim:0xfff0b8, rimK:.8, side:THREE.DoubleSide, bump:false});
   const gol = new THREE.Group();
-  for (let i=0;i<5;i++) gol.add(mesh(new THREE.SphereGeometry(.24 + i*.045, 20, 6, 0, Math.PI*.9, Math.PI*.36, Math.PI*.22), gm));
-  for (let i=0;i<7;i++){ const v = mesh(sphG(.035, 10, 8), gm); const a = srn(0, Math.PI*.9); v.position.set(Math.cos(a)*.5, srn(-.12,.12), Math.sin(a)*.5); gol.add(v); }
+  for (let i=0;i<5 + Math.min(lv('gol'), 6);i++) gol.add(mesh(new THREE.SphereGeometry(.22 + i*.04, 20, 6, 0, Math.PI*.9, Math.PI*.36, Math.PI*.22), gm));
+  for (let i=0;i<7 + 3*lv('gol');i++){ const v = mesh(sphG(.035, 10, 8), gm); const a = srn(0, Math.PI*.9); v.position.set(Math.cos(a)*.5, srn(-.12,.12), Math.sin(a)*.5); gol.add(v); }
   gol.position.set(-.55,.35,.25); gol.rotation.set(.4, 2.4, .3); inner.add(gol);
   // mitocondrias con crestas
   const mm = mem(0xff7a4a, {map:CRISTAE, rim:0xffb08a, rimK:.6, emiK:.15, bump:false});
-  for (let i=0;i<6;i++){ const c = mesh(capG(.2, .07, 12, 5), mm); c.position.copy(randIn(.75,.6,.6)); c.rotation.set(srn(0,3), srn(0,3), srn(0,3)); inner.add(c); }
+  for (let i=0;i<Math.min(20, 6 + lv('mit'));i++){ const c = mesh(capG(.2, .07, 12, 5), mm); c.position.copy(randIn(.75,.6,.6)); c.rotation.set(srn(0,3), srn(0,3), srn(0,3)); inner.add(c); }
   // lisosomas
-  inner.add(inst(sphG(.06, 10, 8), mem(0xd8ff6b, {emiK:.6, rim:0xffffff, rimK:.5, bump:false}), Array.from({length:16}, () => ({p:randIn(.85,.7,.7)}))));
+  const lyM = mem(0xd8ff6b, {emiK:.5 + .02*Math.min(lv('fue'), 25), rim:0xffffff, rimK:.4, bump:false});
+  inner.add(inst(sphG(.055, 10, 8), lyM, Array.from({length:Math.min(44, 12 + 1.5*lv('fue') | 0)}, () => ({p:randIn(.85,.7,.7)}))));
+  // citoesqueleto: filamentos de actina visibles
+  if (lv('cit')){ const n = Math.min(90, 8*lv('cit')), pos = new Float32Array(n*6);
+    for (let i=0;i<n;i++){ const a = randIn(.9,.75,.75), b = randIn(.9,.75,.75); pos.set([a.x,a.y,a.z,b.x,b.y,b.z], i*6); }
+    const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    inner.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color:0x8fdfff, transparent:true, opacity:.28, blending:THREE.AdditiveBlending, depthWrite:false}))); }
+  // peroxisomas (verdes)
+  if (lv('per')) inner.add(inst(sphG(.05, 10, 8), mem(0x8fff9a, {emiK:.7, rim:0xffffff, rimK:.4, bump:false}), Array.from({length:4*lv('per')}, () => ({p:randIn(.8,.65,.65)}))));
+  // centrosoma: dos centríolos perpendiculares con su áster de microtúbulos
+  if (lv('cen')){ const cg = new THREE.Group(), cM = mem(0xff9fd8, {emiK:.5, bump:false});
+    [0, 1].forEach(k => { const c = new THREE.Group(); for (let i=0;i<9;i++){ const a = i/9*Math.PI*2, r = mesh(new THREE.CylinderGeometry(.008, .008, .12, 4), cM); r.position.set(Math.cos(a)*.035, 0, Math.sin(a)*.035); c.add(r); }
+      if (k) c.rotation.z = Math.PI/2; cg.add(c); });
+    const n = 10 + 4*lv('cen'), pos = new Float32Array(n*6);
+    for (let i=0;i<n;i++){ const d = V(srn(-1,1), srn(-1,1), srn(-1,1)).normalize().multiplyScalar(.5); pos.set([0,0,0,d.x,d.y,d.z], i*6); }
+    const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    cg.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color:0xff9fd8, transparent:true, opacity:.3, blending:THREE.AdditiveBlending, depthWrite:false})));
+    cg.position.set(-.35,-.3,.3); inner.add(cg); }
   // retículo endoplasmático rugoso alrededor del núcleo
   const erM = mem(0x4dd6c8, {op:.55, rimK:.6, bump:false});
   for (let k=0;k<2;k++){
     const pts = []; for (let i=0;i<=30;i++){ const a = i/30*Math.PI*1.6 + k*2.2; pts.push(V(Math.cos(a)*(.62 + .05*Math.sin(i*1.7)), Math.sin(i*.9 + k)*.25, Math.sin(a)*(.56 + .05*Math.cos(i*1.3)))); }
     const curve = new THREE.CatmullRomCurve3(pts);
     inner.add(mesh(new THREE.TubeGeometry(curve, 90, .028, 6), erM, 5));
-    inner.add(inst(sphG(.014, 5, 4), mem(0x9ff5e8, {emiK:.5, bump:false}), Array.from({length:40}, (_, i) => ({p:curve.getPoint(i/40).add(randIn(.035,.035,.035))}))));
+    const nr = Math.min(200, 40 + 15*lv('rib')); // ribosomas: más con cada mejora
+    inner.add(inst(sphG(.014, 5, 4), mem(0x9ff5e8, {emiK:.5 + .03*Math.min(lv('rib'), 15), bump:false}), Array.from({length:nr}, (_, i) => ({p:curve.getPoint(i/nr).add(randIn(.035,.035,.035))}))));
   }
+  // retículo endoplasmático liso: tubos sin ribosomas
+  for (let k=0;k<Math.min(4, lv('rel') ? 1 + Math.floor(lv('rel')/3) : 0);k++){
+    const pts = []; for (let i=0;i<=20;i++) pts.push(randIn(.8,.6,.6));
+    inner.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 80, .02, 5), mem(0x9ff0ff, {op:.5, rimK:.6, bump:false}), 5)); }
   // filopodios: tu linaje gana más con cada evolución
   const fil = inst(new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
   g.add(fil);
   let reachA = 0;
+  const mitK = Math.min(1, lv('mit')/12);
   return {g,
     reach(p, dirWorld){ lobes[0].d.copy(dirWorld).applyAxisAngle(UP, -g.rotation.y).normalize(); reachA = Math.sin(p*Math.PI)*.85; },
     up(t){
@@ -2184,6 +2317,8 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0){
       for (let i=1;i<lobes.length;i++) lobes[i].a = lobes[i].b*(.6 + .6*Math.sin(t*.7 + lobes[i].ph));
       memb.userData.wob(t, .05, 2, 1, .02); cyto.userData.wob(t+3, .06, 2.4, .8); nuc.userData.wob(t+5, .03, 3, .5);
       inner.rotation.y = Math.sin(t*.2)*.25; inner.rotation.x = Math.sin(t*.17)*.1; fil.rotation.y = Math.sin(t*.5)*.1;
+      mm.emissiveIntensity = 1 + mitK*1.2*(.5 + .5*Math.sin(t*2.2)); // las mitocondrias laten al producir ATP
+      lyM.emissiveIntensity = .9 + .2*Math.sin(t*1.7);
     }};
 }
 
@@ -2592,7 +2727,7 @@ let player = PL.g;
 player.position.copy(P_POS); scene.add(player);
 function rebuildPlayer(){
   const pos = player.position.clone(); scene.remove(player);
-  PL = buildMacrophage(S.cell, SKINS[S.skin].col, S.evos); player = PL.g; player.position.copy(pos); scene.add(player);
+  PL = buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg); player = PL.g; player.position.copy(pos); scene.add(player);
   pLight.color.setHex(SKINS[S.skin].col); delete thumbCache.me;
 }
 
@@ -2626,7 +2761,7 @@ function thumb(id){
       TC = new THREE.PerspectiveCamera(32, 1, .1, 100);
     }
     const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:false};
-    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos) : BUILD[id](fake);
+    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[id](fake);
     o.up(2, fake); TS.add(o.g); o.g.updateMatrixWorld(true);
     const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
     const r = Math.min(sph.radius, id === 'veg' ? 1.7 : id === 'can' ? 1.6 : 9);
@@ -2658,6 +2793,18 @@ function impact(pos, color){
   const m = new THREE.Sprite(new THREE.SpriteMaterial({map:RING, color, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
   m.position.copy(pos); scene.add(m);
   tween(520, p => { m.scale.setScalar(.4 + p*3.6); m.material.opacity = 1 - p; }, () => { scene.remove(m); m.material.dispose(); });
+}
+// anillo que se expande desde un punto (señalización, centrosoma, compras)
+function ring(pos, color, size=3.4, ms=700){
+  const m = new THREE.Sprite(new THREE.SpriteMaterial({map:RING, color, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
+  m.position.copy(pos); scene.add(m);
+  tween(ms, p => { m.scale.setScalar(.6 + p*size); m.material.opacity = (1 - p)*.8; }, () => { scene.remove(m); m.material.dispose(); });
+}
+// efecto al mejorar un orgánulo: destello del color del orgánulo y un pulso de la célula
+function organelleFx(col, name){
+  ring(P_POS, col, 4, 900); burst(P_POS, col, 30, 2.5);
+  const s0 = player.scale.x; tween(600, p => player.scale.setScalar(s0*(1 + .12*Math.sin(p*Math.PI))), () => player.scale.setScalar(s0));
+  floatText(name, P_POS.clone().add(V(0,1.7,0)), 'evt ev-org');
 }
 // proyectiles con forma propia de cada herramienta
 const PM = {};
@@ -2733,9 +2880,11 @@ function resize(){
   const r = el => $(el).getBoundingClientRect();
   const top = portrait ? r('#foe').bottom : Math.max(r('#hud').bottom, r('#foe').bottom - 70);
   document.documentElement.style.setProperty('--foeB', Math.round(r('#foe').bottom) + 'px');
-  document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(r('#msg').top, r('#me').top) + 6) + 'px');
+  // un elemento oculto (modo «ver la batalla») no cuenta para el encuadre
+  const topOf = el => { const n = $(el); return n && n.offsetParent !== null ? n.getBoundingClientRect().top : h; };
+  document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(topOf('#msg'), topOf('#me')) + 6) + 'px');
   lastFoeH = $('#foe').offsetHeight;
-  const bot = Math.min(r('#msg').top, r('#me').top);
+  const bot = Math.min(topOf('#msg'), topOf('#me'));
   const band = Math.max(140, bot - top);
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
   const halfW = portrait ? 2.7 : 4.2, halfH = portrait ? 2.9 : 2.1;
@@ -2831,8 +2980,8 @@ function newBattle(keepHp){
   if (ch){ const b = ch.battles[S.story.step]; if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else type = b; }
   else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1);
-  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1),
+  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L);
+  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L),
     turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
     inRbc:type === 'mal', cd4:0};
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
@@ -2867,7 +3016,8 @@ function useTool(id){
   B.busy = true; clearTimeout(B.timer); B.turns++;
   const r = eff(id, e);
   (S.known[e.type] = S.known[e.type] || {})[id] = true;
-  if (toolCd(T)) B.cds[id] = toolCd(T) + 1;
+  let cenProc = false;
+  if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
   if (id !== 'fago') B.onlyFago = false;
   B.why = {tool:id, m:r.m};
@@ -2901,6 +3051,7 @@ function useTool(id){
         if (!S.combos[r.combo.id]){ S.combos[r.combo.id] = true; toast(tr('¡Combinación descubierta: {n}!', {n:r.combo.n})); }
         S.comboCount++; dailyProg('combo'); }
       if (crit > 1) extra.push(tr('¡Golpe crítico de perforina!'));
+      if (cenProc) extra.push(tr('Centrosoma: esta herramienta no gasta recarga.'));
       if (r.m > 0 && e.ev === 'fiebre') extra.push(tr('Fiebre: +25 % de daño.'));
       if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
       if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
@@ -2938,6 +3089,9 @@ function enemyTurn(){
   if (!B || B.over) return;
   const e = B.e, Ty = TYPES[e.type];
   e.turn++;
+  // Golgi: tus vesículas secretadas dañan al organismo cada turno
+  if (adv('gol') && e.hp > 0){ const d = atk()*.06*adv('gol'); e.hp = Math.max(0, e.hp - d);
+    projectile(P_POS.clone().add(V(.5,.3,0)), E_POS.clone(), 0xffc65c, 3 + adv('gol'), 420, () => floatText('−' + fmt(d) + ' · Golgi', E_POS.clone().add(V(.4,1.6,0)), 'evt ev-golgi'), null); }
   const notes = [];
   const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), E_POS.clone().add(V(.6,1.5,0)), 'heal'); notes.push(why); };
   switch (e.type){
@@ -2969,6 +3123,8 @@ function enemyTurn(){
     if (e.special === 4) heal(.08, tr('Citoadherencia: recupera un 8 %.'));
   }
   if (has('i4') && B.php > 0){ const h = maxHp()*.04; B.php = Math.min(maxHp(), B.php + h); }
+  // peroxisomas: la catalasa te cura cada turno
+  if (adv('per') && B.php > 0){ const h = maxHp()*.015*adv('per'); B.php = Math.min(maxHp(), B.php + h); burst(P_POS, 0x8fff9a, 6 + 2*adv('per'), 1.2); floatText('+' + fmt(h) + ' · ' + tr('peroxisomas'), P_POS.clone().add(V(-.5,1.6,0)), 'evt ev-inflam'); }
   if (e.hp <= 0){ renderFoe(); return setTimeout(win, 250); }
   const finish = () => {
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
@@ -3023,6 +3179,7 @@ function win(){
   if (e.boss){
     S.stats.lvl[e.L] = Math.round((Date.now() - (S.stats.lvlStart || Date.now()))/1000); S.stats.lvlStart = Date.now();
     S.level++; S.kills = 0; S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
+    var mile = milestone(S.level);
     hp = maxHp();
     const nt = TYPE_ORDER.some(id => TYPES[id].min === S.level);
     toast(tr('Nivel {l}.', {l:S.level}) + (nt ? ' ' + tr('Aparece un organismo nuevo.') : ''));
@@ -3032,7 +3189,8 @@ function win(){
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
   checkAch(); save(); renderHud(); renderLog(); pushBoard();
-  setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
+  if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);
+  else setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
 }
 
 function lose(){
@@ -3103,6 +3261,14 @@ function leaveStory(){
   if (B){ B.over = true; clearTimeout(B.timer); }
   S.story = null; save(); rebuildPlayer(); renderHud(); newBattle();
 }
+
+// ---- Hitos: el nivel 30 abre los tejidos profundos ----
+function milestone(L){
+  if (L < 30 || L % 10 || S.miles[L]) return null;
+  S.miles[L] = true;
+  if (L === 30){ S.adn += 8; S.lpts += 3; return {L, t:tr(MILESTONE.t30), d:tr(MILESTONE.d30), r:tr(MILESTONE.r30)}; }
+  S.adn += 3; S.lpts += 1; return {L, t:tr(MILESTONE.tN, {l:L}), d:'', r:tr(MILESTONE.rN)};
+}
 /* =====================================================================
    INTERFAZ
    ===================================================================== */
@@ -3171,8 +3337,12 @@ function applyStatic(){
 }
 document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.ic));
 
+// el mensaje del combate se pliega a una línea a los pocos segundos para dejar ver la batalla; al pulsarlo se despliega
+let msgT = null;
+function foldMsgLater(){ clearTimeout(msgT); msgT = setTimeout(() => { if (!$('#narr').hidden){ foldMsgLater(); return; } $('#msg').classList.add('mini'); resize(); }, 5000); }
+$('#msg').addEventListener('click', ev => { if (ev.target.closest('.nx')) return; const m = $('#msg'); if (m.classList.contains('mini')){ m.classList.remove('mini'); resize(); foldMsgLater(); } });
 function setMsg(v, head, txt, extra=''){
-  const m = $('#msg'); m.className = 'v-' + v;
+  const m = $('#msg'); m.className = 'v-' + v; foldMsgLater();
   $('#msgV').textContent = head; $('#msgT').textContent = txt; $('#msgX').textContent = extra;
   if (typeof placeNarr === 'function') placeNarr();
 }
@@ -3233,6 +3403,7 @@ function renderHud(){
   bA.querySelector('.lbl').textContent = S.auto && canAuto() ? `${tr('Auto')} ×${dec(speed().toFixed(1))}` : tr('Auto');
   $('#bAdv').setAttribute('aria-pressed', S.advance);
   $('#bSnd').setAttribute('aria-pressed', S.sound);
+  $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
   $('#pAtp').innerHTML = S.clase ? tr('Modo clase') : ico('atp') + fmt(S.atp);
   $('#labDot').hidden = !anyAffordable();
@@ -3244,7 +3415,7 @@ function anyAffordable(){
   if (S.clase) return false;
   if (!S.memoria && S.atp >= 50) return true;
   if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost)) return true;
-  return UPG.some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
+  return UPG.concat(advUnlocked() ? UPG2 : []).some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
 }
 
 function renderFoe(){
@@ -3313,7 +3484,11 @@ $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data
 // ---- Laboratorio ----
 let tab = 'mej';
 function openLab(t){ if (t) tab = t; $('#panel').hidden = false; renderPanel(); }
-function closeLab(){ $('#panel').hidden = true; if ($('#bLab')) $('#bLab').setAttribute('aria-expanded', false); }
+function closeLab(){ $('#panel').hidden = true; if ($('#bLab')) $('#bLab').setAttribute('aria-expanded', false); flushOrgFx(); }
+// el destello de una mejora se ve en tu célula; en el móvil el panel la tapa, así que espera a que se cierre
+const orgFxQ = [];
+function queueOrgFx(col, name){ if (window.innerWidth <= 720) orgFxQ.push([col, name]); else organelleFx(col, name); }
+function flushOrgFx(){ orgFxQ.splice(0).forEach(([c, n], i) => setTimeout(() => organelleFx(c, n), 250 + i*450)); }
 $('#bLab').onclick = () => { $('#panel').hidden ? openLab() : closeLab(); renderHud(); };
 $('#pClose').onclick = closeLab;
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => { tab = b.dataset.tab; renderPanel(); $('#pBody').scrollTop = 0; });
@@ -3377,11 +3552,14 @@ function renderPanel(){
       h += `<div class="nb">${tr('Cuaderno · orgánulos')}</div><p class="lead">${tr('Invierte ATP en tus orgánulos. Cada mejora cuesta más que la anterior: el crecimiento es exponencial, como el de una población de bacterias.')}</p>`;
       h += `<div class="org">${vesicle('memo', 0x4dffa0)}<h4>${tr('Memoria inmunitaria')}</h4><p>${tr('Los linfocitos B y T de memoria recuerdan cada patógeno. Desbloquea el combate automático, que usa la mejor herramienta que ya hayas probado contra cada organismo.')}</p><div class="eff">${tr('Desbloquea «Auto»')}</div>
         ${S.memoria ? `<button class="buy done" disabled>${tr('Activa')}</button>` : buyBtn('data-mem', 50)}</div>`;
-      for (const u of UPG){
-        const maxed = u.max != null && S.upg[u.id] >= u.max, c = upgCost(u);
-        h += `<div class="org">${vesicle(UPG_IC[u.id], UPG_COL[u.id])}<h4>${u.n} ${granules(S.upg[u.id], u.max)}</h4><p>${u.d}</p><div class="eff">${u.e}</div>
-          ${maxed ? `<button class="buy done" disabled>${tr('Máximo')}</button>` : buyBtn(`data-upg="${u.id}"`, c)}</div>`;
-      }
+      const orgCard = (u, n, d, e, ic, col) => { const maxed = u.max != null && S.upg[u.id] >= u.max, c = upgCost(u);
+        return `<div class="org">${vesicle(ic, col)}<h4>${n} ${granules(S.upg[u.id], u.max)}</h4><p>${d}</p><div class="eff">${e}</div><div class="vis">${esc(tr(UPG_VIS[u.id]))}</div>
+          ${maxed ? `<button class="buy done" disabled>${tr('Máximo')}</button>` : buyBtn(`data-upg="${u.id}"`, c)}</div>`; };
+      for (const u of UPG) h += orgCard(u, u.n, u.d, u.e, UPG_IC[u.id], UPG_COL[u.id]);
+      if (advUnlocked()){
+        h += `<div class="nb adv">${tr('Orgánulos avanzados')}</div><p class="lead">${tr('Desde el nivel 31, los organismos de los tejidos profundos son mucho más duros. Estos orgánulos te ayudan a seguir avanzando.')}</p>`;
+        for (const u of UPG2) h += orgCard(u, tr(u.n), tr(u.d), tr(u.e), u.ic, u.col);
+      } else h += `<div class="org locked">${vesicle('cell', 0x5a6a78)}<h4>${tr('Orgánulos avanzados')}</h4><p>${tr('Llega al nivel 30 para desbloquear el núcleo activo, el retículo liso, el aparato de Golgi, los peroxisomas y el centrosoma.')}</p><div class="eff">${tr('Récord')}: ${S.best} / 30</div></div>`;
     }
     h += `<div class="nb">${tr('Constantes vitales')}</div><div class="stat"><span>${tr('Célula')}</span><span>${cellD().n}</span><span>${tr('Ataque')}</span><span>${fmt(atk())}</span><span>${tr('Vida máxima')}</span><span>${fmt(maxHp())}</span><span>${tr('Daño recibido')}</span><span>${Math.round(taken()*100)} %</span><span>${tr('ATP por segundo')}</span><span>${fmt(atps())}</span><span>${tr('ATP por victoria (nivel {l})', {l:S.level})}</span><span>${fmt(reward(S.level, false))}</span></div>`;
   } else if (tab === 'her'){
@@ -3481,7 +3659,9 @@ $('#pBody').addEventListener('click', ev => {
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
   if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
-  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return; S.atp -= c; S.upg[u.id]++; if (u.id === 'mem' && B) B.php += maxHp() - maxHp()/1.15; buy(u.id); }
+  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg) || UPG2.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return;
+    const before = maxHp(); S.atp -= c; S.upg[u.id]++; if (B) B.php += maxHp() - before; buy(u.id);
+    rebuildPlayer(); queueOrgFx(UPG_COL[u.id] || u.col, (UPG.includes(u) ? u.n : tr(u.n)) + ' · ' + tr('nv') + ' ' + S.upg[u.id]); }
   else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
   else if (b.hasAttribute('data-mem')){ if (S.atp < 50) return; S.atp -= 50; S.memoria = true; buy('mem0'); toast(tr('Memoria inmunitaria: ya puedes activar «Auto».')); }
   else if (b.dataset.prac){ S.practice = b.dataset.prac; closeLab(); if (B){ B.over = true; clearTimeout(B.timer); } newBattle(); return; }
@@ -3525,6 +3705,7 @@ function evolve(){
 
 $('#bAuto').onclick = () => { if (!canAuto()) return; S.auto = !S.auto; save(); renderHud(); renderLog(); scheduleAuto(); };
 $('#bAdv').onclick = () => { S.advance = !S.advance; save(); renderHud(); };
+$('#bFocus').onclick = () => { S.focus = !S.focus; save(); renderHud(); resize(); };
 $('#bSnd').onclick = () => { S.sound = !S.sound; if (!S.sound) stopMusic(); save(); renderHud(); };
 $('#bMap').onclick = () => showMap();
 window.addEventListener('keydown', ev => {
@@ -3618,7 +3799,7 @@ function showIntro(then){
 /* =====================================================================
    BUCLE PRINCIPAL
    ===================================================================== */
-let last = performance.now(), hudAcc = 0, saveAcc = 0, fpsN = 0, fpsT = 0, slow = 0;
+let last = performance.now(), hudAcc = 0, saveAcc = 0, fpsN = 0, fpsT = 0, slow = 0, mitAcc = 0, sigAcc = 0;
 const clock = new THREE.Clock();
 function loop(now){
   requestAnimationFrame(loop);
@@ -3653,6 +3834,10 @@ function loop(now){
   ENV.up(t, dt, mot);
   const sx = shake > 0 ? rnd(-shake, shake) : 0, sy = shake > 0 ? rnd(-shake, shake) : 0; shake = Math.max(0, shake - dt*.8);
   stepCam(dt);
+  // las mitocondrias sueltan chispas de ATP; la señalización rápida emite ondas en el modo automático
+  if (!S.calm && QL > 0 && S.upg.mit){ mitAcc += dt*Math.min(5, .45*S.upg.mit);
+    while (mitAcc >= 1){ mitAcc--; spark(player.position.clone().add(V(rnd(-.6,.6), rnd(-.3,.5), rnd(-.4,.4))), V(rnd(-.15,.15), rnd(.6,1.2), rnd(-.1,.1)), 0xffc65c, rnd(.8,1.3), rnd(.12,.22)); } }
+  if (S.auto && canAuto() && S.upg.ref && !S.calm){ sigAcc += dt; if (sigAcc > Math.max(.9, 2.6 - .3*S.upg.ref)){ sigAcc = 0; ring(player.position, 0xffc65c, 2.2 + .2*S.upg.ref, 900); } }
   const bp = camera.position.clone();
   camera.position.x += Math.sin(t*.25)*.25*mot + sx; camera.position.y += Math.sin(t*.31)*.12*mot + sy;
   // plano cinematográfico: la cámara se acerca al jefe
@@ -3670,6 +3855,7 @@ Object.assign(IC, {
   scope:'<path d="M9 3.5l4 2.3-3 5.2-4-2.3z"/><path d="M11 9.5l2 1.2M8.6 13a5 5 0 1 0 8.3 4.2"/><path d="M5 21h14M12 17.5V21"/><circle cx="16.4" cy="14.2" r="1.3"/>',
   tree:'<circle cx="12" cy="4.5" r="2"/><circle cx="5.5" cy="12" r="2"/><circle cx="18.5" cy="12" r="2"/><circle cx="5.5" cy="19.5" r="2"/><circle cx="12" cy="19.5" r="2"/><circle cx="18.5" cy="19.5" r="2"/><path d="M12 6.5v11M10.5 6l-3.6 4.4M13.5 6l3.6 4.4M5.5 14v3.5M18.5 14v3.5"/>',
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
+  eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
   doctor:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/><path d="M9.5 15l2.5 3.5 2.5-3.5"/><path d="M16.5 17v2.2a1.3 1.3 0 0 0 2.6 0V17"/>',
 });
@@ -3689,12 +3875,12 @@ function narr(key, force){
   if (!S.narr || !NARR[key] || (!force && narrShown.has(key))) return;
   narrShown.add(key);
   const el = $('#narr'), txt = tr(NARR[key]);
-  el.querySelector('.nt').textContent = txt; el.hidden = false; resize(); // la tarjeta crece: la cámara se reencuadra
+  el.querySelector('.nt').textContent = txt; el.hidden = false; $('#msg').classList.remove('mini'); resize(); // la tarjeta crece: la cámara se reencuadra
   clearTimeout(narrT); narrT = setTimeout(hideNarr, 9000);
   speak(txt);
 }
 function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
-function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); }
+function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
 // ---- Modo historia ----
@@ -3749,7 +3935,7 @@ function openScope(id){
   const d2 = new THREE.DirectionalLight(0x6c95ff, 1); d2.position.set(2,2,-6); sc.add(d2);
   const cam = new THREE.PerspectiveCamera(35, 1, .05, 100);
   const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:id === 'bac', inRbc:true};
-  const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos) : BUILD[id](fake);
+  const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[id](fake);
   o.up(2, fake); sc.add(o.g); o.g.updateMatrixWorld(true);
   const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
   const rad = Math.min(sph.radius, 2.4), center = sph.center.clone();
@@ -3898,6 +4084,16 @@ function fillBoardNames(){
   USER.profiles(els.map(e => e.dataset.uid)).then(ps => els.forEach(e => { const p = ps[e.dataset.uid]; e.textContent = (p && p.name || tr('Alguien')) + (e.dataset.uid === ME ? ' (' + tr('tú') + ')' : ''); }));
 }
 
+
+// ---- Ventana de hito (nivel 30, 40…) ----
+function showMilestone(m, then){
+  sfx.ach(); ring(P_POS, 0xffc65c, 6, 1400);
+  showModal(`<div class="curio">${vesicle('trophy', 0xffc65c)}<div><div class="eyebrow">${tr('Hito')} · ${tr('Nivel')} ${m.L}</div><h2>${esc(m.t)}</h2>
+    ${m.d ? `<p>${esc(m.d)}</p>` : ''}<p class="cw"><b>${esc(m.r)}</b></p>
+    <div class="row"><button class="go" id="mGo">${tr('Seguir')}</button>${m.L === 30 ? `<button class="ghost" id="msLab">${tr('Ver orgánulos avanzados')}</button>` : ''}</div></div></div>`, then);
+  const b = $('#msLab'); if (b) b.onclick = () => { closeModal(); openLab('mej'); };
+  save(); renderHud();
+}
 /* =====================================================================
    ARRANQUE
    ===================================================================== */

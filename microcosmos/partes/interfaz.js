@@ -66,8 +66,12 @@ function applyStatic(){
 }
 document.querySelectorAll('[data-ic]').forEach(s => s.innerHTML = ico(s.dataset.ic));
 
+// el mensaje del combate se pliega a una línea a los pocos segundos para dejar ver la batalla; al pulsarlo se despliega
+let msgT = null;
+function foldMsgLater(){ clearTimeout(msgT); msgT = setTimeout(() => { if (!$('#narr').hidden){ foldMsgLater(); return; } $('#msg').classList.add('mini'); resize(); }, 5000); }
+$('#msg').addEventListener('click', ev => { if (ev.target.closest('.nx')) return; const m = $('#msg'); if (m.classList.contains('mini')){ m.classList.remove('mini'); resize(); foldMsgLater(); } });
 function setMsg(v, head, txt, extra=''){
-  const m = $('#msg'); m.className = 'v-' + v;
+  const m = $('#msg'); m.className = 'v-' + v; foldMsgLater();
   $('#msgV').textContent = head; $('#msgT').textContent = txt; $('#msgX').textContent = extra;
   if (typeof placeNarr === 'function') placeNarr();
 }
@@ -128,6 +132,7 @@ function renderHud(){
   bA.querySelector('.lbl').textContent = S.auto && canAuto() ? `${tr('Auto')} ×${dec(speed().toFixed(1))}` : tr('Auto');
   $('#bAdv').setAttribute('aria-pressed', S.advance);
   $('#bSnd').setAttribute('aria-pressed', S.sound);
+  $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
   $('#pAtp').innerHTML = S.clase ? tr('Modo clase') : ico('atp') + fmt(S.atp);
   $('#labDot').hidden = !anyAffordable();
@@ -139,7 +144,7 @@ function anyAffordable(){
   if (S.clase) return false;
   if (!S.memoria && S.atp >= 50) return true;
   if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost)) return true;
-  return UPG.some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
+  return UPG.concat(advUnlocked() ? UPG2 : []).some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
 }
 
 function renderFoe(){
@@ -208,7 +213,11 @@ $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data
 // ---- Laboratorio ----
 let tab = 'mej';
 function openLab(t){ if (t) tab = t; $('#panel').hidden = false; renderPanel(); }
-function closeLab(){ $('#panel').hidden = true; if ($('#bLab')) $('#bLab').setAttribute('aria-expanded', false); }
+function closeLab(){ $('#panel').hidden = true; if ($('#bLab')) $('#bLab').setAttribute('aria-expanded', false); flushOrgFx(); }
+// el destello de una mejora se ve en tu célula; en el móvil el panel la tapa, así que espera a que se cierre
+const orgFxQ = [];
+function queueOrgFx(col, name){ if (window.innerWidth <= 720) orgFxQ.push([col, name]); else organelleFx(col, name); }
+function flushOrgFx(){ orgFxQ.splice(0).forEach(([c, n], i) => setTimeout(() => organelleFx(c, n), 250 + i*450)); }
 $('#bLab').onclick = () => { $('#panel').hidden ? openLab() : closeLab(); renderHud(); };
 $('#pClose').onclick = closeLab;
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => { tab = b.dataset.tab; renderPanel(); $('#pBody').scrollTop = 0; });
@@ -272,11 +281,14 @@ function renderPanel(){
       h += `<div class="nb">${tr('Cuaderno · orgánulos')}</div><p class="lead">${tr('Invierte ATP en tus orgánulos. Cada mejora cuesta más que la anterior: el crecimiento es exponencial, como el de una población de bacterias.')}</p>`;
       h += `<div class="org">${vesicle('memo', 0x4dffa0)}<h4>${tr('Memoria inmunitaria')}</h4><p>${tr('Los linfocitos B y T de memoria recuerdan cada patógeno. Desbloquea el combate automático, que usa la mejor herramienta que ya hayas probado contra cada organismo.')}</p><div class="eff">${tr('Desbloquea «Auto»')}</div>
         ${S.memoria ? `<button class="buy done" disabled>${tr('Activa')}</button>` : buyBtn('data-mem', 50)}</div>`;
-      for (const u of UPG){
-        const maxed = u.max != null && S.upg[u.id] >= u.max, c = upgCost(u);
-        h += `<div class="org">${vesicle(UPG_IC[u.id], UPG_COL[u.id])}<h4>${u.n} ${granules(S.upg[u.id], u.max)}</h4><p>${u.d}</p><div class="eff">${u.e}</div>
-          ${maxed ? `<button class="buy done" disabled>${tr('Máximo')}</button>` : buyBtn(`data-upg="${u.id}"`, c)}</div>`;
-      }
+      const orgCard = (u, n, d, e, ic, col) => { const maxed = u.max != null && S.upg[u.id] >= u.max, c = upgCost(u);
+        return `<div class="org">${vesicle(ic, col)}<h4>${n} ${granules(S.upg[u.id], u.max)}</h4><p>${d}</p><div class="eff">${e}</div><div class="vis">${esc(tr(UPG_VIS[u.id]))}</div>
+          ${maxed ? `<button class="buy done" disabled>${tr('Máximo')}</button>` : buyBtn(`data-upg="${u.id}"`, c)}</div>`; };
+      for (const u of UPG) h += orgCard(u, u.n, u.d, u.e, UPG_IC[u.id], UPG_COL[u.id]);
+      if (advUnlocked()){
+        h += `<div class="nb adv">${tr('Orgánulos avanzados')}</div><p class="lead">${tr('Desde el nivel 31, los organismos de los tejidos profundos son mucho más duros. Estos orgánulos te ayudan a seguir avanzando.')}</p>`;
+        for (const u of UPG2) h += orgCard(u, tr(u.n), tr(u.d), tr(u.e), u.ic, u.col);
+      } else h += `<div class="org locked">${vesicle('cell', 0x5a6a78)}<h4>${tr('Orgánulos avanzados')}</h4><p>${tr('Llega al nivel 30 para desbloquear el núcleo activo, el retículo liso, el aparato de Golgi, los peroxisomas y el centrosoma.')}</p><div class="eff">${tr('Récord')}: ${S.best} / 30</div></div>`;
     }
     h += `<div class="nb">${tr('Constantes vitales')}</div><div class="stat"><span>${tr('Célula')}</span><span>${cellD().n}</span><span>${tr('Ataque')}</span><span>${fmt(atk())}</span><span>${tr('Vida máxima')}</span><span>${fmt(maxHp())}</span><span>${tr('Daño recibido')}</span><span>${Math.round(taken()*100)} %</span><span>${tr('ATP por segundo')}</span><span>${fmt(atps())}</span><span>${tr('ATP por victoria (nivel {l})', {l:S.level})}</span><span>${fmt(reward(S.level, false))}</span></div>`;
   } else if (tab === 'her'){
@@ -376,7 +388,9 @@ $('#pBody').addEventListener('click', ev => {
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
   if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
-  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return; S.atp -= c; S.upg[u.id]++; if (u.id === 'mem' && B) B.php += maxHp() - maxHp()/1.15; buy(u.id); }
+  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg) || UPG2.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return;
+    const before = maxHp(); S.atp -= c; S.upg[u.id]++; if (B) B.php += maxHp() - before; buy(u.id);
+    rebuildPlayer(); queueOrgFx(UPG_COL[u.id] || u.col, (UPG.includes(u) ? u.n : tr(u.n)) + ' · ' + tr('nv') + ' ' + S.upg[u.id]); }
   else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
   else if (b.hasAttribute('data-mem')){ if (S.atp < 50) return; S.atp -= 50; S.memoria = true; buy('mem0'); toast(tr('Memoria inmunitaria: ya puedes activar «Auto».')); }
   else if (b.dataset.prac){ S.practice = b.dataset.prac; closeLab(); if (B){ B.over = true; clearTimeout(B.timer); } newBattle(); return; }
@@ -420,6 +434,7 @@ function evolve(){
 
 $('#bAuto').onclick = () => { if (!canAuto()) return; S.auto = !S.auto; save(); renderHud(); renderLog(); scheduleAuto(); };
 $('#bAdv').onclick = () => { S.advance = !S.advance; save(); renderHud(); };
+$('#bFocus').onclick = () => { S.focus = !S.focus; save(); renderHud(); resize(); };
 $('#bSnd').onclick = () => { S.sound = !S.sound; if (!S.sound) stopMusic(); save(); renderHud(); };
 $('#bMap').onclick = () => showMap();
 window.addEventListener('keydown', ev => {
@@ -513,7 +528,7 @@ function showIntro(then){
 /* =====================================================================
    BUCLE PRINCIPAL
    ===================================================================== */
-let last = performance.now(), hudAcc = 0, saveAcc = 0, fpsN = 0, fpsT = 0, slow = 0;
+let last = performance.now(), hudAcc = 0, saveAcc = 0, fpsN = 0, fpsT = 0, slow = 0, mitAcc = 0, sigAcc = 0;
 const clock = new THREE.Clock();
 function loop(now){
   requestAnimationFrame(loop);
@@ -548,6 +563,10 @@ function loop(now){
   ENV.up(t, dt, mot);
   const sx = shake > 0 ? rnd(-shake, shake) : 0, sy = shake > 0 ? rnd(-shake, shake) : 0; shake = Math.max(0, shake - dt*.8);
   stepCam(dt);
+  // las mitocondrias sueltan chispas de ATP; la señalización rápida emite ondas en el modo automático
+  if (!S.calm && QL > 0 && S.upg.mit){ mitAcc += dt*Math.min(5, .45*S.upg.mit);
+    while (mitAcc >= 1){ mitAcc--; spark(player.position.clone().add(V(rnd(-.6,.6), rnd(-.3,.5), rnd(-.4,.4))), V(rnd(-.15,.15), rnd(.6,1.2), rnd(-.1,.1)), 0xffc65c, rnd(.8,1.3), rnd(.12,.22)); } }
+  if (S.auto && canAuto() && S.upg.ref && !S.calm){ sigAcc += dt; if (sigAcc > Math.max(.9, 2.6 - .3*S.upg.ref)){ sigAcc = 0; ring(player.position, 0xffc65c, 2.2 + .2*S.upg.ref, 900); } }
   const bp = camera.position.clone();
   camera.position.x += Math.sin(t*.25)*.25*mot + sx; camera.position.y += Math.sin(t*.31)*.12*mot + sy;
   // plano cinematográfico: la cámara se acerca al jefe

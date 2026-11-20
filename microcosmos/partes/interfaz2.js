@@ -6,6 +6,7 @@ Object.assign(IC, {
   scope:'<path d="M9 3.5l4 2.3-3 5.2-4-2.3z"/><path d="M11 9.5l2 1.2M8.6 13a5 5 0 1 0 8.3 4.2"/><path d="M5 21h14M12 17.5V21"/><circle cx="16.4" cy="14.2" r="1.3"/>',
   tree:'<circle cx="12" cy="4.5" r="2"/><circle cx="5.5" cy="12" r="2"/><circle cx="18.5" cy="12" r="2"/><circle cx="5.5" cy="19.5" r="2"/><circle cx="12" cy="19.5" r="2"/><circle cx="18.5" cy="19.5" r="2"/><path d="M12 6.5v11M10.5 6l-3.6 4.4M13.5 6l3.6 4.4M5.5 14v3.5M18.5 14v3.5"/>',
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
+  eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
   doctor:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/><path d="M9.5 15l2.5 3.5 2.5-3.5"/><path d="M16.5 17v2.2a1.3 1.3 0 0 0 2.6 0V17"/>',
 });
@@ -25,12 +26,12 @@ function narr(key, force){
   if (!S.narr || !NARR[key] || (!force && narrShown.has(key))) return;
   narrShown.add(key);
   const el = $('#narr'), txt = tr(NARR[key]);
-  el.querySelector('.nt').textContent = txt; el.hidden = false; resize(); // la tarjeta crece: la cámara se reencuadra
+  el.querySelector('.nt').textContent = txt; el.hidden = false; $('#msg').classList.remove('mini'); resize(); // la tarjeta crece: la cámara se reencuadra
   clearTimeout(narrT); narrT = setTimeout(hideNarr, 9000);
   speak(txt);
 }
 function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
-function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); }
+function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
 // ---- Modo historia ----
@@ -85,7 +86,7 @@ function openScope(id){
   const d2 = new THREE.DirectionalLight(0x6c95ff, 1); d2.position.set(2,2,-6); sc.add(d2);
   const cam = new THREE.PerspectiveCamera(35, 1, .05, 100);
   const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:id === 'bac', inRbc:true};
-  const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos) : BUILD[id](fake);
+  const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[id](fake);
   o.up(2, fake); sc.add(o.g); o.g.updateMatrixWorld(true);
   const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
   const rad = Math.min(sph.radius, 2.4), center = sph.center.clone();
@@ -234,3 +235,13 @@ function fillBoardNames(){
   USER.profiles(els.map(e => e.dataset.uid)).then(ps => els.forEach(e => { const p = ps[e.dataset.uid]; e.textContent = (p && p.name || tr('Alguien')) + (e.dataset.uid === ME ? ' (' + tr('tú') + ')' : ''); }));
 }
 
+
+// ---- Ventana de hito (nivel 30, 40…) ----
+function showMilestone(m, then){
+  sfx.ach(); ring(P_POS, 0xffc65c, 6, 1400);
+  showModal(`<div class="curio">${vesicle('trophy', 0xffc65c)}<div><div class="eyebrow">${tr('Hito')} · ${tr('Nivel')} ${m.L}</div><h2>${esc(m.t)}</h2>
+    ${m.d ? `<p>${esc(m.d)}</p>` : ''}<p class="cw"><b>${esc(m.r)}</b></p>
+    <div class="row"><button class="go" id="mGo">${tr('Seguir')}</button>${m.L === 30 ? `<button class="ghost" id="msLab">${tr('Ver orgánulos avanzados')}</button>` : ''}</div></div></div>`, then);
+  const b = $('#msLab'); if (b) b.onclick = () => { closeModal(); openLab('mej'); };
+  save(); renderHud();
+}

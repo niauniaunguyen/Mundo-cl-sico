@@ -150,3 +150,27 @@ const ACH_GOAL = {
   sarm:T_('Encuéntrate con una cepa resistente (abusa de la penicilina…).'), evo:T_('Evoluciona por primera vez.'), l25:T_('Llega al nivel 25.'), atlas:T_('Descubre todos los organismos del Atlas.'),
   daily:T_('Completa 3 retos diarios.'), boss:T_('Vence a un jefe especial (cada 10 niveles).'),
 };
+// Orgánulos avanzados (se desbloquean al llegar al nivel 30)
+const UPG2 = [
+  {id:'nuc', n:T_('Núcleo activo'), d:T_('Transcribe más genes de defensa: tu célula fabrica más enzimas y receptores.'), e:T_('Ataque ×1,12'), base:20000, k:1.6, col:0x7b8cff, ic:'cell'},
+  {id:'rel', n:T_('Retículo endoplasmático liso'), d:T_('Fabrica los lípidos de la membrana y neutraliza toxinas.'), e:T_('Vida ×1,12'), base:20000, k:1.6, col:0x9ff0ff, ic:'bilayer'},
+  {id:'gol', n:T_('Aparato de Golgi'), d:T_('Empaqueta y secreta citocinas y enzimas: cada turno, tus vesículas dañan al organismo.'), e:T_('+6 % de tu ataque como daño cada turno'), base:40000, k:1.7, max:10, col:0xffc65c, ic:'flask'},
+  {id:'per', n:T_('Peroxisomas'), d:T_('Su catalasa descompone el peróxido de hidrógeno que te daña.'), e:T_('Recuperas un 1,5 % de vida cada turno'), base:30000, k:1.7, max:8, col:0x8fff9a, ic:'lyso'},
+  {id:'cen', n:T_('Centrosoma'), d:T_('Organiza los microtúbulos: tus vesículas y pseudópodos se mueven antes.'), e:T_('+7 % de probabilidad de que una herramienta no gaste recarga'), base:60000, k:1.9, max:6, col:0xff9fd8, ic:'tax'},
+];
+// Cómo se ve cada mejora en tu célula
+const UPG_VIS = {
+  fue:T_('En tu célula: más lisosomas, y más brillantes.'), mem:T_('En tu célula: un contorno más grueso; desde el nivel 8, una segunda capa.'),
+  cit:T_('En tu célula: aparecen filamentos de actina.'), rib:T_('En tu célula: el retículo se llena de ribosomas.'),
+  mit:T_('En tu célula: más mitocondrias, que laten y sueltan chispas de ATP.'), ref:T_('En tu célula: ondas de señalización en el modo automático.'),
+  nuc:T_('En tu célula: un núcleo más grande y luminoso.'), rel:T_('En tu célula: tubos de retículo liso.'), gol:T_('En tu célula: un Golgi más grande que dispara vesículas cada turno.'),
+  per:T_('En tu célula: peroxisomas verdes que te curan cada turno.'), cen:T_('En tu célula: un centrosoma con su áster de microtúbulos.'),
+};
+// Hitos de nivel: el 30 abre los tejidos profundos
+const MILESTONE = {
+  t30:T_('Has llegado a los tejidos profundos'),
+  d30:T_('Has superado 30 niveles: tu célula es un veterano del sistema inmune. A partir del nivel 31, los organismos son mucho más resistentes y crecen más deprisa. Para hacerles frente se desbloquean los orgánulos avanzados en el Laboratorio.'),
+  r30:T_('Recompensa: +8 ADN, +3 puntos del árbol inmunitario y los orgánulos avanzados.'),
+  tN:T_('Nivel {l} alcanzado'),
+  rN:T_('Recompensa: +3 ADN y +1 punto del árbol inmunitario.'),
+};

@@ -158,21 +158,26 @@ function antibody(mat, s=1){
 }
 
 /* ---------- Tu célula: macrófago ---------- */
-function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0){
+// U = niveles de los orgánulos: cada mejora cambia la célula de forma visible
+function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
   SEED = 101;
+  const lv = k => U[k] || 0;
   const CD = CELLS[cellId] || CELLS.mac, rimCol = new THREE.Color(col).lerp(new THREE.Color(0xffffff), .45).getHex();
   const g = new THREE.Group();
   const lobes = [{d:V(1,0,0), a:0, k:5},
     {d:V(-.3,.9,.3).normalize(), a:.16, k:7, b:.16, ph:0}, {d:V(-.7,-.6,.4).normalize(), a:.2, k:7, b:.2, ph:2},
     {d:V(.3,-.5,-.8).normalize(), a:.14, k:7, b:.14, ph:4}, {d:V(-.4,.2,-.9).normalize(), a:.12, k:7, b:.12, ph:1}];
   const sc = cellId === 'mac' ? 1 : cellId === 'neu' ? .82 : cellId === 'nk' ? .74 : .88; // tamaño relativo
-  const memb = blob(1.2*sc, mem(col, {op:.34, rim:rimCol, rimK:1.7, rimP:2.2, rimA:.85, rough:.25, bumpScale:.03}), {lobes, ro:10});
+  // membrana reforzada: contorno más grueso y brillante; desde el nivel 8, una segunda capa
+  const memM = mem(col, {op:Math.min(.42, .34 + .008*lv('mem')), rim:rimCol, rimK:1.7 + .05*Math.min(lv('mem'), 15), rimP:2.2 - .04*Math.min(lv('mem'), 15), rimA:.85, rough:.25, bumpScale:.03 + .002*lv('mem')});
+  const memb = blob(1.2*sc, memM, {lobes, ro:10});
+  if (lv('mem') >= 8) g.add(blob(1.27*sc, mem(rimCol, {op:.06, rim:rimCol, rimK:1.2, rimA:.4, bump:false}), {w:32, h:20, ro:11}));
   const cyto = blob(1.0*sc, mem(new THREE.Color(col).multiplyScalar(.35).getHex(), {op:.16, rimK:.3, rimA:.2, bump:false}), {w:32, h:20, ro:4});
   g.add(memb, cyto);
   const inner = new THREE.Group(); g.add(inner);
   inner.scale.setScalar(sc);
   // núcleo: arriñonado (macrófago), multilobulado (neutrófilo), redondo y grande (NK) o bilobulado (eosinófilo)
-  const nm = mem(0x7b8cff, {map:CHROM, rim:0xc4ceff, rimK:.7, emiK:.18});
+  const nm = mem(0x7b8cff, {map:CHROM, rim:0xc4ceff, rimK:.7 + .08*lv('nuc'), emiK:.18 + .04*lv('nuc')});
   let nuc;
   if (CD.nuc === 'bean'){ nuc = blob(.42, nm, {w:36, h:24, shape:bean}); nuc.position.set(.12,.05,0); nuc.rotation.z = .3; inner.add(nuc); }
   else if (CD.nuc === 'round'){ nuc = blob(.55, nm, {w:36, h:24}); nuc.position.set(.08,.04,0); inner.add(nuc); }
@@ -183,31 +188,55 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0){
       if (i){ const a = lobesN[i-1], len = a.distanceTo(p); const br = mesh(new THREE.CylinderGeometry(.05, .05, len, 8), nm); br.position.copy(a).lerp(p, .5); br.quaternion.setFromUnitVectors(UP, p.clone().sub(a).normalize()); nuc.add(br); } });
     inner.add(nuc);
   }
+  if (lv('nuc')) nuc.scale.setScalar(1 + Math.min(.3, .03*lv('nuc')));
   // gránulos característicos (rojos en el NK, naranjas en el eosinófilo)
   if (cellId !== 'mac') inner.add(inst(sphG(.055, 10, 8), mem(CD.gran, {emiK:.7, rim:0xffffff, rimK:.5, bump:false}), Array.from({length:cellId === 'eos' ? 40 : 24}, () => ({p:randIn(.8,.65,.65)}))));
   // aparato de Golgi: cisternas curvas apiladas y vesículas
   const gm = mem(0xffc65c, {emiK:.3, rim:0xfff0b8, rimK:.8, side:THREE.DoubleSide, bump:false});
   const gol = new THREE.Group();
-  for (let i=0;i<5;i++) gol.add(mesh(new THREE.SphereGeometry(.24 + i*.045, 20, 6, 0, Math.PI*.9, Math.PI*.36, Math.PI*.22), gm));
-  for (let i=0;i<7;i++){ const v = mesh(sphG(.035, 10, 8), gm); const a = srn(0, Math.PI*.9); v.position.set(Math.cos(a)*.5, srn(-.12,.12), Math.sin(a)*.5); gol.add(v); }
+  for (let i=0;i<5 + Math.min(lv('gol'), 6);i++) gol.add(mesh(new THREE.SphereGeometry(.22 + i*.04, 20, 6, 0, Math.PI*.9, Math.PI*.36, Math.PI*.22), gm));
+  for (let i=0;i<7 + 3*lv('gol');i++){ const v = mesh(sphG(.035, 10, 8), gm); const a = srn(0, Math.PI*.9); v.position.set(Math.cos(a)*.5, srn(-.12,.12), Math.sin(a)*.5); gol.add(v); }
   gol.position.set(-.55,.35,.25); gol.rotation.set(.4, 2.4, .3); inner.add(gol);
   // mitocondrias con crestas
   const mm = mem(0xff7a4a, {map:CRISTAE, rim:0xffb08a, rimK:.6, emiK:.15, bump:false});
-  for (let i=0;i<6;i++){ const c = mesh(capG(.2, .07, 12, 5), mm); c.position.copy(randIn(.75,.6,.6)); c.rotation.set(srn(0,3), srn(0,3), srn(0,3)); inner.add(c); }
+  for (let i=0;i<Math.min(20, 6 + lv('mit'));i++){ const c = mesh(capG(.2, .07, 12, 5), mm); c.position.copy(randIn(.75,.6,.6)); c.rotation.set(srn(0,3), srn(0,3), srn(0,3)); inner.add(c); }
   // lisosomas
-  inner.add(inst(sphG(.06, 10, 8), mem(0xd8ff6b, {emiK:.6, rim:0xffffff, rimK:.5, bump:false}), Array.from({length:16}, () => ({p:randIn(.85,.7,.7)}))));
+  const lyM = mem(0xd8ff6b, {emiK:.5 + .02*Math.min(lv('fue'), 25), rim:0xffffff, rimK:.4, bump:false});
+  inner.add(inst(sphG(.055, 10, 8), lyM, Array.from({length:Math.min(44, 12 + 1.5*lv('fue') | 0)}, () => ({p:randIn(.85,.7,.7)}))));
+  // citoesqueleto: filamentos de actina visibles
+  if (lv('cit')){ const n = Math.min(90, 8*lv('cit')), pos = new Float32Array(n*6);
+    for (let i=0;i<n;i++){ const a = randIn(.9,.75,.75), b = randIn(.9,.75,.75); pos.set([a.x,a.y,a.z,b.x,b.y,b.z], i*6); }
+    const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    inner.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color:0x8fdfff, transparent:true, opacity:.28, blending:THREE.AdditiveBlending, depthWrite:false}))); }
+  // peroxisomas (verdes)
+  if (lv('per')) inner.add(inst(sphG(.05, 10, 8), mem(0x8fff9a, {emiK:.7, rim:0xffffff, rimK:.4, bump:false}), Array.from({length:4*lv('per')}, () => ({p:randIn(.8,.65,.65)}))));
+  // centrosoma: dos centríolos perpendiculares con su áster de microtúbulos
+  if (lv('cen')){ const cg = new THREE.Group(), cM = mem(0xff9fd8, {emiK:.5, bump:false});
+    [0, 1].forEach(k => { const c = new THREE.Group(); for (let i=0;i<9;i++){ const a = i/9*Math.PI*2, r = mesh(new THREE.CylinderGeometry(.008, .008, .12, 4), cM); r.position.set(Math.cos(a)*.035, 0, Math.sin(a)*.035); c.add(r); }
+      if (k) c.rotation.z = Math.PI/2; cg.add(c); });
+    const n = 10 + 4*lv('cen'), pos = new Float32Array(n*6);
+    for (let i=0;i<n;i++){ const d = V(srn(-1,1), srn(-1,1), srn(-1,1)).normalize().multiplyScalar(.5); pos.set([0,0,0,d.x,d.y,d.z], i*6); }
+    const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    cg.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color:0xff9fd8, transparent:true, opacity:.3, blending:THREE.AdditiveBlending, depthWrite:false})));
+    cg.position.set(-.35,-.3,.3); inner.add(cg); }
   // retículo endoplasmático rugoso alrededor del núcleo
   const erM = mem(0x4dd6c8, {op:.55, rimK:.6, bump:false});
   for (let k=0;k<2;k++){
     const pts = []; for (let i=0;i<=30;i++){ const a = i/30*Math.PI*1.6 + k*2.2; pts.push(V(Math.cos(a)*(.62 + .05*Math.sin(i*1.7)), Math.sin(i*.9 + k)*.25, Math.sin(a)*(.56 + .05*Math.cos(i*1.3)))); }
     const curve = new THREE.CatmullRomCurve3(pts);
     inner.add(mesh(new THREE.TubeGeometry(curve, 90, .028, 6), erM, 5));
-    inner.add(inst(sphG(.014, 5, 4), mem(0x9ff5e8, {emiK:.5, bump:false}), Array.from({length:40}, (_, i) => ({p:curve.getPoint(i/40).add(randIn(.035,.035,.035))}))));
+    const nr = Math.min(200, 40 + 15*lv('rib')); // ribosomas: más con cada mejora
+    inner.add(inst(sphG(.014, 5, 4), mem(0x9ff5e8, {emiK:.5 + .03*Math.min(lv('rib'), 15), bump:false}), Array.from({length:nr}, (_, i) => ({p:curve.getPoint(i/nr).add(randIn(.035,.035,.035))}))));
   }
+  // retículo endoplasmático liso: tubos sin ribosomas
+  for (let k=0;k<Math.min(4, lv('rel') ? 1 + Math.floor(lv('rel')/3) : 0);k++){
+    const pts = []; for (let i=0;i<=20;i++) pts.push(randIn(.8,.6,.6));
+    inner.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 80, .02, 5), mem(0x9ff0ff, {op:.5, rimK:.6, bump:false}), 5)); }
   // filopodios: tu linaje gana más con cada evolución
   const fil = inst(new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
   g.add(fil);
   let reachA = 0;
+  const mitK = Math.min(1, lv('mit')/12);
   return {g,
     reach(p, dirWorld){ lobes[0].d.copy(dirWorld).applyAxisAngle(UP, -g.rotation.y).normalize(); reachA = Math.sin(p*Math.PI)*.85; },
     up(t){
@@ -215,6 +244,8 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0){
       for (let i=1;i<lobes.length;i++) lobes[i].a = lobes[i].b*(.6 + .6*Math.sin(t*.7 + lobes[i].ph));
       memb.userData.wob(t, .05, 2, 1, .02); cyto.userData.wob(t+3, .06, 2.4, .8); nuc.userData.wob(t+5, .03, 3, .5);
       inner.rotation.y = Math.sin(t*.2)*.25; inner.rotation.x = Math.sin(t*.17)*.1; fil.rotation.y = Math.sin(t*.5)*.1;
+      mm.emissiveIntensity = 1 + mitK*1.2*(.5 + .5*Math.sin(t*2.2)); // las mitocondrias laten al producir ATP
+      lyM.emissiveIntensity = .9 + .2*Math.sin(t*1.7);
     }};
 }
 
@@ -623,7 +654,7 @@ let player = PL.g;
 player.position.copy(P_POS); scene.add(player);
 function rebuildPlayer(){
   const pos = player.position.clone(); scene.remove(player);
-  PL = buildMacrophage(S.cell, SKINS[S.skin].col, S.evos); player = PL.g; player.position.copy(pos); scene.add(player);
+  PL = buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg); player = PL.g; player.position.copy(pos); scene.add(player);
   pLight.color.setHex(SKINS[S.skin].col); delete thumbCache.me;
 }
 
@@ -657,7 +688,7 @@ function thumb(id){
       TC = new THREE.PerspectiveCamera(32, 1, .1, 100);
     }
     const fake = {type:id, grow:1, hidden:false, dark:false, block:0, spore:false};
-    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos) : BUILD[id](fake);
+    const o = id === 'me' ? buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg) : BUILD[id](fake);
     o.up(2, fake); TS.add(o.g); o.g.updateMatrixWorld(true);
     const sph = new THREE.Box3().setFromObject(o.g).getBoundingSphere(new THREE.Sphere());
     const r = Math.min(sph.radius, id === 'veg' ? 1.7 : id === 'can' ? 1.6 : 9);
@@ -689,6 +720,18 @@ function impact(pos, color){
   const m = new THREE.Sprite(new THREE.SpriteMaterial({map:RING, color, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
   m.position.copy(pos); scene.add(m);
   tween(520, p => { m.scale.setScalar(.4 + p*3.6); m.material.opacity = 1 - p; }, () => { scene.remove(m); m.material.dispose(); });
+}
+// anillo que se expande desde un punto (señalización, centrosoma, compras)
+function ring(pos, color, size=3.4, ms=700){
+  const m = new THREE.Sprite(new THREE.SpriteMaterial({map:RING, color, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
+  m.position.copy(pos); scene.add(m);
+  tween(ms, p => { m.scale.setScalar(.6 + p*size); m.material.opacity = (1 - p)*.8; }, () => { scene.remove(m); m.material.dispose(); });
+}
+// efecto al mejorar un orgánulo: destello del color del orgánulo y un pulso de la célula
+function organelleFx(col, name){
+  ring(P_POS, col, 4, 900); burst(P_POS, col, 30, 2.5);
+  const s0 = player.scale.x; tween(600, p => player.scale.setScalar(s0*(1 + .12*Math.sin(p*Math.PI))), () => player.scale.setScalar(s0));
+  floatText(name, P_POS.clone().add(V(0,1.7,0)), 'evt ev-org');
 }
 // proyectiles con forma propia de cada herramienta
 const PM = {};
@@ -764,9 +807,11 @@ function resize(){
   const r = el => $(el).getBoundingClientRect();
   const top = portrait ? r('#foe').bottom : Math.max(r('#hud').bottom, r('#foe').bottom - 70);
   document.documentElement.style.setProperty('--foeB', Math.round(r('#foe').bottom) + 'px');
-  document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(r('#msg').top, r('#me').top) + 6) + 'px');
+  // un elemento oculto (modo «ver la batalla») no cuenta para el encuadre
+  const topOf = el => { const n = $(el); return n && n.offsetParent !== null ? n.getBoundingClientRect().top : h; };
+  document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(topOf('#msg'), topOf('#me')) + 6) + 'px');
   lastFoeH = $('#foe').offsetHeight;
-  const bot = Math.min(r('#msg').top, r('#me').top);
+  const bot = Math.min(topOf('#msg'), topOf('#me'));
   const band = Math.max(140, bot - top);
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
   const halfW = portrait ? 2.7 : 4.2, halfH = portrait ? 2.9 : 2.1;

@@ -129,3 +129,30 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - Si no se pulsa, queda pendiente en Retos (punto en la pestaña, `S.achSeen`).
   - Los logros bloqueados explican cómo conseguirlos (`ACH_GOAL`).
 - **La narradora** (`#narr`) va dentro de la tarjeta de mensajes (`#msg`), no flota sobre la escena. Cuando habla, la tarjeta crece y la cámara se reencuadra con suavidad (`CAMT`/`CAMC`, `stepCam`); si cambia el tamaño de la ventana, el reencuadre es inmediato.
+
+## Versión 8: tejidos profundos, interfaz más ligera y orgánulos visibles
+- **Hito del nivel 30** (`milestone()`, `MILESTONE`, `S.miles`): la primera vez da +8 ADN, +3 puntos del árbol y desbloquea los orgánulos avanzados. Cada 10 niveles más da +3 ADN y +1 punto.
+- **Salto de dificultad desde el nivel 31:**
+  - Vida de los enemigos: ×3,5·1,15^(N−31) (`deepHp`).
+  - Ataque de los enemigos: ×2·1,1^(N−31) (`deepAtk`).
+  - Recompensas ×1,5.
+- **Orgánulos avanzados** (`UPG2`, en `S.upg`, se reinician al evolucionar; disponibles si `S.best ≥ 30`):
+  - Núcleo activo: ataque ×1,12 por nivel.
+  - Retículo liso: vida ×1,12 por nivel.
+  - Golgi: daño automático cada turno.
+  - Peroxisomas: curación cada turno.
+  - Centrosoma: probabilidad de que una herramienta no gaste recarga.
+  - Según la simulación, sin ellos la partida se estanca hacia el nivel 38–40; con ellos se sigue avanzando.
+- **Orgánulos visibles** (`buildMacrophage(…, U)`): el número y el brillo de lisosomas, mitocondrias, ribosomas, actina, peroxisomas, Golgi, núcleo, retículo liso, centrosoma y membrana dependen de su nivel.
+- **Efectos animados de los orgánulos:**
+  - Las mitocondrias sueltan chispas de ATP.
+  - La señalización emite ondas en el modo automático.
+  - El Golgi dispara vesículas cada turno.
+  - Los peroxisomas producen un destello verde al curarte.
+- **Al comprar una mejora:** destello y pulso de la célula (`organelleFx`). En el móvil se reproducen al cerrar el Laboratorio.
+- **Interfaz:**
+  - Herramientas en una sola fila deslizable.
+  - Tu vida es una barra fina en lugar de una tarjeta.
+  - El mensaje del combate se pliega a una línea a los 5 s; al pulsarlo se despliega.
+  - Los rasgos del organismo van en una fila deslizable.
+  - Botón con forma de ojo para el modo «ver la batalla» (`S.focus`): oculta rasgos, mensajes y eventos.
