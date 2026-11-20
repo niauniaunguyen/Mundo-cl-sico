@@ -12,3 +12,10 @@ No hace falta atribución, pero la dejamos aquí: http://www.makehumancommunity.
 Origen:
 - `base.obj`: github.com/makehumancommunity/makehuman, `makehuman/data/3dobjs/base.obj`
 - `targets.npz`: paquete de PyPI `makehuman` 1.3.2, `makehuman/data/targets.npz`
+
+## Cuerpo completo (prototipo)
+
+`base.obj` (malla base hm08), `esqueleto_default.mhskel` y `pesos_default.mhw` (esqueleto «default» de 163 huesos y sus pesos),
+de github.com/makehumancommunity/makehuman (`makehuman/data/3dobjs` y `makehuman/data/rigs`), CC0 (el archivo de pesos lo dice en
+su cabecera: «license: CC0»). `cuerpo_targets.npz`: las deformaciones de hombre joven (caucásico, musculatura media y máxima) sacadas
+de `targets.npz`. Los usa `../prototipo_mh.py`, que hace un personaje de prueba con este cuerpo y las animaciones de Quaternius.

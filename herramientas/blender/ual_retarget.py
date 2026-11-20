@@ -52,10 +52,17 @@ def sample(src, clip, step=1):
             pb = arm.pose.bones[sname]; D['_d' + b] = ((arm.matrix_world @ pb.tail) - (arm.matrix_world @ pb.head)).normalized()
         out.append({b: _arm_q(arm, arm.pose.bones[s]) for b, s in MAP.items()} | {'_hip': _arm_head(arm, arm.pose.bones['DEF-hips'])} | D)
     return out
-def retarget(arm, prefix, names=None):
+def retarget(arm, prefix, names=None, bmap=None, aim=None, hip='hips', thigh='thigh.L'):
+    global MAP, AIM
+    M0, A0 = MAP, AIM
+    if bmap: MAP = bmap
+    if aim: AIM = aim
+    try: return _retarget(arm, prefix, names, hip, thigh)
+    finally: MAP, AIM = M0, A0
+def _retarget(arm, prefix, names, hip, thigh):
     src = source(); ref = sample(src, 'Idle_Loop')[0]
     sleg = (src['arm'].matrix_world @ src['arm'].data.bones['DEF-thigh.L'].head_local).z
-    tleg = (arm.matrix_world @ arm.data.bones['thigh.L'].head_local).z; k = tleg / max(1e-3, sleg)
+    tleg = (arm.matrix_world @ arm.data.bones[thigh].head_local).z; k = tleg / max(1e-3, sleg)
     ad = arm.animation_data_create(); made = []
     for pb in arm.pose.bones: pb.rotation_mode = 'QUATERNION'
     order = [b.name for b in arm.data.bones]   # los padres antes que los hijos (orden de creación)
@@ -73,15 +80,15 @@ def retarget(arm, prefix, names=None):
                     Qd[bn] = P[bn] @ ref[bn].inverted() @ rest[bn]
                     # brazos y piernas: además, el hueso apunta exactamente hacia donde apunta el de origen (si no, la diferencia entre las
                     # dos posturas de reposo abre las piernas y dobla las rodillas hacia delante)
-                    if bn.split('.')[0] in AIM:
+                    if bn.split('.')[0] in AIM or bn in AIM:
                         d0 = Qd[bn] @ Vector((0, 1, 0)); Qd[bn] = d0.rotation_difference(P['_d' + bn]) @ Qd[bn]
                 else: Qd[bn] = (Qd[pb.parent.name] @ rest[pb.parent.name].inverted() @ rest[bn]) if pb.parent else rest[bn]
                 if pb.parent: off = rest[pb.parent.name].inverted() @ rest[bn]; qb = off.inverted() @ Qd[pb.parent.name].inverted() @ Qd[bn]
                 else: qb = rest[bn].inverted() @ Qd[bn]
                 pb.rotation_quaternion = qb; pb.keyframe_insert('rotation_quaternion', frame=i + 1)
-            d = (P['_hip'] - ref['_hip']) * k; hb = arm.pose.bones['hips']
+            d = (P['_hip'] - ref['_hip']) * k; hb = arm.pose.bones[hip]
             if ours in ('andar', 'correr', 'solemne'): d.y = 0.0   # en el sitio: el juego mueve a la persona
-            hb.location = rest['hips'].inverted() @ d; hb.keyframe_insert('location', frame=i + 1)
+            hb.location = rest[hip].inverted() @ d; hb.keyframe_insert('location', frame=i + 1)
         slot = getattr(ad, 'action_slot', None); tr = ad.nla_tracks.new(); tr.name = prefix + ours; st = tr.strips.new(prefix + ours, 1, a)
         if slot is not None and hasattr(st, 'action_slot'): st.action_slot = slot
         if os.environ.get('NOSTOS_UALDBG') and ours == 'andar':
