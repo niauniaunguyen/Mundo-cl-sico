@@ -47,23 +47,25 @@ const ROLE_TEX={wall:['plaster',5],plaster:['plaster',5],brick:['brick',2.6],roo
 const WHITE_ROLE={},ROLE_MAT={};
 function whiteRole(role){const t=ROLE_TEX[role];if(!t)return WHITE_M;if(!WHITE_ROLE[role])WHITE_ROLE[role]=triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX[t[0]],t[1]);return WHITE_ROLE[role];}
 function roleMat(role){const c=ROLE_C[role]||'#999999',t=ROLE_TEX[role];if(!t)return lam(c);if(!ROLE_MAT[role])ROLE_MAT[role]=triplanar(new THREE.MeshLambertMaterial({color:c}),PTEX[t[0]],t[1]);return ROLE_MAT[role];}
+// los mapas y escalas del suelo son uniformes compartidos (TERR_U): 209 los cambia por los escaneos de Poly Haven cuando llegan
+const TERR_U={tpScale:{value:1/9},groundMap:{value:PTEX.ground},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks},rS:{value:0.2},hS:{value:0.6},vS:{value:0.42},cS:{value:0.11}};
 function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'});TERR_MATS.push(m);triplanar(m,PTEX.ground,9,true);m.customProgramCacheKey=()=>'terr2';
   // el suelo cambia según el sitio: roca en las pendientes, hierba donde el color es verde, grava y tierra cuarteada a manchas,
   // y grandes manchas de color (tierra roja, zonas más claras u oscuras) para que no se repita la misma textura cada 9 m
-  m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,{tpScale:{value:1/9},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks}});
+  m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,TERR_U);
     sh.vertexShader='varying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvec4 tpw=modelMatrix*vec4(transformed,1.0);vTpPos=tpw.xyz;vTpNor=normalize(mat3(modelMatrix)*objectNormal);');
-    sh.fragmentShader='uniform float tpScale;uniform sampler2D rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
+    sh.fragmentShader='uniform float tpScale,rS,hS,vS,cS;uniform sampler2D groundMap,rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
      'float tH(vec2 p){p=mod(p,289.0);return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nfloat tV(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(tH(i),tH(i+vec2(1.0,0.0)),f.x),mix(tH(i+vec2(0.0,1.0)),tH(i+vec2(1.0,1.0)),f.x),f.y);}\n'+
      sh.fragmentShader.replace('#include <map_fragment>',[
       'vec2 wp=vTpPos.xz;float m1=tV(wp*0.006),m2=tV(wp*0.021+3.7)*0.7+tV(wp*0.06+9.1)*0.3,m3=tV(wp*0.08+11.3);',
-      'vec2 rw=mat2(0.8,-0.6,0.6,0.8)*wp;vec3 col=mix(texture2D(map,wp*tpScale).rgb,texture2D(map,rw*tpScale*0.31).rgb,0.3+0.3*m3);',   // dos escalas giradas: sin repetición visible
+      'vec2 rw=mat2(0.8,-0.6,0.6,0.8)*wp;vec3 col=mix(texture2D(groundMap,wp*tpScale).rgb,texture2D(groundMap,rw*tpScale*0.31).rgb,0.3+0.3*m3);',   // dos escalas giradas: sin repetición visible
       'vec3 nn=abs(normalize(vTpNor));float slope=1.0-nn.y;',
-      'vec3 rk=nn.x>nn.z?texture2D(rockMap,vTpPos.zy*0.2).rgb:texture2D(rockMap,vTpPos.xy*0.2).rgb;rk=mix(rk,texture2D(rockMap,wp*0.2).rgb,nn.y);',
+      'vec3 rk=nn.x>nn.z?texture2D(rockMap,vTpPos.zy*rS).rgb:texture2D(rockMap,vTpPos.xy*rS).rgb;rk=mix(rk,texture2D(rockMap,wp*rS).rgb,nn.y);',
       '#ifdef USE_COLOR\nfloat green=smoothstep(0.0,0.05,vColor.g-vColor.r*0.93);\n#else\nfloat green=0.0;\n#endif',
       'float rockW=smoothstep(0.2,0.48,slope+(m2-0.5)*0.22);',
       'float grassW=green*(0.5+0.5*m3)*(1.0-rockW);',
       'float dry=(1.0-green)*(1.0-rockW);float gravW=dry*smoothstep(0.58,0.74,m2)*0.85;float crackW=dry*smoothstep(0.66,0.85,m1)*(1.0-gravW)*0.45;',
-      'col=mix(col,texture2D(gravMap,wp*0.42).rgb,gravW);col=mix(col,texture2D(crackMap,wp*0.11).rgb,crackW);col=mix(col,texture2D(grassMap,wp*0.6).rgb,grassW*0.8);col=mix(col,rk,rockW);',
+      'col=mix(col,texture2D(gravMap,wp*vS).rgb,gravW);col=mix(col,texture2D(crackMap,wp*cS).rgb,crackW);col=mix(col,texture2D(grassMap,wp*hS).rgb,grassW*0.8);col=mix(col,rk,rockW);',
       'col*=0.86+0.26*m1;',   // manchas grandes más claras u oscuras
       'col=mix(col,col*vec3(1.08,0.95,0.84),smoothstep(0.55,0.82,m2)*0.55*dry);',   // tierra rojiza (terra rossa) a manchas
       'col=mix(col,col*vec3(0.9,0.97,1.0),smoothstep(0.62,0.88,m3)*0.25);',

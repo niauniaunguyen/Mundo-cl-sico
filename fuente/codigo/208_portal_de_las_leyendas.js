@@ -163,8 +163,9 @@ function leyMdlHead(H){const R=LEY.R,T=LEY.tpl;if(!R||!T)return;if(!LEY.mbody)le
   const g=T.neck.clone();g.attributes.position=g.attributes.position.clone();g.attributes.normal=g.attributes.normal.clone();
   const nk=new THREE.Mesh(g,T.nmat);nk.castShadow=true;nk.frustumCulled=false;nk.userData.hy=1;R.g.add(nk);
   const hd=T.head.clone(true);hd.position.set(0,0,0);hd.rotation.set(0,0,0);hd.userData.hy=1;R.g.add(hd);const jaw=hd.getObjectByName('HY_mandibula');
-  H.glow.parent&&H.glow.parent.remove(H.glow);H.glow.position.set(0,-0.02,0.95);H.glow.scale.set(0.8,0.8,1);hd.add(H.glow);
-  for(const s of H.neck)s.visible=false;H.head.visible=false;H.mdl={nk,head:hd,jaw,jaw0:jaw?jaw.rotation.x:0};}
+  H.glow.parent&&H.glow.parent.remove(H.glow);H.glow.position.set(0,-0.06,0.62);H.glow.scale.set(0.42,0.42,1);H.glow.material.depthTest=true;hd.add(H.glow);
+  let eye=null;hd.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissiveMap){if(!eye)eye=o.material.clone();o.material=eye;}});   // los ojos se encienden de verde al avisar (cada cabeza, los suyos)
+  for(const s of H.neck)s.visible=false;H.head.visible=false;H.mdl={nk,head:hd,jaw,eye,jaw0:jaw?jaw.rotation.x:0};}
 const _lyB=new THREE.Vector3(),_lyT=new THREE.Vector3(),_lyL=new THREE.Vector3(),_lyS=new THREE.Vector3(),_lyQ=new THREE.Vector3();
 function leyMdlPose(H,b,c1,tip,t,P,R){const M=H.mdl,T=LEY.tpl,pos=M.nk.geometry.attributes.position,nor=M.nk.geometry.attributes.normal,P0=T.P0,N0=T.N0,NR=44;
   const bz=(s,o)=>o.copy(b).multiplyScalar((1-s)*(1-s)).addScaledVector(c1,2*s*(1-s)).addScaledVector(tip,s*s);
@@ -182,7 +183,8 @@ function leyMdlPose(H,b,c1,tip,t,P,R){const M=H.mdl,T=LEY.tpl,pos=M.nk.geometry.
   const fe=F[NR-1];M.head.position.copy(fe.p).addScaledVector(fe.t,-0.12);M.head.lookAt(P.x-R.X,P.feet+1-R.Y,P.z-R.Z);
   if(M.jaw){const open=H.warn>0?0.15+0.45*(1-H.warn/0.7):Math.max(0,(M.snap||0))*0.6+0.04+0.03*Math.sin(t*2.3+H.ph);M.jaw.rotation.x=M.jaw0+open;}
   if(M.snap>0)M.snap-=0.05;
-  H.glow.material.opacity=H.warn>0?0.9*(1-H.warn/0.7):0;}
+  const w=H.warn>0?1-H.warn/0.7:0;H.glow.material.opacity=0.75*w;
+  if(M.eye){M.eye.emissive.setRGB(1-0.6*w,1,1-0.7*w);M.eye.emissiveIntensity=0.35+1.4*w;}}
 
 // ---- el cielo de pesadilla: nubes de tormenta de noche (Poly Haven, CC0; retocadas en herramientas/blender/cielo_tormenta.py), luz
 // apagada y fría, niebla gris y relámpagos de vez en cuando (con su trueno). Solo dentro de la leyenda.

@@ -40,7 +40,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
 | `034_atenas.js` | 72 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
-| `036_acabado.js` | 82 | acabado: texturas procedurales y luz |
+| `036_acabado.js` | 84 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
@@ -210,5 +210,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `205_hermes_y_el_caduceo.js` | 177 | HERMES (MERCURIO): DIEZ ENCARGOS Y EL CADUCEO |
 | `206_rocas_escaneadas.js` | 59 | ROCAS ESCANEADAS (Poly Haven, CC0) |
 | `207_sol_real.js` | 43 | EL SOL DE VERDAD |
-| `208_portal_de_las_leyendas.js` | 201 | EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna) |
+| `208_portal_de_las_leyendas.js` | 203 | EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna) |
+| `209_suelo_escaneado.js` | 17 | SUELO ESCANEADO (Poly Haven, CC0) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
