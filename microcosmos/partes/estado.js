@@ -9,7 +9,7 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, samp:{}, relics:{}, relSp:{}, nudged:0, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -38,18 +38,30 @@ const treeSpent = () => Object.keys(S.tree).reduce((a, id) => a + (TREE_NODES[id
 const treeFree = () => S.lpts - treeSpent();
 const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
+// ---- Coleccionables (no cuentan en el modo clase ni en los eventos) ----
+const stars = id => STARS.filter(n => (S.samp[id] || 0) >= n).length;
+const rl = id => fixedStats() ? 0 : (S.relics[id] || 0);
+const grpTier = g => { const m = Math.min(...g.types.map(stars)); return m >= 5 ? 3 : m >= 3 ? 2 : m >= 1 ? 1 : 0; };
+const grpK = k => fixedStats() ? 1 : GROUPS.filter(g => g.k === k).reduce((a, g) => a*(1 + GROUP_K[grpTier(g)]), 1);
+const collAtk = () => (1 + .06*rl('dna'))*(1 + .04*rl('crispr'))*grpK('atk');
+const collHp = () => (1 + .06*rl('teo'))*(1 + .04*rl('crispr'))*grpK('hp');
+const collAtp = () => (1 + .1*rl('leeu'))*grpK('atp');
+// contra un organismo concreto y con una herramienta concreta
+const collVs = (type, tool) => { if (fixedStats()) return 1; let k = 1 + STAR_DMG*stars(type);
+  for (const r in REL_TOOL) if (REL_TOOL[r].includes(tool)) k *= 1 + RELIC[r].p/100*rl(r); return k; };
+const collAtpVs = type => fixedStats() ? 1 : 1 + STAR_ATP*stars(type);
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM()*collAtk())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM()*collHp())*cellD().hp;
 // orgánulos avanzados: solo en la partida normal
 const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
 const advUnlocked = () => S.best >= 30;
 // salto de dificultad a partir del nivel 31 (tejidos profundos)
-const deepHp = L => L > 30 ? 3.5*Math.pow(1.15, L - 31) : 1;
-const deepAtk = L => L > 30 ? 2*Math.pow(1.1, L - 31) : 1;
+const deepHp = L => L > 30 ? 3.2*Math.pow(1.1, L - 31) : 1;
+const deepAtk = L => L > 30 ? 1.9*Math.pow(1.06, L - 31) : 1;
 const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
-const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM();
-const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*(L > 30 ? 1.5 : 1);
+const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM()*(1 + .25*rl('krebs'));
+const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*collAtp()*(L > 30 ? 1.5 : 1);
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
 const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5, 2)) : 0;
 const speed = () => Math.pow(1.25, S.upg.ref);
@@ -80,6 +92,7 @@ function load(data){
   if (S.story && !S.story.ev) S.story.ev = 'inf';
   if (S.story && !storyCh()) S.story = null;
   if (S.storyDone) S.evDone.inf = true;
+  if (!S.runMaxT) S.runMaxT = Date.now();
   if (!d.achSeen) S.achSeen = Object.fromEntries(Object.keys(S.ach || {}).map(k => [k, true])); // partidas anteriores: ya las vieron
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);

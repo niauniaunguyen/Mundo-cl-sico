@@ -393,6 +393,27 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .vcmp b{font-size:13.5px} .vcmp .traits{flex-wrap:wrap;overflow:visible}
 @media (max-width:560px){.vcmp>div{padding:8px} .vcmp .fov{max-width:110px} .vcmp .trait{font-size:11px}}
 .vfact{display:block;margin-top:8px;color:var(--fg);font-size:13px}
+/* v10: coleccionables */
+.collsum{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.collsum span{padding:5px 12px;border:1px solid var(--line2);border-radius:999px;font-size:13px} .collsum b{color:var(--fitc)}
+.rels{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px}
+.rel{display:grid;grid-template-columns:40px 1fr;gap:4px 10px;align-items:start;padding:10px;border:1px solid var(--line2);border-radius:14px;background:rgba(10,24,33,.55)}
+.rel .ves{width:40px;height:40px;grid-row:span 3} .rel b{font-size:13.5px} .rel small{color:var(--muted);font-size:11.5px}
+.rel .lv{color:var(--fitc);font-weight:700;font-size:12px;letter-spacing:.08em} .rel p{margin:0;font-size:12px;line-height:1.4;color:var(--muted)}
+.rel.off{opacity:.5} .rel.off .ves{filter:grayscale(1)}
+.bank{display:grid;gap:6px}
+.bk{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:7px 10px;border:1px solid var(--line2);border-radius:12px}
+.bk .st{color:var(--fitc);letter-spacing:.1em;font-size:14px} .bk .st i{color:var(--line2);font-style:normal}
+.bk small{grid-column:1/-1;color:var(--muted);font-size:11.5px}
+.bk .meter{grid-column:1/-1;height:4px}
+.grp{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line2)}
+.grp b{font-size:14px} .grp span{font-size:12px;color:var(--muted)} .grp span.on{color:var(--gfp);font-weight:600}
+.astars{color:var(--fitc);font-size:12px;letter-spacing:.08em;margin-left:6px}
+.evohint{border-color:var(--gram)!important;box-shadow:inset 0 0 14px rgba(166,123,255,.18)}
+.ft.ev-sample{color:#9be7ff}
+.relic-big{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
+.relic-big .ves{width:96px;height:96px} .relic-big .ves .ic{width:48px;height:48px}
+@media (max-width:560px){.relic-big{grid-template-columns:1fr}}
 .mapw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px;align-items:start}
 .body{width:100%;height:auto}
 .body .sil{fill:#0b1d29;stroke:var(--line2);stroke-width:1.5}
@@ -685,9 +706,10 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tab" role="tab" data-tab="mej" aria-selected="true"><span data-ic="mito"></span><span data-t="Orgánulos">Orgánulos</span></button>
       <button class="tab" role="tab" data-tab="her" aria-selected="false"><span data-ic="pipette"></span><span data-t="Herramientas">Herramientas</span></button>
       <button class="tab" role="tab" data-tab="atl" aria-selected="false"><span data-ic="slide"></span><span data-t="Atlas">Atlas</span></button>
+      <button class="tab" role="tab" data-tab="col" aria-selected="false"><span data-ic="jar"></span><span data-t="Colección">Colección</span></button>
       <button class="tab" role="tab" data-tab="dia" aria-selected="false"><span data-ic="tube"></span><span data-t="Diagnóstico">Diagnóstico</span></button>
       <button class="tab" role="tab" data-tab="ret" aria-selected="false"><span data-ic="trophy"></span><span data-t="Retos">Retos</span><i class="tdot" id="retDot" hidden></i></button>
-      <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span></button>
+      <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span><i class="tdot" id="evoDot" hidden></i></button>
       <button class="tab" role="tab" data-tab="aju" aria-selected="false"><span data-ic="gear"></span><span data-t="Ajustes">Ajustes</span></button>
     </div>
     <div class="pbody" id="pBody"></div>

@@ -8,7 +8,7 @@ function start(data){
   applyQuality(S.q === 'auto' ? 2 : S.q);
   rebuildPlayer(); setZoneTint(S.zone); ensureDaily();
   // progreso sin conexión (máximo 8 horas)
-  const g = atps()*away;
+  const g = atps()*away*(1 + .25*rl('pcr'));
   if (g > 1 && away > 30){ S.atp += g; setTimeout(() => toast(tr('Mientras no estabas, tus mitocondrias produjeron {g} ATP.', {g:fmt(g)})), 600); }
   window.claude?.hot?.snapshot?.(() => ({S}));
   resize(); renderHud(); initClass();

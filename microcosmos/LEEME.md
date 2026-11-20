@@ -195,3 +195,27 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - 1.ª pista: resalta los rasgos clave y muestra una pregunta que orienta sin decir el nombre de la herramienta. En una variante, resalta sobre todo los rasgos cambiados.
   - 2.ª pista: tacha la mitad de las opciones incorrectas.
   - Si aciertas con pistas, ganas menos ATP: ×0,6 con una y ×0,3 con dos.
+
+## Versión 10: coleccionables y progresión más suave
+- **Biobanco** (`S.samp`; datos en `partes/coleccion.js`):
+  - Cada victoria tiene un 4 % de probabilidad de dar una muestra del organismo vencido; los jefes, un 25 %.
+  - Estrellas a 1, 3, 6, 10 y 15 muestras. Cada estrella da +6 % de daño y +5 % de ATP contra ese organismo (`collVs`, `collAtpVs`).
+  - Grupos (`GROUPS`): si todos los organismos del grupo llegan a ★1, ★3 o ★5, dan un +5, +10 o +20 % para todo (ataque, vida o ATP según el grupo).
+- **Hallazgos científicos** (`S.relics`, `RELICS`): 12 descubrimientos reales con nivel I–III; un repetido sube de nivel.
+  - De dónde salen:
+    - jefes normales: 6 %;
+    - jefes especiales: el primero de cada tipo, seguro; después, 40 %;
+    - primera vez que completas un evento (salvo la infección).
+  - Efectos: `collAtk`, `collHp`, `collAtp`, `REL_TOOL` (más daño con herramientas concretas), `krebs` (ATP por segundo), `pcr` (ATP mientras no juegas), `koch` (más muestras) y `flem` (menos SARM).
+- **Ámbito:** los coleccionables se conservan al evolucionar. No cuentan en el modo clase ni en los eventos (`fixedStats`).
+- **Interfaz:**
+  - Pestaña «Colección» en el Laboratorio (`collHtml`).
+  - Ventana del hallazgo (`showRelic`). Espera a que no haya otra ventana abierta (`whenFree`).
+  - Estrellas en el Atlas.
+- **Aviso de evolución** (`evoNudge`): se activa si llevas más de 8 min sin batir tu récord (`S.runMaxT`) y evolucionar te daría al menos max(4; 25 % de tu ADN).
+  - Muestra un aviso cada 15 min como máximo.
+  - Pone un punto en el Laboratorio y en la pestaña Evolución, y una tarjeta dentro de esa pestaña.
+- **Dificultad:**
+  - Vida de los enemigos: ×1,23 por nivel (antes ×1,25).
+  - Tejidos profundos: vida ×3,2·1,10^(N−31) y ataque ×1,9·1,06^(N−31) (antes 3,5·1,15^ y 2·1,1^).
+  - Ajustado con `sim10*.py`. Un jugador casual que evoluciona cuando se le avisa llega al 30 hacia los 60–80 min (antes ~110) y al 50 hacia los 100–130 min (antes ~280).

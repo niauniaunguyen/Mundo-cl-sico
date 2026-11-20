@@ -80,11 +80,11 @@ function newBattle(keepHp){
     if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else if (VARIANTS[b]){ vr = VARIANTS[b]; type = vr.base; } else type = b; }
   else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
+  const max = 30*Math.pow(1.23, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
   const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L)*(vr && vr.atkK || 1),
     var:vr ? vr.id : null, stall:0, turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
     inRbc:type === 'mal', cd4:0};
-  if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
+  if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)*(1 - .25*rl('flem'))){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
     const ks = Object.keys(EVENTS); e.ev = ks[Math.floor(Math.random()*ks.length)];
     if (e.ev === 'antib' && !BACT.has(type)) e.ev = 'fiebre';
@@ -144,7 +144,7 @@ function useTool(id){
       const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
       const vul = e.var && VARIANTS[e.var].vul || 1;
-      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
+      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*collVs(e.type, id)*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
       e.hp = Math.max(0, e.hp - dmg);
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
@@ -270,7 +270,7 @@ function enemyTurn(){
 function win(){
   const e = B.e; if (B.over) return; B.over = true; stopMusic();
   if (storyCh()) return storyWin(e);
-  const g = reward(e.L, e.boss)*(e.ev === 'hipoxia' ? 1.5 : 1)*(e.special >= 0 ? 2 : 1);
+  const g = reward(e.L, e.boss)*(e.ev === 'hipoxia' ? 1.5 : 1)*(e.special >= 0 ? 2 : 1)*collAtpVs(e.type);
   S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
   if (e.special >= 0){ S.specialWins++; S.lpts++; toast(tr('+1 punto del árbol inmunitario')); }
   if (BACT.has(e.type) && !B.usedAb){ S.press = Math.max(0, S.press - 2); dailyProg('noab'); if (S.wk !== weekKey()){ S.wk = weekKey(); S.wkNoAb = 0; } S.wkNoAb = (S.wkNoAb || 0) + 1; }
@@ -286,7 +286,7 @@ function win(){
   let hp;
   if (e.boss){
     S.stats.lvl[e.L] = Math.round((Date.now() - (S.stats.lvlStart || Date.now()))/1000); S.stats.lvlStart = Date.now();
-    S.level++; S.kills = 0; S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
+    S.level++; S.kills = 0; if (S.level > S.runMax) S.runMaxT = Date.now(); S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
     var mile = milestone(S.level);
     hp = maxHp();
     const nt = TYPE_ORDER.some(id => TYPES[id].min === S.level);
@@ -296,7 +296,8 @@ function win(){
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
-  checkAch(); save(); renderHud(); renderLog(); pushBoard();
+  dropLoot(e);
+  checkAch(); save(); renderHud(); renderLog(); pushBoard(); evoNudge();
   if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);
   else setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
 }
@@ -313,7 +314,7 @@ function lose(){
   burst(P_POS, 0xff4f7b, 40, 3);
   setMsg('none', tr('Derrota'), txt);
   toast(txt);
-  save(); renderHud(); renderLog();
+  save(); renderHud(); renderLog(); evoNudge();
   setTimeout(() => newBattle(), 1500);
 }
 
@@ -358,8 +359,9 @@ function storyWin(e){
   if (S.story.ch >= X.chapters.length){
     S.story = null; const first = !S.evDone[X.id]; S.evDone[X.id] = true; if (X.id === 'inf') S.storyDone = true;
     if (first){ S.adn += X.reward.adn || 0; S.lpts += X.reward.lpts || 0; }
+    const rel = first && X.id !== 'inf' ? pickRelic() : null; if (rel) S.relics[rel] = (S.relics[rel] || 0) + 1;
     save(); rebuildPlayer(); renderHud();
-    return setTimeout(() => showStoryEnd(X, first), 900); }
+    return setTimeout(() => { showStoryEnd(X, first); if (rel) whenFree(() => showRelic(rel)); }, 900); }
   save(); rebuildPlayer(); renderHud();
   setTimeout(() => showChapter(newBattle), 900);
 }
@@ -371,6 +373,41 @@ function startStory(id){
 function leaveStory(){
   if (B){ B.over = true; clearTimeout(B.timer); }
   S.story = null; save(); rebuildPlayer(); renderHud(); newBattle();
+}
+
+// ---- Coleccionables: muestras y hallazgos ----
+const whenFree = fn => { if ($('#modal').hidden && !CINE) fn(); else setTimeout(() => whenFree(fn), 600); };
+function pickRelic(){
+  const pool = RELICS.filter(r => (S.relics[r.id] || 0) < 3); if (!pool.length) return null;
+  const w = pool.map(r => S.relics[r.id] ? 1 : 3), tot = w.reduce((a, b) => a + b, 0); let x = Math.random()*tot;
+  for (let i = 0; i < pool.length; i++){ x -= w.at(i); if (x <= 0) return pool.at(i).id; }
+  return pool.at(-1).id;
+}
+function dropLoot(e){
+  if (S.clase || storyCh() || e.var) return;
+  // muestra del organismo vencido
+  if (Math.random() < (e.boss ? .25 : .04)*(1 + .25*rl('koch'))){
+    const before = stars(e.type); S.samp[e.type] = (S.samp[e.type] || 0) + 1;
+    floatText('+1 ' + tr('muestra'), E_POS.clone().add(V(-.6,1.1,0)), 'evt ev-sample'); sfx.ach();
+    if (stars(e.type) > before) toast(tr('Biobanco: {n} sube a {s}. +6 % de daño y +5 % de ATP contra él.', {n:TYPES[e.type].n, s:'★'.repeat(stars(e.type))}));
+    else toast(tr('Biobanco: +1 muestra de {n} ({k}/{t}).', {n:TYPES[e.type].n, k:S.samp[e.type], t:STARS.find(x => x > S.samp[e.type]) || STARS.at(-1)}));
+  }
+  // hallazgo científico: en los jefes
+  if (!e.boss) return;
+  let p = e.special >= 0 ? (S.relSp[e.special] ? .4 : 1) : .06;
+  if (Math.random() >= p) return;
+  if (e.special >= 0) S.relSp[e.special] = true;
+  const id = pickRelic(); if (!id) return;
+  S.relics[id] = (S.relics[id] || 0) + 1;
+  rebuildPlayer(); setTimeout(() => whenFree(() => showRelic(id)), 1000);
+}
+// si llevas un rato sin batir tu récord y evolucionar compensa, te lo sugiere
+function evoNudge(){
+  if (S.clase || storyCh()) return;
+  const g = evoGain(), stuck = Date.now() - (S.runMaxT || Date.now()) > 8*60e3;
+  S.evoHint = stuck && g >= Math.max(4, S.adn*.25);
+  if (S.evoHint && Date.now() - (S.nudged || 0) > 15*60e3){ S.nudged = Date.now(); toast(tr('Llevas un rato sin avanzar. Si evolucionas ahora, tu linaje gana {g} de ADN (pestaña Evolución).', {g})); }
+  renderHud();
 }
 
 // ---- Hitos: el nivel 30 abre los tejidos profundos ----

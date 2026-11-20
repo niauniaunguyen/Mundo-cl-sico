@@ -8,6 +8,7 @@ Object.assign(IC, {
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
   eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  jar:'<path d="M8 3h8M9 3v3.5L6.5 9.5A3 3 0 0 0 6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8a3 3 0 0 0-.5-1.5L15 6.5V3"/><path d="M6 13h12"/><circle cx="10" cy="16.5" r="1"/><circle cx="14" cy="17" r=".7"/>',
   bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
   spark:'<path d="M12 2.5l1.8 5.2 5.2 1.8-5.2 1.8L12 16.5l-1.8-5.2-5.2-1.8 5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
   planet:'<circle cx="12" cy="12" r="5.5"/><path d="M4.2 15.8C1.8 17.6 1 19.2 1.8 20s3.5-.3 6.7-2.3M16 6.4c3.4-2.1 6-3 6.6-2.3.8.8-.4 2.8-3 5"/><path d="M7.8 17.7c3.3-1.6 7.6-4.8 11.8-8.6"/>',
@@ -36,6 +37,40 @@ function narr(key, force){
 function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
 function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
+
+// ---- Coleccionables ----
+const starsHtml = id => { const n = stars(id); return '★'.repeat(n) + `<i>${'★'.repeat(5 - n)}</i>`; };
+function showRelic(id){
+  const R = RELIC[id], lv = S.relics[id] || 0;
+  showModal(`<div class="relic-big">${vesicle(R.ic, R.col)}<div>
+    <div class="eyebrow" style="color:${hex(R.col)}">${lv > 1 ? tr('Hallazgo mejorado') : tr('Hallazgo científico')} · ${R.y}</div>
+    <h2>${tr(R.n)} ${ROMAN.at(lv)}</h2><p><b>${tr(R.e, {p:R.p*lv})}</b>${lv > 1 ? ' (' + tr('nivel {l} de 3', {l:lv}) + ')' : ''}</p>
+    <p>${tr(R.f)}</p><p class="hint">${tr('Los hallazgos se conservan al evolucionar. Los encontrarás todos en el Laboratorio, en «Colección».')}</p></div></div>
+    <button class="go" id="mGo">${tr('Seguir')}</button>`);
+  sfx.ach();
+}
+function collHtml(){
+  let h = `<div class="nb">${tr('Colección')}</div><p class="lead">${tr('Al vencer organismos a veces consigues una muestra para tu biobanco, y al vencer jefes, hallazgos científicos. Todo se conserva al evolucionar. No cuentan en el modo clase ni en los eventos.')}</p>`;
+  h += `<div class="collsum"><span>${tr('Ataque')} <b>×${dec(collAtk().toFixed(2))}</b></span><span>${tr('Vida')} <b>×${dec(collHp().toFixed(2))}</b></span><span>${tr('ATP')} <b>×${dec(collAtp().toFixed(2))}</b></span></div>`;
+  const found = RELICS.filter(r => S.relics[r.id]).length;
+  h += `<div class="nb">${tr('Hallazgos científicos')} · ${found} / ${RELICS.length}</div><p class="lead">${tr('Aparecen al vencer jefes, sobre todo los especiales, y al completar por primera vez un evento. Si encuentras uno repetido, sube de nivel (hasta el III).')}</p><div class="rels">`;
+  h += RELICS.map(R => { const lv = S.relics[R.id] || 0;
+    return lv ? `<div class="rel">${vesicle(R.ic, R.col)}<b>${tr(R.n)}</b><span class="lv">${R.y} · ${tr('nivel')} ${ROMAN.at(lv)}</span><p>${tr(R.e, {p:R.p*lv})}</p></div>`
+      : `<div class="rel off">${vesicle(R.ic, 0x6c7f8c)}<b>?</b><span class="lv">${R.y}</span><p>${tr('Sin descubrir')}</p></div>`; }).join('') + '</div>';
+  const total = TYPE_ORDER.reduce((a, id) => a + (S.samp[id] || 0), 0);
+  h += `<div class="nb">${tr('Biobanco')} · ${total} ${tr('muestras')}</div><p class="lead">${tr('Cada estrella de un organismo da +6 % de daño y +5 % de ATP contra él. Si todos los organismos de un grupo llegan a ★1, ★3 o ★5, el grupo da un bonus para todo.')}</p>`;
+  const kname = {atk:tr('ataque'), hp:tr('vida'), atp:tr('ATP')};
+  for (const g of GROUPS){
+    const t = grpTier(g);
+    h += `<div class="grp"><b style="color:${hex(g.col)}">${tr(g.n)}</b><span class="${t ? 'on' : ''}">${t ? tr('+{p} % de {k}', {p:Math.round(GROUP_K.at(t)*100), k:kname[g.k]}) : tr('Todos a ★1: +5 % de {k}', {k:kname[g.k]})}</span></div><div class="bank">`;
+    h += g.types.map(id => { const n = S.samp[id] || 0, nx = STARS.find(x => x > n), prev = [0, ...STARS].filter(x => x <= n).at(-1);
+      const name = S.seen[id] ? TYPES[id].n : tr('Sin descubrir');
+      return `<div class="bk"><span>${name}</span><span class="st" aria-label="${stars(id)} / 5">${starsHtml(id)}</span>
+        <div class="meter"><i style="width:${nx ? (n - prev)/(nx - prev)*100 : 100}%"></i></div>
+        <small>${nx ? tr(n === 1 ? '{n} muestra · la siguiente estrella con {x}' : '{n} muestras · la siguiente estrella con {x}', {n, x:nx}) : tr('{n} muestras · completo', {n})}${stars(id) ? ' · ' + tr('+{d} % de daño y +{a} % de ATP', {d:stars(id)*6, a:stars(id)*5}) : ''}</small></div>`; }).join('') + '</div>';
+  }
+  return h;
+}
 
 // ---- Eventos especiales ----
 $('#bStory').onclick = () => showEvents();

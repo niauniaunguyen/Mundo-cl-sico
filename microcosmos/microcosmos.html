@@ -393,6 +393,27 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .vcmp b{font-size:13.5px} .vcmp .traits{flex-wrap:wrap;overflow:visible}
 @media (max-width:560px){.vcmp>div{padding:8px} .vcmp .fov{max-width:110px} .vcmp .trait{font-size:11px}}
 .vfact{display:block;margin-top:8px;color:var(--fg);font-size:13px}
+/* v10: coleccionables */
+.collsum{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.collsum span{padding:5px 12px;border:1px solid var(--line2);border-radius:999px;font-size:13px} .collsum b{color:var(--fitc)}
+.rels{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px}
+.rel{display:grid;grid-template-columns:40px 1fr;gap:4px 10px;align-items:start;padding:10px;border:1px solid var(--line2);border-radius:14px;background:rgba(10,24,33,.55)}
+.rel .ves{width:40px;height:40px;grid-row:span 3} .rel b{font-size:13.5px} .rel small{color:var(--muted);font-size:11.5px}
+.rel .lv{color:var(--fitc);font-weight:700;font-size:12px;letter-spacing:.08em} .rel p{margin:0;font-size:12px;line-height:1.4;color:var(--muted)}
+.rel.off{opacity:.5} .rel.off .ves{filter:grayscale(1)}
+.bank{display:grid;gap:6px}
+.bk{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:7px 10px;border:1px solid var(--line2);border-radius:12px}
+.bk .st{color:var(--fitc);letter-spacing:.1em;font-size:14px} .bk .st i{color:var(--line2);font-style:normal}
+.bk small{grid-column:1/-1;color:var(--muted);font-size:11.5px}
+.bk .meter{grid-column:1/-1;height:4px}
+.grp{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line2)}
+.grp b{font-size:14px} .grp span{font-size:12px;color:var(--muted)} .grp span.on{color:var(--gfp);font-weight:600}
+.astars{color:var(--fitc);font-size:12px;letter-spacing:.08em;margin-left:6px}
+.evohint{border-color:var(--gram)!important;box-shadow:inset 0 0 14px rgba(166,123,255,.18)}
+.ft.ev-sample{color:#9be7ff}
+.relic-big{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
+.relic-big .ves{width:96px;height:96px} .relic-big .ves .ic{width:48px;height:48px}
+@media (max-width:560px){.relic-big{grid-template-columns:1fr}}
 .mapw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px;align-items:start}
 .body{width:100%;height:auto}
 .body .sil{fill:#0b1d29;stroke:var(--line2);stroke-width:1.5}
@@ -685,9 +706,10 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
       <button class="tab" role="tab" data-tab="mej" aria-selected="true"><span data-ic="mito"></span><span data-t="Orgánulos">Orgánulos</span></button>
       <button class="tab" role="tab" data-tab="her" aria-selected="false"><span data-ic="pipette"></span><span data-t="Herramientas">Herramientas</span></button>
       <button class="tab" role="tab" data-tab="atl" aria-selected="false"><span data-ic="slide"></span><span data-t="Atlas">Atlas</span></button>
+      <button class="tab" role="tab" data-tab="col" aria-selected="false"><span data-ic="jar"></span><span data-t="Colección">Colección</span></button>
       <button class="tab" role="tab" data-tab="dia" aria-selected="false"><span data-ic="tube"></span><span data-t="Diagnóstico">Diagnóstico</span></button>
       <button class="tab" role="tab" data-tab="ret" aria-selected="false"><span data-ic="trophy"></span><span data-t="Retos">Retos</span><i class="tdot" id="retDot" hidden></i></button>
-      <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span></button>
+      <button class="tab" role="tab" data-tab="evo" aria-selected="false"><span data-ic="dna"></span><span data-t="Evolución">Evolución</span><i class="tdot" id="evoDot" hidden></i></button>
       <button class="tab" role="tab" data-tab="aju" aria-selected="false"><span data-ic="gear"></span><span data-t="Ajustes">Ajustes</span></button>
     </div>
     <div class="pbody" id="pBody"></div>
@@ -1370,6 +1392,55 @@ Object.assign(NARR, {
   variant:T_('Es una variante: los rasgos con ✦ son los que han cambiado respecto al original.'),
 });
 /* =====================================================================
+   COLECCIONABLES: biobanco de muestras y hallazgos científicos.
+   Se conservan al evolucionar. No cuentan en el modo clase ni en los eventos.
+   ===================================================================== */
+
+// Biobanco: muestras de cada organismo. Estrellas a 1, 3, 6, 10 y 15 muestras.
+const STARS = [1, 3, 6, 10, 15];
+// cada estrella: +6 % de daño y +5 % de ATP contra ese organismo
+const STAR_DMG = .06, STAR_ATP = .05;
+// colecciones por grupos: todos los organismos del grupo con ★1, ★3 o ★5
+const GROUPS = [
+  {id:'bac', n:T_('Bacterias'), types:['gp','gn','myc','bac','tbc'], k:'atk', col:0xa67bff},
+  {id:'vir', n:T_('Virus y priones'), types:['vir','vih','pri'], k:'hp', col:0xffb547},
+  {id:'euk', n:T_('Hongos y protozoos'), types:['lev','ame','par','mal'], k:'atp', col:0xb8f06a},
+  {id:'mul', n:T_('Células y gusanos'), types:['veg','can','ten'], k:'atk', col:0xff3b5c},
+];
+const GROUP_K = [0, .05, .10, .20]; // según el nivel del grupo (★1, ★3, ★5 en todos)
+
+// Hallazgos científicos: potenciadores permanentes con nivel I, II y III
+const RELICS = [
+  {id:'jenn', y:1796, n:T_('Vacuna de Jenner'), ic:'ac', col:0xffd36b, e:T_('+{p} % de daño con los anticuerpos'), p:15,
+    f:T_('Edward Jenner inoculó a un niño pus de viruela bovina y comprobó que quedaba protegido frente a la viruela. «Vacuna» viene de «vaca». La viruela se declaró erradicada en 1980.')},
+  {id:'leeu', y:1676, n:T_('Microscopio de Leeuwenhoek'), ic:'scope', col:0x58c8ff, e:T_('+{p} % de ATP por victoria'), p:10,
+    f:T_('Antoni van Leeuwenhoek, un comerciante de telas holandés, talló lentes de hasta 270 aumentos. Fue el primero en ver bacterias y protozoos, a los que llamó «animálculos».')},
+  {id:'teo', y:1839, n:T_('Teoría celular'), ic:'cell', col:0x4dffa0, e:T_('+{p} % de vida'), p:6,
+    f:T_('Schleiden (en las plantas) y Schwann (en los animales) propusieron que todos los seres vivos están hechos de células. En 1855, Virchow añadió: toda célula procede de otra célula.')},
+  {id:'meta', y:1882, n:T_('Fagocitos de Metchnikoff'), ic:'fago', col:0x7fe0ff, e:T_('+{p} % de daño con la fagocitosis'), p:15,
+    f:T_('Iliá Méchnikov clavó espinas de rosal en larvas transparentes de estrella de mar y vio cómo unas células se amontonaban para engullir los intrusos. Así descubrió la fagocitosis. Nobel de 1908.')},
+  {id:'gram', y:1884, n:T_('Tinción de Gram'), ic:'slide', col:0xa67bff, e:T_('+{p} % de daño con la lisozima y la penicilina'), p:15,
+    f:T_('Hans Christian Gram buscaba teñir bacterias en tejido pulmonar. Su método, con cristal violeta y yodo, sigue siendo la primera prueba de cualquier laboratorio de microbiología.')},
+  {id:'koch', y:1890, n:T_('Postulados de Koch'), ic:'tube', col:0xe0605c, e:T_('+{p} % de probabilidad de conseguir muestras'), p:25,
+    f:T_('Robert Koch demostró que un microbio concreto causa una enfermedad concreta: el bacilo de la tuberculosis, en 1882. Sus postulados aún guían cómo se identifica un patógeno.')},
+  {id:'flem', y:1928, n:T_('Placa de Fleming'), ic:'pen', col:0x4dffa0, e:T_('+{p} % de daño con la penicilina y menos cepas resistentes'), p:15,
+    f:T_('Alexander Fleming volvió de vacaciones y vio que un moho, Penicillium, había matado a los estafilococos de una placa. En su discurso del Nobel ya avisó de que el mal uso de la penicilina crearía resistencias.')},
+  {id:'krebs', y:1937, n:T_('Ciclo de Krebs'), ic:'mito', col:0xff7a4a, e:T_('+{p} % de ATP de las mitocondrias'), p:25,
+    f:T_('Hans Krebs describió la ruta circular con la que las mitocondrias oxidan los restos de la glucosa y obtienen la energía para fabricar ATP. Nobel de 1953.')},
+  {id:'dna', y:1952, n:T_('Fotografía 51'), ic:'dna', col:0xa67bff, e:T_('+{p} % de ataque'), p:6,
+    f:T_('Rosalind Franklin obtuvo con rayos X la imagen que reveló la forma de hélice del ADN. Watson y Crick la usaron para proponer la doble hélice en 1953.')},
+  {id:'mhc', y:1974, n:T_('Restricción por MHC'), ic:'tc', col:0xff6fd8, e:T_('+{p} % de daño con el linfocito T'), p:15,
+    f:T_('Peter Doherty y Rolf Zinkernagel descubrieron que un linfocito T solo reconoce un antígeno cuando se lo presenta una molécula MHC. Nobel de 1996.')},
+  {id:'pcr', y:1983, n:T_('PCR'), ic:'flask', col:0xffc65c, e:T_('+{p} % de ATP mientras no juegas'), p:25,
+    f:T_('Kary Mullis ideó la reacción en cadena de la polimerasa: copia un trozo de ADN millones de veces en unas horas. Es la base de muchas pruebas diagnósticas, como las de la COVID-19.')},
+  {id:'crispr', y:2012, n:T_('CRISPR-Cas9'), ic:'gear', col:0x9be7ff, e:T_('+{p} % de ataque y de vida'), p:4,
+    f:T_('Emmanuelle Charpentier y Jennifer Doudna convirtieron un sistema de defensa de las bacterias contra los virus en unas «tijeras» para editar genes. Nobel de Química de 2020.')},
+].sort((a, b) => a.y - b.y);
+const RELIC = Object.fromEntries(RELICS.map(r => [r.id, r]));
+// herramientas que potencia cada hallazgo
+const REL_TOOL = {meta:['fago'], gram:['lis','pen'], jenn:['ac'], flem:['pen'], mhc:['tc']};
+const ROMAN = ['', 'I', 'II', 'III'];
+/* =====================================================================
    IDIOMAS: español (original), català, English
    ===================================================================== */
 const LANGS = {es:'Español', ca:'Català', en:'English'};
@@ -1929,6 +2000,51 @@ const I18N_RAW5 = {
   "Es un gusano: busca algo que paralice su tegumento.":["És un cuc: busca alguna cosa que li paralitzi el tegument.","It's a worm: look for something that paralyses its tegument."],
 };
 for (const k in I18N_RAW5){ I18N.ca[k] = I18N_RAW5[k][0]; I18N.en[k] = I18N_RAW5[k][1]; }
+// Textos de la versión 10 (coleccionables y progresión): «español»: [català, English]
+const I18N_RAW6 = {
+  "Colección":["Col·lecció","Collection"], "Biobanco":["Biobanc","Biobank"], "muestra":["mostra","sample"], "muestras":["mostres","samples"],
+  "Hallazgos científicos":["Descobertes científiques","Scientific discoveries"], "Hallazgo científico":["Descoberta científica","Scientific discovery"], "Hallazgo mejorado":["Descoberta millorada","Discovery upgraded"],
+  "nivel {l} de 3":["nivell {l} de 3","level {l} of 3"], "Ataque":["Atac","Attack"], "Vida":["Vida","Health"], "ATP":["ATP","ATP"], "ataque":["atac","attack"], "vida":["vida","health"],
+  "Bacterias":["Bacteris","Bacteria"], "Virus y priones":["Virus i prions","Viruses and prions"], "Hongos y protozoos":["Fongs i protozous","Fungi and protozoa"], "Células y gusanos":["Cèl·lules i cucs","Cells and worms"],
+  "+{p} % de {k}":["+{p} % de {k}","+{p} % {k}"], "Todos a ★1: +5 % de {k}":["Tots a ★1: +5 % de {k}","All at ★1: +5 % {k}"],
+  "{n} muestras · la siguiente estrella con {x}":["{n} mostres · la següent estrella amb {x}","{n} samples · next star at {x}"], "{n} muestras · completo":["{n} mostres · complet","{n} samples · complete"],
+  "+{d} % de daño y +{a} % de ATP":["+{d} % de dany i +{a} % d'ATP","+{d} % damage and +{a} % ATP"],
+  "Biobanco: {n} sube a {s}. +6 % de daño y +5 % de ATP contra él.":["Biobanc: {n} puja a {s}. +6 % de dany i +5 % d'ATP contra ell.","Biobank: {n} rises to {s}. +6 % damage and +5 % ATP against it."],
+  "Biobanco: +1 muestra de {n} ({k}/{t}).":["Biobanc: +1 mostra de {n} ({k}/{t}).","Biobank: +1 {n} sample ({k}/{t})."],
+  "Al vencer organismos a veces consigues una muestra para tu biobanco, y al vencer jefes, hallazgos científicos. Todo se conserva al evolucionar. No cuentan en el modo clase ni en los eventos.":["En vèncer organismes de vegades aconsegueixes una mostra per al biobanc, i en vèncer caps, descobertes científiques. Tot es conserva en evolucionar. No compten en el mode classe ni als esdeveniments.","Defeating organisms sometimes gives you a sample for your biobank, and defeating bosses gives scientific discoveries. Everything is kept when you evolve. They don't apply in class mode or in events."],
+  "Aparecen al vencer jefes, sobre todo los especiales, y al completar por primera vez un evento. Si encuentras uno repetido, sube de nivel (hasta el III).":["Apareixen en vèncer caps, sobretot els especials, i en completar per primera vegada un esdeveniment. Si en trobes un de repetit, puja de nivell (fins al III).","They appear when you defeat bosses, especially special ones, and when you first complete an event. A duplicate raises its level (up to III)."],
+  "Cada estrella de un organismo da +6 % de daño y +5 % de ATP contra él. Si todos los organismos de un grupo llegan a ★1, ★3 o ★5, el grupo da un bonus para todo.":["Cada estrella d'un organisme dona +6 % de dany i +5 % d'ATP contra ell. Si tots els organismes d'un grup arriben a ★1, ★3 o ★5, el grup dona una bonificació per a tot.","Each star on an organism gives +6 % damage and +5 % ATP against it. If every organism in a group reaches ★1, ★3 or ★5, the group gives a bonus to everything."],
+  "Los hallazgos se conservan al evolucionar. Los encontrarás todos en el Laboratorio, en «Colección».":["Les descobertes es conserven en evolucionar. Les trobaràs totes al Laboratori, a «Col·lecció».","Discoveries are kept when you evolve. You'll find them all in the Lab, under “Collection”."],
+  "Llevas un rato sin avanzar. Si evolucionas ahora, tu linaje gana {g} de ADN (pestaña Evolución).":["Fa una estona que no avances. Si evolucions ara, el teu llinatge guanya {g} d'ADN (pestanya Evolució).","You haven't progressed for a while. If you evolve now, your lineage gains {g} DNA (Evolution tab)."],
+  "Buen momento para evolucionar":["Bon moment per evolucionar","A good time to evolve"],
+  "Llevas un rato sin batir tu récord. Si evolucionas ahora ganarás {g} de ADN y volverás a subir mucho más deprisa.":["Fa una estona que no superes el teu rècord. Si evolucions ara guanyaràs {g} d'ADN i tornaràs a pujar molt més de pressa.","You haven't beaten your record for a while. If you evolve now you'll gain {g} DNA and climb back much faster."],
+  // hallazgos
+  "Vacuna de Jenner":["Vacuna de Jenner","Jenner's vaccine"], "+{p} % de daño con los anticuerpos":["+{p} % de dany amb els anticossos","+{p} % damage with antibodies"],
+  "Edward Jenner inoculó a un niño pus de viruela bovina y comprobó que quedaba protegido frente a la viruela. «Vacuna» viene de «vaca». La viruela se declaró erradicada en 1980.":["Edward Jenner va inocular a un nen pus de verola bovina i va comprovar que quedava protegit contra la verola. «Vacuna» ve de «vaca». La verola es va declarar eradicada el 1980.","Edward Jenner inoculated a boy with cowpox pus and showed he was then protected against smallpox. “Vaccine” comes from the Latin for cow. Smallpox was declared eradicated in 1980."],
+  "Microscopio de Leeuwenhoek":["Microscopi de Leeuwenhoek","Leeuwenhoek's microscope"], "+{p} % de ATP por victoria":["+{p} % d'ATP per victòria","+{p} % ATP per victory"],
+  "Antoni van Leeuwenhoek, un comerciante de telas holandés, talló lentes de hasta 270 aumentos. Fue el primero en ver bacterias y protozoos, a los que llamó «animálculos».":["Antoni van Leeuwenhoek, un comerciant de teles holandès, va tallar lents de fins a 270 augments. Va ser el primer a veure bacteris i protozous, que va anomenar «animàlculs».","Antoni van Leeuwenhoek, a Dutch cloth merchant, ground lenses of up to 270× magnification. He was the first to see bacteria and protozoa, which he called “animalcules”."],
+  "Teoría celular":["Teoria cel·lular","Cell theory"], "+{p} % de vida":["+{p} % de vida","+{p} % health"],
+  "Schleiden (en las plantas) y Schwann (en los animales) propusieron que todos los seres vivos están hechos de células. En 1855, Virchow añadió: toda célula procede de otra célula.":["Schleiden (en les plantes) i Schwann (en els animals) van proposar que tots els éssers vius estan fets de cèl·lules. El 1855, Virchow hi va afegir: tota cèl·lula prové d'una altra cèl·lula.","Schleiden (for plants) and Schwann (for animals) proposed that all living things are made of cells. In 1855 Virchow added: every cell comes from another cell."],
+  "Fagocitos de Metchnikoff":["Fagòcits de Metxnikov","Metchnikoff's phagocytes"], "+{p} % de daño con la fagocitosis":["+{p} % de dany amb la fagocitosi","+{p} % damage with phagocytosis"],
+  "Iliá Méchnikov clavó espinas de rosal en larvas transparentes de estrella de mar y vio cómo unas células se amontonaban para engullir los intrusos. Así descubrió la fagocitosis. Nobel de 1908.":["Ilià Métxnikov va clavar espines de roser en larves transparents d'estrella de mar i va veure com unes cèl·lules s'amuntegaven per engolir els intrusos. Així va descobrir la fagocitosi. Nobel del 1908.","Ilya Mechnikov stuck rose thorns into transparent starfish larvae and watched cells crowd round to engulf the intruders. That's how he discovered phagocytosis. Nobel Prize 1908."],
+  "Tinción de Gram":["Tinció de Gram","Gram stain"], "+{p} % de daño con la lisozima y la penicilina":["+{p} % de dany amb el lisozim i la penicil·lina","+{p} % damage with lysozyme and penicillin"],
+  "Hans Christian Gram buscaba teñir bacterias en tejido pulmonar. Su método, con cristal violeta y yodo, sigue siendo la primera prueba de cualquier laboratorio de microbiología.":["Hans Christian Gram volia tenyir bacteris en teixit pulmonar. El seu mètode, amb cristall violeta i iode, continua sent la primera prova de qualsevol laboratori de microbiologia.","Hans Christian Gram wanted to stain bacteria in lung tissue. His method, with crystal violet and iodine, is still the first test in any microbiology lab."],
+  "Postulados de Koch":["Postulats de Koch","Koch's postulates"], "+{p} % de probabilidad de conseguir muestras":["+{p} % de probabilitat d'aconseguir mostres","+{p} % chance of getting samples"],
+  "Robert Koch demostró que un microbio concreto causa una enfermedad concreta: el bacilo de la tuberculosis, en 1882. Sus postulados aún guían cómo se identifica un patógeno.":["Robert Koch va demostrar que un microbi concret causa una malaltia concreta: el bacil de la tuberculosi, el 1882. Els seus postulats encara guien com s'identifica un patogen.","Robert Koch proved that a specific microbe causes a specific disease: the tuberculosis bacillus, in 1882. His postulates still guide how a pathogen is identified."],
+  "Placa de Fleming":["Placa de Fleming","Fleming's plate"], "+{p} % de daño con la penicilina y menos cepas resistentes":["+{p} % de dany amb la penicil·lina i menys soques resistents","+{p} % damage with penicillin and fewer resistant strains"],
+  "Alexander Fleming volvió de vacaciones y vio que un moho, Penicillium, había matado a los estafilococos de una placa. En su discurso del Nobel ya avisó de que el mal uso de la penicilina crearía resistencias.":["Alexander Fleming va tornar de vacances i va veure que una floridura, Penicillium, havia matat els estafilococs d'una placa. En el discurs del Nobel ja va avisar que el mal ús de la penicil·lina crearia resistències.","Alexander Fleming came back from holiday to find that a mould, Penicillium, had killed the staphylococci on a plate. In his Nobel lecture he already warned that misusing penicillin would breed resistance."],
+  "Ciclo de Krebs":["Cicle de Krebs","Krebs cycle"], "+{p} % de ATP de las mitocondrias":["+{p} % d'ATP dels mitocondris","+{p} % ATP from mitochondria"],
+  "Hans Krebs describió la ruta circular con la que las mitocondrias oxidan los restos de la glucosa y obtienen la energía para fabricar ATP. Nobel de 1953.":["Hans Krebs va descriure la ruta circular amb què els mitocondris oxiden les restes de la glucosa i n'obtenen l'energia per fabricar ATP. Nobel del 1953.","Hans Krebs described the circular pathway mitochondria use to oxidise what's left of glucose and get the energy to make ATP. Nobel Prize 1953."],
+  "Fotografía 51":["Fotografia 51","Photo 51"], "+{p} % de ataque":["+{p} % d'atac","+{p} % attack"],
+  "Rosalind Franklin obtuvo con rayos X la imagen que reveló la forma de hélice del ADN. Watson y Crick la usaron para proponer la doble hélice en 1953.":["Rosalind Franklin va obtenir amb raigs X la imatge que va revelar la forma d'hèlix de l'ADN. Watson i Crick la van fer servir per proposar la doble hèlix el 1953.","Rosalind Franklin took the X-ray image that revealed DNA's helical shape. Watson and Crick used it to propose the double helix in 1953."],
+  "Restricción por MHC":["Restricció per MHC","MHC restriction"], "+{p} % de daño con el linfocito T":["+{p} % de dany amb el limfòcit T","+{p} % damage with T cells"],
+  "Peter Doherty y Rolf Zinkernagel descubrieron que un linfocito T solo reconoce un antígeno cuando se lo presenta una molécula MHC. Nobel de 1996.":["Peter Doherty i Rolf Zinkernagel van descobrir que un limfòcit T només reconeix un antigen quan l'hi presenta una molècula MHC. Nobel del 1996.","Peter Doherty and Rolf Zinkernagel discovered that a T cell only recognises an antigen when an MHC molecule presents it. Nobel Prize 1996."],
+  "PCR":["PCR","PCR"], "+{p} % de ATP mientras no juegas":["+{p} % d'ATP mentre no jugues","+{p} % ATP while you're away"],
+  "Kary Mullis ideó la reacción en cadena de la polimerasa: copia un trozo de ADN millones de veces en unas horas. Es la base de muchas pruebas diagnósticas, como las de la COVID-19.":["Kary Mullis va idear la reacció en cadena de la polimerasa: copia un tros d'ADN milions de vegades en unes hores. És la base de moltes proves diagnòstiques, com les de la COVID-19.","Kary Mullis devised the polymerase chain reaction: it copies a piece of DNA millions of times in a few hours. It underpins many diagnostic tests, such as those for COVID-19."],
+  "CRISPR-Cas9":["CRISPR-Cas9","CRISPR-Cas9"], "+{p} % de ataque y de vida":["+{p} % d'atac i de vida","+{p} % attack and health"],
+  "Emmanuelle Charpentier y Jennifer Doudna convirtieron un sistema de defensa de las bacterias contra los virus en unas «tijeras» para editar genes. Nobel de Química de 2020.":["Emmanuelle Charpentier i Jennifer Doudna van convertir un sistema de defensa dels bacteris contra els virus en unes «tisores» per editar gens. Nobel de Química del 2020.","Emmanuelle Charpentier and Jennifer Doudna turned a bacterial defence system against viruses into “scissors” for editing genes. Nobel Prize in Chemistry 2020."],
+};
+for (const k in I18N_RAW6){ I18N.ca[k] = I18N_RAW6[k][0]; I18N.en[k] = I18N_RAW6[k][1]; }
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
 const DT = {
 ca:{
@@ -2215,7 +2331,7 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, samp:{}, relics:{}, relSp:{}, nudged:0, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -2244,18 +2360,30 @@ const treeSpent = () => Object.keys(S.tree).reduce((a, id) => a + (TREE_NODES[id
 const treeFree = () => S.lpts - treeSpent();
 const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
+// ---- Coleccionables (no cuentan en el modo clase ni en los eventos) ----
+const stars = id => STARS.filter(n => (S.samp[id] || 0) >= n).length;
+const rl = id => fixedStats() ? 0 : (S.relics[id] || 0);
+const grpTier = g => { const m = Math.min(...g.types.map(stars)); return m >= 5 ? 3 : m >= 3 ? 2 : m >= 1 ? 1 : 0; };
+const grpK = k => fixedStats() ? 1 : GROUPS.filter(g => g.k === k).reduce((a, g) => a*(1 + GROUP_K[grpTier(g)]), 1);
+const collAtk = () => (1 + .06*rl('dna'))*(1 + .04*rl('crispr'))*grpK('atk');
+const collHp = () => (1 + .06*rl('teo'))*(1 + .04*rl('crispr'))*grpK('hp');
+const collAtp = () => (1 + .1*rl('leeu'))*grpK('atp');
+// contra un organismo concreto y con una herramienta concreta
+const collVs = (type, tool) => { if (fixedStats()) return 1; let k = 1 + STAR_DMG*stars(type);
+  for (const r in REL_TOOL) if (REL_TOOL[r].includes(tool)) k *= 1 + RELIC[r].p/100*rl(r); return k; };
+const collAtpVs = type => fixedStats() ? 1 : 1 + STAR_ATP*stars(type);
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM()*collAtk())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM()*collHp())*cellD().hp;
 // orgánulos avanzados: solo en la partida normal
 const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
 const advUnlocked = () => S.best >= 30;
 // salto de dificultad a partir del nivel 31 (tejidos profundos)
-const deepHp = L => L > 30 ? 3.5*Math.pow(1.15, L - 31) : 1;
-const deepAtk = L => L > 30 ? 2*Math.pow(1.1, L - 31) : 1;
+const deepHp = L => L > 30 ? 3.2*Math.pow(1.1, L - 31) : 1;
+const deepAtk = L => L > 30 ? 1.9*Math.pow(1.06, L - 31) : 1;
 const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
-const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM();
-const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*(L > 30 ? 1.5 : 1);
+const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM()*(1 + .25*rl('krebs'));
+const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*collAtp()*(L > 30 ? 1.5 : 1);
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
 const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5, 2)) : 0;
 const speed = () => Math.pow(1.25, S.upg.ref);
@@ -2286,6 +2414,7 @@ function load(data){
   if (S.story && !S.story.ev) S.story.ev = 'inf';
   if (S.story && !storyCh()) S.story = null;
   if (S.storyDone) S.evDone.inf = true;
+  if (!S.runMaxT) S.runMaxT = Date.now();
   if (!d.achSeen) S.achSeen = Object.fromEntries(Object.keys(S.ach || {}).map(k => [k, true])); // partidas anteriores: ya las vieron
   if (!CELLS[S.cell]) S.cell = 'mac'; if (!SKINS[S.skin]) S.skin = 'cfp'; if (!ZONES[S.zone]) S.zone = 'san';
   S.best = Math.max(S.best || 1, S.runMax || 1, S.level || 1); S.runMax = Math.max(S.runMax || 1, S.level || 1);
@@ -3409,11 +3538,11 @@ function newBattle(keepHp){
     if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else if (VARIANTS[b]){ vr = VARIANTS[b]; type = vr.base; } else type = b; }
   else if (S.practice){ type = S.practice; S.practice = null; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.25, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
+  const max = 30*Math.pow(1.23, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
   const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L)*(vr && vr.atkK || 1),
     var:vr ? vr.id : null, stall:0, turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
     inRbc:type === 'mal', cd4:0};
-  if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)){ e.res = true; S.sarmSeen = true; }
+  if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)*(1 - .25*rl('flem'))){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
     const ks = Object.keys(EVENTS); e.ev = ks[Math.floor(Math.random()*ks.length)];
     if (e.ev === 'antib' && !BACT.has(type)) e.ev = 'fiebre';
@@ -3473,7 +3602,7 @@ function useTool(id){
       const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
       const vul = e.var && VARIANTS[e.var].vul || 1;
-      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
+      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*collVs(e.type, id)*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
       e.hp = Math.max(0, e.hp - dmg);
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
@@ -3599,7 +3728,7 @@ function enemyTurn(){
 function win(){
   const e = B.e; if (B.over) return; B.over = true; stopMusic();
   if (storyCh()) return storyWin(e);
-  const g = reward(e.L, e.boss)*(e.ev === 'hipoxia' ? 1.5 : 1)*(e.special >= 0 ? 2 : 1);
+  const g = reward(e.L, e.boss)*(e.ev === 'hipoxia' ? 1.5 : 1)*(e.special >= 0 ? 2 : 1)*collAtpVs(e.type);
   S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
   if (e.special >= 0){ S.specialWins++; S.lpts++; toast(tr('+1 punto del árbol inmunitario')); }
   if (BACT.has(e.type) && !B.usedAb){ S.press = Math.max(0, S.press - 2); dailyProg('noab'); if (S.wk !== weekKey()){ S.wk = weekKey(); S.wkNoAb = 0; } S.wkNoAb = (S.wkNoAb || 0) + 1; }
@@ -3615,7 +3744,7 @@ function win(){
   let hp;
   if (e.boss){
     S.stats.lvl[e.L] = Math.round((Date.now() - (S.stats.lvlStart || Date.now()))/1000); S.stats.lvlStart = Date.now();
-    S.level++; S.kills = 0; S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
+    S.level++; S.kills = 0; if (S.level > S.runMax) S.runMaxT = Date.now(); S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
     var mile = milestone(S.level);
     hp = maxHp();
     const nt = TYPE_ORDER.some(id => TYPES[id].min === S.level);
@@ -3625,7 +3754,8 @@ function win(){
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
-  checkAch(); save(); renderHud(); renderLog(); pushBoard();
+  dropLoot(e);
+  checkAch(); save(); renderHud(); renderLog(); pushBoard(); evoNudge();
   if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);
   else setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
 }
@@ -3642,7 +3772,7 @@ function lose(){
   burst(P_POS, 0xff4f7b, 40, 3);
   setMsg('none', tr('Derrota'), txt);
   toast(txt);
-  save(); renderHud(); renderLog();
+  save(); renderHud(); renderLog(); evoNudge();
   setTimeout(() => newBattle(), 1500);
 }
 
@@ -3687,8 +3817,9 @@ function storyWin(e){
   if (S.story.ch >= X.chapters.length){
     S.story = null; const first = !S.evDone[X.id]; S.evDone[X.id] = true; if (X.id === 'inf') S.storyDone = true;
     if (first){ S.adn += X.reward.adn || 0; S.lpts += X.reward.lpts || 0; }
+    const rel = first && X.id !== 'inf' ? pickRelic() : null; if (rel) S.relics[rel] = (S.relics[rel] || 0) + 1;
     save(); rebuildPlayer(); renderHud();
-    return setTimeout(() => showStoryEnd(X, first), 900); }
+    return setTimeout(() => { showStoryEnd(X, first); if (rel) whenFree(() => showRelic(rel)); }, 900); }
   save(); rebuildPlayer(); renderHud();
   setTimeout(() => showChapter(newBattle), 900);
 }
@@ -3700,6 +3831,41 @@ function startStory(id){
 function leaveStory(){
   if (B){ B.over = true; clearTimeout(B.timer); }
   S.story = null; save(); rebuildPlayer(); renderHud(); newBattle();
+}
+
+// ---- Coleccionables: muestras y hallazgos ----
+const whenFree = fn => { if ($('#modal').hidden && !CINE) fn(); else setTimeout(() => whenFree(fn), 600); };
+function pickRelic(){
+  const pool = RELICS.filter(r => (S.relics[r.id] || 0) < 3); if (!pool.length) return null;
+  const w = pool.map(r => S.relics[r.id] ? 1 : 3), tot = w.reduce((a, b) => a + b, 0); let x = Math.random()*tot;
+  for (let i = 0; i < pool.length; i++){ x -= w.at(i); if (x <= 0) return pool.at(i).id; }
+  return pool.at(-1).id;
+}
+function dropLoot(e){
+  if (S.clase || storyCh() || e.var) return;
+  // muestra del organismo vencido
+  if (Math.random() < (e.boss ? .25 : .04)*(1 + .25*rl('koch'))){
+    const before = stars(e.type); S.samp[e.type] = (S.samp[e.type] || 0) + 1;
+    floatText('+1 ' + tr('muestra'), E_POS.clone().add(V(-.6,1.1,0)), 'evt ev-sample'); sfx.ach();
+    if (stars(e.type) > before) toast(tr('Biobanco: {n} sube a {s}. +6 % de daño y +5 % de ATP contra él.', {n:TYPES[e.type].n, s:'★'.repeat(stars(e.type))}));
+    else toast(tr('Biobanco: +1 muestra de {n} ({k}/{t}).', {n:TYPES[e.type].n, k:S.samp[e.type], t:STARS.find(x => x > S.samp[e.type]) || STARS.at(-1)}));
+  }
+  // hallazgo científico: en los jefes
+  if (!e.boss) return;
+  let p = e.special >= 0 ? (S.relSp[e.special] ? .4 : 1) : .06;
+  if (Math.random() >= p) return;
+  if (e.special >= 0) S.relSp[e.special] = true;
+  const id = pickRelic(); if (!id) return;
+  S.relics[id] = (S.relics[id] || 0) + 1;
+  rebuildPlayer(); setTimeout(() => whenFree(() => showRelic(id)), 1000);
+}
+// si llevas un rato sin batir tu récord y evolucionar compensa, te lo sugiere
+function evoNudge(){
+  if (S.clase || storyCh()) return;
+  const g = evoGain(), stuck = Date.now() - (S.runMaxT || Date.now()) > 8*60e3;
+  S.evoHint = stuck && g >= Math.max(4, S.adn*.25);
+  if (S.evoHint && Date.now() - (S.nudged || 0) > 15*60e3){ S.nudged = Date.now(); toast(tr('Llevas un rato sin avanzar. Si evolucionas ahora, tu linaje gana {g} de ADN (pestaña Evolución).', {g})); }
+  renderHud();
 }
 
 // ---- Hitos: el nivel 30 abre los tejidos profundos ----
@@ -3846,7 +4012,7 @@ function renderHud(){
   $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
   $('#pAtp').innerHTML = S.clase ? tr('Modo clase') : ico('atp') + fmt(S.atp);
-  $('#labDot').hidden = !anyAffordable();
+  $('#labDot').hidden = !anyAffordable() && !S.evoHint; $('#evoDot').hidden = !S.evoHint;
   $('#bLab').setAttribute('aria-expanded', !$('#panel').hidden);
   const uc = unseenCurios(); $('#retDot').hidden = !uc;
   $('#app').classList.toggle('big', !!S.big); $('#app').classList.toggle('calm', !!S.calm);
@@ -4029,11 +4195,13 @@ function renderPanel(){
       const kn = S.known[id] ? Object.keys(S.known[id]) : [];
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
-        <h4 style="color:${hex(Ty.col)}">${Ty.n}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
+        <h4 style="color:${hex(Ty.col)}">${Ty.n}${stars(id) ? `<span class="astars">${'★'.repeat(stars(id))}</span>` : ''}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
         <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${practice}</div></div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
+  } else if (tab === 'col'){
+    h += collHtml();
   } else if (tab === 'dia'){
     h += diagHtml();
   } else if (tab === 'ret'){
@@ -4048,6 +4216,7 @@ function renderPanel(){
       : `<div class="ach ok new">${ico('trophy')}<div><b>${a.n}</b><p class="cw">${esc(tr(ACH_WHY[a.id]))}</p><button class="buy" data-curio="${a.id}">${tr('Descubrir curiosidad')}</button></div></div>`).join('') + '</div>';
   } else if (tab === 'evo'){
     const g = evoGain();
+    if (S.evoHint) h += `<div class="org evohint">${vesicle('dna', 0xa67bff)}<h4>${tr('Buen momento para evolucionar')}</h4><p>${tr('Llevas un rato sin batir tu récord. Si evolucionas ahora ganarás {g} de ADN y volverás a subir mucho más deprisa.', {g})}</p></div>`;
     h += `<div class="nb">${tr('Linaje')}</div>${phylo()}`;
     h += treeHtml();
     h += `<div class="nb">${tr('Tu tipo de célula')}</div><div class="cells">` + Object.entries(CELLS).map(([id, c]) => {
@@ -4133,7 +4302,7 @@ function evolve(){
   const g = evoGain(); if (!g) return;
   if (B){ B.over = true; clearTimeout(B.timer); }
   S.adn += g; S.evos++; S.lpts += 2;
-  S.level = 1; S.kills = 0; S.runMax = 1; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
+  S.level = 1; S.kills = 0; S.runMax = 1; S.runMaxT = Date.now(); S.evoHint = false; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
   for (const k in S.upg) S.upg[k] = 0;
   checkAch(); rebuildPlayer(); save(); closeLab(); renderHud();
   const unlocked = Object.entries(CELLS).filter(([, c]) => c.need === S.evos).map(([, c]) => c.n);
@@ -4297,7 +4466,7 @@ function loop(now){
   const t = clock.getElapsedTime();
   S.atp += atps()*dt;
   hudAcc += dt; saveAcc += dt;
-  if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); if (!S.clase) $('#pAtp').innerHTML = ico('atp') + fmt(S.atp); $('#labDot').hidden = !anyAffordable(); if (!$('#panel').hidden) refreshAfford(); }
+  if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); if (!S.clase) $('#pAtp').innerHTML = ico('atp') + fmt(S.atp); $('#labDot').hidden = !anyAffordable() && !S.evoHint; if (!$('#panel').hidden) refreshAfford(); }
   if (saveAcc > 5){ saveAcc = 0; save(); }
   // calidad automática: si va lento, se reduce
   fpsN++; fpsT += dt;
@@ -4347,6 +4516,7 @@ Object.assign(IC, {
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
   eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  jar:'<path d="M8 3h8M9 3v3.5L6.5 9.5A3 3 0 0 0 6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8a3 3 0 0 0-.5-1.5L15 6.5V3"/><path d="M6 13h12"/><circle cx="10" cy="16.5" r="1"/><circle cx="14" cy="17" r=".7"/>',
   bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
   spark:'<path d="M12 2.5l1.8 5.2 5.2 1.8-5.2 1.8L12 16.5l-1.8-5.2-5.2-1.8 5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
   planet:'<circle cx="12" cy="12" r="5.5"/><path d="M4.2 15.8C1.8 17.6 1 19.2 1.8 20s3.5-.3 6.7-2.3M16 6.4c3.4-2.1 6-3 6.6-2.3.8.8-.4 2.8-3 5"/><path d="M7.8 17.7c3.3-1.6 7.6-4.8 11.8-8.6"/>',
@@ -4375,6 +4545,40 @@ function narr(key, force){
 function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
 function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
+
+// ---- Coleccionables ----
+const starsHtml = id => { const n = stars(id); return '★'.repeat(n) + `<i>${'★'.repeat(5 - n)}</i>`; };
+function showRelic(id){
+  const R = RELIC[id], lv = S.relics[id] || 0;
+  showModal(`<div class="relic-big">${vesicle(R.ic, R.col)}<div>
+    <div class="eyebrow" style="color:${hex(R.col)}">${lv > 1 ? tr('Hallazgo mejorado') : tr('Hallazgo científico')} · ${R.y}</div>
+    <h2>${tr(R.n)} ${ROMAN.at(lv)}</h2><p><b>${tr(R.e, {p:R.p*lv})}</b>${lv > 1 ? ' (' + tr('nivel {l} de 3', {l:lv}) + ')' : ''}</p>
+    <p>${tr(R.f)}</p><p class="hint">${tr('Los hallazgos se conservan al evolucionar. Los encontrarás todos en el Laboratorio, en «Colección».')}</p></div></div>
+    <button class="go" id="mGo">${tr('Seguir')}</button>`);
+  sfx.ach();
+}
+function collHtml(){
+  let h = `<div class="nb">${tr('Colección')}</div><p class="lead">${tr('Al vencer organismos a veces consigues una muestra para tu biobanco, y al vencer jefes, hallazgos científicos. Todo se conserva al evolucionar. No cuentan en el modo clase ni en los eventos.')}</p>`;
+  h += `<div class="collsum"><span>${tr('Ataque')} <b>×${dec(collAtk().toFixed(2))}</b></span><span>${tr('Vida')} <b>×${dec(collHp().toFixed(2))}</b></span><span>${tr('ATP')} <b>×${dec(collAtp().toFixed(2))}</b></span></div>`;
+  const found = RELICS.filter(r => S.relics[r.id]).length;
+  h += `<div class="nb">${tr('Hallazgos científicos')} · ${found} / ${RELICS.length}</div><p class="lead">${tr('Aparecen al vencer jefes, sobre todo los especiales, y al completar por primera vez un evento. Si encuentras uno repetido, sube de nivel (hasta el III).')}</p><div class="rels">`;
+  h += RELICS.map(R => { const lv = S.relics[R.id] || 0;
+    return lv ? `<div class="rel">${vesicle(R.ic, R.col)}<b>${tr(R.n)}</b><span class="lv">${R.y} · ${tr('nivel')} ${ROMAN.at(lv)}</span><p>${tr(R.e, {p:R.p*lv})}</p></div>`
+      : `<div class="rel off">${vesicle(R.ic, 0x6c7f8c)}<b>?</b><span class="lv">${R.y}</span><p>${tr('Sin descubrir')}</p></div>`; }).join('') + '</div>';
+  const total = TYPE_ORDER.reduce((a, id) => a + (S.samp[id] || 0), 0);
+  h += `<div class="nb">${tr('Biobanco')} · ${total} ${tr('muestras')}</div><p class="lead">${tr('Cada estrella de un organismo da +6 % de daño y +5 % de ATP contra él. Si todos los organismos de un grupo llegan a ★1, ★3 o ★5, el grupo da un bonus para todo.')}</p>`;
+  const kname = {atk:tr('ataque'), hp:tr('vida'), atp:tr('ATP')};
+  for (const g of GROUPS){
+    const t = grpTier(g);
+    h += `<div class="grp"><b style="color:${hex(g.col)}">${tr(g.n)}</b><span class="${t ? 'on' : ''}">${t ? tr('+{p} % de {k}', {p:Math.round(GROUP_K.at(t)*100), k:kname[g.k]}) : tr('Todos a ★1: +5 % de {k}', {k:kname[g.k]})}</span></div><div class="bank">`;
+    h += g.types.map(id => { const n = S.samp[id] || 0, nx = STARS.find(x => x > n), prev = [0, ...STARS].filter(x => x <= n).at(-1);
+      const name = S.seen[id] ? TYPES[id].n : tr('Sin descubrir');
+      return `<div class="bk"><span>${name}</span><span class="st" aria-label="${stars(id)} / 5">${starsHtml(id)}</span>
+        <div class="meter"><i style="width:${nx ? (n - prev)/(nx - prev)*100 : 100}%"></i></div>
+        <small>${nx ? tr(n === 1 ? '{n} muestra · la siguiente estrella con {x}' : '{n} muestras · la siguiente estrella con {x}', {n, x:nx}) : tr('{n} muestras · completo', {n})}${stars(id) ? ' · ' + tr('+{d} % de daño y +{a} % de ATP', {d:stars(id)*6, a:stars(id)*5}) : ''}</small></div>`; }).join('') + '</div>';
+  }
+  return h;
+}
 
 // ---- Eventos especiales ----
 $('#bStory').onclick = () => showEvents();
@@ -4647,7 +4851,7 @@ function start(data){
   applyQuality(S.q === 'auto' ? 2 : S.q);
   rebuildPlayer(); setZoneTint(S.zone); ensureDaily();
   // progreso sin conexión (máximo 8 horas)
-  const g = atps()*away;
+  const g = atps()*away*(1 + .25*rl('pcr'));
   if (g > 1 && away > 30){ S.atp += g; setTimeout(() => toast(tr('Mientras no estabas, tus mitocondrias produjeron {g} ATP.', {g:fmt(g)})), 600); }
   window.claude?.hot?.snapshot?.(() => ({S}));
   resize(); renderHud(); initClass();

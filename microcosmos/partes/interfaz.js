@@ -135,7 +135,7 @@ function renderHud(){
   $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
   $('#pAtp').innerHTML = S.clase ? tr('Modo clase') : ico('atp') + fmt(S.atp);
-  $('#labDot').hidden = !anyAffordable();
+  $('#labDot').hidden = !anyAffordable() && !S.evoHint; $('#evoDot').hidden = !S.evoHint;
   $('#bLab').setAttribute('aria-expanded', !$('#panel').hidden);
   const uc = unseenCurios(); $('#retDot').hidden = !uc;
   $('#app').classList.toggle('big', !!S.big); $('#app').classList.toggle('calm', !!S.calm);
@@ -318,11 +318,13 @@ function renderPanel(){
       const kn = S.known[id] ? Object.keys(S.known[id]) : [];
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
-        <h4 style="color:${hex(Ty.col)}">${Ty.n}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
+        <h4 style="color:${hex(Ty.col)}">${Ty.n}${stars(id) ? `<span class="astars">${'★'.repeat(stars(id))}</span>` : ''}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
         <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${practice}</div></div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
+  } else if (tab === 'col'){
+    h += collHtml();
   } else if (tab === 'dia'){
     h += diagHtml();
   } else if (tab === 'ret'){
@@ -337,6 +339,7 @@ function renderPanel(){
       : `<div class="ach ok new">${ico('trophy')}<div><b>${a.n}</b><p class="cw">${esc(tr(ACH_WHY[a.id]))}</p><button class="buy" data-curio="${a.id}">${tr('Descubrir curiosidad')}</button></div></div>`).join('') + '</div>';
   } else if (tab === 'evo'){
     const g = evoGain();
+    if (S.evoHint) h += `<div class="org evohint">${vesicle('dna', 0xa67bff)}<h4>${tr('Buen momento para evolucionar')}</h4><p>${tr('Llevas un rato sin batir tu récord. Si evolucionas ahora ganarás {g} de ADN y volverás a subir mucho más deprisa.', {g})}</p></div>`;
     h += `<div class="nb">${tr('Linaje')}</div>${phylo()}`;
     h += treeHtml();
     h += `<div class="nb">${tr('Tu tipo de célula')}</div><div class="cells">` + Object.entries(CELLS).map(([id, c]) => {
@@ -422,7 +425,7 @@ function evolve(){
   const g = evoGain(); if (!g) return;
   if (B){ B.over = true; clearTimeout(B.timer); }
   S.adn += g; S.evos++; S.lpts += 2;
-  S.level = 1; S.kills = 0; S.runMax = 1; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
+  S.level = 1; S.kills = 0; S.runMax = 1; S.runMaxT = Date.now(); S.evoHint = false; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
   for (const k in S.upg) S.upg[k] = 0;
   checkAch(); rebuildPlayer(); save(); closeLab(); renderHud();
   const unlocked = Object.entries(CELLS).filter(([, c]) => c.need === S.evos).map(([, c]) => c.n);
@@ -586,7 +589,7 @@ function loop(now){
   const t = clock.getElapsedTime();
   S.atp += atps()*dt;
   hudAcc += dt; saveAcc += dt;
-  if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); if (!S.clase) $('#pAtp').innerHTML = ico('atp') + fmt(S.atp); $('#labDot').hidden = !anyAffordable(); if (!$('#panel').hidden) refreshAfford(); }
+  if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); if (!S.clase) $('#pAtp').innerHTML = ico('atp') + fmt(S.atp); $('#labDot').hidden = !anyAffordable() && !S.evoHint; if (!$('#panel').hidden) refreshAfford(); }
   if (saveAcc > 5){ saveAcc = 0; save(); }
   // calidad automática: si va lento, se reduce
   fpsN++; fpsT += dt;
