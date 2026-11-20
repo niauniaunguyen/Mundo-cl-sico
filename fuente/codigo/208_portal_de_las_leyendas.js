@@ -38,9 +38,9 @@ function leyRoom(){const R=int2Base('hidra');R.g=grp(R.X,R.Y,R.Z,0);INT2.rooms.h
   for(const [x,y,z,s] of [[7,8,-15,3.4],[5.2,7,-14,2.4],[8.8,7.2,-16,2.6],[7,9.6,-15.5,2.2]]){const c=new THREE.Mesh(new THREE.IcosahedronGeometry(s,1),lam('#4f6b34'));c.position.set(x,y,z);c.castShadow=true;g.add(c);}
   // la Hidra: cuerpo de serpiente enroscado y cuellos con cabeza
   const hm=new THREE.MeshPhongMaterial({color:'#2f5a3a',shininess:30,specular:new THREE.Color('#3a5a40')}),bel=lam('#a8a060');
-  const body=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),hm);body.scale.set(2.4,1.3,3);body.position.set(0,0.7,LEY_HZ-0.6);body.castShadow=true;g.add(body);
-  for(let i=0;i<14;i++){const a=i/14*TAU*1.6,r=2.6+i*0.12,s=new THREE.Mesh(new THREE.SphereGeometry(0.75-i*0.035,12,8),hm);s.position.set(Math.cos(a)*r,0.45,LEY_HZ-0.6+Math.sin(a)*r*0.9);s.castShadow=true;g.add(s);}   // la cola enroscada
-  addCirc(R.X,R.Z+LEY_HZ-0.6,3.4);LEY.hm=hm;LEY.bel=bel;LEY.body=body;LEY.heads=[];
+  const body=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),hm);body.scale.set(2.4,1.3,3);body.position.set(0,0.7,LEY_HZ-0.6);body.castShadow=true;body.userData.proc=1;g.add(body);
+  for(let i=0;i<14;i++){const a=i/14*TAU*1.6,r=2.6+i*0.12,s=new THREE.Mesh(new THREE.SphereGeometry(0.75-i*0.035,12,8),hm);s.position.set(Math.cos(a)*r,0.45,LEY_HZ-0.6+Math.sin(a)*r*0.9);s.castShadow=true;s.userData.proc=1;g.add(s);}   // la cola enroscada
+  addCirc(R.X,R.Z+LEY_HZ-0.6,3.4);LEY.hm=hm;LEY.bel=bel;LEY.body=body;LEY.heads=[];leyHyLoad();leyStormSky();
   // Yolao, a la entrada, con una antorcha (el que quemaba los cuellos)
   const yo=makePerson({chiton:'#9a2a1e',short:true,noHimation:true,hair:'#3a2a1a',beard:false});yo.position.set(R.X-3.2,R.Y,R.Z+11.5);yo.rotation.y=Math.PI*0.85;scene.add(yo);addCirc(R.X-3.2,R.Z+11.5,0.4);INT2.ppl.push(yo);
   int2Info(R,-3.2,11.5,'Yolao','sobrino y auriga de '+leyN('Heracles','Hércules'),'Ι','Yolao, con la antorcha',
@@ -57,24 +57,24 @@ function leyAddHead(){const R=LEY.R;if(!R)return;const i=LEY.heads.length,g=R.g;
   const hd=new THREE.Group();const sk=new THREE.Mesh(LEY_NG,LEY.hm);sk.scale.set(0.38,0.3,0.6);hd.add(sk);
   const jw=new THREE.Mesh(new THREE.ConeGeometry(0.22,0.55,8),LEY.bel);jw.rotation.x=Math.PI/2;jw.position.set(0,-0.14,0.42);jw.scale.set(1,1,0.5);hd.add(jw);
   for(const sx of[-0.2,0.2]){const ey=new THREE.Mesh(new THREE.SphereGeometry(0.06,8,6),LEY_EYE);ey.position.set(sx,0.12,0.28);hd.add(ey);}
-  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:int2AuraTex(),color:'#7cff5a',transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));glow.scale.set(1.6,1.6,1);glow.position.z=0.5;hd.add(glow);
-  H.head=hd;H.glow=glow;g.add(hd);LEY.heads.push(H);leyFan();return H;}
+  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#7cff5a',transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));glow.scale.set(1.6,1.6,1);glow.position.z=0.5;hd.add(glow);
+  H.head=hd;H.glow=glow;g.add(hd);LEY.heads.push(H);if(LEY.tpl)leyMdlHead(H);leyFan();return H;}
 function leyFan(){const n=LEY.heads.length;LEY.heads.forEach((H,i)=>{H.fan=n<2?0:(i/(n-1)-0.5)*Math.min(2.2,0.45*n);H.len=3.4+((i*7)%3)*0.5;});}
 // posición de la cabeza (local) en este instante
-function leyHeadPos(H,t){const b=new THREE.Vector3(Math.sin(H.fan)*1.3,1.4,LEY_HZ+0.6),sw=Math.sin(t*1.3+H.ph)*0.5,back=H.warn>0?-1.1*Math.sin(Math.min(1,(0.7-H.warn)/0.7)*Math.PI/2):0;
-  const L=H.len*Math.min(1,H.grow);const tip=new THREE.Vector3(Math.sin(H.fan)*(1.3+L*0.7)+sw*0.6,1.4+L*0.9+Math.cos(t*1.7+H.ph)*0.3,LEY_HZ+0.6+L*0.55+back);return [b,tip];}
+function leyHeadPos(H,t){const b=LEY.tpl?new THREE.Vector3(Math.sin(H.fan)*0.42,LEY.tpl.top-0.35,LEY_HZ-0.6+0.12-Math.abs(Math.sin(H.fan))*0.2):new THREE.Vector3(Math.sin(H.fan)*1.3,1.4,LEY_HZ+0.6),sw=Math.sin(t*1.3+H.ph)*0.5,back=H.warn>0?-1.1*Math.sin(Math.min(1,(0.7-H.warn)/0.7)*Math.PI/2):0;
+  const L=H.len*Math.min(1,H.grow);const tip=new THREE.Vector3(Math.sin(H.fan)*(1.3+L*0.7)+sw*0.6,b.y+L*0.8+Math.cos(t*1.7+H.ph)*0.3,LEY_HZ+0.6+L*0.55+back);return [b,tip];}
 // ---- proyectiles: bolas de veneno con estela
 const LEY_SG=new THREE.SphereGeometry(0.28,10,8),LEY_SM=new THREE.MeshBasicMaterial({color:'#8cff4a'});
 function leyShoot(H,tipW){const P=player,R=LEY.R;const tgt=new THREE.Vector3(P.x,P.feet+1.0,P.z);const d=tipW.distanceTo(tgt),sp=10+Math.min(5,LEY.heads.length*0.6),tf=d/sp;
   tgt.x+=LEY.pv.x*tf*0.7;tgt.z+=LEY.pv.z*tf*0.7;const v=tgt.clone().sub(tipW).normalize().multiplyScalar(sp);
-  const m=new THREE.Mesh(LEY_SG,LEY_SM);m.position.copy(tipW);scene.add(m);const gl=new THREE.Sprite(new THREE.SpriteMaterial({map:int2AuraTex(),color:'#6dff3a',transparent:true,opacity:0.7,blending:THREE.AdditiveBlending,depthWrite:false}));gl.scale.set(1.3,1.3,1);m.add(gl);
-  LEY.shots.push({m,v,life:4});try{leySfx('spit');}catch(e){}}
+  const m=new THREE.Mesh(LEY_SG,LEY_SM);m.position.copy(tipW);scene.add(m);const gl=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#6dff3a',transparent:true,opacity:0.7,blending:THREE.AdditiveBlending,depthWrite:false}));gl.scale.set(1.3,1.3,1);m.add(gl);
+  LEY.shots.push({m,v,life:4});if(H&&H.mdl)H.mdl.snap=1;try{leySfx('spit');}catch(e){}}
 // ---- orbes de Niké
 const LEY_OG=new THREE.OctahedronGeometry(0.28,1),LEY_OM=new THREE.MeshBasicMaterial({color:'#ffe08a'});
 function leyOrb(){const R=LEY.R;for(let k=0;k<40;k++){const a=Math.random()*TAU,r=3+Math.random()*(LEY_RA-4.5),x=Math.cos(a)*r,z=Math.sin(a)*r;if(z<LEY_HZ+5)continue;
     if(LEY.orbs.some(o=>Math.hypot(o.x-x,o.z-z)<4))continue;if(Math.hypot(R.X+x-player.x,R.Z+z-player.z)<4)continue;
     const g=new THREE.Group();g.position.set(R.X+x,R.Y+1.1,R.Z+z);const c=new THREE.Mesh(LEY_OG,LEY_OM);g.add(c);
-    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:int2AuraTex(),color:'#ffd25a',transparent:true,opacity:0.9,blending:THREE.AdditiveBlending,depthWrite:false}));s.scale.set(1.6,2.0,1);g.add(s);
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ffd25a',transparent:true,opacity:0.9,blending:THREE.AdditiveBlending,depthWrite:false}));s.scale.set(1.6,2.0,1);g.add(s);
     for(const sg of[-1,1]){const w=new THREE.Mesh(new THREE.PlaneGeometry(0.5,0.22),new THREE.MeshBasicMaterial({color:'#fff4d0',side:THREE.DoubleSide,transparent:true,opacity:0.85}));w.position.set(sg*0.36,0.08,0);w.rotation.z=sg*0.35;g.add(w);}   // las alas de Niké
     scene.add(g);LEY.orbs.push({g,x:R.X+x,z:R.Z+z,c,ph:Math.random()*TAU});return;}}
 // ---- sonidos (sintetizados, como el resto del juego)
@@ -112,21 +112,22 @@ function leyWin(){LEY.on=false;LEY.won=true;leyHud();const z=leyz();z.hidra.best
   try{rwDiscover('La corona de '+leyN('Niké','Victoria'),'has vencido en la leyenda de la Hidra');}catch(e){}}
 // ---- cada fotograma
 function leyTick(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';
-  if(!inH){if(LEY.on||LEY.shots.length||LEY.orbs.length){LEY.on=false;leyReset();}if(LEY.hud&&!LEY.hud.hidden)leyHud();LEY.started=false;return;}
+  if(!inH){if(!skyMesh.visible)skyMesh.visible=true;if(LEY.on||LEY.shots.length||LEY.orbs.length){LEY.on=false;leyReset();}if(LEY.hud&&!LEY.hud.hidden)leyHud();LEY.started=false;return;}
   if(!LEY.started&&!INT2.busy&&ui==='play'){LEY.started=true;player.yaw=0;player.pitch=0.05;leyStart();return;}
   const R=LEY.R,t=(LEY.t+=dt),P=player;
   // la Hidra (también quieta mientras se lee un diálogo, pero sin disparar)
   for(const H of LEY.heads){if(H.grow<1)H.grow=Math.min(1,H.grow+dt*0.8);const [b,tip]=leyHeadPos(H,t),c1=new THREE.Vector3(b.x,tip.y*0.75,b.z+0.2);
+    if(H.mdl){leyMdlPose(H,b,c1,tip,t,P,R);continue;}
     for(let j=0;j<H.neck.length;j++){const u=(j+1)/(H.neck.length+1),p=new THREE.Vector3().copy(b).multiplyScalar((1-u)*(1-u)).addScaledVector(c1,2*u*(1-u)).addScaledVector(tip,u*u);H.neck[j].position.copy(p);H.neck[j].scale.setScalar(0.46-u*0.2);}
     H.head.position.copy(tip);H.head.lookAt(P.x-R.X,P.feet+1-R.Y,P.z-R.Z);H.glow.material.opacity=H.warn>0?0.9*(1-H.warn/0.7):0;}
-  if(LEY.sink){LEY.sink+=dt;for(const c of R.g.children)if(c!==R.exitG&&(c.material===LEY.hm||c.material===LEY.bel||c.type==='Group'&&c.children[0]&&c.children[0].material===LEY.hm)){const d=Math.min(dt*0.8,6-(c.userData.sunk||0));if(d>0){c.position.y-=d;c.userData.sunk=(c.userData.sunk||0)+d;}}if(LEY.sink>9)LEY.sink=0;}
+  if(LEY.sink){LEY.sink+=dt;for(const c of R.g.children)if(c!==R.exitG&&(c.userData.hy||c.material===LEY.hm||c.material===LEY.bel||c.type==='Group'&&c.children[0]&&c.children[0].material===LEY.hm)){const d=Math.min(dt*0.8,6-(c.userData.sunk||0));if(d>0){c.position.y-=d;c.userData.sunk=(c.userData.sunk||0)+d;}}if(LEY.sink>9)LEY.sink=0;}
   if(!LEY.on||ui!=='play')return;
   // velocidad del jugador (para apuntar un poco por delante)
   if(LEY.lp&&dt>0){LEY.pv.x=LEY.pv.x*0.8+((P.x-LEY.lp.x)/dt)*0.2;LEY.pv.z=LEY.pv.z*0.8+((P.z-LEY.lp.z)/dt)*0.2;}LEY.lp={x:P.x,z:P.z};
   if(LEY.grace>0)LEY.grace-=dt;LEY.inv=Math.max(0,LEY.inv-dt);
   // disparos: cada cabeza avisa 0,7 s y escupe
   const per=Math.max(1.8,4.2-0.3*LEY.heads.length);
-  for(const H of LEY.heads){if(H.grow<1||LEY.grace>0)continue;if(H.warn>0){H.warn-=dt;if(H.warn<=0){H.warn=0;H.t=per*(0.8+Math.random()*0.5);const w=H.head.getWorldPosition(new THREE.Vector3());leyShoot(H,w);}continue;}
+  for(const H of LEY.heads){if(H.grow<1||LEY.grace>0)continue;if(H.warn>0){H.warn-=dt;if(H.warn<=0){H.warn=0;H.t=per*(0.8+Math.random()*0.5);const w=H.mdl?H.mdl.head.localToWorld(new THREE.Vector3(0,-0.03,0.9)):H.head.getWorldPosition(new THREE.Vector3());leyShoot(H,w);}continue;}
     H.t-=dt;if(H.t<=0)H.warn=0.7;}
   const lo=new THREE.Vector3(P.x,P.feet+0.25,P.z),hi=new THREE.Vector3(P.x,P.feet+1.65,P.z),_c=new THREE.Vector3(),seg=new THREE.Line3(lo,hi);
   for(let i=LEY.shots.length-1;i>=0;i--){const s=LEY.shots[i];s.life-=dt;s.v.y-=1.5*dt;s.m.position.addScaledVector(s.v,dt);const p=s.m.position;
@@ -141,3 +142,59 @@ function leyTick(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';
       if(LEY.n%4===0&&LEY.heads.length<9){leyAddHead();leySfx('grow');toast('<span class="label">La Hidra se enfurece</span><br>Le brota otra cabeza: ya tiene '+LEY.heads.length+'.');}}}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{leyTick(Math.min(0.1,dt||0));}catch(e){if(!LEY.err){LEY.err=String(e&&e.stack||e).slice(0,300);console.warn('leyendas',e);}}};}
 INT2_ZN.hidra=['La ciénaga de Lerna','ΛΕΡΝΗ','Leyenda · Apolodoro, Biblioteca II 5,2'];
+
+// ---- la Hidra de Blender (herramientas/blender/hidra.py → modelos/hidra.glb → datos/glbhy.txt, en segundo plano)
+// Mientras no llega, se ve la de esferas. Cada cuello es una copia del cuello recto (de y = 0 a y = 1) que se dobla en cada fotograma
+// sobre la curva del cuello: cada anillo va a su punto de la curva, con un marco que no gira (transporte paralelo); así las escamas
+// siguen al cuello. La cabeza se pone en la punta y mira al jugador; la mandíbula se abre al avisar y al escupir.
+function leyHyLoad(){if(LEY.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;LEY.loading=1;
+  bpBytes('glbhy').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const S=gl.scene;S.updateMatrixWorld(true);
+    const get=n=>S.getObjectByName(n),neck=get('HY_cuello'),head=get('HY_cabeza'),body=get('HY_cuerpo'),top=get('HY_cima');if(!neck||!head||!body)return;
+    const ng=neck.geometry;LEY.tpl={neck:ng,nmat:neck.material,P0:ng.attributes.position.array.slice(),N0:ng.attributes.normal.array.slice(),head,body,top:top?top.position.y:2.1};
+    const cache=new Map();S.traverse(o=>{if(!o.isMesh)return;o.castShadow=true;o.receiveShadow=true;const m=o.material;if(!m)return;
+      // al material del juego (Phong, como las rocas): color, relieve y brillo de piel húmeda
+      if(!cache.has(m)){const eye=/ojo/.test(m.name),pm=new THREE.MeshPhongMaterial({map:m.map||null,normalMap:m.normalMap||null,color:m.map?new THREE.Color(1.55,1.55,1.5):m.color.clone(),shininess:eye?90:28,specular:new THREE.Color(eye?'#ffffff':'#3a3a2c'),
+        emissive:eye?new THREE.Color('#ffffff'):new THREE.Color('#000000'),emissiveMap:eye?m.map:null,emissiveIntensity:eye?0.35:0,side:/lengua/.test(m.name)?THREE.DoubleSide:THREE.FrontSide});if(m.map){m.map.anisotropy=4;m.map.encoding=THREE.LinearEncoding;}cache.set(m,pm);}
+      o.material=cache.get(m);});
+    if(LEY.R)leyMdlBody();},e=>console.warn('hidra',e));}).catch(e=>console.warn('hidra',e));}
+function leyMdlBody(){const R=LEY.R,T=LEY.tpl;if(!R||!T||LEY.mbody)return;const b=T.body.clone();b.position.set(0,0,LEY_HZ-0.6);b.userData.hy=1;R.g.add(b);LEY.mbody=b;
+  for(const c of R.g.children)if(c.userData.proc)c.visible=false;for(const H of LEY.heads)if(!H.mdl)leyMdlHead(H);}
+function leyMdlHead(H){const R=LEY.R,T=LEY.tpl;if(!R||!T)return;if(!LEY.mbody)leyMdlBody();
+  const g=T.neck.clone();g.attributes.position=g.attributes.position.clone();g.attributes.normal=g.attributes.normal.clone();
+  const nk=new THREE.Mesh(g,T.nmat);nk.castShadow=true;nk.frustumCulled=false;nk.userData.hy=1;R.g.add(nk);
+  const hd=T.head.clone(true);hd.position.set(0,0,0);hd.rotation.set(0,0,0);hd.userData.hy=1;R.g.add(hd);const jaw=hd.getObjectByName('HY_mandibula');
+  H.glow.parent&&H.glow.parent.remove(H.glow);H.glow.position.set(0,-0.02,0.95);H.glow.scale.set(0.8,0.8,1);hd.add(H.glow);
+  for(const s of H.neck)s.visible=false;H.head.visible=false;H.mdl={nk,head:hd,jaw,jaw0:jaw?jaw.rotation.x:0};}
+const _lyB=new THREE.Vector3(),_lyT=new THREE.Vector3(),_lyL=new THREE.Vector3(),_lyS=new THREE.Vector3(),_lyQ=new THREE.Vector3();
+function leyMdlPose(H,b,c1,tip,t,P,R){const M=H.mdl,T=LEY.tpl,pos=M.nk.geometry.attributes.position,nor=M.nk.geometry.attributes.normal,P0=T.P0,N0=T.N0,NR=44;
+  const bz=(s,o)=>o.copy(b).multiplyScalar((1-s)*(1-s)).addScaledVector(c1,2*s*(1-s)).addScaledVector(tip,s*s);
+  const dz=(s,o)=>o.copy(c1).sub(b).multiplyScalar(2*(1-s)).addScaledVector(_lyQ.copy(tip).sub(c1),2*s).normalize();
+  // marcos de los anillos
+  const F=M.F||(M.F=Array.from({length:NR},()=>({p:new THREE.Vector3(),t:new THREE.Vector3(),l:new THREE.Vector3(),s:new THREE.Vector3()})));
+  _lyL.set(0,0.3,1).normalize();   // en la base, el lomo mira hacia delante: al doblarse hacia quien llega, queda arriba (el vientre, abajo)
+  for(let i=0;i<NR;i++){const f=F[i],s=i/(NR-1);bz(s,f.p);dz(s,f.t);_lyL.addScaledVector(f.t,-_lyL.dot(f.t)).normalize();f.l.copy(_lyL);f.s.copy(f.t).cross(f.l);}
+  const pa=pos.array,na=nor.array;
+  for(let v=0;v<pa.length;v+=3){const f=F[Math.max(0,Math.min(NR-1,Math.round(P0[v+1]*(NR-1))))],x=P0[v],z=P0[v+2];
+    pa[v]=f.p.x+f.s.x*x+f.l.x*z;pa[v+1]=f.p.y+f.s.y*x+f.l.y*z;pa[v+2]=f.p.z+f.s.z*x+f.l.z*z;
+    const nx=N0[v],ny=N0[v+1],nz=N0[v+2];na[v]=f.s.x*nx+f.t.x*ny+f.l.x*nz;na[v+1]=f.s.y*nx+f.t.y*ny+f.l.y*nz;na[v+2]=f.s.z*nx+f.t.z*ny+f.l.z*nz;}
+  pos.needsUpdate=true;nor.needsUpdate=true;M.nk.geometry.computeBoundingSphere();
+  // la cabeza: en la punta (con la nuca metida en el cuello) y mirando al jugador
+  const fe=F[NR-1];M.head.position.copy(fe.p).addScaledVector(fe.t,-0.12);M.head.lookAt(P.x-R.X,P.feet+1-R.Y,P.z-R.Z);
+  if(M.jaw){const open=H.warn>0?0.15+0.45*(1-H.warn/0.7):Math.max(0,(M.snap||0))*0.6+0.04+0.03*Math.sin(t*2.3+H.ph);M.jaw.rotation.x=M.jaw0+open;}
+  if(M.snap>0)M.snap-=0.05;
+  H.glow.material.opacity=H.warn>0?0.9*(1-H.warn/0.7):0;}
+
+// ---- el cielo de pesadilla: nubes de tormenta de noche (Poly Haven, CC0; retocadas en herramientas/blender/cielo_tormenta.py), luz
+// apagada y fría, niebla gris y relámpagos de vez en cuando (con su trueno). Solo dentro de la leyenda.
+function leyStormSky(){if(LEY.skyLoading||typeof bpBytes!=='function')return;LEY.skyLoading=1;
+  bpBytes('imgtm').then(buf=>{if(!buf)return;const url=URL.createObjectURL(new Blob([buf],{type:'image/jpeg'})),im=new Image();
+    im.onload=()=>{const tx=new THREE.Texture(im);tx.needsUpdate=true;const m=new THREE.MeshBasicMaterial({map:tx,side:THREE.BackSide,fog:false});
+      const sp=new THREE.Mesh(new THREE.SphereGeometry(900,48,24),m);sp.frustumCulled=false;LEY.sky=sp;if(LEY.R)LEY.R.g.add(sp);};im.src=url;}).catch(e=>console.warn('cielo',e));}
+function leyStormLight(dt){const inH=INT2.in&&INT2.in.o.room==='hidra';if(!inH)return;
+  if(LEY.sky&&LEY.R&&LEY.sky.parent!==LEY.R.g)LEY.R.g.add(LEY.sky);
+  LEY.flT=(LEY.flT===undefined?6:LEY.flT)-(dt||0);if(LEY.flT<=0){LEY.flT=7+Math.random()*10;LEY.flash=1;setTimeout(()=>{try{if(typeof sfxThunder==='function'&&INT2.in)sfxThunder();}catch(e){}},600+Math.random()*1400);}
+  const f=LEY.flash>0?Math.max(0,LEY.flash)*(0.6+0.4*Math.sin(LEY.flash*40)):0;if(LEY.flash>0)LEY.flash-=(dt||0)*3.2;
+  sun.intensity=0.5+1.2*f;sun.color.set('#b9c3d6');hemi.intensity=0.5+1.1*f;hemi.color.set('#8c97aa');hemi.groundColor.set('#3a3529');
+  scene.fog.color.set('#4b4d53');STARS.material.opacity=0;if(LEY.sky)skyMesh.visible=false;if(LEY.sky)LEY.sky.material.color.setScalar(1+1.6*f);}
+{const f=updateSky;updateSky=function(){const r=f.apply(this,arguments);try{leyStormLight(0);}catch(e){}return r;};}
+{const f=uxTick;uxTick=function(dt){f(dt);try{leyStormLight(Math.min(0.1,dt||0));}catch(e){}};}
