@@ -328,7 +328,7 @@ def hair_weight(kind,co):   # 0 fuera, 1 dentro, con transición suave en el bor
         return w
     if kind=='pelo':return _sm((z-hairline(a)+0.003)/0.012)
     zl=-0.048+0.05*_sm((abs(a)-0.35)/0.9)
-    w=_sm((zl-z)/0.01)*_sm((1.45-abs(a))/0.15)
+    w=_sm((zl-z)/0.01)*_sm((1.45-abs(a))/0.15)*_sm((z+0.108)/0.016)   # acaba bajo la mandíbula (antes bajaba por el cuello y manchaba el pecho)
     wm=_sm((0.2-abs(a))/0.05)*_sm((0.0065-abs(z-LM['mouth']-0.0135))/0.003)   # bigote, sobre el labio superior
     hole=_sm((math.hypot(a/0.27,(z-LM['mouth'])/0.0115)-1)/0.35)   # la boca, sin barba (un óvalo)
     return max(w*hole,wm)
@@ -700,7 +700,7 @@ def skin_tex(name,base,beard=None,hair='#3b2a1e',size=512,front_up=0.0,fem=False
     if beard:   # la misma zona que la barba con volumen (hair_weight), algo más ancha y con borde suave
         sm=lambda x:np.clip(x,0,1)**2*(3-2*np.clip(x,0,1))
         zl=-0.048+0.05*sm((np.abs(a)-0.35)/0.9)
-        hole=sm((np.hypot(a/0.27,(z-LM['mouth'])/0.0115)-1)/0.35);w=np.maximum(sm((zl-z+0.004)/0.01)*sm((1.49-np.abs(a))/0.15)*hole,sm((0.21-np.abs(a))/0.05)*sm((0.0085-np.abs(z-LM['mouth']-0.0135))/0.004))
+        hole=sm((np.hypot(a/0.27,(z-LM['mouth'])/0.0115)-1)/0.35);w=np.maximum(sm((zl-z+0.004)/0.01)*sm((1.49-np.abs(a))/0.15)*hole*sm((z+0.112)/0.018),sm((0.21-np.abs(a))/0.05)*sm((0.0085-np.abs(z-LM['mouth']-0.0135))/0.004))
         bc=hexc(beard)[None,None,:]*(0.8+0.35*np.sin(a*80+z*120)*0.5)[...,None]
         m=blur(w,2)*0.95;col[:]=col*(1-m[...,None])+bc*m[...,None]
     return save_png(name,np.clip(col,0,1))
@@ -1036,10 +1036,10 @@ def build(kind):
             set_mat(bt,material('oro',plain_tex('oro','#d9a93a',0.1),metal=0.9,rough=0.3));pieces.append(bt)
     elif kind=='obrero':
         # exomis: túnica corta de trabajo, abrochada en el hombro izquierdo, que deja al aire el hombro y el pecho derechos; cinturón y pilos de fieltro
-        ex=garment('exomis',body,0.62,1.5,0.012,folds=16,famp=0.008,flare=0.04,skirt=True,
+        ex=garment('exomis',body,0.62,1.5,0.016,folds=16,famp=0.008,flare=0.04,skirt=True,
             top=lambda u:1.24+0.27*min(1,max(0,(math.sin(u*TAU)+0.6)/1.0))**1.2)
-        set_mat(ex,material('exomis',cloth_tex('exomis','#b8a888',border='#5a4a38',band=(0.0,0.04),folds=16)));pieces.append(ex)
-        bl=garment('cinturon',body,0.98,1.02,0.02,folds=1,famp=0.0,skirt=False,nu=40,nv=2,over=ex)
+        set_mat(ex,material('exomis',cloth_tex('exomis','#b8a888',border='#8f7f62',band=(0.0,0.04),folds=16)));pieces.append(ex)
+        bl=garment('cinturon',body,0.98,1.02,0.02,folds=1,famp=0.0,skirt=False,nu=96,nv=4,over=ex)
         set_mat(bl,material('cinturon_m',plain_tex('cinturon_t','#5a3d26',0.1)));pieces.append(bl)
         hp=[head_point_mh(k/36*TAU,h) for k in range(36) for h in(0.035,0.05,0.065)];rx=max(abs(p.x) for p in hp)+0.017
         y0,y1=min(p.y for p in hp),max(p.y for p in hp);ry=(y1-y0)/2+0.017;cy=(y0+y1)/2   # ajustado a la cabeza (ovalado), por encima del pelo
@@ -1101,7 +1101,7 @@ def build(kind):
         set_mat(tu,material('tunica',cloth_tex('tunica_lana','#bfae8c',folds=20)));pieces.append(tu)
         for k,sg in(('L',1),('R',-1)):
             sl,bt=ionic_sleeve('manga',sg,J['sho.'+k],J['elb.'+k]);set_mat(sl,tu.data.materials[0]);pieces.append(sl)
-        bl=garment('cinturon',body,0.98,1.02,0.02,folds=1,famp=0.0,skirt=False,nu=40,nv=2,over=tu)
+        bl=garment('cinturon',body,0.98,1.02,0.02,folds=1,famp=0.0,skirt=False,nu=96,nv=4,over=tu)
         set_mat(bl,material('cinturon_m',plain_tex('cinturon_t','#5a3d26',0.1)));pieces.append(bl)
     skin_to(arm,pieces,body)
     for o in pieces:
@@ -1128,8 +1128,12 @@ def build(kind):
     # capas: lo que queda debajo y tapado se borra (piel bajo la ropa, quitón bajo el manto o la coraza, pelo bajo el casco)
     byn=lambda *ns:[o for o in pieces+[r for r,_ in rigid] if o.name.split('.')[0] in ns]
     ropa=byn('quiton','quiton_corto','himation','himation_extremo','himation_espalda','manga','coraza','pteryges','pteryges_b','greba','hombrera','exomis','tunica','toga','toga_extremo','toga_espalda','estola','palla','palla_extremo','lorica','hombrera_hierro')
-    n=hide_covered(body,ropa,maxd=0.12,erode=3)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
-    for nm,cv in((('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))+(() if os.environ.get('NOSTOS_SIN') else (('tunica',('cinturon',)),('exomis',('cinturon',))))):
+    # la ropa ajustada (exomis, túnicas cortas, quitón corto, coraza) solo borra la piel que tiene pegada (5 cm); la holgada, hasta 12 cm.
+    # Antes, junto al borde del exomis se borraba piel que se ve (huecos en el pecho del obrero)
+    AJ=('exomis','quiton_corto','coraza','lorica','greba','hombrera','hombrera_hierro','pteryges','pteryges_b')+(('tunica',) if kind in('tunicado','legionario') else ())
+    n=hide_covered(body,[o for o in ropa if o.name.split('.')[0] not in AJ],maxd=0.12,erode=3)
+    n+=hide_covered(body,[o for o in ropa if o.name.split('.')[0] in AJ],maxd=0.05,erode=3)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
+    for nm,cv in((('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))):
         for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
     for o in byn(kind+'_pelo'):n+=hide_covered(o,byn('casco'),maxd=0.05,erode=1)
     print('CARAS OCULTAS BORRADAS',kind,n)
@@ -1199,8 +1203,9 @@ def clip_render(kind,arm,frame,out):
     c=bpy.data.cameras.new('cR');c.lens=50;co=bpy.data.objects.new('cR',c);sc.collection.objects.link(co);sc.camera=co
     import itertools
     imgs=[]
-    for i,(px,py) in enumerate(((1.6,3.2),(-1.6,3.2),(2.6,-2.4))):
-        co.location=(px,py,1.15);d=Vector((0,0,0.95))-co.location;co.rotation_euler=d.to_track_quat('-Z','Y').to_euler()
+    VIS=((0.5,-1.5),(-0.6,-1.4),(1.2,1.3)) if os.environ.get('NOSTOS_CERCA') else ((1.6,3.2),(-1.6,3.2),(2.6,-2.4))
+    for i,(px,py) in enumerate(VIS):
+        co.location=(px,py,1.3 if os.environ.get('NOSTOS_CERCA') else 1.15);d=Vector((0,0,1.25 if os.environ.get('NOSTOS_CERCA') else 0.95))-co.location;co.rotation_euler=d.to_track_quat('-Z','Y').to_euler()
         sc.render.filepath=out+'_%d.png'%i;bpy.ops.render.render(write_still=True)
 if os.environ.get('NOSTOS_PESOS'):
     import collections
@@ -1229,7 +1234,7 @@ for k,a in ARMS.items():
         export_image_format='JPEG',export_jpeg_quality=85,export_apply=False,export_yup=True,use_selection=True)
     tot+=os.path.getsize(f);print('GLB',k,os.path.getsize(f))
 # versión ligera para el juego: menos triángulos (decimate por pieza) y JPEG más comprimido
-RATIO={'toga':0.15,'palla':0.15,'estola':0.2,'tunica':0.2,'exomis':0.25,'lorica':0.4,'galea':0.5,'scutum':0.5,'toga_extremo':0.5,'toga_espalda':0.5,'palla_extremo':0.5,'mono':0.5,'himation':0.13,'cabeza':0.17,'quiton':0.2,'quiton_corto':0.2,'pelo':0.28,'barba':0.32,'coraza':0.4,'escudo':0.35,'greba':0.35,'manga':0.4,'cuerpo':0.5,'pteryges':0.45,'pteryges_b':0.45,'himation_extremo':0.5,'himation_espalda':0.5,'casco':0.5,'ojos':0.6,'orejas':0.6,'cimera':0.6}
+RATIO={'toga':0.15,'palla':0.15,'estola':0.2,'tunica':0.2,'exomis':0.45,'cinturon':0.6,'lorica':0.4,'galea':0.5,'scutum':0.5,'toga_extremo':0.5,'toga_espalda':0.5,'palla_extremo':0.5,'mono':0.5,'himation':0.13,'cabeza':0.17,'quiton':0.2,'quiton_corto':0.2,'pelo':0.28,'barba':0.32,'coraza':0.4,'escudo':0.35,'greba':0.35,'manga':0.4,'cuerpo':0.5,'pteryges':0.45,'pteryges_b':0.45,'himation_extremo':0.5,'himation_espalda':0.5,'casco':0.5,'ojos':0.6,'orejas':0.6,'cimera':0.6}
 def rkey(n):
     n=n.split('.')[0]
     for k in ARMS:n=n.replace(k+'_','')

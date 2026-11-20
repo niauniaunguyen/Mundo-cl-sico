@@ -198,7 +198,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `193_entablamentos_de_detalle.js` | 48 | ENTABLAMENTOS DE DETALLE (P7, arquitectura de detalle, segunda parte) |
 | `194_procesiones.js` | 105 | PROCESIONES (P8, fiestas con multitudes que se mueven) |
 | `195_atenas_romana.js` | 49 | ATENAS ROMANA, AÑO 80 (P10, modo Roma) |
-| `196_multitudes_con_modelos.js` | 39 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
+| `196_multitudes_con_modelos.js` | 59 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
 | `197_estatuas_a_la_vista.js` | 14 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
 | `198_animales_con_esqueleto.js` | 59 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
 | `199_moneda_en_pantalla.js` | 39 | LA MONEDA EN PANTALLA |
@@ -206,4 +206,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `201_objeto_en_la_mano.js` | 54 | EL OBJETO ELEGIDO, EN LA MANO |
 | `202_figurillas_votivas.js` | 77 | FIGURILLAS VOTIVAS: coleccionar el favor de los dioses |
 | `203_arbustos_de_detalle.js` | 90 | ARBUSTOS DE DETALLE (matorral mediterráneo) |
+| `204_puertas_a_interiores.js` | 193 | PUERTAS CON AURA: los interiores de la ciudad |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

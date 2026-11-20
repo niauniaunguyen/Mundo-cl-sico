@@ -36,3 +36,23 @@ function camHideTick(){if(typeof camera==='undefined')return;const c=camera.posi
     if(inside&&!CAMHIDE.list.has(root)){camHideSet(root,true);CAMHIDE.list.add(root);}}
   for(const root of [...CAMHIDE.list]){root.getWorldPosition(v);const d=Math.hypot(v.x-c.x,v.z-c.z);if(d>0.7||!(c.y>v.y-0.2&&c.y<v.y+2.1)){camHideSet(root,false);CAMHIDE.list.delete(root);}}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{camHideTick();}catch(e){}};}
+const BP_YOUNG=new Set();
+// niños y jóvenes (escala 0,6–0,95: Lisias, Gaya, los hijos de las casas): el modelo de adulto de su ropa, a su tamaño
+{const f=bpKind;bpKind=function(c){if(c&&c.scale&&c.scale<0.95&&c.scale>=0.6){const r=f(Object.assign({},c,{scale:1}));return r;}return f(c);};}
+{const f=bpMake;bpMake=function(k,c){const g=f.apply(this,arguments);try{if(g&&c&&c.scale&&c.scale<0.95&&c.scale>=0.6){g.scale.multiplyScalar(c.scale);if(c.scale<0.9){g.userData.young=1;BP_YOUNG.add(g);}}}catch(e){}/* un muchacho, sin barba */return g;};}
+// el guía de la llegada (157) también: su cartel pasa al modelo nuevo
+function bpGuide(){try{if(typeof OB==='undefined'||!OB.g||OB.g.userData.bp||OB.g.userData.bpNo)return;const old=OB.g,n=bpConv(old,true);if(!n)return;OB.g=n;
+  if(OB.lb&&OB.lb.parent===old){old.remove(OB.lb);n.add(OB.lb);OB.lb.position.y=2.2/(n.scale.x||1);}}catch(e){}}
+{const f=bpCrowds;bpCrowds=function(){const r=f.apply(this,arguments);bpGuide();return r;};}
+// sin barba también después de cambiar a la cabeza de alta calidad (BPH, 186), que trae su propia barba
+{let t=0;const f=uxTick;uxTick=function(dt){f(dt);t+=dt;if(t<0.3)return;t=0;try{for(const g of BP_YOUNG){let r=g;while(r.parent)r=r.parent;if(r!==scene){BP_YOUNG.delete(g);continue;}
+  g.traverse(o=>{if(!o.isMesh)return;if(o.visible&&/barba|bigote/i.test(o.name))o.visible=false;else if(/cabeza/.test(o.name)&&o.material&&o.material.map&&!o.material.userData.young)o.material=bpBeardless(o.material);});}}catch(e){}};}
+// la barba también va pintada en la textura de la cara: en los jóvenes, sus píxeles oscuros de la zona de la barba se pintan del color de su piel
+const BP_BL=new Map();
+function bpBeardless(m){const k=m.map.uuid;if(BP_BL.has(k))return BP_BL.get(k);const img=m.map.image;if(!img||!img.width)return m;
+  const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const x=c.getContext('2d');x.drawImage(img,0,0);const W=c.width,H=c.height,D=x.getImageData(0,0,W,H),d=D.data;
+  const si=(Math.floor(H*0.9)*W+Math.floor(W*0.12))*4,sr=d[si],sg=d[si+1],sb=d[si+2],sl=sr+sg+sb;
+  for(let y=Math.floor(H*0.42);y<H;y++)for(let xx=Math.floor(W*0.22);xx<Math.ceil(W*0.78);xx++){const i=(y*W+xx)*4,l=d[i]+d[i+1]+d[i+2];
+    if(l<sl*0.72&&!(d[i]>d[i+2]*1.6&&d[i]>90)){const v=0.94+((xx*7+y*13)%9)/100;d[i]=sr*v;d[i+1]=sg*v;d[i+2]=sb*v;}}   // los labios (rojizos) se quedan
+  x.putImageData(D,0,0);const t=new THREE.CanvasTexture(c);t.flipY=m.map.flipY;t.encoding=m.map.encoding;t.wrapS=m.map.wrapS;t.wrapT=m.map.wrapT;
+  const n=m.clone();n.map=t;n.userData.young=1;n.needsUpdate=true;BP_BL.set(k,n);return n;}
