@@ -241,7 +241,7 @@ def mh_head(name,kind,female):
     tgt=Vector((0,HC.y-0.066,HC.z+0.008))
     W=np.stack([P[:,0]-em[0],-(P[:,2]-em[2]),P[:,1]-em[1]],1)*s+np.array(tgt)
     # la cabeza (sin el arranque de los hombros, que tapan el cuerpo y la ropa)
-    keep=[i for i in range(len(Q)) if G[i]==0 and W[Q[i]][:,2].max()>1.462]
+    keep=[i for i in range(len(Q)) if G[i]==0 and W[Q[i]][:,2].max()>HC.z-0.193]   # 1,462 con la cabeza en su sitio
     def mk(nm,faces):
         used=np.unique(Q[faces]);m={k:j for j,k in enumerate(used)}
         me=bpy.data.meshes.new(nm);me.from_pydata([tuple(W[k]) for k in used],[],[[m[k] for k in Q[f]] for f in faces]);me.update()
@@ -425,12 +425,12 @@ def ionic_sleeve(name,sg,sho,elb):
     # abierta y, vista desde arriba, se veía por dentro como un cilindro hueco)
     sh=Vector(sho);el=Vector(elb);ax=(el-sh).normalized();a0=sh+Vector((-0.02*sg,0,0.02));a1=sh.lerp(el,0.82)
     up=Vector((sg,0,0.35)).normalized();u1=(up-ax*up.dot(ax)).normalized();u2=ax.cross(u1).normalized()
-    bm=bmesh.new();N=14;K=22;M=4;rows=[];R0=0.066
+    bm=bmesh.new();N=14;K=22;M=4;rows=[];R0=0.066*SLV[0]
     for j in range(M,0,-1):   # cúpula: anillos cada vez más pequeños hacia arriba y hacia el cuello
         ph=j/M*math.pi/2*0.92;c=a0-ax*R0*math.sin(ph)*0.85;r=R0*math.cos(ph)
         rows.append([bm.verts.new(c+(u1*math.cos(k/K*TAU)+u2*math.sin(k/K*TAU))*r) for k in range(K)])
     for i in range(N+1):
-        t=i/N;p=a0.lerp(a1,t);R=R0+0.042*min(1,t/0.5)**0.8
+        t=i/N;p=a0.lerp(a1,t);R=R0+0.042*SLV[0]**2*min(1,t/0.5)**0.8
         row=[]
         for k in range(K):
             q=k/K*TAU;fold=0.006*(0.3+0.7*t)*(1+math.sin(q*7+t*2))
@@ -526,7 +526,7 @@ def _bvh_of(objs):
         t=bmesh.new();t.from_mesh(c.data);t.transform(c.matrix_world);me=bpy.data.meshes.new('tmp');t.to_mesh(me);t.free();cb.from_mesh(me);bpy.data.meshes.remove(me)
     b=BVHTree.FromBMesh(cb);cb.free();return b
 def drape_end(name,path,width,folds=3,famp=0.03,snug=None,gap=0.025,far=0.03):   # extremo de un manto que cuelga: tira con pliegues en zigzag a lo largo de un camino
-    bm=bmesh.new();P=[Vector(p) for p in path];N=24;rows=[];W=8
+    bm=bmesh.new();P=[Vector((p[0],p[1],p[2]*ZK[0])) for p in path];N=24;rows=[];W=8
     pts=[]
     for i in range(N+1):   # interpolación Catmull-Rom
         t=i/N*(len(P)-1);k=min(int(t),len(P)-2);f=t-k
@@ -561,10 +561,17 @@ def drape_end(name,path,width,folds=3,famp=0.03,snug=None,gap=0.025,far=0.03):  
 # ------------------------------------------------------------------ prenda: rejilla alrededor del cuerpo (u = vuelta, v = altura)
 def torso_bvh(body):   # el cuerpo sin los brazos: la ropa se ajusta al torso y a las piernas, no envuelve los brazos
     bm=bmesh.new();bm.from_mesh(body.data)
-    kill=[v for v in bm.verts if (abs(v.co.x)>0.188 and 0.72<v.co.z<1.39) or (abs(v.co.x)>0.17 and 1.39<=v.co.z<1.48)]
+    if body.get('mh'):
+        dl=bm.verts.layers.deform.active;arms={g.index for g in body.vertex_groups if g.name.startswith(('upperarm','forearm','hand'))}
+        kill=[v for v in bm.verts if sum(w for i,w in v[dl].items() if i in arms)>0.3]
+    else:kill=[v for v in bm.verts if (abs(v.co.x)>0.188 and 0.72<v.co.z<1.39) or (abs(v.co.x)>0.17 and 1.39<=v.co.z<1.48)]
     bmesh.ops.delete(bm,geom=kill,context='VERTS');bm.verts.ensure_lookup_table()
     return BVHTree.FromBMesh(bm)
+SLV=[1.0]   # anchura de las mangas (el brazo de MakeHuman es más delgado)
+ZK=[1.0]   # alturas de la ropa: con el cuerpo de MakeHuman, en proporción a la altura del cuello (las cifras son del cuerpo antiguo)
 def garment(name,body,z0,z1,off,nu=72,nv=40,flare=0.0,folds=22,famp=0.012,top=None,skirt=True,clip=None,over=None):
+    k=ZK[0];z0*=k;z1*=k
+    if top and k!=1.0:t0=top;top=lambda u:t0(u)*k
     bvh=torso_bvh(body);bvo=BVHTree.FromObject(over,bpy.context.evaluated_depsgraph_get()) if over else None
     bm=bmesh.new();G=[]
     for j in range(nv+1):
@@ -852,8 +859,11 @@ def spear():
 # ------------------------------------------------------------------ montaje
 def skin_to(arm,objs,body):
     # pesos: el cuerpo, automáticos; la ropa y la cabeza, copiados del cuerpo (vértice más cercano)
-    bpy.ops.object.select_all(action='DESELECT');body.select_set(True);arm.select_set(True);bpy.context.view_layer.objects.active=arm
-    bpy.ops.object.parent_set(type='ARMATURE_AUTO')
+    if body.get('mh'):
+        am=body.modifiers.new('arm','ARMATURE');am.object=arm;body.parent=arm
+    else:
+        bpy.ops.object.select_all(action='DESELECT');body.select_set(True);arm.select_set(True);bpy.context.view_layer.objects.active=arm
+        bpy.ops.object.parent_set(type='ARMATURE_AUTO')
     for ob in objs:
         dt=ob.modifiers.new('dt','DATA_TRANSFER');dt.object=body;dt.use_vert_data=True;dt.data_types_verts={'VGROUP_WEIGHTS'};dt.vert_mapping='POLYINTERP_NEAREST'
         dt.layers_vgroup_select_src='ALL';dt.layers_vgroup_select_dst='NAME'
@@ -879,6 +889,7 @@ def weights_from(ob,src,near=0.05,far=0.12):
             if n not in G:G[n]=ob.vertex_groups.new(name=n)
             G[n].add([v.index],g.weight*k,'ADD')
 def strip_limbs(ob,ztop=1.05):
+    ztop*=ZK[0]
     # la ropa larga no se mueve con las manos, los antebrazos, las espinillas ni los pies (los copiaba del cuerpo por cercanía:
     # la mano cuelga a la altura de la cadera y arrastraba trozos de toga al balancear el brazo); los brazos, solo cerca del hombro
     G={g.name:g for g in ob.vertex_groups};idx={g.index:g.name for g in ob.vertex_groups}
@@ -895,6 +906,7 @@ def strip_limbs(ob,ztop=1.05):
                 for g in v.groups:g.weight=g.weight/tot*(tot+cut) if g.weight>0 else 0.0
             else:G['hips' if v.co.z<1.05 else 'spine'].add([v.index],1.0,'REPLACE')
 def skirt_weights(ob,zc=0.98):
+    zc*=ZK[0]
     # falda: casi toda de la cadera y un poco de cada muslo según el lado (así se mece y no se rasga al andar)
     names=[g.name for g in ob.vertex_groups]
     for n in('hips','thigh.L','thigh.R'):
@@ -919,7 +931,7 @@ def join(objs,name):
 # ------------------------------------------------------------------ animaciones (andar, quieto)
 def animate(arm,prefix):
     # con NOSTOS_UAL=1, las animaciones de la Universal Animation Library de Quaternius (CC0), reasignadas a este esqueleto (ual_retarget.py)
-    if os.environ.get('NOSTOS_UAL')=='1':
+    if os.environ.get('NOSTOS_UAL')=='1' or arm.get('mh'):
         sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));import ual_retarget
         if os.path.exists(ual_retarget.UAL):ual_retarget.retarget(arm,prefix);return
     ad=arm.animation_data_create()
@@ -953,11 +965,24 @@ def animate(arm,prefix):
     act('andar',24,walk);act('quieto',60,idle)
 
 FEM=('mujer','romana');BARBA={'ciudadano':'#6e4c33','hoplita':'#4a3424','obrero':'#3e2a1c'}
+def usa_mh(kind):
+    v=os.environ.get('NOSTOS_MH','');return v=='todos' or kind in v.split(',')
 def build(kind):
-    female=kind in FEM
+    J0=dict(J);HC0=HC.copy()
+    try:return _build(kind)
+    finally:J.clear();J.update(J0);HC[:]=HC0
+def _build(kind):
+    female=kind in FEM;MHB=None
+    if usa_mh(kind):   # el cuerpo de MakeHuman (mh_cuerpo.py): J y HC pasan a sus articulaciones
+        sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));import mh_cuerpo
+        MHB=mh_cuerpo.setup(MH,MHKIND,kind,female,J,HC,HC.z-0.193)
     arm=make_armature(kind+'_esqueleto');arm.data.pose_position='REST'
     HEADFEM[0]=female;HL0[0]=0.06 if female else 0.066
-    body=body_mesh(kind+'_cuerpo',female);head,eyes=mh_head(kind+'_cabeza',kind,female)
+    SLV[0]=0.8 if MHB else 1.0
+    ZK[0]=(J['sho.L'][2]/1.44*0.6+J['neck'][2]/1.50*0.4) if MHB else 1.0   # sobre todo por la altura de los hombros
+    if MHB:body=MHB(kind+'_cuerpo',scn);body['mh']=1;arm['mh']=1;print('MH cuello',round(J['neck'][2],3),'hombro',round(J['sho.L'][2],3),'cadera',round(J['hip.L'][2],3),'ZK',round(ZK[0],3))
+    else:body=body_mesh(kind+'_cuerpo',female)
+    head,eyes=mh_head(kind+'_cabeza',kind,female)
     skc='#e6c0a0' if female else '#d9ad88'
     smart_uv(body);skin=plain_tex(kind+'_piel',skc,0.04)
     set_mat(body,material(kind+'_piel',skin))
