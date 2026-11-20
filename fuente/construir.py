@@ -29,6 +29,8 @@ _tm = raiz / 'modelos' / 'cielo_tormenta.jpg'   # cielo de pesadilla de los port
 if _tm.exists(): pj_tags += '<script type="application/octet-stream" id="imgtm" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_tm.read_bytes(), 9, mtime=0)).decode('ascii')
 SUELO = [k for k in ('tierra', 'roca', 'hierba', 'grava', 'grietas') if (raiz / 'modelos' / ('suelo_%s.jpg' % k)).exists()]   # suelo escaneado de Poly Haven (herramientas/texturas/suelo_polyhaven.py), en segundo plano
 pj_tags += ''.join('<script type="application/octet-stream" id="imgsu_%s" data-lazy="1">%s</script>\n' % (k, base64.b64encode(gzip.compress((raiz / 'modelos' / ('suelo_%s.jpg' % k)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in SUELO)
+_nb = raiz / 'modelos' / 'nubes.jpg'   # capa de nubes del cielo (Poly Haven CC0, herramientas/blender/nubes_capa.py), en segundo plano
+if _nb.exists(): pj_tags += '<script type="application/octet-stream" id="imgnb" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_nb.read_bytes(), 9, mtime=0)).decode('ascii')
 _ab = raiz / 'modelos' / 'arbustos_juego.glb'   # arbustos de detalle generados con EZ-Tree (herramientas/plantas_eztree), en segundo plano
 if _ab.exists(): pj_tags += '<script type="application/octet-stream" id="glbab" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_ab.read_bytes(), 9, mtime=0)).decode('ascii')
 if _qa.exists(): pj_tags += '<script type="application/octet-stream" id="glbqa" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_qa.read_bytes(), 9, mtime=0)).decode('ascii')
@@ -87,7 +89,7 @@ light = out
 # elegida al elegirla, las imágenes y las versiones altas cuando toca. Cada archivo lleva su propia huella (?v=): al publicar una
 # versión nueva, el navegador solo vuelve a descargar los que han cambiado.
 PRE = {'glb', 'glb2', 'rafaelimg', 'lobaimg'}
-for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbqa'] if _qa.exists() else []) + (['glbab'] if _ab.exists() else []) + (['glbrk'] if _rk.exists() else []) + (['glbhy'] if _hy.exists() else []) + (['imgtm'] if _tm.exists() else []) + ['imgsu_' + k for k in SUELO] + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
+for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbqa'] if _qa.exists() else []) + (['glbab'] if _ab.exists() else []) + (['glbrk'] if _rk.exists() else []) + (['glbhy'] if _hy.exists() else []) + (['imgtm'] if _tm.exists() else []) + ['imgsu_' + k for k in SUELO] + (['imgnb'] if _nb.exists() else []) + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
     m = _re.search(r'(<script[^>]*\bid="%s"[^>]*>)([\s\S]*?)(</script>)' % idn, light)
     assert m, 'no encuentro el bloque ' + idn
     (datos / (idn + '.txt')).write_text(m.group(2), encoding='utf-8')

@@ -40,7 +40,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
 | `034_atenas.js` | 72 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
-| `036_acabado.js` | 84 | acabado: texturas procedurales y luz |
+| `036_acabado.js` | 87 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
@@ -184,7 +184,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `178_competir.js` | 65 | COMPETIR: juegos atléticos, debates y teatro |
 | `179_coleccionar.js` | 76 | COLECCIONAR Y DESCUBRIR: monedas, el cuaderno de viaje y un perro |
 | `180_aula_y_grupo.js` | 70 | AULA Y GRUPO: modo examen, concurso en línea y accesibilidad ampliada |
-| `181_materiales.js` | 78 | MATERIALES: variación, desgaste, brillo y visor de modelos |
+| `181_materiales.js` | 79 | MATERIALES: variación, desgaste, brillo y visor de modelos |
 | `182_relieves_y_detalle.js` | 100 | RELIEVES DE LOS TEMPLOS Y DETALLE SEGÚN LA DISTANCIA |
 | `183_ropa_y_figura.js` | 64 | ROPA CON CAÍDA Y FIGURA MÁS NATURAL |
 | `184_personajes_blender.js` | 94 | PERSONAJES HECHOS EN BLENDER (primera prueba en el juego: Atenas) |
@@ -214,4 +214,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `209_suelo_escaneado.js` | 17 | SUELO ESCANEADO (Poly Haven, CC0) |
 | `210_mas_leyendas.js` | 203 | MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208) |
 | `211_jugar_mas.js` | 127 | JUGAR MÁS: encargos del día, fama, imprevistos del camino, memoria, regateo, |
+| `212_graficos.js` | 108 | GRÁFICOS: nubes, sombras de contacto, agua, bruma, estaciones, parpadeo, noche y acabado |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

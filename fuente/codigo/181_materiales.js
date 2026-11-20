@@ -32,7 +32,8 @@ function mfx(mat,kind){if(!mat||mat.userData.mfx)return mat;mat.userData.mfx=kin
       'float hg=vMfP.y-texture2D(uHgt,clamp(uv,0.0,1.0)).r;float n=mfV(vMfP.xz*1.7+vMfP.y*0.9);'+
       'float g=(1.0-smoothstep(0.05,1.0+0.5*n,hg))*vert*inside*step(-0.6,hg);diffuseColor.rgb=mix(diffuseColor.rgb,diffuseColor.rgb*vec3(0.6,0.58,0.48),g*0.85);'+   // suciedad y humedad abajo
       'float hc=abs(N.x)>abs(N.z)?vMfP.z:vMfP.x;float st=smoothstep(0.62,0.95,mfV(vec2(hc*2.3,vMfP.y*0.11)))*smoothstep(0.4,2.5,hg)*vert;diffuseColor.rgb*=1.0-0.13*st*(0.6+0.4*n);'+   // regueros
-      'diffuseColor.rgb*=1.0-0.18*uWet*vert;}');}   // con lluvia, más oscuro
+      'diffuseColor.rgb*=1.0-0.18*uWet*vert;'+
+      'float nf=clamp(-N.z,0.0,1.0)*vert*smoothstep(0.35,0.8,mfV(vMfP.xz*0.9+vMfP.y*0.6));diffuseColor.rgb=mix(diffuseColor.rgb,diffuseColor.rgb*vec3(0.78,0.86,0.66),nf*0.35*(1.0-smoothstep(0.5,4.0,hg)*0.6));}');}   // musgo y verdín en las caras al norte, más abajo (212)   // con lluvia, más oscuro
     if(kind==='k'){F=F.replace('#include <color_fragment>','#include <color_fragment>\n{float t=mfV(vMfP.xz*3.0+vMfP.y*2.0);diffuseColor.rgb*=0.88+0.2*t;}');}   // pátina irregular
     if(lam&&(kind==='m'||kind==='k')){const ks=kind==='k'?'0.55':'0.11',pw=kind==='k'?'38.0':'18.0',fr=kind==='k'?'0.35':'0.06';
       F=F.replace('#include <envmap_fragment>','{vec3 N=normalize(vMfN);if(!gl_FrontFacing)N=-N;vec3 V=normalize(cameraPosition-vMfP);vec3 H=normalize(uSunD+V);float sp=pow(max(dot(N,H),0.0),'+pw+')*step(0.0,dot(N,uSunD));'+
