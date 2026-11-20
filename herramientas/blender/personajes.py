@@ -423,7 +423,7 @@ def limb_shell(name,body,a,b,off,nu=24,nv=10,knee=0.0,gap=0.0):   # pieza ajusta
 def ionic_sleeve(name,sg,sho,elb):
     # manga: tubo holgado del hombro al codo, cerrado arriba con una cúpula que cubre el hombro (antes la boca de arriba quedaba
     # abierta y, vista desde arriba, se veía por dentro como un cilindro hueco)
-    sh=Vector(sho);el=Vector(elb);ax=(el-sh).normalized();a0=sh+Vector((-0.02*sg,0,0.02));a1=sh.lerp(el,0.82)
+    sh=Vector(sho);el=Vector(elb);ax=(el-sh).normalized();a0=sh+Vector((-(0.02+0.03*(1-SLV[0])/0.2)*sg,0,0.02+0.02*(1-SLV[0])/0.2));a1=sh.lerp(el,0.82)
     up=Vector((sg,0,0.35)).normalized();u1=(up-ax*up.dot(ax)).normalized();u2=ax.cross(u1).normalized()
     bm=bmesh.new();N=14;K=22;M=4;rows=[];R0=0.066*SLV[0]
     for j in range(M,0,-1):   # cúpula: anillos cada vez más pequeños hacia arriba y hacia el cuello

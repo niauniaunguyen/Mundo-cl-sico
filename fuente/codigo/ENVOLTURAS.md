@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-262 funciones ampliadas, 448 capas.
+263 funciones ampliadas, 450 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -26,6 +26,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `toast` | `014_hud.js` | 4 | `120`:131 · `128`:68 · `173`:8 · `200`:37 |
+| `updateSky` | `003_escena.js` | 4 | `089`:6 · `090`:90 · `123`:74 · `207`:18 |
 | `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:64 · `900`:406 |
 | `checkZone` | `014_hud.js` | 3 | `105`:502 · `204`:192 · `900`:310 |
 | `finishColumns` | `007_campos_del_atica_y_de.js` | 3 | `113`:122 · `193`:46 · `900`:434 |
@@ -35,7 +36,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `pdData` | `162_panel_docente.js` | 3 | `166`:46 · `169`:21 · `180`:28 |
 | `personWalk` | `052_las_nueve_musas_mnemosine_y.js` | 3 | `129`:80 · `146`:162 · `184`:55 |
 | `readSign` | `015_dialogo.js` | 3 | `190`:53 · `192`:57 · `202`:62 |
-| `updateSky` | `003_escena.js` | 3 | `089`:6 · `090`:90 · `123`:74 |
 | `updateTorch` | `040_caballo.js` | 3 | `090`:88 · `201`:53 · `202`:63 |
 | `animal` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `093`:23 · `198`:26 |
 | `atDescOf` | `103_mirar_con_atencion.js` | 2 | `103`:33 · `103`:48 |
@@ -184,6 +184,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hdSetup` | `084_el_hades_griego.js` | 1 | `900`:380 |
 | `heldModel` | `201_objeto_en_la_mano.js` | 1 | `205`:164 |
 | `honCheck` | `158_honra.js` | 1 | `160`:30 |
+| `horaRomana` | `055_los_fastos.js` | 1 | `207`:39 |
 | `horseXP` | `046_el_caballo.js` | 1 | `077`:94 |
 | `hourLabel` | `003_escena.js` | 1 | `090`:96 |
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
