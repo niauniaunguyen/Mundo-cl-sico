@@ -32,7 +32,7 @@ function ofTick(dt,t){forjaTick(dt);if(!state||!OFIC.length)return;const h=clock
         if(p.lastPh!==undefined&&p.lastPh<dn&&ph>=dn&&o.anvil&&dd<45){forjaChispas(o);if(dd<22&&ui==='play')sfxClang(0.05*clamp(1-dd/22,0.2,1));}p.lastPh=ph;}
       else if(p.anim==='martillo'&&a){a[1].rotation.x=-1.4+Math.abs(Math.sin(t*3+i))*1.2;}
       else if(p.anim==='pisar'){p.m.position.y=(o.ppl[i].y0===undefined?(o.ppl[i].y0=p.m.position.y):o.ppl[i].y0)+Math.abs(Math.sin(t*4+i))*0.18;if(a){a[0].rotation.x=-0.5;a[1].rotation.x=-0.5;}if(p.m.userData.bp)personWalk(p.m,t*4+i,0.7);}   // con el modelo de Blender: el paso en el sitio, pisando la ropa
-      else if(p.anim==='girar'){const R2=o.millR||2.2,ang=t*0.5+i*Math.PI;p.m.position.set(Math.cos(ang)*R2,p.m.position.y,Math.sin(ang)*R2);p.m.rotation.y=-ang+(p.m.userData.arms?0:Math.PI);if(p.m.userData.arms)personWalk(p.m,t*4,1);}
+      else if(p.anim==='girar'){const R2=o.millR||2.2,ang=t*0.5+i*Math.PI;p.m.position.set(Math.cos(ang)*R2,p.m.position.y,Math.sin(ang)*R2);p.m.rotation.y=-ang;/* de cara hacia donde anda: antes a los animales se les sumaba media vuelta y el burro de la muela andaba de espaldas */if(p.m.userData.arms)personWalk(p.m,t*4,1);}
       else if(a){a[1].rotation.x=-0.8+Math.sin(t*2+i)*0.4;a[0].rotation.x=Math.sin(t*1.3+i)*0.2;}}
     if(o.spin)o.spin.rotation.y=t*0.5;
     if(dd<9&&ui==='play'&&o.seen!==d){o.seen=d;toast('<span class="label">'+o.name+'</span><br>'+o.text);if(o.sfx)sfxOficio(o.sfx);o.next=now+15000;}

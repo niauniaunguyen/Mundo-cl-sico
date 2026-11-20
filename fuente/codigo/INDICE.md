@@ -200,7 +200,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `195_atenas_romana.js` | 49 | ATENAS ROMANA, AÑO 80 (P10, modo Roma) |
 | `196_multitudes_con_modelos.js` | 39 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
 | `197_estatuas_a_la_vista.js` | 14 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
-| `198_animales_con_esqueleto.js` | 54 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
+| `198_animales_con_esqueleto.js` | 59 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
 | `199_moneda_en_pantalla.js` | 39 | LA MONEDA EN PANTALLA |
 | `200_el_mensajero.js` | 62 | EL MENSAJERO: los avisos van al caduceo |
 | `201_objeto_en_la_mano.js` | 54 | EL OBJETO ELEGIDO, EN LA MANO |

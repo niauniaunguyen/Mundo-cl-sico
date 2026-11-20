@@ -20,10 +20,10 @@ function qaLoad(){if(QA.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)
       T[k].anims=T.dog.anims.map(c=>{const n=c.clone();n.name=k+'|'+c.name.split('|')[1];for(const t of n.tracks){const i=t.name.lastIndexOf('.'),nd=t.name.slice(0,i);if(ren[nd])t.name=ren[nd]+t.name.slice(i);}return n;});}}
     QA.tpl=T;},e=>console.warn('animales',e));}).catch(e=>console.warn('animales',e));}
 // un grupo de animal: se apunta para cambiarlo de cerca
-function qaHost(g,sp,o){try{const q=QA.SP[sp];if(!g||!q||g.userData.qa)return;g.userData.qa={q,sp,s:(o&&o.s)||QA.SC[sp]||1,tint:o&&o.tint,last:null,v:0,old:[...g.children]};QA.hosts.push(g);}catch(e){}}
-{const f=animalGLB;animalGLB=function(prefix,g,coat,mane){const r=f.apply(this,arguments);qaHost(g,String(prefix).replace(/^A_/,''),{tint:coat});return r;};}
-{const f=makeBeast;makeBeast=function(kind,parent,x,z,r){const b=f.apply(this,arguments);if(kind!=='caballo')qaHost(b,kind);return b;};}
-{const f=animal;animal=function(sp,o){const A=f.apply(this,arguments);try{qaHost(A.g,(o&&o.model)||sp,{});}catch(e){}return A;};}
+function qaHost(g,sp,o){try{const q=QA.SP[sp];if(!g||!q||g.userData.qa)return;g.userData.qa={q,sp,src:o&&o.src,s:(o&&o.s)||QA.SC[sp]||1,tint:o&&o.tint,last:null,v:0,old:[...g.children]};QA.hosts.push(g);}catch(e){}}
+{const f=animalGLB;animalGLB=function(prefix,g,coat,mane){const r=f.apply(this,arguments);qaHost(g,String(prefix).replace(/^A_/,''),{tint:coat,src:'glb'});return r;};}
+{const f=makeBeast;makeBeast=function(kind,parent,x,z,r){const b=f.apply(this,arguments);if(kind!=='caballo')qaHost(b,kind,{src:'beast'});return b;};}
+{const f=animal;animal=function(sp,o){const A=f.apply(this,arguments);try{qaHost(A.g,(o&&o.model)||sp,{src:'animal:'+sp});}catch(e){}return A;};}
 function qaMake(g){const H=g.userData.qa,T=QA.tpl&&QA.tpl[H.q];if(!T)return null;const root=bpClone(T.scene);
   // la caja de una malla con esqueleto no sigue a los huesos: three la daría por fuera de la vista; y el material, como el resto del juego
   root.traverse(o=>{if(!o.isMesh)return;o.frustumCulled=false;o.castShadow=true;const m=o.material,k='qa'+m.uuid;if(!QA.mats)QA.mats=new Map();
@@ -43,11 +43,16 @@ function qaTick(dt){if(!QA.hosts.length)return;if(!QA.tpl){qaLoad();return;}_qaT
       if(root&&root.visible!==want){root.visible=want;qaSetOld(g,!want);}}
     QA.act=[...on];}
   for(const g of QA.act){const root=g.userData.qaRoot;if(!root||!root.visible)continue;const H=g.userData.qa,M=root.userData.qaMix;g.getWorldPosition(v);
-    if(H.last){const sp=Math.hypot(v.x-H.last.x,v.z-H.last.z)/Math.max(dt,1e-3);H.v+=(sp-H.v)*Math.min(1,dt*5);}H.last=H.last||new THREE.Vector3();H.last.copy(v);
+    if(H.last){const mx=v.x-H.last.x,mz=v.z-H.last.z,sp=Math.hypot(mx,mz)/Math.max(dt,1e-3);H.v+=(sp-H.v)*Math.min(1,dt*5);
+      // red de seguridad: si avanza hacia donde tiene la cola (la figura por piezas de algún sistema miraba al revés), el modelo se da la
+      // vuelta. Salvo cuando retrocede a propósito (H.rev: ante el caduceo de Hermes)
+      if(sp>0.4&&sp<40&&!H.rev){root.updateMatrixWorld();const e=root.matrixWorld.elements,fl=Math.hypot(e[8],e[10])||1,dot=(mx*e[8]+mz*e[10])/(fl*Math.hypot(mx,mz));
+        if(dot<-0.5){H.back=(H.back||0)+dt;if(H.back>0.5){root.rotation.y+=Math.PI;H.back=0;H.flips=(H.flips||0)+1;}}else H.back=0;}}
+    H.last=H.last||new THREE.Vector3();H.last.copy(v);
     const s=H.v,run=H.q==='horse'||H.q==='donkey'?4.5:3,wW=s<0.15?0:s<run?1:Math.max(0,1-(s-run)/1.5),gW=s<run?0:Math.min(1,(s-run)/1.5);
     M.t+=dt;if(s<0.15){if(M.eat<=0&&Math.random()<dt*0.05)M.eat=4+Math.random()*6;}else M.eat=0;if(M.eat>0)M.eat-=dt;
     const eW=M.eat>0&&s<0.15?1:0,iW=Math.max(0,1-wW-gW-eW);const A=M.A;
-    if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3));}if(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
+    if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3))*(H.rev?-1:1);}   // al retroceder, el paso va al revésif(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
     if(A.Eating)A.Eating.setEffectiveWeight(eW);if(A.Idle)A.Idle.setEffectiveWeight(iW);
     M.mix.update(dt);}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{qaTick(dt);}catch(e){if(!QA.err){QA.err=String(e&&e.stack||e).slice(0,400);console.warn('animales',e);}}};}

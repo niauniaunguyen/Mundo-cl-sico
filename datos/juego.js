@@ -15102,7 +15102,7 @@ function ofTick(dt,t){forjaTick(dt);if(!state||!OFIC.length)return;const h=clock
         if(p.lastPh!==undefined&&p.lastPh<dn&&ph>=dn&&o.anvil&&dd<45){forjaChispas(o);if(dd<22&&ui==='play')sfxClang(0.05*clamp(1-dd/22,0.2,1));}p.lastPh=ph;}
       else if(p.anim==='martillo'&&a){a[1].rotation.x=-1.4+Math.abs(Math.sin(t*3+i))*1.2;}
       else if(p.anim==='pisar'){p.m.position.y=(o.ppl[i].y0===undefined?(o.ppl[i].y0=p.m.position.y):o.ppl[i].y0)+Math.abs(Math.sin(t*4+i))*0.18;if(a){a[0].rotation.x=-0.5;a[1].rotation.x=-0.5;}if(p.m.userData.bp)personWalk(p.m,t*4+i,0.7);}   // con el modelo de Blender: el paso en el sitio, pisando la ropa
-      else if(p.anim==='girar'){const R2=o.millR||2.2,ang=t*0.5+i*Math.PI;p.m.position.set(Math.cos(ang)*R2,p.m.position.y,Math.sin(ang)*R2);p.m.rotation.y=-ang+(p.m.userData.arms?0:Math.PI);if(p.m.userData.arms)personWalk(p.m,t*4,1);}
+      else if(p.anim==='girar'){const R2=o.millR||2.2,ang=t*0.5+i*Math.PI;p.m.position.set(Math.cos(ang)*R2,p.m.position.y,Math.sin(ang)*R2);p.m.rotation.y=-ang;/* de cara hacia donde anda: antes a los animales se les sumaba media vuelta y el burro de la muela andaba de espaldas */if(p.m.userData.arms)personWalk(p.m,t*4,1);}
       else if(a){a[1].rotation.x=-0.8+Math.sin(t*2+i)*0.4;a[0].rotation.x=Math.sin(t*1.3+i)*0.2;}}
     if(o.spin)o.spin.rotation.y=t*0.5;
     if(dd<9&&ui==='play'&&o.seen!==d){o.seen=d;toast('<span class="label">'+o.name+'</span><br>'+o.text);if(o.sfx)sfxOficio(o.sfx);o.next=now+15000;}
@@ -22704,7 +22704,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='60605641cae8';
+const NOSTOS_VER='3f3c1cb622a7';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -29522,10 +29522,10 @@ function qaLoad(){if(QA.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)
       T[k].anims=T.dog.anims.map(c=>{const n=c.clone();n.name=k+'|'+c.name.split('|')[1];for(const t of n.tracks){const i=t.name.lastIndexOf('.'),nd=t.name.slice(0,i);if(ren[nd])t.name=ren[nd]+t.name.slice(i);}return n;});}}
     QA.tpl=T;},e=>console.warn('animales',e));}).catch(e=>console.warn('animales',e));}
 // un grupo de animal: se apunta para cambiarlo de cerca
-function qaHost(g,sp,o){try{const q=QA.SP[sp];if(!g||!q||g.userData.qa)return;g.userData.qa={q,sp,s:(o&&o.s)||QA.SC[sp]||1,tint:o&&o.tint,last:null,v:0,old:[...g.children]};QA.hosts.push(g);}catch(e){}}
-{const f=animalGLB;animalGLB=function(prefix,g,coat,mane){const r=f.apply(this,arguments);qaHost(g,String(prefix).replace(/^A_/,''),{tint:coat});return r;};}
-{const f=makeBeast;makeBeast=function(kind,parent,x,z,r){const b=f.apply(this,arguments);if(kind!=='caballo')qaHost(b,kind);return b;};}
-{const f=animal;animal=function(sp,o){const A=f.apply(this,arguments);try{qaHost(A.g,(o&&o.model)||sp,{});}catch(e){}return A;};}
+function qaHost(g,sp,o){try{const q=QA.SP[sp];if(!g||!q||g.userData.qa)return;g.userData.qa={q,sp,src:o&&o.src,s:(o&&o.s)||QA.SC[sp]||1,tint:o&&o.tint,last:null,v:0,old:[...g.children]};QA.hosts.push(g);}catch(e){}}
+{const f=animalGLB;animalGLB=function(prefix,g,coat,mane){const r=f.apply(this,arguments);qaHost(g,String(prefix).replace(/^A_/,''),{tint:coat,src:'glb'});return r;};}
+{const f=makeBeast;makeBeast=function(kind,parent,x,z,r){const b=f.apply(this,arguments);if(kind!=='caballo')qaHost(b,kind,{src:'beast'});return b;};}
+{const f=animal;animal=function(sp,o){const A=f.apply(this,arguments);try{qaHost(A.g,(o&&o.model)||sp,{src:'animal:'+sp});}catch(e){}return A;};}
 function qaMake(g){const H=g.userData.qa,T=QA.tpl&&QA.tpl[H.q];if(!T)return null;const root=bpClone(T.scene);
   // la caja de una malla con esqueleto no sigue a los huesos: three la daría por fuera de la vista; y el material, como el resto del juego
   root.traverse(o=>{if(!o.isMesh)return;o.frustumCulled=false;o.castShadow=true;const m=o.material,k='qa'+m.uuid;if(!QA.mats)QA.mats=new Map();
@@ -29545,11 +29545,16 @@ function qaTick(dt){if(!QA.hosts.length)return;if(!QA.tpl){qaLoad();return;}_qaT
       if(root&&root.visible!==want){root.visible=want;qaSetOld(g,!want);}}
     QA.act=[...on];}
   for(const g of QA.act){const root=g.userData.qaRoot;if(!root||!root.visible)continue;const H=g.userData.qa,M=root.userData.qaMix;g.getWorldPosition(v);
-    if(H.last){const sp=Math.hypot(v.x-H.last.x,v.z-H.last.z)/Math.max(dt,1e-3);H.v+=(sp-H.v)*Math.min(1,dt*5);}H.last=H.last||new THREE.Vector3();H.last.copy(v);
+    if(H.last){const mx=v.x-H.last.x,mz=v.z-H.last.z,sp=Math.hypot(mx,mz)/Math.max(dt,1e-3);H.v+=(sp-H.v)*Math.min(1,dt*5);
+      // red de seguridad: si avanza hacia donde tiene la cola (la figura por piezas de algún sistema miraba al revés), el modelo se da la
+      // vuelta. Salvo cuando retrocede a propósito (H.rev: ante el caduceo de Hermes)
+      if(sp>0.4&&sp<40&&!H.rev){root.updateMatrixWorld();const e=root.matrixWorld.elements,fl=Math.hypot(e[8],e[10])||1,dot=(mx*e[8]+mz*e[10])/(fl*Math.hypot(mx,mz));
+        if(dot<-0.5){H.back=(H.back||0)+dt;if(H.back>0.5){root.rotation.y+=Math.PI;H.back=0;H.flips=(H.flips||0)+1;}}else H.back=0;}}
+    H.last=H.last||new THREE.Vector3();H.last.copy(v);
     const s=H.v,run=H.q==='horse'||H.q==='donkey'?4.5:3,wW=s<0.15?0:s<run?1:Math.max(0,1-(s-run)/1.5),gW=s<run?0:Math.min(1,(s-run)/1.5);
     M.t+=dt;if(s<0.15){if(M.eat<=0&&Math.random()<dt*0.05)M.eat=4+Math.random()*6;}else M.eat=0;if(M.eat>0)M.eat-=dt;
     const eW=M.eat>0&&s<0.15?1:0,iW=Math.max(0,1-wW-gW-eW);const A=M.A;
-    if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3));}if(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
+    if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3))*(H.rev?-1:1);}   // al retroceder, el paso va al revésif(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
     if(A.Eating)A.Eating.setEffectiveWeight(eW);if(A.Idle)A.Idle.setEffectiveWeight(iW);
     M.mix.update(dt);}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{qaTick(dt);}catch(e){if(!QA.err){QA.err=String(e&&e.stack||e).slice(0,400);console.warn('animales',e);}}};}
