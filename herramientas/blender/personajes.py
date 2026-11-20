@@ -859,6 +859,41 @@ def skin_to(arm,objs,body):
         dt.layers_vgroup_select_src='ALL';dt.layers_vgroup_select_dst='NAME'
         bpy.context.view_layer.objects.active=ob;bpy.ops.object.datalayout_transfer(modifier='dt');bpy.ops.object.modifier_apply(modifier='dt')
         am=ob.modifiers.new('arm','ARMATURE');am.object=arm;ob.parent=arm
+def weights_from(ob,src,near=0.05,far=0.12):
+    # capas: donde 'ob' va encima de 'src' (a menos de 'near'), copia los pesos del vértice más cercano de 'src', con transición
+    # suave hasta 'far'. Las dos capas se mueven igual y la de abajo no puede salir por la de encima, ni andando
+    from mathutils import kdtree
+    sv=src.data.vertices;kd=kdtree.KDTree(len(sv))
+    for i,v in enumerate(sv):kd.insert(src.matrix_world@v.co,i)
+    kd.balance();sname={g.index:g.name for g in src.vertex_groups}
+    G={g.name:g for g in ob.vertex_groups}
+    if os.environ.get('NOSTOS_ROPA')=='2':
+        ds=sorted(kd.find(ob.matrix_world@v.co)[2] for v in ob.data.vertices);print('DIST',ob.name,src.name,len(ds),'p10 %.3f p50 %.3f p90 %.3f'%(ds[len(ds)//10],ds[len(ds)//2],ds[9*len(ds)//10]))
+    for v in ob.data.vertices:
+        co,i,d=kd.find(ob.matrix_world@v.co)
+        if d>far:continue
+        k=1.0 if d<=near else 1-(d-near)/(far-near)
+        for g in list(v.groups):g.weight*=(1-k)
+        for g in sv[i].groups:
+            n=sname[g.group]
+            if n not in G:G[n]=ob.vertex_groups.new(name=n)
+            G[n].add([v.index],g.weight*k,'ADD')
+def strip_limbs(ob,ztop=1.05):
+    # la ropa larga no se mueve con las manos, los antebrazos, las espinillas ni los pies (los copiaba del cuerpo por cercanía:
+    # la mano cuelga a la altura de la cadera y arrastraba trozos de toga al balancear el brazo); los brazos, solo cerca del hombro
+    G={g.name:g for g in ob.vertex_groups};idx={g.index:g.name for g in ob.vertex_groups}
+    for n in('hips','spine','chest'):
+        if n not in G:G[n]=ob.vertex_groups.new(name=n)
+    for v in ob.data.vertices:
+        tot=0.0;cut=0.0
+        for g in v.groups:
+            n=idx.get(g.group,'')
+            if n.startswith(('hand','forearm','shin','foot')) or (n.startswith('upperarm') and v.co.z<ztop):cut+=g.weight;g.weight=0.0
+            else:tot+=g.weight
+        if cut>0:
+            if tot>1e-4:
+                for g in v.groups:g.weight=g.weight/tot*(tot+cut) if g.weight>0 else 0.0
+            else:G['hips' if v.co.z<1.05 else 'spine'].add([v.index],1.0,'REPLACE')
 def skirt_weights(ob,zc=0.98):
     # falda: casi toda de la cadera y un poco de cada muslo según el lado (así se mece y no se rasga al andar)
     names=[g.name for g in ob.vertex_groups]
@@ -869,7 +904,7 @@ def skirt_weights(ob,zc=0.98):
         z=v.co.z
         if z>zc:continue
         k=min(1,(zc-z)/0.15)   # transición suave desde la cintura
-        wl=0.5*min(1,max(0,(zc-z)/0.6));sL=min(1,max(0,0.5+v.co.x/0.28))
+        wl=0.34*min(1,max(0,(zc-z)/0.6));sL=min(1,max(0,0.5+v.co.x/0.5))   # muslos con menos peso y paso suave de un lado a otro: si no, al adelantar una pierna los pliegues se cruzan
         for g in list(v.groups):g.weight*=(1-k)
         G['hips'].add([v.index],k*(1-wl),'ADD');G['thigh.L'].add([v.index],k*wl*sL,'ADD');G['thigh.R'].add([v.index],k*wl*(1-sL),'ADD')
 def attach(ob,arm,bone,loc=None):   # pieza rígida: todos sus vértices al 100 % en un hueso (malla con esqueleto, como el resto)
@@ -952,8 +987,8 @@ def build(kind):
         set_mat(hm,material('himation',cloth_tex('himation','#d6d6da',border='#3a3a46',band=(0.0,0.045),folds=11),color=(0.45,0.52,0.72)))   # textura clara: el juego la tiñe con el color de cada persona
         for o in(ch,hm):pieces.append(o)
         # el extremo del himation cae por delante desde el hombro izquierdo, y el otro por la espalda
-        e1=drape_end('himation_extremo',[(0.085,0.02,1.535),(0.1,-0.085,1.49),(0.115,-0.165,1.35),(0.13,-0.205,1.05),(0.14,-0.22,0.75),(0.145,-0.225,0.5)],0.17,folds=2.5,famp=0.022,snug=[body]+pieces)
-        e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02,snug=[body]+pieces)
+        e1=drape_end('himation_extremo',[(0.085,0.02,1.535),(0.1,-0.085,1.49),(0.115,-0.165,1.35),(0.13,-0.205,1.05),(0.14,-0.22,0.75),(0.145,-0.225,0.5)],0.17,folds=2.5,famp=0.022,snug=[body]+pieces,gap=0.04)
+        e2=drape_end('himation_espalda',[(0.12,0.08,1.5),(0.16,0.16,1.3),(0.17,0.2,1.0),(0.17,0.21,0.7)],0.24,folds=3,famp=0.02,snug=[body]+pieces,gap=0.04)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         # mangas del quitón jonio: la tela cae suelta del hombro hasta el codo y se abrocha con botones (fíbulas) por encima del brazo
         for k,sg in(('L',1),('R',-1)):
@@ -992,8 +1027,8 @@ def build(kind):
         set_mat(ch,material('quiton',cloth_tex('quiton','#ece4d4',border='#a8392b',band=(0.0,0.04),folds=34,neck='#a8392b')))
         hm=garment('himation',body,0.3,1.5,0.03,folds=12,famp=0.024,flare=0.12,top=lambda u:1.17+0.13*(0.5+0.5*math.sin(u*TAU))**1.3,skirt=True,over=ch)
         set_mat(hm,material('himation',cloth_tex('himation','#d6d6da',border='#3a3a46',band=(0.0,0.045),folds=12)))
-        e1=drape_end('himation_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02,snug=[body]+pieces)
-        e2=drape_end('himation_espalda',[(0.11,0.08,1.5),(0.15,0.15,1.3),(0.16,0.19,1.0),(0.16,0.2,0.75)],0.22,folds=3,famp=0.02,snug=[body]+pieces)
+        e1=drape_end('himation_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02,snug=[body]+pieces,gap=0.04)
+        e2=drape_end('himation_espalda',[(0.11,0.08,1.5),(0.15,0.15,1.3),(0.16,0.19,1.0),(0.16,0.2,0.75)],0.22,folds=3,famp=0.02,snug=[body]+pieces,gap=0.04)
         for e in(e1,e2):set_mat(e,hm.data.materials[0]);pieces.append(e)
         for o in(ch,hm):pieces.append(o)
         for k,sg in(('L',1),('R',-1)):
@@ -1026,8 +1061,8 @@ def build(kind):
             sl,bt=ionic_sleeve('manga',sg,J['sho.'+k],J['elb.'+k]);set_mat(sl,tu.data.materials[0]);pieces.append(sl)
         tg=garment('toga',body,0.12,1.5,0.035,folds=10,famp=0.03,flare=0.15,top=lambda u:1.2+0.16*(0.5+0.5*math.sin(u*TAU))**1.2,skirt=True,over=tu)
         set_mat(tg,material('toga',cloth_tex('toga','#f0ebe0',folds=10)));pieces.append(tg)
-        e1=drape_end('toga_extremo',[(0.08,0.02,1.54),(0.1,-0.09,1.49),(0.12,-0.18,1.32),(0.13,-0.23,1.0),(0.14,-0.25,0.65),(0.145,-0.255,0.35)],0.22,folds=3,famp=0.03,snug=[body]+pieces)
-        e2=drape_end('toga_espalda',[(0.11,0.08,1.51),(0.15,0.16,1.3),(0.17,0.21,0.95),(0.17,0.23,0.55)],0.28,folds=3,famp=0.025,snug=[body]+pieces)
+        e1=drape_end('toga_extremo',[(0.08,0.02,1.54),(0.1,-0.09,1.49),(0.12,-0.18,1.32),(0.13,-0.23,1.0),(0.14,-0.25,0.65),(0.145,-0.255,0.35)],0.22,folds=3,famp=0.03,snug=[body]+pieces,gap=0.04)
+        e2=drape_end('toga_espalda',[(0.11,0.08,1.51),(0.15,0.16,1.3),(0.17,0.21,0.95),(0.17,0.23,0.55)],0.28,folds=3,famp=0.025,snug=[body]+pieces,gap=0.04)
         for e in(e1,e2):set_mat(e,tg.data.materials[0]);pieces.append(e)
     elif kind=='romana':
         # túnica con mangas, estola encima (vestido largo sin mangas, con tirantes) y palla (manto)
@@ -1043,7 +1078,7 @@ def build(kind):
             set_mat(ep,st.data.materials[0]);pieces.append(ep)
         pa=garment('palla',body,0.35,1.5,0.03,folds=11,famp=0.024,flare=0.12,top=lambda u:1.18+0.14*(0.5+0.5*math.sin(u*TAU))**1.3,skirt=True,over=st)
         set_mat(pa,material('palla',cloth_tex('palla','#d6d6da',border='#3a3a46',band=(0.0,0.04),folds=11)));pieces.append(pa)
-        e1=drape_end('palla_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02,snug=[body]+pieces)
+        e1=drape_end('palla_extremo',[(0.08,0.02,1.53),(0.095,-0.08,1.49),(0.11,-0.16,1.35),(0.125,-0.2,1.05),(0.135,-0.215,0.8)],0.16,folds=2.5,famp=0.02,snug=[body]+pieces,gap=0.04)
         set_mat(e1,pa.data.materials[0]);pieces.append(e1)
     elif kind=='legionario':
         # túnica roja corta, lorica segmentata (bandas de hierro), hombreras de láminas, casco de tipo imperial-gálico, scutum curvo, gladius y caligae
@@ -1070,14 +1105,31 @@ def build(kind):
         set_mat(bl,material('cinturon_m',plain_tex('cinturon_t','#5a3d26',0.1)));pieces.append(bl)
     skin_to(arm,pieces,body)
     for o in pieces:
-        if o.name.startswith(('himation_extremo','himation_espalda','toga_extremo','toga_espalda','palla_extremo')):drape_weights(o)
-        elif o.name.startswith(('quiton','himation','pteryges','exomis','tunica','toga','estola','palla')):skirt_weights(o)
+        if o.name.startswith(('himation_extremo','himation_espalda','toga_extremo','toga_espalda','palla_extremo')):drape_weights(o);(None if os.environ.get('NOSTOS_SIN') else (skirt_weights(o),strip_limbs(o)))   # por debajo de la cintura, como la falda que tapa (si no, el muslo empuja la falda a través del extremo)
+        elif o.name.startswith(('quiton','himation','pteryges','exomis','tunica','toga','estola','palla')):
+            if not os.environ.get('NOSTOS_SIN') and min(v.co.z for v in o.data.vertices)<0.45:strip_limbs(o)   # solo la ropa larga (la corta no llega a las manos)
+            skirt_weights(o)
+    # cada extremo de manto copia los pesos de la prenda que tapa, donde la tapa
+    for o in ([] if os.environ.get('NOSTOS_SIN') else pieces):
+        b=o.name.split('.')[0]
+        if b in('himation_extremo','himation_espalda','toga_extremo','toga_espalda','palla_extremo'):
+            under=[q for q in pieces if q.name.split('.')[0]==b.split('_')[0]]
+            if under:weights_from(o,under[0],near=0.11,far=0.22)
+    # y la prenda de debajo, donde el manto la tapa, sigue al manto (el quitón bajo el himation, la túnica bajo la toga…)
+    for inn,out in(() if os.environ.get('NOSTOS_SIN') else (('quiton','himation'),('tunica','toga'),('estola','palla'))):
+        I=[q for q in pieces if q.name.split('.')[0]==inn];O=[q for q in pieces if q.name.split('.')[0]==out]
+        if I and O:weights_from(I[0],O[0],near=0.045,far=0.09)
+    # el cinturón se mueve con la túnica que ciñe
+    for q in ([] if os.environ.get('NOSTOS_SIN') else pieces):
+        if q.name.split('.')[0]=='cinturon':
+            U=[w for w in pieces if w.name.split('.')[0] in('tunica','exomis','quiton_corto')]
+            if U:weights_from(q,U[0],near=0.1,far=0.2)
     for ob,bone in rigid:attach(ob,arm,bone)
     # capas: lo que queda debajo y tapado se borra (piel bajo la ropa, quitón bajo el manto o la coraza, pelo bajo el casco)
     byn=lambda *ns:[o for o in pieces+[r for r,_ in rigid] if o.name.split('.')[0] in ns]
     ropa=byn('quiton','quiton_corto','himation','himation_extremo','himation_espalda','manga','coraza','pteryges','pteryges_b','greba','hombrera','exomis','tunica','toga','toga_extremo','toga_espalda','estola','palla','palla_extremo','lorica','hombrera_hierro')
     n=hide_covered(body,ropa,maxd=0.12,erode=3)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
-    for nm,cv in(('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',))):
+    for nm,cv in((('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))+(() if os.environ.get('NOSTOS_SIN') else (('tunica',('cinturon',)),('exomis',('cinturon',))))):
         for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
     for o in byn(kind+'_pelo'):n+=hide_covered(o,byn('casco'),maxd=0.05,erode=1)
     print('CARAS OCULTAS BORRADAS',kind,n)
@@ -1087,6 +1139,85 @@ def build(kind):
 
 ARMS={}
 for k in(sys.argv[sys.argv.index('--')+1].split(',') if '--' in sys.argv else ['ciudadano','hoplita','mujer','obrero','togado','romana','legionario','tunicado']):ARMS[k]=build(k)
+# diagnóstico de ropa que se atraviesa (NOSTOS_ROPA=1): en cada fotograma del paso y del reposo, cuántos vértices de una capa de abajo
+# quedan por fuera de la de encima (en reposo estaban tapados). No exporta nada.
+BADP=[]
+def clip_report(kind,arm):
+    obs=[o for o in bpy.data.objects if o.parent==arm and o.type=='MESH']
+    byn=lambda *ns:[o for o in obs if o.name.split('.')[0] in ns]
+    PAIRS=[('cuerpo',('quiton','quiton_corto','himation','exomis','tunica','toga','estola','palla','coraza','lorica','manga')),
+      ('quiton',('himation','himation_extremo','himation_espalda')),('himation',('himation_extremo','himation_espalda')),
+      ('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','cinturon')),('toga',('toga_extremo','toga_espalda')),
+      ('estola',('palla','palla_extremo')),('palla',('palla_extremo',)),('quiton_corto',('coraza','pteryges','pteryges_b')),('exomis',('cinturon',)),
+      ('manga',('himation','toga','palla','himation_extremo','toga_extremo','palla_extremo'))]
+    dg=bpy.context.evaluated_depsgraph_get()
+    def world(o):
+        e=o.evaluated_get(dg);me=e.to_mesh();mw=o.matrix_world
+        P=[mw@v.co for v in me.vertices];N=[(mw.to_3x3()@v.normal).normalized() for v in me.vertices];F=[tuple(p.vertices) for p in me.polygons];e.to_mesh_clear();return P,N,F
+    def poke(inn,outs,base):
+        Pi,Ni,_=world(inn);T=[]
+        for o in outs:
+            P,_,F=world(o);T.append(BVHTree.FromPolygons(P,F))
+        cov=[];bad=0
+        for i,(p,n) in enumerate(zip(Pi,Ni)):
+            hitf=any(t.ray_cast(p+n*0.001,n,0.12)[0] is not None for t in T)
+            if base is None:cov.append(hitf);continue
+            if not base[i]:continue
+            if not hitf and any(t.ray_cast(p-n*0.001,-n,0.12)[0] is not None for t in T):
+                bad+=1
+                if os.environ.get('NOSTOS_ROPA')=='2':BADP.append((inn.name,round(p.x,2),round(p.y,2),round(p.z,2)))
+        return cov if base is None else bad
+    arm.data.pose_position='REST';bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get()
+    base={}
+    for nm,cv in PAIRS:
+        for o in byn(nm):
+            outs=byn(*cv)
+            if outs:base[o.name]=(outs,poke(o,outs,None))
+    arm.data.pose_position='POSE'
+    tr={t.name:t for t in arm.animation_data.nla_tracks};res={}
+    for an in(kind+'_andar',kind+'_quieto'):
+        for t in tr.values():t.mute=(t.name!=an)
+        for f in range(1,25 if an.endswith('andar') else 61,3):
+            bpy.context.scene.frame_set(f);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get()
+            for nm,(outs,b) in base.items():
+                n=poke(bpy.data.objects[nm],outs,b);tot=max(1,sum(b));k=(nm,an.split('_')[-1])
+                if n/tot>res.get(k,(0,0,0))[0]:res[k]=(n/tot,n,f)
+    for (nm,an),(r,n,f) in sorted(res.items()):print('ROPA',kind,nm,an,'%.1f%%'%(100*r),n,'fot',f)
+    if BADP:
+        import collections;c=collections.Counter((b[0],round(b[3],1),'delante' if b[2]<0 else 'detras','izq' if b[1]>0 else 'der') for b in BADP);print('PUNTOS',c.most_common(12))
+def clip_render(kind,arm,frame,out):
+    for o in bpy.data.objects:
+        if o.type in('MESH','ARMATURE'):o.hide_render=not(o==arm or o.parent==arm) or (o.type=='MESH' and bool(os.environ.get('NOSTOS_SOLO')) and o.name.split('.')[0] not in os.environ['NOSTOS_SOLO'].split(','))
+    tr={t.name:t for t in arm.animation_data.nla_tracks}
+    for t in tr.values():t.mute=(t.name!=kind+'_andar')
+    arm.data.pose_position='REST' if os.environ.get('NOSTOS_REPOSO') else 'POSE'
+    sc=bpy.context.scene;sc.frame_set(frame);sc.render.engine='CYCLES';sc.cycles.samples=12;sc.render.resolution_x=900;sc.render.resolution_y=700
+    if not sc.world:sc.world=bpy.data.worlds.new('w')
+    sc.world.use_nodes=True;sc.world.node_tree.nodes['Background'].inputs[1].default_value=1.0
+    if 'solR' not in bpy.data.objects:
+        l=bpy.data.lights.new('solR','SUN');l.energy=3;lo=bpy.data.objects.new('solR',l);lo.rotation_euler=(0.7,0.3,2.6);sc.collection.objects.link(lo)
+    c=bpy.data.cameras.new('cR');c.lens=50;co=bpy.data.objects.new('cR',c);sc.collection.objects.link(co);sc.camera=co
+    import itertools
+    imgs=[]
+    for i,(px,py) in enumerate(((1.6,3.2),(-1.6,3.2),(2.6,-2.4))):
+        co.location=(px,py,1.15);d=Vector((0,0,0.95))-co.location;co.rotation_euler=d.to_track_quat('-Z','Y').to_euler()
+        sc.render.filepath=out+'_%d.png'%i;bpy.ops.render.render(write_still=True)
+if os.environ.get('NOSTOS_PESOS'):
+    import collections
+    for o in bpy.data.objects:
+        if o.type!='MESH' or o.name.split('.')[0]!=os.environ['NOSTOS_PESOS']:continue
+        names={g.index:g.name for g in o.vertex_groups};C=collections.Counter()
+        for v in o.data.vertices:
+            if v.co.z<1.15 and v.co.x>0.03 and v.co.y>0:
+                for g in v.groups:
+                    if g.weight>0.05:C[names[g.group]]+=1
+        print('PESOS',o.name,C.most_common(12))
+    sys.exit(0)
+if os.environ.get('NOSTOS_ROPA'):
+    for k,a in ARMS.items():clip_report(k,a)
+    if os.environ.get('NOSTOS_VER'):
+        for k,a in ARMS.items():clip_render(k,a,int(os.environ.get('NOSTOS_FOT','19')),os.path.join(os.environ['NOSTOS_VER'],k))
+    sys.exit(0)
 # un archivo por personaje (los huesos se llaman igual en todos y así cada uno se anima por separado)
 tot=0
 for k,a in ARMS.items():
