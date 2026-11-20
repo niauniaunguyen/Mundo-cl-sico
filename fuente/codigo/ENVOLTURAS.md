@@ -7,11 +7,11 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-261 funciones ampliadas, 445 capas.
+262 funciones ampliadas, 448 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 42 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `196`:38 · `196`:48 · `198`:58 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 43 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:56 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `196`:38 · `196`:48 · `198`:58 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 |
 | `egxAct0` | `060_egipto_2.js` | 21 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:207 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 |
 | `atCands` | `085_mirar_con_atencion.js` | 8 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
@@ -54,6 +54,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `egxSetup` | `060_egipto_2.js` | 2 | `140`:98 · `900`:375 |
 | `entablature` | `007_campos_del_atica_y_de.js` | 2 | `182`:12 · `193`:17 |
 | `floorAt` | `001_terreno.js` | 2 | `105`:501 · `900`:308 |
+| `gdTick` | `115_rutinas_y_sonido_por_zonas.js` | 2 | `203`:73 · `206`:31 |
 | `glbPart` | `005_modelos_de_blender.js` | 2 | `128`:139 · `176`:7 |
 | `gmDo` | `068_menu_del_juego.js` | 2 | `099`:138 · `101`:73 |
 | `gsRest` | `128_gestos.js` | 2 | `128`:107 · `129`:84 |
@@ -171,7 +172,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `fxJournal` | `053_forastero_a.js` | 1 | `083`:37 |
 | `fxRostral` | `173_arreglos_video.js` | 1 | `173`:38 |
 | `gateTravel` | `012_escenarios_cuadrados.js` | 1 | `091`:36 |
-| `gdTick` | `115_rutinas_y_sonido_por_zonas.js` | 1 | `203`:73 |
 | `gmRender` | `068_menu_del_juego.js` | 1 | `134`:44 |
 | `grTick` | `156_hierba.js` | 1 | `156`:82 |
 | `gsApply` | `128_gestos.js` | 1 | `128`:108 |
@@ -189,6 +189,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
 | `huntTick` | `175_actividades_dinamicas.js` | 1 | `179`:40 |
 | `infBuild` | `072_misiones_finales_de_las_cualidades.js` | 1 | `085`:49 |
+| `int2Room` | `204_puertas_a_interiores.js` | 1 | `206`:52 |
 | `islandBase` | `011_construccion_del_mundo.js` | 1 | `188`:29 |
 | `jrSetup` | `079_la_jornada_romana_a_partir.js` | 1 | `900`:381 |
 | `jump` | `042_entrada.js` | 1 | `174`:28 |
