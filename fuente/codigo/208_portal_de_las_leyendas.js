@@ -87,7 +87,7 @@ function leySfx(k){if(!aOK())return;const c=AUD.ctx,t=c.currentTime;
 function leyHud(){if(!LEY.hud){const d=document.createElement('div');d.id='leyHud';d.style.cssText='position:fixed;top:52px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;background:rgba(26,20,14,.82);color:#f3e6c8;border:1px solid #c9a64a;border-radius:8px;padding:5px 14px;font:600 15px/1.3 var(--text,system-ui);display:flex;gap:16px;white-space:nowrap';document.body.appendChild(d);LEY.hud=d;
     const fl=document.createElement('div');fl.style.cssText='position:fixed;inset:0;z-index:29;pointer-events:none;background:radial-gradient(ellipse at center,rgba(120,255,60,0) 40%,rgba(90,200,40,.55));opacity:0;transition:opacity .25s';document.body.appendChild(fl);LEY.fl=fl;}
   LEY.hud.hidden=!LEY.on;if(!LEY.on)return;const hearts='●'.repeat(3-LEY.hits)+'○'.repeat(LEY.hits);
-  LEY.hud.innerHTML='<span style="color:#ffd25a">'+leyN('Orbes de Niké','Orbes de Victoria')+' '+LEY.n+'/'+LEY.GOAL+'</span><span title="golpes que aguantas">Vida '+hearts+'</span>'+(LEY.kind==='hidra'?'<span>Cabezas '+LEY.heads.length+'</span>':(LEY.extra||''))+(typeof legShieldHud==='function'?legShieldHud():'');}
+  LEY.hud.innerHTML='<span style="color:#ffd25a">'+leyN('Orbes de Niké','Orbes de Victoria')+' '+(LEY.n+(LEY.netN||0))+'/'+LEY.GOAL+'</span>'+(LEY.extraNet&&LEY.netN?LEY.extraNet:'')+'<span title="golpes que aguantas">Vida '+hearts+'</span>'+(LEY.kind==='hidra'?'<span>Cabezas '+LEY.heads.length+'</span>':(LEY.extra||''))+(typeof legShieldHud==='function'?legShieldHud():'');}
 // ---- empezar, perder, ganar
 function leyReset(){for(const s of LEY.shots)scene.remove(s.m);for(const o of LEY.orbs)scene.remove(o.g);LEY.shots=[];LEY.orbs=[];
   const R=LEY.R;if(R)for(const H of LEY.heads){for(const s of H.neck)R.g.remove(s);R.g.remove(H.head);}LEY.heads=[];LEY.n=0;LEY.hits=0;LEY.inv=0;LEY.won=false;LEY.t=0;LEY.lp=null;
@@ -139,7 +139,7 @@ function leyTick(dt){const inH=INT2.in&&LEY_ROOMS.includes(INT2.in.o.room);if(in
   while(LEY.orbs.length<2)leyOrb();
   for(let i=LEY.orbs.length-1;i>=0;i--){const o=LEY.orbs[i];o.g.position.y=R.Y+1.1+Math.sin(t*2.4+o.ph)*0.18;o.c.rotation.y+=dt*2;
     if(Math.hypot(o.x-P.x,o.z-P.z)<1.3&&Math.abs(P.feet-R.Y)<2.2){scene.remove(o.g);LEY.orbs.splice(i,1);LEY.n++;leySfx('orb');leyHud();
-      if(LEY.n>=LEY.GOAL){leyWin();return;}
+      if(LEY.n+(LEY.netN||0)>=LEY.GOAL){leyWin();return;}
       if(LEY.n%4===0&&LEY.heads.length<9){leyAddHead();leySfx('grow');toast('<span class="label">La Hidra se enfurece</span><br>Le brota otra cabeza: ya tiene '+LEY.heads.length+'.');}}}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{leyTick(Math.min(0.1,dt||0));}catch(e){if(!LEY.err){LEY.err=String(e&&e.stack||e).slice(0,300);console.warn('leyendas',e);}}};}
 INT2_ZN.hidra=['La ciénaga de Lerna','ΛΕΡΝΗ','Leyenda · Apolodoro, Biblioteca II 5,2'];

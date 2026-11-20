@@ -212,5 +212,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `207_sol_real.js` | 43 | EL SOL DE VERDAD |
 | `208_portal_de_las_leyendas.js` | 204 | EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna) |
 | `209_suelo_escaneado.js` | 17 | SUELO ESCANEADO (Poly Haven, CC0) |
-| `210_mas_leyendas.js` | 202 | MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208) |
+| `210_mas_leyendas.js` | 203 | MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208) |
+| `211_jugar_mas.js` | 127 | JUGAR MÁS: encargos del día, fama, imprevistos del camino, memoria, regateo, |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

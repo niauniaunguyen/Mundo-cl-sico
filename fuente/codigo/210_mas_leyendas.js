@@ -97,7 +97,8 @@ function legTick(dt){const L=LEG[LEY.kind],R=LEY.R,P=player;if(!L||!R)return;
   while(LEY.orbs.length<2)leyOrb();
   for(let i=LEY.orbs.length-1;i>=0;i--){const o=LEY.orbs[i];o.g.position.y=R.Y+1.1+Math.sin(t*2.4+o.ph)*0.18;o.c.rotation.y+=dt*2;
     if(Math.hypot(o.x-P.x,o.z-P.z)<1.3&&Math.abs(P.feet-R.Y)<2.2){scene.remove(o.g);LEY.orbs.splice(i,1);LEY.n++;leySfx('orb');if(typeof legNetOrb==='function')legNetOrb();leyHud();
-      if(LEY.n>=LEY.GOAL){legWin();return;}if(L.onOrb)L.onOrb(LEY.n);}}}
+      if(LEY.n+(LEY.netN||0)>=LEY.GOAL){legWin();return;}if(L.onOrb)L.onOrb(LEY.n);}}
+  if(LEY.netN&&LEY.n+LEY.netN>=LEY.GOAL)legWin();}   // con los orbes de los compañeros (211)
 // el escudo también en la Hidra (208 no lo actualiza)
 {const f=leyTick;leyTick=function(dt){f(dt);try{if(legIn()&&LEY.kind==='hidra'){LEY.orbOk=null;legShieldTick(dt);legTouchBtns();if(LEY.on)leyHud();}else if(!legIn()){LEY_SH.up=false;if(LEY_SH.el)LEY_SH.el.style.opacity=0;if(LEY.tb)LEY.tb.forEach(b=>b.hidden=true);}if(legIn()&&LEY.tb)LEY.tb.forEach((b,i)=>b.hidden=i===1&&LEY.kind!=='aves');}catch(e){}};}
 
