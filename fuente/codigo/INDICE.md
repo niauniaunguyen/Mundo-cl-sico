@@ -210,4 +210,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `205_hermes_y_el_caduceo.js` | 177 | HERMES (MERCURIO): DIEZ ENCARGOS Y EL CADUCEO |
 | `206_rocas_escaneadas.js` | 59 | ROCAS ESCANEADAS (Poly Haven, CC0) |
 | `207_sol_real.js` | 43 | EL SOL DE VERDAD |
+| `208_portal_de_las_leyendas.js` | 144 | EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
