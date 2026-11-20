@@ -918,6 +918,10 @@ def join(objs,name):
 
 # ------------------------------------------------------------------ animaciones (andar, quieto)
 def animate(arm,prefix):
+    # con NOSTOS_UAL=1, las animaciones de la Universal Animation Library de Quaternius (CC0), reasignadas a este esqueleto (ual_retarget.py)
+    if os.environ.get('NOSTOS_UAL')=='1':
+        sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));import ual_retarget
+        if os.path.exists(ual_retarget.UAL):ual_retarget.retarget(arm,prefix);return
     ad=arm.animation_data_create()
     def act(name,frames,fn):
         a=bpy.data.actions.new(prefix+name);ad.action=a
@@ -1193,7 +1197,8 @@ def clip_render(kind,arm,frame,out):
     for o in bpy.data.objects:
         if o.type in('MESH','ARMATURE'):o.hide_render=not(o==arm or o.parent==arm) or (o.type=='MESH' and bool(os.environ.get('NOSTOS_SOLO')) and o.name.split('.')[0] not in os.environ['NOSTOS_SOLO'].split(','))
     tr={t.name:t for t in arm.animation_data.nla_tracks}
-    for t in tr.values():t.mute=(t.name!=kind+'_andar')
+    ACC=os.environ.get('NOSTOS_ACC','andar')
+    for t in tr.values():t.mute=(t.name!=kind+'_'+ACC)
     arm.data.pose_position='REST' if os.environ.get('NOSTOS_REPOSO') else 'POSE'
     sc=bpy.context.scene;sc.frame_set(frame);sc.render.engine='CYCLES';sc.cycles.samples=12;sc.render.resolution_x=900;sc.render.resolution_y=700
     if not sc.world:sc.world=bpy.data.worlds.new('w')
@@ -1207,6 +1212,23 @@ def clip_render(kind,arm,frame,out):
     for i,(px,py) in enumerate(VIS):
         co.location=(px,py,1.3 if os.environ.get('NOSTOS_CERCA') else 1.15);d=Vector((0,0,1.25 if os.environ.get('NOSTOS_CERCA') else 0.95))-co.location;co.rotation_euler=d.to_track_quat('-Z','Y').to_euler()
         sc.render.filepath=out+'_%d.png'%i;bpy.ops.render.render(write_still=True)
+    if os.environ.get('NOSTOS_FOTS'):   # de perfil, varios fotogramas
+        co.location=(3.4,0,1.0);d=Vector((0,0,0.9))-co.location;co.rotation_euler=d.to_track_quat('-Z','Y').to_euler()
+        for f in os.environ['NOSTOS_FOTS'].split(','):
+            sc.frame_set(int(f));sc.render.filepath=out+'_p%s.png'%f
+            if os.environ.get('NOSTOS_UALDBG'):
+                import ual_retarget as U;sa=U.source()['arm'];sa.animation_data.action=U.source()['acts'][U.CLIPS[ACC]];
+                bpy.context.view_layer.update();t=arm.pose.bones['thigh.L'];t2=arm.pose.bones['thigh.R'];dl=(t.tail-t.head).normalized();dr=(t2.tail-t2.head).normalized()
+                sc.frame_set(int(f)-1);o=sa.pose.bones['DEF-thigh.L'];o2=sa.pose.bones['DEF-thigh.R'];sl=(o.tail-o.head).normalized();sr=(o2.tail-o2.head).normalized();sc.frame_set(int(f))
+                import math
+                tw=[]
+                for bn in('hips','spine','chest','thigh.L','shin.L','foot.L','upperarm.L','forearm.L','thigh.R'):
+                    b=arm.pose.bones[bn];R0=b.bone.matrix_local.to_quaternion();R1=b.matrix.to_quaternion();d0=R0@Vector((0,1,0));d1=R1@Vector((0,1,0))
+                    sw=d0.rotation_difference(d1)@R0;x0=sw@Vector((1,0,0));x1=R1@Vector((1,0,0));tw.append((bn,round(math.degrees(x0.angle(x1)))))
+                print('DBGT',f,tw)
+                print('DBGL',f,[(b.name,round((b.tail-b.head).length/b.bone.length,2),[round(v,2) for v in (b.head-b.bone.head_local)],[round(v,2) for v in b.scale]) for b in arm.pose.bones if b.name in('hips','spine','chest','thigh.L','shin.L','foot.L','upperarm.L')])
+                print('DBGR',f,'L',[round(v,2) for v in dl],[round(v,2) for v in sl],'R',[round(v,2) for v in dr],[round(v,2) for v in sr])
+            else:bpy.ops.render.render(write_still=True)
 if os.environ.get('NOSTOS_PESOS'):
     import collections
     for o in bpy.data.objects:
