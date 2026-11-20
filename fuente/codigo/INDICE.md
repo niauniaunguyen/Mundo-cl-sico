@@ -207,4 +207,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `202_figurillas_votivas.js` | 77 | FIGURILLAS VOTIVAS: coleccionar el favor de los dioses |
 | `203_arbustos_de_detalle.js` | 90 | ARBUSTOS DE DETALLE (matorral mediterráneo) |
 | `204_puertas_a_interiores.js` | 193 | PUERTAS CON AURA: los interiores de la ciudad |
+| `205_hermes_y_el_caduceo.js` | 177 | HERMES (MERCURIO): DIEZ ENCARGOS Y EL CADUCEO |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
