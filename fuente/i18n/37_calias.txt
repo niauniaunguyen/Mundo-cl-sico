@@ -1,0 +1,205 @@
+# ATH_CALIAS_CLASSES: la escuela de letras de Atenas
+
+@627b71e2
+Des de l'any d'Euclides, el 403, la ciutat fa servir oficialment l'alfabet jònic de vint-i-quatre lletres: alfa, beta, gamma, delta, èpsilon, dseta, eta, theta… Abans, a les inscripcions ateneses, la Η era una h aspirada i no hi havia lletres per a la e i la o llargues.
+Since the year of Euclides, 403, the city has officially used the Ionic alphabet of twenty-four letters: alpha, beta, gamma, delta, epsilon, zeta, eta, theta… Before that, in Athenian inscriptions, Η was an aspirate h and there were no letters for long e and o.
+
+@3544d782
+Els nens aprenen les lletres cantant-ne els noms, i després les síl·labes: ba, be, bo… Fa anys un poeta, Cal·lias, va escriure una comèdia en què el cor estava format per les lletres de l'alfabet, que cantaven les seves combinacions. Així d'important és saber llegir en una democràcia: cal llegir les lleis exposades a l'Àgora.
+Children learn the letters by singing their names, then the syllables: ba, be, bo… Years ago a poet, Callias, wrote a comedy whose chorus was made up of the letters of the alphabet, singing their combinations. That's how important reading is in a democracy: you have to read the laws displayed in the Agora.
+
+@214fc7a1
+Com es diu la lletra Θ?
+What is the letter Θ called?
+
+@ac81417b
+Theta
+Theta
+
+@a4cbd21f
+Delta
+Delta
+
+@33d7748e
+Fi
+Phi
+
+@f5679b95
+Θ és la theta.
+Θ is theta.
+
+@4fc4622b
+Quin alfabet va adoptar Atenes oficialment el 403?
+Which alphabet did Athens officially adopt in 403?
+
+@e8c6458a
+El jònic, de 24 lletres
+The Ionic, with 24 letters
+
+@bcc46c73
+El fenici
+The Phoenician
+
+@488ae2e6
+El llatí
+The Latin
+
+@d570b0e7
+Va ser a l'arcontat d'Euclides (403/402).
+It was in the archonship of Euclides (403/402).
+
+@a742c7d6
+A l'alfabet jònic, la lletra Η representa…
+In the Ionic alphabet, the letter Η stands for…
+
+@8bf1443e
+una e llarga (eta)
+a long e (eta)
+
+@03aedc7f
+una h aspirada
+an aspirate h
+
+@c2a79f83
+una o breu
+a short o
+
+@8dc2adf7
+A l'alfabet àtic antic era la h; al jònic, l'eta.
+In the old Attic alphabet it was h; in the Ionic, eta.
+
+@a5136312
+Per escriure es fa servir una tauleta de fusta coberta de cera, sovint dues o més unides amb un cordó. S'escriu amb un estil, de metall o d'os: amb la punta es tracen les lletres i amb l'extrem pla s'allisa la cera per esborrar. El mestre escriu un model i el nen el copia, de vegades guiant-li la mà.
+For writing you use a wooden tablet covered with wax, often two or more tied together with a cord. You write with a stylus of metal or bone: the point traces the letters and the flat end smooths the wax to erase. The teacher writes a model and the child copies it, sometimes with the teacher guiding his hand.
+
+@155f515a
+Els llibres són rotlles de papir, que s'escriuen amb un càlam de canya i tinta. Les lletres van totes seguides, sense espais entre paraules ni signes de puntuació: per això es llegeix en veu alta, a poc a poc, pronunciant cada síl·laba per saber on acaba cada paraula.
+Books are papyrus scrolls, written with a reed pen and ink. The letters all run together, with no spaces between words or punctuation marks: that's why people read aloud, slowly, sounding each syllable to work out where each word ends.
+
+@9fb3fc69
+Amb què s'escriu a la tauleta de cera?
+What do you write on the wax tablet with?
+
+@a18e9e02
+Amb un estil de punta metàl·lica o d'os
+A stylus with a metal or bone point
+
+@4e5465e0
+Amb un pinzell i tinta vermella
+A brush and red ink
+
+@a23fecd9
+Amb carbó
+Charcoal
+
+@0d6e0ad6
+L'altre extrem de l'estil, pla, servia per esborrar.
+The other, flat end of the stylus was used for erasing.
+
+@74ceb17c
+Per què es llegia en veu alta?
+Why did people read aloud?
+
+@64baecf1
+Perquè les paraules anaven seguides, sense espais
+Because the words ran together without spaces
+
+@76ef022c
+Perquè estava prohibit llegir en silenci
+Because reading silently was forbidden
+
+@206ef998
+Perquè els rotlles eren molt petits
+Because scrolls were very small
+
+@fd32fc47
+L'escriptura contínua obligava a pronunciar per separar les paraules.
+Continuous script forced readers to sound out the words to separate them.
+
+@71085422
+A Atenes els nombres s'escriuen amb les inicials dels seus noms: Ι és u, Π (de pente) és cinc, Δ (deka) deu, Η (hekatón) cent, Χ (khílioi) mil i Μ (mýrioi) deu mil. Se sumen de més gran a més petit: ΔΔΠΙΙ és deu, deu, cinc, u i u.
+In Athens numbers are written with the initials of their names: Ι is one, Π (from pente) five, Δ (deka) ten, Η (hekaton) a hundred, Χ (khilioi) a thousand and Μ (myrioi) ten thousand. They are added from largest to smallest: ΔΔΠΙΙ is ten, ten, five, one and one.
+
+@b4d53278
+Per calcular es fa servir un àbac, una taula amb línies sobre la qual es mouen còdols, psêphoi. D'aquí ve el verb psephízein, que vol dir calcular i també votar, perquè a l'Assemblea i als tribunals es vota amb còdols.
+For calculating you use an abacus, a board with lines on which pebbles, psephoi, are moved. Hence the verb psephizein, which means to calculate and also to vote, because in the Assembly and the courts people vote with pebbles.
+
+@b55d0a81
+Quant val ΔΔΠΙΙ?
+What is ΔΔΠΙΙ?
+
+@38b70fbc
+Quant val ΗΗΔΙ?
+What is ΗΗΔΙ?
+
+@a40b264a
+Què són els psêphoi?
+What are psephoi?
+
+@3f8f9832
+Els còdols per calcular i per votar
+The pebbles for calculating and voting
+
+@fab72bb7
+Les lletres majúscules
+The capital letters
+
+@667bdc27
+Els pagaments al mestre
+The payments to the teacher
+
+@a13ff965
+De psêphos, còdol, ve psephízein, calcular o votar.
+From psephos, pebble, comes psephizein, to calculate or vote.
+
+@d1cb28d0
+Quan ja saben llegir, els nens aprenen de memòria els poetes, sobretot Homer. La Ilíada comença així: «Canta, oh deessa, la còlera d'Aquil·les, el fill de Peleu». I l'Odissea: «Parla'm, Musa, de l'home de molts recursos…», que és Odisseu.
+Once they can read, children learn the poets by heart, above all Homer. The Iliad begins: «Sing, goddess, the wrath of Achilles, son of Peleus». And the Odyssey: «Tell me, Muse, of the man of many wiles…», who is Odysseus.
+
+@5c3d58e1
+Homer és el mestre de Grècia: en ell s'aprèn a parlar, a honorar els déus i els pares, a ser valent. N'hi ha que se'l saben sencer: Nicèrat, el fill del general Nícias, presumia de saber-se la Ilíada i l'Odissea de memòria, perquè el seu pare les hi va fer aprendre perquè fos un home de bé.
+Homer is the teacher of Greece: from him you learn to speak, to honour the gods and your parents, to be brave. Some know him by heart: Niceratus, son of the general Nicias, boasted of knowing the Iliad and the Odyssey by heart, because his father made him learn them so he'd grow up a good man.
+
+@4dc51d97
+Amb què comença la Ilíada?
+How does the Iliad begin?
+
+@9267ce4d
+Amb la còlera d'Aquil·les
+With the wrath of Achilles
+
+@ffcf0c0c
+Amb el cavall de Troia
+With the Trojan horse
+
+@0ae157ec
+Amb el retorn d'Odisseu a Ítaca
+With Odysseus' return to Ithaca
+
+@a3a9e2bc
+«Canta, oh deessa, la còlera d'Aquil·les…»
+«Sing, goddess, the wrath of Achilles…»
+
+@966f39c3
+Qui és «l'home de molts recursos»?
+Who is «the man of many wiles»?
+
+@111f4457
+Odisseu
+Odysseus
+
+@48c77f25
+Així comença l'Odissea.
+That's how the Odyssey begins.
+
+@24241ad5
+Qui se sabia Homer sencer, segons Xenofont?
+Who knew all of Homer by heart, according to Xenophon?
+
+@166129d6
+Nicèrat, el fill de Nícias
+Niceratus, son of Nicias
+
+@914d3bb5
+Ho explica Xenofont al Banquet (3.5).
+Xenophon tells it in the Symposium (3.5).

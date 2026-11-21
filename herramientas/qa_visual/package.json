@@ -1,0 +1,6 @@
+{
+  "name": "nostos-pruebas",
+  "private": true,
+  "description": "Herramientas de prueba de Nóstos: three.js r128 servido en local (la CDN puede no estar accesible). Playwright y Chromium se usan los del sistema.",
+  "dependencies": { "three": "0.128.0" }
+}

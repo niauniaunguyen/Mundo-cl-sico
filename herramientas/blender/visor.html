@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Visor de personajes</title>
+<style>html,body{margin:0;background:#a9c7e0;overflow:hidden}canvas{display:block}</style></head><body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+// Vista previa de modelos/personajes.glb con la misma luz que el juego (hemisférica + sol) y materiales Lambert/Phong como en el juego.
+// Parámetros: ?anim=andar|quieto &t=0..1 (instante) &cam=frente|lado|cerca &luz=dia|tarde
+const Q=new URLSearchParams(location.search),W=innerWidth,H=innerHeight;
+const r=new THREE.WebGLRenderer({antialias:true});r.setPixelRatio(2);r.setSize(W,H);document.body.appendChild(r.domElement);
+const s=new THREE.Scene();s.background=new THREE.Color(Q.get('luz')==='tarde'?'#d6a27c':'#a9c7e0');
+const cam=new THREE.PerspectiveCamera(30,W/H,0.05,100);
+s.add(new THREE.HemisphereLight(0xd6e4f2,0x8a7552,0.62));const sun=new THREE.DirectionalLight(Q.get('luz')==='tarde'?0xffa860:0xfff0d2,1.0);sun.position.set(-3,4,3.5);s.add(sun);
+const g=new THREE.Mesh(new THREE.CircleGeometry(4,40),new THREE.MeshLambertMaterial({color:'#c9b48b'}));g.rotation.x=-Math.PI/2;s.add(g);
+window.READY=false;
+new THREE.GLTFLoader().load('../../modelos/personaje_'+(Q.get('pj')||'ciudadano')+(Q.get('alta')?'_alta':Q.get('juego')?'_juego':'')+'.glb',gl=>{
+  const root=gl.scene;s.add(root);const solo=Q.get('solo');if(solo)root.traverse(o=>{if(o.isMesh&&!o.name.includes(solo)&&!(o.parent&&o.parent.name.includes(solo)))o.visible=false;});
+  root.traverse(o=>{if(!o.isMesh)return;const m=o.material,met=m.metalness>0.5;
+    const n=met?new THREE.MeshPhongMaterial({map:m.map,color:m.color,shininess:70,specular:0xa89868}):new THREE.MeshLambertMaterial({map:m.map,color:m.color});
+    n.skinning=!!o.isSkinnedMesh;o.material=n;o.frustumCulled=false;});
+  const mix=new THREE.AnimationMixer(root),an=Q.get('anim');
+  if(an){for(const c of gl.animations)if(c.name.endsWith(an)){const a=mix.clipAction(c);a.play();}mix.update((+Q.get('t')||0)*1.0);}
+  const pj=Q.get('pj')||'ciudadano';root.traverse(o=>{if(o.isMesh&&!o.name.startsWith(pj)){let k=o,own=false;while(k){if(k.name&&k.name.startsWith(pj))own=true;k=k.parent;}if(!own&&!(o.skeleton&&o.skeleton.bones[0]&&o.skeleton.bones[0].parent&&o.skeleton.bones[0].parent.name.startsWith(pj)))o.visible=false;}});
+  const bb=new THREE.Box3();root.traverse(o=>{if(o.isMesh&&o.visible){o.geometry.computeBoundingBox();const b2=o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld);bb.union(b2);}});
+  const bc=new THREE.Box3();root.traverse(o=>{if(o.isMesh&&o.visible&&o.name.includes('cuerpo')){o.geometry.computeBoundingBox();bc.union(o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld));}});const c=(bc.isEmpty()?bb:bc).getCenter(new THREE.Vector3());const v=Q.get('cam')||'frente';
+  if(v==='frente'){cam.position.set(c.x,1.1,c.z+4.6);cam.lookAt(c.x,0.95,c.z);}
+  else if(v==='lado'){cam.position.set(c.x+4.6,1.1,c.z);cam.lookAt(c.x,0.95,c.z);}
+  else if(v==='cerca'){cam.position.set(c.x+0.25,1.68,c.z+1.05);cam.lookAt(c.x,1.6,c.z);}
+  else if(v==='perfil'){cam.position.set(c.x+1.0,1.66,c.z+0.35);cam.lookAt(c.x,1.63,c.z);}
+  else if(v==='pies'){cam.position.set(c.x+0.5,0.35,c.z+0.75);cam.lookAt(c.x,0.06,c.z);}
+  else if(v==='hombro'){cam.position.set(c.x+0.6,1.65,c.z+0.75);cam.lookAt(c.x+0.08,1.4,c.z);}
+  else if(v==='carafrente'){cam.position.set(c.x,1.665,c.z+0.6);cam.lookAt(c.x,1.66,c.z);}
+  else if(v==='cara'){cam.position.set(c.x+0.12,1.67,c.z+0.5);cam.lookAt(c.x,1.645,c.z);}
+  else if(v==='cara34'){cam.position.set(c.x+0.36,1.68,c.z+0.38);cam.lookAt(c.x,1.645,c.z);}
+  else if(v==='caraperfil'){cam.position.set(c.x+0.52,1.66,c.z-0.02);cam.lookAt(c.x,1.645,c.z-0.02);}
+  else if(v==='ojo'){cam.position.set(c.x+0.05,1.67,c.z+0.28);cam.lookAt(c.x+0.025,1.663,c.z);}
+  else if(v==='tres'){cam.position.set(c.x+2.6,1.5,c.z+3.6);cam.lookAt(c.x,0.95,c.z);}
+  window.INFO2=JSON.stringify([bb.min,bb.max]);
+  r.render(s,cam);window.READY=true;let th=null;root.traverse(o=>{if(o.name==='thighL'||o.name==='thigh.L'||o.name==='thighL_1')th=th||o;});window.INFO=(th?th.name+' q='+th.quaternion.toArray().map(x=>x.toFixed(2)):'sin muslo')+' ';if(th&&an){const q0=th.quaternion.clone();mix.update(0.5);window.INFO+=' q+0.5='+th.quaternion.toArray().map(x=>x.toFixed(2))+' ';const sk=[];root.traverse(o=>{if(o.isSkinnedMesh)sk.push(o.name+':'+o.skeleton.bones.length+':'+(o.skeleton.bones.includes(th)));});window.INFO+=sk.join(',')+' ';}window.INFO+=gl.animations.map(a=>a.name+':'+a.tracks.length+':'+a.duration.toFixed(2)+':'+(a.tracks[0]&&a.tracks[0].name)).join(',');const L=[];root.traverse(o=>{if(o.isMesh)L.push(o.name+(o.isSkinnedMesh?'*':''));});window.INFO+=' | '+L.join(',');
+},undefined,e=>{document.body.textContent='ERROR '+e;window.READY=true;});
+</script></body></html>

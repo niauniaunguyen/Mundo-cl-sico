@@ -1,0 +1,21 @@
+# Antorcha de mano
+Antorcha
+Torxa
+Torch
+
+Enciendes una antorcha de teas de pino untadas de resina. Pulsa <b>F</b> para apagarla.
+Encens una torxa de teies de pi untades de resina. Prem <b>F</b> per apagar-la.
+You light a torch of pine splints smeared with resin. Press <b>F</b> to put it out.
+
+Apagas la antorcha.
+Apagues la torxa.
+You put out the torch.
+
+Se ha hecho de noche. Pulsa <b>
+S'ha fet de nit. Prem <b>
+Night has fallen. Press <b>
+
+</b> para encender una antorcha.
+</b> per encendre una torxa.
+</b> to light a torch.
+

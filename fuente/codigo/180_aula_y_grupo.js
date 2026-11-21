@@ -1,0 +1,69 @@
+// ============================================================ AULA Y GRUPO: modo examen, concurso en línea y accesibilidad ampliada
+// P10. Modo examen: en el modo profesor, «Crear examen» elige lecciones y lugares y da un código (y un enlace ?examen=…). El alumno lo
+//      abre en Aprender › Examen o con el enlace; el resultado (aciertos a la primera, lugares visitados) sale en su informe y en el Panel.
+// P11. En una sala en línea: concurso de preguntas (todos reciben las mismas, por turnos de dos minutos) con clasificación, y la
+//      búsqueda del tesoro muestra cuántas pistas lleva cada uno. Viaja en la «presencia», como la posición.
+// P12. Accesibilidad: colores para daltonismo, subtítulos de los sonidos importantes y pausar la hora del día.
+const EXM={};
+function exEnc(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function exDec(s){try{s=String(s).trim().replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))));}catch(e){return null;}}
+function exz(){return state.exam||null;}
+function exStart(code){const o=exDec(code);if(!o||!o.l){toast('Ese código de examen no es válido.');return false;}if(o.m&&o.m!==MODE){toast('Ese examen es del modo '+(o.m==='roma'?'Roma':'Atenas')+'.');return false;}
+  state.exam={code,t:o.t||'Examen',l:o.l,p:o.p||[],t0:Date.now(),res:{},vis:{}};save();exOpen();return true;}
+function exStat(){const E=exz();if(!E)return null;let ok=0,ko=0,vis=0;for(const id of E.l){const r=E.res[id];if(r===1)ok++;else if(r===0)ko++;}for(const id of E.p)if(E.vis[id])vis++;
+  return{ok,ko,pend:E.l.length-ok-ko,vis,tot:E.l.length,ptot:E.p.length};}
+function exOpen(){const E=exz();if(!E){eduOverlay('exBox','Examen','<p>Escribe el código que te ha dado tu profesor o profesora:</p><input id="exI" style="width:100%;font:inherit;padding:6px"><div id="exO"></div>');const I=$('exI');I.onkeydown=e=>e.stopPropagation();
+    $('exO').appendChild(mgBtn('Empezar',()=>{const c=I.value;document.getElementById('exBox').remove();ui='play';exStart(c);}));return;}
+  const S=exStat(),nm=id=>{const n=NPCS.find(q=>q.id===id);return n?n.name+' — '+(LESSONS[id]?LESSONS[id].title:''):id;},pn=id=>{const p=(PLACES||[]).find(q=>q.id===id);return p?p.name:id;};
+  eduOverlay('exBox',E.t,'<p>Habla con estas personas y responde su pregunta (cuenta el primer intento):</p><ul>'+E.l.map(id=>'<li>'+(E.res[id]===1?'✓ ':E.res[id]===0?'✗ ':'· ')+nm(id)+'</li>').join('')+'</ul>'+
+    (E.p.length?'<p>Y visita estos lugares:</p><ul>'+E.p.map(id=>'<li>'+(E.vis[id]?'✓ ':'· ')+pn(id)+'</li>').join('')+'</ul>':'')+'<p><b>'+S.ok+' bien · '+S.ko+' mal · '+S.pend+' pendientes'+(S.ptot?' · lugares '+S.vis+'/'+S.ptot:'')+'</b></p><p class="sub">Cuando acabes, descarga tu informe (Aprender › ¿Qué he aprendido?) y entrégalo: lleva el resultado del examen.</p><div id="exO"></div>');
+  $('exO').appendChild(mgBtn('Dejar el examen',()=>{state.exam=null;save();document.getElementById('exBox').remove();ui='play';}));}
+// el primer intento de cada pregunta del examen
+{const f=answer;answer=function(ok){try{const E=exz(),n=dlg&&dlg.n;if(E&&n&&E.l.includes(n.id)&&E.res[n.id]===undefined){E.res[n.id]=ok?1:0;save();const S=exStat();toast('<span class="label">Examen</span><br>'+(ok?'Bien':'Fallada')+' · '+S.ok+' bien, '+S.ko+' mal, '+S.pend+' pendientes.');}}catch(e){}return f.apply(this,arguments);};}
+function exTick(dt){const E=exz();if(!E||ui!=='play')return;EXM.t=(EXM.t||0)+dt;if(EXM.t<1)return;EXM.t=0;for(const id of E.p){if(E.vis[id])continue;const p=(PLACES||[]).find(q=>q.id===id);if(p&&Math.hypot(p.x-player.x,p.z-player.z)<12){E.vis[id]=1;save();toast('<span class="label">Examen</span><br>Lugar visitado: '+p.name+'.');}}}
+// el enlace ?examen=… al empezar
+function exUrl(){if(EXM.urlDone)return;EXM.urlDone=true;try{const c=new URLSearchParams(location.search).get('examen');if(c&&(!state.exam||state.exam.code!==c))setTimeout(()=>exStart(c),1500);}catch(e){}}
+// informe y panel
+{const f=dzReport;dzReport=function(){const r=f();try{const E=exz();if(!E)return r;const S=exStat(),line='Examen «'+E.t+'»: '+S.ok+' bien, '+S.ko+' mal, '+S.pend+' sin hacer'+(S.ptot?'; lugares '+S.vis+' de '+S.ptot:'')+'.';const i=r.indexOf('--- datos para el panel');return i>=0?r.slice(0,i)+line+'\n\n'+r.slice(i):r+'\n'+line;}catch(e){return r;}};}
+{const f=pdData;pdData=function(){const d=f();try{const E=exz();if(E){const S=exStat();d.examen={t:E.t,code:E.code,ok:S.ok,ko:S.ko,pend:S.pend,vis:S.vis,ptot:S.ptot,res:E.res};}}catch(e){}return d;};}
+{const f=pdRender;pdRender=function(){f();try{const O=$('pdOut'),R=(PD.rows||[]).filter(r=>r.examen);if(!O||!R.length)return;const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  O.insertAdjacentHTML('beforeend','<h3 style="margin-top:18px">Exámenes</h3><table style="border-collapse:collapse;width:100%;font-size:.9em"><tr><th style="text-align:left">Alumno</th><th style="text-align:left">Examen</th><th>Bien</th><th>Mal</th><th>Sin hacer</th><th>Lugares</th></tr>'+
+    R.map(r=>'<tr><td>'+esc(r.nombre)+'</td><td>'+esc(r.examen.t)+'</td><td style="text-align:center">'+r.examen.ok+'</td><td style="text-align:center">'+r.examen.ko+'</td><td style="text-align:center">'+r.examen.pend+'</td><td style="text-align:center">'+(r.examen.ptot?r.examen.vis+'/'+r.examen.ptot:'—')+'</td></tr>').join('')+'</table>');}catch(e){}};}
+// crear examen (modo profesor)
+function exCreate(){const L=NPCS.filter(n=>n.quiz&&LESSONS[n.id]&&npcObjs.some(o=>o.data===n&&o.x<8000)),P=(PLACES||[]).filter(p=>p.x<8000);
+  eduOverlay('exCBox','Crear un examen','<p>Título: <input id="exT" value="Examen de '+(MODE==='roma'?'Roma':'Atenas')+'" style="font:inherit;padding:4px;width:60%"></p><p>Elige entre 3 y 10 lecciones:</p><input id="exF" placeholder="filtrar…" style="font:inherit;padding:4px"><div id="exL" style="max-height:220px;overflow:auto;border:1px solid #6a4a30;padding:6px;margin:6px 0"></div><p>Lugares que hay que visitar (opcional, hasta 5):</p><div id="exP" style="max-height:140px;overflow:auto;border:1px solid #6a4a30;padding:6px"></div><div id="exCO"></div><p id="exCS"></p>');
+  const sel=new Set(),psel=new Set(),draw=()=>{const q=($('exF').value||'').toLowerCase();$('exL').innerHTML=L.filter(n=>(n.name+' '+LESSONS[n.id].title+' '+LESSONS[n.id].cat).toLowerCase().includes(q)).map(n=>'<label style="display:block"><input type="checkbox" data-id="'+n.id+'" '+(sel.has(n.id)?'checked':'')+'> '+n.name+' — '+LESSONS[n.id].title+' <span class="sub">('+LESSONS[n.id].cat+')</span></label>').join('');
+    $('exL').querySelectorAll('input').forEach(i=>i.onchange=()=>{i.checked?sel.add(i.dataset.id):sel.delete(i.dataset.id);});};
+  $('exP').innerHTML=P.map(p=>'<label style="display:block"><input type="checkbox" data-p="'+p.id+'"> '+p.name+'</label>').join('');$('exP').querySelectorAll('input').forEach(i=>i.onchange=()=>{i.checked?psel.add(i.dataset.p):psel.delete(i.dataset.p);});
+  $('exF').oninput=draw;$('exF').onkeydown=e=>e.stopPropagation();$('exT').onkeydown=e=>e.stopPropagation();draw();
+  $('exCO').appendChild(mgBtn('Generar el código',()=>{if(sel.size<3||sel.size>10){$('exCS').textContent='Elige entre 3 y 10 lecciones.';return;}const code=exEnc({v:1,m:MODE,t:$('exT').value.slice(0,60),l:[...sel],p:[...psel].slice(0,5)});
+    const url=location.href.split('#')[0].split('?')[0]+'?modo='+MODE+'&examen='+code;$('exCS').innerHTML='<b>Código:</b><br><textarea readonly style="width:100%;height:60px">'+code+'</textarea><br><b>Enlace para el alumnado:</b><br><textarea readonly style="width:100%;height:60px">'+url+'</textarea>';try{navigator.clipboard.writeText(url);}catch(e){}}));}
+{const f=profeOpen;profeOpen=function(){f.apply(this,arguments);try{const A=$('profeA');if(A&&PROFE.ok&&!$('exCB')){const x=document.createElement('button');x.id='exCB';x.textContent='Crear examen';x.onclick=()=>{profeClose();setTimeout(exCreate,60);};A.appendChild(x);}}catch(e){}};}
+{const g0=gmRight;gmRight=function(d){g0(d);try{if((GM.page||'')!=='aprender')return;const L=d.querySelector('.gr .list');if(!L||L.querySelector('[data-ex]'))return;const S=exStat(),b=document.createElement('button');b.dataset.ex=1;b.innerHTML=gmIc('journal')+'<span class="t">Examen</span><span class="k">'+(S?S.ok+' bien · '+S.pend+' pendientes':'con el código del profesor')+'</span>';b.onclick=()=>{gmClose();setTimeout(exOpen,80);};L.insertBefore(b,L.firstChild);}catch(e){}};}
+// ---------------------------------------------------------------- P11. concurso en línea
+function qzSeed(){return Math.floor(Date.now()/120000);}
+function qzQuestions(){const s=qzSeed(),code=NET.code||'';let h=0;for(const c of code+s)h=(h*31+c.charCodeAt(0))>>>0;const L=NPCS.filter(n=>n.quiz&&n.quiz.a&&LESSONS[n.id]&&npcObjs.some(o=>o.data===n&&o.x<8000)).sort((a,b)=>a.id<b.id?-1:1);const out=[];for(let i=0;i<5&&L.length;i++){h=(h*1103515245+12345)>>>0;out.push(L[h%L.length]);}return out;}
+function qzOpen(){if(!NET.room){toast('El concurso es para jugar en línea: entra antes en una sala.');return;}const Q=qzQuestions(),w=qzSeed();let i=0,s=0;NET.qz={w,s:0,d:0};try{netPresence(true);}catch(e){}
+  eduOverlay('qzBox','Concurso','<p>Las mismas cinco preguntas para toda la sala (cambian cada dos minutos).</p><div id="qzB"></div><div id="qzO"></div><div id="qzR" style="margin-top:10px"></div>');
+  const show=()=>{const n=Q[i],q=n.quiz;$('qzB').innerHTML='<p><b>'+(i+1)+'.</b> '+q.q+' <span class="sub">('+n.name+')</span></p>';const O=$('qzO');O.innerHTML='';[0,1,2].sort(()=>Math.random()-0.5).forEach(ai=>{const b=mgBtn(q.a[ai],()=>{if(ai===0)s++;i++;NET.qz={w,s,d:i};try{netPresence(true);}catch(e){}i<Q.length?show():fin();});b.style.display='block';O.appendChild(b);});rank();};
+  const fin=()=>{$('qzB').innerHTML='<p><b>Has acertado '+s+' de '+Q.length+'.</b></p>';$('qzO').innerHTML='';rank();};
+  const rank=()=>{const R=[{n:NET.name+' (tú)',s,d:i}];try{for(const p of NET.room.peers()){if(p.sameTab)continue;const pr=p.presence||{},q=pr.q2&&pr.q2.qz;if(q&&q.w===w)R.push({n:netClean(pr.n,20),s:+q.s||0,d:+q.d||0});}}catch(e){}R.sort((a,b)=>b.s-a.s||b.d-a.d);$('qzR').innerHTML='<b>Clasificación</b><ol>'+R.map(r=>'<li>'+r.n+': '+r.s+' ('+r.d+'/5)</li>').join('')+'</ol>';};
+  show();EXM.qzT=setInterval(()=>{if(!$('qzBox')){clearInterval(EXM.qzT);return;}rank();},1500);}
+// la búsqueda del tesoro de cada jugador, junto a su nombre en la sala
+{const f=netList;netList=function(){f.apply(this,arguments);try{const h=$('netHead');if(h&&!$('qzBtn')){const b=document.createElement('button');b.id='qzBtn';b.textContent='Concurso';b.style.cssText='margin-left:6px;pointer-events:auto;font:inherit;font-size:.85em;padding:2px 8px;border-radius:6px;border:1px solid #c98a4a;background:#1e1712;color:#f3e6cf;cursor:pointer';b.onclick=()=>qzOpen();h.parentNode.appendChild(b);}
+  const ul=$('netPeople');if(ul&&NET.room){const ps=NET.room.peers();[...ul.children].forEach((li,k)=>{const pr=(ps[k]||{}).presence||{},hu=pr.q2&&pr.q2.hu;if(hu!=null&&hu!==0&&!li.dataset.hu){li.dataset.hu=1;li.textContent+=' · 🗝 '+(hu==='fin'?'¡tesoro!':hu+'/'+huntDef().steps.length);}});}}catch(e){}};}
+// ---------------------------------------------------------------- P12. accesibilidad ampliada
+function a11yApply(){document.body.classList.toggle('cbMode',!!ACC.cb);let st=$('a11yCSS');if(!st){st=document.createElement('style');st.id='a11yCSS';document.head.appendChild(st);}
+  st.textContent='body.cbMode [id$="Z"]{background:rgba(70,130,220,.55)!important}body.cbMode #agBar i{background:#4a90e2!important}#capBox{position:fixed;left:16px;bottom:96px;max-width:46vw;z-index:20;pointer-events:none}#capBox div{background:rgba(10,8,6,.82);color:#fff;padding:4px 10px;border-radius:6px;margin-top:4px;font-size:.95rem}';
+  if(ACC.pauseT){if(!EXM.spd)EXM.spd=clock.speed||1/60;clock.speed=0;}else if(EXM.spd){clock.speed=EXM.spd;EXM.spd=0;}}
+function capSay(t){if(!ACC.subs)return;let b=$('capBox');if(!b){b=document.createElement('div');b.id='capBox';document.body.appendChild(b);}const d=document.createElement('div');d.textContent='['+t+']';b.appendChild(d);while(b.children.length>3)b.firstChild.remove();setTimeout(()=>d.remove(),3500);}
+{const f=accMenu;accMenu=function(){f.apply(this,arguments);try{const o=$('accBox');if(!o||o.querySelector('.a11y2'))return;const d=document.createElement('div');d.className='a11y2';
+  const it=(k,n)=>'<label style="display:flex;gap:10px;align-items:center;padding:8px;border:1px solid #6a4a30;border-radius:8px;margin:6px 0;cursor:pointer"><input type="checkbox" data-a2="'+k+'" '+(ACC[k]?'checked':'')+'> '+n+'</label>';
+  d.innerHTML=it('cb','Colores para daltonismo (azul en lugar de verde en barras y marcas)')+it('subs','Subtítulos de los sonidos importantes (fuego, carros, ladrones, truenos…)')+it('pauseT','Pausar la hora del día (el sol no se mueve)');(o.querySelector('div')||o).appendChild(d);
+  d.querySelectorAll('input[data-a2]').forEach(i=>i.onchange=()=>{ACC[i.dataset.a2]=i.checked;accSave();a11yApply();});}catch(e){}};}
+// subtítulos de lo que suena: se engancha a los sucesos
+{const f=fireStart;fireStart=function(){f.apply(this,arguments);if(DYN.fire)capSay('crepitar de fuego y gritos');};}
+{const f=thfSpawn;thfSpawn=function(){f.apply(this,arguments);capSay('alguien grita: «¡al ladrón!»');};}
+{let carts=0,bolt=0;const f=uxTick;uxTick=function(dt){f(dt);try{exTick(dt);exUrl();if(!ACC.subs)return;const n=(DYN.carts||[]).filter(c=>Math.hypot(c.g.position.x-player.x,c.g.position.z-player.z)<40).length;if(n>carts)capSay('ruedas de carro sobre las losas');carts=n;
+  if(typeof GZ!=='undefined'&&GZ.bid!==bolt){bolt=GZ.bid;if(bolt)capSay('trueno');}if(DOG.on&&THF.on&&!EXM.bark){EXM.bark=1;capSay('tu perro ladra');}if(!THF.on)EXM.bark=0;}catch(e){}};}
+setTimeout(()=>{try{a11yApply();}catch(e){}},0);
