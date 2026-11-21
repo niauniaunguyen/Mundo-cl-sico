@@ -220,4 +220,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `215_arboles_polyhaven.js` | 51 | ÁRBOLES DE POLY HAVEN (CC0) para los árboles cercanos |
 | `216_jugar_mas_3.js` | 157 | JUGAR MÁS (3): juegos de mesa, banquete, teatro, escribir, cartas, atletismo, cocina, |
 | `217_graficos_3.js` | 96 | GRÁFICOS (3): mar con rompientes, suelo mojado, caras que hablan, telas al viento, |
+| `218_correcciones_video_21_11.js` | 22 | CORRECCIONES DEL VÍDEO DE PRUEBA (21/11): personajes |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

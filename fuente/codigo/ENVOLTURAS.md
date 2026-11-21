@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-274 funciones ampliadas, 494 capas.
+275 funciones ampliadas, 498 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -26,12 +26,12 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `gmDo` | `068_menu_del_juego.js` | 5 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 |
 | `int2Room` | `204_puertas_a_interiores.js` | 5 | `206`:52 · `208`:23 · `210`:39 · `214`:29 · `217`:85 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
+| `bpKind` | `184_personajes_blender.js` | 4 | `196`:16 · `196`:41 · `196`:62 · `218`:11 |
+| `bpMake` | `184_personajes_blender.js` | 4 | `186`:68 · `196`:42 · `214`:66 · `218`:17 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `toast` | `014_hud.js` | 4 | `120`:131 · `128`:68 · `173`:8 · `200`:37 |
 | `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:64 · `900`:406 |
-| `bpKind` | `184_personajes_blender.js` | 3 | `196`:16 · `196`:41 · `196`:62 |
-| `bpMake` | `184_personajes_blender.js` | 3 | `186`:68 · `196`:42 · `214`:66 |
 | `checkZone` | `014_hud.js` | 3 | `105`:502 · `204`:192 · `900`:310 |
 | `finishColumns` | `007_campos_del_atica_y_de.js` | 3 | `113`:122 · `193`:46 · `900`:434 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
@@ -48,6 +48,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atShow` | `085_mirar_con_atencion.js` | 2 | `100`:142 · `134`:23 |
 | `atTick` | `085_mirar_con_atencion.js` | 2 | `100`:143 · `134`:24 |
 | `betterTrees` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `159`:60 · `183`:49 |
+| `bpConv` | `196_multitudes_con_modelos.js` | 2 | `196`:71 · `218`:20 |
 | `bpTick` | `184_personajes_blender.js` | 2 | `214`:119 · `217`:32 |
 | `buildAvatar` | `040_caballo.js` | 2 | `101`:52 · `900`:411 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
@@ -107,7 +108,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atUpdate` | `085_mirar_con_atencion.js` | 1 | `100`:141 |
 | `boatExit` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:500 |
 | `boatTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:499 |
-| `bpConv` | `196_multitudes_con_modelos.js` | 1 | `196`:71 |
 | `bpCrowds` | `196_multitudes_con_modelos.js` | 1 | `196`:46 |
 | `bpSetup` | `184_personajes_blender.js` | 1 | `186`:121 |
 | `bpSwap` | `184_personajes_blender.js` | 1 | `196`:28 |
@@ -247,6 +247,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `spSetup` | `088_los_espiritus.js` | 1 | `900`:396 |
 | `startQuiz` | `015_dialogo.js` | 1 | `087`:74 |
 | `startStory` | `044_modo_historia.js` | 1 | `111`:137 |
+| `stKind` | `186_caras_cuerpos_y_estatuas.js` | 1 | `218`:8 |
 | `storyFinale` | `044_modo_historia.js` | 1 | `111`:133 |
 | `storyNext` | `044_modo_historia.js` | 1 | `128`:73 |
 | `swAct` | `105_mar_abierto.js` | 1 | `106`:86 |
