@@ -38,25 +38,26 @@ const PTEX={
 // relieve de detalle (212): la textura se «graba» con la luz del sol: más clara donde sube hacia el sol, más oscura donde baja
 const GFXU={uLd:{value:LIGHTDIR},uEmb:{value:1.0}};
 function triplanar(mat,tex,scale,flat){
-  mat.map=tex;const key='tp'+(flat?'f':'');mat.customProgramCacheKey=()=>key;mat.userData.tpScale=1/scale;
+  mat.map=tex;mat.customProgramCacheKey=()=>'tp'+(flat?'f':'')+(mat.userData.grime?'g':'');mat.userData.tpScale=1/scale;
   mat.onBeforeCompile=sh=>{sh.uniforms.tpScale={value:mat.userData.tpScale};sh.uniforms.uLd=GFXU.uLd;sh.uniforms.uEmb=GFXU.uEmb;
-    sh.vertexShader='varying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvec4 tpw=vec4(transformed,1.0);vec3 tpn=objectNormal;\n#ifdef USE_INSTANCING\ntpw=instanceMatrix*tpw;tpn=mat3(instanceMatrix)*tpn;\n#endif\ntpw=modelMatrix*tpw;vTpPos=tpw.xyz;vTpNor=normalize(mat3(modelMatrix)*tpn);');
+    sh.vertexShader='varying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvec4 tpw=vec4(transformed,1.0);vec3 tpn=objectNormal;\n#ifdef USE_INSTANCING\ntpw=instanceMatrix*tpw;tpn=mat3(instanceMatrix)*tpn;\n#endif\ntpw=modelMatrix*tpw;vTpPos=tpw.xyz;vTpNor=normalize(mat3(modelMatrix)*tpn);'+(mat.userData.grime?'vec4 tpo=vec4(0.0,0.0,0.0,1.0);\n#ifdef USE_INSTANCING\ntpo=instanceMatrix*tpo;\n#endif\nvTpBase=(modelMatrix*tpo).y;':''));if(mat.userData.grime)sh.vertexShader='varying float vTpBase;\n'+sh.vertexShader;
     sh.fragmentShader='uniform float tpScale,uEmb;uniform vec3 uLd;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.fragmentShader.replace('#include <map_fragment>',flat?
       'vec4 tc=texture2D(map,vTpPos.xz*tpScale);diffuseColor*=tc;':
-      'vec3 tb=pow(abs(normalize(vTpNor)),vec3(4.0));tb/=(tb.x+tb.y+tb.z);vec4 tc=texture2D(map,vTpPos.zy*tpScale)*tb.x+texture2D(map,vTpPos.xz*tpScale)*tb.y+texture2D(map,vTpPos.xy*tpScale)*tb.z;vec3 pB=vTpPos+uLd*0.035/max(tpScale*3.0,0.2);vec4 tB=texture2D(map,pB.zy*tpScale)*tb.x+texture2D(map,pB.xz*tpScale)*tb.y+texture2D(map,pB.xy*tpScale)*tb.z;diffuseColor*=tc*(1.0+clamp((dot(tc.rgb,vec3(0.333))-dot(tB.rgb,vec3(0.333)))*uEmb*1.6,-0.22,0.22));');};
+      'vec3 tb=pow(abs(normalize(vTpNor)),vec3(4.0));tb/=(tb.x+tb.y+tb.z);vec4 tc=texture2D(map,vTpPos.zy*tpScale)*tb.x+texture2D(map,vTpPos.xz*tpScale)*tb.y+texture2D(map,vTpPos.xy*tpScale)*tb.z;vec3 pB=vTpPos+uLd*0.035/max(tpScale*3.0,0.2);vec4 tB=texture2D(map,pB.zy*tpScale)*tb.x+texture2D(map,pB.xz*tpScale)*tb.y+texture2D(map,pB.xy*tpScale)*tb.z;diffuseColor*=tc*(1.0+clamp((dot(tc.rgb,vec3(0.333))-dot(tB.rgb,vec3(0.333)))*uEmb*1.6,-0.22,0.22));'+(mat.userData.grime?'\n{float gh=vTpPos.y-vTpBase;float gn=fract(sin(dot(floor(vTpPos.xz*1.7+vTpPos.y*0.4),vec2(12.9898,78.233)))*43758.5453);float wav=0.55+0.25*sin(vTpPos.x*2.3+vTpPos.z*1.9)+0.2*gn;float damp=(1.0-smoothstep(0.0,wav,gh))*step(abs(normalize(vTpNor).y),0.6);diffuseColor.rgb*=1.0-damp*0.28;diffuseColor.rgb=mix(diffuseColor.rgb,diffuseColor.rgb*vec3(0.92,0.9,0.84),smoothstep(0.55,0.95,gn)*0.25);}':''));if(mat.userData.grime)sh.fragmentShader='varying float vTpBase;\n'+sh.fragmentShader;};
   mat.needsUpdate=true;return mat;}
 const ROLE_TEX={wall:['plaster',5],plaster:['plaster',5],brick:['brick',2.6],roof:['tile',3],foliage:['leaf',2.2],travertine:['stone',3.4],socle:['stone',2.6],stone:['stone',2],bark:['bark',1.6],wood:['wood',2],marble:['marble',4],granite:['marble',3],vine:['leaf',1.5]};
 const WHITE_ROLE={},ROLE_MAT={};
-function whiteRole(role){const t=ROLE_TEX[role];if(!t)return WHITE_M;if(!WHITE_ROLE[role])WHITE_ROLE[role]=triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX[t[0]],t[1]);return WHITE_ROLE[role];}
-function roleMat(role){const c=ROLE_C[role]||'#999999',t=ROLE_TEX[role];if(!t)return lam(c);if(!ROLE_MAT[role])ROLE_MAT[role]=triplanar(new THREE.MeshLambertMaterial({color:c}),PTEX[t[0]],t[1]);return ROLE_MAT[role];}
+const GRIME_ROLES=['wall','plaster','brick','socle'];   // paredes con historia (217): humedad que sube del suelo y manchas
+function whiteRole(role){const t=ROLE_TEX[role];if(!t)return WHITE_M;if(!WHITE_ROLE[role]){WHITE_ROLE[role]=triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX[t[0]],t[1]);if(GRIME_ROLES.includes(role))WHITE_ROLE[role].userData.grime=1;}return WHITE_ROLE[role];}
+function roleMat(role){const c=ROLE_C[role]||'#999999',t=ROLE_TEX[role];if(!t)return lam(c);if(!ROLE_MAT[role]){ROLE_MAT[role]=triplanar(new THREE.MeshLambertMaterial({color:c}),PTEX[t[0]],t[1]);if(GRIME_ROLES.includes(role))ROLE_MAT[role].userData.grime=1;}return ROLE_MAT[role];}
 // los mapas y escalas del suelo son uniformes compartidos (TERR_U): 209 los cambia por los escaneos de Poly Haven cuando llegan
-const TERR_U={uLd:GFXU.uLd,uEmb:GFXU.uEmb,tpScale:{value:1/9},groundMap:{value:PTEX.ground},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks},rS:{value:0.2},hS:{value:0.6},vS:{value:0.42},cS:{value:0.11},cShK:{value:0},cShC:{value:0.6},cShO:{value:new THREE.Vector2()}};
+const TERR_U={uLd:GFXU.uLd,uEmb:GFXU.uEmb,tpScale:{value:1/9},groundMap:{value:PTEX.ground},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks},rS:{value:0.2},hS:{value:0.6},vS:{value:0.42},cS:{value:0.11},cShK:{value:0},cShC:{value:0.6},cShO:{value:new THREE.Vector2()},uWet:{value:0},uWetSky:{value:new THREE.Color('#b8c4cc')}};
 function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'});TERR_MATS.push(m);triplanar(m,PTEX.ground,9,true);m.customProgramCacheKey=()=>'terr2';
   // el suelo cambia según el sitio: roca en las pendientes, hierba donde el color es verde, grava y tierra cuarteada a manchas,
   // y grandes manchas de color (tierra roja, zonas más claras u oscuras) para que no se repita la misma textura cada 9 m
   m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,TERR_U);
     sh.vertexShader='varying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvec4 tpw=modelMatrix*vec4(transformed,1.0);vTpPos=tpw.xyz;vTpNor=normalize(mat3(modelMatrix)*objectNormal);');
-    sh.fragmentShader='uniform float tpScale,rS,hS,vS,cS,uEmb,cShK,cShC;uniform vec2 cShO;uniform vec3 uLd;uniform sampler2D groundMap,rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
+    sh.fragmentShader='uniform float tpScale,rS,hS,vS,cS,uEmb,cShK,cShC,uWet;uniform vec2 cShO;uniform vec3 uWetSky;uniform vec3 uLd;uniform sampler2D groundMap,rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
      'float tH(vec2 p){p=mod(p,289.0);return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nfloat tV(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(tH(i),tH(i+vec2(1.0,0.0)),f.x),mix(tH(i+vec2(0.0,1.0)),tH(i+vec2(1.0,1.0)),f.x),f.y);}\n'+
      sh.fragmentShader.replace('#include <map_fragment>',[
       'vec2 wp=vTpPos.xz;float m1=tV(wp*0.006),m2=tV(wp*0.021+3.7)*0.7+tV(wp*0.06+9.1)*0.3,m3=tV(wp*0.08+11.3);',
@@ -73,6 +74,7 @@ function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,c
       'col=mix(col,col*vec3(1.08,0.95,0.84),smoothstep(0.55,0.82,m2)*0.55*dry);',   // tierra rojiza (terra rossa) a manchas
       'col=mix(col,col*vec3(0.9,0.97,1.0),smoothstep(0.62,0.88,m3)*0.25);',
       'if(cShK>0.0){vec2 cq=wp*0.0045+cShO*60.0;float cn=tV(cq)*0.62+tV(cq*2.7+5.3)*0.38;col*=1.0-cShK*smoothstep(cShC,cShC+0.14,cn);}',   // sombras de nubes (214)
+      'if(uWet>0.0){float flat0=smoothstep(0.82,0.97,nn.y);float pd=uWet*flat0*smoothstep(0.6,0.68,tV(wp*0.33+7.1))*(1.0-rockW)*(1.0-grassW);col*=1.0-uWet*0.28*(1.0-grassW*0.5);vec3 vd=normalize(cameraPosition-vTpPos);float fr=pow(1.0-clamp(vd.y,0.0,1.0),3.0);col=mix(col,uWetSky*0.9,clamp(pd*(0.45+0.5*fr)+uWet*flat0*fr*0.12,0.0,0.8));}',   // suelo mojado y charcos (217)
       'diffuseColor.rgb*=col;'].join('\n'));};
   m.needsUpdate=true;return m;}   // tinte cálido: compensa la desaturación del mapeo tonal
 // materiales de los edificios

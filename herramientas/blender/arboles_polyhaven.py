@@ -6,11 +6,16 @@
 # Cada árbol se normaliza: base en el suelo, centrado y 1 m de alto (el juego lo estira a las medidas del árbol que sustituye).
 #   P_olivo  ← island_tree_02 (tronco retorcido, hoja lanceolada: hace de olivo, encina y laurel)
 #   P_frondo ← island_tree_01 (copa ancha: hace de plátano, roble, castaño y haya)
+#   P_pino y P_cipres: Poly Haven no tiene pino piñonero ni ciprés. Se hacen aquí: tronco con la corteza escaneada de «Pine Sapling Small»
+#   (Poly Haven, CC0) y follaje de tarjetas con ramilletes dibujados (herramientas/texturas/ramilletes.py, tercer argumento: su carpeta).
+#   Pino piñonero (Pinus pinea): tronco limpio que se abre en ramas gruesas y copa en sombrilla, ancha y plana.
+#   Ciprés (Cupressus sempervirens, variedad piramidal): copa estrecha en forma de llama, muy densa y oscura.
 import bpy, bmesh, sys, os, math, numpy as np
 from mathutils import Vector
 argv = sys.argv[sys.argv.index('--') + 1:]
 SRC = argv[0]
-OUT = argv[1] if len(argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'modelos', 'arboles_ph.glb')
+RAM = argv[2] if len(argv) > 2 else None
+OUT = argv[1] if len(argv) > 1 and argv[1] != '-' else os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'modelos', 'arboles_ph.glb')
 TREES = [('P_olivo', 'island_tree_02', 3, 1.8, 2600, 2200), ('P_frondo', 'island_tree_01', 3, 1.9, 2800, 2400)]   # nombre, origen, 1 de cada K hojas, agrandar, tris tronco, tris ramas
 bpy.ops.wm.read_factory_settings(use_empty=True)
 out_objs = []
@@ -75,6 +80,56 @@ for name, src, K, grow, ttr, tbr in TREES:
             decimate(o, tbr if mat.endswith('_branches') else ttr)
             o.name = name + ('_ramas' if mat.endswith('_branches') else '_tronco'); out_objs.append(o)
             print('PIEZA', o.name, sum(len(f.vertices) - 2 for f in o.data.polygons))
+
+# ---------------------------------------------------------------- pino piñonero y ciprés hechos aquí
+def img_mat(name, path):
+    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    t = nt.nodes.new('ShaderNodeTexImage'); t.image = bpy.data.images.load(path); nt.links.new(t.outputs['Color'], b.inputs['Base Color']); return m
+def tube(bm, uvl, pts, rads, sides=7):
+    rings = []
+    for i, (p, r) in enumerate(zip(pts, rads)):
+        d = (Vector(pts[min(i + 1, len(pts) - 1)]) - Vector(pts[max(i - 1, 0)])).normalized(); a = d.orthogonal().normalized(); b2 = d.cross(a)
+        rings.append([bm.verts.new(Vector(p) + (a * math.cos(k / sides * 2 * math.pi) + b2 * math.sin(k / sides * 2 * math.pi)) * r) for k in range(sides)])
+    for i in range(len(rings) - 1):
+        for k in range(sides):
+            f = bm.faces.new((rings[i][k], rings[i][(k + 1) % sides], rings[i + 1][(k + 1) % sides], rings[i + 1][k]))
+            for l, (u, v) in zip(f.loops, ((k / sides, i * 0.5), ((k + 1) / sides, i * 0.5), ((k + 1) / sides, (i + 1) * 0.5), (k / sides, (i + 1) * 0.5))): l[uvl].uv = (u, v)
+def cards(bm, uvl, centers, size, R, up_bias):
+    for c, s in zip(centers, size):
+        n = Vector((R.uniform(-1, 1), R.uniform(-1, 1), R.uniform(-1, 1) + up_bias)).normalized(); a = n.orthogonal().normalized(); b2 = n.cross(a)
+        rot = R.uniform(0, 2 * math.pi); a, b2 = a * math.cos(rot) + b2 * math.sin(rot), b2 * math.cos(rot) - a * math.sin(rot)
+        vs = [bm.verts.new(Vector(c) + (a * x + b2 * y) * s) for x, y in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+        f = bm.faces.new(vs)
+        for l, uv in zip(f.loops, ((0, 0), (1, 0), (1, 1), (0, 1))): l[uvl].uv = uv
+def obj_from(bm, name, mat):
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free(); me.materials.append(mat); o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o); out_objs.append(o)
+    print('PIEZA', name, sum(len(f.vertices) - 2 for f in me.polygons)); return o
+if RAM:
+    import random
+    bark = img_mat('corteza_pino', os.path.join(SRC, 'pine_sapling_small', 'textures', 'pine_sapling_small_bark_diff_1k.jpg'))
+    agu = img_mat('agujas_pino', os.path.join(RAM, 'pino_agujas.jpg')); cip = img_mat('ramas_cipres', os.path.join(RAM, 'cipres_ramas.jpg'))
+    # pino piñonero: 1 m de alto, copa de 1,15 m de ancho
+    R = random.Random(11); bm = bmesh.new(); uvl = bm.loops.layers.uv.new('UVMap'); tips = []
+    tube(bm, uvl, [(0, 0, 0), (0.01, 0, 0.25), (0.03, 0.01, 0.5), (0.04, 0.01, 0.62)], [0.045, 0.036, 0.03, 0.027])
+    for k in range(5):
+        a = k / 5 * 2 * math.pi + R.uniform(-0.3, 0.3); L = R.uniform(0.3, 0.45)
+        p1 = (0.04, 0.01, 0.62); p2 = (0.04 + math.cos(a) * L * 0.5, 0.01 + math.sin(a) * L * 0.5, 0.75); p3 = (0.04 + math.cos(a) * L, 0.01 + math.sin(a) * L, 0.84)
+        tube(bm, uvl, [p1, p2, p3], [0.022, 0.015, 0.008], 6); tips.append(p3)
+    cen = []; siz = []
+    for i in range(1100):
+        a = R.uniform(0, 2 * math.pi); r = 0.58 * math.sqrt(R.uniform(0, 1)); h = 0.86 + 0.12 * (1 - (r / 0.58) ** 2) + R.uniform(-0.05, 0.03)
+        cen.append((math.cos(a) * r + 0.04, math.sin(a) * r + 0.01, h)); siz.append(R.uniform(0.055, 0.09))
+    obj_from(bm, 'P_pino_tronco', bark)
+    bm = bmesh.new(); uvl = bm.loops.layers.uv.new('UVMap'); cards(bm, uvl, cen, siz, R, 1.6); obj_from(bm, 'P_pino_hojas', agu)
+    # ciprés: 1 m de alto, 0,24 m de ancho (llama)
+    R = random.Random(13); bm = bmesh.new(); uvl = bm.loops.layers.uv.new('UVMap')
+    tube(bm, uvl, [(0, 0, 0), (0, 0, 0.3), (0, 0, 0.7), (0, 0, 0.95)], [0.022, 0.018, 0.01, 0.004], 6)
+    obj_from(bm, 'P_cipres_tronco', bark)
+    cen = []; siz = []
+    for i in range(1500):
+        z = 0.06 + 0.94 * R.uniform(0, 1) ** 0.9; rad = 0.12 * math.sin(math.pi * min(1, (z - 0.03) / 0.97)) ** 0.6 * (1.15 - 0.35 * z); a = R.uniform(0, 2 * math.pi); r = rad * math.sqrt(R.uniform(0.25, 1))
+        cen.append((math.cos(a) * r, math.sin(a) * r, z)); siz.append(R.uniform(0.04, 0.06) * (1.1 - 0.4 * z))
+    bm = bmesh.new(); uvl = bm.loops.layers.uv.new('UVMap'); cards(bm, uvl, cen, siz, R, 0.0); obj_from(bm, 'P_cipres_hojas', cip)
 # texturas a 512 px (el árbol se ve de lejos casi siempre) y sin mapas de normales ni de rugosidad: solo el color
 for img in bpy.data.images:
     if img.size[0] > 512: img.scale(512, 512)

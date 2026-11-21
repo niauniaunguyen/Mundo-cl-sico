@@ -2,20 +2,20 @@
 // Modelos escaneados de https://polyhaven.com aligerados en Blender (herramientas/blender/arboles_polyhaven.py → #glbph, en segundo plano):
 //   P_olivo  ← «Island Tree 02» (tronco retorcido y hoja lanceolada): sustituye a los olivos (T_olive), y por tanto también a encinas y laureles
 //   P_frondo ← «Island Tree 01» (copa ancha): sustituye a los árboles de hoja ancha (T_plane): plátanos, robles, castaños y hayas
-// Poly Haven no tiene cipreses ni pinos piñoneros: esos siguen con las copas de detalle de antes (182, plantas.py).
+//   P_pino, P_cipres: pino piñonero y ciprés hechos en Blender (Poly Haven no tiene): corteza escaneada de Poly Haven y ramilletes dibujados.
 // Cómo funciona: los árboles se siguen colocando como siempre (tronco + copa sencillos, instanciados por trozos). A los más cercanos
 // (radio PHT.R, como mucho PHT.max por especie) se les esconden tronco y copa y en su sitio se dibuja el modelo de Poly Haven, estirado a la
 // altura y anchura del árbol que sustituye y con su giro. Al alejarse vuelven los sencillos. En los equipos modestos no se usa.
 // Las hojas son tarjetas con la foto de una hoja: el fondo negro de la textura se recorta aquí (sin canal alfa, la textura pesa menos).
-const PHT={tpl:null,loading:0,ready:false,R:60,max:30,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
+const PHT={tpl:null,loading:0,ready:false,R:60,max:30,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]},T_pine:{m:'P_pino',leaf:'#ffffff',crown:[],trunk:[]},T_cypress:{m:'P_cipres',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
 try{if(typeof isTouch!=='undefined'&&isTouch){PHT.R=35;PHT.max=14;}if(ACC.lite)PHT.R=0;}catch(e){}
 // registro de las piezas que se colocan con chunked(): copas (foliage) y troncos (bark) de olivos y plátanos
 {const f=chunked;chunked=function(geo,mat,items,opt){const n0=CHUNKS.length;f.apply(this,arguments);try{if(!opt||!opt.veg||!PHT.R)return;
-  for(const k in PHT.sp){for(const [part,list] of[[k+'_crown','crown'],[k+'_trunk','trunk']]){const P=GLB.parts[part];if(P&&P.meshes.some(m=>m.geo===geo)){for(let i=n0;i<CHUNKS.length;i++)PHT.sp[k][list].push(CHUNKS[i].im);}}}}catch(e){PHT.err=String(e);}};}
+  for(const k in PHT.sp){for(const part of[k,k+'_crown',k+'_trunk']){const P=GLB.parts[part];if(!P)continue;const m=P.meshes.find(m=>m.geo===geo);if(m){const list=m.role==='foliage'?'crown':'trunk';for(let i=n0;i<CHUNKS.length;i++)PHT.sp[k][list].push(CHUNKS[i].im);}}}}catch(e){PHT.err=String(e);}};}
 function phtLoad(){if(PHT.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;PHT.loading=1;
   bpBytes('glbph').then(buf=>{PHT.dbg='bytes '+(buf&&buf.byteLength);if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(o.isMesh)T[o.name]=o;});PHT.tpl=T;PHT.dbg+=' ok '+Object.keys(T).join(',');},e=>{PHT.err=String(e);});}).catch(e=>{PHT.err=String(e);});}
 // medidas del árbol sencillo (tronco + copa) en su espacio de módulo
-function phtBox(k){const b=new THREE.Box3();for(const nm of[k+'_trunk',k+'_crown']){const P=GLB.parts[nm];if(!P)continue;for(const m of P.meshes){m.geo.computeBoundingBox();b.union(m.geo.boundingBox);}}return b;}
+function phtBox(k){const b=new THREE.Box3();for(const nm of[k,k+'_trunk',k+'_crown']){const P=GLB.parts[nm];if(!P)continue;for(const m of P.meshes){m.geo.computeBoundingBox();b.union(m.geo.boundingBox);}}return b;}
 function phtLeafMat(src,tint,depth){const m=depth?new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:src.map}):new THREE.MeshLambertMaterial({map:src.map,color:tint,side:THREE.DoubleSide});
   m.onBeforeCompile=sh=>{sh.fragmentShader=sh.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\n{vec4 lt=texture2D(map,vUv);if(max(max(lt.r,lt.g),lt.b)<0.1)discard;}');};m.customProgramCacheKey=()=>'phleaf'+(depth?'d':'');return m;}
 function phtBuild(k){const S=PHT.sp[k],T=PHT.tpl,b=phtBox(k);if(b.isEmpty())return false;const H=b.max.y-b.min.y,W=Math.max(b.max.x-b.min.x,b.max.z-b.min.z);
@@ -28,11 +28,11 @@ function phtBuild(k){const S=PHT.sp[k],T=PHT.tpl,b=phtBox(k);if(b.isEmpty())retu
     scene.add(im);S.hi.push(im);}
   return S.hi.length>0;}
 // al tener los modelos: las copas de detalle de 182 dejan de usarse para estas dos especies (se devuelven las que tuviera cambiadas)
-function phtTakeOver(){if(typeof TLOD==='undefined')return;for(const [key,S] of [...TLOD.sets]){const c=key.split('|')[0];if(c!=='T_olive_crown'&&c!=='T_plane_crown')continue;
+function phtTakeOver(){if(typeof TLOD==='undefined')return;for(const [key,S] of [...TLOD.sets]){const c=key.split('|')[0];if(!['T_olive_crown','T_plane_crown','T_pine_crown','T_cypress'].includes(c))continue;
   for(const [kk,[im,i]] of S.near){const o=im.userData.tlodOrig;if(o&&o.has(i)){im.setMatrixAt(i,o.get(i));o.delete(i);im.instanceMatrix.needsUpdate=true;}}if(S.hi){S.hi.count=0;S.hi.visible=false;}TLOD.sets.delete(key);}}
 const _phM=new THREE.Matrix4(),_phZ=new THREE.Matrix4().makeScale(0,0,0),_phC=new THREE.Color(),_phW=new THREE.Color(1,1,1);
 function phtPosKey(x,z){return Math.round(x*4)+','+Math.round(z*4);}
-function phtTick(){if(!PHT.ready){if(!PHT.tpl){if(PHT.sp.T_olive.crown.length||PHT.sp.T_plane.crown.length)phtLoad();return;}let ok=false;for(const k in PHT.sp)if(phtBuild(k))ok=true;PHT.ready=true;PHT.ok=ok;return;}
+function phtTick(){if(!PHT.ready){if(!PHT.tpl){if(Object.values(PHT.sp).some(S=>S.crown.length))phtLoad();return;}let ok=false;for(const k in PHT.sp)if(phtBuild(k))ok=true;PHT.ready=true;PHT.ok=ok;return;}
   if(PHT.ok)phtTakeOver();
   const cx=camera.position.x,cz=camera.position.z,R2=PHT.R*PHT.R;
   for(const k in PHT.sp){const S=PHT.sp[k];if(!S.hi)continue;

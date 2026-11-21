@@ -7,11 +7,11 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-273 funciones ampliadas, 488 capas.
+274 funciones ampliadas, 494 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
-| `uxTick` | `091_para_que_sirven_los_objetos.js` | 52 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `196`:38 · `196`:48 · `196`:81 · `198`:59 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:144 · `208`:203 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:129 · `215`:50 |
+| `uxTick` | `091_para_que_sirven_los_objetos.js` | 54 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:80 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `196`:38 · `196`:48 · `196`:81 · `198`:59 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:144 · `208`:203 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:129 · `215`:50 · `216`:155 · `217`:91 |
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
 | `atCands` | `085_mirar_con_atencion.js` | 10 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:126 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
@@ -23,9 +23,9 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `chunked` | `005_modelos_de_blender.js` | 5 | `155`:21 · `182`:51 · `182`:96 · `183`:58 · `215`:13 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `fareOf` | `016_viajes_en_barco.js` | 5 | `052`:509 · `090`:102 · `091`:52 · `097`:70 · `202`:60 |
+| `gmDo` | `068_menu_del_juego.js` | 5 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 |
+| `int2Room` | `204_puertas_a_interiores.js` | 5 | `206`:52 · `208`:23 · `210`:39 · `214`:29 · `217`:84 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
-| `gmDo` | `068_menu_del_juego.js` | 4 | `099`:138 · `101`:73 · `212`:22 · `213`:123 |
-| `int2Room` | `204_puertas_a_interiores.js` | 4 | `206`:52 · `208`:23 · `210`:39 · `214`:29 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `toast` | `014_hud.js` | 4 | `120`:131 · `128`:68 · `173`:8 · `200`:37 |
@@ -48,6 +48,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `atShow` | `085_mirar_con_atencion.js` | 2 | `100`:142 · `134`:23 |
 | `atTick` | `085_mirar_con_atencion.js` | 2 | `100`:143 · `134`:24 |
 | `betterTrees` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `159`:60 · `183`:49 |
+| `bpTick` | `184_personajes_blender.js` | 2 | `214`:118 · `217`:31 |
 | `buildAvatar` | `040_caballo.js` | 2 | `101`:52 · `900`:411 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `buildIslandMesh` | `012_escenarios_cuadrados.js` | 2 | `161`:13 · `900`:446 |
@@ -110,7 +111,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `bpCrowds` | `196_multitudes_con_modelos.js` | 1 | `196`:46 |
 | `bpSetup` | `184_personajes_blender.js` | 1 | `186`:121 |
 | `bpSwap` | `184_personajes_blender.js` | 1 | `196`:28 |
-| `bpTick` | `184_personajes_blender.js` | 1 | `214`:118 |
 | `buildAcropolis` | `011_construccion_del_mundo.js` | 1 | `900`:408 |
 | `buildAgora` | `011_construccion_del_mundo.js` | 1 | `900`:409 |
 | `buildAthensSchools` | `033_escuelas_y_clases_atenas_y.js` | 1 | `900`:410 |
@@ -157,6 +157,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `defineSimple` | `012_escenarios_cuadrados.js` | 1 | `900`:449 |
 | `delfosPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:374 |
 | `destHouses` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:450 |
+| `dogTick` | `179_coleccionar.js` | 1 | `216`:139 |
 | `drawMap` | `020_plano.js` | 1 | `151`:12 |
 | `eduTeacher` | `099_para_aprender_y_ensenar.js` | 1 | `111`:144 |
 | `egxAct` | `060_egipto_2.js` | 1 | `103`:15 |
