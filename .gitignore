@@ -14,3 +14,6 @@ atenas_un_archivo.html
 /icono-192.png
 /icono-512.png
 modelos/_hidra_tex/
+
+# carpeta para subir a Netlify / Cloudflare Pages (la rehace construir.py)
+/web/

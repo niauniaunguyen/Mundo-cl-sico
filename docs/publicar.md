@@ -19,8 +19,8 @@ El repositorio ya incluye `.github/workflows/pages.yml`, que publica el juego ca
 
 ## 2. Netlify o Cloudflare Pages (arrastrar y soltar)
 
-1. Crea una carpeta con `atenas.html` renombrado a `index.html`, la carpeta `datos/` entera y `version.json` (y, si quieres ofrecer la versión sin conexión, `atenas_un_archivo.html`).
-2. En Netlify («Add new site → Deploy manually») o en Cloudflare Pages («Upload assets»), arrastra la carpeta.
+1. `construir.py` deja lista la carpeta **`web/`**: `index.html`, la carpeta `datos/` entera, `version.json` y lo necesario para jugar sin conexión. Sube esa carpeta, no la del proyecto (que pesa mucho más y no tiene `index.html`).
+2. En Netlify («Add new site → Deploy manually») o en Cloudflare Pages («Upload assets»), arrastra la carpeta `web`. La carpeta `datos` tiene que llegar entera y con ese nombre en minúsculas: sin ella, el juego avisa de que no puede cargar los datos.
 3. Para actualizar, vuelve a arrastrar la carpeta con los archivos nuevos.
 
 ## 3. Sin web: el archivo

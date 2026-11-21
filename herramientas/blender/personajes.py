@@ -1177,7 +1177,8 @@ def _build(kind):
     SH=kind not in('obrero','hoplita')   # con mangas (el obrero lleva un hombro al aire; el hoplita, hombreras)
     n=hide_covered(body,[o for o in ropa if o.name.split('.')[0] not in AJ],maxd=0.12,erode=3,shoulder=SH)
     n+=hide_covered(body,[o for o in ropa if o.name.split('.')[0] in AJ],maxd=0.05,erode=3,shoulder=SH)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
-    for nm,cv in((('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))):
+    # los extremos del manto no cuentan: cuelgan sueltos y, al moverse, dejaban ver el hueco donde se había borrado la túnica
+    for nm,cv in((('tunica',('toga','estola','lorica','hombrera_hierro')),('estola',('palla',)),('quiton',('himation','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))):
         for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
     for o in byn(kind+'_pelo'):n+=hide_covered(o,byn('casco'),maxd=0.05,erode=1)
     print('CARAS OCULTAS BORRADAS',kind,n)

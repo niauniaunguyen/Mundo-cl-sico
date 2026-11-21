@@ -122,7 +122,7 @@ BOOT = ('<script>/* cargador: trae el código del juego (datos/juego.js) y arran
         '.then(function(code){return TRP.then(function(){return code;});})'
         '.then(function(code){var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();'
         'if(PW)navigator.serviceWorker.ready.then(function(r){var L=[].map.call(document.querySelectorAll("script[data-src]"),function(e){return e.getAttribute("data-src");});L.push("datos/juego.js?v=%s",location.pathname);for(var lg in IV)L.push("datos/i18n_"+lg+".txt?v="+IV[lg]);if(r.active)r.active.postMessage({datos:L});}).catch(function(){});})'
-        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.";});})();</script>') % (json.dumps(I18N_V), vj, vj)
+        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". "+(location.protocol==="file:"?"Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.":"Comprueba que junto a index.html está la carpeta «datos» (en minúsculas) con todos sus archivos. Para Netlify, sube la carpeta «web» que prepara construir.py.");});})();</script>') % (json.dumps(I18N_V), vj, vj)
 light = light[:i] + BOOT + light[j + 9:]
 (raiz / 'atenas.html').write_text(light, encoding='utf-8')
 # juego instalable y sin conexión (fuente/pwa: service worker, manifiesto e iconos): se copian junto a atenas.html para servirlos desde la
@@ -130,6 +130,15 @@ light = light[:i] + BOOT + light[j + 9:]
 import shutil
 for _f in (raiz / 'fuente' / 'pwa').glob('*'): shutil.copy(_f, raiz / _f.name)
 (raiz / 'version.json').write_text(json.dumps({'v': ver}), encoding='utf-8')
+# carpeta lista para subir a Netlify o Cloudflare Pages (arrastrar y soltar): web/ con index.html, datos/, version.json y lo del modo sin conexión.
+# Se rehace entera en cada construcción (no se guarda en git). Hay que subir la carpeta web, no la del proyecto.
+_web = raiz / 'web'
+if _web.exists(): shutil.rmtree(_web)
+(_web / 'datos').mkdir(parents=True)
+shutil.copy(raiz / 'atenas.html', _web / 'index.html')
+for _f in datos.glob('*'): shutil.copy(_f, _web / 'datos' / _f.name)
+for _n in ('version.json', 'sw.js', 'manifest.webmanifest', 'icono-192.png', 'icono-512.png'):
+    if (raiz / _n).exists(): shutil.copy(raiz / _n, _web / _n)
 try:
     import runpy; runpy.run_path(str(raiz / 'herramientas' / 'indice_modulos.py'))   # índice de módulos al día
 except Exception as e:
