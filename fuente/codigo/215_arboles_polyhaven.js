@@ -7,7 +7,7 @@
 // (radio PHT.R, como mucho PHT.max por especie) se les esconden tronco y copa y en su sitio se dibuja el modelo de Poly Haven, estirado a la
 // altura y anchura del árbol que sustituye y con su giro. Al alejarse vuelven los sencillos. En los equipos modestos no se usa.
 // Las hojas son tarjetas con la foto de una hoja: el fondo negro de la textura se recorta aquí (sin canal alfa, la textura pesa menos).
-const PHT={tpl:null,loading:0,ready:false,R:60,max:40,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
+const PHT={tpl:null,loading:0,ready:false,R:60,max:30,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
 try{if(typeof isTouch!=='undefined'&&isTouch){PHT.R=35;PHT.max=14;}if(ACC.lite)PHT.R=0;}catch(e){}
 // registro de las piezas que se colocan con chunked(): copas (foliage) y troncos (bark) de olivos y plátanos
 {const f=chunked;chunked=function(geo,mat,items,opt){const n0=CHUNKS.length;f.apply(this,arguments);try{if(!opt||!opt.veg||!PHT.R)return;

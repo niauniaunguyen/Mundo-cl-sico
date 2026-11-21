@@ -11,7 +11,7 @@ from mathutils import Vector
 argv = sys.argv[sys.argv.index('--') + 1:]
 SRC = argv[0]
 OUT = argv[1] if len(argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'modelos', 'arboles_ph.glb')
-TREES = [('P_olivo', 'island_tree_02', 4, 1.75, 2600, 2200), ('P_frondo', 'island_tree_01', 5, 1.9, 2800, 2400)]   # nombre, origen, 1 de cada K hojas, agrandar, tris tronco, tris ramas
+TREES = [('P_olivo', 'island_tree_02', 3, 1.8, 2600, 2200), ('P_frondo', 'island_tree_01', 3, 1.9, 2800, 2400)]   # nombre, origen, 1 de cada K hojas, agrandar, tris tronco, tris ramas
 bpy.ops.wm.read_factory_settings(use_empty=True)
 out_objs = []
 def decimate(o, target):
@@ -69,6 +69,9 @@ for name, src, K, grow, ttr, tbr in TREES:
             no = bpy.data.objects.new(name + '_hojas', me); bpy.context.scene.collection.objects.link(no); bpy.data.objects.remove(o); out_objs.append(no)
             print('HOJAS', name, len(quads))
         else:
+            if not mat.endswith('_branches'):   # fuera la losa de suelo escaneado bajo el tronco (se veía como una mancha clara)
+                bm = bmesh.new(); bm.from_mesh(o.data); bm.verts.ensure_lookup_table()
+                bmesh.ops.delete(bm, geom=[f for f in bm.faces if max(v.co.z for v in f.verts) < 0.025], context='FACES'); bm.to_mesh(o.data); bm.free()
             decimate(o, tbr if mat.endswith('_branches') else ttr)
             o.name = name + ('_ramas' if mat.endswith('_branches') else '_tronco'); out_objs.append(o)
             print('PIEZA', o.name, sum(len(f.vertices) - 2 for f in o.data.polygons))

@@ -22712,7 +22712,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='84306c9f2a7b';
+const NOSTOS_VER='79729411373f';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -31285,7 +31285,7 @@ function w2MoteTick(dt){const M=WG2.motes;if(!M)return;const on=ui==='play'&&WIN
 {const f=bpMake;bpMake=function(kind,c){const g=f.apply(this,arguments);if(!g)return g;try{const r=Math.random(),root=g.children[0];
   const wd=0.9+Math.random()*0.22;root.scale.x*=wd;root.scale.z*=0.95+(wd-0.9)*0.6;   // complexiones: más anchos o más delgados
   if(!/hoplita|legionario/.test(kind)&&r<0.13&&!(c&&c.noVary)){g.userData.old=1;root.scale.y*=0.96;root.rotation.x=0.07;   // ancianos: un poco encorvados y con bastón
-    const cane=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.018,0.95,6),lam('#6b4a2c'));cane.position.set(0,-0.42,0.02);cane.userData.w2cane=1;g.userData.cane=cane;}}catch(e){}return g;};}
+    const cane=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.018,0.95,6),lam('#6b4a2c'));cane.position.set(0,0.3,0.02);cane.userData.w2cane=1;g.userData.cane=cane;}}catch(e){}return g;};}
 function w2CaneTick(){for(const g of BP.list){if(!g.userData.cane||g.userData.caneOk)continue;let h=null;g.traverse(o=>{if(o.isBone&&/^hand\.?_?R$/i.test(o.name))h=o;});if(h){h.add(g.userData.cane);g.userData.caneOk=1;}}}
 // ---------------------------------------------------------------- W6 mercados
 function w2Awn(c1,c2){const c=document.createElement('canvas');c.width=128;c.height=32;const x=c.getContext('2d');for(let i=0;i<8;i++){x.fillStyle=i%2?c1:c2;x.fillRect(i*16,0,16,32);}const t=new THREE.CanvasTexture(c);return new THREE.MeshLambertMaterial({map:t,side:THREE.DoubleSide});}
@@ -31357,7 +31357,7 @@ function w2Mtns(){if(WG2.mtn.length)return;const L=W2M[MODE==='roma'?'roma':'ate
 // (radio PHT.R, como mucho PHT.max por especie) se les esconden tronco y copa y en su sitio se dibuja el modelo de Poly Haven, estirado a la
 // altura y anchura del árbol que sustituye y con su giro. Al alejarse vuelven los sencillos. En los equipos modestos no se usa.
 // Las hojas son tarjetas con la foto de una hoja: el fondo negro de la textura se recorta aquí (sin canal alfa, la textura pesa menos).
-const PHT={tpl:null,loading:0,ready:false,R:60,max:40,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
+const PHT={tpl:null,loading:0,ready:false,R:60,max:30,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
 try{if(typeof isTouch!=='undefined'&&isTouch){PHT.R=35;PHT.max=14;}if(ACC.lite)PHT.R=0;}catch(e){}
 // registro de las piezas que se colocan con chunked(): copas (foliage) y troncos (bark) de olivos y plátanos
 {const f=chunked;chunked=function(geo,mat,items,opt){const n0=CHUNKS.length;f.apply(this,arguments);try{if(!opt||!opt.veg||!PHT.R)return;
