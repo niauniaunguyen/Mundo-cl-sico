@@ -50,3 +50,40 @@ taliOpen=function(n){const ro=MODE==='roma',coin=ro?'sestercio':'óbolo';if((sta
   for(const c of C){if(c.place||!gen.has(c.name))continue;let best=null,bd=15;for(const p of PLACES){if(!isFinite(p.x))continue;const d=Math.hypot(p.x-c.x,p.z-c.z);if(d<bd){bd=d;best=p;}}
     if(best){const t0=c.txt;c.name=best.name;c.sub=(c.sub?c.sub+' · ':'')+'parte del monumento';c.txt=()=>atFirst(best.text)+' '+(typeof t0==='function'?t0():'');}}
   for(const a of storyActors||[]){if(!a.g||!a.g.visible)continue;C.push({obj:a.g,x:a.x,y:floorAt(a.x,a.z)+1.4,z:a.z,r:0.9,name:a.data.name,sub:a.data.role||'',txt:()=>a.data.role?a.data.name+', '+a.data.role.toLowerCase()+'. Acércate y pulsa E para hablar.':'Acércate y pulsa E para hablar.'});}}catch(e){}return C;};}
+// 9. El Capitolio (Roma): la malla del terreno tiene un vértice cada 4,7 m y en sus riscos salían grandes caras planas, con árboles
+//    metidos en la roca. Encima va una malla fina (1,5 m) con la altura exacta; la gruesa se hunde un poco debajo para no asomar.
+//    Y los árboles plantados en mitad de un risco (más de 45°) se quitan.
+function c21Capitol(){if(MODE!=='roma'||C21.cap||typeof terrainInner==='undefined'||!terrainInner||!terrainInner.geometry)return;C21.cap=1;
+  const cx=-222,cz=-42,W=200,D=280,st=1.5,nx=Math.round(W/st),nz=Math.round(D/st),G=terrainInner.geometry,P=G.attributes.position,Cc=G.attributes.color;
+  const S=INNER.mesh||INNER.size+300,seg=Math.round(Math.sqrt(P.count))-1,step=S/seg,x0=INNER.x-S/2,z0=INNER.z-S/2;
+  const g=new THREE.PlaneGeometry(W,D,nx,nz);g.rotateX(-Math.PI/2);const p=g.attributes.position,col=new Float32Array(p.count*3);
+  for(let i=0;i<p.count;i++){const x=p.getX(i)+cx,z=p.getZ(i)+cz;p.setXYZ(i,x,terrainH(x,z)+0.03,z);const ix=Math.round((x-x0)/step),iz=Math.round((z-z0)/step),k=iz*(seg+1)+ix;
+    if(Cc&&k>=0&&k<P.count){col[i*3]=Cc.getX(k);col[i*3+1]=Cc.getY(k);col[i*3+2]=Cc.getZ(k);}else{col[i*3]=0.8;col[i*3+1]=0.72;col[i*3+2]=0.58;}}
+  g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();g.computeBoundingSphere();const m=new THREE.Mesh(g,terrainMat());m.receiveShadow=true;m.userData.noCol=1;scene.add(m);C21.capMesh=m;
+  // la malla gruesa, hundida dentro (con una rampa de 8 m en los bordes, donde las dos coinciden)
+  for(let k=0;k<P.count;k++){const x=P.getX(k),z=P.getZ(k),ex=W/2-Math.abs(x-cx),ez=D/2-Math.abs(z-cz),e=Math.min(ex,ez);if(e<=0)continue;P.setY(k,P.getY(k)-2.2*Math.min(1,e/8));}
+  P.needsUpdate=true;G.computeBoundingSphere();
+  // árboles en los riscos
+  const m4=new THREE.Matrix4(),z4=new THREE.Matrix4().makeScale(0,0,0);let n=0;for(const C of CHUNKS){const im=C.im;if(!im.userData.veg)continue;let ch=false;
+    for(let i=0;i<im.count;i++){im.getMatrixAt(i,m4);const x=m4.elements[12],z=m4.elements[14];if(Math.abs(x-cx)>W/2||Math.abs(z-cz)>D/2)continue;
+      const s=Math.max(Math.abs(terrainH(x+1.5,z)-terrainH(x-1.5,z)),Math.abs(terrainH(x,z+1.5)-terrainH(x,z-1.5)))/3;if(s>1){im.setMatrixAt(i,z4);ch=true;n++;}}
+    if(ch)im.instanceMatrix.needsUpdate=true;}
+  C21.capTrees=n;}
+{const f=uxTick;uxTick=function(dt){f(dt);try{if(MODE==='roma'&&!C21.cap&&state&&ui!=='start')c21Capitol();}catch(e){C21.err=String(e&&e.stack||e).slice(0,300);C21.cap=1;}};}
+// 10. Las rocas hechas con poliedros (cuevas, peñascos de los mitos, canteras…) se cambian por rocas escaneadas (206, Poly Haven) del
+//     mismo tamaño, en cuanto estas llegan; se repasa cada pocos segundos por si se construye algo nuevo.
+const C21RK={t:0,geo:new Map()};
+function c21RockGeo(k,sx,sy,sz){const key=k+'|'+sx.toFixed(2)+'|'+sy.toFixed(2)+'|'+sz.toFixed(2);if(C21RK.geo.has(key))return C21RK.geo.get(key);const T=RK.tpl[k],g=T.g.clone();g.computeBoundingBox();const b=g.boundingBox,s=new THREE.Vector3(),c=new THREE.Vector3();b.getSize(s);b.getCenter(c);
+  g.translate(-c.x,-c.y,-c.z);g.scale(sx/Math.max(s.x,1e-3),sy/Math.max(s.y,1e-3),sz/Math.max(s.z,1e-3));g.computeBoundingSphere();C21RK.geo.set(key,g);return g;}
+function c21Rocks(){if(typeof RK==='undefined'||!RK.tpl)return;const L=[...RK_PIEDRA,...RK_PENA].filter(k=>RK.tpl[k]);if(!L.length)return;let n=0;
+  scene.traverse(o=>{if(!o.isMesh||o.isInstancedMesh||o.userData.c21rk||!o.geometry)return;const ty=o.geometry.type;if(ty!=='DodecahedronGeometry'&&ty!=='IcosahedronGeometry')return;
+    const r=o.geometry.parameters&&o.geometry.parameters.radius||1;if(r*Math.max(o.scale.x,o.scale.y,o.scale.z)<0.3)return;   // piezas pequeñas (adornos, frutas) no
+    const k=L[Math.floor(hash(o.position.x*1.7,o.position.z*2.3)*L.length)],d=2*r;o.geometry=c21RockGeo(k,d,d*0.8,d);o.material=RK.tpl[k].m;o.rotation.y+=hash(o.position.z,o.position.x)*6;o.userData.c21rk=1;o.castShadow=o.receiveShadow=true;n++;});
+  C21RK.n=(C21RK.n||0)+n;}
+{const f=uxTick;uxTick=function(dt){f(dt);const now=performance.now();if(now-C21RK.t<4000)return;C21RK.t=now;try{c21Rocks();}catch(e){C21.rkErr=String(e).slice(0,200);}};}
+// 11. El incendio (175): llamas y humo de verdad (sprites de luz y volutas) en vez de conos y esferas
+{const f=fireStart;fireStart=function(){f.apply(this,arguments);try{const F=DYN.fire;if(!F||F.c21)return;F.c21=1;const g=F.g;for(const m of[...F.fl,...F.sm])g.remove(m);F.fl.length=0;F.sm.length=0;
+  const puff=typeof w2Tex==='function'?w2Tex('puff'):TORCH_TEX;
+  for(let i=0;i<12;i++){const h=new THREE.Group(),s=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:i%3?'#ffb040':'#ffe080',transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));s.scale.set(2.4+Math.random()*1.6,3.6+Math.random()*2.4,1);s.position.y=1.6;h.add(s);
+    h.position.set((Math.random()-0.5)*6,3+Math.random()*2.5,(Math.random()-0.5)*6);g.add(h);F.fl.push(h);}
+  for(let i=0;i<14;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:puff,color:'#4a4440',transparent:true,depthWrite:false,opacity:0.35}));const k=5+Math.random()*4;s.scale.set(k,k,1);s.position.set((Math.random()-0.5)*4,8+i*1.8,(Math.random()-0.5)*4);g.add(s);F.sm.push(s);}}catch(e){}};}

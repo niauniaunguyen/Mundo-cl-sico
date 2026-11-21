@@ -22720,7 +22720,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='9e270cc5c400';
+const NOSTOS_VER='d2b4a83a6399';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -22834,7 +22834,7 @@ function tpMat(m){const c={g:['#d9a93a','#f3e5c8'],m:['#ece4d6','#efe8dc'],b:['#
 function tpStatue(g,lz,ly,H,R){const[cl,sk]=tpMat(R.m),mat=lam(cl),ms=lam(sk);
   box(3.2,1.2,2.6,M.marbleShade,0,ly+0.6,lz,g);box(3.5,0.25,2.9,M.marble,0,ly+1.25,lz,g);
   if(!GLB.ok)return;const lk=Object.assign({chiton:cl,himation:cl,skin:sk,hair:cl,beardC:cl},R.lk||{});if(lk.toga){delete lk.toga;}
-  lk.attrRoles={cloth:mat,drape:mat,skin:ms,hair:mat,sandal:mat,eye:mat,bronze:mat,wood:mat,crest:mat,gold:mat};lk.scale=H/1.8;
+  lk.attrRoles={cloth:mat,drape:mat,skin:ms,hair:mat,sandal:mat,eye:mat,bronze:mat,wood:mat,crest:mat,gold:mat};lk.scale=H*0.85/1.8;   /* con el modelo nuevo (casco y cimera) tocaba el techo */
   try{const st=makePerson(lk);st.position.set(0,ly+1.35,lz);g.add(st);}catch(e){}}
 // tesoros y ofrendas, en la cella (ancho cw, de z0 a z1 local, suelo ly)
 function tpTreasure(g,k,cw,z0,z1,ly){const gold=M.gold,silver=lam('#cfd3d6'),wood=lam('#6b4a2e'),terr=lam('#b5704a'),bz=BRONZE2;
@@ -31311,7 +31311,7 @@ function w2StepTick(dt){const P=WG2.prints;if(!P)return;const inside=typeof INT2
 {const f=windTick;windTick=function(dt){f(dt);try{if(GF.reduced)return;let ss='pri';try{ss=calNow().season.id;}catch(e){}const k=1+0.7*(WXS.cl||0)+(ss==='oto'?0.3:ss==='inv'?0.15:0);WIND.s.value*=k;}catch(e){}};}
 function w2Motes(){if(WG2.motes)return;const N=40,g=new THREE.BufferGeometry(),p=new Float32Array(N*3);g.setAttribute('position',new THREE.BufferAttribute(p,3));
   const m=new THREE.PointsMaterial({color:'#b89a5a',size:0.07,transparent:true,opacity:0.8,depthWrite:false});WG2.motes=new THREE.Points(g,m);WG2.motes.frustumCulled=false;scene.add(WG2.motes);WG2.mv=[];for(let i=0;i<N;i++)WG2.mv.push({x:0,y:-999,z:0,ph:w2Rnd()*6});}
-function w2MoteTick(dt){const M=WG2.motes;if(!M)return;const on=ui==='play'&&WIND.s.value>1.15&&!(typeof INT2!=='undefined'&&INT2.in)&&(WXS.rain||0)<0.2;M.visible=on;if(!on)return;let ss='pri';try{ss=calNow().season.id;}catch(e){}
+function w2MoteTick(dt){const M=WG2.motes;if(!M)return;const on=ui==='play'&&WIND.s.value>1.15&&!(typeof kInCity==='function'&&kInCity(player.x,player.z))&&!(typeof INT2!=='undefined'&&INT2.in)&&(WXS.rain||0)<0.2;M.visible=on;if(!on)return;let ss='pri';try{ss=calNow().season.id;}catch(e){}
   M.material.color.set(ss==='oto'?'#a86a2a':ss==='pri'?'#efe2ea':'#b89a5a');M.material.size=ss==='oto'?0.11:0.06;const a=M.geometry.attributes.position,w=WIND.s.value,t=WG2.t;
   WG2.mv.forEach((q,i)=>{q.x+=w*2.2*dt;q.z+=Math.sin(t*0.9+q.ph)*0.8*dt;q.y+=Math.sin(t*2+q.ph)*0.6*dt;const gy=terrainH(q.x,q.z);
     if(q.y<gy||Math.hypot(q.x-player.x,q.z-player.z)>22){const r=4+w2Rnd()*16,an=w2Rnd()*TAU;q.x=player.x+Math.cos(an)*r-8;q.z=player.z+Math.sin(an)*r;q.y=terrainH(q.x,q.z)+0.2+w2Rnd()*2.2;}a.setXYZ(i,q.x,q.y,q.z);});a.needsUpdate=true;}
@@ -31394,7 +31394,7 @@ function w2Mtns(){if(WG2.mtn.length)return;const L=W2M[MODE==='roma'?'roma':'ate
 // (radio PHT.R, como mucho PHT.max por especie) se les esconden tronco y copa y en su sitio se dibuja el modelo de Poly Haven, estirado a la
 // altura y anchura del árbol que sustituye y con su giro. Al alejarse vuelven los sencillos. En los equipos modestos no se usa.
 // Las hojas son tarjetas con la foto de una hoja: el fondo negro de la textura se recorta aquí (sin canal alfa, la textura pesa menos).
-const PHT={tpl:null,loading:0,ready:false,R:60,max:30,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]},T_pine:{m:'P_pino',leaf:'#ffffff',crown:[],trunk:[]},T_cypress:{m:'P_cipres',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
+const PHT={tpl:null,loading:0,ready:false,R:85,max:40,t:0,sp:{T_olive:{m:'P_olivo',leaf:'#c4cbb0',crown:[],trunk:[]},T_plane:{m:'P_frondo',leaf:'#ffffff',crown:[],trunk:[]},T_pine:{m:'P_pino',leaf:'#ffffff',crown:[],trunk:[]},T_cypress:{m:'P_cipres',leaf:'#ffffff',crown:[],trunk:[]}},err:null};
 try{if(typeof isTouch!=='undefined'&&isTouch){PHT.R=35;PHT.max=14;}if(ACC.lite)PHT.R=0;}catch(e){}
 // registro de las piezas que se colocan con chunked(): copas (foliage) y troncos (bark) de olivos y plátanos
 {const f=chunked;chunked=function(geo,mat,items,opt){const n0=CHUNKS.length;f.apply(this,arguments);try{if(!opt||!opt.veg||!PHT.R)return;
@@ -31738,6 +31738,43 @@ taliOpen=function(n){const ro=MODE==='roma',coin=ro?'sestercio':_t(2849,'óbolo'
   for(const c of C){if(c.place||!gen.has(c.name))continue;let best=null,bd=15;for(const p of PLACES){if(!isFinite(p.x))continue;const d=Math.hypot(p.x-c.x,p.z-c.z);if(d<bd){bd=d;best=p;}}
     if(best){const t0=c.txt;c.name=best.name;c.sub=(c.sub?c.sub+' · ':'')+'parte del monumento';c.txt=()=>atFirst(best.text)+' '+(typeof t0==='function'?t0():'');}}
   for(const a of storyActors||[]){if(!a.g||!a.g.visible)continue;C.push({obj:a.g,x:a.x,y:floorAt(a.x,a.z)+1.4,z:a.z,r:0.9,name:a.data.name,sub:a.data.role||'',txt:()=>a.data.role?a.data.name+', '+a.data.role.toLowerCase()+'. Acércate y pulsa E para hablar.':'Acércate y pulsa E para hablar.'});}}catch(e){}return C;};}
+// 9. El Capitolio (Roma): la malla del terreno tiene un vértice cada 4,7 m y en sus riscos salían grandes caras planas, con árboles
+//    metidos en la roca. Encima va una malla fina (1,5 m) con la altura exacta; la gruesa se hunde un poco debajo para no asomar.
+//    Y los árboles plantados en mitad de un risco (más de 45°) se quitan.
+function c21Capitol(){if(MODE!=='roma'||C21.cap||typeof terrainInner==='undefined'||!terrainInner||!terrainInner.geometry)return;C21.cap=1;
+  const cx=-222,cz=-42,W=200,D=280,st=1.5,nx=Math.round(W/st),nz=Math.round(D/st),G=terrainInner.geometry,P=G.attributes.position,Cc=G.attributes.color;
+  const S=INNER.mesh||INNER.size+300,seg=Math.round(Math.sqrt(P.count))-1,step=S/seg,x0=INNER.x-S/2,z0=INNER.z-S/2;
+  const g=new THREE.PlaneGeometry(W,D,nx,nz);g.rotateX(-Math.PI/2);const p=g.attributes.position,col=new Float32Array(p.count*3);
+  for(let i=0;i<p.count;i++){const x=p.getX(i)+cx,z=p.getZ(i)+cz;p.setXYZ(i,x,terrainH(x,z)+0.03,z);const ix=Math.round((x-x0)/step),iz=Math.round((z-z0)/step),k=iz*(seg+1)+ix;
+    if(Cc&&k>=0&&k<P.count){col[i*3]=Cc.getX(k);col[i*3+1]=Cc.getY(k);col[i*3+2]=Cc.getZ(k);}else{col[i*3]=0.8;col[i*3+1]=0.72;col[i*3+2]=0.58;}}
+  g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();g.computeBoundingSphere();const m=new THREE.Mesh(g,terrainMat());m.receiveShadow=true;m.userData.noCol=1;scene.add(m);C21.capMesh=m;
+  // la malla gruesa, hundida dentro (con una rampa de 8 m en los bordes, donde las dos coinciden)
+  for(let k=0;k<P.count;k++){const x=P.getX(k),z=P.getZ(k),ex=W/2-Math.abs(x-cx),ez=D/2-Math.abs(z-cz),e=Math.min(ex,ez);if(e<=0)continue;P.setY(k,P.getY(k)-2.2*Math.min(1,e/8));}
+  P.needsUpdate=true;G.computeBoundingSphere();
+  // árboles en los riscos
+  const m4=new THREE.Matrix4(),z4=new THREE.Matrix4().makeScale(0,0,0);let n=0;for(const C of CHUNKS){const im=C.im;if(!im.userData.veg)continue;let ch=false;
+    for(let i=0;i<im.count;i++){im.getMatrixAt(i,m4);const x=m4.elements[12],z=m4.elements[14];if(Math.abs(x-cx)>W/2||Math.abs(z-cz)>D/2)continue;
+      const s=Math.max(Math.abs(terrainH(x+1.5,z)-terrainH(x-1.5,z)),Math.abs(terrainH(x,z+1.5)-terrainH(x,z-1.5)))/3;if(s>1){im.setMatrixAt(i,z4);ch=true;n++;}}
+    if(ch)im.instanceMatrix.needsUpdate=true;}
+  C21.capTrees=n;}
+{const f=uxTick;uxTick=function(dt){f(dt);try{if(MODE==='roma'&&!C21.cap&&state&&ui!=='start')c21Capitol();}catch(e){C21.err=String(e&&e.stack||e).slice(0,300);C21.cap=1;}};}
+// 10. Las rocas hechas con poliedros (cuevas, peñascos de los mitos, canteras…) se cambian por rocas escaneadas (206, Poly Haven) del
+//     mismo tamaño, en cuanto estas llegan; se repasa cada pocos segundos por si se construye algo nuevo.
+const C21RK={t:0,geo:new Map()};
+function c21RockGeo(k,sx,sy,sz){const key=k+'|'+sx.toFixed(2)+'|'+sy.toFixed(2)+'|'+sz.toFixed(2);if(C21RK.geo.has(key))return C21RK.geo.get(key);const T=RK.tpl[k],g=T.g.clone();g.computeBoundingBox();const b=g.boundingBox,s=new THREE.Vector3(),c=new THREE.Vector3();b.getSize(s);b.getCenter(c);
+  g.translate(-c.x,-c.y,-c.z);g.scale(sx/Math.max(s.x,1e-3),sy/Math.max(s.y,1e-3),sz/Math.max(s.z,1e-3));g.computeBoundingSphere();C21RK.geo.set(key,g);return g;}
+function c21Rocks(){if(typeof RK==='undefined'||!RK.tpl)return;const L=[...RK_PIEDRA,...RK_PENA].filter(k=>RK.tpl[k]);if(!L.length)return;let n=0;
+  scene.traverse(o=>{if(!o.isMesh||o.isInstancedMesh||o.userData.c21rk||!o.geometry)return;const ty=o.geometry.type;if(ty!=='DodecahedronGeometry'&&ty!=='IcosahedronGeometry')return;
+    const r=o.geometry.parameters&&o.geometry.parameters.radius||1;if(r*Math.max(o.scale.x,o.scale.y,o.scale.z)<0.3)return;   // piezas pequeñas (adornos, frutas) no
+    const k=L[Math.floor(hash(o.position.x*1.7,o.position.z*2.3)*L.length)],d=2*r;o.geometry=c21RockGeo(k,d,d*0.8,d);o.material=RK.tpl[k].m;o.rotation.y+=hash(o.position.z,o.position.x)*6;o.userData.c21rk=1;o.castShadow=o.receiveShadow=true;n++;});
+  C21RK.n=(C21RK.n||0)+n;}
+{const f=uxTick;uxTick=function(dt){f(dt);const now=performance.now();if(now-C21RK.t<4000)return;C21RK.t=now;try{c21Rocks();}catch(e){C21.rkErr=String(e).slice(0,200);}};}
+// 11. El incendio (175): llamas y humo de verdad (sprites de luz y volutas) en vez de conos y esferas
+{const f=fireStart;fireStart=function(){f.apply(this,arguments);try{const F=DYN.fire;if(!F||F.c21)return;F.c21=1;const g=F.g;for(const m of[...F.fl,...F.sm])g.remove(m);F.fl.length=0;F.sm.length=0;
+  const puff=typeof w2Tex==='function'?w2Tex('puff'):TORCH_TEX;
+  for(let i=0;i<12;i++){const h=new THREE.Group(),s=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:i%3?'#ffb040':'#ffe080',transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));s.scale.set(2.4+Math.random()*1.6,3.6+Math.random()*2.4,1);s.position.y=1.6;h.add(s);
+    h.position.set((Math.random()-0.5)*6,3+Math.random()*2.5,(Math.random()-0.5)*6);g.add(h);F.fl.push(h);}
+  for(let i=0;i<14;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:puff,color:'#4a4440',transparent:true,depthWrite:false,opacity:0.35}));const k=5+Math.random()*4;s.scale.set(k,k,1);s.position.set((Math.random()-0.5)*4,8+i*1.8,(Math.random()-0.5)*4);g.add(s);F.sm.push(s);}}catch(e){}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

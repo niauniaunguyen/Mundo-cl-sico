@@ -60,7 +60,7 @@ function tpMat(m){const c={g:['#d9a93a','#f3e5c8'],m:['#ece4d6','#efe8dc'],b:['#
 function tpStatue(g,lz,ly,H,R){const[cl,sk]=tpMat(R.m),mat=lam(cl),ms=lam(sk);
   box(3.2,1.2,2.6,M.marbleShade,0,ly+0.6,lz,g);box(3.5,0.25,2.9,M.marble,0,ly+1.25,lz,g);
   if(!GLB.ok)return;const lk=Object.assign({chiton:cl,himation:cl,skin:sk,hair:cl,beardC:cl},R.lk||{});if(lk.toga){delete lk.toga;}
-  lk.attrRoles={cloth:mat,drape:mat,skin:ms,hair:mat,sandal:mat,eye:mat,bronze:mat,wood:mat,crest:mat,gold:mat};lk.scale=H/1.8;
+  lk.attrRoles={cloth:mat,drape:mat,skin:ms,hair:mat,sandal:mat,eye:mat,bronze:mat,wood:mat,crest:mat,gold:mat};lk.scale=H*0.85/1.8;   /* con el modelo nuevo (casco y cimera) tocaba el techo */
   try{const st=makePerson(lk);st.position.set(0,ly+1.35,lz);g.add(st);}catch(e){}}
 // tesoros y ofrendas, en la cella (ancho cw, de z0 a z1 local, suelo ly)
 function tpTreasure(g,k,cw,z0,z1,ly){const gold=M.gold,silver=lam('#cfd3d6'),wood=lam('#6b4a2e'),terr=lam('#b5704a'),bz=BRONZE2;
