@@ -52,9 +52,16 @@ const BP_BL=new Map();
 function bpBeardless(m){const k=m.map.uuid;if(BP_BL.has(k))return BP_BL.get(k);const img=m.map.image;if(!img||!img.width)return m;
   const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const x=c.getContext('2d');x.drawImage(img,0,0);const W=c.width,H=c.height,D=x.getImageData(0,0,W,H),d=D.data;
   const si=(Math.floor(H*0.9)*W+Math.floor(W*0.12))*4,sr=d[si],sg=d[si+1],sb=d[si+2],sl=sr+sg+sb;
-  for(let y=Math.floor(H*0.42);y<H;y++)for(let xx=Math.floor(W*0.22);xx<Math.ceil(W*0.78);xx++){const i=(y*W+xx)*4,l=d[i]+d[i+1]+d[i+2];
-    if(l<sl*0.72&&!(d[i]>d[i+2]*1.6&&d[i]>90)){const v=0.94+((xx*7+y*13)%9)/100;d[i]=sr*v;d[i+1]=sg*v;d[i+2]=sb*v;}}   // los labios (rojizos) se quedan
-  x.putImageData(D,0,0);const t=new THREE.CanvasTexture(c);t.flipY=m.map.flipY;t.encoding=m.map.encoding;t.wrapS=m.map.wrapS;t.wrapT=m.map.wrapT;
+  // la barba es un bloque oscuro de bordes difuminados: antes solo se tapaba lo muy oscuro y el borde quedaba dibujado en la cara
+  // («la barba a medias»). Ahora todo lo que sea algo más oscuro que la piel, y 2 píxeles alrededor, pasa a piel; luego se pintan unos labios.
+  const y0=Math.floor(H*0.535),x0=Math.floor(W*0.25),x1=Math.ceil(W*0.75),M=new Uint8Array(W*H);let nd=0;
+  for(let y=y0;y<H;y++)for(let xx=x0;xx<x1;xx++){const i=(y*W+xx)*4;if(d[i]+d[i+1]+d[i+2]<sl*0.94){nd++;for(let a=-2;a<=2;a++)for(let b=-2;b<=2;b++){const yy=y+a,xb=xx+b;if(yy>=y0&&yy<H&&xb>=0&&xb<W)M[yy*W+xb]=1;}}}
+  if(nd<W*H*0.01){BP_BL.set(k,m);return m;}   // no tiene barba pintada
+  for(let p=0;p<W*H;p++)if(M[p]){const i=p*4,xx=p%W,y=(p/W)|0,v=0.97+((xx*7+y*13)%7)/100;d[i]=sr*v;d[i+1]=sg*v;d[i+2]=sb*v;}
+  x.putImageData(D,0,0);const cx=W*0.5,cy=H*0.716,lw=W*0.034,lh=H*0.011;
+  x.fillStyle='rgb('+(sr*0.86|0)+','+(sg*0.62|0)+','+(sb*0.58|0)+')';x.beginPath();x.ellipse(cx,cy,lw,lh,0,0,Math.PI*2);x.fill();
+  x.strokeStyle='rgb('+(sr*0.45|0)+','+(sg*0.3|0)+','+(sb*0.28|0)+')';x.lineWidth=Math.max(1,W/400);x.beginPath();x.moveTo(cx-lw*0.95,cy);x.lineTo(cx+lw*0.95,cy);x.stroke();
+  const t=new THREE.CanvasTexture(c);t.flipY=m.map.flipY;t.encoding=m.map.encoding;t.wrapS=m.map.wrapS;t.wrapT=m.map.wrapT;
   const n=m.clone();n.map=t;n.userData.young=1;n.needsUpdate=true;BP_BL.set(k,n);return n;}
 // la gente con carga (aguadoras con su hidria en la cabeza, porteadores con ánfora, cestas), las mujeres con velo, los soldados de
 // Atenas y quien solo lleva himation se quedaban con la figura sencilla de antes: ahora usan el modelo de Blender, y la carga va

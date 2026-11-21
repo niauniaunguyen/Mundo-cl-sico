@@ -493,7 +493,7 @@ def sandals(name,body):   # sandalias: suela y correas (tobillo, empeine y dedos
             parts.append(limb_shell('correa',body,p-ax*ln/2,p+ax*ln/2,0.004,nu=16,nv=1))
     for o in parts:smart_uv(o)
     return parts
-def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False,shoulder=False):
+def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False,shoulder=False,keep_arms=False,edge_in=0):
     # borra las caras de 'ob' que otras piezas tapan por completo (con un margen de 'erode' anillos junto a los bordes):
     # lo que no existe no puede atravesar la prenda, ni quieto ni andando; y de paso pesa menos
     if not covers:return 0
@@ -510,7 +510,12 @@ def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False,shoulder=False):
             if r.length>1e-6 and n.dot(r)<0:n=-n
         hit=bvh.ray_cast(co+n*0.0015,n,maxd)
         if hit[0] is not None:cov.add(v)
+    hit0=set(cov)
     for _ in range(erode):cov={v for v in cov if all(e.other_vert(v) in cov for e in v.link_edges)}
+    if edge_in:
+        # la piel tapada junto al borde de la prenda no se borra (si no, se vería el hueco), pero se mete un poco hacia dentro:
+        # en el hombro tapado del exomis asomaba por la tela, con el borde dentado
+        for v in hit0-cov:v.co-=v.normal*edge_in
     if shoulder:
         # en los hombros, la túnica y la cúpula de la manga se juntan: un rayo puede colarse por la junta y la piel quedaba;
         # al andar, el deltoides asomaba por ahí. Aquí se prueban varias direcciones y no se respeta el margen de los bordes.
@@ -520,6 +525,15 @@ def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False,shoulder=False):
             n=(mw.to_3x3()@v.normal).normalized();out=Vector((1 if co.x>0 else -1,0,0))
             for d in(n,(n+Vector((0,0,0.8))).normalized(),(n+out*0.8).normalized(),Vector((0,0,1)),(n-Vector((0,0,0.5))).normalized()):
                 if bvh.ray_cast(co-d*0.03,d,maxd*1.2+0.03)[0] is not None:cov.add(v);break   # desde un poco dentro: la piel que ya asoma también cuenta
+    if keep_arms and cov and os.environ.get('NOSTOS_KEEPARMS')!='0':
+        # los brazos no se borran bajo la manga: al girar el brazo (manos a la espalda, gestos) la manga se abría y se veía el hueco
+        # (brazos «flotando», sin hombro). Se queda la piel, metida unos milímetros hacia dentro para que no asome por la tela.
+        dl=bm.verts.layers.deform.active;gi={g.index:g.name for g in ob.vertex_groups};kept=0
+        if dl is not None:
+            for v in list(cov):
+                w=v[dl];arm=sum(x for i,x in w.items() if gi.get(i,'').startswith(('upperarm','forearm')))
+                if w and arm>=0.5*sum(w.values()) and abs((mw@v.co).x)>abs(J['sho.L'][0])-0.005 and (mw@v.co).z<J['sho.L'][2]-0.05 and (mw@v.co).y<J['sho.L'][1]+0.035:cov.discard(v);v.co-=v.normal*0.022;kept+=1   # solo por fuera del hombro: la axila sigue tapada por el quitón
+        print('  piel de brazo conservada',ob.name,kept)
     dead=[f for f in bm.faces if all(v in cov for v in f.verts)]
     bmesh.ops.delete(bm,geom=dead,context='FACES');bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
     bm.to_mesh(ob.data);bm.free();ob.data.update();return len(dead)
@@ -1175,8 +1189,8 @@ def _build(kind):
             bm=bmesh.new();bm.from_mesh(o.data);mw=o.matrix_world;dead=[f for f in bm.faces if all((mw@v.co).z<zc for v in f.verts)]
             bmesh.ops.delete(bm,geom=dead,context='FACES');bm.to_mesh(o.data);bm.free();o.data.update();print('cabeza recortada',o.name,len(dead))
     SH=kind not in('obrero','hoplita')   # con mangas (el obrero lleva un hombro al aire; el hoplita, hombreras)
-    n=hide_covered(body,[o for o in ropa if o.name.split('.')[0] not in AJ],maxd=0.12,erode=3,shoulder=SH)
-    n+=hide_covered(body,[o for o in ropa if o.name.split('.')[0] in AJ],maxd=0.05,erode=3,shoulder=SH)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
+    n=hide_covered(body,[o for o in ropa if o.name.split('.')[0] not in AJ],maxd=0.12,erode=3,shoulder=SH,keep_arms=True)
+    n+=hide_covered(body,[o for o in ropa if o.name.split('.')[0] in AJ],maxd=0.05,erode=3,shoulder=SH,keep_arms=True,edge_in=0.012)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
     # los extremos del manto no cuentan: cuelgan sueltos y, al moverse, dejaban ver el hueco donde se había borrado la túnica
     for nm,cv in((('tunica',('toga','estola','lorica','hombrera_hierro')),('estola',('palla',)),('quiton',('himation','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))):
         for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
