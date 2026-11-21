@@ -216,6 +216,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `211_jugar_mas.js` | 127 | JUGAR MÁS: encargos del día, fama, imprevistos del camino, memoria, regateo, |
 | `212_graficos.js` | 108 | GRÁFICOS: nubes, sombras de contacto, agua, bruma, estaciones, parpadeo, noche y acabado |
 | `213_jugar_mas_2.js` | 163 | JUGAR MÁS (2): jornadas, mapa por descubrir, casos, obras, citas, maestría, |
-| `214_graficos_2.js` | 131 | GRÁFICOS (2): interiores con rayos de luz y humo, agua que corre en las fuentes, polvo y huellas, |
+| `214_graficos_2.js` | 134 | GRÁFICOS (2): interiores con rayos de luz y humo, agua que corre en las fuentes, polvo y huellas, |
 | `215_arboles_polyhaven.js` | 51 | ÁRBOLES DE POLY HAVEN (CC0) para los árboles cercanos |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

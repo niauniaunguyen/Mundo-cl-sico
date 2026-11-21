@@ -22712,7 +22712,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='79729411373f';
+const NOSTOS_VER='1525261516a8';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -31285,8 +31285,11 @@ function w2MoteTick(dt){const M=WG2.motes;if(!M)return;const on=ui==='play'&&WIN
 {const f=bpMake;bpMake=function(kind,c){const g=f.apply(this,arguments);if(!g)return g;try{const r=Math.random(),root=g.children[0];
   const wd=0.9+Math.random()*0.22;root.scale.x*=wd;root.scale.z*=0.95+(wd-0.9)*0.6;   // complexiones: más anchos o más delgados
   if(!/hoplita|legionario/.test(kind)&&r<0.13&&!(c&&c.noVary)){g.userData.old=1;root.scale.y*=0.96;root.rotation.x=0.07;   // ancianos: un poco encorvados y con bastón
-    const cane=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.018,0.95,6),lam('#6b4a2c'));cane.position.set(0,0.3,0.02);cane.userData.w2cane=1;g.userData.cane=cane;}}catch(e){}return g;};}
-function w2CaneTick(){for(const g of BP.list){if(!g.userData.cane||g.userData.caneOk)continue;let h=null;g.traverse(o=>{if(o.isBone&&/^hand\.?_?R$/i.test(o.name))h=o;});if(h){h.add(g.userData.cane);g.userData.caneOk=1;}}}
+    const cane=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.018,0.95,6),lam('#6b4a2c'));cane.userData.w2cane=1;g.userData.cane=cane;}}catch(e){}return g;};}
+function w2CaneTick(){for(const g of BP.list){if(!g.userData.cane||g.userData.caneOk)continue;let h=null;g.traverse(o=>{if(o.isBone&&/^hand\.?_?R$/i.test(o.name))h=o;});if(h){g.add(g.userData.cane);g.userData.caneHand=h;g.userData.caneOk=1;}}}
+// el bastón, siempre vertical y apoyado en el suelo, bajo la mano derecha (cada fotograma, solo los cercanos)
+const _w2h=new THREE.Vector3();function w2CaneFrame(){const cx=camera.position.x,cz=camera.position.z;for(const g of BP.list){const c=g.userData.cane,h=g.userData.caneHand;if(!h||!g.visible||!g.parent)continue;
+  if((g.position.x-cx)**2+(g.position.z-cz)**2>900)continue;h.getWorldPosition(_w2h);g.worldToLocal(_w2h);const s=g.scale.y||1;c.position.set(_w2h.x,0.475/s,_w2h.z);c.rotation.set(0,0,0);c.scale.setScalar(1/s);}}
 // ---------------------------------------------------------------- W6 mercados
 function w2Awn(c1,c2){const c=document.createElement('canvas');c.width=128;c.height=32;const x=c.getContext('2d');for(let i=0;i<8;i++){x.fillStyle=i%2?c1:c2;x.fillRect(i*16,0,16,32);}const t=new THREE.CanvasTexture(c);return new THREE.MeshLambertMaterial({map:t,side:THREE.DoubleSide});}
 function w2Stall(x,z,a,ro,i){const g=grp(x,floorAt(x,z),z,a),wood=lam('#7a5634');const C=[['#c9b28a','#8a3b2a'],['#d8cfa8','#3e5a7a'],['#cbb488','#5e6e3a']][i%3];
@@ -31334,7 +31337,7 @@ function w2JobSetup(){if(typeof OFIC==='undefined')return;for(const O of OFIC)fo
   B.job=B.mix.clipAction(cl);B.job.play();B.job.setEffectiveWeight(1);B.jobRate=want==='bailar'?0.6:want==='empujar'?0.8:1;WG2.job.push(p.m);}}
 {const f=bpTick;bpTick=function(dt){f(dt);try{const cx=camera.position.x,cz=camera.position.z;for(const g of WG2.job){const B=g.userData.bp;if(!B||!B.job||!g.parent)continue;
   const v=new THREE.Vector3();g.getWorldPosition(v);if((v.x-cx)**2+(v.z-cz)**2>BP.R*BP.R)continue;if(B.idle)B.idle.setEffectiveWeight(0);if(B.walk)B.walk.setEffectiveWeight(0);
-  const d=B.job.getClip().duration;B.job.time=(B.t*B.jobRate)%d;B.mix.update(0);}}catch(e){}};}
+  const d=B.job.getClip().duration;B.job.time=(B.t*B.jobRate)%d;B.mix.update(0);}w2CaneFrame();}catch(e){}};}
 // ---------------------------------------------------------------- W10 montes con nombre (modo atención)
 const W2M={atenas:[['Himeto','Ὑμηττός',100,'Famoso por su miel y su mármol gris azulado. Al atardecer se vuelve violeta: por eso a Atenas la llamaban «coronada de violetas» (Píndaro).'],['Pentélico','Πεντελικόν',40,'De sus canteras sale el mármol blanco del Partenón y de los Propileos.'],['Parnes','Πάρνης',0,'El monte más alto del Ática (1413 m), con bosques y la frontera con Beocia; en él estaba la fortaleza de File.'],['Egáleo','Αἰγάλεως',275,'Desde sus laderas, según Heródoto, Jerjes vio desde su trono la batalla de Salamina (480 a.C.).'],[_t(3157,'Licabeto'),'Λυκαβηττός',60,'Una colina rocosa junto a la ciudad, sin templos en esta época; la leyenda dice que Atenea la dejó caer.']],
  roma:[['Montes Albanos','Mons Albanus',135,'Un antiguo volcán. En su cima, el santuario de Júpiter Laciar, donde se celebraban las Ferias Latinas.'],['Montes Sabinos y Tiburtinos','Montes Sabini',60,'Por ellos llegan los acueductos (el Anio Viejo, el Anio Nuevo, el Marcio) y allí está Tíbur, con sus villas.'],['Soracte','Soracte',5,'El monte aislado que se ve al norte. Horacio lo canta cubierto de nieve (Odas I 9).'],['Janículo','Ianiculum',270,'La colina al otro lado del Tíber, desde donde se domina la ciudad.']]};
