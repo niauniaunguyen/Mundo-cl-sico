@@ -22712,7 +22712,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='2a2fb5124a82';
+const NOSTOS_VER='84306c9f2a7b';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -31397,7 +31397,7 @@ function phtTick(){if(!PHT.ready){if(!PHT.tpl){if(PHT.sp.T_olive.crown.length||P
     for(const h of S.hi){h.count=n;h.instanceMatrix.needsUpdate=true;if(h.instanceColor)h.instanceColor.needsUpdate=true;}}}
 function phtHide(im,i){let o=im.userData.phOrig;if(!o)o=im.userData.phOrig=new Map();if(!o.has(i)){im.getMatrixAt(i,_phM);o.set(i,_phM.clone());im.setMatrixAt(i,_phZ);im.instanceMatrix.needsUpdate=true;}return o.get(i);}
 function phtRestore(im,i){const o=im.userData.phOrig;if(o&&o.has(i)){im.setMatrixAt(i,o.get(i));o.delete(i);im.instanceMatrix.needsUpdate=true;}}
-{const f=uxTick;uxTick=function(dt){f(dt);if(!PHT.R||!state||ui==='start')return;PHT.t-=dt;if(PHT.t>0)return;PHT.t=0.5;try{phtTick();}catch(e){if(!PHT.err){PHT.err=String(e&&e.stack||e).slice(0,300);console.warn('árboles PH',e);}}};}
+{const f=uxTick;uxTick=function(dt){f(dt);if(!PHT.R||!state||ui==='start')return;const now=performance.now();if(now-PHT.t<500)return;PHT.t=now;try{phtTick();}catch(e){if(!PHT.err){PHT.err=String(e&&e.stack||e).slice(0,300);console.warn('árboles PH',e);}}};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».

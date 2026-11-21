@@ -47,4 +47,4 @@ function phtTick(){if(!PHT.ready){if(!PHT.tpl){if(PHT.sp.T_olive.crown.length||P
     for(const h of S.hi){h.count=n;h.instanceMatrix.needsUpdate=true;if(h.instanceColor)h.instanceColor.needsUpdate=true;}}}
 function phtHide(im,i){let o=im.userData.phOrig;if(!o)o=im.userData.phOrig=new Map();if(!o.has(i)){im.getMatrixAt(i,_phM);o.set(i,_phM.clone());im.setMatrixAt(i,_phZ);im.instanceMatrix.needsUpdate=true;}return o.get(i);}
 function phtRestore(im,i){const o=im.userData.phOrig;if(o&&o.has(i)){im.setMatrixAt(i,o.get(i));o.delete(i);im.instanceMatrix.needsUpdate=true;}}
-{const f=uxTick;uxTick=function(dt){f(dt);if(!PHT.R||!state||ui==='start')return;PHT.t-=dt;if(PHT.t>0)return;PHT.t=0.5;try{phtTick();}catch(e){if(!PHT.err){PHT.err=String(e&&e.stack||e).slice(0,300);console.warn('árboles PH',e);}}};}
+{const f=uxTick;uxTick=function(dt){f(dt);if(!PHT.R||!state||ui==='start')return;const now=performance.now();if(now-PHT.t<500)return;PHT.t=now;try{phtTick();}catch(e){if(!PHT.err){PHT.err=String(e&&e.stack||e).slice(0,300);console.warn('árboles PH',e);}}};}
