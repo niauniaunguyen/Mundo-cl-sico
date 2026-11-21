@@ -223,7 +223,7 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
 ## Versión 11: varios enemigos a la vez y fase tardía
 - **Combates en grupo** (`partes/tardio.js`):
   - Número de enemigos: `nFoes(L)` → 2 desde el nivel 50 y 3 desde el 150.
-  - Fuerza de cada uno (`GROUP_FOE`): con dos, ×0,6 de vida, ataque y ATP; con tres, ×0,45.
+  - Fuerza de cada uno (`GROUP_FOE`): con dos, ×1,2 de vida, ataque y ATP; con tres, ×0,9 (v11.1: el doble que en la versión 11).
   - El jefe va a plena fuerza con escolta. Los jefes especiales, los eventos y las prácticas siguen siendo de uno en uno.
 - **Motor de combate:**
   - `B.es` guarda todos los enemigos; `B.e` es el objetivo.

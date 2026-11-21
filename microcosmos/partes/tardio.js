@@ -4,7 +4,7 @@
    ===================================================================== */
 // número de enemigos por combate y fuerza de cada uno (la suma es algo mayor que un enemigo solo)
 const nFoes = L => L >= 150 ? 3 : L >= 50 ? 2 : 1;
-const GROUP_FOE = {1:{hp:1, atk:1, atp:1}, 2:{hp:.6, atk:.6, atp:.6}, 3:{hp:.45, atk:.45, atp:.45}};
+const GROUP_FOE = {1:{hp:1, atk:1, atp:1}, 2:{hp:1.2, atk:1.2, atp:1.2}, 3:{hp:.9, atk:.9, atp:.9}};
 const HP_X100 = 3; // desde el nivel 100
 
 // Herramientas de área (nivel 100): alcanzan a todos los enemigos a la vez
@@ -56,7 +56,7 @@ const UPG3 = [
 ];
 Object.assign(UPG_VIS, {tlr:T_('En tu célula: receptores en forma de Y en la membrana.'), glc:T_('En tu célula: una capa de glúcidos alrededor de la membrana.'), sec:T_('En tu célula: gránulos de colores bajo la membrana.')});
 Object.assign(MILESTONE, {
-  t50:T_('Ahora vienen de dos en dos'), d50:T_('Desde el nivel 50 lucharás contra dos organismos a la vez. Cada uno es algo más débil, pero atacan los dos. Elige a quién atacar tocándolo en la lista o en la escena.'),
+  t50:T_('Ahora vienen de dos en dos'), d50:T_('Desde el nivel 50 lucharás contra dos organismos a la vez, y cada uno es más fuerte que un organismo solo. Elige a quién atacar tocándolo en la lista o en la escena.'),
   r50:T_('Recompensa: +5 ADN y +2 puntos del árbol inmunitario.'),
   t100:T_('Una infección generalizada'), d100:T_('Desde el nivel 100 los organismos tienen el triple de vida. Para hacerles frente se desbloquean los orgánulos de élite y tres herramientas nuevas que alcanzan a todos los enemigos a la vez.'),
   r100:T_('Recompensa: +10 ADN, +3 puntos del árbol inmunitario y los orgánulos y herramientas nuevos.'),
