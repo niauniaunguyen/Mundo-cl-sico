@@ -27,7 +27,8 @@ function w2Interior(R){if(!R||!R.g||WG2.int[R.X+','+R.Z])return;const I={R,smoke
   for(let i=0;i<2;i++){const L=new THREE.PointLight('#ffb060',0.9,7,2);L.position.set((i?1:-1)*sz.x*0.3,1.6,cz*0.5);g.add(L);
     const f=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ffcc77',transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));f.scale.set(0.35,0.5,1);f.position.copy(L.position);g.add(f);I.lamps.push({L,f,ph:i*2.3});}}
 {const f=int2Room;int2Room=function(room){const R=f.apply(this,arguments);try{if(gqOn('medio'))w2Interior(R);}catch(e){console.warn('interior',e);}return R;};}
-function w2IntTick(dt){if(typeof INT2==='undefined'||!INT2.in)return;const I=WG2.int[INT2.in.R.X+','+INT2.in.R.Z];if(!I)return;const t=WG2.t;
+function w2IntTick(dt){const cur=typeof INT2!=='undefined'&&INT2.in?INT2.in.R.X+','+INT2.in.R.Z:null;for(const k in WG2.int){const J=WG2.int[k];if(J.lampsOn!==(k===cur)){J.lampsOn=k===cur;for(const l of J.lamps)l.L.visible=J.lampsOn;}}   // las lucernas solo cuentan como luz dentro de su casa
+  if(!cur)return;const I=WG2.int[INT2.in.R.X+','+INT2.in.R.Z];if(!I)return;const t=WG2.t;
   for(const s of I.smoke){const k=(t*0.12+s.userData.ph)%1;s.position.y=0.4+k*3.2;s.position.x+=Math.sin(t+s.userData.ph*9)*0.002;s.scale.setScalar(0.4+k*1.6);s.material.opacity=0.32*Math.sin(k*Math.PI);}
   for(const l of I.lamps){const n=0.75+0.18*Math.sin(t*13+l.ph)+0.1*Math.sin(t*29+l.ph*3)+0.05*Math.sin(t*51);l.L.intensity=0.9*n;l.f.scale.set(0.3*n+0.05,0.48*n,1);}}
 // ---------------------------------------------------------------- WG2 fuentes

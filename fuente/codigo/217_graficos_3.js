@@ -10,7 +10,7 @@
 //  X7 Aves: palomas en las plazas que alzan el vuelo al acercarte y gaviotas que planean cerca del mar.
 //  X8 Paredes con historia: humedad que sube del suelo y manchas (en los materiales de pared, 036).
 //  X9 Interiores amueblados: lechos, mesa de tres patas, arcón, telar (casas griegas), lucernas y vajilla según la casa.
-//  X10 Cámara de cine: en los diálogos, el fondo se desenfoca por los bordes y una luz cálida ilumina al interlocutor.
+//  X10 Cámara de cine: en los diálogos, el fondo se desenfoca por los bordes y un velo cálido realza el centro.
 const X3={t:0,wetH:-99,ships:[],pig:[],gulls:[],pen:[],awn:[],furn:{},cine:null,key:null,head:null,boot:false};
 const x3R=mulberry32(2171);
 // ---------------------------------------------------------------- X2 el mar
@@ -23,7 +23,8 @@ function x3Sea(){if(typeof SEA==='undefined'||!SEA||!SEA.material||!SEA.material
 // ---------------------------------------------------------------- X3 suelo mojado
 function x3Wet(){if(typeof TERR_U==='undefined'||!TERR_U.uWet)return;const now=(state.day||1)*24+clock.h;if((WXS.rain||0)>0.15)X3.wetH=now;
   const w=(WXS.rain||0)>0.15?Math.min(1,(WXS.rain||0)*1.4):Math.max(0,1-(now-X3.wetH)/5);const inside=typeof INT2!=='undefined'&&INT2.in;TERR_U.uWet.value=inside?0:w*(gqOn('medio')?1:0.6);
-  if(scene.fog)TERR_U.uWetSky.value.copy(scene.fog.color).lerp(new THREE.Color('#ffffff'),0.15);}
+  if(scene.fog)TERR_U.uWetSky.value.copy(scene.fog.color).lerp(X3W,0.15);}
+const X3W=new THREE.Color(1,1,1);
 // ---------------------------------------------------------------- X4 caras que hablan
 function x3TalkHead(){const open=ui==='dialog'&&!$('dialog').hidden;if(!open){X3.head=null;return;}if(!X3.head||!X3.head.parent){let best=null,bd=4.5;for(const g of BP.list){if(!g.parent||!g.visible)continue;const v=g.position,d=Math.hypot(v.x-player.x,v.z-player.z);if(d<bd){bd=d;best=g;}}
   X3.head=null;if(best)best.traverse(o=>{if(o.isBone&&/^head$/i.test(o.name))X3.head=o;});}
@@ -51,7 +52,7 @@ function x3SeaPoint(r0,r1){for(let k=0;k<24;k++){const a=x3R()*TAU,r=r0+x3R()*(r
 function x3Ships(dt){if(typeof SEA==='undefined'||!SEA||!SEA.visible||player.x>8000)return;const ro=MODE==='roma',kinds=ro?['mer','mer','bar','bar','mer']:['tri','mer','bar','bar','tri','mer'];
   while(X3.ships.length<kinds.length){const S={g:x3Ship(kinds[X3.ships.length]),kind:kinds[X3.ships.length],ph:x3R()*6,on:false};S.sail=S.g.userData.sail;S.g.visible=false;scene.add(S.g);X3.ships.push(S);}
   for(const S of X3.ships){const g=S.g;const d=Math.hypot(g.position.x-player.x,g.position.z-player.z);
-    if(!S.on||d>2200){const p=x3SeaPoint(S.kind==='bar'?250:450,1500);if(!p){g.visible=false;S.on=false;continue;}S.on=true;g.position.set(p[0],0,p[1]);S.h=x3R()*TAU;S.v=S.kind==='tri'?7:S.kind==='mer'?3.5:2;g.visible=true;}
+    if(!S.on||d>2200){const nw=performance.now();if(S.tryT&&nw-S.tryT<4000){g.visible=false;continue;}S.tryT=nw;const p=x3SeaPoint(S.kind==='bar'?250:450,1500);if(!p){g.visible=false;S.on=false;continue;}S.on=true;S.tryT=0;g.position.set(p[0],0,p[1]);S.h=x3R()*TAU;S.v=S.kind==='tri'?7:S.kind==='mer'?3.5:2;g.visible=true;}
     const nx=g.position.x+Math.sin(S.h)*S.v*dt,nz=g.position.z+Math.cos(S.h)*S.v*dt;if(terrainH(nx,nz)>-2.5||terrainH(nx+Math.sin(S.h)*30,nz+Math.cos(S.h)*30)>-2.5){S.h+=Math.PI*0.6;}else{g.position.x=nx;g.position.z=nz;}
     g.rotation.y=S.h-Math.PI/2;const t=performance.now()/1000;g.position.y=Math.sin(t*0.8+S.ph)*0.25-0.1;g.rotation.z=Math.sin(t*0.6+S.ph)*0.03;}}
 // ---------------------------------------------------------------- X7 aves
@@ -83,10 +84,9 @@ function x3Furnish(room,R){if(!R||!R.g||X3.furn[R.X+','+R.Z])return;X3.furn[R.X+
   if(ro&&rich)put(c.x+hw*0.2,c.z-hw,(x,z)=>{box(0.5,0.9,0.5,lam('#d8d0c0'),x,0.45,z,g);const lar=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.08,0.4,8),lam('#8a6a3a'));lar.position.set(x,1.1,z);g.add(lar);});}   // larario
 {const f=int2Room;int2Room=function(room){const R=f.apply(this,arguments);try{x3Furnish(room,R);}catch(e){console.warn('muebles',e);}return R;};}
 // ---------------------------------------------------------------- X10 cámara de cine en los diálogos
-function x3Cine(){const open=ui==='dialog'&&!$('dialog').hidden&&gqOn('medio');if(!X3.cine){const d=document.createElement('div');d.id='x3cine';
-  d.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:3;opacity:0;transition:opacity .6s;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);-webkit-mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%)';
-  document.body.appendChild(d);X3.cine=d;X3.key=new THREE.PointLight('#ffc890',0,9,2);scene.add(X3.key);}
-  X3.cine.style.opacity=open?'1':'0';const k=X3.key;k.intensity+=((open?0.9:0)-k.intensity)*0.15;if(open){const dir=new THREE.Vector3();camera.getWorldDirection(dir);k.position.copy(camera.position).addScaledVector(dir,1.2);k.position.y+=0.6;}}
+function x3Cine(){const open=ui==='dialog'&&!$('dialog').hidden&&gqOn('medio');   // sin luz extra: cada luz nueva obliga a recompilar todos los materiales
+  if(!X3.cine){const d=document.createElement('div');d.id='x3cine';d.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:3;display:none;backdrop-filter:blur(3px) saturate(1.05);-webkit-backdrop-filter:blur(3px);mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);-webkit-mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);background:radial-gradient(ellipse 40% 50% at 50% 42%,rgba(255,200,140,0.08),rgba(0,0,0,0) 70%)';document.body.appendChild(d);X3.cine=d;}
+  const want=open?'block':'none';if(X3.cine.style.display!==want)X3.cine.style.display=want;}   // el desenfoque solo existe mientras dura el diálogo
 // ---------------------------------------------------------------- bucle
 {const f=uxTick;uxTick=function(dt){f(dt);if(!state||ui==='start')return;try{dt=Math.min(0.1,dt||0);
   if(!X3.boot&&typeof PLACES!=='undefined'&&PLACES.length>20){X3.boot=true;if(gqOn('medio')){x3Pennants();x3Pigeons();}}

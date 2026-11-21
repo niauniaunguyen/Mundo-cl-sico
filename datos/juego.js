@@ -22714,7 +22714,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='da8a7b88b268';
+const NOSTOS_VER='a92984689050';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -31249,7 +31249,8 @@ function w2Interior(R){if(!R||!R.g||WG2.int[R.X+','+R.Z])return;const I={R,smoke
   for(let i=0;i<2;i++){const L=new THREE.PointLight('#ffb060',0.9,7,2);L.position.set((i?1:-1)*sz.x*0.3,1.6,cz*0.5);g.add(L);
     const f=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#ffcc77',transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));f.scale.set(0.35,0.5,1);f.position.copy(L.position);g.add(f);I.lamps.push({L,f,ph:i*2.3});}}
 {const f=int2Room;int2Room=function(room){const R=f.apply(this,arguments);try{if(gqOn('medio'))w2Interior(R);}catch(e){console.warn('interior',e);}return R;};}
-function w2IntTick(dt){if(typeof INT2==='undefined'||!INT2.in)return;const I=WG2.int[INT2.in.R.X+','+INT2.in.R.Z];if(!I)return;const t=WG2.t;
+function w2IntTick(dt){const cur=typeof INT2!=='undefined'&&INT2.in?INT2.in.R.X+','+INT2.in.R.Z:null;for(const k in WG2.int){const J=WG2.int[k];if(J.lampsOn!==(k===cur)){J.lampsOn=k===cur;for(const l of J.lamps)l.L.visible=J.lampsOn;}}   // las lucernas solo cuentan como luz dentro de su casa
+  if(!cur)return;const I=WG2.int[INT2.in.R.X+','+INT2.in.R.Z];if(!I)return;const t=WG2.t;
   for(const s of I.smoke){const k=(t*0.12+s.userData.ph)%1;s.position.y=0.4+k*3.2;s.position.x+=Math.sin(t+s.userData.ph*9)*0.002;s.scale.setScalar(0.4+k*1.6);s.material.opacity=0.32*Math.sin(k*Math.PI);}
   for(const l of I.lamps){const n=0.75+0.18*Math.sin(t*13+l.ph)+0.1*Math.sin(t*29+l.ph*3)+0.05*Math.sin(t*51);l.L.intensity=0.9*n;l.f.scale.set(0.3*n+0.05,0.48*n,1);}}
 // ---------------------------------------------------------------- WG2 fuentes
@@ -31571,7 +31572,7 @@ function lSpots(){if(L3.spots||!state||typeof PLACES==='undefined'||PLACES.lengt
 //  X7 Aves: palomas en las plazas que alzan el vuelo al acercarte y gaviotas que planean cerca del mar.
 //  X8 Paredes con historia: humedad que sube del suelo y manchas (en los materiales de pared, 036).
 //  X9 Interiores amueblados: lechos, mesa de tres patas, arcón, telar (casas griegas), lucernas y vajilla según la casa.
-//  X10 Cámara de cine: en los diálogos, el fondo se desenfoca por los bordes y una luz cálida ilumina al interlocutor.
+//  X10 Cámara de cine: en los diálogos, el fondo se desenfoca por los bordes y un velo cálido realza el centro.
 const X3={t:0,wetH:-99,ships:[],pig:[],gulls:[],pen:[],awn:[],furn:{},cine:null,key:null,head:null,boot:false};
 const x3R=mulberry32(2171);
 // ---------------------------------------------------------------- X2 el mar
@@ -31584,7 +31585,8 @@ function x3Sea(){if(typeof SEA==='undefined'||!SEA||!SEA.material||!SEA.material
 // ---------------------------------------------------------------- X3 suelo mojado
 function x3Wet(){if(typeof TERR_U==='undefined'||!TERR_U.uWet)return;const now=(state.day||1)*24+clock.h;if((WXS.rain||0)>0.15)X3.wetH=now;
   const w=(WXS.rain||0)>0.15?Math.min(1,(WXS.rain||0)*1.4):Math.max(0,1-(now-X3.wetH)/5);const inside=typeof INT2!=='undefined'&&INT2.in;TERR_U.uWet.value=inside?0:w*(gqOn('medio')?1:0.6);
-  if(scene.fog)TERR_U.uWetSky.value.copy(scene.fog.color).lerp(new THREE.Color('#ffffff'),0.15);}
+  if(scene.fog)TERR_U.uWetSky.value.copy(scene.fog.color).lerp(X3W,0.15);}
+const X3W=new THREE.Color(1,1,1);
 // ---------------------------------------------------------------- X4 caras que hablan
 function x3TalkHead(){const open=ui==='dialog'&&!$('dialog').hidden;if(!open){X3.head=null;return;}if(!X3.head||!X3.head.parent){let best=null,bd=4.5;for(const g of BP.list){if(!g.parent||!g.visible)continue;const v=g.position,d=Math.hypot(v.x-player.x,v.z-player.z);if(d<bd){bd=d;best=g;}}
   X3.head=null;if(best)best.traverse(o=>{if(o.isBone&&/^head$/i.test(o.name))X3.head=o;});}
@@ -31612,7 +31614,7 @@ function x3SeaPoint(r0,r1){for(let k=0;k<24;k++){const a=x3R()*TAU,r=r0+x3R()*(r
 function x3Ships(dt){if(typeof SEA==='undefined'||!SEA||!SEA.visible||player.x>8000)return;const ro=MODE==='roma',kinds=ro?['mer','mer','bar','bar','mer']:['tri','mer','bar','bar','tri','mer'];
   while(X3.ships.length<kinds.length){const S={g:x3Ship(kinds[X3.ships.length]),kind:kinds[X3.ships.length],ph:x3R()*6,on:false};S.sail=S.g.userData.sail;S.g.visible=false;scene.add(S.g);X3.ships.push(S);}
   for(const S of X3.ships){const g=S.g;const d=Math.hypot(g.position.x-player.x,g.position.z-player.z);
-    if(!S.on||d>2200){const p=x3SeaPoint(S.kind==='bar'?250:450,1500);if(!p){g.visible=false;S.on=false;continue;}S.on=true;g.position.set(p[0],0,p[1]);S.h=x3R()*TAU;S.v=S.kind==='tri'?7:S.kind==='mer'?3.5:2;g.visible=true;}
+    if(!S.on||d>2200){const nw=performance.now();if(S.tryT&&nw-S.tryT<4000){g.visible=false;continue;}S.tryT=nw;const p=x3SeaPoint(S.kind==='bar'?250:450,1500);if(!p){g.visible=false;S.on=false;continue;}S.on=true;S.tryT=0;g.position.set(p[0],0,p[1]);S.h=x3R()*TAU;S.v=S.kind==='tri'?7:S.kind==='mer'?3.5:2;g.visible=true;}
     const nx=g.position.x+Math.sin(S.h)*S.v*dt,nz=g.position.z+Math.cos(S.h)*S.v*dt;if(terrainH(nx,nz)>-2.5||terrainH(nx+Math.sin(S.h)*30,nz+Math.cos(S.h)*30)>-2.5){S.h+=Math.PI*0.6;}else{g.position.x=nx;g.position.z=nz;}
     g.rotation.y=S.h-Math.PI/2;const t=performance.now()/1000;g.position.y=Math.sin(t*0.8+S.ph)*0.25-0.1;g.rotation.z=Math.sin(t*0.6+S.ph)*0.03;}}
 // ---------------------------------------------------------------- X7 aves
@@ -31644,10 +31646,9 @@ function x3Furnish(room,R){if(!R||!R.g||X3.furn[R.X+','+R.Z])return;X3.furn[R.X+
   if(ro&&rich)put(c.x+hw*0.2,c.z-hw,(x,z)=>{box(0.5,0.9,0.5,lam('#d8d0c0'),x,0.45,z,g);const lar=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.08,0.4,8),lam('#8a6a3a'));lar.position.set(x,1.1,z);g.add(lar);});}   // larario
 {const f=int2Room;int2Room=function(room){const R=f.apply(this,arguments);try{x3Furnish(room,R);}catch(e){console.warn('muebles',e);}return R;};}
 // ---------------------------------------------------------------- X10 cámara de cine en los diálogos
-function x3Cine(){const open=ui==='dialog'&&!$('dialog').hidden&&gqOn('medio');if(!X3.cine){const d=document.createElement('div');d.id='x3cine';
-  d.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:3;opacity:0;transition:opacity .6s;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);-webkit-mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%)';
-  document.body.appendChild(d);X3.cine=d;X3.key=new THREE.PointLight('#ffc890',0,9,2);scene.add(X3.key);}
-  X3.cine.style.opacity=open?'1':'0';const k=X3.key;k.intensity+=((open?0.9:0)-k.intensity)*0.15;if(open){const dir=new THREE.Vector3();camera.getWorldDirection(dir);k.position.copy(camera.position).addScaledVector(dir,1.2);k.position.y+=0.6;}}
+function x3Cine(){const open=ui==='dialog'&&!$('dialog').hidden&&gqOn('medio');   // sin luz extra: cada luz nueva obliga a recompilar todos los materiales
+  if(!X3.cine){const d=document.createElement('div');d.id='x3cine';d.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:3;display:none;backdrop-filter:blur(3px) saturate(1.05);-webkit-backdrop-filter:blur(3px);mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);-webkit-mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);background:radial-gradient(ellipse 40% 50% at 50% 42%,rgba(255,200,140,0.08),rgba(0,0,0,0) 70%)';document.body.appendChild(d);X3.cine=d;}
+  const want=open?'block':'none';if(X3.cine.style.display!==want)X3.cine.style.display=want;}   // el desenfoque solo existe mientras dura el diálogo
 // ---------------------------------------------------------------- bucle
 {const f=uxTick;uxTick=function(dt){f(dt);if(!state||ui==='start')return;try{dt=Math.min(0.1,dt||0);
   if(!X3.boot&&typeof PLACES!=='undefined'&&PLACES.length>20){X3.boot=true;if(gqOn('medio')){x3Pennants();x3Pigeons();}}
