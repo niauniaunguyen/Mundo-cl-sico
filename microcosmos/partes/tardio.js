@@ -4,7 +4,7 @@
    ===================================================================== */
 // número de enemigos por combate y fuerza de cada uno (la suma es algo mayor que un enemigo solo)
 const nFoes = L => L >= 150 ? 3 : L >= 50 ? 2 : 1;
-const GROUP_FOE = {1:{hp:1, atk:1, atp:1}, 2:{hp:1.2, atk:1.2, atp:1.2}, 3:{hp:.9, atk:.9, atp:.9}};
+const GROUP_FOE = {1:{hp:1, atk:1, atp:1}, 2:{hp:2.4, atk:2.4, atp:2.4}, 3:{hp:1.8, atk:1.8, atp:1.8}};
 const HP_X100 = 3; // desde el nivel 100
 
 // Herramientas de área (nivel 100): alcanzan a todos los enemigos a la vez
