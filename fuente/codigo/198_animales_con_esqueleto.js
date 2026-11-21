@@ -53,7 +53,8 @@ function qaTick(dt){if(!QA.tpl){if(state&&ui!=='start')qaLoad();return;}if(!QA.h
     const s=H.v,run=H.q==='horse'||H.q==='donkey'?4.5:3,wW=s<0.15?0:s<run?1:Math.max(0,1-(s-run)/1.5),gW=s<run?0:Math.min(1,(s-run)/1.5);
     M.t+=dt;if(s<0.15){if(M.eat<=0&&Math.random()<dt*0.05)M.eat=4+Math.random()*6;}else M.eat=0;if(M.eat>0)M.eat-=dt;
     const eW=M.eat>0&&s<0.15?1:0,iW=Math.max(0,1-wW-gW-eW);const A=M.A;
-    if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3))*(H.rev?-1:1);}   // al retroceder, el paso va al revésif(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
+    if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3))*(H.rev?-1:1);}   /* al retroceder, el paso va al revés */
+    if(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
     if(A.Eating)A.Eating.setEffectiveWeight(eW);if(A.Idle)A.Idle.setEffectiveWeight(iW);
     M.mix.update(dt);}}
 {const f=uxTick;uxTick=function(dt){f(dt);try{qaTick(dt);}catch(e){if(!QA.err){QA.err=String(e&&e.stack||e).slice(0,400);console.warn('animales',e);}}};}

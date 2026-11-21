@@ -352,10 +352,10 @@ function buildAgora(){
   blockBuilding({name:'Bouleuterion nuevo',x:AL(-138,-22)[0],z:AL(-138,-22)[1],rot:0,w:22.5,d:17.5,h:9,door:true});
   // Tholos (c. 470): 18,3 m de diámetro, seis soportes interiores, tejado cónico de tejas romboidales
   {const[x,z]=AL(-110,18),r=9.15,gy=minGround(x,z,20,20,0),gap=0.27,h=5.2;
-   const wl=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h+2,48,1,true,Math.PI/2+gap/2,TAU-gap),lam('#d8cbb0',{side:THREE.DoubleSide}));wl.position.set(x,gy+h/2-1,z);wl.castShadow=true;scene.add(wl);
+   const wl=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h+2,48,1,true,Math.PI/2+gap/2,TAU-gap),lam('#d8cbb0',{side:THREE.DoubleSide}));wl.position.set(x,gy+h/2-1,z);wl.castShadow=true;wl.userData.noCol=1;scene.add(wl);   // la pared ya tiene sus colisiones con el hueco de la puerta: que 100 no la cierre entera
    box(19.6,0.5,19.6,M.limestone,x,gy+0.0,z).geometry=new THREE.CylinderGeometry(r+0.4,r+0.4,0.5,48);addPlat(x,z,r*1.3,r*1.3,0,gy+0.25);
-   const rf=new THREE.Mesh(new THREE.ConeGeometry(r+0.7,4.4,48,1),texMat(TEX.diamond,24,3));rf.position.set(x,gy+h+2.2,z);rf.castShadow=true;scene.add(rf);
-   const ce=new THREE.Mesh(new THREE.CircleGeometry(r,40),lam('#6b4a2e',{side:THREE.DoubleSide}));ce.rotation.x=Math.PI/2;ce.position.set(x,gy+h,z);scene.add(ce);
+   const rf=new THREE.Mesh(new THREE.ConeGeometry(r+0.7,4.4,48,1),texMat(TEX.diamond,24,3));rf.position.set(x,gy+h+2.2,z);rf.castShadow=true;rf.userData.noCol=1;scene.add(rf);
+   const ce=new THREE.Mesh(new THREE.CircleGeometry(r,40),lam('#6b4a2e',{side:THREE.DoubleSide}));ce.rotation.x=Math.PI/2;ce.position.set(x,gy+h,z);ce.userData.noCol=1;scene.add(ce);
    for(const[ex,ez]of[[-3.4,-4.6],[0,-5.4],[3.4,-4.6],[-3.4,4.6],[0,5.4],[3.4,4.6]])addColumn(x+ex,gy+0.25,z+ez,0.35,h-0.25,0,'doric');
    for(let i=0;i<40;i++){const t0=i/40*TAU,t1=(i+1)/40*TAU,mid=(t0+t1)/2;if(Math.abs(wrapA(mid-Math.PI/2))<gap)continue;addSeg(x+Math.sin(t0)*r,z+Math.cos(t0)*r,x+Math.sin(t1)*r,z+Math.cos(t1)*r,0.4);}
    box(0.6,3.2,2.6,M.dark,x+r+0.05,gy+1.6,z).visible=false;

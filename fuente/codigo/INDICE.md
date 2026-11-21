@@ -200,10 +200,10 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `195_atenas_romana.js` | 49 | ATENAS ROMANA, AÑO 80 (P10, modo Roma) |
 | `196_multitudes_con_modelos.js` | 83 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
 | `197_estatuas_a_la_vista.js` | 18 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
-| `198_animales_con_esqueleto.js` | 60 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
+| `198_animales_con_esqueleto.js` | 61 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
 | `199_moneda_en_pantalla.js` | 39 | LA MONEDA EN PANTALLA |
 | `200_el_mensajero.js` | 62 | EL MENSAJERO: los avisos van al caduceo |
-| `201_objeto_en_la_mano.js` | 54 | EL OBJETO ELEGIDO, EN LA MANO |
+| `201_objeto_en_la_mano.js` | 58 | EL OBJETO ELEGIDO, EN LA MANO |
 | `202_figurillas_votivas.js` | 77 | FIGURILLAS VOTIVAS: coleccionar el favor de los dioses |
 | `203_arbustos_de_detalle.js` | 90 | ARBUSTOS DE DETALLE (matorral mediterráneo) |
 | `204_puertas_a_interiores.js` | 193 | PUERTAS CON AURA: los interiores de la ciudad |
@@ -220,5 +220,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `215_arboles_polyhaven.js` | 51 | ÁRBOLES DE POLY HAVEN (CC0) para los árboles cercanos |
 | `216_jugar_mas_3.js` | 157 | JUGAR MÁS (3): juegos de mesa, banquete, teatro, escribir, cartas, atletismo, cocina, |
 | `217_graficos_3.js` | 96 | GRÁFICOS (3): mar con rompientes, suelo mojado, caras que hablan, telas al viento, |
-| `218_correcciones_video_21_11.js` | 22 | CORRECCIONES DEL VÍDEO DE PRUEBA (21/11): personajes |
+| `218_correcciones_video_21_11.js` | 53 | CORRECCIONES DEL VÍDEO DE PRUEBA (21/11): personajes |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

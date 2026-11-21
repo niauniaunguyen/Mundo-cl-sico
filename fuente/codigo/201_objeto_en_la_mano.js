@@ -47,7 +47,11 @@ function heldUpdate(dt){const k=heldWant();HELD.t+=dt||0;
   const g=HELD.g;if(!g)return;
   const bob=Math.sin(HELD.t*1.6)*0.006;
   if(AVATAR.view3){const body=MOUNT.riding?AVATAR.rider:AVATAR.walk,arm=body&&body.visible!==false&&body.userData.arms&&body.userData.arms[1];
-    if(arm){arm.rotation.x=-0.6;body.updateMatrixWorld(true);_hv.set(0,-0.58,0.08);arm.localToWorld(_hv);g.position.copy(_hv);g.rotation.set(0,player.yaw,0);g.rotateX(-0.4);g.scale.setScalar(1);}
+    if(arm){arm.rotation.x=-0.6;body.updateMatrixWorld(true);_hv.set(0,-0.58,0.08);arm.localToWorld(_hv);g.position.copy(_hv);g.rotation.set(0,player.yaw,0);g.rotateX(-0.4);g.scale.setScalar(1);heldHand(g,false);}
     else{const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);g.position.set(player.x+rx*0.32+fx*0.3,player.feet+(MOUNT.riding?2.2:1.15),player.z+rz*0.32+fz*0.3);g.rotation.set(0,player.yaw,0);}}
-  else{camera.updateMatrixWorld();_hv.set(0.26,-0.19+bob,-0.58);camera.localToWorld(_hv);g.position.copy(_hv);g.quaternion.copy(camera.quaternion);g.rotateY(-0.35);g.rotateX(0.2);g.scale.setScalar(0.8);}}
+  else{camera.updateMatrixWorld();_hv.set(0.36,-0.3+bob,-0.6);camera.localToWorld(_hv);g.position.copy(_hv);g.quaternion.copy(camera.quaternion);g.rotateY(-0.45);g.rotateX(0.25);g.scale.setScalar(0.7);heldHand(g,true);}}   // en la esquina de abajo, sujeto con la mano (antes flotaba en medio de la vista)
+// una mano que sujeta el objeto en primera persona
+function heldHand(g,on){if(!g.userData.hand){const sk=lam('#c99a74'),h=new THREE.Group(),palm=new THREE.Mesh(new THREE.SphereGeometry(0.045,10,8),sk);palm.scale.set(1.25,0.75,1.5);h.add(palm);
+  for(let i=0;i<4;i++){const f=new THREE.Mesh(new THREE.CylinderGeometry(0.009,0.008,0.05,6),sk);f.rotation.z=Math.PI/2;f.position.set(-0.05,0.02-i*0.016,0.03);h.add(f);}const arm=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.036,0.32,10),sk);arm.rotation.x=Math.PI/2.4;arm.position.set(0.02,-0.08,0.15);h.add(arm);
+  h.position.set(0.02,-0.1,0.01);h.traverse(o=>{if(o.isMesh){o.renderOrder=2;o.castShadow=false;}});g.add(h);g.userData.hand=h;}g.userData.hand.visible=on;}
 {const f=updateTorch;updateTorch=function(dt,t){const r=f.apply(this,arguments);try{heldUpdate(dt);}catch(e){if(!HELD.err){HELD.err=1;console.warn('objeto en la mano',e);}}return r;};}
