@@ -13,11 +13,11 @@ const CADUCEO_SVG='<svg viewBox="0 0 40 48" aria-hidden="true"><path d="M20 6v40
  '<path d="M20 15c-6 2-6 6 0 8s6 6 0 8-6 6 0 8M20 15c6 2 6 6 0 8s-6 6 0 8 6 6 0 8" stroke="#7fa35a" stroke-width="2.2" fill="none" stroke-linecap="round"/>'+
  '<circle cx="15.4" cy="16.4" r="1.6" fill="#7fa35a"/><circle cx="24.6" cy="16.4" r="1.6" fill="#7fa35a"/></svg>';
 function msgCSS(){if($('msgCSS'))return;const s=document.createElement('style');s.id='msgCSS';s.textContent=
- '#msgBtn{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:1px solid #d9874a;'+
- 'background:rgba(22,16,12,.8);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;z-index:6;pointer-events:auto;transition:transform .15s}'+
- '#msgBtn:hover{transform:scale(1.06)}#msgBtn svg{width:30px;height:36px}#msgBtn .dot{position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;border-radius:11px;background:#c4422a;color:#fff;'+
+ '#msgBtn{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));width:60px;height:70px;border:none;'+
+ 'background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;z-index:6;pointer-events:auto;transition:transform .15s}'+
+ '#msgBtn:hover{transform:scale(1.06)}#msgBtn svg{width:50px;height:62px;overflow:visible;filter:drop-shadow(2.5px 0 0 #ffd23a) drop-shadow(-2.5px 0 0 #ffd23a) drop-shadow(0 2.5px 0 #ffd23a) drop-shadow(0 -2.5px 0 #ffd23a) drop-shadow(0 2px 4px rgba(0,0,0,.7))}#msgBtn .dot{position:absolute;top:-2px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:#c4422a;color:#fff;'+
  'font:700 12px/22px Georgia,serif;text-align:center;padding:0 5px;box-shadow:0 0 0 2px rgba(22,16,12,.9);display:none}#msgBtn.new .dot{display:block;animation:msgBlink 1.1s ease-in-out infinite}'+
- '#msgBtn.new{box-shadow:0 0 0 0 rgba(240,200,144,.7);animation:msgRing 1.6s ease-out infinite}'+
+ '#msgBtn.new svg{animation:msgPulse 1.6s ease-in-out infinite}@keyframes msgPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}'+
  '@keyframes msgBlink{0%,100%{opacity:1}50%{opacity:.35}}@keyframes msgRing{0%{box-shadow:0 0 0 0 rgba(240,200,144,.6)}100%{box-shadow:0 0 0 14px rgba(240,200,144,0)}}'+
  '#msgBox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:60;background:rgba(10,7,4,.45)}#msgBox[hidden]{display:none}'+
  '#msgBox .card{width:min(560px,92vw);max-height:78vh;overflow:auto;background:rgba(28,21,15,.97);border:1px solid #d9874a;border-radius:14px;padding:16px 18px 12px;color:#f1e8d8;font-family:Alegreya,Georgia,serif;box-shadow:0 10px 40px rgba(0,0,0,.6)}'+
@@ -26,7 +26,7 @@ function msgCSS(){if($('msgCSS'))return;const s=document.createElement('style');
  '#msgBox .m.go{cursor:pointer}#msgBox .m.go:hover{border-left-color:#f0c890}#msgBox .m .when{display:block;font-size:.75rem;color:#bfae92;margin-top:4px}'+
  '#msgBox .foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:10px}#msgBox button.ok{font:600 1rem Georgia,serif;padding:8px 18px;border-radius:8px;border:1px solid #d9874a;background:#3a2a1c;color:#f3e6cf;cursor:pointer}'+
  '#msgBox .lnk{background:none;border:0;color:#d8c6a8;text-decoration:underline;cursor:pointer;font:inherit;font-size:.82rem;padding:0}'+
- 'body.tm #msgBtn{bottom:calc(92px + env(safe-area-inset-bottom,0px));width:50px;height:50px}';document.head.appendChild(s);}
+ 'body.tm #msgBtn{bottom:calc(92px + env(safe-area-inset-bottom,0px));width:52px;height:60px}body.tm #msgBtn svg{width:42px;height:52px}';document.head.appendChild(s);}
 function msgBtn(){let b=$('msgBtn');if(b)return b;msgCSS();const h=$('hud');if(!h)return null;b=document.createElement('button');b.id='msgBtn';b.type='button';
   b.title='Mensajes del heraldo [.]';b.setAttribute('aria-label','Mensajes');b.innerHTML=CADUCEO_SVG+'<span class="dot"></span>';b.onclick=e=>{e.stopPropagation();msgOpen();};h.appendChild(b);return b;}
 function msgRefresh(){const b=msgBtn();if(!b)return;b.classList.toggle('new',MSG.unread>0);b.querySelector('.dot').textContent=MSG.unread>9?'9+':String(MSG.unread);b.hidden=MSG.old;}
