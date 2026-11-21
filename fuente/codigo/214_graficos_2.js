@@ -130,4 +130,4 @@ function w2Mtns(){if(WG2.mtn.length)return;const L=W2M[MODE==='roma'?'roma':'ate
   if(typeof PLACES!=='undefined'&&PLACES.length>20){if(!WG2.boot){WG2.boot=1;w2Prints();w2Motes();w2Mtns();}
     if(gqOn('medio')){w2Fountains();w2Markets();w2Facades();}}
   w2IntTick(dt);w2FountTick();w2StepTick(dt);w2MoteTick(dt);w2CloudTick(dt);
-  WG2.jobT+=dt;if(WG2.jobT>1.5){WG2.jobT=0;w2JobSetup();w2CaneTick();}}catch(e){if(!WG2.err){WG2.err=String(e&&e.stack||e).slice(0,300);console.warn('graficos 2',e);}}};}
+  {const nw=performance.now();if(nw-WG2.jobT>1500){WG2.jobT=nw;w2JobSetup();w2CaneTick();}}}catch(e){if(!WG2.err){WG2.err=String(e&&e.stack||e).slice(0,300);console.warn('graficos 2',e);}}};}

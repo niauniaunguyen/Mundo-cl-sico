@@ -22712,7 +22712,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='1525261516a8';
+const NOSTOS_VER='326f87a87289';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -31350,7 +31350,7 @@ function w2Mtns(){if(WG2.mtn.length)return;const L=W2M[MODE==='roma'?'roma':'ate
   if(typeof PLACES!=='undefined'&&PLACES.length>20){if(!WG2.boot){WG2.boot=1;w2Prints();w2Motes();w2Mtns();}
     if(gqOn('medio')){w2Fountains();w2Markets();w2Facades();}}
   w2IntTick(dt);w2FountTick();w2StepTick(dt);w2MoteTick(dt);w2CloudTick(dt);
-  WG2.jobT+=dt;if(WG2.jobT>1.5){WG2.jobT=0;w2JobSetup();w2CaneTick();}}catch(e){if(!WG2.err){WG2.err=String(e&&e.stack||e).slice(0,300);console.warn('graficos 2',e);}}};}
+  {const nw=performance.now();if(nw-WG2.jobT>1500){WG2.jobT=nw;w2JobSetup();w2CaneTick();}}}catch(e){if(!WG2.err){WG2.err=String(e&&e.stack||e).slice(0,300);console.warn('graficos 2',e);}}};}
 // ============================================================ ÁRBOLES DE POLY HAVEN (CC0) para los árboles cercanos
 // Modelos escaneados de https://polyhaven.com aligerados en Blender (herramientas/blender/arboles_polyhaven.py → #glbph, en segundo plano):
 //   P_olivo  ← «Island Tree 02» (tronco retorcido y hoja lanceolada): sustituye a los olivos (T_olive), y por tanto también a encinas y laureles
