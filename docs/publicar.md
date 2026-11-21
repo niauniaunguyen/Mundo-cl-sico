@@ -27,6 +27,13 @@ El repositorio ya incluye `.github/workflows/pages.yml`, que publica el juego ca
 
 `atenas.html` se puede copiar a un pendrive, al aula virtual (Moodle, Classroom) o al escritorio de los ordenadores del aula y abrirse con doble clic. El progreso se guarda en el navegador de cada ordenador.
 
+## 4. Si la red del centro bloquea la web (p. ej., la wifi de Gencat bloquea Netlify)
+
+- **Sin red, el archivo único:** `atenas_un_archivo.html` lleva dentro todo, también three.js (no usa ningún CDN), y funciona con doble clic sin conexión. Se puede copiar a los ordenadores del aula, a un pendrive o a una carpeta compartida de Google Drive para que el alumnado lo descargue (Drive no lo abre en línea: hay que descargarlo y abrirlo).
+- **En el Moodle del centro, como paquete SCORM:** la carpeta `web/` incluye `imsmanifest.xml`. Comprímela (el contenido, no la carpeta) y súbela al curso como «Paquete SCORM»: se juega desde el dominio del Moodle, que la red del centro permite. Comprueba antes el tamaño máximo de subida del Moodle (unos 25 MB comprimido).
+- **Instalado:** quien abra el juego una vez con conexión (en casa) y lo instale, lo puede seguir usando sin conexión en ese mismo dispositivo.
+- **Pedir que lo desbloqueen:** la coordinación digital del centro puede pedir al servicio de atención del Departament d'Educació que permita el dominio del juego (o usar un dominio propio en vez de `*.netlify.app`).
+
 ## Instalar el juego y usarlo sin conexión
 
 En la web (GitHub Pages, Netlify, Cloudflare Pages…), el juego se puede **instalar** como una aplicación: en Chrome o Edge, con el botón de instalar de la barra de direcciones; en una tableta o un móvil, con «Añadir a la pantalla de inicio». Después de la primera partida con conexión, el juego guarda en el navegador la página, el código y todos los datos (unos 23 MB), y **funciona sin conexión**, útil si la wifi del centro falla. Cuando se publica una versión nueva, solo se vuelven a descargar los archivos que han cambiado.

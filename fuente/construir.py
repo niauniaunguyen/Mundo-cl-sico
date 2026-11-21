@@ -79,6 +79,13 @@ out = out.replace('@@VER@@', ver)
 #  · atenas.html + datos/: la página ligera con un cargador que trae el código (datos/juego.js) y los datos (modelos, imágenes,
 #    relieve) antes de arrancar. Así ningún archivo pasa del límite de 16 MB de una página de Claude y el relieve real cabe.
 #    Necesita servirse desde una web o un servidor (con doble clic, el navegador no deja leer datos/; para eso está el otro).
+# three.js (MIT, copia local en fuente/vendor/, sacada del paquete oficial de npm three@0.128.0): en el archivo único va dentro, así funciona
+# sin ninguna conexión (en algunas redes de centros educativos los CDN están bloqueados)
+CDN3 = ('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>', '<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>')
+VEN = raiz / 'fuente' / 'vendor'
+_t3 = (VEN / 'three.min.js').read_text(encoding='utf-8'); _gl = (VEN / 'GLTFLoader.js').read_text(encoding='utf-8')
+if CDN3[0] in out: out = out.replace(CDN3[0], '<script>' + _t3.replace('</script', '<\\/script') + '</script>', 1)
+if CDN3[1] in out: out = out.replace(CDN3[1], '<script>' + _gl.replace('</script', '<\\/script') + '</script>', 1)
 (raiz / 'atenas_un_archivo.html').write_text(out, encoding='utf-8')
 datos = raiz / 'datos'; datos.mkdir(exist_ok=True)
 for f in datos.glob('*'):
@@ -135,7 +142,19 @@ for _f in (raiz / 'fuente' / 'pwa').glob('*'): shutil.copy(_f, raiz / _f.name)
 _web = raiz / 'web'
 if _web.exists(): shutil.rmtree(_web)
 (_web / 'datos').mkdir(parents=True)
-shutil.copy(raiz / 'atenas.html', _web / 'index.html')
+_idx = (raiz / 'atenas.html').read_text(encoding='utf-8')
+(_web / 'vendor').mkdir()
+for _n in ('three.min.js', 'GLTFLoader.js', 'LICENSE_three.txt'): shutil.copy(VEN / _n, _web / 'vendor' / _n)
+_idx = _idx.replace(CDN3[0], '<script src="vendor/three.min.js"></script>').replace(CDN3[1], '<script src="vendor/GLTFLoader.js"></script>')   # sin depender de los CDN
+(_web / 'index.html').write_text(_idx, encoding='utf-8')
+# también como paquete SCORM 1.2 (para subirlo al Moodle del centro como «Paquete SCORM»): el mismo contenido con su manifiesto
+(_web / 'imsmanifest.xml').write_text('''<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="nostos" version="1.0" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2">
+ <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>
+ <organizations default="org"><organization identifier="org"><title>Nóstos</title><item identifier="i1" identifierref="r1"><title>Nóstos</title></item></organization></organizations>
+ <resources><resource identifier="r1" type="webcontent" adlcp:scormtype="sco" href="index.html"><file href="index.html"/></resource></resources>
+</manifest>
+''', encoding='utf-8')
 for _f in datos.glob('*'): shutil.copy(_f, _web / 'datos' / _f.name)
 for _n in ('version.json', 'sw.js', 'manifest.webmanifest', 'icono-192.png', 'icono-512.png'):
     if (raiz / _n).exists(): shutil.copy(raiz / _n, _web / _n)
