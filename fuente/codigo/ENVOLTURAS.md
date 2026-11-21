@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-278 funciones ampliadas, 509 capas.
+278 funciones ampliadas, 510 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -21,13 +21,13 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `openDialog` | `015_dialogo.js` | 6 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 |
 | `updateSky` | `003_escena.js` | 6 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:202 · `212`:34 |
 | `answer` | `015_dialogo.js` | 5 | `091`:38 · `092`:46 · `148`:58 · `154`:11 · `180`:22 |
+| `bpMake` | `184_personajes_blender.js` | 5 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:42 |
 | `chunked` | `005_modelos_de_blender.js` | 5 | `155`:21 · `182`:51 · `182`:96 · `183`:58 · `215`:13 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `fareOf` | `016_viajes_en_barco.js` | 5 | `052`:509 · `090`:102 · `091`:52 · `097`:70 · `202`:60 |
 | `int2Room` | `204_puertas_a_interiores.js` | 5 | `206`:52 · `208`:23 · `210`:39 · `214`:29 · `217`:85 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
 | `bpKind` | `184_personajes_blender.js` | 4 | `196`:16 · `196`:41 · `196`:69 · `218`:11 |
-| `bpMake` | `184_personajes_blender.js` | 4 | `186`:68 · `196`:42 · `214`:66 · `218`:17 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `toast` | `014_hud.js` | 4 | `120`:131 · `128`:68 · `173`:8 · `200`:37 |
