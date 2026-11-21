@@ -66,7 +66,7 @@ function w2MoteTick(dt){const M=WG2.motes;if(!M)return;const on=ui==='play'&&WIN
   const wd=0.9+Math.random()*0.22;root.scale.x*=wd;root.scale.z*=0.95+(wd-0.9)*0.6;   // complexiones: más anchos o más delgados
   if(!/hoplita|legionario/.test(kind)&&r<0.13&&!(c&&c.noVary)){g.userData.old=1;root.scale.y*=0.96;root.rotation.x=0.07;   // ancianos: un poco encorvados y con bastón
     const cane=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.018,0.95,6),lam('#6b4a2c'));cane.position.set(0,-0.42,0.02);cane.userData.w2cane=1;g.userData.cane=cane;}}catch(e){}return g;};}
-function w2CaneTick(){for(const g of BP.list){if(!g.userData.cane||g.userData.caneOk)continue;let h=null;g.traverse(o=>{if(o.isBone&&o.name==='hand.R')h=o;});if(h){h.add(g.userData.cane);g.userData.caneOk=1;}}}
+function w2CaneTick(){for(const g of BP.list){if(!g.userData.cane||g.userData.caneOk)continue;let h=null;g.traverse(o=>{if(o.isBone&&/^hand\.?_?R$/i.test(o.name))h=o;});if(h){h.add(g.userData.cane);g.userData.caneOk=1;}}}
 // ---------------------------------------------------------------- W6 mercados
 function w2Awn(c1,c2){const c=document.createElement('canvas');c.width=128;c.height=32;const x=c.getContext('2d');for(let i=0;i<8;i++){x.fillStyle=i%2?c1:c2;x.fillRect(i*16,0,16,32);}const t=new THREE.CanvasTexture(c);return new THREE.MeshLambertMaterial({map:t,side:THREE.DoubleSide});}
 function w2Stall(x,z,a,ro,i){const g=grp(x,floorAt(x,z),z,a),wood=lam('#7a5634');const C=[['#c9b28a','#8a3b2a'],['#d8cfa8','#3e5a7a'],['#cbb488','#5e6e3a']][i%3];

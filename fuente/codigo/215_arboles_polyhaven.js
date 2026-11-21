@@ -13,7 +13,7 @@ try{if(typeof isTouch!=='undefined'&&isTouch){PHT.R=35;PHT.max=14;}if(ACC.lite)P
 {const f=chunked;chunked=function(geo,mat,items,opt){const n0=CHUNKS.length;f.apply(this,arguments);try{if(!opt||!opt.veg||!PHT.R)return;
   for(const k in PHT.sp){for(const [part,list] of[[k+'_crown','crown'],[k+'_trunk','trunk']]){const P=GLB.parts[part];if(P&&P.meshes.some(m=>m.geo===geo)){for(let i=n0;i<CHUNKS.length;i++)PHT.sp[k][list].push(CHUNKS[i].im);}}}}catch(e){PHT.err=String(e);}};}
 function phtLoad(){if(PHT.loading||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;PHT.loading=1;
-  bpBytes('glbph').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(o.isMesh)T[o.name]=o;});PHT.tpl=T;},e=>{PHT.err=String(e);});}).catch(e=>{PHT.err=String(e);});}
+  bpBytes('glbph').then(buf=>{PHT.dbg='bytes '+(buf&&buf.byteLength);if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(o.isMesh)T[o.name]=o;});PHT.tpl=T;PHT.dbg+=' ok '+Object.keys(T).join(',');},e=>{PHT.err=String(e);});}).catch(e=>{PHT.err=String(e);});}
 // medidas del árbol sencillo (tronco + copa) en su espacio de módulo
 function phtBox(k){const b=new THREE.Box3();for(const nm of[k+'_trunk',k+'_crown']){const P=GLB.parts[nm];if(!P)continue;for(const m of P.meshes){m.geo.computeBoundingBox();b.union(m.geo.boundingBox);}}return b;}
 function phtLeafMat(src,tint,depth){const m=depth?new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:src.map}):new THREE.MeshLambertMaterial({map:src.map,color:tint,side:THREE.DoubleSide});
