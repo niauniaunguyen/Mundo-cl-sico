@@ -16,7 +16,7 @@ function gmRight(d){const g=d.querySelector('.gr');if(!g)return;const pg=GM.page
     '<div class="two">'+btn('pg:ajustes','Ajustes','sonido, imagen, idioma…','wide')+btn('pg:partida','Partida','guardar, cargar, época','wide')+'</div>';}
   else{h='<button class="play" data-g="pg:">'+gmSvg('back')+'Volver al menú</button><div class="sec">'+{ajustes:'Ajustes',partida:'Partida',ayuda:'Ayuda'}[pg]+'</div><div class="list">';
     if(pg==='ajustes')h+=[['sound','Sonido: '+(AUD_ON?'sí':'no')],['cam','Balanceo de cámara: '+(GF.reduced?'no':'sí')],['voc',vocLabel()],['gfx',gfxLabel()],['ao',aoLabel()],['gq',(typeof gqLabel==='function'?gqLabel():'Detalle gráfico')],['wx',wxLabel()],['acc','Accesibilidad (letra, voz, contraste)'],...(isTouch?[]:[['keys','Controles del teclado']]),['full','Pantalla completa']].map(b=>btn(b[0],b[1])).join('');
-    else if(pg==='partida')h+=btn('save','Guardar partida')+btn('load','Cargar partida')+btn('era','Cambiar de época',MODE==='roma'?'ir a Atenas, 386 a.C.':'ir a Roma, 80 d.C.')+btn('prof','Panel del profesor');
+    else if(pg==='partida')h+=btn('save','Guardar partida')+btn('load','Cargar partida')+btn('era','Cambiar de época',MODE==='roma'?'ir a Atenas, 386 a.C.':'ir a Roma, 80 d.C.')+btn('prof','Panel del profesor')+btn('rend','Prueba de rendimiento','mide los FPS en este ordenador y crea un informe');
     else h+=btn('hint','Pedir una pista al pedagogo',K('tecla G'))+btn('mt',mtLabel(),'toca para cambiarlo')+(isTouch?'':btn('keys','Ver los controles del teclado'))+btn('acc','Accesibilidad (letra, voz, contraste)');
     h+='</div>';}
   h+='<div class="hint">'+(isTouch?'':(pg?'Esc para volver al menú · ':'')+'Tab o Esc para cerrar')+'</div>';
