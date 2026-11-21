@@ -645,12 +645,13 @@ function buildHouses(){
       if(((iu%dm.blk)+dm.blk)%dm.blk===dm.blk-1)continue;const vm=((iv%3)+3)%3;if(vm===2)continue;const key=dm.id+':'+iu+':'+iv;if(hkeys.has(key))continue;
       const q=toW(iu*dm.p,iv*dm.p,WALLC.x,WALLC.z,dm.a);x=q[0];z=q[1];if(hBad(x,z))continue;w=d=dm.p-0.6;a=dm.a+(vm===0?Math.PI:0);two=R()<dm.two;
       if(roadDist(x,z)<w/2+1)continue;
-      if(Math.abs(terrainH(x+6,z)-terrainH(x-6,z))>3.2||Math.abs(terrainH(x,z+6)-terrainH(x,z-6))>3.2)continue;
+      if(lotSteep(x,z,w,d,a))continue;
       if(!free(x,z,w*0.7,d*0.7))continue;hkeys.add(key);}
     else{
       if(roadDist(x,z)<Math.max(w,d)/2+2)continue;
-      if(Math.abs(terrainH(x+6,z)-terrainH(x-6,z))>3.2||Math.abs(terrainH(x,z+6)-terrainH(x,z-6))>3.2)continue;
+      if(lotSteep(x,z,w,d,a))continue;
       if(!free(x,z,w,d))continue;mark(x,z,w,d);}
+    if(lotSteep(x,z,w,d,a))continue;   // con el ángulo ya fijado
     list.push({x,z,w,d,a,h:rr(3.2,4.4),two,gy:minGround(x,z,w,d,a)});
   }
   if(GLB.ok){housesGLB(list);return;}

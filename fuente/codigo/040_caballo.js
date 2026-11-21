@@ -132,7 +132,8 @@ function placeCamera(){
   placeCamera0();talkCamera();}
 function placeCamera0(){
   const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw);
-  if(AVATAR.view3&&ui!=='start'){const back=MOUNT.riding?7.5:5,up=MOUNT.riding?2.0:1.5;let cx=player.x-fx*back,cz=player.z-fz*back,cy=player.camY+up-player.pitch*3;
+  if(AVATAR.view3&&ui!=='start'){const back=MOUNT.riding?7.5:5,up=MOUNT.riding?2.0:1.5;let bk=back;{for(let t=0.6;t<=back;t+=0.3){const qx=player.x-fx*t,qz=player.z-fz*t;if(!isFree(qx,qz,0.25)||floorAt(qx,qz)>player.camY+up-0.3){bk=Math.max(0.6,t-0.45);break;}}}TCAM.bk=TCAM.bk==null?bk:(bk<TCAM.bk?bk:TCAM.bk+(bk-TCAM.bk)*0.08);   // la cámara no se mete en las paredes ni en el monte: se acerca (y se aleja despacio)
+    let cx=player.x-fx*TCAM.bk,cz=player.z-fz*TCAM.bk,cy=player.camY+up-player.pitch*3;
     cy=Math.max(cy,floorAt(cx,cz)+0.8);camera.position.set(cx,cy,cz);camera.lookAt(player.x+fx*2,player.camY-0.2+player.pitch*3,player.z+fz*2);gfCam(true);}
   else{const k=MOUNT.riding?0.24:0;camera.position.set(player.x+fx*k,player.camY,player.z+fz*k);camera.rotation.set(player.pitch,player.yaw,0);if(ui!=='start')gfCam(false);}
 }

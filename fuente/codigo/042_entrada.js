@@ -5,6 +5,7 @@ function releasePointer(){if(document.pointerLockElement)try{document.exitPointe
 // Sin captura, el punto de mira (#cross) sigue al cursor y E apunta a lo que hay bajo él; con captura, vuelve al centro.
 let dragging=false,lastMX=-1,lastMY=-1,mouseIn=false,crossT=0;
 document.addEventListener('mouseleave',()=>{mouseIn=false;});
+window.addEventListener('mouseout',e=>{if(!e.relatedTarget&&!e.toElement){mouseIn=false;lastMX=-1;}});window.addEventListener('blur',()=>{mouseIn=false;lastMX=-1;});   // el cursor sale de la ventana: que la cámara no siga girando sola
 function freeAim(){return ui==='play'&&!isTouch&&!document.pointerLockElement&&lastMX>=0;}
 function placeCross(){const c=$('cross');if(!c)return;const f=freeAim();c.style.left=f?lastMX+'px':'50%';c.style.top=f?lastMY+'px':'50%';canvas.classList.toggle('free',f);}
 document.addEventListener('pointerlockchange',placeCross);

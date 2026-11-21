@@ -33,7 +33,7 @@ const OB_TXT={atenas:{name:'Lisias',sub:'un muchacho del Pireo',
   wait:['¡Por aquí!','¡Corre, que es aquí al lado!','¡Sígueme!']}};
 const obT=()=>OB_TXT[MODE==='roma'?'roma':'atenas'];
 function obSay(t,dur){if(!OB.sub){const d=document.createElement('div');d.id='obSub';d.style.cssText='position:fixed;left:50%;bottom:118px;transform:translateX(-50%);max-width:min(640px,90vw);background:rgba(20,15,10,.82);color:#f3e6cf;border:1px solid #c98a4a;border-radius:12px;padding:10px 16px;font:16px Alegreya,Georgia,serif;z-index:30;pointer-events:auto;line-height:1.35';document.body.appendChild(d);OB.sub=d;}
-  const T=obT();OB.sub.innerHTML='<b style="color:#e8a85a">'+T.name+'</b> · '+t+' <a href="#" id="obSkip" style="color:#a89a7a;font-size:.8em;margin-left:8px">saltar presentación</a>';OB.sub.hidden=false;OB.subT=dur||9;
+  const T=obT();OB.sub.innerHTML='<b style="color:#e8a85a">'+T.name+'</b> · '+t+' <a href="#" id="obSkip" style="color:#a89a7a;font-size:.8em;margin-left:8px">saltar presentación (tecla Retroceso ⌫)</a>';OB.sub.hidden=false;OB.subT=dur||9;
   $('obSkip').onclick=e=>{e.preventDefault();obFinish(true);};}
 function obHint(t){toast(t);}
 function obActive(){return state&&!storyOn()&&obz().st>0&&!obz().done;}
@@ -64,13 +64,17 @@ function obTick(dt){if(!state||ui==='start')return;const z=obz();
   const gx=g.position.x,gz=g.position.z,dP=Math.hypot(P.x-gx,P.z-gz);let tgt=OB.wp[OB.wi];
   if(tgt&&Math.hypot(tgt[0]-gx,tgt[1]-gz)<(OB.wi===OB.wp.length-1?3:2.5)){if(OB.wi<OB.wp.length-1){OB.wi++;tgt=OB.wp[OB.wi];}else tgt=null;}
   let moving=false;
-  if(tgt&&dP<11){const a=Math.atan2(tgt[0]-gx,tgt[1]-gz),sp=3.6;let ok=false;
-    for(const off of[0,0.5,-0.5,1,-1,1.5,-1.5]){const aa=a+off,nx=gx+Math.sin(aa)*sp*dt,nz=gz+Math.cos(aa)*sp*dt;if(isFree(nx,nz,0.3)&&Math.abs(floorAt(nx,nz)-g.position.y)<1.2){g.position.x=nx;g.position.z=nz;g.rotation.y=aa;ok=true;break;}}
-    if(ok){moving=true;OB.stuck=0;}else{OB.stuck+=dt;if(OB.stuck>1.5){g.position.x=tgt[0];g.position.z=tgt[1];OB.stuck=0;}}   // atascado: aparece en el siguiente punto
+  if(tgt&&dP<11){const sp=3.6;
+    // camino de verdad (rejilla de 1,5 m que rodea paredes y no sube pendientes imposibles); antes, si se atascaba, saltaba al punto siguiente atravesando casas
+    if(!OB.path||OB.pathFor!==tgt||(OB.stuck>0.8&&performance.now()-(OB.pathT||0)>1500)){OB.path=obPath(gx,gz,tgt[0],tgt[1]);OB.pathFor=tgt;OB.pathT=performance.now();OB.stuck=0;}
+    let nx0=tgt[0],nz0=tgt[1];if(OB.path&&OB.path.length){while(OB.path.length>1&&Math.hypot(OB.path[0][0]-gx,OB.path[0][1]-gz)<0.9)OB.path.shift();nx0=OB.path[0][0];nz0=OB.path[0][1];}
+    const a=Math.atan2(nx0-gx,nz0-gz);let ok=false;
+    for(const off of[0,0.35,-0.35,0.8,-0.8,1.3,-1.3]){const aa=a+off,nx=gx+Math.sin(aa)*sp*dt,nz=gz+Math.cos(aa)*sp*dt;if(isFree(nx,nz,0.3)&&Math.abs(floorAt(nx,nz)-g.position.y)<0.8){g.position.x=nx;g.position.z=nz;let dr=aa-g.rotation.y;dr=Math.atan2(Math.sin(dr),Math.cos(dr));g.rotation.y+=dr*Math.min(1,dt*8);ok=true;break;}}
+    if(ok){moving=true;OB.stuck=0;}else{OB.stuck+=dt;if(OB.stuck>6&&!obSeen(tgt[0],tgt[1])&&!obSeen(gx,gz)){g.position.x=tgt[0];g.position.z=tgt[1];OB.stuck=0;OB.path=null;}}   // atascado de verdad: solo si no lo ves
     g.position.y=floorAt(g.position.x,g.position.z);}
   else{const a=Math.atan2(P.x-gx,P.z-gz);let d=a-g.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));g.rotation.y+=d*Math.min(1,dt*3);
     if(dP>16&&performance.now()-OB.last>9000){OB.last=performance.now();obSay(pick(obT().wait),3);}
-    if(dP>60){const a2=Math.atan2(gx-P.x,gz-P.z);g.position.x=P.x+Math.sin(a2)*6;g.position.z=P.z+Math.cos(a2)*6;g.position.y=floorAt(g.position.x,g.position.z);}}   // te has ido lejos: vuelve a por ti
+    if(dP>60){const a2=Math.atan2(gx-P.x,gz-P.z),q=findFree(P.x-Math.sin(P.yaw)*7,P.z-Math.cos(P.yaw)*7,0.5);if(!obSeen(q[0],q[1])){g.position.x=q[0];g.position.z=q[1];g.position.y=floorAt(q[0],q[1]);OB.path=null;}}}   // te has ido lejos: vuelve a por ti, por detrás, sin que lo veas aparecer
   if(moving)personWalk(g,performance.now()/170,1);else personWalk(g,0,0);
   // al llegar al destino de la etapa, explica qué hacer (una vez)
   if(!tgt&&S&&!OB.said[OB.stage]&&dP<12){OB.said[OB.stage]=1;const T=obT();if(S.k==='dream')obSay(T.dream,10);else if(S.k==='god')obSay(T.god,10);else if(S.k==='talk'&&OB.stage>0)obSay(T.talk,10);}}
@@ -78,3 +82,19 @@ function obTick(dt){if(!state||ui==='start')return;const z=obz();
 {const f=tutStart;tutStart=function(){if(!storyOn()&&!obz().done&&!state.lessons.length&&!state.places.length){state.tut=1;save();obStart();return;}return f.apply(this,arguments);};}
 // si se recarga a mitad de la presentación, el guía vuelve
 {const f=uxTick;uxTick=function(dt){f(dt);try{if(state&&ui==='play'&&!OB.g&&obActive()&&!OB.route){OB.route=obRoute();obSpawn();obStage(Math.max(0,obz().st-1));}obTick(dt);}catch(e){}};}
+
+// saltar la presentación con una tecla (Retroceso): con el ratón no se puede, porque el ratón mueve la cámara
+addEventListener('keydown',e=>{if(e.code!=='Backspace'||!OB.sub||OB.sub.hidden||obz().done)return;const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'))return;e.preventDefault();obFinish(true);});
+
+// ¿se ve este punto? (delante de la cámara y a menos de 45 m)
+function obSeen(x,z){const v=new THREE.Vector3(x,floorAt(x,z)+1,z);if(v.distanceTo(camera.position)>45)return false;v.project(camera);return v.z<1&&Math.abs(v.x)<1.1&&Math.abs(v.y)<1.1;}
+// búsqueda de camino A* en una rejilla de 1,5 m: celdas libres (isFree) y sin escalones de más de 0,8 m entre vecinas
+function obPath(sx,sz,tx,tz){const S=1.5,ox=Math.min(sx,tx)-40,oz=Math.min(sz,tz)-40,W=Math.ceil((Math.abs(tx-sx)+80)/S),H=Math.ceil((Math.abs(tz-sz)+80)/S);if(W*H>60000)return null;
+  const ci=(x,z)=>[Math.round((x-ox)/S),Math.round((z-oz)/S)],cx=i=>ox+i*S,K=(i,j)=>j*W+i,[si,sj]=ci(sx,sz),[ti,tj]=ci(tx,tz);
+  const free=new Map(),hgt=new Map(),ok=(i,j)=>{const k=K(i,j);if(!free.has(k)){const x=cx(i),z=oz+j*S;free.set(k,isFree(x,z,0.35));hgt.set(k,floorAt(x,z));}return free.get(k);};
+  ok(si,sj);const g=new Map([[K(si,sj),0]]),came=new Map(),open=[[Math.hypot(ti-si,tj-sj),si,sj]],seen=new Set();let n=0;
+  while(open.length&&n++<5000){let bi=0;for(let q=1;q<open.length;q++)if(open[q][0]<open[bi][0])bi=q;const [,i,j]=open.splice(bi,1)[0],k=K(i,j);if(seen.has(k))continue;seen.add(k);
+    if(Math.abs(i-ti)<=1&&Math.abs(j-tj)<=1){const out=[[tx,tz]];let c=k;while(came.has(c)){out.unshift([cx(c%W),oz+Math.floor(c/W)*S]);c=came.get(c);}return out;}
+    for(const [di,dj] of[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){const a=i+di,b=j+dj;if(a<0||b<0||a>=W||b>=H)continue;const kk=K(a,b);if(seen.has(kk)||!ok(a,b))continue;
+      if(Math.abs(hgt.get(kk)-hgt.get(k)||0)>0.8)continue;const ng=g.get(k)+Math.hypot(di,dj);if(ng<(g.has(kk)?g.get(kk):1e9)){g.set(kk,ng);came.set(kk,k);open.push([ng+Math.hypot(ti-a,tj-b),a,b]);}}}
+  return null;}

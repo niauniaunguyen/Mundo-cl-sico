@@ -8,7 +8,8 @@ function tryMove(nx,nz){
   if(p.x<8000){p.x=clamp(p.x,INNER.x-INNER.size/2+20,INNER.x+INNER.size/2-20);p.z=clamp(p.z,INNER.z-INNER.size/2+20,INNER.z+INNER.size/2-20);}
   else sqClamp(p);   // destinos: el cuadrado de su escenario (antes, 1,38·R)
   const hN=floorAt(p.x,p.z);
-  if(hN-player.feet>0.65)return false;
+  if(hN-player.feet>0.65){const tN0=terrainH(p.x,p.z);if(MOUNT.riding||hN>tN0+0.01||hN-player.feet>2.2||inCavea(p.x,p.z))return false;   // un escalón de edificio no se sube; un risco del terreno, sí: trepando despacio
+    const q=clbSlow(p.x,p.z,4,1.15);if(!q)return false;p.x=q[0];p.z=q[1];player.feet=Math.min(floorAt(p.x,p.z),player.feet+0.12);}
   if(player.feet-hN>2.5&&CAVEAS.some(C=>caveaH(C,player.x,player.z)!==null)&&!CAVEAS.some(C=>caveaH(C,p.x,p.z)!==null))return false;   // desde lo alto de las gradas no se salta al vacío
   if(MODE==='roma'&&hN<-1.2&&!FLY.on)return false;   // el Tíber no se cruza a pie: hay que buscar un puente (volando, sí)
   const d=Math.hypot(p.x-player.x,p.z-player.z);

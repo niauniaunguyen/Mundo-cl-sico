@@ -10,7 +10,7 @@
 //  X7 Aves: palomas en las plazas que alzan el vuelo al acercarte y gaviotas que planean cerca del mar.
 //  X8 Paredes con historia: humedad que sube del suelo y manchas (en los materiales de pared, 036).
 //  X9 Interiores amueblados: lechos, mesa de tres patas, arcón, telar (casas griegas), lucernas y vajilla según la casa.
-//  X10 Cámara de cine: en los diálogos, el fondo se desenfoca por los bordes y un velo cálido realza el centro.
+//  X10 En los diálogos, un velo cálido oscurece un poco los bordes (sin desenfoque: emborronaba el texto).
 const X3={t:0,wetH:-99,ships:[],pig:[],gulls:[],pen:[],awn:[],furn:{},cine:null,key:null,head:null,boot:false};
 const x3R=mulberry32(2171);
 // ---------------------------------------------------------------- X2 el mar
@@ -84,9 +84,9 @@ function x3Furnish(room,R){if(!R||!R.g||X3.furn[R.X+','+R.Z])return;X3.furn[R.X+
   if(ro&&rich)put(c.x+hw*0.2,c.z-hw,(x,z)=>{box(0.5,0.9,0.5,lam('#d8d0c0'),x,0.45,z,g);const lar=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.08,0.4,8),lam('#8a6a3a'));lar.position.set(x,1.1,z);g.add(lar);});}   // larario
 {const f=int2Room;int2Room=function(room){const R=f.apply(this,arguments);try{x3Furnish(room,R);}catch(e){console.warn('muebles',e);}return R;};}
 // ---------------------------------------------------------------- X10 cámara de cine en los diálogos
-function x3Cine(){const open=ui==='dialog'&&!$('dialog').hidden&&gqOn('medio');   // sin luz extra: cada luz nueva obliga a recompilar todos los materiales
-  if(!X3.cine){const d=document.createElement('div');d.id='x3cine';d.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:3;display:none;backdrop-filter:blur(3px) saturate(1.05);-webkit-backdrop-filter:blur(3px);mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);-webkit-mask-image:radial-gradient(ellipse 34% 42% at 50% 42%,transparent 55%,black 100%);background:radial-gradient(ellipse 40% 50% at 50% 42%,rgba(255,200,140,0.08),rgba(0,0,0,0) 70%)';document.body.appendChild(d);X3.cine=d;}
-  const want=open?'block':'none';if(X3.cine.style.display!==want)X3.cine.style.display=want;}   // el desenfoque solo existe mientras dura el diálogo
+function x3Cine(){const open=ui==='dialog'&&!$('dialog').hidden&&gqOn('medio');   // solo un velo cálido en los bordes: nada de desenfoque, que emborronaba el texto de los diálogos
+  if(!X3.cine){const d=document.createElement('div');d.id='x3cine';d.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:1;display:none;background:radial-gradient(ellipse 55% 60% at 50% 42%,rgba(0,0,0,0) 60%,rgba(20,12,4,0.28) 100%)';document.body.appendChild(d);X3.cine=d;}
+  const want=open?'block':'none';if(X3.cine.style.display!==want)X3.cine.style.display=want;}
 // ---------------------------------------------------------------- bucle
 {const f=uxTick;uxTick=function(dt){f(dt);if(!state||ui==='start')return;try{dt=Math.min(0.1,dt||0);
   if(!X3.boot&&typeof PLACES!=='undefined'&&PLACES.length>20){X3.boot=true;if(gqOn('medio')){x3Pennants();x3Pigeons();}}

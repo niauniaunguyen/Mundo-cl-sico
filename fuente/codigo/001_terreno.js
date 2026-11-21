@@ -112,5 +112,7 @@ function floorAt(x,z){
   const wv=riverWater(x,z);if(wv!==null&&wv-1.25>h)h=wv-1.25;
   return h;
 }
+// solar demasiado empinado para una casa: más de 1,5 m entre su punto más alto y el más bajo (se veían casas medio enterradas en las laderas)
+function lotSteep(cx,cz,w,d,a){let lo=Infinity,hi=-Infinity;for(let i=-1;i<=1;i+=0.5)for(let j=-1;j<=1;j+=0.5){const p=toW(i*w/2,j*d/2,cx,cz,a||0);const h=terrainH(p[0],p[1]);if(h<lo)lo=h;if(h>hi)hi=h;}return hi-lo>1.5;}
 function minGround(cx,cz,w,d,a){let m=Infinity;for(let i=-1;i<=1;i+=0.5)for(let j=-1;j<=1;j+=0.5){const p=toW(i*w/2,j*d/2,cx,cz,a);m=Math.min(m,terrainH(p[0],p[1]));}return m;}
 

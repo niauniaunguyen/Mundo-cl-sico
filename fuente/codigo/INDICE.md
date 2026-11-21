@@ -5,7 +5,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | Módulo | Líneas | Secciones |
 |---|---:|---|
 | `000_inicio.js` | 61 | idioma (es / ca / en)<br>utilidades |
-| `001_terreno.js` | 117 | terreno |
+| `001_terreno.js` | 119 | terreno |
 | `002_colisiones.js` | 66 | colisiones |
 | `003_escena.js` | 57 | escena |
 | `004_sonido_sintesis_sin_archivos.js` | 65 | sonido (síntesis, sin archivos) |
@@ -15,7 +15,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `008_edificios.js` | 139 | edificios |
 | `009_personas.js` | 145 | personas |
 | `010_contenido.js` | 928 | CONTENIDO |
-| `011_construccion_del_mundo.js` | 839 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
+| `011_construccion_del_mundo.js` | 840 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
 | `012_escenarios_cuadrados.js` | 220 | ESCENARIOS CUADRADOS |
 | `013_destinos_nuevos_grecia_italia_hispania.js` | 457 | destinos nuevos (Grecia, Italia, Hispania): piezas comunes<br>estado y guardado<br>jugador |
 | `014_hud.js` | 152 | HUD |
@@ -44,10 +44,10 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
-| `040_caballo.js` | 355 | caballo |
+| `040_caballo.js` | 356 | caballo |
 | `041_dioses.js` | 193 | dioses |
-| `042_entrada.js` | 85 | entrada<br>interacción |
-| `043_bucle.js` | 99 | bucle<br>arranque |
+| `042_entrada.js` | 86 | entrada<br>interacción |
+| `043_bucle.js` | 100 | bucle<br>arranque |
 | `044_modo_historia.js` | 417 | MODO HISTORIA |
 | `045_modo_libre_en_linea_hasta.js` | 52 | MODO LIBRE EN LÍNEA (hasta 15 jugadores, capacidad room) |
 | `046_el_caballo.js` | 59 | el caballo: se gana con un favor y crece recogiendo esferas doradas |
@@ -160,7 +160,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `154_pruebas_aula.js` | 33 | PROBAR CON ALUMNOS: dónde se atascan, encuesta breve e informe, y menos texto al empezar |
 | `155_vegetacion.js` | 28 | VEGETACIÓN MEJOR: consejos de arte de entornos aplicados |
 | `156_hierba.js` | 83 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
-| `157_llegada.js` | 81 | LA LLEGADA: los primeros minutos con un guía, sin carteles de instrucciones |
+| `157_llegada.js` | 101 | LA LLEGADA: los primeros minutos con un guía, sin carteles de instrucciones |
 | `158_honra.js` | 45 | LA HONRA (timḗ / dignitas): el hilo que une todo lo que haces |
 | `159_personas.js` | 61 | PERSONAS MÁS CUIDADAS: cabeza, pelo, brazos con manos y ropa suavizada |
 | `160_voces_musica.js` | 35 | VOCES Y MÚSICA POR MOMENTOS |

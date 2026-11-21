@@ -30,7 +30,7 @@ body.intro #ldBox.gone{transform:translate(-50%,20px)}
 @media (max-width:700px){#intro .ifoot{bottom:calc(3% + env(safe-area-inset-bottom,0px));gap:12px}#intro .ibtns{flex-direction:column;align-items:center;gap:12px}#intro .ibig{padding:14px 22px}#intro .icap{top:calc(4px + env(safe-area-inset-top,0px));bottom:auto;right:8px;left:8px;text-align:center;max-width:none;font-size:.65rem}#intro .ititle{top:calc(7% + env(safe-area-inset-top,0px))}}
 @keyframes introZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
 @keyframes introIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#intro .icrawlp{transform:translateX(-50%)}#intro .icrawl{transform:none!important}#intro .ibg{animation:none}}`;document.head.appendChild(st);}
+@media (prefers-reduced-motion:reduce){#intro .icrawlp{transform:translateX(-50%)}#intro .ibg{animation:none}}`;document.head.appendChild(st);}
 function introStart(){if(INTRO.el||!$('start')||$('start').hidden)return;introCSS();const ro=MODE==='roma';
   const src=ro?(typeof LOBA_SRC!=='undefined'?LOBA_SRC:''):(typeof RAFAEL_SRC!=='undefined'?RAFAEL_SRC:'');
   const d=document.createElement('div');d.id='intro';
@@ -44,7 +44,7 @@ function introStart(){if(INTRO.el||!$('start')||$('start').hidden)return;introCS
   // el texto sube con una animación solo de transform (Web Animations): la ejecuta el compositor, fuera del hilo principal,
   // así que sigue fluida aunque el juego esté construyendo el mundo (antes se animaba «top» y subía a trompicones)
   try{const cr=d.querySelector('.icrawl'),wh=d.querySelector('.icrawlp').offsetHeight,th=cr.offsetHeight;
-    if(!matchMedia('(prefers-reduced-motion: reduce)').matches)INTRO.anim=cr.animate([{transform:'translateY('+wh+'px)'},{transform:'translateY('+(-th-40)+'px)'}],{duration:Math.max(40000,(wh+th)*42),delay:1200,easing:'linear',fill:'forwards'});}catch(e){}
+    INTRO.anim=cr.animate([{transform:'translateY('+wh+'px)'},{transform:'translateY('+(-th-40)+'px)'}],{duration:Math.max(40000,(wh+th)*42),delay:1200,easing:'linear',fill:'forwards'});}catch(e){}
   INTRO.poll=setInterval(()=>{if(!INTRO.el)return clearInterval(INTRO.poll);
     if($('start').hidden){introEnd();return;}   // la partida ya empezó (p. ej., recuperada)
     if(INTRO.step===0&&$('go')&&!$('go').disabled){INTRO.step=1;introStep1();}},300);}
