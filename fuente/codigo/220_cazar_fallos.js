@@ -60,10 +60,10 @@ async function czAudit(n){if(CZ.audit||CZ.bot)return;const D=czDests(),A=czAudLo
   const done=A.i>=D.length,bad=A.r.filter(r=>r.problemas&&r.problemas.length).length;
   czPanel((done?'<p><b>Revisión terminada</b>: ':'<p><b>Tanda terminada</b> ('+A.i+' de '+D.length+' destinos): ')+bad+' destinos con algo raro. '+(done?'':'Si el juego va lento, recarga la página antes de seguir; lo revisado se guarda.')+'</p>');}
 // ---------------------------------------------------------------- 3. jugador automático
-async function czBot(min){if(CZ.bot||CZ.audit)return;const B=CZ.bot={t0:performance.now(),dur:(min||10)*60000,tgt:null,lastMv:performance.now(),px:player.x,pz:player.z,nonPlay:0,acts:{andar:0,hablar:0,menus:0,viajes:0,atascos:0},nextMenu:performance.now()+45000,nextTrip:performance.now()+150000};
+async function czBot(min,quiet){if(CZ.bot||CZ.audit)return;const B=CZ.bot={quiet:!!quiet,t0:performance.now(),dur:(min||10)*60000,tgt:null,lastMv:performance.now(),px:player.x,pz:player.z,nonPlay:0,acts:{andar:0,hablar:0,menus:0,viajes:0,atascos:0},nextMenu:performance.now()+45000,nextTrip:performance.now()+150000};
   const D=czDests(),stop=()=>{keys.w=keys.run=keys.jump=false;};
   try{while(CZ.bot&&performance.now()-B.t0<B.dur){await rndWait(250);const now=performance.now(),P=player;
-      rndBanner('Jugador automático: '+Math.ceil((B.dur-(now-B.t0))/60000)+' min · '+B.acts.hablar+' conversaciones, '+B.acts.atascos+' atascos<br>Pulsa F9 para pararlo.');
+      if(!B.quiet)rndBanner('Jugador automático: '+Math.ceil((B.dur-(now-B.t0))/60000)+' min · '+B.acts.hablar+' conversaciones, '+B.acts.atascos+' atascos<br>Pulsa F9 para pararlo.');
       if(ui!=='play'){stop();B.nonPlay+=250;if(ui==='dialog'){const bs=[...document.querySelectorAll('#dOpts button')];if(bs.length&&Math.random()<0.5&&B.nonPlay<6000)bs[Math.floor(Math.random()*bs.length)].click();else try{closeDialog();}catch(e){}}
         else{try{if(typeof GM!=='undefined'&&GM.on)gmClose();}catch(e){}if(B.nonPlay>3000){for(const id of['czBox','rndBox'])try{$(id)&&$(id).remove();}catch(e){}try{document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',code:'Escape',bubbles:true}));}catch(e){}}}
         if(B.nonPlay>20000){czAdd('interfaz','La interfaz no vuelve al juego (ui='+ui+')','ui|'+ui);ui='play';B.nonPlay=0;}continue;}
@@ -78,8 +78,8 @@ async function czBot(min){if(CZ.bot||CZ.audit)return;const B=CZ.bot={t0:performa
       if(Math.hypot(P.x-B.px,P.z-B.pz)>0.8){B.px=P.x;B.pz=P.z;B.lastMv=now;}
       else if(now-B.lastMv>5000){B.acts.atascos++;czAdd('atasco','El jugador automático no puede avanzar hacia '+(B.tgt.npc&&B.tgt.npc.data?B.tgt.npc.data.name:'un punto'),'bot|'+Math.round(P.x/8)+','+Math.round(P.z/8));keys.jump=true;await rndWait(300);keys.jump=false;B.tgt=null;B.lastMv=now;}}}
   catch(e){czAdd('error','jugador automático: '+(e&&e.message||e));}
-  stop();const acts=B.acts;CZ.bot=null;rndBanner('');czPanel('<p><b>Jugador automático terminado</b>: '+acts.andar+' paseos, '+acts.hablar+' conversaciones, '+acts.menus+' menús, '+acts.viajes+' viajes, '+acts.atascos+' atascos.</p>');}
-addEventListener('keydown',e=>{if(e.code==='F9'&&CZ.bot){CZ.bot=null;}});
+  stop();const acts=B.acts;CZ.bot=null;rndBanner('');if(B.quiet){try{autoEnd(acts);}catch(e){}}else czPanel('<p><b>Jugador automático terminado</b>: '+acts.andar+' paseos, '+acts.hablar+' conversaciones, '+acts.menus+' menús, '+acts.viajes+' viajes, '+acts.atascos+' atascos.</p>');}
+addEventListener('keydown',e=>{if(e.code==='F9'&&CZ.bot){CZ.bot=null;window.__spd=1;}});
 // ---------------------------------------------------------------- informe y panel
 function czHTML(){const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;'),A=czAudLoad(),im={};for(const q of CZ.imgs)im[q.t]=q.img;
   const K={error:'Error interno',consola:'Error en la consola',aviso:'Aviso',fps:'FPS bajos',atasco:'Atasco',suelo:'Bajo el suelo',gente:'Gente hundida/flotando',interfaz:'Interfaz bloqueada',aviso_manual:'Aviso tuyo (F8)'};

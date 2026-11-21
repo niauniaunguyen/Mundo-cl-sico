@@ -20,7 +20,7 @@ function tryMove(nx,nz){
 let last=performance.now(),zt=0,ft=0,ct=0,skyT=0,cullT=1,mt=0;
 function frame(now){
   requestAnimationFrame(frame);
-  const dt=Math.min(0.05,(now-last)/1000);last=now;const t=now/1000;
+  const dt=Math.min(0.05,(now-last)/1000)*(window.__spd||1);last=now;   /* __spd: velocidad del juego (223: jugar solo ×2) */const t=now/1000;
   if(ui==='sea'){seaTick(dt);return;}
   crossT+=dt;if(crossT>0.1){crossT=0;placeCross();}   // el punto de mira vuelve al centro (y el cursor reaparece) fuera del juego
   if(ui!=='start'){if(ui==='episode')clock.h=(clock.h+dt*clock.speed)%24;else addHours(dt*clock.speed);skyT+=dt;if(skyT>0.25){skyT=0;updateSky();}}

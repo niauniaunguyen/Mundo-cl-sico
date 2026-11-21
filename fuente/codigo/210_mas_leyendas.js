@@ -1,5 +1,5 @@
 // ============================================================ MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208)
-// El portal dorado lleva ahora a elegir una leyenda. En ninguna se hiere a nadie: se esquiva, se protege uno con el escudo y se
+// El portal rojo lleva ahora a elegir una leyenda. En ninguna se hiere a nadie: se esquiva, se protege uno con el escudo y se
 // recogen los orbes de Niké (Victoria). Al entrar se avisa de qué cuenta el mito y de que aquí no se mata a la criatura.
 //  · La Hidra de Lerna (208).
 //  · Las aves del Estínfalo (Arcadia): sueltan plumas de bronce desde el cielo (la sombra roja avisa dónde caen). Con los crótalos de
@@ -32,7 +32,7 @@ function legArena(room,col,col2){const R=int2Base(room);R.g=grp(R.X,R.Y,R.Z,0);I
   const in1=new THREE.Mesh(new THREE.CircleGeometry(LEY_RA+1,48),lam(col));in1.rotation.x=-Math.PI/2;in1.position.y=0.01;in1.receiveShadow=true;g.add(in1);
   addPlat(R.X,R.Z,140,140,0,R.Y);
   for(let i=0;i<28;i++){const a=i/28*TAU,b=(i+1)/28*TAU;addSeg(R.X+Math.cos(a)*LEY_RA,R.Z+Math.sin(a)*LEY_RA,R.X+Math.cos(b)*LEY_RA,R.Z+Math.sin(b)*LEY_RA,0.3);}
-  R.exit={x:R.X,z:R.Z+13.6,a:Math.PI};const eg=grp(R.X,R.Y,R.Z+13.6,Math.PI);const A=int2Aura(eg,1.6,2.6,false);A.m.color.set('#ffd25a');A.sm.color.set('#ffd25a');R.exitA=A;R.exitG=eg;
+  R.exit={x:R.X,z:R.Z+13.6,a:Math.PI};const eg=grp(R.X,R.Y,R.Z+13.6,Math.PI);const A=int2Aura(eg,1.6,2.6,false);A.m.color.set(LEY_RED);A.sm.color.set(LEY_RED);leyHalo(eg);R.exitA=A;R.exitG=eg;
   egxObj(R.X,R.Z+13.6-0.9,R.Y,()=>int2Leave(),'Salir de la leyenda','',2.2);R.spawn=[0,11,Math.PI];return R;}
 function legRocks(R,n,r0,r1,col,seed){const m=lam(col||'#8d8476'),g=R.g,rr=mulberry32(seed||7);
   for(let i=0;i<n;i++){const a=rr()*TAU,r=r0+rr()*(r1-r0),s=1.5+rr()*4;const k=new THREE.Mesh(new THREE.DodecahedronGeometry(s,1),m);k.position.set(Math.cos(a)*r,s*0.35,Math.sin(a)*r);k.rotation.set(rr()*3,rr()*3,rr()*3);k.scale.y=0.6+rr()*0.8;k.castShadow=k.receiveShadow=true;g.add(k);}}

@@ -210,7 +210,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `205_hermes_y_el_caduceo.js` | 177 | HERMES (MERCURIO): DIEZ ENCARGOS Y EL CADUCEO |
 | `206_rocas_escaneadas.js` | 59 | ROCAS ESCANEADAS (Poly Haven, CC0) |
 | `207_sol_real.js` | 43 | EL SOL DE VERDAD |
-| `208_portal_de_las_leyendas.js` | 204 | EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna) |
+| `208_portal_de_las_leyendas.js` | 208 | EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna) |
 | `209_suelo_escaneado.js` | 17 | SUELO ESCANEADO (Poly Haven, CC0) |
 | `210_mas_leyendas.js` | 203 | MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208) |
 | `211_jugar_mas.js` | 127 | JUGAR MÁS: encargos del día, fama, imprevistos del camino, memoria, regateo, |
@@ -224,4 +224,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `219_prueba_de_rendimiento.js` | 84 | PRUEBA DE RENDIMIENTO (Esc → Partida → Prueba de rendimiento) |
 | `220_cazar_fallos.js` | 105 | CAZAR FALLOS EN EL ORDENADOR DE QUIEN JUEGA (Esc → Partida → Cazar fallos) |
 | `221_variedad_de_personajes.js` | 43 | MÁS VARIEDAD EN LA GENTE (vídeo 21/11: «muchos parecen Lisias») |
+| `222_biomas.js` | 66 | BIOMAS POR REGIÓN (auditoría de identidad, 21/11) |
+| `223_jugar_solo.js` | 19 | JUGAR SOLO (para grabar): el juego se juega en automático, a ×1 o ×2 |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

@@ -1,5 +1,5 @@
 // ============================================================ EL PORTAL DE LAS LEYENDAS (prototipo: la Hidra de Lerna)
-// Un portal con aura dorada junto al templo de Atenea Niké (Atenas; en Roma, en el Palatino, donde estaba el templo de la Victoria) lleva
+// Un portal con aura roja junto al templo de Atenea Niké (Atenas; en Roma, en el Palatino, donde estaba el templo de la Victoria) lleva
 // a una leyenda: aquí, la ciénaga de Lerna con la Hidra. No es historia: es el mito tal como lo contaban (se avisa al entrar).
 // Reglas: Niké (Victoria) deja orbes por la ciénaga; recoge 20 sin que te alcance el veneno. Tres golpes y la leyenda te expulsa.
 // Cada 4 orbes la Hidra se enfurece y le brota otra cabeza (en el mito, por cada cabeza cortada salían dos): más cabezas, más disparos.
@@ -18,7 +18,11 @@ function leyz(){if(!state.leyendas||typeof state.leyendas!=='object')state.leyen
 function leyDoor(){const ro=leyRo();let P=ro?(int2Place(/Victoria/i)||int2Place(/Palatin/i)):(int2Place(/Atenea Nik|Nike|Niké/i)||int2Place(/Propileo/i)||int2Place(/Acrópolis/i));
   if(!P&&!ro)P={x:-141,z:20};const s=int2Spot(P,ro?10:-4,ro?-8:9);if(!s)return;
   const o=int2Door(Object.assign(s,{id:'ley',room:'hidra',name:'Portal de las leyendas',sub:ro?'junto al templo de la Victoria: la Hidra de Lerna':'junto a Atenea Niké: la Hidra de Lerna'}));
-  const gold=new THREE.Color('#ffd25a');o.A.m.color.copy(gold);o.A.sm.color.copy(gold);LEY.door=o;}
+  const red=new THREE.Color(LEY_RED);o.A.m.color.copy(red);o.A.sm.color.copy(red);leyHalo(o.g);LEY.door=o;}
+// rojo de las leyendas (a petición): el marco de luz, el resplandor y un halo grande que late en el mismo tono
+const LEY_RED='#ff3326';
+function leyHalo(g){if(!g)return;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:LEY_RED,transparent:true,opacity:0.55,blending:THREE.AdditiveBlending,depthWrite:false}));s.scale.set(5.2,6.2,1);s.position.set(0,1.5,0.3);s.userData.leyHalo=1;g.add(s);LEY.halos=(LEY.halos||[]);LEY.halos.push(s);}
+{const f=uxTick;uxTick=function(dt){f(dt);try{if(LEY.halos){const t=performance.now()/1000;for(const s of LEY.halos)s.material.opacity=0.38+0.22*Math.sin(t*2.2);}}catch(e){}};}
 // ---- la ciénaga de Lerna
 {const f=int2Room;int2Room=function(room){if(room!=='hidra'||INT2.rooms[room])return f.apply(this,arguments);return leyRoom();};}
 function leyRoom(){const R=int2Base('hidra');R.g=grp(R.X,R.Y,R.Z,0);INT2.rooms.hidra=R;LEY.R=R;const g=R.g,ro=leyRo();
@@ -46,8 +50,8 @@ function leyRoom(){const R=int2Base('hidra');R.g=grp(R.X,R.Y,R.Z,0);INT2.rooms.h
   int2Info(R,-3.2,11.5,'Yolao','sobrino y auriga de '+leyN('Heracles','Hércules'),'Ι','Yolao, con la antorcha',
     '<p>«Mi tío '+leyN('Heracles','Hércules')+' le cortaba las cabezas con la hoz, pero de cada cuello brotaban dos. Así que yo quemaba los muñones con teas de un bosque cercano, y ya no salían más. La del medio era inmortal: la enterró bajo una roca enorme junto al camino de Lerna a Eleunte.»</p><p>«Luego mojó sus flechas en el veneno de la Hidra. Con esas flechas, años después, mataría al centauro Neso… y la sangre de Neso acabaría matándole a él.»</p><p class="sub">Apolodoro, <i>Biblioteca</i> II 5,2 y II 7,6-7. Euristeo no le contó este trabajo porque le había ayudado Yolao.</p>');
   int2Info(R,7,-12.6,'El plátano','junto a la fuente Amimone','Π','Donde creció la Hidra','<p>En Lerna, junto a la fuente Amimone, crece un plátano bajo el que dicen que se crio la Hidra. Pausanias añade que él cree que tenía una sola cabeza, y que fue el poeta Pisandro de Camiro quien le dio muchas para que pareciera más terrible.</p><p class="sub">Pausanias II 37,4. Hesíodo (<i>Teogonía</i> 313-318) dice que era hija de Tifón y Equidna y que la crio Hera, enfadada con '+leyN('Heracles','Hércules')+'.</p>');
-  // salida: el mismo portal dorado, detrás de quien llega
-  R.exit={x:R.X,z:R.Z+13.6,a:Math.PI};const eg=grp(R.X,R.Y,R.Z+13.6,Math.PI);const A=int2Aura(eg,1.6,2.6,false);A.m.color.set('#ffd25a');A.sm.color.set('#ffd25a');R.exitA=A;R.exitG=eg;
+  // salida: el mismo portal rojo, detrás de quien llega
+  R.exit={x:R.X,z:R.Z+13.6,a:Math.PI};const eg=grp(R.X,R.Y,R.Z+13.6,Math.PI);const A=int2Aura(eg,1.6,2.6,false);A.m.color.set(LEY_RED);A.sm.color.set(LEY_RED);leyHalo(eg);R.exitA=A;R.exitG=eg;
   egxObj(R.X,R.Z+13.6-0.9,R.Y,()=>int2Leave(),'Salir de la leyenda','',2.2);R.spawn=[0,11,Math.PI];
   return R;}
 // una cabeza: cuello de esferas a lo largo de una curva, y la cabeza (hocico, mandíbula, ojos)
@@ -97,7 +101,7 @@ function leyStart(){leyReset();for(let i=0;i<LEY.MAXH;i++)leyAddHead().grow=1;LE
   int2Dlg('Ν',Ni,'Una leyenda: la Hidra de Lerna','<p class="sub"><b>Esto no es historia: es un mito</b>, tal como lo contaban '+(ro?'griegos y romanos':'los griegos')+'. Entras en él como en un sueño.</p>'+
    '<p><b>Recoge '+LEY.GOAL+' orbes de '+Ni+'</b> sin que te alcance el veneno de la Hidra.</p>'+
    '<p>Las cabezas <b>se echan atrás y brillan de verde</b> antes de escupir: muévete de lado o salta.</p>'+
-   '<p><b>Tres golpes</b> y la leyenda te expulsa. Puedes salir cuando quieras por el portal dorado.</p>'+
+   '<p><b>Tres golpes</b> y la leyenda te expulsa. Puedes salir cuando quieras por el portal rojo.</p>'+
    '<p>Cada 4 orbes, a la Hidra <b>le brota otra cabeza</b>.</p>'+
    '<p>«Soy '+Ni+', la Victoria. Acompaño a Atenea'+(ro?' y a Júpiter':' y a Zeus')+' y corono a quien vence. Esta es la ciénaga de Lerna, donde '+He+' hizo su segundo trabajo.»</p>'+
    '<p class="sub">Niké es hija de la oceánide Estigia y del titán Palante (Hesíodo, <i>Teogonía</i> 383-385). En la Acrópolis tiene su templo, el de Atenea Niké (hacia 420 a.C.); en Roma, la Victoria tiene templo en el Palatino desde el 294 a.C. (Livio X 33).</p>');}
