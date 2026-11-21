@@ -33,7 +33,8 @@ function qaMake(g){const H=g.userData.qa,T=QA.tpl&&QA.tpl[H.q];if(!T)return null
   if(A.Idle)A.Idle.setEffectiveWeight(1);root.userData.qaMix={mix,A,t:Math.random()*5,eat:0};g.add(root);return root;}
 function qaSetOld(g,vis){for(const c of g.userData.qa.old)c.visible=vis;}   // solo las piezas que tenía al crearse (no el jinete ni la carga que se le pongan después)
 let _qaT=1;
-function qaTick(dt){if(!QA.hosts.length)return;if(!QA.tpl){qaLoad();return;}_qaT+=dt;const cx=camera.position.x,cz=camera.position.z,v=new THREE.Vector3();
+function qaTick(dt){if(!QA.tpl){if(state&&ui!=='start')qaLoad();return;}if(!QA.hosts.length)return;{const now=performance.now();_qaT=(now-(QA.lastT||0))/1000;if(_qaT>0.5)QA.lastT=now;}   // con el reloj real: en el móvil el tiempo de juego puede ir a saltos
+  const cx=camera.position.x,cz=camera.position.z,v=new THREE.Vector3();
   if(_qaT>0.5){_qaT=0;   // quién está cerca: los N más cercanos a menos de R
     for(let i=QA.hosts.length-1;i>=0;i--){const g=QA.hosts[i];let r=g;while(r.parent)r=r.parent;if(r!==scene&&!g.userData.qaKeepOff){if(!g.parent){QA.hosts.splice(i,1);continue;}}}
     const L=[];for(const g of QA.hosts){if(!g.visible)continue;let r=g,ok=true;while(r.parent){if(!r.visible){ok=false;break;}r=r.parent;}if(!ok||r!==scene)continue;g.getWorldPosition(v);const d=(v.x-cx)**2+(v.z-cz)**2;if(d<QA.R*QA.R)L.push([d,g]);}

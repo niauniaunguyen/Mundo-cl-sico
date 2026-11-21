@@ -56,3 +56,27 @@ function bpBeardless(m){const k=m.map.uuid;if(BP_BL.has(k))return BP_BL.get(k);c
     if(l<sl*0.72&&!(d[i]>d[i+2]*1.6&&d[i]>90)){const v=0.94+((xx*7+y*13)%9)/100;d[i]=sr*v;d[i+1]=sg*v;d[i+2]=sb*v;}}   // los labios (rojizos) se quedan
   x.putImageData(D,0,0);const t=new THREE.CanvasTexture(c);t.flipY=m.map.flipY;t.encoding=m.map.encoding;t.wrapS=m.map.wrapS;t.wrapT=m.map.wrapT;
   const n=m.clone();n.map=t;n.userData.young=1;n.needsUpdate=true;BP_BL.set(k,n);return n;}
+// la gente con carga (aguadoras con su hidria en la cabeza, porteadores con ánfora, cestas), las mujeres con velo, los soldados de
+// Atenas y quien solo lleva himation se quedaban con la figura sencilla de antes: ahora usan el modelo de Blender, y la carga va
+// pegada al hueso de la cabeza (hidria y cesta, como se llevaban) o del hombro (ánfora), para que se mueva con la persona.
+{const f=bpKind;bpKind=function(c){let r=f(c);if(r||!c||c.glow||c.mask||c.attrs||c.helmet||(c.scale&&c.scale<0.95))return r;
+  const ro=MODE==='roma';if(c.female)return ro?'romana':'mujer';if(ro){if(c.carry)return 'tunicado';return r;}
+  if(c.soldier)return 'hoplita';if(c.carry)return 'obrero';if(c.himOnly)return 'ciudadano';return r;};}
+function bpProp(n,c){if(!c||!c.carry||n.userData.prop)return;let head=null,sh=null;n.traverse(o=>{if(o.isBone){if(o.name==='head')head=o;else if(o.name==='clavicle.R'||o.name==='clavicleR')sh=o;}});if(!head)return;
+  const inv=1/((n.scale&&n.scale.x)||1);let m;
+  if(c.carry==='hydria'){m=new THREE.Mesh(PGEO.jar,lam('#a8532f'));m.position.set(0,0.24,0);}
+  else if(c.carry==='basket'){m=new THREE.Mesh(PGEO.basket,lam('#a8864f'));m.position.set(0,0.27,0);}
+  else{m=new THREE.Mesh(PGEO.jar,lam('#b5603a'));m.scale.setScalar(1.3);const b=sh||head;if(b===head)m.position.set(-0.2,-0.12,0);else m.position.set(0,0.1,0);m.rotation.z=0.6;(b).add(m);n.userData.prop=m;return;}
+  m.castShadow=true;head.add(m);n.userData.prop=m;}
+{const f=bpConv;bpConv=function(g,force){const n=f.apply(this,arguments);try{if(n)bpProp(n,n.userData.cfg);}catch(e){}return n;};}
+// la gente de los oficios del campo (132: cazador, pastor, leñador, resinero…) también con el modelo de Blender, cuando está de pie;
+// la herramienta que tenía en la mano (ruHand) pasa a la mano derecha del modelo. Quien está arrodillado o sentado sigue como estaba.
+function bpConvRU(){if(typeof RU==='undefined'||!Object.keys(BP.tpl).length)return;const P=player;
+  for(const V of RU.live){if(!V.p)continue;for(let i=0;i<V.p.length;i++){const g=V.p[i];if(!g||g.userData.bp||g.userData.bpNo||g.userData.old||!g.parent)continue;
+    if(g.userData.pose||Math.abs(g.rotation.x)>0.05||Math.hypot(g.position.x-P.x,g.position.z-P.z)>110)continue;
+    const tools=[];(g.userData.arms||[]).forEach(a=>a&&a.traverse(o=>{if(o.userData&&o.userData.ruTool)tools.push(o);}));
+    const n=bpConv(g,true);if(!n){g.userData.bpNo=1;continue;}V.p[i]=n;
+    let hand=null;n.traverse(o=>{if(o.isBone&&o.name==='hand.R')hand=o;});
+    if(hand)for(const t of tools){t.parent&&t.parent.remove(t);t.position.set(0,0.07,0);t.rotation.x+=Math.PI;hand.add(t);}}}}
+{let t0=0;const f=uxTick;uxTick=function(dt){f(dt);const now=performance.now();if(now-t0<1500)return;t0=now;try{bpConvRU();}catch(e){}
+  try{for(const g of BP.list){const c=g.userData.cfg;if(c&&c.carry&&!g.userData.prop)bpProp(g,c);}}catch(e){}};}   // la carga, en cuanto el modelo tiene esqueleto

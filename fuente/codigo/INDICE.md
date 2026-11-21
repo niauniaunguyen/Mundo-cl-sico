@@ -38,7 +38,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `031_roma.js` | 179 | ROMA: decoración según las reconstrucciones |
 | `032_glosario_lateral.js` | 758 | glosario lateral |
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
-| `034_atenas.js` | 72 | ATENAS: decoración de la polis (siglo IV a.C.) |
+| `034_atenas.js` | 74 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
 | `036_acabado.js` | 87 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
@@ -136,7 +136,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `129_personajes_atentos.js` | 95 | PERSONAJES ATENTOS: mirada, cejas que expresan, saludo a conocidos, empujones y truenos<br>CUERPOS VARIADOS: niños, ancianos, gruesos y flacos; andares; posturas al esperar |
 | `130_rigor_visual.js` | 58 | RIGOR VISUAL: peinados y barbas de cada época, distintivos y objetos de oficio |
 | `131_personas_no_carteles.js` | 89 | PERSONAS, NO CARTELES: memoria y fama, familias y acompañantes, pleitos, comer, la fuente, el calor |
-| `132_oficios_del_campo.js` | 208 | OFICIOS DEL CAMPO: quién vive y trabaja en el monte, el río, la costa y los caminos |
+| `132_oficios_del_campo.js` | 209 | OFICIOS DEL CAMPO: quién vive y trabaja en el monte, el río, la costa y los caminos |
 | `133_modo_atencion.js` | 62 | MODO ATENCIÓN: QUÉ ESTÁ HACIENDO CADA PERSONA (campo, caminos y calle)<br>LLEGAR MIRANDO A ALGO: tras un viaje o un salto, si la cámara da contra una ladera, girar hacia lo despejado |
 | `134_tu_viaje_poco_a_poco.js` | 45 | TU VIAJE, POCO A POCO: las herramientas se abren por etapas, y una meta clara (el regreso) |
 | `136_camino_de_ilion.js` | 24 | EL CAMINO DE ILIÓN: de la playa del desembarco a la ciudad, por la llanura del Escamandro |
@@ -198,9 +198,9 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `193_entablamentos_de_detalle.js` | 48 | ENTABLAMENTOS DE DETALLE (P7, arquitectura de detalle, segunda parte) |
 | `194_procesiones.js` | 105 | PROCESIONES (P8, fiestas con multitudes que se mueven) |
 | `195_atenas_romana.js` | 49 | ATENAS ROMANA, AÑO 80 (P10, modo Roma) |
-| `196_multitudes_con_modelos.js` | 59 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
-| `197_estatuas_a_la_vista.js` | 14 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
-| `198_animales_con_esqueleto.js` | 59 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
+| `196_multitudes_con_modelos.js` | 83 | MULTITUDES Y PROCESIONES CON LOS MODELOS DE BLENDER |
+| `197_estatuas_a_la_vista.js` | 18 | ESTATUAS EN «MIRAR CON ATENCIÓN» |
+| `198_animales_con_esqueleto.js` | 60 | ANIMALES CON ESQUELETO (Quaternius, CC0) |
 | `199_moneda_en_pantalla.js` | 39 | LA MONEDA EN PANTALLA |
 | `200_el_mensajero.js` | 62 | EL MENSAJERO: los avisos van al caduceo |
 | `201_objeto_en_la_mano.js` | 54 | EL OBJETO ELEGIDO, EN LA MANO |

@@ -1,4 +1,5 @@
 // ============================================================ ATENAS: decoración de la polis (siglo IV a.C.)
+const HEKA=[];   // hecateos de los cruces: posición, para nombrarlos en el modo «mirar con atención» (197)
 // Las calles griegas no se pavimentan: tierra apisonada y grava, con desagües de piedra; el Ágora es un gran espacio de tierra
 // con plátanos, puestos de mercado, estatuas honoríficas, estelas con decretos, hermas, fuentes y pozos.
 Object.assign(DTEX,{
@@ -51,10 +52,11 @@ function athensDecor(){
   // estelas con decretos junto al Metroon y el Consejo
   for(let i=0;i<6;i++){const[x,z]=AL(-86,-34+i*2.3);if(!isFree(x,z,0.8))continue;const b={x,y:floorAt(x,z),z,a:Math.PI/2};pieceAt('decree',UNIT,M.marble,b,0,0,0,0.7,1.9,0.18);pieceAt('decreeP',GABLE,M.marble,b,0,1.9,0,0.78,0.22,0.2);addBox(x,z,0.7,0.3,Math.PI/2);}
   // hermas en los cruces, hecateos de tres caras, fuentes públicas y pozos
+  // (los hecateos se anotan en HEKA para el modo «mirar con atención», 197)
   let nh=0,nk=0;for(const r of ROADS){const p=r.pts;if(p.some(v=>v[0]>8000))continue;
     for(let i=1;i<p.length-1;i++){const[x0,z0]=p[i];if(!insideWalls(x0,z0,10))continue;const dx=p[i+1][0]-p[i-1][0],dz=p[i+1][1]-p[i-1][1],l=Math.hypot(dx,dz)||1,ox=-dz/l*(r.w/2+2.2),oz=dx/l*(r.w/2+2.2);
       const[x,z]=[x0+ox,z0+oz];if(!isFree(x,z,1.2)||footHit(x,z,1)||!farNPC(x,z,3))continue;
-      if(nh%3===2){const gy=floorAt(x,z);box(0.45,1.3,0.45,M.marble,x,gy+0.65,z);for(let k=0;k<3;k++){const t=k/3*TAU;statue(x+Math.sin(t)*0.32,gy+1.3,z+Math.cos(t)*0.32,t,0.42,'marble');}addCirc(x,z,0.4);}
+      if(nh%3===2){const gy=floorAt(x,z);HEKA.push({x,z,y:gy});box(0.45,1.3,0.45,M.marble,x,gy+0.65,z);for(let k=0;k<3;k++){const t=k/3*TAU;statue(x+Math.sin(t)*0.32,gy+1.3,z+Math.cos(t)*0.32,t,0.42,'marble');}addCirc(x,z,0.4);}
       else herm(x,z,Math.atan2(-ox,-oz)+Math.PI);nh++;}
     const L=p.reduce((s,v,i)=>i?s+Math.hypot(v[0]-p[i-1][0],v[1]-p[i-1][1]):0,0);let acc=0;
     for(let i=0;i<p.length-1;i++){const dx=p[i+1][0]-p[i][0],dz=p[i+1][1]-p[i][1],Ls=Math.hypot(dx,dz),ux=dx/Ls,uz=dz/Ls;for(let d=30;d<Ls;d+=15){acc+=15;if(acc<210)continue;const x0=p[i][0]+ux*d,z0=p[i][1]+uz*d;if(!insideWalls(x0,z0,15))continue;

@@ -15,7 +15,8 @@ const RU_W={a:{chiton:'#8a7a5a',exomis:true,hair:'#3a2a1e'},r:{chiton:'#8a7a5a',
 function ruRng(id){let h=7;for(const c of id)h=(h*31+c.charCodeAt(0))%999983;return forRng(h/999983+0.017);}
 function ruP(look,x,z,ry){const g=makePerson(Object.assign({noVary:true},look));g.rotation.order='YXZ';g.position.set(x,terrainH(x,z),z);g.rotation.y=ry||0;scene.add(g);return g;}
 function ruW(f){return Object.assign({},f?RU_W.f:(MODE==='roma'?RU_W.r:RU_W.a));}
-function ruHand(g,m,dy,dz){const a=g.userData.arms&&g.userData.arms[1];if(!a)return false;g.updateMatrixWorld(true);const b=new THREE.Box3().setFromObject(a),hy=(b.min.y-g.position.y)/(g.scale.y||1);if(!(hy>0.4&&hy<1.2))return false;
+function ruHand(g,m,dy,dz){if(m&&m.userData)m.userData.ruTool=1;   // (196 lo pasa a la mano del modelo de Blender)
+  const a=g.userData.arms&&g.userData.arms[1];if(!a)return false;g.updateMatrixWorld(true);const b=new THREE.Box3().setFromObject(a),hy=(b.min.y-g.position.y)/(g.scale.y||1);if(!(hy>0.4&&hy<1.2))return false;
   m.position.set(0,hy-a.position.y+(dy||0),dz||0.04);m.traverse(o=>{if(o.isMesh)o.castShadow=true;});a.add(m);return true;}
 function ruCyl(r,h,mat,x,y,z,par){const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,8),mat);m.position.set(x||0,y||0,z||0);m.castShadow=true;(par||scene).add(m);return m;}
 function ruTree(par,x,z,pine){const g=new THREE.Group();g.position.set(x,0,z);par.add(g);ruCyl(0.3,pine?8:3,lam(pine?'#5a4030':'#5a4a38'),0,pine?4:1.5,0,g);const c=new THREE.Mesh(pine?new THREE.ConeGeometry(2.4,5,9):new THREE.SphereGeometry(2.4,9,7),lam(pine?'#3f5a36':'#7d8a5e'));c.position.y=pine?8:3.8;c.castShadow=true;g.add(c);return g;}

@@ -11,3 +11,7 @@ const ST_NOTE={marble:['Estatua de mármol pintado','Las estatuas griegas y roma
   for(const s of STB.list){const g=s.g;if(!g||!g.parent)continue;let r=g,vis=true;while(r.parent){if(!r.visible){vis=false;break;}r=r.parent;}if(!vis||r!==scene)continue;
     g.getWorldPosition(v);const sc=(s.c&&s.c.scale)||1,h=(s.at&&s.at.h)||1.8*sc,N=ST_NOTE[s.k]||ST_NOTE.marble,A=s.at;
     C.push({obj:g,x:v.x,y:v.y+h*0.6,z:v.z,r:Math.max(0.8,h*0.35),name:A?A.name:N[0],sub:A?A.sub:(MODE==='roma'?'estatua':'ἄγαλμα · estatua'),txt:()=>A?A.txt:N[1]});}}catch(e){}return C;};}
+
+// los hecateos de los cruces (034): tres figuras de Hécate alrededor de un pilar. Antes el modo atención no los nombraba.
+{const f=atCands;atCands=function(){const C=f.apply(this,arguments);try{const P=player;for(const h of HEKA){if(Math.abs(h.x-P.x)>70||Math.abs(h.z-P.z)>70)continue;
+  C.push({x:h.x,y:h.y+1.6,z:h.z,r:0.9,name:'Hecateo',sub:'Hécate de tres caras, en el cruce',txt:()=>'Tres imágenes de Hécate espalda contra espalda, una mirando a cada camino: la diosa de las encrucijadas, de la noche y de la magia, que guarda los cruces y las puertas. Cada mes, en la luna nueva, se le dejaban aquí ofrendas de comida (las «cenas de Hécate»), que luego se llevaban los pobres. Alcámenes hizo el primer hecateo triple en la Acrópolis, en el siglo V a.C. (Pausanias II 30,2; Aristófanes, Pluto 594-597).'});}}catch(e){}return C;};}

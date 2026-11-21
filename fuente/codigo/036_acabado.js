@@ -66,7 +66,7 @@ function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,c
       '#ifdef USE_COLOR\nfloat green=smoothstep(0.0,0.05,vColor.g-vColor.r*0.93);\n#else\nfloat green=0.0;\n#endif',
       'float rockW=smoothstep(0.2,0.48,slope+(m2-0.5)*0.22);',
       'float grassW=green*(0.5+0.5*m3)*(1.0-rockW);',
-      'float dry=(1.0-green)*(1.0-rockW);float gravW=dry*smoothstep(0.58,0.74,m2)*0.85;float crackW=dry*smoothstep(0.66,0.85,m1)*(1.0-gravW)*0.45;',
+      'float dry=(1.0-green)*(1.0-rockW);float gravW=dry*smoothstep(0.62,0.78,m2)*0.5;float crackW=dry*smoothstep(0.7,0.88,m1)*(1.0-gravW)*0.25;',
       'col=mix(col,texture2D(gravMap,wp*vS).rgb,gravW);col=mix(col,texture2D(crackMap,wp*cS).rgb,crackW);col=mix(col,texture2D(grassMap,wp*hS).rgb,grassW*0.8);col=mix(col,rk,rockW);',
       '{vec2 eo=normalize(uLd.xz+vec2(1e-4))*0.012/tpScale;float eA=dot(texture2D(groundMap,wp*tpScale).rgb,vec3(0.333)),eB=dot(texture2D(groundMap,(wp+eo)*tpScale).rgb,vec3(0.333));col*=1.0+clamp((eA-eB)*uEmb*(1.6-uLd.y),-0.3,0.3)*(1.0-rockW);}',   // relieve (212)
       'col*=0.86+0.26*m1;',   // manchas grandes más claras u oscuras
