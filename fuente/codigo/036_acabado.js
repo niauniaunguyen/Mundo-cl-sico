@@ -50,13 +50,13 @@ const WHITE_ROLE={},ROLE_MAT={};
 function whiteRole(role){const t=ROLE_TEX[role];if(!t)return WHITE_M;if(!WHITE_ROLE[role])WHITE_ROLE[role]=triplanar(new THREE.MeshLambertMaterial({color:0xffffff}),PTEX[t[0]],t[1]);return WHITE_ROLE[role];}
 function roleMat(role){const c=ROLE_C[role]||'#999999',t=ROLE_TEX[role];if(!t)return lam(c);if(!ROLE_MAT[role])ROLE_MAT[role]=triplanar(new THREE.MeshLambertMaterial({color:c}),PTEX[t[0]],t[1]);return ROLE_MAT[role];}
 // los mapas y escalas del suelo son uniformes compartidos (TERR_U): 209 los cambia por los escaneos de Poly Haven cuando llegan
-const TERR_U={uLd:GFXU.uLd,uEmb:GFXU.uEmb,tpScale:{value:1/9},groundMap:{value:PTEX.ground},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks},rS:{value:0.2},hS:{value:0.6},vS:{value:0.42},cS:{value:0.11}};
+const TERR_U={uLd:GFXU.uLd,uEmb:GFXU.uEmb,tpScale:{value:1/9},groundMap:{value:PTEX.ground},rockMap:{value:PTEX.rock},grassMap:{value:PTEX.grass},gravMap:{value:PTEX.gravel},crackMap:{value:PTEX.cracks},rS:{value:0.2},hS:{value:0.6},vS:{value:0.42},cS:{value:0.11},cShK:{value:0},cShC:{value:0.6},cShO:{value:new THREE.Vector2()}};
 function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,color:'#e2c99e'});TERR_MATS.push(m);triplanar(m,PTEX.ground,9,true);m.customProgramCacheKey=()=>'terr2';
   // el suelo cambia según el sitio: roca en las pendientes, hierba donde el color es verde, grava y tierra cuarteada a manchas,
   // y grandes manchas de color (tierra roja, zonas más claras u oscuras) para que no se repita la misma textura cada 9 m
   m.onBeforeCompile=sh=>{Object.assign(sh.uniforms,TERR_U);
     sh.vertexShader='varying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvec4 tpw=modelMatrix*vec4(transformed,1.0);vTpPos=tpw.xyz;vTpNor=normalize(mat3(modelMatrix)*objectNormal);');
-    sh.fragmentShader='uniform float tpScale,rS,hS,vS,cS,uEmb;uniform vec3 uLd;uniform sampler2D groundMap,rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
+    sh.fragmentShader='uniform float tpScale,rS,hS,vS,cS,uEmb,cShK,cShC;uniform vec2 cShO;uniform vec3 uLd;uniform sampler2D groundMap,rockMap,grassMap,gravMap,crackMap;\nvarying vec3 vTpPos;\nvarying vec3 vTpNor;\n'+
      'float tH(vec2 p){p=mod(p,289.0);return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nfloat tV(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(tH(i),tH(i+vec2(1.0,0.0)),f.x),mix(tH(i+vec2(0.0,1.0)),tH(i+vec2(1.0,1.0)),f.x),f.y);}\n'+
      sh.fragmentShader.replace('#include <map_fragment>',[
       'vec2 wp=vTpPos.xz;float m1=tV(wp*0.006),m2=tV(wp*0.021+3.7)*0.7+tV(wp*0.06+9.1)*0.3,m3=tV(wp*0.08+11.3);',
@@ -72,6 +72,7 @@ function terrainMat(){const m=new THREE.MeshLambertMaterial({vertexColors:true,c
       'col*=0.86+0.26*m1;',   // manchas grandes más claras u oscuras
       'col=mix(col,col*vec3(1.08,0.95,0.84),smoothstep(0.55,0.82,m2)*0.55*dry);',   // tierra rojiza (terra rossa) a manchas
       'col=mix(col,col*vec3(0.9,0.97,1.0),smoothstep(0.62,0.88,m3)*0.25);',
+      'if(cShK>0.0){vec2 cq=wp*0.0045+cShO*60.0;float cn=tV(cq)*0.62+tV(cq*2.7+5.3)*0.38;col*=1.0-cShK*smoothstep(cShC,cShC+0.14,cn);}',   // sombras de nubes (214)
       'diffuseColor.rgb*=col;'].join('\n'));};
   m.needsUpdate=true;return m;}   // tinte cálido: compensa la desaturación del mapeo tonal
 // materiales de los edificios

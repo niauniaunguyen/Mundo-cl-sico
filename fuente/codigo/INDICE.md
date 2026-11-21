@@ -40,7 +40,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `033_escuelas_y_clases_atenas_y.js` | 212 | escuelas y clases (Atenas y Roma) |
 | `034_atenas.js` | 74 | ATENAS: decoración de la polis (siglo IV a.C.) |
 | `035_esparta_386_a_c_y.js` | 406 | ESPARTA (386 a.C.) y MICENAS (en ruinas desde el 468 a.C.) |
-| `036_acabado.js` | 87 | acabado: texturas procedurales y luz |
+| `036_acabado.js` | 88 | acabado: texturas procedurales y luz |
 | `037_la_escuela_de_atenas_de.js` | 97 | «La escuela de Atenas» de Rafael: biblioteca, sueño en la Academia y diálogo libre con Platón |
 | `038_esferas_de_sueno.js` | 1747 | esferas de sueño: momentos míticos |
 | `039_tu_casa_atenas.js` | 356 | tu casa (Atenas): casa con patio y andrón, donde se puede contratar a un sofista |
@@ -215,4 +215,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `210_mas_leyendas.js` | 203 | MÁS LEYENDAS, ESCUDO Y CRÓTALOS (portal de las leyendas, 208) |
 | `211_jugar_mas.js` | 127 | JUGAR MÁS: encargos del día, fama, imprevistos del camino, memoria, regateo, |
 | `212_graficos.js` | 108 | GRÁFICOS: nubes, sombras de contacto, agua, bruma, estaciones, parpadeo, noche y acabado |
+| `213_jugar_mas_2.js` | 163 | JUGAR MÁS (2): jornadas, mapa por descubrir, casos, obras, citas, maestría, |
+| `214_graficos_2.js` | 131 | GRÁFICOS (2): interiores con rayos de luz y humo, agua que corre en las fuentes, polvo y huellas, |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
