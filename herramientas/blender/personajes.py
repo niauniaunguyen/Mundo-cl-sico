@@ -427,7 +427,7 @@ def ionic_sleeve(name,sg,sho,elb):
     up=Vector((sg,0,0.35)).normalized();u1=(up-ax*up.dot(ax)).normalized();u2=ax.cross(u1).normalized()
     bm=bmesh.new();N=14;K=22;M=4;rows=[];R0=0.066*SLV[0]
     for j in range(M,0,-1):   # cúpula: anillos cada vez más pequeños hacia arriba y hacia el cuello
-        ph=j/M*math.pi/2*0.92;c=a0-ax*R0*math.sin(ph)*0.85;r=R0*math.cos(ph)
+        ph=j/M*math.pi/2*0.92;c=a0-ax*R0*math.sin(ph)*(0.85+0.3*(1-SLV[0])/0.2);r=R0*math.cos(ph)*(1+0.5*(1-SLV[0])/0.2*j/M)   # con el cuerpo de MakeHuman la cúpula se ensancha y monta sobre la túnica (si no, quedaba una junta abierta)
         rows.append([bm.verts.new(c+(u1*math.cos(k/K*TAU)+u2*math.sin(k/K*TAU))*r) for k in range(K)])
     for i in range(N+1):
         t=i/N;p=a0.lerp(a1,t);R=R0+0.042*SLV[0]**2*min(1,t/0.5)**0.8
@@ -457,7 +457,7 @@ def ionic_sleeve(name,sg,sho,elb):
     bt=obj_from_bm('fibulas',b2);smart_uv(bt)
     return ob,bt
 def shoulder_flap(name,body,sg):
-    bvh=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get());C=Vector((0.12*sg,0.0,1.36))
+    bvh=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get());C=Vector((abs(J['sho.L'][0])*0.585*sg,0.0,J['sho.L'][2]-0.08))   # junto al hombro (con el cuerpo antiguo, (0,12, 0, 1,36))
     bm=bmesh.new();N=14;Wn=4;rows=[]
     for i in range(N+1):
         t=i/N;ang=-1.25+t*2.5   # de detrás (+Y) a delante (-Y) pasando por encima
@@ -493,7 +493,7 @@ def sandals(name,body):   # sandalias: suela y correas (tobillo, empeine y dedos
             parts.append(limb_shell('correa',body,p-ax*ln/2,p+ax*ln/2,0.004,nu=16,nv=1))
     for o in parts:smart_uv(o)
     return parts
-def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False):
+def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False,shoulder=False):
     # borra las caras de 'ob' que otras piezas tapan por completo (con un margen de 'erode' anillos junto a los bordes):
     # lo que no existe no puede atravesar la prenda, ni quieto ni andando; y de paso pesa menos
     if not covers:return 0
@@ -511,6 +511,15 @@ def hide_covered(ob,covers,maxd=0.12,erode=2,radial=False):
         hit=bvh.ray_cast(co+n*0.0015,n,maxd)
         if hit[0] is not None:cov.add(v)
     for _ in range(erode):cov={v for v in cov if all(e.other_vert(v) in cov for e in v.link_edges)}
+    if shoulder:
+        # en los hombros, la túnica y la cúpula de la manga se juntan: un rayo puede colarse por la junta y la piel quedaba;
+        # al andar, el deltoides asomaba por ahí. Aquí se prueban varias direcciones y no se respeta el margen de los bordes.
+        for v in bm.verts:
+            co=mw@v.co;near=min((co-Vector(J['sho.'+k])).length for k in('L','R'));neck=(co-Vector(J['neck'])).length<0.13 and co.z<J['neck'][2]+0.02
+            if (near>0.24 or co.z<J['sho.L'][2]-0.22) and not neck:continue
+            n=(mw.to_3x3()@v.normal).normalized();out=Vector((1 if co.x>0 else -1,0,0))
+            for d in(n,(n+Vector((0,0,0.8))).normalized(),(n+out*0.8).normalized(),Vector((0,0,1)),(n-Vector((0,0,0.5))).normalized()):
+                if bvh.ray_cast(co-d*0.03,d,maxd*1.2+0.03)[0] is not None:cov.add(v);break   # desde un poco dentro: la piel que ya asoma también cuenta
     dead=[f for f in bm.faces if all(v in cov for v in f.verts)]
     bmesh.ops.delete(bm,geom=dead,context='FACES');bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
     bm.to_mesh(ob.data);bm.free();ob.data.update();return len(dead)
@@ -1160,8 +1169,14 @@ def _build(kind):
     # la ropa ajustada (exomis, túnicas cortas, quitón corto, coraza) solo borra la piel que tiene pegada (5 cm); la holgada, hasta 12 cm.
     # Antes, junto al borde del exomis se borraba piel que se ve (huecos en el pecho del obrero)
     AJ=('exomis','quiton_corto','coraza','lorica','greba','hombrera','hombrera_hierro','pteryges','pteryges_b')+(('tunica',) if kind in('tunicado','legionario') else ())
-    n=hide_covered(body,[o for o in ropa if o.name.split('.')[0] not in AJ],maxd=0.12,erode=3)
-    n+=hide_covered(body,[o for o in ropa if o.name.split('.')[0] in AJ],maxd=0.05,erode=3)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
+    if body.get('mh'):   # la cabeza no baja más allá del cuello: debajo está el cuerpo de MakeHuman (y la textura de la barba manchaba los hombros)
+        zc=J['neck'][2]-0.035
+        for o in byn(kind+'_cabeza'):
+            bm=bmesh.new();bm.from_mesh(o.data);mw=o.matrix_world;dead=[f for f in bm.faces if all((mw@v.co).z<zc for v in f.verts)]
+            bmesh.ops.delete(bm,geom=dead,context='FACES');bm.to_mesh(o.data);bm.free();o.data.update();print('cabeza recortada',o.name,len(dead))
+    SH=kind not in('obrero','hoplita')   # con mangas (el obrero lleva un hombro al aire; el hoplita, hombreras)
+    n=hide_covered(body,[o for o in ropa if o.name.split('.')[0] not in AJ],maxd=0.12,erode=3,shoulder=SH)
+    n+=hide_covered(body,[o for o in ropa if o.name.split('.')[0] in AJ],maxd=0.05,erode=3,shoulder=SH)   # hasta 12 cm: la toga, el manto y las mangas holgadas se separan del cuerpo más de 5 cm, y la piel de debajo asomaba al moverse
     for nm,cv in((('tunica',('toga','toga_extremo','toga_espalda','estola','lorica','hombrera_hierro')),('estola',('palla','palla_extremo')),('quiton',('himation','himation_extremo','himation_espalda','manga')),('quiton_corto',('coraza','pteryges','pteryges_b')),('coraza',('hombrera',)),('pteryges',('pteryges_b',)))):
         for o in byn(nm):n+=hide_covered(o,byn(*cv),maxd=0.1,erode=1,radial=True)
     for o in byn(kind+'_pelo'):n+=hide_covered(o,byn('casco'),maxd=0.05,erode=1)
@@ -1219,6 +1234,14 @@ def clip_report(kind,arm):
     if BADP:
         import collections;c=collections.Counter((b[0],round(b[3],1),'delante' if b[2]<0 else 'detras','izq' if b[1]>0 else 'der') for b in BADP);print('PUNTOS',c.most_common(12))
 def clip_render(kind,arm,frame,out):
+    if os.environ.get('NOSTOS_VERDE'):   # diagnóstico: el cuerpo, verde; la cara interior de la ropa, roja
+        g=bpy.data.materials.new('verde');g.use_nodes=True;g.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=(0,1,0,1)
+        for o in bpy.data.objects:
+            if o.name.startswith(kind+'_cuerpo') and o.type=='MESH':o.data.materials.clear();o.data.materials.append(g)
+            if o.type=='MESH' and o.name.startswith(('exomis','cinturon')):
+                b=bpy.data.materials.new('azul');b.use_nodes=True;b.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=(0,0.2,1,1);o.data.materials.clear();o.data.materials.append(b)
+            if o.type=='MESH' and ('_pelo' in o.name or '_barba' in o.name):
+                r=bpy.data.materials.new('rojo');r.use_nodes=True;r.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=(1,0,0,1);o.data.materials.clear();o.data.materials.append(r)
     for o in bpy.data.objects:
         if o.type in('MESH','ARMATURE'):o.hide_render=not(o==arm or o.parent==arm) or (o.type=='MESH' and bool(os.environ.get('NOSTOS_SOLO')) and o.name.split('.')[0] not in os.environ['NOSTOS_SOLO'].split(','))
     tr={t.name:t for t in arm.animation_data.nla_tracks}
