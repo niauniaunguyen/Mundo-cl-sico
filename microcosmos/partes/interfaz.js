@@ -121,7 +121,7 @@ function renderHud(){
   let h = '';
   if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' || b.boss ? 'boss' : ''}"></span>`);
   else { for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
-    h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
+    h += `<span class="pip boss ${B && B.es && B.es.some(x => x.boss) ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
   $('#bStory').setAttribute('aria-pressed', !!ch);
   $('#hPips').innerHTML = h;
   $('#hAtp').textContent = fmt(S.atp);
@@ -143,13 +143,18 @@ function renderHud(){
 function anyAffordable(){
   if (S.clase) return false;
   if (!S.memoria && S.atp >= 50) return true;
-  if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost)) return true;
-  return UPG.concat(advUnlocked() ? UPG2 : []).some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
+  if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost && !(t.need && S.best < t.need))) return true;
+  return UPG.concat(advUnlocked() ? UPG2 : [], eliteUnlocked() ? UPG3 : []).some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
 }
 
 function renderFoe(){
   if (!B) return;
   const e = B.e, Ty = TY(e);
+  const tg = $('#fTg');
+  if (B.es.length > 1){ tg.hidden = false;
+    tg.innerHTML = B.es.map((x, i) => `<button class="tgc ${x === e ? 'on' : ''} ${x.dead ? 'dead' : ''}" data-tg="${i}" ${x.dead ? 'disabled' : ''} style="--c:${hex(TY(x).col)}" aria-pressed="${x === e}" aria-label="${esc(foeName(x))}">
+      <b>${esc(foeName(x))}</b><span class="tb"><i style="width:${x.hp/x.max*100}%"></i></span></button>`).join('');
+  } else { tg.hidden = true; tg.innerHTML = ''; }
   $('#fEye').textContent = `${e.var ? tr('Variante de {n}', {n:TYPES[e.type].n}) : tr('Prep. nº') + ' ' + prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
   $('#fStain').textContent = LAB[e.type][0];
   $('#fName').textContent = foeName(e);
@@ -205,11 +210,12 @@ function renderTools(){
     const ring = cd > 0 ? `<span class="cdr" style="--p:${Math.min(1, left/(T.cd + 1))}"></span><span class="cdn num">${left}</span>` : '';
     return `<button class="tool" style="--c:${hex(T.col)}" data-tool="${T.id}" ${cd > 0 || !B || B.busy || B.over ? 'disabled' : ''} title="${esc(T.n + ': ' + T.d)}" aria-label="${esc(T.n)}${cd > 0 ? ', ' + tr('recargando {n} turnos', {n:left}) : ''}">
       ${vesicle(T.id, T.col, ring)}<span class="tn">${T.n}</span>
-      <span class="tm"><span class="rc">${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
+      <span class="tm"><span class="rc">${T.aoe ? tr('área') + ' · ' : ''}${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
   }).join('');
   document.documentElement.style.setProperty('--toolsH', nav.offsetHeight + 'px');
 }
 $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (b) useTool(b.dataset.tool); });
+$('#fTg').addEventListener('click', ev => { const b = ev.target.closest('[data-tg]'); if (b) selectTarget(+b.dataset.tg); });
 
 // ---- Laboratorio ----
 let tab = 'mej';
@@ -290,6 +296,10 @@ function renderPanel(){
         h += `<div class="nb adv">${tr('Orgánulos avanzados')}</div><p class="lead">${tr('Desde el nivel 31, los organismos de los tejidos profundos son mucho más duros. Estos orgánulos te ayudan a seguir avanzando.')}</p>`;
         for (const u of UPG2) h += orgCard(u, tr(u.n), tr(u.d), tr(u.e), u.ic, u.col);
       } else h += `<div class="org locked">${vesicle('cell', 0x5a6a78)}<h4>${tr('Orgánulos avanzados')}</h4><p>${tr('Llega al nivel 30 para desbloquear el núcleo activo, el retículo liso, el aparato de Golgi, los peroxisomas y el centrosoma.')}</p><div class="eff">${tr('Récord')}: ${S.best} / 30</div></div>`;
+      if (eliteUnlocked()){
+        h += `<div class="nb adv">${tr('Orgánulos de élite')}</div><p class="lead">${tr('Desde el nivel 100 los organismos tienen el triple de vida y llegan en grupo. Estos orgánulos, junto con las herramientas de área, te ayudan a hacerles frente.')}</p>`;
+        for (const u of UPG3) h += orgCard(u, tr(u.n), tr(u.d), tr(u.e), u.ic, u.col);
+      } else if (advUnlocked()) h += `<div class="org locked">${vesicle('cell', 0x5a6a78)}<h4>${tr('Orgánulos de élite')}</h4><p>${tr('Llega al nivel 100 para desbloquear los receptores tipo Toll, el glucocáliz y los gránulos secretores.')}</p><div class="eff">${tr('Récord')}: ${S.best} / 100</div></div>`;
     }
     h += `<div class="nb">${tr('Constantes vitales')}</div><div class="stat"><span>${tr('Célula')}</span><span>${cellD().n}</span><span>${tr('Ataque')}</span><span>${fmt(atk())}</span><span>${tr('Vida máxima')}</span><span>${fmt(maxHp())}</span><span>${tr('Daño recibido')}</span><span>${Math.round(taken()*100)} %</span><span>${tr('ATP por segundo')}</span><span>${fmt(atps())}</span><span>${tr('ATP por victoria (nivel {l})', {l:S.level})}</span><span>${fmt(reward(S.level, false))}</span></div>`;
   } else if (tab === 'her'){
@@ -302,8 +312,8 @@ function renderPanel(){
       : `<div class="combo unk"><span class="ves q">?</span><span class="plus">+</span><span class="ves q">?</span><div><b>???</b><p>${tr('Prueba a usar dos herramientas seguidas que se complementen.')}</p></div></div>`).join('');
     h += `<div class="nb">${tr('Herramientas')}</div>`;
     for (const T of TOOLS){
-      h += `<div class="org">${vesicle(T.id, T.col)}<h4>${T.n}</h4><p>${T.d}</p><div class="eff">${tr('Potencia')} ${dec(T.pow)} · ${tr('recarga')} ${T.cd ? T.cd : tr('ninguna')}</div>
-        ${owns(T.id) ? `<button class="buy done" disabled>${tr('Tuya')}</button>` : buyBtn(`data-tool-buy="${T.id}"`, T.cost)}</div>`;
+      h += `<div class="org">${vesicle(T.id, T.col)}<h4>${T.n}${T.aoe ? ` <span class="aoe">${tr('área')}</span>` : ''}</h4><p>${T.d}</p><div class="eff">${tr('Potencia')} ${dec(T.pow)} · ${tr('recarga')} ${T.cd ? T.cd : tr('ninguna')}</div>
+        ${owns(T.id) ? `<button class="buy done" disabled>${tr('Tuya')}</button>` : T.need && S.best < T.need ? `<button class="buy done" disabled>${tr('Nivel {l}', {l:T.need})}</button>` : buyBtn(`data-tool-buy="${T.id}"`, T.cost)}</div>`;
     }
   } else if (tab === 'atl'){
     const seen = TYPE_ORDER.filter(id => S.seen[id]).length;
@@ -392,10 +402,10 @@ $('#pBody').addEventListener('click', ev => {
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
   if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
-  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg) || UPG2.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return;
+  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg) || UPG2.find(x => x.id === b.dataset.upg) || UPG3.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return;
     const before = maxHp(); S.atp -= c; S.upg[u.id]++; if (B) B.php += maxHp() - before; buy(u.id);
     rebuildPlayer(); queueOrgFx(UPG_COL[u.id] || u.col, (UPG.includes(u) ? u.n : tr(u.n)) + ' · ' + tr('nv') + ' ' + S.upg[u.id]); }
-  else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
+  else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost || (T.need && S.best < T.need)) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
   else if (b.hasAttribute('data-mem')){ if (S.atp < 50) return; S.atp -= 50; S.memoria = true; buy('mem0'); toast(tr('Memoria inmunitaria: ya puedes activar «Auto».')); }
   else if (b.dataset.prac){ S.practice = b.dataset.prac; closeLab(); if (B){ B.over = true; clearTimeout(B.timer); } newBattle(); return; }
   else if (b.dataset.cell){ S.cell = b.dataset.cell; rebuildPlayer(); if (B) B.php = Math.min(B.php, maxHp()); renderMe(); }
@@ -445,6 +455,8 @@ window.addEventListener('keydown', ev => {
   if (ev.key === 'Escape'){ if (!$('#panel').hidden) closeLab(); }
   if (ev.target && /TEXTAREA|INPUT/.test(ev.target.tagName)) return;
   const n = parseInt(ev.key, 10);
+  if (ev.key === 'Tab' && B && B.es && B.es.filter(x => !x.dead).length > 1 && $('#modal').hidden && $('#panel').hidden){ ev.preventDefault();
+    const l = B.es.length; for (let k = 1; k <= l; k++){ const x = B.es[(B.e.i + k) % l]; if (!x.dead){ selectTarget(x.i); break; } } return; }
   if (n >= 1 && n <= 9 && $('#modal').hidden){ const owned = TOOLS.filter(t => owns(t.id)); if (owned[n-1]) useTool(owned[n-1].id); }
 });
 
@@ -494,6 +506,9 @@ const HINT_TOOL = {
   art:T_('Vive en los glóbulos rojos y digiere la hemoglobina, rica en hierro.'),
   arv:T_('Copia su ARN a ADN con una enzima que tus células no usan.'),
   pzq:T_('Es un gusano: busca algo que paralice su tegumento.'),
+  cmp:T_('Busca algo de la sangre que agujeree las membranas expuestas, a todos a la vez.'),
+  ifn:T_('Hay citocinas que avisan a las células vecinas de que hay un virus.'),
+  fgt:T_('Hay virus que solo infectan bacterias.'),
 };
 // rasgos que explican la respuesta; en una variante, mejor los que han cambiado
 function hintTags(traits, bestId){
@@ -609,7 +624,7 @@ function loop(now){
   const mot = reduceMotion || S.calm ? .3 : 1;
   player.rotation.y = Math.sin(t*.4)*.3;
   PL.up(t*mot);
-  if (foeObj) foeObj.up(t*mot, B && B.e);
+  stepFoes(t, mot);
   ENV.dark.value += (darkTarget - ENV.dark.value)*Math.min(1, dt*3);
   ENV.tint.value.lerp(tintTarget, Math.min(1, dt*2));
   hemi.intensity = .55*(1 - .55*ENV.dark.value);

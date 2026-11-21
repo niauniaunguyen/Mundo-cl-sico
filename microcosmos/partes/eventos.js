@@ -163,5 +163,6 @@ Object.assign(NARR, {
   ex_rev:T_('Estas bacterias tienen una pieza cambiada. Fíjate en los rasgos marcados con ✦: ahí está la clave.'),
   ex_org:T_('A cada clon le falta o le sobra un orgánulo. Mira qué cambia en su forma de luchar.'),
   ex_xen:T_('Bienvenido a Xenón b. Aquí nada es exactamente como en la Tierra.'),
+  duo:T_('Ahora vienen en grupo. Elige a quién atacar primero: quizá convenga acabar antes con el que más daño hace.'),
   variant:T_('Es una variante: los rasgos con ✦ son los que han cambiado respecto al original.'),
 });

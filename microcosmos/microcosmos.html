@@ -411,6 +411,13 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .astars{color:var(--fitc);font-size:12px;letter-spacing:.08em;margin-left:6px}
 .evohint{border-color:var(--gram)!important;box-shadow:inset 0 0 14px rgba(166,123,255,.18)}
 .ft.ev-sample{color:#9be7ff}
+.tg{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none}
+.tgc{flex:1 1 0;min-width:84px;display:flex;flex-direction:column;gap:4px;padding:5px 8px;border:1px solid var(--line2);border-radius:10px;text-align:left;color:inherit;font:inherit;background:rgba(6,18,27,.6)}
+.tgc b{font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+.tgc .tb{height:4px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden} .tgc .tb i{display:block;height:100%;background:var(--mcherry)}
+.tgc.on{border-color:var(--fitc);box-shadow:0 0 0 2px rgba(255,198,92,.3)} .tgc.on b{color:var(--fitc)}
+.tgc.dead{opacity:.35;text-decoration:line-through}
+.aoe{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--fitc);color:var(--fitc);vertical-align:middle;font-weight:600;letter-spacing:.04em}
 .relic-big{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
 .relic-big .ves{width:96px;height:96px} .relic-big .ves .ic{width:48px;height:48px}
 @media (max-width:560px){.relic-big{grid-template-columns:1fr}}
@@ -679,6 +686,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   </header>
 
   <section id="foe" class="cell" aria-live="polite">
+    <div class="tg" id="fTg" hidden></div>
     <div class="slide"><span id="fEye">Preparación</span><span id="fStain"></span></div>
     <h2 id="fName">—</h2>
     <div class="sci" id="fSci"></div>
@@ -1389,6 +1397,7 @@ Object.assign(NARR, {
   ex_rev:T_('Estas bacterias tienen una pieza cambiada. Fíjate en los rasgos marcados con ✦: ahí está la clave.'),
   ex_org:T_('A cada clon le falta o le sobra un orgánulo. Mira qué cambia en su forma de luchar.'),
   ex_xen:T_('Bienvenido a Xenón b. Aquí nada es exactamente como en la Tierra.'),
+  duo:T_('Ahora vienen en grupo. Elige a quién atacar primero: quizá convenga acabar antes con el que más daño hace.'),
   variant:T_('Es una variante: los rasgos con ✦ son los que han cambiado respecto al original.'),
 });
 /* =====================================================================
@@ -1440,6 +1449,71 @@ const RELIC = Object.fromEntries(RELICS.map(r => [r.id, r]));
 // herramientas que potencia cada hallazgo
 const REL_TOOL = {meta:['fago'], gram:['lis','pen'], jenn:['ac'], flem:['pen'], mhc:['tc']};
 const ROMAN = ['', 'I', 'II', 'III'];
+/* =====================================================================
+   FASE TARDÍA: varios enemigos a la vez (desde el nivel 50 y el 150),
+   vida ×3 desde el nivel 100 y lo que se desbloquea para hacerle frente.
+   ===================================================================== */
+// número de enemigos por combate y fuerza de cada uno (la suma es algo mayor que un enemigo solo)
+const nFoes = L => L >= 150 ? 3 : L >= 50 ? 2 : 1;
+const GROUP_FOE = {1:{hp:1, atk:1, atp:1}, 2:{hp:.6, atk:.6, atp:.6}, 3:{hp:.45, atk:.45, atp:.45}};
+const HP_X100 = 3; // desde el nivel 100
+
+// Herramientas de área (nivel 100): alcanzan a todos los enemigos a la vez
+TOOLS.push(
+  {id:'cmp', n:'Sistema del complemento', col:0xffe08a, pow:1, cd:2, cost:1e17, aoe:true, need:100,
+    d:'Unas treinta proteínas de la sangre que se activan en cascada y forman el complejo de ataque a la membrana (MAC): un poro que agujerea la membrana de los microbios. Alcanza a todos los organismos a la vez.'},
+  {id:'ifn', n:'Interferones', col:0x8fd8ff, pow:1.1, cd:3, cost:3e17, aoe:true, need:100,
+    d:'Citocinas que avisan a las células vecinas de que hay un virus: frenan su replicación y activan a los macrófagos y a los linfocitos NK. Alcanzan a todos los organismos a la vez.'},
+  {id:'fgt', n:'Bacteriófagos', col:0x9dffb0, pow:1.4, cd:3, cost:6e17, aoe:true, need:100,
+    d:'Virus que solo infectan bacterias (fagoterapia). Se multiplican dentro de una bacteria, la revientan y los fagos nuevos saltan a las demás. Alcanzan a todas las bacterias a la vez.'},
+);
+for (const t of TOOLS) TOOL[t.id] = t;
+Object.assign(EFF, {
+  cmp:{def:[1,'El complemento perfora la membrana de casi cualquier célula extraña.'],
+    gn:[2.2,'El complejo de ataque a la membrana perfora con facilidad la membrana externa de las Gram−.'],
+    myc:[2,'Sin pared que la proteja, su membrana queda llena de poros.'],
+    gp:[.5,'La gruesa pared de peptidoglucano de las Gram+ impide que el poro llegue a la membrana.'],
+    bac:[.5,'Es Gram+: su pared gruesa la protege del complemento.'],
+    tbc:[.3,'La pared cérea de ácidos micólicos frena el complemento.'],
+    vir:[1.3,'El complemento rompe la envoltura de los virus que la tienen, como el de la gripe.'],
+    vih:[.5,'El VIH se lleva de tu célula proteínas que frenan el complemento (CD55 y CD59) y se protege con ellas.'],
+    lev:[.4,'La pared de quitina protege su membrana.'], veg:[.2,'La pared de celulosa protege su membrana.'],
+    can:[.3,'Es una célula propia: tiene proteínas que frenan el complemento, como CD59.'],
+    mal:[.6,'Dentro del glóbulo rojo, protegido por las proteínas reguladoras del eritrocito, apenas le llega.'],
+    ten:[.3,'Su tegumento lo protege y se renueva sin parar.'], pri:[0,'Un prion no tiene membrana que perforar.']},
+  ifn:{def:[.4,'Los interferones no matan directamente: avisan a las células para que se defiendan. Contra este organismo apenas ayudan.'],
+    vir:[2.5,'Las células avisadas por el interferón fabrican proteínas que frenan la replicación del virus.'],
+    vih:[1.6,'El interferón frena la replicación del VIH, aunque el virus tiene proteínas para escapar de él.'],
+    can:[1.4,'Los interferones activan a los linfocitos NK y T contra el tumor: se usan en algunos cánceres, como el melanoma.'],
+    tbc:[1.6,'El interferón γ activa a los macrófagos infectados para que por fin digieran a la micobacteria.'],
+    mal:[.8,'El interferón γ ayuda contra la fase del plasmodio en el hígado, pero poco dentro de los glóbulos rojos.'],
+    pri:[0,'El prion no se replica como un virus ni lo reconoce el sistema inmune.']},
+  fgt:{def:[0,'Los bacteriófagos solo infectan bacterias: cada fago reconoce receptores de una bacteria concreta.'],
+    gp:[2.5,'El fago se une a su pared, inyecta su ADN y la bacteria fabrica cientos de fagos nuevos hasta reventar.'],
+    gn:[2.5,'Los fagos de E. coli, como T4, son los más estudiados: la revientan en unos 30 minutos.'],
+    bac:[2,'Hay muchos fagos de Bacillus, aunque no afectan a la endospora.'],
+    myc:[.8,'Hay pocos fagos conocidos de micoplasmas.'],
+    tbc:[1.6,'Los micobacteriófagos se han usado para salvar a pacientes con infecciones resistentes a todos los antibióticos.']},
+});
+Object.assign(KEYTRAIT, {cmp:['outer','nowall','env','pg','wax','teg','cellulose','chitin','self','cd4','protein'], ifn:['acell','intra','env','self','retro','wax','rbc'],
+  fgt:['gram','pg','outer','wax','nowall','spore','acell','protist','fungus','self','protein']});
+SIDE.ifn = [.03, T_('Efecto secundario: los interferones también te provocan fiebre y malestar, como una gripe.')];
+
+// Orgánulos de élite (nivel 100)
+const UPG3 = [
+  {id:'tlr', n:T_('Receptores tipo Toll'), d:T_('Proteínas de la membrana que reconocen patrones de los microbios, como el LPS, la flagelina o el ARN vírico, y activan antes la respuesta.'), e:T_('Ataque ×1,1'), base:3e16, k:1.5, max:12, col:0xffb547, ic:'signal'},
+  {id:'glc', n:T_('Glucocáliz'), d:T_('Capa de glúcidos unida a las proteínas y los lípidos de la membrana. La protege de los golpes y ayuda a distinguir lo propio de lo extraño.'), e:T_('Vida ×1,1'), base:3e16, k:1.5, max:12, col:0x9be7ff, ic:'bilayer'},
+  {id:'sec', n:T_('Gránulos secretores'), d:T_('Vesículas cargadas de enzimas y proteínas tóxicas que se liberan al exterior (desgranulación) y alcanzan también a los organismos cercanos.'), e:T_('+10 % de tu daño salpica a los demás enemigos'), base:6e16, k:1.7, max:10, col:0xff7ad9, ic:'lyso'},
+];
+Object.assign(UPG_VIS, {tlr:T_('En tu célula: receptores en forma de Y en la membrana.'), glc:T_('En tu célula: una capa de glúcidos alrededor de la membrana.'), sec:T_('En tu célula: gránulos de colores bajo la membrana.')});
+Object.assign(MILESTONE, {
+  t50:T_('Ahora vienen de dos en dos'), d50:T_('Desde el nivel 50 lucharás contra dos organismos a la vez. Cada uno es algo más débil, pero atacan los dos. Elige a quién atacar tocándolo en la lista o en la escena.'),
+  r50:T_('Recompensa: +5 ADN y +2 puntos del árbol inmunitario.'),
+  t100:T_('Una infección generalizada'), d100:T_('Desde el nivel 100 los organismos tienen el triple de vida. Para hacerles frente se desbloquean los orgánulos de élite y tres herramientas nuevas que alcanzan a todos los enemigos a la vez.'),
+  r100:T_('Recompensa: +10 ADN, +3 puntos del árbol inmunitario y los orgánulos y herramientas nuevos.'),
+  t150:T_('Tres frentes abiertos'), d150:T_('Desde el nivel 150 lucharás contra tres organismos a la vez. Las herramientas de área y los gránulos secretores son ahora tu mejor arma.'),
+  r150:T_('Recompensa: +15 ADN y +3 puntos del árbol inmunitario.'),
+});
 /* =====================================================================
    IDIOMAS: español (original), català, English
    ===================================================================== */
@@ -2045,6 +2119,42 @@ const I18N_RAW6 = {
   "Emmanuelle Charpentier y Jennifer Doudna convirtieron un sistema de defensa de las bacterias contra los virus en unas «tijeras» para editar genes. Nobel de Química de 2020.":["Emmanuelle Charpentier i Jennifer Doudna van convertir un sistema de defensa dels bacteris contra els virus en unes «tisores» per editar gens. Nobel de Química del 2020.","Emmanuelle Charpentier and Jennifer Doudna turned a bacterial defence system against viruses into “scissors” for editing genes. Nobel Prize in Chemistry 2020."],
 };
 for (const k in I18N_RAW6){ I18N.ca[k] = I18N_RAW6[k][0]; I18N.en[k] = I18N_RAW6[k][1]; }
+// Textos de la versión 11 (varios enemigos, nivel 100 y 150): «español»: [català, English]
+const I18N_RAW7 = {
+  "Viene acompañado: vence a todos para ganar.":["Ve acompanyat: venç-los tots per guanyar.","It isn't alone: defeat them all to win."],
+  "{n} organismos a la vez":["{n} organismes alhora","{n} organisms at once"],
+  "Elige a cuál atacar tocándolo en la lista o en la escena. Las herramientas de área los alcanzan a todos.":["Tria quin atacar tocant-lo a la llista o a l'escena. Les eines d'àrea els arriben a tots.","Choose which to attack by tapping it in the list or in the scene. Area tools reach them all."],
+  "Vencido":["Vençut","Defeated"], "área":["àrea","area"], "gránulos":["grànuls","granules"], "Nivel {l}":["Nivell {l}","Level {l}"],
+  "Herramienta de área: alcanza a los {n} organismos ({d} de daño en total).":["Eina d'àrea: arriba als {n} organismes ({d} de dany en total).","Area tool: it reaches all {n} organisms ({d} damage in total)."],
+  "Gránulos secretores: {d} de daño a cada uno de los demás.":["Grànuls secretors: {d} de dany a cadascun dels altres.","Secretory granules: {d} damage to each of the others."],
+  "Orgánulos de élite":["Orgànuls d'elit","Elite organelles"], "Ver el Laboratorio":["Veure el Laboratori","Open the Lab"],
+  "Desde el nivel 100 los organismos tienen el triple de vida y llegan en grupo. Estos orgánulos, junto con las herramientas de área, te ayudan a hacerles frente.":["Des del nivell 100 els organismes tenen el triple de vida i arriben en grup. Aquests orgànuls, juntament amb les eines d'àrea, t'ajuden a fer-los front.","From level 100 organisms have triple health and come in groups. These organelles, together with the area tools, help you face them."],
+  "Llega al nivel 100 para desbloquear los receptores tipo Toll, el glucocáliz y los gránulos secretores.":["Arriba al nivell 100 per desbloquejar els receptors tipus Toll, el glicocàlix i els grànuls secretors.","Reach level 100 to unlock Toll-like receptors, the glycocalyx and secretory granules."],
+  "Receptores tipo Toll":["Receptors tipus Toll","Toll-like receptors"], "Glucocáliz":["Glicocàlix","Glycocalyx"], "Gránulos secretores":["Grànuls secretors","Secretory granules"],
+  "Proteínas de la membrana que reconocen patrones de los microbios, como el LPS, la flagelina o el ARN vírico, y activan antes la respuesta.":["Proteïnes de la membrana que reconeixen patrons dels microbis, com el LPS, la flagel·lina o l'ARN víric, i activen abans la resposta.","Membrane proteins that recognise microbial patterns, such as LPS, flagellin or viral RNA, and switch on the response sooner."],
+  "Capa de glúcidos unida a las proteínas y los lípidos de la membrana. La protege de los golpes y ayuda a distinguir lo propio de lo extraño.":["Capa de glúcids units a les proteïnes i els lípids de la membrana. La protegeix dels cops i ajuda a distingir el que és propi del que és estrany.","A layer of sugars attached to membrane proteins and lipids. It cushions the membrane and helps tell self from non-self."],
+  "Vesículas cargadas de enzimas y proteínas tóxicas que se liberan al exterior (desgranulación) y alcanzan también a los organismos cercanos.":["Vesícules carregades d'enzims i proteïnes tòxiques que s'alliberen a l'exterior (desgranulació) i arriben també als organismes propers.","Vesicles loaded with enzymes and toxic proteins that are released outside (degranulation) and also reach nearby organisms."],
+  "Ataque ×1,1":["Atac ×1,1","Attack ×1.1"], "Vida ×1,1":["Vida ×1,1","Health ×1.1"],
+  "+10 % de tu daño salpica a los demás enemigos":["+10 % del teu dany esquitxa els altres enemics","+10 % of your damage splashes onto the other enemies"],
+  "En tu célula: receptores en forma de Y en la membrana.":["A la teva cèl·lula: receptors en forma de Y a la membrana.","In your cell: Y-shaped receptors on the membrane."],
+  "En tu célula: una capa de glúcidos alrededor de la membrana.":["A la teva cèl·lula: una capa de glúcids al voltant de la membrana.","In your cell: a sugar coat around the membrane."],
+  "En tu célula: gránulos de colores bajo la membrana.":["A la teva cèl·lula: grànuls de colors sota la membrana.","In your cell: coloured granules under the membrane."],
+  "Ahora vienen de dos en dos":["Ara vénen de dos en dos","Now they come in pairs"],
+  "Desde el nivel 50 lucharás contra dos organismos a la vez. Cada uno es algo más débil, pero atacan los dos. Elige a quién atacar tocándolo en la lista o en la escena.":["Des del nivell 50 lluitaràs contra dos organismes alhora. Cadascun és una mica més feble, però ataquen tots dos. Tria qui atacar tocant-lo a la llista o a l'escena.","From level 50 you'll fight two organisms at once. Each is a little weaker, but both attack. Choose whom to attack by tapping it in the list or in the scene."],
+  "Recompensa: +5 ADN y +2 puntos del árbol inmunitario.":["Recompensa: +5 ADN i +2 punts de l'arbre immunitari.","Reward: +5 DNA and +2 immune tree points."],
+  "Una infección generalizada":["Una infecció generalitzada","A widespread infection"],
+  "Desde el nivel 100 los organismos tienen el triple de vida. Para hacerles frente se desbloquean los orgánulos de élite y tres herramientas nuevas que alcanzan a todos los enemigos a la vez.":["Des del nivell 100 els organismes tenen el triple de vida. Per fer-los front es desbloquegen els orgànuls d'elit i tres eines noves que arriben a tots els enemics alhora.","From level 100 organisms have triple health. To face them, elite organelles unlock along with three new tools that reach every enemy at once."],
+  "Recompensa: +10 ADN, +3 puntos del árbol inmunitario y los orgánulos y herramientas nuevos.":["Recompensa: +10 ADN, +3 punts de l'arbre immunitari i els orgànuls i les eines nous.","Reward: +10 DNA, +3 immune tree points and the new organelles and tools."],
+  "Tres frentes abiertos":["Tres fronts oberts","Three fronts at once"],
+  "Desde el nivel 150 lucharás contra tres organismos a la vez. Las herramientas de área y los gránulos secretores son ahora tu mejor arma.":["Des del nivell 150 lluitaràs contra tres organismes alhora. Les eines d'àrea i els grànuls secretors són ara la teva millor arma.","From level 150 you'll fight three organisms at once. Area tools and secretory granules are now your best weapons."],
+  "Recompensa: +15 ADN y +3 puntos del árbol inmunitario.":["Recompensa: +15 ADN i +3 punts de l'arbre immunitari.","Reward: +15 DNA and +3 immune tree points."],
+  "Efecto secundario: los interferones también te provocan fiebre y malestar, como una gripe.":["Efecte secundari: els interferons també et provoquen febre i malestar, com una grip.","Side effect: interferons also give you fever and malaise, like flu."],
+  "Busca algo de la sangre que agujeree las membranas expuestas, a todos a la vez.":["Busca alguna cosa de la sang que foradi les membranes exposades, a tots alhora.","Look for something in the blood that punches holes in exposed membranes, in all of them at once."],
+  "Hay citocinas que avisan a las células vecinas de que hay un virus.":["Hi ha citocines que avisen les cèl·lules veïnes que hi ha un virus.","Some cytokines warn neighbouring cells that a virus is about."],
+  "Hay virus que solo infectan bacterias.":["Hi ha virus que només infecten bacteris.","Some viruses only infect bacteria."],
+  "Ahora vienen en grupo. Elige a quién atacar primero: quizá convenga acabar antes con el que más daño hace.":["Ara vénen en grup. Tria qui atacar primer: potser convé acabar abans amb el que fa més mal.","Now they come in groups. Choose whom to attack first: it may pay to finish off the one that hits hardest."],
+};
+for (const k in I18N_RAW7){ I18N.ca[k] = I18N_RAW7[k][0]; I18N.en[k] = I18N_RAW7[k][1]; }
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
 const DT = {
 ca:{
@@ -2320,13 +2430,47 @@ Object.assign(DT.ca.SK, {mng:['mNeonGreen',"Proteïna verda groguenca de l'amfio
 Object.assign(DT.en.SK, {mng:['mNeonGreen','A yellow-green protein from the lancelet Branchiostoma lanceolatum. It shines brighter than GFP.'],
   tdt:['tdTomato','Two copies of a red protein joined in tandem: one of the brightest fluorescent proteins.'],
   xen:['Xenofluorin','A fluorescent protein brought back by the Xenon b probe. It’s made up: it only exists in this game.']});
+
+// Herramientas de área del nivel 100 (v11)
+Object.assign(DT.ca.TL, {
+  cmp:['Sistema del complement',"Una trentena de proteïnes de la sang que s'activen en cascada i formen el complex d'atac a la membrana (MAC): un porus que forada la membrana dels microbis. Arriba a tots els organismes alhora."],
+  ifn:['Interferons',"Citocines que avisen les cèl·lules veïnes que hi ha un virus: en frenen la replicació i activen els macròfags i els limfòcits NK. Arriben a tots els organismes alhora."],
+  fgt:['Bacteriòfags',"Virus que només infecten bacteris (fagoteràpia). Es multipliquen dins d'un bacteri, el rebenten i els fags nous salten als altres. Arriben a tots els bacteris alhora."]});
+Object.assign(DT.en.TL, {
+  cmp:['Complement system','About thirty blood proteins that activate in a cascade and form the membrane attack complex (MAC): a pore that punches through microbial membranes. It reaches every organism at once.'],
+  ifn:['Interferons','Cytokines that warn neighbouring cells about a virus: they slow its replication and activate macrophages and NK cells. They reach every organism at once.'],
+  fgt:['Bacteriophages','Viruses that only infect bacteria (phage therapy). They multiply inside a bacterium, burst it, and the new phages jump to the others. They reach every bacterium at once.']});
+Object.assign(DT.ca.E, {
+  cmp:{def:"El complement perfora la membrana de gairebé qualsevol cèl·lula estranya.", gn:"El complex d'atac a la membrana perfora amb facilitat la membrana externa de les Gram−.", myc:"Sense paret que la protegeixi, la seva membrana queda plena de porus.",
+    gp:"La paret gruixuda de peptidoglicà de les Gram+ impedeix que el porus arribi a la membrana.", bac:"És Gram+: la paret gruixuda la protegeix del complement.", tbc:"La paret cèria d'àcids micòlics frena el complement.",
+    vir:"El complement trenca l'embolcall dels virus que en tenen, com el de la grip.", vih:"El VIH s'emporta de la teva cèl·lula proteïnes que frenen el complement (CD55 i CD59) i s'hi protegeix.",
+    lev:"La paret de quitina en protegeix la membrana.", veg:"La paret de cel·lulosa en protegeix la membrana.", can:"És una cèl·lula pròpia: té proteïnes que frenen el complement, com CD59.",
+    mal:"Dins del glòbul vermell, protegit per les proteïnes reguladores de l'eritròcit, gairebé no li arriba.", ten:"El tegument el protegeix i es renova sense parar.", pri:"Un prió no té membrana per perforar."},
+  ifn:{def:"Els interferons no maten directament: avisen les cèl·lules perquè es defensin. Contra aquest organisme gairebé no ajuden.", vir:"Les cèl·lules avisades per l'interferó fabriquen proteïnes que frenen la replicació del virus.",
+    vih:"L'interferó frena la replicació del VIH, tot i que el virus té proteïnes per escapar-ne.", can:"Els interferons activen els limfòcits NK i T contra el tumor: es fan servir en alguns càncers, com el melanoma.",
+    tbc:"L'interferó γ activa els macròfags infectats perquè per fi digereixin el micobacteri.", mal:"L'interferó γ ajuda contra la fase del plasmodi al fetge, però poc dins dels glòbuls vermells.", pri:"El prió no es replica com un virus ni el reconeix el sistema immunitari."},
+  fgt:{def:"Els bacteriòfags només infecten bacteris: cada fag reconeix receptors d'un bacteri concret.", gp:"El fag s'uneix a la paret, injecta el seu ADN i el bacteri fabrica centenars de fags nous fins que rebenta.",
+    gn:"Els fags d'E. coli, com T4, són els més estudiats: el rebenten en uns 30 minuts.", bac:"Hi ha molts fags de Bacillus, tot i que no afecten l'endòspora.", myc:"Es coneixen pocs fags de micoplasmes.",
+    tbc:"Els micobacteriòfags s'han fet servir per salvar pacients amb infeccions resistents a tots els antibiòtics."}});
+Object.assign(DT.en.E, {
+  cmp:{def:'Complement punches holes in the membrane of almost any foreign cell.', gn:'The membrane attack complex easily pierces the outer membrane of Gram− bacteria.', myc:'With no wall to protect it, its membrane fills with pores.',
+    gp:'The thick peptidoglycan wall of Gram+ bacteria stops the pore reaching the membrane.', bac:'It is Gram+: its thick wall protects it from complement.', tbc:'The waxy mycolic acid wall holds complement back.',
+    vir:'Complement breaks the envelope of enveloped viruses such as flu.', vih:'HIV takes complement-blocking proteins (CD55 and CD59) from your cell and shields itself with them.',
+    lev:'The chitin wall protects its membrane.', veg:'The cellulose wall protects its membrane.', can:'It is one of your own cells: it has complement-blocking proteins such as CD59.',
+    mal:'Inside the red blood cell, shielded by the cell’s regulatory proteins, little reaches it.', ten:'Its tegument protects it and is constantly renewed.', pri:'A prion has no membrane to pierce.'},
+  ifn:{def:'Interferons don’t kill directly: they warn cells to defend themselves. Against this organism they barely help.', vir:'Cells warned by interferon make proteins that slow the virus’s replication.',
+    vih:'Interferon slows HIV replication, although the virus has proteins to escape it.', can:'Interferons activate NK and T cells against the tumour: they are used in some cancers, such as melanoma.',
+    tbc:'Interferon γ activates infected macrophages so they finally digest the mycobacterium.', mal:'Interferon γ helps against the parasite’s liver stage, but little inside red blood cells.', pri:'A prion doesn’t replicate like a virus and the immune system doesn’t recognise it.'},
+  fgt:{def:'Bacteriophages only infect bacteria: each phage recognises receptors on a particular bacterium.', gp:'The phage binds its wall, injects its DNA and the bacterium makes hundreds of new phages until it bursts.',
+    gn:'E. coli phages such as T4 are the best studied: they burst it in about 30 minutes.', bac:'There are many Bacillus phages, though they don’t affect the endospore.', myc:'Few mycoplasma phages are known.',
+    tbc:'Mycobacteriophages have been used to save patients with infections resistant to every antibiotic.'}});
 /* =====================================================================
    ESTADO Y FÓRMULAS
    ===================================================================== */
 const SAVE_KEY = 'microcosmos.v1';
 const today = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); };
 const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evos:0, totalKills:0,
-  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0, nuc:0, rel:0, gol:0, per:0, cen:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
+  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0, nuc:0, rel:0, gol:0, per:0, cen:0, tlr:0, glc:0, sec:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
   auto:false, advance:true, sound:true, intro:false, t:Date.now(),
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
@@ -2373,11 +2517,12 @@ const collVs = (type, tool) => { if (fixedStats()) return 1; let k = 1 + STAR_DM
   for (const r in REL_TOOL) if (REL_TOOL[r].includes(tool)) k *= 1 + RELIC[r].p/100*rl(r); return k; };
 const collAtpVs = type => fixedStats() ? 1 : 1 + STAR_ATP*stars(type);
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM()*collAtk())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM()*collHp())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*Math.pow(1.1, S.upg.tlr)*adnM()*collAtk())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*Math.pow(1.1, S.upg.glc)*adnM()*collHp())*cellD().hp;
 // orgánulos avanzados: solo en la partida normal
 const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
 const advUnlocked = () => S.best >= 30;
+const eliteUnlocked = () => S.best >= 100;
 // salto de dificultad a partir del nivel 31 (tejidos profundos)
 const deepHp = L => L > 30 ? 3.2*Math.pow(1.1, L - 31) : 1;
 const deepAtk = L => L > 30 ? 1.9*Math.pow(1.06, L - 31) : 1;
@@ -2606,7 +2751,9 @@ const pLight = new THREE.PointLight(0x5fd8ff, 1.2, 12); scene.add(pLight);
 const eLight = new THREE.PointLight(0xff4f7b, 1.1, 12); scene.add(eLight);
 
 const P_POS = V(-2.3, -.1, .9);
-const E_POS = V(2.3, .25, -.5);
+const E_POS = V(2.3, .25, -.5);   // posición del enemigo al que apuntas (cambia con el objetivo)
+const E_BASE = V(2.3, .25, -.5);  // centro de la zona de los enemigos
+let PORTRAIT = false;
 
 // Generador pseudoaleatorio con semilla: cada organismo se construye siempre igual
 let SEED = 1;
@@ -2821,6 +2968,10 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
   // filopodios: tu linaje gana más con cada evolución
   const fil = inst(new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
   g.add(fil);
+  // orgánulos de élite: receptores tipo Toll, glucocáliz y gránulos secretores
+  if (lv('tlr')) g.add(inst(new THREE.ConeGeometry(.03, .16, 5).translate(0, .08, 0), mem(0xffb547, {emiK:.6, bump:false}), fibDirs(Math.min(60, 6*lv('tlr'))).map(d => ({p:d.clone().multiplyScalar(1.06*sc), n:d})), 9));
+  if (lv('glc')) g.add(mesh(new THREE.IcosahedronGeometry(1.2*sc, 3), mem(0x9be7ff, {op:.05 + .012*Math.min(lv('glc'), 12), rimA:.6, rimK:.9, side:THREE.DoubleSide, bump:false}), 9));
+  if (lv('sec')) inner.add(inst(sphG(.045, 8, 6), mem(0xff7ad9, {emiK:.7, bump:false}), Array.from({length:Math.min(60, 6*lv('sec'))}, () => ({p:randIn(.85,.7,.7)}))));
   let reachA = 0;
   const mitK = Math.min(1, lv('mit')/12);
   return {g,
@@ -3244,21 +3395,62 @@ function rebuildPlayer(){
   pLight.color.setHex(SKINS[S.skin].col); delete thumbCache.me;
 }
 
-let foeObj = null;
-function setFoe(e){
-  if (foeObj) scene.remove(foeObj.g);
-  foeObj = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
-  if (e.var) variantLook(foeObj, VARIANTS[e.var]);
-  const s = e.boss ? 1.45 : 1;
+let foeObj = null;  // modelo del enemigo al que apuntas
+let FOES = [];      // [{e, obj}] todos los enemigos del combate
+// huecos de cada enemigo respecto al centro (en horizontal y en vertical)
+const SLOTS = {1:[[0,0,0]], 2:[[-.55,1,-.4],[.8,-.85,.3]], 3:[[-.8,1.2,-.5],[1.1,.15,-.1],[-.15,-1.1,.45]]};
+const SLOTS_P = {1:[[0,0,0]], 2:[[-.3,.25,-.3],[.65,-1,.2]], 3:[[-.6,.4,-.4],[1.05,-.4,-.1],[-.15,-1.55,.35]]};
+const foeScale = n => n === 1 ? 1 : n === 2 ? .74 : PORTRAIT ? .56 : .62;
+function buildFoe(e, n){
+  const o = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
+  if (e.var) variantLook(o, VARIANTS[e.var]);
+  const s = (e.boss ? 1.45 : 1)*foeScale(n);
   if (e.boss){ // aura del jefe
     const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TY(e).col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
-    aura.scale.setScalar(5); foeObj.g.add(aura); }
-  foeObj.g.scale.setScalar(.01); foeObj.base = s;
-  foeObj.g.position.copy(E_POS);
-  scene.add(foeObj.g);
-  eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1;
-  tween(500, p => foeObj && foeObj.g.scale.setScalar(s*easeOut(p)));
+    aura.scale.setScalar(5); o.g.add(aura); }
+  o.g.scale.setScalar(.01); o.base = s; scene.add(o.g);
+  tween(500, p => o.g.scale.setScalar(s*easeOut(p)));
+  return o;
 }
+function layoutFoes(force){
+  const n = FOES.length, sl = (PORTRAIT ? SLOTS_P : SLOTS)[n] || SLOTS[1];
+  FOES.forEach((f, i) => { const o = sl[i] || [0,0,0]; f.e.pos = (f.e.pos || V()).copy(E_BASE).add(V(o[0], o[1], o[2])); if (force || !tweens.length) f.obj.g.position.copy(f.e.pos); });
+  if (B && B.e && B.e.pos) aimAt(B.e);
+}
+function setFoes(es){
+  FOES.forEach(f => scene.remove(f.obj.g));
+  FOES = es.map(e => { const obj = buildFoe(e, es.length); e.obj = obj; return {e, obj}; });
+  layoutFoes(true); aimAt(es[0]);
+}
+const setFoe = e => setFoes([e]);
+// apunta al enemigo e: los proyectiles, los textos y la luz van hacia él
+function aimAt(e){
+  if (!e || !e.obj) return;
+  foeObj = e.obj; E_POS.copy(e.pos);
+  eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1; eLight.position.copy(E_POS).add(V(0,2,2));
+}
+function killFoeObj(e){
+  const o = e.obj; if (!o || o.dying) return; o.dying = true;
+  tween(450, p => o.g.scale.setScalar(o.base*(1 - easeOut(p))), () => scene.remove(o.g));
+}
+// anillo que señala al objetivo cuando hay varios enemigos
+const TMARK = new THREE.Mesh(new THREE.TorusGeometry(1.3, .035, 6, 64), new THREE.MeshBasicMaterial({color:0xffc65c, transparent:true, opacity:.7, depthWrite:false}));
+TMARK.visible = false; scene.add(TMARK);
+function stepFoes(t, mot){
+  for (const f of FOES) if (!f.e.dead) f.obj.up(t*mot, f.e);
+  const many = B && B.es && B.es.filter(x => !x.dead).length > 1;
+  TMARK.visible = !!many && !!foeObj;
+  if (TMARK.visible){ TMARK.position.lerp(E_POS, .25); TMARK.scale.setScalar(foeObj.base*(1 + .04*Math.sin(t*3))); TMARK.rotation.z = t*.6; TMARK.material.opacity = .45 + .25*Math.sin(t*3); }
+}
+// tocar un enemigo en la escena lo convierte en el objetivo
+canvas.addEventListener('pointerdown', ev => {
+  if (!B || !B.es || B.es.filter(x => !x.dead).length < 2) return;
+  const r = canvas.getBoundingClientRect(); let best = -1, bd = 1e9;
+  B.es.forEach((x, i) => { if (x.dead) return; const v = x.pos.clone().project(camera);
+    const dx = (v.x + 1)/2*r.width - (ev.clientX - r.left), dy = (1 - v.y)/2*r.height - (ev.clientY - r.top), d = Math.hypot(dx, dy);
+    if (d < bd){ bd = d; best = i; } });
+  if (best >= 0 && bd < 160) selectTarget(best);
+});
 
 // Variantes: el mismo modelo con su característica cambiada a la vista
 function variantLook(o, Vr){
@@ -3428,7 +3620,9 @@ function resize(){
   renderer.setSize(w, h, false); camera.aspect = w/h;
   // en vertical, las dos células se colocan en diagonal y la cámara se aleja lo justo para que quepan a lo ancho
   const a = w/h, portrait = a < .9;
-  if (portrait){ P_POS.set(-1.3,-1.6,.9); E_POS.set(1.3,1.1,-.5); } else { P_POS.set(-2.3,-.1,.9); E_POS.set(2.3,.25,-.5); }
+  PORTRAIT = portrait;
+  if (portrait){ P_POS.set(-1.3,-1.6,.9); E_BASE.set(1.3,1.1,-.5); } else { P_POS.set(-2.3,-.1,.9); E_BASE.set(2.3,.25,-.5); }
+  if (!FOES.length) E_POS.copy(E_BASE);
   // franja libre entre las fichas: la escena se encuadra en ella
   document.documentElement.style.setProperty('--toolsH', $('#tools').offsetHeight + 'px');
   document.documentElement.style.setProperty('--hudH', $('#hud').offsetHeight + 'px');
@@ -3448,9 +3642,10 @@ function resize(){
   const snap = !CAMC.ok || CAMT.w !== w || CAMT.h !== h;
   CAMT.dist = dist; CAMT.off = h/2 - (top + bot)/2; CAMT.w = w; CAMT.h = h;
   if (snap){ CAMC.dist = CAMT.dist; CAMC.off = CAMT.off; CAMC.ok = true; }
-  LOOK.set(0, (P_POS.y + E_POS.y)/2, 0);
+  LOOK.set(0, (P_POS.y + E_BASE.y)/2, 0);
   applyCam();
-  if (!tweens.length){ player.position.copy(P_POS); if (foeObj) foeObj.g.position.copy(E_POS); }
+  if (!tweens.length) player.position.copy(P_POS);
+  layoutFoes();
   pLight.position.copy(P_POS).add(V(0,2,2));
   eLight.position.copy(E_POS).add(V(0,2,2));
 }
@@ -3526,55 +3721,89 @@ function dmgMods(e, forPlayer){
   return k;
 }
 
+function makeFoe(type, boss, sp, vr, L, k){
+  const max = 30*Math.pow(1.23, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1)*k.hp;
+  return {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L)*(vr && vr.atkK || 1)*k.atk, atpK:k.atp,
+    var:vr ? vr.id : null, stall:0, turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
+    inRbc:type === 'mal', cd4:0, dead:false};
+}
+const alive = () => B ? B.es.filter(x => !x.dead) : [];
 function newBattle(keepHp){
   ensureDaily(); stopMusic();
   const ch = storyCh();
   const L = effLevel();
   let boss = !ch && S.kills >= KPL && S.advance && !S.practice;
   let sp = boss && L % 10 === 0 ? (L/10 - 1) % SPECIAL.length : -1;
-  let type;
-  let vr = null;
+  let type, vr = null, practice = false;
   if (ch){ let b = ch.battles[S.story.step]; if (b && b.t){ boss = true; b = b.t; }
     if (b === '@sepsis'){ boss = true; sp = 0; type = 'gn'; } else if (VARIANTS[b]){ vr = VARIANTS[b]; type = vr.base; } else type = b; }
-  else if (S.practice){ type = S.practice; S.practice = null; }
+  else if (S.practice){ type = S.practice; S.practice = null; practice = true; }
   else type = sp >= 0 ? SPECIAL[sp].type : boss ? bossType() : pickType();
-  const max = 30*Math.pow(1.23, L-1)*(boss ? (sp >= 0 ? 6 : 4) : 1)*(TYPES[type].hpK || 1)*deepHp(L)*(vr && vr.hpK || 1);
-  const e = {type, boss, special:sp, phase:1, L, hp:max, max, atk:4*Math.pow(1.2, L-1)*(boss ? (sp >= 0 ? 1.6 : 1.4) : 1)*deepAtk(L)*(vr && vr.atkK || 1),
-    var:vr ? vr.id : null, stall:0, turn:0, hidden:false, spore:false, dark:false, block:0, marked:0, grow:1, drift:0, biofilm:false, res:false, ev:null,
-    inRbc:type === 'mal', cd4:0};
+  // desde el nivel 50, dos enemigos; desde el 150, tres. Los jefes especiales, los eventos y las prácticas, de uno en uno
+  const n = ch || practice || sp >= 0 ? 1 : nFoes(L), K = GROUP_FOE[n];
+  const x3 = !ch && L >= 100 ? HP_X100 : 1;
+  const es = [makeFoe(type, boss, sp, vr, L, boss ? GROUP_FOE[1] : K)];
+  for (let i = 1; i < n; i++) es.push(makeFoe(pickType(), false, -1, null, L, K));
+  es.forEach((e, i) => { e.i = i; e.hp = e.max = e.max*x3; });
+  const e = es[0];
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)*(1 - .25*rl('flem'))){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
-    const ks = Object.keys(EVENTS); e.ev = ks[Math.floor(Math.random()*ks.length)];
-    if (e.ev === 'antib' && !BACT.has(type)) e.ev = 'fiebre';
-    if (e.ev === 'vacuna'){ const k = S.known[type] = S.known[type] || {}; TOOLS.forEach(t => k[t.id] = true); }
+    const ks = Object.keys(EVENTS); let ev = ks[Math.floor(Math.random()*ks.length)];
+    if (ev === 'antib' && !es.some(x => BACT.has(x.type))) ev = 'fiebre';
+    es.forEach(x => { x.ev = ev; if (ev === 'vacuna'){ const k = S.known[x.type] = S.known[x.type] || {}; TOOLS.forEach(t => k[t.id] = true); } });
   }
-  B = {e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
+  B = {es, e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
     last:null, lastOk:false, usedAb:false, onlyFago:true, turns:0, firstDone:false, why:null};
-  setFoe(e); setDark(false); setZoneTint(ch ? ch.tint || ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
+  setFoes(es); setDark(false); setZoneTint(ch ? ch.tint || ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
   renderFoe(); renderMe(); renderTools(); renderHud();
   const name = foeName(e);
   if (sp >= 0) setMsg('none', tr('Jefe especial'), tr('{n}: tiene dos fases. Al bajar a la mitad de vida cambiará de comportamiento.', {n:name}));
-  else if (boss) setMsg('ok', tr('¡Jefe!'), tr('{n}: más vida y más ataque. Vencerlo te lleva al nivel {l}.', {n:name, l:L+1}));
+  else if (boss) setMsg('ok', tr('¡Jefe!'), tr('{n}: más vida y más ataque. Vencerlo te lleva al nivel {l}.', {n:name, l:L+1}), n > 1 ? tr('Viene acompañado: vence a todos para ganar.') : '');
+  else if (n > 1) setMsg('ok', tr('{n} organismos a la vez', {n}), tr('Elige a cuál atacar tocándolo en la lista o en la escena. Las herramientas de área los alcanzan a todos.'),
+    e.ev ? tr('Evento') + ' · ' + EVENTS[e.ev].n + ': ' + tr(EVENT_UI[e.ev].fx) : '');
   else setMsg('ok', tr('Nuevo organismo'), tr('Observa sus características y elige la herramienta que las aproveche.'),
     e.ev ? tr('Evento') + ' · ' + EVENTS[e.ev].n + ': ' + tr(EVENT_UI[e.ev].fx) : e.res ? tr('¡Cepa resistente! El uso repetido de penicilina ha seleccionado estafilococos SARM.') : '');
   resize(); // después del mensaje: su altura cambia el encuadre
   setEventFx(e.ev);
   if (boss) startMusic(sp >= 0);
   const go = () => {
-    if (vr){ if (!S.varSeen[vr.id]){ S.varSeen[vr.id] = true; save(); showVariant(vr.id); } else { scheduleAuto(); narr('variant'); } }
-    else if (!S.seen[type]){ S.seen[type] = true; save(); checkAch(); showSpecies(type, true); }
-    else { scheduleAuto(); if (e.ev) narr('ev_' + e.ev); else if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
+    if (vr){ if (!S.varSeen[vr.id]){ S.varSeen[vr.id] = true; save(); showVariant(vr.id); } else { scheduleAuto(); narr('variant'); } return; }
+    const fresh = [...new Set(es.map(x => x.type))].filter(t => !S.seen[t]);
+    if (fresh.length){ fresh.forEach(t => { S.seen[t] = true; }); save(); checkAch(); fresh.forEach((t, i) => i ? whenFree(() => showSpecies(t, true)) : showSpecies(t, true)); }
+    else { scheduleAuto(); if (n > 1) narr('duo'); else if (e.ev) narr('ev_' + e.ev); else if (boss) narr('boss'); else if (NARR[type]) narr(type); else if (e.res) narr('sarm'); }
   };
   if (sp >= 0) cinematic(tr('Jefe · nivel {l}', {l:L}), name, go); else go();
 }
 const foeName = e => e.special >= 0 ? SPECIAL[e.special].n : e.var ? (e.boss ? TY(e).boss : TY(e).n) : e.boss ? TYPES[e.type].boss : e.res ? tr('Estafilococo resistente (SARM)') : TYPES[e.type].n;
+// cambiar de objetivo (lista de la ficha, escena o tecla Tab)
+function selectTarget(i){
+  if (!B || B.over) return;
+  const x = B.es[i]; if (!x || x.dead || x === B.e) return;
+  B.e = x; aimAt(x); B.why = null; renderFoe(); renderTools(); sfx.tool('fago');
+}
+
+// daño de una herramienta contra un enemigo (sin efectos de pantalla)
+function toolDmg(id, x, r){
+  const T = TOOL[id];
+  const cb = cellD().bonus[x.type] || 1, mark = x.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = x.ev === 'vacuna' && id === 'ac' ? 2 : 1;
+  const vul = x.var && VARIANTS[x.var].vul || 1;
+  return {dmg:atk()*T.pow*r.m*mark*cb*vac*vul*collVs(x.type, id)*treeMods(id, x)*dmgMods(x, true)*rnd(.9, 1.1), cb, mark, vac, vul};
+}
+// los enemigos que han llegado a 0 desaparecen; si quedan otros, el objetivo pasa al siguiente
+function reap(){
+  for (const x of B.es) if (!x.dead && x.hp <= 0){ x.dead = true; killFoeObj(x); burst(x.pos, TY(x).col, S.calm ? 16 : 40, 4); if (B.es.length > 1) floatText(tr('Vencido'), x.pos.clone().add(V(0,1,0)), 'great'); }
+  const left = alive();
+  if (left.length && B.e.dead){ B.e = left[0]; aimAt(B.e); }
+  return left.length;
+}
 
 function useTool(id){
   if (!B || B.busy || B.over || !owns(id) || (B.cds[id] || 0) > 0 || !$('#modal').hidden) return;
   const T = TOOL[id], e = B.e;
   B.busy = true; clearTimeout(B.timer); B.turns++;
   const r = eff(id, e);
-  (S.known[knowKey(e)] = S.known[knowKey(e)] || {})[id] = true;
+  const hitList = T.aoe ? alive() : [e];
+  hitList.forEach(x => { (S.known[knowKey(x)] = S.known[knowKey(x)] || {})[id] = true; });
   let cenProc = false;
   if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
@@ -3585,7 +3814,7 @@ function useTool(id){
   const from = P_POS.clone().add(V(.6,.3,0)), to = E_POS.clone();
   const go = () => {
     const Ty = TY(e);
-    const dodge = (Ty.dodge || 0) && id !== 'luz' && !e.spore && !(Ty.V && Ty.V.markStops && e.marked > 0) && Math.random() < Ty.dodge;
+    const dodge = !T.aoe && (Ty.dodge || 0) && id !== 'luz' && !e.spore && !(Ty.V && Ty.V.markStops && e.marked > 0) && Math.random() < Ty.dodge;
     let ok = false;
     if (dodge){
       floatText(tr('Esquiva'), E_POS.clone().add(V(0,1.2,0)), 'info');
@@ -3597,16 +3826,38 @@ function useTool(id){
       else floatText(tr('Sin efecto'), E_POS.clone().add(V(0,1.4,0)), 'none');
       setMsg(r.m > 0 ? 'great' : 'none', `${T.n} · ${r.m > 0 ? tr('Muy eficaz') : tr('No le afecta')}`, r.why);
       sfx.hit(r.m*2);
+    } else if (T.aoe){
+      // herramienta de área: cada enemigo recibe según sus propias características
+      let total = 0;
+      for (const x of hitList){
+        const rx = eff(id, x), d = rx.m > 0 ? toolDmg(id, x, rx).dmg : 0;
+        x.hp = Math.max(0, x.hp - d); total += d;
+        floatText(rx.m > 0 ? fmt(d) : tr('Inmune'), x.pos.clone().add(V(0,1.2,0)), rx.m >= 2 ? 'great' : rx.m >= 1 ? 'dmg' : rx.m > 0 ? 'bad' : 'none');
+        if (rx.m > 0) burst(x.pos, T.col, rx.m >= 2 ? 30 : 14, 3);
+      }
+      ok = total > 0;
+      const [v, l] = verdict(r.m), extra = [];
+      if (hitList.length > 1) extra.push(tr('Herramienta de área: alcanza a los {n} organismos ({d} de daño en total).', {n:hitList.length, d:fmt(total)}));
+      if (cenProc) extra.push(tr('Centrosoma: esta herramienta no gasta recarga.'));
+      if (SIDE[id]){ const sd = maxHp()*SIDE[id][0]*(has('i3') ? .4 : 1); B.php = Math.max(1, B.php - sd);
+        floatText('−' + fmt(sd), P_POS.clone().add(V(0,1.3,0)), 'hurt'); extra.push(tr(SIDE[id][1])); renderMe(); }
+      setMsg(v, `${T.n} · ${l} (×${dec(Math.round(r.m*100)/100)})`, r.why, extra.join(' '));
+      shake = S.calm ? 0 : .2; impact(E_BASE, T.col); sfx.hit(Math.max(1, r.m));
+      if (r.m >= 2){ dailyProg('great'); narr('great'); }
     } else {
       ok = r.m > 0;
-      const cb = cellD().bonus[e.type] || 1, mark = e.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = e.ev === 'vacuna' && id === 'ac' ? 2 : 1;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
-      const vul = e.var && VARIANTS[e.var].vul || 1;
-      const dmg = atk()*T.pow*r.m*mark*cb*vac*crit*vul*collVs(e.type, id)*treeMods(id, e)*dmgMods(e, true)*rnd(.9, 1.1);
+      const {dmg:d0, cb, mark, vac, vul} = toolDmg(id, e, r), dmg = d0*crit;
       e.hp = Math.max(0, e.hp - dmg);
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none');
       const extra = [];
+      // gránulos secretores: parte del daño salpica a los demás enemigos
+      const others = alive().filter(x => x !== e);
+      if (adv('sec') && dmg > 0 && others.length){ const sd = dmg*.1*adv('sec');
+        for (const x of others){ x.hp = Math.max(0, x.hp - sd); floatText('−' + fmt(sd) + ' · ' + tr('gránulos'), x.pos.clone().add(V(0,1.3,0)), 'evt ev-golgi');
+          projectile(E_POS.clone(), x.pos.clone(), 0xff7ad9, 4, 300, null, null); }
+        extra.push(tr('Gránulos secretores: {d} de daño a cada uno de los demás.', {d:fmt(sd)})); }
       if (r.combo){ extra.push(tr('Combinación: {n}.', {n:r.combo.n}));
         if (!S.combos[r.combo.id]){ S.combos[r.combo.id] = true; toast(tr('¡Combinación descubierta: {n}!', {n:r.combo.n})); }
         S.comboCount++; dailyProg('combo'); }
@@ -3638,48 +3889,42 @@ function useTool(id){
     if (e.special >= 0 && e.phase === 1 && e.hp > 0 && e.hp < e.max*.5){
       e.phase = 2; toast(special(e).n + ' · ' + tr('fase 2')); $('#msgX').textContent = special(e).p2; shake = S.calm ? 0 : .35; impact(E_POS, 0xff4f7b);
     }
+    const left = reap();
     renderFoe(); renderTools();
-    if (e.hp <= 0) return setTimeout(win, 250);
+    if (!left) return setTimeout(win, 250);
     B.timer = setTimeout(enemyTurn, 420/(S.auto ? speed() : 1));
   };
-  if (id === 'fago'){ const dir = E_POS.clone().sub(P_POS); tween(560, p => PL.reach(p, dir)); lunge(player, dir.clone().normalize().multiplyScalar(1.3), 560, go); }
+  if (T.aoe){ hitList.forEach((x, i) => projectile(from.clone(), x.pos.clone(), T.col, 8, 520, i ? null : go, id)); }
+  else if (id === 'fago'){ const dir = E_POS.clone().sub(P_POS); tween(560, p => PL.reach(p, dir)); lunge(player, dir.clone().normalize().multiplyScalar(1.3), 560, go); }
   else projectile(from, to, T.col, id === 'luz' ? 1 : 10, 520, go, id);
   if (id === 'luz') setDark(true);
 }
 
-function enemyTurn(){
-  if (!B || B.over) return;
-  const e = B.e, Ty = TY(e);
-  e.turn++;
-  // Golgi: tus vesículas secretadas dañan al organismo cada turno
-  if (adv('gol') && e.hp > 0){ const d = atk()*.06*adv('gol'); e.hp = Math.max(0, e.hp - d);
-    projectile(P_POS.clone().add(V(.5,.3,0)), E_POS.clone(), 0xffc65c, 3 + adv('gol'), 420, () => floatText('−' + fmt(d) + ' · Golgi', E_POS.clone().add(V(.4,1.6,0)), 'evt ev-golgi'), null); }
-  const notes = [];
-  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), E_POS.clone().add(V(.6,1.5,0)), 'heal'); notes.push(why); };
+// lo que hace cada enemigo en su turno antes de atacar (curarse, esconderse, mutar…)
+function foeEffects(e, notes){
+  const many = B.es.length > 1, who = s => many ? foeName(e) + ': ' + s : s;
+  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), e.pos.clone().add(V(.6,1.5,0)), 'heal'); notes.push(who(why)); };
   switch (e.type){
     case 'gp': if (e.turn % 3 === 0) heal(.15, tr('Fisión binaria: la colonia se divide y recupera un 15 % de vida.')); break;
     case 'lev': if (e.turn % 3 === 0) heal(.15, tr('Gemación: le brota una yema nueva (+15 % de vida).')); break;
     case 'vir':
-      e.hidden = !e.hidden; notes.push(e.hidden ? tr('El virus entra en una célula y se replica a escondidas.') : tr('Nuevos viriones salen de la célula huésped: vuelve a estar expuesto.'));
-      if (e.turn % 4 === 0){ e.drift++; notes.push(tr('Deriva antigénica: sus espículas mutan y los anticuerpos pierden eficacia.')); } break;
+      e.hidden = !e.hidden; notes.push(who(e.hidden ? tr('El virus entra en una célula y se replica a escondidas.') : tr('Nuevos viriones salen de la célula huésped: vuelve a estar expuesto.')));
+      if (e.turn % 4 === 0){ e.drift++; notes.push(who(tr('Deriva antigénica: sus espículas mutan y los anticuerpos pierden eficacia.'))); } break;
     case 'veg': if (!e.dark) heal(.08, tr('Fotosíntesis: con la luz fabrica glucosa y se repara (+8 %).')); break;
-    case 'can': if (e.block > 0) notes.push(tr('El taxol frena su división.')); else heal(.12, tr('Mitosis descontrolada: +12 % de vida.')); break;
-    case 'bac': if (!e.spore && e.hp < e.max*.35){ e.spore = true; notes.push(tr('Esporulación: forma una endospora resistente y deja de atacar.')); burst(E_POS, 0x8fffe8, 30, 2); } break;
-    case 'pri': e.grow *= 1.12; notes.push(tr('Convierte proteínas sanas en priones: su ataque crece un 12 %.')); break;
+    case 'can': if (e.block > 0) notes.push(who(tr('El taxol frena su división.'))); else heal(.12, tr('Mitosis descontrolada: +12 % de vida.')); break;
+    case 'bac': if (!e.spore && e.hp < e.max*.35){ e.spore = true; notes.push(who(tr('Esporulación: forma una endospora resistente y deja de atacar.'))); burst(e.pos, 0x8fffe8, 30, 2); } break;
+    case 'pri': e.grow *= 1.12; notes.push(who(tr('Convierte proteínas sanas en priones: su ataque crece un 12 %.'))); break;
     case 'mal': { const c = e.turn % 3; e.inRbc = c !== 2;
-      notes.push(e.inRbc ? tr('El plasmodio se oculta dentro de un glóbulo rojo.') : tr('El eritrocito revienta y salen merozoítos: ahora está expuesto.')); break; }
+      notes.push(who(e.inRbc ? tr('El plasmodio se oculta dentro de un glóbulo rojo.') : tr('El eritrocito revienta y salen merozoítos: ahora está expuesto.'))); break; }
     case 'vih': e.cd4++; e.hidden = e.turn % 3 === 0;
-      notes.push(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : '')); break;
+      notes.push(who(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : ''))); break;
     case 'ten': heal(.06, tr('Su cuello forma nuevas proglótides: recupera un 6 %.')); break;
   }
   const VR = e.var && VARIANTS[e.var];
   if (VR && VR.regen){ if (e.stall > 0) notes.push(tr('Sin ARNm nuevo, sus ribosomas están parados: no se repara.')); else heal(VR.regen, tr('Sus ribosomas fabrican proteínas sin parar: se repara un 9 %.')); }
   if (VR && VR.atkK && VR.atkK < 1 && e.turn === 1) notes.push(tr('Sin mitocondrias le falta ATP: ataca muy débil.'));
-  if ((e.type === 'gp' || e.type === 'gn') && e.turn === 6 && !e.biofilm){ e.biofilm = true; notes.push(tr('Biopelícula: se rodea de una matriz de polisacáridos que frena tus ataques (×0,6). El autoclave la atraviesa.')); }
-  // eventos
-  if (e.ev === 'antib' && BACT.has(e.type)){ const d = e.max*.08; e.hp = Math.max(0, e.hp - d); floatText('−' + fmt(d) + ' · ' + tr('antibiótico'), E_POS.clone().add(V(-.5,1.5,0)), 'evt ev-antib'); notes.push(tr('El antibiótico en sangre le resta un 8 %.')); }
-  if (e.ev === 'inflam'){ const h = maxHp()*.06; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h) + ' · ' + tr('inflamación'), P_POS.clone().add(V(0,1.5,0)), 'evt ev-inflam'); notes.push(tr('Inflamación: recuperas un 6 % de vida.')); }
-  if (e.ev === 'fiebre' && e.turn === 1) notes.push(tr('La fiebre también aumenta su daño (+25 %).'));
+  if ((e.type === 'gp' || e.type === 'gn') && e.turn === 6 && !e.biofilm){ e.biofilm = true; notes.push(who(tr('Biopelícula: se rodea de una matriz de polisacáridos que frena tus ataques (×0,6). El autoclave la atraviesa.'))); }
+  if (e.ev === 'antib' && BACT.has(e.type)){ const d = e.max*.08; e.hp = Math.max(0, e.hp - d); floatText('−' + fmt(d) + ' · ' + tr('antibiótico'), e.pos.clone().add(V(-.5,1.5,0)), 'evt ev-antib'); notes.push(who(tr('El antibiótico en sangre le resta un 8 %.'))); }
   // fase 2 de jefes especiales
   if (e.phase === 2){
     if (e.special === 0){ const d = maxHp()*.05; B.php = Math.max(0, B.php - d); notes.push(tr('Choque endotóxico: el LPS te resta un 5 % de vida.')); }
@@ -3687,15 +3932,24 @@ function enemyTurn(){
     if (e.special === 3){ e.grow *= 1.2; notes.push(tr('Agregación: su ataque crece un 20 %.')); }
     if (e.special === 4) heal(.08, tr('Citoadherencia: recupera un 8 %.'));
   }
+}
+
+function enemyTurn(){
+  if (!B || B.over) return;
+  const notes = [], ev = B.es[0].ev;
+  // Golgi: tus vesículas secretadas dañan a tu objetivo cada turno
+  if (adv('gol') && B.e.hp > 0){ const t = B.e, d = atk()*.06*adv('gol'); t.hp = Math.max(0, t.hp - d);
+    projectile(P_POS.clone().add(V(.5,.3,0)), t.pos.clone(), 0xffc65c, 3 + adv('gol'), 420, () => floatText('−' + fmt(d) + ' · Golgi', t.pos.clone().add(V(.4,1.6,0)), 'evt ev-golgi'), null); }
+  for (const x of alive()){ if (x.hp <= 0) continue; x.turn++; foeEffects(x, notes); }
+  if (ev === 'inflam'){ const h = maxHp()*.06; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h) + ' · ' + tr('inflamación'), P_POS.clone().add(V(0,1.5,0)), 'evt ev-inflam'); notes.push(tr('Inflamación: recuperas un 6 % de vida.')); }
+  if (ev === 'fiebre' && B.es[0].turn === 1) notes.push(tr('La fiebre también aumenta su daño (+25 %).'));
   if (has('i4') && B.php > 0){ const h = maxHp()*.04; B.php = Math.min(maxHp(), B.php + h); }
   // peroxisomas: la catalasa te cura cada turno
   if (adv('per') && B.php > 0){ const h = maxHp()*.015*adv('per'); B.php = Math.min(maxHp(), B.php + h); burst(P_POS, 0x8fff9a, 6 + 2*adv('per'), 1.2); floatText('+' + fmt(h) + ' · ' + tr('peroxisomas'), P_POS.clone().add(V(-.5,1.6,0)), 'evt ev-inflam'); }
-  if (e.hp <= 0){ renderFoe(); return setTimeout(win, 250); }
+  if (!reap()){ renderFoe(); return setTimeout(win, 250); }
   const finish = () => {
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
-    if (e.marked > 0) e.marked--;
-    if (e.block > 0) e.block--;
-    if (e.stall > 0) e.stall--;
+    for (const x of B.es){ if (x.marked > 0) x.marked--; if (x.block > 0) x.block--; if (x.stall > 0) x.stall--; }
     if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
     B.why = null;
@@ -3704,45 +3958,57 @@ function enemyTurn(){
     if (B.php < maxHp()*.25) narr('lowhp');
     scheduleAuto();
   };
-  if (e.spore){ notes.push(tr('La endospora está en reposo: no ataca.')); return setTimeout(finish, 200); }
-  if (e.type === 'tbc' && e.turn % 2){ notes.push(tr('Crecimiento lento: esta vez no ataca.')); return setTimeout(finish, 200); }
-  const fever = e.type === 'mal' && e.turn % 3 === 0;
-  if (fever) notes.push(tr('Acceso de fiebre: al reventar a la vez muchos eritrocitos, el golpe es más fuerte.'));
-  const hits = Ty.hits || 1;
-  let i = 0;
-  if (hits > 1) notes.push(tr('Sus cilios baten en ondas: ataca dos veces.'));
-  const hit = () => {
-    const dir = P_POS.clone().sub(E_POS).normalize().multiplyScalar(1.4);
-    lunge(foeObj.g, dir, 360, () => {
-      const dmg = e.atk*e.grow*taken()*dmgMods(e, false)*(fever ? 1.5 : 1)*rnd(.85, 1.15)/(hits > 1 ? 1.6 : 1);
-      B.php = Math.max(0, B.php - dmg);
-      floatText('−' + fmt(dmg), P_POS.clone().add(V(0,1.3,0)), 'hurt');
-      burst(P_POS, 0xff4f7b, 12, 2); shake = S.calm ? 0 : .12; sfx.hurt();
-      renderMe();
-      if (++i < hits && B.php > 0) hit(); else finish();
-    });
+  // cada enemigo vivo ataca, uno detrás de otro
+  const queue = alive();
+  const next = () => {
+    if (B.over) return;
+    const e = queue.shift(); if (!e || B.php <= 0) return finish();
+    const many = B.es.length > 1, who = s => many ? foeName(e) + ': ' + s : s;
+    if (e.spore){ notes.push(who(tr('La endospora está en reposo: no ataca.'))); return next(); }
+    if (e.type === 'tbc' && e.turn % 2){ notes.push(who(tr('Crecimiento lento: esta vez no ataca.'))); return next(); }
+    const fever = e.type === 'mal' && e.turn % 3 === 0;
+    if (fever) notes.push(who(tr('Acceso de fiebre: al reventar a la vez muchos eritrocitos, el golpe es más fuerte.')));
+    const hits = TY(e).hits || 1;
+    let i = 0;
+    if (hits > 1) notes.push(who(tr('Sus cilios baten en ondas: ataca dos veces.')));
+    const hit = () => {
+      const dir = P_POS.clone().sub(e.pos).normalize().multiplyScalar(1.4);
+      lunge(e.obj.g, dir, many ? 300 : 360, () => {
+        const dmg = e.atk*e.grow*taken()*dmgMods(e, false)*(fever ? 1.5 : 1)*rnd(.85, 1.15)/(hits > 1 ? 1.6 : 1);
+        B.php = Math.max(0, B.php - dmg);
+        floatText('−' + fmt(dmg), P_POS.clone().add(V(0,1.3,0)), 'hurt');
+        burst(P_POS, 0xff4f7b, 12, 2); shake = S.calm ? 0 : .12; sfx.hurt();
+        renderMe();
+        if (++i < hits && B.php > 0) hit(); else next();
+      });
+    };
+    hit();
   };
-  hit();
+  next();
 }
 
 function win(){
-  const e = B.e; if (B.over) return; B.over = true; stopMusic();
+  if (B.over) return; B.over = true; stopMusic();
+  const e = B.es[0];
   if (storyCh()) return storyWin(e);
-  const g = reward(e.L, e.boss)*(e.ev === 'hipoxia' ? 1.5 : 1)*(e.special >= 0 ? 2 : 1)*collAtpVs(e.type);
-  S.atp += g; S.totalKills++; S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
+  let g = 0;
+  for (const x of B.es){
+    g += reward(x.L, x.boss)*(x.ev === 'hipoxia' ? 1.5 : 1)*(x.special >= 0 ? 2 : 1)*collAtpVs(x.type)*(x.atpK || 1);
+    S.totalKills++; S.defeated[x.type] = (S.defeated[x.type] || 0) + 1;
+    if (BACT.has(x.type) && !B.usedAb){ S.press = Math.max(0, S.press - 2); dailyProg('noab'); if (S.wk !== weekKey()){ S.wk = weekKey(); S.wkNoAb = 0; } S.wkNoAb = (S.wkNoAb || 0) + 1; }
+    dailyProg('kills');
+  }
+  S.atp += g;
+  const boss = B.es.some(x => x.boss);
   if (e.special >= 0){ S.specialWins++; S.lpts++; toast(tr('+1 punto del árbol inmunitario')); }
-  if (BACT.has(e.type) && !B.usedAb){ S.press = Math.max(0, S.press - 2); dailyProg('noab'); if (S.wk !== weekKey()){ S.wk = weekKey(); S.wkNoAb = 0; } S.wkNoAb = (S.wkNoAb || 0) + 1; }
   if (B.onlyFago) dailyProg('fago');
   if (B.turns <= 3) dailyProg('quick');
-  if (e.boss) dailyProg('boss');
-  dailyProg('kills');
-  LOG.unshift({L:e.L, n:foeName(e), turns:B.turns, g, win:true}); LOG.length = Math.min(LOG.length, 8);
-  floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
-  burst(E_POS, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
-  const obj = foeObj;
-  tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => { scene.remove(obj.g); });
+  if (boss) dailyProg('boss');
+  LOG.unshift({L:e.L, n:B.es.map(foeName).join(' + '), turns:B.turns, g, win:true}); LOG.length = Math.min(LOG.length, 8);
+  floatText('+' + fmt(g) + ' ATP', E_BASE.clone().add(V(0,.6,0)), 'atp');
+  burst(E_BASE, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
   let hp;
-  if (e.boss){
+  if (boss){
     S.stats.lvl[e.L] = Math.round((Date.now() - (S.stats.lvlStart || Date.now()))/1000); S.stats.lvlStart = Date.now();
     S.level++; S.kills = 0; if (S.level > S.runMax) S.runMaxT = Date.now(); S.runMax = Math.max(S.runMax, S.level); S.best = Math.max(S.best, S.level);
     var mile = milestone(S.level);
@@ -3753,8 +4019,8 @@ function win(){
     S.kills = Math.min(KPL, S.kills + 1);
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
-  setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (e.boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
-  dropLoot(e);
+  setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
+  B.es.forEach(dropLoot);
   checkAch(); save(); renderHud(); renderLog(); pushBoard(); evoNudge();
   if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);
   else setTimeout(() => newBattle(hp), 900/(S.auto ? speed() : 1));
@@ -3762,12 +4028,12 @@ function win(){
 
 function lose(){
   if (B.over) return; B.over = true; sfx.lose(); stopMusic();
-  const e = B.e;
+  const e = B.es[0];
   if (storyCh()){ setMsg('none', tr('Derrota'), tr('Vuelve a intentarlo: este paso de la historia empieza de nuevo.')); burst(P_POS, 0xff4f7b, 40, 3); save(); return setTimeout(() => newBattle(), 1500); }
   S.stats.deaths[e.L] = (S.stats.deaths[e.L] || 0) + 1;
-  LOG.unshift({L:e.L, n:foeName(e), turns:B.turns, g:0, win:false}); LOG.length = Math.min(LOG.length, 8);
+  LOG.unshift({L:e.L, n:B.es.map(foeName).join(' + '), turns:B.turns, g:0, win:false}); LOG.length = Math.min(LOG.length, 8);
   let txt;
-  if (e.boss){ S.advance = false; txt = tr('El jefe te ha vencido. Se ha desactivado «Avanzar»: reúne ATP, mejora tus orgánulos y vuelve a intentarlo.'); }
+  if (B.es.some(x => x.boss)){ S.advance = false; txt = tr('El jefe te ha vencido. Se ha desactivado «Avanzar»: reúne ATP, mejora tus orgánulos y vuelve a intentarlo.'); }
   else { S.level = Math.max(1, S.level-1); S.kills = 0; txt = tr('Te retiras al nivel {l} para recuperarte.', {l:S.level}); }
   burst(P_POS, 0xff4f7b, 40, 3);
   setMsg('none', tr('Derrota'), txt);
@@ -3776,22 +4042,28 @@ function lose(){
   setTimeout(() => newBattle(), 1500);
 }
 
+// puntuación de una herramienta contra el objetivo (las de área suman lo que hacen a todos)
+function toolScore(T, e){
+  const kn = (x, id) => id === 'fago' || (S.known[knowKey(x)] && S.known[knowKey(x)][id]);
+  if (T.aoe) return alive().reduce((a, x) => a + (kn(x, T.id) ? T.pow*eff(T.id, x, {known:true}).m : 0), 0);
+  if (!kn(e, T.id)) return -1;
+  const r = eff(T.id, e, {known:true});
+  if (T.id === 'luz') return e.type === 'veg' && !e.dark ? 99 : -1;
+  let s = T.pow*r.m;
+  if (T.id === 'ac' && r.m > 0 && e.marked === 0 && !e.hidden) s *= 1.9;
+  if (T.id === 'tax' && e.type === 'can' && e.block === 0) s *= 1.6;
+  // preparar una combinación conocida
+  if (COMBOS.some(c => c.first === T.id && S.combos[c.id] && (!c.types || c.types.includes(e.type)) && owns(c.then) && !(B.cds[c.then] > 1)) && r.m > 0) s *= 1.3;
+  return s;
+}
 function autoPick(){
+  // en el modo automático, ataca primero al enemigo con menos vida
+  const left = alive();
+  if (left.length > 1){ const t = left.reduce((a, x) => x.hp < a.hp ? x : a); if (t !== B.e){ B.e = t; aimAt(t); renderFoe(); } }
   const e = B.e; let best = null, bs = -1;
   for (const T of TOOLS){
     if (!owns(T.id) || (B.cds[T.id] || 0) > 0) continue;
-    const known = T.id === 'fago' || (S.known[knowKey(e)] && S.known[knowKey(e)][T.id]);
-    if (!known) continue;
-    const r = eff(T.id, e, {known:true});
-    let s;
-    if (T.id === 'luz') s = e.type === 'veg' && !e.dark ? 99 : -1;
-    else {
-      s = T.pow*r.m;
-      if (T.id === 'ac' && r.m > 0 && e.marked === 0 && !e.hidden) s *= 1.9;
-      if (T.id === 'tax' && e.type === 'can' && e.block === 0) s *= 1.6;
-      // preparar una combinación conocida
-      if (COMBOS.some(c => c.first === T.id && S.combos[c.id] && (!c.types || c.types.includes(e.type)) && owns(c.then) && !(B.cds[c.then] > 1)) && r.m > 0) s *= 1.3;
-    }
+    const s = toolScore(T, e);
     if (s > bs){ bs = s; best = T.id; }
   }
   return best || 'fago';
@@ -3809,7 +4081,6 @@ function storyWin(e){
   S.atp += g; S.totalKills++; if (!e.var) S.defeated[e.type] = (S.defeated[e.type] || 0) + 1;
   floatText('+' + fmt(g) + ' ATP', E_POS.clone().add(V(0,.6,0)), 'atp');
   burst(E_POS, TY(e).col, S.calm ? 20 : 60, 4.5); sfx.win();
-  const obj = foeObj; tween(450, p => obj.g.scale.setScalar(obj.base*(1 - easeOut(p))), () => scene.remove(obj.g));
   const X = curEx(), ch = storyCh(); S.story.step++;
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}));
   if (S.story.step < ch.battles.length){ save(); renderHud(); return setTimeout(() => newBattle(), 900); }
@@ -3872,6 +4143,9 @@ function evoNudge(){
 function milestone(L){
   if (L < 30 || L % 10 || S.miles[L]) return null;
   S.miles[L] = true;
+  if (L === 50){ S.adn += 5; S.lpts += 2; return {L, t:tr(MILESTONE.t50), d:tr(MILESTONE.d50), r:tr(MILESTONE.r50)}; }
+  if (L === 100){ S.adn += 10; S.lpts += 3; return {L, t:tr(MILESTONE.t100), d:tr(MILESTONE.d100), r:tr(MILESTONE.r100), lab:true}; }
+  if (L === 150){ S.adn += 15; S.lpts += 3; return {L, t:tr(MILESTONE.t150), d:tr(MILESTONE.d150), r:tr(MILESTONE.r150)}; }
   if (L === 30){ S.adn += 8; S.lpts += 3; return {L, t:tr(MILESTONE.t30), d:tr(MILESTONE.d30), r:tr(MILESTONE.r30)}; }
   S.adn += 3; S.lpts += 1; return {L, t:tr(MILESTONE.tN, {l:L}), d:'', r:tr(MILESTONE.rN)};
 }
@@ -3998,7 +4272,7 @@ function renderHud(){
   let h = '';
   if (ch) ch.battles.forEach((b, i) => h += `<span class="pip ${i < S.story.step ? 'on' : ''} ${b === '@sepsis' || b.boss ? 'boss' : ''}"></span>`);
   else { for (let i=0;i<KPL;i++) h += `<span class="pip ${i < S.kills ? 'on' : ''}"></span>`;
-    h += `<span class="pip boss ${B && B.e.boss ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
+    h += `<span class="pip boss ${B && B.es && B.es.some(x => x.boss) ? 'on' : ''}" title="${tr('Jefe')}"></span>`; }
   $('#bStory').setAttribute('aria-pressed', !!ch);
   $('#hPips').innerHTML = h;
   $('#hAtp').textContent = fmt(S.atp);
@@ -4020,13 +4294,18 @@ function renderHud(){
 function anyAffordable(){
   if (S.clase) return false;
   if (!S.memoria && S.atp >= 50) return true;
-  if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost)) return true;
-  return UPG.concat(advUnlocked() ? UPG2 : []).some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
+  if (TOOLS.some(t => !S.tools[t.id] && S.atp >= t.cost && !(t.need && S.best < t.need))) return true;
+  return UPG.concat(advUnlocked() ? UPG2 : [], eliteUnlocked() ? UPG3 : []).some(u => (u.max == null || S.upg[u.id] < u.max) && S.atp >= upgCost(u));
 }
 
 function renderFoe(){
   if (!B) return;
   const e = B.e, Ty = TY(e);
+  const tg = $('#fTg');
+  if (B.es.length > 1){ tg.hidden = false;
+    tg.innerHTML = B.es.map((x, i) => `<button class="tgc ${x === e ? 'on' : ''} ${x.dead ? 'dead' : ''}" data-tg="${i}" ${x.dead ? 'disabled' : ''} style="--c:${hex(TY(x).col)}" aria-pressed="${x === e}" aria-label="${esc(foeName(x))}">
+      <b>${esc(foeName(x))}</b><span class="tb"><i style="width:${x.hp/x.max*100}%"></i></span></button>`).join('');
+  } else { tg.hidden = true; tg.innerHTML = ''; }
   $('#fEye').textContent = `${e.var ? tr('Variante de {n}', {n:TYPES[e.type].n}) : tr('Prep. nº') + ' ' + prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
   $('#fStain').textContent = LAB[e.type][0];
   $('#fName').textContent = foeName(e);
@@ -4082,11 +4361,12 @@ function renderTools(){
     const ring = cd > 0 ? `<span class="cdr" style="--p:${Math.min(1, left/(T.cd + 1))}"></span><span class="cdn num">${left}</span>` : '';
     return `<button class="tool" style="--c:${hex(T.col)}" data-tool="${T.id}" ${cd > 0 || !B || B.busy || B.over ? 'disabled' : ''} title="${esc(T.n + ': ' + T.d)}" aria-label="${esc(T.n)}${cd > 0 ? ', ' + tr('recargando {n} turnos', {n:left}) : ''}">
       ${vesicle(T.id, T.col, ring)}<span class="tn">${T.n}</span>
-      <span class="tm"><span class="rc">${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
+      <span class="tm"><span class="rc">${T.aoe ? tr('área') + ' · ' : ''}${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
   }).join('');
   document.documentElement.style.setProperty('--toolsH', nav.offsetHeight + 'px');
 }
 $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (b) useTool(b.dataset.tool); });
+$('#fTg').addEventListener('click', ev => { const b = ev.target.closest('[data-tg]'); if (b) selectTarget(+b.dataset.tg); });
 
 // ---- Laboratorio ----
 let tab = 'mej';
@@ -4167,6 +4447,10 @@ function renderPanel(){
         h += `<div class="nb adv">${tr('Orgánulos avanzados')}</div><p class="lead">${tr('Desde el nivel 31, los organismos de los tejidos profundos son mucho más duros. Estos orgánulos te ayudan a seguir avanzando.')}</p>`;
         for (const u of UPG2) h += orgCard(u, tr(u.n), tr(u.d), tr(u.e), u.ic, u.col);
       } else h += `<div class="org locked">${vesicle('cell', 0x5a6a78)}<h4>${tr('Orgánulos avanzados')}</h4><p>${tr('Llega al nivel 30 para desbloquear el núcleo activo, el retículo liso, el aparato de Golgi, los peroxisomas y el centrosoma.')}</p><div class="eff">${tr('Récord')}: ${S.best} / 30</div></div>`;
+      if (eliteUnlocked()){
+        h += `<div class="nb adv">${tr('Orgánulos de élite')}</div><p class="lead">${tr('Desde el nivel 100 los organismos tienen el triple de vida y llegan en grupo. Estos orgánulos, junto con las herramientas de área, te ayudan a hacerles frente.')}</p>`;
+        for (const u of UPG3) h += orgCard(u, tr(u.n), tr(u.d), tr(u.e), u.ic, u.col);
+      } else if (advUnlocked()) h += `<div class="org locked">${vesicle('cell', 0x5a6a78)}<h4>${tr('Orgánulos de élite')}</h4><p>${tr('Llega al nivel 100 para desbloquear los receptores tipo Toll, el glucocáliz y los gránulos secretores.')}</p><div class="eff">${tr('Récord')}: ${S.best} / 100</div></div>`;
     }
     h += `<div class="nb">${tr('Constantes vitales')}</div><div class="stat"><span>${tr('Célula')}</span><span>${cellD().n}</span><span>${tr('Ataque')}</span><span>${fmt(atk())}</span><span>${tr('Vida máxima')}</span><span>${fmt(maxHp())}</span><span>${tr('Daño recibido')}</span><span>${Math.round(taken()*100)} %</span><span>${tr('ATP por segundo')}</span><span>${fmt(atps())}</span><span>${tr('ATP por victoria (nivel {l})', {l:S.level})}</span><span>${fmt(reward(S.level, false))}</span></div>`;
   } else if (tab === 'her'){
@@ -4179,8 +4463,8 @@ function renderPanel(){
       : `<div class="combo unk"><span class="ves q">?</span><span class="plus">+</span><span class="ves q">?</span><div><b>???</b><p>${tr('Prueba a usar dos herramientas seguidas que se complementen.')}</p></div></div>`).join('');
     h += `<div class="nb">${tr('Herramientas')}</div>`;
     for (const T of TOOLS){
-      h += `<div class="org">${vesicle(T.id, T.col)}<h4>${T.n}</h4><p>${T.d}</p><div class="eff">${tr('Potencia')} ${dec(T.pow)} · ${tr('recarga')} ${T.cd ? T.cd : tr('ninguna')}</div>
-        ${owns(T.id) ? `<button class="buy done" disabled>${tr('Tuya')}</button>` : buyBtn(`data-tool-buy="${T.id}"`, T.cost)}</div>`;
+      h += `<div class="org">${vesicle(T.id, T.col)}<h4>${T.n}${T.aoe ? ` <span class="aoe">${tr('área')}</span>` : ''}</h4><p>${T.d}</p><div class="eff">${tr('Potencia')} ${dec(T.pow)} · ${tr('recarga')} ${T.cd ? T.cd : tr('ninguna')}</div>
+        ${owns(T.id) ? `<button class="buy done" disabled>${tr('Tuya')}</button>` : T.need && S.best < T.need ? `<button class="buy done" disabled>${tr('Nivel {l}', {l:T.need})}</button>` : buyBtn(`data-tool-buy="${T.id}"`, T.cost)}</div>`;
     }
   } else if (tab === 'atl'){
     const seen = TYPE_ORDER.filter(id => S.seen[id]).length;
@@ -4269,10 +4553,10 @@ $('#pBody').addEventListener('click', ev => {
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
   if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
   const buy = id => { S.stats.buys[id] = (S.stats.buys[id] || 0) + 1; sfx.buy(); };
-  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg) || UPG2.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return;
+  if (b.dataset.upg){ const u = UPG.find(x => x.id === b.dataset.upg) || UPG2.find(x => x.id === b.dataset.upg) || UPG3.find(x => x.id === b.dataset.upg), c = upgCost(u); if (S.atp < c) return;
     const before = maxHp(); S.atp -= c; S.upg[u.id]++; if (B) B.php += maxHp() - before; buy(u.id);
     rebuildPlayer(); queueOrgFx(UPG_COL[u.id] || u.col, (UPG.includes(u) ? u.n : tr(u.n)) + ' · ' + tr('nv') + ' ' + S.upg[u.id]); }
-  else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
+  else if (b.dataset.toolBuy){ const T = TOOL[b.dataset.toolBuy]; if (S.atp < T.cost || (T.need && S.best < T.need)) return; S.atp -= T.cost; S.tools[T.id] = true; buy(T.id); toast(tr('Nueva herramienta: {n}', {n:T.n})); renderTools(); }
   else if (b.hasAttribute('data-mem')){ if (S.atp < 50) return; S.atp -= 50; S.memoria = true; buy('mem0'); toast(tr('Memoria inmunitaria: ya puedes activar «Auto».')); }
   else if (b.dataset.prac){ S.practice = b.dataset.prac; closeLab(); if (B){ B.over = true; clearTimeout(B.timer); } newBattle(); return; }
   else if (b.dataset.cell){ S.cell = b.dataset.cell; rebuildPlayer(); if (B) B.php = Math.min(B.php, maxHp()); renderMe(); }
@@ -4322,6 +4606,8 @@ window.addEventListener('keydown', ev => {
   if (ev.key === 'Escape'){ if (!$('#panel').hidden) closeLab(); }
   if (ev.target && /TEXTAREA|INPUT/.test(ev.target.tagName)) return;
   const n = parseInt(ev.key, 10);
+  if (ev.key === 'Tab' && B && B.es && B.es.filter(x => !x.dead).length > 1 && $('#modal').hidden && $('#panel').hidden){ ev.preventDefault();
+    const l = B.es.length; for (let k = 1; k <= l; k++){ const x = B.es[(B.e.i + k) % l]; if (!x.dead){ selectTarget(x.i); break; } } return; }
   if (n >= 1 && n <= 9 && $('#modal').hidden){ const owned = TOOLS.filter(t => owns(t.id)); if (owned[n-1]) useTool(owned[n-1].id); }
 });
 
@@ -4371,6 +4657,9 @@ const HINT_TOOL = {
   art:T_('Vive en los glóbulos rojos y digiere la hemoglobina, rica en hierro.'),
   arv:T_('Copia su ARN a ADN con una enzima que tus células no usan.'),
   pzq:T_('Es un gusano: busca algo que paralice su tegumento.'),
+  cmp:T_('Busca algo de la sangre que agujeree las membranas expuestas, a todos a la vez.'),
+  ifn:T_('Hay citocinas que avisan a las células vecinas de que hay un virus.'),
+  fgt:T_('Hay virus que solo infectan bacterias.'),
 };
 // rasgos que explican la respuesta; en una variante, mejor los que han cambiado
 function hintTags(traits, bestId){
@@ -4486,7 +4775,7 @@ function loop(now){
   const mot = reduceMotion || S.calm ? .3 : 1;
   player.rotation.y = Math.sin(t*.4)*.3;
   PL.up(t*mot);
-  if (foeObj) foeObj.up(t*mot, B && B.e);
+  stepFoes(t, mot);
   ENV.dark.value += (darkTarget - ENV.dark.value)*Math.min(1, dt*3);
   ENV.tint.value.lerp(tintTarget, Math.min(1, dt*2));
   hemi.intensity = .55*(1 - .55*ENV.dark.value);
@@ -4516,6 +4805,9 @@ Object.assign(IC, {
   board:'<rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M7 21l3-4M17 21l-3-4"/><path d="M7 13V10M11 13V7.5M15 13V9M19 13"/>',
   eye:'<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   tube:'<path d="M9 3h6M10 3v13.5a2 2 0 0 0 4 0V3"/><path d="M10 11h4"/><circle cx="12" cy="14.2" r=".8"/>',
+  cmp:'<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="2.6"/><path d="M12 4.5v4.9M12 14.6v4.9M4.5 12h4.9M14.6 12h4.9"/>',
+  ifn:'<circle cx="12" cy="12" r="2.5"/><path d="M12 3a9 9 0 0 1 9 9M12 6.5a5.5 5.5 0 0 1 5.5 5.5M12 21a9 9 0 0 1-9-9M12 17.5A5.5 5.5 0 0 1 6.5 12"/>',
+  fgt:'<path d="M12 2.5l4 2.3v4.6l-4 2.3-4-2.3V4.8z"/><path d="M12 11.7v5.5"/><path d="M12 17.2l-4.5 4M12 17.2l4.5 4M12 17.2l-5.5 1.2M12 17.2l5.5 1.2"/>',
   jar:'<path d="M8 3h8M9 3v3.5L6.5 9.5A3 3 0 0 0 6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8a3 3 0 0 0-.5-1.5L15 6.5V3"/><path d="M6 13h12"/><circle cx="10" cy="16.5" r="1"/><circle cx="14" cy="17" r=".7"/>',
   bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
   spark:'<path d="M12 2.5l1.8 5.2 5.2 1.8-5.2 1.8L12 16.5l-1.8-5.2-5.2-1.8 5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
@@ -4837,7 +5129,7 @@ function showMilestone(m, then){
   sfx.ach(); ring(P_POS, 0xffc65c, 6, 1400);
   showModal(`<div class="curio">${vesicle('trophy', 0xffc65c)}<div><div class="eyebrow">${tr('Hito')} · ${tr('Nivel')} ${m.L}</div><h2>${esc(m.t)}</h2>
     ${m.d ? `<p>${esc(m.d)}</p>` : ''}<p class="cw"><b>${esc(m.r)}</b></p>
-    <div class="row"><button class="go" id="mGo">${tr('Seguir')}</button>${m.L === 30 ? `<button class="ghost" id="msLab">${tr('Ver orgánulos avanzados')}</button>` : ''}</div></div></div>`, then);
+    <div class="row"><button class="go" id="mGo">${tr('Seguir')}</button>${m.L === 30 ? `<button class="ghost" id="msLab">${tr('Ver orgánulos avanzados')}</button>` : m.lab ? `<button class="ghost" id="msLab">${tr('Ver el Laboratorio')}</button>` : ''}</div></div></div>`, then);
   const b = $('#msLab'); if (b) b.onclick = () => { closeModal(); openLab('mej'); };
   save(); renderHud();
 }

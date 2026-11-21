@@ -4,7 +4,7 @@
 const SAVE_KEY = 'microcosmos.v1';
 const today = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); };
 const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evos:0, totalKills:0,
-  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0, nuc:0, rel:0, gol:0, per:0, cen:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
+  upg:{fue:0, mem:0, cit:0, rib:0, mit:0, ref:0, nuc:0, rel:0, gol:0, per:0, cen:0, tlr:0, glc:0, sec:0}, memoria:false, tools:{fago:true}, known:{}, seen:{}, defeated:{},
   auto:false, advance:true, sound:true, intro:false, t:Date.now(),
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
@@ -51,11 +51,12 @@ const collVs = (type, tool) => { if (fixedStats()) return 1; let k = 1 + STAR_DM
   for (const r in REL_TOOL) if (REL_TOOL[r].includes(tool)) k *= 1 + RELIC[r].p/100*rl(r); return k; };
 const collAtpVs = type => fixedStats() ? 1 : 1 + STAR_ATP*stars(type);
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*adnM()*collAtk())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*adnM()*collHp())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*Math.pow(1.1, S.upg.tlr)*adnM()*collAtk())*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*Math.pow(1.1, S.upg.glc)*adnM()*collHp())*cellD().hp;
 // orgánulos avanzados: solo en la partida normal
 const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
 const advUnlocked = () => S.best >= 30;
+const eliteUnlocked = () => S.best >= 100;
 // salto de dificultad a partir del nivel 31 (tejidos profundos)
 const deepHp = L => L > 30 ? 3.2*Math.pow(1.1, L - 31) : 1;
 const deepAtk = L => L > 30 ? 1.9*Math.pow(1.06, L - 31) : 1;

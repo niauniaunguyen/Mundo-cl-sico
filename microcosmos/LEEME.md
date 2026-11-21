@@ -219,3 +219,30 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - Vida de los enemigos: ×1,23 por nivel (antes ×1,25).
   - Tejidos profundos: vida ×3,2·1,10^(N−31) y ataque ×1,9·1,06^(N−31) (antes 3,5·1,15^ y 2·1,1^).
   - Ajustado con `sim10*.py`. Un jugador casual que evoluciona cuando se le avisa llega al 30 hacia los 60–80 min (antes ~110) y al 50 hacia los 100–130 min (antes ~280).
+
+## Versión 11: varios enemigos a la vez y fase tardía
+- **Combates en grupo** (`partes/tardio.js`):
+  - Número de enemigos: `nFoes(L)` → 2 desde el nivel 50 y 3 desde el 150.
+  - Fuerza de cada uno (`GROUP_FOE`): con dos, ×0,6 de vida, ataque y ATP; con tres, ×0,45.
+  - El jefe va a plena fuerza con escolta. Los jefes especiales, los eventos y las prácticas siguen siendo de uno en uno.
+- **Motor de combate:**
+  - `B.es` guarda todos los enemigos; `B.e` es el objetivo.
+  - `selectTarget(i)` cambia de objetivo; se llama desde la lista de la ficha (`#fTg`), al tocar la escena (proyección en pantalla) o con la tecla Tab.
+  - `reap()` retira a los vencidos y pasa el objetivo al siguiente.
+  - `enemyTurn` hace actuar a cada enemigo vivo: primero `foeEffects` y después los ataques uno detrás de otro.
+  - `win` suma las recompensas y las muestras de todos.
+  - El modo automático ataca primero al que tiene menos vida y valora las herramientas de área por lo que hacen a todos (`toolScore`).
+- **Escena:**
+  - `E_BASE` es el centro de la zona de los enemigos y `E_POS`, el objetivo actual (`aimAt`).
+  - Posiciones en `SLOTS` / `SLOTS_P`.
+  - `FOES` guarda los modelos; `TMARK` es el anillo del objetivo y `stepFoes` anima a todos.
+- **Desde el nivel 100:**
+  - Los enemigos tienen ×3 de vida (`HP_X100`).
+  - Orgánulos de élite (`UPG3`): receptores tipo Toll (ataque ×1,1, máx. 12), glucocáliz (vida ×1,1, máx. 12) y gránulos secretores (+10 % del daño salpica a los demás enemigos, máx. 10). Cada uno se ve en la célula.
+  - Herramientas de área (`aoe:true`, `need:100`): complemento, interferones y bacteriófagos. Cada enemigo recibe según su propia eficacia.
+- **Hitos:**
+  - Nivel 50: +5 ADN y +2 puntos del árbol.
+  - Nivel 100: +10 ADN y +3 puntos del árbol.
+  - Nivel 150: +15 ADN y +3 puntos del árbol.
+  - Cada uno con su ventana explicativa.
+- **Equilibrio** (`sim11*.py`): un jugador que lo hace todo bien llega al 100 hacia las 4 h y al 150 hacia las 8–9 h. El salto del 100 cuesta unos minutos de mejoras. Los límites de `tlr` y `glc` evitan que la partida se dispare después.

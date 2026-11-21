@@ -73,3 +73,37 @@ Object.assign(DT.ca.SK, {mng:['mNeonGreen',"Proteïna verda groguenca de l'amfio
 Object.assign(DT.en.SK, {mng:['mNeonGreen','A yellow-green protein from the lancelet Branchiostoma lanceolatum. It shines brighter than GFP.'],
   tdt:['tdTomato','Two copies of a red protein joined in tandem: one of the brightest fluorescent proteins.'],
   xen:['Xenofluorin','A fluorescent protein brought back by the Xenon b probe. It’s made up: it only exists in this game.']});
+
+// Herramientas de área del nivel 100 (v11)
+Object.assign(DT.ca.TL, {
+  cmp:['Sistema del complement',"Una trentena de proteïnes de la sang que s'activen en cascada i formen el complex d'atac a la membrana (MAC): un porus que forada la membrana dels microbis. Arriba a tots els organismes alhora."],
+  ifn:['Interferons',"Citocines que avisen les cèl·lules veïnes que hi ha un virus: en frenen la replicació i activen els macròfags i els limfòcits NK. Arriben a tots els organismes alhora."],
+  fgt:['Bacteriòfags',"Virus que només infecten bacteris (fagoteràpia). Es multipliquen dins d'un bacteri, el rebenten i els fags nous salten als altres. Arriben a tots els bacteris alhora."]});
+Object.assign(DT.en.TL, {
+  cmp:['Complement system','About thirty blood proteins that activate in a cascade and form the membrane attack complex (MAC): a pore that punches through microbial membranes. It reaches every organism at once.'],
+  ifn:['Interferons','Cytokines that warn neighbouring cells about a virus: they slow its replication and activate macrophages and NK cells. They reach every organism at once.'],
+  fgt:['Bacteriophages','Viruses that only infect bacteria (phage therapy). They multiply inside a bacterium, burst it, and the new phages jump to the others. They reach every bacterium at once.']});
+Object.assign(DT.ca.E, {
+  cmp:{def:"El complement perfora la membrana de gairebé qualsevol cèl·lula estranya.", gn:"El complex d'atac a la membrana perfora amb facilitat la membrana externa de les Gram−.", myc:"Sense paret que la protegeixi, la seva membrana queda plena de porus.",
+    gp:"La paret gruixuda de peptidoglicà de les Gram+ impedeix que el porus arribi a la membrana.", bac:"És Gram+: la paret gruixuda la protegeix del complement.", tbc:"La paret cèria d'àcids micòlics frena el complement.",
+    vir:"El complement trenca l'embolcall dels virus que en tenen, com el de la grip.", vih:"El VIH s'emporta de la teva cèl·lula proteïnes que frenen el complement (CD55 i CD59) i s'hi protegeix.",
+    lev:"La paret de quitina en protegeix la membrana.", veg:"La paret de cel·lulosa en protegeix la membrana.", can:"És una cèl·lula pròpia: té proteïnes que frenen el complement, com CD59.",
+    mal:"Dins del glòbul vermell, protegit per les proteïnes reguladores de l'eritròcit, gairebé no li arriba.", ten:"El tegument el protegeix i es renova sense parar.", pri:"Un prió no té membrana per perforar."},
+  ifn:{def:"Els interferons no maten directament: avisen les cèl·lules perquè es defensin. Contra aquest organisme gairebé no ajuden.", vir:"Les cèl·lules avisades per l'interferó fabriquen proteïnes que frenen la replicació del virus.",
+    vih:"L'interferó frena la replicació del VIH, tot i que el virus té proteïnes per escapar-ne.", can:"Els interferons activen els limfòcits NK i T contra el tumor: es fan servir en alguns càncers, com el melanoma.",
+    tbc:"L'interferó γ activa els macròfags infectats perquè per fi digereixin el micobacteri.", mal:"L'interferó γ ajuda contra la fase del plasmodi al fetge, però poc dins dels glòbuls vermells.", pri:"El prió no es replica com un virus ni el reconeix el sistema immunitari."},
+  fgt:{def:"Els bacteriòfags només infecten bacteris: cada fag reconeix receptors d'un bacteri concret.", gp:"El fag s'uneix a la paret, injecta el seu ADN i el bacteri fabrica centenars de fags nous fins que rebenta.",
+    gn:"Els fags d'E. coli, com T4, són els més estudiats: el rebenten en uns 30 minuts.", bac:"Hi ha molts fags de Bacillus, tot i que no afecten l'endòspora.", myc:"Es coneixen pocs fags de micoplasmes.",
+    tbc:"Els micobacteriòfags s'han fet servir per salvar pacients amb infeccions resistents a tots els antibiòtics."}});
+Object.assign(DT.en.E, {
+  cmp:{def:'Complement punches holes in the membrane of almost any foreign cell.', gn:'The membrane attack complex easily pierces the outer membrane of Gram− bacteria.', myc:'With no wall to protect it, its membrane fills with pores.',
+    gp:'The thick peptidoglycan wall of Gram+ bacteria stops the pore reaching the membrane.', bac:'It is Gram+: its thick wall protects it from complement.', tbc:'The waxy mycolic acid wall holds complement back.',
+    vir:'Complement breaks the envelope of enveloped viruses such as flu.', vih:'HIV takes complement-blocking proteins (CD55 and CD59) from your cell and shields itself with them.',
+    lev:'The chitin wall protects its membrane.', veg:'The cellulose wall protects its membrane.', can:'It is one of your own cells: it has complement-blocking proteins such as CD59.',
+    mal:'Inside the red blood cell, shielded by the cell’s regulatory proteins, little reaches it.', ten:'Its tegument protects it and is constantly renewed.', pri:'A prion has no membrane to pierce.'},
+  ifn:{def:'Interferons don’t kill directly: they warn cells to defend themselves. Against this organism they barely help.', vir:'Cells warned by interferon make proteins that slow the virus’s replication.',
+    vih:'Interferon slows HIV replication, although the virus has proteins to escape it.', can:'Interferons activate NK and T cells against the tumour: they are used in some cancers, such as melanoma.',
+    tbc:'Interferon γ activates infected macrophages so they finally digest the mycobacterium.', mal:'Interferon γ helps against the parasite’s liver stage, but little inside red blood cells.', pri:'A prion doesn’t replicate like a virus and the immune system doesn’t recognise it.'},
+  fgt:{def:'Bacteriophages only infect bacteria: each phage recognises receptors on a particular bacterium.', gp:'The phage binds its wall, injects its DNA and the bacterium makes hundreds of new phages until it bursts.',
+    gn:'E. coli phages such as T4 are the best studied: they burst it in about 30 minutes.', bac:'There are many Bacillus phages, though they don’t affect the endospore.', myc:'Few mycoplasma phages are known.',
+    tbc:'Mycobacteriophages have been used to save patients with infections resistant to every antibiotic.'}});

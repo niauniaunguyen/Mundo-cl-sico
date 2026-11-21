@@ -20,7 +20,9 @@ const pLight = new THREE.PointLight(0x5fd8ff, 1.2, 12); scene.add(pLight);
 const eLight = new THREE.PointLight(0xff4f7b, 1.1, 12); scene.add(eLight);
 
 const P_POS = V(-2.3, -.1, .9);
-const E_POS = V(2.3, .25, -.5);
+const E_POS = V(2.3, .25, -.5);   // posición del enemigo al que apuntas (cambia con el objetivo)
+const E_BASE = V(2.3, .25, -.5);  // centro de la zona de los enemigos
+let PORTRAIT = false;
 
 // Generador pseudoaleatorio con semilla: cada organismo se construye siempre igual
 let SEED = 1;
@@ -235,6 +237,10 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
   // filopodios: tu linaje gana más con cada evolución
   const fil = inst(new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
   g.add(fil);
+  // orgánulos de élite: receptores tipo Toll, glucocáliz y gránulos secretores
+  if (lv('tlr')) g.add(inst(new THREE.ConeGeometry(.03, .16, 5).translate(0, .08, 0), mem(0xffb547, {emiK:.6, bump:false}), fibDirs(Math.min(60, 6*lv('tlr'))).map(d => ({p:d.clone().multiplyScalar(1.06*sc), n:d})), 9));
+  if (lv('glc')) g.add(mesh(new THREE.IcosahedronGeometry(1.2*sc, 3), mem(0x9be7ff, {op:.05 + .012*Math.min(lv('glc'), 12), rimA:.6, rimK:.9, side:THREE.DoubleSide, bump:false}), 9));
+  if (lv('sec')) inner.add(inst(sphG(.045, 8, 6), mem(0xff7ad9, {emiK:.7, bump:false}), Array.from({length:Math.min(60, 6*lv('sec'))}, () => ({p:randIn(.85,.7,.7)}))));
   let reachA = 0;
   const mitK = Math.min(1, lv('mit')/12);
   return {g,
@@ -658,21 +664,62 @@ function rebuildPlayer(){
   pLight.color.setHex(SKINS[S.skin].col); delete thumbCache.me;
 }
 
-let foeObj = null;
-function setFoe(e){
-  if (foeObj) scene.remove(foeObj.g);
-  foeObj = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
-  if (e.var) variantLook(foeObj, VARIANTS[e.var]);
-  const s = e.boss ? 1.45 : 1;
+let foeObj = null;  // modelo del enemigo al que apuntas
+let FOES = [];      // [{e, obj}] todos los enemigos del combate
+// huecos de cada enemigo respecto al centro (en horizontal y en vertical)
+const SLOTS = {1:[[0,0,0]], 2:[[-.55,1,-.4],[.8,-.85,.3]], 3:[[-.8,1.2,-.5],[1.1,.15,-.1],[-.15,-1.1,.45]]};
+const SLOTS_P = {1:[[0,0,0]], 2:[[-.3,.25,-.3],[.65,-1,.2]], 3:[[-.6,.4,-.4],[1.05,-.4,-.1],[-.15,-1.55,.35]]};
+const foeScale = n => n === 1 ? 1 : n === 2 ? .74 : PORTRAIT ? .56 : .62;
+function buildFoe(e, n){
+  const o = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
+  if (e.var) variantLook(o, VARIANTS[e.var]);
+  const s = (e.boss ? 1.45 : 1)*foeScale(n);
   if (e.boss){ // aura del jefe
     const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TY(e).col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
-    aura.scale.setScalar(5); foeObj.g.add(aura); }
-  foeObj.g.scale.setScalar(.01); foeObj.base = s;
-  foeObj.g.position.copy(E_POS);
-  scene.add(foeObj.g);
-  eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1;
-  tween(500, p => foeObj && foeObj.g.scale.setScalar(s*easeOut(p)));
+    aura.scale.setScalar(5); o.g.add(aura); }
+  o.g.scale.setScalar(.01); o.base = s; scene.add(o.g);
+  tween(500, p => o.g.scale.setScalar(s*easeOut(p)));
+  return o;
 }
+function layoutFoes(force){
+  const n = FOES.length, sl = (PORTRAIT ? SLOTS_P : SLOTS)[n] || SLOTS[1];
+  FOES.forEach((f, i) => { const o = sl[i] || [0,0,0]; f.e.pos = (f.e.pos || V()).copy(E_BASE).add(V(o[0], o[1], o[2])); if (force || !tweens.length) f.obj.g.position.copy(f.e.pos); });
+  if (B && B.e && B.e.pos) aimAt(B.e);
+}
+function setFoes(es){
+  FOES.forEach(f => scene.remove(f.obj.g));
+  FOES = es.map(e => { const obj = buildFoe(e, es.length); e.obj = obj; return {e, obj}; });
+  layoutFoes(true); aimAt(es[0]);
+}
+const setFoe = e => setFoes([e]);
+// apunta al enemigo e: los proyectiles, los textos y la luz van hacia él
+function aimAt(e){
+  if (!e || !e.obj) return;
+  foeObj = e.obj; E_POS.copy(e.pos);
+  eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1; eLight.position.copy(E_POS).add(V(0,2,2));
+}
+function killFoeObj(e){
+  const o = e.obj; if (!o || o.dying) return; o.dying = true;
+  tween(450, p => o.g.scale.setScalar(o.base*(1 - easeOut(p))), () => scene.remove(o.g));
+}
+// anillo que señala al objetivo cuando hay varios enemigos
+const TMARK = new THREE.Mesh(new THREE.TorusGeometry(1.3, .035, 6, 64), new THREE.MeshBasicMaterial({color:0xffc65c, transparent:true, opacity:.7, depthWrite:false}));
+TMARK.visible = false; scene.add(TMARK);
+function stepFoes(t, mot){
+  for (const f of FOES) if (!f.e.dead) f.obj.up(t*mot, f.e);
+  const many = B && B.es && B.es.filter(x => !x.dead).length > 1;
+  TMARK.visible = !!many && !!foeObj;
+  if (TMARK.visible){ TMARK.position.lerp(E_POS, .25); TMARK.scale.setScalar(foeObj.base*(1 + .04*Math.sin(t*3))); TMARK.rotation.z = t*.6; TMARK.material.opacity = .45 + .25*Math.sin(t*3); }
+}
+// tocar un enemigo en la escena lo convierte en el objetivo
+canvas.addEventListener('pointerdown', ev => {
+  if (!B || !B.es || B.es.filter(x => !x.dead).length < 2) return;
+  const r = canvas.getBoundingClientRect(); let best = -1, bd = 1e9;
+  B.es.forEach((x, i) => { if (x.dead) return; const v = x.pos.clone().project(camera);
+    const dx = (v.x + 1)/2*r.width - (ev.clientX - r.left), dy = (1 - v.y)/2*r.height - (ev.clientY - r.top), d = Math.hypot(dx, dy);
+    if (d < bd){ bd = d; best = i; } });
+  if (best >= 0 && bd < 160) selectTarget(best);
+});
 
 // Variantes: el mismo modelo con su característica cambiada a la vista
 function variantLook(o, Vr){
@@ -842,7 +889,9 @@ function resize(){
   renderer.setSize(w, h, false); camera.aspect = w/h;
   // en vertical, las dos células se colocan en diagonal y la cámara se aleja lo justo para que quepan a lo ancho
   const a = w/h, portrait = a < .9;
-  if (portrait){ P_POS.set(-1.3,-1.6,.9); E_POS.set(1.3,1.1,-.5); } else { P_POS.set(-2.3,-.1,.9); E_POS.set(2.3,.25,-.5); }
+  PORTRAIT = portrait;
+  if (portrait){ P_POS.set(-1.3,-1.6,.9); E_BASE.set(1.3,1.1,-.5); } else { P_POS.set(-2.3,-.1,.9); E_BASE.set(2.3,.25,-.5); }
+  if (!FOES.length) E_POS.copy(E_BASE);
   // franja libre entre las fichas: la escena se encuadra en ella
   document.documentElement.style.setProperty('--toolsH', $('#tools').offsetHeight + 'px');
   document.documentElement.style.setProperty('--hudH', $('#hud').offsetHeight + 'px');
@@ -862,9 +911,10 @@ function resize(){
   const snap = !CAMC.ok || CAMT.w !== w || CAMT.h !== h;
   CAMT.dist = dist; CAMT.off = h/2 - (top + bot)/2; CAMT.w = w; CAMT.h = h;
   if (snap){ CAMC.dist = CAMT.dist; CAMC.off = CAMT.off; CAMC.ok = true; }
-  LOOK.set(0, (P_POS.y + E_POS.y)/2, 0);
+  LOOK.set(0, (P_POS.y + E_BASE.y)/2, 0);
   applyCam();
-  if (!tweens.length){ player.position.copy(P_POS); if (foeObj) foeObj.g.position.copy(E_POS); }
+  if (!tweens.length) player.position.copy(P_POS);
+  layoutFoes();
   pLight.position.copy(P_POS).add(V(0,2,2));
   eLight.position.copy(E_POS).add(V(0,2,2));
 }
