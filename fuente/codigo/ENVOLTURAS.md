@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-278 funciones ampliadas, 515 capas.
+279 funciones ampliadas, 518 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -37,6 +37,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `destTrees` | `013_destinos_nuevos_grecia_italia_hispania.js` | 3 | `125`:39 · `222`:53 · `900`:451 |
 | `finishColumns` | `007_campos_del_atica_y_de.js` | 3 | `113`:122 · `193`:46 · `900`:434 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
+| `hbRender` | `087_la_barra_de_objetos_como.js` | 3 | `091`:57 · `097`:66 · `225`:213 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
 | `makePerson` | `009_personas.js` | 3 | `116`:318 · `184`:12 · `186`:80 |
 | `mgPay` | `177_oficios.js` | 3 | `179`:39 · `211`:47 · `213`:108 |
@@ -56,6 +57,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `buildTerrain` | `006_murallas_circuito_de_temistocles_reconstruido.js` | 2 | `161`:26 · `900`:427 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
+| `drawCompass` | `014_hud.js` | 2 | `218`:27 · `225`:215 |
 | `eduReport` | `099_para_aprender_y_ensenar.js` | 2 | `106`:216 · `111`:140 |
 | `egxSetup` | `060_egipto_2.js` | 2 | `140`:98 · `900`:375 |
 | `entablature` | `007_campos_del_atica_y_de.js` | 2 | `182`:12 · `193`:17 |
@@ -66,7 +68,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `gsRest` | `128_gestos.js` | 2 | `128`:107 · `129`:84 |
 | `gsRig` | `128_gestos.js` | 2 | `128`:105 · `129`:82 |
 | `hbOdre` | `087_la_barra_de_objetos_como.js` | 2 | `090`:114 · `091`:29 |
-| `hbRender` | `087_la_barra_de_objetos_como.js` | 2 | `091`:57 · `097`:66 |
 | `hbSetup` | `087_la_barra_de_objetos_como.js` | 2 | `120`:108 · `900`:379 |
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
@@ -159,7 +160,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `delfosPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:374 |
 | `destHouses` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:450 |
 | `dogTick` | `179_coleccionar.js` | 1 | `216`:139 |
-| `drawCompass` | `014_hud.js` | 1 | `218`:27 |
 | `drawMap` | `020_plano.js` | 1 | `151`:12 |
 | `eduTeacher` | `099_para_aprender_y_ensenar.js` | 1 | `111`:144 |
 | `egxAct` | `060_egipto_2.js` | 1 | `103`:15 |
@@ -215,6 +215,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `makeBeast` | `038_esferas_de_sueno.js` | 1 | `198`:25 |
 | `mareShow` | `046_el_caballo.js` | 1 | `900`:383 |
 | `mktSetup` | `058_dias_de_mercado.js` | 1 | `900`:384 |
+| `msgBtn` | `200_el_mensajero.js` | 1 | `225`:214 |
 | `mtSetup` | `092_ayuda_sin_llevar_de_la.js` | 1 | `900`:385 |
 | `natSpring` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `102`:84 |
 | `obSay` | `157_llegada.js` | 1 | `160`:18 |

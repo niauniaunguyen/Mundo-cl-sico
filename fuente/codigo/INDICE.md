@@ -227,4 +227,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `222_biomas.js` | 66 | BIOMAS POR REGIÓN (auditoría de identidad, 21/11) |
 | `223_jugar_solo.js` | 19 | JUGAR SOLO (para grabar): el juego se juega en automático, a ×1 o ×2 |
 | `224_caras_propuestas.js` | 18 | LAS 40 CARAS PROPUESTAS, EN EL JUEGO (galería de rostros, 21/11) |
+| `225_hud_tematico.js` | 218 | HUD TEMÁTICO (propuesta 1B del lienzo, «pieza de museo», 22/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
