@@ -21,7 +21,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `openDialog` | `015_dialogo.js` | 6 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 |
 | `updateSky` | `003_escena.js` | 6 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:206 · `212`:34 |
 | `answer` | `015_dialogo.js` | 5 | `091`:38 · `092`:46 · `148`:58 · `154`:11 · `180`:22 |
-| `bpMake` | `184_personajes_blender.js` | 5 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:42 |
+| `bpMake` | `184_personajes_blender.js` | 5 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 |
 | `chunked` | `005_modelos_de_blender.js` | 5 | `155`:21 · `182`:51 · `182`:96 · `183`:58 · `215`:13 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `fareOf` | `016_viajes_en_barco.js` | 5 | `052`:509 · `090`:102 · `091`:52 · `097`:70 · `202`:60 |

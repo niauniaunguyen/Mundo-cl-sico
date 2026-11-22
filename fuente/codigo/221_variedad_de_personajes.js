@@ -38,5 +38,18 @@ function varApply(g,kind,c){const R=varRnd(Math.floor(Math.random()*1e9)),pick=a
     else if(kind==='togado'){if(nm==='tunica')o.material=varMat(o.material,pick(Ro.tunica.slice(0,3)),j);}
     else if(kind==='tunicado'){if(nm==='tunica')o.material=varMat(o.material,tu,j);}});
   if(beardless){g.userData.beardless=1;try{BP_YOUNG.add(g);}catch(e){}}
+  try{varHair(g,R);}catch(e){}
   VAR.n++;return g;}
+// color de pelo real: el tinte de antes multiplicaba una textura muy oscura y el rubio, el canoso o el pelirrojo casi no se veían.
+// Ahora se elige un color de pelo y el tinte se calcula sobre el color medio de la textura (pelo y barba, el mismo).
+// Reparto aproximado para el Mediterráneo antiguo: casi todos morenos o castaños; pocos pelirrojos o rubios (tracios, escitas, galos,
+// germanos; y el rubio teñido de moda, Menandro y Ovidio); canas en algunos adultos.
+VAR.HAIR=[['#1f1a17',30],['#3b2a1f',30],['#5a3e2a',14],['#7a5a3c',6],['#8e3f1f',3],['#b8955a',3],['#8f8a84',9],['#c9c5bf',5]];
+VAR.avg=new Map();
+function varAvg(map){const k=map.uuid;if(VAR.avg.has(k))return VAR.avg.get(k);let r=null;try{const im=map.image;if(im&&im.width){const c=document.createElement('canvas');c.width=c.height=16;const x=c.getContext('2d');x.drawImage(im,0,0,16,16);const d=x.getImageData(0,0,16,16).data;let a=[0,0,0];for(let i=0;i<d.length;i+=4){a[0]+=d[i];a[1]+=d[i+1];a[2]+=d[i+2];}r=a.map(v=>v/256/255);}}catch(e){}VAR.avg.set(k,r);return r;}
+function varLin(v){return v>0.04045?Math.pow((v+0.055)/1.055,2.4):v/12.92;}
+function varHair(g,R){let tot=0;for(const h of VAR.HAIR)tot+=h[1];let t=R()*tot,hex=VAR.HAIR[0][0];for(const h of VAR.HAIR){t-=h[1];if(t<=0){hex=h[0];break;}}
+  const c=new THREE.Color(hex),tg=[c.r,c.g,c.b];
+  g.traverse(o=>{if(!o.isMesh||!o.material||!o.material.map)return;const mn=(o.material.name||'');if(!/_(pelo|barba)$/.test(mn))return;const av=varAvg(o.material.map);if(!av)return;
+    const key=o.material.map.uuid+'|hair|'+hex;let m=VAR.mats.get(key);if(!m){m=o.material.clone();m.color=new THREE.Color(...tg.map((v,i)=>v/Math.max(0.01,varLin(av[i]))));VAR.mats.set(key,m);}o.material=m;});}
 {const f=bpMake;bpMake=function(kind,c){const g=f.apply(this,arguments);if(g&&!(c&&(c.noVary||c.keepColors)))try{varApply(g,kind,c);}catch(e){console.warn('varApply',e);}return g;};}
