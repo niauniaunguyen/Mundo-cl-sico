@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-293 funciones ampliadas, 555 capas.
+294 funciones ampliadas, 557 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -17,13 +17,13 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `gmDo` | `068_menu_del_juego.js` | 11 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:104 · `223`:18 · `227`:144 · `230`:96 · `232`:63 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `openDialog` | `015_dialogo.js` | 8 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 |
-| `bpMake` | `184_personajes_blender.js` | 7 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 · `233`:66 · `233`:68 |
+| `bpMake` | `184_personajes_blender.js` | 7 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 · `233`:79 · `233`:81 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
-| `gfTick` | `062_game_feel.js` | 7 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:70 · `234`:145 |
+| `gfTick` | `062_game_feel.js` | 7 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 |
 | `updateSky` | `003_escena.js` | 7 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:206 · `212`:34 · `231`:67 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 6 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 · `200`:58 |
 | `answer` | `015_dialogo.js` | 5 | `091`:38 · `092`:46 · `148`:58 · `154`:11 · `180`:22 |
-| `bpKind` | `184_personajes_blender.js` | 5 | `196`:16 · `196`:41 · `196`:69 · `218`:11 · `233`:67 |
+| `bpKind` | `184_personajes_blender.js` | 5 | `196`:16 · `196`:41 · `196`:69 · `218`:11 · `233`:80 |
 | `chunked` | `005_modelos_de_blender.js` | 5 | `155`:21 · `182`:51 · `182`:96 · `183`:58 · `215`:13 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `fareOf` | `016_viajes_en_barco.js` | 5 | `052`:509 · `090`:102 · `091`:52 · `097`:70 · `202`:60 |
@@ -88,6 +88,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `progAct` | `076_progresion.js` | 2 | `083`:82 · `090`:104 |
 | `rdAct` | `095_los_caminos_mas_vivos.js` | 2 | `095`:69 · `098`:81 |
 | `spMenu` | `088_los_espiritus.js` | 2 | `090`:112 · `091`:54 |
+| `terrainH` | `001_terreno.js` | 2 | `233`:88 · `900`:309 |
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
 | `treesGLB` | `005_modelos_de_blender.js` | 2 | `126`:11 · `155`:23 |
 | `tutStart` | `049_discipulos.js` | 2 | `157`:82 · `227`:141 |
@@ -155,6 +156,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `closeDialog` | `015_dialogo.js` | 1 | `080`:145 |
 | `coinEl` | `199_moneda_en_pantalla.js` | 1 | `225`:216 |
 | `colsTick` | `?` | 1 | `193`:47 |
+| `courtyardHouse` | `011_construccion_del_mundo.js` | 1 | `233`:45 |
 | `cvSetup` | `083_el_camino_del_forastero.js` | 1 | `900`:372 |
 | `cyAct` | `096_la_ciudad_mas_viva.js` | 1 | `097`:102 |
 | `cySetup` | `096_la_ciudad_mas_viva.js` | 1 | `900`:373 |
@@ -204,10 +206,10 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `horseXP` | `046_el_caballo.js` | 1 | `077`:94 |
 | `hourLabel` | `003_escena.js` | 1 | `090`:96 |
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
-| `housesGLB` | `005_modelos_de_blender.js` | 1 | `233`:19 |
+| `housesGLB` | `005_modelos_de_blender.js` | 1 | `233`:23 |
 | `huntTick` | `175_actividades_dinamicas.js` | 1 | `179`:40 |
 | `infBuild` | `072_misiones_finales_de_las_cualidades.js` | 1 | `085`:49 |
-| `int2Door` | `204_puertas_a_interiores.js` | 1 | `233`:61 |
+| `int2Door` | `204_puertas_a_interiores.js` | 1 | `233`:74 |
 | `int2Enter` | `204_puertas_a_interiores.js` | 1 | `210`:19 |
 | `int2Setup` | `204_puertas_a_interiores.js` | 1 | `208`:17 |
 | `islandBase` | `011_construccion_del_mundo.js` | 1 | `188`:29 |
@@ -277,7 +279,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `swTick` | `105_mar_abierto.js` | 1 | `106`:100 |
 | `temple` | `008_edificios.js` | 1 | `234`:26 |
 | `termoPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:397 |
-| `terrainH` | `001_terreno.js` | 1 | `900`:309 |
 | `terrainH0` | `001_terreno.js` | 1 | `001`:94 |
 | `thfSpawn` | `174_movimiento_dinamico.js` | 1 | `180`:66 |
 | `thfTick` | `174_movimiento_dinamico.js` | 1 | `179`:68 |
