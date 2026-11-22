@@ -247,4 +247,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `241_ropa_sin_cruces.js` | 15 | ROPA SIN CRUCES (vídeo del 22/11: Lisicles, el arriero) |
 | `242_aves_nuevas.js` | 40 | AVES NUEVAS (vídeo del 22/11: «modelos antiguos, sobre todo de animales») |
 | `243_objetos_polyhaven.js` | 50 | OBJETOS ESCANEADOS DE POLY HAVEN (CC0) en mercados, casas y calles (22/11) |
+| `244_muros_escaneados.js` | 23 | MUROS ESCANEADOS (ambientCG, CC0) (22/11: «texturas de ambientCG en mármol, estuco...») |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
