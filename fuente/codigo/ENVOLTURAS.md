@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-288 funciones ampliadas, 540 capas.
+288 funciones ampliadas, 542 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -18,8 +18,8 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `openDialog` | `015_dialogo.js` | 8 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
+| `updateSky` | `003_escena.js` | 7 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:206 · `212`:34 · `231`:67 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 6 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 · `200`:58 |
-| `updateSky` | `003_escena.js` | 6 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:206 · `212`:34 |
 | `answer` | `015_dialogo.js` | 5 | `091`:38 · `092`:46 · `148`:58 · `154`:11 · `180`:22 |
 | `bpMake` | `184_personajes_blender.js` | 5 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 |
 | `chunked` | `005_modelos_de_blender.js` | 5 | `155`:21 · `182`:51 · `182`:96 · `183`:58 · `215`:13 |
@@ -29,6 +29,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
 | `toast` | `014_hud.js` | 5 | `120`:131 · `128`:68 · `173`:8 · `200`:37 · `226`:113 |
 | `bpKind` | `184_personajes_blender.js` | 4 | `196`:16 · `196`:41 · `196`:69 · `218`:11 |
+| `gfTick` | `062_game_feel.js` | 4 | `226`:121 · `229`:159 · `230`:99 · `231`:134 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:64 · `900`:406 |
@@ -37,7 +38,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `destTrees` | `013_destinos_nuevos_grecia_italia_hispania.js` | 3 | `125`:39 · `222`:53 · `900`:451 |
 | `drawCompass` | `014_hud.js` | 3 | `218`:27 · `225`:219 · `226`:110 |
 | `finishColumns` | `007_campos_del_atica_y_de.js` | 3 | `113`:122 · `193`:46 · `900`:434 |
-| `gfTick` | `062_game_feel.js` | 3 | `226`:121 · `229`:159 · `230`:99 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
 | `hbRender` | `087_la_barra_de_objetos_como.js` | 3 | `091`:57 · `097`:66 · `225`:217 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |

@@ -20,7 +20,7 @@ const PV1=new THREE.Vector3(),PV2=new THREE.Vector3();
 function piesFix(g,dt){const u=g.userData,bp=u.bp?piesBones(g):null,root=g.children[0];
   if(bp&&root&&root.visible){g.updateMatrixWorld(true);bp.L.getWorldPosition(PV1);bp.R.getWorldPosition(PV2);const gs=g.scale.y||1,so=PIES.sole*(Math.abs(root.matrixWorld.elements[5])||gs);
     const off=root.position.y*gs,gL=PV1.y-off-so-piesGround(PV1.x,PV1.z,PV1.y-off),gR=PV2.y-off-so-piesGround(PV2.x,PV2.z,PV2.y-off),gap=Math.min(gL,gR);
-    if(!isFinite(gap)||Math.abs(gap)>1.4){u.piesT=0;PIES.stat.big++;}else u.piesT=Math.max(-0.6,Math.min(0.6,-gap))/gs;
+    PIES.stat.vis=(PIES.stat.vis||0)+1;if(!isFinite(gap)||Math.abs(gap)>1.4){u.piesT=0;PIES.stat.big++;}else u.piesT=Math.max(-0.6,Math.min(0.6,-gap))/gs;
     PIES.max=Math.max(PIES.max,Math.abs(gap));PIES.stat.bp++;return;}
   // figura sencilla: apoyo bajo el centro (se conserva el pequeño bote del paso)
   const x=g.position.x,z=g.position.z,y=g.position.y,gr=piesGround(x,z,y),d=y-gr;
@@ -36,4 +36,4 @@ function piesTick(dt){if(!PIES.on||typeof camera==='undefined'||!state)return;PI
 // justo antes de dibujar: así ya se han movido todos (los transeúntes se recolocan después de los demás sistemas)
 {const r0=renderer.render.bind(renderer);let last=0;renderer.render=function(sc,cam){try{const now=performance.now();if(sc===scene&&now-last>4){const dt=Math.min(0.05,(now-last)/1000)||0.016;last=now;piesTick(dt);}}catch(e){}return r0(sc,cam);};}
 // para las pruebas: cuántos se corrigen y el mayor desfase visto
-function piesInforme(){const r={personas:PIES.list.length,blender:PIES.stat.bp,sencillas:PIES.stat.old,fuera:PIES.stat.big,mayor:+PIES.max.toFixed(3),corregidos:PIES.fix};PIES.stat={bp:0,old:0,big:0};PIES.max=0;PIES.fix=0;return r;}
+function piesInforme(){const r={personas:PIES.list.length,medidos:PIES.stat.vis||0,blender:PIES.stat.bp,sencillas:PIES.stat.old,fuera:PIES.stat.big,mayor:+PIES.max.toFixed(3),corregidos:PIES.fix};PIES.stat={bp:0,old:0,big:0};PIES.max=0;PIES.fix=0;return r;}
