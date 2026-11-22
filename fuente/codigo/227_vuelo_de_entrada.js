@@ -85,12 +85,12 @@ function vueloUI(){vueloCSS();const ro=MODE==='roma',d=document.createElement('d
   document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('in'));return d;}
 // ---- arranque y final
 function vueloStart(){if(VUELO.on||!state||typeof THREE==='undefined')return;const owl=MODE!=='roma';
-  try{VUELO.pts=vueloPath(owl);}catch(e){return;}
+  try{VUELO.pts=vueloPath(owl);}catch(e){VUELO.why='ruta: '+e;return;}
   VUELO.on=true;VUELO.owl=owl;VUELO.ph='fly';VUELO.t=0;VUELO.sp=owl?15:19;VUELO.s=0;VUELO.title=false;VUELO.left=0;VUELO.flapT=0;
   VUELO.sDet=VUELO.pts.sC+(owl?45:60);VUELO.cam=null;VUELO.ui0=ui;ui='vuelo';
   if(VUELO.bird){scene.remove(VUELO.bird);}VUELO.bird=vueloBird(owl);scene.add(VUELO.bird);
   document.body.classList.add('vuelo');VUELO.el=vueloUI();try{releasePointer();}catch(e){}vueloWind(true);}
-function vueloEnd(skip){if(!VUELO.on)return;VUELO.on=false;VUELO.ph='';ui='play';document.body.classList.remove('vuelo');vueloWind(false);
+function vueloEnd(skip){if(!VUELO.on)return;VUELO.why=(skip?'skip ':'end ')+(new Error().stack||'').split('\n').slice(2,4).join(' | ');VUELO.on=false;VUELO.ph='';ui='play';document.body.classList.remove('vuelo');vueloWind(false);
   const d=VUELO.el;VUELO.el=null;if(d){d.classList.remove('in');d.querySelector('.ttl').classList.remove('on');setTimeout(()=>d.remove(),900);}
   if(skip||!VUELO.bird){if(VUELO.bird)scene.remove(VUELO.bird);VUELO.bird=null;}else VUELO.left=6;   // el ave sigue su camino unos segundos y desaparece
   try{if(AVATAR.walk&&!AVATAR.view3)AVATAR.walk.visible=false;}catch(e){}
@@ -131,13 +131,16 @@ function vueloTick(dt){const b=VUELO.bird;if(!b)return;const owl=VUELO.owl,k=owl
       else if(VUELO.t2<T1+T2){camera.position.copy(tp);camera.quaternion.copy(tq);}
       else if(VUELO.t2<T1+T2+T3){const e=sm((VUELO.t2-T1-T2)/T3);camera.position.copy(tp.clone().lerp(pCam,e));camera.quaternion.copy(tq.clone().slerp(qCam,e));}
       else{camera.position.copy(pCam);camera.quaternion.copy(qCam);vueloEnd(false);}}
-  }catch(e){vueloEnd(true);}return r;};}
+  }catch(e){window.__vuErr=String(e&&e.stack||e);vueloEnd(true);}return r;};}
 // ---- teclas: durante el vuelo, Espacio / Intro / Esc lo saltan y no llega nada más al juego
 addEventListener('keydown',e=>{if(!VUELO.on)return;e.stopPropagation();e.preventDefault();if(e.code==='Space'||e.code==='Enter'||e.code==='Escape'||e.code==='NumpadEnter')vueloEnd(true);},true);
 // lo que normalmente aparece al empezar (elegir nombre, tutorial…) espera a que acabe el vuelo
 {const f=pjDlg;pjDlg=function(){if(VUELO.on){const a=arguments;VUELO.after.push(()=>pjDlg.apply(this,a));return;}return f.apply(this,arguments);};}
 {const f=tutStart;tutStart=function(){if(VUELO.on){VUELO.after.push(()=>tutStart());return;}return f.apply(this,arguments);};}
-{const f=startGame;startGame=function(){const first=!VUELO.seen;const r=f.apply(this,arguments);if(first&&ui==='play'&&vueloOK()){VUELO.seen=true;setTimeout(()=>{if(ui==='play')vueloStart();},60);}return r;};}
+{const f=startGame;startGame=function(){const first=!VUELO.seen;const r=f.apply(this,arguments);if(first&&ui==='play'&&vueloOK()){VUELO.seen=true;let n=0;const go=()=>{VUELO.why='espera ui='+ui;if(ui==='play')vueloStart();else if(++n<40)setTimeout(go,100);};setTimeout(go,60);}return r;};}
 // menú: Esc → Partida → Introducción al entrar (activar o quitar)
 {const f=gmDo;gmDo=function(k){if(k==='vuelo'){const off=!vueloOff();try{localStorage.setItem('nostos-vuelo-off',off?'1':'0');}catch(e){}try{gmClose&&gmClose();}catch(e){}
   setTimeout(()=>toast('<span class="label">Introducción al entrar</span><br>'+(off?'Ya no se mostrará el vuelo del ave al entrar.':'Al entrar verás el vuelo del ave sobre la ciudad.')),300);return;}return f.apply(this,arguments);};}
+// para las pruebas: coloca el vuelo en un punto (metros recorridos) y dibuja ya ese fotograma
+function vueloShot(s,t2){VUELO.s=s;VUELO.cam=null;VUELO.lt=performance.now();if(t2!=null){VUELO.ph='land';VUELO.t2=t2;if(!VUELO.fromP){VUELO.fromP=camera.position.clone();VUELO.fromQ=camera.quaternion.clone();}}
+  placeCamera();skyMesh.position.copy(camera.position);renderer.render(scene,camera);}
