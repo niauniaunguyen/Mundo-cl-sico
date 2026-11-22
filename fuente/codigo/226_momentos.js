@@ -38,7 +38,7 @@ function moCSS(){if($('moCSS'))return;const s=document.createElement('style');s.
  '#stats.moNew{animation:moObj 2.4s ease-out}@keyframes moObj{0%,100%{filter:none}15%{filter:drop-shadow(0 0 10px rgba(255,200,110,.95)) brightness(1.25)}50%{filter:drop-shadow(0 0 6px rgba(255,200,110,.6))}}'+
  '#objective>b:first-child::before{content:"◆";display:inline-block;margin-right:6px;color:#ffd27a;text-shadow:0 0 6px rgba(255,190,90,.9);animation:moDia 1.6s ease-in-out infinite}'+
  '@keyframes moDia{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.6}}'+
- 'body.hz #compass .c.obj small{font:600 10px var(--f-body);margin-left:4px;color:#ffe0a8;letter-spacing:0;opacity:.95}'+
+ '#compass .c.obj small{position:absolute;left:50%;top:17px;transform:translateX(-50%);white-space:nowrap;font:600 9.5px var(--f-body);color:#ffe0a8;letter-spacing:0;opacity:.95}'+
  '@media (prefers-reduced-motion:reduce){#moBan,#moBan .t,#moBan::after,.moSp,#stats.moNew,#objective>b:first-child::before{animation:none!important}#moBan .ln{width:70%}}';
  document.head.appendChild(s);}
 // ---- sonidos (síntesis, como el resto del juego)

@@ -13,8 +13,9 @@ function vueloOK(){if(vueloOff())return false;const q=location.search+location.h
 // ---- el ave (geometría propia: cuerpo, cabeza, cola y alas en dos tramos que baten o planean)
 function vueloTex(owl){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
   x.fillStyle=owl?'#7a5a3a':'#4a3220';x.fillRect(0,0,128,128);
-  if(owl){for(let i=0;i<140;i++){x.fillStyle=Math.random()<0.75?'rgba(236,224,198,.85)':'rgba(60,40,24,.6)';x.beginPath();x.arc(Math.random()*128,Math.random()*128,1+Math.random()*2.6,0,7);x.fill();}
-    for(let i=0;i<6;i++){x.fillStyle='rgba(230,214,180,.55)';x.fillRect(0,96+i*5,128,2);}}
+  if(owl){x.fillStyle='#6a4a2c';x.fillRect(0,0,128,128);for(let i=0;i<260;i++){const y=Math.random()*128;x.fillStyle=Math.random()<0.5?'rgba(40,26,14,.35)':'rgba(120,88,56,.45)';x.fillRect(Math.random()*128,y,2+Math.random()*5,1+Math.random()*1.5);}
+    for(let i=0;i<55;i++){x.fillStyle='rgba(232,218,190,.75)';x.beginPath();x.arc(Math.random()*128,Math.random()*128,0.6+Math.random()*1.1,0,7);x.fill();}
+    for(let i=0;i<5;i++){x.fillStyle='rgba(225,206,170,.5)';x.fillRect(0,100+i*6,128,2.5);}}
   else{const g=x.createLinearGradient(0,0,0,128);g.addColorStop(0,'rgba(170,120,60,.75)');g.addColorStop(.45,'rgba(90,60,30,.3)');g.addColorStop(1,'rgba(20,12,6,.5)');x.fillStyle=g;x.fillRect(0,0,128,128);
     for(let i=0;i<10;i++){x.strokeStyle='rgba(20,12,6,.35)';x.beginPath();x.moveTo(i*13,60);x.lineTo(i*13+4,128);x.stroke();}}
   const t=new THREE.CanvasTexture(c);t.needsUpdate=true;return t;}
@@ -23,21 +24,21 @@ function vueloWingGeo(pts){const s=new THREE.Shape();s.moveTo(pts[0][0],pts[0][1
   for(let i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)-b.min.x)/(b.max.x-b.min.x||1),(p.getZ(i)-b.min.z)/(b.max.z-b.min.z||1));uv.needsUpdate=true;g.computeVertexNormals();return g;}
 function vueloBird(owl){const g=new THREE.Group(),tex=vueloTex(owl),k=owl?1:2.6;
   const mB=new THREE.MeshLambertMaterial({map:tex,side:THREE.DoubleSide}),mL=new THREE.MeshLambertMaterial({color:owl?0xe8dcc0:0xd8b070}),mY=new THREE.MeshLambertMaterial({color:0xe8c030}),mK=new THREE.MeshBasicMaterial({color:0x111111});
-  const body=new THREE.Mesh(new THREE.SphereGeometry(0.1*k,12,8),mB);body.scale.set(owl?1:0.85,owl?0.95:0.8,owl?1.35:2.1);g.add(body);
+  const body=new THREE.Mesh(new THREE.SphereGeometry(0.1*k,12,8),mB);body.scale.set(owl?1.05:0.85,owl?0.85:0.8,owl?1.5:2.1);g.add(body);
   const belly=new THREE.Mesh(new THREE.SphereGeometry(0.092*k,10,6),mL);belly.scale.set(owl?0.9:0.75,0.8,owl?1.2:1.8);belly.position.y=-0.025*k;g.add(belly);
   const head=new THREE.Mesh(new THREE.SphereGeometry((owl?0.085:0.06)*k,12,8),owl?mB:new THREE.MeshLambertMaterial({color:0xb58440}));head.position.set(0,(owl?0.03:0.03)*k,(owl?0.13:0.2)*k);if(owl)head.scale.set(1.1,0.95,0.95);g.add(head);
   if(owl){const disc=new THREE.Mesh(new THREE.CircleGeometry(0.07,16),mL);disc.position.set(0,0.03,0.205);g.add(disc);
     for(const s of[-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.018,8,6),mY);e.position.set(s*0.03,0.04,0.215);g.add(e);const p=new THREE.Mesh(new THREE.SphereGeometry(0.009,6,4),mK);p.position.set(s*0.03,0.04,0.23);g.add(p);}}
   const beak=new THREE.Mesh(new THREE.ConeGeometry((owl?0.012:0.016)*k,(owl?0.035:0.05)*k,6),mY);beak.rotation.x=Math.PI/2+0.5;beak.position.set(0,(owl?0.012:0.02)*k,(owl?0.22:0.26)*k);g.add(beak);
   const tail=new THREE.Mesh(vueloWingGeo(owl?[[-0.05,0],[0.05,0],[0.06,-0.1],[-0.06,-0.1]]:[[-0.04,0],[0.04,0],[0.09,-0.16],[-0.09,-0.16]]),mB);tail.scale.setScalar(k);tail.position.set(0,0,-0.11*k*(owl?1:1.6));g.add(tail);
-  const inner=owl?[[0,0.05],[0.16,0.05],[0.17,-0.1],[0,-0.08]]:[[0,0.05],[0.22,0.05],[0.24,-0.11],[0,-0.1]];
-  const outer=owl?[[0,0.05],[0.1,0.03],[0.16,-0.02],[0.14,-0.08],[0,-0.1]]:[[0,0.05],[0.14,0.04],[0.24,0.02],[0.27,-0.02],[0.25,-0.05],[0.27,-0.07],[0.22,-0.09],[0.23,-0.11],[0.12,-0.12],[0,-0.11]];
+  const inner=owl?[[0,0.06],[0.16,0.07],[0.18,-0.13],[0,-0.11]]:[[0,0.05],[0.22,0.05],[0.24,-0.11],[0,-0.1]];
+  const outer=owl?[[0,0.07],[0.09,0.06],[0.16,0.02],[0.19,-0.03],[0.17,-0.08],[0.12,-0.12],[0,-0.13]]:[[0,0.05],[0.14,0.04],[0.24,0.02],[0.27,-0.02],[0.25,-0.05],[0.27,-0.07],[0.22,-0.09],[0.23,-0.11],[0.12,-0.12],[0,-0.11]];
   const gi=vueloWingGeo(inner),go=vueloWingGeo(outer),W=[];
   for(const s of[-1,1]){const sh=new THREE.Group();sh.position.set(s*0.06*k,0.03*k,0.02*k);sh.scale.set(s*k,k,k);const a=new THREE.Mesh(gi,mB);sh.add(a);
     const el=new THREE.Group();el.position.x=owl?0.16:0.22;sh.add(el);el.add(new THREE.Mesh(go,mB));g.add(sh);W.push({sh,el,s});}
   g.userData={W,owl,k};return g;}
 function vueloFlap(b,t,dt,glide){const u=b.userData,f=u.owl?7.5:3.2;VUELO.flapT+=dt*f*(glide?0.25:1);const ph=VUELO.flapT;
-  const amp=glide?0.06:(u.owl?0.75:0.55),a=Math.sin(ph)*amp+(glide?0.04:0.08),o=Math.sin(ph-0.9)*amp*0.7;
+  const amp=glide?0.05:(u.owl?0.7:0.5),a=Math.sin(ph)*amp+(glide?0.12:0.1),o=Math.sin(ph-0.9)*amp*0.7;
   for(const w of u.W){w.sh.rotation.z=a*w.s;w.el.rotation.z=(o*0.8+(glide?0.03:0))*w.s;w.sh.rotation.y=(glide?0:Math.sin(ph)*0.08)*w.s;}
   if(!glide&&Math.sin(ph)>0.97&&!VUELO.fw){VUELO.fw=1;vueloWhoosh(u.owl?0.012:0.03);}if(Math.sin(ph)<0)VUELO.fw=0;}
 // ---- sonido: viento continuo y el aleteo
@@ -113,7 +114,7 @@ function vueloTick(dt){const b=VUELO.bird;if(!b)return;const owl=VUELO.owl,k=owl
     // la cámara del jugador, tal como la ha dejado placeCamera
     const pCam=camera.position.clone(),qCam=camera.quaternion.clone();
     // detrás del ave, un poco por encima; al pasar sobre la ciudad se abre hacia un lado para enseñarla
-    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?1.3:4.2),up=(VUELO.owl?0.6:1.9);
+    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?1.25:4.0),up=(VUELO.owl?0.95:2.8);
     const flat=new THREE.Vector3(fw.x,0,fw.z).normalize(),off=flat.clone().multiplyScalar(-Math.cos(sw)*back).add(side.clone().multiplyScalar(Math.sin(sw)*back));
     const want=p.clone().add(off).setY(p.y+up),look=p.clone().add(flat.clone().multiplyScalar(VUELO.owl?4:10)).setY(p.y-(VUELO.owl?1.5:3.6));
     const oW=want.clone().sub(p),lW=look.clone().sub(p);if(!VUELO.cam)VUELO.cam={o:oW.clone(),lo:lW.clone(),p:want.clone(),l:look.clone()};const c=VUELO.cam,a=1-Math.exp(-dt*4);

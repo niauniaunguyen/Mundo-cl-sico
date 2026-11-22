@@ -14,7 +14,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 60 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:84 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `196`:38 · `196`:48 · `196`:88 · `198`:60 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:25 · `208`:148 · `208`:207 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:130 · `215`:50 · `216`:155 · `217`:91 · `218`:72 · `218`:83 · `219`:81 · `220`:35 · `222`:65 |
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
 | `atCands` | `085_mirar_con_atencion.js` | 11 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:127 · `218`:49 |
-| `gmDo` | `068_menu_del_juego.js` | 9 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:104 · `223`:18 · `227`:142 |
+| `gmDo` | `068_menu_del_juego.js` | 9 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:104 · `223`:18 · `227`:143 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 6 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 · `200`:58 |
@@ -87,7 +87,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `spMenu` | `088_los_espiritus.js` | 2 | `090`:112 · `091`:54 |
 | `toggleTorch` | `040_caballo.js` | 2 | `090`:84 · `091`:8 |
 | `treesGLB` | `005_modelos_de_blender.js` | 2 | `126`:11 · `155`:23 |
-| `tutStart` | `049_discipulos.js` | 2 | `157`:82 · `227`:139 |
+| `tutStart` | `049_discipulos.js` | 2 | `157`:82 · `227`:140 |
 | `updateStats` | `014_hud.js` | 2 | `077`:78 · `199`:35 |
 | `v2Spd` | `114_vida_2.js` | 2 | `174`:16 · `202`:59 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
@@ -230,9 +230,9 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `personMat` | `009_personas.js` | 1 | `183`:18 |
 | `phCaption` | `086_el_anfiteatro_flavio_por_dentro.js` | 1 | `151`:81 |
 | `pjAvatar` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `101`:51 |
-| `pjDlg` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `227`:138 |
+| `pjDlg` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `227`:139 |
 | `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `129`:79 |
-| `placeCamera` | `040_caballo.js` | 1 | `227`:109 |
+| `placeCamera` | `040_caballo.js` | 1 | `227`:110 |
 | `placeNewNPCs` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:438 |
 | `placeNPCs` | `011_construccion_del_mundo.js` | 1 | `900`:437 |
 | `placeReliefs` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:439 |
@@ -255,7 +255,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `showArticle` | `019_biblioteca.js` | 1 | `167`:46 |
 | `spAct` | `088_los_espiritus.js` | 1 | `150`:20 |
 | `spSetup` | `088_los_espiritus.js` | 1 | `900`:396 |
-| `startGame` | `900_creta_y_arranque.js` | 1 | `227`:140 |
+| `startGame` | `900_creta_y_arranque.js` | 1 | `227`:141 |
 | `startQuiz` | `015_dialogo.js` | 1 | `087`:74 |
 | `startStory` | `044_modo_historia.js` | 1 | `111`:137 |
 | `stKind` | `186_caras_cuerpos_y_estatuas.js` | 1 | `218`:8 |
