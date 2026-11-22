@@ -4,6 +4,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 
 | Módulo | Líneas | Secciones |
 |---|---:|---|
+| `000_color_calibrado.js` | 12 | COLOR CALIBRADO (experimental, se activa en Esc → Partida) |
 | `000_inicio.js` | 61 | idioma (es / ca / en)<br>utilidades |
 | `001_terreno.js` | 119 | terreno |
 | `002_colisiones.js` | 66 | colisiones |
@@ -234,4 +235,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `229_jugabilidad_4.js` | 160 | JUGABILIDAD (4): diario de misiones, calendario, discursos y cargos (22/11) |
 | `230_jugabilidad_5.js` | 100 | JUGABILIDAD (5): música, trofeos, acertijos, compañía, giros y sesión de clase (22/11) |
 | `231_graficos_4.js` | 136 | GRÁFICOS (4): las diez propuestas del 22/11 |
+| `232_lo_que_faltaba.js` | 68 | LO QUE FALTABA (22/11): aves de Blender, casa habitada y color calibrado |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
