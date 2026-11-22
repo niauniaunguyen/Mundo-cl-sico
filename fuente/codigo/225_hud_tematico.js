@@ -67,7 +67,7 @@ function hzPanelA(w,h,o){o=o||{};const mx=o.vol?20:5,m=5,W=w-2*mx,H=h-2*m,r=o.r!
   s+=hzHi(mx+8,m+4,w-mx-8,m+4,.08,Math.min(5,H/6));return hzSvg(w,h,HZ_DA,s);}
 function hzCompassA(w,h){const m=4,t=16;let s='<g filter="url(#fG)"><path d="M'+(m+t)+' '+m+' H'+(w-m-t)+' L'+(w-m)+' '+(h/2)+' L'+(w-m-t)+' '+(h-m)+' H'+(m+t)+' L'+m+' '+(h/2)+'Z" fill="url(#aGl)"/></g>';
   const x0=m+t+2,x1=w-m-t-2;s+='<g filter="url(#fP)"><rect x="'+x0+'" y="'+(m+3)+'" width="'+(x1-x0)+'" height="8" fill="url(#aTon)"/><path d="M'+x0+' '+(m+12)+' H'+x1+' M'+x0+' '+(h-m-4)+' H'+x1+'" stroke="#cf723a" stroke-width="1.2"/></g>';
-  s+=hzHi(m+t,m+2,w-m-t,m+2,.05,3);return hzSvg(w,h,HZ_DA,s);}
+  s+=hzHi(m+t,m+2,w-m-t,m+2,.05,3);return hzSvg(w,h,HZ_DA.replace('14 -9.4','14 -10.7'),s);}
 function hzMedalA(S){const c=S/2,r=c-3;return hzSvg(S,S,HZ_DA,'<g filter="url(#fG)"><circle cx="'+c+'" cy="'+c+'" r="'+r+'" fill="url(#aMed)"/></g><g filter="url(#fP)"><circle cx="'+c+'" cy="'+c+'" r="'+(r-4.5)+'" fill="none" stroke="#cf723a" stroke-width="1.6"/></g>'+
   '<ellipse cx="'+(c-7)+'" cy="'+(c-12)+'" rx="8" ry="3.5" fill="#fff" opacity=".16" filter="url(#fR)"/>');}
 function hzSelA(S){const c=S/2,r=c-3;return hzSvg(S,S,HZ_DA,'<g filter="url(#fC)"><circle cx="'+c+'" cy="'+c+'" r="'+r+'" fill="url(#aClay)"/></g><circle cx="'+c+'" cy="'+c+'" r="'+r+'" fill="none" stroke="#f6d6b0" stroke-width="2.4"/><circle cx="'+c+'" cy="'+c+'" r="'+(r-5)+'" fill="none" stroke="#140d08" stroke-width="1" opacity=".5"/>');}
@@ -105,7 +105,7 @@ function hzPanelR(w,h,o){o=o||{};const it=o.top?20:6,ib=o.bot?15:6,ix=o.ix!=null
 function hzBarR(w,h){let s='<g filter="url(#fW)"><rect x="2" y="2" width="'+(w-4)+'" height="'+(h-4)+'" fill="url(#rBlk)"/></g>';if(w>h)s+='<rect x="2" y="2" width="'+(w-4)+'" height="12" fill="url(#rGarl)"/>';
   s+='<g filter="url(#fAu)"><rect x="6" y="'+(w>h?17:6)+'" width="'+(w-12)+'" height="'+(h-(w>h?23:12))+'" fill="none" stroke="url(#rAu)" stroke-width="1.2"/></g>';return hzSvg(w,h,HZ_DR,s);}
 function hzCompassR(w,h){let s='<g filter="url(#fW)"><rect x="2" y="2" width="'+(w-4)+'" height="'+(h-4)+'" fill="url(#rBlk)"/></g><g filter="url(#fAu)"><rect x="5" y="5" width="'+(w-10)+'" height="'+(h-10)+'" fill="none" stroke="url(#rAu)" stroke-width="1.4"/></g>'+
-  '<rect x="10" y="'+(h-14)+'" width="'+(w-20)+'" height="7" fill="url(#rCand)" opacity=".6"/>';return hzSvg(w,h,HZ_DR,s);}
+  '<rect x="10" y="'+(h-14)+'" width="'+(w-20)+'" height="7" fill="url(#rCand)" opacity=".6"/>';return hzSvg(w,h,HZ_DR.replace('14 -9.3','14 -10.7'),s);}
 function hzMedalR(S){return hzSvg(S,S,HZ_DR,'<g filter="url(#fW)"><rect x="2" y="2" width="'+(S-4)+'" height="'+(S-4)+'" fill="url(#rBlk)"/><rect x="6" y="6" width="'+(S-12)+'" height="'+(S-12)+'" fill="url(#rRed)"/></g><g filter="url(#fAu)"><rect x="9" y="9" width="'+(S-18)+'" height="'+(S-18)+'" fill="none" stroke="url(#rAu)" stroke-width="1"/></g>');}
 function hzSlotR(S){return hzSvg(S,S,HZ_DR,'<g filter="url(#fW)"><rect x="1" y="1" width="'+(S-2)+'" height="'+(S-2)+'" fill="url(#rRed)"/></g><g filter="url(#fAu)"><rect x="4" y="4" width="'+(S-8)+'" height="'+(S-8)+'" fill="none" stroke="url(#rAu)" stroke-width="1"/></g>');}
 function hzSelR(S){return hzSvg(S,S,HZ_DR,'<g filter="url(#fW)"><rect x="1" y="1" width="'+(S-2)+'" height="'+(S-2)+'" fill="url(#rRed)"/></g><rect x="2.5" y="2.5" width="'+(S-5)+'" height="'+(S-5)+'" fill="none" stroke="#f8e4b4" stroke-width="3"/>');}
@@ -142,6 +142,7 @@ const HZ_CAD='<svg class="hzCad" viewBox="-1 -1 54 109" aria-hidden="true"><defs
  '<path d="M26 92 C40 86 40 74 26 68 C12 62 12 50 26 44 C38 39 37 30 30 26" stroke="url(#hzBz)" stroke-width="4.4" fill="none"/>'+
  '<ellipse cx="20" cy="25" rx="4" ry="2.8" fill="url(#hzBz)"/><ellipse cx="32" cy="25" rx="4" ry="2.8" fill="url(#hzBz)"/></g>'+
  '<circle cx="19" cy="24" r=".9" fill="#1a1008"/><circle cx="33" cy="24" r=".9" fill="#1a1008"/></svg>';
+// (la brújula es estrecha: menos desconchones, para que se lean los vientos)
 // --- vientos y números
 const HZ_WINDS=[{N:'Βορέας',NE:'Καικίας',E:'Ἀπηλιώτης',SE:'Εὖρος',S:'Νότος',SO:'Λίψ',SW:'Λίψ',O:'Ζέφυρος',W:'Ζέφυρος',NO:'Ἀργέστης',NW:'Ἀργέστης'},
   {N:'SEPTENTRIO',NE:'AQVILO',E:'SVBSOLANVS',SE:'VOLTVRNVS',S:'AVSTER',SO:'AFRICVS',SW:'AFRICVS',O:'FAVONIVS',W:'FAVONIVS',NO:'CORVS',NW:'CORVS'}];

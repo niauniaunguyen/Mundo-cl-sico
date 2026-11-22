@@ -37,7 +37,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `destTrees` | `013_destinos_nuevos_grecia_italia_hispania.js` | 3 | `125`:39 · `222`:53 · `900`:451 |
 | `finishColumns` | `007_campos_del_atica_y_de.js` | 3 | `113`:122 · `193`:46 · `900`:434 |
 | `gsTick` | `128_gestos.js` | 3 | `128`:56 · `128`:110 · `129`:47 |
-| `hbRender` | `087_la_barra_de_objetos_como.js` | 3 | `091`:57 · `097`:66 · `225`:216 |
+| `hbRender` | `087_la_barra_de_objetos_como.js` | 3 | `091`:57 · `097`:66 · `225`:217 |
 | `interact` | `042_entrada.js` | 3 | `127`:138 · `168`:44 · `175`:64 |
 | `makePerson` | `009_personas.js` | 3 | `116`:318 · `184`:12 · `186`:80 |
 | `mgPay` | `177_oficios.js` | 3 | `179`:39 · `211`:47 · `213`:108 |
@@ -56,9 +56,9 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `buildAvatar` | `040_caballo.js` | 2 | `101`:52 · `900`:411 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `buildTerrain` | `006_murallas_circuito_de_temistocles_reconstruido.js` | 2 | `161`:26 · `900`:427 |
-| `chooseMode` | `900_creta_y_arranque.js` | 2 | `147`:63 · `225`:220 |
+| `chooseMode` | `900_creta_y_arranque.js` | 2 | `147`:63 · `225`:221 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
-| `drawCompass` | `014_hud.js` | 2 | `218`:27 · `225`:218 |
+| `drawCompass` | `014_hud.js` | 2 | `218`:27 · `225`:219 |
 | `eduReport` | `099_para_aprender_y_ensenar.js` | 2 | `106`:216 · `111`:140 |
 | `egxSetup` | `060_egipto_2.js` | 2 | `140`:98 · `900`:375 |
 | `entablature` | `007_campos_del_atica_y_de.js` | 2 | `182`:12 · `193`:17 |
@@ -150,7 +150,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `buildWalls` | `011_construccion_del_mundo.js` | 1 | `900`:431 |
 | `buildWorld` | `011_construccion_del_mundo.js` | 1 | `900`:442 |
 | `closeDialog` | `015_dialogo.js` | 1 | `080`:145 |
-| `coinEl` | `199_moneda_en_pantalla.js` | 1 | `225`:215 |
+| `coinEl` | `199_moneda_en_pantalla.js` | 1 | `225`:216 |
 | `colsTick` | `?` | 1 | `193`:47 |
 | `cvSetup` | `083_el_camino_del_forastero.js` | 1 | `900`:372 |
 | `cyAct` | `096_la_ciudad_mas_viva.js` | 1 | `097`:102 |
@@ -216,7 +216,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `makeBeast` | `038_esferas_de_sueno.js` | 1 | `198`:25 |
 | `mareShow` | `046_el_caballo.js` | 1 | `900`:383 |
 | `mktSetup` | `058_dias_de_mercado.js` | 1 | `900`:384 |
-| `msgBtn` | `200_el_mensajero.js` | 1 | `225`:217 |
+| `msgBtn` | `200_el_mensajero.js` | 1 | `225`:218 |
 | `mtSetup` | `092_ayuda_sin_llevar_de_la.js` | 1 | `900`:385 |
 | `natSpring` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `102`:84 |
 | `obSay` | `157_llegada.js` | 1 | `160`:18 |
