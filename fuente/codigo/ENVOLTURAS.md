@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-296 funciones ampliadas, 564 capas.
+299 funciones ampliadas, 568 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -76,6 +76,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbSetup` | `087_la_barra_de_objetos_como.js` | 2 | `120`:108 · `900`:379 |
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
+| `leyTick` | `208_portal_de_las_leyendas.js` | 2 | `210`:103 · `237`:74 |
 | `lrnSummary` | `148_aprender.js` | 2 | `151`:41 · `154`:25 |
 | `natAct` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:227 · `097`:89 |
 | `natSetup` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:228 · `900`:386 |
@@ -217,8 +218,10 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `jrSetup` | `079_la_jornada_romana_a_partir.js` | 1 | `900`:381 |
 | `jump` | `042_entrada.js` | 1 | `174`:28 |
 | `ldRun` | `900_creta_y_arranque.js` | 1 | `161`:22 |
+| `legChoose` | `210_mas_leyendas.js` | 1 | `237`:20 |
+| `legStart` | `210_mas_leyendas.js` | 1 | `237`:92 |
+| `legTouchBtns` | `210_mas_leyendas.js` | 1 | `237`:71 |
 | `leySfx` | `208_portal_de_las_leyendas.js` | 1 | `211`:49 |
-| `leyTick` | `208_portal_de_las_leyendas.js` | 1 | `210`:103 |
 | `libPlain` | `019_biblioteca.js` | 1 | `167`:45 |
 | `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
 | `loadModels` | `005_modelos_de_blender.js` | 1 | `900`:443 |

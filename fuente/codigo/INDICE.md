@@ -240,4 +240,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `234_propuestas_p7_p10.js` | 146 | PROPUESTAS P7-P10 (22/11): arquitectura de detalle (2), procesiones, talleres de fuentes y la Atenas romana |
 | `235_jugabilidad_6.js` | 118 | JUGABILIDAD (6): diez propuestas más (22/11) |
 | `236_graficos_5.js` | 101 | GRÁFICOS (5): cielo de noche, aves según la estación, luz baja, sombrillas, grafitos y pétalos |
+| `237_diomedes.js` | 107 | DIOMEDES EN EL PORTAL DE LAS LEYENDAS (210) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
