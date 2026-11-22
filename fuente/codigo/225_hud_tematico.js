@@ -11,7 +11,7 @@
 // (los alfabéticos, Α = 1, Β = 2…, eran jonios y Atenas no los usa hasta época helenística); en Roma, los números romanos.
 // El caduceo de los mensajes es de bronce: kerykeion griego, sin alas, con las serpientes en ocho abierto (como en los vasos áticos);
 // en Roma, el caduceo alado de Mercurio. Para volver al HUD de antes: localStorage nostos-hud-clasico = 1.
-const HZ={a:MODE!=='roma',on:false,off:false};
+const HZ={a:true,on:false,off:false};   // el modo se sabe al elegir la época (chooseMode)
 try{HZ.off=localStorage.getItem('nostos-hud-clasico')==='1';}catch(e){}
 const HZ_NS='http:'+'/'+'/www.w3.org/2000/svg';
 function hzURI(svg){return 'url("data:image/svg+xml,'+encodeURIComponent(svg)+'")';}
@@ -143,9 +143,10 @@ const HZ_CAD='<svg class="hzCad" viewBox="-1 -1 54 109" aria-hidden="true"><defs
  '<ellipse cx="20" cy="25" rx="4" ry="2.8" fill="url(#hzBz)"/><ellipse cx="32" cy="25" rx="4" ry="2.8" fill="url(#hzBz)"/></g>'+
  '<circle cx="19" cy="24" r=".9" fill="#1a1008"/><circle cx="33" cy="24" r=".9" fill="#1a1008"/></svg>';
 // --- vientos y números
-const HZ_WIND=HZ.a?{N:'Βορέας',NE:'Καικίας',E:'Ἀπηλιώτης',SE:'Εὖρος',S:'Νότος',SO:'Λίψ',SW:'Λίψ',O:'Ζέφυρος',W:'Ζέφυρος',NO:'Ἀργέστης',NW:'Ἀργέστης'}:
-  {N:'SEPTENTRIO',NE:'AQVILO',E:'SVBSOLANVS',SE:'VOLTVRNVS',S:'AVSTER',SO:'AFRICVS',SW:'AFRICVS',O:'FAVONIVS',W:'FAVONIVS',NO:'CORVS',NW:'CORVS'};
-const HZ_NUM=HZ.a?['Ι','ΙΙ','ΙΙΙ','ΙΙΙΙ','Π','ΠΙ','ΠΙΙ','ΠΙΙΙ','ΠΙΙΙΙ']:['I','II','III','IV','V','VI','VII','VIII','IX'];
+const HZ_WINDS=[{N:'Βορέας',NE:'Καικίας',E:'Ἀπηλιώτης',SE:'Εὖρος',S:'Νότος',SO:'Λίψ',SW:'Λίψ',O:'Ζέφυρος',W:'Ζέφυρος',NO:'Ἀργέστης',NW:'Ἀργέστης'},
+  {N:'SEPTENTRIO',NE:'AQVILO',E:'SVBSOLANVS',SE:'VOLTVRNVS',S:'AVSTER',SO:'AFRICVS',SW:'AFRICVS',O:'FAVONIVS',W:'FAVONIVS',NO:'CORVS',NW:'CORVS'}];
+const HZ_NUMS=[['Ι','ΙΙ','ΙΙΙ','ΙΙΙΙ','Π','ΠΙ','ΠΙΙ','ΠΙΙΙ','ΠΙΙΙΙ'],['I','II','III','IV','V','VI','VII','VIII','IX']];
+let HZ_WIND=HZ_WINDS[0],HZ_NUM=HZ_NUMS[0];
 // --- cada pieza que cambia de tamaño se repinta a su tamaño exacto
 function hzFit(el,gen){if(!el||el._hzG)return;el._hzG=gen;const go=()=>{const w=Math.round(el.offsetWidth),h=Math.round(el.offsetHeight);if(w<8||h<8)return;const k=w+'x'+h;if(el._hzK===k)return;el._hzK=k;
   try{el.style.backgroundImage=hzURI(gen(w,h));}catch(e){}};go();if(window.ResizeObserver)new ResizeObserver(go).observe(el);}
@@ -195,11 +196,12 @@ function hzCSS(){if($('hzCSS'))return;const A=HZ.a,s=document.createElement('sty
   'body.hz #prompt kbd{margin:0;min-width:30px;height:30px;box-sizing:border-box;padding:0 9px;display:inline-flex;align-items:center;justify-content:center;font:700 1rem var(--f-display);text-shadow:0 0 2px rgba(255,246,230,.7);'+
    (A?'border-radius:999px;color:#140d08;background:var(--hzNoise),radial-gradient(circle at 38% 32%,#e59a62,#c46632 65%,#93481c);box-shadow:0 0 0 2.5px #140d08,inset 0 -2px 3px rgba(0,0,0,.3)':
       'border-radius:0;color:#2a1a0a;background:var(--hzNoise),linear-gradient(135deg,#e8d08e,#b58a32 55%,#8a6420);box-shadow:0 0 0 2px #1a120d,inset 0 -2px 3px rgba(0,0,0,.25)')+'}'+
+  'body.hz #coinHud{background-color:transparent;border-left:none;border-radius:0;background-repeat:no-repeat;background-size:100% 100%;padding:7px 20px 7px 9px;color:'+ac+';text-shadow:'+H+'}body.hz #coinHud small{color:'+ac2+'}'+
   'body.hz #msgBtn{height:82px}body.hz #msgBtn svg.hzCad{width:'+(A?30:38)+'px;height:76px}'+
   'body.hz.tm #msgBtn{height:66px}body.hz.tm #msgBtn svg.hzCad{width:'+(A?24:30)+'px;height:60px}'+
   'body.hz #msgBtn .dot{background:#c4422a;box-shadow:0 0 0 2px #140d08;top:0;right:-8px}';
   document.head.appendChild(s);}
-function hzInit(){if(HZ.on||HZ.off||!document.body)return;HZ.on=true;const A=HZ.a,b=document.body;b.classList.add('hz',A?'hzA':'hzR');hzCSS();
+function hzInit(){if(HZ.on||HZ.off||!document.body)return;HZ.on=true;HZ.a=MODE!=='roma';HZ_WIND=HZ_WINDS[HZ.a?0:1];HZ_NUM=HZ_NUMS[HZ.a?0:1];const A=HZ.a,b=document.body;b.classList.add('hz',A?'hzA':'hzR');hzCSS();
   const v=(k,svg)=>b.style.setProperty(k,hzURI(svg));
   v('--hzMed',A?hzMedalA(48):hzMedalR(48));v('--hzSlot',A?hzMedalA(48):hzSlotR(48));v('--hzSel',A?hzSelA(48):hzSelR(48));
   v('--hzMini',A?hzMiniA(188):hzMiniR(188));v('--hzPill',A?hzPanelA(140,40,{r:16}):hzPanelR(140,40,{ix:4}));v('--hzNoise',HZ_NOISE);
@@ -210,8 +212,9 @@ function hzInit(){if(HZ.on||HZ.off||!document.body)return;HZ.on=true;const A=HZ.
 function hzBar(){const b=$('hbar');if(!b)return;hzFit(b,HZ.a?(w,h)=>hzPanelA(w,h,{top:1,vol:w>h,r:h/2>22?22:h/2}):hzBarR);
   const ks=b.querySelectorAll('.s .k');if(ks.length&&ks[0].textContent!==HZ_NUM[0])ks.forEach((k,i)=>{if(HZ_NUM[i])k.textContent=HZ_NUM[i];});}
 function hzCad(b){if(b._hz)return;const s=b.querySelector('svg');if(!s)return;b._hz=1;s.outerHTML=HZ.a?HZ_KER:HZ_CAD;}
+{const f=coinEl;coinEl=function(){const d=f.apply(this,arguments);if(HZ.on&&d)try{hzFit(d,HZ.a?(w,h)=>hzPanelA(w,h,{r:h/2-5}):(w,h)=>hzPanelR(w,h,{ix:4}));}catch(e){}return d;};}
 {const f=hbRender;hbRender=function(){const r=f.apply(this,arguments);if(HZ.on)try{hzBar();}catch(e){}return r;};}
 {const f=msgBtn;msgBtn=function(){const b=f.apply(this,arguments);if(HZ.on&&b)try{hzCad(b);}catch(e){}return b;};}
 {const f=drawCompass;drawCompass=function(){const r=f.apply(this,arguments);if(HZ.on)try{const el=$('compass');for(const c of el.children){if(!c.classList.contains('c')||c.classList.contains('obj')||c.childElementCount)continue;
   const t=c.textContent,n=HZ_WIND[t];if(n)c.innerHTML=n+'<small>'+t+'</small>';}}catch(e){}return r;};}
-if(document.body)hzInit();else addEventListener('DOMContentLoaded',hzInit);
+{const f=chooseMode;chooseMode=function(){const r=f.apply(this,arguments);try{hzInit();}catch(e){}return r;};}
