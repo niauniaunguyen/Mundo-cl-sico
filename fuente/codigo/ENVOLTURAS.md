@@ -7,14 +7,14 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-305 funciones ampliadas, 580 capas.
+310 funciones ampliadas, 587 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 60 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:84 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:68 · `184`:62 · `184`:84 · `186`:119 · `186`:154 · `186`:176 · `196`:38 · `196`:48 · `196`:88 · `198`:60 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:25 · `208`:148 · `208`:207 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:130 · `215`:50 · `216`:155 · `217`:91 · `218`:72 · `218`:83 · `219`:81 · `220`:35 · `222`:65 |
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
-| `gfTick` | `062_game_feel.js` | 12 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:76 |
-| `gmDo` | `068_menu_del_juego.js` | 12 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:105 · `223`:18 · `227`:144 · `230`:96 · `232`:63 · `235`:113 |
+| `gfTick` | `062_game_feel.js` | 14 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:76 · `242`:39 |
+| `gmDo` | `068_menu_del_juego.js` | 12 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:105 · `223`:18 · `227`:148 · `230`:96 · `232`:63 · `235`:113 |
 | `atCands` | `085_mirar_con_atencion.js` | 11 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:127 · `218`:49 |
 | `openDialog` | `015_dialogo.js` | 9 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 · `235`:104 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
@@ -117,6 +117,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `athensDecor` | `034_atenas.js` | 1 | `900`:407 |
 | `atPick` | `085_mirar_con_atencion.js` | 1 | `127`:85 |
 | `atUpdate` | `085_mirar_con_atencion.js` | 1 | `100`:141 |
+| `birdMesh` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `242`:22 |
 | `boatExit` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:500 |
 | `boatTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:499 |
 | `bpCrowds` | `196_multitudes_con_modelos.js` | 1 | `196`:46 |
@@ -193,6 +194,8 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `fxJournal` | `053_forastero_a.js` | 1 | `083`:37 |
 | `fxRostral` | `173_arreglos_video.js` | 1 | `173`:38 |
 | `g4Grade` | `231_graficos_4.js` | 1 | `232`:66 |
+| `g5Sparrow` | `236_graficos_5.js` | 1 | `242`:37 |
+| `g5Tick` | `236_graficos_5.js` | 1 | `242`:38 |
 | `gateTravel` | `012_escenarios_cuadrados.js` | 1 | `091`:36 |
 | `gmRender` | `068_menu_del_juego.js` | 1 | `134`:44 |
 | `grTick` | `156_hierba.js` | 1 | `156`:82 |
@@ -272,7 +275,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `showArticle` | `019_biblioteca.js` | 1 | `167`:46 |
 | `spAct` | `088_los_espiritus.js` | 1 | `150`:20 |
 | `spSetup` | `088_los_espiritus.js` | 1 | `900`:396 |
-| `startGame` | `900_creta_y_arranque.js` | 1 | `227`:142 |
+| `startGame` | `900_creta_y_arranque.js` | 1 | `227`:145 |
 | `startQuiz` | `015_dialogo.js` | 1 | `087`:74 |
 | `startStory` | `044_modo_historia.js` | 1 | `111`:137 |
 | `stKind` | `186_caras_cuerpos_y_estatuas.js` | 1 | `218`:8 |
@@ -316,3 +319,5 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `windTick` | `064_game_feel_2.js` | 1 | `214`:58 |
 | `wxBolt` | `090_el_tiempo.js` | 1 | `129`:36 |
 | `wxPick` | `090_el_tiempo.js` | 1 | `098`:80 |
+| `x3Gulls` | `217_graficos_3.js` | 1 | `242`:35 |
+| `x3PigTick` | `217_graficos_3.js` | 1 | `242`:30 |

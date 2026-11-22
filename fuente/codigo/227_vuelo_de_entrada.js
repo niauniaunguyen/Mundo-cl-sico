@@ -9,7 +9,7 @@
 const VUELO={on:false,ph:'',t:0,T:0,pts:null,bird:null,el:null,after:[],cam:null,q0:null,p0:null,wind:null,flapT:0,left:0,seen:false,title:false};
 function vueloOff(){try{return localStorage.getItem('nostos-vuelo-off')==='1';}catch(e){return false;}}
 function vueloOK(){if(vueloOff())return false;const q=location.search+location.hash;if(/vuelo=1/.test(q))return true;if(/debug/.test(location.hash))return false;
-  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return false;}catch(e){}return true;}
+  try{if(localStorage.getItem('nostos-vuelo-off')!=='0'&&matchMedia('(prefers-reduced-motion: reduce)').matches)return false;}catch(e){}return true;}
 // ---- el ave (geometría propia: cuerpo, cabeza, cola y alas en dos tramos que baten o planean)
 function vueloTex(owl,wing){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
   x.fillStyle=owl?'#7a5a3a':'#4a3220';x.fillRect(0,0,128,128);
@@ -139,7 +139,11 @@ addEventListener('keydown',e=>{if(!VUELO.on)return;e.stopPropagation();e.prevent
 // lo que normalmente aparece al empezar (elegir nombre, tutorial…) espera a que acabe el vuelo
 {const f=pjDlg;pjDlg=function(){if(VUELO.on){const a=arguments;VUELO.after.push(()=>pjDlg.apply(this,a));return;}return f.apply(this,arguments);};}
 {const f=tutStart;tutStart=function(){if(VUELO.on){VUELO.after.push(()=>tutStart());return;}return f.apply(this,arguments);};}
-{const f=startGame;startGame=function(){const first=!VUELO.seen;const r=f.apply(this,arguments);if(first&&ui==='play'&&vueloOK()){VUELO.seen=true;let n=0;const go=()=>{if(ui==='play')vueloStart();else if(++n<40)setTimeout(go,100);};setTimeout(go,60);}return r;};}
+// (22/11, vídeo: no se veía) antes solo arrancaba si justo al entrar no había ninguna otra pantalla abierta; ahora espera hasta 20 s a que
+// se pueda jugar, por el bucle del juego y no con temporizadores. Con «reducir el movimiento» del sistema no se muestra, salvo que se
+// haya activado a mano en Esc → Partida → Introducción al entrar.
+{const f=startGame;startGame=function(){const first=!VUELO.seen;const r=f.apply(this,arguments);if(first&&vueloOK()){VUELO.seen=true;VUELO.wait=20;}return r;};}
+{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(VUELO.wait>0){VUELO.wait-=dt;if(ui==='play'&&!VUELO.on){VUELO.wait=0;vueloStart();}}}catch(e){VUELO.wait=0;}return r;};}
 // menú: Esc → Partida → Introducción al entrar (activar o quitar)
 {const f=gmDo;gmDo=function(k){if(k==='vuelo'){const off=!vueloOff();try{localStorage.setItem('nostos-vuelo-off',off?'1':'0');}catch(e){}try{gmClose&&gmClose();}catch(e){}
   setTimeout(()=>toast('<span class="label">Introducción al entrar</span><br>'+(off?'Ya no se mostrará el vuelo del ave al entrar.':'Al entrar verás el vuelo del ave sobre la ciudad.')),300);return;}return f.apply(this,arguments);};}

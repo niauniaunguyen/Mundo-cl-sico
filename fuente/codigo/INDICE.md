@@ -230,7 +230,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `224_caras_propuestas.js` | 18 | LAS 40 CARAS PROPUESTAS, EN EL JUEGO (galería de rostros, 21/11) |
 | `225_hud_tematico.js` | 222 | HUD TEMÁTICO (propuesta 1B del lienzo, «pieza de museo», 22/11) |
 | `226_momentos.js` | 122 | MOMENTOS: QUE LO IMPORTANTE SE NOTE (22/11) |
-| `227_vuelo_de_entrada.js` | 149 | EL VUELO DE ENTRADA (22/11) |
+| `227_vuelo_de_entrada.js` | 153 | EL VUELO DE ENTRADA (22/11) |
 | `228_pies_al_suelo.js` | 48 | PIES AL SUELO (22/11) |
 | `229_jugabilidad_4.js` | 160 | JUGABILIDAD (4): diario de misiones, calendario, discursos y cargos (22/11) |
 | `230_jugabilidad_5.js` | 100 | JUGABILIDAD (5): música, trofeos, acertijos, compañía, giros y sesión de clase (22/11) |
@@ -245,4 +245,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `239_archivo_suelto.js` | 13 | JUGAR DESDE EL ARCHIVO SUELTO (atenas_un_archivo.html, con doble clic) |
 | `240_minotauro_y_portales.js` | 78 | EL MINOTAURO ABRE LOS PORTALES DE LEYENDA (22/11) |
 | `241_ropa_sin_cruces.js` | 15 | ROPA SIN CRUCES (vídeo del 22/11: Lisicles, el arriero) |
+| `242_aves_nuevas.js` | 40 | AVES NUEVAS (vídeo del 22/11: «modelos antiguos, sobre todo de animales») |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

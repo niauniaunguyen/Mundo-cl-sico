@@ -12,7 +12,7 @@
 // ---- 1. aves
 const AV={tpl:null,loading:false};
 function avLoad(){if(AV.loading||AV.tpl||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;AV.loading=true;
-  bpBytes('glbav').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};for(const k of['mochuelo','aguila']){const o=gl.scene.getObjectByName(k);if(o)T[k]=o;}
+  bpBytes('glbav').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};for(const k of['mochuelo','aguila','paloma','gaviota','gorrion']){const o=gl.scene.getObjectByName(k);if(o)T[k]=o;}
     gl.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;if(o.material){o.material.side=THREE.DoubleSide;if(o.material.roughness!==undefined)o.material.roughness=0.9;}}});AV.tpl=T;},e=>console.warn('aves',e));}).catch(e=>console.warn('aves',e));}
 {const f=chooseMode;chooseMode=function(){const r=f.apply(this,arguments);try{setTimeout(avLoad,1500);}catch(e){}return r;};}
 {const f=vueloBird;vueloBird=function(owl){const T=AV.tpl&&AV.tpl[owl?'mochuelo':'aguila'];if(!T)return f.apply(this,arguments);const g=T.clone(true),n=owl?'mochuelo':'aguila';

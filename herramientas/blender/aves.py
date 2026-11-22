@@ -152,7 +152,86 @@ def eagle():
         finish('aguila_a%s2' % nm, bm, lambda v: eag_col(v, 'ala2'), loc=(s * 0.42, 0, 0), parent=a1, flat=True)
     return root
 
-o = owl(); e = eagle(); e.location.x = 2.0
+# ------------------------------------------------------------------ aves de la ciudad y de la costa (22/11: sustituyen a las figuras de bolas)
+#   paloma bravía (Columba livia): 32 cm de largo, 65 cm de envergadura; gris azulado, cuello verde y violeta, dos franjas negras en el ala,
+#     banda oscura al final de la cola. Ya vivía en los templos y las plazas (Aristóteles, Historia de los animales; las palomas de Afrodita).
+#   gaviota patiamarilla (Larus michahellis), la del Mediterráneo: 58 cm, 1,4 m de envergadura; blanca, manto gris, puntas negras con
+#     motas blancas, pico amarillo con una mancha roja.
+#   gorrión común (Passer domesticus): 15 cm, 23 cm de envergadura; dorso pardo listado de negro, píleo gris, mejillas claras, babero negro.
+# Las tres llevan las mismas piezas que el mochuelo (cuerpo, cabeza, cola y dos tramos por ala); el juego pliega las alas cuando se posan.
+def small_bird(name, L, span, col, beak_col, beak_len, head_r, tail_len, tail_w, wing_tip='round'):
+    root = bpy.data.objects.new(name, None); SC.collection.objects.link(root)
+    bw = L * 0.2; bl = L * 0.42
+    bm = bmesh.new(); ellipsoid(bm, (0, 0, 0), (bw, bl, bw * 0.95), seg=22, ring=14,
+                                deform=lambda p: Vector((p.x * (1 - 0.35 * max(0, p.y) / bl), p.y, p.z * (1 - 0.25 * max(0, p.y) / bl) + 0.15 * bw * max(0, -p.y) / bl)))
+    finish(name + '_cuerpo', bm, lambda v: col(v, 'cuerpo'), parent=root)
+    bm = bmesh.new(); ellipsoid(bm, (0, 0, 0), (head_r, head_r * 1.1, head_r), seg=18, ring=12)
+    for s in (-1, 1): ellipsoid(bm, (s * head_r * 0.72, -head_r * 0.45, head_r * 0.22), (head_r * 0.16, head_r * 0.12, head_r * 0.16), seg=8, ring=5)
+    cone(bm, (0, -head_r * 0.9, -head_r * 0.05), (0, -head_r * 0.9 - beak_len, -head_r * 0.22), head_r * 0.3)
+    def hc(v):
+        if v.y < -head_r * 0.92: return beak_col(v)
+        if abs(v.x) > head_r * 0.6 and v.y < -head_r * 0.3 and v.z > head_r * 0.05: return Vector((0.05, 0.04, 0.03))
+        return col(v, 'cabeza')
+    finish(name + '_cabeza', bm, hc, loc=(0, -bl * 0.95, bw * 0.55), parent=root)
+    bm = bmesh.new(); slab(bm, [(-tail_w * 0.4, 0), (tail_w * 0.4, 0), (tail_w * 0.5, tail_len), (0, tail_len * 1.04), (-tail_w * 0.5, tail_len)], th=L * 0.012)
+    finish(name + '_cola', bm, lambda v: col(v, 'cola'), loc=(0, bl * 0.8, bw * 0.15), parent=root, flat=True)
+    a = span / 2 - bw; c = L * 0.42   # largo de cada ala y cuerda
+    inner = [(0, -c * 0.45), (a * 0.45, -c * 0.5), (a * 0.48, c * 0.5), (0, c * 0.45)]
+    if wing_tip == 'pointed':   # gaviota: mano larga y estrecha
+        outer = [(0, -c * 0.48), (a * 0.3, -c * 0.4), (a * 0.55, -c * 0.1), (a * 0.58, c * 0.05), (a * 0.35, c * 0.35), (0, c * 0.48)]
+    else:
+        outer = [(0, -c * 0.48), (a * 0.3, -c * 0.42), (a * 0.5, -c * 0.2), (a * 0.56, c * 0.1), (a * 0.45, c * 0.38), (0, c * 0.5)]
+    for s, nm in ((-1, 'I'), (1, 'D')):
+        bm = bmesh.new(); slab(bm, [(s * x, y) for x, y in inner], th=L * 0.014, camber=L * 0.03, span=s * a * 0.48)
+        a1 = finish(name + '_a%s1' % nm, bm, lambda v: col(v, 'ala1'), loc=(s * bw * 0.7, -bl * 0.2, bw * 0.45), parent=root, flat=True)
+        bm = bmesh.new(); slab(bm, [(s * x, y) for x, y in outer], th=L * 0.01, camber=L * 0.015, span=s * a * 0.58)
+        finish(name + '_a%s2' % nm, bm, lambda v: col(v, 'ala2'), loc=(s * a * 0.46, 0, 0), parent=a1, flat=True)
+    return root
+
+def dove_col(v, part):
+    grey = Vector((0.55, 0.58, 0.65)); light = Vector((0.68, 0.7, 0.76)); dark = Vector((0.12, 0.12, 0.14))
+    if part == 'cabeza': return grey.lerp(Vector((0.42, 0.45, 0.52)), 0.4)
+    if part == 'cuerpo':
+        if v.y < -0.06 and v.z > -0.01: return Vector((0.28, 0.45, 0.38)) if math.sin(v.x * 90) > 0 else Vector((0.45, 0.32, 0.5))   # cuello irisado
+        return light if v.z > 0 else grey
+    if part == 'cola': return dark if v.y > 0.08 else grey
+    if part == 'ala1':
+        band = abs(v.y - 0.01) < 0.012 or abs(v.y - 0.04) < 0.012   # las dos franjas negras
+        return dark if band and abs(v.x) > 0.05 else light
+    if part == 'ala2': return Vector((0.25, 0.26, 0.3)) if abs(v.x) > 0.11 else grey
+    return grey
+
+def gull_col(v, part):
+    white = Vector((0.95, 0.95, 0.93)); mantle = Vector((0.62, 0.65, 0.7)); black = Vector((0.06, 0.06, 0.07))
+    if part in ('cabeza', 'cuerpo'): return white
+    if part == 'cola': return white
+    if part == 'ala1': return mantle if v.z >= -0.001 else white
+    if part == 'ala2':
+        if abs(v.x) > 0.24: return white if (h(round(v.x * 60), round(v.y * 60)) > 0.85) else black   # puntas negras con «espejos» blancos
+        return mantle
+    return white
+
+def sparrow_col(v, part):
+    brown = Vector((0.5, 0.34, 0.2)); dark = Vector((0.13, 0.09, 0.06)); buff = Vector((0.78, 0.7, 0.58)); greyc = Vector((0.5, 0.5, 0.52))
+    n = h(round(v.x * 150), round(v.y * 150), round(v.z * 150))
+    if part == 'cabeza':
+        if v.z > 0.008: return greyc   # píleo gris
+        if v.z < -0.004 and abs(v.x) < 0.008: return dark   # babero
+        return Vector((0.85, 0.82, 0.76))   # mejillas
+    if part == 'cuerpo':
+        if v.z < 0: return buff.lerp(Vector((0.7, 0.7, 0.68)), 0.5)
+        if v.y < -0.03 and v.z < 0.01 and abs(v.x) < 0.01: return dark
+        return dark if n > 0.72 else brown
+    if part in ('ala1', 'ala2'): return dark if n > 0.6 else (buff if n < 0.12 else brown)
+    if part == 'cola': return Vector((0.3, 0.22, 0.15))
+    return brown
+
+birds = [owl(), eagle(),
+         small_bird('paloma', 0.32, 0.66, dove_col, lambda v: Vector((0.25, 0.22, 0.22)), 0.018, 0.034, 0.12, 0.09),
+         small_bird('gaviota', 0.58, 1.4, gull_col, lambda v: Vector((0.85, 0.12, 0.08)) if v.z < -0.02 else Vector((0.95, 0.8, 0.15)), 0.05, 0.05, 0.16, 0.14, wing_tip='pointed'),
+         small_bird('gorrion', 0.15, 0.23, sparrow_col, lambda v: Vector((0.2, 0.17, 0.14)), 0.011, 0.02, 0.055, 0.05)]
+for i, b in enumerate(birds): b.location.x = 2.0 * i
+o, e = birds[0], birds[1]
 tri = sum(sum(len(p.vertices) - 2 for p in ob.data.polygons) for ob in SC.objects if ob.type == 'MESH')
 print('AVES triángulos', tri)
 if PREV:
@@ -161,11 +240,23 @@ if PREV:
     w = bpy.data.worlds.new('w'); SC.world = w; w.use_nodes = True; w.node_tree.nodes['Background'].inputs[0].default_value = (0.55, 0.62, 0.7, 1); w.node_tree.nodes['Background'].inputs[1].default_value = 0.6
     sun = bpy.data.objects.new('sol', bpy.data.lights.new('sol', 'SUN')); SC.collection.objects.link(sun); sun.rotation_euler = (0.6, 0.3, 0.8); sun.data.energy = 2.5
     cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); SC.collection.objects.link(cam); SC.camera = cam
-    for nm, ox, d in (('mochuelo', 0.0, 0.9), ('aguila', 2.0, 3.2)):
+    for nm, ox, d in (('mochuelo', 0.0, 0.9), ('aguila', 2.0, 3.2), ('paloma', 4.0, 1.1), ('gaviota', 6.0, 2.2), ('gorrion', 8.0, 0.55)):
         tgt = Vector((ox, -0.05, 0)); cam.location = tgt + Vector((0.35 * d, 0.85 * d, 0.62 * d))
         cam.rotation_euler = (tgt - cam.location).to_track_quat('-Z', 'Y').to_euler()
         SC.render.filepath = PREV.replace('.png', '_' + nm + '.png'); bpy.ops.render.render(write_still=True)
-e.location.x = 0.0
+    # posada (alas plegadas como hará el juego: el brazo gira hacia atrás sobre el eje vertical y la mano se pliega)
+    for b in birds[2:]:
+        for s, nm in ((-1, 'I'), (1, 'D')):
+            a1 = bpy.data.objects[b.name + '_a%s1' % nm]; a2 = bpy.data.objects[b.name + '_a%s2' % nm]
+            a1.rotation_euler = (0, 0, s * 1.45); a2.rotation_euler = (0, 0, s * 0.12)
+    for nm, ox, d in (('paloma', 4.0, 1.1), ('gorrion', 8.0, 0.55)):
+        tgt = Vector((ox, -0.05, 0)); cam.location = tgt + Vector((0.35 * d, 0.85 * d, 0.62 * d))
+        cam.rotation_euler = (tgt - cam.location).to_track_quat('-Z', 'Y').to_euler()
+        SC.render.filepath = PREV.replace('.png', '_' + nm + '_posada.png'); bpy.ops.render.render(write_still=True)
+    for b in birds[2:]:
+        for s, nm in ((-1, 'I'), (1, 'D')):
+            bpy.data.objects[b.name + '_a%s1' % nm].rotation_euler = (0, 0, 0); bpy.data.objects[b.name + '_a%s2' % nm].rotation_euler = (0, 0, 0)
+for b in birds: b.location.x = 0.0
 bpy.ops.object.select_all(action='DESELECT')
 bpy.ops.export_scene.gltf(filepath=OUT, export_format='GLB', export_apply=True, export_yup=True, export_vertex_color='MATERIAL')
 print('AVES', OUT, os.path.getsize(OUT))
