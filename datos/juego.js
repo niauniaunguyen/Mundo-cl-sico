@@ -22731,7 +22731,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='dd879d02363b';
+const NOSTOS_VER='a34561f9cba4';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -33711,10 +33711,12 @@ function faseHTML(f){const L=FASE_SUG[MODE==='roma'?'roma':'atenas'][f];return '
 X4_TABS.fase={n:'Tu fase',h:()=>faseHTML(faseNow())};
 // el mensaje de Hermes al cambiar de fase (en partidas ya empezadas, la primera vez solo se anota la fase, sin mensaje)
 const FS={t:0};
-function faseTick(dt){if(!state||ui!=='play')return;FS.t-=dt;if(FS.t>0)return;FS.t=2;const f=faseNow();if(state.fase===undefined){state.fase=f;save();return;}if(f<=state.fase)return;
-  state.fase=f;save();const ro=MODE==='roma',H=ro?_t(4615,'Mercurio'):_t(4255,'Hermes');
-  try{momento('chapter',FASES[f].n,'Fase '+(f+1)+' de 4 de tu viaje');}catch(e){}
-  setTimeout(()=>{if(ui!=='play')return;try{vmS('☤',H,'Un mensaje para ti','<p>«Te traigo noticias: '+(f===3?'has vuelto a tu casa, pero el camino no se acaba aquí.':f===2?'ya vives aquí como uno más. Ahora toca preparar el regreso.':'ya te mueves con soltura. El mundo se abre más allá de la ciudad.')+'»</p>'+faseHTML(f),[['Gracias, '+H,()=>closeDialog(),'quiz']]);}catch(e){}},2600);}
+function faseTick(dt){if(!state)return;FS.t-=dt;if(FS.t>0)return;FS.t=2;const f=faseNow();if(state.fase===undefined){state.fase=f;save();return;}
+  if(f>state.fase){state.fase=f;state.faseMsg=f;FS.wait=2;save();try{momento('chapter',FASES[f].n,'Fase '+(f+1)+' de 4 de tu viaje');}catch(e){}return;}
+  // el mensaje espera a que estés jugando (sin diálogos abiertos); si cerraste el juego antes, sale al volver
+  if(state.faseMsg!==undefined&&ui==='play'){if((FS.wait=(FS.wait||0)-2)>0)return;const k=state.faseMsg;delete state.faseMsg;save();faseMsg(k);}}
+function faseMsg(f){const ro=MODE==='roma',H=ro?_t(4615,'Mercurio'):_t(4255,'Hermes');
+  try{vmS('☤',H,'Un mensaje para ti','<p>«Te traigo noticias: '+(f===3?'has vuelto a tu casa, pero el camino no se acaba aquí.':f===2?'ya vives aquí como uno más. Ahora toca preparar el regreso.':'ya te mueves con soltura. El mundo se abre más allá de la ciudad.')+'»</p>'+faseHTML(f),[['Gracias, '+H,()=>closeDialog(),'quiz']]);}catch(e){}}
 {const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{faseTick(dt);}catch(e){}return r;};}
 // «Tu viaje» (menú) dice en qué fase estás
 {const f=viajeHTML;viajeHTML=function(){const h=f.apply(this,arguments);try{const k=faseNow();return h.replace('<b>Tu viaje</b>','<b>Tu viaje</b> · fase '+(k+1)+' de 4: <b>'+FASES[k].n+'</b>');}catch(e){return h;}};}

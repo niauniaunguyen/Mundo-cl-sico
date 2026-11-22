@@ -24,10 +24,12 @@ function faseHTML(f){const L=FASE_SUG[MODE==='roma'?'roma':'atenas'][f];return '
 X4_TABS.fase={n:'Tu fase',h:()=>faseHTML(faseNow())};
 // el mensaje de Hermes al cambiar de fase (en partidas ya empezadas, la primera vez solo se anota la fase, sin mensaje)
 const FS={t:0};
-function faseTick(dt){if(!state||ui!=='play')return;FS.t-=dt;if(FS.t>0)return;FS.t=2;const f=faseNow();if(state.fase===undefined){state.fase=f;save();return;}if(f<=state.fase)return;
-  state.fase=f;save();const ro=MODE==='roma',H=ro?'Mercurio':'Hermes';
-  try{momento('chapter',FASES[f].n,'Fase '+(f+1)+' de 4 de tu viaje');}catch(e){}
-  setTimeout(()=>{if(ui!=='play')return;try{vmS('☤',H,'Un mensaje para ti','<p>«Te traigo noticias: '+(f===3?'has vuelto a tu casa, pero el camino no se acaba aquí.':f===2?'ya vives aquí como uno más. Ahora toca preparar el regreso.':'ya te mueves con soltura. El mundo se abre más allá de la ciudad.')+'»</p>'+faseHTML(f),[['Gracias, '+H,()=>closeDialog(),'quiz']]);}catch(e){}},2600);}
+function faseTick(dt){if(!state)return;FS.t-=dt;if(FS.t>0)return;FS.t=2;const f=faseNow();if(state.fase===undefined){state.fase=f;save();return;}
+  if(f>state.fase){state.fase=f;state.faseMsg=f;FS.wait=2;save();try{momento('chapter',FASES[f].n,'Fase '+(f+1)+' de 4 de tu viaje');}catch(e){}return;}
+  // el mensaje espera a que estés jugando (sin diálogos abiertos); si cerraste el juego antes, sale al volver
+  if(state.faseMsg!==undefined&&ui==='play'){if((FS.wait=(FS.wait||0)-2)>0)return;const k=state.faseMsg;delete state.faseMsg;save();faseMsg(k);}}
+function faseMsg(f){const ro=MODE==='roma',H=ro?'Mercurio':'Hermes';
+  try{vmS('☤',H,'Un mensaje para ti','<p>«Te traigo noticias: '+(f===3?'has vuelto a tu casa, pero el camino no se acaba aquí.':f===2?'ya vives aquí como uno más. Ahora toca preparar el regreso.':'ya te mueves con soltura. El mundo se abre más allá de la ciudad.')+'»</p>'+faseHTML(f),[['Gracias, '+H,()=>closeDialog(),'quiz']]);}catch(e){}}
 {const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{faseTick(dt);}catch(e){}return r;};}
 // «Tu viaje» (menú) dice en qué fase estás
 {const f=viajeHTML;viajeHTML=function(){const h=f.apply(this,arguments);try{const k=faseNow();return h.replace('<b>Tu viaje</b>','<b>Tu viaje</b> · fase '+(k+1)+' de 4: <b>'+FASES[k].n+'</b>');}catch(e){return h;}};}

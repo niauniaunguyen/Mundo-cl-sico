@@ -241,5 +241,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `235_jugabilidad_6.js` | 118 | JUGABILIDAD (6): diez propuestas más (22/11) |
 | `236_graficos_5.js` | 101 | GRÁFICOS (5): cielo de noche, aves según la estación, luz baja, sombrillas, grafitos y pétalos |
 | `237_diomedes.js` | 107 | DIOMEDES EN EL PORTAL DE LAS LEYENDAS (210) |
-| `238_fases.js` | 34 | LAS FASES DEL JUEGO (acordadas el 22/11; ver fuente/FASES.md) |
+| `238_fases.js` | 36 | LAS FASES DEL JUEGO (acordadas el 22/11; ver fuente/FASES.md) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
