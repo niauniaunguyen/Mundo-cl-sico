@@ -223,7 +223,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `217_graficos_3.js` | 96 | GRÁFICOS (3): mar con rompientes, suelo mojado, caras que hablan, telas al viento, |
 | `218_correcciones_video_21_11.js` | 90 | CORRECCIONES DEL VÍDEO DE PRUEBA (21/11): personajes |
 | `219_prueba_de_rendimiento.js` | 84 | PRUEBA DE RENDIMIENTO (Esc → Partida → Prueba de rendimiento) |
-| `220_cazar_fallos.js` | 105 | CAZAR FALLOS EN EL ORDENADOR DE QUIEN JUEGA (Esc → Partida → Cazar fallos) |
+| `220_cazar_fallos.js` | 106 | CAZAR FALLOS EN EL ORDENADOR DE QUIEN JUEGA (Esc → Partida → Cazar fallos) |
 | `221_variedad_de_personajes.js` | 56 | MÁS VARIEDAD EN LA GENTE (vídeo 21/11: «muchos parecen Lisias») |
 | `222_biomas.js` | 66 | BIOMAS POR REGIÓN (auditoría de identidad, 21/11) |
 | `223_jugar_solo.js` | 19 | JUGAR SOLO (para grabar): el juego se juega en automático, a ×1 o ×2 |

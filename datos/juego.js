@@ -22731,7 +22731,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='1f14b0065c91';
+const NOSTOS_VER='3fd8f1fa2956';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -31945,9 +31945,10 @@ async function czAudit(n){if(CZ.audit||CZ.bot)return;const D=czDests(),A=czAudLo
 async function czBot(min,quiet){if(CZ.bot||CZ.audit)return;const B=CZ.bot={quiet:!!quiet,t0:performance.now(),dur:(min||10)*60000,tgt:null,lastMv:performance.now(),px:player.x,pz:player.z,nonPlay:0,acts:{andar:0,hablar:0,menus:0,viajes:0,atascos:0},nextMenu:performance.now()+45000,nextTrip:performance.now()+150000};
   const D=czDests(),stop=()=>{keys.w=keys.run=keys.jump=false;};
   try{while(CZ.bot&&performance.now()-B.t0<B.dur){await rndWait(250);const now=performance.now(),P=player;
+      try{const lv=$('lvup');if(lv&&!lv.hidden){const b=lv.querySelector('button');if(b){b.click();continue;}}}catch(e){}
       if(!B.quiet)rndBanner('Jugador automático: '+Math.ceil((B.dur-(now-B.t0))/60000)+' min · '+B.acts.hablar+' conversaciones, '+B.acts.atascos+' atascos<br>Pulsa F9 para pararlo.');
       if(ui!=='play'){stop();B.nonPlay+=250;if(ui==='dialog'){const bs=[...document.querySelectorAll('#dOpts button')];if(bs.length&&Math.random()<0.5&&B.nonPlay<6000)bs[Math.floor(Math.random()*bs.length)].click();else try{closeDialog();}catch(e){}}
-        else{try{if(typeof GM!=='undefined'&&GM.on)gmClose();}catch(e){}if(B.nonPlay>3000){for(const id of['czBox','rndBox'])try{$(id)&&$(id).remove();}catch(e){}try{document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',code:'Escape',bubbles:true}));}catch(e){}}}
+        else{try{if(typeof GM!=='undefined'&&GM.on)gmClose();}catch(e){}if(B.nonPlay>3000){try{document.querySelectorAll('.eduX').forEach(b=>{if(!b.closest('#rndBox'))b.click();});}catch(e){}for(const id of['czBox','rndBox'])try{$(id)&&$(id).remove();}catch(e){}try{document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',code:'Escape',bubbles:true}));}catch(e){}}}
         if(B.nonPlay>20000){czAdd('interfaz','La interfaz no vuelve al juego (ui='+ui+')','ui|'+ui);ui='play';B.nonPlay=0;}continue;}
       B.nonPlay=0;
       if(now>B.nextMenu){B.nextMenu=now+45000+Math.random()*30000;B.acts.menus++;try{gmOpen();await rndWait(1200);gmClose();}catch(e){czAdd('error','menú: '+e.message);}continue;}
@@ -33493,7 +33494,7 @@ X4_TABS.mas={n:'Más',h:()=>'<p><button class="bt" id="x6E">'+(x6z().expl?'Quita
 //     los metecos, Eliano, Historias curiosas VI 1; en Roma el umbraculum, Ovidio, Arte de amar II 209).
 //  V9 Grafitos rayados en las paredes de las casas: en Atenas, «Fulano es bello» (ΚΑΛΟΣ), como en los vasos y en los muros del Ágora;
 //     en Roma, saludos y bromas como los de Pompeya (CIL IV), escritos con letra cursiva.
-//  V10 Pétalos en primavera y hojas secas en otoño que caen cerca de ti.
+//  V10 Pétalos en primavera y hojas secas en otoño que caen cerca de ti (redondeados, pequeños y a poca altura: en el vídeo del 22/11 se veían como cuadrados flotando en el cielo).
 const G5={t:0,on:false,mw:null,sh:null,shT:6,ray:null,mur:null,cr:null,bats:null,sp:[],spT:0,par:new Map(),pet:null,graf:false};
 function g5Mo(){try{return calNow().mo;}catch(e){return 3;}}
 function g5Dot(sz,col){const c=document.createElement('canvas');c.width=c.height=32;const x=c.getContext('2d'),g=x.createRadialGradient(16,16,0,16,16,16);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,32,32);return new THREE.CanvasTexture(c);}
@@ -33540,9 +33541,9 @@ function g5Graffiti(){if(G5.graf||typeof footprints==='undefined')return;G5.graf
         const ca=Math.cos(a),sa=Math.sin(a),wx=f.x+lx*ca+lz*sa,wz=f.z-lx*sa+lz*ca;d.position.set(wx,floorAt(wx,wz)+1.35+g5R(wx,wz)*0.4,wz);d.rotation.set(0,a+ry,0);d.updateMatrix();im.setMatrixAt(i,d.matrix);});
       im.instanceMatrix.needsUpdate=true;scene.add(im);});}
 // ---- V10 pétalos y hojas
-function g5Petals(){const n=90;G5.pet={p:g5Pts(n,0.14,0xffffff,{op:0.95}),v:[...Array(n)].map(()=>({x:0,y:-99,z:0,s:Math.random()*9}))};G5.pet.p.material.vertexColors=true;G5.pet.p.geometry.setAttribute('color',new THREE.BufferAttribute(new Float32Array(n*3),3));}
+function g5Petals(){const n=90;G5.pet={p:g5Pts(n,0.09,0xffffff,{op:0.9,map:g5Dot(0,'rgba(255,255,255,1)')}),v:[...Array(n)].map(()=>({x:0,y:-99,z:0,s:Math.random()*9}))};G5.pet.p.material.vertexColors=true;G5.pet.p.geometry.setAttribute('color',new THREE.BufferAttribute(new Float32Array(n*3),3));}
 function g5PetTick(dt,kind){const P=G5.pet,a=P.p.geometry.attributes.position.array,c=P.p.geometry.attributes.color.array;P.p.visible=!!kind;if(!kind)return;
-  const wx=(typeof WXS!=='undefined'&&WXS.wind||0.3)*0.8+0.2;P.v.forEach((q,i)=>{if(q.y<floorAt(q.x,q.z)||Math.hypot(q.x-player.x,q.z-player.z)>22){const r=Math.random()*20,t=Math.random()*TAU;q.x=player.x+Math.cos(t)*r;q.z=player.z+Math.sin(t)*r;q.y=floorAt(q.x,q.z)+4+Math.random()*6;
+  const wx=(typeof WXS!=='undefined'&&WXS.wind||0.3)*0.8+0.2;P.v.forEach((q,i)=>{if(q.y<floorAt(q.x,q.z)||Math.hypot(q.x-player.x,q.z-player.z)>22){const r=4+Math.random()*16,t=Math.random()*TAU;q.x=player.x+Math.cos(t)*r;q.z=player.z+Math.sin(t)*r;q.y=floorAt(q.x,q.z)+1.5+Math.random()*3.5;
       const col=kind==='p'?(Math.random()<0.5?[1,0.9,0.93]:[1,0.78,0.84]):(Math.random()<0.5?[0.72,0.45,0.18]:[0.6,0.5,0.22]);c[i*3]=col[0];c[i*3+1]=col[1];c[i*3+2]=col[2];}
     q.s+=dt;q.y-=dt*(0.5+0.3*Math.sin(q.s*2));q.x+=dt*(wx+Math.sin(q.s*1.7)*0.6);q.z+=dt*Math.cos(q.s*1.3)*0.5;a[i*3]=q.x;a[i*3+1]=q.y;a[i*3+2]=q.z;});
   P.p.geometry.attributes.position.needsUpdate=true;P.p.geometry.attributes.color.needsUpdate=true;}

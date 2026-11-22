@@ -63,9 +63,10 @@ async function czAudit(n){if(CZ.audit||CZ.bot)return;const D=czDests(),A=czAudLo
 async function czBot(min,quiet){if(CZ.bot||CZ.audit)return;const B=CZ.bot={quiet:!!quiet,t0:performance.now(),dur:(min||10)*60000,tgt:null,lastMv:performance.now(),px:player.x,pz:player.z,nonPlay:0,acts:{andar:0,hablar:0,menus:0,viajes:0,atascos:0},nextMenu:performance.now()+45000,nextTrip:performance.now()+150000};
   const D=czDests(),stop=()=>{keys.w=keys.run=keys.jump=false;};
   try{while(CZ.bot&&performance.now()-B.t0<B.dur){await rndWait(250);const now=performance.now(),P=player;
+      try{const lv=$('lvup');if(lv&&!lv.hidden){const b=lv.querySelector('button');if(b){b.click();continue;}}}catch(e){}
       if(!B.quiet)rndBanner('Jugador automático: '+Math.ceil((B.dur-(now-B.t0))/60000)+' min · '+B.acts.hablar+' conversaciones, '+B.acts.atascos+' atascos<br>Pulsa F9 para pararlo.');
       if(ui!=='play'){stop();B.nonPlay+=250;if(ui==='dialog'){const bs=[...document.querySelectorAll('#dOpts button')];if(bs.length&&Math.random()<0.5&&B.nonPlay<6000)bs[Math.floor(Math.random()*bs.length)].click();else try{closeDialog();}catch(e){}}
-        else{try{if(typeof GM!=='undefined'&&GM.on)gmClose();}catch(e){}if(B.nonPlay>3000){for(const id of['czBox','rndBox'])try{$(id)&&$(id).remove();}catch(e){}try{document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',code:'Escape',bubbles:true}));}catch(e){}}}
+        else{try{if(typeof GM!=='undefined'&&GM.on)gmClose();}catch(e){}if(B.nonPlay>3000){try{document.querySelectorAll('.eduX').forEach(b=>{if(!b.closest('#rndBox'))b.click();});}catch(e){}for(const id of['czBox','rndBox'])try{$(id)&&$(id).remove();}catch(e){}try{document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',code:'Escape',bubbles:true}));}catch(e){}}}
         if(B.nonPlay>20000){czAdd('interfaz','La interfaz no vuelve al juego (ui='+ui+')','ui|'+ui);ui='play';B.nonPlay=0;}continue;}
       B.nonPlay=0;
       if(now>B.nextMenu){B.nextMenu=now+45000+Math.random()*30000;B.acts.menus++;try{gmOpen();await rndWait(1200);gmClose();}catch(e){czAdd('error','menú: '+e.message);}continue;}
