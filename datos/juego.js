@@ -22720,7 +22720,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='352c3ad18acb';
+const NOSTOS_VER='8ed6ac4ffbc0';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -32585,11 +32585,11 @@ function vueloTick(dt){const b=VUELO.bird;if(!b)return;const owl=VUELO.owl,k=owl
     // la cámara del jugador, tal como la ha dejado placeCamera
     const pCam=camera.position.clone(),qCam=camera.quaternion.clone();
     // detrás del ave, un poco por encima; al pasar sobre la ciudad se abre hacia un lado para enseñarla
-    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?2.6:6.5),up=(VUELO.owl?0.9:2.1);
+    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?1.3:4.2),up=(VUELO.owl?0.6:1.9);
     const flat=new THREE.Vector3(fw.x,0,fw.z).normalize(),off=flat.clone().multiplyScalar(-Math.cos(sw)*back).add(side.clone().multiplyScalar(Math.sin(sw)*back));
-    const want=p.clone().add(off).setY(p.y+up),look=p.clone().add(flat.clone().multiplyScalar(VUELO.owl?6:12)).setY(p.y-(VUELO.owl?2.2:4.5));
-    if(!VUELO.cam)VUELO.cam={p:want.clone(),l:look.clone()};const c=VUELO.cam,a=1-Math.exp(-dt*(VUELO.ph==='fly'?6:2));
-    if(VUELO.ph==='fly'){c.p.lerp(want,a);c.l.lerp(look,a);
+    const want=p.clone().add(off).setY(p.y+up),look=p.clone().add(flat.clone().multiplyScalar(VUELO.owl?4:10)).setY(p.y-(VUELO.owl?1.5:3.6));
+    const oW=want.clone().sub(p),lW=look.clone().sub(p);if(!VUELO.cam)VUELO.cam={o:oW.clone(),lo:lW.clone(),p:want.clone(),l:look.clone()};const c=VUELO.cam,a=1-Math.exp(-dt*4);
+    if(VUELO.ph==='fly'){c.o.lerp(oW,a);c.lo.lerp(lW,a);c.p.copy(p).add(c.o);c.l.copy(p).add(c.lo);
       if(!VUELO.title&&VUELO.s>VUELO.pts.sC*0.35){VUELO.title=true;const tt=VUELO.el&&VUELO.el.querySelector('.ttl');if(tt){tt.classList.add('on');setTimeout(()=>tt.classList.remove('on'),4200);}try{rwChord();}catch(e){}}
       if(VUELO.s>=VUELO.sDet){VUELO.ph='land';VUELO.t2=0;VUELO.fromP=c.p.clone();VUELO.fromQ=vueloLook(c.p,c.l);}
       const fl=floorAt(c.p.x,c.p.z)+2;if(c.p.y<fl)c.p.y=fl;camera.position.copy(c.p);camera.quaternion.copy(vueloLook(c.p,c.l));}

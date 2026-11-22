@@ -113,11 +113,11 @@ function vueloTick(dt){const b=VUELO.bird;if(!b)return;const owl=VUELO.owl,k=owl
     // la cámara del jugador, tal como la ha dejado placeCamera
     const pCam=camera.position.clone(),qCam=camera.quaternion.clone();
     // detrás del ave, un poco por encima; al pasar sobre la ciudad se abre hacia un lado para enseñarla
-    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?2.6:6.5),up=(VUELO.owl?0.9:2.1);
+    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?1.3:4.2),up=(VUELO.owl?0.6:1.9);
     const flat=new THREE.Vector3(fw.x,0,fw.z).normalize(),off=flat.clone().multiplyScalar(-Math.cos(sw)*back).add(side.clone().multiplyScalar(Math.sin(sw)*back));
-    const want=p.clone().add(off).setY(p.y+up),look=p.clone().add(flat.clone().multiplyScalar(VUELO.owl?6:12)).setY(p.y-(VUELO.owl?2.2:4.5));
-    if(!VUELO.cam)VUELO.cam={p:want.clone(),l:look.clone()};const c=VUELO.cam,a=1-Math.exp(-dt*(VUELO.ph==='fly'?6:2));
-    if(VUELO.ph==='fly'){c.p.lerp(want,a);c.l.lerp(look,a);
+    const want=p.clone().add(off).setY(p.y+up),look=p.clone().add(flat.clone().multiplyScalar(VUELO.owl?4:10)).setY(p.y-(VUELO.owl?1.5:3.6));
+    const oW=want.clone().sub(p),lW=look.clone().sub(p);if(!VUELO.cam)VUELO.cam={o:oW.clone(),lo:lW.clone(),p:want.clone(),l:look.clone()};const c=VUELO.cam,a=1-Math.exp(-dt*4);
+    if(VUELO.ph==='fly'){c.o.lerp(oW,a);c.lo.lerp(lW,a);c.p.copy(p).add(c.o);c.l.copy(p).add(c.lo);
       if(!VUELO.title&&VUELO.s>VUELO.pts.sC*0.35){VUELO.title=true;const tt=VUELO.el&&VUELO.el.querySelector('.ttl');if(tt){tt.classList.add('on');setTimeout(()=>tt.classList.remove('on'),4200);}try{rwChord();}catch(e){}}
       if(VUELO.s>=VUELO.sDet){VUELO.ph='land';VUELO.t2=0;VUELO.fromP=c.p.clone();VUELO.fromQ=vueloLook(c.p,c.l);}
       const fl=floorAt(c.p.x,c.p.z)+2;if(c.p.y<fl)c.p.y=fl;camera.position.copy(c.p);camera.quaternion.copy(vueloLook(c.p,c.l));}
