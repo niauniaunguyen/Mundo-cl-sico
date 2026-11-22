@@ -24,7 +24,7 @@ function varRnd(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;re
 function varMat(m,hex,j){const key=m.uuid+'|'+hex+'|'+j;let n=VAR.mats.get(key);if(n)return n;n=m.clone();const c=new THREE.Color(hex);c.multiplyScalar(0.9+j*0.05);n.color=c;n.userData=Object.assign({},m.userData,{varTint:1});VAR.mats.set(key,n);return n;}
 function varApply(g,kind,c){const R=varRnd(Math.floor(Math.random()*1e9)),pick=a=>a[Math.floor(R()*a.length)],j=Math.floor(R()*3);c=c||{};
   const A=VAR.P.atenas,Ro=VAR.P.roma,ro=MODE==='roma';let beardless=false;
-  if(!ro&&(kind==='ciudadano'||kind==='obrero')&&!c.old&&R()<0.13)beardless=true;
+  if(!g.userData.face&&!ro&&(kind==='ciudadano'||kind==='obrero')&&!c.old&&R()<0.13)beardless=true;   // con las caras propuestas (224) la barba la decide la propuesta
   const qt=pick(A.quiton),hi=pick(A.himation),mu=pick(A.mujer),mu2=pick(A.himation.concat(A.mujer)),ex=pick(A.exomis),pi=pick(A.pilos),tu=pick(kind==='tunicado'?Ro.tunica.slice(2):Ro.tunica.slice(0,4)),es=pick(Ro.estola),pa=pick(Ro.palla);
   // un color propio y fuerte (el rojo de Telecleo, el de un personaje con nombre) se respeta; los blancos y crudos por defecto se cambian
   const strong=h=>{if(typeof h!=='string'&&typeof h!=='number')return false;try{const C=new THREE.Color(h),hsl={};C.getHSL(hsl);return hsl.s>0.3&&hsl.l<0.6;}catch(e){return false;}};
@@ -38,7 +38,7 @@ function varApply(g,kind,c){const R=varRnd(Math.floor(Math.random()*1e9)),pick=a
     else if(kind==='togado'){if(nm==='tunica')o.material=varMat(o.material,pick(Ro.tunica.slice(0,3)),j);}
     else if(kind==='tunicado'){if(nm==='tunica')o.material=varMat(o.material,tu,j);}});
   if(beardless){g.userData.beardless=1;try{BP_YOUNG.add(g);}catch(e){}}
-  try{varHair(g,R);}catch(e){}
+  try{varHair(g,R,g.userData.prHair);}catch(e){}
   VAR.n++;return g;}
 // color de pelo real: el tinte de antes multiplicaba una textura muy oscura y el rubio, el canoso o el pelirrojo casi no se veían.
 // Ahora se elige un color de pelo y el tinte se calcula sobre el color medio de la textura (pelo y barba, el mismo).
@@ -48,7 +48,7 @@ VAR.HAIR=[['#1f1a17',30],['#3b2a1f',30],['#5a3e2a',14],['#7a5a3c',6],['#8e3f1f',
 VAR.avg=new Map();
 function varAvg(map){const k=map.uuid;if(VAR.avg.has(k))return VAR.avg.get(k);let r=null;try{const im=map.image;if(im&&im.width){const c=document.createElement('canvas');c.width=c.height=16;const x=c.getContext('2d');x.drawImage(im,0,0,16,16);const d=x.getImageData(0,0,16,16).data;let a=[0,0,0];for(let i=0;i<d.length;i+=4){a[0]+=d[i];a[1]+=d[i+1];a[2]+=d[i+2];}r=a.map(v=>v/256/255);}}catch(e){}VAR.avg.set(k,r);return r;}
 function varLin(v){return v>0.04045?Math.pow((v+0.055)/1.055,2.4):v/12.92;}
-function varHair(g,R){let tot=0;for(const h of VAR.HAIR)tot+=h[1];let t=R()*tot,hex=VAR.HAIR[0][0];for(const h of VAR.HAIR){t-=h[1];if(t<=0){hex=h[0];break;}}
+function varHair(g,R,fixed){let tot=0;for(const h of VAR.HAIR)tot+=h[1];let t=R()*tot,hex=VAR.HAIR[0][0];for(const h of VAR.HAIR){t-=h[1];if(t<=0){hex=h[0];break;}}if(fixed)hex=fixed;   // el de la cara propuesta (224), si la hay
   const c=new THREE.Color(hex),tg=[c.r,c.g,c.b];
   g.traverse(o=>{if(!o.isMesh||!o.material||!o.material.map)return;const mn=(o.material.name||'');if(!/_(pelo|barba)$/.test(mn))return;const av=varAvg(o.material.map);if(!av)return;
     const key=o.material.map.uuid+'|hair|'+hex;let m=VAR.mats.get(key);if(!m){m=o.material.clone();m.color=new THREE.Color(...tg.map((v,i)=>v/Math.max(0.01,varLin(av[i]))));VAR.mats.set(key,m);}o.material=m;});}
