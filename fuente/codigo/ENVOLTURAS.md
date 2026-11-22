@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-303 funciones ampliadas, 578 capas.
+305 funciones ampliadas, 580 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -185,6 +185,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `faunaTalk` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `098`:11 |
 | `faunaTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `205`:176 |
 | `festOfDay` | `050_calendario_de_fiestas.js` | 1 | `055`:44 |
+| `figApply` | `183_ropa_y_figura.js` | 1 | `241`:13 |
 | `findFocus` | `042_entrada.js` | 1 | `218`:25 |
 | `finishRoofs` | `008_edificios.js` | 1 | `900`:435 |
 | `finSetup` | `072_misiones_finales_de_las_cualidades.js` | 1 | `900`:378 |
@@ -229,6 +230,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `loadModels` | `005_modelos_de_blender.js` | 1 | `900`:443 |
 | `m386Setup` | `061_sacar_partido_a_los_diez.js` | 1 | `900`:382 |
 | `makeBeast` | `038_esferas_de_sueno.js` | 1 | `198`:25 |
+| `makePersonGLB` | `009_personas.js` | 1 | `241`:14 |
 | `mareShow` | `046_el_caballo.js` | 1 | `900`:383 |
 | `mktSetup` | `058_dias_de_mercado.js` | 1 | `900`:384 |
 | `moBeacon` | `226_momentos.js` | 1 | `235`:60 |

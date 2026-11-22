@@ -22731,7 +22731,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='3fd8f1fa2956';
+const NOSTOS_VER='1c377b9eee9b';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -33810,6 +33810,20 @@ function mntMsgShow(){const ro=leyRo();{vmS('Ν',ro?'Victoria':'Niké','Se abren
 // ---- cada poco
 {const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(state&&ui!=='start'){if(MNT.fleeT>0&&(MNT.fleeT-=dt)<=0)mntFleeEnd();if(MNT.backT>0&&(MNT.backT-=dt)<=0)mntBackShow();if(MNT.msgT>0&&ui==='play'&&(MNT.msgT-=dt)<=0)mntMsgShow();MNT.t-=dt;if(MNT.t<=0){MNT.t=1;leyOpen();leyDestTick();mntDoorTick();if(MNT.backWait&&KNOS.maze&&Math.hypot(player.x-KNOS.maze.cx,player.z-KNOS.maze.cz)>14)MNT.backWait=0;if(!MNT.backWait)mntBackTick();
   if(MNT.msg&&ui==='play'&&!INT2.busy){MNT.msg=false;mntMsg();}}}}catch(e){if(!MNT.err){MNT.err=1;console.warn('mnt',e);}}return r;};}
+// ============================================================ ROPA SIN CRUCES (vídeo del 22/11: Lisicles, el arriero)
+// En las figuras hechas por piezas (las que no son de Blender), el manto (himation) y la toga pasaban por dentro de las mangas anchas
+// del quitón y asomaban a trozos por la espalda y los hombros; y el pelo se metía en el cuello de la túnica.
+// Arreglo: se «hincha» un poco cada malla de esas prendas, empujando sus vértices hacia fuera a lo largo de la normal (manto y toga
+// 1,8 cm, velo 1,2 cm, pelo 0,6 cm), para que queden siempre por fuera de la túnica.
+// Se hace una sola vez sobre las piezas compartidas, así que vale también para las personas ya creadas.
+const RSC={done:false,n:0};
+function rscInflate(P,d){if(!P||!P.meshes)return;for(const m of P.meshes){const g=m.geo;if(!g||g.userData&&g.userData.rsc)continue;const p=g.attributes.position;let nr=g.attributes.normal;if(!nr){g.computeVertexNormals();nr=g.attributes.normal;}if(!p||!nr)continue;
+  for(let i=0;i<p.count;i++)p.setXYZ(i,p.getX(i)+nr.getX(i)*d,p.getY(i)+nr.getY(i)*d,p.getZ(i)+nr.getZ(i)*d);p.needsUpdate=true;g.computeBoundingSphere();g.userData=g.userData||{};g.userData.rsc=1;RSC.n++;}}
+function rscApply(){if(RSC.done||typeof GLB==='undefined'||!GLB.ok||!GLB.parts)return;RSC.done=true;
+  try{for(const[n,d]of[['P_himation_m',0.018],['P_himation_f',0.018],['P_toga',0.018],['P_veil',0.012],['P_hair_m',0.006],['P_hair_f',0.006]])rscInflate(GLB.parts[n],d);}catch(e){console.warn('rsc',e);}}
+// después de que 183 (figApply) haya dado caída y pliegues a la ropa; si alguien se crea antes, se aplica en ese momento
+{const f=figApply;figApply=function(){const r=f.apply(this,arguments);try{rscApply();}catch(e){}return r;};}
+{const f=makePersonGLB;makePersonGLB=function(c){try{if(typeof FIG!=='undefined'&&FIG.done)rscApply();}catch(e){}return f.apply(this,arguments);};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
