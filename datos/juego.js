@@ -22720,7 +22720,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='96414c13bdce';
+const NOSTOS_VER='b90cb8e76356';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -23929,7 +23929,7 @@ function gmRight(d){const g=d.querySelector('.gr');if(!g)return;const pg=GM.page
     '<div class="two">'+btn('pg:ajustes','Ajustes','sonido, imagen, idioma…','wide')+btn('pg:partida','Partida','guardar, cargar, época','wide')+'</div>';}
   else{h='<button class="play" data-g="pg:">'+gmSvg('back')+'Volver al menú</button><div class="sec">'+{ajustes:'Ajustes',partida:'Partida',ayuda:'Ayuda'}[pg]+'</div><div class="list">';
     if(pg==='ajustes')h+=[['sound','Sonido: '+(AUD_ON?'sí':'no')],['cam','Balanceo de cámara: '+(GF.reduced?'no':'sí')],['voc',vocLabel()],['gfx',gfxLabel()],['ao',aoLabel()],['gq',(typeof gqLabel==='function'?gqLabel():'Detalle gráfico')],['wx',wxLabel()],['acc','Accesibilidad (letra, voz, contraste)'],...(isTouch?[]:[['keys','Controles del teclado']]),['full',_t(10609,'Pantalla completa')]].map(b=>btn(b[0],b[1])).join('');
-    else if(pg==='partida')h+=btn('save',_t(2776,'Guardar partida'))+btn('load',_t(2785,'Cargar partida'))+btn('era',_t(10610,'Cambiar de época'),MODE==='roma'?'ir a Atenas, 386 a.C.':'ir a Roma, 80 d.C.')+btn('prof','Panel del profesor')+btn('rend','Prueba de rendimiento','mide los FPS en este ordenador y crea un informe')+btn('fallos','Cazar fallos','registro, aviso con F8, revisión de destinos, jugador automático')+btn('auto','Jugar solo','el juego se juega en automático, a ×1 o ×2 (F7)');
+    else if(pg==='partida')h+=btn('save',_t(2776,'Guardar partida'))+btn('load',_t(2785,'Cargar partida'))+btn('era',_t(10610,'Cambiar de época'),MODE==='roma'?'ir a Atenas, 386 a.C.':'ir a Roma, 80 d.C.')+btn('prof','Panel del profesor')+btn('rend','Prueba de rendimiento','mide los FPS en este ordenador y crea un informe')+btn('fallos','Cazar fallos','registro, aviso con F8, revisión de destinos, jugador automático')+btn('auto','Jugar solo','el juego se juega en automático, a ×1 o ×2 (F7)')+btn('vuelo','Introducción al entrar',(typeof vueloOff==='function'&&vueloOff())?'desactivada: pulsa para volver a ver el vuelo del ave':'activada: el vuelo del ave sobre la ciudad (pulsa para quitarla)');
     else h+=btn('hint','Pedir una pista al pedagogo',K('tecla G'))+btn('mt',mtLabel(),'toca para cambiarlo')+(isTouch?'':btn('keys','Ver los controles del teclado'))+btn('acc','Accesibilidad (letra, voz, contraste)');
     h+='</div>';}
   h+='<div class="hint">'+(isTouch?'':(pg?'Esc para volver al menú · ':'')+'Tab o Esc para cerrar')+'</div>';
@@ -32349,6 +32349,270 @@ function hzCad(b){if(b._hz)return;const s=b.querySelector('svg');if(!s)return;b.
 {const f=drawCompass;drawCompass=function(){const r=f.apply(this,arguments);if(HZ.on)try{const el=$('compass');for(const c of el.children){if(!c.classList.contains('c')||c.classList.contains('obj')||c.childElementCount)continue;
   const t=c.textContent,n=HZ_WIND[t];if(n)c.innerHTML=n+'<small>'+t+'</small>';}}catch(e){}return r;};}
 {const f=chooseMode;chooseMode=function(){const r=f.apply(this,arguments);try{hzInit();}catch(e){}return r;};}
+// ============================================================ MOMENTOS: QUE LO IMPORTANTE SE NOTE (22/11)
+// Hasta ahora casi todo llegaba como un aviso pequeño (o se guardaba en el caduceo) y parecía circunstancial.
+// Ahora cada logro tiene su ceremonia, con el mismo material del HUD (cerámica en Atenas, fresco en Roma):
+// · un rótulo grande en el centro de arriba, con su palabra antigua (μάθημα / DISCIPLINA, ἔργον / OPVS…),
+//   luz que barre el rótulo, chispas doradas, un destello en los bordes de la pantalla, la cámara que respira y un instante de cámara lenta;
+// · música propia: llamada para una misión nueva, acorde para un paso cumplido y fanfarria de lira para lo grande.
+// Se detecta solo, mirando lo que cambia en la partida (lecciones, mitos, favores de los dioses, primeros pasos, capítulos de la
+// Historia, logros) y los avisos de misiones y encargos; no hay que tocar cada misión una por una.
+// Mientras hay una misión en curso también se nota: el objetivo late con un rombo, se ilumina cuando cambia, hay una columna de luz
+// en el destino que se ve de lejos, la brújula dice cuánto falta (en pasos y estadios en Atenas; en pasos y millas en Roma: el passus
+// romano, 1,48 m, y la milla de mil pasos; el estadio ático, unos 185 m, y el paso griego, βῆμα, unos 0,74 m) y al llegar suena un aviso.
+const MO={q:[],busy:false,snap:null,obj:'',objT:0,tk:0,arr:null,beacon:null,bT:0,spd:null};
+const MO_K={   // [palabra antigua en Atenas, en Roma, rótulo, grande]
+ lesson:['μάθημα','DISCIPLINA','Lección aprendida',1],myth:['μῦθος','FABVLA','Mito descubierto',1],god:['χάρις','GRATIA DEORVM','Favor de los dioses',1],
+ logro:['τιμή','HONOS','Logro',1],chapter:['τέλος','FINIS','Capítulo completado',1],done:['τέλος','PERFECTVM','Misión cumplida',1],
+ step:['ἔργον','OPVS','Objetivo cumplido',0],start:['ἔργον','OPVS','Nueva misión',0],place:['τόπος','LOCVS','Lugar descubierto',0]};
+function moCSS(){if($('moCSS'))return;const s=document.createElement('style');s.id='moCSS';s.textContent=
+ '#moBan{position:fixed;left:50%;top:15%;z-index:80;transform:translateX(-50%);min-width:min(440px,86vw);max-width:min(620px,92vw);box-sizing:border-box;text-align:center;pointer-events:auto;cursor:pointer;'+
+ 'padding:30px 34px 28px;color:#fbe6c8;font-family:var(--f-body);background:rgba(20,15,11,.9) no-repeat;background-size:100% 100%;animation:moIn .55s cubic-bezier(.2,1.4,.4,1) both;overflow:hidden}'+
+ 'body.hz #moBan{background-color:transparent}#moBan.small{top:11%;min-width:min(360px,84vw);padding:24px 28px 22px}'+
+ '#moBan.out{animation:moOut .5s ease-in forwards}'+
+ '#moBan .k{font:600 .78rem var(--f-display);letter-spacing:.32em;text-transform:uppercase;color:#e8b07a;text-shadow:0 0 3px #0c0704}'+
+ '#moBan .k i{font-style:normal;letter-spacing:.12em;color:#ffd9a0;margin-right:.6em;font-family:var(--f-body);text-transform:none;font-size:1.05rem}'+
+ 'body.hzR #moBan .k i{font-family:var(--f-display);letter-spacing:.16em;font-size:.95rem}'+
+ '#moBan .t{margin-top:6px;font:400 clamp(1.5rem,3.4vw,2.25rem)/1.15 var(--f-display);color:#fff1da;letter-spacing:.02em;text-shadow:0 0 2px #0c0704,0 0 12px rgba(255,200,120,.45),0 2px 3px #0c0704;animation:moT .9s ease-out both .1s}'+
+ '#moBan.small .t{font-size:clamp(1.15rem,2.6vw,1.6rem)}'+
+ '#moBan .s{margin-top:7px;font-size:1rem;color:#f1d2ae;text-shadow:0 0 3px #0c0704,0 1px 2px #0c0704;line-height:1.35}'+
+ '#moBan .ln{height:2px;margin:10px auto 0;width:0;background:linear-gradient(90deg,transparent,#e8b07a,transparent);animation:moLn 1s ease-out forwards .25s}'+
+ '#moBan::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,236,190,.28),transparent);transform:skewX(-18deg);animation:moSw 1.4s ease-in-out .35s both;pointer-events:none}'+
+ '.moSp{position:fixed;z-index:81;width:6px;height:6px;border-radius:50%;background:radial-gradient(#fff6d8,#ffc65a 55%,transparent 70%);pointer-events:none;animation:moSp var(--d,1.4s) ease-out forwards}'+
+ '.moVig{position:fixed;inset:0;z-index:53;pointer-events:none;background:radial-gradient(ellipse at 50% 40%,transparent 45%,rgba(255,196,96,.32) 100%);animation:moVig 1.6s ease-out forwards}'+
+ '@keyframes moIn{0%{opacity:0;transform:translateX(-50%) scale(1.25);filter:blur(6px)}100%{opacity:1;transform:translateX(-50%) scale(1);filter:none}}'+
+ '@keyframes moOut{to{opacity:0;transform:translateX(-50%) translateY(-24px) scale(.96)}}'+
+ '@keyframes moT{0%{letter-spacing:.22em;opacity:0}100%{letter-spacing:.02em;opacity:1}}@keyframes moLn{to{width:70%}}'+
+ '@keyframes moSw{0%{left:-40%}100%{left:120%}}'+
+ '@keyframes moSp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3)}}'+
+ '@keyframes moVig{0%{opacity:0}25%{opacity:1}100%{opacity:0}}'+
+ '#stats.moNew{animation:moObj 2.4s ease-out}@keyframes moObj{0%,100%{filter:none}15%{filter:drop-shadow(0 0 10px rgba(255,200,110,.95)) brightness(1.25)}50%{filter:drop-shadow(0 0 6px rgba(255,200,110,.6))}}'+
+ '#objective>b:first-child::before{content:"◆";display:inline-block;margin-right:6px;color:#ffd27a;text-shadow:0 0 6px rgba(255,190,90,.9);animation:moDia 1.6s ease-in-out infinite}'+
+ '@keyframes moDia{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.6}}'+
+ 'body.hz #compass .c.obj small{font:600 10px var(--f-body);margin-left:4px;color:#ffe0a8;letter-spacing:0;opacity:.95}'+
+ '@media (prefers-reduced-motion:reduce){#moBan,#moBan .t,#moBan::after,.moSp,#stats.moNew,#objective>b:first-child::before{animation:none!important}#moBan .ln{width:70%}}';
+ document.head.appendChild(s);}
+// ---- sonidos (síntesis, como el resto del juego)
+function moHorn(t,f,d,v){const c=AUD.ctx,o=c.createOscillator(),o2=c.createOscillator(),lp=c.createBiquadFilter();o.type='sawtooth';o2.type='triangle';o.frequency.value=f;o2.frequency.value=f*1.002;
+  lp.type='lowpass';lp.frequency.setValueAtTime(f*1.5,t);lp.frequency.linearRampToValueAtTime(f*4,t+0.12);lp.frequency.linearRampToValueAtTime(f*2.2,t+d);const g=envGain(t,v,0.06,d);o.connect(lp);o2.connect(lp);lp.connect(g);o.start(t);o2.start(t);o.stop(t+d+0.1);o2.stop(t+d+0.1);}
+function moSfx(kind){if(!aOK())return;const t=AUD.ctx.currentTime+0.03;
+  try{if(kind==='start'){moHorn(t,MODE==='roma'?196:220,0.35,0.06);moHorn(t+0.34,MODE==='roma'?293.66:329.63,0.9,0.07);gfNoise(t,'lowpass',140,0.9,0.18,0.005,0.25);gfNoise(t+0.34,'lowpass',140,0.9,0.14,0.005,0.3);}
+  else if(kind==='step'){rwChord();gfNoise(t,'highpass',7000,0.7,0.03,0.002,0.4);}
+  else if(kind==='place'){rwDiscSfx();}
+  else{rwFanfare(true);gfNoise(t+0.45,'highpass',5000,0.5,0.06,0.01,1.6);gfNoise(t,'lowpass',120,0.9,0.22,0.005,0.35);}}catch(e){}}
+// ---- la ceremonia
+function momento(kind,title,sub){if(!title)return;MO.q.push({kind,title:String(title),sub:sub?String(sub):''});if(MO.q.length>6)MO.q.splice(1,MO.q.length-6);moNext();}
+function moNext(){if(MO.busy||!MO.q.length)return;if(typeof ui==='undefined'||(ui!=='play'&&ui!=='dialog')||(typeof VUELO!=='undefined'&&VUELO.on)){setTimeout(moNext,700);return;}
+  const it=MO.q.shift(),K=MO_K[it.kind]||MO_K.done,big=!!K[3],ro=MODE==='roma';MO.busy=true;moCSS();
+  let b=$('moBan');if(b)b.remove();b=document.createElement('div');b.id='moBan';b.className=big?'big':'small';b.setAttribute('role','status');b.setAttribute('aria-live','polite');
+  b.innerHTML='<div class="k"><i></i><span></span></div><div class="t"></div>'+(it.sub?'<div class="s"></div>':'')+'<div class="ln"></div>';
+  b.querySelector('.k i').textContent=ro?K[1]:K[0];b.querySelector('.k span').textContent=K[2];b.querySelector('.t').textContent=it.title;if(it.sub)b.querySelector('.s').textContent=it.sub;
+  document.body.appendChild(b);
+  try{if(typeof HZ!=='undefined'&&HZ.on)hzFit(b,HZ.a?(w,h)=>hzPanelA(w,h,{top:1,bot:1,r:10}):(w,h)=>hzPanelR(w,h,{top:1,bot:1}));}catch(e){}
+  moSfx(it.kind);
+  const red=typeof GF!=='undefined'&&GF.reduced;
+  if(!red){const r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,n=big?26:12;
+    for(let i=0;i<n;i++){const p=document.createElement('div');p.className='moSp';const a=Math.random()*Math.PI*2,d=(big?140:90)+Math.random()*(big?180:90);
+      p.style.left=(cx+(Math.random()-.5)*r.width*.8)+'px';p.style.top=(cy+(Math.random()-.5)*r.height*.6)+'px';p.style.setProperty('--x',(Math.cos(a)*d)+'px');p.style.setProperty('--y',(Math.sin(a)*d*.6-30)+'px');
+      p.style.setProperty('--d',(1+Math.random()*0.9)+'s');p.style.animationDelay=(Math.random()*0.35)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),2600);}
+    if(big){const v=document.createElement('div');v.className='moVig';document.body.appendChild(v);setTimeout(()=>v.remove(),1700);
+      try{RW.fov=Math.max(RW.fov,8);}catch(e){}
+      try{const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw);rwBurst(player.x+fx*3,player.feet+1.4,player.z+fz*3,0xffd27a,30,1.5);}catch(e){}
+      moSlow();}}
+  const end=()=>{if(!b.isConnected)return;b.classList.add('out');setTimeout(()=>{b.remove();MO.busy=false;setTimeout(moNext,250);},480);};
+  b.onclick=end;setTimeout(end,big?3900:2700);}
+// instante de cámara lenta (no se toca si alguien ya cambió la velocidad: jugar solo ×2, pruebas…)
+function moSlow(){if(MO.spd!==null)return;const s0=window.__spd||1;if(s0!==1)return;MO.spd=s0;window.__spd=0.4;
+  let k=0;const step=()=>{k++;window.__spd=Math.min(1,0.4+k*0.06);if(window.__spd<1)setTimeout(step,60);else{window.__spd=s0;MO.spd=null;}};setTimeout(step,450);}
+// ---- lo que cambia en la partida
+function moTake(){const s=state;if(!s)return null;let ch=-1,st=-1,stObj='';try{if(storyOn()&&s.story){ch=s.story.ch;st=s.story.st;const x=curStoryStep();stObj=x?x.obj:'';}}catch(e){}
+  let sd=0,sT='';try{sd=stepsDone();const c=curStep();sT=c?c.title:'';}catch(e){}
+  const gd={};try{for(const d of GODS)if(s.gods&&s.gods.q&&s.gods.q[d.id]==='done')gd[d.id]=1;}catch(e){}
+  let lg={};try{lg=Object.assign({},eduz().logros);}catch(e){}
+  return {L:new Set(s.lessons||[]),M:new Set(s.myths||[]),gd,lg,ch,st,stObj,sd,sT};}
+function moObjHead(){const o=$('objective');if(!o)return '';const b=o.querySelector('b');return ((b?b.textContent:o.textContent.split('\n')[0])||'').trim();}
+function moObjSub(){const o=$('objective');if(!o)return '';const s=o.querySelector('.sub');return s?s.textContent.trim():'';}
+function moCheck(){const a=MO.snap,b=moTake();if(!b)return;MO.snap=b;if(!a)return;let got=false;
+  for(const id of b.L)if(!a.L.has(id)){const L=LESSONS[id];momento('lesson',L?L.title:id,L&&L.who?'Te la ha enseñado '+L.who:'');got=true;}
+  for(const id of b.M)if(!a.M.has(id)){const r=RELIEFS.find(x=>x.id===id);momento('myth',r?r.name:id,'');got=true;}
+  for(const id in b.gd)if(!a.gd[id]){const g=GODS.find(x=>x.id===id);momento('god',g?(g.name||g.n||id):id,'Los dioses se acuerdan de quien los honra');got=true;}
+  for(const k in b.lg)if(!a.lg[k]){const L=(typeof LOGROS!=='undefined'?LOGROS:[]).find(x=>x.k===k);if(L){momento('logro',L.n,L.d);got=true;}}
+  if(b.ch>a.ch&&a.ch>=0){momento('chapter',_t(9590,'Capítulo ')+(a.ch+1),'');got=true;}
+  else if(b.ch===a.ch&&b.st>a.st&&a.stObj){momento('step',a.stObj,'');got=true;}
+  if(b.sd>a.sd&&a.sT){momento('step',a.sT,'Primeros pasos · '+b.sd);got=true;}
+  return got;}
+// el objetivo de arriba: si cambia, es una misión (u objetivo) nueva
+function moObjTick(dt,got){const h=moObjHead(),k=h.replace(/[0-9]+/g,'#');if(!MO.obj){MO.obj=k;return;}
+  if(k&&k!==MO.obj){MO.obj=k;const st=$('stats');if(st){st.classList.remove('moNew');void st.offsetWidth;st.classList.add('moNew');}try{hudPeek();}catch(e){}
+    const t=h.replace(/^◆\s*/,''),sub=moObjSub();setTimeout(()=>momento('start',t,sub),got?300:0);MO.arr=null;}}
+// columna de luz en el destino, distancia en la brújula y aviso al llegar
+function moBeacon(dt){let t=null;try{t=guideTarget();}catch(e){}
+  if(!t||!isFinite(t.x)||!isFinite(t.z)){if(MO.beacon)MO.beacon.visible=false;return;}
+  if(!MO.beacon){const g=new THREE.Group(),m=new THREE.MeshBasicMaterial({color:0xffd27a,transparent:true,opacity:0.22,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,fog:false});
+    const c=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.9,140,12,1,true),m);c.position.y=70;g.add(c);
+    const rm=m.clone();rm.opacity=0.5;const ring=new THREE.Mesh(new THREE.RingGeometry(1.4,1.9,32),rm);ring.rotation.x=-Math.PI/2;ring.position.y=0.15;g.add(ring);
+    g.renderOrder=5;scene.add(g);MO.beacon=g;}
+  const g=MO.beacon,d=Math.hypot(t.x-player.x,t.z-player.z),ph=performance.now()/1000;g.visible=d>10&&ui==='play';
+  g.position.set(t.x,floorAt(t.x,t.z),t.z);const fade=Math.min(1,Math.max(0,(d-10)/40));
+  g.children[0].material.opacity=0.2*fade*(0.75+0.25*Math.sin(ph*2.2));g.children[1].material.opacity=0.5*fade;g.children[1].scale.setScalar(1+0.25*Math.sin(ph*3));
+  const key=Math.round(t.x)+','+Math.round(t.z);if(d<7&&MO.arr!==key){MO.arr=key;try{gfFloat(MODE==='roma'?'Has llegado':'Has llegado','#ffe0a8');}catch(e){}moSfx('place');}}
+function moDist(d){if(MODE==='roma'){const p=d/1.48;return p<1000?Math.round(p/5)*5+' pasos':(p/1000).toFixed(1).replace('.',',')+' millas';}
+  return d<185?Math.round(d/0.74/5)*5+' pasos':(d/185).toFixed(1).replace('.',',')+' estadios';}
+{const f=drawCompass;drawCompass=function(){const r=f.apply(this,arguments);try{const o=$('compass').querySelector('.c.obj');const t=guideTarget();
+  if(o&&t&&!o.childElementCount){const d=Math.hypot(t.x-player.x,t.z-player.z);if(d>12)o.innerHTML='◆<small>'+moDist(d)+'</small>';}}catch(e){}return r;};}
+// ---- los avisos de misiones y encargos que llegan por toast (cada misión tiene el suyo)
+{const f=toast;toast=function(html){const r=f.apply(this,arguments);try{const s=String(html||''),m=s.match(/class="label">([^<]*)<\/span>/),lab=m?m[1].trim():'';
+  if(lab&&!/Logro|Lección|Lugar/.test(lab)&&/Misi[oó]n|Encargo|Reto|Prueba|Corona|Examen|Trabajo|Favor/i.test(lab)){const body=s.replace(/<[^>]+>/g,' ').replace(lab,'').replace(/\s+/g,' ').trim();
+    const sh=body.length>110?body.slice(0,107).replace(/\s\S*$/,'')+'…':body;
+    if(/cumplid|completad|conseguid|superad|terminad|has ganado|lo has logrado|enhorabuena|bien hecho|has acabado|ya tienes/i.test(body))momento('done',lab,sh);
+    else if(/nuev|aceptad|te pide|te encarga|empieza|comienza|ve a |busca /i.test(body))momento('start',lab,sh);}}catch(e){}return r;};}
+// el rótulo de lugar descubierto pasa a ser una ceremonia pequeña, del mismo estilo
+{const f=rwDiscover;rwDiscover=function(name,extra){try{momento('place',name,extra||'');return;}catch(e){}return f.apply(this,arguments);};}
+// ---- tick (enganchado a gfTick, que corre en cada fotograma)
+{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(state&&ui!=='start'){MO.tk-=dt;if(MO.tk<=0){MO.tk=0.3;const got=moCheck();moObjTick(dt,got);}moBeacon(dt);}}catch(e){}return r;};}
+// ============================================================ EL VUELO DE ENTRADA (22/11)
+// Cada vez que se entra en el juego, antes de dar el control, la cámara va detrás de un ave que llega a la ciudad donde se dejó
+// la partida, la sobrevuela y, cuando empieza a alejarse, la cámara la suelta y baja hasta el personaje.
+// · Atenas: un mochuelo (Athene noctua, γλαῦξ), el ave de Atenea, la misma de los óbolos y las tetradracmas. A diferencia de
+//   otras rapaces nocturnas, el mochuelo también sale de día (y por eso se veía a menudo en la ciudad).
+// · Roma: un águila (aquila), el ave de Júpiter; los augures leían el vuelo de las aves para conocer la voluntad de los dioses.
+// Se puede saltar en cualquier momento (botón «Saltar», Espacio, Intro o Esc) y quitar del todo («No volver a mostrar», o en
+// Esc → Partida → Introducción al entrar). No se muestra en las pruebas automáticas (#debug) salvo con ?vuelo=1.
+const VUELO={on:false,ph:'',t:0,T:0,pts:null,bird:null,el:null,after:[],cam:null,q0:null,p0:null,wind:null,flapT:0,left:0,seen:false,title:false};
+function vueloOff(){try{return localStorage.getItem('nostos-vuelo-off')==='1';}catch(e){return false;}}
+function vueloOK(){if(vueloOff())return false;const q=location.search+location.hash;if(/vuelo=1/.test(q))return true;if(/debug/.test(location.hash))return false;
+  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return false;}catch(e){}return true;}
+// ---- el ave (geometría propia: cuerpo, cabeza, cola y alas en dos tramos que baten o planean)
+function vueloTex(owl){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+  x.fillStyle=owl?'#7a5a3a':'#4a3220';x.fillRect(0,0,128,128);
+  if(owl){for(let i=0;i<140;i++){x.fillStyle=Math.random()<0.75?'rgba(236,224,198,.85)':'rgba(60,40,24,.6)';x.beginPath();x.arc(Math.random()*128,Math.random()*128,1+Math.random()*2.6,0,7);x.fill();}
+    for(let i=0;i<6;i++){x.fillStyle='rgba(230,214,180,.55)';x.fillRect(0,96+i*5,128,2);}}
+  else{const g=x.createLinearGradient(0,0,0,128);g.addColorStop(0,'rgba(170,120,60,.75)');g.addColorStop(.45,'rgba(90,60,30,.3)');g.addColorStop(1,'rgba(20,12,6,.5)');x.fillStyle=g;x.fillRect(0,0,128,128);
+    for(let i=0;i<10;i++){x.strokeStyle='rgba(20,12,6,.35)';x.beginPath();x.moveTo(i*13,60);x.lineTo(i*13+4,128);x.stroke();}}
+  const t=new THREE.CanvasTexture(c);t.needsUpdate=true;return t;}
+function vueloWingGeo(pts){const s=new THREE.Shape();s.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)s.lineTo(pts[i][0],pts[i][1]);s.closePath();
+  const g=new THREE.ShapeGeometry(s);g.rotateX(Math.PI/2);g.computeBoundingBox();const b=g.boundingBox,p=g.attributes.position,uv=g.attributes.uv;
+  for(let i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)-b.min.x)/(b.max.x-b.min.x||1),(p.getZ(i)-b.min.z)/(b.max.z-b.min.z||1));uv.needsUpdate=true;g.computeVertexNormals();return g;}
+function vueloBird(owl){const g=new THREE.Group(),tex=vueloTex(owl),k=owl?1:2.6;
+  const mB=new THREE.MeshLambertMaterial({map:tex,side:THREE.DoubleSide}),mL=new THREE.MeshLambertMaterial({color:owl?0xe8dcc0:0xd8b070}),mY=new THREE.MeshLambertMaterial({color:0xe8c030}),mK=new THREE.MeshBasicMaterial({color:0x111111});
+  const body=new THREE.Mesh(new THREE.SphereGeometry(0.1*k,12,8),mB);body.scale.set(owl?1:0.85,owl?0.95:0.8,owl?1.35:2.1);g.add(body);
+  const belly=new THREE.Mesh(new THREE.SphereGeometry(0.092*k,10,6),mL);belly.scale.set(owl?0.9:0.75,0.8,owl?1.2:1.8);belly.position.y=-0.025*k;g.add(belly);
+  const head=new THREE.Mesh(new THREE.SphereGeometry((owl?0.085:0.06)*k,12,8),owl?mB:new THREE.MeshLambertMaterial({color:0xb58440}));head.position.set(0,(owl?0.03:0.03)*k,(owl?0.13:0.2)*k);if(owl)head.scale.set(1.1,0.95,0.95);g.add(head);
+  if(owl){const disc=new THREE.Mesh(new THREE.CircleGeometry(0.07,16),mL);disc.position.set(0,0.03,0.205);g.add(disc);
+    for(const s of[-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.018,8,6),mY);e.position.set(s*0.03,0.04,0.215);g.add(e);const p=new THREE.Mesh(new THREE.SphereGeometry(0.009,6,4),mK);p.position.set(s*0.03,0.04,0.23);g.add(p);}}
+  const beak=new THREE.Mesh(new THREE.ConeGeometry((owl?0.012:0.016)*k,(owl?0.035:0.05)*k,6),mY);beak.rotation.x=Math.PI/2+0.5;beak.position.set(0,(owl?0.012:0.02)*k,(owl?0.22:0.26)*k);g.add(beak);
+  const tail=new THREE.Mesh(vueloWingGeo(owl?[[-0.05,0],[0.05,0],[0.06,-0.1],[-0.06,-0.1]]:[[-0.04,0],[0.04,0],[0.09,-0.16],[-0.09,-0.16]]),mB);tail.scale.setScalar(k);tail.position.set(0,0,-0.11*k*(owl?1:1.6));g.add(tail);
+  const inner=owl?[[0,0.05],[0.16,0.05],[0.17,-0.1],[0,-0.08]]:[[0,0.05],[0.22,0.05],[0.24,-0.11],[0,-0.1]];
+  const outer=owl?[[0,0.05],[0.1,0.03],[0.16,-0.02],[0.14,-0.08],[0,-0.1]]:[[0,0.05],[0.14,0.04],[0.24,0.02],[0.27,-0.02],[0.25,-0.05],[0.27,-0.07],[0.22,-0.09],[0.23,-0.11],[0.12,-0.12],[0,-0.11]];
+  const gi=vueloWingGeo(inner),go=vueloWingGeo(outer),W=[];
+  for(const s of[-1,1]){const sh=new THREE.Group();sh.position.set(s*0.06*k,0.03*k,0.02*k);sh.scale.set(s*k,k,k);const a=new THREE.Mesh(gi,mB);sh.add(a);
+    const el=new THREE.Group();el.position.x=owl?0.16:0.22;sh.add(el);el.add(new THREE.Mesh(go,mB));g.add(sh);W.push({sh,el,s});}
+  g.userData={W,owl,k};return g;}
+function vueloFlap(b,t,dt,glide){const u=b.userData,f=u.owl?7.5:3.2;VUELO.flapT+=dt*f*(glide?0.25:1);const ph=VUELO.flapT;
+  const amp=glide?0.06:(u.owl?0.75:0.55),a=Math.sin(ph)*amp+(glide?0.04:0.08),o=Math.sin(ph-0.9)*amp*0.7;
+  for(const w of u.W){w.sh.rotation.z=a*w.s;w.el.rotation.z=(o*0.8+(glide?0.03:0))*w.s;w.sh.rotation.y=(glide?0:Math.sin(ph)*0.08)*w.s;}
+  if(!glide&&Math.sin(ph)>0.97&&!VUELO.fw){VUELO.fw=1;vueloWhoosh(u.owl?0.012:0.03);}if(Math.sin(ph)<0)VUELO.fw=0;}
+// ---- sonido: viento continuo y el aleteo
+function vueloWind(on){if(!aOK())return;const c=AUD.ctx;if(on&&!VUELO.wind){const s=c.createBufferSource();s.buffer=AUD.noise;s.loop=true;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=500;f.Q.value=0.6;
+    const g=c.createGain();g.gain.value=0.0001;s.connect(f).connect(g).connect(AUD.master||c.destination);s.start();g.gain.exponentialRampToValueAtTime(0.09,c.currentTime+1.5);VUELO.wind={s,f,g};}
+  else if(!on&&VUELO.wind){const w=VUELO.wind;VUELO.wind=null;try{w.g.gain.cancelScheduledValues(c.currentTime);w.g.gain.setValueAtTime(w.g.gain.value,c.currentTime);w.g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+1.2);w.s.stop(c.currentTime+1.3);}catch(e){}}}
+function vueloWhoosh(v){if(!aOK())return;try{gfNoise(AUD.ctx.currentTime,'bandpass',700,1.2,v,0.02,0.18);}catch(e){}}
+// ---- la ruta: llega desde detrás del personaje, pasa sobre la ciudad y sigue hacia delante, ganando altura
+function vueloPath(owl){const C=new THREE.Vector3(player.x,0,player.z),F=new THREE.Vector3(-Math.sin(player.yaw),0,-Math.cos(player.yaw)),S=new THREE.Vector3(F.z,0,-F.x);
+  const D=owl?125:165,P=(f,s,h)=>new THREE.Vector3(C.x+F.x*f+S.x*s,h,C.z+F.z*f+S.z*s);const g0=floorAt(C.x,C.z);
+  const ctrl=[P(-D,-40,g0+70),P(-D*0.55,-22,g0+48),P(-D*0.18,-8,g0+32),P(14,6,g0+28),P(70,22,g0+40),P(150,38,g0+62),P(260,40,g0+95),P(420,30,g0+130)];
+  const cv=new THREE.CatmullRomCurve3(ctrl,false,'centripetal'),N=320,pts=[];
+  for(let i=0;i<=N;i++){const p=cv.getPointAt(i/N);pts.push(p);}
+  const ground=pts.map(p=>{let h=-1e9;for(const r of[0,6,12])for(let a=0;a<6;a+=2){const x=p.x+Math.cos(a)*r,z=p.z+Math.sin(a)*r;h=Math.max(h,floorAt(x,z));}return h;});
+  for(let i=0;i<=N;i++){let m=-1e9;for(let j=Math.max(0,i-10);j<=Math.min(N,i+10);j++)m=Math.max(m,ground[j]+(owl?24:28));pts[i].y=Math.max(pts[i].y,m);}
+  for(let it=0;it<3;it++)for(let i=1;i<N;i++)pts[i].y=Math.max(pts[i].y,(pts[i-1].y+pts[i+1].y)/2);
+  let L=0;const cum=[0];for(let i=1;i<=N;i++){L+=pts[i].distanceTo(pts[i-1]);cum.push(L);}
+  let iC=0,bd=1e9;for(let i=0;i<=N;i++){const d=Math.hypot(pts[i].x-C.x,pts[i].z-C.z);if(d<bd){bd=d;iC=i;}}
+  return {pts,cum,L,sC:cum[iC],F,C};}
+function vueloAt(s){const P=VUELO.pts,c=P.cum,n=c.length-1;s=Math.max(0,Math.min(P.L,s));let lo=0,hi=n;while(hi-lo>1){const m=(lo+hi)>>1;if(c[m]<=s)lo=m;else hi=m;}
+  const k=(s-c[lo])/((c[hi]-c[lo])||1);return P.pts[lo].clone().lerp(P.pts[hi],k);}
+// ---- pantalla: franjas de cine, nombre de la ciudad y el botón de saltar
+function vueloCSS(){if($('vueloCSS'))return;const s=document.createElement('style');s.id='vueloCSS';s.textContent=
+ 'body.vuelo #hud,body.vuelo #hbar,body.vuelo #hbName,body.vuelo #touch,body.vuelo #msgBtn,body.vuelo #coinHud,body.vuelo #toast{visibility:hidden!important}'+
+ '#vuelo{position:fixed;inset:0;z-index:90;pointer-events:none;font-family:var(--f-body)}'+
+ '#vuelo .bar{position:absolute;left:0;right:0;height:9vh;background:#000;transition:transform 1s ease}#vuelo .bar.t{top:0;transform:translateY(-100%)}#vuelo .bar.b{bottom:0;transform:translateY(100%)}'+
+ '#vuelo.in .bar{transform:none}'+
+ '#vuelo .ttl{position:absolute;left:0;right:0;top:24%;text-align:center;color:#fff3df;opacity:0;transition:opacity 1.6s ease,letter-spacing 3s ease;letter-spacing:.3em;text-shadow:0 2px 18px rgba(0,0,0,.75),0 0 3px #000}'+
+ '#vuelo .ttl.on{opacity:1;letter-spacing:.1em}#vuelo .ttl small{display:block;font:600 .85rem var(--f-display);letter-spacing:.4em;color:#f0c890;text-transform:uppercase}'+
+ '#vuelo .ttl b{display:block;font:400 clamp(2.4rem,7vw,4.8rem)/1.1 var(--f-display);margin-top:6px}#vuelo .ttl em{display:block;font-size:1.05rem;margin-top:8px;color:#f1d2ae}'+
+ '#vuelo .who{position:absolute;left:max(18px,env(safe-area-inset-left,0px));bottom:calc(9vh + 14px);color:#e8dcc4;font-size:.85rem;opacity:0;transition:opacity 1.2s ease;text-shadow:0 1px 3px #000;max-width:min(520px,70vw)}#vuelo.in .who{opacity:.85}'+
+ '#vuelo .sk{position:absolute;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(9vh + 12px);display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:auto}'+
+ '#vuelo .sk button{font:600 1rem var(--f-display);letter-spacing:.08em;padding:9px 18px;border-radius:999px;border:1px solid rgba(240,200,144,.7);background:rgba(16,12,9,.72);color:#fbe6c8;cursor:pointer}'+
+ '#vuelo .sk button:hover{background:rgba(217,135,74,.35)}#vuelo .sk button kbd{font:inherit;font-size:.75rem;opacity:.75;margin-left:8px}'+
+ '#vuelo .sk label{font-size:.8rem;color:#d8c6a8;display:flex;gap:6px;align-items:center;cursor:pointer;text-shadow:0 1px 2px #000}'+
+ '@media (max-width:640px){#vuelo .who{display:none}#vuelo .bar{height:6vh}#vuelo .sk{bottom:calc(6vh + 10px)}}';document.head.appendChild(s);}
+function vueloUI(){vueloCSS();const ro=MODE==='roma',d=document.createElement('div');d.id='vuelo';
+  const ht=(($('hudTitle')||{}).textContent||'').split('·'),name=(ht[0]||(ro?_t(2864,'Roma'):_t(2865,'Atenas'))).trim(),when=(ht[1]||'').trim();
+  d.innerHTML='<div class="bar t"></div><div class="bar b"></div><div class="ttl"><small>'+(ro?'NOSTOS':'ΝΟΣΤΟΣ')+'</small><b></b><em></em></div>'+
+   '<div class="who"></div><div class="sk"><button type="button">Saltar <kbd>Espacio</kbd></button><label><input type="checkbox"> No volver a mostrar</label></div>';
+  d.querySelector('.ttl b').textContent=name;d.querySelector('.ttl em').textContent=when;
+  d.querySelector('.who').textContent=ro?'Un águila, el ave de Júpiter: los augures leían su vuelo.':'Un mochuelo, el ave de Atenea (γλαῦξ), el mismo de las monedas.';
+  d.querySelector('.sk button').onclick=e=>{e.stopPropagation();vueloEnd(true);};
+  d.querySelector('.sk input').onchange=e=>{try{localStorage.setItem('nostos-vuelo-off',e.target.checked?'1':'0');}catch(er){}};
+  document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('in'));return d;}
+// ---- arranque y final
+function vueloStart(){if(VUELO.on||!state||typeof THREE==='undefined')return;const owl=MODE!=='roma';
+  try{VUELO.pts=vueloPath(owl);}catch(e){return;}
+  VUELO.on=true;VUELO.owl=owl;VUELO.ph='fly';VUELO.t=0;VUELO.sp=owl?15:19;VUELO.s=0;VUELO.title=false;VUELO.left=0;VUELO.flapT=0;
+  VUELO.sDet=VUELO.pts.sC+(owl?45:60);VUELO.cam=null;VUELO.ui0=ui;ui='vuelo';
+  if(VUELO.bird){scene.remove(VUELO.bird);}VUELO.bird=vueloBird(owl);scene.add(VUELO.bird);
+  document.body.classList.add('vuelo');VUELO.el=vueloUI();try{releasePointer();}catch(e){}vueloWind(true);}
+function vueloEnd(skip){if(!VUELO.on)return;VUELO.on=false;VUELO.ph='';ui='play';document.body.classList.remove('vuelo');vueloWind(false);
+  const d=VUELO.el;VUELO.el=null;if(d){d.classList.remove('in');d.querySelector('.ttl').classList.remove('on');setTimeout(()=>d.remove(),900);}
+  if(skip||!VUELO.bird){if(VUELO.bird)scene.remove(VUELO.bird);VUELO.bird=null;}else VUELO.left=6;   // el ave sigue su camino unos segundos y desaparece
+  try{if(AVATAR.walk&&!AVATAR.view3)AVATAR.walk.visible=false;}catch(e){}
+  try{requestPointer();}catch(e){}try{updateStats();}catch(e){}
+  const a=VUELO.after.splice(0);a.forEach((f,i)=>setTimeout(f,300+i*200));}
+// ---- cámara: se engancha a placeCamera (lo último que coloca la cámara en cada fotograma)
+const VU_V=new THREE.Vector3(),VU_L=new THREE.Vector3(),VU_Q=new THREE.Quaternion(),VU_O=new THREE.Object3D();
+function vueloLook(pos,look){VU_O.position.copy(pos);VU_O.up.set(0,1,0);VU_O.lookAt(look);VU_O.rotateY(Math.PI);return VU_O.quaternion.clone();}  // la cámara mira por -Z
+function vueloTick(dt){const b=VUELO.bird;if(!b)return;const owl=VUELO.owl,k=owl?1:2.6;
+  // el ave avanza por la ruta (y, al final, sigue hacia delante)
+  VUELO.s+=VUELO.sp*dt;const p=vueloAt(VUELO.s),pn=vueloAt(VUELO.s+3);let fw=pn.clone().sub(p);if(VUELO.s>=VUELO.pts.L){fw=VUELO.pts.F.clone().setY(0.25);p.add(fw.clone().multiplyScalar(VUELO.s-VUELO.pts.L));}
+  fw.normalize();const prev=b.userData.fw||fw.clone(),turn=prev.x*fw.z-prev.z*fw.x;b.userData.bank=(b.userData.bank||0)*0.92+Math.max(-0.6,Math.min(0.6,-turn*40))*0.08;b.userData.fw=fw.clone();
+  b.position.copy(p);b.lookAt(p.clone().add(fw));b.rotateZ(b.userData.bank);
+  const climbing=fw.y>0.08,glide=owl?(Math.sin(VUELO.t*0.9)>0.55&&!climbing):!(climbing||Math.sin(VUELO.t*0.5)>0.8);vueloFlap(b,VUELO.t,dt,glide);
+  return {p,fw,k};}
+{const f=placeCamera;placeCamera=function(){const r=f.apply(this,arguments);
+  if(!VUELO.on){if(VUELO.bird&&VUELO.left>0){VUELO.left-=1/60;try{vueloTick(1/60);}catch(e){}if(VUELO.left<=0){scene.remove(VUELO.bird);VUELO.bird=null;}}return r;}
+  try{const dt=Math.min(0.05,(performance.now()-(VUELO.lt||performance.now()))/1000)||0.016;VUELO.lt=performance.now();VUELO.t+=dt;
+    const B=vueloTick(dt);if(!B)return r;const {p,fw,k}=B,side=new THREE.Vector3(fw.z,0,-fw.x).normalize();
+    // la cámara del jugador, tal como la ha dejado placeCamera
+    const pCam=camera.position.clone(),qCam=camera.quaternion.clone();
+    // detrás del ave, un poco por encima; al pasar sobre la ciudad se abre hacia un lado para enseñarla
+    const u=Math.max(0,Math.min(1,VUELO.s/VUELO.sDet)),sw=Math.sin(Math.PI*u)*0.55,back=(VUELO.owl?2.6:6.5),up=(VUELO.owl?0.9:2.1);
+    const flat=new THREE.Vector3(fw.x,0,fw.z).normalize(),off=flat.clone().multiplyScalar(-Math.cos(sw)*back).add(side.clone().multiplyScalar(Math.sin(sw)*back));
+    const want=p.clone().add(off).setY(p.y+up),look=p.clone().add(flat.clone().multiplyScalar(VUELO.owl?6:12)).setY(p.y-(VUELO.owl?2.2:4.5));
+    if(!VUELO.cam)VUELO.cam={p:want.clone(),l:look.clone()};const c=VUELO.cam,a=1-Math.exp(-dt*(VUELO.ph==='fly'?6:2));
+    if(VUELO.ph==='fly'){c.p.lerp(want,a);c.l.lerp(look,a);
+      if(!VUELO.title&&VUELO.s>VUELO.pts.sC*0.35){VUELO.title=true;const tt=VUELO.el&&VUELO.el.querySelector('.ttl');if(tt){tt.classList.add('on');setTimeout(()=>tt.classList.remove('on'),4200);}try{rwChord();}catch(e){}}
+      if(VUELO.s>=VUELO.sDet){VUELO.ph='land';VUELO.t2=0;VUELO.fromP=c.p.clone();VUELO.fromQ=vueloLook(c.p,c.l);}
+      const fl=floorAt(c.p.x,c.p.z)+2;if(c.p.y<fl)c.p.y=fl;camera.position.copy(c.p);camera.quaternion.copy(vueloLook(c.p,c.l));}
+    else{VUELO.t2+=dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw);
+      // plano en tercera persona: detrás del personaje, mirándolo
+      let bk=4.6;for(let t=0.6;t<=4.6;t+=0.3){const qx=player.x-fx*t,qz=player.z-fz*t;if(!isFree(qx,qz,0.25)||floorAt(qx,qz)>player.feet+2.6){bk=Math.max(1.2,t-0.45);break;}}
+      const tp=new THREE.Vector3(player.x-fx*bk,player.feet+2.1,player.z-fz*bk),tq=vueloLook(tp,new THREE.Vector3(player.x+fx*2,player.feet+1.3,player.z+fz*2));
+      try{const w=AVATAR.walk;if(w&&!MOUNT.riding){w.visible=true;w.position.set(player.x,player.feet,player.z);w.rotation.y=player.yaw+Math.PI;}}catch(e){}
+      const T1=3.4,T2=1.1,T3=1.2,sm=x=>x*x*x*(x*(x*6-15)+10);
+      if(VUELO.t2<T1){const e=sm(Math.min(1,VUELO.t2/T1)),mid=VUELO.fromP.clone().lerp(tp,e);mid.y+=Math.sin(Math.PI*e)*6;camera.position.copy(mid);camera.quaternion.copy(VUELO.fromQ.clone().slerp(tq,e));}
+      else if(VUELO.t2<T1+T2){camera.position.copy(tp);camera.quaternion.copy(tq);}
+      else if(VUELO.t2<T1+T2+T3){const e=sm((VUELO.t2-T1-T2)/T3);camera.position.copy(tp.clone().lerp(pCam,e));camera.quaternion.copy(tq.clone().slerp(qCam,e));}
+      else{camera.position.copy(pCam);camera.quaternion.copy(qCam);vueloEnd(false);}}
+  }catch(e){vueloEnd(true);}return r;};}
+// ---- teclas: durante el vuelo, Espacio / Intro / Esc lo saltan y no llega nada más al juego
+addEventListener('keydown',e=>{if(!VUELO.on)return;e.stopPropagation();e.preventDefault();if(e.code==='Space'||e.code==='Enter'||e.code==='Escape'||e.code==='NumpadEnter')vueloEnd(true);},true);
+// lo que normalmente aparece al empezar (elegir nombre, tutorial…) espera a que acabe el vuelo
+{const f=pjDlg;pjDlg=function(){if(VUELO.on){const a=arguments;VUELO.after.push(()=>pjDlg.apply(this,a));return;}return f.apply(this,arguments);};}
+{const f=tutStart;tutStart=function(){if(VUELO.on){VUELO.after.push(()=>tutStart());return;}return f.apply(this,arguments);};}
+{const f=startGame;startGame=function(){const first=!VUELO.seen;const r=f.apply(this,arguments);if(first&&ui==='play'&&vueloOK()){VUELO.seen=true;setTimeout(()=>{if(ui==='play')vueloStart();},60);}return r;};}
+// menú: Esc → Partida → Introducción al entrar (activar o quitar)
+{const f=gmDo;gmDo=function(k){if(k==='vuelo'){const off=!vueloOff();try{localStorage.setItem('nostos-vuelo-off',off?'1':'0');}catch(e){}try{gmClose&&gmClose();}catch(e){}
+  setTimeout(()=>toast('<span class="label">Introducción al entrar</span><br>'+(off?'Ya no se mostrará el vuelo del ave al entrar.':'Al entrar verás el vuelo del ave sobre la ciudad.')),300);return;}return f.apply(this,arguments);};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
@@ -32996,5 +33260,5 @@ if(location.hash==="#debug")window.__d={RFX:()=>({RF,rfSurf,rfFloor,footprints,r
    let why=null,n=0;g.traverse(o=>{if(o.isLight)why='luz';else if(o.userData&&(o.userData.arms||o.userData.legs))why=why||'persona';if(o.isMesh&&!o.isInstancedMesh)n++;});if(n<8)why=why||'pocas';if(why){add(R.motivoGrupo,why);continue;}
    g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh)return;R.mallas++;let w=null;if(!m.visible)w='oculta';else if(m.name)w='nombre';else if(Array.isArray(m.material))w='multimaterial';else if(Object.keys(m.userData).length)w='userData';else{const t=m.material;if(t.transparent)w='transparente';else if(t.type==='MeshBasicMaterial')w='basic';else if(t.type==='ShaderMaterial')w='shader';else if(t.emissive&&t.emissive.getHex()>0)w='emisivo';else{const G=m.geometry;if(Object.values(G.attributes).some(a=>a.isInterleavedBufferAttribute))w='interleaved';else if(G.groups&&G.groups.length>1)w='grupos';}}
      if(w)add(R.motivo,w);else R.ok++;});}
-  return R;},mergeAll:(max)=>{let n=0;for(const o of [...scene.children]){if(max&&n>=max)break;if(Math.hypot(o.position.x-camera.position.x,o.position.z-camera.position.z)>500)continue;if(o.isMesh||o.isLight||MERGE.done.has(o)||o.userData.chunk)continue;MERGE.done.add(o);if(!mgOk(o))continue;try{MERGE.saved+=mgGroup(o);n++;}catch(e){}}return [n,MERGE.saved];},cullAll:on=>cullAll(on),cullNow:()=>{while(cullRegister(5000,true));cullEval();return CULL.reg.length;},TP:()=>TP_OBJS,tpAct:o=>tpAct(o),CRT:()=>CRT,SXR:()=>STORY_EXTRA_ROMA,storyFinale:()=>storyFinale(),storyResume:f=>storyResume(f),AUD3:()=>({footprints,isFree:(x,z,r)=>isFree(x,z,r),NPC_POS,PORTS,GATES_W}),r5z:()=>r5z(),R5:()=>R5,r5Vis:()=>r5Vis(),GW:()=>GATES_W,gateT:g=>gateTravel(g),r3:a=>r3Act({act:"r3:"+a}),isl3:a=>isl3Act({act:"isl3:"+a}),setH:h=>{clock.h=h;},ISL:()=>ISLANDS,PORTSd:()=>PORTS,floorAt:(x,z)=>floorAt(x,z),CAV2:()=>CAVEAS,ARV:()=>ARV,CRX:()=>CRX,mnVision,crAct,LAU:()=>LAU,PS:()=>PS,psTick,sfxAulos,sfxLechuza,psNearPlace,PS_TEMPLE,SIT:()=>SIT,personPose,sitShade,sitBuild,sitLowT:sitLow,kneelOrSit,ILR:()=>ILR,ilionRoad,capLvl,capOk,capNo,viaje,viajeHTML,capTick,arvBlock,arvTick,BV:()=>BV,atCands:()=>atCands(),RU:()=>RU,ruBuild,ruAct,MEM:()=>({log:memz(),fama:memFama()}),memSay,memGreet,memTick,needTick,famTick,setH:h=>{clock.h=h;},FAM:()=>FAM,famForm,NEED:()=>NEED,stFeats:()=>{const c={};for(const w of walkers)for(const k of (w.g&&w.g.userData.feat)||[])c[k]=(c[k]||0)+1;for(const o of npcObjs)for(const k of (o.g&&o.g.userData.feat)||[])c['npc '+k]=(c['npc '+k]||0)+1;return c;},bvAllN:()=>{for(const o of npcObjs)if(o.bv===undefined&&o.g)bvNpc(o);},bvAll:()=>{for(const w of walkers)if(w.bv===undefined&&w.g)bvWalker(w);},BVW:()=>walkers.map(w=>[w.g.userData.bt||'',w.g.userData.gait||'',w.g.userData.post||'']),GZ:()=>GZ,gzLook,gzBolt,gzTone,gzExpr,gzBrows,profReport:n=>profReport(n),profReset:()=>profReset(),gsTest:(i,n)=>{const o=npcObjs.filter(o=>!o.hidden&&!o.g.userData.pose)[i];const gs=gsRig(o.g);gsSet(gs,n,1);for(let k=0;k<40;k++)gsApply(o.g,gs,0.05);return [o.x,o.z,o.g.rotation.y,o.data.name,gs.fore?gs.fore.map(f=>!!f).join(','):'sin codo'];},WOB:()=>WOB,gfSeal:(a,b)=>gfSeal(a,b),ATR:()=>ATR,atCandsN:()=>{const t=performance.now();const n=atCands().length;return [n,performance.now()-t];},atGround:()=>atGround(),WFA:()=>WFA,WSP:()=>WSP,wMake:k=>wMake(k),FOREST_ON:()=>FOREST_ON,FORK:()=>FOR,NAT2:()=>NAT2,n2Place:k=>n2Place(k),n2Tick:dt=>n2Tick(dt),TOAST:h=>toast(h),TLK:()=>TLK,regionName:()=>regionName(),crtW:(i,x,z)=>crtW(i,x,z),crtAct:a=>crtAct({act:"crt:"+a}),crtTickF:dt=>crtTick(dt),SWNAV:()=>SWNAV,navTargets:()=>navTargets(),navTick:dt=>navTick(dt),AUDX:()=>({AUD,GFA,WXS,AMB,CY:typeof CY!=='undefined'?CY:null}),sw2Afro:()=>sw2Afro(),sw2AfTake:k=>sw2AfTake(k),SWAF:()=>SWAF,sw2OrbTickF:dt=>sw2OrbTick(dt),sw2TickF:dt=>sw2Tick(dt),SWORB:()=>SWORB,SW2:()=>SW2,sw2z:()=>sw2z(),swPeriplo:()=>swPeriplo(),swShortcut:()=>swShortcut(),sw2RollEnc:s=>sw2RollEnc(s),sw2EncTalk:()=>sw2EncTalk(),sw2ShipTalk:S=>sw2ShipTalk(S),SW:()=>SW,swz:()=>swz(),swBoard:()=>swBoard(),swEnterSeg:(a,b,c)=>swEnterSeg(a,b,c),swLand:i=>swLand(i),swAction:()=>swAction(),swE:()=>swE(),swAct:o=>swAct(o),swMoorOf:i=>swMoorOf(i),LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf,islandBase,islandH,sqMount,RELIEF,regionSquare,bpMake,bpVary,STB,FV_TYPES,BP,bpStatue,bpGunzip,NPB,MED_POS,MED_POS_RO,BPH,PLH,TLOD,ARCH,AQ,LF,ENTD,TALLERES,tlRun,PROC,toast,todayEvent,festNextDay,FESTS,dzReport,readSign,signObjs,clock,EVC,bpCrowds,QA,OFIC,HELD,hbSelect,BPH,BP,bphSet,FG,fgz,fgHas,fgPanel,fgCount,AB,GD,abTBIms,INT2,int2Enter,int2Leave,int2Room,HM,hmz,hmTalk,hmStart,hmEnd,HM_M,RK,rkSlope,rkCliffs,SOL,solHoy,solCalc,LEY,leyStart,leyAddHead,leyShoot,leyTick,INT2,SU,TERR_U,PTEX,LEG,legTick,LEY_SH,RU,JM,JM_EV,jmz,jmNewDay,jmHaggle,mgMint,mgPress,jmFotoCheck,GQ,gqStarPos,gqApply,K2,kz,kjStart,kcStart,koOpen,korStart,kdbOpen,kdOpen,krOpen,kExPct,WG2,w2Interior,PHT,phtLoad,L3,l3z,lJuegos,lBanquete,lTeatro,lEscribir,lCarta,lAtletismo,lCocina,lPrestamo,lArq,lPerro,lPerdido,X3,x3Furnish,C21,RND,rndStations,rndSys,rndMeasure,rndShot,rndReport,rndRun,CZ,czAudit,czBot,czPanel,czHTML,czSink,czDests,czAdd,BIO,bioOf,AUTO,autoStart,autoStop,fvGeo,fvTint,FV_SKIN,FV_HAIR,bpBeardless,FV_HEAD,BP_YOUNG,msgBtn,msgRefresh,HZ,hzInit,hzURI}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
+  return R;},mergeAll:(max)=>{let n=0;for(const o of [...scene.children]){if(max&&n>=max)break;if(Math.hypot(o.position.x-camera.position.x,o.position.z-camera.position.z)>500)continue;if(o.isMesh||o.isLight||MERGE.done.has(o)||o.userData.chunk)continue;MERGE.done.add(o);if(!mgOk(o))continue;try{MERGE.saved+=mgGroup(o);n++;}catch(e){}}return [n,MERGE.saved];},cullAll:on=>cullAll(on),cullNow:()=>{while(cullRegister(5000,true));cullEval();return CULL.reg.length;},TP:()=>TP_OBJS,tpAct:o=>tpAct(o),CRT:()=>CRT,SXR:()=>STORY_EXTRA_ROMA,storyFinale:()=>storyFinale(),storyResume:f=>storyResume(f),AUD3:()=>({footprints,isFree:(x,z,r)=>isFree(x,z,r),NPC_POS,PORTS,GATES_W}),r5z:()=>r5z(),R5:()=>R5,r5Vis:()=>r5Vis(),GW:()=>GATES_W,gateT:g=>gateTravel(g),r3:a=>r3Act({act:"r3:"+a}),isl3:a=>isl3Act({act:"isl3:"+a}),setH:h=>{clock.h=h;},ISL:()=>ISLANDS,PORTSd:()=>PORTS,floorAt:(x,z)=>floorAt(x,z),CAV2:()=>CAVEAS,ARV:()=>ARV,CRX:()=>CRX,mnVision,crAct,LAU:()=>LAU,PS:()=>PS,psTick,sfxAulos,sfxLechuza,psNearPlace,PS_TEMPLE,SIT:()=>SIT,personPose,sitShade,sitBuild,sitLowT:sitLow,kneelOrSit,ILR:()=>ILR,ilionRoad,capLvl,capOk,capNo,viaje,viajeHTML,capTick,arvBlock,arvTick,BV:()=>BV,atCands:()=>atCands(),RU:()=>RU,ruBuild,ruAct,MEM:()=>({log:memz(),fama:memFama()}),memSay,memGreet,memTick,needTick,famTick,setH:h=>{clock.h=h;},FAM:()=>FAM,famForm,NEED:()=>NEED,stFeats:()=>{const c={};for(const w of walkers)for(const k of (w.g&&w.g.userData.feat)||[])c[k]=(c[k]||0)+1;for(const o of npcObjs)for(const k of (o.g&&o.g.userData.feat)||[])c['npc '+k]=(c['npc '+k]||0)+1;return c;},bvAllN:()=>{for(const o of npcObjs)if(o.bv===undefined&&o.g)bvNpc(o);},bvAll:()=>{for(const w of walkers)if(w.bv===undefined&&w.g)bvWalker(w);},BVW:()=>walkers.map(w=>[w.g.userData.bt||'',w.g.userData.gait||'',w.g.userData.post||'']),GZ:()=>GZ,gzLook,gzBolt,gzTone,gzExpr,gzBrows,profReport:n=>profReport(n),profReset:()=>profReset(),gsTest:(i,n)=>{const o=npcObjs.filter(o=>!o.hidden&&!o.g.userData.pose)[i];const gs=gsRig(o.g);gsSet(gs,n,1);for(let k=0;k<40;k++)gsApply(o.g,gs,0.05);return [o.x,o.z,o.g.rotation.y,o.data.name,gs.fore?gs.fore.map(f=>!!f).join(','):'sin codo'];},WOB:()=>WOB,gfSeal:(a,b)=>gfSeal(a,b),ATR:()=>ATR,atCandsN:()=>{const t=performance.now();const n=atCands().length;return [n,performance.now()-t];},atGround:()=>atGround(),WFA:()=>WFA,WSP:()=>WSP,wMake:k=>wMake(k),FOREST_ON:()=>FOREST_ON,FORK:()=>FOR,NAT2:()=>NAT2,n2Place:k=>n2Place(k),n2Tick:dt=>n2Tick(dt),TOAST:h=>toast(h),TLK:()=>TLK,regionName:()=>regionName(),crtW:(i,x,z)=>crtW(i,x,z),crtAct:a=>crtAct({act:"crt:"+a}),crtTickF:dt=>crtTick(dt),SWNAV:()=>SWNAV,navTargets:()=>navTargets(),navTick:dt=>navTick(dt),AUDX:()=>({AUD,GFA,WXS,AMB,CY:typeof CY!=='undefined'?CY:null}),sw2Afro:()=>sw2Afro(),sw2AfTake:k=>sw2AfTake(k),SWAF:()=>SWAF,sw2OrbTickF:dt=>sw2OrbTick(dt),sw2TickF:dt=>sw2Tick(dt),SWORB:()=>SWORB,SW2:()=>SW2,sw2z:()=>sw2z(),swPeriplo:()=>swPeriplo(),swShortcut:()=>swShortcut(),sw2RollEnc:s=>sw2RollEnc(s),sw2EncTalk:()=>sw2EncTalk(),sw2ShipTalk:S=>sw2ShipTalk(S),SW:()=>SW,swz:()=>swz(),swBoard:()=>swBoard(),swEnterSeg:(a,b,c)=>swEnterSeg(a,b,c),swLand:i=>swLand(i),swAction:()=>swAction(),swE:()=>swE(),swAct:o=>swAct(o),swMoorOf:i=>swMoorOf(i),LD:()=>LD,ldDemo:p=>{LD.el=null;LD.p=0;ldShipShow();ldShipSet(p);},RWQ:()=>({AMB2,amb2Setup,ATGset:c=>atGlowSet(c),AMB,ambz,ambAct,ambSetup,vestz,vestMenu,VEST,vestWear,pjAvatar:()=>pjAvatar(),atShow:o=>atShow(o),ATG,POP,popAct,SEAL2,seal2Run,seal2Cands,seal2Profile,seal2Covered,seal2Near,cgrid,eduz,ACC,LOGROS,eduCodex,eduTrade,trPrice,RCX,rcAct,rcz,OBJ,objZurron,hbBar,hbAddCnt,hbCnt,objContext,CY,cyAct,RD,rdAct,TT_LIST,TT_SC,TT,ttStart,ttAct,ttClick,warAct,EPISODES,epiStart,epiBeat,epiEnd,NAT_APP,NAT,natAct,CLB,clbz,mtz,mtAsk,mtGoal,MTR,mtAct,RF,rfSetup,rfSurf,rfFloor,uxz,AVATAR,FLY,wxz,wxChange,WXS,wxCycle,GFX,gfxSet,aoSet,DOF,VIS,HBAR,hbSelect,hbUse,spz,SPC,keys,PH,phToggle,phShot,displayH:(x,z)=>displayH(x,z),ROADS,COLX,colAct,colEntrar,ROMA,reliefObjs,openRelief,reliefAnswer,cam:()=>camera,AT,atPick,atShow,atCardShow,atCands,infAct:o=>infAct(o),HD,hdz,hdAct,hdBuild,hdIn,cvSteps,cvPanel,cvServ,cvPetA,cvJuicio,cvAnona,cvVet,cvTick,fxz,cz,QC,qcz,qcGo,qcBack,qcIn,vmz,vmPanDaysTo,calNow,ACA,acaz,acaStart,acaMap,acaKnows,JR,jrTick,clock,horaRomana,VOC,VOCAB,vocz,vocToggle,vocWalk,MOUNT,HORBS,hz,horseXP:()=>horseXP(),rwDiscover,horbSpawn}),QA:()=>({PLACES,signObjs,readSign,godObjs,openGod,EPI,EPISODES,epiStart,epiEnd,ISLANDS,npcObjs,EGX_OBJS,ESSAYS,openLibrary,startStory,storyFire,curStoryStep,STORY,gmOpen,gmClose,openMap,closeDialog,NPCS,captains,MUSE_OBJS,museTalk,renderOpts,MODE,state,player,floorAt,terrainH,regionName,islandOf,islandBase,islandH,sqMount,RELIEF,regionSquare,bpMake,bpVary,STB,FV_TYPES,BP,bpStatue,bpGunzip,NPB,MED_POS,MED_POS_RO,BPH,PLH,TLOD,ARCH,AQ,LF,ENTD,TALLERES,tlRun,PROC,toast,todayEvent,festNextDay,FESTS,dzReport,readSign,signObjs,clock,EVC,bpCrowds,QA,OFIC,HELD,hbSelect,BPH,BP,bphSet,FG,fgz,fgHas,fgPanel,fgCount,AB,GD,abTBIms,INT2,int2Enter,int2Leave,int2Room,HM,hmz,hmTalk,hmStart,hmEnd,HM_M,RK,rkSlope,rkCliffs,SOL,solHoy,solCalc,LEY,leyStart,leyAddHead,leyShoot,leyTick,INT2,SU,TERR_U,PTEX,LEG,legTick,LEY_SH,RU,JM,JM_EV,jmz,jmNewDay,jmHaggle,mgMint,mgPress,jmFotoCheck,GQ,gqStarPos,gqApply,K2,kz,kjStart,kcStart,koOpen,korStart,kdbOpen,kdOpen,krOpen,kExPct,WG2,w2Interior,PHT,phtLoad,L3,l3z,lJuegos,lBanquete,lTeatro,lEscribir,lCarta,lAtletismo,lCocina,lPrestamo,lArq,lPerro,lPerdido,X3,x3Furnish,C21,RND,rndStations,rndSys,rndMeasure,rndShot,rndReport,rndRun,CZ,czAudit,czBot,czPanel,czHTML,czSink,czDests,czAdd,BIO,bioOf,AUTO,autoStart,autoStop,fvGeo,fvTint,FV_SKIN,FV_HAIR,bpBeardless,FV_HEAD,BP_YOUNG,msgBtn,msgRefresh,HZ,hzInit,hzURI,MO,momento,VUELO,vueloStart,vueloEnd}),OVID,OVID_OBJS,ovz,ovidAct,ovidCatalog,SC:()=>scene,TI:()=>terrainInner,terrainH,floorAt,rawH,SEA_:()=>SEA,placeXZ:id=>{const p=PLACES.find(q=>q.id===id);return p?[p.x,p.z]:null;},URB,PIR0,pirP,PIR_BAYS,ATH_DEMES,GATES,artz,artAct,artHouse,ART,CASA,dreamCount,dreamCheck,dreamFinale,dreamTick,EPI,epiReward,finz,FZ,RACE,race3d,gorgiasAct,juicioAct,eleusisAct,sibilaAct,decretoAct,coliseoAct,finAct,telBuild,infBuild,fzPut,egxAct,MG,atalAct,atz,MG_ATAL,MG_CAMILA,mgOpen,ATAL,cavEnter,cavz,somz,cavAct,CAV,cavIn,comModeT:()=>{comMode();return comPrice;},qualGreet,qLv,qAdd,fPrice,fMax,klBonus,startQuiz,openDialog,getS:()=>state,getW:()=>walkers,getP:()=>player,getNPCS:()=>NPCS,setUi:v=>{ui=v;},oracAct,gmOpen,gmClose,GM,qz,ESSAYS,nbs,nbz,nbTalk,frurNow,frur,FARM,farmz,farmAct,farmerTalk,farmOffer,farmDay,circPt,circS,MG_CIRCO,MG_MISENO,STORY_ROMA,COM_EV,COM,gfSurface,gfInCity,footprints,foamTick,seaY:()=>SEA?SEA.position.y:null,GF,animalsReact,GLB,DOVES,MARKS,PFX,WIND,TW,FAUNA2:()=>FAUNA,mareCine,CINE,hz,DUST,dogTalk,storyResume,storyFire,curStoryStep,regionOf,m386z,COM,comPrice,MG,MG_SAL,MG_ESF,mgOpen,mgStart,M386,ORIG,FX_COINS,STORY_ATENAS,EGX_OBJS,egxAct,jeroSigns,EGF,PYR,EGX,ROMA,RPERF,clock,VU_SCENES,OFIC,MKT,MKTC:()=>{const e=todayEvent();const q=e&&e.at();return q||{x:0,z:0};},vuAct,CULT_OBJS,cultoAct,FAUNA,faunaTalk,animal,ARIS,arisMove,personWalk,walkers,makePerson,CARVE,BOAT,boatEnter,boatExit,riverWater,carveH,gridH,addRiver,VIDA,CROP,cropSeason,GLB,CHUNKS,BARCO,bz,barcoWright,barcoMat,barcoMio,MOON,buildMoon,moonVoyage,moonAct,moonBack,fareOf:(a,b,l)=>fareOf(a,b,l),TOUR,tourTalk,tourNext,tourEnd,openDialog,pjDlg,pjText,pjz,AVATAR,profeOpen,profeClose,profeDests,profeGo,CASA,cz,casaAgentTalk,hogarAct,casaTravel,bestFriend,closeDialog,calNow,horasTalk,TERR_MATS,get sealed(){return SEALED;},MUSE_OBJS,OLYM,museTalk,mnemoTalk,olyGateTalk,zeusTalk,olyTravel,muz,GODS,CARTERS,carterTalk,horseNameDlg,CVG,FESTS,festOfDay,festDialog,FEST_ACT,evCrowd,todayEvent,TUT,tutStart,tryMove,npcObjs,INNER,isFree,dz,discMenu,debateMenu,MASTERS,rivalOf,renderOpts,qz,qLv,qAdd,fz,friendMenu,FRIENDS,openJournal,DAED,wz,daedalusTalk,FLY,toggleWings,FEATHERS,KNOS,knossosTravel,keys,hz,horseQuest,horseXP,HORBS,callHorse,mountHorse,MOUNT,ROMA_BODA,addHours,newDay,startStory,storyFire,curStoryStep,storyTarget,storyActors:()=>storyActors,NET,GATES_W,gateTravel,regionOf,captains,ISLANDS,openSphere,readSign,signObjs,minotaurEncounter,stageKit,epiTick,EPI,EPISODES,epiStart,epiBeat,epiEnd,KNOS,knossosTravel,updateSky,SEAG,seaStart,seaEnd,TORCH,cgrid,CELL,resolve,footprints,floorAt,terrainH,ROMA,ROADS,footprints,updateRome,findFocus,sail,PORTS,dreamTravel,DREAM,AI,aiChat,player,MOUNT,godObjs,GODS,GLB,get state(){return state;},get mode(){return MODE;},AVATAR,CHUNKS,clock,scene,camera,renderer,keys,openGod,callHorse,openDialog,NPCS,PLACES,startGame,get ui(){return ui;},platforms,INNER,get terrainInner(){return terrainInner;},minGround,displayH,makePerson};
 })();

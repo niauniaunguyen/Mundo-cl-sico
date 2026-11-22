@@ -228,4 +228,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `223_jugar_solo.js` | 19 | JUGAR SOLO (para grabar): el juego se juega en automático, a ×1 o ×2 |
 | `224_caras_propuestas.js` | 18 | LAS 40 CARAS PROPUESTAS, EN EL JUEGO (galería de rostros, 21/11) |
 | `225_hud_tematico.js` | 222 | HUD TEMÁTICO (propuesta 1B del lienzo, «pieza de museo», 22/11) |
+| `226_momentos.js` | 122 | MOMENTOS: QUE LO IMPORTANTE SE NOTE (22/11) |
+| `227_vuelo_de_entrada.js` | 144 | EL VUELO DE ENTRADA (22/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
