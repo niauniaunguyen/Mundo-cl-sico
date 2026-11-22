@@ -51,7 +51,7 @@ LEG.minotauro=Object.assign({},LEG.leon,{title:()=>'El Minotauro',
     for(const s of[-1,1]){const h=new THREE.Mesh(new THREE.ConeGeometry(0.05,0.42,6),lam('#e9e0cc'));h.position.set(s*0.27,0.2,0);h.rotation.z=-s*1.1;hd.add(h);}
     for(const s of[-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.03,6,4),new THREE.MeshBasicMaterial({color:0xff6a2a}));e.position.set(s*0.09,0.05,0.215);hd.add(e);}
     g.traverse(o=>{if(o.isMesh)o.castShadow=true;});R.g.add(g);this.head=hd;return {g,legs:[],body:new THREE.Object3D()};},
-  tick(dt,t,act){LEG.leon.tick.call(this,dt,t,act);const A=this;if(!A.lion||!A.head)return;const want=A.rested?0.5:A.st==='agazapa'?0.75:A.st==='embiste'?0.55:A.st==='jadea'?0.25:0;A.head.rotation.x+=(want-A.head.rotation.x)*Math.min(1,dt*8);
+  tick(dt,t,act){LEG.leon.tick.call(this,dt,t,act);const A=this;if(LEY.extra&&LEY.extra.indexOf('León')>=0){LEY.extra=LEY.extra.replace('León','Asterión');try{leyHud();}catch(e){}}if(!A.lion||!A.head)return;const want=A.rested?0.5:A.st==='agazapa'?0.75:A.st==='embiste'?0.55:A.st==='jadea'?0.25:0;A.head.rotation.x+=(want-A.head.rotation.x)*Math.min(1,dt*8);
     if(A.lion.g.userData.arms){const a=A.lion.g.userData.arms,sw=A.st==='embiste'?Math.sin(t*16)*0.8:Math.sin(t*1.7)*0.15;a[0].rotation.x=-0.3+sw;a[1].rotation.x=-0.3-sw;}},
   end(){this.rested=true;LEY.extra='<span>Asterión: descansa</span>';const z=leyz();z.mino=1;save();KNOS.slain=true;try{qAdd('ar',1,'Has aguantado las embestidas del Minotauro.');}catch(e){}}});
 {const f=legStart;legStart=function(){const r=f.apply(this,arguments);try{if(LEY.kind==='minotauro')LEY.extra='<span>Asterión: acecha</span>';}catch(e){}return r;};}
