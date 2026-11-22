@@ -230,4 +230,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `225_hud_tematico.js` | 222 | HUD TEMÁTICO (propuesta 1B del lienzo, «pieza de museo», 22/11) |
 | `226_momentos.js` | 122 | MOMENTOS: QUE LO IMPORTANTE SE NOTE (22/11) |
 | `227_vuelo_de_entrada.js` | 149 | EL VUELO DE ENTRADA (22/11) |
+| `228_pies_al_suelo.js` | 40 | PIES AL SUELO (22/11) |
+| `229_jugabilidad_4.js` | 160 | JUGABILIDAD (4): diario de misiones, calendario, discursos y cargos (22/11) |
+| `230_jugabilidad_5.js` | 100 | JUGABILIDAD (5): música, trofeos, acertijos, compañía, giros y sesión de clase (22/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
