@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-290 funciones ampliadas, 547 capas.
+293 funciones ampliadas, 555 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -17,19 +17,19 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `gmDo` | `068_menu_del_juego.js` | 11 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:104 · `223`:18 · `227`:144 · `230`:96 · `232`:63 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `openDialog` | `015_dialogo.js` | 8 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 |
+| `bpMake` | `184_personajes_blender.js` | 7 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 · `233`:66 · `233`:68 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
+| `gfTick` | `062_game_feel.js` | 7 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:70 · `234`:145 |
 | `updateSky` | `003_escena.js` | 7 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:206 · `212`:34 · `231`:67 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 6 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 · `200`:58 |
 | `answer` | `015_dialogo.js` | 5 | `091`:38 · `092`:46 · `148`:58 · `154`:11 · `180`:22 |
-| `bpMake` | `184_personajes_blender.js` | 5 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 |
+| `bpKind` | `184_personajes_blender.js` | 5 | `196`:16 · `196`:41 · `196`:69 · `218`:11 · `233`:67 |
 | `chunked` | `005_modelos_de_blender.js` | 5 | `155`:21 · `182`:51 · `182`:96 · `183`:58 · `215`:13 |
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `fareOf` | `016_viajes_en_barco.js` | 5 | `052`:509 · `090`:102 · `091`:52 · `097`:70 · `202`:60 |
-| `gfTick` | `062_game_feel.js` | 5 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 |
 | `int2Room` | `204_puertas_a_interiores.js` | 5 | `206`:52 · `208`:27 · `210`:39 · `214`:29 · `217`:85 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
 | `toast` | `014_hud.js` | 5 | `120`:131 · `128`:68 · `173`:8 · `200`:37 · `226`:113 |
-| `bpKind` | `184_personajes_blender.js` | 4 | `196`:16 · `196`:41 · `196`:69 · `218`:11 |
 | `regionName` | `052_las_nueve_musas_mnemosine_y.js` | 4 | `082`:49 · `084`:9 · `105`:503 · `900`:311 |
 | `sail` | `016_viajes_en_barco.js` | 4 | `090`:99 · `091`:35 · `099`:102 · `151`:59 |
 | `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:64 · `900`:406 |
@@ -204,8 +204,10 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `horseXP` | `046_el_caballo.js` | 1 | `077`:94 |
 | `hourLabel` | `003_escena.js` | 1 | `090`:96 |
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
+| `housesGLB` | `005_modelos_de_blender.js` | 1 | `233`:19 |
 | `huntTick` | `175_actividades_dinamicas.js` | 1 | `179`:40 |
 | `infBuild` | `072_misiones_finales_de_las_cualidades.js` | 1 | `085`:49 |
+| `int2Door` | `204_puertas_a_interiores.js` | 1 | `233`:61 |
 | `int2Enter` | `204_puertas_a_interiores.js` | 1 | `210`:19 |
 | `int2Setup` | `204_puertas_a_interiores.js` | 1 | `208`:17 |
 | `islandBase` | `011_construccion_del_mundo.js` | 1 | `188`:29 |
@@ -273,6 +275,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `swOwnerTalk` | `105_mar_abierto.js` | 1 | `111`:103 |
 | `swRow` | `105_mar_abierto.js` | 1 | `106`:97 |
 | `swTick` | `105_mar_abierto.js` | 1 | `106`:100 |
+| `temple` | `008_edificios.js` | 1 | `234`:26 |
 | `termoPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:397 |
 | `terrainH` | `001_terreno.js` | 1 | `900`:309 |
 | `terrainH0` | `001_terreno.js` | 1 | `001`:94 |

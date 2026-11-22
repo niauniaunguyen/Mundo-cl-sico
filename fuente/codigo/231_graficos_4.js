@@ -41,7 +41,7 @@ function g4Veg(){if(G4.done.veg||typeof chunked!=='function'||typeof terrainH!==
       E.set(j*2,a,j);Q.setFromEuler(E);const sc=3+j*5;S.set(sc,sc*1.6,sc*0.9);M.compose(V.set(x,y-sc*0.4,z),Q,S);cliff.push({m:M.clone(),c:new THREE.Color().setHSL(0.09,0.14,0.5+j*0.12)});}}
   const mS=new THREE.MeshLambertMaterial({color:0xffffff}),mR=new THREE.MeshLambertMaterial({color:0xffffff,flatShading:true});
   if(shrub.length)chunked(new THREE.IcosahedronGeometry(0.9,0),mS,shrub,{veg:true,shadow:false});
-  if(rock.length)chunked(new THREE.DodecahedronGeometry(1,0),mR,rock,{shadow:true});if(cliff.length)chunked(new THREE.DodecahedronGeometry(1,0),mR,cliff,{shadow:true,receive:true});
+  G4.rockL=rock;G4.cliffL=cliff;   // las rocas se ponen con los modelos escaneados (233), no con poliedros
   if(olive.length){const tg=new THREE.CylinderGeometry(0.12,0.2,2.2,5);tg.translate(0,1.1,0);const cg=new THREE.IcosahedronGeometry(1.5,0);cg.scale(1.3,0.8,1.3);cg.translate(0,2.7,0);
     chunked(tg,new THREE.MeshLambertMaterial({color:'#5b4a38'}),olive,{veg:true});chunked(cg,new THREE.MeshLambertMaterial({color:'#7d8a62'}),olive,{veg:true});}
   G4.vegN={shrub:shrub.length,olive:olive.length,rock:rock.length,cliff:cliff.length};}

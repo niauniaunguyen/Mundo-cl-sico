@@ -22731,7 +22731,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='4d97e7352623';
+const NOSTOS_VER='48a0d6d55b17';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -32969,7 +32969,7 @@ function g4Veg(){if(G4.done.veg||typeof chunked!=='function'||typeof terrainH!==
       E.set(j*2,a,j);Q.setFromEuler(E);const sc=3+j*5;S.set(sc,sc*1.6,sc*0.9);M.compose(V.set(x,y-sc*0.4,z),Q,S);cliff.push({m:M.clone(),c:new THREE.Color().setHSL(0.09,0.14,0.5+j*0.12)});}}
   const mS=new THREE.MeshLambertMaterial({color:0xffffff}),mR=new THREE.MeshLambertMaterial({color:0xffffff,flatShading:true});
   if(shrub.length)chunked(new THREE.IcosahedronGeometry(0.9,0),mS,shrub,{veg:true,shadow:false});
-  if(rock.length)chunked(new THREE.DodecahedronGeometry(1,0),mR,rock,{shadow:true});if(cliff.length)chunked(new THREE.DodecahedronGeometry(1,0),mR,cliff,{shadow:true,receive:true});
+  G4.rockL=rock;G4.cliffL=cliff;   // las rocas se ponen con los modelos escaneados (233), no con poliedros
   if(olive.length){const tg=new THREE.CylinderGeometry(0.12,0.2,2.2,5);tg.translate(0,1.1,0);const cg=new THREE.IcosahedronGeometry(1.5,0);cg.scale(1.3,0.8,1.3);cg.translate(0,2.7,0);
     chunked(tg,new THREE.MeshLambertMaterial({color:'#5b4a38'}),olive,{veg:true});chunked(cg,new THREE.MeshLambertMaterial({color:'#7d8a62'}),olive,{veg:true});}
   G4.vegN={shrub:shrub.length,olive:olive.length,rock:rock.length,cliff:cliff.length};}
@@ -33128,6 +33128,221 @@ function colcalTex(){if(typeof COLCAL==='undefined'||!COLCAL)return;scene.traver
 // que la resolución dinámica y el ajuste de color de 231 no pisen el modo calibrado
 {const f=g4Grade;g4Grade=function(){if(typeof COLCAL!=='undefined'&&COLCAL)return;return f.apply(this,arguments);};}
 {const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(state&&ui!=='start'){casa2Tick(dt);colcalApply();CASA2.ct=(CASA2.ct||0)+dt;if(CASA2.ct>3){CASA2.ct=0;colcalTex();}}}catch(e){}return r;};}
+// ============================================================ CORRECCIONES DEL VÍDEO DE PRUEBA (21/11), SEGUNDA PARTE: el mundo y la gente
+// D1 Casas enterradas: después de aplanar el terreno para caminos, ríos y edificios, algunas casas quedaban medio dentro de una ladera
+//    (o torcidas). Ahora cada casa se vuelve a apoyar: recta, a la altura del suelo más alto de su planta, y con un zócalo de piedra
+//    por debajo en el lado bajo, como las casas en cuesta. Si para eso hiciera falta un zócalo de más de 6 m (un tajo de camino), la
+//    casa se quita, con su choque.
+// D2 Cielo roto: justo encima de la cabeza, la capa de nubes se estiraba en una estrella con una raya (es donde se cierra la foto del
+//    cielo). Las nubes se desvanecen cerca del cénit: arriba del todo, cielo limpio.
+// D3 Capitolio (y demás colinas empinadas dentro de las ciudades): las laderas eran planos lisos con triángulos a la vista. En los
+//    escarpes salen ahora paredes de roca escaneada (en Roma, la toba de la roca Tarpeya), y se quitan los árboles plantados en
+//    pendientes imposibles, que parecían atravesar la colina.
+// D4 Rocas: todas las rocas nuevas de los gráficos (matorral de las laderas, escarpes de la Acrópolis) son ya rocas escaneadas, no
+//    poliedros; y las bocas de las cuevas se hacen con paredes de roca escaneada en vez de piedras de juguete.
+// C1 Cargas: quien lleva hidria, cesta o ánfora y pasa al modelo nuevo la sigue llevando, pegada al hueso (antes, por un camino,
+//    el modelo nuevo salía sin la carga).
+// C2 Niños pequeños (escala 0,36-0,6) también con el modelo nuevo.
+const V21B={done:{},cave:[],slopeR:null};
+function v21Slope(x,z){const a=terrainH(x+2,z)-terrainH(x-2,z),b=terrainH(x,z+2)-terrainH(x,z-2);return Math.hypot(a,b)/4;}
+// ---- D1: casas
+{const f=housesGLB;housesGLB=function(list){const n0=CHUNKS.length;const r=f.apply(this,arguments);for(let i=n0;i<CHUNKS.length;i++)CHUNKS[i].im.userData.house=1;return r;};}
+function v21Houses(){if(V21B.done.house)return;V21B.done.house=1;const M=new THREE.Matrix4(),P=new THREE.Vector3(),Q=new THREE.Quaternion(),S=new THREE.Vector3(),E=new THREE.Euler(),Z=new THREE.Matrix4().makeScale(0,0,0);
+  const plan=new Map();let raised=0,removed=0,straight=0;
+  for(const c of CHUNKS){const im=c.im;if(!im.userData.house)continue;const g=im.geometry;if(!g.boundingBox)g.computeBoundingBox();const bb=g.boundingBox;
+    for(let i=0;i<im.count;i++){im.getMatrixAt(i,M);M.decompose(P,Q,S);if(S.x===0)continue;const key=Math.round(P.x*10)+','+Math.round(P.z*10);let p=plan.get(key);
+      if(!p){E.setFromQuaternion(Q,'YXZ');const yaw=E.y,tilt=Math.abs(E.x)+Math.abs(E.z)>0.02;const hw=Math.max(Math.abs(bb.min.x),Math.abs(bb.max.x))*S.x,hd=Math.max(Math.abs(bb.min.z),Math.abs(bb.max.z))*S.z;
+        const ca=Math.cos(yaw),sa=Math.sin(yaw);let hi=-1e9,lo=1e9;for(const[u,v]of[[-1,-1],[1,-1],[1,1],[-1,1],[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const lx=u*hw*0.92,lz=v*hd*0.92,x=P.x+lx*ca+lz*sa,z=P.z-lx*sa+lz*ca,h=terrainH(x,z);hi=Math.max(hi,h);lo=Math.min(lo,h);}
+        let y=P.y,act='keep';if(hi-P.y>0.6){y=hi-0.15;act='raise';}if(y-lo>6.5)act='remove';p={y,act,yaw,tilt,hw,hd,lo,x:P.x,z:P.z};plan.set(key,p);
+        if(act==='raise')raised++;else if(act==='remove')removed++;if(tilt)straight++;}
+      if(p.act==='remove'){im.setMatrixAt(i,Z);continue;}if(p.act==='keep'&&!p.tilt)continue;
+      E.set(0,p.yaw,0);Q.setFromEuler(E);P.y=p.y;M.compose(P,Q,S);im.setMatrixAt(i,M);}
+    im.instanceMatrix.needsUpdate=true;}
+  // zócalos de piedra bajo las casas levantadas
+  const soc=[];for(const p of plan.values()){if(p.act!=='raise'||p.y-p.lo<0.3)continue;const h=p.y-p.lo+0.4;E.set(0,p.yaw,0);Q.setFromEuler(E);S.set(p.hw*2,h,p.hd*2);M.compose(P.set(p.x,p.lo-0.4+h/2,p.z),Q,S);soc.push({m:M.clone()});}
+  if(soc.length)chunked(new THREE.BoxGeometry(1,1,1),lam('#a89a82'),soc,{shadow:true,receive:true});
+  // las quitadas, sin choque
+  for(const p of plan.values()){if(p.act!=='remove')continue;try{const C=[[-p.hw,-p.hd],[p.hw,-p.hd],[p.hw,p.hd],[-p.hw,p.hd]].map(q=>toW(q[0],q[1],p.x,p.z,p.yaw));
+      for(const[k,a]of cgrid){for(let i=a.length-1;i>=0;i--){const o=a[i];if(!o.s)continue;const near=(x,z)=>C.some(c=>Math.abs(c[0]-x)<0.6&&Math.abs(c[1]-z)<0.6);if(near(o.x1,o.z1)&&near(o.x2,o.z2))a.splice(i,1);}}
+      const fi=footprints.findIndex(f=>f.house&&Math.abs(f.x-p.x)<0.2&&Math.abs(f.z-p.z)<0.2);if(fi>=0)footprints.splice(fi,1);}catch(e){}}
+  V21B.houses={raised,removed,straight,zocalos:soc.length};}
+// ---- D2: nubes en el cénit
+function v21Sky(){if(V21B.done.sky||typeof SKY==='undefined')return;const F=SKY.fragmentShader,k='a*=smoothstep(-0.02,0.1,vp.y);';if(F.indexOf(k)<0)return;V21B.done.sky=1;
+  SKY.fragmentShader=F.replace(k,k+'a*=1.0-smoothstep(0.8,0.95,vp.y);');SKY.needsUpdate=true;}
+// ---- D3: escarpes dentro de las ciudades y árboles en pendientes imposibles
+function v21CityCliffs(){const c=typeof g4Center==='function'?g4Center():{x:0,z:0},R=MODE==='roma'?1300:820,L=[],M=new THREE.Matrix4(),Q=new THREE.Quaternion(),S=new THREE.Vector3(),V=new THREE.Vector3(),E=new THREE.Euler();
+  for(let x=c.x-R;x<c.x+R&&L.length<700;x+=7)for(let z=c.z-R;z<c.z+R&&L.length<700;z+=7){if(Math.hypot(x-c.x,z-c.z)>R)continue;const s=v21Slope(x,z);if(s<0.75)continue;
+    const j=g4R(x,z);if(j<0.35)continue;try{if(!isFree(x,z,1.5))continue;if(g4NearRoad(x,z))continue;}catch(e){}
+    const a=Math.atan2(terrainH(x+2,z)-terrainH(x-2,z),terrainH(x,z+2)-terrainH(x,z-2));E.set(0,a+Math.PI,0);Q.setFromEuler(E);const sc=4+j*5;S.set(sc,sc*1.2,sc*0.8);M.compose(V.set(x,terrainH(x,z)-sc*0.35,z),Q,S);
+    L.push({m:M.clone(),c:new THREE.Color().setHSL(MODE==='roma'?0.08:0.09,MODE==='roma'?0.22:0.12,0.5+j*0.12)});}
+  return L;}
+function v21Trees(){if(V21B.done.trees)return;V21B.done.trees=1;const M=new THREE.Matrix4(),P=new THREE.Vector3(),Z=new THREE.Matrix4().makeScale(0,0,0);let n=0;
+  for(const c of CHUNKS){const im=c.im;if(!im.userData.veg)continue;let ch=false;for(let i=0;i<im.count;i++){im.getMatrixAt(i,M);P.setFromMatrixPosition(M);if(M.elements[0]===0&&M.elements[5]===0)continue;
+      if(v21Slope(P.x,P.z)>0.95){im.setMatrixAt(i,Z);ch=true;n++;}}if(ch)im.instanceMatrix.needsUpdate=true;}V21B.trees=n;}
+// ---- D4: rocas escaneadas para lo nuevo (escarpes, laderas, cuevas)
+function v21RockMesh(items,names,isCliff){if(!items.length||!RK.tpl)return 0;const N=names.filter(k=>RK.tpl[k]);if(!N.length)return 0;const per={};
+  const M=new THREE.Matrix4(),P=new THREE.Vector3(),Q=new THREE.Quaternion(),S=new THREE.Vector3();
+  items.forEach((it,i)=>{const k=N[i%N.length],T=RK.tpl[k];it.m.decompose(P,Q,S);const k2=1/(T.max||1);S.multiplyScalar(k2*(isCliff?1.6:1.4));M.compose(P,Q,S);(per[k]||(per[k]=[])).push({m:M.clone(),c:it.c});});
+  for(const k in per)chunked(RK.tpl[k].g,RK.tpl[k].m,per[k],{shadow:true,receive:true});return items.length;}
+function v21Rocks(){if(V21B.done.rocks)return;if(typeof RK==='undefined')return;if(!RK.tpl){try{rkLoad();}catch(e){}return;}V21B.done.rocks=1;
+  const cl=(typeof G4!=='undefined'&&G4.cliffL)||[],rk=(typeof G4!=='undefined'&&G4.rockL)||[],city=v21CityCliffs();
+  V21B.rocks={laderas:v21RockMesh(rk,RK_PENA.concat(RK_PIEDRA),false),escarpes:v21RockMesh(cl.concat(city),RK_CLIFF.concat(RK_PARED),true),ciudad:city.length};
+  for(const d of V21B.cave)v21CaveSwap(d);}
+{const f=int2Door;int2Door=function(o){const r=f.apply(this,arguments);try{if(o&&o.cave&&o.g){V21B.cave.push(o);if(V21B.done.rocks)v21CaveSwap(o);}}catch(e){}return r;};}
+function v21CaveSwap(o){if(o.v21||!RK.tpl||!o.g)return;o.v21=1;const g=o.g;for(const ch of g.children.slice())if(ch.isMesh&&ch.geometry&&ch.geometry.type==='DodecahedronGeometry')g.remove(ch);
+  const K=RK_PARED.concat(RK_CLIFF).filter(k=>RK.tpl[k]);if(!K.length)return;
+  [[-2.6,1.3,-1.2,0.4],[2.6,1.3,-1.2,-0.4],[0,3.4,-1.4,1.57]].forEach(([x,y,z,r],i)=>{const T=RK.tpl[K[i%K.length]],m=new THREE.Mesh(T.g,T.m);const s=3.6/(T.max||1);m.scale.setScalar(s);m.position.set(x,y-1.2,z);m.rotation.set(0,Math.PI+r*0.3,i===2?r:0);m.castShadow=m.receiveShadow=true;g.add(m);});}
+// ---- C1 y C2: cargas y niños
+{const f=bpMake;bpMake=function(k,c){const g=f.apply(this,arguments);try{if(g&&c&&c.carry&&typeof bpProp==='function')setTimeout(()=>{try{bpProp(g,c);}catch(e){}},0);}catch(e){}return g;};}
+{const f=bpKind;bpKind=function(c){if(c&&c.scale&&c.scale<0.6&&c.scale>=0.36&&!c.statue&&!c.stKind){const r=f(Object.assign({},c,{scale:0.6}));if(r)return r;}return f(c);};}
+{const f=bpMake;bpMake=function(k,c){const g=f.apply(this,arguments);try{if(g&&c&&c.scale&&c.scale<0.45&&c.scale>=0.36){g.scale.multiplyScalar(c.scale/0.45);g.userData.young=1;try{BP_YOUNG.add(g);}catch(e){}}}catch(e){}return g;};}
+// ---- arranque
+{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(state&&ui==='play'){V21B.t=(V21B.t||0)+dt;if(V21B.t>1.5){V21B.t=0;v21Sky();if(typeof G4!=='undefined'&&G4.built){v21Houses();v21Trees();v21Rocks();}}}}catch(e){console.warn('v21b',e);}return r;};}
+// ============================================================ PROPUESTAS P7-P10 (22/11): arquitectura de detalle (2), procesiones, talleres de fuentes y la Atenas romana
+// P7 Arquitectura de detalle, segunda parte: en todos los templos (Atenas y Roma), a lo largo de los aleros, una fila de antefijas
+//    con palmeta (las tejas de remate que tapan el canal de las tejas), la sima pintada con su cenefa y gárgolas con cabeza de león
+//    para el agua de lluvia, como en el Partenón y en los templos romanos.
+// P8 Fiestas con multitudes: el día de la fiesta, una procesión de verdad recorre la ciudad, con gente mirando a los lados.
+//    · Atenas, Panateneas: del Dípilon al Ágora por la Vía Panatenaica y arriba, a la Acrópolis: canéforas con sus cestas,
+//      músicos, ancianos con ramas de olivo (talóforos), metecos de rojo con bandejas (escafóforos: los metecos sí desfilaban)
+//      e hidriáforos. Como en el friso del Partenón. (El carro con forma de barco que llevaba el peplo es posterior: no sale.)
+//    · Roma, Juegos Romanos: la pompa circense, del Capitolio al Circo Máximo por el Foro y el Vico Tusco, como la describe Dionisio
+//      de Halicarnaso (VII 72): jóvenes delante, aurigas, danzantes, flautistas y las imágenes de los dioses en andas. Anacronismo
+//      evitado: en el año 80 no hubo triunfo (el último fue el de Vespasiano y Tito, en el 71).
+// P9 Talleres de fuentes: en veinte destinos, un lector público te lee lo que escribió un autor antiguo sobre ese lugar (en resumen,
+//    con la cita) y te pregunta: una cosa del texto y otra que tienes que comprobar mirando a tu alrededor.
+// P10 La Atenas romana (80 d.C.), en el modo Roma: además del Partenón, la Atenas que veía un estudiante romano: el templo redondo
+//    de Roma y Augusto en la Acrópolis, el Erecteion, el Ágora con el Odeón de Agripa, el templo de Ares traído desde el campo, la
+//    Stoa de Átalo y el Hefestion; el mercado romano de César y Augusto con la puerta de Atenea Arquegetis y la Torre de los Vientos.
+// ================================================================== P7
+const P7={tex:null,n:0};
+function p7Tex(){if(P7.tex)return P7.tex;const c=document.createElement('canvas');c.width=64;c.height=96;const x=c.getContext('2d');x.fillStyle='rgba(0,0,0,0)';x.fillRect(0,0,64,96);
+  x.fillStyle='#e8dcc4';x.beginPath();x.moveTo(32,6);for(let i=0;i<=8;i++){const a=Math.PI*(0.1+0.8*i/8),r=i%2?26:30;x.lineTo(32-Math.cos(a)*r,52-Math.sin(a)*r*1.2);}x.lineTo(46,92);x.lineTo(18,92);x.closePath();x.fill();
+  x.strokeStyle='#2f4c86';x.lineWidth=3;for(let i=0;i<5;i++){x.beginPath();x.moveTo(32,60);x.lineTo(32+(i-2)*10,22+Math.abs(i-2)*6);x.stroke();}x.fillStyle='#a8452c';x.beginPath();x.arc(32,64,6,0,7);x.fill();
+  const t=new THREE.CanvasTexture(c);return P7.tex=t;}
+function p7Band(){if(P7.band)return P7.band;const c=document.createElement('canvas');c.width=128;c.height=16;const x=c.getContext('2d');x.fillStyle='#2f4c86';x.fillRect(0,0,128,16);x.strokeStyle='#e8c070';x.lineWidth=2;
+  for(let i=0;i<8;i++){const o=i*16;x.beginPath();x.moveTo(o+1,13);x.lineTo(o+1,3);x.lineTo(o+12,3);x.lineTo(o+12,10);x.lineTo(o+6,10);x.lineTo(o+6,6);x.stroke();}x.fillStyle='#a8452c';x.fillRect(0,14,128,2);
+  const t=new THREE.CanvasTexture(c);t.wrapS=THREE.RepeatWrapping;return P7.band=t;}
+{const f=temple;temple=function(o){const r=f.apply(this,arguments);try{if(o&&!o.noRoof&&!o.ruined&&o.W&&o.L)p7Detail(o);}catch(e){}return r;};}
+function p7Detail(o){const a=o.rot||0,W=o.W,L=o.L,ion=o.order==='ionic',steps=o.steps||3,sh=o.stepH||0.4,base=steps*sh,colH=o.colH||8,e=o.entH||colH*(ion?0.24:0.32),top=base+colH+e;
+  const gy=o.gy!==undefined?o.gy:minGround(o.x,o.z,W+4,L+4,a)-0.1,g=new THREE.Group();g.position.set(o.x,gy,o.z);g.rotation.y=a;scene.add(g);
+  const hx=W/2+0.36,n=Math.max(4,Math.floor(L/0.85)),M=new THREE.Matrix4(),Q=new THREE.Quaternion(),S=new THREE.Vector3(0.36,0.5,1),V=new THREE.Vector3(),E=new THREE.Euler();
+  const ant=new THREE.InstancedMesh(new THREE.PlaneGeometry(1,1),new THREE.MeshLambertMaterial({map:p7Tex(),transparent:true,alphaTest:0.4,side:THREE.DoubleSide}),n*2);let k=0;
+  for(const s of[-1,1])for(let i=0;i<n;i++){const z=-L/2+0.4+i*(L-0.8)/(n-1);E.set(0,s*Math.PI/2,0);Q.setFromEuler(E);M.compose(V.set(s*hx,top+0.28,z),Q,S);ant.setMatrixAt(k++,M);}
+  ant.castShadow=false;g.add(ant);
+  const bm=new THREE.MeshLambertMaterial({map:p7Band().clone()});bm.map.needsUpdate=true;bm.map.repeat.set(L/2.2,1);for(const s of[-1,1]){const b=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.28,L+0.6),bm);b.position.set(s*(hx-0.02),top-0.04,0);g.add(b);}
+  const nl=Math.max(2,Math.floor(L/3.2)),lion=new THREE.InstancedMesh(new THREE.SphereGeometry(0.13,8,6),lam('#d8ccb0'),nl*2);k=0;
+  for(const s of[-1,1])for(let i=0;i<nl;i++){const z=-L/2+1.6+i*(L-3.2)/Math.max(1,nl-1);M.compose(V.set(s*(hx+0.06),top-0.04,z),Q.identity(),new THREE.Vector3(1,0.9,1.2));lion.setMatrixAt(k++,M);}g.add(lion);P7.n++;}
+// ================================================================== P8
+const PRC8={on:false,day:-1,g:null,mem:[],spec:[],path:null,lead:0,done:false,watch:0,nT:0};
+function p8Q(id){const p=(typeof PLACES!=='undefined'?PLACES:[]).find(q=>q.id===id);return p?[p.x,p.z]:null;}
+function p8Route(){if(MODE==='roma'){const L=[p8Q('ro_jupiter')];for(let i=(typeof CLIVUS!=='undefined'?CLIVUS.length-1:-1);i>=0;i--)L.push(CLIVUS[i]);L.push([0,-8],[-45,60],[-80,160],[-50,280]);const c=p8Q('ro_circo');if(c)L.push(c);return L.filter(Boolean);}
+  const D=typeof GATES!=='undefined'?GATES.dipylon:null,L=[];if(D)L.push([D.x,D.z]);if(typeof AG!=='undefined'){L.push([AG.x-40,AG.z-60],[AG.x,AG.z],[AG.x+60,AG.z+40]);}const pr=p8Q('propileos'),pa=p8Q('partenon');if(pr)L.push(pr);if(pa)L.push(pa);return L;}
+function p8Spec(){if(MODE==='roma'){const S=[];const tg={chiton:'#efe6d4',himation:'#efe6d4',toga:true,praetexta:true,hair:'#3a2a1e'};S.push(Object.assign({},tg,{clavus:'lati'}));
+    for(let i=0;i<10;i++)S.push({chiton:'#efe6d4',short:true,noHimation:true,toga:false,hair:pick(['#3a2a1e','#5a3a22']),scale:0.85});
+    for(const c of['#b03a2a','#e8e4dc','#4a7a3a','#3a5a9a'])S.push({chiton:c,short:true,noHimation:true,hair:'#2a1d14'});
+    for(let i=0;i<6;i++)S.push({chiton:'#a8452c',short:true,noHimation:true,hair:'#3a2a1e'});for(let i=0;i<4;i++)S.push({chiton:'#d8ccb4',short:true,noHimation:true,hair:'#4a3626'});
+    for(let i=0;i<8;i++)S.push({chiton:'#e8dcc4',short:true,noHimation:true,hair:'#3a2a1e',ferc:i%4===0});return S;}
+  const S=[];for(let i=0;i<8;i++)S.push({female:true,chiton:'#efe6d4',himation:pick(['#c9a24a','#d8cdb4','#b5603a']),hair:'#3a2a1e',carry:'basket'});
+  for(let i=0;i<4;i++)S.push({chiton:'#efe6d4',himation:'#6a4a8a',hair:'#4a3626',beard:true});
+  for(let i=0;i<8;i++)S.push({chiton:'#e8e2d6',himation:'#e8e2d6',hair:'#cfc8bc',beard:true,beardC:'#d8d2c8',branch:true});
+  for(let i=0;i<6;i++)S.push({chiton:'#8a2a3a',himation:'#8a2a3a',hair:'#3a2a1e',beard:true,carry:'basket'});
+  for(let i=0;i<4;i++)S.push({chiton:'#efe6d4',short:true,noHimation:true,hair:'#5a3a22',carry:'hydria'});
+  for(let i=0;i<8;i++)S.push({chiton:'#d8ccb4',himation:pick(['#3f5a6a','#7a5a3a']),hair:'#3a2a1e'});return S;}
+function p8Path(L){const P=L.map(p=>new THREE.Vector3(p[0],0,p[1])),cum=[0];for(let i=1;i<P.length;i++)cum.push(cum[i-1]+P[i].distanceTo(P[i-1]));return {P,cum,L:cum[cum.length-1]};}
+function p8At(s){const R=PRC8.path,c=R.cum;s=Math.max(0,Math.min(R.L,s));let i=1;while(i<c.length-1&&c[i]<s)i++;const k=(s-c[i-1])/((c[i]-c[i-1])||1),a=R.P[i-1],b=R.P[i];return {x:a.x+(b.x-a.x)*k,z:a.z+(b.z-a.z)*k,ang:Math.atan2(b.x-a.x,b.z-a.z)};}
+function p8Start(ev){const L=p8Route();if(L.length<3)return;PRC8.path=p8Path(L);PRC8.spec=p8Spec();PRC8.lead=PRC8.spec.length*1.7+2;PRC8.on=true;PRC8.done=false;PRC8.day=state.day||1;
+  const g=new THREE.Group();scene.add(g);PRC8.g=g;const conv=p=>{try{const n=typeof bpConv==='function'?bpConv(p,true):null;return n||p;}catch(e){return p;}};
+  PRC8.mem=PRC8.spec.map((c,i)=>{let p=makePerson(Object.assign({noVary:false},c));p.position.set(player.x,-500,player.z);g.add(p);p=conv(p);
+    if(c.branch){const b=new THREE.Mesh(new THREE.CylinderGeometry(0.015,0.02,0.9,5),lam('#5a6a3a'));b.position.set(0.28,1.2,0.12);b.rotation.z=-0.3;p.add(b);}
+    if(c.ferc){const f=new THREE.Group();const lit=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.12,2.2),lam('#7a4a2a'));lit.position.y=1.55;f.add(lit);const st=makePerson({chiton:'#d8b44a',himation:'#d8b44a',hair:'#d8b44a',skin:'#d8b44a',statue:true,noVary:true,scale:0.45});st.position.y=1.62;f.add(st);p.add(f);}
+    return {g:p,i,ph:Math.random()*6};});
+  // gente mirando a los lados del tramo central
+  for(let i=0;i<46;i++){const s=PRC8.path.L*(0.3+0.4*i/46),q=p8At(s),side=i%2?1:-1,off=5+Math.random()*3,x=q.x+Math.cos(q.ang)*off*side,z=q.z-Math.sin(q.ang)*off*side;try{if(!isFree(x,z,0.4))continue;}catch(e){}
+    const p=makePerson({female:Math.random()<0.4,chiton:pick(['#d8ccb4','#e6dcc8','#c9b48b','#b8a888']),himation:pick(['#6a4a30','#5a6a7a','#7a5a3a','#8a6a4a']),hair:pick(['#2b1f17','#3e2c1f','#5b4532'])});p.position.set(x,floorAt(x,z),z);p.rotation.y=Math.atan2(q.x-x,q.z-z);g.add(p);if(i<24)conv(p);}
+  try{momento('start',ev.title,MODE==='roma'?'La pompa sale del Capitolio hacia el Circo Máximo':'La procesión sale del Dípilon hacia la Acrópolis');}catch(e){}}
+function p8End(){if(PRC8.g){scene.remove(PRC8.g);}PRC8.g=null;PRC8.mem=[];PRC8.on=false;}
+function p8Tick(dt){if(!state)return;let ev=null;try{ev=todayEvent();}catch(e){}const want=ev&&(ev.id==='f_panateneas'||ev.id==='f_ludiromani')&&clock.h>=ev.h0&&clock.h<ev.h1-1;
+  if(!PRC8.on){if(want&&PRC8.day!==(state.day||1)){const L=p8Route();if(L.length>2){const mid=L[Math.floor(L.length/2)];if(Math.hypot(mid[0]-player.x,mid[1]-player.z)<700)p8Start(ev);}}return;}
+  if(PRC8.day!==(state.day||1)){p8End();return;}
+  PRC8.lead+=dt*(PRC8.done?0:1.05);if(PRC8.lead>=PRC8.path.L+2&&!PRC8.done){PRC8.done=true;PRC8.endT=40;const d=Math.hypot(p8At(PRC8.path.L).x-player.x,p8At(PRC8.path.L).z-player.z);
+    if(d<60&&PRC8.watch>40){try{momento('done',ev?ev.title:'La procesión',MODE==='roma'?'Has acompañado la pompa hasta el Circo':'Has acompañado la procesión hasta la Acrópolis');qAdd('eu',2,'Has acompañado a la procesión.');}catch(e){}}}
+  if(PRC8.done){PRC8.endT-=dt;if(PRC8.endT<0)p8End();return;}
+  let near=1e9;for(const m of PRC8.mem){const s=PRC8.lead-m.i*1.7,q=p8At(s),col=(m.i%2?-0.8:0.8),x=q.x+Math.cos(q.ang)*col,z=q.z-Math.sin(q.ang)*col,g=m.g,moving=s>0&&s<PRC8.path.L;
+    g.position.set(x,floorAt(x,z),z);g.rotation.y=q.ang;g.visible=s>-2;if(moving){m.ph+=dt*4.4;try{personWalk(g,m.ph,1);}catch(e){}}else try{personWalk(g,0,0);}catch(e){}near=Math.min(near,Math.hypot(x-player.x,z-player.z));}
+  if(near<40)PRC8.watch+=dt;
+  PRC8.nT-=dt;if(near<70&&PRC8.nT<=0&&aOK()){PRC8.nT=0.42;try{const t=AUD.ctx.currentTime,sc=[0,2,3,5,7,8,10,12],f=(MODE==='roma'?220:246.9)*Math.pow(2,sc[Math.floor(Math.random()*sc.length)]/12),v=0.03*Math.max(0.2,1-near/70);
+      const o=AUD.ctx.createOscillator(),lp=AUD.ctx.createBiquadFilter();o.type='sawtooth';o.frequency.value=f;lp.type='lowpass';lp.frequency.value=f*3;o.connect(lp).connect(envGain(t,v,0.04,0.38));o.start(t);o.stop(t+0.45);}catch(e){}}}
+// ================================================================== P9
+const P9={spot:{},t:0};
+const P9_T={
+ atenas:{
+  esparta:['Tucídides I 10','Si Esparta quedara desierta y solo se vieran los cimientos de sus templos, nadie creería en su poder: no está construida como una ciudad, sino en aldeas, a la manera antigua. Si le pasara lo mismo a Atenas, parecería el doble de poderosa de lo que es.',['¿Cómo está construida Esparta, según Tucídides?','En aldeas, sin grandes edificios','Con murallas enormes y templos de mármol','Como Atenas, pero más grande'],['Mira a tu alrededor: ¿ves grandes templos de mármol?','No: casas sencillas y pocos edificios grandes','Sí, muchos como en la Acrópolis','Solo palacios']],
+  delos:[_t(1722,'Tucídides III 104'),'Los atenienses purificaron Delos: quitaron las tumbas de la isla y prohibieron que en ella naciera o muriera nadie; quien iba a dar a luz o estaba a punto de morir era llevado a la isla de enfrente, Renea.',['¿Qué no se puede hacer en Delos desde la purificación?','Nacer ni morir','Comerciar','Construir templos'],['¿De quién es el gran santuario de esta isla?','De Apolo (y Ártemis), nacidos aquí','De Poseidón','De Hera']],
+  creta:[_t(1728,'Tucídides I 4'),'Minos fue el primero que, según la tradición, tuvo una flota: dominó el mar que hoy se llama griego, gobernó las Cícladas y limpió el mar de piratas para que le llegaran mejor los tributos.',['¿Por qué se recuerda a Minos según Tucídides?','Por tener la primera flota y dominar el mar','Por vencer en Troya','Por inventar la moneda'],['Lo que queda en Cnosos, ¿es una ciudad del 386 a.C. o algo mucho más antiguo?','Mucho más antiguo: ruinas de un palacio de la Edad del Bronce','Del 386 a.C., recién construido','Romano']],
+  micenas:['Tucídides I 10','Que Micenas fuera pequeña, o que alguna ciudad de entonces parezca poca cosa, no es razón para dudar de que la expedición a Troya fue tan grande como dicen los poetas.',['¿Qué advierte Tucídides sobre Micenas?','Que su tamaño no prueba que fuera poco importante','Que nunca existió','Que era más grande que Atenas'],['Mira las murallas: ¿cómo son sus piedras?','Enormes bloques: los griegos decían que las pusieron los cíclopes','Ladrillos pequeños','No hay murallas']],
+  efeso:['Heródoto I 26','Cuando Creso de Lidia sitió Éfeso, los efesios consagraron la ciudad a Ártemis atando una cuerda desde el templo hasta la muralla, a siete estadios de distancia.',['¿Qué hicieron los efesios ante el asedio de Creso?','Ataron la ciudad al templo de Ártemis con una cuerda','Huyeron al mar','Pagaron con oro a Esparta'],['¿A qué diosa está dedicado el gran templo de Éfeso?','A Ártemis','A Atenea','A Hera']],
+  mileto:['Heródoto VI 21','Cuando los persas tomaron Mileto (494 a.C.), Frínico puso en escena «La toma de Mileto»; el público de Atenas rompió a llorar, y le multaron con mil dracmas por recordarles una desgracia tan propia.',['¿Por qué multaron los atenienses al poeta Frínico?','Por hacerles llorar recordando la caída de Mileto','Por insultar a los dioses','Por no pagar el coro'],['Mileto está junto al mar: ¿cuántos puertos ves?','Varios: Mileto vivía del mar y del comercio','Ninguno','Solo un río']],
+  samos:['Heródoto III 60','Los samios tienen las tres obras más grandes de los griegos: un túnel que atraviesa un monte para traer el agua, un dique en el mar para el puerto y el mayor templo que se conoce, el de Hera.',['¿Cuáles son las tres maravillas de Samos según Heródoto?','El túnel del agua, el dique del puerto y el templo de Hera','Tres estatuas de oro','Tres murallas'],['¿A qué diosa es el gran templo de Samos?','A Hera','A Afrodita','A Deméter']],
+  naucratis:['Heródoto II 178','El faraón Amasis dio a los griegos la ciudad de Náucratis para vivir y comerciar; el santuario común se llama Helenion y lo fundaron juntas varias ciudades griegas.',['¿Quién dio Náucratis a los griegos?','El faraón Amasis','Alejandro Magno','El rey de Persia'],['¿Qué río pasa junto a Náucratis?','El Nilo','El Éufrates','El Tíber']],
+  menfis:['Heródoto II 99','Dicen los sacerdotes que Min, el primer rey de Egipto, desvió el Nilo con un dique para fundar Menfis donde antes corría el río.',['¿Qué hizo Min para fundar Menfis, según Heródoto?','Desvió el Nilo con un dique','Secó un lago con fuego','La construyó en una isla'],['¿Qué construcciones enormes se ven desde Menfis?','Las pirámides','Un anfiteatro','Murallas ciclópeas']],
+  cirene:['Heródoto IV 150-158','Los colonos de Tera, por orden del oráculo de Delfos, fundaron Cirene en Libia; los libios les llevaron a un lugar con una fuente, donde, decían, «el cielo tiene un agujero» porque llueve mucho.',['¿Quién mandó fundar Cirene?',_t(9233,'El oráculo de Delfos'),'Los persas','Los cartagineses'],['¿Qué planta famosa se vendía en Cirene?','El silfio','El papiro','La canela']]},
+ roma:{
+  ostia:['Estrabón V 3.5','Ostia no tiene puerto por los aluviones del Tíber: los barcos grandes fondean fuera, en peligro, y descargan en barcas que suben el río hasta Roma.',['¿Qué problema tenía el puerto de Ostia según Estrabón?','El Tíber lo llenaba de barro y arena','Los piratas','Estaba demasiado lejos del mar'],['¿Qué edificios grandes ves junto al río, para guardar el grano?','Los horrea, almacenes','Anfiteatros','Templos griegos']],
+  athenae:['Cicerón, Del supremo bien y del supremo mal V 1-2','Paseando por la Academia, un amigo le dice a Cicerón: es curioso cómo nos conmueven los lugares donde vivieron los grandes hombres; aquí, a cada paso, pisamos historia.',['¿Qué siente Cicerón al pasear por Atenas?','Que los lugares de los grandes hombres conmueven','Que la ciudad está en ruinas y aburre','Que Roma es más bonita'],['¿Qué templo redondo hay delante del Partenón?','El de Roma y Augusto','El de Vesta','El Panteón']],
+  cumae:['Virgilio, Eneida VI 42-44','En Cumas, la roca está horadada por una cueva enorme con cien bocas y cien entradas, por las que salen otras tantas voces: las respuestas de la Sibila.',['¿Cómo es la cueva de la Sibila según Virgilio?','Una cueva con cien bocas','Un templo de mármol en la playa','Un pozo en el bosque'],['¿Quién se dice que vino aquí a consultar a la Sibila?',_t(930,'Eneas'),'Ulises','Hércules']],
+  tarraco:['Plinio, Historia natural III 21','Tarraco, obra de los Escipiones, como Cartago lo fue de los cartagineses: es la capital del convento jurídico al que acuden 43 pueblos.',['¿Quién fundó Tarraco como base romana, según Plinio?','Los Escipiones','Los fenicios',_t(4371,'Julio César')],['¿Desde dónde se domina Tarraco?','Desde una colina junto al mar','Desde una isla en un río','Desde una montaña nevada']],
+  gades:['Estrabón III 5.5','Sobre las Columnas de Hércules hay muchas opiniones: unos dicen que son los montes del estrecho; otros, las columnas de bronce del templo de Hércules en Gades, donde los que llegan hacen sacrificios.',['¿Qué son las Columnas de Hércules para algunos, según Estrabón?','Las columnas de bronce del templo de Hércules en Gades','Dos faros','Dos estatuas gigantes'],['¿Qué océano empieza junto a Gades?','El Océano (Atlántico)','El mar Rojo','El Ponto Euxino']],
+  cartago:['Virgilio, Eneida I 421-429','Eneas se admira de la nueva Cartago: donde antes había cabañas hay ahora edificios, puertas, calles empedradas; unos levantan murallas, otros eligen sitio para sus casas, otros excavan el puerto.',['¿Qué ve Eneas al llegar a Cartago?','Una ciudad en plena construcción','Una ciudad en ruinas','Un campamento militar'],['¿Quién reconstruyó Cartago como colonia romana?','César y Augusto',_t(6457,'Aníbal'),_t(10747,'Alejandro')]],
+  alejandria:['Estrabón XVII 1.6','La isla de Faros tiene en su punta una torre de mármol blanco de muchos pisos, obra de Sóstrato de Cnido, para que los marinos que llegan del mar abierto encuentren la entrada del puerto.',['¿Para qué servía el Faro de Alejandría?','Para guiar a los barcos hasta el puerto','Para vigilar el desierto','Como templo de Isis'],['¿Quién fundó Alejandría?','Alejandro Magno',_t(4371,'Julio César'),'Ramsés']],
+  siracusa:['Cicerón, Verrinas II 4.117-119','Siracusa es la más grande y la más bella de las ciudades griegas: en realidad son cuatro ciudades juntas, con la isla de Ortigia y la fuente Aretusa, llena de peces.',['¿Cómo describe Cicerón Siracusa?','Como la mayor y más bella ciudad griega','Como una aldea','Como una ciudad romana nueva'],['¿Cómo se llama la isla del centro de Siracusa?','Ortigia',_t(2470,'Delos'),'Faros']],
+  pompeii:['Plinio el Joven, Cartas VI 16','Mi tío vio una nube enorme, con forma de pino, que salía de un monte; quiso verla de cerca como sabio y fue con barcos a ayudar a la gente de la costa, pero murió en Estabias por los gases.',['¿Por qué se acercó Plinio el Viejo al Vesubio?','Para estudiar la nube y ayudar a la gente','Para huir','Para ver los juegos'],['¿Qué queda de Pompeya en el año 80?','Está sepultada bajo la ceniza','Está igual que antes','Es una ciudad nueva']],
+  corinthus:[_t(9355,'Estrabón VIII 6.20'),'Corinto se llama rica por su comercio: está en el istmo y tiene dos puertos, uno hacia Italia y otro hacia Asia, y así los mercaderes evitan dar la vuelta al cabo Malea.',['¿Por qué era rica Corinto, según Estrabón?','Por estar entre dos mares, con dos puertos','Por sus minas de oro','Por sus olivos'],['¿Qué hay en lo alto de la roca sobre Corinto?','El Acrocorinto, con un templo de Afrodita','Un anfiteatro','Nada']]}};
+function p9Tick(){if(!state||ui!=='play')return;const id=regionOf(player.x),T=P9_T[MODE==='roma'?'roma':'atenas'][id];if(!T||P9.spot[id])return;let I=null;try{I=ISLANDS.find(i=>i.id===id);}catch(e){}if(!I)return;
+  const t=I.town||I.arrive||I;if(!isFinite(t.x))return;let p=[t.x+9,t.z+7];try{const q=findFree(p[0],p[1],1);if(q)p=q;}catch(e){}
+  const g=makePerson(MODE==='roma'?{chiton:'#e6dcc8',toga:true,hair:'#5a4a3a',beard:false}:{chiton:'#e9dfcb',himation:'#5d6e45',hair:'#6b6058',beard:true});g.position.set(p[0],floorAt(p[0],p[1]),p[1]);scene.add(g);
+  P9.spot[id]=egxObj(p[0],p[1],undefined,()=>p9Open(id,T),MODE==='roma'?'Lector público':'Un lector','taller de fuentes · E',3);}
+function p9Open(id,T){const z=x4z(),done=(z.p9||(z.p9={}))[id];
+  jmDlg('📜',MODE==='roma'?'Lector público':'Un lector','Taller de fuentes · '+T[0],'<p>«Escucha lo que escribió '+T[0].split(',')[0].replace(/\s[IVXL\d].*$/,'')+' sobre este lugar:»</p><blockquote style="margin:8px 0;padding:8px 12px;border-left:3px solid #c9773f;background:rgba(0,0,0,.2);font-style:italic">'+T[1]+'</blockquote><p class="sub">Texto resumido; fuente: '+T[0]+'.</p>'+(done?'<p class="sub">Ya hiciste este taller.</p>':''),
+    [['Responder las preguntas',()=>p9Q(id,T,0,0)],[_t(7362,'Ahora no'),()=>{}]]);}
+function p9Q(id,T,i,ok){if(i>=2){const z=x4z();z.p9=z.p9||{};const first=!z.p9[id];z.p9[id]=Math.max(z.p9[id]||0,ok);save();if(ok===2&&first){cyPay(3,'Taller de fuentes');try{qAdd('so',2,'Has leído una fuente y la has comprobado con tus ojos.');momento('done','Taller de fuentes',T[0]);}catch(e){}}
+    else jmSay('<p>'+(ok===2?'¡Bien leído y bien mirado!':'Has acertado '+ok+' de 2. Vuelve a leer el texto y mira a tu alrededor.')+'</p>');return;}
+  const q=T[2+i],ans=[q[1],q[2],q[3]].sort(()=>Math.random()-0.5);jmDlg('📜','Taller de fuentes',(i===0?'Sobre el texto':'Mira a tu alrededor')+' · '+(i+1)+'/2','<p><b>'+q[0]+'</b></p>',ans.map(a=>[a,()=>p9Q(id,T,i+1,ok+(a===q[1]?1:0))]));}
+X4_TABS.fuentes={n:_t(12075,'Fuentes'),h:()=>{const L=P9_T[MODE==='roma'?'roma':'atenas'],z=x4z().p9||{};return '<p>En estos destinos, un lector te lee lo que escribió un autor antiguo sobre el lugar:</p>'+Object.keys(L).map(k=>'<div class="m"><div class="tx"><span class="k">'+L[k][0]+'</span><br>'+((ISLANDS.find(i=>i.id===k)||{}).name||k)+'</div><small>'+(z[k]===2?'✔ hecho':z[k]?'a medias':'pendiente')+'</small></div>').join('');}};
+// ================================================================== P10: la Atenas romana
+function p10Athenae(I){const X=I.x,Z=I.z,rel=(x,z)=>{let p=[X+x,Z+z];try{const q=findFree(p[0],p[1],2);if(q)p=q;}catch(e){}return p;};
+  // en la Acrópolis: el templo redondo de Roma y Augusto delante del Partenón, y el Erecteion
+  const pf=footprints.find(f=>/Partenón/.test(f.name||'')&&Math.abs(f.x-X)<400&&Math.abs(f.z-Z)<400);
+  if(pf){const a=pf.a||0,ax=Math.sin(a),az=Math.cos(a),ex=pf.x+ax*((pf.d||70)/2+9),ez=pf.z+az*((pf.d||70)/2+9),gy=minGround(ex,ez,9,9,0);const g=grp(ex,gy,ez,0),mm=M.marble;
+    box(8.6,0.9,8.6,mm,0,0.45,0,g);for(let i=0;i<9;i++){const an=i/9*TAU;const c=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.32,6,10),mm);c.position.set(Math.cos(an)*3.5,3.9,Math.sin(an)*3.5);c.castShadow=true;g.add(c);}
+    const rf=new THREE.Mesh(new THREE.CylinderGeometry(4.1,4.1,0.7,18),mm);rf.position.y=7.2;g.add(rf);const cn=new THREE.Mesh(new THREE.ConeGeometry(4.3,1.6,18),M.tile);cn.position.y=8.35;g.add(cn);addCirc(ex,ez,4.3);
+    place('roma_augusto','Templo de Roma y Augusto','ΘΕΑΙ ΡΩΜΗΙ ΚΑΙ ΣΕΒΑΣΤΩΙ','Un templo redondo de nueve columnas jónicas, delante del Partenón, dedicado por los atenienses a la diosa Roma y a Augusto poco después del 27 a.C. Copia el estilo del Erecteion: los atenienses halagan al nuevo amo del mundo con su propia arquitectura.',ex+6,ez+2,0);
+    const nx=pf.x+az*22,nz=pf.z-ax*22;temple({x:nx,z:nz,rot:a,W:11,L:22,nW:6,nL:2,prostyle:true,colD:0.9,colH:6.6,order:'ionic',cella:{w:10,l:18}});
+    place('erecteion_r',_t(2274,'Erecteion'),'ΕΡΕΧΘΕΙΟΝ','El templo de Atenea Polias y de Erecteo, con el pórtico de las Cariátides. Aquí está la vieja imagen de madera de Atenea, el olivo sagrado y la marca del tridente de Poseidón.',nx+8,nz,0);}
+  // el Ágora: Odeón de Agripa, templo de Ares, Stoa de Átalo y Hefestion
+  const ag=rel(-200,20);{const gy=minGround(ag[0],ag[1],46,52,0),g=grp(ag[0],gy,ag[1],0);box(46,16,52,roleMat('plaster'),0,8,0,g);box(48,0.8,54,M.tile,0,16.4,0,g);for(let i=0;i<8;i++)box(1,9,1,M.marble,-21+i*6,4.5,27,g);addBox(ag[0],ag[1],46,52,0);
+    place('odeon_agripa','Odeón de Agripa','ΩΙΔΕΙΟΝ','Marco Agripa, el yerno de Augusto, regaló a Atenas hacia el 15 a.C. un gran auditorio cubierto para mil espectadores, en medio del Ágora: la plaza de las asambleas y los mercados de la democracia quedó ocupada por un edificio romano.',ag[0],ag[1]+30,0);}
+  const ar=rel(-200,70);temple({x:ar[0],z:ar[1],rot:0,W:14,L:34,nW:6,nL:13,colD:1.1,colH:6.2});
+  place('templo_ares','Templo de Ares','ΑΡΗΣ','Un templo dórico del siglo V a.C. que estaba en el campo del Ática (en Acarnas): en época de Augusto lo desmontaron piedra a piedra y lo volvieron a montar aquí, en el Ágora. Las letras que marcaron los canteros para montarlo se ven todavía en las piedras.',ar[0]+9,ar[1],0);
+  const st=rel(-120,10);try{stoa({x:st[0],z:st[1],rot:Math.PI/2,len:110,depth:20,colH:6,name:'Stoa de Átalo'});}catch(e){}
+  place('stoa_atalo','Stoa de Átalo','ΣΤΟΑ ΑΤΤΑΛΟΥ','Un pórtico de dos pisos con tiendas, regalo de Átalo II, rey de Pérgamo, que estudió en Atenas de joven (hacia el 150 a.C.). Aquí pasean los estudiantes y los compradores al abrigo del sol.',st[0]-14,st[1],0);
+  const he=rel(-275,10);temple({x:he[0],z:he[1],rot:0,W:13.7,L:31.8,nW:6,nL:13,colD:1.0,colH:5.7});
+  place('hefestion_r','Hefestion','ΗΦΑΙΣΤΕΙΟΝ','El templo de Hefesto y Atenea, protectores de los artesanos del metal y de la cerámica, sobre la colina del Ágora. Se conserva casi entero hasta hoy.',he[0]+9,he[1],0);
+  // el mercado romano, la puerta de Atenea Arquegetis y la Torre de los Vientos
+  const ra=rel(-60,30);{const W=62,D=72;for(const[cx,cz,len,rot]of[[0,-D/2,W,0],[0,D/2,W,0],[-W/2,0,D,Math.PI/2],[W/2,0,D,Math.PI/2]]){try{stoa({x:ra[0]+cx,z:ra[1]+cz,rot:rot+(cz>0||cx>0?Math.PI:0),len,depth:8,colH:5,name:'Mercado romano'});}catch(e){}}
+    place('agora_romana','El mercado de César y Augusto','ΑΓΟΡΑ','Un patio cuadrado con pórticos y tiendas, pagado con dinero de Julio César y de Augusto (19-11 a.C.): aquí se vende el aceite y el grano. Una inscripción fija los precios y prohíbe el fraude en el aceite.',ra[0],ra[1],0);
+    const gt=[ra[0]-W/2-6,ra[1]];temple({x:gt[0],z:gt[1],rot:-Math.PI/2,W:12,L:6,nW:4,nL:2,prostyle:true,colD:1.1,colH:7.6});
+    place('puerta_atenea','Puerta de Atenea Arquegetis','ΑΘΗΝΑΙ ΑΡΧΗΓΕΤΙΔΙ','La entrada del mercado romano, con cuatro columnas dóricas: la dedicaron a «Atenea Arquegetis», la que guía a la ciudad, con dinero de César y de Augusto (11-10 a.C.).',gt[0]-4,gt[1]+5,0);
+    const tw=[ra[0]+W/2+14,ra[1]+6],gy=minGround(tw[0],tw[1],9,9,0),g=grp(tw[0],gy,tw[1],0);const oc=new THREE.Mesh(new THREE.CylinderGeometry(4.2,4.2,12,8),M.marble);oc.position.y=6;oc.castShadow=true;g.add(oc);
+    const fr=new THREE.Mesh(new THREE.CylinderGeometry(4.25,4.25,1.4,8),lam('#e0d6c2'));fr.position.y=10.6;g.add(fr);const rf=new THREE.Mesh(new THREE.ConeGeometry(4.6,2.6,8),M.marble);rf.position.y=13.3;g.add(rf);
+    const tr=new THREE.Mesh(new THREE.ConeGeometry(0.35,1.4,6),lam('#8a6a3a'));tr.position.y=15.3;g.add(tr);addCirc(tw[0],tw[1],4.4);
+    place('torre_vientos','La Torre de los Vientos','ΩΡΟΛΟΓΙΟΝ','Un reloj público de mármol, de ocho caras, construido por Andrónico de Cirro en el siglo I a.C. (Vitruvio I 6.4). Arriba, un tritón de bronce gira con el viento y señala con su vara cuál sopla. Cada cara tiene esculpido su viento: Bóreas (norte), Cecias, Apeliotes (este), Euro, Noto (sur), Lips, Céfiro (oeste) y Escirón (noroeste). Fuera hay relojes de sol; dentro, un reloj de agua.',tw[0]+6,tw[1]+3,0);
+    egxObj(tw[0]-5,tw[1],undefined,()=>{const h=clock.h,d=Math.max(1,Math.min(12,Math.floor((h-6)/12*12)+1));jmSay('<p>Miras el reloj de sol de la cara sur y el reloj de agua de dentro: es la <b>hora '+(h>=6&&h<18?['prima','segunda','tercia','cuarta','quinta','sexta','séptima','octava','nona','décima','undécima','duodécima'][d-1]:'de la noche: el reloj de agua sigue contando')+'</b> del día. Las horas antiguas dividen la luz del día en doce partes: en verano son más largas que en invierno.</p><p>El tritón de bronce de arriba señala el viento que sopla ahora.</p>');},'Torre de los Vientos','mirar el reloj · E',4);}
+  P10.ok=true;}
+const P10={ok:false};
+try{if(typeof SIMPLE_RO!=='undefined'&&SIMPLE_RO.athenae){const S=SIMPLE_RO.athenae,f=S.extra;S.extra=function(I){if(f)try{f.apply(this,arguments);}catch(e){console.warn(e);}try{p10Athenae(I);}catch(e){console.warn('atenas romana',e);}};}}catch(e){}
+// ================================================================== ticks
+{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(state&&ui!=='start'){p8Tick(dt);P9.t+=dt;if(P9.t>2){P9.t=0;p9Tick();}}}catch(e){console.warn('p8/p9',e);}return r;};}
 // ============================================================ EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara)
 // Están en una franja lejana del mapa (x de Creta, z ≈ +16000). Dentro de la franja, floorAt/terrainH dan el relieve propio (crtH); al cruzar el
 // borde norte o sur de un tramo se pasa al siguiente con un fundido. Del mapa de Creta se entra por el poste «El camino del Ida».
