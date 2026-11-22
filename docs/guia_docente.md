@@ -70,3 +70,14 @@ En el menú (**Tab**) → **Panel del profesor**:
 - Algunos temas son duros y se tratan con cuidado: esclavitud, guerra (Jerusalén en el año 70, Boudica), catástrofes (el Vesubio). Conviene revisarlos antes con los grupos más jóvenes.
 - Las citas de fuentes son de libro y capítulo; si un alumno va a usar una en un trabajo, debe comprobarla en una edición o traducción publicada.
 - El juego necesita un ordenador con navegador moderno. En equipos lentos, activar el **modo ligero** en Accesibilidad.
+
+## 8. Guardar la partida al actualizar o cambiar de ordenador
+
+El progreso se guarda en el navegador de cada ordenador. En la web (GitHub Pages, Moodle) se conserva al publicar versiones nuevas. **Con el archivo suelto** (`atenas_un_archivo.html`, con doble clic) puede perderse al cambiarlo por uno nuevo: Chrome y Edge suelen conservarlo, pero Firefox lo separa según la carpeta y el nombre del archivo. En otro ordenador, en una ventana privada o en equipos que se limpian al cerrar sesión, se pierde siempre.
+
+Antes de cambiar de archivo o de ordenador, pedid al alumnado que:
+1. En el juego viejo: **Esc → Partida → Guardar partida** (se descarga un archivo con la partida).
+2. Abra el archivo nuevo del juego.
+3. **Esc → Partida → Cargar partida** y elija ese archivo.
+
+El mismo archivo sirve para llevarse la partida del aula a casa o para entregarla. Cuando se juega desde el archivo suelto, el propio juego lo recuerda al empezar (con un botón para guardar) y cada 40 minutos de juego.

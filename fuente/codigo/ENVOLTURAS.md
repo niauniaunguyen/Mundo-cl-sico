@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-300 funciones ampliadas, 570 capas.
+300 funciones ampliadas, 571 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -15,7 +15,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
 | `gmDo` | `068_menu_del_juego.js` | 12 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:104 · `223`:18 · `227`:144 · `230`:96 · `232`:63 · `235`:113 |
 | `atCands` | `085_mirar_con_atencion.js` | 11 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:127 · `218`:49 |
-| `gfTick` | `062_game_feel.js` | 10 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 |
+| `gfTick` | `062_game_feel.js` | 11 | `226`:121 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 |
 | `openDialog` | `015_dialogo.js` | 9 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 · `235`:104 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `bpMake` | `184_personajes_blender.js` | 7 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 · `233`:79 · `233`:81 |
