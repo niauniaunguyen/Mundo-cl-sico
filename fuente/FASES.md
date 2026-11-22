@@ -18,7 +18,7 @@ Hasta: unas 12 lecciones o la inscripción, cualidades hacia el nivel 4-7, capí
 - Casa propia, granja, escuelas y discípulos.
 - Camino del forastero, cargos (corego, campaña), retórica (Lisias / Quintiliano), Heliea, Asamblea / Senado.
 - Musas, esferas de sueño, sombras de los filósofos, Platón (Laques) / Epicteto, médico, pintar.
-- Portal de leyendas: Hidra, aves del Estínfalo, león de Nemea, Caco.
+- Portales de leyenda: se abren al superar al Minotauro en el sueño de Cnosos (Atenas) o a Caco junto al templo de Hércules (Roma). Luego, cada uno en su lugar: Hidra (Lerna), aves (Estínfalo), león (Nemea); en Roma, los trabajos de Hércules en el Foro Boario.
 - Cierre: los diez encargos de Hermes y el caduceo (interiores cerrados).
 
 ## Endgame — «Preparar el regreso»
@@ -26,12 +26,12 @@ Hasta: el regreso.
 - Capítulos 9-10 del modo Historia.
 - Honra alta: ciudadanía por decreto (Atenas) / anillo de oro (Roma).
 - Caverna de Platón / Sueño de Escipión; Hades órfico / Infiernos con la Sibila.
-- Diomedes: la hazaña (Atenas) / Argiripa (Roma).
+- Diomedes: la hazaña (portal en Troya) / Argiripa (portal en Apulia).
 - El regreso.
 
 ## Postgame — «Después del nóstos»
 - Las cinco grandes pruebas del nivel 10 (Gorgias / centúnviros, Eleusis / Sibila, decreto / inauguración del Anfiteatro, Atalanta / Camila…).
-- Capítulo 12 (Tácito), viaje a la Luna, alas de Dédalo, todas las esferas (Hipnos).
+- Capítulo 12 (Tácito), viaje a la Luna, todas las esferas (Hipnos).
 - Atenas romana (modo Roma), Creta entera, los veinte destinos extra.
 - Coleccionables (monedas, figurillas, trofeos, acertijos), maestría, récords de las leyendas, concursos en línea.
 
