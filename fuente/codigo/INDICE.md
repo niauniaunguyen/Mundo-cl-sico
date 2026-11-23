@@ -250,4 +250,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `244_muros_escaneados.js` | 23 | MUROS ESCANEADOS (ambientCG, CC0) (22/11: «texturas de ambientCG en mármol, estuco...») |
 | `245_rendimiento_23_11.js` | 15 | RENDIMIENTO (prueba del 23/11: RTX 4070, 18-25 imágenes/s en Atenas) |
 | `246_correcciones_video_23_11.js` | 9 | CORRECCIONES DEL VÍDEO DEL 23/11 |
+| `247_plumas_guardadas.js` | 47 | PLUMAS DE ÍCARO GUARDADAS (vídeo 23/11, opción 2: «criaturas que las protegen») |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

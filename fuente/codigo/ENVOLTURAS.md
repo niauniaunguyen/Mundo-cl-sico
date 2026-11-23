@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-313 funciones ampliadas, 594 capas.
+314 funciones ampliadas, 596 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -59,6 +59,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `bpConv` | `196_multitudes_con_modelos.js` | 2 | `196`:78 · `218`:20 |
 | `bpTick` | `184_personajes_blender.js` | 2 | `214`:119 · `217`:32 |
 | `buildAvatar` | `040_caballo.js` | 2 | `101`:52 · `900`:411 |
+| `buildDaedalus` | `047_dedalo_encerrado_en_su_propio.js` | 2 | `247`:42 · `900`:366 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `buildTerrain` | `006_murallas_circuito_de_temistocles_reconstruido.js` | 2 | `161`:26 · `900`:427 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
@@ -132,7 +133,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `buildCarters` | `051_conversaciones_que_se_oyen_por.js` | 1 | `900`:363 |
 | `buildCasa` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `900`:364 |
 | `buildConvs` | `051_conversaciones_que_se_oyen_por.js` | 1 | `900`:365 |
-| `buildDaedalus` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `900`:366 |
 | `buildFauna` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `900`:367 |
 | `buildGods` | `041_dioses.js` | 1 | `900`:413 |
 | `buildHandTorch` | `040_caballo.js` | 1 | `900`:368 |
@@ -319,6 +319,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `wildBuild` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `093`:232 |
 | `windMat` | `064_game_feel_2.js` | 1 | `155`:14 |
 | `windTick` | `064_game_feel_2.js` | 1 | `214`:58 |
+| `wingsTick` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `247`:41 |
 | `wxBolt` | `090_el_tiempo.js` | 1 | `129`:36 |
 | `wxPick` | `090_el_tiempo.js` | 1 | `098`:80 |
 | `x3Furnish` | `217_graficos_3.js` | 1 | `243`:30 |
