@@ -10,16 +10,21 @@ const CRB={tpl:null,loading:false,err:null};
 function crbLoad(){if(CRB.loading||CRB.tpl||typeof bpBytes!=='function'||!THREE.GLTFLoader)return;CRB.loading=true;
   bpBytes('glbcr').then(buf=>{CRB.bytes=buf?buf.byteLength:0;if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(/^CR_/.test(o.name))T[o.name]=o;});
     gl.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;const m=o.material;if(m&&m.name==='ave_bronce'){m.metalness=0.55;m.roughness=0.45;}}});CRB.tpl=T;},e=>{CRB.err=String(e);});}).catch(e=>{CRB.err=String(e);});}
-function crbPart(n){const T=CRB.tpl&&CRB.tpl[n];return T?T.clone(true):null;}
+// segundo lote (criaturas2.glb): se añade a la misma lista
+function crbLoad2(){if(CRB.loading2||CRB.tpl2||typeof bpBytes!=='function')return;CRB.loading2=true;
+  bpBytes('glbcr2').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const T={};gl.scene.traverse(o=>{if(/^CR_/.test(o.name))T[o.name]=o;if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});CRB.tpl2=T;if(CRB.tpl)Object.assign(CRB.tpl,T);},e=>{CRB.err=String(e);});}).catch(e=>{CRB.err=String(e);});}
+function crbHas(key){const n='CR_'+key+'_cuerpo';return !!((CRB.tpl&&CRB.tpl[n])||(CRB.tpl2&&CRB.tpl2[n]));}
+function crbPart(n){if(CRB.tpl2&&CRB.tpl&&!CRB.tpl[n]&&CRB.tpl2[n])Object.assign(CRB.tpl,CRB.tpl2);const T=CRB.tpl&&CRB.tpl[n];return T?T.clone(true):null;}
 // ---- el león: {g, legs, body}, como el de antes (210). body es un objeto «de mentira» cuya altura (1 normal, 0,78 agazapado) se pasa
 // al cuerpo de verdad con menos recorrido, para que las patas no se hundan
 function crbLion(R){return crbQuad(R,'leon',1.1);}
 function crbQuad(R,key,S){const B=crbPart('CR_'+key+'_cuerpo');if(!B)return null;const g=new THREE.Group(),real=new THREE.Group();g.add(real);
   real.add(B);B.position.set(0,0,0);const legs=[];
   for(const k of['pDI','pDD','pTI','pTD']){const p=crbPart('CR_'+key+'_'+k);if(!p)continue;const piv=new THREE.Group();piv.position.copy(p.position);p.position.set(0,0,0);piv.add(p);real.add(piv);legs.push(piv);}
+  const wings=[];for(const k of['aI','aD']){const p=crbPart('CR_'+key+'_'+k);if(!p)continue;const piv=new THREE.Group();piv.position.copy(p.position);p.position.set(0,0,0);piv.add(p);real.add(piv);wings.push(piv);}
   const t=crbPart('CR_'+key+'_cola');let tail=null;if(t){tail=new THREE.Group();tail.position.copy(t.position);t.position.set(0,0,0);tail.add(t);real.add(tail);}
   g.scale.setScalar(S||1);
-  g.traverse(o=>{if(o.isMesh)o.castShadow=true;});R.g.add(g);return {g,legs,body:new THREE.Object3D(),real,tail,cr:true};}
+  g.traverse(o=>{if(o.isMesh)o.castShadow=true;});R.g.add(g);return {g,legs,body:new THREE.Object3D(),real,tail,wings,cr:true};}
 {const f=LEG.leon.reset;LEG.leon.reset=function(R){try{if(CRB.tpl&&this.lion&&!this.lion.cr){R.g.remove(this.lion.g);this.lion=null;}if(CRB.tpl&&!this.lion){const L2=crbLion(R);if(L2){L2.body.position.y=1;this.lion=L2;}}}catch(e){CRB.err=String(e);}return f.apply(this,arguments);};}
 {const f=LEG.leon.tick;LEG.leon.tick=function(dt,t,act){const r=f.apply(this,arguments);try{const L2=this.lion;if(L2&&L2.cr){const y=L2.body.position.y;L2.real.position.y=(y-1)*0.45;
     if(L2.tail)L2.tail.rotation.set(-0.2+Math.sin(t*2.2)*0.15,Math.sin(t*1.3)*0.35,0);}}catch(e){}return r;};}
@@ -44,4 +49,4 @@ function crbMino(R){const H=crbPart('CR_mino_cabeza');if(!H||typeof bpMake!=='fu
       if(B.walk){B.walk.setEffectiveWeight(mv);B.walk.timeScale=this.st==='embiste'?2.2:1;}if(B.idle)B.idle.setEffectiveWeight(1-mv);B.mix.update(dt);
       L2.g.rotation.x=this.st==='agazapa'?0.18:this.st==='embiste'?0.12:0;}}catch(e){}return r;};}}
 // cargar el modelo al entrar en un portal de leyenda (pesa unos 9 MB: no se trae si no se usa)
-{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(!CRB.tpl&&!CRB.loading&&state&&ui!=='start'){CRB.t=(CRB.t||0)+dt;if(typeof legIn==='function'&&legIn())crbLoad();}}catch(e){}return r;};}
+{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(state&&ui!=='start'&&!(CRB.loading&&CRB.loading2)){CRB.t=(CRB.t||0)+dt;if((typeof legIn==='function'&&legIn())||(CRB.t>60&&typeof leyOpen==='function'&&leyOpen())){crbLoad();crbLoad2();}}}catch(e){}return r;};}

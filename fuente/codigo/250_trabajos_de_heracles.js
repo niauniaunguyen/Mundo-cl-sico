@@ -24,6 +24,8 @@ function herArena(room,c1,c2,opt){const R=legArena(room,c1,c2);const g=R.g;opt=o
   if(opt.snow){const m=lam('#f2f4f6');for(let i=0;i<40;i++){const a=Math.random()*TAU,r=LEY_RA+1+Math.random()*12,s=1+Math.random()*3,k=new THREE.Mesh(new THREE.SphereGeometry(s,8,6),m);k.scale.y=0.35;k.position.set(Math.cos(a)*r,0,Math.sin(a)*r);g.add(k);}}
   if(opt.dark){for(let i=0;i<10;i++){const a=i/10*TAU,f=new THREE.Sprite(new THREE.SpriteMaterial({map:TORCH_TEX,color:'#6a8aff',transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false}));f.scale.set(1.4,2.2,1);f.position.set(Math.cos(a)*(LEY_RA+2),1.2,Math.sin(a)*(LEY_RA+2));g.add(f);}}
   INT2_ZN[room]=opt.zn;return R;}
+// ---- teñir un modelo (copias del material): el mismo modelo sirve para varias criaturas
+function herTint(g,col,metal){const c=new THREE.Color(col);g.traverse(o=>{if(!o.isMesh||!o.material)return;const m=o.material.clone();if(m.color)m.color.multiply(c);if(metal&&'metalness' in m){m.metalness=metal;m.roughness=0.35;}o.material=m;});return g;}
 // ---- figura sencilla mientras no llega el modelo de Blender
 function herSimple(R,col,len,h){const g=new THREE.Group(),m=lam(col),b=new THREE.Mesh(new THREE.SphereGeometry(0.5,12,9),m);b.scale.set(0.8*h,0.8*h,len);b.position.y=h;g.add(b);
   const hd=new THREE.Mesh(new THREE.SphereGeometry(0.3*h,10,8),m);hd.position.set(0,h*1.2,len*0.55);g.add(hd);const legs=[];
@@ -31,9 +33,9 @@ function herSimple(R,col,len,h){const g=new THREE.Group(),m=lam(col),b=new THREE
   R.g.add(g);return {g,legs,body:new THREE.Object3D()};}
 // ---- los que embisten (como el león de 210): jabalí, toro, Cerbero, Ortro
 function herCharger(key,o){const C=Object.assign({},LEG.leon,o);
-  C.mk=function(R){const L2=CRB.tpl&&crbQuad(R,o.model,o.scale);if(L2){L2.body.position.y=1;return L2;}return herSimple(R,o.col,o.len||1,o.h||0.9);};
+  C.mk=function(R){const L2=crbHas(o.model)&&crbQuad(R,o.model,o.scale);if(L2){L2.body.position.y=1;if(o.tint)herTint(L2.g,o.tint,o.metal);return L2;}return herSimple(R,o.col,o.len||1,o.h||0.9);};
   C.reset=function(R){const A=this;if(!A.lion){A.lion=A.mk(R);}A.lion.g.visible=true;A.lion.g.position.set(0,0,-8);A.lion.g.rotation.set(0,0,0);A.st='acecha';A.t=3;A.ang=-Math.PI/2;A.waitK=1;A.rested=false;LEY.extra='<span>'+o.who+': acecha</span>';};
-  C.tick=function(dt,t,act){const A=this;if(CRB.tpl&&A.lion&&!A.lion.cr&&LEY.R){const old=A.lion,p=old.g.position.clone(),ry=old.g.rotation.y;LEY.R.g.remove(old.g);A.lion=A.mk(LEY.R);A.lion.g.position.copy(p);A.lion.g.rotation.y=ry;}
+  C.tick=function(dt,t,act){const A=this;if(crbHas(o.model)&&A.lion&&!A.lion.cr&&LEY.R){const old=A.lion,p=old.g.position.clone(),ry=old.g.rotation.y;LEY.R.g.remove(old.g);A.lion=A.mk(LEY.R);A.lion.g.position.copy(p);A.lion.g.rotation.y=ry;}
     const r=LEG.leon.tick.call(this,dt,t,act);if(LEY.extra&&LEY.extra.indexOf('León')>=0){LEY.extra=LEY.extra.replace('León',o.who);try{leyHud();}catch(e){}}return r;};
   C.end=function(){this.rested=true;LEY.extra='<span>'+o.who+': descansa</span>';};
   LEG[key]=C;return C;}

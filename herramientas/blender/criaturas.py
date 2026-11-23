@@ -574,10 +574,304 @@ def build_ladon():
     return root
 
 # ==================================================================== construir y exportar
+# ==================================================================== SEGUNDO LOTE (→ modelos/criaturas2.glb, texturas de 512 px)
+# Criaturas de los demás portales: centauro, Pegaso, grifo, Quimera, Esfinge, mujer-ave (Harpías y Sirenas), cabeza de Gorgona,
+# Tritón, tortuga (la de Escirón), zorra (Teumeso) y una serpiente grande genérica (Pitón, dragones, Laocoonte, Bagradas...).
+def human_head(P, c, fem=False, beard=False, s=1.0):
+    q = (P - np.asarray(c)) / s
+    h = L.sd_ellipsoid(q, (0, 0.02, -0.01), (0.09, 0.11, 0.1))
+    h = L.smin(h, L.sd_ellipsoid(q, (0, -0.06, 0.035), (0.065, 0.06, 0.06)), 0.04)            # mandíbula y mejillas
+    h = L.smin(h, L.sd_capsule(q, (0, 0.03, 0.085), (0, -0.02, 0.105), 0.014, 0.018), 0.01)     # nariz
+    h = L.smin(h, L.sd_ellipsoid(q, (0, 0.045, 0.07), (0.065, 0.015, 0.03)), 0.015)             # cejas
+    for k in (-1, 1):
+        h = L.smax(h, -L.sd_ellipsoid(q, (k * 0.033, 0.025, 0.088), (0.017, 0.011, 0.012)), 0.006)
+        h = L.smin(h, L.sd_ellipsoid(q, (k * 0.09, 0.0, -0.01), (0.012, 0.03, 0.02)), 0.01)      # orejas
+    hair = L.sd_ellipsoid(q, (0, 0.06, -0.03), (0.1, 0.1, 0.105)) - 0.012 * L.fbm(q * 40, 3, 4)
+    hair = L.smax(hair, -(q[:, 2] - 0.03 + (q[:, 1] - 0.06) * 0.6), 0.02)                     # la cara libre
+    if fem: hair = L.smin(hair, L.sd_ellipsoid(q, (0, 0.02, -0.12), (0.06, 0.06, 0.05)) - 0.01 * L.fbm(q * 40, 2, 5), 0.03)   # moño
+    h = L.smin(h, hair, 0.015)
+    if beard: h = L.smin(h, L.sd_ellipsoid(q, (0, -0.09, 0.05), (0.07, 0.06, 0.05)) - 0.015 * L.fbm(q * 40, 3, 6), 0.03)
+    return h * s
+
+def skin_col(P, base=(0.72, 0.52, 0.38)):
+    return np.tile(C(*base), (len(P), 1)) * (0.92 + 0.12 * L.fbm(P * 20, 2, 33))[:, None]
+
+def wing(P, s, span=1.25, chord=0.42, root=(0, 0, 0)):
+    q = P - np.asarray(root); x = q[:, 0] * s
+    d = L.sd_ellipsoid(q, (s * span * 0.5, 0.0, -0.02), (span * 0.52, 0.035, chord * 0.55))
+    d = L.smin(d, L.sd_ellipsoid(q, (s * 0.14, 0.0, 0.0), (0.16, 0.05, chord * 0.5)), 0.08)
+    d = d + 0.03 * np.abs(np.sin(x * 18)) * np.clip((-q[:, 2] - 0.02) / 0.12, 0, 1)
+    return L.smax(d, -(q[:, 0] * s), 0.01)
+
+def feather_col(P, base, tip):
+    col = mix(np.tile(C(*base), (len(P), 1)), C(*tip), np.clip((np.abs(P[:, 0]) - 0.5) / 0.6, 0, 1))
+    return col * (0.82 + 0.3 * L.fbm(np.stack([P[:, 0] * 80, P[:, 1] * 80, P[:, 2] * 25], -1), 2, 9))[:, None]
+
+def horse_trunk(P, with_neck=True):
+    d = L.sd_ellipsoid(P, (0, 1.25, 0), (0.24, 0.3, 0.68))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 1.2, 0.44), (0.25, 0.34, 0.3)), 0.12)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 1.3, -0.5), (0.26, 0.3, 0.32)), 0.12)
+    return L.smax(d, -(P[:, 1] - 0.95), 0.08)
+
+# ---- centauro (Ovidio, Metamorfosis XII 210-535; los de los vasos, con torso humano sobre cuerpo de caballo)
+def centauro_body(P):
+    d = horse_trunk(P)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 1.62, 0.6), (0.2, 0.26, 0.15)), 0.1)                  # cintura humana
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 1.88, 0.6), (0.23, 0.2, 0.14)), 0.08)                 # pecho
+    for k in (-1, 1):
+        d = L.smin(d, L.sd_chain(P, [(k * 0.22, 1.98, 0.6), (k * 0.3, 1.72, 0.62), (k * 0.32, 1.48, 0.72)], [0.07, 0.055, 0.045]), 0.04)   # brazos
+    d = L.smin(d, L.sd_capsule(P, (0, 2.02, 0.6), (0, 2.12, 0.62), 0.06, 0.055), 0.03)
+    return L.smin(d, human_head(P, (0, 2.24, 0.62), beard=True), 0.03)
+
+def centauro_col(P, N):
+    horse = mix(np.tile(C(0.42, 0.26, 0.14), (len(P), 1)), C(0.3, 0.18, 0.1), L.fbm(P * 4, 3, 2))
+    col = mix(horse, skin_col(P), np.clip((P[:, 1] - 1.5) / 0.1, 0, 1) * (P[:, 2] > 0.35))
+    col = mix(col, C(0.16, 0.1, 0.07), (P[:, 1] > 2.26) | ((P[:, 1] < 2.18) & (P[:, 1] > 2.08) & (P[:, 2] > 0.6)))   # pelo y barba
+    return np.clip(col, 0, 1)
+
+def legs_horse(sc=1.0):
+    return [([(-0.13, 1.1, 0.45), (-0.13, 0.7, 0.42), (-0.13, 0.3, 0.45), (-0.13, 0.06, 0.47)], [0.1, 0.06, 0.042, 0.05]),
+            ([(0.13, 1.1, 0.45), (0.13, 0.7, 0.42), (0.13, 0.3, 0.45), (0.13, 0.06, 0.47)], [0.1, 0.06, 0.042, 0.05]),
+            ([(-0.13, 1.2, -0.55), (-0.13, 0.8, -0.4), (-0.13, 0.55, -0.65), (-0.13, 0.06, -0.58)], [0.13, 0.07, 0.045, 0.05]),
+            ([(0.13, 1.2, -0.55), (0.13, 0.8, -0.4), (0.13, 0.55, -0.65), (0.13, 0.06, -0.58)], [0.13, 0.07, 0.045, 0.05])]
+
+CENTAURO = dict(body=centauro_body, lo=(-0.45, 0.85, -0.9), hi=(0.45, 2.42, 1.0), col=centauro_col, foot='pezuna', tris=14000,
+  eyes=([(-0.033, 2.265, 0.705), (0.033, 2.265, 0.705)], 0.011, (0.08, 0.05, 0.03, 1)), legs=legs_horse(),
+  tail=(yegua_tail, (-0.25, 0.45, -1.3), (0.25, 1.55, -0.72), (0, 1.4, -0.82)))
+
+# ---- Pegaso (Hesíodo, Teogonía 280-286; Píndaro, Olímpica XIII 63-92): caballo blanco con alas
+PEGASO = dict(YEGUA); PEGASO.update(col=lambda P, N: np.clip(mix(np.tile(C(0.93, 0.92, 0.9), (len(P), 1)), C(0.78, 0.78, 0.8), L.fbm(P * 4, 3, 2) * 0.6) * (0.92 + 0.12 * hair(P)[:, None]), 0, 1), tris=14000,
+  extra=[('aI', lambda P: wing(P, -1, 1.5, 0.55, (-0.2, 1.55, 0.35)), (-1.9, 1.4, -0.1), (-0.1, 1.7, 0.75), (-0.2, 1.55, 0.35), 3000),
+         ('aD', lambda P: wing(P, 1, 1.5, 0.55, (0.2, 1.55, 0.35)), (0.1, 1.4, -0.1), (1.9, 1.7, 0.75), (0.2, 1.55, 0.35), 3000)])
+
+# ---- grifo (Heródoto III 116 y IV 13; Esquilo, Prometeo 803-804): cuerpo de león, cabeza y alas de águila
+def grifo_body(P):
+    d = L.sd_ellipsoid(P, (0, 1.0, 0.05), (0.3, 0.33, 0.75))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.98, 0.42), (0.31, 0.4, 0.4)), 0.12)
+    d = L.smax(d, -(P[:, 1] - 0.62), 0.08)
+    d = L.smin(d, L.sd_capsule(P, (0, 1.15, 0.55), (0, 1.55, 0.85), 0.24, 0.13), 0.1)            # cuello de plumas
+    h = L.sd_ellipsoid(P, (0, 1.62, 0.92), (0.13, 0.14, 0.17))
+    h = L.smin(h, L.sd_chain(P, [(0, 1.62, 1.05), (0, 1.6, 1.2), (0, 1.5, 1.27)], [0.06, 0.04, 0.008]), 0.03)   # pico ganchudo
+    h = L.smin(h, L.sd_ellipsoid(P, (0, 1.78, 0.86), (0.04, 0.08, 0.07)) - 0.01 * L.fbm(P * 40, 2, 3), 0.03)   # cresta
+    return L.smin(d, h, 0.05) - 0.004 * (hair(P) - 0.5)
+
+def grifo_col(P, N):
+    col = np.tile(C(0.72, 0.55, 0.32), (len(P), 1))
+    col = mix(col, C(0.85, 0.82, 0.74) * (0.8 + 0.3 * L.fbm(np.stack([P[:, 0] * 60, P[:, 1] * 60, P[:, 2] * 20], -1), 2, 6))[:, None], np.clip((P[:, 2] - 0.6) / 0.1, 0, 1) * (P[:, 1] > 1.15))
+    col = mix(col, C(0.85, 0.62, 0.2), (P[:, 2] > 1.08) & (P[:, 1] > 1.45) & (P[:, 1] < 1.66))
+    return np.clip(col * (0.88 + 0.22 * hair(P)[:, None]), 0, 1)
+
+GRIFO = dict(body=grifo_body, lo=(-0.5, 0.5, -1.0), hi=(0.5, 1.9, 1.35), col=grifo_col, foot='pata', tris=14000,
+  eyes=([(-0.085, 1.66, 1.0), (0.085, 1.66, 1.0)], 0.02, (0.75, 0.45, 0.05, 1)),
+  legs=[([(-0.19, 1.0, 0.5), (-0.19, 0.6, 0.42), (-0.19, 0.2, 0.5), (-0.2, 0.08, 0.58)], [0.15, 0.11, 0.08, 0.075]),
+        ([(0.19, 1.0, 0.5), (0.19, 0.6, 0.42), (0.19, 0.2, 0.5), (0.2, 0.08, 0.58)], [0.15, 0.11, 0.08, 0.075]),
+        ([(-0.19, 1.02, -0.55), (-0.19, 0.6, -0.4), (-0.19, 0.36, -0.68), (-0.19, 0.09, -0.6)], [0.17, 0.11, 0.07, 0.07]),
+        ([(0.19, 1.02, -0.55), (0.19, 0.6, -0.4), (0.19, 0.36, -0.68), (0.19, 0.09, -0.6)], [0.17, 0.11, 0.07, 0.07])],
+  tail=(leon_tail, (-0.12, 0.35, -1.98), (0.12, 1.15, -0.78), (0, 1.05, -0.86)),
+  extra=[('aI', lambda P: wing(P, -1, 1.3, 0.5, (-0.22, 1.3, 0.25)), (-1.7, 1.18, -0.3), (-0.1, 1.42, 0.6), (-0.22, 1.3, 0.25), 3000),
+         ('aD', lambda P: wing(P, 1, 1.3, 0.5, (0.22, 1.3, 0.25)), (0.1, 1.18, -0.3), (1.7, 1.42, 0.6), (0.22, 1.3, 0.25), 3000)])
+
+# ---- Quimera (Ilíada VI 179-182; Hesíodo, Teogonía 319-324): león delante, cabra en medio, serpiente detrás
+def quimera_body(P):
+    d = leon_body(P)
+    d = L.smin(d, L.sd_capsule(P, (0, 1.25, -0.25), (0, 1.75, -0.05), 0.12, 0.08), 0.06)          # cuello de cabra que sale del lomo
+    h = L.sd_capsule(P, (0, 1.78, -0.04), (0, 1.66, 0.18), 0.075, 0.05)
+    for k in (-1, 1):
+        h = L.smin(h, L.sd_chain(P, [(k * 0.04, 1.85, -0.05), (k * 0.08, 1.98, -0.15), (k * 0.1, 1.95, -0.3)], [0.025, 0.018, 0.006]), 0.01)   # cuernos
+    h = L.smin(h, L.sd_ellipsoid(P, (0, 1.6, 0.16), (0.025, 0.05, 0.03)) - 0.01 * L.fbm(P * 50, 2, 7), 0.02)   # perilla
+    return L.smin(d, h, 0.04)
+
+def quimera_col(P, N):
+    col = leon_col(P, N)
+    goat = (P[:, 1] > 1.42) & (P[:, 2] < 0.3) & (P[:, 2] > -0.4) & (np.abs(P[:, 0]) < 0.2)
+    return np.clip(mix(col, C(0.5, 0.46, 0.4) * (0.85 + 0.3 * hair(P)[:, None]), goat), 0, 1)
+
+def quimera_tail(P):
+    return L.smin(L.sd_chain(P, [(0, 1.05, -0.86), (0, 1.15, -1.15), (0.1, 1.3, -1.45), (0.05, 1.4, -1.65)], [0.06, 0.055, 0.045, 0.035]), L.sd_ellipsoid(P, (0.05, 1.42, -1.72), (0.05, 0.04, 0.08)), 0.02)
+
+QUIMERA = dict(body=quimera_body, lo=(-0.6, 0.45, -1.05), hi=(0.6, 2.05, 1.65), col=quimera_col, foot='pata', tris=16000, step=0.013,
+  eyes=([(-0.09, 1.405, 1.258), (0.09, 1.405, 1.258)], 0.022, (0.55, 0.3, 0.04, 1)),
+  legs=GRIFO['legs'], tail=(quimera_tail, (-0.15, 0.85, -1.85), (0.25, 1.55, -0.78), (0, 1.05, -0.86)))
+
+# ---- Esfinge (Hesíodo, Teogonía 326; Sófocles, Edipo rey; Apolodoro III 5,8): cuerpo de leona, cabeza de mujer, alas
+def esfinge_body(P):
+    d = L.sd_ellipsoid(P, (0, 1.0, 0.05), (0.28, 0.32, 0.72))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.98, 0.42), (0.29, 0.38, 0.38)), 0.12)
+    d = L.smax(d, -(P[:, 1] - 0.62), 0.08)
+    d = L.smin(d, L.sd_capsule(P, (0, 1.15, 0.55), (0, 1.55, 0.78), 0.2, 0.08), 0.1)
+    return L.smin(d, human_head(P, (0, 1.72, 0.8), fem=True, s=1.5), 0.04)
+
+def esfinge_col(P, N):
+    col = np.tile(C(0.76, 0.58, 0.36), (len(P), 1)) * (0.88 + 0.22 * hair(P)[:, None])
+    col = mix(col, C(0.72, 0.54, 0.42), np.clip((P[:, 1] - 1.55) / 0.08, 0, 1) * (P[:, 2] > 0.62))
+    col = mix(col, C(0.12, 0.08, 0.06), (P[:, 1] > 1.8) & (P[:, 2] < 0.86))                     # pelo negro
+    return np.clip(col, 0, 1)
+
+ESFINGE = dict(body=esfinge_body, lo=(-0.5, 0.5, -1.0), hi=(0.5, 2.0, 1.15), col=esfinge_col, foot='pata', tris=14000,
+  eyes=([(-0.05, 1.76, 0.932), (0.05, 1.76, 0.932)], 0.014, (0.12, 0.08, 0.05, 1)), legs=GRIFO['legs'], tail=GRIFO['tail'],
+  extra=[('aI', lambda P: wing(P, -1, 1.1, 0.45, (-0.2, 1.3, 0.3)), (-1.5, 1.18, -0.2), (-0.1, 1.42, 0.6), (-0.2, 1.3, 0.3), 2500),
+         ('aD', lambda P: wing(P, 1, 1.1, 0.45, (0.2, 1.3, 0.3)), (0.1, 1.18, -0.2), (1.5, 1.42, 0.6), (0.2, 1.3, 0.3), 2500)])
+
+# ---- mujer-ave: las Sirenas de los vasos griegos (cuerpo de ave, cabeza de mujer) y las Harpías (Apolonio II 178-300)
+def arpia_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.0, 0.0), (0.2, 0.2, 0.36))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.06, 0.2), (0.17, 0.2, 0.16)), 0.06)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.15, 0.28), (0, 0.3, 0.34), 0.07, 0.05), 0.04)
+    d = L.smin(d, human_head(P, (0, 0.44, 0.36), fem=True, s=1.05), 0.03)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.02, -0.45), (0.15, 0.03, 0.22)), 0.05)               # cola
+    for k in (-1, 1):
+        d = L.smin(d, L.sd_chain(P, [(k * 0.08, -0.12, 0.05), (k * 0.08, -0.32, 0.05), (k * 0.08, -0.4, 0.12)], [0.035, 0.022, 0.01]), 0.03)   # patas con garras
+    return d - 0.005 * (L.fbm(np.stack([P[:, 0] * 60, P[:, 1] * 60, P[:, 2] * 20], -1), 2, 9) - 0.5)
+
+def arpia_col(P, N):
+    col = feather_col(P, (0.55, 0.45, 0.35), (0.3, 0.24, 0.2))
+    col = mix(col, skin_col(P, (0.78, 0.6, 0.48)), np.clip((P[:, 1] - 0.3) / 0.05, 0, 1) * (P[:, 2] > 0.2))
+    col = mix(col, C(0.14, 0.1, 0.08), (P[:, 1] > 0.5) & (P[:, 2] < 0.42))
+    col = mix(col, C(0.6, 0.5, 0.2), P[:, 1] < -0.3)
+    return np.clip(col, 0, 1)
+
+def build_arpia():
+    root = bpy.data.objects.new('CR_arpia', None); SC.collection.objects.link(root)
+    b = make_part('CR_arpia_cuerpo', arpia_body, (-0.3, -0.5, -0.75), (0.3, 0.62, 0.55), 0.008, (0, 0, 0), 9000, root)
+    eyes(b, [(-0.034, 0.466, 0.452), (0.034, 0.466, 0.452)], 0.011, (0.1, 0.06, 0.04, 1))
+    wi = make_part('CR_arpia_aI', lambda P: wing(P, -1, 1.1, 0.42, (-0.12, 0.1, 0.05)), (-1.35, -0.05, -0.3), (0.0, 0.25, 0.35), 0.009, (-0.12, 0.1, 0.05), 3000, root)
+    wd = make_part('CR_arpia_aD', lambda P: wing(P, 1, 1.1, 0.42, (0.12, 0.1, 0.05)), (0.0, -0.05, -0.3), (1.35, 0.25, 0.35), 0.009, (0.12, 0.1, 0.05), 3000, root)
+    paint([b, wi, wd], 'arpia_plumas', arpia_col, rough=0.8)
+    return root
+
+# ---- cabeza de Gorgona (Hesíodo, Teogonía 274-283; el gorgoneion arcaico: serpientes por pelo, colmillos y lengua fuera)
+def gorgona_head(P):
+    h = human_head(P, (0, 0.14, 0.02), fem=True, s=1.15)
+    for i in range(14):                                                                         # serpientes
+        a = i / 14 * 2 * math.pi; e = 0.25 + (i % 3) * 0.25
+        b0 = (math.cos(a) * 0.08 * math.cos(e), 0.2 + math.sin(e) * 0.08, -0.02 + math.sin(a) * 0.08 * math.cos(e) * 0.8)
+        b1 = (math.cos(a) * 0.17, 0.24 + math.sin(e) * 0.14, -0.04 + math.sin(a) * 0.14)
+        b2 = (math.cos(a + 0.6) * 0.22, 0.2 + math.sin(e) * 0.2, -0.02 + math.sin(a + 0.6) * 0.18)
+        h = L.smin(h, L.sd_chain(P, [b0, b1, b2], [0.016, 0.014, 0.012]), 0.01)
+        h = L.smin(h, L.sd_ellipsoid(P, b2, (0.02, 0.016, 0.026)), 0.006)
+    for k in (-1, 1): h = L.smin(h, L.sd_capsule(P, (k * 0.025, 0.06, 0.1), (k * 0.03, 0.02, 0.12), 0.007, 0.003), 0.004)   # colmillos
+    return h
+
+def gorgona_col(P, N):
+    col = skin_col(P, (0.62, 0.66, 0.5))
+    sn = np.linalg.norm(P[:, [0, 2]], axis=-1) > 0.1
+    col = mix(col, C(0.22, 0.34, 0.16) * (0.7 + 0.5 * (0.5 + 0.5 * np.sin(P[:, 0] * 300) * np.sin(P[:, 2] * 300)))[:, None], sn & (P[:, 1] > 0.18))
+    return np.clip(col, 0, 1)
+
+def build_gorgona():
+    root = bpy.data.objects.new('CR_gorgona', None); SC.collection.objects.link(root)
+    h = make_part('CR_gorgona_cabeza', gorgona_head, (-0.35, -0.05, -0.3), (0.35, 0.5, 0.3), 0.006, (0, 0, 0), 9000, root)
+    eyes(h, [(-0.038, 0.17, 0.12), (0.038, 0.17, 0.12)], 0.014, (0.9, 0.75, 0.2, 1))
+    paint([h], 'gorgona_piel', gorgona_col, rough=0.6)
+    return root
+
+# ---- Tritón (Hesíodo, Teogonía 930-933; Pausanias IX 20,4): torso de hombre y cola de pez, fuera del agua
+def triton_body(P):
+    d = L.sd_ellipsoid(P, (0, 1.1, 0), (0.2, 0.28, 0.14))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 1.36, 0), (0.24, 0.2, 0.15)), 0.08)
+    for k in (-1, 1): d = L.smin(d, L.sd_chain(P, [(k * 0.24, 1.46, 0), (k * 0.36, 1.22, 0.08), (k * 0.4, 1.0, 0.2)], [0.07, 0.055, 0.045]), 0.04)
+    d = L.smin(d, human_head(P, (0, 1.72, 0.02), beard=True), 0.03)
+    d = L.smin(d, L.sd_capsule(P, (0, 1.5, 0.0), (0, 1.6, 0.01), 0.06, 0.055), 0.03)
+    d = L.smin(d, L.sd_chain(P, [(0, 0.9, 0), (0, 0.6, -0.15), (0, 0.4, -0.5), (0, 0.45, -0.95), (0, 0.65, -1.25)], [0.19, 0.16, 0.12, 0.08, 0.05]), 0.06)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.75, -1.38), (0.3, 0.12, 0.04)), 0.04)                 # aleta de la cola
+    return d
+
+def triton_col(P, N):
+    col = skin_col(P, (0.6, 0.5, 0.4))
+    sc = 0.5 + 0.5 * np.sin(P[:, 0] * 200) * np.sin(P[:, 1] * 150 + P[:, 2] * 150)
+    col = mix(col, C(0.25, 0.42, 0.4) * (0.7 + 0.4 * sc)[:, None], P[:, 1] < 0.95)
+    col = mix(col, C(0.2, 0.22, 0.16), (P[:, 1] > 1.76) | ((P[:, 1] > 1.6) & (P[:, 1] < 1.68) & (P[:, 2] > 0.05)))
+    return np.clip(col, 0, 1)
+
+def build_triton():
+    root = bpy.data.objects.new('CR_triton', None); SC.collection.objects.link(root)
+    b = make_part('CR_triton_cuerpo', triton_body, (-0.55, 0.2, -1.5), (0.55, 1.92, 0.35), 0.01, (0, 0, 0), 11000, root)
+    eyes(b, [(-0.033, 1.745, 0.105), (0.033, 1.745, 0.105)], 0.011, (0.1, 0.25, 0.2, 1))
+    paint([b], 'triton_piel', triton_col, rough=0.5)
+    return root
+
+# ---- la tortuga de Escirón (Plutarco, Teseo 10): tortuga de mar enorme
+def tortuga_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.35, 0), (0.75, 0.32, 0.95))
+    d = L.smax(d, -(P[:, 1] - 0.12), 0.05)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.28, 0.85), (0, 0.35, 1.2), 0.17, 0.15), 0.06)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.36, 1.3), (0.17, 0.14, 0.2)), 0.05)
+    for k in (-1, 1):
+        d = L.smin(d, L.sd_ellipsoid(P, (k * 0.95, 0.15, 0.45), (0.45, 0.05, 0.2)), 0.08)          # aletas delanteras
+        d = L.smin(d, L.sd_ellipsoid(P, (k * 0.6, 0.12, -0.8), (0.25, 0.05, 0.18)), 0.08)
+    return d
+
+def tortuga_col(P, N):
+    v = L.fbm(P * 3, 2, 3); cell = 0.5 + 0.5 * np.sin(P[:, 0] * 9) * np.sin(P[:, 2] * 9)
+    col = mix(np.tile(C(0.3, 0.26, 0.16), (len(P), 1)), C(0.5, 0.42, 0.24), cell)
+    col = mix(col, C(0.18, 0.15, 0.1), np.clip(1 - np.abs(np.sin(P[:, 0] * 9) * np.sin(P[:, 2] * 9)) * 6, 0, 1) * (P[:, 1] > 0.3))
+    col = mix(col, C(0.45, 0.42, 0.34), (P[:, 1] < 0.3))
+    return np.clip(col * (0.85 + 0.3 * v[:, None]), 0, 1)
+
+def build_tortuga():
+    root = bpy.data.objects.new('CR_tortuga', None); SC.collection.objects.link(root)
+    b = make_part('CR_tortuga_cuerpo', tortuga_body, (-1.5, 0.0, -1.2), (1.5, 0.75, 1.6), 0.014, (0, 0, 0), 10000, root)
+    eyes(b, [(-0.12, 0.42, 1.4), (0.12, 0.42, 1.4)], 0.025, (0.05, 0.04, 0.03, 1))
+    paint([b], 'tortuga', tortuga_col, rough=0.6)
+    return root
+
+# ---- zorra de Teumeso (Apolodoro II 4,7; Pausanias IX 19,1)
+def zorra_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.55, 0), (0.15, 0.17, 0.42))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.53, 0.25), (0.15, 0.2, 0.2)), 0.08)
+    d = L.smax(d, -(P[:, 1] - 0.38), 0.05)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.6, 0.32), (0, 0.75, 0.5), 0.1, 0.075), 0.06)
+    h = L.sd_ellipsoid(P, (0, 0.78, 0.55), (0.09, 0.08, 0.1))
+    h = L.smin(h, L.sd_capsule(P, (0, 0.76, 0.6), (0, 0.72, 0.8), 0.045, 0.015), 0.03)         # hocico fino
+    for k in (-1, 1): h = L.smin(h, L.sd_capsule(P, (k * 0.05, 0.85, 0.52), (k * 0.08, 0.98, 0.5), 0.03, 0.006), 0.015)   # orejas grandes
+    return L.smin(d, h, 0.03)
+
+def zorra_col(P, N):
+    col = np.tile(C(0.8, 0.42, 0.16), (len(P), 1))
+    col = mix(col, C(0.95, 0.92, 0.86), np.clip(-N[:, 1], 0, 1) * (P[:, 2] > 0.1) * (P[:, 1] > 0.35))
+    col = mix(col, C(0.95, 0.92, 0.86), (P[:, 2] > 0.62) & (P[:, 1] < 0.74))
+    col = mix(col, C(0.12, 0.08, 0.06), np.clip((0.2 - P[:, 1]) / 0.1, 0, 1))
+    col = mix(col, C(0.95, 0.94, 0.9), P[:, 2] < -0.92)
+    return np.clip(col * (0.86 + 0.25 * hair(P)[:, None]), 0, 1)
+
+ZORRA = dict(body=zorra_body, lo=(-0.3, 0.3, -0.5), hi=(0.3, 1.05, 0.9), col=zorra_col, foot='pata', tris=9000, step=0.008,
+  eyes=([(-0.045, 0.81, 0.62), (0.045, 0.81, 0.62)], 0.012, (0.6, 0.4, 0.05, 1)),
+  legs=[([(-0.08, 0.5, 0.25), (-0.08, 0.3, 0.23), (-0.08, 0.05, 0.26)], [0.05, 0.03, 0.03]), ([(0.08, 0.5, 0.25), (0.08, 0.3, 0.23), (0.08, 0.05, 0.26)], [0.05, 0.03, 0.03]),
+        ([(-0.08, 0.52, -0.3), (-0.08, 0.32, -0.24), (-0.08, 0.2, -0.36), (-0.08, 0.05, -0.32)], [0.07, 0.035, 0.03, 0.03]), ([(0.08, 0.52, -0.3), (0.08, 0.32, -0.24), (0.08, 0.2, -0.36), (0.08, 0.05, -0.32)], [0.07, 0.035, 0.03, 0.03])],
+  tail=(lambda P: L.sd_chain(P, [(0, 0.58, -0.38), (0, 0.5, -0.65), (0, 0.42, -0.95)], [0.05, 0.09, 0.05]) - 0.02 * L.fbm(P * 30, 2, 3), (-0.2, 0.25, -1.1), (0.2, 0.75, -0.3), (0, 0.58, -0.38)))
+
+# ---- serpiente grande genérica: espiral en el suelo, cuello alzado y cabeza aparte (para que ataque)
+SERP_NECK = (0, 1.7, 1.0)
+def serp_coil(P):
+    r = np.sqrt(P[:, 0] ** 2 + P[:, 2] ** 2); th = np.arctan2(P[:, 2], P[:, 0]); best = None
+    for k in range(-1, 4):
+        tt = th + k * 2 * math.pi; valid = (tt >= 0) & (tt <= 2.5 * 2 * math.pi)
+        rr = 1.4 - tt / (2 * math.pi) * 0.42; rad = 0.14 + 0.1 * np.clip(tt / (5 * math.pi), 0, 1)
+        dd = np.sqrt((r - rr) ** 2 + (P[:, 1] - rad) ** 2) - rad; dd = np.where(valid, dd, 9.0); best = dd if best is None else np.minimum(best, dd)
+    ang = 2.5 * 2 * math.pi; e = (0.35 * math.cos(ang), 0.24, 0.35 * math.sin(ang))
+    neck = L.sd_chain(P, [e, (0.1, 0.6, 0.5), (0.05, 1.2, 0.8), SERP_NECK], [0.24, 0.22, 0.19, 0.16])
+    return L.smin(best, neck, 0.08) - 0.006 * (L.fbm(P * 30, 2, 31) - 0.5)
+
+def serp_head(P):
+    return ladon_head(P - np.asarray(SERP_NECK) + np.asarray(LADON_NECK))
+
+def build_serp():
+    root = bpy.data.objects.new('CR_serp', None); SC.collection.objects.link(root)
+    b = make_part('CR_serp_cuerpo', serp_coil, (-1.7, -0.02, -1.7), (1.7, 1.95, 1.7), 0.014, (0, 0, 0), 12000, root)
+    hd = make_part('CR_serp_cabeza', serp_head, (-0.35, 1.3, 0.85), (0.35, 2.2, 2.0), 0.009, SERP_NECK, 6000, root)
+    c = SERP_NECK; eyes(hd, [(c[0] - 0.11, c[1] + 0.12, c[2] + 0.555), (c[0] + 0.11, c[1] + 0.12, c[2] + 0.555)], 0.022, (0.85, 0.6, 0.05, 1))
+    paint([b, hd], 'serp_escamas', ladon_col, rough=0.5)
+    return root
+
+BUILD2 = {'centauro': lambda: build_quad('centauro', CENTAURO), 'pegaso': lambda: build_quad('pegaso', PEGASO), 'grifo': lambda: build_quad('grifo', GRIFO),
+          'quimera': lambda: build_quad('quimera', QUIMERA), 'esfinge': lambda: build_quad('esfinge', ESFINGE), 'arpia': build_arpia, 'gorgona': build_gorgona,
+          'triton': build_triton, 'tortuga': build_tortuga, 'zorra': lambda: build_quad('zorra', ZORRA), 'serp': build_serp}
 BUILD = {'leon': build_leon, 'ave': build_ave, 'mino': build_mino, 'cierva': lambda: build_quad('cierva', CIERVA), 'jabali': lambda: build_quad('jabali', JABALI),
          'toro': lambda: build_quad('toro', TORO), 'yegua': lambda: build_quad('yegua', YEGUA), 'cerbero': lambda: build_quad('cerbero', dog_spec(3, True)),
          'ortro': lambda: build_quad('ortro', dog_spec(2, False)), 'ladon': build_ladon}
 made = []
+if ONLY and 'lote2' in ONLY:
+    BUILD = BUILD2; OUT = OUT.replace('criaturas.glb', 'criaturas2.glb'); TEX = 512; ONLY = [x for x in ONLY if x != 'lote2'] or None
 for k, fn in BUILD.items():
     if ONLY and k not in ONLY: continue
     r = fn(); made.append(r)
