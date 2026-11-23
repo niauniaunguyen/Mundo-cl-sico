@@ -13,11 +13,12 @@ function crbLoad(){if(CRB.loading||CRB.tpl||typeof bpBytes!=='function'||!THREE.
 function crbPart(n){const T=CRB.tpl&&CRB.tpl[n];return T?T.clone(true):null;}
 // ---- el león: {g, legs, body}, como el de antes (210). body es un objeto «de mentira» cuya altura (1 normal, 0,78 agazapado) se pasa
 // al cuerpo de verdad con menos recorrido, para que las patas no se hundan
-function crbLion(R){const B=crbPart('CR_leon_cuerpo');if(!B)return null;const g=new THREE.Group(),real=new THREE.Group();g.add(real);
+function crbLion(R){return crbQuad(R,'leon',1.1);}
+function crbQuad(R,key,S){const B=crbPart('CR_'+key+'_cuerpo');if(!B)return null;const g=new THREE.Group(),real=new THREE.Group();g.add(real);
   real.add(B);B.position.set(0,0,0);const legs=[];
-  for(const k of['pDI','pDD','pTI','pTD']){const p=crbPart('CR_leon_'+k);if(!p)continue;const piv=new THREE.Group();piv.position.copy(p.position);p.position.set(0,0,0);piv.add(p);real.add(piv);legs.push(piv);}
-  const t=crbPart('CR_leon_cola');let tail=null;if(t){tail=new THREE.Group();tail.position.copy(t.position);t.position.set(0,0,0);tail.add(t);real.add(tail);}
-  const S=1.1;g.scale.setScalar(S);   // algo más grande que un león de verdad: el del mito
+  for(const k of['pDI','pDD','pTI','pTD']){const p=crbPart('CR_'+key+'_'+k);if(!p)continue;const piv=new THREE.Group();piv.position.copy(p.position);p.position.set(0,0,0);piv.add(p);real.add(piv);legs.push(piv);}
+  const t=crbPart('CR_'+key+'_cola');let tail=null;if(t){tail=new THREE.Group();tail.position.copy(t.position);t.position.set(0,0,0);tail.add(t);real.add(tail);}
+  g.scale.setScalar(S||1);
   g.traverse(o=>{if(o.isMesh)o.castShadow=true;});R.g.add(g);return {g,legs,body:new THREE.Object3D(),real,tail,cr:true};}
 {const f=LEG.leon.reset;LEG.leon.reset=function(R){try{if(CRB.tpl&&this.lion&&!this.lion.cr){R.g.remove(this.lion.g);this.lion=null;}if(CRB.tpl&&!this.lion){const L2=crbLion(R);if(L2){L2.body.position.y=1;this.lion=L2;}}}catch(e){CRB.err=String(e);}return f.apply(this,arguments);};}
 {const f=LEG.leon.tick;LEG.leon.tick=function(dt,t,act){const r=f.apply(this,arguments);try{const L2=this.lion;if(L2&&L2.cr){const y=L2.body.position.y;L2.real.position.y=(y-1)*0.45;
@@ -42,5 +43,5 @@ function crbMino(R){const H=crbPart('CR_mino_cabeza');if(!H||typeof bpMake!=='fu
   const t0=M.tick;M.tick=function(dt,t,act){const r=t0.apply(this,arguments);try{const L2=this.lion;if(L2&&L2.cr&&L2.bp){const B=L2.bp,mv=this.st==='embiste'?1:this.st==='acecha'?0.6:0;
       if(B.walk){B.walk.setEffectiveWeight(mv);B.walk.timeScale=this.st==='embiste'?2.2:1;}if(B.idle)B.idle.setEffectiveWeight(1-mv);B.mix.update(dt);
       L2.g.rotation.x=this.st==='agazapa'?0.18:this.st==='embiste'?0.12:0;}}catch(e){}return r;};}}
-// cargar el modelo al entrar en un portal de leyenda (y, si no, un rato después de empezar)
-{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(!CRB.tpl&&!CRB.loading&&state&&ui!=='start'){CRB.t=(CRB.t||0)+dt;if(CRB.t>30||(typeof legIn==='function'&&legIn()))crbLoad();}}catch(e){}return r;};}
+// cargar el modelo al entrar en un portal de leyenda (pesa unos 9 MB: no se trae si no se usa)
+{const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(!CRB.tpl&&!CRB.loading&&state&&ui!=='start'){CRB.t=(CRB.t||0)+dt;if(typeof legIn==='function'&&legIn())crbLoad();}}catch(e){}return r;};}

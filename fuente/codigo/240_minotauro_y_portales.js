@@ -18,7 +18,8 @@ function leyRed(o){try{const red=new THREE.Color(LEY_RED);o.A.m.color.copy(red);
 leyDoor=function(){if(MODE!=='roma')return;const P=int2Place(/ro_hercules|Hércules Vencedor/i)||int2Place(/Boario/i)||int2Place(/Aventin/i);if(!P)return;const s=int2Spot(P,9,6);if(!s)return;
   const o=int2Door(Object.assign(s,{id:'ley',room:'caco',name:'Portal de las leyendas',sub:'junto al templo de Hércules: Caco en el Aventino'}));leyRed(o);LEY.door=o;};
 // el menú del portal: en Roma, Caco y (abiertos) los trabajos de Hércules; las leyendas con portal propio no salen aquí
-{const f=legChoose;legChoose=function(o){const ro=leyRo(),op=leyOpen(),keep=k=>ro?(k==='caco'||(op&&['hidra','aves','leon'].includes(k))):['hidra','aves','leon'].includes(k),all=LEG_ORDER.slice();
+const LEY_HER=['hidra','aves','leon'];   // los trabajos de Heracles que salen en el menú del portal de Roma (250 añade los demás)
+{const f=legChoose;legChoose=function(o){const ro=leyRo(),op=leyOpen(),keep=k=>ro?(k==='caco'||(op&&LEY_HER.includes(k))):['hidra','aves','leon'].includes(k),all=LEG_ORDER.slice();
   LEG_ORDER.length=0;all.filter(keep).forEach(k=>LEG_ORDER.push(k));try{return f.apply(this,arguments);}finally{LEG_ORDER.length=0;all.forEach(k=>LEG_ORDER.push(k));}};}
 // ---- los portales de los destinos (se crean al acercarte, con el relieve ya hecho)
 function leyDestTick(){if(!leyOpen()||typeof ISLANDS==='undefined')return;for(const[id,room]of LEY_DEST[MODE==='roma'?'roma':'atenas']){if(MNT.dest[id])continue;const I=ISLANDS.find(q=>q.id===id);if(!I)continue;

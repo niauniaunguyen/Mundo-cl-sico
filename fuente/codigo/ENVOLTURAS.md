@@ -13,7 +13,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 |---|---|---:|---|
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 60 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:62 · `157`:84 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:69 · `184`:62 · `184`:84 · `186`:123 · `186`:158 · `186`:180 · `196`:38 · `196`:48 · `196`:88 · `198`:60 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:25 · `208`:148 · `208`:207 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:130 · `215`:50 · `216`:155 · `217`:91 · `218`:72 · `218`:83 · `219`:81 · `220`:35 · `222`:65 |
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
-| `gfTick` | `062_game_feel.js` | 18 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:76 · `242`:39 · `243`:49 · `244`:22 · `246`:8 · `249`:46 |
+| `gfTick` | `062_game_feel.js` | 18 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:77 · `242`:39 · `243`:49 · `244`:22 · `246`:8 · `249`:47 |
 | `atCands` | `085_mirar_con_atencion.js` | 12 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:127 · `218`:49 · `248`:20 |
 | `gmDo` | `068_menu_del_juego.js` | 12 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:110 · `223`:18 · `227`:148 · `230`:96 · `232`:63 · `235`:113 |
 | `openDialog` | `015_dialogo.js` | 9 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 · `235`:104 |
@@ -78,9 +78,9 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbSetup` | `087_la_barra_de_objetos_como.js` | 2 | `120`:108 · `900`:379 |
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
-| `int2Enter` | `204_puertas_a_interiores.js` | 2 | `210`:19 · `240`:33 |
-| `legChoose` | `210_mas_leyendas.js` | 2 | `237`:20 · `240`:21 |
-| `legStart` | `210_mas_leyendas.js` | 2 | `237`:92 · `240`:57 |
+| `int2Enter` | `204_puertas_a_interiores.js` | 2 | `210`:19 · `240`:34 |
+| `legChoose` | `210_mas_leyendas.js` | 2 | `237`:20 · `240`:22 |
+| `legStart` | `210_mas_leyendas.js` | 2 | `237`:92 · `240`:58 |
 | `leyTick` | `208_portal_de_las_leyendas.js` | 2 | `210`:103 · `237`:74 |
 | `lrnSummary` | `148_aprender.js` | 2 | `151`:41 · `154`:25 |
 | `natAct` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:227 · `097`:89 |
@@ -167,7 +167,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `cvSetup` | `083_el_camino_del_forastero.js` | 1 | `900`:372 |
 | `cyAct` | `096_la_ciudad_mas_viva.js` | 1 | `097`:102 |
 | `cySetup` | `096_la_ciudad_mas_viva.js` | 1 | `900`:373 |
-| `daedalusTalk` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `240`:35 |
+| `daedalusTalk` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `240`:36 |
 | `definePlaces` | `011_construccion_del_mundo.js` | 1 | `900`:432 |
 | `defineRiversGR` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `900`:433 |
 | `defineSimple` | `012_escenarios_cuadrados.js` | 1 | `900`:449 |
@@ -227,7 +227,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `jump` | `042_entrada.js` | 1 | `174`:28 |
 | `ldRun` | `900_creta_y_arranque.js` | 1 | `161`:22 |
 | `legTouchBtns` | `210_mas_leyendas.js` | 1 | `237`:71 |
-| `legWin` | `210_mas_leyendas.js` | 1 | `240`:70 |
+| `legWin` | `210_mas_leyendas.js` | 1 | `240`:71 |
 | `leySfx` | `208_portal_de_las_leyendas.js` | 1 | `211`:49 |
 | `libPlain` | `019_biblioteca.js` | 1 | `167`:45 |
 | `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
@@ -295,7 +295,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `terrainH0` | `001_terreno.js` | 1 | `001`:94 |
 | `thfSpawn` | `174_movimiento_dinamico.js` | 1 | `180`:66 |
 | `thfTick` | `174_movimiento_dinamico.js` | 1 | `179`:68 |
-| `toggleWings` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `240`:64 |
+| `toggleWings` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `240`:65 |
 | `tpDecorate` | `113_templos_por_dentro.js` | 1 | `173`:36 |
 | `tpStatue` | `113_templos_por_dentro.js` | 1 | `197`:5 |
 | `trPrice` | `099_para_aprender_y_ensenar.js` | 1 | `211`:52 |
