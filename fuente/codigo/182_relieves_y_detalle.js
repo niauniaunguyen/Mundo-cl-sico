@@ -57,6 +57,7 @@ function tlodTick(dt){TLOD.t-=dt;if(TLOD.t>0||!TLOD.sets.size)return;TLOD.t=0.5;
     if(!S.hi){let geo=null;if(S.arch){if(!ARCH.tpl){archLoad();continue;}geo=ARCH.tpl['K_'+S.arch.slice(2)];if(!geo)continue;}else geo=plHiGeo(S.lo,S.key.split('|')[0])||tlodHiGeo(S.lo);
       S.hi=new THREE.InstancedMesh(geo,S.mat,MX);S.hi.count=0;S.hi.castShadow=true;S.hi.receiveShadow=!!S.arch;S.hi.frustumCulled=false;if(!S.arch)S.hi.userData.veg=true;S.hi.userData.tlod=true;scene.add(S.hi);
       if(S.ims.some(im=>im.instanceColor))S.hi.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(MX*3),3);}
+    if(!S.hi.parent)scene.add(S.hi);S.hi.visible=true;   // al viajar a otro mapa se vacía la escena: sin esto, las columnas cercanas se escondían y no salía la versión de detalle (23/11)
     const want=new Map();for(const im of S.ims){if(!im.parent||!im.visible)continue;const sp=im.geometry.boundingSphere;if(sp&&Math.hypot(sp.center.x-cx,sp.center.z-cz)>sp.radius+SR)continue;
       const A=im.instanceMatrix.array,orig=im.userData.tlodOrig;for(let i=0;i<im.count;i++){const o=orig&&orig.has(i)?orig.get(i):null,e=o?o.elements:null;const x=e?e[12]:A[i*16+12],z=e?e[14]:A[i*16+14];
         const dx=x-cx,dz=z-cz;if(dx*dx+dz*dz<R2&&want.size<MX)want.set(im.uuid+':'+i,[im,i]);}}

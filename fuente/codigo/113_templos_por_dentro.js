@@ -134,7 +134,7 @@ scene.remove=function(...a){for(const o of a){const e=CULL.idx.get(o);if(e){e.go
 scene.add=function(...a){for(const o of a){const e=CULL.idx.get(o);if(e&&e.out){e.out=false;CULL.out--;}}return _scAdd(...a);};
 const _cBox=new THREE.Box3(),_cV=new THREE.Vector3();
 function cullSkip(o){let L=false;o.traverse(c=>{if(c.isLight)L=true;});if(L)return true;   // sacar una luz cambia el número de luces y obliga a recompilar los materiales (tirones)
-  return o.isLight||o.isCamera||o===skyMesh||(typeof STARS!=='undefined'&&o===STARS)||o.userData.chunk||o.userData.noCull||(typeof DREAM!=='undefined'&&o===DREAM.g);}
+  return o.isLight||o.isCamera||o===skyMesh||(typeof STARS!=='undefined'&&o===STARS)||o.userData.chunk||o.userData.noCull||o.userData.tlod||(o.isInstancedMesh&&o.frustumCulled===false)||(typeof DREAM!=='undefined'&&o===DREAM.g);}
 function cullRegister(max,full){const ch=scene.children;let n=0;if(!full&&CULL.rest>0)return 0;let i=full?0:(CULL.ci||0),seen=0;   /* sigue por donde lo dejó: antes recorría todos los hijos de la escena en cada fotograma */
   for(;i<ch.length&&n<max&&(full||seen<2500);i++,seen++){const o=ch[i];if(CULL.idx.has(o)||o.userData._cs)continue;o.userData._cs=1;n++;if(cullSkip(o))continue;
     try{_cBox.setFromObject(o);}catch(e){continue;}if(_cBox.isEmpty()||!isFinite(_cBox.min.x))continue;

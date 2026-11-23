@@ -22731,7 +22731,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='b5b56f284649';
+const NOSTOS_VER='40cdef8da098';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -22919,7 +22919,7 @@ scene.remove=function(...a){for(const o of a){const e=CULL.idx.get(o);if(e){e.go
 scene.add=function(...a){for(const o of a){const e=CULL.idx.get(o);if(e&&e.out){e.out=false;CULL.out--;}}return _scAdd(...a);};
 const _cBox=new THREE.Box3(),_cV=new THREE.Vector3();
 function cullSkip(o){let L=false;o.traverse(c=>{if(c.isLight)L=true;});if(L)return true;   // sacar una luz cambia el número de luces y obliga a recompilar los materiales (tirones)
-  return o.isLight||o.isCamera||o===skyMesh||(typeof STARS!=='undefined'&&o===STARS)||o.userData.chunk||o.userData.noCull||(typeof DREAM!=='undefined'&&o===DREAM.g);}
+  return o.isLight||o.isCamera||o===skyMesh||(typeof STARS!=='undefined'&&o===STARS)||o.userData.chunk||o.userData.noCull||o.userData.tlod||(o.isInstancedMesh&&o.frustumCulled===false)||(typeof DREAM!=='undefined'&&o===DREAM.g);}
 function cullRegister(max,full){const ch=scene.children;let n=0;if(!full&&CULL.rest>0)return 0;let i=full?0:(CULL.ci||0),seen=0;   /* sigue por donde lo dejó: antes recorría todos los hijos de la escena en cada fotograma */
   for(;i<ch.length&&n<max&&(full||seen<2500);i++,seen++){const o=ch[i];if(CULL.idx.has(o)||o.userData._cs)continue;o.userData._cs=1;n++;if(cullSkip(o))continue;
     try{_cBox.setFromObject(o);}catch(e){continue;}if(_cBox.isEmpty()||!isFinite(_cBox.min.x))continue;
@@ -27398,7 +27398,7 @@ function mmDrone(on){if(!aOK())return;const c=AUD.ctx;if(on&&!MM.drone){const g=
 // Las siguientes cargas reutilizan esos números: el mundo sale idéntico, pero mucho antes. Si el navegador no deja guardar, todo funciona como antes.
 const ICACHE={map:null,dirty:false,db:null,hits:0,miss:0,ms:0};
 // la clave es la firma del código del relieve (la calcula construir.py), no la versión: una versión nueva que no toca el terreno conserva la caché
-const TERRAIN_SIG='624f96801e27';
+const TERRAIN_SIG='8566f9a345a9';
 function icKey(){return 'isl-'+TERRAIN_SIG+'-'+MODE;}
 function icOpen(){return new Promise(res=>{try{const r=indexedDB.open('nostos-cache',1);r.onupgradeneeded=()=>{try{r.result.createObjectStore('c');}catch(e){}};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null);}catch(e){res(null);}});}
 async function icLoad(){const db=await icOpen();if(!db){ICACHE.map={};return;}ICACHE.db=db;
@@ -28608,6 +28608,7 @@ function tlodTick(dt){TLOD.t-=dt;if(TLOD.t>0||!TLOD.sets.size)return;TLOD.t=0.5;
     if(!S.hi){let geo=null;if(S.arch){if(!ARCH.tpl){archLoad();continue;}geo=ARCH.tpl['K_'+S.arch.slice(2)];if(!geo)continue;}else geo=plHiGeo(S.lo,S.key.split('|')[0])||tlodHiGeo(S.lo);
       S.hi=new THREE.InstancedMesh(geo,S.mat,MX);S.hi.count=0;S.hi.castShadow=true;S.hi.receiveShadow=!!S.arch;S.hi.frustumCulled=false;if(!S.arch)S.hi.userData.veg=true;S.hi.userData.tlod=true;scene.add(S.hi);
       if(S.ims.some(im=>im.instanceColor))S.hi.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(MX*3),3);}
+    if(!S.hi.parent)scene.add(S.hi);S.hi.visible=true;   // al viajar a otro mapa se vacía la escena: sin esto, las columnas cercanas se escondían y no salía la versión de detalle (23/11)
     const want=new Map();for(const im of S.ims){if(!im.parent||!im.visible)continue;const sp=im.geometry.boundingSphere;if(sp&&Math.hypot(sp.center.x-cx,sp.center.z-cz)>sp.radius+SR)continue;
       const A=im.instanceMatrix.array,orig=im.userData.tlodOrig;for(let i=0;i<im.count;i++){const o=orig&&orig.has(i)?orig.get(i):null,e=o?o.elements:null;const x=e?e[12]:A[i*16+12],z=e?e[14]:A[i*16+14];
         const dx=x-cx,dz=z-cz;if(dx*dx+dz*dz<R2&&want.size<MX)want.set(im.uuid+':'+i,[im,i]);}}
@@ -33198,7 +33199,7 @@ function v21Sky(){if(V21B.done.sky||typeof SKY==='undefined')return;const F=SKY.
 // ---- D3: escarpes dentro de las ciudades y árboles en pendientes imposibles
 function v21CityCliffs(){const c=typeof g4Center==='function'?g4Center():{x:0,z:0},R=MODE==='roma'?1300:820,L=[],M=new THREE.Matrix4(),Q=new THREE.Quaternion(),S=new THREE.Vector3(),V=new THREE.Vector3(),E=new THREE.Euler();
   for(let x=c.x-R;x<c.x+R&&L.length<700;x+=7)for(let z=c.z-R;z<c.z+R&&L.length<700;z+=7){if(Math.hypot(x-c.x,z-c.z)>R)continue;const s=v21Slope(x,z);if(s<0.75)continue;
-    const j=g4R(x,z);if(j<0.35)continue;try{if(!isFree(x,z,1.5))continue;if(g4NearRoad(x,z))continue;}catch(e){}
+    const j=g4R(x,z);if(j<0.35)continue;try{if(!isFree(x,z,1.5)||!isFree(x,z,2+j*2.5))continue;if(g4NearRoad(x,z))continue;}catch(e){}
     const a=Math.atan2(terrainH(x+2,z)-terrainH(x-2,z),terrainH(x,z+2)-terrainH(x,z-2));E.set(0,a+Math.PI,0);Q.setFromEuler(E);const sc=4+j*5;S.set(sc,sc*1.2,sc*0.8);M.compose(V.set(x,terrainH(x,z)-sc*0.35,z),Q,S);
     L.push({m:M.clone(),c:new THREE.Color().setHSL(MODE==='roma'?0.08:0.09,MODE==='roma'?0.22:0.12,0.5+j*0.12)});}
   return L;}
@@ -33208,7 +33209,7 @@ function v21Trees(){if(V21B.done.trees)return;V21B.done.trees=1;const M=new THRE
 // ---- D4: rocas escaneadas para lo nuevo (escarpes, laderas, cuevas)
 function v21RockMesh(items,names,isCliff){if(!items.length||!RK.tpl)return 0;const N=names.filter(k=>RK.tpl[k]);if(!N.length)return 0;const per={};
   const M=new THREE.Matrix4(),P=new THREE.Vector3(),Q=new THREE.Quaternion(),S=new THREE.Vector3();
-  items.forEach((it,i)=>{const k=N[i%N.length],T=RK.tpl[k];it.m.decompose(P,Q,S);const k2=1/(T.max||1);S.multiplyScalar(k2*(isCliff?1.6:1.4));M.compose(P,Q,S);(per[k]||(per[k]=[])).push({m:M.clone(),c:it.c});});
+  items.forEach((it,i)=>{const k=N[i%N.length],T=RK.tpl[k];it.m.decompose(P,Q,S);const k2=1/(T.max||1);S.multiplyScalar(k2*(isCliff?1.6:1.4));M.compose(P,Q,S);(per[k]||(per[k]=[])).push({m:M.clone(),c:it.c||new THREE.Color().setHSL(MODE==='roma'?0.08:0.09,MODE==='roma'?0.2:0.1,0.62+hash(P.x,P.z)*0.12)});   /* sin color, la instancia salía negra (23/11) */});
   for(const k in per)chunked(RK.tpl[k].g,RK.tpl[k].m,per[k],{shadow:true,receive:true});return items.length;}
 function v21Rocks(){if(V21B.done.rocks)return;if(typeof RK==='undefined')return;if(!RK.tpl){try{rkLoad();}catch(e){}return;}V21B.done.rocks=1;
   const cl=(typeof G4!=='undefined'&&G4.cliffL)||[],rk=(typeof G4!=='undefined'&&G4.rockL)||[],city=v21CityCliffs();

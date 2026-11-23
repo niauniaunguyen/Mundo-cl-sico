@@ -55,7 +55,7 @@ function v21Sky(){if(V21B.done.sky||typeof SKY==='undefined')return;const F=SKY.
 // ---- D3: escarpes dentro de las ciudades y árboles en pendientes imposibles
 function v21CityCliffs(){const c=typeof g4Center==='function'?g4Center():{x:0,z:0},R=MODE==='roma'?1300:820,L=[],M=new THREE.Matrix4(),Q=new THREE.Quaternion(),S=new THREE.Vector3(),V=new THREE.Vector3(),E=new THREE.Euler();
   for(let x=c.x-R;x<c.x+R&&L.length<700;x+=7)for(let z=c.z-R;z<c.z+R&&L.length<700;z+=7){if(Math.hypot(x-c.x,z-c.z)>R)continue;const s=v21Slope(x,z);if(s<0.75)continue;
-    const j=g4R(x,z);if(j<0.35)continue;try{if(!isFree(x,z,1.5))continue;if(g4NearRoad(x,z))continue;}catch(e){}
+    const j=g4R(x,z);if(j<0.35)continue;try{if(!isFree(x,z,1.5)||!isFree(x,z,2+j*2.5))continue;if(g4NearRoad(x,z))continue;}catch(e){}
     const a=Math.atan2(terrainH(x+2,z)-terrainH(x-2,z),terrainH(x,z+2)-terrainH(x,z-2));E.set(0,a+Math.PI,0);Q.setFromEuler(E);const sc=4+j*5;S.set(sc,sc*1.2,sc*0.8);M.compose(V.set(x,terrainH(x,z)-sc*0.35,z),Q,S);
     L.push({m:M.clone(),c:new THREE.Color().setHSL(MODE==='roma'?0.08:0.09,MODE==='roma'?0.22:0.12,0.5+j*0.12)});}
   return L;}
@@ -65,7 +65,7 @@ function v21Trees(){if(V21B.done.trees)return;V21B.done.trees=1;const M=new THRE
 // ---- D4: rocas escaneadas para lo nuevo (escarpes, laderas, cuevas)
 function v21RockMesh(items,names,isCliff){if(!items.length||!RK.tpl)return 0;const N=names.filter(k=>RK.tpl[k]);if(!N.length)return 0;const per={};
   const M=new THREE.Matrix4(),P=new THREE.Vector3(),Q=new THREE.Quaternion(),S=new THREE.Vector3();
-  items.forEach((it,i)=>{const k=N[i%N.length],T=RK.tpl[k];it.m.decompose(P,Q,S);const k2=1/(T.max||1);S.multiplyScalar(k2*(isCliff?1.6:1.4));M.compose(P,Q,S);(per[k]||(per[k]=[])).push({m:M.clone(),c:it.c});});
+  items.forEach((it,i)=>{const k=N[i%N.length],T=RK.tpl[k];it.m.decompose(P,Q,S);const k2=1/(T.max||1);S.multiplyScalar(k2*(isCliff?1.6:1.4));M.compose(P,Q,S);(per[k]||(per[k]=[])).push({m:M.clone(),c:it.c||new THREE.Color().setHSL(MODE==='roma'?0.08:0.09,MODE==='roma'?0.2:0.1,0.62+hash(P.x,P.z)*0.12)});   /* sin color, la instancia salía negra (23/11) */});
   for(const k in per)chunked(RK.tpl[k].g,RK.tpl[k].m,per[k],{shadow:true,receive:true});return items.length;}
 function v21Rocks(){if(V21B.done.rocks)return;if(typeof RK==='undefined')return;if(!RK.tpl){try{rkLoad();}catch(e){}return;}V21B.done.rocks=1;
   const cl=(typeof G4!=='undefined'&&G4.cliffL)||[],rk=(typeof G4!=='undefined'&&G4.rockL)||[],city=v21CityCliffs();
