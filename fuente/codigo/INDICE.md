@@ -52,7 +52,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `044_modo_historia.js` | 417 | MODO HISTORIA |
 | `045_modo_libre_en_linea_hasta.js` | 52 | MODO LIBRE EN LÍNEA (hasta 15 jugadores, capacidad room) |
 | `046_el_caballo.js` | 59 | el caballo: se gana con un favor y crece recogiendo esferas doradas |
-| `047_dedalo_encerrado_en_su_propio.js` | 55 | Dédalo, encerrado en su propio laberinto, y las alas de cera |
+| `047_dedalo_encerrado_en_su_propio.js` | 56 | Dédalo, encerrado en su propio laberinto, y las alas de cera |
 | `048_cualidades_del_personaje_y_amistades.js` | 361 | cualidades del personaje y amistades con las personalidades |
 | `049_discipulos.js` | 391 | discípulos: escuelas, encargos y rivalidades<br>tutorial de los primeros segundos (una vez por partida) |
 | `050_calendario_de_fiestas.js` | 415 | calendario de fiestas: un año religioso condensado |
@@ -256,4 +256,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `250_trabajos_de_heracles.js` | 161 | LOS DEMÁS TRABAJOS DE HERACLES EN LOS PORTALES DE LEYENDA (23/11) |
 | `251_bestiario_leyendas.js` | 338 | BESTIARIO: 37 PORTALES DE LEYENDA MÁS (23/11: «hazlos todos», hasta llegar a 50 criaturas) |
 | `252_premios_leyendas.js` | 88 | PREMIOS DE LOS PORTALES DE LEYENDA (23/11) |
+| `253_desbloqueos_heroe.js` | 71 | LO QUE SE DESBLOQUEA CON LAS LEYENDAS (23/11: «aplícalos todos») |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

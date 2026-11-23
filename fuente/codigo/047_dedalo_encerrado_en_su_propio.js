@@ -38,7 +38,8 @@ function wingsTick(dt){const w=wz();
     if(ui==='play'&&Math.hypot(f.x-player.x,f.z-player.z)<2&&Math.abs(player.feet-KNOS.y)<4){w.got.push(f.i);f.sp.visible=false;save();sfxCoin();
       toast('<span class="label">Pluma '+w.got.length+' de '+FEATHERS.length+'</span><br>'+(w.got.length<FEATHERS.length?'Sigue buscando por el palacio.':'¡Ya las tienes todas! Vuelve al rincón del laberinto donde espera Dédalo.'));}}
   if(FLY.melt>0){FLY.melt-=dt;if(FLY.melt<=0)toast('Has rehecho la cera de las alas, como te enseñó Dédalo. Pulsa <b>X</b> para volar.');}
-  if(!FLY.on)return;const alt=player.feet-terrainH(player.x,player.z);if(alt>300){FLY.on=false;return;}
+  if(!FLY.on)return;const alt=player.feet-terrainH(player.x,player.z);if(typeof PEGR!=='undefined'&&PEGR.on){if(typeof pegrAlt==='function')pegrAlt(alt);return;}   /* a lomos de Pegaso no se derrite nada (253) */
+  if(alt>300){FLY.on=false;return;}
   if(alt>95&&FLY.warn<=0){FLY.warn=6;toast('<span class="label">¡Cuidado!</span><br>Hace calor tan cerca del sol: la cera empieza a ablandarse. Baja un poco.');}FLY.warn-=dt;
   if(alt>125){FLY.on=false;FLY.melt=30;toast('<span class="label">Como Ícaro</span><br>Has subido demasiado: la cera se derrite y las plumas se sueltan. Caes planeando como puedes…');}
 }

@@ -27,7 +27,7 @@ function frame(now){
   if(ui==='play'&&BOAT.on)boatTick(dt);
   else if(ui==='play'){
     let f=(keys.w?1:0)-(keys.s?1:0)-joy.y,s=(keys.d?1:0)-(keys.a?1:0)+joy.x;const L=Math.hypot(f,s);if(L>1){f/=L;s/=L;}
-    const sp=(FLY.on?(keys.run?30:15):(keys.run?11:4.8)*v2Spd()*(MOUNT.riding?3*horseMul()*(1+RW.dash):1+0.02*(qLv('ar')-1)))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
+    const sp=(FLY.on?(keys.run?30:15)*(typeof PEGR!=='undefined'&&PEGR.on?2.2:1):(keys.run?11:4.8)*v2Spd()*(MOUNT.riding?3*horseMul()*(1+RW.dash):1+0.02*(qLv('ar')-1)))*dt;const fx=-Math.sin(player.yaw),fz=-Math.cos(player.yaw),rx=Math.cos(player.yaw),rz=-Math.sin(player.yaw);
     const wk=inWaterK(),idt=1/Math.max(dt,1e-4),gv=gfVel((fx*f+rx*s)*sp*wk*idt,(fz*f+rz*s)*sp*wk*idt,dt,L>0.01),mx=gv[0]*dt,mz=gv[1]*dt;   // inercia (game feel)
     const mv=FLY.on?flyMove:tryMove;if(Math.hypot(mx,mz)>1e-5){if(!mv(player.x+mx,player.z+mz)){const a=mv(player.x+mx,player.z),b=a||mv(player.x,player.z+mz);gfBlock(a,b);}}
   }
