@@ -88,12 +88,12 @@ function* seal2Job(prev){const C=seal2Cands(),ppl=seal2People(),lp=new THREE.Vec
   return SEAL2.n;}
 // en dos tiempos: una foto de las piezas al segundo de juego y el sellado al segundo siguiente, con las que no se han movido
 function seal2Tick(dt){if(!state)return;
-  if(SEAL2.done){SEAL2.ck=(SEAL2.ck||0)+dt;if(SEAL2.ck<6)return;SEAL2.ck=0;const n=scene.children.length;if(SEAL2.nch===undefined){SEAL2.nch=n;return;}
-    if(n!==SEAL2.nch&&performance.now()-(SEAL2.last||0)>30000){SEAL2.nch=n;SEAL2.done=false;SEAL2.t=0;SEAL2.last=performance.now();SEAL2.runs=(SEAL2.runs||1)+1;}return;}   // hay construcciones nuevas (un interior, un destino): otra pasada
+  if(SEAL2.done){SEAL2.ck=(SEAL2.ck||0)+dt;if(SEAL2.ck<6)return;SEAL2.ck=0;let n=0;for(const c of scene.children)if(!c.userData.noSeal)n++;if(SEAL2.nch===undefined){SEAL2.nch=n;return;}
+    if(Math.abs(n-SEAL2.nch)>=3&&performance.now()-(SEAL2.last||0)>30000){SEAL2.nch=n;SEAL2.done=false;SEAL2.t=0;SEAL2.last=performance.now();SEAL2.runs=(SEAL2.runs||1)+1;}return;}   // hay construcciones nuevas (un interior, un destino): otra pasada
   SEAL2.t+=dt;
   if(!SEAL2.snap&&SEAL2.t>1){try{SEAL2.snap=seal2Cands();}catch(e){SEAL2.done=true;console.warn('seal2',e);}return;}
-  if(SEAL2.snap&&SEAL2.t>2){if(!SEAL2.job)SEAL2.job=seal2Job(SEAL2.snap);const t0=performance.now(),bud=SEAL2.ms||(ui==='play'?6:40);let r;try{do{r=SEAL2.job.next();}while(!r.done&&performance.now()-t0<bud);}catch(e){console.warn('seal2',e);r={done:true};}
-    if(r.done){SEAL2.done=true;SEAL2.job=null;SEAL2.snap=null;SEAL2.prof.clear();SEAL2.nch=scene.children.length;}}}
+  if(SEAL2.snap&&SEAL2.t>2){if(!SEAL2.job)SEAL2.job=seal2Job(SEAL2.snap);const t0=performance.now(),bud=SEAL2.ms||(ui==='play'?(SEAL2.runs>1?2.5:6):40);let r;try{do{r=SEAL2.job.next();}while(!r.done&&performance.now()-t0<bud);}catch(e){console.warn('seal2',e);r={done:true};}
+    if(r.done){SEAL2.done=true;SEAL2.job=null;SEAL2.snap=null;SEAL2.prof.clear();let n=0;for(const c of scene.children)if(!c.userData.noSeal)n++;SEAL2.nch=n;}}}
 
 // ============================================================ CUÁNTOS ÉRAMOS: población de Atenas (386 a.C.) y de Roma (80 d.C.)
 // Un escribiente junto al monumento de los Héroes Epónimos (Atenas) y un escriba del Tabularium (Roma). Cifras aproximadas, con su margen.

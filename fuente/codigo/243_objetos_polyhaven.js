@@ -45,5 +45,5 @@ function obpDoors(){if(typeof footprints==='undefined')return;const P=player,R=5
     try{if(typeof roadDist==='function'&&roadDist(x,z)<1.0)continue;}catch(e){}const y=floorAt(x,z),g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=a;
     const pick=r<0.07?['olla','cesta']:r<0.14?['cesto']:r<0.21?(MODE==='roma'?['tina','olla']:['olla','olla']):['cesta','taburete'];
     pick.forEach((k,j)=>{if(k==='cesto'){obpBasket(g,j*0.5,0,0,j,'cebolla');return;}const o=obp(k,j*0.5,0,0,j*1.3+r*6);if(o)g.add(o);});
-    g.userData.fp=f;scene.add(g);OBP.doors.push(g);made++;}}
+    g.userData.fp=f;g.userData.noSeal=1;scene.add(g);OBP.doors.push(g);made++;}}
 {const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{if(!OBP.tpl){if(state&&ui!=='start'&&!OBP.loading)obpLoad();}else{OBP.t-=dt;if(OBP.t<=0){OBP.t=1.2;obpStalls();obpRooms();obpDoors();}}}catch(e){if(!OBP.err){OBP.err=1;console.warn('obp',e);}}return r;};}

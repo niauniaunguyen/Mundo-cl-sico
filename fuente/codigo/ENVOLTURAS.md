@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-312 funciones ampliadas, 592 capas.
+313 funciones ampliadas, 593 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -121,6 +121,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `boatExit` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:500 |
 | `boatTick` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `105`:499 |
 | `bpCrowds` | `196_multitudes_con_modelos.js` | 1 | `196`:46 |
+| `bpLod` | `184_personajes_blender.js` | 1 | `245`:13 |
 | `bpSetup` | `184_personajes_blender.js` | 1 | `186`:121 |
 | `bpSwap` | `184_personajes_blender.js` | 1 | `196`:28 |
 | `buildAcropolis` | `011_construccion_del_mundo.js` | 1 | `900`:408 |
