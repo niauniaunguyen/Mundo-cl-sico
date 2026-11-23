@@ -133,7 +133,7 @@ function npcKind(c){if(!c||c.glow||c.mask||(c.scale&&c.scale<0.95))return null;
 const NPB_GREY=new Map();
 // candidatos: se marcan al aparecer; la figura de Blender se crea solo cuando el personaje está entre los NPB.K más cercanos
 // (dos por vez, para no dar tirones) y se suelta cuando hay más de NPB.MAXB creadas y esta es de las más lejanas
-function npcOk(g){if(!g||g.userData.npb||g.userData.pj||g.userData.stKind)return false;g.userData.npb=1;const c=g.userData.cfg;if(!c||c.noVary)return false;const k=npcKind(c);if(!k||!BP.tpl[k])return false;g.userData.npbKind=k;return true;}
+function npcOk(g){if(!g||g.userData.npb||g.userData.pj||g.userData.stKind)return false;g.userData.npb=1;const c=g.userData.cfg;if(!c||c.noBlender)return false;   /* antes también se dejaban fuera los noVary: el cantero, el mendigo, el cabrero... seguían con la figura antigua (vídeo 23/11) */const k=npcKind(c);if(!k||!BP.tpl[k])return false;g.userData.npbKind=k;return true;}
 function npcDress(g){const c=g.userData.cfg,k=g.userData.npbKind;const n=bpMake(k,c);if(!n)return null;const root=n.children[0],B=n.userData.bp;n.remove(root);
   // canas: la textura del pelo es oscura y teñirla no la vuelve gris; se pinta de gris sin textura
   const hc=c&&c.hair?new THREE.Color(c.hair):null,hs={};if(hc)hc.getHSL(hs);

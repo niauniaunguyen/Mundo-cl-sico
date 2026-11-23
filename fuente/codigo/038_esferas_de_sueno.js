@@ -1032,7 +1032,7 @@ function buildKnossosDream(C){
   for(let i=3;i<=5;i++)for(let j=3;j<=5;j++){const c=grid[i][j];if(i<5)c.w[1]=grid[i+1][j].w[3]=false;if(j<5)c.w[2]=grid[i][j+1].w[0]=false;}   // la sala central
   for(let k=0;k<4;k++){const i=1+Math.floor(R0()*7),j=1+Math.floor(R0()*7),d=Math.floor(R0()*4),D=DIRS[d],n=grid[i+D[0]]&&grid[i+D[0]][j+D[1]];if(n){grid[i][j].w[d]=false;n.w[D[3]]=false;}}   // algunos bucles
   grid[4][N-1].w[2]=false;
-  const mz=new THREE.MeshPhongMaterial({color:'#8a745c',shininess:4}),mzT=lam('#5a4a3a'),H=5.2;   // Phong: la luz de la antorcha se calcula por píxel, no solo en las esquinas de cada muro
+  const mz=new THREE.MeshPhongMaterial({color:'#9a846a',shininess:4}),mzT=lam('#5a4a3a'),H=5.2;try{triplanar(mz,PTEX.rock,3.2);}catch(e){}   /* muros con textura de roca (vídeo 23/11) */   // Phong: la luz de la antorcha se calcula por píxel, no solo en las esquinas de cada muro
   const wallSeg=(x0,z0,x1,z1)=>{const L=Math.hypot(x1-x0,z1-z0)+0.6,m=box(x0===x1?0.6:L,H,x0===x1?L:0.6,mz,(x0+x1)/2,H/2,(z0+z1)/2,g);addSeg(X+x0,Z+z0,X+x1,Z+z1,0.35);};
   for(let i=0;i<N;i++)for(let j=0;j<N;j++){const c=grid[i][j],x0=L0x+i*CS,z0=L0z+j*CS;if(c.w[0])wallSeg(x0,z0,x0+CS,z0);if(c.w[3])wallSeg(x0,z0,x0,z0+CS);if(i===N-1&&c.w[1])wallSeg(x0+CS,z0,x0+CS,z0+CS);if(j===N-1&&c.w[2])wallSeg(x0,z0+CS,x0+CS,z0+CS);}
   {const S2=N*CS+0.6,h0=3*CS;for(const[w,d,x,z]of[[S2,(S2-h0)/2,0,-(S2+h0)/4],[S2,(S2-h0)/2,0,(S2+h0)/4],[(S2-h0)/2,h0,-(S2+h0)/4,0],[(S2-h0)/2,h0,(S2+h0)/4,0]])box(w,0.4,d,mzT,LX+x,H+0.2,LZ+z,g);}   // techo: el laberinto está en penumbra; solo la sala del centro se abre al cielo
