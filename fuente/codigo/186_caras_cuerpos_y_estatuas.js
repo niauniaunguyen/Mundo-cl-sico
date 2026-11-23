@@ -97,12 +97,16 @@ function stMat(m,k,fem,pi){pi=pi||0;const nm=m.name||'',key=m.uuid+k+(fem?'f':'m
   n.skinning=true;STB.mats.set(key,n);return n;}
 // tipo de figura de Blender según la estatua
 function stModel(c){if(c.female)return(c.helmet||(c.attrs||[]).some(a=>/spear|shield|aegis/i.test(a)))?'atenea':'mujer';if(c.toga&&BP.tpl.togado)return 'togado';if(c.helmet||c.soldier)return 'hoplita';return 'ciudadano';}
+// el escudo viene del hoplita, más ancho de hombros: en la figura de mujer se metía en el manto (vídeo 23/11). Se separa 9 cm del cuerpo.
+const ST_SH=new Map();
+function stShieldOut(root){root.traverse(o=>{if(!o.isSkinnedMesh||!/^escudo/.test(o.name))return;let g=ST_SH.get(o.geometry);if(!g){g=o.geometry.clone();g.computeBoundingBox();const c=new THREE.Vector3();g.boundingBox.getCenter(c);
+  const d=new THREE.Vector3(c.x,0,c.z);if(d.lengthSq()<1e-6)d.set(1,0,0);d.normalize().multiplyScalar(0.09);g.translate(d.x,0,d.z);ST_SH.set(o.geometry,g);}o.geometry=g;});}
 // copia una pieza con esqueleto de otro modelo (casco, escudo, lanza) al esqueleto de esta figura, por nombre de hueso
 function stGraft(dst,src,names){const bones={};dst.traverse(o=>{if(o.isBone)bones[o.name]=o;});let host=null;dst.traverse(o=>{if(!host&&o.isSkinnedMesh)host=o;});if(!host)return;
   src.traverse(o=>{if(!o.isSkinnedMesh||!names.test(o.name))return;const bs=o.skeleton.bones.map(b=>bones[b.name]);if(bs.some(b=>!b))return;
     const m=new THREE.SkinnedMesh(o.geometry,o.material);m.name=o.name;host.parent.add(m);m.bind(new THREE.Skeleton(bs,o.skeleton.boneInverses),host.bindMatrix);});}
 function bpStatue(c,k){const mk=stModel(c),base=mk==='atenea'?'mujer':mk;if(!BP.tpl[base])return null;const T=BP.tpl[base],root=bpClone(T.scene),fem=base==='mujer';
-  if(mk==='atenea'&&BP.tpl.hoplita){stGraft(root,bpClone(BP.tpl.hoplita.scene),/^(casco|cimera|escudo|lanza)$/);root.traverse(o=>{if(/_mono$|_cinta$/.test(o.name))o.visible=false;});}
+  if(mk==='atenea'&&BP.tpl.hoplita){stGraft(root,bpClone(BP.tpl.hoplita.scene),/^(casco|cimera|escudo|lanza)$/);stShieldOut(root);root.traverse(o=>{if(/_mono$|_cinta$/.test(o.name))o.visible=false;});}
   const mix=new THREE.AnimationMixer(root),idle=T.anims.find(a=>a.name.endsWith('quieto'));if(idle){mix.clipAction(idle).play();mix.update(0.4);}   // postura fija
   const pi=(STB.pi=(STB.pi||0)+1);root.traverse(o=>{if(!o.isMesh)return;o.material=stMat(o.material,k,fem,pi);o.castShadow=true;o.frustumCulled=false;});
   const g=new THREE.Group();g.add(root);g.userData.statue=k;g.userData.pj=base;return g;}

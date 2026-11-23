@@ -1043,7 +1043,7 @@ function buildKnossosDream(C){
   const tg=new THREE.BufferGeometry();tg.setAttribute('position',new THREE.BufferAttribute(new Float32Array(3*4000),3));tg.setDrawRange(0,0);
   KNOS.thread=new THREE.Line(tg,new THREE.LineBasicMaterial({color:0xd8282a}));KNOS.thread.frustumCulled=false;scene.add(KNOS.thread);
   // Ariadna en la entrada, con el ovillo; el Minotauro en la sala central
-  const ar=makePerson({chiton:'#efe6d4',himation:'#2f6a8a',female:true,hair:'#2a1a12',noVary:true});ar.position.set(X+LX+4.5,Y,Z+L0z+N*CS+4);ar.rotation.y=Math.PI*1.15;scene.add(ar);
+  const ar=makePerson({chiton:'#efe6d4',himation:'#2f6a8a',female:true,hair:'#2a1a12',noVary:true});ar.position.set(X+LX+4.5,Y,Z+L0z+N*CS+4);ar.rotation.y=Math.PI*1.15;scene.add(ar);KNOS.ari=ar;
   const ball=new THREE.Mesh(new THREE.SphereGeometry(0.11,10,8),lam('#c42a2a'));ball.position.set(0.12,-0.36,0.12);if(ar.userData.arms){ar.userData.arms[1].add(ball);ar.userData.arms[1].rotation.x=-0.9;}
   const mi=makePerson({chiton:'#3a2a20',skin:'#4a3426',hair:'#2a1a12',short:true,noHimation:true,noVary:true,scale:1.35});
   const hd=new THREE.Group();hd.position.set(0,1.86,0.04);mi.add(hd);const hm=lam('#3a281c');box(0.34,0.36,0.42,hm,0,0,0,hd);box(0.26,0.22,0.24,lam('#2a1d14'),0,-0.08,0.27,hd);
