@@ -252,4 +252,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `246_correcciones_video_23_11.js` | 9 | CORRECCIONES DEL VÍDEO DEL 23/11 |
 | `247_plumas_guardadas.js` | 47 | PLUMAS DE ÍCARO GUARDADAS (vídeo 23/11, opción 2: «criaturas que las protegen») |
 | `248_ariadna.js` | 22 | ARIADNA (vídeo 23/11: «me gustaría que se pudiera hablar con Ariadna; el modo atención no dice quién es») |
+| `249_criaturas_blender.js` | 47 | CRIATURAS DE LOS PORTALES, HECHAS EN BLENDER (23/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
