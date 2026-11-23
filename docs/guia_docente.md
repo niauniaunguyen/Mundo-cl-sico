@@ -73,7 +73,7 @@ En el menú (**Tab**) → **Panel del profesor**:
 
 ## 8. Guardar la partida al actualizar o cambiar de ordenador
 
-El progreso se guarda en el navegador de cada ordenador. En la web (GitHub Pages, Moodle) se conserva al publicar versiones nuevas. **Con el archivo suelto** (`atenas_un_archivo.html`, con doble clic) puede perderse al cambiarlo por uno nuevo: Chrome y Edge suelen conservarlo, pero Firefox lo separa según la carpeta y el nombre del archivo. En otro ordenador, en una ventana privada o en equipos que se limpian al cerrar sesión, se pierde siempre.
+El progreso se guarda en el navegador de cada ordenador. En la web (GitHub Pages, Moodle) se conserva al publicar versiones nuevas. **Con el archivo suelto** (`Nóstos.html`, con doble clic) puede perderse al cambiarlo por uno nuevo: Chrome y Edge suelen conservarlo, pero Firefox lo separa según la carpeta y el nombre del archivo. En otro ordenador, en una ventana privada o en equipos que se limpian al cerrar sesión, se pierde siempre.
 
 Antes de cambiar de archivo o de ordenador, pedid al alumnado que:
 1. En el juego viejo: **Esc → Partida → Guardar partida** (se descarga un archivo con la partida).

@@ -83,7 +83,7 @@ ver = hashlib.sha1(out.encode('utf-8')).hexdigest()[:12]   # versión: huella de
 assert out.count('@@VER@@') == 1, 'falta el marcador @@VER@@'
 out = out.replace('@@VER@@', ver)
 # Dos salidas:
-#  · atenas_un_archivo.html: todo en un archivo, para abrirlo sin conexión con doble clic (no se publica en Claude: pasa de 16 MB);
+#  · Nóstos.html: todo en un archivo, para abrirlo sin conexión con doble clic (no se publica en Claude: pasa de 16 MB);
 #  · atenas.html + datos/: la página ligera con un cargador que trae el código (datos/juego.js) y los datos (modelos, imágenes,
 #    relieve) antes de arrancar. Así ningún archivo pasa del límite de 16 MB de una página de Claude y el relieve real cabe.
 #    Necesita servirse desde una web o un servidor (con doble clic, el navegador no deja leer datos/; para eso está el otro).
@@ -94,7 +94,7 @@ VEN = raiz / 'fuente' / 'vendor'
 _t3 = (VEN / 'three.min.js').read_text(encoding='utf-8'); _gl = (VEN / 'GLTFLoader.js').read_text(encoding='utf-8')
 if CDN3[0] in out: out = out.replace(CDN3[0], '<script>' + _t3.replace('</script', '<\\/script') + '</script>', 1)
 if CDN3[1] in out: out = out.replace(CDN3[1], '<script>' + _gl.replace('</script', '<\\/script') + '</script>', 1)
-(raiz / 'atenas_un_archivo.html').write_text(out, encoding='utf-8')
+(raiz / 'Nóstos.html').write_text(out, encoding='utf-8')
 datos = raiz / 'datos'; datos.mkdir(exist_ok=True)
 for f in datos.glob('*'):
     if f.suffix in ('.txt', '.js'): f.unlink()
@@ -137,7 +137,7 @@ BOOT = ('<script>/* cargador: trae el código del juego (datos/juego.js) y arran
         '.then(function(code){return TRP.then(function(){return code;});})'
         '.then(function(code){var s=document.createElement("script");s.textContent=code;document.body.appendChild(s);m.remove();'
         'if(PW)navigator.serviceWorker.ready.then(function(r){var L=[].map.call(document.querySelectorAll("script[data-src]"),function(e){return e.getAttribute("data-src");});L.push("datos/juego.js?v=%s",location.pathname);for(var lg in IV)L.push("datos/i18n_"+lg+".txt?v="+IV[lg]);if(r.active)r.active.postMessage({datos:L});}).catch(function(){});})'
-        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". "+(location.protocol==="file:"?"Si lo has abierto con doble clic desde una carpeta, abre atenas_un_archivo.html.":"Comprueba que junto a index.html está la carpeta «datos» (en minúsculas) con todos sus archivos. Para Netlify, sube la carpeta «web» que prepara construir.py.");});})();</script>') % (json.dumps(I18N_V), vj, vj)
+        '.catch(function(err){m.style.pointerEvents="auto";m.textContent="No se pudieron cargar los datos del juego: "+err.message+". "+(location.protocol==="file:"?"Si lo has abierto con doble clic desde una carpeta, abre Nóstos.html.":"Comprueba que junto a index.html está la carpeta «datos» (en minúsculas) con todos sus archivos. Para Netlify, sube la carpeta «web» que prepara construir.py.");});})();</script>') % (json.dumps(I18N_V), vj, vj)
 light = light[:i] + BOOT + light[j + 9:]
 (raiz / 'atenas.html').write_text(light, encoding='utf-8')
 # juego instalable y sin conexión (fuente/pwa: service worker, manifiesto e iconos): se copian junto a atenas.html para servirlos desde la
@@ -170,4 +170,4 @@ try:
     import runpy; runpy.run_path(str(raiz / 'herramientas' / 'indice_modulos.py'))   # índice de módulos al día
 except Exception as e:
     print('aviso: no se pudo escribir el índice de módulos:', e)
-print(f'atenas.html: {len(light.encode("utf-8"))/1e3:.0f} KB + datos/ {sum(f.stat().st_size for f in datos.glob("*"))/1e6:.2f} MB (juego.js {(datos/"juego.js").stat().st_size/1e6:.2f} MB) · atenas_un_archivo.html: {len(out.encode("utf-8"))/1e6:.2f} MB (GLB {len(glb)/1e3:.0f} KB + animales {len(glb2)/1e3:.0f} KB, imagen {len(img)/1e3:.0f} KB, {n_tr} textos traducibles)')
+print(f'atenas.html: {len(light.encode("utf-8"))/1e3:.0f} KB + datos/ {sum(f.stat().st_size for f in datos.glob("*"))/1e6:.2f} MB (juego.js {(datos/"juego.js").stat().st_size/1e6:.2f} MB) · Nóstos.html: {len(out.encode("utf-8"))/1e6:.2f} MB (GLB {len(glb)/1e3:.0f} KB + animales {len(glb2)/1e3:.0f} KB, imagen {len(img)/1e3:.0f} KB, {n_tr} textos traducibles)')

@@ -47,7 +47,7 @@ if(!window.THREE){document.getElementById('loadmsg').textContent=_t(0,'No se pud
 // ============================================================ utilidades
 const TAU=Math.PI*2;
 let MODE='atenas';   // 'atenas' (386 a.C.) o 'roma' (80 d.C.); se elige en la pantalla inicial antes de construir el mundo
-// datos del juego (modelos, imágenes, relieve real): en atenas_un_archivo.html van dentro de la página; en atenas.html cada bloque
+// datos del juego (modelos, imágenes, relieve real): en Nóstos.html van dentro de la página; en atenas.html cada bloque
 // está vacío y lleva data-src (un archivo de datos/), y se trae al pedirlo. El cargador adelanta los que sirven a las dos épocas (window.__pre).
 const DATO={p:{}};
 function datoGet(id){if(DATO.p[id])return DATO.p[id];const el=document.getElementById(id);
@@ -22731,7 +22731,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='2f9d37086181';
+const NOSTOS_VER='613bf7365ab3';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';
@@ -33733,7 +33733,7 @@ function faseMsg(f){const ro=MODE==='roma',H=ro?_t(4615,'Mercurio'):_t(4255,'Her
 {const f=gfTick;gfTick=function(dt){const r=f.apply(this,arguments);try{faseTick(dt);}catch(e){}return r;};}
 // «Tu viaje» (menú) dice en qué fase estás
 {const f=viajeHTML;viajeHTML=function(){const h=f.apply(this,arguments);try{const k=faseNow();return h.replace('<b>Tu viaje</b>','<b>Tu viaje</b> · fase '+(k+1)+' de 4: <b>'+FASES[k].n+'</b>');}catch(e){return h;}};}
-// ============================================================ JUGAR DESDE EL ARCHIVO SUELTO (atenas_un_archivo.html, con doble clic)
+// ============================================================ JUGAR DESDE EL ARCHIVO SUELTO (Nóstos.html, con doble clic)
 // Abierto como archivo, la partida se guarda en el navegador, pero no siempre sobrevive a un cambio de archivo: Firefox la separa según la
 // carpeta y el nombre del archivo; en otro ordenador, en una ventana privada o en equipos que se limpian al cerrar sesión, se pierde.
 // Por eso, solo en ese caso: al empezar, un aviso con un botón para guardar la partida en un archivo; y cada 40 minutos de juego, un recordatorio breve.

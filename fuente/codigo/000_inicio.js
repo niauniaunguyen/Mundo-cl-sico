@@ -35,7 +35,7 @@ if(!window.THREE){document.getElementById('loadmsg').textContent='No se pudo car
 // ============================================================ utilidades
 const TAU=Math.PI*2;
 let MODE='atenas';   // 'atenas' (386 a.C.) o 'roma' (80 d.C.); se elige en la pantalla inicial antes de construir el mundo
-// datos del juego (modelos, imágenes, relieve real): en atenas_un_archivo.html van dentro de la página; en atenas.html cada bloque
+// datos del juego (modelos, imágenes, relieve real): en Nóstos.html van dentro de la página; en atenas.html cada bloque
 // está vacío y lleva data-src (un archivo de datos/), y se trae al pedirlo. El cargador adelanta los que sirven a las dos épocas (window.__pre).
 const DATO={p:{}};
 function datoGet(id){if(DATO.p[id])return DATO.p[id];const el=document.getElementById(id);

@@ -8,7 +8,7 @@ const fs=require('fs'),path=require('path'),vm=require('vm'),{execSync}=require(
 const raiz=path.resolve(__dirname,'..','..'),dir=path.join(raiz,'fuente','codigo');let fallos=0,avisos=0;
 const mal=m=>{fallos++;console.log('✗ '+m);},ojo=m=>{avisos++;console.log('· '+m);},bien=m=>console.log('✓ '+m);
 try{const o=execSync('python3 fuente/construir.py',{cwd:raiz,encoding:'utf8'});bien('construido: '+o.trim().split('\n').pop());}catch(e){mal('construir.py ha fallado:\n'+(e.stdout||'')+(e.stderr||''));process.exit(1);}
-const html=fs.readFileSync(path.join(raiz,'atenas_un_archivo.html'),'utf8');   // la versión de un solo archivo: el código entero en un <script>
+const html=fs.readFileSync(path.join(raiz,'Nóstos.html'),'utf8');   // la versión de un solo archivo: el código entero en un <script>
 // 2. sintaxis: el <script> más largo
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]);const code=scripts.reduce((a,b)=>b.length>a.length?b:a,'');
 try{new vm.Script(code,{filename:'atenas.html'});bien('sintaxis correcta ('+Math.round(code.length/1e3)+' KB de código)');}catch(e){

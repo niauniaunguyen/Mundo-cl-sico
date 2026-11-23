@@ -1,4 +1,4 @@
-// ============================================================ JUGAR DESDE EL ARCHIVO SUELTO (atenas_un_archivo.html, con doble clic)
+// ============================================================ JUGAR DESDE EL ARCHIVO SUELTO (Nóstos.html, con doble clic)
 // Abierto como archivo, la partida se guarda en el navegador, pero no siempre sobrevive a un cambio de archivo: Firefox la separa según la
 // carpeta y el nombre del archivo; en otro ordenador, en una ventana privada o en equipos que se limpian al cerrar sesión, se pierde.
 // Por eso, solo en ese caso: al empezar, un aviso con un botón para guardar la partida en un archivo; y cada 40 minutos de juego, un recordatorio breve.

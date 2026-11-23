@@ -3,7 +3,7 @@
 El juego se construye en dos formas (`python3 fuente/construir.py`):
 
 - **`atenas.html` + la carpeta `datos/`**: la página es ligera (unos 70 KB) y, al abrirse, trae de `datos/` el código y los datos (modelos, imágenes, relieve real de los destinos), unos 15 MB en total. Es la que se publica en la web y en Claude: ningún archivo pasa de 16 MB. Hay que subir siempre **las dos cosas juntas**, la página y la carpeta. Con doble clic desde el ordenador no funciona (el navegador no deja leer `datos/` sin un servidor).
-- **`atenas_un_archivo.html`**: todo en un solo archivo (unos 15 MB), para usar sin conexión con doble clic o para pasarlo en un pendrive. No se guarda en el repositorio: se genera al construir (y la web de GitHub Pages lo ofrece en `/atenas_un_archivo.html`).
+- **`Nóstos.html`**: todo en un solo archivo (unos 15 MB), para usar sin conexión con doble clic o para pasarlo en un pendrive. No se guarda en el repositorio: se genera al construir (y la web de GitHub Pages lo ofrece en `/Nóstos.html`).
 
 Hay tres formas de ponerlo en la web.
 
@@ -29,7 +29,7 @@ El repositorio ya incluye `.github/workflows/pages.yml`, que publica el juego ca
 
 ## 4. Si la red del centro bloquea la web (p. ej., la wifi de Gencat bloquea Netlify)
 
-- **Sin red, el archivo único:** `atenas_un_archivo.html` lleva dentro todo, también three.js (no usa ningún CDN), y funciona con doble clic sin conexión. Se puede copiar a los ordenadores del aula, a un pendrive o a una carpeta compartida de Google Drive para que el alumnado lo descargue (Drive no lo abre en línea: hay que descargarlo y abrirlo).
+- **Sin red, el archivo único:** `Nóstos.html` lleva dentro todo, también three.js (no usa ningún CDN), y funciona con doble clic sin conexión. Se puede copiar a los ordenadores del aula, a un pendrive o a una carpeta compartida de Google Drive para que el alumnado lo descargue (Drive no lo abre en línea: hay que descargarlo y abrirlo).
 - **En el Moodle del centro, como paquete SCORM:** la carpeta `web/` incluye `imsmanifest.xml`. Comprímela (el contenido, no la carpeta) y súbela al curso como «Paquete SCORM»: se juega desde el dominio del Moodle, que la red del centro permite. Comprueba antes el tamaño máximo de subida del Moodle (unos 25 MB comprimido).
 - **Instalado:** quien abra el juego una vez con conexión (en casa) y lo instale, lo puede seguir usando sin conexión en ese mismo dispositivo.
 - **Pedir que lo desbloqueen:** la coordinación digital del centro puede pedir al servicio de atención del Departament d'Educació que permita el dominio del juego (o usar un dominio propio en vez de `*.netlify.app`).

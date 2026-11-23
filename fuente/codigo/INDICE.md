@@ -242,7 +242,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `236_graficos_5.js` | 101 | GRÁFICOS (5): cielo de noche, aves según la estación, luz baja, sombrillas, grafitos y pétalos |
 | `237_diomedes.js` | 107 | DIOMEDES EN EL PORTAL DE LAS LEYENDAS (210) |
 | `238_fases.js` | 36 | LAS FASES DEL JUEGO (acordadas el 22/11; ver fuente/FASES.md) |
-| `239_archivo_suelto.js` | 13 | JUGAR DESDE EL ARCHIVO SUELTO (atenas_un_archivo.html, con doble clic) |
+| `239_archivo_suelto.js` | 13 | JUGAR DESDE EL ARCHIVO SUELTO (Nóstos.html, con doble clic) |
 | `240_minotauro_y_portales.js` | 78 | EL MINOTAURO ABRE LOS PORTALES DE LEYENDA (22/11) |
 | `241_ropa_sin_cruces.js` | 15 | ROPA SIN CRUCES (vídeo del 22/11: Lisicles, el arriero) |
 | `242_aves_nuevas.js` | 40 | AVES NUEVAS (vídeo del 22/11: «modelos antiguos, sobre todo de animales») |
