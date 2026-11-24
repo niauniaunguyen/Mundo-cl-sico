@@ -274,7 +274,7 @@
   /* ---------- Opiniones de lectores ---------- */
   .reviews-wrap { position: relative; }
   .reviews {
-    display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 40px) / 3); gap: 20px;
+    display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 20px) / 2); gap: 20px;
     overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px 8px;
   }
   .reviews::-webkit-scrollbar { display: none; }
@@ -284,7 +284,8 @@
   }
   .review::before { content: "“"; position: absolute; top: 4px; right: 18px; font-family: "Exo 2", sans-serif; font-size: 4rem; color: rgba(169,112,255,.25); line-height: 1; }
   .review .stars { color: var(--amber); letter-spacing: 0.15em; font-size: 0.95rem; }
-  .review blockquote { font-size: 1.02rem; line-height: 1.55; }
+  .review blockquote { font-size: 1.02rem; line-height: 1.55; color: var(--muted); }
+  .review .rev-title { font-size: 1.2rem; padding-right: 40px; }
   .review.placeholder blockquote { color: var(--muted); font-style: italic; }
   .review footer { margin: auto 0 0; padding: 0; border: 0; font-size: 0.85rem; color: var(--muted); }
   .review footer b { color: var(--text); font-weight: 600; }
@@ -957,22 +958,32 @@ showWorld('sanlaude');
 
 /* ---------- Opiniones: EDITA aquí. Usa solo reseñas reales (Amazon, Goodreads, comentarios…) ---------- */
 const REVIEWS = [
-  // Ejemplo de formato: { text: 'Texto de la reseña', author: 'Nombre del lector', source: 'Amazon', book: 'Apugalypse', stars: 5 },
-  { placeholder: true, text: '[Aquí irá una reseña real de Apugalypse]', author: 'Lector/a', source: 'Amazon', book: 'Apugalypse' },
-  { placeholder: true, text: '[Aquí irá una reseña real de El libro de los ajolotes]', author: 'Lector/a', source: 'Amazon', book: 'El libro de los ajolotes' },
-  { placeholder: true, text: '[Aquí irá otra reseña real de un lector]', author: 'Lector/a', source: 'Goodreads', book: 'Apugalypse' }
+  // Formato: { title, text, author, source, date, stars, book (opcional) }
+  {
+    title: 'Un escritor distinto', stars: 5,
+    text: 'Un escritor distinto que escribe Historias de otro mundo de una manera diferente. Un placer haber conocido la obra de un gran comunicador de la literatura.',
+    author: 'Cliente de Kindle', source: 'Amazon · Compra verificada', date: 'Septiembre 2026'
+  },
+  {
+    title: 'Muy entretenido', stars: 4,
+    text: 'Es un libro divertido, entre fantasía, aventuras y humor. Con personajes con los que te encariñas. Al estilo Terry Pratchett, a mí me ha sacado más de una sonrisa. Lo recomiendo',
+    author: 'Manu+Fani', source: 'Amazon · Compra verificada', date: 'Mayo 2026'
+  }
 ];
 const revBox = document.getElementById('reviews');
 revBox.innerHTML = REVIEWS.map(r => `
   <figure class="review${r.placeholder ? ' placeholder' : ''}">
-    <span class="on-book">${r.book.toUpperCase()}</span>
+    ${r.book ? `<span class="on-book">${r.book.toUpperCase()}</span>` : ''}
     ${r.stars ? `<span class="stars" aria-label="${r.stars} de 5 estrellas">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span>` : ''}
+    ${r.title ? `<h3 class="rev-title">${r.title}</h3>` : ''}
     <blockquote>${r.text}</blockquote>
-    <footer><b>${r.author}</b> · ${r.source}</footer>
+    <footer><b>${r.author}</b> · ${r.source}${r.date ? ` · ${r.date}` : ''}</footer>
   </figure>`).join('');
 const revStep = dir => { const card = revBox.querySelector('.review'); if (card) revBox.scrollBy({ left: dir * (card.offsetWidth + 20), behavior: 'smooth' }); };
 document.getElementById('rev-prev').addEventListener('click', () => revStep(-1));
 document.getElementById('rev-next').addEventListener('click', () => revStep(1));
+const revNavToggle = () => { document.querySelector('.rev-nav').style.visibility = revBox.scrollWidth > revBox.clientWidth + 4 ? 'visible' : 'hidden'; };
+revNavToggle(); addEventListener('resize', revNavToggle);
 
 /* ---------- YouTube: pega aquí los enlaces de los vídeos que quieras mostrar (máx. 4) ---------- */
 const VIDEOS = [
