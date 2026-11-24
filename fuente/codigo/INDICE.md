@@ -160,7 +160,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `153_taller_templo.js` | 47 | APRENDER HACIENDO (2): el taller del templo — señalar las piezas para repararlo |
 | `154_pruebas_aula.js` | 33 | PROBAR CON ALUMNOS: dónde se atascan, encuesta breve e informe, y menos texto al empezar |
 | `155_vegetacion.js` | 28 | VEGETACIÓN MEJOR: consejos de arte de entornos aplicados |
-| `156_hierba.js` | 83 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
+| `156_hierba.js` | 84 | HIERBA DE VERDAD: briznas instanciadas alrededor del jugador |
 | `157_llegada.js` | 101 | LA LLEGADA: los primeros minutos con un guía, sin carteles de instrucciones |
 | `158_honra.js` | 45 | LA HONRA (timḗ / dignitas): el hilo que une todo lo que haces |
 | `159_personas.js` | 61 | PERSONAS MÁS CUIDADAS: cabeza, pelo, brazos con manos y ropa suavizada |
@@ -259,4 +259,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `253_desbloqueos_heroe.js` | 71 | LO QUE SE DESBLOQUEA CON LAS LEYENDAS (23/11: «aplícalos todos») |
 | `254_catabasis.js` | 143 | LA CATÁBASIS: BAJAR AL HADES (rogue-like) (24/11) |
 | `255_inframundo.js` | 132 | EL INFRAMUNDO, COMO MAPA (24/11) |
+| `256_graficos_6.js` | 69 | GRÁFICOS (6): cinco propuestas (24/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

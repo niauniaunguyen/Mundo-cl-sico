@@ -5,7 +5,7 @@
 // · viento en el shader: balanceo desfasado por matojo + ráfagas que recorren el campo como una ola; se aparta al pasar el jugador;
 // · manchas: la densidad sale de un ruido (prados y claros), nada en caminos, ciudades, agua, pendientes fuertes ni junto a edificios;
 // · se encoge al llegar al borde del radio, para que no aparezca de golpe; colores según la estación (el Ática se agosta en verano; Italia, más verde).
-const GR={on:true,mesh:null,cx:1e9,cz:1e9,C:1.4,R:34,max:0,cache:new Map(),u:{uP:{value:new THREE.Vector3()}}};
+const GR={on:true,mesh:null,cx:1e9,cz:1e9,C:1.4,R:34,max:0,cache:new Map(),u:{uP:{value:new THREE.Vector3()},uQ:{value:[new THREE.Vector4(0,-9999,0,1),new THREE.Vector4(0,-9999,0,1),new THREE.Vector4(0,-9999,0,1),new THREE.Vector4(0,-9999,0,1)]}}};   // uQ: otros que pisan la hierba (caballo, perro, gente) (256)
 function grGeo(){const pos=[],col=[],nor=[],idx=[];const B=7,S=3;
   for(let b=0;b<B;b++){const a=b/B*TAU+hash(b,3)*0.9,r=b?0.09+hash(b,5)*0.15:0,ox=Math.cos(a)*r,oz=Math.sin(a)*r,h=0.22+hash(b,7)*0.22,w=0.026+hash(b,9)*0.014,face=hash(b,11)*TAU,lean=0.08+hash(b,13)*0.14,lx=Math.cos(a),lz=Math.sin(a);
     const fx=Math.cos(face),fz=Math.sin(face),base=pos.length/3;
@@ -14,8 +14,8 @@ function grGeo(){const pos=[],col=[],nor=[],idx=[];const B=7,S=3;
     for(let s=0;s<S;s++){const i=base+s*2;idx.push(i,i+1,i+3,i,i+3,i+2);}}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setIndex(idx);g.computeBoundingSphere();return g;}
 function grMat(){const m=new THREE.MeshLambertMaterial({color:0xffffff,vertexColors:true,side:THREE.DoubleSide});
-  m.onBeforeCompile=sh=>{sh.uniforms.uWT=WIND.u;sh.uniforms.uWS=WIND.s;sh.uniforms.uP=GR.u.uP;
-    sh.vertexShader='uniform float uWT;uniform float uWS;uniform vec3 uP;\n'+sh.vertexShader.replace('#include <project_vertex>',
+  m.onBeforeCompile=sh=>{sh.uniforms.uWT=WIND.u;sh.uniforms.uWS=WIND.s;sh.uniforms.uP=GR.u.uP;sh.uniforms.uQ=GR.u.uQ;
+    sh.vertexShader='uniform float uWT;uniform float uWS;uniform vec3 uP;uniform vec4 uQ[4];\n'+sh.vertexShader.replace('#include <project_vertex>',
 `vec4 wp=vec4(transformed,1.0);
 #ifdef USE_INSTANCING
 wp=instanceMatrix*wp;
@@ -28,9 +28,10 @@ float sw=(sin(uWT*2.2+ph)*0.55+sin(uWT*3.9+ph*1.8)*0.2+gust*1.1)*uWS;
 wp.xz+=vec2(0.82,0.57)*sw*0.16*hk;
 vec2 dp=wp.xz-uP.xz;float dl=length(dp);float pu=(1.0-smoothstep(0.2,1.3,dl))*step(abs(wp.y-uP.y),2.0);
 wp.xz+=normalize(dp+vec2(0.0001))*pu*0.38*hk;wp.y-=pu*0.25*hk;
+for(int i=0;i<4;i++){vec2 dq=wp.xz-uQ[i].xz;float dm=length(dq);float pq=(1.0-smoothstep(0.15,uQ[i].w,dm))*step(abs(wp.y-uQ[i].y),2.0);wp.xz+=normalize(dq+vec2(0.0001))*pq*0.34*hk;wp.y-=pq*0.22*hk;}
 vec4 mvPosition=viewMatrix*wp;gl_Position=projectionMatrix*mvPosition;`);
   sh.fragmentShader=sh.fragmentShader.split('gl_FrontFacing').join('true');};
-  m.customProgramCacheKey=()=>'hierba2';return m;}
+  m.customProgramCacheKey=()=>'hierba3';return m;}
 function grInit(){const touch=typeof isTouch!=='undefined'&&isTouch,lite=typeof ACC!=='undefined'&&ACC.lite;GR.R=lite?20:touch?26:34;GR.max=lite?3000:touch?6000:14000;
   GR.mesh=new THREE.InstancedMesh(grGeo(),grMat(),GR.max);GR.mesh.count=0;GR.mesh.frustumCulled=false;GR.mesh.receiveShadow=true;GR.mesh.castShadow=false;GR.mesh.userData.noCull=true;GR.mesh.userData.veg=true;
   GR.mesh.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(GR.max*3),3);scene.add(GR.mesh);}
