@@ -170,33 +170,20 @@
   .cv-anti .c-title { font-family: "Orbitron", sans-serif; font-weight: 900; letter-spacing: 0.06em; margin-top: 45%; text-shadow: 0 0 12px #eef1ff; }
   .cover.sm.cv-anti .c-title { font-size: 1.15rem; }
 
-  /* Apugalypse: cielo en llamas sobre un planeta */
-  .cv-apu { background: #1a0606; }
-  .cv-apu::before { background:
-      radial-gradient(circle at 50% 120%, #2b0a0a 0 38%, transparent 38.5%),
-      radial-gradient(ellipse 80% 20% at 50% 82%, rgba(255,120,60,.55), transparent 70%),
-      radial-gradient(circle at 68% 30%, #fff0c2 0 4%, #ff9a3c 8%, rgba(255,80,40,.35) 16%, transparent 30%),
-      linear-gradient(180deg, #2a0a1a, #8a1e1e 55%, #ff6a2b 78%, #3a0d0d); }
-
-  /* El libro de los ajolotes: fantasía medieval */
-  .cv-ajo { background: #0c1a14; color: #f4e9cf; border: 1px solid rgba(240,210,140,.35); }
-  .cv-ajo::before { background:
-      radial-gradient(ellipse 34% 14% at 50% 70%, rgba(255,160,190,.9), transparent 70%),
-      radial-gradient(circle at 36% 66%, #ffb3c8 0 3%, transparent 3.5%),
-      radial-gradient(circle at 64% 66%, #ffb3c8 0 3%, transparent 3.5%),
-      radial-gradient(ellipse 60% 40% at 50% 70%, rgba(127,212,154,.25), transparent 70%),
-      repeating-linear-gradient(45deg, rgba(240,210,140,.05) 0 2px, transparent 2px 14px),
-      linear-gradient(180deg, #13281e, #071510); }
-  .cv-ajo .c-title { font-family: "Cinzel", serif; text-transform: none; font-size: 1.7rem; letter-spacing: 0.02em; }
-  .cv-ajo.sm .c-title { font-size: 1.2rem; }
-  .cv-ajo .c-series, .cv-ajo .c-author { font-family: "Cinzel", serif; letter-spacing: 0.2em; }
 
   /* ---------- Libros ---------- */
   .books-intro { color: var(--muted); max-width: 64ch; }
   .books { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 36px; }
   .book { cursor: pointer; display: flex; flex-direction: column; }
   .book .cover { max-width: none; }
-  .book:hover .cover { transform: translateY(-8px) rotate(-1deg); }
+  .book:hover .cover, .book:hover .cover-img { transform: translateY(-8px) rotate(-1deg); }
+  .cover-img {
+    width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover;
+    border-radius: 6px 12px 12px 6px; transition: transform .35s;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  }
+  @media (max-width: 480px) { .book .cover-img { max-width: 280px; } }
+  @media (max-width: 600px) { .modal-box .cover-img { max-width: 180px; margin: 0 auto; } }
   .book .tag {
     align-self: flex-start; margin-top: 16px;
     font-family: "Orbitron", sans-serif; font-size: 0.6rem; letter-spacing: 0.2em;
@@ -425,13 +412,13 @@
           <p>Ciencia ficción · Nuevo</p>
         </article>
         <article class="book reveal" data-book="apugalypse">
-          <div class="cover sm cv-apu"><div class="c-series">NOVELA</div><div class="c-title">Apugalypse</div><div class="c-author">VÍCTOR VIDAL</div></div>
+          <img class="cover-img" src="img/apugalypse.webp" alt="Portada de Apugalypse, de Víctor Vidal" width="1001" height="1500" loading="lazy">
           <span class="tag">CIENCIA FICCIÓN</span>
           <h3>Apugalypse</h3>
           <p>Ciencia ficción</p>
         </article>
         <article class="book reveal" data-book="ajolotes">
-          <div class="cover sm cv-ajo"><div class="c-series">FANTASÍA</div><div class="c-title">El libro de los ajolotes</div><div class="c-author">VÍCTOR VIDAL</div></div>
+          <img class="cover-img" src="img/el-libro-de-los-ajolotes.webp" alt="Portada de El libro de los ajolotes, de Víctor Vidal" width="1000" height="1500" loading="lazy">
           <span class="tag fantasy">FANTASÍA MEDIEVAL · LA EXCEPCIÓN</span>
           <h3>El libro de los ajolotes</h3>
           <p>Fantasía medieval</p>
@@ -450,7 +437,7 @@
         </div>
       </div>
       <div class="start-grid">
-        <div class="start-card reveal"><span class="num">01</span><h3>Si vienes por la ciencia ficción</h3><p>Ya publicada y lista para leer hoy mismo.</p><a href="#" class="pick" data-book="apugalypse">Empieza por <em>Apugalypse</em> →</a></div>
+        <div class="start-card reveal"><span class="num">01</span><h3>Si vienes por la ciencia ficción</h3><p>El show de Truman, pero con zombies, con aliens y con muchos, muchos pugs.</p><a href="#" class="pick" data-book="apugalypse">Empieza por <em>Apugalypse</em> →</a></div>
         <div class="start-card reveal"><span class="num">02</span><h3>Si quieres lo más nuevo</h3><p>Mi nueva novela, que sale el 20 de diciembre. Apúntate y te aviso ese mismo día.</p><a href="#" class="pick" data-book="antinautas">Descubre <em>Antinautas</em> →</a></div>
         <div class="start-card reveal"><span class="num">03</span><h3>Si prefieres la fantasía</h3><p>Mi excepción: un viaje a un mundo medieval lejos de las estrellas.</p><a href="#" class="pick" data-book="ajolotes">Lee <em>El libro de los ajolotes</em> →</a></div>
       </div>
@@ -584,7 +571,7 @@
     <div>
       <div class="eyebrow" id="m-series"></div>
       <h3 id="m-title"></h3>
-      <p id="m-text"></p>
+      <div id="m-text"></div>
       <div class="buy" id="m-buy"></div>
     </div>
   </div>
@@ -676,25 +663,31 @@ const BOOKS = {
     links: [['Avísame del lanzamiento', '#tripulacion']]
   },
   apugalypse: {
-    cv: 'cv-apu', series: 'Ciencia ficción', title: 'Apugalypse',
-    text: '[Sinopsis de Apugalypse]',
+    img: 'img/apugalypse.webp', series: 'Ciencia ficción', title: 'Apugalypse',
+    text: [
+      'El show de Truman, pero con zombies, con aliens, con muchos, muchos pugs... y con reminiscencias a Terry Pratchett.',
+      'Wyl tiene la vida perfecta. Vive en un pueblo apacible en el que nada puede salir mal. Puede cumplir sus horarios a rajatabla. En consecuencia, Wyl es feliz. Al menos, hasta que llega el pug y, con él, la tormenta. Con ellos verá como su vida se tambalea y como, en realidad, estaba viviendo una mentira de proporciones monstruosas.',
+      'He aquí Sanlaude, uno de los mayores misterios del universo.',
+      'Para los fans de la ciencia ficción al más puro estilo de Doctor Who, para aquellos a los que no les da miedo lo "raro".'
+    ],
     links: [['Comprar en Amazon', 'https://amzn.eu/d/04F08Nfq']]
   },
   ajolotes: {
-    cv: 'cv-ajo', series: 'Fantasía medieval', title: 'El libro de los ajolotes',
-    text: '[Sinopsis de El libro de los ajolotes]',
+    img: 'img/el-libro-de-los-ajolotes.webp', series: 'Fantasía medieval', title: 'El libro de los ajolotes',
+    text: 'Axoloth está en peligro. Un mundo azotado por un cambio de ciclo y por una enfermedad que enloquece a los seres del bosque. Además, seres de otra dimensión tratan de absorber su energía, y una batalla inminente entre los dioses del mundo certifica que nada bueno avecinan los nuevos tiempos. En esta región derrotada, pero temerosa del futuro, los protagonistas deberán luchar por sus vidas.',
     links: [['Comprar en Amazon', 'https://amzn.eu/d/0adgpxcH']]
   }
 };
 const modal = document.getElementById('modal');
 function openBook(id) {
   const b = BOOKS[id]; if (!b) return;
-  const seriesLabel = b.cv === 'cv-ajo' ? 'FANTASÍA' : 'NOVELA';
-  document.getElementById('m-cover').innerHTML =
-    `<div class="cover ${b.cv}"><div class="c-series">${seriesLabel}</div><div class="c-title">${b.title}</div><div class="c-author">VÍCTOR VIDAL</div></div>`;
+  document.getElementById('m-cover').innerHTML = b.img
+    ? `<img class="cover-img" src="${b.img}" alt="Portada de ${b.title}">`
+    : `<div class="cover ${b.cv}"><div class="c-series">NOVELA</div><div class="c-title">${b.title}</div><div class="c-author">VÍCTOR VIDAL</div></div>`;
   document.getElementById('m-series').textContent = b.series;
   document.getElementById('m-title').textContent = b.title;
-  document.getElementById('m-text').textContent = b.text;
+  const mText = document.getElementById('m-text');
+  mText.replaceChildren(...[].concat(b.text).map(t => { const el = document.createElement('p'); el.textContent = t; return el; }));
   document.getElementById('m-buy').innerHTML = b.links
     .map(([label, url], i) => {
       const ext = url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
