@@ -467,6 +467,10 @@
   .modal-box h3 { font-size: 1.8rem; margin: 6px 0 12px; }
   .modal-box p { color: var(--muted); margin-bottom: 18px; }
   .buy { display: flex; gap: 8px; flex-wrap: wrap; }
+  .m-review { border-left: 2px solid var(--violet); padding: 4px 0 4px 14px; margin: 0 0 18px; }
+  .m-review .stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 0.12em; }
+  .m-review blockquote { color: var(--text); font-style: italic; font-size: 0.95rem; margin: 4px 0; }
+  .m-review figcaption { color: var(--muted); font-size: 0.8rem; }
   .buy .btn { padding: 9px 16px; font-size: 0.85rem; }
   @media (max-width: 600px) { .modal-box { grid-template-columns: 1fr; } .modal-box .cover { max-width: 180px; margin: 0 auto; } }
 
@@ -775,6 +779,7 @@
       <div class="eyebrow" id="m-series"></div>
       <h3 id="m-title"></h3>
       <div id="m-text"></div>
+      <div id="m-reviews"></div>
       <div class="buy" id="m-buy"></div>
     </div>
   </div>
@@ -891,6 +896,12 @@ function openBook(id) {
   document.getElementById('m-title').textContent = b.title;
   const mText = document.getElementById('m-text');
   mText.replaceChildren(...[].concat(b.text).map(t => { const el = document.createElement('p'); el.textContent = t; return el; }));
+  document.getElementById('m-reviews').innerHTML = REVIEWS.filter(r => r.bookId === id).map(r => `
+    <figure class="m-review">
+      <span class="stars" aria-label="${r.stars} de 5 estrellas">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span>
+      <blockquote>«${r.text}»</blockquote>
+      <figcaption>${r.author} · ${r.source}</figcaption>
+    </figure>`).join('');
   document.getElementById('m-buy').innerHTML = b.links
     .map(([label, url], i) => {
       const ext = url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
@@ -958,16 +969,18 @@ showWorld('sanlaude');
 
 /* ---------- Opiniones: EDITA aquí. Usa solo reseñas reales (Amazon, Goodreads, comentarios…) ---------- */
 const REVIEWS = [
-  // Formato: { title, text, author, source, date, stars, book (opcional) }
+  // Formato: { title, text, author, source, date, stars, book, bookId (clave del libro en BOOKS) }
   {
     title: 'Un escritor distinto', stars: 5,
     text: 'Un escritor distinto que escribe Historias de otro mundo de una manera diferente. Un placer haber conocido la obra de un gran comunicador de la literatura.',
-    author: 'Cliente de Kindle', source: 'Amazon · Compra verificada', date: 'Septiembre 2026'
+    author: 'Cliente de Kindle', source: 'Amazon · Compra verificada', date: 'Septiembre 2026',
+    book: 'Apugalypse', bookId: 'apugalypse'
   },
   {
     title: 'Muy entretenido', stars: 4,
     text: 'Es un libro divertido, entre fantasía, aventuras y humor. Con personajes con los que te encariñas. Al estilo Terry Pratchett, a mí me ha sacado más de una sonrisa. Lo recomiendo',
-    author: 'Manu+Fani', source: 'Amazon · Compra verificada', date: 'Mayo 2026'
+    author: 'Manu+Fani', source: 'Amazon · Compra verificada', date: 'Mayo 2026',
+    book: 'El libro de los ajolotes', bookId: 'ajolotes'
   }
 ];
 const revBox = document.getElementById('reviews');
