@@ -330,7 +330,7 @@
   .video .play { position: absolute; inset: 0; margin: auto; width: 60px; height: 42px; border-radius: 12px; background: #ff2e2e; display: grid; place-items: center; color: #fff; font-size: 1.1rem; }
   .video iframe { width: 100%; height: 100%; border: 0; }
   .videos:has(.video) { padding: 0; }
-  .yt-screen.has-videos { padding: 14px; display: block; }
+  .yt-screen.has-videos { padding: 14px; display: flex; align-items: center; }
   @media (max-width: 880px) { .yt-grid { grid-template-columns: 1fr; } }
   @media (max-width: 480px) { .videos { grid-template-columns: 1fr; } }
 
@@ -1000,7 +1000,8 @@ revNavToggle(); addEventListener('resize', revNavToggle);
 
 /* ---------- YouTube: pega aquí los enlaces de los vídeos que quieras mostrar (máx. 4) ---------- */
 const VIDEOS = [
-  // 'https://www.youtube.com/watch?v=XXXXXXXXXXX',
+  'https://youtu.be/-54DkAoubbw',
+  'https://youtu.be/bji6hw37IDg',
 ];
 (() => {
   const ids = VIDEOS.map(u => (u.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([\w-]{11})/) || [])[1]).filter(Boolean).slice(0, 4);
