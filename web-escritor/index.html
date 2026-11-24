@@ -196,6 +196,143 @@
   @media (max-width: 880px) { .books { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
   @media (max-width: 480px) { .books { grid-template-columns: 1fr; } .book .cover { max-width: 280px; } }
 
+
+  /* ---------- Mapa estelar ---------- */
+  .map-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: stretch; }
+  .starmap {
+    position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius);
+    border: 1px solid var(--line); overflow: hidden;
+    background:
+      repeating-linear-gradient(0deg, rgba(92,225,255,.05) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(92,225,255,.05) 0 1px, transparent 1px 48px),
+      radial-gradient(ellipse at 50% 50%, rgba(169,112,255,.16), transparent 65%),
+      rgba(6, 8, 20, .85);
+  }
+  .starmap .hud {
+    position: absolute; top: 14px; left: 16px; right: 16px; display: flex; justify-content: space-between;
+    font-family: "Orbitron", sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(154,163,199,.8);
+    pointer-events: none;
+  }
+  .starmap .sun {
+    position: absolute; left: 50%; top: 50%; width: 7%; aspect-ratio: 1; transform: translate(-50%, -50%);
+    border-radius: 50%; background: radial-gradient(circle, #fff6d8, #ffc05c 45%, rgba(255,140,60,.0) 72%);
+    box-shadow: 0 0 60px rgba(255,192,92,.5);
+  }
+  .starmap .ring {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    border: 1px dashed rgba(154,163,199,.2); border-radius: 50%;
+  }
+  .planet {
+    position: absolute; transform: translate(-50%, -50%);
+    background: none; border: 0; cursor: pointer; color: var(--text);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: "Orbitron", sans-serif; font-size: 0.62rem; letter-spacing: 0.18em;
+  }
+  .planet .orb { display: block; border-radius: 50%; transition: transform .3s, box-shadow .3s; animation: float 6s ease-in-out infinite; }
+  .planet:hover .orb, .planet:focus-visible .orb { transform: scale(1.12); }
+  .planet[aria-pressed="true"] .orb { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--cyan), 0 0 40px rgba(92,225,255,.6); }
+  .planet[aria-pressed="true"] .pname { color: var(--cyan); }
+  @keyframes float { 50% { translate: 0 -6px; } }
+  .p-sanlaude .orb {
+    width: clamp(52px, 8vw, 84px); aspect-ratio: 1;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 45%),
+      radial-gradient(circle at 70% 75%, rgba(0,0,0,.45), transparent 60%),
+      linear-gradient(90deg, #9fe3d9 0 50%, #e8322f 50%);
+  }
+  .p-axoloth .orb {
+    width: clamp(60px, 9.5vw, 100px); aspect-ratio: 1; animation-delay: -2s;
+    background: radial-gradient(circle at 40% 40%, #b8f2ff, #33c8ff 35%, #0a8fd0 70%);
+    border: 6px solid #3d8f99; outline: 2px dashed rgba(170,220,220,.55); outline-offset: -5px;
+    box-shadow: 0 0 40px rgba(51,200,255,.45);
+  }
+  .p-anti .orb {
+    width: clamp(48px, 7.5vw, 76px); aspect-ratio: 1; animation-delay: -4s;
+    background: #02030a; box-shadow: 0 0 0 3px rgba(238,241,255,.85), 0 0 26px 6px rgba(255,92,200,.7);
+  }
+  .p-anti[aria-pressed="true"] .orb { box-shadow: 0 0 0 3px rgba(238,241,255,.85), 0 0 26px 6px rgba(255,92,200,.7), 0 0 0 7px var(--cyan); }
+  .ficha {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px; display: flex; flex-direction: column; gap: 14px;
+  }
+  .ficha .f-code { font-family: "Orbitron", sans-serif; font-size: 0.62rem; letter-spacing: 0.22em; color: var(--violet); }
+  .ficha h3 { font-size: 1.9rem; }
+  .ficha .f-book { color: var(--muted); font-size: 0.9rem; margin-top: -8px; }
+  .ficha .f-book em { color: var(--text); }
+  .ficha p { color: var(--muted); }
+  .ficha dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; font-size: 0.88rem; border-top: 1px dashed var(--line); padding-top: 14px; }
+  .ficha dt { font-family: "Orbitron", sans-serif; font-size: 0.6rem; letter-spacing: 0.16em; color: var(--cyan); padding-top: 3px; text-transform: uppercase; }
+  .ficha dd { color: var(--text); }
+  .ficha .btn { align-self: flex-start; margin-top: auto; }
+  .ficha.classified h3 { letter-spacing: 0.08em; }
+  .redacted { background: var(--text); color: transparent; border-radius: 3px; user-select: none; }
+  @media (max-width: 880px) {
+    .map-grid { grid-template-columns: 1fr; }
+    .starmap { aspect-ratio: 1 / 1; }
+  }
+
+  /* ---------- Opiniones de lectores ---------- */
+  .reviews-wrap { position: relative; }
+  .reviews {
+    display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 40px) / 3); gap: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px 8px;
+  }
+  .reviews::-webkit-scrollbar { display: none; }
+  .review {
+    scroll-snap-align: start; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px; display: flex; flex-direction: column; gap: 14px; position: relative;
+  }
+  .review::before { content: "“"; position: absolute; top: 4px; right: 18px; font-family: "Exo 2", sans-serif; font-size: 4rem; color: rgba(169,112,255,.25); line-height: 1; }
+  .review .stars { color: var(--amber); letter-spacing: 0.15em; font-size: 0.95rem; }
+  .review blockquote { font-size: 1.02rem; line-height: 1.55; }
+  .review.placeholder blockquote { color: var(--muted); font-style: italic; }
+  .review footer { margin: auto 0 0; padding: 0; border: 0; font-size: 0.85rem; color: var(--muted); }
+  .review footer b { color: var(--text); font-weight: 600; }
+  .review .on-book { font-family: "Orbitron", sans-serif; font-size: 0.58rem; letter-spacing: 0.18em; color: var(--cyan); }
+  .rev-nav { display: flex; gap: 8px; }
+  .rev-nav button {
+    width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: rgba(255,255,255,.04);
+    color: var(--text); font-size: 1.1rem; cursor: pointer;
+  }
+  .rev-nav button:hover { border-color: var(--cyan); color: var(--cyan); }
+  @media (max-width: 880px) { .reviews { grid-auto-columns: 78%; } }
+
+  /* ---------- Canal de YouTube ---------- */
+  .yt-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; align-items: stretch; }
+  .yt-card {
+    border-radius: var(--radius); border: 1px solid rgba(255,70,70,.35); padding: 32px;
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(255,60,60,.18), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(169,112,255,.2), transparent 55%),
+      var(--panel-solid);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .yt-card h3 { font-size: 1.7rem; }
+  .yt-card p { color: var(--muted); }
+  .yt-card p em { color: var(--text); }
+  .yt-handle { font-family: "Orbitron", sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; color: #ff6b6b; }
+  .btn-yt { background: #ff2e2e; color: #fff; border: none; box-shadow: 0 0 24px rgba(255,46,46,.35); align-self: flex-start; }
+  .btn-yt:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(255,46,46,.55); }
+  .yt-screen {
+    border-radius: var(--radius); border: 1px solid var(--line); overflow: hidden; position: relative;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 2px, transparent 2px 4px), #070912;
+    display: flex; align-items: center; justify-content: center; min-height: 280px; text-align: center; padding: 24px;
+  }
+  .yt-screen .signal { font-family: "Orbitron", sans-serif; letter-spacing: 0.2em; font-size: 0.75rem; color: var(--muted); }
+  .yt-screen .signal b { display: block; font-size: 2.6rem; color: #ff4d4d; margin-bottom: 10px; animation: blink 1.6s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+  .videos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; align-self: stretch; }
+  .videos.one { grid-template-columns: 1fr; }
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; border: 0; padding: 0; cursor: pointer; }
+  .video img { width: 100%; height: 100%; object-fit: cover; opacity: .85; transition: opacity .25s; }
+  .video:hover img { opacity: 1; }
+  .video .play { position: absolute; inset: 0; margin: auto; width: 60px; height: 42px; border-radius: 12px; background: #ff2e2e; display: grid; place-items: center; color: #fff; font-size: 1.1rem; }
+  .video iframe { width: 100%; height: 100%; border: 0; }
+  .videos:has(.video) { padding: 0; }
+  .yt-screen.has-videos { padding: 14px; display: block; }
+  @media (max-width: 880px) { .yt-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .videos { grid-template-columns: 1fr; } }
+
   /* ---------- Por dónde empezar ---------- */
   .start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .start-card {
@@ -349,9 +486,9 @@
     <a href="#inicio" class="logo">VÍCTOR <span>VIDAL</span></a>
     <ul id="menu">
       <li><a href="#libros">Libros</a></li>
-      <li><a href="#empezar">Por dónde empezar</a></li>
-      <li><a href="#progreso">Progreso</a></li>
-      <li><a href="#noticias">Transmisiones</a></li>
+      <li><a href="#universo">Universo</a></li>
+      <li><a href="#opiniones">Opiniones</a></li>
+      <li><a href="#canal">YouTube</a></li>
       <li><a href="#eventos">Eventos</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
     </ul>
@@ -427,6 +564,30 @@
     </div>
   </section>
 
+  <!-- MAPA ESTELAR DEL UNIVERSO -->
+  <section class="section" id="universo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Cartografía estelar</div>
+          <h2>Explora los mundos</h2>
+        </div>
+      </div>
+      <div class="map-grid reveal">
+        <div class="starmap" id="starmap">
+          <div class="hud"><span>SECTOR V·V</span><span>SELECCIONA UN MUNDO</span></div>
+          <span class="ring" style="width:46%;aspect-ratio:1" aria-hidden="true"></span>
+          <span class="ring" style="width:78%;aspect-ratio:1" aria-hidden="true"></span>
+          <span class="sun" aria-hidden="true"></span>
+          <button class="planet p-sanlaude" data-world="sanlaude" style="left:30%;top:34%" aria-pressed="true"><span class="orb"></span><span class="pname">SANLAUDE</span></button>
+          <button class="planet p-axoloth" data-world="axoloth" style="left:74%;top:62%" aria-pressed="false"><span class="orb"></span><span class="pname">AXOLOTH</span></button>
+          <button class="planet p-anti" data-world="antinautas" style="left:66%;top:20%" aria-pressed="false"><span class="orb"></span><span class="pname">??????</span></button>
+        </div>
+        <article class="ficha" id="ficha" aria-live="polite"></article>
+      </div>
+    </div>
+  </section>
+
   <!-- POR DÓNDE EMPEZAR -->
   <section class="section" id="empezar">
     <div class="wrap">
@@ -440,6 +601,25 @@
         <div class="start-card reveal"><span class="num">01</span><h3>Si vienes por la ciencia ficción</h3><p>El show de Truman, pero con zombies, con aliens y con muchos, muchos pugs.</p><a href="#" class="pick" data-book="apugalypse">Empieza por <em>Apugalypse</em> →</a></div>
         <div class="start-card reveal"><span class="num">02</span><h3>Si quieres lo más nuevo</h3><p>Mi nueva novela, que sale el 20 de diciembre. Apúntate y te aviso ese mismo día.</p><a href="#" class="pick" data-book="antinautas">Descubre <em>Antinautas</em> →</a></div>
         <div class="start-card reveal"><span class="num">03</span><h3>Si prefieres la fantasía</h3><p>Mi excepción: un viaje a un mundo medieval lejos de las estrellas.</p><a href="#" class="pick" data-book="ajolotes">Lee <em>El libro de los ajolotes</em> →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPINIONES DE LECTORES (EDITA en el bloque REVIEWS del script) -->
+  <section class="section" id="opiniones">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Señales recibidas</div>
+          <h2>Lo que dicen los lectores</h2>
+        </div>
+        <div class="rev-nav">
+          <button type="button" id="rev-prev" aria-label="Opinión anterior">←</button>
+          <button type="button" id="rev-next" aria-label="Opinión siguiente">→</button>
+        </div>
+      </div>
+      <div class="reviews-wrap reveal">
+        <div class="reviews" id="reviews"></div>
       </div>
     </div>
   </section>
@@ -491,6 +671,30 @@
         <div class="news-list">
           <a href="#" class="news-card reveal"><div class="body"><div class="date">BLOG</div><h3>¿Por qué un libro de fantasía medieval?</h3><p>La historia detrás de <em>El libro de los ajolotes</em>, mi excepción.</p></div></a>
           <a href="#" class="news-card reveal"><div class="body"><div class="date">BLOG</div><h3>El origen de Apugalypse</h3><p>De dónde salió la idea y cómo se convirtió en novela.</p></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CANAL DE YOUTUBE (añade vídeos en el bloque VIDEOS del script) -->
+  <section class="section" id="canal">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Frecuencia abierta</div>
+          <h2>Historias de otro mundo</h2>
+        </div>
+      </div>
+      <div class="yt-grid reveal">
+        <div class="yt-card">
+          <span class="yt-handle">▶ YOUTUBE · @historiasdeotromundo</span>
+          <h3>Mi canal de YouTube</h3>
+          <p>Historias, escritura y todo lo que hay detrás de mis libros.</p>
+          <p>¿Sabías que <em>El libro de los ajolotes</em> se escribió en directo, en Twitch?</p>
+          <a href="https://www.youtube.com/@historiasdeotromundo" target="_blank" rel="noopener" class="btn btn-yt">Ver el canal →</a>
+        </div>
+        <div class="yt-screen" id="yt-screen">
+          <div class="signal"><b>●</b>SEÑAL ENTRANTE<br>Nuevas transmisiones en el canal</div>
         </div>
       </div>
     </div>
@@ -554,7 +758,7 @@
         <p style="margin-top:12px;max-width:34ch">Ciencia ficción para quienes miran el cielo nocturno y se preguntan qué hay más allá.</p>
       </div>
       <div><h4>Libros</h4><ul><li><a href="#" data-book="antinautas">Antinautas</a></li><li><a href="#" data-book="apugalypse">Apugalypse</a></li><li><a href="#" data-book="ajolotes">El libro de los ajolotes</a></li></ul></div>
-      <div><h4>Lectores</h4><ul><li><a href="#empezar">Por dónde empezar</a></li><li><a href="#progreso">Progreso</a></li><li><a href="#noticias">Blog</a></li></ul></div>
+      <div><h4>Lectores</h4><ul><li><a href="#empezar">Por dónde empezar</a></li><li><a href="#universo">Mapa del universo</a></li><li><a href="#opiniones">Opiniones</a></li><li><a href="#progreso">Progreso</a></li><li><a href="#noticias">Blog</a></li></ul></div>
       <div><h4>Contacto</h4><ul><li><a href="#">Prensa</a></li><li><a href="#">Escríbeme</a></li><li><a href="#tripulacion">Newsletter</a></li><li><a href="https://www.youtube.com/@historiasdeotromundo" target="_blank" rel="noopener">YouTube</a></li></ul></div>
     </div>
     <p class="copy">© 2026 Víctor Vidal · Todos los derechos reservados</p>
@@ -698,6 +902,96 @@ function openBook(id) {
 document.querySelectorAll('[data-book]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); openBook(el.dataset.book); }));
 modal.addEventListener('click', e => { if (e.target === modal || e.target.classList.contains('modal-close')) modal.classList.remove('open'); });
 addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+
+/* ---------- Mapa estelar: EDITA aquí las fichas de cada mundo ---------- */
+const WORLDS = {
+  sanlaude: {
+    code: 'MUNDO 01 · REGISTRO ABIERTO', name: 'Sanlaude', book: 'apugalypse', bookTitle: 'Apugalypse',
+    text: 'Un pueblo apacible en el que nada puede salir mal. O eso cree Wyl… hasta que llegan el pug y la tormenta.',
+    data: [
+      ['Género', 'Ciencia ficción'],
+      ['Habitantes', 'Wyl y un pug muy sospechoso'],
+      ['Amenazas', 'Zombies, aliens y muchos, muchos pugs'],
+      ['Estado', 'Uno de los mayores misterios del universo']
+    ]
+  },
+  axoloth: {
+    code: 'MUNDO 02 · REGISTRO ABIERTO', name: 'Axoloth', book: 'ajolotes', bookTitle: 'El libro de los ajolotes',
+    text: 'Un mundo azotado por un cambio de ciclo, donde los seres del bosque enloquecen y los dioses se preparan para la guerra.',
+    data: [
+      ['Género', 'Fantasía medieval'],
+      ['Amenazas', 'Una enfermedad que enloquece a los seres del bosque y seres de otra dimensión'],
+      ['Conflicto', 'Una batalla inminente entre los dioses'],
+      ['Estado', 'En peligro']
+    ]
+  },
+  antinautas: {
+    code: 'MUNDO 03 · ACCESO RESTRINGIDO', name: 'Destino desconocido', book: 'antinautas', bookTitle: 'Antinautas',
+    classified: true,
+    text: 'Los datos de este mundo están clasificados hasta el día del lanzamiento.',
+    data: [
+      ['Género', 'Ciencia ficción'],
+      ['Coordenadas', '<span class="redacted">XXXXXXXXXXXX</span>'],
+      ['Desclasificación', '20 de diciembre de 2026']
+    ]
+  }
+};
+const ficha = document.getElementById('ficha');
+function showWorld(id) {
+  const w = WORLDS[id];
+  document.querySelectorAll('.planet').forEach(p => p.setAttribute('aria-pressed', p.dataset.world === id));
+  ficha.classList.toggle('classified', !!w.classified);
+  ficha.innerHTML = `
+    <span class="f-code">${w.code}</span>
+    <h3>${w.name}</h3>
+    <span class="f-book">Aparece en <em>${w.bookTitle}</em></span>
+    <p>${w.text}</p>
+    <dl>${w.data.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+    ${w.classified
+      ? '<a href="#tripulacion" class="btn btn-primary">Avísame cuando se desclasifique</a>'
+      : `<button type="button" class="btn btn-primary" data-open="${w.book}">Viajar a ${w.name} →</button>`}`;
+}
+document.querySelectorAll('.planet').forEach(p => p.addEventListener('click', () => showWorld(p.dataset.world)));
+ficha.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openBook(b.dataset.open); });
+showWorld('sanlaude');
+
+/* ---------- Opiniones: EDITA aquí. Usa solo reseñas reales (Amazon, Goodreads, comentarios…) ---------- */
+const REVIEWS = [
+  // Ejemplo de formato: { text: 'Texto de la reseña', author: 'Nombre del lector', source: 'Amazon', book: 'Apugalypse', stars: 5 },
+  { placeholder: true, text: '[Aquí irá una reseña real de Apugalypse]', author: 'Lector/a', source: 'Amazon', book: 'Apugalypse' },
+  { placeholder: true, text: '[Aquí irá una reseña real de El libro de los ajolotes]', author: 'Lector/a', source: 'Amazon', book: 'El libro de los ajolotes' },
+  { placeholder: true, text: '[Aquí irá otra reseña real de un lector]', author: 'Lector/a', source: 'Goodreads', book: 'Apugalypse' }
+];
+const revBox = document.getElementById('reviews');
+revBox.innerHTML = REVIEWS.map(r => `
+  <figure class="review${r.placeholder ? ' placeholder' : ''}">
+    <span class="on-book">${r.book.toUpperCase()}</span>
+    ${r.stars ? `<span class="stars" aria-label="${r.stars} de 5 estrellas">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span>` : ''}
+    <blockquote>${r.text}</blockquote>
+    <footer><b>${r.author}</b> · ${r.source}</footer>
+  </figure>`).join('');
+const revStep = dir => { const card = revBox.querySelector('.review'); if (card) revBox.scrollBy({ left: dir * (card.offsetWidth + 20), behavior: 'smooth' }); };
+document.getElementById('rev-prev').addEventListener('click', () => revStep(-1));
+document.getElementById('rev-next').addEventListener('click', () => revStep(1));
+
+/* ---------- YouTube: pega aquí los enlaces de los vídeos que quieras mostrar (máx. 4) ---------- */
+const VIDEOS = [
+  // 'https://www.youtube.com/watch?v=XXXXXXXXXXX',
+];
+(() => {
+  const ids = VIDEOS.map(u => (u.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([\w-]{11})/) || [])[1]).filter(Boolean).slice(0, 4);
+  if (!ids.length) return;
+  const screen = document.getElementById('yt-screen');
+  screen.classList.add('has-videos');
+  screen.innerHTML = `<div class="videos${ids.length === 1 ? ' one' : ''}">${ids.map(id => `
+    <button type="button" class="video" data-id="${id}" aria-label="Reproducir vídeo">
+      <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy"><span class="play">▶</span>
+    </button>`).join('')}</div>`;
+  screen.addEventListener('click', e => {
+    const v = e.target.closest('.video'); if (!v) return;
+    v.outerHTML = `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${v.dataset.id}?autoplay=1" title="Vídeo de YouTube" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
+  });
+})();
 
 /* ---------- Newsletter (conecta aquí MailerLite o Buttondown) ---------- */
 document.getElementById('nl').addEventListener('submit', e => {
