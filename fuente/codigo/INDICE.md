@@ -257,4 +257,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `251_bestiario_leyendas.js` | 338 | BESTIARIO: 37 PORTALES DE LEYENDA MÁS (23/11: «hazlos todos», hasta llegar a 50 criaturas) |
 | `252_premios_leyendas.js` | 88 | PREMIOS DE LOS PORTALES DE LEYENDA (23/11) |
 | `253_desbloqueos_heroe.js` | 71 | LO QUE SE DESBLOQUEA CON LAS LEYENDAS (23/11: «aplícalos todos») |
+| `254_catabasis.js` | 143 | LA CATÁBASIS: BAJAR AL HADES (rogue-like) (24/11) |
+| `255_inframundo.js` | 132 | EL INFRAMUNDO, COMO MAPA (24/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
