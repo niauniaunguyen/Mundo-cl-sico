@@ -384,8 +384,8 @@
         <!-- EDITA: pon aquí la frase gancho de Antinautas -->
         <p class="lead">La nueva novela de ciencia ficción de <strong>Víctor Vidal</strong>. Despega el <strong>20 de diciembre</strong>.</p>
         <div class="hero-actions">
-          <a href="#" class="btn btn-primary" data-book="antinautas">Reservar ahora →</a>
-          <a href="#tripulacion" class="btn btn-ghost">Avísame cuando salga</a>
+          <a href="#tripulacion" class="btn btn-primary">Avísame cuando salga →</a>
+          <a href="#" class="btn btn-ghost" data-book="antinautas">Más sobre el libro</a>
         </div>
         <div class="countdown-label" id="cd-label">CUENTA ATRÁS PARA EL DESPEGUE</div>
         <div class="countdown" id="countdown" aria-live="polite">
@@ -420,7 +420,7 @@
       <div class="books">
         <article class="book reveal" data-book="antinautas">
           <div class="cover sm cv-anti"><div class="c-series">NOVELA</div><div class="c-title">Antinautas</div><div class="c-author">VÍCTOR VIDAL</div></div>
-          <span class="tag soon">20 DIC · PREVENTA</span>
+          <span class="tag soon">20 DIC · PRÓXIMAMENTE</span>
           <h3>Antinautas</h3>
           <p>Ciencia ficción · Nuevo</p>
         </article>
@@ -451,7 +451,7 @@
       </div>
       <div class="start-grid">
         <div class="start-card reveal"><span class="num">01</span><h3>Si vienes por la ciencia ficción</h3><p>Ya publicada y lista para leer hoy mismo.</p><a href="#" class="pick" data-book="apugalypse">Empieza por <em>Apugalypse</em> →</a></div>
-        <div class="start-card reveal"><span class="num">02</span><h3>Si quieres lo más nuevo</h3><p>Mi última novela. Resérvala y te llegará el día del lanzamiento.</p><a href="#" class="pick" data-book="antinautas">Reserva <em>Antinautas</em> →</a></div>
+        <div class="start-card reveal"><span class="num">02</span><h3>Si quieres lo más nuevo</h3><p>Mi nueva novela, que sale el 20 de diciembre. Apúntate y te aviso ese mismo día.</p><a href="#" class="pick" data-book="antinautas">Descubre <em>Antinautas</em> →</a></div>
         <div class="start-card reveal"><span class="num">03</span><h3>Si prefieres la fantasía</h3><p>Mi excepción: un viaje a un mundo medieval lejos de las estrellas.</p><a href="#" class="pick" data-book="ajolotes">Lee <em>El libro de los ajolotes</em> →</a></div>
       </div>
     </div>
@@ -498,7 +498,7 @@
           <div class="body">
             <div class="date">NOVIEMBRE · 2026</div>
             <h3>Antinautas despega el 20 de diciembre</h3>
-            <p>Mi nueva novela ya tiene fecha. Aquí te cuento cómo reservarla y qué puedes esperar de ella.</p>
+            <p>Mi nueva novela ya tiene fecha. Aquí te cuento qué puedes esperar de ella.</p>
           </div>
         </a>
         <div class="news-list">
@@ -519,7 +519,7 @@
         </div>
       </div>
       <div class="events">
-        <div class="event highlight reveal"><div class="d"><b>20</b><span>DIC</span></div><div><h3>Lanzamiento de Antinautas</h3><p>Ya a la venta en librerías y tiendas online</p></div><a href="#" class="btn btn-ghost" data-book="antinautas">Reservar</a></div>
+        <div class="event highlight reveal"><div class="d"><b>20</b><span>DIC</span></div><div><h3>Lanzamiento de Antinautas</h3><p>Ya a la venta en librerías y tiendas online</p></div><a href="#tripulacion" class="btn btn-ghost">Avísame</a></div>
         <div class="event reveal"><div class="d"><b>··</b><span>PRONTO</span></div><div><h3>Presentaciones y firmas</h3><p>Las fechas se anunciarán primero en la lista de correo</p></div><a href="#tripulacion" class="btn btn-ghost">Avísame</a></div>
       </div>
     </div>
@@ -673,17 +673,17 @@ const BOOKS = {
   antinautas: {
     cv: 'cv-anti', series: 'Ciencia ficción · 20 de diciembre de 2026', title: 'Antinautas',
     text: '[Sinopsis de Antinautas]',
-    links: [['Reservar', '#'], ['Amazon', '#'], ['Casa del Libro', '#']]
+    links: [['Avísame del lanzamiento', '#tripulacion']]
   },
   apugalypse: {
     cv: 'cv-apu', series: 'Ciencia ficción', title: 'Apugalypse',
     text: '[Sinopsis de Apugalypse]',
-    links: [['Amazon', '#'], ['Casa del Libro', '#'], ['eBook', '#']]
+    links: [['Comprar en Amazon', 'https://amzn.eu/d/04F08Nfq']]
   },
   ajolotes: {
     cv: 'cv-ajo', series: 'Fantasía medieval', title: 'El libro de los ajolotes',
     text: '[Sinopsis de El libro de los ajolotes]',
-    links: [['Amazon', '#'], ['Casa del Libro', '#'], ['eBook', '#']]
+    links: [['Comprar en Amazon', 'https://amzn.eu/d/0adgpxcH']]
   }
 };
 const modal = document.getElementById('modal');
@@ -696,7 +696,11 @@ function openBook(id) {
   document.getElementById('m-title').textContent = b.title;
   document.getElementById('m-text').textContent = b.text;
   document.getElementById('m-buy').innerHTML = b.links
-    .map(([label, url], i) => `<a href="${url}" class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}">${label}</a>`).join('');
+    .map(([label, url], i) => {
+      const ext = url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${url}"${ext} class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}">${label}</a>`;
+    }).join('');
+  document.querySelectorAll('#m-buy a').forEach(a => a.addEventListener('click', () => modal.classList.remove('open')));
   modal.classList.add('open');
   modal.querySelector('.modal-close').focus();
 }
