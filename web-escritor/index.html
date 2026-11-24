@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Elena Orión · Autora</title>
-<meta name="description" content="Web oficial de Elena Orión, autora de ciencia ficción. Libros, sagas, progreso de escritura y noticias.">
+<title>Víctor Vidal · Escritor</title>
+<meta name="description" content="Web oficial de Víctor Vidal, escritor de ciencia ficción. Autor de Apugalypse, El libro de los ajolotes y Antinautas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #05060f;
@@ -21,6 +21,7 @@
     --violet: #a970ff;
     --magenta: #ff5cc8;
     --amber: #ffc05c;
+    --moss: #7fd49a;
     --glow: 0 0 24px rgba(92, 225, 255, 0.35);
     --radius: 14px;
     --max: 1180px;
@@ -102,17 +103,15 @@
   /* ---------- Héroe ---------- */
   .hero { padding: 72px 0 96px; overflow: hidden; }
   .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
-  .hero h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); font-weight: 700; margin: 14px 0 18px; }
-  .hero h1 em {
-    font-style: normal;
+  .hero h1 {
+    font-family: "Orbitron", sans-serif; font-weight: 900; letter-spacing: 0.04em;
+    font-size: clamp(2.6rem, 7vw, 5rem); margin: 14px 0 18px;
     background: linear-gradient(90deg, var(--cyan), var(--violet), var(--magenta));
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .hero p.lead { color: var(--muted); font-size: 1.1rem; max-width: 52ch; margin-bottom: 30px; }
+  .hero p.lead strong { color: var(--text); }
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .hero-meta { display: flex; gap: 28px; margin-top: 36px; flex-wrap: wrap; }
-  .hero-meta div { font-size: 0.85rem; color: var(--muted); }
-  .hero-meta strong { display: block; font-family: "Orbitron", sans-serif; font-size: 1.3rem; color: var(--text); }
   .hero-cover { display: flex; justify-content: center; position: relative; }
   .hero-cover .orbit {
     position: absolute; width: 130%; aspect-ratio: 1; top: 50%; left: 50%;
@@ -131,7 +130,18 @@
     .hero-cover .orbit { width: 110%; }
   }
 
-  /* ---------- Portadas generadas con CSS ---------- */
+  /* ---------- Cuenta atrás ---------- */
+  .countdown { display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; }
+  .countdown .unit {
+    min-width: 76px; padding: 12px 10px; text-align: center;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--panel);
+  }
+  .countdown b { display: block; font-family: "Orbitron", sans-serif; font-size: 1.7rem; color: var(--text); line-height: 1.1; }
+  .countdown span { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .countdown-label { font-family: "Orbitron", sans-serif; font-size: 0.66rem; letter-spacing: 0.22em; color: var(--muted); margin-top: 28px; }
+  .countdown-label + .countdown { margin-top: 10px; }
+
+  /* ---------- Portadas provisionales con CSS ---------- */
   .cover {
     width: 100%; max-width: 320px; aspect-ratio: 2 / 3;
     border-radius: 6px 12px 12px 6px; position: relative; overflow: hidden;
@@ -143,70 +153,61 @@
   .cover::before { content: ""; position: absolute; inset: 0; z-index: 0; }
   .cover > * { position: relative; z-index: 1; }
   .cover .c-series { font-family: "Orbitron", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; opacity: .85; }
-  .cover .c-title { font-family: "Exo 2", sans-serif; font-weight: 700; font-size: 1.7rem; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.04em; }
+  .cover .c-title { font-family: "Exo 2", sans-serif; font-weight: 700; font-size: 1.9rem; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.04em; }
   .cover .c-author { font-family: "Orbitron", sans-serif; font-size: 0.7rem; letter-spacing: 0.25em; }
-  .cover.sm .c-title { font-size: 1.25rem; }
+  .cover.sm .c-title { font-size: 1.35rem; }
   .cover.sm { padding: 16px 14px; }
 
-  .cv-1 { background: #070a1c; }
-  .cv-1::before { background:
-      radial-gradient(circle at 50% 62%, #ffb36b 0 18%, #e2553c 26%, #4b1240 34%, transparent 35%),
-      radial-gradient(circle at 50% 62%, rgba(255,140,90,.35), transparent 50%),
-      radial-gradient(1px 1px at 20% 20%, #fff, transparent), radial-gradient(1px 1px at 80% 30%, #fff, transparent),
-      radial-gradient(1px 1px at 65% 12%, #fff, transparent), radial-gradient(1px 1px at 30% 85%, #fff, transparent),
-      linear-gradient(180deg, #0b0f2a, #1a0b2e); }
-  .cv-2 { background: #041018; }
-  .cv-2::before { background:
-      radial-gradient(circle at 70% 40%, #8ef5ff 0 10%, #1f8fb3 20%, #0b3550 28%, transparent 29%),
-      radial-gradient(ellipse 70% 6% at 70% 40%, rgba(142,245,255,.5), transparent 70%),
-      radial-gradient(circle at 25% 70%, #3a4a7a 0 6%, transparent 7%),
-      linear-gradient(160deg, #031421, #0a1f3a 60%, #04101c); }
-  .cv-3 { background: #12061c; }
-  .cv-3::before { background:
-      radial-gradient(circle at 50% 45%, transparent 0 20%, rgba(255,92,200,.9) 21%, rgba(169,112,255,.4) 26%, transparent 34%),
-      radial-gradient(circle at 50% 45%, #000 0 20%, transparent 21%),
-      radial-gradient(ellipse at 50% 45%, rgba(169,112,255,.35), transparent 60%),
-      linear-gradient(180deg, #170826, #08020f); }
-  .cv-4 { background: #0b0b0b; }
-  .cv-4::before { background:
-      linear-gradient(180deg, transparent 55%, #2a1a0f 56%, #110904),
-      radial-gradient(circle at 30% 30%, #fff7d6 0 4%, transparent 5%),
-      radial-gradient(circle at 72% 22%, #ffd38a 0 7%, transparent 8%),
-      linear-gradient(180deg, #ff9e57, #b8456a 50%, #2a1a3a); }
-  .cv-5 { background: #050a10; }
-  .cv-5::before { background:
-      repeating-linear-gradient(90deg, rgba(92,225,255,.08) 0 1px, transparent 1px 22px),
-      repeating-linear-gradient(0deg, rgba(92,225,255,.08) 0 1px, transparent 1px 22px),
-      radial-gradient(circle at 50% 55%, #5ce1ff 0 3%, rgba(92,225,255,.25) 12%, transparent 30%),
-      linear-gradient(180deg, #061420, #02060b); }
-  .cv-6 { background: #0d0a1e; }
-  .cv-6::before { background:
-      radial-gradient(circle at 35% 60%, #c9b8ff 0 14%, #6a4cc9 22%, #241a52 30%, transparent 31%),
-      radial-gradient(circle at 70% 35%, #ffe08a 0 5%, #c98a2a 8%, transparent 9%),
-      linear-gradient(200deg, #1d1440, #07061a); }
+  /* Antinautas: espacio en negativo (fondo claro, vacío negro) */
+  .cv-anti { background: #dfe4ff; color: #0a0b18; }
+  .cv-anti::before { background:
+      radial-gradient(circle at 50% 30%, #05060f 0 15%, transparent 15.5%),
+      radial-gradient(circle at 50% 30%, transparent 0 16.5%, rgba(255,92,200,.85) 17.5%, rgba(169,112,255,.3) 22%, transparent 27%),
+      radial-gradient(1.5px 1.5px at 18% 22%, #05060f, transparent), radial-gradient(1.5px 1.5px at 78% 30%, #05060f, transparent),
+      radial-gradient(1.5px 1.5px at 66% 82%, #05060f, transparent), radial-gradient(1.5px 1.5px at 28% 76%, #05060f, transparent),
+      radial-gradient(1px 1px at 85% 68%, #05060f, transparent), radial-gradient(1px 1px at 12% 52%, #05060f, transparent),
+      linear-gradient(180deg, #eef1ff, #c4ccff); }
+  .cv-anti .c-title { font-family: "Orbitron", sans-serif; font-weight: 900; letter-spacing: 0.06em; margin-top: 45%; text-shadow: 0 0 12px #eef1ff; }
+  .cover.sm.cv-anti .c-title { font-size: 1.15rem; }
 
-  /* ---------- Universo / sagas ---------- */
-  .universe-intro { color: var(--muted); max-width: 64ch; }
-  .saga-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 28px 0 32px; }
-  .saga-tab {
-    padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line);
-    background: rgba(255,255,255,0.03); color: var(--muted);
-    font-family: "Exo 2", sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer;
-  }
-  .saga-tab[aria-selected="true"] { border-color: var(--cyan); color: var(--cyan); background: rgba(92,225,255,0.08); }
-  .saga-panel { display: none; }
-  .saga-panel.active { display: block; animation: fade .4s; }
-  @keyframes fade { from { opacity: 0; transform: translateY(8px); } }
-  .saga-desc { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; margin-bottom: 24px; color: var(--muted); }
-  .books { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 28px; }
-  .book { cursor: pointer; }
+  /* Apugalypse: cielo en llamas sobre un planeta */
+  .cv-apu { background: #1a0606; }
+  .cv-apu::before { background:
+      radial-gradient(circle at 50% 120%, #2b0a0a 0 38%, transparent 38.5%),
+      radial-gradient(ellipse 80% 20% at 50% 82%, rgba(255,120,60,.55), transparent 70%),
+      radial-gradient(circle at 68% 30%, #fff0c2 0 4%, #ff9a3c 8%, rgba(255,80,40,.35) 16%, transparent 30%),
+      linear-gradient(180deg, #2a0a1a, #8a1e1e 55%, #ff6a2b 78%, #3a0d0d); }
+
+  /* El libro de los ajolotes: fantasía medieval */
+  .cv-ajo { background: #0c1a14; color: #f4e9cf; border: 1px solid rgba(240,210,140,.35); }
+  .cv-ajo::before { background:
+      radial-gradient(ellipse 34% 14% at 50% 70%, rgba(255,160,190,.9), transparent 70%),
+      radial-gradient(circle at 36% 66%, #ffb3c8 0 3%, transparent 3.5%),
+      radial-gradient(circle at 64% 66%, #ffb3c8 0 3%, transparent 3.5%),
+      radial-gradient(ellipse 60% 40% at 50% 70%, rgba(127,212,154,.25), transparent 70%),
+      repeating-linear-gradient(45deg, rgba(240,210,140,.05) 0 2px, transparent 2px 14px),
+      linear-gradient(180deg, #13281e, #071510); }
+  .cv-ajo .c-title { font-family: "Cinzel", serif; text-transform: none; font-size: 1.7rem; letter-spacing: 0.02em; }
+  .cv-ajo.sm .c-title { font-size: 1.2rem; }
+  .cv-ajo .c-series, .cv-ajo .c-author { font-family: "Cinzel", serif; letter-spacing: 0.2em; }
+
+  /* ---------- Libros ---------- */
+  .books-intro { color: var(--muted); max-width: 64ch; }
+  .books { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 36px; }
+  .book { cursor: pointer; display: flex; flex-direction: column; }
+  .book .cover { max-width: none; }
   .book:hover .cover { transform: translateY(-8px) rotate(-1deg); }
-  .book h3 { font-size: 1rem; margin-top: 14px; }
-  .book p { font-size: 0.82rem; color: var(--muted); }
-  @media (max-width: 600px) {
-    .books { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    .saga-desc { grid-template-columns: 1fr; }
+  .book .tag {
+    align-self: flex-start; margin-top: 16px;
+    font-family: "Orbitron", sans-serif; font-size: 0.6rem; letter-spacing: 0.2em;
+    padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--cyan);
   }
+  .book .tag.fantasy { color: var(--moss); border-color: rgba(127,212,154,.35); }
+  .book .tag.soon { color: var(--magenta); border-color: rgba(255,92,200,.4); }
+  .book h3 { font-size: 1.2rem; margin-top: 10px; }
+  .book p { font-size: 0.9rem; color: var(--muted); }
+  @media (max-width: 880px) { .books { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  @media (max-width: 480px) { .books { grid-template-columns: 1fr; } .book .cover { max-width: 280px; } }
 
   /* ---------- Por dónde empezar ---------- */
   .start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -215,7 +216,7 @@
     padding: 28px; position: relative; overflow: hidden;
   }
   .start-card .num { font-family: "Orbitron", sans-serif; font-size: 2.6rem; font-weight: 900; color: rgba(92,225,255,0.14); position: absolute; top: 10px; right: 18px; }
-  .start-card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .start-card h3 { font-size: 1.25rem; margin-bottom: 8px; padding-right: 48px; }
   .start-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 16px; }
   .start-card .pick { font-size: 0.9rem; color: var(--cyan); font-weight: 600; }
   @media (max-width: 880px) { .start-grid { grid-template-columns: 1fr; } }
@@ -226,8 +227,7 @@
     border: 1px solid var(--line); border-radius: var(--radius);
     padding: 32px; position: relative;
   }
-  .console::before {
-    content: "ESTADO DE LA MISIÓN · ACTUALIZADO 24·11·2026";
+  .console-label {
     position: absolute; top: -10px; left: 24px; padding: 0 10px;
     background: var(--bg); font-family: "Orbitron", sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; color: var(--cyan);
   }
@@ -235,7 +235,7 @@
   .progress-item:last-child { border-bottom: 0; }
   .progress-top { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
   .progress-top h3 { font-size: 1.05rem; }
-  .progress-top .stage { font-size: 0.82rem; color: var(--muted); }
+  .stage { display: block; margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
   .bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; position: relative; }
   .bar i {
     display: block; height: 100%; width: 0; border-radius: inherit;
@@ -270,8 +270,10 @@
     display: grid; grid-template-columns: 90px 1fr auto; gap: 20px; align-items: center;
     background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px;
   }
+  .event.highlight { border-color: rgba(255,92,200,.45); box-shadow: 0 0 30px rgba(255,92,200,.12); }
   .event .d { text-align: center; font-family: "Orbitron", sans-serif; }
   .event .d b { display: block; font-size: 1.7rem; color: var(--cyan); line-height: 1; }
+  .event.highlight .d b { color: var(--magenta); }
   .event .d span { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--muted); }
   .event h3 { font-size: 1.05rem; }
   .event p { color: var(--muted); font-size: 0.88rem; }
@@ -293,6 +295,7 @@
     color: var(--muted); font-size: 0.8rem;
   }
   .about p { color: var(--muted); margin-bottom: 16px; }
+  .about p em { color: var(--text); }
   .about h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 8px 0 20px; }
   .socials { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
   @media (max-width: 880px) { .about { grid-template-columns: 1fr; } .portrait { max-width: 360px; } }
@@ -327,7 +330,7 @@
   .copy { margin-top: 40px; font-size: 0.8rem; text-align: center; }
   @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-grid > div:first-child { grid-column: 1 / -1; } }
 
-  /* ---------- Modal de libro ---------- */
+  /* ---------- Ventana de libro ---------- */
   .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(2,3,10,.82); backdrop-filter: blur(6px); }
   .modal.open { display: flex; }
   .modal-box {
@@ -356,9 +359,9 @@
 
 <header>
   <nav class="wrap nav" aria-label="Principal">
-    <a href="#inicio" class="logo">ELENA <span>ORIÓN</span></a>
+    <a href="#inicio" class="logo">VÍCTOR <span>VIDAL</span></a>
     <ul id="menu">
-      <li><a href="#universo">Libros</a></li>
+      <li><a href="#libros">Libros</a></li>
       <li><a href="#empezar">Por dónde empezar</a></li>
       <li><a href="#progreso">Progreso</a></li>
       <li><a href="#noticias">Transmisiones</a></li>
@@ -372,76 +375,67 @@
 
 <main id="inicio">
 
-  <!-- HÉROE: último lanzamiento -->
+  <!-- HÉROE: próximo lanzamiento -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="reveal">
-        <div class="eyebrow">Nuevo lanzamiento · Ya disponible</div>
-        <h1>El último faro de <em>Kepler-442</em></h1>
-        <p class="lead">Cuando la señal que guiaba a la flota colonial se apaga, una ingeniera de comunicaciones descubre que el faro nunca fue construido por humanos. El tercer libro de la saga <strong>Deriva Estelar</strong>.</p>
+        <div class="eyebrow" id="hero-eyebrow">Próximo lanzamiento · 20 de diciembre</div>
+        <h1>ANTINAUTAS</h1>
+        <!-- EDITA: pon aquí la frase gancho de Antinautas -->
+        <p class="lead">La nueva novela de ciencia ficción de <strong>Víctor Vidal</strong>. Despega el <strong>20 de diciembre</strong>.</p>
         <div class="hero-actions">
-          <a href="#" class="btn btn-primary" data-book="kepler">Comprar ahora →</a>
-          <a href="#" class="btn btn-ghost">Leer el primer capítulo</a>
+          <a href="#" class="btn btn-primary" data-book="antinautas">Reservar ahora →</a>
+          <a href="#tripulacion" class="btn btn-ghost">Avísame cuando salga</a>
         </div>
-        <div class="hero-meta">
-          <div><strong>12</strong>libros publicados</div>
-          <div><strong>3</strong>universos</div>
-          <div><strong>18</strong>idiomas</div>
+        <div class="countdown-label" id="cd-label">CUENTA ATRÁS PARA EL DESPEGUE</div>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="unit"><b id="cd-d">--</b><span>días</span></div>
+          <div class="unit"><b id="cd-h">--</b><span>horas</span></div>
+          <div class="unit"><b id="cd-m">--</b><span>min</span></div>
+          <div class="unit"><b id="cd-s">--</b><span>seg</span></div>
         </div>
       </div>
       <div class="hero-cover reveal">
         <div class="orbit" aria-hidden="true"></div>
-        <div class="cover cv-1" role="img" aria-label="Portada de El último faro de Kepler-442">
-          <div class="c-series">DERIVA ESTELAR · III</div>
-          <div class="c-title">El último faro de Kepler-442</div>
-          <div class="c-author">ELENA ORIÓN</div>
+        <div class="cover cv-anti" role="img" aria-label="Portada provisional de Antinautas">
+          <div class="c-series">NOVELA</div>
+          <div class="c-title">Antinautas</div>
+          <div class="c-author">VÍCTOR VIDAL</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- UNIVERSO: sagas y libros -->
-  <section class="section" id="universo">
+  <!-- LIBROS -->
+  <section class="section" id="libros">
     <div class="wrap">
       <div class="section-head reveal">
         <div>
           <div class="eyebrow">Cartografía del universo</div>
-          <h2>Explora los libros</h2>
-        </div>
-        <a href="#" class="link-arrow">Ver todos los libros →</a>
-      </div>
-      <p class="universe-intro reveal">Todas mis historias comparten una misma galaxia y una misma línea temporal, pero cada saga se puede leer por separado. Elige un sistema y empieza a navegar.</p>
-
-      <div class="saga-tabs reveal" role="tablist">
-        <button class="saga-tab" role="tab" aria-selected="true" data-tab="deriva">Deriva Estelar</button>
-        <button class="saga-tab" role="tab" aria-selected="false" data-tab="ecos">Ecos del Vacío</button>
-        <button class="saga-tab" role="tab" aria-selected="false" data-tab="relatos">Relatos y novelas cortas</button>
-      </div>
-
-      <div class="saga-panel active" id="tab-deriva" role="tabpanel">
-        <div class="saga-desc"><p>Ópera espacial. Una flota de generaciones cruza el brazo de Orión huyendo de una Tierra que ya no existe. <strong>Saga en curso · 3 de 5 libros</strong>.</p><a href="#" class="link-arrow">Orden de lectura →</a></div>
-        <div class="books">
-          <article class="book" data-book="flota"><div class="cover sm cv-2"><div class="c-series">DERIVA ESTELAR · I</div><div class="c-title">La flota silenciosa</div><div class="c-author">ELENA ORIÓN</div></div><h3>La flota silenciosa</h3><p>2021 · Libro 1</p></article>
-          <article class="book" data-book="horizonte"><div class="cover sm cv-3"><div class="c-series">DERIVA ESTELAR · II</div><div class="c-title">Horizonte de sucesos</div><div class="c-author">ELENA ORIÓN</div></div><h3>Horizonte de sucesos</h3><p>2023 · Libro 2</p></article>
-          <article class="book" data-book="kepler"><div class="cover sm cv-1"><div class="c-series">DERIVA ESTELAR · III</div><div class="c-title">El último faro de Kepler-442</div><div class="c-author">ELENA ORIÓN</div></div><h3>El último faro de Kepler-442</h3><p>2026 · Libro 3</p></article>
+          <h2>Mis libros</h2>
         </div>
       </div>
+      <p class="books-intro reveal">Escribo ciencia ficción… con una excepción medieval. Pulsa en cualquier portada para ver la sinopsis y dónde conseguirlo.</p>
 
-      <div class="saga-panel" id="tab-ecos" role="tabpanel">
-        <div class="saga-desc"><p>Ciencia ficción dura y misterio. Exploradores en planetas que guardan restos de civilizaciones extinguidas. <strong>Trilogía completa</strong>.</p><a href="#" class="link-arrow">Orden de lectura →</a></div>
-        <div class="books">
-          <article class="book" data-book="arena"><div class="cover sm cv-4"><div class="c-series">ECOS DEL VACÍO · I</div><div class="c-title">Arena de dos soles</div><div class="c-author">ELENA ORIÓN</div></div><h3>Arena de dos soles</h3><p>2017 · Libro 1</p></article>
-          <article class="book" data-book="red"><div class="cover sm cv-5"><div class="c-series">ECOS DEL VACÍO · II</div><div class="c-title">La red fantasma</div><div class="c-author">ELENA ORIÓN</div></div><h3>La red fantasma</h3><p>2018 · Libro 2</p></article>
-          <article class="book" data-book="lunas"><div class="cover sm cv-6"><div class="c-series">ECOS DEL VACÍO · III</div><div class="c-title">Las lunas de cristal</div><div class="c-author">ELENA ORIÓN</div></div><h3>Las lunas de cristal</h3><p>2019 · Libro 3</p></article>
-        </div>
-      </div>
-
-      <div class="saga-panel" id="tab-relatos" role="tabpanel">
-        <div class="saga-desc"><p>Historias independientes ambientadas en la misma galaxia. Perfectas para descubrir el universo en una tarde.</p><a href="#" class="link-arrow">Ver antologías →</a></div>
-        <div class="books">
-          <article class="book" data-book="baliza"><div class="cover sm cv-5"><div class="c-series">NOVELA CORTA</div><div class="c-title">Baliza 7</div><div class="c-author">ELENA ORIÓN</div></div><h3>Baliza 7</h3><p>2020 · Novela corta</p></article>
-          <article class="book" data-book="cartas"><div class="cover sm cv-3"><div class="c-series">ANTOLOGÍA</div><div class="c-title">Cartas desde la órbita</div><div class="c-author">ELENA ORIÓN</div></div><h3>Cartas desde la órbita</h3><p>2022 · Relatos</p></article>
-        </div>
+      <div class="books">
+        <article class="book reveal" data-book="antinautas">
+          <div class="cover sm cv-anti"><div class="c-series">NOVELA</div><div class="c-title">Antinautas</div><div class="c-author">VÍCTOR VIDAL</div></div>
+          <span class="tag soon">20 DIC · PREVENTA</span>
+          <h3>Antinautas</h3>
+          <p>Ciencia ficción · Nuevo</p>
+        </article>
+        <article class="book reveal" data-book="apugalypse">
+          <div class="cover sm cv-apu"><div class="c-series">NOVELA</div><div class="c-title">Apugalypse</div><div class="c-author">VÍCTOR VIDAL</div></div>
+          <span class="tag">CIENCIA FICCIÓN</span>
+          <h3>Apugalypse</h3>
+          <p>Ciencia ficción</p>
+        </article>
+        <article class="book reveal" data-book="ajolotes">
+          <div class="cover sm cv-ajo"><div class="c-series">FANTASÍA</div><div class="c-title">El libro de los ajolotes</div><div class="c-author">VÍCTOR VIDAL</div></div>
+          <span class="tag fantasy">FANTASÍA MEDIEVAL · LA EXCEPCIÓN</span>
+          <h3>El libro de los ajolotes</h3>
+          <p>Fantasía medieval</p>
+        </article>
       </div>
     </div>
   </section>
@@ -456,14 +450,14 @@
         </div>
       </div>
       <div class="start-grid">
-        <div class="start-card reveal"><span class="num">01</span><h3>Si te gusta la aventura épica</h3><p>Flotas, imperios y personajes que cargan con el destino de miles de vidas.</p><a href="#" class="pick" data-book="flota">Empieza por <em>La flota silenciosa</em> →</a></div>
-        <div class="start-card reveal"><span class="num">02</span><h3>Si prefieres el misterio</h3><p>Ruinas alienígenas, enigmas científicos y giros que no verás venir.</p><a href="#" class="pick" data-book="arena">Empieza por <em>Arena de dos soles</em> →</a></div>
-        <div class="start-card reveal"><span class="num">03</span><h3>Si tienes poco tiempo</h3><p>Una novela corta, autoconclusiva, que se lee en una sola sentada.</p><a href="#" class="pick" data-book="baliza">Empieza por <em>Baliza 7</em> →</a></div>
+        <div class="start-card reveal"><span class="num">01</span><h3>Si vienes por la ciencia ficción</h3><p>Ya publicada y lista para leer hoy mismo.</p><a href="#" class="pick" data-book="apugalypse">Empieza por <em>Apugalypse</em> →</a></div>
+        <div class="start-card reveal"><span class="num">02</span><h3>Si quieres lo más nuevo</h3><p>Mi última novela. Resérvala y te llegará el día del lanzamiento.</p><a href="#" class="pick" data-book="antinautas">Reserva <em>Antinautas</em> →</a></div>
+        <div class="start-card reveal"><span class="num">03</span><h3>Si prefieres la fantasía</h3><p>Mi excepción: un viaje a un mundo medieval lejos de las estrellas.</p><a href="#" class="pick" data-book="ajolotes">Lee <em>El libro de los ajolotes</em> →</a></div>
       </div>
     </div>
   </section>
 
-  <!-- PROGRESO DE ESCRITURA -->
+  <!-- PROGRESO DE ESCRITURA (EDITA los porcentajes y fases) -->
   <section class="section" id="progreso">
     <div class="wrap">
       <div class="section-head reveal">
@@ -471,29 +465,24 @@
           <div class="eyebrow">En qué estoy trabajando</div>
           <h2>Progreso de escritura</h2>
         </div>
-        <a href="#" class="link-arrow">Historial de actualizaciones →</a>
       </div>
       <div class="console reveal">
+        <span class="console-label">ESTADO DE LA MISIÓN · ACTUALIZADO 24·11·2026</span>
         <div class="progress-item">
-          <div class="progress-top"><h3>Deriva Estelar IV · <em>Título provisional: «Nébula»</em></h3><span class="pct">62%</span></div>
-          <div class="bar"><i data-w="62"></i></div>
-          <div class="progress-top" style="margin:8px 0 0"><span class="stage">Fase: primer borrador · Capítulo 31 de ~50</span></div>
+          <div class="progress-top"><h3>Antinautas</h3><span class="pct">100%</span></div>
+          <div class="bar"><i data-w="100"></i></div>
+          <span class="stage">Fase: terminado · Despegue el 20 de diciembre</span>
         </div>
         <div class="progress-item">
-          <div class="progress-top"><h3>Antología «Señales perdidas»</h3><span class="pct">88%</span></div>
-          <div class="bar"><i data-w="88"></i></div>
-          <div class="progress-top" style="margin:8px 0 0"><span class="stage">Fase: revisión editorial</span></div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-top"><h3>Proyecto secreto</h3><span class="pct" style="color:var(--amber)">15%</span></div>
-          <div class="bar amber"><i data-w="15"></i></div>
-          <div class="progress-top" style="margin:8px 0 0"><span class="stage">Fase: worldbuilding · Transmisión clasificada</span></div>
+          <div class="progress-top"><h3>Próximo proyecto</h3><span class="pct" style="color:var(--amber)">10%</span></div>
+          <div class="bar amber"><i data-w="10"></i></div>
+          <span class="stage">Fase: ideas y worldbuilding · Transmisión clasificada</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TRANSMISIONES / NOTICIAS -->
+  <!-- TRANSMISIONES / NOTICIAS (EDITA con tus entradas reales) -->
   <section class="section" id="noticias">
     <div class="wrap">
       <div class="section-head reveal">
@@ -504,18 +493,17 @@
         <a href="#" class="link-arrow">Todas las entradas →</a>
       </div>
       <div class="news-grid">
-        <a href="#" class="news-card big reveal">
-          <div class="news-img cv-3" style="position:relative"></div>
+        <a href="#" class="news-card big reveal" data-book="antinautas">
+          <div class="news-img cv-anti"></div>
           <div class="body">
-            <div class="date">20 · NOV · 2026</div>
-            <h3>Así nació el faro de Kepler-442</h3>
-            <p>Bocetos, mapas estelares descartados y la conversación con una astrofísica que cambió el final del libro.</p>
+            <div class="date">NOVIEMBRE · 2026</div>
+            <h3>Antinautas despega el 20 de diciembre</h3>
+            <p>Mi nueva novela ya tiene fecha. Aquí te cuento cómo reservarla y qué puedes esperar de ella.</p>
           </div>
         </a>
         <div class="news-list">
-          <a href="#" class="news-card reveal"><div class="body"><div class="date">12 · NOV · 2026</div><h3>Firma de la edición especial</h3><p>Ejemplares numerados con cantos pintados. Reservas abiertas.</p></div></a>
-          <a href="#" class="news-card reveal"><div class="body"><div class="date">30 · OCT · 2026</div><h3>Deriva Estelar llega al audiolibro</h3><p>Narrado por un reparto completo y con banda sonora original.</p></div></a>
-          <a href="#" class="news-card reveal"><div class="body"><div class="date">15 · OCT · 2026</div><h3>Preguntas y respuestas del mes</h3><p>Respondo a vuestras teorías sobre la flota… sin spoilers (casi).</p></div></a>
+          <a href="#" class="news-card reveal"><div class="body"><div class="date">BLOG</div><h3>¿Por qué un libro de fantasía medieval?</h3><p>La historia detrás de <em>El libro de los ajolotes</em>, mi excepción.</p></div></a>
+          <a href="#" class="news-card reveal"><div class="body"><div class="date">BLOG</div><h3>El origen de Apugalypse</h3><p>De dónde salió la idea y cómo se convirtió en novela.</p></div></a>
         </div>
       </div>
     </div>
@@ -529,30 +517,28 @@
           <div class="eyebrow">Próximos aterrizajes</div>
           <h2>Eventos y firmas</h2>
         </div>
-        <a href="#" class="link-arrow">Calendario completo →</a>
       </div>
       <div class="events">
-        <div class="event reveal"><div class="d"><b>05</b><span>DIC</span></div><div><h3>Presentación en Madrid</h3><p>Librería Estelar · 19:00 · Firma tras la charla</p></div><a href="#" class="btn btn-ghost">Reservar plaza</a></div>
-        <div class="event reveal"><div class="d"><b>14</b><span>DIC</span></div><div><h3>Charla online: escribir ciencia ficción creíble</h3><p>Directo en YouTube · 18:00 (CET)</p></div><a href="#" class="btn btn-ghost">Recordármelo</a></div>
-        <div class="event reveal"><div class="d"><b>17</b><span>ENE</span></div><div><h3>Festival de Fantasía y Ciencia Ficción</h3><p>Barcelona · Mesa redonda y firmas</p></div><a href="#" class="btn btn-ghost">Más info</a></div>
+        <div class="event highlight reveal"><div class="d"><b>20</b><span>DIC</span></div><div><h3>Lanzamiento de Antinautas</h3><p>Ya a la venta en librerías y tiendas online</p></div><a href="#" class="btn btn-ghost" data-book="antinautas">Reservar</a></div>
+        <div class="event reveal"><div class="d"><b>··</b><span>PRONTO</span></div><div><h3>Presentaciones y firmas</h3><p>Las fechas se anunciarán primero en la lista de correo</p></div><a href="#tripulacion" class="btn btn-ghost">Avísame</a></div>
       </div>
     </div>
   </section>
 
-  <!-- SOBRE MÍ -->
+  <!-- SOBRE MÍ (EDITA con tu biografía) -->
   <section class="section" id="sobre-mi">
     <div class="wrap about">
       <div class="portrait reveal">[ Tu foto aquí ]</div>
       <div class="reveal">
-        <div class="eyebrow">Bitácora de la autora</div>
-        <h2>Sobre Elena Orión</h2>
-        <p>Elena Orión escribe ciencia ficción desde que, con once años, se quedó despierta una noche entera contando estrellas fugaces. Estudió física, trabajó en un observatorio y acabó cambiando los telescopios por los manuscritos.</p>
-        <p>Sus novelas combinan la escala épica de la ópera espacial con personajes muy humanos. Se han traducido a 18 idiomas y han recibido varios premios del género.</p>
+        <div class="eyebrow">Bitácora del autor</div>
+        <h2>Sobre Víctor Vidal</h2>
+        <p>Víctor Vidal escribe ciencia ficción. Es autor de <em>Apugalypse</em> y <em>Antinautas</em>, y de una excepción a la regla: la fantasía medieval <em>El libro de los ajolotes</em>.</p>
+        <p>[Añade aquí unas líneas sobre ti: de dónde eres, cómo empezaste a escribir, qué te inspira…]</p>
         <div class="socials">
           <a href="#" class="btn btn-ghost">Instagram</a>
-          <a href="#" class="btn btn-ghost">YouTube</a>
-          <a href="#" class="btn btn-ghost">Bluesky</a>
-          <a href="#" class="btn btn-ghost">Kit de prensa</a>
+          <a href="#" class="btn btn-ghost">TikTok</a>
+          <a href="#" class="btn btn-ghost">Goodreads</a>
+          <a href="#" class="btn btn-ghost">Contacto</a>
         </div>
       </div>
     </div>
@@ -564,7 +550,7 @@
       <div class="newsletter reveal">
         <div class="eyebrow">Canal de comunicaciones</div>
         <h2>Únete a la tripulación</h2>
-        <p>Recibe cada mes noticias, adelantos de capítulos y un relato exclusivo de bienvenida que no encontrarás en ningún otro sitio.</p>
+        <p>Recibe un aviso el día que salga <em>Antinautas</em>, adelantos de mis próximos libros y fechas de presentaciones antes que nadie.</p>
         <form class="nl-form" id="nl">
           <input type="email" required placeholder="tu@correo.com" aria-label="Correo electrónico">
           <button class="btn btn-primary" type="submit">Iniciar transmisión</button>
@@ -579,14 +565,14 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo">ELENA <span>ORIÓN</span></div>
-        <p style="margin-top:12px;max-width:34ch">Historias de ciencia ficción para quienes miran el cielo nocturno y se preguntan qué hay más allá.</p>
+        <div class="logo">VÍCTOR <span>VIDAL</span></div>
+        <p style="margin-top:12px;max-width:34ch">Ciencia ficción para quienes miran el cielo nocturno y se preguntan qué hay más allá.</p>
       </div>
-      <div><h4>Libros</h4><ul><li><a href="#universo">Deriva Estelar</a></li><li><a href="#universo">Ecos del Vacío</a></li><li><a href="#universo">Relatos</a></li></ul></div>
+      <div><h4>Libros</h4><ul><li><a href="#" data-book="antinautas">Antinautas</a></li><li><a href="#" data-book="apugalypse">Apugalypse</a></li><li><a href="#" data-book="ajolotes">El libro de los ajolotes</a></li></ul></div>
       <div><h4>Lectores</h4><ul><li><a href="#empezar">Por dónde empezar</a></li><li><a href="#progreso">Progreso</a></li><li><a href="#noticias">Blog</a></li></ul></div>
-      <div><h4>Contacto</h4><ul><li><a href="#">Prensa</a></li><li><a href="#">Agencia literaria</a></li><li><a href="#">Escríbeme</a></li></ul></div>
+      <div><h4>Contacto</h4><ul><li><a href="#">Prensa</a></li><li><a href="#">Escríbeme</a></li><li><a href="#tripulacion">Newsletter</a></li></ul></div>
     </div>
-    <p class="copy">© 2026 Elena Orión · Todos los derechos reservados</p>
+    <p class="copy">© 2026 Víctor Vidal · Todos los derechos reservados</p>
   </div>
 </footer>
 
@@ -599,12 +585,7 @@
       <div class="eyebrow" id="m-series"></div>
       <h3 id="m-title"></h3>
       <p id="m-text"></p>
-      <div class="buy">
-        <a href="#" class="btn btn-primary">Amazon</a>
-        <a href="#" class="btn btn-ghost">Casa del Libro</a>
-        <a href="#" class="btn btn-ghost">Librería local</a>
-        <a href="#" class="btn btn-ghost">Audiolibro</a>
-      </div>
+      <div class="buy" id="m-buy"></div>
     </div>
   </div>
 </div>
@@ -656,6 +637,28 @@
   resize(); addEventListener('resize', resize); frame();
 })();
 
+/* ---------- Cuenta atrás hasta el lanzamiento ---------- */
+(() => {
+  const LAUNCH = new Date(2026, 11, 20, 0, 0, 0); // 20 de diciembre de 2026 (los meses empiezan en 0)
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const diff = LAUNCH - new Date();
+    if (diff <= 0) {
+      document.getElementById('hero-eyebrow').textContent = 'Ya disponible';
+      document.getElementById('cd-label').style.display = 'none';
+      document.getElementById('countdown').style.display = 'none';
+      return;
+    }
+    const s = Math.floor(diff / 1000);
+    document.getElementById('cd-d').textContent = Math.floor(s / 86400);
+    document.getElementById('cd-h').textContent = pad(Math.floor(s / 3600) % 24);
+    document.getElementById('cd-m').textContent = pad(Math.floor(s / 60) % 60);
+    document.getElementById('cd-s').textContent = pad(s % 60);
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+
 /* ---------- Menú móvil ---------- */
 const toggle = document.querySelector('.menu-toggle');
 const menu = document.getElementById('menu');
@@ -665,33 +668,35 @@ toggle.addEventListener('click', () => {
 });
 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
-/* ---------- Pestañas de sagas ---------- */
-document.querySelectorAll('.saga-tab').forEach(tab => tab.addEventListener('click', () => {
-  document.querySelectorAll('.saga-tab').forEach(t => t.setAttribute('aria-selected', 'false'));
-  document.querySelectorAll('.saga-panel').forEach(p => p.classList.remove('active'));
-  tab.setAttribute('aria-selected', 'true');
-  document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-}));
-
-/* ---------- Datos de libros (edita aquí tus sinopsis) ---------- */
+/* ---------- Datos de los libros: EDITA aquí sinopsis y enlaces ---------- */
 const BOOKS = {
-  flota:     { cv: 'cv-2', series: 'Deriva Estelar · Libro I', title: 'La flota silenciosa', text: 'Diez mil naves, un solo destino y trescientos años de viaje. Cuando la nave capitana deja de responder, la joven piloto Ada Ruiz debe decidir si obedece el protocolo o rompe el silencio.' },
-  horizonte: { cv: 'cv-3', series: 'Deriva Estelar · Libro II', title: 'Horizonte de sucesos', text: 'La flota se acerca a un agujero negro que no aparece en ningún mapa. Algunos creen que es una trampa; otros, que es una puerta.' },
-  kepler:    { cv: 'cv-1', series: 'Deriva Estelar · Libro III', title: 'El último faro de Kepler-442', text: 'Cuando la señal que guiaba a la flota colonial se apaga, una ingeniera de comunicaciones descubre que el faro nunca fue construido por humanos.' },
-  arena:     { cv: 'cv-4', series: 'Ecos del Vacío · Libro I', title: 'Arena de dos soles', text: 'En un planeta desértico con dos soles, una arqueóloga encuentra una ciudad enterrada que todavía está encendida.' },
-  red:       { cv: 'cv-5', series: 'Ecos del Vacío · Libro II', title: 'La red fantasma', text: 'Una red de comunicaciones alienígena despierta tras un millón de años. Y empieza a responder con voces humanas.' },
-  lunas:     { cv: 'cv-6', series: 'Ecos del Vacío · Libro III', title: 'Las lunas de cristal', text: 'El desenlace de la trilogía: la verdad sobre quién construyó las ruinas, y por qué se marcharon.' },
-  baliza:    { cv: 'cv-5', series: 'Novela corta', title: 'Baliza 7', text: 'Una técnica solitaria en una estación de señalización recibe una llamada de auxilio fechada dentro de cuarenta años.' },
-  cartas:    { cv: 'cv-3', series: 'Antología', title: 'Cartas desde la órbita', text: 'Doce relatos epistolares escritos por los habitantes de una estación espacial a lo largo de un siglo.' }
+  antinautas: {
+    cv: 'cv-anti', series: 'Ciencia ficción · 20 de diciembre de 2026', title: 'Antinautas',
+    text: '[Sinopsis de Antinautas]',
+    links: [['Reservar', '#'], ['Amazon', '#'], ['Casa del Libro', '#']]
+  },
+  apugalypse: {
+    cv: 'cv-apu', series: 'Ciencia ficción', title: 'Apugalypse',
+    text: '[Sinopsis de Apugalypse]',
+    links: [['Amazon', '#'], ['Casa del Libro', '#'], ['eBook', '#']]
+  },
+  ajolotes: {
+    cv: 'cv-ajo', series: 'Fantasía medieval', title: 'El libro de los ajolotes',
+    text: '[Sinopsis de El libro de los ajolotes]',
+    links: [['Amazon', '#'], ['Casa del Libro', '#'], ['eBook', '#']]
+  }
 };
 const modal = document.getElementById('modal');
 function openBook(id) {
   const b = BOOKS[id]; if (!b) return;
+  const seriesLabel = b.cv === 'cv-ajo' ? 'FANTASÍA' : 'NOVELA';
   document.getElementById('m-cover').innerHTML =
-    `<div class="cover ${b.cv}"><div class="c-series">${b.series.toUpperCase()}</div><div class="c-title">${b.title}</div><div class="c-author">ELENA ORIÓN</div></div>`;
+    `<div class="cover ${b.cv}"><div class="c-series">${seriesLabel}</div><div class="c-title">${b.title}</div><div class="c-author">VÍCTOR VIDAL</div></div>`;
   document.getElementById('m-series').textContent = b.series;
   document.getElementById('m-title').textContent = b.title;
   document.getElementById('m-text').textContent = b.text;
+  document.getElementById('m-buy').innerHTML = b.links
+    .map(([label, url], i) => `<a href="${url}" class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}">${label}</a>`).join('');
   modal.classList.add('open');
   modal.querySelector('.modal-close').focus();
 }
@@ -699,10 +704,10 @@ document.querySelectorAll('[data-book]').forEach(el => el.addEventListener('clic
 modal.addEventListener('click', e => { if (e.target === modal || e.target.classList.contains('modal-close')) modal.classList.remove('open'); });
 addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
 
-/* ---------- Newsletter (conecta aquí MailerLite/Buttondown) ---------- */
+/* ---------- Newsletter (conecta aquí MailerLite o Buttondown) ---------- */
 document.getElementById('nl').addEventListener('submit', e => {
   e.preventDefault();
-  document.getElementById('nl-ok').textContent = '✦ Transmisión recibida. ¡Bienvenida a bordo!';
+  document.getElementById('nl-ok').textContent = '✦ Transmisión recibida. ¡Bienvenido/a a bordo!';
   e.target.reset();
 });
 
