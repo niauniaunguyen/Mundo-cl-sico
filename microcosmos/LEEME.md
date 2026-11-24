@@ -246,3 +246,20 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
   - Nivel 150: +15 ADN y +3 puntos del árbol.
   - Cada uno con su ventana explicativa.
 - **Equilibrio** (`sim11*.py`): un jugador que lo hace todo bien llega al 100 hacia las 4 h y al 150 hacia las 8–9 h. El salto del 100 cuesta unos minutos de mejoras. Los límites de `tlr` y `glc` evitan que la partida se dispare después.
+
+## Versión app (PWA)
+- **Generación:** `construir.py` crea también la carpeta `/docs` en la raíz del repositorio (`partes/construir_pwa.py`). Contiene:
+  - `index.html`, con `<!doctype>`, el manifiesto, los iconos y Three.js local en lugar de la CDN;
+  - `manifest.webmanifest`;
+  - `sw.js`.
+- **Service worker** (`sw.js`):
+  - El juego se pide primero a la red y, sin conexión, se usa la copia guardada.
+  - Las fuentes de Google se guardan la primera vez.
+  - La caché lleva el hash de la compilación, así que una versión nueva sustituye a la anterior sola.
+- **Iconos:** se generan a partir de `pwa/icono.svg`. Three.js r128 y su licencia MIT están en `pwa/`.
+- **Instalación:** en Ajustes aparece la tarjeta «Instala Microcosmos» (`installHtml`), solo en la versión PWA y si no está ya instalada.
+  - Con `beforeinstallprompt` muestra un botón de instalar.
+  - En iPhone explica cómo hacerlo desde Safari.
+- **Almacenamiento:** se pide `navigator.storage.persist()` para que el navegador no borre la partida.
+- **Publicación:** GitHub Pages → rama con `/docs`.
+- **Limitación:** el tablón de la clase depende de Claude y en la PWA no aparece.

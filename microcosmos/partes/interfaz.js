@@ -367,6 +367,7 @@ function renderPanel(){
         <button class="buy evo" id="evoBtn" ${g > 0 ? '' : 'disabled'}>${tr('Evolucionar')}</button></div>`;
     }
   } else if (tab === 'aju'){
+    h += installHtml();
     h += `<div class="nb">${tr('Idioma')}</div><div class="seg" role="radiogroup">` + Object.entries(LANGS).map(([k, n]) => `<button role="radio" aria-checked="${LANG === k}" data-lang="${k}">${n}</button>`).join('') + '</div>';
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));

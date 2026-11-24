@@ -41,6 +41,20 @@ function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de m
 function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
 
+// ---- App instalable (solo en la versión PWA, que lleva manifiesto) ----
+const IS_PWA = !!document.querySelector('link[rel="manifest"]');
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function installHtml(){
+  if (!IS_PWA || standalone()) return '';
+  const how = window.__bip ? '' : isIOS ? tr('En Safari, pulsa el botón Compartir y elige «Añadir a pantalla de inicio».') : tr('En el menú del navegador, elige «Instalar aplicación» o «Añadir a pantalla de inicio».');
+  return `<div class="nb">${tr('App')}</div><div class="org">${vesicle('cell', 0x58c8ff)}<h4>${tr('Instala Microcosmos')}</h4><p>${tr('Tendrás un icono en la pantalla de inicio, pantalla completa y podrás jugar sin conexión. Tu partida se conserva.')}</p>
+    ${how ? `<div class="eff">${how}</div>` : `<button class="buy" id="instBtn">${tr('Instalar')}</button>`}</div>`;
+}
+document.addEventListener('click', ev => { if (!ev.target.closest('#instBtn') || !window.__bip) return;
+  const p = window.__bip; window.__bip = null; p.prompt(); p.userChoice.then(() => renderPanel(), () => {}); });
+if (IS_PWA){ try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(_){} }
+
 // ---- Coleccionables ----
 const starsHtml = id => { const n = stars(id); return '★'.repeat(n) + `<i>${'★'.repeat(5 - n)}</i>`; };
 function showRelic(id){

@@ -8,3 +8,7 @@ html = (d / 'cabecera.html').read_text(encoding='utf-8')
 html += '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>\n<script>\n' + js + '</script>\n'
 (d.parent / 'microcosmos.html').write_text(html, encoding='utf-8')
 print(f'microcosmos.html: {len(html.encode("utf-8"))/1e3:.0f} KB')
+
+# versión app (PWA) en /docs
+import sys; sys.path.insert(0, str(d))
+import construir_pwa; construir_pwa.build(html, d)

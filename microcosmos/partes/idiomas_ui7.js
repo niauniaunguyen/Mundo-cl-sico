@@ -32,5 +32,9 @@ const I18N_RAW7 = {
   "Hay citocinas que avisan a las células vecinas de que hay un virus.":["Hi ha citocines que avisen les cèl·lules veïnes que hi ha un virus.","Some cytokines warn neighbouring cells that a virus is about."],
   "Hay virus que solo infectan bacterias.":["Hi ha virus que només infecten bacteris.","Some viruses only infect bacteria."],
   "Ahora vienen en grupo. Elige a quién atacar primero: quizá convenga acabar antes con el que más daño hace.":["Ara vénen en grup. Tria qui atacar primer: potser convé acabar abans amb el que fa més mal.","Now they come in groups. Choose whom to attack first: it may pay to finish off the one that hits hardest."],
+  "App":["App","App"], "Instala Microcosmos":["Instal·la Microcosmos","Install Microcosmos"], "Instalar":["Instal·lar","Install"],
+  "Tendrás un icono en la pantalla de inicio, pantalla completa y podrás jugar sin conexión. Tu partida se conserva.":["Tindràs una icona a la pantalla d'inici, pantalla completa i podràs jugar sense connexió. La partida es conserva.","You'll get a home-screen icon, full screen and offline play. Your game is kept."],
+  "En Safari, pulsa el botón Compartir y elige «Añadir a pantalla de inicio».":["A Safari, prem el botó Compartir i tria «Afegir a la pantalla d'inici».","In Safari, tap the Share button and choose “Add to Home Screen”."],
+  "En el menú del navegador, elige «Instalar aplicación» o «Añadir a pantalla de inicio».":["Al menú del navegador, tria «Instal·lar l'aplicació» o «Afegir a la pantalla d'inici».","In the browser menu, choose “Install app” or “Add to Home screen”."],
 };
 for (const k in I18N_RAW7){ I18N.ca[k] = I18N_RAW7[k][0]; I18N.en[k] = I18N_RAW7[k][1]; }

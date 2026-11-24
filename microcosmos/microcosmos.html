@@ -2153,6 +2153,10 @@ const I18N_RAW7 = {
   "Hay citocinas que avisan a las células vecinas de que hay un virus.":["Hi ha citocines que avisen les cèl·lules veïnes que hi ha un virus.","Some cytokines warn neighbouring cells that a virus is about."],
   "Hay virus que solo infectan bacterias.":["Hi ha virus que només infecten bacteris.","Some viruses only infect bacteria."],
   "Ahora vienen en grupo. Elige a quién atacar primero: quizá convenga acabar antes con el que más daño hace.":["Ara vénen en grup. Tria qui atacar primer: potser convé acabar abans amb el que fa més mal.","Now they come in groups. Choose whom to attack first: it may pay to finish off the one that hits hardest."],
+  "App":["App","App"], "Instala Microcosmos":["Instal·la Microcosmos","Install Microcosmos"], "Instalar":["Instal·lar","Install"],
+  "Tendrás un icono en la pantalla de inicio, pantalla completa y podrás jugar sin conexión. Tu partida se conserva.":["Tindràs una icona a la pantalla d'inici, pantalla completa i podràs jugar sense connexió. La partida es conserva.","You'll get a home-screen icon, full screen and offline play. Your game is kept."],
+  "En Safari, pulsa el botón Compartir y elige «Añadir a pantalla de inicio».":["A Safari, prem el botó Compartir i tria «Afegir a la pantalla d'inici».","In Safari, tap the Share button and choose “Add to Home Screen”."],
+  "En el menú del navegador, elige «Instalar aplicación» o «Añadir a pantalla de inicio».":["Al menú del navegador, tria «Instal·lar l'aplicació» o «Afegir a la pantalla d'inici».","In the browser menu, choose “Install app” or “Add to Home screen”."],
 };
 for (const k in I18N_RAW7){ I18N.ca[k] = I18N_RAW7[k][0]; I18N.en[k] = I18N_RAW7[k][1]; }
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
@@ -4518,6 +4522,7 @@ function renderPanel(){
         <button class="buy evo" id="evoBtn" ${g > 0 ? '' : 'disabled'}>${tr('Evolucionar')}</button></div>`;
     }
   } else if (tab === 'aju'){
+    h += installHtml();
     h += `<div class="nb">${tr('Idioma')}</div><div class="seg" role="radiogroup">` + Object.entries(LANGS).map(([k, n]) => `<button role="radio" aria-checked="${LANG === k}" data-lang="${k}">${n}</button>`).join('') + '</div>';
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));
@@ -4837,6 +4842,20 @@ function narr(key, force){
 function placeNarr(){} // la narradora ya no flota: va dentro de la tarjeta de mensajes
 function hideNarr(){ if ($('#narr').hidden) return; $('#narr').hidden = true; resize(); foldMsgLater(); }
 $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TTS.stop(); speechSynthesis.cancel(); }catch(_){} };
+
+// ---- App instalable (solo en la versión PWA, que lleva manifiesto) ----
+const IS_PWA = !!document.querySelector('link[rel="manifest"]');
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function installHtml(){
+  if (!IS_PWA || standalone()) return '';
+  const how = window.__bip ? '' : isIOS ? tr('En Safari, pulsa el botón Compartir y elige «Añadir a pantalla de inicio».') : tr('En el menú del navegador, elige «Instalar aplicación» o «Añadir a pantalla de inicio».');
+  return `<div class="nb">${tr('App')}</div><div class="org">${vesicle('cell', 0x58c8ff)}<h4>${tr('Instala Microcosmos')}</h4><p>${tr('Tendrás un icono en la pantalla de inicio, pantalla completa y podrás jugar sin conexión. Tu partida se conserva.')}</p>
+    ${how ? `<div class="eff">${how}</div>` : `<button class="buy" id="instBtn">${tr('Instalar')}</button>`}</div>`;
+}
+document.addEventListener('click', ev => { if (!ev.target.closest('#instBtn') || !window.__bip) return;
+  const p = window.__bip; window.__bip = null; p.prompt(); p.userChoice.then(() => renderPanel(), () => {}); });
+if (IS_PWA){ try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(_){} }
 
 // ---- Coleccionables ----
 const starsHtml = id => { const n = stars(id); return '★'.repeat(n) + `<i>${'★'.repeat(5 - n)}</i>`; };
