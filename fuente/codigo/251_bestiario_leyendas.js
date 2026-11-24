@@ -335,3 +335,5 @@ bestThrower('ciclopes',{t:'La fragua de los Cíclopes',who:'Los Cíclopes',at:['
   for(const[id,room]of L){cnt[id]=(cnt[id]||0)+1;const key=id+':'+room;if(MNT.dest[key]||(cnt[id]===1&&MNT.dest[id]))continue;const I=ISLANDS.find(q=>q.id===id);if(!I||!LEG[room])continue;
     if(Math.hypot(player.x-I.x,player.z-I.z)>I.R*1.4)continue;const c=I.town||I,n=cnt[id]-1,a0=n*0.9,ox=22*Math.cos(a0)-14*Math.sin(a0),oz=22*Math.sin(a0)+14*Math.cos(a0),f2=findFree(c.x+ox,c.z+oz,1.6)||[c.x+ox,c.z+oz],a=Math.atan2(c.x-f2[0],c.z-f2[1])+Math.PI;
     const o=int2Door({id:'ley_'+room,room,x:f2[0],z:f2[1],a,name:'Portal de leyenda',sub:LEG[room].title()});o.g.position.y=floorAt(f2[0],f2[1]);leyRed(o);MNT.dest[key]=o;if(n===0)MNT.dest[id]=o;}};}
+// en Roma, las leyendas que no tienen destino en el mapa romano salen en el menú del portal de Hércules (Foro Boario) (24/11)
+for(const k of['teumeso','calidon','dragon_ares','argos','dragon_colquide','toros_bronce','talos','hecatonquiros','centauros','triton'])if(!LEY_HER.includes(k))LEY_HER.push(k);

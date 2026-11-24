@@ -254,7 +254,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `248_ariadna.js` | 22 | ARIADNA (vídeo 23/11: «me gustaría que se pudiera hablar con Ariadna; el modo atención no dice quién es») |
 | `249_criaturas_blender.js` | 53 | CRIATURAS DE LOS PORTALES, HECHAS EN BLENDER (23/11) |
 | `250_trabajos_de_heracles.js` | 161 | LOS DEMÁS TRABAJOS DE HERACLES EN LOS PORTALES DE LEYENDA (23/11) |
-| `251_bestiario_leyendas.js` | 338 | BESTIARIO: 37 PORTALES DE LEYENDA MÁS (23/11: «hazlos todos», hasta llegar a 50 criaturas) |
+| `251_bestiario_leyendas.js` | 340 | BESTIARIO: 37 PORTALES DE LEYENDA MÁS (23/11: «hazlos todos», hasta llegar a 50 criaturas) |
 | `252_premios_leyendas.js` | 88 | PREMIOS DE LOS PORTALES DE LEYENDA (23/11) |
 | `253_desbloqueos_heroe.js` | 71 | LO QUE SE DESBLOQUEA CON LAS LEYENDAS (23/11: «aplícalos todos») |
 | `254_catabasis.js` | 143 | LA CATÁBASIS: BAJAR AL HADES (rogue-like) (24/11) |
