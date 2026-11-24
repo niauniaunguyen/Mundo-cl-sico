@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elena Orión · Autora</title>
+<meta name="description" content="Web oficial de Elena Orión, autora de ciencia ficción. Libros, sagas, progreso de escritura y noticias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05060f;
+    --bg-2: #0a0d1f;
+    --panel: rgba(16, 20, 44, 0.72);
+    --panel-solid: #10142c;
+    --line: rgba(120, 160, 255, 0.18);
+    --text: #e6eaff;
+    --muted: #9aa3c7;
+    --cyan: #5ce1ff;
+    --violet: #a970ff;
+    --magenta: #ff5cc8;
+    --amber: #ffc05c;
+    --glow: 0 0 24px rgba(92, 225, 255, 0.35);
+    --radius: 14px;
+    --max: 1180px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- Fondo de estrellas ---------- */
+  #stars { position: fixed; inset: 0; z-index: -2; }
+  .nebula {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 45% at 85% 10%, rgba(169, 112, 255, 0.18), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 5% 60%, rgba(92, 225, 255, 0.10), transparent 70%),
+      radial-gradient(ellipse 40% 35% at 70% 95%, rgba(255, 92, 200, 0.10), transparent 70%);
+  }
+
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+  h1, h2, h3 { font-family: "Exo 2", sans-serif; line-height: 1.15; }
+  .eyebrow {
+    font-family: "Orbitron", sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .section { padding: 96px 0; position: relative; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-top: 8px; }
+  .link-arrow { color: var(--cyan); font-weight: 600; font-size: 0.95rem; }
+  .link-arrow:hover { text-decoration: underline; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 0.95rem;
+    border: 1px solid var(--line); transition: all .25s;
+    cursor: pointer; font-family: inherit;
+  }
+  .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--violet)); color: #05060f; border: none; box-shadow: var(--glow); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(92, 225, 255, 0.55); }
+  .btn-ghost { background: rgba(255,255,255,0.04); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ---------- Cabecera ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: rgba(5, 6, 15, 0.7);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { font-family: "Orbitron", sans-serif; font-weight: 900; letter-spacing: 0.14em; font-size: 1.05rem; }
+  .logo span { color: var(--cyan); }
+  .nav ul { display: flex; gap: 28px; list-style: none; font-size: 0.92rem; color: var(--muted); }
+  .nav ul a:hover { color: var(--text); }
+  .nav .btn { padding: 8px 18px; font-size: 0.85rem; }
+  .menu-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+  @media (max-width: 880px) {
+    .nav ul, .nav .btn-nav { display: none; }
+    .menu-toggle { display: block; }
+    .nav ul.open {
+      display: flex; flex-direction: column; gap: 0;
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: var(--bg-2); border-bottom: 1px solid var(--line);
+    }
+    .nav ul.open li a { display: block; padding: 16px; border-top: 1px solid var(--line); }
+  }
+
+  /* ---------- Héroe ---------- */
+  .hero { padding: 72px 0 96px; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); font-weight: 700; margin: 14px 0 18px; }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--cyan), var(--violet), var(--magenta));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead { color: var(--muted); font-size: 1.1rem; max-width: 52ch; margin-bottom: 30px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-meta { display: flex; gap: 28px; margin-top: 36px; flex-wrap: wrap; }
+  .hero-meta div { font-size: 0.85rem; color: var(--muted); }
+  .hero-meta strong { display: block; font-family: "Orbitron", sans-serif; font-size: 1.3rem; color: var(--text); }
+  .hero-cover { display: flex; justify-content: center; position: relative; }
+  .hero-cover .orbit {
+    position: absolute; width: 130%; aspect-ratio: 1; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px dashed rgba(92, 225, 255, 0.18); border-radius: 50%;
+    animation: spin 60s linear infinite;
+  }
+  .hero-cover .orbit::after {
+    content: ""; position: absolute; top: -5px; left: 50%; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--cyan); box-shadow: var(--glow);
+  }
+  @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-cover { order: -1; }
+    .hero-cover .orbit { width: 110%; }
+  }
+
+  /* ---------- Portadas generadas con CSS ---------- */
+  .cover {
+    width: 100%; max-width: 320px; aspect-ratio: 2 / 3;
+    border-radius: 6px 12px 12px 6px; position: relative; overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 4px 0 0 rgba(255,255,255,0.08);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 22px 20px; text-align: center;
+    transition: transform .35s;
+  }
+  .cover::before { content: ""; position: absolute; inset: 0; z-index: 0; }
+  .cover > * { position: relative; z-index: 1; }
+  .cover .c-series { font-family: "Orbitron", sans-serif; font-size: 0.6rem; letter-spacing: 0.3em; opacity: .85; }
+  .cover .c-title { font-family: "Exo 2", sans-serif; font-weight: 700; font-size: 1.7rem; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.04em; }
+  .cover .c-author { font-family: "Orbitron", sans-serif; font-size: 0.7rem; letter-spacing: 0.25em; }
+  .cover.sm .c-title { font-size: 1.25rem; }
+  .cover.sm { padding: 16px 14px; }
+
+  .cv-1 { background: #070a1c; }
+  .cv-1::before { background:
+      radial-gradient(circle at 50% 62%, #ffb36b 0 18%, #e2553c 26%, #4b1240 34%, transparent 35%),
+      radial-gradient(circle at 50% 62%, rgba(255,140,90,.35), transparent 50%),
+      radial-gradient(1px 1px at 20% 20%, #fff, transparent), radial-gradient(1px 1px at 80% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 65% 12%, #fff, transparent), radial-gradient(1px 1px at 30% 85%, #fff, transparent),
+      linear-gradient(180deg, #0b0f2a, #1a0b2e); }
+  .cv-2 { background: #041018; }
+  .cv-2::before { background:
+      radial-gradient(circle at 70% 40%, #8ef5ff 0 10%, #1f8fb3 20%, #0b3550 28%, transparent 29%),
+      radial-gradient(ellipse 70% 6% at 70% 40%, rgba(142,245,255,.5), transparent 70%),
+      radial-gradient(circle at 25% 70%, #3a4a7a 0 6%, transparent 7%),
+      linear-gradient(160deg, #031421, #0a1f3a 60%, #04101c); }
+  .cv-3 { background: #12061c; }
+  .cv-3::before { background:
+      radial-gradient(circle at 50% 45%, transparent 0 20%, rgba(255,92,200,.9) 21%, rgba(169,112,255,.4) 26%, transparent 34%),
+      radial-gradient(circle at 50% 45%, #000 0 20%, transparent 21%),
+      radial-gradient(ellipse at 50% 45%, rgba(169,112,255,.35), transparent 60%),
+      linear-gradient(180deg, #170826, #08020f); }
+  .cv-4 { background: #0b0b0b; }
+  .cv-4::before { background:
+      linear-gradient(180deg, transparent 55%, #2a1a0f 56%, #110904),
+      radial-gradient(circle at 30% 30%, #fff7d6 0 4%, transparent 5%),
+      radial-gradient(circle at 72% 22%, #ffd38a 0 7%, transparent 8%),
+      linear-gradient(180deg, #ff9e57, #b8456a 50%, #2a1a3a); }
+  .cv-5 { background: #050a10; }
+  .cv-5::before { background:
+      repeating-linear-gradient(90deg, rgba(92,225,255,.08) 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(0deg, rgba(92,225,255,.08) 0 1px, transparent 1px 22px),
+      radial-gradient(circle at 50% 55%, #5ce1ff 0 3%, rgba(92,225,255,.25) 12%, transparent 30%),
+      linear-gradient(180deg, #061420, #02060b); }
+  .cv-6 { background: #0d0a1e; }
+  .cv-6::before { background:
+      radial-gradient(circle at 35% 60%, #c9b8ff 0 14%, #6a4cc9 22%, #241a52 30%, transparent 31%),
+      radial-gradient(circle at 70% 35%, #ffe08a 0 5%, #c98a2a 8%, transparent 9%),
+      linear-gradient(200deg, #1d1440, #07061a); }
+
+  /* ---------- Universo / sagas ---------- */
+  .universe-intro { color: var(--muted); max-width: 64ch; }
+  .saga-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 28px 0 32px; }
+  .saga-tab {
+    padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line);
+    background: rgba(255,255,255,0.03); color: var(--muted);
+    font-family: "Exo 2", sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer;
+  }
+  .saga-tab[aria-selected="true"] { border-color: var(--cyan); color: var(--cyan); background: rgba(92,225,255,0.08); }
+  .saga-panel { display: none; }
+  .saga-panel.active { display: block; animation: fade .4s; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } }
+  .saga-desc { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; margin-bottom: 24px; color: var(--muted); }
+  .books { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 28px; }
+  .book { cursor: pointer; }
+  .book:hover .cover { transform: translateY(-8px) rotate(-1deg); }
+  .book h3 { font-size: 1rem; margin-top: 14px; }
+  .book p { font-size: 0.82rem; color: var(--muted); }
+  @media (max-width: 600px) {
+    .books { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .saga-desc { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Por dónde empezar ---------- */
+  .start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .start-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px; position: relative; overflow: hidden;
+  }
+  .start-card .num { font-family: "Orbitron", sans-serif; font-size: 2.6rem; font-weight: 900; color: rgba(92,225,255,0.14); position: absolute; top: 10px; right: 18px; }
+  .start-card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .start-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 16px; }
+  .start-card .pick { font-size: 0.9rem; color: var(--cyan); font-weight: 600; }
+  @media (max-width: 880px) { .start-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Progreso (consola de nave) ---------- */
+  .console {
+    background: linear-gradient(180deg, rgba(16,20,44,0.85), rgba(8,10,24,0.9));
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 32px; position: relative;
+  }
+  .console::before {
+    content: "ESTADO DE LA MISIÓN · ACTUALIZADO 24·11·2026";
+    position: absolute; top: -10px; left: 24px; padding: 0 10px;
+    background: var(--bg); font-family: "Orbitron", sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; color: var(--cyan);
+  }
+  .progress-item { padding: 18px 0; border-bottom: 1px dashed var(--line); }
+  .progress-item:last-child { border-bottom: 0; }
+  .progress-top { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .progress-top h3 { font-size: 1.05rem; }
+  .progress-top .stage { font-size: 0.82rem; color: var(--muted); }
+  .bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; position: relative; }
+  .bar i {
+    display: block; height: 100%; width: 0; border-radius: inherit;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    box-shadow: 0 0 14px rgba(92,225,255,.6);
+    transition: width 1.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .bar.amber i { background: linear-gradient(90deg, var(--amber), var(--magenta)); box-shadow: 0 0 14px rgba(255,192,92,.5); }
+  .pct { font-family: "Orbitron", sans-serif; font-size: 0.85rem; color: var(--cyan); }
+
+  /* ---------- Transmisiones (noticias) ---------- */
+  .news-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+  .news-list { display: grid; gap: 20px; }
+  .news-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; transition: border-color .25s, transform .25s;
+    display: flex; flex-direction: column;
+  }
+  .news-card:hover { border-color: rgba(92,225,255,0.5); transform: translateY(-3px); }
+  .news-img { aspect-ratio: 16 / 8; position: relative; overflow: hidden; }
+  .news-img::before { content: ""; position: absolute; inset: 0; }
+  .news-card .body { padding: 22px; }
+  .news-card .date { font-family: "Orbitron", sans-serif; font-size: 0.66rem; letter-spacing: 0.18em; color: var(--violet); }
+  .news-card h3 { font-size: 1.2rem; margin: 8px 0; }
+  .news-card.big h3 { font-size: 1.6rem; }
+  .news-card p { color: var(--muted); font-size: 0.93rem; }
+  @media (max-width: 880px) { .news-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Eventos ---------- */
+  .events { display: grid; gap: 12px; }
+  .event {
+    display: grid; grid-template-columns: 90px 1fr auto; gap: 20px; align-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px;
+  }
+  .event .d { text-align: center; font-family: "Orbitron", sans-serif; }
+  .event .d b { display: block; font-size: 1.7rem; color: var(--cyan); line-height: 1; }
+  .event .d span { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--muted); }
+  .event h3 { font-size: 1.05rem; }
+  .event p { color: var(--muted); font-size: 0.88rem; }
+  @media (max-width: 600px) {
+    .event { grid-template-columns: 64px 1fr; }
+    .event .btn { grid-column: 1 / -1; justify-content: center; }
+  }
+
+  /* ---------- Sobre mí ---------- */
+  .about { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 56px; align-items: center; }
+  .portrait {
+    aspect-ratio: 4 / 5; border-radius: var(--radius); border: 1px solid var(--line);
+    background:
+      radial-gradient(circle at 50% 38%, rgba(230,234,255,.14) 0 16%, transparent 17%),
+      radial-gradient(ellipse 34% 30% at 50% 82%, rgba(230,234,255,.12), transparent 70%),
+      radial-gradient(circle at 80% 15%, rgba(169,112,255,.35), transparent 40%),
+      linear-gradient(160deg, #141a3a, #070916);
+    display: flex; align-items: end; justify-content: center; padding: 18px;
+    color: var(--muted); font-size: 0.8rem;
+  }
+  .about p { color: var(--muted); margin-bottom: 16px; }
+  .about h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 8px 0 20px; }
+  .socials { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  @media (max-width: 880px) { .about { grid-template-columns: 1fr; } .portrait { max-width: 360px; } }
+
+  /* ---------- Newsletter ---------- */
+  .newsletter {
+    text-align: center; border-radius: 24px; padding: 64px 24px;
+    border: 1px solid rgba(92,225,255,.3);
+    background:
+      radial-gradient(ellipse at 50% 120%, rgba(169,112,255,.35), transparent 60%),
+      radial-gradient(ellipse at 50% -20%, rgba(92,225,255,.18), transparent 55%),
+      var(--panel-solid);
+    position: relative; overflow: hidden;
+  }
+  .newsletter h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 10px 0 12px; }
+  .newsletter p { color: var(--muted); max-width: 54ch; margin: 0 auto 28px; }
+  .nl-form { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+  .nl-form input {
+    flex: 1 1 240px; padding: 13px 18px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(0,0,0,.35); color: var(--text);
+    font: inherit; outline: none;
+  }
+  .nl-form input:focus { border-color: var(--cyan); box-shadow: var(--glow); }
+  .nl-ok { margin-top: 16px; color: var(--cyan); min-height: 1.5em; font-weight: 600; }
+
+  /* ---------- Pie ---------- */
+  footer { border-top: 1px solid var(--line); padding: 48px 0 32px; margin-top: 96px; color: var(--muted); font-size: 0.9rem; }
+  .foot-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px; }
+  .foot-grid h4 { color: var(--text); font-family: "Exo 2", sans-serif; margin-bottom: 12px; }
+  .foot-grid ul { list-style: none; display: grid; gap: 8px; }
+  .foot-grid a:hover { color: var(--cyan); }
+  .copy { margin-top: 40px; font-size: 0.8rem; text-align: center; }
+  @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-grid > div:first-child { grid-column: 1 / -1; } }
+
+  /* ---------- Modal de libro ---------- */
+  .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(2,3,10,.82); backdrop-filter: blur(6px); }
+  .modal.open { display: flex; }
+  .modal-box {
+    background: var(--panel-solid); border: 1px solid var(--line); border-radius: 18px;
+    max-width: 760px; width: 100%; max-height: 90vh; overflow: auto;
+    display: grid; grid-template-columns: 220px 1fr; gap: 28px; padding: 28px; position: relative;
+  }
+  .modal-close { position: absolute; top: 10px; right: 14px; background: none; border: 0; color: var(--muted); font-size: 1.6rem; cursor: pointer; }
+  .modal-box h3 { font-size: 1.8rem; margin: 6px 0 12px; }
+  .modal-box p { color: var(--muted); margin-bottom: 18px; }
+  .buy { display: flex; gap: 8px; flex-wrap: wrap; }
+  .buy .btn { padding: 9px 16px; font-size: 0.85rem; }
+  @media (max-width: 600px) { .modal-box { grid-template-columns: 1fr; } .modal-box .cover { max-width: 180px; margin: 0 auto; } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s, transform .8s; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+
+<header>
+  <nav class="wrap nav" aria-label="Principal">
+    <a href="#inicio" class="logo">ELENA <span>ORIÓN</span></a>
+    <ul id="menu">
+      <li><a href="#universo">Libros</a></li>
+      <li><a href="#empezar">Por dónde empezar</a></li>
+      <li><a href="#progreso">Progreso</a></li>
+      <li><a href="#noticias">Transmisiones</a></li>
+      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+    </ul>
+    <a href="#tripulacion" class="btn btn-primary btn-nav">Únete a la tripulación</a>
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">☰</button>
+  </nav>
+</header>
+
+<main id="inicio">
+
+  <!-- HÉROE: último lanzamiento -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Nuevo lanzamiento · Ya disponible</div>
+        <h1>El último faro de <em>Kepler-442</em></h1>
+        <p class="lead">Cuando la señal que guiaba a la flota colonial se apaga, una ingeniera de comunicaciones descubre que el faro nunca fue construido por humanos. El tercer libro de la saga <strong>Deriva Estelar</strong>.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary" data-book="kepler">Comprar ahora →</a>
+          <a href="#" class="btn btn-ghost">Leer el primer capítulo</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>12</strong>libros publicados</div>
+          <div><strong>3</strong>universos</div>
+          <div><strong>18</strong>idiomas</div>
+        </div>
+      </div>
+      <div class="hero-cover reveal">
+        <div class="orbit" aria-hidden="true"></div>
+        <div class="cover cv-1" role="img" aria-label="Portada de El último faro de Kepler-442">
+          <div class="c-series">DERIVA ESTELAR · III</div>
+          <div class="c-title">El último faro de Kepler-442</div>
+          <div class="c-author">ELENA ORIÓN</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIVERSO: sagas y libros -->
+  <section class="section" id="universo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Cartografía del universo</div>
+          <h2>Explora los libros</h2>
+        </div>
+        <a href="#" class="link-arrow">Ver todos los libros →</a>
+      </div>
+      <p class="universe-intro reveal">Todas mis historias comparten una misma galaxia y una misma línea temporal, pero cada saga se puede leer por separado. Elige un sistema y empieza a navegar.</p>
+
+      <div class="saga-tabs reveal" role="tablist">
+        <button class="saga-tab" role="tab" aria-selected="true" data-tab="deriva">Deriva Estelar</button>
+        <button class="saga-tab" role="tab" aria-selected="false" data-tab="ecos">Ecos del Vacío</button>
+        <button class="saga-tab" role="tab" aria-selected="false" data-tab="relatos">Relatos y novelas cortas</button>
+      </div>
+
+      <div class="saga-panel active" id="tab-deriva" role="tabpanel">
+        <div class="saga-desc"><p>Ópera espacial. Una flota de generaciones cruza el brazo de Orión huyendo de una Tierra que ya no existe. <strong>Saga en curso · 3 de 5 libros</strong>.</p><a href="#" class="link-arrow">Orden de lectura →</a></div>
+        <div class="books">
+          <article class="book" data-book="flota"><div class="cover sm cv-2"><div class="c-series">DERIVA ESTELAR · I</div><div class="c-title">La flota silenciosa</div><div class="c-author">ELENA ORIÓN</div></div><h3>La flota silenciosa</h3><p>2021 · Libro 1</p></article>
+          <article class="book" data-book="horizonte"><div class="cover sm cv-3"><div class="c-series">DERIVA ESTELAR · II</div><div class="c-title">Horizonte de sucesos</div><div class="c-author">ELENA ORIÓN</div></div><h3>Horizonte de sucesos</h3><p>2023 · Libro 2</p></article>
+          <article class="book" data-book="kepler"><div class="cover sm cv-1"><div class="c-series">DERIVA ESTELAR · III</div><div class="c-title">El último faro de Kepler-442</div><div class="c-author">ELENA ORIÓN</div></div><h3>El último faro de Kepler-442</h3><p>2026 · Libro 3</p></article>
+        </div>
+      </div>
+
+      <div class="saga-panel" id="tab-ecos" role="tabpanel">
+        <div class="saga-desc"><p>Ciencia ficción dura y misterio. Exploradores en planetas que guardan restos de civilizaciones extinguidas. <strong>Trilogía completa</strong>.</p><a href="#" class="link-arrow">Orden de lectura →</a></div>
+        <div class="books">
+          <article class="book" data-book="arena"><div class="cover sm cv-4"><div class="c-series">ECOS DEL VACÍO · I</div><div class="c-title">Arena de dos soles</div><div class="c-author">ELENA ORIÓN</div></div><h3>Arena de dos soles</h3><p>2017 · Libro 1</p></article>
+          <article class="book" data-book="red"><div class="cover sm cv-5"><div class="c-series">ECOS DEL VACÍO · II</div><div class="c-title">La red fantasma</div><div class="c-author">ELENA ORIÓN</div></div><h3>La red fantasma</h3><p>2018 · Libro 2</p></article>
+          <article class="book" data-book="lunas"><div class="cover sm cv-6"><div class="c-series">ECOS DEL VACÍO · III</div><div class="c-title">Las lunas de cristal</div><div class="c-author">ELENA ORIÓN</div></div><h3>Las lunas de cristal</h3><p>2019 · Libro 3</p></article>
+        </div>
+      </div>
+
+      <div class="saga-panel" id="tab-relatos" role="tabpanel">
+        <div class="saga-desc"><p>Historias independientes ambientadas en la misma galaxia. Perfectas para descubrir el universo en una tarde.</p><a href="#" class="link-arrow">Ver antologías →</a></div>
+        <div class="books">
+          <article class="book" data-book="baliza"><div class="cover sm cv-5"><div class="c-series">NOVELA CORTA</div><div class="c-title">Baliza 7</div><div class="c-author">ELENA ORIÓN</div></div><h3>Baliza 7</h3><p>2020 · Novela corta</p></article>
+          <article class="book" data-book="cartas"><div class="cover sm cv-3"><div class="c-series">ANTOLOGÍA</div><div class="c-title">Cartas desde la órbita</div><div class="c-author">ELENA ORIÓN</div></div><h3>Cartas desde la órbita</h3><p>2022 · Relatos</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR DÓNDE EMPEZAR -->
+  <section class="section" id="empezar">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Guía para nuevos lectores</div>
+          <h2>¿Primera vez a bordo?</h2>
+        </div>
+      </div>
+      <div class="start-grid">
+        <div class="start-card reveal"><span class="num">01</span><h3>Si te gusta la aventura épica</h3><p>Flotas, imperios y personajes que cargan con el destino de miles de vidas.</p><a href="#" class="pick" data-book="flota">Empieza por <em>La flota silenciosa</em> →</a></div>
+        <div class="start-card reveal"><span class="num">02</span><h3>Si prefieres el misterio</h3><p>Ruinas alienígenas, enigmas científicos y giros que no verás venir.</p><a href="#" class="pick" data-book="arena">Empieza por <em>Arena de dos soles</em> →</a></div>
+        <div class="start-card reveal"><span class="num">03</span><h3>Si tienes poco tiempo</h3><p>Una novela corta, autoconclusiva, que se lee en una sola sentada.</p><a href="#" class="pick" data-book="baliza">Empieza por <em>Baliza 7</em> →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESO DE ESCRITURA -->
+  <section class="section" id="progreso">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">En qué estoy trabajando</div>
+          <h2>Progreso de escritura</h2>
+        </div>
+        <a href="#" class="link-arrow">Historial de actualizaciones →</a>
+      </div>
+      <div class="console reveal">
+        <div class="progress-item">
+          <div class="progress-top"><h3>Deriva Estelar IV · <em>Título provisional: «Nébula»</em></h3><span class="pct">62%</span></div>
+          <div class="bar"><i data-w="62"></i></div>
+          <div class="progress-top" style="margin:8px 0 0"><span class="stage">Fase: primer borrador · Capítulo 31 de ~50</span></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-top"><h3>Antología «Señales perdidas»</h3><span class="pct">88%</span></div>
+          <div class="bar"><i data-w="88"></i></div>
+          <div class="progress-top" style="margin:8px 0 0"><span class="stage">Fase: revisión editorial</span></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-top"><h3>Proyecto secreto</h3><span class="pct" style="color:var(--amber)">15%</span></div>
+          <div class="bar amber"><i data-w="15"></i></div>
+          <div class="progress-top" style="margin:8px 0 0"><span class="stage">Fase: worldbuilding · Transmisión clasificada</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSMISIONES / NOTICIAS -->
+  <section class="section" id="noticias">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Últimas transmisiones</div>
+          <h2>Noticias y blog</h2>
+        </div>
+        <a href="#" class="link-arrow">Todas las entradas →</a>
+      </div>
+      <div class="news-grid">
+        <a href="#" class="news-card big reveal">
+          <div class="news-img cv-3" style="position:relative"></div>
+          <div class="body">
+            <div class="date">20 · NOV · 2026</div>
+            <h3>Así nació el faro de Kepler-442</h3>
+            <p>Bocetos, mapas estelares descartados y la conversación con una astrofísica que cambió el final del libro.</p>
+          </div>
+        </a>
+        <div class="news-list">
+          <a href="#" class="news-card reveal"><div class="body"><div class="date">12 · NOV · 2026</div><h3>Firma de la edición especial</h3><p>Ejemplares numerados con cantos pintados. Reservas abiertas.</p></div></a>
+          <a href="#" class="news-card reveal"><div class="body"><div class="date">30 · OCT · 2026</div><h3>Deriva Estelar llega al audiolibro</h3><p>Narrado por un reparto completo y con banda sonora original.</p></div></a>
+          <a href="#" class="news-card reveal"><div class="body"><div class="date">15 · OCT · 2026</div><h3>Preguntas y respuestas del mes</h3><p>Respondo a vuestras teorías sobre la flota… sin spoilers (casi).</p></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTOS -->
+  <section class="section" id="eventos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Próximos aterrizajes</div>
+          <h2>Eventos y firmas</h2>
+        </div>
+        <a href="#" class="link-arrow">Calendario completo →</a>
+      </div>
+      <div class="events">
+        <div class="event reveal"><div class="d"><b>05</b><span>DIC</span></div><div><h3>Presentación en Madrid</h3><p>Librería Estelar · 19:00 · Firma tras la charla</p></div><a href="#" class="btn btn-ghost">Reservar plaza</a></div>
+        <div class="event reveal"><div class="d"><b>14</b><span>DIC</span></div><div><h3>Charla online: escribir ciencia ficción creíble</h3><p>Directo en YouTube · 18:00 (CET)</p></div><a href="#" class="btn btn-ghost">Recordármelo</a></div>
+        <div class="event reveal"><div class="d"><b>17</b><span>ENE</span></div><div><h3>Festival de Fantasía y Ciencia Ficción</h3><p>Barcelona · Mesa redonda y firmas</p></div><a href="#" class="btn btn-ghost">Más info</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section class="section" id="sobre-mi">
+    <div class="wrap about">
+      <div class="portrait reveal">[ Tu foto aquí ]</div>
+      <div class="reveal">
+        <div class="eyebrow">Bitácora de la autora</div>
+        <h2>Sobre Elena Orión</h2>
+        <p>Elena Orión escribe ciencia ficción desde que, con once años, se quedó despierta una noche entera contando estrellas fugaces. Estudió física, trabajó en un observatorio y acabó cambiando los telescopios por los manuscritos.</p>
+        <p>Sus novelas combinan la escala épica de la ópera espacial con personajes muy humanos. Se han traducido a 18 idiomas y han recibido varios premios del género.</p>
+        <div class="socials">
+          <a href="#" class="btn btn-ghost">Instagram</a>
+          <a href="#" class="btn btn-ghost">YouTube</a>
+          <a href="#" class="btn btn-ghost">Bluesky</a>
+          <a href="#" class="btn btn-ghost">Kit de prensa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section" id="tripulacion">
+    <div class="wrap">
+      <div class="newsletter reveal">
+        <div class="eyebrow">Canal de comunicaciones</div>
+        <h2>Únete a la tripulación</h2>
+        <p>Recibe cada mes noticias, adelantos de capítulos y un relato exclusivo de bienvenida que no encontrarás en ningún otro sitio.</p>
+        <form class="nl-form" id="nl">
+          <input type="email" required placeholder="tu@correo.com" aria-label="Correo electrónico">
+          <button class="btn btn-primary" type="submit">Iniciar transmisión</button>
+        </form>
+        <div class="nl-ok" id="nl-ok" role="status"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo">ELENA <span>ORIÓN</span></div>
+        <p style="margin-top:12px;max-width:34ch">Historias de ciencia ficción para quienes miran el cielo nocturno y se preguntan qué hay más allá.</p>
+      </div>
+      <div><h4>Libros</h4><ul><li><a href="#universo">Deriva Estelar</a></li><li><a href="#universo">Ecos del Vacío</a></li><li><a href="#universo">Relatos</a></li></ul></div>
+      <div><h4>Lectores</h4><ul><li><a href="#empezar">Por dónde empezar</a></li><li><a href="#progreso">Progreso</a></li><li><a href="#noticias">Blog</a></li></ul></div>
+      <div><h4>Contacto</h4><ul><li><a href="#">Prensa</a></li><li><a href="#">Agencia literaria</a></li><li><a href="#">Escríbeme</a></li></ul></div>
+    </div>
+    <p class="copy">© 2026 Elena Orión · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<!-- Ventana de detalle del libro -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="modal-box">
+    <button class="modal-close" aria-label="Cerrar">×</button>
+    <div id="m-cover"></div>
+    <div>
+      <div class="eyebrow" id="m-series"></div>
+      <h3 id="m-title"></h3>
+      <p id="m-text"></p>
+      <div class="buy">
+        <a href="#" class="btn btn-primary">Amazon</a>
+        <a href="#" class="btn btn-ghost">Casa del Libro</a>
+        <a href="#" class="btn btn-ghost">Librería local</a>
+        <a href="#" class="btn btn-ghost">Audiolibro</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Campo de estrellas animado ---------- */
+(() => {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let stars = [], shooting = null, w, h, dpr;
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = c.width = innerWidth * dpr; h = c.height = innerHeight * dpr;
+    c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px';
+    const n = Math.floor(innerWidth * innerHeight / 3500);
+    stars = Array.from({ length: n }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: (Math.random() * 1.2 + 0.2) * dpr,
+      a: Math.random(), s: Math.random() * 0.02 + 0.003,
+      z: Math.random() * 0.4 + 0.1,
+      hue: Math.random() < 0.15 ? (Math.random() < 0.5 ? '170,200,255' : '255,220,190') : '255,255,255'
+    }));
+  }
+  let scrollY = 0;
+  addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      s.a += s.s; const alpha = 0.35 + Math.abs(Math.sin(s.a)) * 0.65;
+      const y = ((s.y - scrollY * s.z * dpr) % h + h) % h;
+      ctx.beginPath(); ctx.arc(s.x, y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${s.hue},${alpha})`; ctx.fill();
+    }
+    if (!shooting && Math.random() < 0.004) {
+      shooting = { x: Math.random() * w * 0.7, y: Math.random() * h * 0.4, l: 0, v: 14 * dpr };
+    }
+    if (shooting) {
+      const sh = shooting; sh.l += sh.v;
+      const g = ctx.createLinearGradient(sh.x + sh.l, sh.y + sh.l * 0.45, sh.x + sh.l - 120 * dpr, sh.y + (sh.l - 120 * dpr) * 0.45);
+      g.addColorStop(0, 'rgba(255,255,255,0.9)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.strokeStyle = g; ctx.lineWidth = 1.5 * dpr; ctx.beginPath();
+      ctx.moveTo(sh.x + sh.l, sh.y + sh.l * 0.45);
+      ctx.lineTo(sh.x + sh.l - 120 * dpr, sh.y + (sh.l - 120 * dpr) * 0.45); ctx.stroke();
+      if (sh.l > w * 0.5) shooting = null;
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  resize(); addEventListener('resize', resize); frame();
+})();
+
+/* ---------- Menú móvil ---------- */
+const toggle = document.querySelector('.menu-toggle');
+const menu = document.getElementById('menu');
+toggle.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+/* ---------- Pestañas de sagas ---------- */
+document.querySelectorAll('.saga-tab').forEach(tab => tab.addEventListener('click', () => {
+  document.querySelectorAll('.saga-tab').forEach(t => t.setAttribute('aria-selected', 'false'));
+  document.querySelectorAll('.saga-panel').forEach(p => p.classList.remove('active'));
+  tab.setAttribute('aria-selected', 'true');
+  document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+}));
+
+/* ---------- Datos de libros (edita aquí tus sinopsis) ---------- */
+const BOOKS = {
+  flota:     { cv: 'cv-2', series: 'Deriva Estelar · Libro I', title: 'La flota silenciosa', text: 'Diez mil naves, un solo destino y trescientos años de viaje. Cuando la nave capitana deja de responder, la joven piloto Ada Ruiz debe decidir si obedece el protocolo o rompe el silencio.' },
+  horizonte: { cv: 'cv-3', series: 'Deriva Estelar · Libro II', title: 'Horizonte de sucesos', text: 'La flota se acerca a un agujero negro que no aparece en ningún mapa. Algunos creen que es una trampa; otros, que es una puerta.' },
+  kepler:    { cv: 'cv-1', series: 'Deriva Estelar · Libro III', title: 'El último faro de Kepler-442', text: 'Cuando la señal que guiaba a la flota colonial se apaga, una ingeniera de comunicaciones descubre que el faro nunca fue construido por humanos.' },
+  arena:     { cv: 'cv-4', series: 'Ecos del Vacío · Libro I', title: 'Arena de dos soles', text: 'En un planeta desértico con dos soles, una arqueóloga encuentra una ciudad enterrada que todavía está encendida.' },
+  red:       { cv: 'cv-5', series: 'Ecos del Vacío · Libro II', title: 'La red fantasma', text: 'Una red de comunicaciones alienígena despierta tras un millón de años. Y empieza a responder con voces humanas.' },
+  lunas:     { cv: 'cv-6', series: 'Ecos del Vacío · Libro III', title: 'Las lunas de cristal', text: 'El desenlace de la trilogía: la verdad sobre quién construyó las ruinas, y por qué se marcharon.' },
+  baliza:    { cv: 'cv-5', series: 'Novela corta', title: 'Baliza 7', text: 'Una técnica solitaria en una estación de señalización recibe una llamada de auxilio fechada dentro de cuarenta años.' },
+  cartas:    { cv: 'cv-3', series: 'Antología', title: 'Cartas desde la órbita', text: 'Doce relatos epistolares escritos por los habitantes de una estación espacial a lo largo de un siglo.' }
+};
+const modal = document.getElementById('modal');
+function openBook(id) {
+  const b = BOOKS[id]; if (!b) return;
+  document.getElementById('m-cover').innerHTML =
+    `<div class="cover ${b.cv}"><div class="c-series">${b.series.toUpperCase()}</div><div class="c-title">${b.title}</div><div class="c-author">ELENA ORIÓN</div></div>`;
+  document.getElementById('m-series').textContent = b.series;
+  document.getElementById('m-title').textContent = b.title;
+  document.getElementById('m-text').textContent = b.text;
+  modal.classList.add('open');
+  modal.querySelector('.modal-close').focus();
+}
+document.querySelectorAll('[data-book]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); openBook(el.dataset.book); }));
+modal.addEventListener('click', e => { if (e.target === modal || e.target.classList.contains('modal-close')) modal.classList.remove('open'); });
+addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+
+/* ---------- Newsletter (conecta aquí MailerLite/Buttondown) ---------- */
+document.getElementById('nl').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('nl-ok').textContent = '✦ Transmisión recibida. ¡Bienvenida a bordo!';
+  e.target.reset();
+});
+
+/* ---------- Animaciones al hacer scroll ---------- */
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (!en.isIntersecting) return;
+  en.target.classList.add('in');
+  en.target.querySelectorAll('.bar i').forEach(i => i.style.width = i.dataset.w + '%');
+  io.unobserve(en.target);
+}), { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
