@@ -1,0 +1,607 @@
+<title>Cuaderno de Mundos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;1,500&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: atlas de cartógrafo — barra superior con el mundo activo, pestañas, y en la lista de control un índice de regiones a la izquierda con su progreso */
+:root{
+  --paper:#eef1ec; --sheet:#f8faf6; --ink:#1d2b2a; --muted:#5a6a67; --line:#cfd8d2;
+  --teal:#1f5f5b; --teal-soft:#dbe8e4; --ochre:#a86a12; --ochre-soft:#f3e4c7;
+  --rose:#a23b2f; --rose-soft:#f3dcd7; --ok:#2f6b3a; --ok-soft:#dcebdc;
+  --f-display:"Alegreya",Georgia,"Times New Roman",serif;
+  --f-body:"Alegreya Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#131a19; --sheet:#1a2322; --ink:#e3ebe7; --muted:#9aaba6; --line:#2e3b39;
+  --teal:#7cc3b9; --teal-soft:#1f3532; --ochre:#e0ae5c; --ochre-soft:#3a2d17;
+  --rose:#ec8b7e; --rose-soft:#3d2320; --ok:#8fcc96; --ok-soft:#1f3322; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131a19; --sheet:#1a2322; --ink:#e3ebe7; --muted:#9aaba6; --line:#2e3b39;
+  --teal:#7cc3b9; --teal-soft:#1f3532; --ochre:#e0ae5c; --ochre-soft:#3a2d17;
+  --rose:#ec8b7e; --rose-soft:#3d2320; --ok:#8fcc96; --ok-soft:#1f3322; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+
+/* barra superior */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--sheet);border-bottom:1px solid var(--line)}
+.topin{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:12px}
+.brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+.brand h1{font-size:1.45rem;color:var(--teal)}
+.brand small{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.world{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+.world label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+select,input[type=text],input[type=search],textarea{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+select{max-width:220px}
+.btn{border:1px solid var(--line);background:var(--sheet);border-radius:6px;padding:6px 12px;font-weight:500}
+.btn:hover{border-color:var(--teal)}
+.btn.pri{background:var(--teal);border-color:var(--teal);color:var(--sheet)}
+.btn.danger{color:var(--rose)}
+.btn.sm{padding:3px 9px;font-size:.85rem}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:0}
+nav.tabs button{border:0;background:none;padding:10px 14px;border-bottom:3px solid transparent;font-weight:500;color:var(--muted);white-space:nowrap}
+nav.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--ochre)}
+main{padding-block:24px 64px}
+.ex-banner{background:var(--ochre-soft);color:var(--ink);border-radius:6px;padding:8px 12px;font-size:.92rem;margin-bottom:16px}
+
+/* guía */
+.lede{max-width:68ch;font-size:1.1rem;color:var(--muted);margin:0 0 24px}
+.lede strong{color:var(--ink)}
+.guide{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.principle{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:18px 20px;min-width:0}
+.principle h3{font-size:1.2rem;margin-bottom:6px}
+.principle .tag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ochre)}
+.principle p,.principle li{margin:.4em 0;font-size:.97rem}
+.principle ul,.principle ol{padding-left:1.2em;margin:.4em 0}
+.sec-h{font-size:1.5rem;margin:36px 0 12px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;padding:0;list-style:none}
+.steps li{background:var(--teal-soft);border-radius:8px;padding:14px 16px;counter-increment:s}
+.steps li::before{content:"Paso " counter(s);display:block;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.sources{font-size:.92rem;color:var(--muted);max-width:75ch}
+.sources a{color:var(--teal)}
+
+/* lista de control */
+.cl{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:start}
+.areas{position:sticky;top:calc(env(safe-area-inset-top,0px) + 120px);display:flex;flex-direction:column;gap:2px;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:8px}
+.areas button{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;text-align:left;border:0;background:none;border-radius:6px;padding:8px 10px}
+.areas button:hover{background:var(--paper)}
+.areas button[aria-current=true]{background:var(--teal-soft)}
+.areas .nm{font-weight:500}
+.areas .ct{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{grid-column:1/-1;height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--teal)}
+.overall{padding:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.overall .big{font-family:var(--f-display);font-size:1.8rem;color:var(--teal);font-variant-numeric:tabular-nums}
+.overall .lbl{font-size:.8rem;color:var(--muted)}
+.area-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:end;justify-content:space-between;margin-bottom:6px}
+.area-head h2{font-size:1.8rem}
+.area-intro{color:var(--muted);max-width:70ch;margin:0 0 16px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:3px 12px;font-size:.88rem}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.filters input{flex:1 1 180px;min-width:0}
+.qs{display:flex;flex-direction:column;gap:10px}
+.q{background:var(--sheet);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:6px;padding:14px 16px;min-width:0}
+.q[data-s="1"]{border-left-color:var(--ochre)}
+.q[data-s="2"]{border-left-color:var(--ok)}
+.q[data-s="3"]{border-left-color:var(--line);opacity:.7}
+.q-top{display:flex;gap:12px;align-items:start}
+.q-txt{flex:1;min-width:0}
+.q-txt h3{font-family:var(--f-body);font-size:1.05rem;font-weight:700;line-height:1.3}
+.q-txt p{margin:4px 0 0;color:var(--muted);font-size:.93rem}
+.q-ctrl{display:flex;gap:6px;flex-shrink:0;align-items:center}
+.st{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:500;background:var(--paper);white-space:nowrap}
+.st[data-s="1"]{background:var(--ochre-soft);border-color:var(--ochre);color:var(--ochre)}
+.st[data-s="2"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.star{border:0;background:none;font-size:1.15rem;line-height:1;padding:2px 4px;color:var(--line)}
+.star[aria-pressed=true]{color:var(--ochre)}
+.q textarea{width:100%;margin-top:10px;min-height:2.6em;resize:vertical;background:var(--paper)}
+.empty{color:var(--muted);padding:24px;text-align:center;border:1px dashed var(--line);border-radius:8px}
+
+/* cronología y glosario */
+.two{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+.form{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--muted)}
+.form label>*{color:var(--ink);font-size:1rem}
+.form textarea{min-height:5em;resize:vertical}
+.tl{list-style:none;padding:0;margin:0;position:relative}
+.tl::before{content:"";position:absolute;left:92px;top:4px;bottom:4px;width:2px;background:var(--line)}
+.tl li{display:grid;grid-template-columns:80px 1fr;gap:24px;padding:8px 0;position:relative}
+.tl li::before{content:"";position:absolute;left:87px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--sheet);border:2px solid var(--teal)}
+.tl .yr{font-family:var(--f-mono);font-size:.85rem;text-align:right;color:var(--teal);padding-top:4px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tl .ev{min-width:0}
+.tl .ev h3,.gl h3{font-family:var(--f-body);font-size:1.05rem;font-weight:700}
+.tl .ev p,.gl p{margin:2px 0 0;color:var(--muted);white-space:pre-wrap}
+.row-act{display:flex;gap:6px;margin-top:4px}
+.gl-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.gl{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+.kind{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ochre)}
+
+/* datos */
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.data .principle textarea{width:100%;min-height:9em;font-family:var(--f-mono);font-size:.8rem}
+.msg{font-size:.9rem;color:var(--ok);min-height:1.4em}
+.msg.err{color:var(--rose)}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.9rem}
+
+@media (max-width:820px){
+  .cl,.two{grid-template-columns:minmax(0,1fr)}
+  .areas{position:static;flex-direction:row;overflow-x:auto;padding:6px}
+  .areas button{flex:0 0 auto;min-width:150px}
+  .overall{border-bottom:0;border-right:1px solid var(--line);margin:0 6px 0 0;flex:0 0 auto}
+  .world{margin-left:0;width:100%}
+  .q-top{flex-direction:column}
+}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="topin">
+      <div class="brand"><h1>Cuaderno de Mundos</h1><small>guía y biblia de worldbuilding</small></div>
+      <div class="world">
+        <label for="worldSel">Mundo</label>
+        <select id="worldSel"></select>
+        <button class="btn sm" id="newWorld">Nuevo mundo</button>
+        <button class="btn sm" id="renWorld">Renombrar</button>
+      </div>
+    </div>
+    <div class="topin" id="worldForm" hidden style="padding-top:0">
+      <input type="text" id="worldName" placeholder="Nombre del mundo o del libro" style="flex:1 1 220px;min-width:0">
+      <button class="btn pri sm" id="worldOk">Guardar</button>
+      <button class="btn sm" id="worldCancel">Cancelar</button>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="guia">Guía</button>
+      <button role="tab" data-tab="lista">Lista de control</button>
+      <button role="tab" data-tab="crono">Cronología</button>
+      <button role="tab" data-tab="glosario">Glosario</button>
+      <button role="tab" data-tab="datos">Guardar y exportar</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="exBanner" class="ex-banner" hidden>Estás viendo el <strong>mundo de ejemplo</strong>, con algunas notas ya rellenadas para que veas cómo funciona. Crea tu propio mundo con «Nuevo mundo».</div>
+
+  <section id="tab-guia" hidden></section>
+  <section id="tab-lista" hidden>
+    <div class="cl">
+      <aside class="areas" id="areas"></aside>
+      <div style="min-width:0">
+        <div class="area-head"><h2 id="areaTitle"></h2></div>
+        <p class="area-intro" id="areaIntro"></p>
+        <div class="filters">
+          <button class="chip" data-f="all">Todas</button>
+          <button class="chip" data-f="open">Sin resolver</button>
+          <button class="chip" data-f="key">★ Clave para la trama</button>
+          <input type="search" id="qSearch" placeholder="Buscar en todas las áreas…" aria-label="Buscar preguntas">
+        </div>
+        <div class="qs" id="qs"></div>
+      </div>
+    </div>
+  </section>
+  <section id="tab-crono" hidden>
+    <div class="two">
+      <form class="form" id="tlForm">
+        <h2 style="font-size:1.3rem">Añadir acontecimiento</h2>
+        <label>Fecha o año <input type="text" id="tlYear" placeholder="p. ej. -300, 1204, Año 3 de la Sequía"></label>
+        <label>Acontecimiento <input type="text" id="tlTitle" required placeholder="La caída de la Torre de Ámbar"></label>
+        <label>Detalles y consecuencias <textarea id="tlDesc" placeholder="Qué pasó, a quién afectó y qué rastro dejó en el presente del libro"></textarea></label>
+        <button class="btn pri" type="submit" id="tlSubmit">Añadir</button>
+        <p style="margin:0;font-size:.85rem;color:var(--muted)">Se ordena por el primer número de la fecha. Usa negativos para antes de tu «año cero».</p>
+      </form>
+      <div style="min-width:0"><ul class="tl" id="tl"></ul></div>
+    </div>
+  </section>
+  <section id="tab-glosario" hidden>
+    <div class="two">
+      <form class="form" id="glForm">
+        <h2 style="font-size:1.3rem">Añadir entrada</h2>
+        <label>Nombre <input type="text" id="glName" required placeholder="Velarra"></label>
+        <label>Tipo
+          <select id="glKind">
+            <option>Lugar</option><option>Personaje</option><option>Pueblo o cultura</option><option>Organización</option><option>Objeto</option><option>Criatura</option><option>Término</option><option>Otro</option>
+          </select>
+        </label>
+        <label>Descripción <textarea id="glDesc" placeholder="Lo esencial, la pronunciación y en qué capítulo aparece"></textarea></label>
+        <button class="btn pri" type="submit" id="glSubmit">Añadir</button>
+      </form>
+      <div style="min-width:0">
+        <div class="filters"><input type="search" id="glSearch" placeholder="Buscar en el glosario…" aria-label="Buscar en el glosario"></div>
+        <div class="gl-list" id="gl"></div>
+      </div>
+    </div>
+  </section>
+  <section id="tab-datos" hidden>
+    <p class="lede">Tus notas se guardan <strong>solo en este navegador</strong>. Si borras los datos del navegador o cambias de dispositivo, se pierden. Haz una copia de seguridad de vez en cuando.</p>
+    <div class="data">
+      <div class="principle">
+        <span class="tag">Copia de seguridad</span>
+        <h3>Exportar todo</h3>
+        <p>Copia este texto y guárdalo en un archivo o en un documento. Incluye todos tus mundos.</p>
+        <button class="btn pri" id="expJson">Generar y copiar</button>
+        <textarea id="expOut" readonly aria-label="Copia de seguridad"></textarea>
+        <div class="msg" id="expMsg"></div>
+      </div>
+      <div class="principle">
+        <span class="tag">Restaurar</span>
+        <h3>Importar copia</h3>
+        <p>Pega una copia de seguridad o elige un archivo .json. Los mundos importados se añaden a los que ya tienes.</p>
+        <textarea id="impIn" aria-label="Pegar copia de seguridad" placeholder="Pega aquí la copia…"></textarea>
+        <div class="confirm"><input type="file" id="impFile" accept=".json,.txt,application/json"><button class="btn pri" id="impBtn">Importar</button></div>
+        <div class="msg" id="impMsg"></div>
+      </div>
+      <div class="principle">
+        <span class="tag">Biblia del mundo</span>
+        <h3>Exportar como texto</h3>
+        <p>Genera la biblia del mundo activo en Markdown (preguntas respondidas, cronología y glosario) para pegarla en Word, Scrivener u Obsidian.</p>
+        <button class="btn pri" id="expMd">Generar y copiar</button>
+        <textarea id="mdOut" readonly aria-label="Biblia en Markdown"></textarea>
+        <div class="msg" id="mdMsg"></div>
+      </div>
+      <div class="principle">
+        <span class="tag">Zona delicada</span>
+        <h3>Borrar este mundo</h3>
+        <p>Elimina el mundo activo con todas sus notas. No se puede deshacer.</p>
+        <div class="confirm" id="delBox"><button class="btn danger" id="delAsk">Borrar mundo</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------- CONTENIDO ---------- */
+const AREAS = [
+ {id:"base", name:"Cimientos", intro:"Antes de dibujar mapas, decide qué historia vas a contar y qué necesita esa historia del mundo. Todo lo demás se mide contra esto.", qs:[
+  ["¿Qué tipo de mundo es?","Tierra alternativa, mundo secundario sin relación con el nuestro, mundo portal, futuro lejano, mundo oculto dentro del nuestro… Cada opción cambia cuánto puedes dar por sabido."],
+  ["¿Qué historia quieres contar y qué necesita del mundo?","Enumera las escenas clave del libro y apunta qué elementos del mundo exigen. Eso marca qué desarrollar primero."],
+  ["¿Cuál es la gran diferencia con nuestro mundo?","El rasgo central (la magia, una tecnología, una geografía imposible) del que se derivan casi todas las demás diferencias."],
+  ["¿Qué tema quiere explorar el libro y cómo lo refleja el mundo?","Poder, fe, memoria, colonialismo, pertenencia… Un mundo que encarna el tema refuerza la historia en cada página."],
+  ["¿Qué tono y género tiene?","Épico, oscuro, acogedor, de intriga, de aventura. El tono decide qué detalles enseñar: la mugre de las calles o el brillo de los palacios."],
+  ["¿A qué escala transcurre la historia?","Un barrio, una ciudad, un reino, un continente, un planeta. Desarrolla al detalle la escala en la que viven tus personajes."],
+  ["¿Desde qué punto de vista se descubre el mundo?","Un nativo no se explica lo cotidiano; un recién llegado sí. Esto decide cuánta información puedes dar sin forzarla."],
+  ["¿Qué parte del iceberg verá el lector?","Decide qué se queda bajo el agua. Sabes más de lo que cuentas; el lector debe notar que hay profundidad sin leerla entera."]
+ ]},
+ {id:"fisico", name:"Mundo físico", intro:"La geografía y el clima condicionan dónde vive la gente, qué come, cómo viaja y por qué lucha.", qs:[
+  ["Cosmología: ¿cómo es el mundo y su cielo?","Forma del mundo, soles, lunas, estrellas, duración del día y del año. Las lunas afectan a mareas, calendarios y mitos."],
+  ["¿Funcionan las leyes físicas como en el nuestro?","Si no, decide exactamente qué cambia y mantenlo. La gravedad, el fuego o el tiempo distintos tienen consecuencias en todo."],
+  ["Geografía: continentes, relieve, ríos y costas","Los ríos nacen en las alturas y van al mar, y casi nunca se dividen. Las montañas crean desiertos al otro lado (sombra de lluvia)."],
+  ["Clima y estaciones","Determinan cosechas, ropa, arquitectura, épocas de guerra y fiestas. ¿Qué estación es durante el libro?"],
+  ["Flora y fauna, y el lugar de cada criatura","Toda criatura come algo y algo se la come. Si hay dragones, ¿qué cazan y cuánto territorio necesitan?"],
+  ["Recursos: qué abunda y qué escasea","La escasez (agua, metal, tierra fértil, magia) genera comercio, poder y conflicto."],
+  ["Distancias y tiempos de viaje","A pie se hacen unos 25–30 km al día; a caballo, 40–60 sostenidos. Fíjalo para que los viajes sean coherentes."],
+  ["Desastres naturales y enfermedades","Terremotos, plagas, sequías: marcan la memoria colectiva y la religión."],
+  ["¿Necesitas un mapa?","Dibújalo aunque no se publique: evita contradicciones de distancia y orientación."]
+ ]},
+ {id:"historia", name:"Historia y tiempo", intro:"El presente del libro es el resultado del pasado. Las heridas abiertas de la historia son una fuente inagotable de conflicto.", qs:[
+  ["Mito de creación: qué creen y qué ocurrió de verdad","La versión de los habitantes y la real pueden no coincidir. Esa distancia da misterio."],
+  ["Grandes eras y acontecimientos fundacionales","Tres a cinco hitos bastan para empezar. Pásalos a la Cronología."],
+  ["Guerras pasadas y rencores vigentes","¿Quién odia a quién y por qué? ¿Qué territorio sigue en disputa?"],
+  ["¿Quién escribió la historia?","Los vencedores, un clero, unos cronistas comprados. ¿Qué versión oficial miente?"],
+  ["Calendario y medida del tiempo","Cómo cuentan días, meses y años; desde qué acontecimiento numeran. Fiestas y aniversarios."],
+  ["¿Qué ocurrió justo antes de empezar el libro?","El detonante: el cambio reciente que rompe el equilibrio y pone la historia en marcha."],
+  ["Ruinas y huellas visibles del pasado","Lo que queda a la vista hace que la historia sea algo que se toca, no solo algo que se cuenta."],
+  ["¿Cómo cambiará el mundo durante la historia?","Un mundo que se transforma por lo que hacen los personajes da peso a sus actos."]
+ ]},
+ {id:"magia", name:"Magia y tecnología", intro:"Las leyes de Sanderson son una buena brújula: cuanto mejor entiende el lector la magia, más puede resolver; los límites interesan más que los poderes.", qs:[
+  ["¿Magia blanda o dura?","Blanda: misteriosa, crea asombro, no debe resolver conflictos. Dura: con reglas claras, el lector la entiende y puede usarse para resolver problemas."],
+  ["¿De dónde viene la magia?","Dioses, sangre, palabras, minerales, emociones, pactos. La fuente sugiere quién la controla y quién la quiere."],
+  ["¿Qué cuesta y qué límites tiene?","Coste físico, moral, económico o social. Los límites crean tensión y obligan a los personajes a ser ingeniosos."],
+  ["¿Quién puede usarla y cuántos son?","Innata, aprendida, heredada, comprada. Una minoría poderosa altera toda la sociedad."],
+  ["¿Cómo se aprende y quién la regula?","Escuelas, gremios, maestros, licencias, prohibiciones. ¿Una licencia de mago se parece más a la de conducir o a la de médico?"],
+  ["Consecuencias sociales y económicas","Si la magia cura, ¿quedan médicos? Si mueve mercancías, ¿qué pasa con los porteadores? Sigue la cadena."],
+  ["Nivel tecnológico coherente","Imprenta, pólvora, navegación, metalurgia, medicina. Mezclar épocas está bien si tiene motivo."],
+  ["¿Cómo conviven magia y tecnología?","Se complementan, compiten, se anulan. La tecnología puede imitar a la magia o al revés."],
+  ["¿Cómo ve la gente la magia?","Temida, venerada, comercializada, perseguida. Puede cambiar de una región a otra."],
+  ["¿Puedes profundizar antes de añadir algo nuevo?","Explora lo que ya tienes antes de sumar otro sistema. Pocas piezas bien conectadas pesan más que muchas sueltas."]
+ ]},
+ {id:"pueblos", name:"Pueblos y culturas", intro:"Evita el planeta de un solo sombrero: ninguna cultura real es homogénea. Dentro de cada pueblo hay clases, regiones, disidentes y modas.", qs:[
+  ["Especies, pueblos y etnias","¿Quién vive dónde? Si hay especies no humanas, ¿en qué se diferencian de verdad, más allá del aspecto?"],
+  ["Población y dónde se concentra","Ciudades y campo, densidad, migraciones. Una ciudad grande necesita mucho campo que la alimente."],
+  ["Valores: virtudes, vergüenzas y tabúes","Qué se admira, qué se castiga y qué no se nombra. Los tabúes son oro para el conflicto."],
+  ["Familia, parentesco y matrimonio","Quién hereda, quién cría a los hijos, qué papel tiene cada género, cómo se elige pareja."],
+  ["Ritos de paso","Nacimiento, mayoría de edad, boda, muerte. Ofrecen escenas memorables."],
+  ["Arte, música, relatos y juegos","Lo que la gente canta y cuenta revela lo que valora y teme."],
+  ["Comida y bebida","Lo que se come depende del clima y del comercio. Una comida bien descrita sitúa al lector al instante."],
+  ["Relaciones con otros pueblos","Alianzas, prejuicios, estereotipos que tienen unos de otros, matrimonios mixtos."],
+  ["Diversidad interna","Subculturas, regiones, generaciones, minorías, desacuerdos dentro del mismo pueblo."],
+  ["¿Te inspiras en culturas reales?","Documéntate y trátalas con respeto; evita caricaturas. Mezclar influencias con criterio da originalidad."]
+ ]},
+ {id:"religion", name:"Religión y creencias", intro:"La fe organiza el calendario, la moral, la ley y la política. Si los dioses existen de verdad, todo cambia.", qs:[
+  ["¿Existen los dioses y actúan en el mundo?","Dioses reales y presentes, ausentes, inventados o desconocidos. Decide la verdad aunque los personajes no la sepan."],
+  ["Instituciones y clero","¿Quién habla en nombre de los dioses? ¿Qué poder político y económico tiene?"],
+  ["Prácticas: oraciones, ofrendas, fiestas, lugares sagrados","Lo que la gente hace a diario, no solo lo que cree."],
+  ["¿Qué ocurre al morir?","Funerales, culto a los antepasados, visión del más allá. Condiciona cómo se enfrenta la gente al peligro."],
+  ["Herejías, cismas y minorías","Las creencias perseguidas y los conflictos internos dan facciones y secretos."],
+  ["Fe popular frente a doctrina oficial","Supersticiones, amuletos, santos locales, mezclas con creencias antiguas."],
+  ["Relación entre religión, magia y Estado","¿La magia es un don divino o una herejía? ¿El rey gobierna por mandato de los dioses?"]
+ ]},
+ {id:"poder", name:"Política y poder", intro:"Quién manda, cómo llegó ahí y quién quiere quitarle el puesto. Ahí suele estar el motor de la trama.", qs:[
+  ["Forma de gobierno: quién manda en teoría y quién de verdad","Monarquía, consejo, teocracia, gremios, clanes… A menudo el poder real está en otro sitio."],
+  ["¿Cómo se transmite el poder?","Herencia, elección, conquista, prueba. Las sucesiones dudosas son fuente clásica de conflicto."],
+  ["Leyes, justicia y castigos","Qué es delito, quién juzga, qué castigos existen y si la ley es igual para todos."],
+  ["Clases sociales y movilidad","Nobleza, clero, comerciantes, campesinos, siervos o esclavos. ¿Se puede subir o bajar?"],
+  ["Ejército, armas y forma de hacer la guerra","Tropas profesionales o levas, armas, fortificaciones, papel de la magia en la batalla."],
+  ["Fronteras, alianzas y enemigos exteriores","Mapa político: vecinos, tratados, rivales, territorios en disputa."],
+  ["Facciones internas y sus objetivos","Cada facción quiere algo concreto. Si sus objetivos chocan, la trama se escribe sola."],
+  ["¿Cómo circula la información?","Mensajeros, palomas, magia, imprenta. Determina cuánto tarda una noticia y lo fácil que es mentir."]
+ ]},
+ {id:"economia", name:"Economía y comercio", intro:"El dinero explica muchas decisiones. Pregunta siempre: ¿quién paga esto y quién se beneficia?", qs:[
+  ["¿De qué vive la mayoría de la gente?","Agricultura, pesca, pastoreo, minería, artesanía. La mayoría de la población de un mundo preindustrial trabaja la tierra."],
+  ["Moneda, trueque, banca y deuda","Qué se usa para pagar, quién acuña moneda, quién presta y a qué precio."],
+  ["Rutas comerciales y mercancías clave","Qué se exporta e importa y por dónde pasa. Las rutas crean ciudades ricas y piratas."],
+  ["Gremios, mercados e impuestos","Quién controla los oficios, quién cobra impuestos y cuánto se resiste la gente a pagarlos."],
+  ["Reparto de la riqueza","Quién es rico, quién es pobre y cómo se nota en la calle."],
+  ["Mercado negro y contrabando","Lo prohibido o gravado se trafica. Buen territorio para personajes ambiguos."],
+  ["¿Qué es valioso aquí que para nosotros es barato?","Sal, especias, hierro, papel, tinte, agua. Y al revés: ¿qué abunda aquí que para nosotros sería caro?"]
+ ]},
+ {id:"cotidiana", name:"Vida cotidiana", intro:"Los detalles de un día normal hacen creíble un mundo más que cualquier batalla. Piensa con los cinco sentidos.", qs:[
+  ["Un día normal de alguien corriente","Desde que se levanta hasta que se acuesta: qué come, dónde trabaja, con quién habla."],
+  ["Vivienda y arquitectura","Materiales disponibles, clima, defensa, clase social. ¿Cómo es una casa pobre y un palacio?"],
+  ["Ropa y aspecto","Según clima, clase, oficio y moda. Peinados, adornos, marcas de estatus."],
+  ["Higiene, salud y medicina","Baños, enfermedades frecuentes, sanadores, esperanza de vida, mortalidad infantil."],
+  ["Transporte y comunicación","Caminos, barcos, monturas, posadas, correo. ¿Es seguro viajar?"],
+  ["Educación y alfabetización","Quién sabe leer, dónde se aprende, qué se considera cultura."],
+  ["Ocio, deporte y juegos","Tabernas, apuestas, competiciones, teatro, festivales."],
+  ["Luz, noche y horarios","Velas, aceite, magia, gas. Sin luz barata, la vida se organiza según el sol."],
+  ["Olores, sonidos y texturas de cada lugar","Una nota sensorial por escenario principal: el puerto huele a brea y pescado, el templo a cera."]
+ ]},
+ {id:"lengua", name:"Lenguaje y nombres", intro:"Los nombres son lo primero que el lector ve del mundo. Coherencia dentro de cada cultura y moderación con las palabras inventadas.", qs:[
+  ["Sistema de nombres de cada cultura","Patronímicos, apellidos de oficio o lugar, títulos, nombres secretos. Cada cultura con su propio sonido."],
+  ["Topónimos coherentes con lengua e historia","Los nombres de lugar suelen describir algo (vado, colina, río) o recordar a alguien. Capas de idiomas muestran conquistas."],
+  ["Vocabulario propio, con moderación","Inventa palabras solo para lo que no tiene equivalente. Demasiadas agotan al lector."],
+  ["Expresiones, juramentos, insultos y refranes","Dicen mucho de lo que una cultura considera sagrado o vergonzoso."],
+  ["Registro y forma de hablar","Cómo suena el diálogo: arcaico, moderno, formal. Mantenlo constante. ¿Distintos pueblos hablan distinto?"],
+  ["¿Los nombres se distinguen bien entre sí?","Evita que dos personajes importantes empiecen igual o suenen parecido. Comprueba que se puedan pronunciar."]
+ ]},
+ {id:"relato", name:"Mundo y relato", intro:"La prueba final: el mundo existe para servir a la historia. Revisa estas preguntas antes de escribir y al corregir.", qs:[
+  ["¿Cada elemento importante genera conflicto o afecta a un personaje?","Si un rasgo del mundo no cambia nada en la trama ni en nadie, quizá sobra o se queda bajo el agua."],
+  ["¿Has seguido las consecuencias en cadena?","Por cada elemento fantástico pregunta «¿y entonces qué?» al menos tres veces: economía, poder, vida diaria."],
+  ["¿Dosificas la información?","Evita los bloques de explicación. Repártela en la acción, en conflictos y en diálogos con fricción, no en el «como ya sabes…»."],
+  ["¿El mundo se ve a través del personaje?","Lo que el personaje da por normal no lo explica; lo que le sorprende o le duele, sí."],
+  ["¿Tienes una biblia del mundo y la consultas?","Fechas, nombres, reglas de la magia, distancias. Evita contradicciones entre capítulos y libros."],
+  ["¿Hay huecos deliberados y misterio?","No hace falta explicarlo todo. Lo que se insinúa y no se explica alimenta la imaginación del lector."],
+  ["¿Estás escribiendo o solo construyendo?","La enfermedad del constructor de mundos: crear sin parar como forma de no escribir. Ponte un límite."],
+  ["¿Qué ve el lector del mundo en el primer capítulo?","Elige uno o dos detalles concretos y extraños que lo enganchen, no un resumen geográfico."],
+  ["¿Las reglas se respetan cuando más duele?","Si rompes una regla para salvar al protagonista, el lector deja de creer. La coherencia interna sostiene la credibilidad."]
+ ]}
+];
+const STATUS = ["Pendiente","En marcha","Decidido","No aplica"];
+const ALLQ = []; AREAS.forEach(a=>a.qs.forEach((q,i)=>ALLQ.push({id:a.id+"-"+i, area:a, q:q[0], h:q[1]})));
+
+/* ---------- ESTADO ---------- */
+const KEY = "cuaderno-mundos-v1";
+const uid = ()=>Math.random().toString(36).slice(2,10);
+function sampleWorld(){
+  return {name:"Ejemplo: Las Islas de Sal", example:true, answers:{
+    "base-0":{s:2,n:"Mundo secundario: un archipiélago donde el mar se ha ido retirando durante siglos."},
+    "base-2":{s:2,n:"La sal guarda la memoria: quien la come recuerda lo vivido por otros. La sal antigua vale más que el oro.",k:true},
+    "base-6":{s:1,n:"Protagonista: hija de un salinero, nativa. Hace falta un segundo punto de vista extranjero (¿un comprador del continente?)."},
+    "fisico-5":{s:2,n:"Escasea el agua dulce; abunda la sal. Las cisternas son del Consejo.",k:true},
+    "historia-5":{s:1,n:"El último pozo de sal antigua se ha agotado hace un año.",k:true},
+    "magia-2":{s:1,n:"Cada recuerdo ajeno borra uno propio. ¿Se puede elegir cuál?",k:true},
+    "poder-6":{s:0,n:"",k:true}
+  }, timeline:[
+    {id:uid(),y:"-412",t:"Fundación de la primera salina",d:"Los clanes del norte descubren la sal que recuerda."},
+    {id:uid(),y:"-60",t:"Guerra de las Cisternas",d:"El Consejo se queda con el agua dulce. Origen del rencor de los clanes."},
+    {id:uid(),y:"0",t:"Se agota el pozo antiguo",d:"Detonante de la novela."}
+  ], glossary:[
+    {id:uid(),n:"Sal vieja",k:"Término",d:"Sal de más de cien años. Contiene recuerdos de generaciones."},
+    {id:uid(),n:"El Consejo de las Cisternas",k:"Organización",d:"Gobierna las islas porque controla el agua dulce."}
+  ]};
+}
+function load(){
+  try{const r=localStorage.getItem(KEY); if(r){const s=JSON.parse(r); if(s&&s.worlds&&Object.keys(s.worlds).length) return s;}}catch(e){}
+  const id=uid(); return {cur:id, tab:"guia", area:"base", worlds:{[id]:sampleWorld()}};
+}
+let S = load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const W = ()=>S.worlds[S.cur];
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- GUÍA ---------- */
+$("#tab-guia").innerHTML = `
+<p class="lede">Construir un mundo no es rellenar una enciclopedia. Es decidir <strong>qué necesita tu historia</strong>, hacerlo coherente y enseñar solo la punta del iceberg. Estos son los principios que más se repiten entre autores y manuales, y debajo un método para aplicarlos.</p>
+<div class="guide">
+ <article class="principle"><span class="tag">Profundidad</span><h3>El iceberg y la pompa de jabón</h3>
+  <p>Hay dos escuelas. El <strong>iceberg</strong>: sabes mucho más de lo que cuentas y esa masa oculta da peso a cada detalle. La <strong>pompa de jabón</strong>: construyes solo lo que la escena necesita y el resto es superficie brillante.</p>
+  <p>Las dos funcionan. Lo importante es que el lector <em>sienta</em> que hay profundidad, no que la lea entera.</p></article>
+ <article class="principle"><span class="tag">Método</span><h3>De arriba abajo o de abajo arriba</h3>
+  <p><strong>De arriba abajo</strong>: empiezas por la cosmología, los continentes y la historia, y bajas hasta la aldea.</p>
+  <p><strong>De abajo arriba</strong>: empiezas por un personaje en una calle y amplías solo cuando la historia lo pide.</p>
+  <p>Lo más práctico suele ser mezclar: un esqueleto general y detalle allí donde pisa la trama.</p></article>
+ <article class="principle"><span class="tag">Magia · Sanderson</span><h3>Las leyes de la magia</h3>
+  <ol start="0">
+   <li><strong>Ley cero:</strong> ante la duda, elige lo asombroso.</li>
+   <li><strong>Primera:</strong> la capacidad de resolver conflictos con magia es proporcional a lo bien que el lector la entiende.</li>
+   <li><strong>Segunda:</strong> los límites son más interesantes que los poderes.</li>
+   <li><strong>Tercera:</strong> amplía lo que ya tienes antes de añadir algo nuevo.</li>
+  </ol>
+  <p>Sirven igual para tecnologías, instituciones o especies.</p></article>
+ <article class="principle"><span class="tag">Credibilidad · Tolkien</span><h3>Coherencia interna</h3>
+  <p>Tolkien hablaba de <strong>subcreación</strong>: un mundo secundario es creíble si respeta sus propias leyes. El lector acepta dragones, pero no que las reglas cambien cuando conviene al autor.</p>
+  <p>Una biblia del mundo (esta app) existe para eso.</p></article>
+ <article class="principle"><span class="tag">Causa y efecto</span><h3>¿Y entonces qué?</h3>
+  <p>Cada elemento fantástico tiene consecuencias. Si la gente puede volar, ¿para qué sirven las murallas? ¿Quién controla el cielo? ¿Cómo son los tejados?</p>
+  <p>Pregunta «¿y entonces qué?» varias veces y pasa por la economía, el poder, la religión y la vida diaria.</p></article>
+ <article class="principle"><span class="tag">Culturas</span><h3>Nada de planetas de un solo sombrero</h3>
+  <p>Un pueblo entero de guerreros o de sabios resulta plano. Las culturas reales tienen clases, regiones, generaciones, disidentes y contradicciones.</p>
+  <p>Dale a cada pueblo al menos una tensión interna.</p></article>
+ <article class="principle"><span class="tag">Narración</span><h3>Dosificar la información</h3>
+  <p>Evita los bloques de explicación y los diálogos en los que alguien explica lo que el otro ya sabe. Reparte el mundo en acción, conflicto y detalles concretos.</p>
+  <p>Lo que el personaje da por normal no se explica: se usa.</p></article>
+ <article class="principle"><span class="tag">Advertencia</span><h3>La enfermedad del constructor de mundos</h3>
+  <p>Construir puede convertirse en una forma elegante de no escribir. M. John Harrison llegó a criticar el worldbuilding como un afán de inventariarlo todo que mata la imaginación del lector.</p>
+  <p>Remedio: construye lo que necesita el siguiente capítulo y escríbelo.</p></article>
+</div>
+<h2 class="sec-h">Un método en cinco pasos</h2>
+<ol class="steps">
+ <li><strong>La historia primero.</strong> Rellena el área «Cimientos» de la lista de control.</li>
+ <li><strong>El núcleo.</strong> Define la gran diferencia y sigue sus consecuencias en cadena.</li>
+ <li><strong>Lo que pisa la trama.</strong> Marca con ★ las preguntas clave y resuélvelas antes que el resto.</li>
+ <li><strong>La biblia.</strong> Pasa fechas a la Cronología y nombres al Glosario mientras escribes.</li>
+ <li><strong>La revisión.</strong> Al corregir, repasa el área «Mundo y relato».</li>
+</ol>
+<h2 class="sec-h">Fuentes para profundizar</h2>
+<p class="sources">
+ Patricia C. Wrede, <a href="https://sfwa.org/2009/08/04/fantasy-worldbuilding-questions/" target="_blank" rel="noopener">Fantasy Worldbuilding Questions</a> (SFWA), la lista de preguntas más citada, en la que se inspira la estructura de áreas.
+ Brandon Sanderson, <a href="https://www.brandonsanderson.com/blogs/blog/guide-to-sandersons-laws-of-magic-lecture-notes" target="_blank" rel="noopener">guía de las leyes de la magia</a> y sus clases de escritura en BYU (en YouTube).
+ J. R. R. Tolkien, el ensayo <em>Sobre los cuentos de hadas</em>, sobre subcreación y creencia secundaria.
+ M. John Harrison, su crítica de 2007, recogida en <a href="https://boingboing.net/2007/04/14/whats-wrong-with-wor.html" target="_blank" rel="noopener">What's wrong with worldbuilding</a>.
+</p>`;
+
+/* ---------- MUNDOS ---------- */
+function renderWorlds(){
+  const sel=$("#worldSel"); sel.innerHTML="";
+  for(const [id,w] of Object.entries(S.worlds)){const o=document.createElement("option");o.value=id;o.textContent=w.name;o.selected=id===S.cur;sel.append(o);}
+  $("#exBanner").hidden=!W().example;
+}
+$("#worldSel").onchange=e=>{S.cur=e.target.value;save();renderAll();};
+let worldMode=null;
+function openWorldForm(mode){worldMode=mode;$("#worldForm").hidden=false;const i=$("#worldName");i.value=mode==="ren"?W().name:"";i.focus();}
+$("#newWorld").onclick=()=>openWorldForm("new");
+$("#renWorld").onclick=()=>openWorldForm("ren");
+$("#worldCancel").onclick=()=>{$("#worldForm").hidden=true;};
+function commitWorld(){
+  const n=$("#worldName").value.trim(); if(!n) return;
+  if(worldMode==="new"){const id=uid();S.worlds[id]={name:n,answers:{},timeline:[],glossary:[]};S.cur=id;S.tab="lista";S.area="base";}
+  else {W().name=n; delete W().example;}
+  $("#worldForm").hidden=true; save(); renderAll();
+}
+$("#worldOk").onclick=commitWorld;
+$("#worldName").onkeydown=e=>{if(e.key==="Enter")commitWorld(); if(e.key==="Escape")$("#worldForm").hidden=true;};
+
+/* ---------- PESTAÑAS ---------- */
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;save();showTab();});
+function showTab(){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===S.tab));
+  ["guia","lista","crono","glosario","datos"].forEach(t=>$("#tab-"+t).hidden=t!==S.tab);
+}
+
+/* ---------- LISTA DE CONTROL ---------- */
+let filter="all";
+const ans=id=>W().answers[id]||{s:0,n:""};
+const done=a=>a.s===2||a.s===3;
+function renderAreas(){
+  const total=ALLQ.length, d=ALLQ.filter(q=>done(ans(q.id))).length, keys=ALLQ.filter(q=>ans(q.id).k&&!done(ans(q.id))).length;
+  let h=`<div class="overall"><div class="big">${Math.round(d/total*100)}%</div><div class="lbl">${d} de ${total} resueltas${keys?` · ${keys} ★ pendientes`:""}</div></div>`;
+  for(const a of AREAS){
+    const n=a.qs.length, k=a.qs.filter((_,i)=>done(ans(a.id+"-"+i))).length;
+    h+=`<button data-a="${a.id}" aria-current="${a.id===S.area}"><span class="nm">${a.name}</span><span class="ct">${k}/${n}</span><span class="bar"><i style="width:${k/n*100}%"></i></span></button>`;
+  }
+  const box=$("#areas"); box.innerHTML=h;
+  box.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.area=b.dataset.a;$("#qSearch").value="";save();renderAreas();renderQs();});
+}
+function renderQs(){
+  const term=$("#qSearch").value.trim().toLowerCase();
+  const area=AREAS.find(a=>a.id===S.area)||AREAS[0];
+  let list = term ? ALLQ.filter(q=>(q.q+" "+q.h+" "+(ans(q.id).n||"")).toLowerCase().includes(term)) : ALLQ.filter(q=>q.area===area);
+  $("#areaTitle").textContent = term ? `Resultados para «${$("#qSearch").value.trim()}»` : area.name;
+  $("#areaIntro").textContent = term ? `${list.length} preguntas en todas las áreas.` : area.intro;
+  if(filter==="open") list=list.filter(q=>!done(ans(q.id)));
+  if(filter==="key") list=list.filter(q=>ans(q.id).k);
+  document.querySelectorAll(".chip[data-f]").forEach(c=>c.setAttribute("aria-pressed",c.dataset.f===filter));
+  const box=$("#qs");
+  if(!list.length){box.innerHTML=`<div class="empty">${filter==="key"?"Aún no has marcado ninguna pregunta como clave aquí. Pulsa ★ en las que sostengan tu trama.":"No hay preguntas con este filtro."}</div>`;return;}
+  box.innerHTML=list.map(q=>{const a=ans(q.id);return `
+   <div class="q" data-s="${a.s}" data-id="${q.id}">
+    <div class="q-top">
+     <div class="q-txt"><h3>${esc(q.q)}</h3><p>${term?`<em>${q.area.name}.</em> `:""}${esc(q.h)}</p></div>
+     <div class="q-ctrl">
+      <button class="star" aria-pressed="${!!a.k}" title="Clave para la trama" aria-label="Marcar como clave para la trama">★</button>
+      <button class="st" data-s="${a.s}" title="Cambiar estado">${STATUS[a.s]}</button>
+     </div>
+    </div>
+    <textarea id="n-${q.id}" placeholder="Tus decisiones, dudas e ideas…" aria-label="Notas">${esc(a.n)}</textarea>
+   </div>`}).join("");
+  box.querySelectorAll(".q").forEach(el=>{
+    const id=el.dataset.id;
+    const get=()=>W().answers[id]||(W().answers[id]={s:0,n:""});
+    el.querySelector(".st").onclick=()=>{const a=get();a.s=(a.s+1)%4;save();el.dataset.s=a.s;const b=el.querySelector(".st");b.dataset.s=a.s;b.textContent=STATUS[a.s];renderAreas();};
+    el.querySelector(".star").onclick=e=>{const a=get();a.k=!a.k;save();e.currentTarget.setAttribute("aria-pressed",a.k);renderAreas();};
+    const ta=el.querySelector("textarea");
+    const fit=()=>{ta.style.height="auto";ta.style.height=ta.scrollHeight+2+"px";}; fit();
+    ta.oninput=()=>{const a=get();a.n=ta.value;if(a.s===0&&ta.value.trim())a.s=1,el.dataset.s=1,Object.assign(el.querySelector(".st"),{textContent:STATUS[1]}).dataset.s=1,renderAreas();save();fit();};
+  });
+}
+document.querySelectorAll(".chip[data-f]").forEach(c=>c.onclick=()=>{filter=c.dataset.f;renderQs();});
+$("#qSearch").oninput=renderQs;
+
+/* ---------- CRONOLOGÍA ---------- */
+let tlEdit=null;
+const yrNum=y=>{const m=String(y).match(/-?\d+(\.\d+)?/);return m?parseFloat(m[0]):Infinity;};
+function renderTl(){
+  const items=[...W().timeline].sort((a,b)=>yrNum(a.y)-yrNum(b.y));
+  $("#tl").innerHTML=items.length?items.map(e=>`<li><span class="yr">${esc(e.y)||"—"}</span><div class="ev"><h3>${esc(e.t)}</h3>${e.d?`<p>${esc(e.d)}</p>`:""}<div class="row-act"><button class="btn sm" data-ed="${e.id}">Editar</button><button class="btn sm danger" data-rm="${e.id}">Quitar</button></div></div></li>`).join(""):`<div class="empty">Aún no hay acontecimientos. Empieza por el detonante de tu historia y los tres o cuatro hitos que lo explican.</div>`;
+  $("#tl").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{W().timeline=W().timeline.filter(x=>x.id!==b.dataset.rm);save();renderTl();});
+  $("#tl").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{const e=W().timeline.find(x=>x.id===b.dataset.ed);tlEdit=e.id;$("#tlYear").value=e.y;$("#tlTitle").value=e.t;$("#tlDesc").value=e.d;$("#tlSubmit").textContent="Guardar cambios";$("#tlTitle").focus();});
+}
+$("#tlForm").onsubmit=e=>{e.preventDefault();const v={y:$("#tlYear").value.trim(),t:$("#tlTitle").value.trim(),d:$("#tlDesc").value.trim()};if(!v.t)return;
+  if(tlEdit){Object.assign(W().timeline.find(x=>x.id===tlEdit),v);tlEdit=null;$("#tlSubmit").textContent="Añadir";} else W().timeline.push({id:uid(),...v});
+  e.target.reset();save();renderTl();};
+
+/* ---------- GLOSARIO ---------- */
+let glEdit=null;
+function renderGl(){
+  const term=$("#glSearch").value.trim().toLowerCase();
+  const items=[...W().glossary].sort((a,b)=>a.n.localeCompare(b.n,"es")).filter(g=>!term||(g.n+" "+g.k+" "+g.d).toLowerCase().includes(term));
+  $("#gl").innerHTML=items.length?items.map(g=>`<div class="gl"><span class="kind">${esc(g.k)}</span><h3>${esc(g.n)}</h3>${g.d?`<p>${esc(g.d)}</p>`:""}<div class="row-act"><button class="btn sm" data-ed="${g.id}">Editar</button><button class="btn sm danger" data-rm="${g.id}">Quitar</button></div></div>`).join(""):`<div class="empty">${term?"Nada coincide con la búsqueda.":"Aún no hay entradas. Apunta cada nombre propio en cuanto lo inventes: te ahorrará contradicciones."}</div>`;
+  $("#gl").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{W().glossary=W().glossary.filter(x=>x.id!==b.dataset.rm);save();renderGl();});
+  $("#gl").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{const g=W().glossary.find(x=>x.id===b.dataset.ed);glEdit=g.id;$("#glName").value=g.n;$("#glKind").value=g.k;$("#glDesc").value=g.d;$("#glSubmit").textContent="Guardar cambios";$("#glName").focus();});
+}
+$("#glForm").onsubmit=e=>{e.preventDefault();const v={n:$("#glName").value.trim(),k:$("#glKind").value,d:$("#glDesc").value.trim()};if(!v.n)return;
+  if(glEdit){Object.assign(W().glossary.find(x=>x.id===glEdit),v);glEdit=null;$("#glSubmit").textContent="Añadir";} else W().glossary.push({id:uid(),...v});
+  e.target.reset();save();renderGl();};
+$("#glSearch").oninput=renderGl;
+
+/* ---------- DATOS ---------- */
+async function copyTo(ta,msg,text){
+  ta.value=text;
+  try{await navigator.clipboard.writeText(text);msg.className="msg";msg.textContent="Copiado al portapapeles.";}
+  catch(e){ta.focus();ta.select();msg.className="msg";msg.textContent="Texto seleccionado: cópialo con Ctrl+C o mantén pulsado.";}
+}
+$("#expJson").onclick=()=>copyTo($("#expOut"),$("#expMsg"),JSON.stringify({app:"cuaderno-de-mundos",version:1,worlds:S.worlds},null,1));
+$("#expMd").onclick=()=>{
+  const w=W(); let md=`# ${w.name}\n\n`;
+  for(const a of AREAS){
+    const rows=a.qs.map((q,i)=>({q,a:w.answers[a.id+"-"+i]})).filter(r=>r.a&&(r.a.n||"").trim());
+    if(!rows.length) continue;
+    md+=`## ${a.name}\n\n`; rows.forEach(r=>md+=`### ${r.a.k?"★ ":""}${r.q[0]}\n_${STATUS[r.a.s]}_\n\n${r.a.n.trim()}\n\n`);
+  }
+  if(w.timeline.length){md+=`## Cronología\n\n`;[...w.timeline].sort((a,b)=>yrNum(a.y)-yrNum(b.y)).forEach(e=>md+=`- **${e.y||"—"}** · ${e.t}${e.d?`: ${e.d}`:""}\n`);md+="\n";}
+  if(w.glossary.length){md+=`## Glosario\n\n`;[...w.glossary].sort((a,b)=>a.n.localeCompare(b.n,"es")).forEach(g=>md+=`- **${g.n}** (${g.k})${g.d?`: ${g.d}`:""}\n`);}
+  copyTo($("#mdOut"),$("#mdMsg"),md);
+};
+$("#impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("#impIn").value=r.result;};r.readAsText(f);};
+$("#impBtn").onclick=()=>{
+  const m=$("#impMsg");
+  try{
+    const d=JSON.parse($("#impIn").value);
+    if(!d||typeof d.worlds!=="object") throw 0;
+    let n=0,last;
+    for(const w of Object.values(d.worlds)){ if(!w||!w.name) continue; last=uid(); S.worlds[last]={name:String(w.name),answers:w.answers||{},timeline:w.timeline||[],glossary:w.glossary||[]}; n++; }
+    if(!n) throw 0;
+    S.cur=last; save(); renderAll(); m.className="msg"; m.textContent=`Importados ${n} mundo${n>1?"s":""}.`; $("#impIn").value="";
+  }catch(e){m.className="msg err";m.textContent="No se reconoce el texto. Pega una copia generada con «Exportar todo».";}
+};
+function renderDel(){
+  const box=$("#delBox");
+  box.innerHTML=`<button class="btn danger" id="delAsk">Borrar «${esc(W().name)}»</button>`;
+  $("#delAsk").onclick=()=>{
+    box.innerHTML=`<span>¿Seguro? Se perderán todas sus notas.</span><button class="btn danger" id="delYes">Sí, borrar</button><button class="btn" id="delNo">Cancelar</button>`;
+    $("#delNo").onclick=renderDel;
+    $("#delYes").onclick=()=>{delete S.worlds[S.cur]; if(!Object.keys(S.worlds).length){const id=uid();S.worlds[id]={name:"Mi mundo",answers:{},timeline:[],glossary:[]};} S.cur=Object.keys(S.worlds)[0]; save(); renderAll();};
+  };
+}
+
+function renderAll(){ if(!S.worlds[S.cur]) S.cur=Object.keys(S.worlds)[0]; renderWorlds(); showTab(); renderAreas(); renderQs(); renderTl(); renderGl(); renderDel(); }
+renderAll();
+</script>
