@@ -263,3 +263,47 @@ RPG incremental de biología celular con combates por turnos en 3D, en español.
 - **Almacenamiento:** se pide `navigator.storage.persist()` para que el navegador no borre la partida.
 - **Publicación:** GitHub Pages → rama con `/docs`.
 - **Limitación:** el tablón de la clase depende de Claude y en la PWA no aparece.
+
+## Versión 12: 10 mejoras de jugabilidad y 10 gráficas
+Datos en `partes/v12.js` y lógica en `partes/extras.js`. Las mutaciones y las zonas actúan a través de `mutK`/`zoneK` (`estado.js`), la racha con `streakK` y la distancia con `rangeK`.
+
+**Jugabilidad**
+1. **Distancia** (`S.range`, botón `#bRange`):
+   - Cerca: fagocitosis ×1,25.
+   - Lejos: fagocitosis ×0,3 y daño recibido ×0,7.
+   - El modo automático elige la distancia solo.
+2. **Sinergias en los grupos** (`setSynergy`, `synergyTurn`):
+   - Una bacteria protege a sus compañeros con su biopelícula (×0,75 de daño recibido).
+   - El virus se esconde en la célula tumoral.
+   - El protozoo se come a la bacteria y se cura.
+   - El prion contagia: el ataque de los compañeros crece.
+3. **Mutación al evolucionar** (`MUTS`, `S.mut`, `showMutations`): eliges una de tres. Cada una tiene ventaja y coste, y dura hasta la siguiente evolución.
+4. **Expedición diaria** (`makeDaily`): 5 combates con una regla de herramientas que cambia cada día.
+   - Recompensa diaria: +2 ADN y +1 muestra (`S.expDay`).
+   - No da hallazgos científicos.
+5. **Diagnóstico a ciegas:** el 18 % de los combates normales desde el nivel 5 son a ciegas (`e.blind`).
+   - El modelo sale sin teñir y la ficha oculta los datos.
+   - Al pulsar «¿Qué es?» (`identifyFoe`), si aciertas ganas ×2 de ATP.
+6. **Recursos de cada zona** (`ZONE_RES`), visibles en el mapa:
+   - Sangre: hierro → artemisinina ×1,3.
+   - Pulmón: oxígeno → ATP/s ×1,3 y nunca hay hipoxia.
+   - Intestino: glucosa → ATP por victoria ×1,2.
+   - Piel: queratina → −10 % de daño recibido y ×1,5 de muestras.
+   - Cerebro: barrera → antibióticos ×0,7 y −10 % de daño recibido.
+   - Charca: luz → las plantas se reparan el doble.
+7. **Racha** (`S.streak`): +5 % de daño por cada golpe muy eficaz seguido, hasta +50 %. Se pierde con un golpe poco eficaz.
+8. **Investigación** (Atlas): 5 muestras «libres» (`S.spent`) dan un nivel de investigación, hasta 3 (`S.research`). Cada nivel revela todas las eficacias y da +10 % de daño contra ese organismo.
+9. **Jefes que se adaptan:** los jefes normales que bajan del 50 % de vida se adaptan a la herramienta más usada contra ellos (`e.adapted`, ×0,4).
+10. **Duelo en clase** (`showDuel`): para 2 jugadores en el mismo dispositivo, 6 rondas.
+
+**Gráficos**
+1. **Muerte según la herramienta** (`killFoeObj(e, tool)`): se hincha y revienta, se deshace en trozos, sufre apoptosis en burbujas o se desnaturaliza.
+2. **Fagocitosis animada:** el organismo entra en tu célula y aparece «Digerido».
+3. **Decorado de cada zona** (`setDecor`): alvéolos, vellosidades, neuronas, queratinocitos y algas.
+4. **Modos de microscopio** (`SCOPES`, `#bScope`): filtros CSS sobre el canvas.
+5. **Cámara:** se acerca un momento en los golpes muy eficaces y en los críticos (`camPunch`, `ZK`).
+6. **Reacción al golpe:** el organismo se deforma (`squash`) y, si está opsonizado, se ven los anticuerpos en Y (`abCoat`).
+7. **Evolución:** animación de mitosis (`mitosisFx`) y tu célula crece un poco con cada evolución.
+8. **Interfaz más viva:** números del color de la herramienta, barras que laten con poca vida y botones que destellan al acabar la recarga.
+9. **Ciclos de vida en el Atlas** (`CYCLES`, `cycleSvg`): estafilococo, gripe, levadura, *Bacillus*, plasmodio, VIH, tumor y tenia.
+10. **Rendimiento** (`S.perf`): ahorro de batería (30 fps y calidad baja), normal o cine (calidad alta, viñeta y aberración cromática).

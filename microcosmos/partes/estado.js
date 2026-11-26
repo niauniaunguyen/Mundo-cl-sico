@@ -9,7 +9,7 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, samp:{}, relics:{}, relSp:{}, nudged:0, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, samp:{}, relics:{}, relSp:{}, nudged:0, mut:null, streak:0, research:{}, spent:{}, scope:'', perf:'normal', range:'near', expDay:'', expBest:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -38,6 +38,11 @@ const treeSpent = () => Object.keys(S.tree).reduce((a, id) => a + (TREE_NODES[id
 const treeFree = () => S.lpts - treeSpent();
 const toolCd = T => Math.max(0, T.cd - ((T.id === 'ac' && has('h4')) || ((T.id === 'tc' || T.id === 'tax') && has('c3')) ? 1 : 0));
 const adnM = () => 1 + .1*S.adn;
+// mutación elegida al evolucionar y recurso de la zona (solo en la partida normal)
+const mutK = (k, d=1) => { if (fixedStats() || !S.mut || !MUT[S.mut]) return d; const v = MUT[S.mut].k[k]; return v != null ? v : d; };
+const zoneK = (k, d=1) => { if (fixedStats()) return d; const z = ZONE_RES[S.zone]; const v = z && z.k[k]; return v != null ? v : d; };
+const streakK = () => 1 + .05*Math.min(S.streak || 0, 10);
+const sampAvail = t => (S.samp[t] || 0) - (S.spent[t] || 0);
 // ---- Coleccionables (no cuentan en el modo clase ni en los eventos) ----
 const stars = id => STARS.filter(n => (S.samp[id] || 0) >= n).length;
 const rl = id => fixedStats() ? 0 : (S.relics[id] || 0);
@@ -47,12 +52,12 @@ const collAtk = () => (1 + .06*rl('dna'))*(1 + .04*rl('crispr'))*grpK('atk');
 const collHp = () => (1 + .06*rl('teo'))*(1 + .04*rl('crispr'))*grpK('hp');
 const collAtp = () => (1 + .1*rl('leeu'))*grpK('atp');
 // contra un organismo concreto y con una herramienta concreta
-const collVs = (type, tool) => { if (fixedStats()) return 1; let k = 1 + STAR_DMG*stars(type);
+const collVs = (type, tool) => { if (fixedStats()) return 1; let k = (1 + STAR_DMG*stars(type))*(1 + .1*(S.research[type] || 0));
   for (const r in REL_TOOL) if (REL_TOOL[r].includes(tool)) k *= 1 + RELIC[r].p/100*rl(r); return k; };
 const collAtpVs = type => fixedStats() ? 1 : 1 + STAR_ATP*stars(type);
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*Math.pow(1.1, S.upg.tlr)*adnM()*collAtk())*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*Math.pow(1.1, S.upg.glc)*adnM()*collHp())*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*Math.pow(1.1, S.upg.tlr)*adnM()*collAtk()*mutK('atk'))*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*Math.pow(1.1, S.upg.glc)*adnM()*collHp()*mutK('hp'))*cellD().hp;
 // orgánulos avanzados: solo en la partida normal
 const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
 const advUnlocked = () => S.best >= 30;
@@ -60,9 +65,9 @@ const eliteUnlocked = () => S.best >= 100;
 // salto de dificultad a partir del nivel 31 (tejidos profundos)
 const deepHp = L => L > 30 ? 3.2*Math.pow(1.1, L - 31) : 1;
 const deepAtk = L => L > 30 ? 1.9*Math.pow(1.06, L - 31) : 1;
-const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit);
-const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM()*(1 + .25*rl('krebs'));
-const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*collAtp()*(L > 30 ? 1.5 : 1);
+const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit)*mutK('taken')*zoneK('taken');
+const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM()*(1 + .25*rl('krebs'))*mutK('atps')*zoneK('atps');
+const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*collAtp()*mutK('rw')*zoneK('rw')*(L > 30 ? 1.5 : 1);
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
 const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5, 2)) : 0;
 const speed = () => Math.pow(1.25, S.upg.ref);

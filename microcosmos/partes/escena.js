@@ -592,7 +592,27 @@ Object.assign(BUILD, {
 
 /* ---------- Entorno: plasma sanguíneo ---------- */
 let darkTarget = 0, tintTarget = new THREE.Vector3();
-const setZoneTint = z => { const t = Array.isArray(z) ? z : (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); };
+const setZoneTint = z => { const t = Array.isArray(z) ? z : (ZONES[z] || ZONES.san).tint; tintTarget.set(t[0], t[1], t[2]); setDecor(Array.isArray(z) ? 'xen' : z); };
+// decorado de fondo de cada zona: alvéolos, vellosidades, neuronas, queratinocitos, algas
+const DECOR = {}; let decorOn = null;
+function buildDecor(z){
+  SEED = 77; const g = new THREE.Group();
+  if (z === 'pul') for (let i = 0; i < 9; i++){ const a = mesh(new THREE.SphereGeometry(srn(1.2, 2.2), 20, 14), mem(0xffb0c0, {op:.08, rimA:.5, rimK:.8, side:THREE.DoubleSide, bump:false})); a.position.set(srn(-12, 12), srn(-5, 6), srn(-14, -9)); g.add(a); }
+  if (z === 'int') for (let i = 0; i < 16; i++){ const v = mesh(new THREE.CylinderGeometry(.35, .5, srn(3, 6), 10), mem(0xffb27a, {op:.14, rimA:.5, rimK:.6, bump:false})); v.position.set(-15 + i*2 + srn(-.4, .4), -6, srn(-13, -10)); v.rotation.z = srn(-.2, .2); g.add(v); }
+  if (z === 'cer'){ const m = new THREE.LineBasicMaterial({color:0xc9a6ff, transparent:true, opacity:.25}); for (let n = 0; n < 6; n++){ const c = V(srn(-12, 12), srn(-5, 6), srn(-14, -9)); const pos = [];
+      for (let k = 0; k < 9; k++){ let p = c.clone(); for (let j = 0; j < 4; j++){ const q = p.clone().add(V(srn(-1.5, 1.5), srn(-1.5, 1.5), srn(-.4, .4))); pos.push(p.x, p.y, p.z, q.x, q.y, q.z); p = q; } }
+      const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.add(new THREE.LineSegments(lg, m));
+      const so = mesh(new THREE.SphereGeometry(.45, 12, 10), mem(0xc9a6ff, {op:.2, emiK:.4, bump:false})); so.position.copy(c); g.add(so); } }
+  if (z === 'pie') for (let i = 0; i < 22; i++){ const h = mesh(new THREE.CylinderGeometry(1.1, 1.1, .12, 6), mem(0xe8d2b0, {op:.1, rimA:.4, rimK:.5, bump:false})); h.position.set(-14 + (i % 11)*2.6, -6 + Math.floor(i/11)*1.2, srn(-13, -11)); h.rotation.x = Math.PI/2 - .3; g.add(h); }
+  if (z === 'cha' || z === 'xen') for (let i = 0; i < 14; i++){ const a = mesh(new THREE.SphereGeometry(srn(.2, .5), 10, 8), mem(z === 'xen' ? 0x9dffe0 : 0x6dff8a, {op:.2, emiK:.5, bump:false})); a.position.set(srn(-12, 12), srn(-5, 6), srn(-13, -8)); a.userData.ph = srn(0, 6); g.add(a); }
+  g.visible = false; scene.add(g); return g;
+}
+function setDecor(z){
+  if (decorOn === z) return; decorOn = z;
+  for (const k in DECOR) DECOR[k].visible = false;
+  if (!z || z === 'san') return; // en la sangre ya están los glóbulos rojos
+  (DECOR[z] = DECOR[z] || buildDecor(z)).visible = true;
+}
 // Calidad gráfica: 2 alta, 1 media, 0 baja
 let QL = 2, FRAME = 0;
 function applyQuality(lv){ QL = lv; renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lv === 2 ? 2 : lv === 1 ? 1.25 : 1)); if (typeof ENV !== 'undefined') ENV.quality(lv); resize(); }
@@ -661,6 +681,7 @@ player.position.copy(P_POS); scene.add(player);
 function rebuildPlayer(){
   const pos = player.position.clone(); scene.remove(player);
   PL = buildMacrophage(S.cell, SKINS[S.skin].col, S.evos, S.upg); player = PL.g; player.position.copy(pos); scene.add(player);
+  player.scale.setScalar(1 + .025*Math.min(S.evos, 12)); // tu linaje crece con cada evolución
   pLight.color.setHex(SKINS[S.skin].col); delete thumbCache.me;
 }
 
@@ -673,6 +694,7 @@ const foeScale = n => n === 1 ? 1 : n === 2 ? .74 : PORTRAIT ? .56 : .62;
 function buildFoe(e, n){
   const o = BUILD[e.var && VARIANTS[e.var].vis.model || e.type](e);
   if (e.var) variantLook(o, VARIANTS[e.var]);
+  if (e.blind) variantLook(o, {col:0xa0aab4, vis:{tint:.85}}); // sin teñir: solo se ve la forma
   const s = (e.boss ? 1.45 : 1)*foeScale(n);
   if (e.boss){ // aura del jefe
     const aura = new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW, color:TY(e).col, transparent:true, opacity:.22, depthWrite:false, blending:THREE.AdditiveBlending}));
@@ -698,15 +720,48 @@ function aimAt(e){
   foeObj = e.obj; E_POS.copy(e.pos);
   eLight.color.setHex(TY(e).col); eLight.intensity = e.boss ? 1.8 : 1.1; eLight.position.copy(E_POS).add(V(0,2,2));
 }
-function killFoeObj(e){
+function killFoeObj(e, tool){
   const o = e.obj; if (!o || o.dying) return; o.dying = true;
-  tween(450, p => o.g.scale.setScalar(o.base*(1 - easeOut(p))), () => scene.remove(o.g));
+  const g = o.g, b = o.base, p0 = g.position.clone(), done = () => scene.remove(g);
+  const mats = []; g.traverse(n => { if (n.material) [].concat(n.material).forEach(m => { if (m.color) mats.push([m, m.color.clone()]); }); });
+  if (tool === 'fago'){ // fagocitosis: el organismo entra en tu célula y los lisosomas lo digieren
+    tween(650, p => { const q = easeOut(p); g.position.lerpVectors(p0, P_POS, q); g.scale.setScalar(b*(1 - .85*q)); },
+      () => { done(); burst(P_POS, 0xd8ff6b, 26, 1.4); floatText(tr('Digerido'), P_POS.clone().add(V(0,1.5,0)), 'great'); });
+  } else if (tool === 'osm'){ // ósmosis: se hincha y revienta
+    tween(520, p => g.scale.setScalar(b*(1 + .55*easeOut(p))), () => { done(); burst(p0, 0x6c95ff, 60, 5); impact(p0, 0x6c95ff); });
+  } else if (tool === 'lis' || tool === 'pen' || tool === 'cel' || tool === 'iso'){ // la pared se deshace en trozos
+    tween(560, p => { g.scale.set(b*(1 + .3*p), b*(1 - .7*p), b*(1 + .3*p)); g.rotation.z = p*.6; }, () => { done(); burst(p0, 0xffffff, 50, 3.5); burst(p0, TY(e).col, 40, 2.5); });
+  } else if (tool === 'tc' || tool === 'ifn' || tool === 'tax'){ // apoptosis: se encoge y se rompe en burbujas
+    tween(700, p => g.scale.setScalar(b*(1 - .75*easeOut(p))), () => { done(); for (let i = 0; i < 6; i++) setTimeout(() => burst(p0.clone().add(V(rnd(-.6,.6), rnd(-.6,.6), rnd(-.3,.3))), TY(e).col, 8, 1), i*60); });
+  } else if (tool === 'aut'){ // desnaturalización: pierde el color y se arruga
+    tween(700, p => { mats.forEach(([m, c]) => m.color.copy(c).lerp(new THREE.Color(0x8a7a6a), p)); g.scale.set(b*(1 - .3*p), b*(1 - .6*p), b*(1 - .2*p)); }, () => { done(); burst(p0, 0xc9b79c, 30, 2); });
+  } else tween(450, p => g.scale.setScalar(b*(1 - easeOut(p))), done);
 }
+// el organismo se deforma al recibir un golpe
+function squash(e){
+  const o = e && e.obj; if (!o || o.dying) return;
+  const g = o.g, b = o.base*(e.hp < e.max*.3 ? .9 : 1);
+  tween(260, p => { const k = Math.sin(p*Math.PI)*.16; g.scale.set(b*(1 + k), b*(1 - k), b*(1 + k)); }, () => { if (!o.dying) g.scale.setScalar(b); });
+}
+// anticuerpos en forma de Y pegados al organismo opsonizado
+function abCoat(o, on){
+  if (on && !o.ab){ const grp = new THREE.Group(), m = mem(0xffd36b, {emiK:.7, bump:false});
+    fibDirs(14).forEach(d => { const y = new THREE.Group();
+      const st = mesh(new THREE.CylinderGeometry(.018, .018, .16, 4), m); st.position.y = .08; y.add(st);
+      [-1, 1].forEach(s => { const a = mesh(new THREE.CylinderGeometry(.015, .015, .12, 4), m); a.position.set(s*.04, .2, 0); a.rotation.z = -s*.6; y.add(a); });
+      y.position.copy(d.clone().multiplyScalar(1.05)); y.quaternion.setFromUnitVectors(V(0,1,0), d); grp.add(y); });
+    o.ab = grp; o.g.add(grp); }
+  if (!on && o.ab){ o.g.remove(o.ab); o.ab = null; }
+}
+// sacudida de cámara: acercamiento breve en los golpes importantes
+let ZK = 1;
+function camPunch(k){ if (S.calm || reduceMotion) return; tween(420, p => { ZK = 1 - (1 - k)*Math.sin(p*Math.PI); applyCam(); }, () => { ZK = 1; applyCam(); }); }
 // anillo que señala al objetivo cuando hay varios enemigos
 const TMARK = new THREE.Mesh(new THREE.TorusGeometry(1.3, .035, 6, 64), new THREE.MeshBasicMaterial({color:0xffc65c, transparent:true, opacity:.7, depthWrite:false}));
 TMARK.visible = false; scene.add(TMARK);
 function stepFoes(t, mot){
-  for (const f of FOES) if (!f.e.dead) f.obj.up(t*mot, f.e);
+  for (const f of FOES) if (!f.e.dead){ f.obj.up(t*mot, f.e); abCoat(f.obj, f.e.marked > 0); }
+  if (!tweens.length){ const far = S.range === 'far'; player.position.lerp(P_POS.clone().add(V(far ? -.9 : 0, far ? -.15 : 0, far ? -.4 : 0)), .08); }
   const many = B && B.es && B.es.filter(x => !x.dead).length > 1;
   TMARK.visible = !!many && !!foeObj;
   if (TMARK.visible){ TMARK.position.lerp(E_POS, .25); TMARK.scale.setScalar(foeObj.base*(1 + .04*Math.sin(t*3))); TMARK.rotation.z = t*.6; TMARK.material.opacity = .45 + .25*Math.sin(t*3); }
@@ -868,9 +923,10 @@ function worldToScreen(v){
   const p = v.clone().project(camera);
   return [(p.x*.5 + .5)*canvas.clientWidth, (-p.y*.5 + .5)*canvas.clientHeight];
 }
-function floatText(txt, pos, cls){
+function floatText(txt, pos, cls, col){
   const [x, y] = worldToScreen(pos);
   const d = document.createElement('div'); d.className = 'ft ' + cls; d.textContent = txt;
+  if (col != null && /great|dmg/.test(cls)) d.style.color = hex(col);
   d.style.left = (x + rnd(-24,24)) + 'px'; d.style.top = (y + rnd(-10,10)) + 'px';
   floats.appendChild(d); setTimeout(() => d.remove(), 1700);
 }
@@ -878,7 +934,7 @@ function floatText(txt, pos, cls){
 // ---- Cámara y tamaño ----
 const LOOK = V(0, .2, 0);
 const CAMT = {dist:9, off:0, w:1, h:1}, CAMC = {dist:9, off:0, ok:false};
-function applyCam(){ camera.position.set(-.5, 1.7, CAMC.dist); camera.setViewOffset(CAMT.w, CAMT.h, 0, Math.round(CAMC.off), CAMT.w, CAMT.h); camera.updateProjectionMatrix(); }
+function applyCam(){ camera.position.set(-.5, 1.7, CAMC.dist*(typeof ZK === 'number' ? ZK : 1)); camera.setViewOffset(CAMT.w, CAMT.h, 0, Math.round(CAMC.off), CAMT.w, CAMT.h); camera.updateProjectionMatrix(); }
 function stepCam(dt){
   if (Math.abs(CAMT.dist - CAMC.dist) < .002 && Math.abs(CAMT.off - CAMC.off) < .5) return;
   const k = Math.min(1, dt*5); CAMC.dist += (CAMT.dist - CAMC.dist)*k; CAMC.off += (CAMT.off - CAMC.off)*k; applyCam();

@@ -132,6 +132,8 @@ function renderHud(){
   bA.querySelector('.lbl').textContent = S.auto && canAuto() ? `${tr('Auto')} ×${dec(speed().toFixed(1))}` : tr('Auto');
   $('#bAdv').setAttribute('aria-pressed', S.advance);
   $('#bSnd').setAttribute('aria-pressed', S.sound);
+  $('#bRange').setAttribute('aria-pressed', S.range === 'far'); $('#bRange').title = S.range === 'far' ? tr('Lejos') : tr('Cerca');
+  const hs = $('#hStreak'); hs.hidden = !(S.streak >= 2); hs.textContent = tr('Racha') + ' ×' + dec(streakK().toFixed(2));
   $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
   $('#pAtp').innerHTML = S.clase ? tr('Modo clase') : ico('atp') + fmt(S.atp);
@@ -155,16 +157,21 @@ function renderFoe(){
     tg.innerHTML = B.es.map((x, i) => `<button class="tgc ${x === e ? 'on' : ''} ${x.dead ? 'dead' : ''}" data-tg="${i}" ${x.dead ? 'disabled' : ''} style="--c:${hex(TY(x).col)}" aria-pressed="${x === e}" aria-label="${esc(foeName(x))}">
       <b>${esc(foeName(x))}</b><span class="tb"><i style="width:${x.hp/x.max*100}%"></i></span></button>`).join('');
   } else { tg.hidden = true; tg.innerHTML = ''; }
-  $('#fEye').textContent = `${e.var ? tr('Variante de {n}', {n:TYPES[e.type].n}) : tr('Prep. nº') + ' ' + prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
+  const blind = !!e.blind;
+  $('#fEye').textContent = blind ? tr('Diagnóstico a ciegas') + ' · ' + tr('nivel') + ' ' + e.L : `${e.var ? tr('Variante de {n}', {n:TYPES[e.type].n}) : tr('Prep. nº') + ' ' + prep(e.type)} · ${e.special >= 0 ? tr('Jefe especial') : e.boss ? tr('Jefe') : tr('nivel') + ' ' + e.L}${e.phase === 2 ? ' · ' + tr('fase 2') : ''}`;
   $('#fStain').textContent = LAB[e.type][0];
-  $('#fName').textContent = foeName(e);
-  $('#fSci').textContent = Ty.sci;
+  $('#fName').textContent = blind ? tr('Organismo desconocido') : foeName(e);
+  $('#fSci').textContent = blind ? tr('Sin teñir: solo ves su forma') : Ty.sci;
+  const fi = $('#fId'); fi.hidden = !blind; fi.textContent = tr('¿Qué es? Diagnostícalo (ATP ×2 si aciertas)');
+  $('#fBar').classList.toggle('crit', e.hp < e.max*.3);
   $('#fBar').style.width = (e.hp/e.max*100) + '%';
   $('#fHp').textContent = `${fmt(Math.ceil(e.hp))} / ${fmt(e.max)}`;
   $('#fSize').textContent = LAB[e.type][1];
   $('#fAtk').textContent = `${tr('ataque')} ${fmt(e.atk*e.grow)}`;
   const tags = B.why ? KEYTRAIT[B.why.tool] || [] : [];
-  let t = Ty.traits.map(([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''} ${tags.includes(tag) ? 'why' : ''}">${mut ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  let t = blind ? `<span class="trait">?</span><span class="trait">?</span>` : Ty.traits.map(([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''} ${tags.includes(tag) ? 'why' : ''}">${mut ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  if (e.syn && !blind) t += `<span class="trait syn">${esc(e.syn)}</span>`;
+  if (e.adapted) t += `<span class="trait st">${tr('Adaptado a {t}', {t:TOOL[e.adapted].n})}</span>`;
   if (e.stall > 0) t += `<span class="trait good">${tr('Sin instrucciones del ADN')}</span>`;
   if (e.res) t += `<span class="trait st ${B.why && B.why.tool === 'pen' ? 'why' : ''}">${tr('Resistente a β-lactámicos')}</span>`;
   if (e.hidden) t += `<span class="trait st ${B.why ? 'why' : ''}">${tr('Dentro de una célula')}</span>`;
@@ -192,7 +199,7 @@ function renderMe(){
   if (!B) return;
   const m = maxHp();
   $('#meName').textContent = cellD().n; $('#meSize').textContent = cellD().size;
-  $('#mBar').style.width = (B.php/m*100) + '%';
+  $('#mBar').style.width = (B.php/m*100) + '%'; $('#mBar').classList.toggle('crit', B.php < m*.3);
   $('#mHp').textContent = `${fmt(Math.ceil(B.php))} / ${fmt(m)}`;
   $('#mAtk').textContent = `${tr('ataque')} ${fmt(atk())}`;
 }
@@ -202,18 +209,21 @@ function renderTools(){
     const cd = B ? (B.cds[T.id] || 0) : 0;
     const left = Math.max(1, cd - (B && B.busy ? 1 : 0)); // turnos que faltan
     let bd = badge('unk', '');
-    if (e && S.known[knowKey(e)] && S.known[knowKey(e)][T.id]){
+    const was = B && B.cdPrev && B.cdPrev[T.id] > 0 && cd === 0;
+    if (e && !e.blind && S.known[knowKey(e)] && S.known[knowKey(e)][T.id]){
       const r = eff(T.id, e, {known:true});
       if (T.id === 'luz') bd = r.m > 0 ? (e.dark ? badge('bad', tr('hecho')) : badge('great', tr('útil'))) : badge('none', '×0');
       else { const [v] = verdict(r.m); bd = badge(v, `×${dec(Math.round(r.m*100)/100)}`); }
     }
     const ring = cd > 0 ? `<span class="cdr" style="--p:${Math.min(1, left/(T.cd + 1))}"></span><span class="cdn num">${left}</span>` : '';
-    return `<button class="tool" style="--c:${hex(T.col)}" data-tool="${T.id}" ${cd > 0 || !B || B.busy || B.over ? 'disabled' : ''} title="${esc(T.n + ': ' + T.d)}" aria-label="${esc(T.n)}${cd > 0 ? ', ' + tr('recargando {n} turnos', {n:left}) : ''}">
+    return `<button class="tool ${was ? 'ready' : ''}" style="--c:${hex(T.col)}" data-tool="${T.id}" ${cd > 0 || !B || B.busy || B.over ? 'disabled' : ''} title="${esc(T.n + ': ' + T.d)}" aria-label="${esc(T.n)}${cd > 0 ? ', ' + tr('recargando {n} turnos', {n:left}) : ''}">
       ${vesicle(T.id, T.col, ring)}<span class="tn">${T.n}</span>
       <span class="tm"><span class="rc">${T.aoe ? tr('área') + ' · ' : ''}${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
   }).join('');
+  if (B) B.cdPrev = Object.assign({}, B.cds);
   document.documentElement.style.setProperty('--toolsH', nav.offsetHeight + 'px');
 }
+$('#fId').addEventListener('click', () => identifyFoe());
 $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (b) useTool(b.dataset.tool); });
 $('#fTg').addEventListener('click', ev => { const b = ev.target.closest('[data-tg]'); if (b) selectTarget(+b.dataset.tg); });
 
@@ -329,7 +339,7 @@ function renderPanel(){
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
         <h4 style="color:${hex(Ty.col)}">${Ty.n}${stars(id) ? `<span class="astars">${'★'.repeat(stars(id))}</span>` : ''}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
-        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${practice}</div></div></div>`;
+        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${CYCLES[id] ? `<button class="buy" data-cyc="${id}">${ico('cycle')}${tr('Ciclo')}</button>` : ''}${practice}</div>${S.clase ? '' : `<div class="resr">${tr('Investigación')}: ${tr('nivel')} ${S.research[id] || 0}/3 · ${tr('muestras libres')}: ${sampAvail(id)} ${(S.research[id] || 0) < 3 ? `<button class="buy" data-res="${id}" ${sampAvail(id) < 5 ? 'disabled' : ''}>${tr('Investigar (5 muestras)')}</button>` : ''}</div>`}</div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
@@ -349,6 +359,7 @@ function renderPanel(){
       : `<div class="ach ok new">${ico('trophy')}<div><b>${a.n}</b><p class="cw">${esc(tr(ACH_WHY[a.id]))}</p><button class="buy" data-curio="${a.id}">${tr('Descubrir curiosidad')}</button></div></div>`).join('') + '</div>';
   } else if (tab === 'evo'){
     const g = evoGain();
+    h += mutHtml();
     if (S.evoHint) h += `<div class="org evohint">${vesicle('dna', 0xa67bff)}<h4>${tr('Buen momento para evolucionar')}</h4><p>${tr('Llevas un rato sin batir tu récord. Si evolucionas ahora ganarás {g} de ADN y volverás a subir mucho más deprisa.', {g})}</p></div>`;
     h += `<div class="nb">${tr('Linaje')}</div>${phylo()}`;
     h += treeHtml();
@@ -368,6 +379,7 @@ function renderPanel(){
     }
   } else if (tab === 'aju'){
     h += installHtml();
+    h += perfHtml();
     h += `<div class="nb">${tr('Idioma')}</div><div class="seg" role="radiogroup">` + Object.entries(LANGS).map(([k, n]) => `<button role="radio" aria-checked="${LANG === k}" data-lang="${k}">${n}</button>`).join('') + '</div>';
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));
@@ -399,6 +411,8 @@ $('#pBody').addEventListener('click', ev => {
   const b = ev.target.closest('button'); if (!b || b.disabled) return;
   if (tab === 'dia' && diagClick(b)) return;
   if (b.dataset.scope){ openScope(b.dataset.scope); return; }
+  if (b.dataset.cyc){ showCycle(b.dataset.cyc); return; }
+  if (b.dataset.res){ research(b.dataset.res); return; }
   if (b.dataset.curio){ S.achSeen[b.dataset.curio] = true; save(); renderPanel(); renderHud(); return; }
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
   if (b.id === 'treeReset'){ S.tree = {}; save(); renderPanel(); renderTools(); return; }
@@ -438,13 +452,13 @@ function evolve(){
   S.adn += g; S.evos++; S.lpts += 2;
   S.level = 1; S.kills = 0; S.runMax = 1; S.runMaxT = Date.now(); S.evoHint = false; S.atp = 0; S.advance = true; S.press = 0; S.stats.lvlStart = Date.now();
   for (const k in S.upg) S.upg[k] = 0;
-  checkAch(); rebuildPlayer(); save(); closeLab(); renderHud();
+  checkAch(); rebuildPlayer(); save(); closeLab(); renderHud(); mitosisFx();
   const unlocked = Object.entries(CELLS).filter(([, c]) => c.need === S.evos).map(([, c]) => c.n);
   showModal(`<div class="intro"><div class="fov big">${thumb('me') ? `<img src="${thumb('me')}" alt="">` : ''}</div><div>
     <div class="eyebrow" style="color:var(--gram)">${tr('Evolución {n}', {n:S.evos})}</div><h2>${tr('Tu linaje hereda {g} de ADN', {g})}</h2>
     <p>${tr('Ahora tienes {a} de ADN: ×{m} de ataque, vida y ATP. Vuelves al nivel 1 con las herramientas y todo lo que has aprendido.', {a:S.adn, m:dec(adnM().toFixed(1))})}</p>
     ${unlocked.length ? `<p><b>${tr('Nueva célula disponible: {n}.', {n:unlocked.join(', ')})}</b> ${tr('Elígela en la pestaña Evolución.')}</p>` : ''}</div></div>
-    ${phylo()}<button class="go" id="mGo">${tr('Seguir')}</button>`, () => newBattle());
+    ${phylo()}<button class="go" id="mGo">${tr('Seguir')}</button>`, () => showMutations(() => newBattle()));
 }
 
 $('#bAuto').onclick = () => { if (!canAuto()) return; S.auto = !S.auto; save(); renderHud(); renderLog(); scheduleAuto(); };
@@ -481,7 +495,7 @@ function showMap(){
   svg += '</svg>';
   const list = Object.entries(ZONES).map(([id, z]) => {
     const pool = (z.types || TYPE_ORDER).filter(t => TYPES[t].min <= S.level);
-    return `<button class="zone ${S.zone === id ? 'sel' : ''}" data-zone="${id}" aria-pressed="${S.zone === id}"><b>${z.n}</b><span>${z.d}</span><small>${pool.length ? pool.map(t => TYPES[t].n).join(' · ') : tr('Aún no hay organismos de esta zona a tu nivel: aparecerán los de la sangre.')}</small></button>`; }).join('');
+    return `<button class="zone ${S.zone === id ? 'sel' : ''}" data-zone="${id}" aria-pressed="${S.zone === id}"><b>${z.n}</b><span>${z.d}</span>${ZONE_RES[id] ? `<em class="zres">${tr(ZONE_RES[id].n)}: ${tr(ZONE_RES[id].d)}</em>` : ''}<small>${pool.length ? pool.map(t => TYPES[t].n).join(' · ') : tr('Aún no hay organismos de esta zona a tu nivel: aparecerán los de la sangre.')}</small></button>`; }).join('');
   showModal(`<div class="eyebrow">${tr('Mapa')}</div><h2>${tr('¿Dónde está la infección?')}</h2><p>${tr('Cada zona tiene sus organismos típicos. Tu nivel no cambia: solo eliges contra qué luchar.')}</p>
     <div class="mapw">${svg}<div class="zones">${list}</div></div><button class="go" id="mGo">${tr('Cerrar')}</button>`);
   $('#mBox').querySelectorAll('[data-zone]').forEach(el => {
@@ -601,6 +615,7 @@ let last = performance.now(), hudAcc = 0, saveAcc = 0, fpsN = 0, fpsT = 0, slow 
 const clock = new THREE.Clock();
 function loop(now){
   requestAnimationFrame(loop);
+  if (S.perf === 'eco' && now - last < 31) return; // ahorro de batería: unas 30 imágenes por segundo
   const dt = Math.min(.1, (now - last)/1000); last = now; FRAME++;
   const t = clock.getElapsedTime();
   S.atp += atps()*dt;

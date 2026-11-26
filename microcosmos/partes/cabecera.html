@@ -418,6 +418,22 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .tgc.on{border-color:var(--fitc);box-shadow:0 0 0 2px rgba(255,198,92,.3)} .tgc.on b{color:var(--fitc)}
 .tgc.dead{opacity:.35;text-decoration:line-through}
 .aoe{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--fitc);color:var(--fitc);vertical-align:middle;font-weight:600;letter-spacing:.04em}
+.zres{display:block;font-style:normal;font-size:12px;color:var(--fitc);margin-top:4px;line-height:1.4}
+.resr{margin-top:8px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.muts{display:grid;gap:8px;margin-top:12px}
+.mutc{display:flex;flex-direction:column;gap:4px;text-align:left;padding:12px 14px;border:1px solid var(--line2);border-left:3px solid var(--gram);border-radius:14px;background:rgba(10,24,33,.6);color:inherit;font:inherit;cursor:pointer}
+.mutc:hover{background:rgba(30,20,52,.7)} .mutc b{font-size:15px} .mutc span{font-size:13px;color:var(--muted);line-height:1.4} .mutc small{font-size:12.5px;color:var(--gram);font-weight:600}
+.cyc{width:100%;height:auto;margin:10px 0;display:block}
+.chip.streak{color:var(--fitc);border-color:rgba(255,198,92,.6);font-weight:700}
+.idb{display:block;width:100%;margin-top:8px;padding:7px 10px;border:1px dashed var(--fitc);border-radius:10px;color:var(--fitc);background:rgba(255,198,92,.08);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.trait.syn{border-color:rgba(255,111,174,.6);color:#ffb3d6}
+.bar.crit i,#mBar.crit{animation:critp 1s ease-in-out infinite}
+@keyframes critp{50%{filter:brightness(1.8) saturate(1.4)}}
+.tool.ready .ves{animation:readyp .7s ease-out 1}
+@keyframes readyp{0%{box-shadow:0 0 0 0 var(--c)}100%{box-shadow:0 0 0 14px transparent}}
+#app.cine::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+#app.cine #c{filter:drop-shadow(1.2px 0 0 rgba(255,60,90,.35)) drop-shadow(-1.2px 0 0 rgba(60,160,255,.35))}
+@media (prefers-reduced-motion:reduce){.bar.crit i,#mBar.crit,.tool.ready .ves{animation:none}}
 .relic-big{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
 .relic-big .ves{width:96px;height:96px} .relic-big .ves .ic{width:48px;height:48px}
 @media (max-width:560px){.relic-big{grid-template-columns:1fr}}
@@ -671,12 +687,15 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="brand"><span data-ic="cell"></span><span>Micro<b>cosmos</b></span></div>
     <div class="lvl"><span class="k" id="hLvlK">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
     <div class="hud-r">
+      <div class="chip streak" id="hStreak" hidden data-tt="Racha de golpes muy eficaces"></div>
       <div class="chip adn" id="hAdnBox" hidden data-tt="ADN heredado de tus evoluciones"><span data-ic="dna"></span><span class="v num" id="hAdn">0</span></div>
       <i class="hbr" aria-hidden="true"></i>
       <div class="quiet" role="group">
         <button class="qb" id="bAuto" aria-pressed="false"><span data-ic="memo"></span><span class="lbl">Auto</span></button>
         <button class="qb" id="bAdv" aria-pressed="true" data-tt="Avanzar: al acabar los 5 combates, enfréntate al jefe y pasa de nivel. Desactívalo para quedarte reuniendo ATP"><span data-ic="adv"></span></button>
         <button class="qb" id="bSnd" aria-pressed="true" data-tt="Sonido"><span data-ic="snd"></span></button>
+        <button class="qb" id="bRange" aria-pressed="false" data-tt="Distancia: cerca engulles mejor; lejos recibes menos daño"><span data-ic="range"></span></button>
+        <button class="qb" id="bScope" aria-pressed="false" data-tt="Modo de microscopio"><span data-ic="lens"></span></button>
         <button class="qb" id="bFocus" aria-pressed="false" data-tt="Ver la batalla: oculta los rasgos y los mensajes"><span data-ic="eye"></span></button>
       </div>
       <button class="sec" id="bStory" aria-pressed="false" data-tt="Eventos especiales"><span data-ic="spark"></span><span class="lbl" data-t="Eventos">Eventos</span></button>
@@ -694,6 +713,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="meta"><span class="scalebar num" id="fSize"></span><span class="num" id="fAtk"></span></div>
     <div class="traits" id="fTraits"></div>
     <button class="evt" id="fEvt" hidden aria-expanded="false"></button>
+    <button class="idb" id="fId" hidden></button>
   </section>
 
   <section id="me" class="cell">

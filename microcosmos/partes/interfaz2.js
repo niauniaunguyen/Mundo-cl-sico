@@ -90,23 +90,25 @@ function collHtml(){
 }
 
 // ---- Eventos especiales ----
-$('#bStory').onclick = () => showEvents();
+$('#bStory').onclick = () => { makeDaily(); showEvents(); };
 const exLocked = X => S.best < X.need && !S.evDone[X.id] && !(S.story && S.story.ev === X.id);
 function exReward(X){
   const r = X.reward, p = [];
   if (r.adn) p.push(tr('+{n} ADN', {n:r.adn})); if (r.lpts) p.push(tr('+{n} punto del árbol inmunitario', {n:r.lpts}));
   if (r.skin) p.push(tr('el color «{n}»', {n:SKINS[r.skin].n}));
+  if (r.samp) p.push(tr('+1 muestra'));
   return p.join(' · ');
 }
 function showEvents(){
   const cards = EXPED.map(X => {
-    const lock = exLocked(X), done = !!S.evDone[X.id], now = S.story && S.story.ev === X.id;
+    const lock = exLocked(X), done = X.daily ? S.expDay === today() : !!S.evDone[X.id], now = S.story && S.story.ev === X.id;
     return `<button class="exc ${done ? 'done' : ''} ${now ? 'now' : ''}" data-ex="${X.id}" ${lock ? 'disabled' : ''} style="--k:${hex(X.col)}">
       ${vesicle(X.ic, X.col)}<span class="et"><b>${tr(X.n)}</b><small>${lock ? tr('Se desbloquea al llegar al nivel {l}', {l:X.need}) : tr(X.d)}</small>
       <span class="rw">${now ? tr('En curso · capítulo {i} de {n}', {i:S.story.ch + 1, n:X.chapters.length}) : done ? '✓ ' + tr('Completado') : tr('Recompensa') + ': ' + exReward(X)}</span></span></button>`; }).join('');
   showModal(`<div class="eyebrow">${ico('spark')}${tr('Eventos especiales')}</div><h2>${tr('Eventos')}</h2>
     <p>${tr('Campañas cortas con combates preparados. La primera vez que completas un evento te llevas su recompensa. Tu partida normal se conserva.')}</p>
-    <div class="exl">${cards}</div><div class="row"><button class="ghost" id="mGo">${tr('Cerrar')}</button></div>`);
+    <div class="exl">${cards}<button class="exc" id="duelBtn" style="--k:#ff6fd8">${vesicle('duel', 0xff6fd8)}<span class="et"><b>${tr('Duelo en clase')}</b><small>${tr('Dos jugadores en el mismo dispositivo: uno elige un organismo y el otro tiene que encontrar la mejor herramienta. Luego se cambian.')}</small><span class="rw">${tr('2 jugadores · 6 rondas')}</span></span></button></div><div class="row"><button class="ghost" id="mGo">${tr('Cerrar')}</button></div>`);
+  $('#duelBtn').onclick = () => { $('#modal').hidden = true; showDuel(); };
   $('#mBox').querySelectorAll('[data-ex]').forEach(b => b.onclick = () => showEvent(b.dataset.ex));
 }
 function showEvent(id){
@@ -116,7 +118,7 @@ function showEvent(id){
     return `<li class="${st}"><span class="num">${i + 1}</span><div><b>${tr(c.n)}</b><small>${CELLS[c.cell].n} · ${c.pl ? tr(c.pl) : ZONES[c.zone].n}</small></div></li>`; }).join('');
   const other = S.story && !here ? `<p class="hint">${tr('Saldrás del evento «{n}», que tienes a medias.', {n:tr(curEx().n)})}</p>` : '';
   showModal(`<div class="eyebrow" style="color:${hex(X.col)}">${ico(X.ic)}${tr('Evento')}</div><h2>${tr(X.n)}</h2>
-    <p>${tr(X.d)}</p><p><b>${S.evDone[id] ? tr('Ya conseguiste la recompensa.') : tr('Recompensa') + ': ' + exReward(X)}</b></p>
+    <p>${tr(X.d)}</p><p><b>${(X.daily ? S.expDay === today() : S.evDone[id]) ? tr('Ya conseguiste la recompensa.') : tr('Recompensa') + ': ' + exReward(X)}</b></p>
     <ol class="chap">${rows}</ol>${other}
     <div class="row">${here ? `<button class="go" id="stGo">${tr('Continuar')}</button><button class="ghost" id="stLeave">${tr('Salir del evento')}</button>`
       : `<button class="go" id="stGo">${S.evDone[id] ? tr('Volver a jugarlo') : tr('Empezar')}</button><button class="ghost" id="stBack">${tr('Volver')}</button>`}</div>`);
