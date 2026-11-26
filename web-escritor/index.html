@@ -912,7 +912,10 @@ menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.c
 const BOOKS = {
   antinautas: {
     cv: 'cv-anti', series: 'Ciencia ficción · 20 de diciembre de 2026', title: 'Antinautas',
-    text: '[Sinopsis de Antinautas]',
+    text: [
+      'Leo está convencida de que es un fantasma. Tras una vida destrozada, no le sorprende. El problema es que el más allá no es lo que ella esperaba, y no es un fin, sino un comienzo.',
+      'Una casa encantada en el espacio, ni más ni menos.'
+    ],
     links: [['Avísame del lanzamiento', '#tripulacion']]
   },
   apugalypse: {
@@ -985,9 +988,10 @@ const WORLDS = {
   antinautas: {
     code: 'MUNDO 03 · ACCESO RESTRINGIDO', name: 'Destino desconocido', book: 'antinautas', bookTitle: 'Antinautas',
     classified: true,
-    text: 'Los datos de este mundo están clasificados hasta el día del lanzamiento.',
+    text: 'Una casa encantada en el espacio, ni más ni menos. El resto de los datos están clasificados hasta el día del lanzamiento.',
     data: [
       ['Género', 'Ciencia ficción'],
+      ['Habitantes', 'Leo, convencida de que es un fantasma'],
       ['Coordenadas', '<span class="redacted">XXXXXXXXXXXX</span>'],
       ['Desclasificación', '20 de diciembre de 2026']
     ]
