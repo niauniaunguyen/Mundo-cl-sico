@@ -420,6 +420,37 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .aoe{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--fitc);color:var(--fitc);vertical-align:middle;font-weight:600;letter-spacing:.04em}
 .zres{display:block;font-style:normal;font-size:12px;color:var(--fitc);margin-top:4px;line-height:1.4}
 .resr{margin-top:8px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip.body{color:var(--k);border-color:color-mix(in srgb,var(--k) 55%,transparent);font-size:12px;gap:5px} .chip.body .ic,.chip.biota .ic{width:15px;height:15px}
+@media (max-width:720px){.chip.body,.chip.biota{font-size:0;gap:0;padding:4px 7px;order:4;flex:0 0 auto!important;width:auto!important;max-width:none} .chip.body .ic,.chip.biota .ic{width:16px;height:16px}}
+.chip.biota{color:#8fff9a;border-color:rgba(143,255,154,.5);font-size:12px;gap:5px}
+#bMap.ob{border-color:var(--mcherry);box-shadow:0 0 0 2px rgba(255,79,123,.35);animation:critp 1.2s ease-in-out infinite}
+.zres.ob{color:var(--mcherry);font-weight:700}
+.abgb{border-color:#c9a35a;color:#e8c98a;background:rgba(201,163,90,.08);display:flex;align-items:center;gap:6px;justify-content:center} .abgb .ic{width:16px;height:16px}
+.cyto{display:flex;align-items:center;gap:4px;padding:4px 6px;border:1px solid var(--line2);border-radius:14px;flex:none;align-self:center;background:rgba(6,18,27,.7)}
+.cyto .cn{min-width:22px;text-align:center;color:var(--fitc);font-weight:700}
+.cyb{font:inherit;font-size:11.5px;font-weight:600;padding:5px 8px;border-radius:10px;border:1px solid var(--c);color:var(--c);background:transparent;white-space:nowrap;cursor:pointer}
+.cyb small{opacity:.7} .cyb:disabled{opacity:.35;cursor:default}
+.abg{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:14px;align-items:center;margin:10px 0}
+.petri{width:100%;height:auto} .petri .halo{transition:r 1.4s ease-out,opacity .4s}
+@media (max-width:560px){.abg{grid-template-columns:1fr} .petri{max-width:240px;margin:auto;display:block}}
+.scl{margin-top:10px;display:grid;gap:4px} .scb{display:flex;align-items:center;gap:8px;font-size:12px}
+.scb span{height:8px;border-radius:4px;background:var(--fitc)} .scb span.me{background:var(--dapi)} .scb em{font-style:normal;color:var(--muted);white-space:nowrap}
+.scl small{color:var(--muted);font-size:11.5px}
+.summ{margin-top:6px;display:grid;gap:3px;font-size:11.5px} .summ .sr{display:grid;grid-template-columns:96px 1fr 38px;gap:6px;align-items:center}
+.summ .sr i{display:block;height:6px;border-radius:3px} .summ .sr span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .summ em{font-style:normal;text-align:right}
+.plate{text-align:left;background:#f3ead6;color:#3b2f22;border:4px double #3b2f22;border-radius:6px;padding:18px 20px;font-family:Georgia,serif}
+.plate h2{color:#3b2f22;font-family:Georgia,serif;margin:4px 0} .plate .sci{color:#5a4a36} .pl-h{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#6a5a44}
+.pl-b{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:start;margin:10px 0} .pl-b img{width:100%;border-radius:50%;filter:sepia(.85) contrast(1.15);border:2px solid #3b2f22;background:#e6dcc4}
+.pl-b ol{text-align:left;margin:0;padding-left:18px;font-size:13px;line-height:1.45} .pl-d{font-size:13px;font-style:italic;line-height:1.5}
+@media (max-width:560px){.pl-b{grid-template-columns:1fr} .pl-b img{max-width:180px;margin:auto}}
+.chf{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0} .chf select{font:inherit;font-size:13px;padding:5px 8px;border-radius:10px;background:#0a1821;color:var(--fg);border:1px solid var(--line2)}
+#travel{position:fixed;inset:0;z-index:20;pointer-events:none;background:repeating-radial-gradient(circle at 50% 50%,rgba(180,20,50,.0) 0 40px,rgba(200,30,60,.55) 40px 60px,rgba(120,10,30,.0) 60px 110px)}
+#travel.go{animation:travel 1s ease-in forwards}
+@keyframes travel{0%{opacity:0;transform:scale(.3)}30%{opacity:1}100%{opacity:0;transform:scale(3)}}
+#app.cb{--gfp:#4aa8ff;--mcherry:#ffa31a}
+#app.cb .badge.great,#app.cb .ft.great{color:#4aa8ff} #app.cb .badge.none,#app.cb .ft.hurt{color:#ffa31a}
+#app.hc .cell,#app.hc .mbox,#app.hc #panel{background:#02060a!important;border-color:#9fe3ff!important;border-width:2px}
+#app.hc{font-size:110%} #app.hc .trait,#app.hc .qb,#app.hc .tool{border-color:#cfe9f5}
 .muts{display:grid;gap:8px;margin-top:12px}
 .mutc{display:flex;flex-direction:column;gap:4px;text-align:left;padding:12px 14px;border:1px solid var(--line2);border-left:3px solid var(--gram);border-radius:14px;background:rgba(10,24,33,.6);color:inherit;font:inherit;cursor:pointer}
 .mutc:hover{background:rgba(30,20,52,.7)} .mutc b{font-size:15px} .mutc span{font-size:13px;color:var(--muted);line-height:1.4} .mutc small{font-size:12.5px;color:var(--gram);font-weight:600}
@@ -687,6 +718,8 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="brand"><span data-ic="cell"></span><span>Micro<b>cosmos</b></span></div>
     <div class="lvl"><span class="k" id="hLvlK">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
     <div class="hud-r">
+      <div class="chip body" id="hBody"></div>
+      <div class="chip biota" id="hBiota" hidden></div>
       <div class="chip streak" id="hStreak" hidden data-tt="Racha de golpes muy eficaces"></div>
       <div class="chip adn" id="hAdnBox" hidden data-tt="ADN heredado de tus evoluciones"><span data-ic="dna"></span><span class="v num" id="hAdn">0</span></div>
       <i class="hbr" aria-hidden="true"></i>
@@ -704,6 +737,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     </div>
   </header>
 
+  <div id="travel" hidden></div>
   <section id="foe" class="cell" aria-live="polite">
     <div class="tg" id="fTg" hidden></div>
     <div class="slide"><span id="fEye">Preparación</span><span id="fStain"></span></div>
@@ -714,6 +748,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="traits" id="fTraits"></div>
     <button class="evt" id="fEvt" hidden aria-expanded="false"></button>
     <button class="idb" id="fId" hidden></button>
+    <button class="idb abgb" id="fAbg" hidden></button>
   </section>
 
   <section id="me" class="cell">

@@ -440,6 +440,37 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .aoe{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--fitc);color:var(--fitc);vertical-align:middle;font-weight:600;letter-spacing:.04em}
 .zres{display:block;font-style:normal;font-size:12px;color:var(--fitc);margin-top:4px;line-height:1.4}
 .resr{margin-top:8px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip.body{color:var(--k);border-color:color-mix(in srgb,var(--k) 55%,transparent);font-size:12px;gap:5px} .chip.body .ic,.chip.biota .ic{width:15px;height:15px}
+@media (max-width:720px){.chip.body,.chip.biota{font-size:0;gap:0;padding:4px 7px;order:4;flex:0 0 auto!important;width:auto!important;max-width:none} .chip.body .ic,.chip.biota .ic{width:16px;height:16px}}
+.chip.biota{color:#8fff9a;border-color:rgba(143,255,154,.5);font-size:12px;gap:5px}
+#bMap.ob{border-color:var(--mcherry);box-shadow:0 0 0 2px rgba(255,79,123,.35);animation:critp 1.2s ease-in-out infinite}
+.zres.ob{color:var(--mcherry);font-weight:700}
+.abgb{border-color:#c9a35a;color:#e8c98a;background:rgba(201,163,90,.08);display:flex;align-items:center;gap:6px;justify-content:center} .abgb .ic{width:16px;height:16px}
+.cyto{display:flex;align-items:center;gap:4px;padding:4px 6px;border:1px solid var(--line2);border-radius:14px;flex:none;align-self:center;background:rgba(6,18,27,.7)}
+.cyto .cn{min-width:22px;text-align:center;color:var(--fitc);font-weight:700}
+.cyb{font:inherit;font-size:11.5px;font-weight:600;padding:5px 8px;border-radius:10px;border:1px solid var(--c);color:var(--c);background:transparent;white-space:nowrap;cursor:pointer}
+.cyb small{opacity:.7} .cyb:disabled{opacity:.35;cursor:default}
+.abg{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:14px;align-items:center;margin:10px 0}
+.petri{width:100%;height:auto} .petri .halo{transition:r 1.4s ease-out,opacity .4s}
+@media (max-width:560px){.abg{grid-template-columns:1fr} .petri{max-width:240px;margin:auto;display:block}}
+.scl{margin-top:10px;display:grid;gap:4px} .scb{display:flex;align-items:center;gap:8px;font-size:12px}
+.scb span{height:8px;border-radius:4px;background:var(--fitc)} .scb span.me{background:var(--dapi)} .scb em{font-style:normal;color:var(--muted);white-space:nowrap}
+.scl small{color:var(--muted);font-size:11.5px}
+.summ{margin-top:6px;display:grid;gap:3px;font-size:11.5px} .summ .sr{display:grid;grid-template-columns:96px 1fr 38px;gap:6px;align-items:center}
+.summ .sr i{display:block;height:6px;border-radius:3px} .summ .sr span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .summ em{font-style:normal;text-align:right}
+.plate{text-align:left;background:#f3ead6;color:#3b2f22;border:4px double #3b2f22;border-radius:6px;padding:18px 20px;font-family:Georgia,serif}
+.plate h2{color:#3b2f22;font-family:Georgia,serif;margin:4px 0} .plate .sci{color:#5a4a36} .pl-h{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#6a5a44}
+.pl-b{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:start;margin:10px 0} .pl-b img{width:100%;border-radius:50%;filter:sepia(.85) contrast(1.15);border:2px solid #3b2f22;background:#e6dcc4}
+.pl-b ol{text-align:left;margin:0;padding-left:18px;font-size:13px;line-height:1.45} .pl-d{font-size:13px;font-style:italic;line-height:1.5}
+@media (max-width:560px){.pl-b{grid-template-columns:1fr} .pl-b img{max-width:180px;margin:auto}}
+.chf{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0} .chf select{font:inherit;font-size:13px;padding:5px 8px;border-radius:10px;background:#0a1821;color:var(--fg);border:1px solid var(--line2)}
+#travel{position:fixed;inset:0;z-index:20;pointer-events:none;background:repeating-radial-gradient(circle at 50% 50%,rgba(180,20,50,.0) 0 40px,rgba(200,30,60,.55) 40px 60px,rgba(120,10,30,.0) 60px 110px)}
+#travel.go{animation:travel 1s ease-in forwards}
+@keyframes travel{0%{opacity:0;transform:scale(.3)}30%{opacity:1}100%{opacity:0;transform:scale(3)}}
+#app.cb{--gfp:#4aa8ff;--mcherry:#ffa31a}
+#app.cb .badge.great,#app.cb .ft.great{color:#4aa8ff} #app.cb .badge.none,#app.cb .ft.hurt{color:#ffa31a}
+#app.hc .cell,#app.hc .mbox,#app.hc #panel{background:#02060a!important;border-color:#9fe3ff!important;border-width:2px}
+#app.hc{font-size:110%} #app.hc .trait,#app.hc .qb,#app.hc .tool{border-color:#cfe9f5}
 .muts{display:grid;gap:8px;margin-top:12px}
 .mutc{display:flex;flex-direction:column;gap:4px;text-align:left;padding:12px 14px;border:1px solid var(--line2);border-left:3px solid var(--gram);border-radius:14px;background:rgba(10,24,33,.6);color:inherit;font:inherit;cursor:pointer}
 .mutc:hover{background:rgba(30,20,52,.7)} .mutc b{font-size:15px} .mutc span{font-size:13px;color:var(--muted);line-height:1.4} .mutc small{font-size:12.5px;color:var(--gram);font-weight:600}
@@ -707,6 +738,8 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="brand"><span data-ic="cell"></span><span>Micro<b>cosmos</b></span></div>
     <div class="lvl"><span class="k" id="hLvlK">Nivel</span><span class="v num" id="hLvl">1</span><div class="pips" id="hPips"></div></div>
     <div class="hud-r">
+      <div class="chip body" id="hBody"></div>
+      <div class="chip biota" id="hBiota" hidden></div>
       <div class="chip streak" id="hStreak" hidden data-tt="Racha de golpes muy eficaces"></div>
       <div class="chip adn" id="hAdnBox" hidden data-tt="ADN heredado de tus evoluciones"><span data-ic="dna"></span><span class="v num" id="hAdn">0</span></div>
       <i class="hbr" aria-hidden="true"></i>
@@ -724,6 +757,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     </div>
   </header>
 
+  <div id="travel" hidden></div>
   <section id="foe" class="cell" aria-live="polite">
     <div class="tg" id="fTg" hidden></div>
     <div class="slide"><span id="fEye">Preparación</span><span id="fStain"></span></div>
@@ -734,6 +768,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
     <div class="traits" id="fTraits"></div>
     <button class="evt" id="fEvt" hidden aria-expanded="false"></button>
     <button class="idb" id="fId" hidden></button>
+    <button class="idb abgb" id="fAbg" hidden></button>
   </section>
 
   <section id="me" class="cell">
@@ -1612,6 +1647,54 @@ const SCOPES = [
   {id:'mebs', n:T_('Microscopio electrónico'), f:'grayscale(1) contrast(1.9) brightness(.95) sepia(.12)'},
 ];
 /* =====================================================================
+   VERSIÓN 13: datos de las nuevas mejoras
+   ===================================================================== */
+
+// Tres células nuevas del sistema inmune (se desbloquean con más evoluciones)
+// tb = multiplicador de daño con herramientas concretas
+Object.assign(CELLS, {
+  den:{n:'Célula dendrítica', size:'≈ 15 µm', need:4, hp:.9, atk:1, bonus:{vir:1.2, vih:1.2}, nuc:'round', gran:0xffc65c, dend:true, tb:{tc:1.5, ifn:1.3},
+    d:'Con sus largas prolongaciones captura antígenos y los presenta a los linfocitos T en los ganglios. Tu linfocito T citotóxico hace ×1,5 y los interferones ×1,3.'},
+  mas:{n:'Mastocito', size:'≈ 12 µm', need:5, hp:1.05, atk:1, bonus:{ten:1.6, par:1.3, ame:1.3}, nuc:'round', gran:0xb36bff, tb:{}, inflam:true,
+    d:'Lleno de gránulos de histamina. Provoca inflamación y alergias, y es clave contra los parásitos grandes. Empieza cada combate con inflamación y hace ×1,6 contra la tenia.'},
+  lyb:{n:'Linfocito B', size:'≈ 8 µm', need:6, hp:.85, atk:1.05, bonus:{}, nuc:'round', gran:0x7fe0ff, tb:{ac:1.6},
+    d:'Fabrica anticuerpos y, al activarse, se convierte en célula plasmática. Tus anticuerpos hacen ×1,6 y la opsonización dura un turno más.'},
+});
+
+// Especiación: cada 6 evoluciones tu linaje se convierte en una especie nueva con un rasgo permanente
+const SPECIES = [
+  {id:'gen', n:T_('Genoma compacto'), d:T_('Menos ADN de relleno: copias tu genoma más deprisa y fabricas más proteínas de ataque.'), e:T_('+10 % de ataque para siempre'), k:{atk:1.1}},
+  {id:'mem', n:T_('Membrana de doble capa'), d:T_('Tu membrana gana una segunda capa de lípidos más resistente.'), e:T_('+10 % de vida para siempre'), k:{hp:1.1}},
+  {id:'met', n:T_('Metabolismo eficiente'), d:T_('Tus enzimas aprovechan mejor cada molécula de glucosa.'), e:T_('+15 % de ATP para siempre'), k:{rw:1.15, atps:1.15}},
+  {id:'rec', n:T_('Receptores versátiles'), d:T_('Tus receptores reconocen más patrones: aprendes antes las debilidades.'), e:T_('+20 % de daño contra organismos de tu biobanco con ★3 o más'), k:{star3:1.2}},
+];
+const SPEC = Object.fromEntries(SPECIES.map(x => [x.id, x]));
+
+// Estados del cuerpo: cambian cada 5 minutos de juego
+const BODY = [
+  {id:'rest', n:T_('Descanso'), ic:'cell', col:0x7fe0ff, d:T_('Has dormido bien: el sueño refuerza la producción de linfocitos. +10 % de vida.'), k:{hp:1.1}},
+  {id:'stress', n:T_('Estrés'), ic:'signal', col:0xff6f6f, d:T_('Hay estrés: el cortisol frena el sistema inmune. −15 % de ataque.'), k:{atk:.85}},
+  {id:'sport', n:T_('Ejercicio'), ic:'adv', col:0x4dffa0, d:T_('El ejercicio moderado mejora la circulación de los leucocitos. +10 % de ataque y +15 % de ATP por victoria.'), k:{atk:1.1, rw:1.15}},
+  {id:'food', n:T_('Buena alimentación'), ic:'atp', col:0xffc65c, d:T_('Una dieta variada aporta vitaminas y energía. +20 % de ATP por segundo.'), k:{atps:1.2}},
+  {id:'fever', n:T_('Fiebre leve'), ic:'mito', col:0xff9f40, d:T_('Una fiebre leve acelera las enzimas: +15 % de daño, pero te cansa (−10 % de vida).'), k:{atk:1.15, hp:.9}},
+];
+
+// Tamaño real aproximado (µm) para la comparación de escala
+const SIZE_UM = {gp:1, gn:2, vir:.1, lev:5, ame:500, veg:60, par:200, myc:.3, can:20, bac:4, pri:.02, tbc:3, mal:2, vih:.12, ten:3e6};
+const CELL_UM = {mac:21, neu:12, nk:10, eos:14, den:15, mas:12, lyb:8};
+
+// Bacterias que compiten con la microbiota y pueden pasarse plásmidos
+const BIOTA_FOES = ['gp','gn','lev','myc','bac'];
+const PLASMID_FOES = ['gp','gn','bac','myc'];
+const BIOTA_ZONES = ['int','pie'];
+
+// Habilidades de citocinas (se cargan un punto por turno, hasta 10)
+const CYTO = [
+  {id:'fev', n:T_('Fiebre'), c:4, col:0xff9f40, d:T_('Subes la temperatura: +30 % de daño durante 3 turnos.')},
+  {id:'neu', n:T_('Neutrófilos'), c:5, col:0xe8e0ff, d:T_('Llamas a cientos de neutrófilos: un ataque fuerte contra tu objetivo.')},
+  {id:'inf', n:T_('Inflamación'), c:3, col:0xff6fae, d:T_('Llegan sangre y refuerzos: recuperas un 20 % de vida.')},
+];
+/* =====================================================================
    IDIOMAS: español (original), català, English
    ===================================================================== */
 const LANGS = {es:'Español', ca:'Català', en:'English'};
@@ -2333,6 +2416,71 @@ const I18N_RAW8 = {
   "El ahorro de batería dibuja a 30 imágenes por segundo y con menos partículas. El modo cine usa la máxima calidad y un efecto de lente de microscopio.":["L'estalvi de bateria dibuixa a 30 imatges per segon i amb menys partícules. El mode cinema fa servir la màxima qualitat i un efecte de lent de microscopi.","Battery saver draws at 30 frames per second with fewer particles. Cinema mode uses top quality and a microscope lens effect."],
 };
 for (const k in I18N_RAW8){ I18N.ca[k] = I18N_RAW8[k][0]; I18N.en[k] = I18N_RAW8[k][1]; }
+// Textos de la versión 13: «español»: [català, English]
+const I18N_RAW9 = {
+  // especiación
+  "Especiación":["Especiació","Speciation"], "Tu linaje se convierte en una especie nueva":["El teu llinatge es converteix en una espècie nova","Your lineage becomes a new species"],
+  "Tras muchas generaciones acumulando cambios, tu linaje ya no puede cruzarse con sus antepasados: es una especie nueva. Elige el rasgo que la define. Este rasgo es permanente.":["Després de moltes generacions acumulant canvis, el teu llinatge ja no es pot creuar amb els avantpassats: és una espècie nova. Tria el tret que la defineix. Aquest tret és permanent.","After many generations of accumulated change, your lineage can no longer interbreed with its ancestors: it's a new species. Choose its defining trait. This trait is permanent."],
+  "Nueva especie: {n}":["Nova espècie: {n}","New species: {n}"],
+  "Genoma compacto":["Genoma compacte","Compact genome"], "Menos ADN de relleno: copias tu genoma más deprisa y fabricas más proteínas de ataque.":["Menys ADN de farciment: copies el genoma més de pressa i fabriques més proteïnes d'atac.","Less filler DNA: you copy your genome faster and make more attack proteins."], "+10 % de ataque para siempre":["+10 % d'atac per sempre","+10 % attack forever"],
+  "Membrana de doble capa":["Membrana de doble capa","Double-layer membrane"], "Tu membrana gana una segunda capa de lípidos más resistente.":["La membrana guanya una segona capa de lípids més resistent.","Your membrane gains a second, tougher lipid layer."], "+10 % de vida para siempre":["+10 % de vida per sempre","+10 % health forever"],
+  "Metabolismo eficiente":["Metabolisme eficient","Efficient metabolism"], "Tus enzimas aprovechan mejor cada molécula de glucosa.":["Els enzims aprofiten millor cada molècula de glucosa.","Your enzymes get more out of every glucose molecule."], "+15 % de ATP para siempre":["+15 % d'ATP per sempre","+15 % ATP forever"],
+  "Receptores versátiles":["Receptors versàtils","Versatile receptors"], "Tus receptores reconocen más patrones: aprendes antes las debilidades.":["Els receptors reconeixen més patrons: aprens abans les debilitats.","Your receptors recognise more patterns: you learn weaknesses sooner."], "+20 % de daño contra organismos de tu biobanco con ★3 o más":["+20 % de dany contra organismes del biobanc amb ★3 o més","+20 % damage against biobank organisms at ★3 or more"],
+  // estados del cuerpo
+  "Tu cuerpo: {n}. {d}":["El teu cos: {n}. {d}","Your body: {n}. {d}"],
+  "Descanso":["Descans","Rest"], "Has dormido bien: el sueño refuerza la producción de linfocitos. +10 % de vida.":["Has dormit bé: el son reforça la producció de limfòcits. +10 % de vida.","You slept well: sleep boosts lymphocyte production. +10 % health."],
+  "Estrés":["Estrès","Stress"], "Hay estrés: el cortisol frena el sistema inmune. −15 % de ataque.":["Hi ha estrès: el cortisol frena el sistema immunitari. −15 % d'atac.","Stress: cortisol dampens the immune system. −15 % attack."],
+  "Ejercicio":["Exercici","Exercise"], "El ejercicio moderado mejora la circulación de los leucocitos. +10 % de ataque y +15 % de ATP por victoria.":["L'exercici moderat millora la circulació dels leucòcits. +10 % d'atac i +15 % d'ATP per victòria.","Moderate exercise improves white-cell circulation. +10 % attack and +15 % ATP per victory."],
+  "Buena alimentación":["Bona alimentació","Good nutrition"], "Una dieta variada aporta vitaminas y energía. +20 % de ATP por segundo.":["Una dieta variada aporta vitamines i energia. +20 % d'ATP per segon.","A varied diet provides vitamins and energy. +20 % ATP per second."],
+  "Fiebre leve":["Febre lleu","Mild fever"], "Una fiebre leve acelera las enzimas: +15 % de daño, pero te cansa (−10 % de vida).":["Una febre lleu accelera els enzims: +15 % de dany, però et cansa (−10 % de vida).","A mild fever speeds up enzymes: +15 % damage, but tires you (−10 % health)."],
+  // microbiota
+  "Microbiota":["Microbiota","Microbiota"], "microbiota":["microbiota","microbiota"],
+  "Tu microbiota compite con bacterias y levaduras. Los antibióticos la reducen; vencer sin ellos la recupera.":["La teva microbiota competeix amb bacteris i llevats. Els antibiòtics la redueixen; vèncer sense ells la recupera.","Your microbiota competes with bacteria and yeasts. Antibiotics shrink it; winning without them restores it."],
+  "Tu microbiota compite con él por el alimento y el espacio: le resta un {p} %.":["La teva microbiota hi competeix per l'aliment i l'espai: li resta un {p} %.","Your microbiota competes with it for food and space: −{p} %."],
+  "El antibiótico también mata a tu microbiota: baja al {p} %.":["L'antibiòtic també mata la teva microbiota: baixa al {p} %.","The antibiotic also kills your microbiota: down to {p} %."],
+  // plásmidos y antibiograma
+  "Plásmido de resistencia":["Plasmidi de resistència","Resistance plasmid"],
+  "Transferencia horizontal: le pasa a {n} un plásmido con el gen de resistencia a la penicilina.":["Transferència horitzontal: passa a {n} un plasmidi amb el gen de resistència a la penicil·lina.","Horizontal transfer: it passes {n} a plasmid carrying the penicillin-resistance gene."],
+  "Antibiograma":["Antibiograma","Antibiogram"], "Hacer un antibiograma":["Fer un antibiograma","Run an antibiogram"], "Antibiograma: {t} ×1,3":["Antibiograma: {t} ×1,3","Antibiogram: {t} ×1.3"],
+  "Necesitas al menos dos herramientas para el antibiograma.":["Necessites almenys dues eines per a l'antibiograma.","You need at least two tools for the antibiogram."],
+  "¿Qué disco frena más a {n}?":["Quin disc frena més {n}?","Which disc stops {n} best?"],
+  "Has sembrado la bacteria en una placa con agar y has puesto discos con cada herramienta. Tras incubar, alrededor de cada disco aparece un halo donde no crece: cuanto más grande, más eficaz. Elige el mejor y tendrás +30 % de daño con él en este combate.":["Has sembrat el bacteri en una placa amb agar i hi has posat discos amb cada eina. Després d'incubar, al voltant de cada disc apareix un halo on no creix: com més gran, més eficaç. Tria el millor i tindràs +30 % de dany amb ell en aquest combat.","You've spread the bacterium on an agar plate and placed a disc for each tool. After incubation, a ring where nothing grows appears around each disc: the bigger, the more effective. Pick the best and get +30 % damage with it this battle."],
+  "Incubar 24 horas":["Incubar 24 hores","Incubate 24 hours"],
+  "¡Bien leído! {t} tiene el halo más grande: +30 % de daño con ella en este combate.":["Ben llegit! {t} té l'halo més gran: +30 % de dany amb ella en aquest combat.","Well read! {t} has the biggest ring: +30 % damage with it this battle."],
+  "El halo más grande era el de {t}.":["L'halo més gran era el de {t}.","The biggest ring was {t}'s."],
+  // citocinas
+  "Citocinas":["Citocines","Cytokines"], "Citocinas: se acumula una por turno":["Citocines: se n'acumula una per torn","Cytokines: one builds up each turn"],
+  "Fiebre":["Febre","Fever"], "Subes la temperatura: +30 % de daño durante 3 turnos.":["Puges la temperatura: +30 % de dany durant 3 torns.","You raise your temperature: +30 % damage for 3 turns."],
+  "Neutrófilos":["Neutròfils","Neutrophils"], "Llamas a cientos de neutrófilos: un ataque fuerte contra tu objetivo.":["Crides centenars de neutròfils: un atac fort contra el teu objectiu.","You call in hundreds of neutrophils: a strong attack on your target."],
+  "Inflamación":["Inflamació","Inflammation"], "Llegan sangre y refuerzos: recuperas un 20 % de vida.":["Arriben sang i reforços: recuperes un 20 % de vida.","Blood and reinforcements arrive: you recover 20 % health."], "tormenta":["tempesta","storm"],
+  "Tormenta de citocinas: has abusado de las señales de alarma y la inflamación te daña a ti (−15 % de vida).":["Tempesta de citocines: has abusat dels senyals d'alarma i la inflamació et fa mal a tu (−15 % de vida).","Cytokine storm: you've overused the alarm signals and inflammation harms you (−15 % health)."],
+  // brotes
+  "¡Brote en {z}! Ve allí desde el mapa y vence 5 organismos antes de 10 minutos para contenerlo.":["Brot a {z}! Ves-hi des del mapa i venç 5 organismes abans de 10 minuts per contenir-lo.","Outbreak in {z}! Go there from the map and defeat 5 organisms within 10 minutes to contain it."],
+  "El brote se ha extinguido solo, pero no has llegado a tiempo.":["El brot s'ha extingit sol, però no hi has arribat a temps.","The outbreak burned out on its own, but you didn't make it in time."],
+  "El brote se ha extendido a {z}. Ahora hay que vencer 7 organismos.":["El brot s'ha estès a {z}. Ara cal vèncer 7 organismes.","The outbreak has spread to {z}. Now you must defeat 7 organisms."],
+  "Brote: {k}/{n}":["Brot: {k}/{n}","Outbreak: {k}/{n}"], "¡Brote! {k}/{n} organismos vencidos":["Brot! {k}/{n} organismes vençuts","Outbreak! {k}/{n} organisms defeated"],
+  "¡Brote contenido! +1 ADN y 2 muestras. Así trabajan los epidemiólogos: cortar la transmisión a tiempo.":["Brot contingut! +1 ADN i 2 mostres. Així treballen els epidemiòlegs: tallar la transmissió a temps.","Outbreak contained! +1 DNA and 2 samples. That's what epidemiologists do: cut transmission in time."],
+  // vacunas
+  "Vacuna (3 muestras)":["Vacuna (3 mostres)","Vaccine (3 samples)"], "vacunado: {n} combates":["vacunat: {n} combats","vaccinated: {n} battles"],
+  "Vacuna contra {n}: los próximos 10 combates contra él empezarán con el evento «Vacuna».":["Vacuna contra {n}: els propers 10 combats contra ell començaran amb l'esdeveniment «Vacuna».","{n} vaccine: your next 10 battles against it start with the “Vaccine” event."],
+  // retos del profesor
+  "Retos del profesor":["Reptes del professor","Teacher challenges"], "cualquier organismo":["qualsevol organisme","any organism"], "sin prohibir nada":["sense prohibir res","nothing banned"], "sin":["sense","without"],
+  "Reto: vence {n} veces a {t}":["Repte: venç {n} vegades {t}","Challenge: defeat {t} {n} times"], "sin usar {b}":["sense fer servir {b}","without using {b}"], "Quitar reto":["Treure el repte","Remove challenge"],
+  "Crear un reto para la clase":["Crear un repte per a la classe","Create a class challenge"],
+  "Elige el organismo, cuántas veces hay que vencerlo y una herramienta prohibida. Comparte el código con tus alumnos.":["Tria l'organisme, quantes vegades cal vèncer-lo i una eina prohibida. Comparteix el codi amb els alumnes.","Choose the organism, how many times to beat it and a banned tool. Share the code with your students."],
+  "Crear código":["Crear codi","Create code"], "Cargar un reto":["Carregar un repte","Load a challenge"], "Pega aquí el código del reto":["Enganxa aquí el codi del repte","Paste the challenge code here"],
+  "Reto cargado":["Repte carregat","Challenge loaded"], "¡Reto del profesor completado! +1 ADN.":["Repte del professor completat! +1 ADN.","Teacher challenge complete! +1 DNA."], "Reto: {k}/{n}":["Repte: {k}/{n}","Challenge: {k}/{n}"],
+  // láminas, escala, resumen, accesibilidad
+  "Lámina":["Làmina","Plate"], "Descargar lámina":["Descarregar la làmina","Download plate"],
+  "Es unas {k} veces más pequeño que tu célula.":["És unes {k} vegades més petit que la teva cèl·lula.","It's about {k} times smaller than your cell."],
+  "Es unas {k} veces más grande que tu célula.":["És unes {k} vegades més gran que la teva cèl·lula.","It's about {k} times bigger than your cell."],
+  "Tiene más o menos tu tamaño.":["Té més o menys la teva mida.","It's about your size."], "Tú":["Tu","You"], "(Escala logarítmica.)":["(Escala logarítmica.)","(Log scale.)"],
+  "Resumen":["Resum","Summary"], "Herramienta estrella: {t}. Turnos: {n}.":["Eina estrella: {t}. Torns: {n}.","Star tool: {t}. Turns: {n}."],
+  "Accesibilidad visual":["Accessibilitat visual","Visual accessibility"], "Paleta para daltonismo":["Paleta per a daltonisme","Colour-blind palette"],
+  "Sustituye el verde y el rojo de las eficacias y las barras por azul y naranja, que se distinguen con cualquier tipo de daltonismo.":["Substitueix el verd i el vermell de les eficàcies i les barres per blau i taronja, que es distingeixen amb qualsevol tipus de daltonisme.","Replaces green and red in effectiveness badges and bars with blue and orange, which stay distinct with any colour blindness."],
+  "Alto contraste":["Alt contrast","High contrast"], "Paneles opacos, bordes más marcados y texto más grande.":["Panells opacs, vores més marcades i text més gran.","Opaque panels, stronger borders and larger text."],
+};
+for (const k in I18N_RAW9){ I18N.ca[k] = I18N_RAW9[k][0]; I18N.en[k] = I18N_RAW9[k][1]; }
 // Traducción de los datos de biología. T: [nombre, jefe, descripción, rasgos, esquiva, nombre científico]
 const DT = {
 ca:{
@@ -2642,6 +2790,16 @@ Object.assign(DT.en.E, {
   fgt:{def:'Bacteriophages only infect bacteria: each phage recognises receptors on a particular bacterium.', gp:'The phage binds its wall, injects its DNA and the bacterium makes hundreds of new phages until it bursts.',
     gn:'E. coli phages such as T4 are the best studied: they burst it in about 30 minutes.', bac:'There are many Bacillus phages, though they don’t affect the endospore.', myc:'Few mycoplasma phages are known.',
     tbc:'Mycobacteriophages have been used to save patients with infections resistant to every antibiotic.'}});
+
+// Células nuevas (v13)
+Object.assign(DT.ca.CE, {
+  den:['Cèl·lula dendrítica',"Amb les seves llargues prolongacions captura antígens i els presenta als limfòcits T als ganglis. El teu limfòcit T citotòxic fa ×1,5 i els interferons ×1,3.",'≈ 15 µm'],
+  mas:['Mastòcit',"Ple de grànuls d'histamina. Provoca inflamació i al·lèrgies, i és clau contra els paràsits grans. Comença cada combat amb inflamació i fa ×1,6 contra la tènia.",'≈ 12 µm'],
+  lyb:['Limfòcit B',"Fabrica anticossos i, quan s'activa, es converteix en cèl·lula plasmàtica. Els teus anticossos fan ×1,6 i l'opsonització dura un torn més.",'≈ 8 µm']});
+Object.assign(DT.en.CE, {
+  den:['Dendritic cell','Its long extensions capture antigens and present them to T cells in the lymph nodes. Your cytotoxic T cell does ×1.5 and interferons ×1.3.','≈ 15 µm'],
+  mas:['Mast cell','Packed with histamine granules. It causes inflammation and allergies and is key against large parasites. Starts every battle with inflammation and does ×1.6 against tapeworm.','≈ 12 µm'],
+  lyb:['B cell','It makes antibodies and, once activated, becomes a plasma cell. Your antibodies do ×1.6 and opsonisation lasts one turn longer.','≈ 8 µm']});
 /* =====================================================================
    ESTADO Y FÓRMULAS
    ===================================================================== */
@@ -2653,7 +2811,7 @@ const fresh = () => ({v:1, level:1, kills:0, runMax:1, best:1, atp:0, adn:0, evo
   lang:null, cell:'mac', skin:'cfp', zone:'san', clase:false, big:false, calm:false, q:'auto',
   press:0, combos:{}, comboCount:0, quiz:{ok:0, n:0}, first:{ok:0, n:0}, ach:{}, daily:{date:'', list:[]}, dailyDone:0,
   sarmSeen:false, specialWins:0, stats:{lvl:{}, deaths:{}, buys:{}, lvlStart:Date.now()}, practice:null,
-  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, samp:{}, relics:{}, relSp:{}, nudged:0, mut:null, streak:0, research:{}, spent:{}, scope:'', perf:'normal', range:'near', expDay:'', expBest:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
+  tree:{}, lpts:0, achSeen:{}, miles:{}, focus:false, story:null, storyDone:false, evDone:{}, varSeen:{}, samp:{}, relics:{}, relSp:{}, nudged:0, mut:null, biota:60, outbreak:null, obNext:0, vax:{}, chal:null, species:[], cb:false, hc:false, bodyI:0, bodyT:0, streak:0, research:{}, spent:{}, scope:'', perf:'normal', range:'near', expDay:'', expBest:{}, diag:{ok:0, n:0}, narr:true, voice:false, music:true, narrSeen:{}, sideSeen:false});
 let S = fresh();
 
 // Modo historia: el capítulo fija tu célula, tus herramientas y el nivel
@@ -2685,6 +2843,9 @@ const adnM = () => 1 + .1*S.adn;
 // mutación elegida al evolucionar y recurso de la zona (solo en la partida normal)
 const mutK = (k, d=1) => { if (fixedStats() || !S.mut || !MUT[S.mut]) return d; const v = MUT[S.mut].k[k]; return v != null ? v : d; };
 const zoneK = (k, d=1) => { if (fixedStats()) return d; const z = ZONE_RES[S.zone]; const v = z && z.k[k]; return v != null ? v : d; };
+const bodyCur = () => BODY[(S.bodyI || 0) % BODY.length];
+const bodyK = (k, d=1) => { if (fixedStats()) return d; const v = bodyCur().k[k]; return v != null ? v : d; };
+const specK = (k, d=1) => fixedStats() ? d : (S.species || []).reduce((a, id) => a*(SPEC[id] && SPEC[id].k[k] != null ? SPEC[id].k[k] : 1), d);
 const streakK = () => 1 + .05*Math.min(S.streak || 0, 10);
 const sampAvail = t => (S.samp[t] || 0) - (S.spent[t] || 0);
 // ---- Coleccionables (no cuentan en el modo clase ni en los eventos) ----
@@ -2696,12 +2857,12 @@ const collAtk = () => (1 + .06*rl('dna'))*(1 + .04*rl('crispr'))*grpK('atk');
 const collHp = () => (1 + .06*rl('teo'))*(1 + .04*rl('crispr'))*grpK('hp');
 const collAtp = () => (1 + .1*rl('leeu'))*grpK('atp');
 // contra un organismo concreto y con una herramienta concreta
-const collVs = (type, tool) => { if (fixedStats()) return 1; let k = (1 + STAR_DMG*stars(type))*(1 + .1*(S.research[type] || 0));
+const collVs = (type, tool) => { if (fixedStats()) return 1; let k = (1 + STAR_DMG*stars(type))*(1 + .1*(S.research[type] || 0))*(stars(type) >= 3 ? specK('star3') : 1);
   for (const r in REL_TOOL) if (REL_TOOL[r].includes(tool)) k *= 1 + RELIC[r].p/100*rl(r); return k; };
 const collAtpVs = type => fixedStats() ? 1 : 1 + STAR_ATP*stars(type);
 // En modo clase no hay mejoras: tus estadísticas crecen con el nivel
-const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*Math.pow(1.1, S.upg.tlr)*adnM()*collAtk()*mutK('atk'))*cellD().atk;
-const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*Math.pow(1.1, S.upg.glc)*adnM()*collHp()*mutK('hp'))*cellD().hp;
+const atk = () => (fixedStats() ? 10*Math.pow(1.24, effLevel()-1) : 10*Math.pow(1.15, S.upg.fue)*Math.pow(1.12, S.upg.nuc)*Math.pow(1.1, S.upg.tlr)*adnM()*collAtk()*mutK('atk')*bodyK('atk')*specK('atk'))*cellD().atk;
+const maxHp = () => (fixedStats() ? 120*Math.pow(1.2, effLevel()-1) : 100*Math.pow(1.15, S.upg.mem)*Math.pow(1.12, S.upg.rel)*Math.pow(1.1, S.upg.glc)*adnM()*collHp()*mutK('hp')*bodyK('hp')*specK('hp'))*cellD().hp;
 // orgánulos avanzados: solo en la partida normal
 const adv = k => fixedStats() ? 0 : (S.upg[k] || 0);
 const advUnlocked = () => S.best >= 30;
@@ -2710,8 +2871,8 @@ const eliteUnlocked = () => S.best >= 100;
 const deepHp = L => L > 30 ? 3.2*Math.pow(1.1, L - 31) : 1;
 const deepAtk = L => L > 30 ? 1.9*Math.pow(1.06, L - 31) : 1;
 const taken = () => fixedStats() ? .8 : Math.pow(.96, S.upg.cit)*mutK('taken')*zoneK('taken');
-const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM()*(1 + .25*rl('krebs'))*mutK('atps')*zoneK('atps');
-const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*collAtp()*mutK('rw')*zoneK('rw')*(L > 30 ? 1.5 : 1);
+const atps = () => S.clase ? 0 : S.upg.mit*.3*Math.pow(1.15, S.runMax-1)*adnM()*(1 + .25*rl('krebs'))*mutK('atps')*zoneK('atps')*bodyK('atps')*specK('atps');
+const reward = (L, boss) => 5*Math.pow(1.2, L-1)*(boss ? 6 : 1)*Math.pow(1.2, S.upg.rib)*adnM()*collAtp()*mutK('rw')*zoneK('rw')*bodyK('rw')*specK('rw')*(L > 30 ? 1.5 : 1);
 const upgCost = u => Math.ceil(u.base*Math.pow(u.k, S.upg[u.id]));
 const evoGain = () => S.runMax >= 10 ? Math.floor(Math.pow(S.runMax/5, 2)) : 0;
 const speed = () => Math.pow(1.25, S.upg.ref);
@@ -3149,7 +3310,7 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
     const pts = []; for (let i=0;i<=20;i++) pts.push(randIn(.8,.6,.6));
     inner.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 80, .02, 5), mem(0x9ff0ff, {op:.5, rimK:.6, bump:false}), 5)); }
   // filopodios: tu linaje gana más con cada evolución
-  const fil = inst(new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
+  const fil = inst(CD.dend ? new THREE.ConeGeometry(.03, 1.1, 5).translate(0, .55, 0) : new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(CD.dend ? 26 : Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
   g.add(fil);
   // orgánulos de élite: receptores tipo Toll, glucocáliz y gránulos secretores
   if (lv('tlr')) g.add(inst(new THREE.ConeGeometry(.03, .16, 5).translate(0, .08, 0), mem(0xffb547, {emiK:.6, bump:false}), fibDirs(Math.min(60, 6*lv('tlr'))).map(d => ({p:d.clone().multiplyScalar(1.06*sc), n:d})), 9));
@@ -3164,6 +3325,8 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
       for (let i=1;i<lobes.length;i++) lobes[i].a = lobes[i].b*(.6 + .6*Math.sin(t*.7 + lobes[i].ph));
       memb.userData.wob(t, .05, 2, 1, .02); cyto.userData.wob(t+3, .06, 2.4, .8); nuc.userData.wob(t+5, .03, 3, .5);
       inner.rotation.y = Math.sin(t*.2)*.25; inner.rotation.x = Math.sin(t*.17)*.1; fil.rotation.y = Math.sin(t*.5)*.1;
+      // citoplasma vivo: los orgánulos se desplazan por los microtúbulos y el citoplasma fluye (ciclosis)
+      inner.children.forEach((c, i) => { const p0 = c.userData.p0 || (c.userData.p0 = c.position.clone()); c.position.set(p0.x + .035*Math.sin(t*.6 + i*1.7), p0.y + .03*Math.sin(t*.45 + i), p0.z + .03*Math.cos(t*.5 + i*.8)); if (i % 3 === 0) c.rotation.y = t*.08*(i % 2 ? 1 : -1); });
       mm.emissiveIntensity = 1 + mitK*1.2*(.5 + .5*Math.sin(t*2.2)); // las mitocondrias laten al producir ATP
       lyM.emissiveIntensity = .9 + .2*Math.sin(t*1.7);
     }};
@@ -3727,7 +3890,7 @@ function variantLook(o, Vr){
     o.g.traverse(n => { if (n.material) [].concat(n.material).forEach(m => { m.side = THREE.DoubleSide; }); });
   }
   const spin = o.up;
-  if (vis.shell || vis.spikes) o.up = (t, e) => { spin(t, e); add.forEach((m, i) => m.rotation.y = Math.sin(t*.6 + i)*.15); };
+  if (vis.shell || vis.spikes) o.up = (t, e) => { spin(t, e); add.forEach((m, i) => { m.rotation.y = Math.sin(t*.6 + i)*.15; if (vis.spikes) m.rotation.z = Math.sin(t*5 + i*.9)*.12; }); }; // los flagelos ondulan
 }
 
 // ---- Miniaturas para el Atlas y las fichas (renderizador aparte) ----
@@ -3986,7 +4149,7 @@ function newBattle(keepHp){
   for (let i = 1; i < n; i++) es.push(makeFoe(pickType(), false, -1, null, L, K));
   es.forEach((e, i) => { e.i = i; e.hp = e.max = e.max*x3; });
   if (n === 1 && !ch && !boss && !practice && L >= 5 && S.seen[type] && !vr && Math.random() < .18) es[0].blind = true;
-  if (n > 1) setSynergy(es);
+  if (n > 1){ setSynergy(es); plasmidSetup(es); }
   const e = es[0];
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)*(1 - .25*rl('flem'))){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
@@ -3995,7 +4158,9 @@ function newBattle(keepHp){
     if (ev === 'hipoxia' && zoneK('nohyp', false)) ev = 'inflam';
     es.forEach(x => { x.ev = ev; if (ev === 'vacuna'){ const k = S.known[x.type] = S.known[x.type] || {}; TOOLS.forEach(t => k[t.id] = true); } });
   }
-  B = {es, e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
+  if (!ch && !es[0].ev){ if (S.vax && S.vax[type] > 0){ S.vax[type]--; es.forEach(x => x.ev = 'vacuna'); const k = S.known[type] = S.known[type] || {}; TOOLS.forEach(t => k[t.id] = true); }
+    else if (cellD().inflam && !fixedStats()) es.forEach(x => x.ev = 'inflam'); }
+  B = {cyt:0, dmgBy:{}, usedTools:{}, es, e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
     last:null, lastOk:false, usedAb:false, onlyFago:true, turns:0, firstDone:false, why:null};
   setFoes(es); setDark(false); setZoneTint(ch ? ch.tint || ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
   renderFoe(); renderMe(); renderTools(); renderHud();
@@ -4030,7 +4195,7 @@ function toolDmg(id, x, r){
   const T = TOOL[id];
   const cb = cellD().bonus[x.type] || 1, mark = x.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = x.ev === 'vacuna' && id === 'ac' ? 2 : 1;
   const vul = x.var && VARIANTS[x.var].vul || 1;
-  const k = (id === 'fago' ? mutK('fago')*rangeK('fago') : 1)*(id === 'lis' ? mutK('lis') : 1)*(id === 'art' ? zoneK('art') : 1)*(T.ab ? zoneK('ab') : 1)*streakK()*shieldK(x);
+  const k = (id === 'fago' ? mutK('fago')*rangeK('fago') : 1)*(id === 'lis' ? mutK('lis') : 1)*(id === 'art' ? zoneK('art') : 1)*(T.ab ? zoneK('ab') : 1)*streakK()*shieldK(x)*((cellD().tb || {})[id] || 1)*(B.abg === id ? 1.3 : 1)*(B.fever > 0 ? 1.3 : 1);
   return {dmg:atk()*T.pow*r.m*mark*cb*vac*vul*k*collVs(x.type, id)*treeMods(id, x)*dmgMods(x, true)*rnd(.9, 1.1), cb, mark, vac, vul};
 }
 // los enemigos que han llegado a 0 desaparecen; si quedan otros, el objetivo pasa al siguiente
@@ -4048,6 +4213,7 @@ function useTool(id){
   const r = eff(id, e);
   const hitList = T.aoe ? alive() : [e];
   hitList.forEach(x => { (S.known[knowKey(x)] = S.known[knowKey(x)] || {})[id] = true; });
+  B.usedTools[id] = true; biotaAfterTool(T); toolFlash(T.col, E_POS);
   let cenProc = false;
   if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
@@ -4075,7 +4241,7 @@ function useTool(id){
       let total = 0;
       for (const x of hitList){
         const rx = eff(id, x), d = rx.m > 0 ? toolDmg(id, x, rx).dmg : 0;
-        x.hp = Math.max(0, x.hp - d); total += d;
+        x.hp = Math.max(0, x.hp - d); total += d; B.dmgBy[id] = (B.dmgBy[id] || 0) + d;
         floatText(rx.m > 0 ? fmt(d) : tr('Inmune'), x.pos.clone().add(V(0,1.2,0)), rx.m >= 2 ? 'great' : rx.m >= 1 ? 'dmg' : rx.m > 0 ? 'bad' : 'none', T.col);
         if (rx.m > 0) squash(x);
         if (rx.m > 0) burst(x.pos, T.col, rx.m >= 2 ? 30 : 14, 3);
@@ -4093,7 +4259,7 @@ function useTool(id){
       ok = r.m > 0;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
       const {dmg:d0, cb, mark, vac, vul} = toolDmg(id, e, r), dmg = d0*crit;
-      e.hp = Math.max(0, e.hp - dmg);
+      e.hp = Math.max(0, e.hp - dmg); B.dmgBy[id] = (B.dmgBy[id] || 0) + dmg;
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none', T.col);
       if (r.m > 0) squash(e); if (r.m >= 2 || crit > 1) camPunch(crit > 1 ? .84 : .9);
@@ -4114,7 +4280,7 @@ function useTool(id){
       if (r.m > 0 && e.ev === 'fiebre') extra.push(tr('Fiebre: +25 % de daño.'));
       if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
       if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
-      if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = has('h1') ? 6 : 4; extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
+      if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = (has('h1') ? 6 : 4) + (S.cell === 'lyb' && !fixedStats() ? 1 : 0); extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
       if (vul > 1 && r.m > 0) extra.push(tr('Sin citoesqueleto: +40 % de daño.'));
       if (id === 'uv' && r.m > 0 && e.var && VARIANTS[e.var].uvStall){ e.stall = VARIANTS[e.var].uvStall + 1; extra.push(tr('Sus ribosomas se quedan sin instrucciones: no se repara durante 2 turnos.')); }
       if (id === 'tax' && r.m > 0){ e.block = 3; extra.push(tr('Huso mitótico bloqueado durante 3 turnos.')); }
@@ -4157,7 +4323,7 @@ function useTool(id){
 // lo que hace cada enemigo en su turno antes de atacar (curarse, esconderse, mutar…)
 function foeEffects(e, notes){
   const many = B.es.length > 1, who = s => many ? foeName(e) + ': ' + s : s;
-  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), e.pos.clone().add(V(.6,1.5,0)), 'heal'); notes.push(who(why)); };
+  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), e.pos.clone().add(V(.6,1.5,0)), 'heal'); notes.push(who(why)); if (['gp','lev','can','ten'].includes(e.type)) splitFx(e); };
   switch (e.type){
     case 'gp': if (e.turn % 3 === 0) heal(.15, tr('Fisión binaria: la colonia se divide y recupera un 15 % de vida.')); break;
     case 'lev': if (e.turn % 3 === 0) heal(.15, tr('Gemación: le brota una yema nueva (+15 % de vida).')); break;
@@ -4174,7 +4340,7 @@ function foeEffects(e, notes){
       notes.push(who(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : ''))); break;
     case 'ten': heal(.06, tr('Su cuello forma nuevas proglótides: recupera un 6 %.')); break;
   }
-  synergyTurn(e, notes, heal, who);
+  synergyTurn(e, notes, heal, who); plasmidTurn(e, notes, who);
   const VR = e.var && VARIANTS[e.var];
   if (VR && VR.regen){ if (e.stall > 0) notes.push(tr('Sin ARNm nuevo, sus ribosomas están parados: no se repara.')); else heal(VR.regen, tr('Sus ribosomas fabrican proteínas sin parar: se repara un 9 %.')); }
   if (VR && VR.atkK && VR.atkK < 1 && e.turn === 1) notes.push(tr('Sin mitocondrias le falta ATP: ataca muy débil.'));
@@ -4196,6 +4362,7 @@ function enemyTurn(){
   if (adv('gol') && B.e.hp > 0){ const t = B.e, d = atk()*.06*adv('gol'); t.hp = Math.max(0, t.hp - d);
     projectile(P_POS.clone().add(V(.5,.3,0)), t.pos.clone(), 0xffc65c, 3 + adv('gol'), 420, () => floatText('−' + fmt(d) + ' · Golgi', t.pos.clone().add(V(.4,1.6,0)), 'evt ev-golgi'), null); }
   for (const x of alive()){ if (x.hp <= 0) continue; x.turn++; foeEffects(x, notes); }
+  biotaTurn(notes); B.cyt = Math.min(10, (B.cyt || 0) + 1);
   if (ev === 'inflam'){ const h = maxHp()*.06; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h) + ' · ' + tr('inflamación'), P_POS.clone().add(V(0,1.5,0)), 'evt ev-inflam'); notes.push(tr('Inflamación: recuperas un 6 % de vida.')); }
   if (ev === 'fiebre' && B.es[0].turn === 1) notes.push(tr('La fiebre también aumenta su daño (+25 %).'));
   if (has('i4') && B.php > 0){ const h = maxHp()*.04; B.php = Math.min(maxHp(), B.php + h); }
@@ -4204,6 +4371,7 @@ function enemyTurn(){
   if (!reap()){ renderFoe(); return setTimeout(win, 250); }
   const finish = () => {
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
+    if (B.fever > 0) B.fever--;
     for (const x of B.es){ if (x.marked > 0) x.marked--; if (x.block > 0) x.block--; if (x.stall > 0) x.stall--; }
     if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
@@ -4276,7 +4444,8 @@ function win(){
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
-  B.es.forEach(dropLoot);
+  B.es.forEach(dropLoot); biotaAfterWin(); outbreakWin(B.es.length); chalWin();
+  if (boss){ const sm = summaryHtml(); if (sm) $('#msgX').innerHTML = esc($('#msgX').textContent) + sm; }
   B.es.forEach(x => { if (x.blind) toast(tr('Era {n}.', {n:TYPES[x.type].n})); });
   checkAch(); save(); renderHud(); renderLog(); pushBoard(); evoNudge();
   if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);
@@ -4543,6 +4712,9 @@ function renderHud(){
   $('#bAdv').setAttribute('aria-pressed', S.advance);
   $('#bSnd').setAttribute('aria-pressed', S.sound);
   $('#bRange').setAttribute('aria-pressed', S.range === 'far'); $('#bRange').title = S.range === 'far' ? tr('Lejos') : tr('Cerca');
+  const hb = $('#hBody'), bc = bodyCur(); hb.hidden = !!S.clase; hb.innerHTML = ico(bc.ic) + tr(bc.n); hb.style.setProperty('--k', hex(bc.col)); hb.title = tr(bc.d);
+  const hm = $('#hBiota'); hm.hidden = !biotaOn(); hm.innerHTML = ico('biota') + tr('Microbiota') + ' ' + (S.biota == null ? 60 : S.biota) + ' %'; hm.title = tr('Tu microbiota compite con bacterias y levaduras. Los antibióticos la reducen; vencer sin ellos la recupera.');
+  $('#bMap').classList.toggle('ob', !!S.outbreak);
   const hs = $('#hStreak'); hs.hidden = !(S.streak >= 2); hs.textContent = tr('Racha') + ' ×' + dec(streakK().toFixed(2));
   $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
@@ -4580,6 +4752,9 @@ function renderFoe(){
   $('#fAtk').textContent = `${tr('ataque')} ${fmt(e.atk*e.grow)}`;
   const tags = B.why ? KEYTRAIT[B.why.tool] || [] : [];
   let t = blind ? `<span class="trait">?</span><span class="trait">?</span>` : Ty.traits.map(([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''} ${tags.includes(tag) ? 'why' : ''}">${mut ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  if (e.plas && !blind) t += `<span class="trait st">${tr('Plásmido de resistencia')}</span>`;
+  if (B.abg) t += `<span class="trait good">${tr('Antibiograma: {t} ×1,3', {t:TOOL[B.abg].n})}</span>`;
+  const ab = $('#fAbg'); ab.hidden = blind || !!B.abgDone || !PLASMID_FOES.concat(['tbc']).includes(e.type) || fixedStats() && !storyCh(); ab.innerHTML = ico('dish') + tr('Hacer un antibiograma');
   if (e.syn && !blind) t += `<span class="trait syn">${esc(e.syn)}</span>`;
   if (e.adapted) t += `<span class="trait st">${tr('Adaptado a {t}', {t:TOOL[e.adapted].n})}</span>`;
   if (e.stall > 0) t += `<span class="trait good">${tr('Sin instrucciones del ADN')}</span>`;
@@ -4629,11 +4804,12 @@ function renderTools(){
     return `<button class="tool ${was ? 'ready' : ''}" style="--c:${hex(T.col)}" data-tool="${T.id}" ${cd > 0 || !B || B.busy || B.over ? 'disabled' : ''} title="${esc(T.n + ': ' + T.d)}" aria-label="${esc(T.n)}${cd > 0 ? ', ' + tr('recargando {n} turnos', {n:left}) : ''}">
       ${vesicle(T.id, T.col, ring)}<span class="tn">${T.n}</span>
       <span class="tm"><span class="rc">${T.aoe ? tr('área') + ' · ' : ''}${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
-  }).join('');
+  }).join('') + cytoHtml();
   if (B) B.cdPrev = Object.assign({}, B.cds);
   document.documentElement.style.setProperty('--toolsH', nav.offsetHeight + 'px');
 }
 $('#fId').addEventListener('click', () => identifyFoe());
+$('#fAbg').addEventListener('click', () => showAntibiogram());
 $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (b) useTool(b.dataset.tool); });
 $('#fTg').addEventListener('click', ev => { const b = ev.target.closest('[data-tg]'); if (b) selectTarget(+b.dataset.tg); });
 
@@ -4749,7 +4925,7 @@ function renderPanel(){
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
         <h4 style="color:${hex(Ty.col)}">${Ty.n}${stars(id) ? `<span class="astars">${'★'.repeat(stars(id))}</span>` : ''}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
-        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${CYCLES[id] ? `<button class="buy" data-cyc="${id}">${ico('cycle')}${tr('Ciclo')}</button>` : ''}${practice}</div>${S.clase ? '' : `<div class="resr">${tr('Investigación')}: ${tr('nivel')} ${S.research[id] || 0}/3 · ${tr('muestras libres')}: ${sampAvail(id)} ${(S.research[id] || 0) < 3 ? `<button class="buy" data-res="${id}" ${sampAvail(id) < 5 ? 'disabled' : ''}>${tr('Investigar (5 muestras)')}</button>` : ''}</div>`}</div></div>`;
+        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${CYCLES[id] ? `<button class="buy" data-cyc="${id}">${ico('cycle')}${tr('Ciclo')}</button>` : ''}<button class="buy" data-plate="${id}">${ico('plate')}${tr('Lámina')}</button>${practice}</div>${S.clase ? '' : `<div class="resr">${tr('Investigación')}: ${tr('nivel')} ${S.research[id] || 0}/3 · ${tr('muestras libres')}: ${sampAvail(id)} ${(S.research[id] || 0) < 3 ? `<button class="buy" data-res="${id}" ${sampAvail(id) < 5 ? 'disabled' : ''}>${tr('Investigar (5 muestras)')}</button>` : ''}<button class="buy" data-vax="${id}" ${sampAvail(id) < 3 ? 'disabled' : ''}>${ico('syringe')}${tr('Vacuna (3 muestras)')}</button>${S.vax && S.vax[id] ? ` · ${tr('vacunado: {n} combates', {n:S.vax[id]})}` : ''}</div>`}</div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
@@ -4760,6 +4936,7 @@ function renderPanel(){
   } else if (tab === 'ret'){
     ensureDaily();
     h += boardHtml();
+    h += chalHtml();
     h += `<div class="nb">${tr('Retos de hoy')}</div><p class="lead">${tr('Cada día hay dos retos nuevos. Cada uno da 1 punto de ADN y desbloquea colores para tu célula.')}</p>`;
     h += S.daily.list.map(q => { const D = DAILY.find(x => x.id === q.id);
       return `<div class="org daily ${q.done ? 'ok' : ''}">${vesicle(q.done ? 'trophy' : 'flask', q.done ? 0x4dffa0 : 0xffc65c)}<h4>${D.n}</h4><div class="meter"><i style="width:${q.p/D.goal*100}%"></i></div><div class="eff">${q.p} / ${D.goal}${q.done ? ' · ' + tr('completado') : ''}</div></div>`; }).join('');
@@ -4790,6 +4967,7 @@ function renderPanel(){
   } else if (tab === 'aju'){
     h += installHtml();
     h += perfHtml();
+    h += `<div class="nb">${tr('Accesibilidad visual')}</div>` + toggleRow('cb', S.cb, tr('Paleta para daltonismo'), tr('Sustituye el verde y el rojo de las eficacias y las barras por azul y naranja, que se distinguen con cualquier tipo de daltonismo.')) + toggleRow('hc', S.hc, tr('Alto contraste'), tr('Paneles opacos, bordes más marcados y texto más grande.'));
     h += `<div class="nb">${tr('Idioma')}</div><div class="seg" role="radiogroup">` + Object.entries(LANGS).map(([k, n]) => `<button role="radio" aria-checked="${LANG === k}" data-lang="${k}">${n}</button>`).join('') + '</div>';
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));
@@ -4822,6 +5000,8 @@ $('#pBody').addEventListener('click', ev => {
   if (tab === 'dia' && diagClick(b)) return;
   if (b.dataset.scope){ openScope(b.dataset.scope); return; }
   if (b.dataset.cyc){ showCycle(b.dataset.cyc); return; }
+  if (b.dataset.plate){ showPlate(b.dataset.plate); return; }
+  if (b.dataset.vax){ makeVaccine(b.dataset.vax); return; }
   if (b.dataset.res){ research(b.dataset.res); return; }
   if (b.dataset.curio){ S.achSeen[b.dataset.curio] = true; save(); renderPanel(); renderHud(); return; }
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
@@ -4837,7 +5017,7 @@ $('#pBody').addEventListener('click', ev => {
   else if (b.dataset.skin){ S.skin = b.dataset.skin; rebuildPlayer(); }
   else if (b.dataset.lang){ setLang(b.dataset.lang); }
   else if (b.dataset.q){ S.q = b.dataset.q === 'auto' ? 'auto' : +b.dataset.q; applyQuality(S.q === 'auto' ? 2 : S.q); }
-  else if (b.dataset.set){ const k = b.dataset.set; S[k] = !S[k];
+  else if (b.dataset.set){ const k = b.dataset.set; S[k] = !S[k]; if (k === 'cb' || k === 'hc') applyA11y();
     if (k === 'music' || k === 'voice') ambient(storyCh() ? storyCh().zone : S.zone);
     if (k === 'clase'){ if (B){ B.over = true; clearTimeout(B.timer); } S.auto = S.auto && canAuto(); renderTools(); newBattle(); toast(S.clase ? tr('Modo clase activado') : tr('Modo clase desactivado')); } }
   else if (b.id === 'repBtn') return copyText(reportText(), $('#repTa'));
@@ -4868,7 +5048,7 @@ function evolve(){
     <div class="eyebrow" style="color:var(--gram)">${tr('Evolución {n}', {n:S.evos})}</div><h2>${tr('Tu linaje hereda {g} de ADN', {g})}</h2>
     <p>${tr('Ahora tienes {a} de ADN: ×{m} de ataque, vida y ATP. Vuelves al nivel 1 con las herramientas y todo lo que has aprendido.', {a:S.adn, m:dec(adnM().toFixed(1))})}</p>
     ${unlocked.length ? `<p><b>${tr('Nueva célula disponible: {n}.', {n:unlocked.join(', ')})}</b> ${tr('Elígela en la pestaña Evolución.')}</p>` : ''}</div></div>
-    ${phylo()}<button class="go" id="mGo">${tr('Seguir')}</button>`, () => showMutations(() => newBattle()));
+    ${phylo()}<button class="go" id="mGo">${tr('Seguir')}</button>`, () => S.evos % 6 === 0 ? showSpeciation(() => showMutations(() => newBattle())) : showMutations(() => newBattle()));
 }
 
 $('#bAuto').onclick = () => { if (!canAuto()) return; S.auto = !S.auto; save(); renderHud(); renderLog(); scheduleAuto(); };
@@ -4905,11 +5085,11 @@ function showMap(){
   svg += '</svg>';
   const list = Object.entries(ZONES).map(([id, z]) => {
     const pool = (z.types || TYPE_ORDER).filter(t => TYPES[t].min <= S.level);
-    return `<button class="zone ${S.zone === id ? 'sel' : ''}" data-zone="${id}" aria-pressed="${S.zone === id}"><b>${z.n}</b><span>${z.d}</span>${ZONE_RES[id] ? `<em class="zres">${tr(ZONE_RES[id].n)}: ${tr(ZONE_RES[id].d)}</em>` : ''}<small>${pool.length ? pool.map(t => TYPES[t].n).join(' · ') : tr('Aún no hay organismos de esta zona a tu nivel: aparecerán los de la sangre.')}</small></button>`; }).join('');
+    return `<button class="zone ${S.zone === id ? 'sel' : ''}" data-zone="${id}" aria-pressed="${S.zone === id}"><b>${z.n}</b><span>${z.d}</span>${S.outbreak && S.outbreak.zone === id ? `<em class="zres ob">${tr('¡Brote! {k}/{n} organismos vencidos', {k:S.outbreak.k, n:S.outbreak.need})}</em>` : ''}${ZONE_RES[id] ? `<em class="zres">${tr(ZONE_RES[id].n)}: ${tr(ZONE_RES[id].d)}</em>` : ''}<small>${pool.length ? pool.map(t => TYPES[t].n).join(' · ') : tr('Aún no hay organismos de esta zona a tu nivel: aparecerán los de la sangre.')}</small></button>`; }).join('');
   showModal(`<div class="eyebrow">${tr('Mapa')}</div><h2>${tr('¿Dónde está la infección?')}</h2><p>${tr('Cada zona tiene sus organismos típicos. Tu nivel no cambia: solo eliges contra qué luchar.')}</p>
     <div class="mapw">${svg}<div class="zones">${list}</div></div><button class="go" id="mGo">${tr('Cerrar')}</button>`);
   $('#mBox').querySelectorAll('[data-zone]').forEach(el => {
-    const pick = () => { S.zone = el.dataset.zone; save(); setZoneTint(S.zone); ambient(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
+    const pick = () => { if (S.zone !== el.dataset.zone) travelFx(); S.zone = el.dataset.zone; save(); setZoneTint(S.zone); ambient(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
     el.addEventListener('click', pick); el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(); } });
   });
 }
@@ -4982,7 +5162,7 @@ function showSpecies(id, isNew){
     showModal(`<div class="spec">${fov(id, 'big', LAB[id][1])}<div>
       <div class="eyebrow" style="color:${hex(Ty.col)}">${tr('Organismo nuevo · añadido al Atlas')} · ${tr('prep. nº')} ${prep(id)}</div>
       <h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div><div class="stain">${ico('slide')}${LAB[id][0]}</div>
-      <p>${Ty.desc}</p><div class="traits">${Ty.traits.map(traitTag).join('')}</div></div></div>
+      <p>${Ty.desc}</p><div class="traits">${Ty.traits.map(traitTag).join('')}</div>${scaleHtml(id)}</div></div>
       ${quiz}<button class="go" id="mGo" hidden>${tr('Al combate')}</button>`);
     const H = wireHint({best:best.t.id, tags:hintTags(Ty.traits, best.t.id), ok:q => q === best.t.id});
     $('#quiz').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
@@ -5028,7 +5208,7 @@ function loop(now){
   if (S.perf === 'eco' && now - last < 31) return; // ahorro de batería: unas 30 imágenes por segundo
   const dt = Math.min(.1, (now - last)/1000); last = now; FRAME++;
   const t = clock.getElapsedTime();
-  S.atp += atps()*dt;
+  S.atp += atps()*dt; stepBody(dt); stepPlayerState(clock.elapsedTime);
   hudAcc += dt; saveAcc += dt;
   if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); if (!S.clase) $('#pAtp').innerHTML = ico('atp') + fmt(S.atp); $('#labDot').hidden = !anyAffordable() && !S.evoHint; if (!$('#panel').hidden) refreshAfford(); }
   if (saveAcc > 5){ saveAcc = 0; save(); }
@@ -5599,6 +5779,230 @@ function mitosisFx(){
 
 // arranque de lo nuevo
 setTimeout(() => { applyScope(); if (S.perf !== 'normal') applyPerf(); }, 0);
+/* =====================================================================
+   VERSIÓN 13: microbiota, antibiograma, plásmidos, brotes, citocinas,
+   vacunas, especiación, estados del cuerpo, retos del profesor y gráficos
+   ===================================================================== */
+Object.assign(IC, {
+  dish:'<circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="10" r="1.6"/><circle cx="15" cy="9.5" r="1.6"/><circle cx="12" cy="15" r="1.6"/>',
+  syringe:'<path d="M15 4l5 5M17.5 6.5L9 15l-2.5.5.5-2.5 8.5-8.5"/><path d="M11 9l4 4M4 20l3-3"/>',
+  plate:'<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 7h8M8 11h5M8 15h8"/>',
+  biota:'<rect x="5" y="9" width="9" height="4" rx="2"/><rect x="11" y="14" width="8" height="4" rx="2"/><path d="M14 11h3l2-2"/>',
+});
+
+// ---- Estados del cuerpo (cambian cada 5 minutos de juego) ----
+let bodyAcc = 0;
+function stepBody(dt){
+  if (S.clase) return; bodyAcc += dt; if (bodyAcc < 1) return; bodyAcc = 0;
+  if (!S.bodyT) S.bodyT = Date.now();
+  if (Date.now() - S.bodyT > 5*60e3){ S.bodyT = Date.now(); let n; do { n = Math.floor(Math.random()*BODY.length); } while (n === S.bodyI); S.bodyI = n;
+    const b = bodyCur(); toast(tr('Tu cuerpo: {n}. {d}', {n:tr(b.n), d:tr(b.d)})); renderHud(); renderMe(); }
+  stepOutbreak();
+}
+
+// ---- Microbiota aliada (intestino y piel) ----
+const biotaOn = () => !fixedStats() && BIOTA_ZONES.includes(S.zone);
+function biotaTurn(notes){
+  if (!biotaOn() || (S.biota == null ? 60 : S.biota) <= 0) return;
+  const t = B.e; if (!t || t.dead || !BIOTA_FOES.includes(t.type)) return;
+  const d = t.max*.03*(S.biota/100); t.hp = Math.max(0, t.hp - d);
+  floatText('−' + fmt(d) + ' · ' + tr('microbiota'), t.pos.clone().add(V(-.4,1.7,0)), 'evt ev-inflam');
+  notes.push(tr('Tu microbiota compite con él por el alimento y el espacio: le resta un {p} %.', {p:dec((3*S.biota/100).toFixed(1))}));
+}
+function biotaAfterTool(T){
+  if (!biotaOn() || !T.ab) return;
+  S.biota = Math.max(0, (S.biota == null ? 60 : S.biota) - 20);
+  toast(tr('El antibiótico también mata a tu microbiota: baja al {p} %.', {p:S.biota}));
+}
+function biotaAfterWin(){ if (biotaOn() && !B.usedAb) S.biota = Math.min(100, (S.biota == null ? 60 : S.biota) + 5); }
+
+// ---- Plásmidos: la resistencia se contagia entre bacterias del grupo ----
+function plasmidSetup(es){
+  const b = es.filter(x => PLASMID_FOES.includes(x.type));
+  if (b.length >= 2 && Math.random() < .5){ b[0].res = true; b[0].plas = true; }
+}
+function plasmidTurn(e, notes, who){
+  if (!e.plas) return;
+  const target = B.es.find(x => !x.dead && x !== e && PLASMID_FOES.includes(x.type) && !x.res);
+  if (target && Math.random() < .35){ target.res = true; target.plas = true;
+    notes.push(who(tr('Transferencia horizontal: le pasa a {n} un plásmido con el gen de resistencia a la penicilina.', {n:TYPES[target.type].n})));
+    ring(target.pos, 0x4dffa0, 3, 700); }
+}
+
+// ---- Antibiograma: placa de Petri con discos de antibiótico ----
+const ABG_TOOLS = ['lis','pen','iso','fgt','cmp','aut','uv'];
+function showAntibiogram(){
+  const e = B && B.e; if (!e || B.abgDone || B.busy || !PLASMID_FOES.concat(['tbc']).includes(e.type)) return;
+  const tools = ABG_TOOLS.filter(t => owns(t)).slice(0, 5); if (tools.length < 2) return toast(tr('Necesitas al menos dos herramientas para el antibiograma.'));
+  const res = tools.map(t => ({t, m:eff(t, e).m})), best = res.reduce((a, b) => b.m > a.m ? b : a);
+  const pos = tools.map((_, i) => { const a = -Math.PI/2 + i/tools.length*Math.PI*2; return [150 + Math.cos(a)*78, 150 + Math.sin(a)*78]; });
+  const svg = halos => `<svg viewBox="0 0 300 300" class="petri"><circle cx="150" cy="150" r="140" fill="#2a1f10" stroke="#9fb3c0" stroke-width="3"/><circle cx="150" cy="150" r="132" fill="#c9a35a" opacity=".85"/>
+    ${res.map((r, i) => `<circle cx="${pos.at(i)[0]}" cy="${pos.at(i)[1]}" r="${halos ? 12 + Math.min(r.m, 3)*14 : 12}" fill="#f7efe0" opacity="${halos ? .9 : 0}" class="halo"/><circle cx="${pos.at(i)[0]}" cy="${pos.at(i)[1]}" r="11" fill="#fff" stroke="${hex(TOOL[r.t].col)}" stroke-width="4"/><text x="${pos.at(i)[0]}" y="${pos.at(i)[1] + 4}" text-anchor="middle" font-size="10" font-weight="700" fill="#03070c">${i + 1}</text>`).join('')}</svg>`;
+  showModal(`<div class="eyebrow">${ico('dish')}${tr('Antibiograma')}</div><h2>${tr('¿Qué disco frena más a {n}?', {n:foeName(e)})}</h2>
+    <p>${tr('Has sembrado la bacteria en una placa con agar y has puesto discos con cada herramienta. Tras incubar, alrededor de cada disco aparece un halo donde no crece: cuanto más grande, más eficaz. Elige el mejor y tendrás +30 % de daño con él en este combate.')}</p>
+    <div class="abg"><div id="abgSvg">${svg(false)}</div><div class="qopts">${res.map((r, i) => `<button data-abg="${r.t}" disabled>${i + 1} · ${TOOL[r.t].n}</button>`).join('')}</div></div>
+    <button class="go" id="abgInc">${tr('Incubar 24 horas')}</button><p class="qres" id="qres"></p><button class="go" id="mGo" hidden>${tr('Al combate')}</button>`);
+  $('#abgInc').onclick = () => { $('#abgSvg').innerHTML = svg(true); $('#abgInc').hidden = true; $('#mBox').querySelectorAll('[data-abg]').forEach(b => b.disabled = false); };
+  $('#mBox').querySelectorAll('[data-abg]').forEach(b => b.onclick = () => {
+    const ok = eff(b.dataset.abg, e).m >= best.m - .01; B.abgDone = true;
+    const k = S.known[knowKey(e)] = S.known[knowKey(e)] || {}; tools.forEach(t => k[t] = true);
+    $('#mBox').querySelectorAll('[data-abg]').forEach(x => { x.disabled = true; if (x.dataset.abg === best.t) x.classList.add('right'); else if (x === b && !ok) x.classList.add('wrong'); });
+    if (ok){ B.abg = best.t; sfx.ach(); }
+    $('#qres').textContent = ok ? tr('¡Bien leído! {t} tiene el halo más grande: +30 % de daño con ella en este combate.', {t:TOOL[best.t].n}) : tr('El halo más grande era el de {t}.', {t:TOOL[best.t].n});
+    const g = $('#mGo'); g.hidden = false; g.onclick = closeModal; renderTools(); renderFoe(); });
+}
+
+// ---- Citocinas: un punto por turno, se gastan en habilidades; si abusas, tormenta ----
+function cytoHtml(){
+  if (!B || fixedStats() && !storyCh()) return '';
+  const c = B.cyt || 0;
+  return `<div class="cyto" role="group" aria-label="${tr('Citocinas')}"><span class="cn num" title="${esc(tr('Citocinas: se acumula una por turno'))}">${c}</span>` +
+    CYTO.map(x => `<button class="cyb" data-cyt="${x.id}" ${c < x.c || B.busy || B.over ? 'disabled' : ''} style="--c:${hex(x.col)}" title="${esc(tr(x.n) + ': ' + tr(x.d))}">${tr(x.n)} <small>${x.c}</small></button>`).join('') + '</div>';
+}
+function useCyto(id){
+  const X = CYTO.find(x => x.id === id); if (!B || B.busy || B.over || (B.cyt || 0) < X.c) return;
+  B.cyt -= X.c; B.cytUsed = (B.cytUsed || 0) + 1;
+  if (id === 'fev'){ B.fever = 3; floatText(tr('Fiebre'), P_POS.clone().add(V(0,1.6,0)), 'great'); setMsg('ok', tr('Fiebre'), tr(X.d)); }
+  if (id === 'inf'){ const h = maxHp()*.2; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h), P_POS.clone().add(V(0,1.4,0)), 'heal'); setMsg('ok', tr('Inflamación'), tr(X.d)); }
+  if (id === 'neu'){ const e = B.e, d = atk()*3*streakK(); e.hp = Math.max(0, e.hp - d);
+    for (let i = 0; i < 6; i++) setTimeout(() => projectile(P_POS.clone().add(V(rnd(-1,1), rnd(-1,1), 0)), e.pos.clone(), 0xe8e0ff, 3, 380, null, null), i*60);
+    setTimeout(() => { floatText(fmt(d), e.pos.clone().add(V(0,1.2,0)), 'great'); squash(e); if (!reap()){ renderFoe(); setTimeout(win, 250); } else renderFoe(); }, 450);
+    setMsg('great', tr('Neutrófilos'), tr(X.d)); }
+  if (B.cytUsed > 3){ const d = maxHp()*.15; B.php = Math.max(1, B.php - d); floatText('−' + fmt(d) + ' · ' + tr('tormenta'), P_POS.clone().add(V(0,1.3,0)), 'hurt');
+    $('#msgX').textContent = tr('Tormenta de citocinas: has abusado de las señales de alarma y la inflamación te daña a ti (−15 % de vida).'); }
+  sfx.buy(); renderMe(); renderTools();
+}
+document.addEventListener('click', ev => { const b = ev.target.closest('[data-cyt]'); if (b) useCyto(b.dataset.cyt); });
+
+// ---- Brotes en el mapa ----
+function stepOutbreak(){
+  if (S.clase || storyCh() || S.best < 8) return;
+  const o = S.outbreak, now = Date.now();
+  if (!o){ if (!S.obNext) S.obNext = now + 6*60e3; if (now < S.obNext) return;
+    const zs = Object.keys(ZONES).filter(z => z !== S.zone); const z = zs.at(Math.floor(Math.random()*zs.length));
+    S.outbreak = {zone:z, t0:now, k:0, need:5, spread:0}; toast(tr('¡Brote en {z}! Ve allí desde el mapa y vence 5 organismos antes de 10 minutos para contenerlo.', {z:ZONES[z].n})); renderHud(); return; }
+  if (now - o.t0 > 10*60e3){
+    if (o.spread >= 1){ S.outbreak = null; S.obNext = now + 8*60e3; toast(tr('El brote se ha extinguido solo, pero no has llegado a tiempo.')); renderHud(); return; }
+    const zs = Object.keys(ZONES).filter(z => z !== o.zone); o.zone = zs.at(Math.floor(Math.random()*zs.length)); o.t0 = now; o.spread++; o.need = 7; o.k = 0;
+    toast(tr('El brote se ha extendido a {z}. Ahora hay que vencer 7 organismos.', {z:ZONES[o.zone].n})); renderHud();
+  }
+}
+function outbreakWin(n){
+  const o = S.outbreak; if (!o || S.zone !== o.zone || storyCh()) return;
+  o.k += n; if (o.k < o.need) return toast(tr('Brote: {k}/{n}', {k:o.k, n:o.need}));
+  S.outbreak = null; S.obNext = Date.now() + 8*60e3; S.adn += 1; const t = B.es[0].type; S.samp[t] = (S.samp[t] || 0) + 2;
+  sfx.ach(); toast(tr('¡Brote contenido! +1 ADN y 2 muestras. Así trabajan los epidemiólogos: cortar la transmisión a tiempo.')); renderHud();
+}
+
+// ---- Vacunación con muestras ----
+function makeVaccine(t){
+  if (sampAvail(t) < 3) return;
+  S.spent[t] = (S.spent[t] || 0) + 3; S.vax = S.vax || {}; S.vax[t] = (S.vax[t] || 0) + 10;
+  sfx.ach(); toast(tr('Vacuna contra {n}: los próximos 10 combates contra él empezarán con el evento «Vacuna».', {n:TYPES[t].n})); save(); renderPanel();
+}
+
+// ---- Especiación ----
+function showSpeciation(then){
+  const pool = SPECIES.filter(x => !(S.species || []).includes(x.id)); if (!pool.length) return then && then();
+  showModal(`<div class="eyebrow" style="color:var(--gfp)">${ico('dna')}${tr('Especiación')}</div><h2>${tr('Tu linaje se convierte en una especie nueva')}</h2>
+    <p>${tr('Tras muchas generaciones acumulando cambios, tu linaje ya no puede cruzarse con sus antepasados: es una especie nueva. Elige el rasgo que la define. Este rasgo es permanente.')}</p>
+    <div class="muts">${pool.map(x => `<button class="mutc spc" data-spc="${x.id}"><b>${tr(x.n)}</b><span>${tr(x.d)}</span><small>${tr(x.e)}</small></button>`).join('')}</div>`);
+  $('#mBox').querySelectorAll('[data-spc]').forEach(b => b.onclick = () => { (S.species = S.species || []).push(b.dataset.spc); save(); $('#modal').hidden = true; toast(tr('Nueva especie: {n}', {n:tr(SPEC[b.dataset.spc].n)})); then && then(); });
+}
+
+// ---- Retos del profesor (código compartible) ----
+const chalCode = c => btoa(unescape(encodeURIComponent(JSON.stringify(c))));
+function chalHtml(){
+  const c = S.chal;
+  let h = `<div class="nb">${tr('Retos del profesor')}</div>`;
+  if (c){ const D = c.type ? TYPES[c.type].n : tr('cualquier organismo');
+    h += `<div class="org ${c.p >= c.n ? 'ok' : ''}">${vesicle('plate', 0xffc65c)}<h4>${tr('Reto: vence {n} veces a {t}', {n:c.n, t:D})}${c.ban ? ' ' + tr('sin usar {b}', {b:TOOL[c.ban].n}) : ''}</h4>
+      <div class="meter"><i style="width:${Math.min(100, c.p/c.n*100)}%"></i></div><div class="eff">${c.p} / ${c.n}${c.p >= c.n ? ' · ' + tr('completado') : ''}</div><button class="buy" id="chalDel">${tr('Quitar reto')}</button></div>`; }
+  h += `<div class="org"><h4>${tr('Crear un reto para la clase')}</h4><p>${tr('Elige el organismo, cuántas veces hay que vencerlo y una herramienta prohibida. Comparte el código con tus alumnos.')}</p>
+    <div class="chf"><select id="chT"><option value="">${tr('cualquier organismo')}</option>${TYPE_ORDER.map(t => `<option value="${t}">${TYPES[t].n}</option>`).join('')}</select>
+    <select id="chN">${[3, 5, 10, 20].map(n => `<option>${n}</option>`).join('')}</select>
+    <select id="chB"><option value="">${tr('sin prohibir nada')}</option>${TOOLS.map(t => `<option value="${t.id}">${tr('sin')} ${t.n}</option>`).join('')}</select></div>
+    <button class="buy" id="chMake">${tr('Crear código')}</button><textarea id="chOut" readonly rows="2" hidden></textarea></div>
+    <div class="org"><h4>${tr('Cargar un reto')}</h4><textarea id="chIn" rows="2" placeholder="${tr('Pega aquí el código del reto')}"></textarea><button class="buy" id="chLoad">${tr('Cargar')}</button></div>`;
+  return h;
+}
+document.addEventListener('click', ev => {
+  const id = ev.target.id;
+  if (id === 'chMake'){ const c = {type:$('#chT').value || null, n:+$('#chN').value, ban:$('#chB').value || null}; const o = $('#chOut'); o.hidden = false; o.value = chalCode(c); copyText(o.value, o); }
+  else if (id === 'chLoad'){ try{ const c = JSON.parse(decodeURIComponent(escape(atob($('#chIn').value.trim())))); if (!c || !c.n) throw 0;
+      S.chal = {type:c.type && TYPES[c.type] ? c.type : null, n:Math.min(100, Math.max(1, +c.n)), ban:c.ban && TOOL[c.ban] ? c.ban : null, p:0}; save(); renderPanel(); toast(tr('Reto cargado')); }
+    catch(_){ toast(tr('El código no es válido')); } }
+  else if (id === 'chalDel'){ S.chal = null; save(); renderPanel(); }
+});
+function chalWin(){
+  const c = S.chal; if (!c || c.p >= c.n || storyCh()) return;
+  if (c.ban && B.usedTools && B.usedTools[c.ban]) return;
+  const n = B.es.filter(x => !c.type || x.type === c.type).length; if (!n) return;
+  c.p = Math.min(c.n, c.p + n);
+  if (c.p >= c.n){ S.adn += 1; sfx.ach(); toast(tr('¡Reto del profesor completado! +1 ADN.')); } else toast(tr('Reto: {k}/{n}', {k:c.p, n:c.n}));
+}
+
+// ---- Gráficos: luz de las herramientas, división visible, viaje entre zonas, estado de tu célula ----
+const toolLight = new THREE.PointLight(0xffffff, 0, 9); scene.add(toolLight);
+function toolFlash(col, pos){ if (QL === 0) return; toolLight.color.setHex(col); toolLight.position.copy(pos).add(V(0,1,1.5)); tween(520, p => toolLight.intensity = 2.6*Math.sin(p*Math.PI), () => toolLight.intensity = 0); }
+function splitFx(e){
+  const o = e && e.obj; if (!o || o.dying || QL === 0) return;
+  const c = o.g.clone(); c.position.copy(o.g.position); scene.add(c); const dir = V(rnd(-1, 1), rnd(.2, 1), 0).normalize();
+  tween(800, p => { c.position.copy(o.g.position).addScaledVector(dir, .9*easeOut(p)); c.scale.setScalar(o.base*(1 - p)*.8); }, () => scene.remove(c));
+}
+function travelFx(){ const t = $('#travel'); t.hidden = false; t.classList.remove('go'); void t.offsetWidth; t.classList.add('go'); setTimeout(() => { t.hidden = true; }, 1000); }
+function stepPlayerState(t){
+  if (!B || !player) return;
+  const low = B.php < maxHp()*.3, fev = B.fever > 0 || (B.e && B.e.ev === 'fiebre') || (S.bodyI != null && bodyCur().id === 'fever'), inf = B.e && B.e.ev === 'inflam' || cellD().inflam;
+  const base = SKINS[S.skin].col;
+  const col = low ? 0xff4f7b : inf ? 0xff9ad0 : fev ? 0xffa64d : base;
+  pLight.color.lerp(new THREE.Color(col), .05);
+  pLight.intensity = 1.1 + (low ? .9*(.5 + .5*Math.sin(t*6)) : fev ? .5 : 0);
+}
+
+// ---- Accesibilidad: paleta para daltonismo y alto contraste ----
+function applyA11y(){ $('#app').classList.toggle('cb', !!S.cb); $('#app').classList.toggle('hc', !!S.hc); }
+setTimeout(applyA11y, 0);
+
+// ---- Lámina científica descargable (Atlas) ----
+function showPlate(id){
+  const Ty = TYPES[id], src = thumb(id), parts = PARTS[id] || [];
+  showModal(`<div class="plate"><div class="pl-h">${tr('Lámina')} ${prep(id)} · Microcosmos</div><h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div>
+    <div class="pl-b">${src ? `<img src="${src}" alt="">` : ''}<ol>${parts.map(p => `<li><b>${tr(p[0])}</b> ${tr(p[1])}</li>`).join('') || Ty.traits.map(x => `<li>${esc(x[0])}</li>`).join('')}</ol></div>
+    <p class="pl-d">${Ty.desc}</p></div><div class="row"><button class="go" id="plDl">${tr('Descargar lámina')}</button><button class="ghost" id="mGo">${tr('Cerrar')}</button></div>`);
+  $('#plDl').onclick = () => downloadPlate(id);
+}
+function downloadPlate(id){
+  const Ty = TYPES[id], parts = PARTS[id] || [], cv = document.createElement('canvas'); cv.width = 1200; cv.height = 1600;
+  const x = cv.getContext('2d'); x.fillStyle = '#f3ead6'; x.fillRect(0, 0, 1200, 1600);
+  x.strokeStyle = '#3b2f22'; x.lineWidth = 6; x.strokeRect(40, 40, 1120, 1520); x.lineWidth = 2; x.strokeRect(58, 58, 1084, 1484);
+  x.fillStyle = '#3b2f22'; x.textAlign = 'center'; x.font = '600 30px Georgia, serif'; x.fillText(tr('Lámina') + ' ' + prep(id) + ' · Microcosmos', 600, 120);
+  x.font = '700 64px Georgia, serif'; x.fillText(Ty.n, 600, 210); x.font = 'italic 34px Georgia, serif'; x.fillText(Ty.sci, 600, 260);
+  const wrap = (s, w) => { const out = []; let l = ''; for (const t of s.split(' ')){ if (x.measureText(l + ' ' + t).width > w){ out.push(l); l = t; } else l = (l + ' ' + t).trim(); } out.push(l); return out; };
+  const finish = () => { x.textAlign = 'left'; let y = 1000; x.font = '28px Georgia, serif';
+    (parts.length ? parts.map((p, i) => `${i + 1}. ${tr(p[0])}: ${tr(p[1])}`) : Ty.traits.map((t, i) => `${i + 1}. ${t[0]}`)).forEach(l => wrap(l, 1000).forEach(s => { x.fillText(s, 100, y); y += 38; }));
+    y += 20; x.font = 'italic 24px Georgia, serif'; wrap(Ty.desc, 1000).slice(0, 8).forEach(s => { x.fillText(s, 100, y); y += 32; });
+    const a = document.createElement('a'); a.download = 'lamina-' + id + '.png'; a.href = cv.toDataURL('image/png'); a.click(); };
+  const src = thumb(id); if (!src) return finish();
+  const im = new Image(); im.onload = () => { x.save(); x.filter = 'sepia(.85) contrast(1.15)'; x.beginPath(); x.arc(600, 620, 330, 0, Math.PI*2); x.clip(); x.fillStyle = '#e6dcc4'; x.fillRect(270, 290, 660, 660); x.drawImage(im, 270, 290, 660, 660); x.restore();
+    x.beginPath(); x.arc(600, 620, 330, 0, Math.PI*2); x.lineWidth = 4; x.stroke(); finish(); }; im.src = src;
+}
+
+// ---- Comparación de escala (fichas de organismo nuevo) ----
+function scaleHtml(id){
+  const a = SIZE_UM[id], me = CELL_UM[S.cell] || 21; if (!a) return '';
+  const r = a/me, txt = r < 1 ? tr('Es unas {k} veces más pequeño que tu célula.', {k:fmt(Math.round(1/r))}) : r > 1.5 ? tr('Es unas {k} veces más grande que tu célula.', {k:fmt(Math.round(r))}) : tr('Tiene más o menos tu tamaño.');
+  const L = v => Math.max(4, Math.min(100, 50 + 12*Math.log10(v)));
+  return `<div class="scl"><div class="scb"><span style="width:${L(me)}%" class="me"></span><em>${tr('Tú')} · ${me} µm</em></div><div class="scb"><span style="width:${L(a)}%"></span><em>${TYPES[id].n} · ${a >= 1000 ? fmt(a/1000) + ' mm' : a + ' µm'}</em></div><small>${txt} ${tr('(Escala logarítmica.)')}</small></div>`;
+}
+
+// ---- Resumen del combate (al vencer a un jefe o en los eventos) ----
+function summaryHtml(){
+  const d = B.dmgBy || {}, ks = Object.keys(d).filter(k => d[k] > 0); if (!ks.length) return '';
+  const tot = ks.reduce((a, k) => a + d[k], 0), top = ks.reduce((a, k) => d[k] > d[a] ? k : a);
+  return `<div class="summ"><b>${tr('Resumen')}</b>${ks.sort((a, b) => d[b] - d[a]).slice(0, 4).map(k => `<div class="sr"><span>${TOOL[k].n}</span><i style="width:${d[k]/tot*100}%;background:${hex(TOOL[k].col)}"></i><em>${Math.round(d[k]/tot*100)} %</em></div>`).join('')}
+    <small>${tr('Herramienta estrella: {t}. Turnos: {n}.', {t:TOOL[top].n, n:B.turns})}</small></div>`;
+}
 /* =====================================================================
    ARRANQUE
    ===================================================================== */

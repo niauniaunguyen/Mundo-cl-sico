@@ -235,7 +235,7 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
     const pts = []; for (let i=0;i<=20;i++) pts.push(randIn(.8,.6,.6));
     inner.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 80, .02, 5), mem(0x9ff0ff, {op:.5, rimK:.6, bump:false}), 5)); }
   // filopodios: tu linaje gana más con cada evolución
-  const fil = inst(new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
+  const fil = inst(CD.dend ? new THREE.ConeGeometry(.03, 1.1, 5).translate(0, .55, 0) : new THREE.ConeGeometry(.025, .35, 5).translate(0, .175, 0), mem(rimCol, {op:.6, rimK:.8, bump:false}), fibDirs(CD.dend ? 26 : Math.min(44, 16 + evos*4)).map(d => ({p:d.clone().multiplyScalar(1.12*sc), n:d})), 9);
   g.add(fil);
   // orgánulos de élite: receptores tipo Toll, glucocáliz y gránulos secretores
   if (lv('tlr')) g.add(inst(new THREE.ConeGeometry(.03, .16, 5).translate(0, .08, 0), mem(0xffb547, {emiK:.6, bump:false}), fibDirs(Math.min(60, 6*lv('tlr'))).map(d => ({p:d.clone().multiplyScalar(1.06*sc), n:d})), 9));
@@ -250,6 +250,8 @@ function buildMacrophage(cellId='mac', col=0x58c8ff, evos=0, U={}){
       for (let i=1;i<lobes.length;i++) lobes[i].a = lobes[i].b*(.6 + .6*Math.sin(t*.7 + lobes[i].ph));
       memb.userData.wob(t, .05, 2, 1, .02); cyto.userData.wob(t+3, .06, 2.4, .8); nuc.userData.wob(t+5, .03, 3, .5);
       inner.rotation.y = Math.sin(t*.2)*.25; inner.rotation.x = Math.sin(t*.17)*.1; fil.rotation.y = Math.sin(t*.5)*.1;
+      // citoplasma vivo: los orgánulos se desplazan por los microtúbulos y el citoplasma fluye (ciclosis)
+      inner.children.forEach((c, i) => { const p0 = c.userData.p0 || (c.userData.p0 = c.position.clone()); c.position.set(p0.x + .035*Math.sin(t*.6 + i*1.7), p0.y + .03*Math.sin(t*.45 + i), p0.z + .03*Math.cos(t*.5 + i*.8)); if (i % 3 === 0) c.rotation.y = t*.08*(i % 2 ? 1 : -1); });
       mm.emissiveIntensity = 1 + mitK*1.2*(.5 + .5*Math.sin(t*2.2)); // las mitocondrias laten al producir ATP
       lyM.emissiveIntensity = .9 + .2*Math.sin(t*1.7);
     }};
@@ -813,7 +815,7 @@ function variantLook(o, Vr){
     o.g.traverse(n => { if (n.material) [].concat(n.material).forEach(m => { m.side = THREE.DoubleSide; }); });
   }
   const spin = o.up;
-  if (vis.shell || vis.spikes) o.up = (t, e) => { spin(t, e); add.forEach((m, i) => m.rotation.y = Math.sin(t*.6 + i)*.15); };
+  if (vis.shell || vis.spikes) o.up = (t, e) => { spin(t, e); add.forEach((m, i) => { m.rotation.y = Math.sin(t*.6 + i)*.15; if (vis.spikes) m.rotation.z = Math.sin(t*5 + i*.9)*.12; }); }; // los flagelos ondulan
 }
 
 // ---- Miniaturas para el Atlas y las fichas (renderizador aparte) ----

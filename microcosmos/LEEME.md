@@ -307,3 +307,41 @@ Datos en `partes/v12.js` y lógica en `partes/extras.js`. Las mutaciones y las z
 8. **Interfaz más viva:** números del color de la herramienta, barras que laten con poca vida y botones que destellan al acabar la recarga.
 9. **Ciclos de vida en el Atlas** (`CYCLES`, `cycleSvg`): estafilococo, gripe, levadura, *Bacillus*, plasmodio, VIH, tumor y tenia.
 10. **Rendimiento** (`S.perf`): ahorro de batería (30 fps y calidad baja), normal o cine (calidad alta, viñeta y aberración cromática).
+
+## Versión 13: otras 10 de jugabilidad y 10 gráficas
+Datos en `partes/v13.js` y lógica en `partes/extras2.js`. Los estados del cuerpo y la especiación actúan a través de `bodyK`/`specK` (`estado.js`).
+
+**Jugabilidad**
+1. **Microbiota** (`S.biota`, zonas `int` y `pie`): resta un 3 %·biota de vida a las bacterias y levaduras cada turno.
+   - Los antibióticos le quitan 20 puntos.
+   - Cada victoria sin antibióticos le devuelve 5.
+2. **Antibiograma** (`showAntibiogram`): placa de Petri con discos y halos según la eficacia. Si eliges el mejor disco, esa herramienta hace ×1,3 en ese combate (`B.abg`).
+3. **Plásmidos:** en los grupos con dos bacterias, la mitad de las veces una lleva un plásmido de resistencia y puede pasarlo a su compañera (`plasmidTurn`).
+4. **Brotes en el mapa** (`S.outbreak`):
+   - Para contenerlo hay que vencer 5 organismos en esa zona en 10 minutos.
+   - Si no se llega a tiempo, se extiende a otra zona, que pide 7.
+   - Recompensa: +1 ADN y 2 muestras.
+5. **Citocinas** (`B.cyt`, un punto por turno):
+   - Fiebre (4 puntos), neutrófilos (5) e inflamación (3).
+   - Usar más de 3 habilidades en un combate provoca una tormenta de citocinas: −15 % de vida.
+6. **Vacunas:** 3 muestras dan 10 combates contra ese organismo con el evento «Vacuna» (`S.vax`).
+7. **Células nuevas:**
+   - Célula dendrítica (4 evoluciones): T ×1,5 e interferones ×1,3.
+   - Mastocito (5): empieza con inflamación; ×1,6 contra la tenia.
+   - Linfocito B (6): anticuerpos ×1,6 y +1 turno de opsonización.
+   - Se aplican con `CELLS[x].tb`.
+8. **Retos del profesor** (pestaña Retos): código compartible (`S.chal`). Completarlo da +1 ADN.
+9. **Estados del cuerpo** (`BODY`, cambian cada 5 min): descanso, estrés, ejercicio, buena alimentación o fiebre leve.
+10. **Especiación** cada 6 evoluciones: un rasgo permanente (`S.species`).
+
+**Gráficos**
+1. **Citoplasma vivo:** los orgánulos de tu célula se desplazan.
+2. **Flagelos que ondulan** en las variantes. Los cilios del paramecio ya tenían onda metacrónica.
+3. **Clon visible** al dividirse (`splitFx`).
+4. **Viaje animado** entre zonas (`#travel`).
+5. **Comparación de escala** en las fichas (`SIZE_UM`).
+6. **Resumen del combate** al vencer a un jefe (`B.dmgBy`, `summaryHtml`).
+7. **Tu célula cambia de luz** según su estado: poca vida, fiebre o inflamación (`stepPlayerState`).
+8. **Láminas descargables** en el Atlas (`showPlate`, PNG de 1200×1600).
+9. **Paleta para daltonismo y alto contraste** (`#app.cb`, `#app.hc`).
+10. **Luz del color de cada herramienta** al lanzarla (`toolFlash`).

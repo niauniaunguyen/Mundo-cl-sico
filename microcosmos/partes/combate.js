@@ -94,7 +94,7 @@ function newBattle(keepHp){
   for (let i = 1; i < n; i++) es.push(makeFoe(pickType(), false, -1, null, L, K));
   es.forEach((e, i) => { e.i = i; e.hp = e.max = e.max*x3; });
   if (n === 1 && !ch && !boss && !practice && L >= 5 && S.seen[type] && !vr && Math.random() < .18) es[0].blind = true;
-  if (n > 1) setSynergy(es);
+  if (n > 1){ setSynergy(es); plasmidSetup(es); }
   const e = es[0];
   if (type === 'gp' && !boss && !ch && Math.random() < Math.min(.6, S.press/150)*(1 - .25*rl('flem'))){ e.res = true; S.sarmSeen = true; }
   if (!boss && !ch && L >= 3 && Math.random() < .15){
@@ -103,7 +103,9 @@ function newBattle(keepHp){
     if (ev === 'hipoxia' && zoneK('nohyp', false)) ev = 'inflam';
     es.forEach(x => { x.ev = ev; if (ev === 'vacuna'){ const k = S.known[x.type] = S.known[x.type] || {}; TOOLS.forEach(t => k[t.id] = true); } });
   }
-  B = {es, e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
+  if (!ch && !es[0].ev){ if (S.vax && S.vax[type] > 0){ S.vax[type]--; es.forEach(x => x.ev = 'vacuna'); const k = S.known[type] = S.known[type] || {}; TOOLS.forEach(t => k[t.id] = true); }
+    else if (cellD().inflam && !fixedStats()) es.forEach(x => x.ev = 'inflam'); }
+  B = {cyt:0, dmgBy:{}, usedTools:{}, es, e, php:Math.min(keepHp != null ? keepHp : maxHp(), maxHp()), cds:{}, busy:false, over:false, timer:null,
     last:null, lastOk:false, usedAb:false, onlyFago:true, turns:0, firstDone:false, why:null};
   setFoes(es); setDark(false); setZoneTint(ch ? ch.tint || ch.zone : S.zone); ambient(ch ? ch.zone : S.zone);
   renderFoe(); renderMe(); renderTools(); renderHud();
@@ -138,7 +140,7 @@ function toolDmg(id, x, r){
   const T = TOOL[id];
   const cb = cellD().bonus[x.type] || 1, mark = x.marked > 0 ? (has('h2') ? 2 : 1.6) : 1, vac = x.ev === 'vacuna' && id === 'ac' ? 2 : 1;
   const vul = x.var && VARIANTS[x.var].vul || 1;
-  const k = (id === 'fago' ? mutK('fago')*rangeK('fago') : 1)*(id === 'lis' ? mutK('lis') : 1)*(id === 'art' ? zoneK('art') : 1)*(T.ab ? zoneK('ab') : 1)*streakK()*shieldK(x);
+  const k = (id === 'fago' ? mutK('fago')*rangeK('fago') : 1)*(id === 'lis' ? mutK('lis') : 1)*(id === 'art' ? zoneK('art') : 1)*(T.ab ? zoneK('ab') : 1)*streakK()*shieldK(x)*((cellD().tb || {})[id] || 1)*(B.abg === id ? 1.3 : 1)*(B.fever > 0 ? 1.3 : 1);
   return {dmg:atk()*T.pow*r.m*mark*cb*vac*vul*k*collVs(x.type, id)*treeMods(id, x)*dmgMods(x, true)*rnd(.9, 1.1), cb, mark, vac, vul};
 }
 // los enemigos que han llegado a 0 desaparecen; si quedan otros, el objetivo pasa al siguiente
@@ -156,6 +158,7 @@ function useTool(id){
   const r = eff(id, e);
   const hitList = T.aoe ? alive() : [e];
   hitList.forEach(x => { (S.known[knowKey(x)] = S.known[knowKey(x)] || {})[id] = true; });
+  B.usedTools[id] = true; biotaAfterTool(T); toolFlash(T.col, E_POS);
   let cenProc = false;
   if (toolCd(T)){ if (adv('cen') && Math.random() < .07*adv('cen')){ cenProc = true; ring(P_POS, 0xff9fd8); } else B.cds[id] = toolCd(T) + 1; }
   if (T.ab){ B.usedAb = true; S.press = Math.min(100, S.press + 4); }
@@ -183,7 +186,7 @@ function useTool(id){
       let total = 0;
       for (const x of hitList){
         const rx = eff(id, x), d = rx.m > 0 ? toolDmg(id, x, rx).dmg : 0;
-        x.hp = Math.max(0, x.hp - d); total += d;
+        x.hp = Math.max(0, x.hp - d); total += d; B.dmgBy[id] = (B.dmgBy[id] || 0) + d;
         floatText(rx.m > 0 ? fmt(d) : tr('Inmune'), x.pos.clone().add(V(0,1.2,0)), rx.m >= 2 ? 'great' : rx.m >= 1 ? 'dmg' : rx.m > 0 ? 'bad' : 'none', T.col);
         if (rx.m > 0) squash(x);
         if (rx.m > 0) burst(x.pos, T.col, rx.m >= 2 ? 30 : 14, 3);
@@ -201,7 +204,7 @@ function useTool(id){
       ok = r.m > 0;
       const crit = has('c2') && r.m > 0 && Math.random() < .15 ? 2 : 1;
       const {dmg:d0, cb, mark, vac, vul} = toolDmg(id, e, r), dmg = d0*crit;
-      e.hp = Math.max(0, e.hp - dmg);
+      e.hp = Math.max(0, e.hp - dmg); B.dmgBy[id] = (B.dmgBy[id] || 0) + dmg;
       const [v, l] = verdict(r.m);
       floatText(r.m > 0 ? fmt(dmg) : tr('Inmune'), E_POS.clone().add(V(0,1.2,0)), r.m >= 2 ? 'great' : r.m >= 1 ? 'dmg' : r.m > 0 ? 'bad' : 'none', T.col);
       if (r.m > 0) squash(e); if (r.m >= 2 || crit > 1) camPunch(crit > 1 ? .84 : .9);
@@ -222,7 +225,7 @@ function useTool(id){
       if (r.m > 0 && e.ev === 'fiebre') extra.push(tr('Fiebre: +25 % de daño.'));
       if (r.m > 0 && e.ev === 'hipoxia') extra.push(tr('Hipoxia: −20 % de daño.'));
       if (vac > 1 && r.m > 0) extra.push(tr('Vacuna: los anticuerpos hacen el doble.'));
-      if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = has('h1') ? 6 : 4; extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
+      if (id === 'ac' && r.m > 0 && !e.hidden && !e.inRbc){ e.marked = (has('h1') ? 6 : 4) + (S.cell === 'lyb' && !fixedStats() ? 1 : 0); extra.push(has('h1') ? tr('Opsonizado: más daño durante 5 turnos.') : tr('Opsonizado: +60 % de daño durante 3 turnos.')); }
       if (vul > 1 && r.m > 0) extra.push(tr('Sin citoesqueleto: +40 % de daño.'));
       if (id === 'uv' && r.m > 0 && e.var && VARIANTS[e.var].uvStall){ e.stall = VARIANTS[e.var].uvStall + 1; extra.push(tr('Sus ribosomas se quedan sin instrucciones: no se repara durante 2 turnos.')); }
       if (id === 'tax' && r.m > 0){ e.block = 3; extra.push(tr('Huso mitótico bloqueado durante 3 turnos.')); }
@@ -265,7 +268,7 @@ function useTool(id){
 // lo que hace cada enemigo en su turno antes de atacar (curarse, esconderse, mutar…)
 function foeEffects(e, notes){
   const many = B.es.length > 1, who = s => many ? foeName(e) + ': ' + s : s;
-  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), e.pos.clone().add(V(.6,1.5,0)), 'heal'); notes.push(who(why)); };
+  const heal = (f, why) => { const h = e.max*f; e.hp = Math.min(e.max, e.hp + h); floatText('+' + fmt(h), e.pos.clone().add(V(.6,1.5,0)), 'heal'); notes.push(who(why)); if (['gp','lev','can','ten'].includes(e.type)) splitFx(e); };
   switch (e.type){
     case 'gp': if (e.turn % 3 === 0) heal(.15, tr('Fisión binaria: la colonia se divide y recupera un 15 % de vida.')); break;
     case 'lev': if (e.turn % 3 === 0) heal(.15, tr('Gemación: le brota una yema nueva (+15 % de vida).')); break;
@@ -282,7 +285,7 @@ function foeEffects(e, notes){
       notes.push(who(tr('El VIH infecta más linfocitos T CD4: tus anticuerpos y linfocitos T pierden eficacia.') + (e.hidden ? ' ' + tr('Además entra en latencia, integrado en el ADN de una célula.') : ''))); break;
     case 'ten': heal(.06, tr('Su cuello forma nuevas proglótides: recupera un 6 %.')); break;
   }
-  synergyTurn(e, notes, heal, who);
+  synergyTurn(e, notes, heal, who); plasmidTurn(e, notes, who);
   const VR = e.var && VARIANTS[e.var];
   if (VR && VR.regen){ if (e.stall > 0) notes.push(tr('Sin ARNm nuevo, sus ribosomas están parados: no se repara.')); else heal(VR.regen, tr('Sus ribosomas fabrican proteínas sin parar: se repara un 9 %.')); }
   if (VR && VR.atkK && VR.atkK < 1 && e.turn === 1) notes.push(tr('Sin mitocondrias le falta ATP: ataca muy débil.'));
@@ -304,6 +307,7 @@ function enemyTurn(){
   if (adv('gol') && B.e.hp > 0){ const t = B.e, d = atk()*.06*adv('gol'); t.hp = Math.max(0, t.hp - d);
     projectile(P_POS.clone().add(V(.5,.3,0)), t.pos.clone(), 0xffc65c, 3 + adv('gol'), 420, () => floatText('−' + fmt(d) + ' · Golgi', t.pos.clone().add(V(.4,1.6,0)), 'evt ev-golgi'), null); }
   for (const x of alive()){ if (x.hp <= 0) continue; x.turn++; foeEffects(x, notes); }
+  biotaTurn(notes); B.cyt = Math.min(10, (B.cyt || 0) + 1);
   if (ev === 'inflam'){ const h = maxHp()*.06; B.php = Math.min(maxHp(), B.php + h); floatText('+' + fmt(h) + ' · ' + tr('inflamación'), P_POS.clone().add(V(0,1.5,0)), 'evt ev-inflam'); notes.push(tr('Inflamación: recuperas un 6 % de vida.')); }
   if (ev === 'fiebre' && B.es[0].turn === 1) notes.push(tr('La fiebre también aumenta su daño (+25 %).'));
   if (has('i4') && B.php > 0){ const h = maxHp()*.04; B.php = Math.min(maxHp(), B.php + h); }
@@ -312,6 +316,7 @@ function enemyTurn(){
   if (!reap()){ renderFoe(); return setTimeout(win, 250); }
   const finish = () => {
     for (const k in B.cds) if (B.cds[k] > 0) B.cds[k]--;
+    if (B.fever > 0) B.fever--;
     for (const x of B.es){ if (x.marked > 0) x.marked--; if (x.block > 0) x.block--; if (x.stall > 0) x.stall--; }
     if (notes.length){ $('#msgX').textContent = notes.join(' '); placeNarr(); }
     if (B.php > 0) B.busy = false;
@@ -384,7 +389,8 @@ function win(){
     hp = Math.min(maxHp(), B.php + maxHp()*.35);
   }
   setMsg('great', tr('Victoria'), tr('+{g} ATP.', {g:fmt(g)}) + ' ' + (boss ? tr('Jefe derrotado.') : tr('Recuperas un 35 % de vida.')), e.ev === 'hipoxia' ? tr('Incluye un 50 % más de ATP por la hipoxia.') : '');
-  B.es.forEach(dropLoot);
+  B.es.forEach(dropLoot); biotaAfterWin(); outbreakWin(B.es.length); chalWin();
+  if (boss){ const sm = summaryHtml(); if (sm) $('#msgX').innerHTML = esc($('#msgX').textContent) + sm; }
   B.es.forEach(x => { if (x.blind) toast(tr('Era {n}.', {n:TYPES[x.type].n})); });
   checkAch(); save(); renderHud(); renderLog(); pushBoard(); evoNudge();
   if (typeof mile !== 'undefined' && mile) setTimeout(() => showMilestone(mile, () => newBattle(hp)), 900);

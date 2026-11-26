@@ -133,6 +133,9 @@ function renderHud(){
   $('#bAdv').setAttribute('aria-pressed', S.advance);
   $('#bSnd').setAttribute('aria-pressed', S.sound);
   $('#bRange').setAttribute('aria-pressed', S.range === 'far'); $('#bRange').title = S.range === 'far' ? tr('Lejos') : tr('Cerca');
+  const hb = $('#hBody'), bc = bodyCur(); hb.hidden = !!S.clase; hb.innerHTML = ico(bc.ic) + tr(bc.n); hb.style.setProperty('--k', hex(bc.col)); hb.title = tr(bc.d);
+  const hm = $('#hBiota'); hm.hidden = !biotaOn(); hm.innerHTML = ico('biota') + tr('Microbiota') + ' ' + (S.biota == null ? 60 : S.biota) + ' %'; hm.title = tr('Tu microbiota compite con bacterias y levaduras. Los antibióticos la reducen; vencer sin ellos la recupera.');
+  $('#bMap').classList.toggle('ob', !!S.outbreak);
   const hs = $('#hStreak'); hs.hidden = !(S.streak >= 2); hs.textContent = tr('Racha') + ' ×' + dec(streakK().toFixed(2));
   $('#bFocus').setAttribute('aria-pressed', !!S.focus); $('#app').classList.toggle('focus', !!S.focus);
   $('#bMap').querySelector('.lbl').textContent = ZONES[S.zone].n;
@@ -170,6 +173,9 @@ function renderFoe(){
   $('#fAtk').textContent = `${tr('ataque')} ${fmt(e.atk*e.grow)}`;
   const tags = B.why ? KEYTRAIT[B.why.tool] || [] : [];
   let t = blind ? `<span class="trait">?</span><span class="trait">?</span>` : Ty.traits.map(([x, tag, mut]) => `<span class="trait ${mut ? 'mut' : ''} ${tags.includes(tag) ? 'why' : ''}">${mut ? '✦ ' : ''}${esc(x)}</span>`).join('');
+  if (e.plas && !blind) t += `<span class="trait st">${tr('Plásmido de resistencia')}</span>`;
+  if (B.abg) t += `<span class="trait good">${tr('Antibiograma: {t} ×1,3', {t:TOOL[B.abg].n})}</span>`;
+  const ab = $('#fAbg'); ab.hidden = blind || !!B.abgDone || !PLASMID_FOES.concat(['tbc']).includes(e.type) || fixedStats() && !storyCh(); ab.innerHTML = ico('dish') + tr('Hacer un antibiograma');
   if (e.syn && !blind) t += `<span class="trait syn">${esc(e.syn)}</span>`;
   if (e.adapted) t += `<span class="trait st">${tr('Adaptado a {t}', {t:TOOL[e.adapted].n})}</span>`;
   if (e.stall > 0) t += `<span class="trait good">${tr('Sin instrucciones del ADN')}</span>`;
@@ -219,11 +225,12 @@ function renderTools(){
     return `<button class="tool ${was ? 'ready' : ''}" style="--c:${hex(T.col)}" data-tool="${T.id}" ${cd > 0 || !B || B.busy || B.over ? 'disabled' : ''} title="${esc(T.n + ': ' + T.d)}" aria-label="${esc(T.n)}${cd > 0 ? ', ' + tr('recargando {n} turnos', {n:left}) : ''}">
       ${vesicle(T.id, T.col, ring)}<span class="tn">${T.n}</span>
       <span class="tm"><span class="rc">${T.aoe ? tr('área') + ' · ' : ''}${T.cd ? tr('recarga {n}', {n:T.cd}) : tr('sin recarga')}</span>${bd}</span></button>`;
-  }).join('');
+  }).join('') + cytoHtml();
   if (B) B.cdPrev = Object.assign({}, B.cds);
   document.documentElement.style.setProperty('--toolsH', nav.offsetHeight + 'px');
 }
 $('#fId').addEventListener('click', () => identifyFoe());
+$('#fAbg').addEventListener('click', () => showAntibiogram());
 $('#tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (b) useTool(b.dataset.tool); });
 $('#fTg').addEventListener('click', ev => { const b = ev.target.closest('[data-tg]'); if (b) selectTarget(+b.dataset.tg); });
 
@@ -339,7 +346,7 @@ function renderPanel(){
       const chips = TOOLS.filter(t => kn.includes(t.id)).map(t => { const r = eff(t.id, {type:id}); const [v] = verdict(r.m); return badge(v, `${t.n} ×${dec(r.m)}`); }).join('');
       h += `<div class="slidecard"><div class="lab">${tr('Prep.')} ${prep(id)}</div>${fov(id, '', LAB[id][1])}<div class="txt">
         <h4 style="color:${hex(Ty.col)}">${Ty.n}${stars(id) ? `<span class="astars">${'★'.repeat(stars(id))}</span>` : ''}</h4><div class="sci">${Ty.sci} · ${tr('vencidos')}: ${S.defeated[id] || 0}</div><div class="stain">${LAB[id][0]}</div>
-        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${CYCLES[id] ? `<button class="buy" data-cyc="${id}">${ico('cycle')}${tr('Ciclo')}</button>` : ''}${practice}</div>${S.clase ? '' : `<div class="resr">${tr('Investigación')}: ${tr('nivel')} ${S.research[id] || 0}/3 · ${tr('muestras libres')}: ${sampAvail(id)} ${(S.research[id] || 0) < 3 ? `<button class="buy" data-res="${id}" ${sampAvail(id) < 5 ? 'disabled' : ''}>${tr('Investigar (5 muestras)')}</button>` : ''}</div>`}</div></div>`;
+        <p>${Ty.desc}</p><div class="known">${chips || badge('unk', tr('Aún no has probado nada'))}</div><div class="row"><button class="buy" data-scope="${id}">${ico('scope')}${tr('Examinar')}</button>${CYCLES[id] ? `<button class="buy" data-cyc="${id}">${ico('cycle')}${tr('Ciclo')}</button>` : ''}<button class="buy" data-plate="${id}">${ico('plate')}${tr('Lámina')}</button>${practice}</div>${S.clase ? '' : `<div class="resr">${tr('Investigación')}: ${tr('nivel')} ${S.research[id] || 0}/3 · ${tr('muestras libres')}: ${sampAvail(id)} ${(S.research[id] || 0) < 3 ? `<button class="buy" data-res="${id}" ${sampAvail(id) < 5 ? 'disabled' : ''}>${tr('Investigar (5 muestras)')}</button>` : ''}<button class="buy" data-vax="${id}" ${sampAvail(id) < 3 ? 'disabled' : ''}>${ico('syringe')}${tr('Vacuna (3 muestras)')}</button>${S.vax && S.vax[id] ? ` · ${tr('vacunado: {n} combates', {n:S.vax[id]})}` : ''}</div>`}</div></div>`;
     }
     h += `<div class="nb">${tr('Fuentes')}</div><ul class="refs">${SOURCES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
     h += `<div class="nb">${tr('Licencias del juego')}</div><ul class="refs">${LICENSES.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
@@ -350,6 +357,7 @@ function renderPanel(){
   } else if (tab === 'ret'){
     ensureDaily();
     h += boardHtml();
+    h += chalHtml();
     h += `<div class="nb">${tr('Retos de hoy')}</div><p class="lead">${tr('Cada día hay dos retos nuevos. Cada uno da 1 punto de ADN y desbloquea colores para tu célula.')}</p>`;
     h += S.daily.list.map(q => { const D = DAILY.find(x => x.id === q.id);
       return `<div class="org daily ${q.done ? 'ok' : ''}">${vesicle(q.done ? 'trophy' : 'flask', q.done ? 0x4dffa0 : 0xffc65c)}<h4>${D.n}</h4><div class="meter"><i style="width:${q.p/D.goal*100}%"></i></div><div class="eff">${q.p} / ${D.goal}${q.done ? ' · ' + tr('completado') : ''}</div></div>`; }).join('');
@@ -380,6 +388,7 @@ function renderPanel(){
   } else if (tab === 'aju'){
     h += installHtml();
     h += perfHtml();
+    h += `<div class="nb">${tr('Accesibilidad visual')}</div>` + toggleRow('cb', S.cb, tr('Paleta para daltonismo'), tr('Sustituye el verde y el rojo de las eficacias y las barras por azul y naranja, que se distinguen con cualquier tipo de daltonismo.')) + toggleRow('hc', S.hc, tr('Alto contraste'), tr('Paneles opacos, bordes más marcados y texto más grande.'));
     h += `<div class="nb">${tr('Idioma')}</div><div class="seg" role="radiogroup">` + Object.entries(LANGS).map(([k, n]) => `<button role="radio" aria-checked="${LANG === k}" data-lang="${k}">${n}</button>`).join('') + '</div>';
     h += `<div class="nb">${tr('Aula')}</div>`;
     h += toggleRow('clase', S.clase, tr('Modo clase'), tr('Sin parte incremental: todas las herramientas desde el principio, sin ATP ni mejoras, y práctica libre con cualquier organismo. Tu progreso normal se conserva.'));
@@ -412,6 +421,8 @@ $('#pBody').addEventListener('click', ev => {
   if (tab === 'dia' && diagClick(b)) return;
   if (b.dataset.scope){ openScope(b.dataset.scope); return; }
   if (b.dataset.cyc){ showCycle(b.dataset.cyc); return; }
+  if (b.dataset.plate){ showPlate(b.dataset.plate); return; }
+  if (b.dataset.vax){ makeVaccine(b.dataset.vax); return; }
   if (b.dataset.res){ research(b.dataset.res); return; }
   if (b.dataset.curio){ S.achSeen[b.dataset.curio] = true; save(); renderPanel(); renderHud(); return; }
   if (b.dataset.node){ const n = TREE_NODES[b.dataset.node]; if (treeFree() >= n.cost && (!n.prev || has(n.prev))){ S.tree[n.id] = true; sfx.buy(); } save(); renderPanel(); renderTools(); return; }
@@ -427,7 +438,7 @@ $('#pBody').addEventListener('click', ev => {
   else if (b.dataset.skin){ S.skin = b.dataset.skin; rebuildPlayer(); }
   else if (b.dataset.lang){ setLang(b.dataset.lang); }
   else if (b.dataset.q){ S.q = b.dataset.q === 'auto' ? 'auto' : +b.dataset.q; applyQuality(S.q === 'auto' ? 2 : S.q); }
-  else if (b.dataset.set){ const k = b.dataset.set; S[k] = !S[k];
+  else if (b.dataset.set){ const k = b.dataset.set; S[k] = !S[k]; if (k === 'cb' || k === 'hc') applyA11y();
     if (k === 'music' || k === 'voice') ambient(storyCh() ? storyCh().zone : S.zone);
     if (k === 'clase'){ if (B){ B.over = true; clearTimeout(B.timer); } S.auto = S.auto && canAuto(); renderTools(); newBattle(); toast(S.clase ? tr('Modo clase activado') : tr('Modo clase desactivado')); } }
   else if (b.id === 'repBtn') return copyText(reportText(), $('#repTa'));
@@ -458,7 +469,7 @@ function evolve(){
     <div class="eyebrow" style="color:var(--gram)">${tr('Evolución {n}', {n:S.evos})}</div><h2>${tr('Tu linaje hereda {g} de ADN', {g})}</h2>
     <p>${tr('Ahora tienes {a} de ADN: ×{m} de ataque, vida y ATP. Vuelves al nivel 1 con las herramientas y todo lo que has aprendido.', {a:S.adn, m:dec(adnM().toFixed(1))})}</p>
     ${unlocked.length ? `<p><b>${tr('Nueva célula disponible: {n}.', {n:unlocked.join(', ')})}</b> ${tr('Elígela en la pestaña Evolución.')}</p>` : ''}</div></div>
-    ${phylo()}<button class="go" id="mGo">${tr('Seguir')}</button>`, () => showMutations(() => newBattle()));
+    ${phylo()}<button class="go" id="mGo">${tr('Seguir')}</button>`, () => S.evos % 6 === 0 ? showSpeciation(() => showMutations(() => newBattle())) : showMutations(() => newBattle()));
 }
 
 $('#bAuto').onclick = () => { if (!canAuto()) return; S.auto = !S.auto; save(); renderHud(); renderLog(); scheduleAuto(); };
@@ -495,11 +506,11 @@ function showMap(){
   svg += '</svg>';
   const list = Object.entries(ZONES).map(([id, z]) => {
     const pool = (z.types || TYPE_ORDER).filter(t => TYPES[t].min <= S.level);
-    return `<button class="zone ${S.zone === id ? 'sel' : ''}" data-zone="${id}" aria-pressed="${S.zone === id}"><b>${z.n}</b><span>${z.d}</span>${ZONE_RES[id] ? `<em class="zres">${tr(ZONE_RES[id].n)}: ${tr(ZONE_RES[id].d)}</em>` : ''}<small>${pool.length ? pool.map(t => TYPES[t].n).join(' · ') : tr('Aún no hay organismos de esta zona a tu nivel: aparecerán los de la sangre.')}</small></button>`; }).join('');
+    return `<button class="zone ${S.zone === id ? 'sel' : ''}" data-zone="${id}" aria-pressed="${S.zone === id}"><b>${z.n}</b><span>${z.d}</span>${S.outbreak && S.outbreak.zone === id ? `<em class="zres ob">${tr('¡Brote! {k}/{n} organismos vencidos', {k:S.outbreak.k, n:S.outbreak.need})}</em>` : ''}${ZONE_RES[id] ? `<em class="zres">${tr(ZONE_RES[id].n)}: ${tr(ZONE_RES[id].d)}</em>` : ''}<small>${pool.length ? pool.map(t => TYPES[t].n).join(' · ') : tr('Aún no hay organismos de esta zona a tu nivel: aparecerán los de la sangre.')}</small></button>`; }).join('');
   showModal(`<div class="eyebrow">${tr('Mapa')}</div><h2>${tr('¿Dónde está la infección?')}</h2><p>${tr('Cada zona tiene sus organismos típicos. Tu nivel no cambia: solo eliges contra qué luchar.')}</p>
     <div class="mapw">${svg}<div class="zones">${list}</div></div><button class="go" id="mGo">${tr('Cerrar')}</button>`);
   $('#mBox').querySelectorAll('[data-zone]').forEach(el => {
-    const pick = () => { S.zone = el.dataset.zone; save(); setZoneTint(S.zone); ambient(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
+    const pick = () => { if (S.zone !== el.dataset.zone) travelFx(); S.zone = el.dataset.zone; save(); setZoneTint(S.zone); ambient(S.zone); renderHud(); toast(tr('Zona: {z}. El próximo organismo será de aquí.', {z:ZONES[S.zone].n})); closeModal(); };
     el.addEventListener('click', pick); el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(); } });
   });
 }
@@ -572,7 +583,7 @@ function showSpecies(id, isNew){
     showModal(`<div class="spec">${fov(id, 'big', LAB[id][1])}<div>
       <div class="eyebrow" style="color:${hex(Ty.col)}">${tr('Organismo nuevo · añadido al Atlas')} · ${tr('prep. nº')} ${prep(id)}</div>
       <h2>${Ty.n}</h2><div class="sci">${Ty.sci}</div><div class="stain">${ico('slide')}${LAB[id][0]}</div>
-      <p>${Ty.desc}</p><div class="traits">${Ty.traits.map(traitTag).join('')}</div></div></div>
+      <p>${Ty.desc}</p><div class="traits">${Ty.traits.map(traitTag).join('')}</div>${scaleHtml(id)}</div></div>
       ${quiz}<button class="go" id="mGo" hidden>${tr('Al combate')}</button>`);
     const H = wireHint({best:best.t.id, tags:hintTags(Ty.traits, best.t.id), ok:q => q === best.t.id});
     $('#quiz').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
@@ -618,7 +629,7 @@ function loop(now){
   if (S.perf === 'eco' && now - last < 31) return; // ahorro de batería: unas 30 imágenes por segundo
   const dt = Math.min(.1, (now - last)/1000); last = now; FRAME++;
   const t = clock.getElapsedTime();
-  S.atp += atps()*dt;
+  S.atp += atps()*dt; stepBody(dt); stepPlayerState(clock.elapsedTime);
   hudAcc += dt; saveAcc += dt;
   if (hudAcc > .25){ hudAcc = 0; $('#hAtp').textContent = fmt(S.atp); if (!S.clase) $('#pAtp').innerHTML = ico('atp') + fmt(S.atp); $('#labDot').hidden = !anyAffordable() && !S.evoHint; if (!$('#panel').hidden) refreshAfford(); }
   if (saveAcc > 5){ saveAcc = 0; save(); }

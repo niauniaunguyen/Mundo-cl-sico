@@ -107,3 +107,13 @@ Object.assign(DT.en.E, {
   fgt:{def:'Bacteriophages only infect bacteria: each phage recognises receptors on a particular bacterium.', gp:'The phage binds its wall, injects its DNA and the bacterium makes hundreds of new phages until it bursts.',
     gn:'E. coli phages such as T4 are the best studied: they burst it in about 30 minutes.', bac:'There are many Bacillus phages, though they don’t affect the endospore.', myc:'Few mycoplasma phages are known.',
     tbc:'Mycobacteriophages have been used to save patients with infections resistant to every antibiotic.'}});
+
+// Células nuevas (v13)
+Object.assign(DT.ca.CE, {
+  den:['Cèl·lula dendrítica',"Amb les seves llargues prolongacions captura antígens i els presenta als limfòcits T als ganglis. El teu limfòcit T citotòxic fa ×1,5 i els interferons ×1,3.",'≈ 15 µm'],
+  mas:['Mastòcit',"Ple de grànuls d'histamina. Provoca inflamació i al·lèrgies, i és clau contra els paràsits grans. Comença cada combat amb inflamació i fa ×1,6 contra la tènia.",'≈ 12 µm'],
+  lyb:['Limfòcit B',"Fabrica anticossos i, quan s'activa, es converteix en cèl·lula plasmàtica. Els teus anticossos fan ×1,6 i l'opsonització dura un torn més.",'≈ 8 µm']});
+Object.assign(DT.en.CE, {
+  den:['Dendritic cell','Its long extensions capture antigens and present them to T cells in the lymph nodes. Your cytotoxic T cell does ×1.5 and interferons ×1.3.','≈ 15 µm'],
+  mas:['Mast cell','Packed with histamine granules. It causes inflammation and allergies and is key against large parasites. Starts every battle with inflammation and does ×1.6 against tapeworm.','≈ 12 µm'],
+  lyb:['B cell','It makes antibodies and, once activated, becomes a plasma cell. Your antibodies do ×1.6 and opsonisation lasts one turn longer.','≈ 8 µm']});
