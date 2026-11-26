@@ -1,0 +1,59 @@
+# Compila Microcosmos como APK de Android (versión de prueba, sin firmar para la tienda).
+# Se ejecuta al cambiar el juego (docs/) o el proyecto Android (app/), o a mano desde la pestaña Actions.
+# El APK queda en: Actions → la ejecución → Artifacts, y en la versión «apk» de Releases.
+name: APK de Android
+
+on:
+  push:
+    branches: [main, ccr-e93b2d2f-la10pf]
+    paths: ['docs/**', 'app/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Copiar el juego al proyecto Android
+        working-directory: app
+        run: |
+          npm ci --no-audit --no-fund
+          npm run sync
+
+      - name: Compilar el APK
+        working-directory: app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+          cp app/build/outputs/apk/debug/app-debug.apk ../../Microcosmos.apk
+
+      - name: Guardar el APK en la ejecución
+        uses: actions/upload-artifact@v4
+        with:
+          name: Microcosmos-apk
+          path: Microcosmos.apk
+
+      - name: Publicar el APK en Releases (enlace fijo)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete apk --yes --cleanup-tag || true
+          gh release create apk Microcosmos.apk --prerelease --target "$GITHUB_SHA" \
+            --title "Microcosmos · APK de prueba" \
+            --notes "APK de prueba de Microcosmos, compilado automáticamente desde la rama ${GITHUB_REF_NAME} (${GITHUB_SHA::7}). Para instalarlo en Android, permite «instalar aplicaciones de origen desconocido». No es la versión firmada para Google Play."

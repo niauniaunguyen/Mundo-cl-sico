@@ -345,3 +345,13 @@ Datos en `partes/v13.js` y lógica en `partes/extras2.js`. Los estados del cuerp
 8. **Láminas descargables** en el Atlas (`showPlate`, PNG de 1200×1600).
 9. **Paleta para daltonismo y alto contraste** (`#app.cb`, `#app.hc`).
 10. **Luz del color de cada herramienta** al lanzarla (`toolFlash`).
+
+## App de Android (APK)
+- **Proyecto:** Capacitor 7 en `app/`. El juego es la PWA de `docs/`, que `npm run sync` copia a `app/www` y al proyecto Android.
+- **Iconos y pantalla de inicio:** en `app/android/app/src/main/res`. Se generaron a partir de `microcosmos/pwa/icono.svg`.
+- **Dentro de la app nativa:** se oculta la tarjeta de instalación (`standalone()` detecta `window.Capacitor`).
+- **Compilación:** la hace GitHub Actions (`.github/workflows/android.yml`) al cambiar `docs/` o `app/`, o a mano.
+  - Ejecuta `./gradlew assembleDebug`.
+  - Sube el APK como «artifact» de la ejecución.
+  - Lo publica en la release `apk`: https://github.com/niauniaunguyen/Mundo-cl-sico/releases/download/apk/Microcosmos.apk
+- **Firma:** es un APK de prueba (firma de depuración). Para Google Play hace falta un `assembleRelease`/`bundleRelease` firmado con una clave propia guardada en los secretos del repositorio.

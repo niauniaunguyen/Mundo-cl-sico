@@ -43,7 +43,7 @@ $('#narr .nx').onclick = () => { clearTimeout(narrT); hideNarr(); try{ TTS && TT
 
 // ---- App instalable (solo en la versión PWA, que lleva manifiesto) ----
 const IS_PWA = !!document.querySelector('link[rel="manifest"]');
-const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true || !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()); // en la app de Android ya está instalada
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 function installHtml(){
   if (!IS_PWA || standalone()) return '';

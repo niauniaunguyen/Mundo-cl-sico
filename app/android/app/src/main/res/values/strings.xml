@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Microcosmos</string>
+    <string name="title_activity_main">Microcosmos</string>
+    <string name="package_name">io.github.niauniaunguyen.microcosmos</string>
+    <string name="custom_url_scheme">io.github.niauniaunguyen.microcosmos</string>
+</resources>
