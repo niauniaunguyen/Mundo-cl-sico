@@ -1,6 +1,6 @@
 // Service worker de Microcosmos: guarda el juego para jugar sin conexión.
 // La versión cambia con cada compilación: al publicar una nueva, el móvil la descarga solo.
-const CACHE = 'microcosmos-a25a408f92';
+const CACHE = 'microcosmos-65d8242e4b';
 const APP = ['./', 'index.html', 'three.min.js', 'manifest.webmanifest', 'icono.svg', 'icono-192.png', 'icono-512.png', 'icono-maskable-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(APP)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

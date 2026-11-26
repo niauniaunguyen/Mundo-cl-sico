@@ -2471,6 +2471,7 @@ const I18N_RAW9 = {
   "Crear código":["Crear codi","Create code"], "Cargar un reto":["Carregar un repte","Load a challenge"], "Pega aquí el código del reto":["Enganxa aquí el codi del repte","Paste the challenge code here"],
   "Reto cargado":["Repte carregat","Challenge loaded"], "¡Reto del profesor completado! +1 ADN.":["Repte del professor completat! +1 ADN.","Teacher challenge complete! +1 DNA."], "Reto: {k}/{n}":["Repte: {k}/{n}","Challenge: {k}/{n}"],
   // láminas, escala, resumen, accesibilidad
+  "Lámina guardada":["Làmina desada","Plate saved"], "No se ha podido guardar la lámina aquí.":["No s'ha pogut desar la làmina aquí.","The plate couldn't be saved here."],
   "Lámina":["Làmina","Plate"], "Descargar lámina":["Descarregar la làmina","Download plate"],
   "Es unas {k} veces más pequeño que tu célula.":["És unes {k} vegades més petit que la teva cèl·lula.","It's about {k} times smaller than your cell."],
   "Es unas {k} veces más grande que tu célula.":["És unes {k} vegades més gran que la teva cèl·lula.","It's about {k} times bigger than your cell."],
@@ -5982,7 +5983,12 @@ function downloadPlate(id){
   const finish = () => { x.textAlign = 'left'; let y = 1000; x.font = '28px Georgia, serif';
     (parts.length ? parts.map((p, i) => `${i + 1}. ${tr(p[0])}: ${tr(p[1])}`) : Ty.traits.map((t, i) => `${i + 1}. ${t[0]}`)).forEach(l => wrap(l, 1000).forEach(s => { x.fillText(s, 100, y); y += 38; }));
     y += 20; x.font = 'italic 24px Georgia, serif'; wrap(Ty.desc, 1000).slice(0, 8).forEach(s => { x.fillText(s, 100, y); y += 32; });
-    const a = document.createElement('a'); a.download = 'lamina-' + id + '.png'; a.href = cv.toDataURL('image/png'); a.click(); };
+    const name = 'lamina-' + id + '.png';
+    // dentro de Claude, la descarga pasa por el permiso «downloads» (el visor confirma); en la app, un enlace normal
+    const link = () => { const l = document.createElement('a'); l.download = name; l.href = cv.toDataURL('image/png'); l.click(); };
+    const via = window.claude && window.claude.use ? window.claude.use('downloads') : Promise.resolve(null);
+    via.then(dl => { if (!dl) return link();
+      cv.toBlob(b => dl.save({filename:name, data:b}).then(() => toast(tr('Lámina guardada')), e => { if (e && e.code !== 'declined') toast(tr('No se ha podido guardar la lámina aquí.')); }), 'image/png'); }, link); };
   const src = thumb(id); if (!src) return finish();
   const im = new Image(); im.onload = () => { x.save(); x.filter = 'sepia(.85) contrast(1.15)'; x.beginPath(); x.arc(600, 620, 330, 0, Math.PI*2); x.clip(); x.fillStyle = '#e6dcc4'; x.fillRect(270, 290, 660, 660); x.drawImage(im, 270, 290, 660, 660); x.restore();
     x.beginPath(); x.arc(600, 620, 330, 0, Math.PI*2); x.lineWidth = 4; x.stroke(); finish(); }; im.src = src;

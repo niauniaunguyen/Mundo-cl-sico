@@ -53,6 +53,7 @@ const I18N_RAW9 = {
   "Crear código":["Crear codi","Create code"], "Cargar un reto":["Carregar un repte","Load a challenge"], "Pega aquí el código del reto":["Enganxa aquí el codi del repte","Paste the challenge code here"],
   "Reto cargado":["Repte carregat","Challenge loaded"], "¡Reto del profesor completado! +1 ADN.":["Repte del professor completat! +1 ADN.","Teacher challenge complete! +1 DNA."], "Reto: {k}/{n}":["Repte: {k}/{n}","Challenge: {k}/{n}"],
   // láminas, escala, resumen, accesibilidad
+  "Lámina guardada":["Làmina desada","Plate saved"], "No se ha podido guardar la lámina aquí.":["No s'ha pogut desar la làmina aquí.","The plate couldn't be saved here."],
   "Lámina":["Làmina","Plate"], "Descargar lámina":["Descarregar la làmina","Download plate"],
   "Es unas {k} veces más pequeño que tu célula.":["És unes {k} vegades més petit que la teva cèl·lula.","It's about {k} times smaller than your cell."],
   "Es unas {k} veces más grande que tu célula.":["És unes {k} vegades més gran que la teva cèl·lula.","It's about {k} times bigger than your cell."],
