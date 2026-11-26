@@ -420,6 +420,7 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
 .aoe{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--fitc);color:var(--fitc);vertical-align:middle;font-weight:600;letter-spacing:.04em}
 .zres{display:block;font-style:normal;font-size:12px;color:var(--fitc);margin-top:4px;line-height:1.4}
 .resr{margin-top:8px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#hBody,#hBiota{flex:0 0 auto;width:auto;max-width:170px;white-space:nowrap;overflow:hidden}
 .chip.body{color:var(--k);border-color:color-mix(in srgb,var(--k) 55%,transparent);font-size:12px;gap:5px} .chip.body .ic,.chip.biota .ic{width:15px;height:15px}
 @media (max-width:720px){.chip.body,.chip.biota{font-size:0;gap:0;padding:4px 7px;order:4;flex:0 0 auto!important;width:auto!important;max-width:none} .chip.body .ic,.chip.biota .ic{width:16px;height:16px}}
 .chip.biota{color:#8fff9a;border-color:rgba(143,255,154,.5);font-size:12px;gap:5px}
@@ -707,6 +708,56 @@ button:focus-visible{outline:2px solid var(--gfp);outline-offset:2px}
   .org .vis{grid-column:1 / 3}
 }
 #achc{z-index:7}
+/* ---------- v14: móvil en horizontal (pantallas bajas y anchas) ---------- */
+@media (orientation:landscape) and (max-height:640px){
+  html,body{font-size:13px}
+  #hud{flex-wrap:nowrap;gap:5px;padding:calc(4px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 4px max(10px,env(safe-area-inset-left,0px))}
+  .brand,#hAtps,.hbr,#log{display:none}
+  .hud-r{display:flex;flex-wrap:nowrap;gap:5px;margin-left:auto}
+  .chip{padding:3px 8px 3px 6px;font-size:12px} .chip.evt{font-size:11px;padding:3px 8px}
+  .chip.body,.chip.biota{font-size:0;gap:0;padding:3px 6px;flex:0 0 auto} .chip.body .ic,.chip.biota .ic{width:15px;height:15px}
+  #hBody,#hBiota{width:30px!important;max-width:30px;min-width:0;overflow:hidden;justify-content:center;padding:3px 0}
+  .lvl{flex:0 0 auto}
+  /* fichas de organismo y otras ventanas con imagen: dos columnas estrechas */
+  .mbox{overflow-x:hidden}
+  .spec{grid-template-columns:140px minmax(0,1fr);gap:14px} .spec .fov.big{width:140px;height:140px}
+  .scl,.scb{min-width:0} .scb span{max-width:60%}
+  .intro{grid-template-columns:120px minmax(0,1fr)} .intro .fov.big{width:120px;height:120px}
+  .sec .lbl,.qb .lbl,.labbtn .la small,#bMap .lbl{display:none}
+  .sec,.qb{height:28px} .sec{padding:0 8px} .quiet{padding:2px;gap:1px}
+  .lvl{padding:3px 9px 3px 8px;gap:6px} .lvl .k{display:none} .lvl .v{font-size:14px}
+  .pips{gap:3px} .pip{width:8px;height:8px} .pip.boss{width:11px;height:11px}
+  .labbtn{height:34px;padding:0 10px 0 8px;gap:6px;border-radius:12px} .labbtn > [data-ic] .ic{width:18px;height:18px}
+  .labbtn .lbl{font-size:12px} .labbtn .la{font-size:11px} .labbtn .dot{width:11px;height:11px;top:-4px;right:-4px}
+  /* ficha del enemigo: columna estrecha a la derecha, sin tapar la barra de arriba */
+  #foe{top:calc(var(--hudH,44px) + 4px);right:max(10px,env(safe-area-inset-right,0px));width:min(280px,34vw);padding:7px 10px;
+    max-height:calc(100% - var(--hudH,44px) - var(--toolsH,70px) - 16px);overflow-y:auto;scrollbar-width:none}
+  #foe::-webkit-scrollbar{display:none}
+  #foe h2{font-size:14.5px} #foe .sci,.meta,#fStain{display:none}
+  #foe .slide{margin:-1px -2px 4px;padding:2px 7px;font-size:10px}
+  .hp{margin-top:4px} .hpl{margin-bottom:2px}
+  .traits{margin-top:5px;gap:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none} .trait{font-size:10.5px;padding:1px 7px 1px 6px;white-space:nowrap}
+  .tg{margin-bottom:5px} .tgc{padding:3px 6px;min-width:70px} .tgc b{font-size:10.5px}
+  .evt{margin-top:5px;padding:5px 7px;grid-template-columns:26px 1fr 18px;gap:7px} .evt .ves{width:26px;height:26px} .evt .fx{font-size:11px} .evt b{font-size:12px} .evt .eyebrow{display:none}
+  .idb{margin-top:5px;padding:4px 8px;font-size:11.5px}
+  /* mensaje: abajo a la izquierda, sobre la barra de vida */
+  #msg{right:auto;left:max(10px,env(safe-area-inset-left,0px));width:min(360px,44vw);bottom:calc(var(--toolsH,70px) + 30px);padding:6px 10px 7px 12px;font-size:12.5px;line-height:1.35}
+  #msg .extra{font-size:11.5px} #msg .verdict{font-size:10.5px}
+  #me{bottom:calc(var(--toolsH,70px) + 2px);left:max(10px,env(safe-area-inset-left,0px));right:calc(min(280px,34vw) + 24px)}
+  /* herramientas: una sola fila baja que se desliza */
+  #tools{display:flex;overflow-x:auto;scrollbar-width:none;gap:5px;padding:4px max(10px,env(safe-area-inset-right,0px)) calc(5px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
+  #tools::-webkit-scrollbar{display:none}
+  .tool{flex:0 0 auto;width:84px;grid-template-columns:1fr;justify-items:center;text-align:center;row-gap:2px;border-radius:14px;padding:4px 3px 5px;min-height:0}
+  .tool .ves{grid-row:auto;width:28px;height:28px} .tool .ves .ic{width:16px;height:16px}
+  .tool .tn{font-size:10.5px;line-height:1.15} .tool .tm{display:none}
+  .cyto{padding:3px 5px} .cyb{font-size:10.5px;padding:4px 6px}
+  #toast,#achc{top:calc(var(--hudH,44px) + 6px);left:max(10px,env(safe-area-inset-left,0px));right:auto;max-width:44vw;font-size:12.5px}
+  #narr{bottom:calc(var(--toolsH,70px) + 40px)}
+  /* ventanas y Laboratorio: aprovechan la altura */
+  .mbox{max-height:calc(100% - 12px);padding:14px 16px}
+  .mbox h2{font-size:18px}
+  #panel{width:min(520px,60vw)}
+}
 </style>
 
 <div id="app">

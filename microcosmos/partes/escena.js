@@ -936,7 +936,7 @@ function floatText(txt, pos, cls, col){
 // ---- Cámara y tamaño ----
 const LOOK = V(0, .2, 0);
 const CAMT = {dist:9, off:0, w:1, h:1}, CAMC = {dist:9, off:0, ok:false};
-function applyCam(){ camera.position.set(-.5, 1.7, CAMC.dist*(typeof ZK === 'number' ? ZK : 1)); camera.setViewOffset(CAMT.w, CAMT.h, 0, Math.round(CAMC.off), CAMT.w, CAMT.h); camera.updateProjectionMatrix(); }
+function applyCam(){ camera.position.set(-.5, 1.7, CAMC.dist*(typeof ZK === 'number' ? ZK : 1)); camera.setViewOffset(CAMT.w, CAMT.h, Math.round(CAMT.offx || 0), Math.round(CAMC.off), CAMT.w, CAMT.h); camera.updateProjectionMatrix(); }
 function stepCam(dt){
   if (Math.abs(CAMT.dist - CAMC.dist) < .002 && Math.abs(CAMT.off - CAMC.off) < .5) return;
   const k = Math.min(1, dt*5); CAMC.dist += (CAMT.dist - CAMC.dist)*k; CAMC.off += (CAMT.off - CAMC.off)*k; applyCam();
@@ -954,17 +954,23 @@ function resize(){
   document.documentElement.style.setProperty('--toolsH', $('#tools').offsetHeight + 'px');
   document.documentElement.style.setProperty('--hudH', $('#hud').offsetHeight + 'px');
   const r = el => $(el).getBoundingClientRect();
-  const top = portrait ? r('#foe').bottom : Math.max(r('#hud').bottom, r('#foe').bottom - 70);
+  // móvil en horizontal: la ficha del enemigo es una columna a la derecha; la escena se encuadra en el hueco de la izquierda
+  const land = !portrait && h <= 640;
+  $('#app').classList.toggle('land', land);
+  const foeW = land ? $('#foe').offsetWidth + 20 : 0;
+  CAMT.offx = foeW/2;
+  const top = portrait ? r('#foe').bottom : land ? r('#hud').bottom : Math.max(r('#hud').bottom, r('#foe').bottom - 70);
   document.documentElement.style.setProperty('--foeB', Math.round(r('#foe').bottom) + 'px');
   // un elemento oculto (modo «ver la batalla») no cuenta para el encuadre
   const topOf = el => { const n = $(el); return n && n.offsetParent !== null ? n.getBoundingClientRect().top : h; };
   document.documentElement.style.setProperty('--narrB', Math.round(h - Math.min(topOf('#msg'), topOf('#me')) + 6) + 'px');
   lastFoeH = $('#foe').offsetHeight;
-  const bot = Math.min(topOf('#msg'), topOf('#me'));
+  const bot = land ? topOf('#me') : Math.min(topOf('#msg'), topOf('#me'));
   const band = Math.max(140, bot - top);
   const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
   const halfW = portrait ? 2.7 : 4.2, halfH = portrait ? 2.9 : 2.1;
-  const dist = Math.max(8, halfW/(tanV*a), halfH*(h/band)/tanV);
+  const aw = land ? (w - foeW)/h : a; // ancho libre para la escena
+  const dist = Math.max(8, halfW/(tanV*aw), halfH*(h/band)/tanV);
   // destino del encuadre; si solo cambian las fichas, la cámara llega suavemente (stepCam), si cambia la ventana, de golpe
   const snap = !CAMC.ok || CAMT.w !== w || CAMT.h !== h;
   CAMT.dist = dist; CAMT.off = h/2 - (top + bot)/2; CAMT.w = w; CAMT.h = h;

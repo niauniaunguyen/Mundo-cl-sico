@@ -355,3 +355,17 @@ Datos en `partes/v13.js` y lógica en `partes/extras2.js`. Los estados del cuerp
   - Sube el APK como «artifact» de la ejecución.
   - Lo publica en la release `apk`: https://github.com/niauniaunguyen/Mundo-cl-sico/releases/download/apk/Microcosmos.apk
 - **Firma:** es un APK de prueba (firma de depuración). Para Google Play hace falta un `assembleRelease`/`bundleRelease` firmado con una clave propia guardada en los secretos del repositorio.
+
+## Versión 14: pantalla en horizontal
+- **Cuándo se activa:** con `@media (orientation:landscape) and (max-height:640px)`, es decir, móviles y tabletas en horizontal.
+- **Diseño compacto:**
+  - Barra superior en una sola fila; las etiquetas quedan solo como iconos.
+  - La ficha del enemigo es una columna estrecha a la derecha (`min(280px, 34vw)`), con desplazamiento interno.
+  - El mensaje va abajo a la izquierda, sobre la barra de vida.
+  - Las herramientas, en una sola fila baja.
+  - Las ventanas usan columnas más estrechas.
+- **Cámara** (`resize`): cuando `land`, la escena se encuadra en el hueco de la izquierda.
+  - `CAMT.offx` desplaza la vista la mitad del ancho de la ficha.
+  - La distancia se calcula con el ancho libre.
+  - Por abajo se encuadra hasta la barra de vida.
+- **Arreglo general:** las etiquetas `#hBody`/`#hBiota` se estiraban a todo el ancho de la barra en cualquier tamaño; ahora tienen `max-width`.
