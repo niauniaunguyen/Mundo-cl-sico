@@ -19,10 +19,14 @@ PREV = args[0] if args else None
 bpy.ops.wm.read_factory_settings(use_empty=True)
 SC = bpy.context.scene
 TAU = math.tau
+FULL = True      # False: nivel intermedio (sin tejas sueltas, vigas, clavos, barrotes ni accesorios)
 
 class M:
     """malla por papel: M.get(papel).box(...)"""
-    def __init__(s): s.v = []; s.f = []
+    def __init__(s): s.v = []; s.f = []; s.uv = {}
+    def uvq(s, a, b, c, d, u0=0, v0=0, u1=1, v1=1):
+        """cuadrilátero con coordenadas de textura (rótulos, interiores pintados): a-b abajo, c-d arriba"""
+        s.q(a, b, c, d); s.uv[len(s.f) - 1] = [(u0, v0), (u1, v0), (u1, v1), (u0, v1)]
     def q(s, a, b, c, d):
         i = len(s.v); s.v += [a, b, c, d]; s.f.append((i, i + 1, i + 2, i + 3))
     def tri(s, a, b, c):
@@ -78,6 +82,13 @@ class House:
         for role, m in s.m.items():
             if not m.f: continue
             me = bpy.data.meshes.new(s.name + '_' + role); me.from_pydata(m.v, [], m.f); me.validate(); me.update()
+            if m.uv:
+                ul = me.uv_layers.new(name='UVMap')
+                for fi, poly in enumerate(me.polygons):
+                    uvs = m.uv.get(fi)
+                    for k, li in enumerate(poly.loop_indices): ul.data[li].uv = uvs[k] if uvs else (0.0, 0.0)
+            import bmesh as _bm
+            bm = _bm.new(); bm.from_mesh(me); _bm.ops.remove_doubles(bm, verts=bm.verts, dist=0.0006); bm.to_mesh(me); bm.free()   # menos vértices repetidos
             ob = bpy.data.objects.new(s.name + '_' + role, me); SC.collection.objects.link(ob)
             mod = ob.modifiers.new('aristas', 'EDGE_SPLIT'); mod.split_angle = math.radians(35)
             for p in me.polygons: p.use_smooth = True
@@ -89,6 +100,7 @@ class House:
 
 # ---------------------------------------------------------------- piezas comunes
 def slope(H, axis, a0, a1, hp, hz, lp, lz, tiles=True, ante=True, rafters=True, step=0.44, over=0.35):
+    tiles = tiles and FULL; rafters = rafters and FULL
     """faldón de tejado: ridge (lado alto) en coordenada hp/altura hz, alero en lp/altura lz; a0..a1 a lo largo de la cumbrera.
     axis='x': la cumbrera va en X y el agua cae en Y; axis='y', al revés."""
     sgn = 1 if lp > hp else -1; L = abs(lp - hp); ex = lp + sgn * over; ez = lz - (hz - lz) / L * over
@@ -123,7 +135,7 @@ def gable(H, axis, a0, a1, b0, b1, zE, zR, **kw):
     m = (b0 + b1) / 2
     slope(H, axis, a0, a1, m, zR, b0, zE, **kw); slope(H, axis, a0, a1, m, zR, b1, zE, **kw)
     p0 = (a0 - 0.1, m, zR + 0.1) if axis == 'x' else (m, a0 - 0.1, zR + 0.1); p1 = (a1 + 0.1, m, zR + 0.1) if axis == 'x' else (m, a1 + 0.1, zR + 0.1)
-    H['tile'].half(p0, p1, 0.12, (0, 0, 1), 5)
+    H['tile'].half(p0, p1, 0.12, (0, 0, 1), 5 if FULL else 3)
     # piñones (los triángulos de las fachadas cortas)
     for a in (a0, a1):
         if axis == 'x': H['wall'].tri((a, b0, zE), (a, m, zR), (a, b1, zE))
@@ -145,7 +157,7 @@ def door(H, cx, y, face=-1, w=1.1, h=2.15, deep=0.25, axis='x'):
     B('stone', -w / 2 - 0.12, w / 2 + 0.12, 0.0, 0.3, -0.02, 0.07)                    # umbral
     B('wood', -w / 2 + 0.01, -0.01, 0.014, 0.06, 0.04, h - 0.03)                      # hoja cerrada
     # la otra hoja está abierta hacia dentro: se ve el hueco oscuro
-    for k in range(3):
+    for k in range(3 if FULL else 0):
         for zz in (0.45, 1.05, 1.65):
             xx = -w / 2 + 0.12 + k * (w / 2 - 0.2) / 2
             B('bronze', xx - 0.025, xx + 0.025, 0.06, 0.075, zz, zz + 0.05)
@@ -158,8 +170,8 @@ def window(H, cx, y, z, face=-1, w=0.5, h=0.45, axis='x', shutter=True):
     B('dark', -w / 2, w / 2, 0.0, 0.012, z, z + h)
     B('wood', -w / 2 - 0.07, w / 2 + 0.07, 0.0, 0.06, z - 0.07, z); B('wood', -w / 2 - 0.07, w / 2 + 0.07, 0.0, 0.06, z + h, z + h + 0.07)
     B('wood', -w / 2 - 0.07, -w / 2, 0.0, 0.06, z, z + h); B('wood', w / 2, w / 2 + 0.07, 0.0, 0.06, z, z + h)
-    for k in range(2): B('wood', -w / 2 + w * (k + 1) / 3 - 0.014, -w / 2 + w * (k + 1) / 3 + 0.014, 0.012, 0.035, z, z + h)    # barrotes
-    if shutter:
+    for k in range(2 if FULL else 0): B('wood', -w / 2 + w * (k + 1) / 3 - 0.014, -w / 2 + w * (k + 1) / 3 + 0.014, 0.012, 0.035, z, z + h)    # barrotes
+    if shutter and FULL:
         B('wood', w / 2 + 0.07, w / 2 + 0.07 + w / 2, 0.0, 0.045, z, z + h)          # postigo abierto contra el muro
         B('wood', -w / 2 - 0.07 - w / 2, -w / 2 - 0.07, 0.0, 0.045, z, z + h)
 
@@ -181,6 +193,7 @@ def pithos(H, x, y, s=1.0):
 
 def cobbles(H, x0, x1, y0, y1, z=0.0, role='stone', s=0.55, seed=3):
     """empedrado: losas algo levantadas y desiguales (se ven con la luz rasante)"""
+    if not FULL: H[role].box(x0, x1, y0, y1, z, z + 0.04); return
     import random; R = random.Random(seed); y = y0
     while y < y1 - 0.05:
         x = x0 + R.random() * 0.2
@@ -189,8 +202,56 @@ def cobbles(H, x0, x1, y0, y1, z=0.0, role='stone', s=0.55, seed=3):
             H[role].box(x + 0.03, min(x1, x + w) - 0.03, y + 0.03, min(y1, y + d) - 0.03, z, z + h); x += w
         y += s
 
+
+def interior(H, cx, y, z0, w, h, face=-1, cell=0, axis='x'):
+    """hueco de puerta o ventana con el interior pintado (textura de 4 viñetas en el juego: hogar, telar, ánforas, atrio)"""
+    u0 = cell * 0.25; d = face * 0.013
+    if axis == 'x':
+        a = (cx - w / 2, y + d, z0); b = (cx + w / 2, y + d, z0); c = (cx + w / 2, y + d, z0 + h); e = (cx - w / 2, y + d, z0 + h)
+    else:
+        a = (y + d, cx + w / 2, z0); b = (y + d, cx - w / 2, z0); c = (y + d, cx - w / 2, z0 + h); e = (y + d, cx + w / 2, z0 + h)
+    if face > 0: a, b, c, e = b, a, e, c
+    H['interior'].uvq(a, b, c, e, u0, 0, u0 + 0.25, 1)
+
+def sign(H, cx, y, z0, w, h, cell, face=-1):
+    """rótulo pintado sobre el estuco (atlas de 4×2 viñetas que dibuja el juego)"""
+    u0 = (cell % 4) * 0.25; v0 = 0.5 if cell >= 4 else 0.0; d = face * 0.014
+    a = (cx - w / 2, y + d, z0); b = (cx + w / 2, y + d, z0); c = (cx + w / 2, y + d, z0 + h); e = (cx - w / 2, y + d, z0 + h)
+    if face > 0: a, b, c, e = b, a, e, c
+    H['sign'].uvq(a, b, c, e, u0, v0, u0 + 0.25, v0 + 0.5)
+
+def flakes(H, x0, x1, y, z0, z1, face=-1, n=5, seed=1):
+    """desconchones del enlucido que dejan ver el adobe"""
+    if not FULL: return
+    import random; R = random.Random(seed)
+    for k in range(n):
+        x = x0 + R.random() * (x1 - x0); z = z0 + R.random() * (z1 - z0); w = 0.25 + R.random() * 0.6; h = 0.15 + R.random() * 0.4
+        H['mud'].box(x - w / 2, x + w / 2, y + face * 0.004, y + face * 0.016, z, z + h)
+
+def loom(H, x, y):
+    """telar vertical de pesas (el de las casas griegas): dos postes, enjulio, urdimbre y pesas de barro"""
+    if not FULL: return
+    for s in (-0.7, 0.7): H['wood'].box(x + s - 0.05, x + s + 0.05, y - 0.05, y + 0.05, 0, 2.2)
+    H['wood'].cyl(x, y, 0.06, 0.06, 2.0, 2.0, 6, False); H['wood'].box(x - 0.8, x + 0.8, y - 0.05, y + 0.05, 1.98, 2.08)
+    H['wall'].box(x - 0.62, x + 0.62, y - 0.01, y + 0.01, 0.6, 1.98)
+    for k in range(9): H['tile'].box(x - 0.58 + k * 0.145 - 0.035, x - 0.58 + k * 0.145 + 0.035, y - 0.04, y + 0.04, 0.42, 0.56)
+
+def amphorae(H, x, y, n=3):
+    if not FULL: return
+    for k in range(n):
+        H['tile'].lathe(x + k * 0.42, y, [(0.02, 0.0), (0.12, 0.12), (0.19, 0.4), (0.17, 0.62), (0.07, 0.75), (0.06, 0.9), (0.08, 0.92)], 10)
+
+def roofrepair(H, x, y, z, ly=None):
+    """tejas apiladas y escalera de mano: un tejado en obras"""
+    if not FULL: return
+    for k in range(4): H['tile'].box(x - 0.3, x + 0.3, y - 0.2, y + 0.2, z + k * 0.05, z + k * 0.05 + 0.045)
+    ly = ly if ly is not None else y - 2.3   # la escalera, apoyada en el muro de fuera
+    for s in (-0.22, 0.22): H['wood'].box(x + 1.0 + s - 0.03, x + 1.0 + s + 0.03, ly, ly + 0.06, 0.0, z + 0.4)
+    for k in range(int(z / 0.35)): H['wood'].box(x + 0.78, x + 1.22, ly + 0.01, ly + 0.05, 0.3 + k * 0.35, 0.33 + k * 0.35)
+
 # ---------------------------------------------------------------- casa griega con patio
-def greek(name, W, D, two=False, small=False):
+def greek(name, W, D, two=False, small=False, var=0):
+    """var 0: casa sola; var 1: con tienda a la calle y la puerta a la izquierda; var 2: con telar en el pórtico y el tejado en obras"""
     """W, D: medio ancho (X) y media profundidad (Y). Puerta a -Y. Nave principal (oikos/andrón) al fondo; patio delante."""
     H = House(name); X, Y = W, D; zW = 3.6
     yb = 1.1 if not small else -0.4                                  # fachada del patio de la nave del fondo
@@ -216,9 +277,15 @@ def greek(name, W, D, two=False, small=False):
     xr = X - (wing if not small else 0.35); xl = -X + wing
     wallrun(H, xl, xr, -Y, -Y + 0.45, 0, 2.9 if not small else 2.6)
     H['stone'].box(xl, xr, -Y - 0.02, -Y + 0.47, 2.9 if not small else 2.6, (2.9 if not small else 2.6) + 0.1)   # albardilla
-    dx = 3.1 if not small else 1.6
+    dx = (3.1 if var != 1 else -2.4) if not small else (1.6 if var != 1 else -1.4)
     door(H, dx, -Y, -1)
-    for x in ((-X + 1.2, X - 1.2) if not small else (-X + 1.0,)): window(H, x, -Y, 2.2, -1, 0.42, 0.4, shutter=True)
+    if var == 1:   # tienda: hueco ancho con mostrador de obra y tablas de cierre apoyadas
+        sx = 2.6 if not small else 1.9; H['dark'].box(sx - 0.95, sx + 0.95, -Y - 0.012, -Y, 0, 2.1); interior(H, sx, -Y, 0.05, 1.8, 2.0, -1, cell=2)
+        H['wood'].box(sx - 1.05, sx + 1.05, -Y - 0.1, -Y + 0.02, 2.1, 2.28); H['stone'].box(sx - 0.9, sx + 0.9, -Y - 0.55, -Y - 0.012, 0, 0.9)
+        if FULL:
+            for k in range(3): H['wood'].box(sx + 1.1 + k * 0.2, sx + 1.28 + k * 0.2, -Y - 0.14 - k * 0.03, -Y - 0.08 - k * 0.03, 0, 2.0)
+    for x in ((-X + 1.2,) if var == 1 else (-X + 1.2, X - 1.2)) if not small else ((-X + 1.0,) if var != 1 else ()): window(H, x, -Y, 2.2, -1, 0.42, 0.4, shutter=True)
+    flakes(H, xl + 0.3, xr - 0.3, -Y, 0.95, 2.5, -1, 5, seed=len(name) + var)
     for x in (-3.5, 0.0, 3.5) if not small else (-2.2, 2.2): window(H, x, Y, 2.4, 1, 0.5, 0.42)   # ventanas altas al fondo
     # pastas: pórtico de madera delante de la nave del fondo
     for x in ([-X + wing + 1.0, -1.2, 1.2, X - wing - 1.0] if not small else [-2.0, 0.0, 2.0]): post(H, x, yb - 1.6, 0, 2.9)
@@ -228,14 +295,20 @@ def greek(name, W, D, two=False, small=False):
     cobbles(H, xl + 0.1, xr - 0.1, -Y + 0.5, yb - 1.9, 0.0, 'stone', 0.6)
     H['stone'].box(-0.5, 0.5, -0.9, -0.3, 0, 0.75); H['stone'].box(-0.6, 0.6, -1.0, -0.2, 0.75, 0.85)
     H['stone'].lathe(1.8 if not small else -1.0, -Y + 2.0, [(0.42, 0), (0.42, 0.55), (0.3, 0.6), (0.28, 0.5)], 12)
-    door(H, 0.0, yb, -1, 1.2, 2.3); window(H, -2.6 if not small else -2.0, yb, 1.6, -1, 0.6, 0.6); window(H, 2.6 if not small else 2.0, yb, 1.6, -1, 0.6, 0.6)
+    door(H, 0.0, yb, -1, 1.2, 2.3); interior(H, 0.3, yb, 0.04, 0.58, 2.25, -1, cell=0 if var != 2 else 1); window(H, -2.6 if not small else -2.0, yb, 1.6, -1, 0.6, 0.6); window(H, 2.6 if not small else 2.0, yb, 1.6, -1, 0.6, 0.6)
     for x in (-X + wing, X - wing) if not small else (-X + wing,):
         s = 1 if x < 0 else -1; door(H, -Y + 3.0, x, s, 0.9, 2.0, axis='y')
+    amphorae(H, (xr - 1.6) if not small else (xr - 1.5), yb - 2.3, 3)                  # ánforas a la sombra del pórtico
+    if var == 2:
+        loom(H, -X + wing + 1.9 if not small else -1.1, yb - 0.8)
+        mid = (yb - 0.35 + Y + 0.35) / 2; yy = Y - 1.4; zz = (zW - 0.12) + (zW + 1.0 - (zW - 0.12)) * (Y + 0.35 - yy) / (Y + 0.35 - mid)
+        roofrepair(H, X - 2.5, yy, zz + 0.12, Y + 0.55)
     return H.build()
 
 # ---------------------------------------------------------------- granja ática
-def farm():
-    H = House('H2_farm'); zW = 3.2
+def farm(name='H2_farm', var=0):
+    """var 1: con torre de piedra, como las torres de las granjas del Ática y de Tasos (siglos V-IV; su uso, almacén o refugio, se discute)"""
+    H = House(name); zW = 3.2
     wallrun(H, -4.5, 4.5, -1.0, 5.0, 0, zW, socle=0.8); gable(H, 'x', -4.85, 4.85, -1.35, 5.35, zW - 0.12, 4.6)
     door(H, 1.5, -1.0, -1); window(H, -2.5, -1.0, 1.6, -1, 0.6, 0.5); window(H, -2.5, 5.0, 2.0, 1, 0.5, 0.4)
     # cerca de piedra seca del corral (piedras irregulares)
@@ -264,11 +337,20 @@ def farm():
         post(H, x, -3.0, 0, 2.4, 0.08)
     for k in range(6): H['wood'].box(-0.2, 3.2, -1.1 - k * 0.38, -1.06 - k * 0.38, 2.5, 2.55)
     H['wood'].box(-0.2, 3.2, -3.05, -2.95, 2.4, 2.5)
+    flakes(H, -4.3, 4.3, -1.0, 0.9, 2.8, -1, 4, seed=11 + var)
+    if var == 1:
+        tx, ty, t = -6.6, 2.6, 1.8
+        H['stone'].box(tx - t, tx + t, ty - t, ty + t, -1.0, 8.6)
+        if FULL:
+            for k in range(1, 14): H['socle'].box(tx - t - 0.015, tx + t + 0.015, ty - t - 0.015, ty + t + 0.015, k * 0.62 - 0.03, k * 0.62)   # hiladas
+        door(H, tx + 0.6, ty - t, -1, 0.8, 1.8); window(H, tx, ty - t, 4.6, -1, 0.3, 0.6, shutter=False); window(H, tx, ty - t, 7.0, -1, 0.3, 0.6, shutter=False)
+        gable(H, 'x', tx - t - 0.3, tx + t + 0.3, ty - t - 0.3, ty + t + 0.3, 8.55, 9.4, step=0.45)
     return H.build()
 
 # ---------------------------------------------------------------- domus romana
-def domus():
-    H = House('H2_dom'); X, Y, zW = 9.0, 15.0, 6.0
+def domus(name='H2_dom', var=0):
+    H = House(name); X, Y, zW = 9.0, 15.0, 6.0
+    H['redpaint'].box(-X, X, -Y - 0.01, -Y, 1.0, 1.85)                                       # zócalo pintado de rojo, como en Pompeya
     # fachada con zócalo y tabernae
     H['socle'].box(-X - 0.05, X + 0.05, -Y - 0.4, -Y + 0.05, -1.5, 1.0)
     H['plaster'].box(-X, X, -Y, -Y + 0.6, 1.0, zW)
@@ -277,9 +359,12 @@ def domus():
         H['wood'].box(cx - 1.75, cx + 1.75, -Y - 0.12, -Y + 0.1, 3.0, 3.25)
         H['stone'].box(cx - 1.5, cx + 0.2, -Y + 0.2, -Y + 0.75, 0, 0.95)
         for k in range(2): H['tile'].lathe(cx - 1.1 + k * 0.7, -Y + 0.47, [(0.18, 0.96), (0.21, 0.99), (0.16, 1.0)], 10)
-        for k in range(4): H['wood'].box(cx + 0.6 + k * 0.22, cx + 0.8 + k * 0.22, -Y + 0.15 + k * 0.03, -Y + 0.21 + k * 0.03, 0, 2.6)
+        for k in range(4 if FULL else 0): H['wood'].box(cx + 0.6 + k * 0.22, cx + 0.8 + k * 0.22, -Y + 0.15 + k * 0.03, -Y + 0.21 + k * 0.03, 0, 2.6)
+        interior(H, cx, -Y - 0.02, 0.0, 3.2, 3.0, -1, cell=2)
+        sign(H, cx, -Y, 3.35, 2.8, 0.55, (0 if s < 0 else 1) + var * 2)
     # fauces: puerta alta entre pilastras con capitel
-    door(H, 0.0, -Y, -1, 2.0, 3.4, 0.6)
+    door(H, 0.0, -Y, -1, 2.0, 3.4, 0.6); interior(H, 0.5, -Y, 0.04, 0.95, 3.3, -1, cell=3)
+    flakes(H, -X + 0.4, X - 0.4, -Y, 1.95, 4.2, -1, 4, seed=21 + var)
     for s in (-1, 1):
         H['plaster'].box(s * 1.35 - 0.22, s * 1.35 + 0.22, -Y - 0.2, -Y, 0, 3.9); H['stone'].box(s * 1.35 - 0.3, s * 1.35 + 0.3, -Y - 0.26, -Y, 3.9, 4.1)
     H['stone'].box(-X, X, -Y - 0.15, -Y, 4.4, 4.55)                                              # cornisa
@@ -304,7 +389,7 @@ def domus():
     return H.build()
 
 # ---------------------------------------------------------------- ínsulas
-def insula(name, X, Y, floors, Yb=None):
+def insula(name, X, Y, floors, Yb=None, var=0):
     H = House(name); Yb = Yb if Yb is not None else Y; fh = 3.2; z0 = 3.6; ztop = z0 + fh * (floors - 1)
     # planta baja de ladrillo con tiendas de arco rebajado
     H['socle'].box(-X - 0.05, X + 0.05, -Y - 0.05, Yb + 0.05, -1.5, 0.3)
@@ -316,6 +401,8 @@ def insula(name, X, Y, floors, Yb=None):
             a0, a1 = math.pi * j / 7, math.pi * (j + 1) / 7; r = w * 0.4
             H['brick'].box(cx - math.cos(a0) * r - 0.05, cx - math.cos(a1) * r + 0.05, -Y - 0.06, -Y + 0.02, 2.7 + math.sin(a0) * 0.35, 2.7 + math.sin(a0) * 0.35 + 0.22)
         H['wood'].box(cx - w * 0.36, cx + w * 0.36, -Y - 0.1, -Y + 0.05, 2.55, 2.7)
+        interior(H, cx, -Y - 0.02, 0.0, w * 0.72, 2.55, -1, cell=2 if (k + var) % 2 else 3 if k == 0 else 2)
+        if (k + var) % 2 == 0: sign(H, cx + w * 0.5, -Y - 0.06, 3.02, w * 0.42, 0.38, (4 + k + var * 2) % 8)
     # pisos de estuco con impostas, ventanas con postigos
     H['plaster'].box(-X, X, -Y, Yb, z0, ztop + 0.3)
     for f in range(floors):
@@ -323,31 +410,151 @@ def insula(name, X, Y, floors, Yb=None):
         if f == 0: continue
         for k in range(n * 2 - 1):
             cx = -X + w * (k + 1) / 2
-            window(H, cx, -Y, zf - fh + 1.0, -1, 0.75, 1.0, shutter=(k % 2 == 0))
+            window(H, cx, -Y, zf - fh + 1.0, -1, 0.75, 1.0, shutter=((k + var + f) % 2 == 0))
     # balcón corrido de madera (maenianum) en el primer piso, sobre ménsulas
     zb = z0 + 0.1
     H['wood'].box(-X + 0.4, X - 0.4, -Y - 1.2, -Y, zb, zb + 0.14)
-    for k in range(int(2 * X / 1.2)): x = -X + 0.6 + k * 1.2; H['wood'].box(x - 0.1, x + 0.1, -Y - 1.1, -Y, zb - 0.5, zb)
+    for k in range(int(2 * X / 1.2)): x = -X + 0.6 + k * 1.2; H['wood'].box(x - 0.08, x + 0.08, -Y - 1.1, -Y, zb - 0.22, zb)
     for k in range(int(2 * X / 0.45)): x = -X + 0.5 + k * 0.45; H['wood'].box(x - 0.025, x + 0.025, -Y - 1.15, -Y - 1.1, zb + 0.14, zb + 1.0)
     H['wood'].box(-X + 0.4, X - 0.4, -Y - 1.2, -Y - 1.08, zb + 0.95, zb + 1.05)
     # tejado a cuatro aguas aproximado con dos faldones y piñones de estuco
     gable(H, 'x', -X - 0.4, X + 0.4, -Y - 0.4, Yb + 0.4, ztop + 0.25, ztop + 0.25 + (Y + Yb) * 0.16, step=0.5)
     return H.build()
 
+
+# ---------------------------------------------------------------- piezas para templos y calles (K2_*), en unidades del juego
+def extrude(H, role, pts, y0, y1):
+    """polígono convexo en el plano XZ (x, z), extruido en Y de y0 a y1"""
+    n = len(pts); M_ = H[role]
+    cx = sum(p[0] for p in pts) / n; cz = sum(p[1] for p in pts) / n
+    for k in range(n):
+        a, b = pts[k], pts[(k + 1) % n]
+        M_.q((a[0], y0, a[1]), (b[0], y0, b[1]), (b[0], y1, b[1]), (a[0], y1, a[1]))
+        M_.tri((cx, y0, cz), (b[0], y0, b[1]), (a[0], y0, a[1])); M_.tri((cx, y1, cz), (a[0], y1, a[1]), (b[0], y1, b[1]))
+
+def petal(cx, cz, ang, L, W, n=10):
+    ca, sa = math.cos(ang), math.sin(ang); out = []
+    for k in range(n):
+        t = k / n * TAU; u = (math.cos(t) * 0.5 + 0.5) * L; v = math.sin(t) * W * (0.35 + 0.65 * math.sin(math.pi * (u / L) ** 0.8))
+        out.append((cx + sa * u + ca * v, cz + ca * u - sa * v))
+    return out
+
+def spiral(H, role, cx, cz, r0, turns, side, w=0.035, y0=-0.05, y1=0.05):
+    pts = []; N = 26
+    for k in range(N + 1):
+        t = k / N; a = side * (t * turns * TAU) + (math.pi if side < 0 else 0); r = r0 * (1 - 0.85 * t)
+        pts.append((cx + math.cos(a) * r, cz + math.sin(a) * r))
+    for a, b in zip(pts, pts[1:]):
+        dx, dz = b[0] - a[0], b[1] - a[1]; L = math.hypot(dx, dz) or 1; nx, nz = -dz / L * w, dx / L * w
+        extrude(H, role, [(a[0] - nx, a[1] - nz), (b[0] - nx, b[1] - nz), (b[0] + nx, b[1] + nz), (a[0] + nx, a[1] + nz)], y0, y1)
+
+def acroterion(name, n=9, s=1.0):
+    """acrótera de palmeta (alto 1): base, dos volutas y abanico de hojas pintadas en rojo y azul alternos (reconstrucción)"""
+    H = House(name)
+    H['marble'].box(-0.28 * s, 0.28 * s, -0.08, 0.08, 0, 0.1 * s)
+    for side in (-1, 1): spiral(H, 'marble', side * 0.12 * s, 0.2 * s, 0.1 * s, 1.5, side, 0.022)
+    for k in range(n):
+        t = (k - (n - 1) / 2) / ((n - 1) / 2); ang = t * math.radians(72)
+        L = (0.5 - 0.14 * abs(t)) * s; role = 'paintred' if k % 2 == 0 else 'paintblue'
+        extrude(H, role, petal(0, 0.3 * s, ang * 0.85, L, 0.045 * s), -0.04 - 0.01 * (k % 2), 0.04 + 0.01 * (k % 2))
+    H['marble'].box(-0.05 * s, 0.05 * s, -0.05, 0.05, 0.22 * s, 0.34 * s)
+    return H.build()
+
+def lionhead():
+    """gárgola de cabeza de león de la sima (alto ~0,4 m), mirando a +Z del juego; boca abierta con el caño"""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import numpy as np, criaturas_lib as L
+    def sdf(P):
+        d = L.sd_ellipsoid(P, (0, 0.2, 0.0), (0.2, 0.2, 0.06))                                       # melena (disco)
+        d = L.smin(d, L.sd_ellipsoid(P, (0, 0.2, 0.06), (0.12, 0.13, 0.1)), 0.04)                      # cara
+        d = L.smin(d, L.sd_ellipsoid(P, (0, 0.15, 0.15), (0.075, 0.06, 0.07)), 0.03)                   # hocico
+        d = L.smin(d, L.sd_ellipsoid(P, (0, 0.27, 0.12), (0.09, 0.03, 0.04)), 0.02)                   # entrecejo
+        for sx in (-1, 1):
+            d = L.smin(d, L.sd_ellipsoid(P, (sx * 0.11, 0.33, 0.04), (0.035, 0.035, 0.02)), 0.02)     # orejas
+            d = L.smax(d, -L.sd_ellipsoid(P, (sx * 0.05, 0.23, 0.155), (0.02, 0.014, 0.02)), 0.008)   # ojos
+            for k in range(7):                                                                         # mechones de la melena
+                a = (k / 7) * math.pi + 0.2; d = L.smin(d, L.sd_ellipsoid(P, (sx * math.cos(a) * 0.19, 0.2 + math.sin(a) * 0.19 - 0.05, 0.0), (0.05, 0.05, 0.05)), 0.03)
+        d = L.smax(d, -L.sd_capsule(P, (0, 0.11, 0.25), (0, 0.11, 0.05), 0.035, 0.035), 0.01)           # caño
+        return d
+    v, f = L.mesh_from_sdf(sdf, (-0.3, -0.05, -0.1), (0.3, 0.42, 0.3), 0.008)
+    H = House('K2_lion'); m = H['marble']
+    m.v = [(float(p[0]), float(-p[2]), float(p[1])) for p in v]; m.f = [tuple(int(i) for i in tr) for tr in f]   # malla conectada (si no, al aligerarla se rompe)
+    obs = H.build()
+    for o in obs:
+        dm = o.modifiers.new('d', 'DECIMATE'); dm.ratio = min(1.0, 2500 / max(1, len(o.data.polygons))); bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='d')
+    return obs
+
+def hekataion():
+    """Hekataion de encrucijada: pilar con tres cuerpos de Hécate alrededor (tipo de Alcámenes, finales del s. V a.C.)"""
+    H = House('K2_hekat')
+    H['stone'].box(-0.45, 0.45, -0.45, 0.45, 0, 0.3); H['marble'].cyl(0, 0, 0.14, 0.12, 0.3, 1.75, 10)
+    for k in range(3):
+        a = k / 3 * TAU; cx, cy = math.cos(a) * 0.17, math.sin(a) * 0.17
+        H['marble'].lathe(cx, cy, [(0.13, 0.3), (0.12, 0.8), (0.1, 1.25), (0.13, 1.4), (0.07, 1.48), (0.0, 1.5)], 8)       # cuerpo con peplo
+        H['marble'].lathe(cx * 1.05, cy * 1.05, [(0.0, 1.49), (0.06, 1.52), (0.075, 1.6), (0.06, 1.68), (0.0, 1.71)], 8)  # cabeza
+        H['marble'].lathe(cx * 1.05, cy * 1.05, [(0.08, 1.66), (0.085, 1.72), (0.0, 1.74)], 8)                             # polos (tocado)
+    return H.build()
+
+def compitum():
+    """Compitum de un cruce romano: edículo con los Lares pintados en el fondo y un altar delante (como en Pompeya)"""
+    H = House('K2_compit')
+    H['stone'].box(-0.9, 0.9, -0.6, 0.6, 0, 0.5); H['plaster'].box(-0.85, 0.85, 0.35, 0.6, 0.5, 2.4)
+    H['lares'].uvq((-0.75, 0.34, 0.65), (0.75, 0.34, 0.65), (0.75, 0.34, 2.15), (-0.75, 0.34, 2.15))
+    for sx in (-0.7, 0.7): column(H, sx, -0.4, 0.5, 2.2, 0.08)
+    H['plaster'].box(-0.9, 0.9, -0.55, 0.6, 2.32, 2.42); gable(H, 'y', -0.65, 0.7, -1.0, 1.0, 2.42, 2.85, step=0.3, rafters=False)
+    H['stone'].box(-0.35, 0.35, -1.25, -0.75, 0, 0.9); H['stone'].box(-0.42, 0.42, -1.32, -0.68, 0.9, 1.0)
+    return H.build()
+
 made = []
-made += greek('H2_gra', 6.0, 5.5)
-made += greek('H2_grb', 6.0, 5.5, two=True)
-made += greek('H2_grc', 4.5, 4.5, small=True)
-made += farm()
-made += domus()
-made += insula('H2_insa', 11.15, 8.5, 4)
-made += insula('H2_insb', 8.15, 7.5, 3)
+made += greek('H2_gra', 6.0, 5.5); made += greek('H2_gra2', 6.0, 5.5, var=1); made += greek('H2_gra3', 6.0, 5.5, var=2)
+made += greek('H2_grb', 6.0, 5.5, two=True); made += greek('H2_grb2', 6.0, 5.5, two=True, var=1)
+made += greek('H2_grc', 4.5, 4.5, small=True); made += greek('H2_grc2', 4.5, 4.5, small=True, var=1)
+made += farm(); made += farm('H2_farm2', 1)
+made += domus(); made += domus('H2_dom2', 1)
+made += insula('H2_insa', 11.15, 8.5, 4); made += insula('H2_insa2', 11.15, 8.5, 4, var=1)
+made += insula('H2_insb', 8.15, 7.5, 3); made += insula('H2_insb2', 8.15, 7.5, 3, var=1)
+FULL = False   # nivel intermedio (H3_*): las mismas casas sin las piezas pequeñas
+made += greek('H3_gra', 6.0, 5.5); made += greek('H3_grb', 6.0, 5.5, two=True); made += greek('H3_grc', 4.5, 4.5, small=True)
+made += farm('H3_farm'); made += domus('H3_dom'); made += insula('H3_insa', 11.15, 8.5, 4); made += insula('H3_insb', 8.15, 7.5, 3)
+FULL = True
+made += acroterion('K2_acroc', 9, 1.0); made += acroterion('K2_acroe', 5, 0.7); made += lionhead(); made += hekataion(); made += compitum()
+
+# ---------------------------------------------------------------- sombra horneada (oclusión ambiental) y desgaste, en el color de los vértices
+def bake_vc(objs):
+    import random
+    SC.render.engine = 'CYCLES'; SC.cycles.samples = 12; SC.cycles.device = 'CPU'
+    w = bpy.data.worlds.get('wb') or bpy.data.worlds.new('wb'); SC.world = w; w.light_settings.distance = 1.1
+    SC.render.bake.target = 'VERTEX_COLORS'
+    groups = {}
+    for o in objs: groups.setdefault('_'.join(o.name.split('_')[:2]), []).append(o)
+    for gi, (k, L) in enumerate(groups.items()):
+        off = (gi % 8) * 90.0, (gi // 8) * 90.0
+        for o in L: o.location = (off[0], off[1], 0)
+        bpy.ops.mesh.primitive_plane_add(size=60, location=(off[0], off[1], -0.01)); ground = bpy.context.active_object
+        for o in L:
+            me = o.data; ca = me.color_attributes.new(name='Col', type='BYTE_COLOR', domain='POINT'); me.color_attributes.active_color = ca
+            bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
+            try: bpy.ops.object.bake(type='AO')
+            except Exception as e: print('bake', o.name, e)
+            role = o.name.split('_')[-1]; zmax = max(v.co.z for v in me.vertices) if me.vertices else 1; R = random.Random(hash(o.name) & 0xffff)
+            for li, vx in enumerate(me.vertices):
+                c = ca.data[li].color; ao = 0.42 + 0.58 * c[0]; co = vx.co; f = 1.0
+                if role in ('wall', 'plaster', 'brick', 'redpaint'):
+                    if co.z > 0.8: f *= 0.9 + 0.1 * min(1.0, (co.z - 0.8) / 1.0)                                   # humedad que sube del suelo
+                    if co.z > zmax - 1.6: f *= 1.0 - 0.1 * max(0.0, math.sin(co.x * 3.1 + co.y * 2.3) * math.sin(co.x * 0.7)) * (co.z - (zmax - 1.6)) / 1.6   # chorreones bajo el alero
+                elif role == 'roof':
+                    h = math.sin(round(co.x / 0.44) * 12.9898 + round(co.y / 0.44) * 78.233) * 43758.5453 % 1.0
+                    f *= 0.86 + 0.2 * h if h > 0.06 else 0.74                                                         # tejas de otro tono, alguna con musgo
+                elif role == 'wood': f *= 0.86 + 0.14 * R.random()
+                v = max(0.0, min(1.0, ao * f)); ca.data[li].color = (v, v, v, 1.0)
+        bpy.data.objects.remove(ground, do_unlink=True)
+        for o in L: o.location = (0, 0, 0)
+bake_vc(made)
 if PREV:
     SC.render.engine = 'CYCLES'; SC.cycles.samples = 24; SC.render.resolution_x = 640; SC.render.resolution_y = 420; SC.view_settings.view_transform = 'Standard'
     w = bpy.data.worlds.new('w'); SC.world = w; w.use_nodes = True; w.node_tree.nodes['Background'].inputs[0].default_value = (0.7, 0.75, 0.8, 1)
     sun = bpy.data.objects.new('sol', bpy.data.lights.new('sol', 'SUN')); SC.collection.objects.link(sun); sun.rotation_euler = (0.8, 0.2, 0.7); sun.data.energy = 3
     cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); SC.collection.objects.link(cam); SC.camera = cam
-    COL = {'wall': (0.9, 0.86, 0.78), 'plaster': (0.86, 0.72, 0.6), 'brick': (0.62, 0.34, 0.24), 'roof': (0.62, 0.3, 0.2), 'tile': (0.66, 0.33, 0.22), 'socle': (0.6, 0.56, 0.5), 'stone': (0.7, 0.66, 0.6), 'wood': (0.3, 0.2, 0.13), 'dark': (0.05, 0.04, 0.03), 'bronze': (0.5, 0.38, 0.2)}
+    COL = {'wall': (0.9, 0.86, 0.78), 'plaster': (0.86, 0.72, 0.6), 'brick': (0.62, 0.34, 0.24), 'roof': (0.62, 0.3, 0.2), 'tile': (0.66, 0.33, 0.22), 'socle': (0.6, 0.56, 0.5), 'stone': (0.7, 0.66, 0.6), 'wood': (0.3, 0.2, 0.13), 'dark': (0.05, 0.04, 0.03), 'bronze': (0.5, 0.38, 0.2), 'redpaint': (0.55, 0.15, 0.1), 'mud': (0.45, 0.33, 0.22), 'interior': (0.25, 0.18, 0.12), 'sign': (0.9, 0.85, 0.7), 'paintred': (0.6, 0.15, 0.1), 'paintblue': (0.12, 0.2, 0.45), 'gold': (0.8, 0.6, 0.2), 'marble': (0.92, 0.9, 0.85), 'lares': (0.7, 0.5, 0.35)}
     for m in bpy.data.materials:
         m.use_nodes = True; m.node_tree.nodes['Principled BSDF'].inputs[0].default_value = COL.get(m.name, (0.6, 0.6, 0.6)) + (1,)
     from mathutils import Vector
@@ -364,5 +571,6 @@ if PREV:
     for o in made: o.hide_render = False
 for m in bpy.data.materials: m.use_nodes = False
 bpy.ops.object.select_all(action='DESELECT')
-bpy.ops.export_scene.gltf(filepath=OUT, export_format='GLB', export_apply=True, export_yup=True, export_materials='PLACEHOLDER' if False else 'EXPORT')
+try: bpy.ops.export_scene.gltf(filepath=OUT, export_format='GLB', export_apply=True, export_yup=True, export_vertex_color='ACTIVE')
+except TypeError: bpy.ops.export_scene.gltf(filepath=OUT, export_format='GLB', export_apply=True, export_yup=True, export_colors=True)
 print('EDIFICIOS', OUT, os.path.getsize(OUT))
