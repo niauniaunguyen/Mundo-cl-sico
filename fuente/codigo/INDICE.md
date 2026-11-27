@@ -260,4 +260,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `254_catabasis.js` | 143 | LA CATÁBASIS: BAJAR AL HADES (rogue-like) (24/11) |
 | `255_inframundo.js` | 132 | EL INFRAMUNDO, COMO MAPA (24/11) |
 | `256_graficos_6.js` | 69 | GRÁFICOS (6): cinco propuestas (24/11) |
+| `257_jugabilidad_7.js` | 197 | JUGABILIDAD (7): comercio, tablero, casa, teatro y perro (27/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
