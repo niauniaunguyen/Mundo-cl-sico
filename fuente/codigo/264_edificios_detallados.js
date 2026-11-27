@@ -87,10 +87,10 @@ const _edM=new THREE.Matrix4(),_edZ=new THREE.Matrix4().makeScale(0,0,0),_edQ=ne
 function edMeshesFor(part){let L=EDD.meshes.get(part);if(L)return L;L=[];
   for(const name in GLB.parts){if(name.indexOf(part+'_')!==0)continue;for(const m of GLB.parts[name].meshes){const key=TINT[m.role];let mat=key?whiteRole(m.role):roleMat(m.role);mat=edMat(mat,m.role);
     const im=new THREE.InstancedMesh(m.geo,mat,16);im.count=0;im.frustumCulled=false;im.castShadow=true;im.receiveShadow=true;im.userData.ed=1;im.userData.noCol=true;im.userData.noSeal=1;im.userData.noCull=1;im.userData.noInst=1;
-    im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(im);L.push({im,role:m.role,key,cap:16});}}
+    im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);if(key)im.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(16*3).fill(1),3);scene.add(im);L.push({im,role:m.role,key,cap:16});}}   // el color por casa, con sitio desde el principio (si no, three lo crea con longitud 0 y sale negro)
   EDD.meshes.set(part,L);return L;}
 function edGrow(e,n){if(n<=e.cap)return;let cap=e.cap;while(cap<n)cap*=2;const o=e.im,im=new THREE.InstancedMesh(o.geometry,o.material,cap);Object.assign(im.userData,o.userData);im.frustumCulled=false;im.castShadow=o.castShadow;im.receiveShadow=true;
-  im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.remove(o);o.dispose&&o.dispose();scene.add(im);e.im=im;e.cap=cap;}
+  im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);if(e.key)im.instanceColor=new THREE.InstancedBufferAttribute(new Float32Array(cap*3).fill(1),3);scene.remove(o);o.dispose&&o.dispose();scene.add(im);e.im=im;e.cap=cap;}
 function edUpdate(){const px=player.x,pz=player.z;if(Math.hypot(px-EDD.px,pz-EDD.pz)<30)return;EDD.px=px;EDD.pz=pz;const D2=ED.D2*ED.D2;
   // las casas más cercanas: las ED.N1 primeras con todo el detalle, las ED.N2 siguientes con el intermedio, el resto sencillas
   const near=[];for(const e of EDD.items){const d=(e.x-px)**2+(e.z-pz)**2;e.lod=0;if(d<D2){e.d=d;near.push(e);}}near.sort((a,b)=>a.d-b.d);
