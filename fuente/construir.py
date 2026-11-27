@@ -4,6 +4,9 @@ import base64, pathlib, sys, hashlib, json
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import i18n
 raiz = pathlib.Path(__file__).resolve().parent.parent
+def MOD(n):   # la copia comprimida con gltfpack (herramientas/comprimir_modelos.sh) si existe y no es más vieja que el original
+    o, c = raiz / 'modelos' / n, raiz / 'modelos' / 'cc' / n
+    return c if c.exists() and (not o.exists() or c.stat().st_mtime >= o.stat().st_mtime) else o
 src = (raiz / 'fuente' / 'atenas.src.html').read_text(encoding='utf-8')
 # el código está repartido en módulos (fuente/codigo/NNN_nombre.js); se unen en orden en el marcador @@CODIGO@@
 mods = sorted((raiz / 'fuente' / 'codigo').glob('*.js'))
@@ -29,13 +32,13 @@ if _ph.exists(): pj_tags += '<script type="application/octet-stream" id="glbph" 
 if _hy.exists(): pj_tags += '<script type="application/octet-stream" id="glbhy" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_hy.read_bytes(), 9, mtime=0)).decode('ascii')
 _ob = raiz / 'modelos' / 'objetos_ph.glb'   # objetos de Poly Haven (herramientas/blender/objetos_polyhaven.py): cerámica, cestos, madera, fruta; en segundo plano
 if _ob.exists(): pj_tags += '<script type="application/octet-stream" id="glbob" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_ob.read_bytes(), 9, mtime=0)).decode('ascii')
-_cr = raiz / 'modelos' / 'criaturas.glb'   # criaturas de los portales de leyenda (herramientas/blender/criaturas.py), en segundo plano
+_cr = MOD('criaturas.glb')   # criaturas de los portales de leyenda (herramientas/blender/criaturas.py), en segundo plano
 if _cr.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr.read_bytes(), 9, mtime=0)).decode('ascii')
-_cr2 = raiz / 'modelos' / 'criaturas2.glb'   # segundo lote de criaturas de los portales, en segundo plano
+_cr2 = MOD('criaturas2.glb')   # segundo lote de criaturas de los portales, en segundo plano
 if _cr2.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr2" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr2.read_bytes(), 9, mtime=0)).decode('ascii')
-_cr3 = raiz / 'modelos' / 'criaturas3.glb'   # gato y comadreja (263), en segundo plano
+_cr3 = MOD('criaturas3.glb')   # gato y comadreja (263), en segundo plano
 if _cr3.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr3" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr3.read_bytes(), 9, mtime=0)).decode('ascii')
-_ed = raiz / 'modelos' / 'edificios.glb'   # casas detalladas (264): se traen al arrancar, con los otros modelos
+_ed = MOD('edificios.glb')   # casas detalladas (264): se traen al arrancar, con los otros modelos
 if _ed.exists(): pj_tags += '<script type="application/octet-stream" id="glbed">%s</script>\n' % base64.b64encode(gzip.compress(_ed.read_bytes(), 9, mtime=0)).decode('ascii')
 _av = raiz / 'modelos' / 'aves.glb'   # el mochuelo y el águila del vuelo de entrada (herramientas/blender/aves.py); en segundo plano
 if _av.exists(): pj_tags += '<script type="application/octet-stream" id="glbav" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_av.read_bytes(), 9, mtime=0)).decode('ascii')
@@ -57,7 +60,7 @@ _ar = raiz / 'modelos' / 'arquitectura_juego.glb'   # columnas de detalle (herra
 if _ar.exists(): pj_tags += '<script type="application/octet-stream" id="glbar" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_ar.read_bytes(), 9, mtime=0)).decode('ascii')
 # versión alta (personas cercanas): se carga en segundo plano tras arrancar (data-lazy: el cargador no la espera)
 pj_tags += ''.join('<script type="application/octet-stream" id="glbpj_%s_alta" data-lazy="1">%s</script>\n' % (k, base64.b64encode(gzip.compress((raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists())
-pj_tags += ''.join('<script type="application/octet-stream" id="glbpj_%s_%s" data-lazy="1">%s</script>\n' % (k, v, base64.b64encode(gzip.compress((raiz / 'modelos' / ('personaje_%s_%s.glb' % (k, f))).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ for v, f in (('uno', 'uno'), ('unob', 'uno_baja')) if (raiz / 'modelos' / ('personaje_%s_%s.glb' % (k, f))).exists())   # figuras en una malla (269)
+pj_tags += ''.join('<script type="application/octet-stream" id="glbpj_%s_%s" data-lazy="1">%s</script>\n' % (k, v, base64.b64encode(gzip.compress(MOD('personaje_%s_%s.glb' % (k, f)).read_bytes(), 9, mtime=0)).decode('ascii')) for k in PJ for v, f in (('uno', 'uno'), ('unob', 'uno_baja')) if (raiz / 'modelos' / ('personaje_%s_%s.glb' % (k, f))).exists())   # figuras en una malla (269)
 pj_tags += ''.join('<script type="text/plain" id="imip_%s" data-lazy="1">%s</script>\n' % (k, base64.b64encode((raiz / 'modelos' / ('impostor_%s.webp' % k)).read_bytes()).decode('ascii')) for k in PJ if (raiz / 'modelos' / ('impostor_%s.webp' % k)).exists())   # figuras lejanas de Blender (270)
 assert src.count('@@GLB@@') == 1, 'falta el marcador @@GLB@@'
 assert src.count('@@GLB2@@') == 1, 'falta el marcador @@GLB2@@'

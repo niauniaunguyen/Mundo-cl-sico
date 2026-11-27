@@ -6,6 +6,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 |---|---:|---|
 | `000_color_calibrado.js` | 12 | COLOR CALIBRADO (experimental, se activa en Esc → Partida) |
 | `000_inicio.js` | 61 | idioma (es / ca / en)<br>utilidades |
+| `000b_decodificador_meshopt.js` | 200 | DECODIFICADOR MESHOPT (27/11) |
 | `001_terreno.js` | 119 | terreno |
 | `002_colisiones.js` | 66 | colisiones |
 | `003_escena.js` | 57 | escena |
