@@ -17,13 +17,21 @@ function bp1Load(){if(BP1.loading||typeof BP_MODE==='undefined'||typeof bpBytes!
       const map=m.material.map;if(map){map.encoding=THREE.sRGBEncoding||map.encoding;}m.userData.atlas=map;m.castShadow=true;m.frustumCulled=false;BP1.tpl[k]={scene:gl.scene,anims:gl.animations};BP1.done++;},e=>console.warn('bp1',k,e));}).catch(e=>console.warn('bp1',k,e));
     bpBytes('glbpj_'+k+'_unob').then(buf=>{if(!buf)return;new THREE.GLTFLoader().parse(buf,'',gl=>{const m=bp1Mesh(gl.scene);if(m)BP1.low[k]=m.geometry;},()=>{});}).catch(()=>{});}}
 // material por persona: el atlas, y el color de su ropa en dos uniformes
+const BP1_HAIR=['#2b1f17','#3e2c1f','#1c1410','#5b4532','#2b1f17','#6a4a2a','#8a5a2a'],BP1_SKIN=[[1.0,0.97,0.94],[0.95,0.9,0.85],[1.04,0.98,0.92],[0.9,0.84,0.78],[0.98,0.93,0.88]];
 function bp1Mat(kind,c){const T=BP1.tpl[kind],m0=bp1Mesh(T.scene),map=m0.userData.atlas;c=c||{};
-  const hA=(c.himation||c.veil)?(typeof c.veil==='string'?c.veil:c.himation):null,hB=c.chiton||null,key=kind+'|'+hA+'|'+hB;if(BP1.mats.has(key))return BP1.mats.get(key);
+  const hA=(c.himation||c.veil)?(typeof c.veil==='string'?c.veil:c.himation):null,hB=c.chiton||null;
+  // pelo y piel de cada persona: los de su configuración si los tiene; si no, uno según la persona (siempre el mismo)
+  const seed=String(hA)+String(hB)+(c.female?'f':'m')+kind;let h=0;for(let i=0;i<seed.length;i++)h=(h*31+seed.charCodeAt(i))>>>0;
+  const hair=c.hair||c.beardC||BP1_HAIR[h%BP1_HAIR.length],skin=BP1_SKIN[(h>>3)%BP1_SKIN.length],key=kind+'|'+hA+'|'+hB+'|'+hair+'|'+((h>>3)%BP1_SKIN.length);if(BP1.mats.has(key))return BP1.mats.get(key);
   const A=hA?new THREE.Color(hA).multiplyScalar(1.25):new THREE.Color(1,1,1),B=hB?new THREE.Color(hB).multiplyScalar(1.08):new THREE.Color(1,1,1);
-  const m=new THREE.MeshLambertMaterial({map,skinning:true,vertexColors:true});m.userData.uA={value:A};m.userData.uB={value:B};
-  m.onBeforeCompile=sh=>{sh.uniforms.uA=m.userData.uA;sh.uniforms.uB=m.userData.uB;sh.fragmentShader='uniform vec3 uA;uniform vec3 uB;\n'+sh.fragmentShader.replace('#include <color_fragment>',
-    '{float tid=vColor.r;vec3 tn=tid>0.75?uB:(tid>0.25?uA:vec3(1.0));diffuseColor.rgb*=tn;}');};
-  m.customProgramCacheKey=()=>'bp1';BP1.mats.set(key,m);return m;}
+  const m=new THREE.MeshLambertMaterial({map,skinning:true,vertexColors:true});m.userData.uA={value:A};m.userData.uB={value:B};m.userData.uH={value:new THREE.Color(hair)};m.userData.uS={value:new THREE.Vector3(...skin)};
+  m.onBeforeCompile=sh=>{sh.uniforms.uA=m.userData.uA;sh.uniforms.uB=m.userData.uB;sh.uniforms.uH=m.userData.uH;sh.uniforms.uS=m.userData.uS;
+    if(typeof WIND!=='undefined'){sh.uniforms.uWT=WIND.u;sh.uniforms.uWS=WIND.s;
+      // la ropa (himation, quitón) se mueve un poco con el viento: más abajo, más
+      sh.vertexShader='uniform float uWT;uniform float uWS;\n'+sh.vertexShader.replace('#include <skinning_vertex>','#include <skinning_vertex>\n#ifdef USE_COLOR_ALPHA\nif(color.r>0.25){float k=clamp(1.25-position.y,0.0,1.0)*0.03*(0.35+uWS);transformed.x+=sin(uWT*1.9+position.y*4.0+position.z*3.0)*k;transformed.z+=cos(uWT*1.5+position.y*3.0)*k*0.6;}\n#endif');}
+    sh.fragmentShader='uniform vec3 uA;uniform vec3 uB;uniform vec3 uH;uniform vec3 uS;\n'+sh.fragmentShader.replace('#include <color_fragment>',
+    '{float tid=vColor.r;vec3 tn=tid>0.75?uB:(tid>0.25?uA:vec3(1.0));diffuseColor.rgb*=tn;if(vColor.g<0.75){float l=dot(diffuseColor.rgb,vec3(0.3,0.59,0.11));diffuseColor.rgb=mix(diffuseColor.rgb,uH*(0.45+1.1*l),0.85);}if(vColor.b<0.75)diffuseColor.rgb*=uS;}');};
+  m.customProgramCacheKey=()=>'bp1b';BP1.mats.set(key,m);return m;}
 function bp1Make(kind,c){const T=BP1.tpl[kind];if(!T)return null;const root=bpClone(T.scene),me=bp1Mesh(root);if(!me)return null;me.material=bp1Mat(kind,c);me.castShadow=true;me.frustumCulled=false;
   const g=new THREE.Group();g.add(root);const mix=new THREE.AnimationMixer(root),find=s=>T.anims.find(a=>a.name.endsWith(s));
   const wa=find('andar'),ia=find('quieto'),walk=wa?mix.clipAction(wa):null,idle=ia?mix.clipAction(ia):null;if(walk){walk.play();walk.setEffectiveWeight(0);}if(idle){idle.play();idle.setEffectiveWeight(1);}

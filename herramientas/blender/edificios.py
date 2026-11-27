@@ -386,6 +386,18 @@ def domus(name='H2_dom', var=0):
     H['wood'].box(-6.9, 6.9, 4.7, 5.3, 3.74, 3.95); H['wood'].box(-6.9, 6.9, 11.7, 12.3, 3.74, 3.95)
     H['wood'].box(-6.8, -6.2, 4.7, 12.3, 3.74, 3.95); H['wood'].box(6.2, 6.8, 4.7, 12.3, 3.74, 3.95)
     H['stone'].box(-6.2, 6.2, 5.3, 11.7, 0.0, 0.25)                                              # parterre
+    if FULL:   # jardín del peristilo: setos de boj, laureles, rosales y una pila con surtidor (pinturas de jardín de Pompeya; Plinio el Joven, Cartas V 6)
+        for y in (6.2, 10.8):
+            H['plant'].box(-5.2, -1.0, y - 0.18, y + 0.18, 0.25, 0.75); H['plant'].box(1.0, 5.2, y - 0.18, y + 0.18, 0.25, 0.75)
+        for (x, y) in ((-4.2, 8.5), (4.2, 8.5)):
+            H['wood'].cyl(x, y, 0.08, 0.06, 0.25, 1.6, 6, False)
+            H['plant'].lathe(x, y, [(0.0, 1.2), (0.7, 1.5), (0.85, 2.0), (0.7, 2.5), (0.3, 2.8), (0.0, 2.85)], 10)
+        for (x, y) in ((-2.4, 7.2), (2.4, 7.2), (-2.4, 9.8), (2.4, 9.8)):
+            H['plant'].lathe(x, y, [(0.0, 0.25), (0.35, 0.4), (0.4, 0.65), (0.25, 0.85), (0.0, 0.9)], 8)
+            for k in range(5):
+                a = k * 1.26; H['flower'].lathe(x + math.cos(a) * 0.28, y + math.sin(a) * 0.28, [(0.0, 0.7), (0.07, 0.74), (0.0, 0.8)], 6)
+        H['stone'].lathe(0, 8.5, [(0.9, 0.25), (0.95, 0.55), (0.85, 0.6), (0.82, 0.4), (0.0, 0.4)], 16); H['dark'].cyl(0, 8.5, 0.8, 0.8, 0.5, 0.52, 16)
+        H['stone'].cyl(0, 8.5, 0.07, 0.05, 0.5, 1.1, 8)
     return H.build()
 
 # ---------------------------------------------------------------- ínsulas
@@ -504,6 +516,24 @@ def compitum():
     H['stone'].box(-0.35, 0.35, -1.25, -0.75, 0, 0.9); H['stone'].box(-0.42, 0.42, -1.32, -0.68, 0.9, 1.0)
     return H.build()
 
+def stall(name, goods):
+    """puesto de mercado: cuatro postes, toldo de tela (papel «roof»: el juego le pone un color a cada puesto), mostrador y mercancía"""
+    H = House(name)
+    for (x, y) in ((-1.3, -0.8), (1.3, -0.8), (-1.3, 0.8), (1.3, 0.8)): H['wood'].box(x - 0.05, x + 0.05, y - 0.05, y + 0.05, 0, 2.1 if y < 0 else 2.4)
+    H['roof'].q((-1.5, -1.2, 2.05), (1.5, -1.2, 2.05), (1.5, 1.0, 2.45), (-1.5, 1.0, 2.45)); H['roof'].q((-1.5, -1.2, 2.04), (-1.5, 1.0, 2.44), (1.5, 1.0, 2.44), (1.5, -1.2, 2.04))
+    H['wood'].box(-1.25, 1.25, -0.75, -0.2, 0.75, 0.85); H['wood'].box(-1.2, -1.1, -0.7, -0.25, 0, 0.75); H['wood'].box(1.1, 1.2, -0.7, -0.25, 0, 0.75)
+    import random; R = random.Random(len(name))
+    if goods == 'pescado':
+        for k in range(9): x = -1.0 + (k % 5) * 0.48; y = -0.6 + (k // 5) * 0.2; H['fish'].lathe(x, y, [(0.0, 0.86), (0.04, 0.87), (0.05, 0.9), (0.0, 0.92)], 6)
+        H['wood'].box(-1.0, 1.0, 0.2, 0.7, 0, 0.5)
+    elif goods == 'ceramica':
+        for k in range(10): x = -1.0 + (k % 5) * 0.48; y = -0.55 + (k // 5) * 0.3; s = 0.6 + R.random() * 0.4; H['tile'].lathe(x, y, [(0.03, 0.85), (0.1 * s, 0.9), (0.13 * s, 1.0 + 0.1 * s), (0.06 * s, 1.15 + 0.15 * s), (0.07 * s, 1.18 + 0.15 * s)], 8)
+        for k in range(4): H['tile'].lathe(-0.9 + k * 0.6, 0.55, [(0.05, 0), (0.22, 0.25), (0.25, 0.55), (0.12, 0.8), (0.13, 0.85)], 10)
+    else:
+        for k in range(5): H['cloth%d' % (k % 3 + 1)].cyl(-1.0 + k * 0.5, -0.45, 0.12, 0.12, 0.85, 1.05, 8)
+        for k in range(3): H['spice'].lathe(-0.6 + k * 0.6, 0.5, [(0.25, 0), (0.25, 0.3), (0.2, 0.35), (0.0, 0.5)], 10)
+    return H.build()
+
 made = []
 made += greek('H2_gra', 6.0, 5.5); made += greek('H2_gra2', 6.0, 5.5, var=1); made += greek('H2_gra3', 6.0, 5.5, var=2)
 made += greek('H2_grb', 6.0, 5.5, two=True); made += greek('H2_grb2', 6.0, 5.5, two=True, var=1)
@@ -516,6 +546,7 @@ FULL = False   # nivel intermedio (H3_*): las mismas casas sin las piezas peque�
 made += greek('H3_gra', 6.0, 5.5); made += greek('H3_grb', 6.0, 5.5, two=True); made += greek('H3_grc', 4.5, 4.5, small=True)
 made += farm('H3_farm'); made += domus('H3_dom'); made += insula('H3_insa', 11.15, 8.5, 4); made += insula('H3_insb', 8.15, 7.5, 3)
 FULL = True
+made += stall('K2_puesto1', 'pescado'); made += stall('K2_puesto2', 'ceramica'); made += stall('K2_puesto3', 'telas')
 made += acroterion('K2_acroc', 9, 1.0); made += acroterion('K2_acroe', 5, 0.7); made += lionhead(); made += hekataion(); made += compitum()
 
 # ---------------------------------------------------------------- sombra horneada (oclusión ambiental) y desgaste, en el color de los vértices
@@ -552,7 +583,7 @@ bake_vc(made)
 # ---------------------------------------------------------------- menos materiales: las piezas pequeñas, en una sola («misc»)
 # bronce, antefijas y tejas sueltas, pintura, adobe, huecos oscuros: su color pasa al color de los vértices (multiplicado por la
 # sombra horneada) y se juntan en una pieza con un material blanco. Cada casa pasa de unas 12-14 llamadas de dibujo a unas 7.
-MISC = {'bronze': (0.54, 0.42, 0.23), 'tile': (0.71, 0.35, 0.23), 'redpaint': (0.56, 0.23, 0.16), 'mud': (0.56, 0.45, 0.33), 'paintred': (0.66, 0.27, 0.23),
+MISC = {'plant': (0.28, 0.4, 0.2), 'flower': (0.78, 0.3, 0.36), 'fish': (0.62, 0.66, 0.7), 'cloth1': (0.62, 0.22, 0.18), 'cloth2': (0.22, 0.32, 0.55), 'cloth3': (0.8, 0.68, 0.3), 'spice': (0.72, 0.45, 0.15), 'bronze': (0.54, 0.42, 0.23), 'tile': (0.71, 0.35, 0.23), 'redpaint': (0.56, 0.23, 0.16), 'mud': (0.56, 0.45, 0.33), 'paintred': (0.66, 0.27, 0.23),
         'paintblue': (0.23, 0.33, 0.53), 'gold': (0.85, 0.66, 0.23), 'dark': (0.1, 0.08, 0.06)}
 def merge_misc(objs):
     groups = {}
@@ -560,7 +591,7 @@ def merge_misc(objs):
     out = []
     for k, L in groups.items():
         parts = [o for o in L if o.name.split('_')[-1] in MISC]
-        if len(parts) < 2 or k.startswith('K2'): out += L; continue
+        if len(parts) < 2 or (k.startswith('K2') and not k.startswith('K2_puesto')): out += L; continue
         for o in parts:
             base = MISC[o.name.split('_')[-1]]; ca = o.data.color_attributes.active_color
             for i in range(len(ca.data)):

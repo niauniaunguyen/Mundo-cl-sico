@@ -299,6 +299,11 @@ def build_mino():
 # spec: body(P) -> sdf del tronco, cuello y cabeza; legs: 4 x (puntos, radios) del hombro/cadera al casco o la pata (el primero es el
 # pivote); foot: 'pezuna' o 'pata'; tail: (puntos, radios) o función; col(P, N); eyes: (puntos, radio, color); lo/hi: caja del cuerpo
 def foot_sdf(P, p, kind, r):
+    if kind == 'garra':   # ave: tres dedos delante y uno detrás
+        d = L.sd_ellipsoid(P, (p[0], r * 0.8, p[2]), (r * 1.1, r * 0.8, r * 1.1))
+        for a in (-0.5, 0.0, 0.5):
+            d = L.smin(d, L.sd_capsule(P, (p[0], r * 0.5, p[2]), (p[0] + math.sin(a) * r * 4.5, r * 0.4, p[2] + math.cos(a) * r * 4.5), r * 0.45, r * 0.3), r * 0.3)
+        return L.smin(d, L.sd_capsule(P, (p[0], r * 0.5, p[2]), (p[0], r * 0.4, p[2] - r * 3), r * 0.4, r * 0.3), r * 0.3)
     if kind == 'zarpa':   # gato y comadreja: almohadilla redonda y cuatro dedos pequeños, a ras de suelo
         d = L.sd_ellipsoid(P, (p[0], r * 0.75, p[2] + r * 0.4), (r * 1.15, r * 0.75, r * 1.35))
         for k in (-1.5, -0.5, 0.5, 1.5):
@@ -939,6 +944,73 @@ COMADREJA = dict(body=comadreja_body, lo=(-0.05, 0.025, -0.13), hi=(0.05, 0.12, 
           ([(0.02, 0.058, -0.08), (0.02, 0.035, -0.06), (0.02, 0.009, -0.075)], [0.014, 0.009, 0.007])],
     tail=(lambda P: L.sd_chain(P, [(0, 0.065, -0.11), (0, 0.06, -0.16), (0, 0.065, -0.19)], [0.011, 0.01, 0.008]), (-0.03, 0.03, -0.22), (0.03, 0.1, -0.09), (0, 0.065, -0.11)))
 BUILD3 = {'gato': lambda: build_quad('gato', GATO), 'comadreja': lambda: build_quad('comadreja', COMADREJA)}
+
+# ---- GALLINA, CABRA y CERDO (animales de la casa y del campo). Medidas reales; los cerdos antiguos, más oscuros y cerdosos que los de hoy.
+def gallina_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.24, 0), (0.1, 0.11, 0.15)); d = L.smin(d, L.sd_ellipsoid(P, (0, 0.22, 0.08), (0.09, 0.1, 0.09)), 0.04)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.33, -0.13), (0.03, 0.09, 0.06)), 0.04)
+    for sx in (-1, 1): d = L.smin(d, L.sd_ellipsoid(P, (sx * 0.085, 0.25, -0.01), (0.03, 0.07, 0.12)), 0.02)       # alas plegadas
+    d = L.smin(d, L.sd_capsule(P, (0, 0.3, 0.1), (0, 0.38, 0.13), 0.045, 0.035), 0.03)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.41, 0.14), (0.035, 0.04, 0.045)), 0.015)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.405, 0.175), (0, 0.398, 0.205), 0.011, 0.003), 0.004)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.455, 0.14), (0.008, 0.025, 0.035)), 0.008)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.375, 0.17), (0.008, 0.018, 0.012)), 0.006)
+    d = L.smax(d, -(P[:, 1] - 0.13), 0.02)
+    return d - 0.002 * (hair(P, 300, 60) - 0.5)
+def gallina_col(P, N):
+    n = L.fbm(P * 40, 3, 5)
+    col = mix(np.tile(C(0.55, 0.33, 0.17), (len(P), 1)), C(0.68, 0.45, 0.24), n * 0.9)
+    col = mix(col, C(0.22, 0.16, 0.12), np.clip((-P[:, 2] - 0.09) * 12, 0, 1) * (P[:, 1] > 0.25))          # cola oscura
+    red = ((P[:, 1] > 0.43) | ((P[:, 1] < 0.39) & (P[:, 2] > 0.155) & (P[:, 1] > 0.355))) & (P[:, 2] > 0.1)
+    col = mix(col, C(0.75, 0.12, 0.1), red * 1.0)
+    beak = (P[:, 2] > 0.18) & (P[:, 1] > 0.39) & (P[:, 1] < 0.42); col = mix(col, C(0.85, 0.65, 0.2), beak * 1.0)
+    legs = P[:, 1] < 0.14; col = mix(col, C(0.85, 0.65, 0.25), legs * 1.0)
+    return np.clip(col * (0.85 + 0.3 * hair(P, 300, 60)[:, None]), 0, 1)
+GALLINA = dict(body=gallina_body, lo=(-0.16, 0.1, -0.25), hi=(0.16, 0.5, 0.25), col=gallina_col, foot='garra', tris=6000, step=0.0035, lstep=0.0025, ltris=500,
+    eyes=([(-0.03, 0.42, 0.16), (0.03, 0.42, 0.16)], 0.006, (0.6, 0.4, 0.05, 1)),
+    legs=[([(-0.04, 0.16, 0.01), (-0.04, 0.08, 0.02), (-0.04, 0.012, 0.03)], [0.02, 0.009, 0.008]), ([(0.04, 0.16, 0.01), (0.04, 0.08, 0.02), (0.04, 0.012, 0.03)], [0.02, 0.009, 0.008])])
+def cabra_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.55, 0), (0.15, 0.17, 0.36)); d = L.smin(d, L.sd_ellipsoid(P, (0, 0.55, 0.22), (0.15, 0.19, 0.16)), 0.06)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.62, 0.3), (0, 0.8, 0.42), 0.07, 0.055), 0.04)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.86, 0.47), (0.06, 0.07, 0.1)), 0.03); d = L.smin(d, L.sd_ellipsoid(P, (0, 0.82, 0.56), (0.04, 0.045, 0.05)), 0.02)
+    for sx in (-1, 1):
+        d = L.smin(d, L.sd_chain(P, [(sx * 0.03, 0.92, 0.44), (sx * 0.05, 1.01, 0.38), (sx * 0.07, 1.03, 0.3)], [0.02, 0.014, 0.007]), 0.01)
+        d = L.smin(d, L.sd_ellipsoid(P, (sx * 0.085, 0.88, 0.43), (0.05, 0.015, 0.025)), 0.01)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.75, 0.53), (0.015, 0.05, 0.02)), 0.01)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.68, -0.37), (0.025, 0.05, 0.03)), 0.02)
+    d = L.smax(d, -(P[:, 1] - 0.38), 0.04)
+    return d - 0.004 * (hair(P, 120, 25) - 0.5)
+def cabra_col(P, N):
+    n = L.fbm(P * 6, 3, 11)
+    col = mix(np.tile(C(0.3, 0.22, 0.16), (len(P), 1)), C(0.85, 0.8, 0.72), np.clip((n - 0.45) * 4, 0, 1))
+    horn = (P[:, 1] > 0.92) & (np.abs(P[:, 0]) > 0.02); col = mix(col, C(0.45, 0.4, 0.33), horn * 1.0)
+    hoof = P[:, 1] < 0.06; col = mix(col, C(0.12, 0.1, 0.08), hoof * 1.0)
+    return np.clip(col * (0.85 + 0.3 * hair(P, 120, 25)[:, None]), 0, 1)
+CABRA = dict(body=cabra_body, lo=(-0.28, 0.35, -0.5), hi=(0.28, 1.1, 0.66), col=cabra_col, foot='pezuna', tris=10000, step=0.007, lstep=0.005, ltris=900,
+    eyes=([(-0.05, 0.89, 0.52), (0.05, 0.89, 0.52)], 0.011, (0.7, 0.55, 0.15, 1)),
+    legs=[([(-0.08, 0.45, 0.25), (-0.08, 0.25, 0.26), (-0.08, 0.03, 0.27)], [0.05, 0.025, 0.02]), ([(0.08, 0.45, 0.25), (0.08, 0.25, 0.26), (0.08, 0.03, 0.27)], [0.05, 0.025, 0.02]),
+          ([(-0.08, 0.5, -0.26), (-0.08, 0.3, -0.22), (-0.08, 0.15, -0.3), (-0.08, 0.03, -0.28)], [0.06, 0.03, 0.02, 0.02]), ([(0.08, 0.5, -0.26), (0.08, 0.3, -0.22), (0.08, 0.15, -0.3), (0.08, 0.03, -0.28)], [0.06, 0.03, 0.02, 0.02])])
+def cerdo_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.42, 0), (0.2, 0.2, 0.4)); d = L.smin(d, L.sd_ellipsoid(P, (0, 0.44, 0.2), (0.2, 0.22, 0.2)), 0.06)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.42, 0.42), (0.12, 0.13, 0.14)), 0.05)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.38, 0.52), (0, 0.37, 0.6), 0.055, 0.05), 0.03)
+    d = L.smax(d, -L.sd_ellipsoid(P, (0, 0.37, 0.65), (0.04, 0.035, 0.02)), 0.005)
+    for sx in (-1, 1): d = L.smin(d, L.sd_ellipsoid(P, (sx * 0.08, 0.53, 0.46), (0.05, 0.015, 0.05)), 0.01)
+    d = L.smin(d, L.sd_chain(P, [(0, 0.48, -0.39), (0, 0.53, -0.44), (0.02, 0.5, -0.47)], [0.015, 0.012, 0.008]), 0.01)
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.62, 0.05), (0.04, 0.03, 0.3)), 0.04)                              # cresta de cerdas en el lomo
+    d = L.smax(d, -(P[:, 1] - 0.24), 0.05)
+    return d - 0.004 * (hair(P, 150, 30) - 0.5)
+def cerdo_col(P, N):
+    n = L.fbm(P * 8, 3, 17)
+    col = mix(np.tile(C(0.24, 0.2, 0.18), (len(P), 1)), C(0.4, 0.32, 0.28), n * 0.9)
+    snout = P[:, 2] > 0.57; col = mix(col, C(0.6, 0.42, 0.4), snout * 1.0)
+    hoof = P[:, 1] < 0.06; col = mix(col, C(0.1, 0.08, 0.07), hoof * 1.0)
+    return np.clip(col * (0.85 + 0.3 * hair(P, 150, 30)[:, None]), 0, 1)
+CERDO = dict(body=cerdo_body, lo=(-0.3, 0.2, -0.52), hi=(0.3, 0.7, 0.68), col=cerdo_col, foot='pezuna', tris=9000, step=0.007, lstep=0.005, ltris=800,
+    eyes=([(-0.06, 0.47, 0.52), (0.06, 0.47, 0.52)], 0.01, (0.15, 0.1, 0.07, 1)),
+    legs=[([(-0.11, 0.3, 0.25), (-0.11, 0.15, 0.26), (-0.11, 0.03, 0.27)], [0.06, 0.04, 0.035]), ([(0.11, 0.3, 0.25), (0.11, 0.15, 0.26), (0.11, 0.03, 0.27)], [0.06, 0.04, 0.035]),
+          ([(-0.11, 0.32, -0.26), (-0.11, 0.17, -0.24), (-0.11, 0.03, -0.27)], [0.07, 0.045, 0.035]), ([(0.11, 0.32, -0.26), (0.11, 0.17, -0.24), (0.11, 0.03, -0.27)], [0.07, 0.045, 0.035])])
+BUILD4 = {'gallina': lambda: build_quad('gallina', GALLINA), 'cabra': lambda: build_quad('cabra', CABRA), 'cerdo': lambda: build_quad('cerdo', CERDO)}
 BUILD2 = {'centauro': lambda: build_quad('centauro', CENTAURO), 'pegaso': lambda: build_quad('pegaso', PEGASO), 'grifo': lambda: build_quad('grifo', GRIFO),
           'quimera': lambda: build_quad('quimera', QUIMERA), 'esfinge': lambda: build_quad('esfinge', ESFINGE), 'arpia': build_arpia, 'gorgona': build_gorgona,
           'triton': build_triton, 'tortuga': build_tortuga, 'zorra': lambda: build_quad('zorra', ZORRA), 'serp': build_serp}
@@ -946,6 +1018,8 @@ BUILD = {'leon': build_leon, 'ave': build_ave, 'mino': build_mino, 'cierva': lam
          'toro': lambda: build_quad('toro', TORO), 'yegua': lambda: build_quad('yegua', YEGUA), 'cerbero': lambda: build_quad('cerbero', dog_spec(3, True)),
          'ortro': lambda: build_quad('ortro', dog_spec(2, False)), 'ladon': build_ladon}
 made = []
+if ONLY and 'lote4' in ONLY:
+    BUILD = BUILD4; OUT = OUT.replace('criaturas.glb', 'criaturas4.glb'); TEX = 1024; ONLY = [x for x in ONLY if x != 'lote4'] or None
 if ONLY and 'lote3' in ONLY:
     BUILD = BUILD3; OUT = OUT.replace('criaturas.glb', 'criaturas3.glb'); TEX = 1024; ONLY = [x for x in ONLY if x != 'lote3'] or None
 if ONLY and 'lote2' in ONLY:
@@ -964,7 +1038,7 @@ if PREV:
     for r in made:
         if r.name != 'CR_leon':
             for nm, off in (('34', Vector((2.2, -2.2, 1.2))), ('frente', Vector((0.4, -2.4, 0.5)))):
-                big = {'CR_gato': 0.45, 'CR_comadreja': 0.22, 'CR_toro': 1.6, 'CR_ladon': 2.0, 'CR_jabali': 1.2, 'CR_cerbero': 1.1, 'CR_ortro': 1.1, 'CR_cierva': 1.4, 'CR_yegua': 1.6}.get(r.name, 1.0); tgt = r.location + Vector((0, 0, 0.3 if r.name == 'CR_mino' else (0 if r.name == 'CR_ave' else 0.6 * big))); cam.location = tgt + off * (0.6 if r.name == 'CR_mino' else big); cam.rotation_euler = (tgt - cam.location).to_track_quat('-Z', 'Y').to_euler()
+                big = {'CR_gallina': 0.35, 'CR_cabra': 0.8, 'CR_cerdo': 0.7, 'CR_gato': 0.45, 'CR_comadreja': 0.22, 'CR_toro': 1.6, 'CR_ladon': 2.0, 'CR_jabali': 1.2, 'CR_cerbero': 1.1, 'CR_ortro': 1.1, 'CR_cierva': 1.4, 'CR_yegua': 1.6}.get(r.name, 1.0); tgt = r.location + Vector((0, 0, 0.3 if r.name == 'CR_mino' else (0 if r.name == 'CR_ave' else 0.6 * big))); cam.location = tgt + off * (0.6 if r.name == 'CR_mino' else big); cam.rotation_euler = (tgt - cam.location).to_track_quat('-Z', 'Y').to_euler()
                 SC.render.filepath = PREV.replace('.png', '_%s_%s.png' % (r.name, nm)); bpy.ops.render.render(write_still=True)
             continue
         for nm, off, tz in (('34', Vector((2.6, -2.6, 1.0)), 1.0), ('cara', Vector((0.6, -1.6, 0.15)), 1.3), ('lado', Vector((3.4, 0.0, 0.3)), 0.9)):

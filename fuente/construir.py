@@ -36,6 +36,12 @@ _cr = MOD('criaturas.glb')   # criaturas de los portales de leyenda (herramienta
 if _cr.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr.read_bytes(), 9, mtime=0)).decode('ascii')
 _cr2 = MOD('criaturas2.glb')   # segundo lote de criaturas de los portales, en segundo plano
 if _cr2.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr2" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr2.read_bytes(), 9, mtime=0)).decode('ascii')
+_mt = raiz / 'modelos' / 'montes_altura.bin'   # forma de los montes con erosión (273, herramientas/terreno/montes_erosion.py): se espera antes de construir
+_mti = raiz / 'modelos' / 'montes_detalle.webp'   # su sombreado de detalle, en segundo plano
+if _mt.exists(): pj_tags += '<script type="application/octet-stream" id="glbmt" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_mt.read_bytes(), 9, mtime=0)).decode('ascii')
+if _mti.exists(): pj_tags += '<script type="application/octet-stream" id="imgmt" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_mti.read_bytes(), 9, mtime=0)).decode('ascii')
+_cr4 = MOD('criaturas4.glb')   # gallina, cabra y cerdo (272), en segundo plano
+if _cr4.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr4" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr4.read_bytes(), 9, mtime=0)).decode('ascii')
 _cr3 = MOD('criaturas3.glb')   # gato y comadreja (263), en segundo plano
 if _cr3.exists(): pj_tags += '<script type="application/octet-stream" id="glbcr3" data-lazy="1">%s</script>\n' % base64.b64encode(gzip.compress(_cr3.read_bytes(), 9, mtime=0)).decode('ascii')
 _ed = MOD('edificios.glb')   # casas detalladas (264): se traen al arrancar, con los otros modelos
@@ -89,7 +95,7 @@ _tmods = [m for m in mods if _tre.search(m.read_text(encoding='utf-8'))]
 def _tpart(m):   # del arranque (900) y de la propia caché (161) solo cuentan las líneas que tocan el relieve: cambian a menudo por otras cosas
     t = m.read_text(encoding='utf-8')
     return '\n'.join(l for l in t.split('\n') if _tre.search(l)) if m.name[:3] in ('900', '161') else t
-tsig = hashlib.sha1((''.join(m.name + _tpart(m) for m in _tmods) + hashlib.sha1(dem.encode('utf-8')).hexdigest()).encode('utf-8')).hexdigest()[:12]   # con los datos del relieve real
+tsig = hashlib.sha1((''.join(m.name + _tpart(m) for m in _tmods) + hashlib.sha1(dem.encode('utf-8')).hexdigest() + (hashlib.sha1(_mt.read_bytes()).hexdigest() if _mt.exists() else '')).encode('utf-8')).hexdigest()[:12]   # con los datos del relieve real
 assert out.count('@@TSIG@@') == 1, 'falta el marcador @@TSIG@@'
 out = out.replace('@@TSIG@@', tsig)
 ver = hashlib.sha1(out.encode('utf-8')).hexdigest()[:12]   # versión: huella del contenido (para el aviso de versión nueva en la web)
@@ -117,7 +123,7 @@ light = out
 # elegida al elegirla, las imágenes y las versiones altas cuando toca. Cada archivo lleva su propia huella (?v=): al publicar una
 # versión nueva, el navegador solo vuelve a descargar los que han cambiado.
 PRE = {'glb', 'glb2', 'glbed', 'rafaelimg', 'lobaimg'}
-for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + ['glbpj_%s_%s' % (k, v) for k in PJ for v, f in (('uno', 'uno'), ('unob', 'uno_baja')) if (raiz / 'modelos' / ('personaje_%s_%s.glb' % (k, f))).exists()] + ['imip_%s' % k for k in PJ if (raiz / 'modelos' / ('impostor_%s.webp' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbqa'] if _qa.exists() else []) + (['glbab'] if _ab.exists() else []) + (['glbav'] if _av.exists() else []) + (['glbob'] if _ob.exists() else []) + (['glbcr'] if _cr.exists() else []) + (['glbcr2'] if _cr2.exists() else []) + (['glbcr3'] if _cr3.exists() else []) + (['glbed'] if _ed.exists() else []) + (['glbrk'] if _rk.exists() else []) + (['glbhy'] if _hy.exists() else []) + (['glbph'] if _ph.exists() else []) + (['imgtm'] if _tm.exists() else []) + ['imgsu_' + k for k in SUELO] + ['immu_' + k for k in MURO] + (['imgnb'] if _nb.exists() else []) + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
+for idn in ['glb', 'glb2'] + ['glbpj_' + k for k in PJ] + ['glbpj_%s_alta' % k for k in PJ if (raiz / 'modelos' / ('personaje_%s_alta.glb' % k)).exists()] + ['glbpj_%s_%s' % (k, v) for k in PJ for v, f in (('uno', 'uno'), ('unob', 'uno_baja')) if (raiz / 'modelos' / ('personaje_%s_%s.glb' % (k, f))).exists()] + ['imip_%s' % k for k in PJ if (raiz / 'modelos' / ('impostor_%s.webp' % k)).exists()] + (['glbpl'] if _pl.exists() else []) + (['glbqa'] if _qa.exists() else []) + (['glbab'] if _ab.exists() else []) + (['glbav'] if _av.exists() else []) + (['glbob'] if _ob.exists() else []) + (['glbcr'] if _cr.exists() else []) + (['glbcr2'] if _cr2.exists() else []) + (['glbcr3'] if _cr3.exists() else []) + (['glbcr4'] if _cr4.exists() else []) + (['glbmt'] if _mt.exists() else []) + (['imgmt'] if _mti.exists() else []) + (['glbed'] if _ed.exists() else []) + (['glbrk'] if _rk.exists() else []) + (['glbhy'] if _hy.exists() else []) + (['glbph'] if _ph.exists() else []) + (['imgtm'] if _tm.exists() else []) + ['imgsu_' + k for k in SUELO] + ['immu_' + k for k in MURO] + (['imgnb'] if _nb.exists() else []) + (['glbar'] if _ar.exists() else []) + (['lfdata'] if _lf.exists() else []) + ['rafaelimg', 'lobaimg'] + ['demdata_' + m for m in MODOS]:
     m = _re.search(r'(<script[^>]*\bid="%s"[^>]*>)([\s\S]*?)(</script>)' % idn, light)
     assert m, 'no encuentro el bloque ' + idn
     (datos / (idn + '.txt')).write_text(m.group(2), encoding='utf-8')

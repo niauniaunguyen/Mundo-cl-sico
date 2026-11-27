@@ -3,8 +3,8 @@
 # Para cada modelos/personaje_<tipo>_juego.glb (21 mallas y 10 materiales: unas 20 llamadas de dibujo por persona):
 #   · une todas las piezas con esqueleto en UNA malla con UN material y un atlas de 1024 px con las texturas de siempre
 #     (la cara ocupa 512 px, como antes; el resto, 256) → modelos/personaje_<tipo>_uno.glb, con las 11 animaciones
-#   · en el color de los vértices (canal rojo) guarda qué pieza se tiñe por persona: 0,5 = himation/palla, 1 = quitón/túnica,
-#     0 = el resto; el juego multiplica por el color de cada persona, como hacía bpTint con los materiales separados
+#   · en el color de los vértices guarda qué pieza se tiñe por persona: rojo 0,5 = himation/palla, 1 = quitón/túnica, 0 = el resto;
+#     verde 0,5 = pelo y barba; azul 0,5 = piel; el juego multiplica por el color de cada persona, como hacía bpTint con los materiales separados
 #   · una versión aligerada (≈2.600 triángulos en vez de ≈14.000) con el mismo esqueleto → personaje_<tipo>_uno_baja.glb,
 #     para la media distancia
 import bpy, sys, os, math, numpy as np
@@ -72,11 +72,13 @@ def build(kind):
             i, j, s = slots.get(m.name, (0, 0, 1)) if m else (0, 0, 1)
             base = m.name if m else ''
             t = 0.5 if base in TINT_A else 1.0 if base in TINT_B else 0.0
+            hg = 0.5 if ('_pelo' in base or '_barba' in base) else 1.0   # verde: pelo y barba (el juego les pone el color de pelo de cada persona)
+            sk = 0.5 if ('_piel' in base or '_cara' in base) else 1.0   # azul: piel (tono de cada persona)
             for li in p.loop_indices:
                 u, v = uv.data[li].uv if uv else (0.5, 0.5)
                 u = min(max(u, 0), 1); v = min(max(v, 0), 1)
                 uv.data[li].uv = (i * C / AT + pad + u * (C * s / AT - 2 * pad), j * C / AT + pad + v * (C * s / AT - 2 * pad))
-                ca.data[li].color = (t, 1.0, 1.0, 1.0)
+                ca.data[li].color = (t, hg, sk, 1.0)
         me.color_attributes.active_color = ca
     print('PASO uv', flush=True)
     # ---- un material con el atlas
