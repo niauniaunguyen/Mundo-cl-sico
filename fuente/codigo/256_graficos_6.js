@@ -24,7 +24,8 @@ function g6Grass(){if(typeof GR==='undefined'||!GR.u||!GR.u.uQ)return;const Q=GR
   try{const W=[];for(const w of walkers){const g=w.g;if(!g||!g.visible)continue;const d=(g.position.x-P.x)**2+(g.position.z-P.z)**2;if(d<30*30)W.push([d,g.position]);}W.sort((a,b)=>a[0]-b[0]);for(const[,p]of W.slice(0,4-L.length))L.push([p,1.0]);}catch(e){}
   for(let i=0;i<4;i++){const it=L[i];if(it)Q[i].set(it[0].x,it[0].y,it[0].z,it[1]);else Q[i].set(0,-9999,0,1);}}
 // ---- G3 luz de interior
-function g6Indoor(dt){if(!G6.lights){G6.lights=[0,1].map(()=>{const l=new THREE.PointLight('#ffb466',0,14,1.6);scene.add(l);return l;});}
+function g6Indoor(dt){if(typeof ACC!=='undefined'&&ACC.lite)return;   // dos luces más encarecen cada píxel en los equipos modestos
+if(!G6.lights){G6.lights=[0,1].map(()=>{const l=new THREE.PointLight('#ffb466',0,14,1.6);scene.add(l);return l;});}
   let C=null;try{if(INT2.in&&INT2.in.R&&!(typeof legIn==='function'&&legIn()))C={x:INT2.in.R.X,y:INT2.in.R.Y,z:INT2.in.R.Z,R:INT2.in.R};else if(typeof CASA!=='undefined'&&CASA.X&&Math.abs(player.feet-CASA.Y)<20)C={x:CASA.X,y:CASA.Y,z:CASA.Z};}catch(e){}
   const night=typeof DAYF!=='undefined'?1-DAYF:0.5,t=performance.now()/1000;
   G6.lights.forEach((l,i)=>{if(!C){l.intensity=0;return;}l.position.set(C.x+(i?-3:3),C.y+2.6,C.z+(i?2:-3));l.intensity=(0.55+1.2*night)*(0.85+0.15*Math.sin(t*11+i*3)+0.08*Math.sin(t*23+i));});

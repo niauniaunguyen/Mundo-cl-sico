@@ -7,15 +7,15 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-325 funciones ampliadas, 629 capas.
+326 funciones ampliadas, 632 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 60 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:63 · `157`:84 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:69 · `184`:62 · `184`:84 · `186`:123 · `186`:158 · `186`:180 · `196`:38 · `196`:48 · `196`:88 · `198`:60 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:25 · `208`:148 · `208`:207 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:130 · `215`:50 · `216`:155 · `217`:91 · `218`:72 · `218`:83 · `219`:81 · `220`:35 · `222`:65 |
-| `gfTick` | `062_game_feel.js` | 23 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:77 · `242`:39 · `243`:49 · `244`:22 · `246`:8 · `249`:52 · `252`:87 · `253`:69 · `255`:131 · `256`:68 · `257`:191 |
+| `gfTick` | `062_game_feel.js` | 24 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:77 · `242`:39 · `243`:49 · `244`:22 · `246`:8 · `249`:52 · `252`:87 · `253`:69 · `255`:131 · `256`:69 · `257`:191 · `258`:18 |
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
 | `atCands` | `085_mirar_con_atencion.js` | 12 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:127 · `218`:49 · `248`:20 |
-| `gmDo` | `068_menu_del_juego.js` | 12 | `099`:138 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:110 · `223`:18 · `227`:148 · `230`:96 · `232`:63 · `235`:113 |
+| `gmDo` | `068_menu_del_juego.js` | 12 | `099`:140 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:110 · `223`:18 · `227`:148 · `230`:96 · `232`:63 · `235`:113 |
 | `openDialog` | `015_dialogo.js` | 9 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 · `235`:104 |
 | `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `bpMake` | `184_personajes_blender.js` | 7 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 · `233`:79 · `233`:81 |
@@ -29,7 +29,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `eduEntries` | `099_para_aprender_y_ensenar.js` | 5 | `100`:118 · `101`:71 · `102`:27 · `105`:504 · `106`:197 |
 | `int2Room` | `204_puertas_a_interiores.js` | 5 | `206`:52 · `208`:27 · `210`:39 · `214`:29 · `217`:85 |
 | `renderOpts` | `015_dialogo.js` | 5 | `151`:23 · `166`:27 · `170`:37 · `175`:45 · `175`:79 |
-| `sail` | `016_viajes_en_barco.js` | 5 | `090`:99 · `091`:35 · `099`:102 · `151`:59 · `257`:35 |
+| `sail` | `016_viajes_en_barco.js` | 5 | `090`:99 · `091`:35 · `099`:104 · `151`:59 · `257`:35 |
 | `toast` | `014_hud.js` | 5 | `120`:131 · `128`:68 · `173`:8 · `200`:37 · `226`:113 |
 | `chooseMode` | `900_creta_y_arranque.js` | 4 | `147`:63 · `225`:221 · `232`:17 · `243`:17 |
 | `int2Enter` | `204_puertas_a_interiores.js` | 4 | `210`:19 · `240`:34 · `253`:58 · `254`:136 |
@@ -55,6 +55,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `updateStats` | `014_hud.js` | 3 | `077`:78 · `199`:35 · `229`:55 |
 | `updateTorch` | `040_caballo.js` | 3 | `090`:88 · `201`:57 · `202`:63 |
 | `v2Spd` | `114_vida_2.js` | 3 | `174`:16 · `202`:59 · `254`:140 |
+| `accApply` | `099_para_aprender_y_ensenar.js` | 2 | `189`:39 · `258`:17 |
 | `animal` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `093`:23 · `198`:26 |
 | `atDescOf` | `103_mirar_con_atencion.js` | 2 | `103`:33 · `103`:48 |
 | `atShow` | `085_mirar_con_atencion.js` | 2 | `100`:142 · `134`:23 |
@@ -107,7 +108,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `tutStart` | `049_discipulos.js` | 2 | `157`:82 · `227`:141 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
 | `wxTick` | `090_el_tiempo.js` | 2 | `097`:68 · `204`:187 |
-| `accApply` | `099_para_aprender_y_ensenar.js` | 1 | `189`:39 |
 | `accSave` | `099_para_aprender_y_ensenar.js` | 1 | `154`:31 |
 | `accSpeak` | `099_para_aprender_y_ensenar.js` | 1 | `160`:15 |
 | `addRiver` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `188`:62 |
@@ -170,6 +170,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `coinEl` | `199_moneda_en_pantalla.js` | 1 | `225`:216 |
 | `colsTick` | `?` | 1 | `193`:47 |
 | `courtyardHouse` | `011_construccion_del_mundo.js` | 1 | `233`:45 |
+| `cullRegister` | `113_templos_por_dentro.js` | 1 | `258`:16 |
 | `cvSetup` | `083_el_camino_del_forastero.js` | 1 | `900`:372 |
 | `cyAct` | `096_la_ciudad_mas_viva.js` | 1 | `097`:102 |
 | `cySetup` | `096_la_ciudad_mas_viva.js` | 1 | `900`:373 |
@@ -188,8 +189,8 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `egxObj` | `060_egipto_2.js` | 1 | `085`:6 |
 | `evTick` | `?` | 1 | `194`:104 |
 | `faceTick` | `128_gestos.js` | 1 | `129`:55 |
-| `farmAct` | `066_la_granja.js` | 1 | `099`:134 |
-| `farmDay` | `066_la_granja.js` | 1 | `099`:126 |
+| `farmAct` | `066_la_granja.js` | 1 | `099`:136 |
+| `farmDay` | `066_la_granja.js` | 1 | `099`:128 |
 | `farmOfferSetup` | `066_la_granja.js` | 1 | `900`:376 |
 | `farmRain` | `066_la_granja.js` | 1 | `090`:106 |
 | `farmSetup` | `066_la_granja.js` | 1 | `900`:377 |

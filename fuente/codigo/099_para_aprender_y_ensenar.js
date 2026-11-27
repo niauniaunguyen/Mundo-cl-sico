@@ -38,6 +38,8 @@ function eduLogrosHtml(){const z=eduz();return '<div style="display:grid;grid-te
 let EDU_T=0;function eduTick(dt){if(!state)return;try{evpStep(dt);}catch(e){}EDU_T-=dt;if(EDU_T>0)return;EDU_T=3;const z=eduz();for(const L of LOGROS){if(z.logros[L.k])continue;let ok=false;try{ok=L.t();}catch(e){}if(ok){z.logros[L.k]=1;save();try{sfxCoin();}catch(e){}toast('<span class="label">★ Logro · '+L.n+'</span><br>'+L.d+'.');}}eduEvTick();}
 // ---- 2. accesibilidad: lectura en voz alta, tamaño de letra, fuente de lectura fácil, alto contraste y modo ligero
 const ACC={};try{Object.assign(ACC,JSON.parse(localStorage.getItem('nostos-acc')||'{}'));}catch(e){}
+// Equipos modestos (2 núcleos o 4 GB, como muchos Chromebook de los institutos): la primera vez, el modo ligero se enciende solo (258).
+try{if(ACC.hwSeen===undefined){ACC.hwSeen=1;const nc=navigator.hardwareConcurrency||4,mem=navigator.deviceMemory||8;if(nc<=2||mem<=4){ACC.lite=true;ACC.liteHw=1;}localStorage.setItem('nostos-acc',JSON.stringify(ACC));}}catch(e){}
 function accSave(){try{localStorage.setItem('nostos-acc',JSON.stringify(ACC));}catch(e){}accApply();}
 const ACC_SIZES=[0.85,1,1.15,1.3,1.45,1.6];
 function accSize(){const v=+ACC.size;return ACC_SIZES.includes(v)?v:(ACC.big?1.3:1);}

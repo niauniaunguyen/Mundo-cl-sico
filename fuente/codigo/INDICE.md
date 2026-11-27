@@ -104,7 +104,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `096_la_ciudad_mas_viva.js` | 79 | LA CIUDAD, MÁS VIVA: oficios con minijuego, instituciones, grafitis, la noche de Roma, agua e higiene, cambist |
 | `097_el_zurron_y_los_objetos.js` | 104 | EL ZURRÓN Y LOS OBJETOS DEL VIAJE: casillas configurables, uso según el contexto y quince objetos nuevos |
 | `098_el_campo.js` | 83 | EL CAMPO: caza, pesca, recolección y herbario, fiestas rurales en su fecha, árboles sagrados y mojones, |
-| `099_para_aprender_y_ensenar.js` | 145 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
+| `099_para_aprender_y_ensenar.js` | 147 | PARA APRENDER Y ENSEÑAR: códice y logros, accesibilidad, panel del profesor, música antigua, |
 | `100_paredes_solidas_en_todos_los.js` | 145 | PAREDES SÓLIDAS EN TODOS LOS EDIFICIOS<br>CUÁNTOS ÉRAMOS: población de Atenas (386 a.C.) y de Roma (80 d.C.)<br>MIRAR CON ATENCIÓN: lo que el juego ha elegido brilla en azul claro |
 | `101_vestuario.js` | 75 | VESTUARIO: ropa, colores, pelo, coronas, calzado y anillos con sus reglas |
 | `102_ambientacion.js` | 125 | AMBIENTACIÓN: detalles pequeños y documentados que se ven o se oyen al pasar |
@@ -259,6 +259,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `253_desbloqueos_heroe.js` | 71 | LO QUE SE DESBLOQUEA CON LAS LEYENDAS (23/11: «aplícalos todos») |
 | `254_catabasis.js` | 143 | LA CATÁBASIS: BAJAR AL HADES (rogue-like) (24/11) |
 | `255_inframundo.js` | 132 | EL INFRAMUNDO, COMO MAPA (24/11) |
-| `256_graficos_6.js` | 69 | GRÁFICOS (6): cinco propuestas (24/11) |
+| `256_graficos_6.js` | 70 | GRÁFICOS (6): cinco propuestas (24/11) |
 | `257_jugabilidad_7.js` | 197 | JUGABILIDAD (7): comercio, tablero, casa, teatro y perro (27/11) |
+| `258_equipos_modestos.js` | 20 | EQUIPOS MODESTOS (prueba del 25/11: Chromebook del instituto) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
