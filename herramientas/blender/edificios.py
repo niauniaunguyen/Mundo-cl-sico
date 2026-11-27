@@ -549,6 +549,30 @@ def bake_vc(objs):
         bpy.data.objects.remove(ground, do_unlink=True)
         for o in L: o.location = (0, 0, 0)
 bake_vc(made)
+# ---------------------------------------------------------------- menos materiales: las piezas pequeñas, en una sola («misc»)
+# bronce, antefijas y tejas sueltas, pintura, adobe, huecos oscuros: su color pasa al color de los vértices (multiplicado por la
+# sombra horneada) y se juntan en una pieza con un material blanco. Cada casa pasa de unas 12-14 llamadas de dibujo a unas 7.
+MISC = {'bronze': (0.54, 0.42, 0.23), 'tile': (0.71, 0.35, 0.23), 'redpaint': (0.56, 0.23, 0.16), 'mud': (0.56, 0.45, 0.33), 'paintred': (0.66, 0.27, 0.23),
+        'paintblue': (0.23, 0.33, 0.53), 'gold': (0.85, 0.66, 0.23), 'dark': (0.1, 0.08, 0.06)}
+def merge_misc(objs):
+    groups = {}
+    for o in objs: groups.setdefault('_'.join(o.name.split('_')[:2]), []).append(o)
+    out = []
+    for k, L in groups.items():
+        parts = [o for o in L if o.name.split('_')[-1] in MISC]
+        if len(parts) < 2 or k.startswith('K2'): out += L; continue
+        for o in parts:
+            base = MISC[o.name.split('_')[-1]]; ca = o.data.color_attributes.active_color
+            for i in range(len(ca.data)):
+                c = ca.data[i].color; ca.data[i].color = (c[0] * base[0], c[1] * base[1], c[2] * base[2], 1.0)
+        mat = bpy.data.materials.get('misc') or bpy.data.materials.new('misc')
+        for o in parts: o.data.materials.clear(); o.data.materials.append(mat)
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in parts: o.select_set(True)
+        bpy.context.view_layer.objects.active = parts[0]; bpy.ops.object.join(); j = bpy.context.active_object; j.name = k + '_misc'
+        out += [o for o in L if o not in parts] + [j]
+    return out
+made = merge_misc(made)
 if PREV:
     SC.render.engine = 'CYCLES'; SC.cycles.samples = 24; SC.render.resolution_x = 640; SC.render.resolution_y = 420; SC.view_settings.view_transform = 'Standard'
     w = bpy.data.worlds.new('w'); SC.world = w; w.use_nodes = True; w.node_tree.nodes['Background'].inputs[0].default_value = (0.7, 0.75, 0.8, 1)

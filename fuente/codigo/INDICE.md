@@ -273,4 +273,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `267_vida_en_las_ciudades.js` | 168 | VIDA EN LAS CIUDADES (27/11) |
 | `268_figuras_blender_en_escenas.js` | 50 | FIGURAS DE BLENDER EN LAS ESCENAS (27/11) |
 | `269_figuras_optimizadas.js` | 47 | FIGURAS DE BLENDER OPTIMIZADAS (27/11) |
+| `270_impostores_blender.js` | 27 | FIGURAS LEJANAS SACADAS DE BLENDER (27/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

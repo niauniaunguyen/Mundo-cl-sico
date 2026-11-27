@@ -18,7 +18,7 @@ const ED={ok:false,n:0,D1:520,D2:1150,N1:90,N2:260,
   mid:{H_gra:'H3_gra',H_grb:'H3_grb',H_grc:'H3_grc',H_farm:'H3_farm',H_dom:'H3_dom',H_insa:'H3_insa',H_insb:'H3_insb'},
   vc:new Map(),geoRole:new Map(),tex:{}};
 try{if(typeof ACC!=='undefined'&&ACC.lite){ED.D1=380;ED.D2=760;ED.N1=30;ED.N2=80;}else if(typeof isTouch!=='undefined'&&isTouch){ED.D1=430;ED.D2=900;ED.N1=50;ED.N2=150;}}catch(e){}
-Object.assign(ROLE_C,{redpaint:'#8e3a2a',mud:'#8f7255',paintred:'#a8463a',paintblue:'#3a5488',interior:'#3a2c20',sign:'#e8dfcc',lares:'#c9a27a'});
+Object.assign(ROLE_C,{misc:'#ffffff',redpaint:'#8e3a2a',mud:'#8f7255',paintred:'#a8463a',paintblue:'#3a5488',interior:'#3a2c20',sign:'#e8dfcc',lares:'#c9a27a'});
 function edParse(done){let p;try{p=bpBytes('glbed');}catch(e){done();return;}
   p.then(buf=>{if(!buf){done();return;}new THREE.GLTFLoader().parse(buf,'',gl=>{gl.scene.updateMatrixWorld(true);
     for(const o of gl.scene.children){if(!/^(H2|H3|K2)_/.test(o.name))continue;const list=[];

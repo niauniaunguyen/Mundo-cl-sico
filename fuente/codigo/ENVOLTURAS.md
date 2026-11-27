@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-335 funciones ampliadas, 656 capas.
+336 funciones ampliadas, 657 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -230,6 +230,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `houseApply` | `039_tu_casa_atenas.js` | 1 | `900`:436 |
 | `housesGLB` | `005_modelos_de_blender.js` | 1 | `233`:23 |
 | `huntTick` | `175_actividades_dinamicas.js` | 1 | `179`:40 |
+| `impTick` | `259_optimizacion.js` | 1 | `270`:18 |
 | `infBuild` | `072_misiones_finales_de_las_cualidades.js` | 1 | `085`:49 |
 | `int2Door` | `204_puertas_a_interiores.js` | 1 | `233`:74 |
 | `int2Leave` | `204_puertas_a_interiores.js` | 1 | `254`:138 |
