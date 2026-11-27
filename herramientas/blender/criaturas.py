@@ -299,6 +299,11 @@ def build_mino():
 # spec: body(P) -> sdf del tronco, cuello y cabeza; legs: 4 x (puntos, radios) del hombro/cadera al casco o la pata (el primero es el
 # pivote); foot: 'pezuna' o 'pata'; tail: (puntos, radios) o función; col(P, N); eyes: (puntos, radio, color); lo/hi: caja del cuerpo
 def foot_sdf(P, p, kind, r):
+    if kind == 'zarpa':   # gato y comadreja: almohadilla redonda y cuatro dedos pequeños, a ras de suelo
+        d = L.sd_ellipsoid(P, (p[0], r * 0.75, p[2] + r * 0.4), (r * 1.15, r * 0.75, r * 1.35))
+        for k in (-1.5, -0.5, 0.5, 1.5):
+            d = L.smin(d, L.sd_ellipsoid(P, (p[0] + k * r * 0.5, r * 0.45, p[2] + r * 1.45), (r * 0.36, r * 0.42, r * 0.45)), r * 0.35)
+        return d
     if kind == 'pezuna':
         return L.sd_capsule(P, (p[0], p[1] + 0.02, p[2]), (p[0], 0.015, p[2] + 0.02), r * 0.95, r * 1.05)
     d = L.sd_ellipsoid(P, (p[0], 0.05, p[2] + 0.04), (r * 1.25, r * 0.8, r * 1.5))
@@ -318,7 +323,7 @@ def build_quad(key, spec):
         parts.append(make_part('CR_%s_%s' % (key, nm), fn, (min(xs) - mr, -0.02, min(zs) - mr - 0.05), (max(xs) + mr, pts[0][1] + mr, max(zs) + mr + 0.12), spec.get('lstep', 0.01), pts[0], spec.get('ltris', 2500), root))
     if spec.get('tail'):
         tf, tlo, thi, tpv = spec['tail']
-        parts.append(make_part('CR_%s_cola' % key, tf, tlo, thi, 0.01, tpv, spec.get('ttris', 2000), root))
+        parts.append(make_part('CR_%s_cola' % key, tf, tlo, thi, spec.get('tstep', 0.01), tpv, spec.get('ttris', 2000), root))
     for ex in spec.get('extra', []):
         nm, fn, lo, hi, pv, tr = ex; parts.append(make_part('CR_%s_%s' % (key, nm), fn, lo, hi, 0.01, pv, tr, root))
     paint(parts, key + '_piel', spec['col'], rough=spec.get('rough', 0.8))
@@ -863,6 +868,77 @@ def build_serp():
     paint([b, hd], 'serp_escamas', ladon_col, rough=0.5)
     return root
 
+
+# ---- GATO y COMADREJA (no son criaturas de leyenda: animales de la calle y de la casa). Medidas reales: gato de ~46 cm de cuerpo y
+# ~25 cm a la cruz; comadreja (Mustela nivalis) de ~22 cm y cola corta. En Grecia, la comadreja (galê) era la cazadora de ratones de
+# las casas; el gato era raro (relieve de una base de kurós de Atenas, hacia 510 a.C.). En Roma, en el 80 d.C., ya era más frecuente.
+def gato_body(P):
+    d = L.sd_ellipsoid(P, (0, 0.2, -0.01), (0.07, 0.075, 0.19))
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.205, 0.11), (0.074, 0.085, 0.09)), 0.04)            # pecho
+    d = L.smin(d, L.sd_ellipsoid(P, (0, 0.215, -0.13), (0.075, 0.08, 0.09)), 0.04)            # cadera
+    d = L.smax(d, -L.sd_ellipsoid(P, (0, 0.13, 0.0), (0.09, 0.03, 0.13)), 0.03)                # vientre recogido
+    d = L.smin(d, L.sd_capsule(P, (0, 0.235, 0.15), (0, 0.285, 0.215), 0.048, 0.04), 0.03)     # cuello
+    h = L.sd_ellipsoid(P, (0, 0.305, 0.255), (0.052, 0.046, 0.05))                              # cráneo
+    h = L.smin(h, L.sd_ellipsoid(P, (0, 0.29, 0.29), (0.03, 0.024, 0.026)), 0.015)            # hocico
+    for s in (-1, 1):
+        h = L.smin(h, L.sd_ellipsoid(P, (s * 0.016, 0.285, 0.305), (0.016, 0.014, 0.012)), 0.008)   # almohadillas de los bigotes
+        h = L.smin(h, L.sd_capsule(P, (s * 0.03, 0.335, 0.25), (s * 0.04, 0.378, 0.245), 0.019, 0.003), 0.008)   # orejas
+        h = L.smax(h, -L.sd_ellipsoid(P, (s * 0.036, 0.355, 0.256), (0.01, 0.022, 0.006)), 0.004)
+        h = L.smax(h, -L.sd_ellipsoid(P, (s * 0.024, 0.31, 0.293), (0.012, 0.009, 0.008)), 0.004)   # cuencas de los ojos
+    h = L.smin(h, L.sd_ellipsoid(P, (0, 0.297, 0.315), (0.008, 0.006, 0.005)), 0.004)          # nariz
+    d = L.smin(d, h, 0.02)
+    d = L.smax(d, -(P[:, 1] - 0.115), 0.02)
+    return d - 0.0012 * (hair(P, 380, 90) - 0.5)
+def gato_col(P, N):
+    n = L.fbm(P * 30, 3, 21); n2 = L.fbm(P * 90, 2, 33)
+    base = mix(np.tile(C(0.36, 0.32, 0.27), (len(P), 1)), C(0.5, 0.43, 0.34), n * 0.8)
+    st = np.sin(P[:, 2] * 150 + np.sin(P[:, 1] * 70 + P[:, 0] * 40) * 2.2 + n * 5.0 + n2 * 2.0)                   # rayas finas e irregulares (atigrado)
+    k = np.clip((st - 0.55) * 3.0, 0, 1) * np.clip((P[:, 1] - 0.05) * 8, 0, 1)
+    spine = np.clip(1 - np.abs(P[:, 0]) / 0.018, 0, 1) * (P[:, 1] > 0.24) * (P[:, 2] < 0.15)                        # raya oscura del lomo
+    col = mix(base, C(0.2, 0.16, 0.13), np.clip(k * 0.8 + spine * 0.7, 0, 1))
+    belly = np.clip((-N[:, 1] - 0.25) * 2.5, 0, 1) * (P[:, 1] > 0.11) * (P[:, 2] > -0.22) * (P[:, 2] < 0.2)
+    col = mix(col, C(0.8, 0.75, 0.66), belly * 0.85)
+    paws = np.clip((0.035 - P[:, 1]) * 40, 0, 1)
+    col = mix(col, C(0.78, 0.72, 0.62), paws * 0.7)
+    muzzle = np.clip((P[:, 2] - 0.28) * 40, 0, 1) * (P[:, 1] < 0.302) * (P[:, 1] > 0.25)
+    col = mix(col, C(0.82, 0.78, 0.7), muzzle * 0.6)
+    nose = (P[:, 2] > 0.316) & (np.abs(P[:, 0]) < 0.0065) & (P[:, 1] > 0.295)
+    col = mix(col, C(0.5, 0.33, 0.32), nose)
+    ear_in = (P[:, 1] > 0.34) & (N[:, 2] > 0.3)
+    col = mix(col, C(0.66, 0.5, 0.46), ear_in * 0.7)
+    return np.clip(col * (0.86 + 0.28 * hair(P, 400, 100)[:, None]), 0, 1)
+GATO = dict(body=gato_body, lo=(-0.12, 0.1, -0.26), hi=(0.12, 0.4, 0.35), col=gato_col, foot='zarpa', tris=14000, step=0.0035, lstep=0.0028, ltris=1500, tstep=0.003, ttris=1200, rough=0.9,
+    eyes=([(-0.024, 0.312, 0.3), (0.024, 0.312, 0.3)], 0.0105, (0.62, 0.66, 0.14, 1)),
+    legs=[([(-0.042, 0.19, 0.12), (-0.042, 0.105, 0.115), (-0.042, 0.02, 0.13)], [0.028, 0.019, 0.016]),
+          ([(0.042, 0.19, 0.12), (0.042, 0.105, 0.115), (0.042, 0.02, 0.13)], [0.028, 0.019, 0.016]),
+          ([(-0.046, 0.2, -0.13), (-0.046, 0.12, -0.09), (-0.046, 0.065, -0.17), (-0.046, 0.02, -0.15)], [0.038, 0.021, 0.015, 0.015]),
+          ([(0.046, 0.2, -0.13), (0.046, 0.12, -0.09), (0.046, 0.065, -0.17), (0.046, 0.02, -0.15)], [0.038, 0.021, 0.015, 0.015])],
+    tail=(lambda P: L.sd_chain(P, [(0, 0.225, -0.19), (0, 0.19, -0.32), (0, 0.16, -0.42), (0, 0.19, -0.5), (0, 0.24, -0.53)], [0.02, 0.018, 0.016, 0.014, 0.011]),
+          (-0.06, 0.1, -0.6), (0.06, 0.3, -0.16), (0, 0.225, -0.19)))
+def comadreja_body(P):
+    d = L.sd_capsule(P, (0, 0.062, -0.09), (0, 0.068, 0.08), 0.03, 0.026)
+    d = L.smin(d, L.sd_capsule(P, (0, 0.07, 0.08), (0, 0.082, 0.12), 0.024, 0.02), 0.015)      # cuello
+    h = L.sd_ellipsoid(P, (0, 0.085, 0.14), (0.022, 0.019, 0.03))
+    h = L.smin(h, L.sd_ellipsoid(P, (0, 0.081, 0.165), (0.012, 0.01, 0.012)), 0.008)
+    for s in (-1, 1):
+        h = L.smin(h, L.sd_ellipsoid(P, (s * 0.017, 0.1, 0.132), (0.008, 0.007, 0.004)), 0.004)    # orejas redondas
+    d = L.smin(d, h, 0.012)
+    d = L.smax(d, -(P[:, 1] - 0.03), 0.01)
+    return d - 0.0008 * (hair(P, 500, 120) - 0.5)
+def comadreja_col(P, N):
+    col = mix(np.tile(C(0.42, 0.27, 0.15), (len(P), 1)), C(0.5, 0.33, 0.19), L.fbm(P * 40, 3, 9) * 0.8)
+    belly = np.clip((-N[:, 1] + 0.1) * 2.2, 0, 1) * (P[:, 1] < 0.075) * (P[:, 1] > 0.042) * (P[:, 2] > -0.1)
+    throat = ((P[:, 2] > 0.1) & (P[:, 1] < 0.084) & (N[:, 1] < 0.35)).astype(float)
+    col = mix(col, C(0.9, 0.86, 0.76), np.clip(belly + throat, 0, 1) * 0.9)
+    return np.clip(col * (0.88 + 0.25 * hair(P, 500, 120)[:, None]), 0, 1)
+COMADREJA = dict(body=comadreja_body, lo=(-0.05, 0.025, -0.13), hi=(0.05, 0.12, 0.19), col=comadreja_col, foot='zarpa', tris=8000, step=0.0022, lstep=0.002, ltris=800, tstep=0.002, ttris=600, rough=0.9,
+    eyes=([(-0.012, 0.091, 0.162), (0.012, 0.091, 0.162)], 0.0045, (0.05, 0.04, 0.04, 1)),
+    legs=[([(-0.018, 0.055, 0.07), (-0.018, 0.03, 0.075), (-0.018, 0.009, 0.08)], [0.011, 0.008, 0.007]),
+          ([(0.018, 0.055, 0.07), (0.018, 0.03, 0.075), (0.018, 0.009, 0.08)], [0.011, 0.008, 0.007]),
+          ([(-0.02, 0.058, -0.08), (-0.02, 0.035, -0.06), (-0.02, 0.009, -0.075)], [0.014, 0.009, 0.007]),
+          ([(0.02, 0.058, -0.08), (0.02, 0.035, -0.06), (0.02, 0.009, -0.075)], [0.014, 0.009, 0.007])],
+    tail=(lambda P: L.sd_chain(P, [(0, 0.065, -0.11), (0, 0.06, -0.16), (0, 0.065, -0.19)], [0.011, 0.01, 0.008]), (-0.03, 0.03, -0.22), (0.03, 0.1, -0.09), (0, 0.065, -0.11)))
+BUILD3 = {'gato': lambda: build_quad('gato', GATO), 'comadreja': lambda: build_quad('comadreja', COMADREJA)}
 BUILD2 = {'centauro': lambda: build_quad('centauro', CENTAURO), 'pegaso': lambda: build_quad('pegaso', PEGASO), 'grifo': lambda: build_quad('grifo', GRIFO),
           'quimera': lambda: build_quad('quimera', QUIMERA), 'esfinge': lambda: build_quad('esfinge', ESFINGE), 'arpia': build_arpia, 'gorgona': build_gorgona,
           'triton': build_triton, 'tortuga': build_tortuga, 'zorra': lambda: build_quad('zorra', ZORRA), 'serp': build_serp}
@@ -870,6 +946,8 @@ BUILD = {'leon': build_leon, 'ave': build_ave, 'mino': build_mino, 'cierva': lam
          'toro': lambda: build_quad('toro', TORO), 'yegua': lambda: build_quad('yegua', YEGUA), 'cerbero': lambda: build_quad('cerbero', dog_spec(3, True)),
          'ortro': lambda: build_quad('ortro', dog_spec(2, False)), 'ladon': build_ladon}
 made = []
+if ONLY and 'lote3' in ONLY:
+    BUILD = BUILD3; OUT = OUT.replace('criaturas.glb', 'criaturas3.glb'); TEX = 1024; ONLY = [x for x in ONLY if x != 'lote3'] or None
 if ONLY and 'lote2' in ONLY:
     BUILD = BUILD2; OUT = OUT.replace('criaturas.glb', 'criaturas2.glb'); TEX = 512; ONLY = [x for x in ONLY if x != 'lote2'] or None
 for k, fn in BUILD.items():
@@ -886,7 +964,7 @@ if PREV:
     for r in made:
         if r.name != 'CR_leon':
             for nm, off in (('34', Vector((2.2, -2.2, 1.2))), ('frente', Vector((0.4, -2.4, 0.5)))):
-                big = {'CR_toro': 1.6, 'CR_ladon': 2.0, 'CR_jabali': 1.2, 'CR_cerbero': 1.1, 'CR_ortro': 1.1, 'CR_cierva': 1.4, 'CR_yegua': 1.6}.get(r.name, 1.0); tgt = r.location + Vector((0, 0, 0.3 if r.name == 'CR_mino' else (0 if r.name == 'CR_ave' else 0.6 * big))); cam.location = tgt + off * (0.6 if r.name == 'CR_mino' else big); cam.rotation_euler = (tgt - cam.location).to_track_quat('-Z', 'Y').to_euler()
+                big = {'CR_gato': 0.45, 'CR_comadreja': 0.22, 'CR_toro': 1.6, 'CR_ladon': 2.0, 'CR_jabali': 1.2, 'CR_cerbero': 1.1, 'CR_ortro': 1.1, 'CR_cierva': 1.4, 'CR_yegua': 1.6}.get(r.name, 1.0); tgt = r.location + Vector((0, 0, 0.3 if r.name == 'CR_mino' else (0 if r.name == 'CR_ave' else 0.6 * big))); cam.location = tgt + off * (0.6 if r.name == 'CR_mino' else big); cam.rotation_euler = (tgt - cam.location).to_track_quat('-Z', 'Y').to_euler()
                 SC.render.filepath = PREV.replace('.png', '_%s_%s.png' % (r.name, nm)); bpy.ops.render.render(write_still=True)
             continue
         for nm, off, tz in (('34', Vector((2.6, -2.6, 1.0)), 1.0), ('cara', Vector((0.6, -1.6, 0.15)), 1.3), ('lado', Vector((3.4, 0.0, 0.3)), 0.9)):

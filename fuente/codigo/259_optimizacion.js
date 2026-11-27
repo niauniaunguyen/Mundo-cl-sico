@@ -67,10 +67,12 @@ function instGeoKey(g){const p=g&&g.parameters;if(!p||g.morphAttributes&&Object.
   return null;}
 function instMeshOk(o){if(!o.isMesh||o.isInstancedMesh||o.isSkinnedMesh||o.name||o.children.length||!o.visible||o.renderOrder||o.morphTargetInfluences)return false;for(const k in o.userData)return false;
   if(o.onBeforeRender!==THREE.Object3D.prototype.onBeforeRender)return false;return true;}
-function instGroupOk(top){if(!top.isGroup&&top.type!=='Object3D')return false;if(top===scene||top.userData.chunk||top.userData.tlod||top.userData.bp||top.userData.pj||top.userData.qa||top.userData.noInst)return false;
+function instMovers(){const S=new Set();try{for(const F of FAUNA)if(F.A&&F.A.g)S.add(F.A.g);}catch(e){}try{for(const g of QA.act||[])S.add(g);}catch(e){}try{for(const S2 of X3.ships)S.add(S2.g);}catch(e){}try{if(MOUNT.g)S.add(MOUNT.g);}catch(e){}try{for(const w of walkers)S.add(w.g);}catch(e){}return S;}
+function instGroupOk(top){if(INSG.mv&&INSG.mv.has(top))return false;if(!top.isGroup&&top.type!=='Object3D')return false;if(top===scene||top.userData.chunk||top.userData.tlod||top.userData.bp||top.userData.pj||top.userData.qa||top.userData.noInst)return false;
   for(const k in top.userData)if(k!=='_cs'&&k!=='r23sh')return false;if(typeof walkers!=='undefined'&&walkers.some&&top.userData.cfg)return false;return true;}
 function instDo(top){top.updateMatrixWorld(true);const inv=new THREE.Matrix4().copy(top.matrixWorld).invert(),B=new Map();
-  top.traverse(o=>{if(o===top)return;for(let p=o.parent;p&&p!==top;p=p.parent){if(!p.visible||p.name)return;for(const k in p.userData)return;}if(!instMeshOk(o))return;const gk=instGeoKey(o.geometry);if(!gk||!instMatOk(o.material))return;
+  top.traverse(o=>{if(o===top||o.parent!==top)return;if(!instMeshOk(o))return;   // solo piezas que cuelgan directamente del grupo: las que van dentro de un pivote (patas, brazos, velas) se mueven
+   const gk=instGeoKey(o.geometry);if(!gk||!instMatOk(o.material))return;
     const key=gk+'|'+o.material.uuid+'|'+(o.castShadow?1:0)+(o.receiveShadow?1:0);let L=B.get(key);if(!L)B.set(key,L=[]);L.push(o);});
   let made=0;for(const[key,L]of B){if(L.length<4)continue;instBuild(L,key[0]==='B',top);made++;}
   if(made)INST.groups++;return made;}
@@ -96,6 +98,7 @@ function instBuild(L,box,top){const o0=L[0];const geo=box?new THREE.BoxGeometry(
 const INSG={list:null,i:0,scan:0};
 function instTick(dt){if(!INST.on||ui==='start')return;INST.t+=dt;if(INST.t<0.5)return;INST.t=0;try{instLoose();}catch(e){console.warn('instL',e);}
   const ch=scene.children;if(!INSG.list){INSG.list=[];INSG.scan=0;}
+  if(!INSG.mv||(INSG.mvT=(INSG.mvT||0)+1)%20===0)INSG.mv=instMovers();
   if(INSG.scan<ch.length){const end=Math.min(ch.length,INSG.scan+3000);for(let i=INSG.scan;i<end;i++){const top=ch[i];if(top&&!top.isMesh&&!top.userData.instDone&&instGroupOk(top))INSG.list.push(top);}INSG.scan=end;}
   else if(INSG.list.length===0){INSG.scan=0;}
   let work=0;for(let k=0;k<40&&INSG.list.length&&work<4000;k++){INSG.i=(INSG.i+1)%INSG.list.length;const top=INSG.list[INSG.i];if(!top||!top.parent||top.userData.instDone){INSG.list.splice(INSG.i,1);continue;}

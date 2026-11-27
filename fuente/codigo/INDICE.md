@@ -262,8 +262,9 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `256_graficos_6.js` | 70 | GRÁFICOS (6): cinco propuestas (24/11) |
 | `257_jugabilidad_7.js` | 197 | JUGABILIDAD (7): comercio, tablero, casa, teatro y perro (27/11) |
 | `258_equipos_modestos.js` | 20 | EQUIPOS MODESTOS (prueba del 25/11: Chromebook del instituto) |
-| `259_optimizacion.js` | 146 | OPTIMIZACIÓN: diez propuestas (27/11) |
+| `259_optimizacion.js` | 149 | OPTIMIZACIÓN: diez propuestas (27/11) |
 | `260_jugabilidad_8.js` | 125 | JUGABILIDAD (8): diez actividades (27/11) |
 | `261_graficos_7.js` | 125 | GRÁFICOS (7): diez propuestas (27/11) |
 | `262_parejas_de_repaso.js` | 98 | PAREJAS DE REPASO (27/11) |
+| `263_gatos_y_comadrejas.js` | 34 | GATOS Y COMADREJAS (27/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
