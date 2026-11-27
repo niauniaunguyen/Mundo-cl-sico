@@ -137,7 +137,7 @@ function o10Blocked(x0,z0,x1,z1){const dx=x1-x0,dz=z1-z0,L=Math.hypot(dx,dz);if(
     for(const o of a){if(!o.s)continue;const ex=o.x2-o.x1,ez=o.z2-o.z1,sl=Math.hypot(ex,ez);if(sl<4)continue;const den=dx*ez-dz*ex;if(Math.abs(den)<1e-6)continue;
       const t=((o.x1-x0)*ez-(o.z1-z0)*ex)/den,u=((o.x1-x0)*dz-(o.z1-z0)*dx)/den;if(t>0.04&&t<0.96&&u>=0&&u<=1&&t*L>1.5&&(1-t)*L>2.5)return true;}}return false;}
 const O10={i:0,j:0,on:true};
-function o10Tick(){if(!O10.on||typeof walkers==='undefined')return;const ground=ui==='play'&&!FLY.on&&!BOAT.on&&camera.position.y-floorAt(player.x,player.z)<3.2&&player.x<8000;
+function o10Tick(){if(!O10.on||typeof walkers==='undefined')return;const ground=ui==='play'&&!FLY.on&&!BOAT.on&&camera.position.y-floorAt(player.x,player.z)<3.2&&mapaTierra();
   const px=camera.position.x,pz=camera.position.z,py=player.feet||0;
   for(let k=0;k<50&&walkers.length;k++){O10.i=(O10.i+1)%walkers.length;const w=walkers[O10.i];if(!w||!w.g){continue;}if(!ground){w.occ=false;continue;}const p=w.g.position,d=Math.hypot(p.x-px,p.z-pz);
     w.occ=d>IMP.OC&&Math.abs(p.y-py)<4&&o10Blocked(px,pz,p.x,p.z);}

@@ -73,7 +73,7 @@ const V6_TXT={R:['ADMIROR · O · PARIES · TE · NON · CECIDISSE','QVISQVIS ·
 // Roma: grafitis reales de Pompeya (CIL IV 1904, 1173, 1926; el cuadrado SATOR, 8623); Atenas: aclamaciones «kalós/kalé» («es guapo/guapa»), frecuentes en vasos y paredes.
 function gx6Tex(t){const c=document.createElement('canvas');c.width=512;c.height=64;const x=c.getContext('2d');x.font='bold 34px serif';x.fillStyle='rgba(60,30,20,0.85)';x.textBaseline='middle';x.fillText(t,8,34);
   x.globalCompositeOperation='destination-out';for(let i=0;i<300;i++){x.fillStyle='rgba(0,0,0,'+(Math.random()*0.6)+')';x.fillRect(Math.random()*512,Math.random()*64,2,2);}const tx=new THREE.CanvasTexture(c);return tx;}
-function gx6Build(){if(GX6.busy||typeof cgrid==='undefined'||player.x>8000)return;if(Math.hypot(player.x-GX6.cx,player.z-GX6.cz)<70)return;GX6.cx=player.x;GX6.cz=player.z;
+function gx6Build(){if(GX6.busy||typeof cgrid==='undefined'||!mapaTierra())return;if(Math.hypot(player.x-GX6.cx,player.z-GX6.cz)<70)return;GX6.cx=player.x;GX6.cz=player.z;
   if(GX6.g){scene.remove(GX6.g);GX6.cloth=[];}const g=new THREE.Group();g.userData.noSeal=1;g.userData.noInst=1;scene.add(g);GX6.g=g;const ro=MODE==='roma',L=V6_TXT[ro?'R':'A'];
   const near=(typeof CULL!=='undefined')?CULL.reg.filter(e=>e.o&&e.o.parent===scene&&Math.hypot(e.cx-player.x,e.cz-player.z)<90&&e.r>2&&e.r<40).map(e=>e.o):[];if(!near.length)return;
   const rc=new THREE.Raycaster(),seen=new Set();let ng=0,nc=0;const R=60;

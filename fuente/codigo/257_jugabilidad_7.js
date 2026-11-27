@@ -183,7 +183,7 @@ function dogSniff(){const z=coz(),k=k7z();if(!z.dog||!DOG.on||k.dog.t<3||L3.stay
   try{for(const h of HORBS)if(h.g&&h.g.parent)c.push({x:h.g.position.x,z:h.g.position.z,id:'h'+h.g.id,w:'algo que brilla'});}catch(e){}
   let b=null,bd=rng;for(const o of c){const d=Math.hypot(o.x-player.x,o.z-player.z);if(d<bd&&d>4&&!K7.said[o.id]){bd=d;b=o;}}if(!b)return;K7.said[b.id]=1;try{sfxBark(2);}catch(e){}
   if(k.dog.t>=4){L3.seek={x:b.x,z:b.z};setTimeout(()=>{if(L3.seek&&L3.seek.x===b.x)L3.seek=null;},9000);}toast('<span class="label">'+z.dog+' ladra</span><br>Ha olido '+b.w+' '+dogDir(b.x,b.z)+'.');}
-function dogDig(){const z=coz(),k=k7z(),d=state.day||1;if(!z.dog||!DOG.on||k.dog.t<5||k.dog.hd&&d-k.dog.hd<3||player.x>8000||ui!=='play'||Math.random()>0.004)return;const fl=floorAt(player.x,player.z);if(fl<0)return;k.dog.hd=d;save();
+function dogDig(){const z=coz(),k=k7z(),d=state.day||1;if(!z.dog||!DOG.on||k.dog.t<5||k.dog.hd&&d-k.dog.hd<3||!mapaTierra()||ui!=='play'||Math.random()>0.004)return;const fl=floorAt(player.x,player.z);if(fl<0)return;k.dog.hd=d;save();
   const n=k7Ro()?4+Math.floor(Math.random()*5):2+Math.floor(Math.random()*4);try{sfxBark(3);}catch(e){}cyPay(n,z.dog+' escarba y saca unas monedas viejas enterradas');
   toast('<span class="label">Un tesorillo</span><br>La gente enterraba sus ahorros en una olla cuando había peligro. Muchos no volvieron a por ellos: los arqueólogos los siguen encontrando.');}
 
