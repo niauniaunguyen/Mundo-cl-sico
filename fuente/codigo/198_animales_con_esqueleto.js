@@ -56,5 +56,5 @@ function qaTick(dt){if(!QA.tpl){if(state&&ui!=='start')qaLoad();return;}if(!QA.h
     if(A.Walk){A.Walk.setEffectiveWeight(wW);A.Walk.timeScale=Math.max(0.4,Math.min(1.8,s/1.3))*(H.rev?-1:1);}   /* al retroceder, el paso va al revés */
     if(A.Gallop){A.Gallop.setEffectiveWeight(gW);A.Gallop.timeScale=Math.max(0.6,Math.min(1.6,s/6));}
     if(A.Eating)A.Eating.setEffectiveWeight(eW);if(A.Idle)A.Idle.setEffectiveWeight(iW);
-    M.mix.update(dt);}}
+    {const d2=(v.x-camera.position.x)**2+(v.z-camera.position.z)**2;M.acc=(M.acc||0)+dt;M.fc=(M.fc||0)+1;if(d2<900||M.fc%(d2<6400?2:4)===0){M.mix.update(M.acc);M.acc=0;}}}}   // 259: de lejos, la animación se calcula menos veces
 {const f=uxTick;uxTick=function(dt){f(dt);try{qaTick(dt);}catch(e){if(!QA.err){QA.err=String(e&&e.stack||e).slice(0,400);console.warn('animales',e);}}};}

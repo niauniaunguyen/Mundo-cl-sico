@@ -144,7 +144,7 @@ function cullRegister(max,full){const ch=scene.children;let n=0;if(!full&&CULL.r
   return n;}
 function cullEval(){const X=camera.position.x,Z=camera.position.z;let w=0;
   for(const e of CULL.reg){if(e.gone)continue;const o=e.o;if(!e.out&&o.parent!==scene){e.gone=true;CULL.idx.delete(o);continue;}CULL.reg[w++]=e;
-    const cx=e.cx+(o.position.x-e.px),cz=e.cz+(o.position.z-e.pz),want=Math.hypot(cx-X,cz-Z)-e.r<e.lim;
+    const cx=e.cx+(o.position.x-e.px),cz=e.cz+(o.position.z-e.pz),want=Math.hypot(cx-X,cz-Z)-e.r<e.lim&&!e.occ;
     if(want&&e.out){_scAdd(o);e.out=false;CULL.out--;}else if(!want&&!e.out){_scRem(o);e.out=true;CULL.out++;}}
   CULL.reg.length=w;}
 function cullTick(dt){if(!CULL.on)return;CULL.t+=dt;CULL.scan+=dt;if(CULL.rest>0)CULL.rest-=dt;

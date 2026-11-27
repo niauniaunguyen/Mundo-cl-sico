@@ -63,7 +63,7 @@ function frame(now){
   updateGods(dt,t);
   // a más de 180 m una persona ocupa apenas unos píxeles: no se dibuja
   stepsTick(dt);evTick(dt);gatesTick(dt);storyTick(dt);netTick(dt);horseTick(dt);wingsTick(dt);qualTick();tutTick(dt);convTick(dt);seasonTick(dt);fxTick(dt);cultTick();fastosTick();vuTick(dt);ofTick(dt,performance.now()/1000);mktTick();egxTick();vidaTick(dt);gfTick(dt);arisTick();faunaTick(dt);
-  cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers)w.g.visible=!w.home&&Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z)<150;
+  cullT+=dt;if(cullT>0.3){cullT=0;for(const w of walkers){const d=Math.hypot(w.g.position.x-player.x,w.g.position.z-player.z),I=typeof IMP!=='undefined'&&IMP.on;w.imp=I&&!w.home&&!w.occ&&d>=IMP.D&&d<IMP.F;w.g.visible=!w.home&&!(I&&w.occ&&d>IMP.OC)&&d<(I?IMP.D:150);}   // 259: de lejos, figura plana; detrás de un muro, nada
     for(const n of npcObjs)n.g.visible=!n.hidden&&Math.hypot(n.x-player.x,n.z-player.z)<150;
     for(const c of CHUNKS){const d=Math.hypot(c.x-player.x,c.z-player.z);c.im.visible=d<c.far&&d>=c.near;}}
   updatePerformance(dt,t);
