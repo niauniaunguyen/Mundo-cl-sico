@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-328 funciones ampliadas, 640 capas.
+329 funciones ampliadas, 642 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -89,6 +89,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `legHurt` | `210_mas_leyendas.js` | 2 | `253`:30 · `254`:123 |
 | `legLose` | `210_mas_leyendas.js` | 2 | `253`:52 · `254`:132 |
 | `leyTick` | `208_portal_de_las_leyendas.js` | 2 | `210`:103 · `237`:74 |
+| `loadModels` | `005_modelos_de_blender.js` | 2 | `264`:18 · `900`:443 |
 | `lrnSummary` | `148_aprender.js` | 2 | `151`:41 · `154`:25 |
 | `natAct` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:227 · `097`:89 |
 | `natSetup` | `093_la_naturaleza_entre_las_ciudades.js` | 2 | `093`:228 · `900`:386 |
@@ -243,7 +244,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `libPlain` | `019_biblioteca.js` | 1 | `167`:45 |
 | `libSections` | `019_biblioteca.js` | 1 | `167`:44 |
 | `lJuegos` | `216_jugar_mas_3.js` | 1 | `257`:67 |
-| `loadModels` | `005_modelos_de_blender.js` | 1 | `900`:443 |
 | `lPerro` | `216_jugar_mas_3.js` | 1 | `257`:176 |
 | `m386Setup` | `061_sacar_partido_a_los_diez.js` | 1 | `900`:382 |
 | `makeBeast` | `038_esferas_de_sueno.js` | 1 | `198`:25 |
@@ -267,6 +267,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `pjDlg` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `227`:140 |
 | `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `129`:79 |
 | `placeCamera` | `040_caballo.js` | 1 | `227`:111 |
+| `placeModules` | `005_modelos_de_blender.js` | 1 | `264`:19 |
 | `placeNewNPCs` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:438 |
 | `placeNPCs` | `011_construccion_del_mundo.js` | 1 | `900`:437 |
 | `placeReliefs` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:439 |

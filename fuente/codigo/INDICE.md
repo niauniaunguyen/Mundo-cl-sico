@@ -267,4 +267,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `261_graficos_7.js` | 125 | GRÁFICOS (7): diez propuestas (27/11) |
 | `262_parejas_de_repaso.js` | 98 | PAREJAS DE REPASO (27/11) |
 | `263_gatos_y_comadrejas.js` | 34 | GATOS Y COMADREJAS (27/11) |
+| `264_edificios_detallados.js` | 23 | EDIFICIOS DETALLADOS (27/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
