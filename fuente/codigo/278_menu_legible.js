@@ -43,3 +43,24 @@ function k10CSS(){if($('k10CSS'))return;const s=document.createElement('style');
     const keys=Object.keys(tabs);if(keys.length>8&&t){const t2=document.createElement('div');t2.className='tabs2'+(KM10.more?' open':'');let n=0;
       for(const b of[...t.querySelectorAll('button[data-k]')]){const k=b.dataset.k;if(KM10.main.includes(k)||k===cur)continue;t2.appendChild(b);n++;}
       if(n){const mo=document.createElement('button');mo.className='mo';mo.textContent=KM10.more?'Otras ▴':'Otras ▾';mo.onclick=()=>{KM10.more=!KM10.more;t2.classList.toggle('open',KM10.more);mo.textContent=KM10.more?'Otras ▴':'Otras ▾';};t.appendChild(mo);hd.appendChild(t2);}}}catch(e){console.warn('k10',e);}};}
+// ---------- los demás paneles grandes: el Diario (J), el menú (Tab) y los diálogos. No llevaban el material con manchas, pero tenían
+// letra pequeña, textos grises de poco contraste y, en el Diario, pestañas que eran solo un icono. Mismos criterios que Metas:
+// letra más grande, gris más claro y el nombre de cada pestaña a la vista.
+try{const s=document.createElement('style');s.id='k10CSS2';s.textContent=
+ '.modal,#gmenu,#dialog,#x4P{--muted:#cfc1a8}'+
+ // Diario
+ '#journal .tabs{flex-wrap:wrap;gap:4px}#journal .tabs button .tl{display:inline}#journal .tabs button{color:#e6d6bc;font-size:.92rem;padding:6px 11px}#journal .tabs button::after{display:none}'+
+ '#journal .tabs button[aria-selected="true"]{background:#d9874a;border-color:#d9874a;color:#1a120c}'+
+ '#journal .entry{background:rgba(241,232,216,.06)}#journal .entry h3{font-size:1.15rem;color:#f6e9d4}#journal .entry p{font-size:1rem;color:#eee2cd;line-height:1.55}'+
+ '#journal .entry .where{font-size:.9rem;color:#cfc1a8}#journal .entry .label,#journal .label{color:#f0b47a;font-size:.8rem}#journal p,#journal li{color:#eee2cd}'+
+ // menú (Tab)
+ '#gmenu .gl{font-size:1.06em}#gmenu .who,#gmenu .det{font-size:.98rem;color:#e6d8c0}#gmenu .hint{font-size:.86rem;color:#d6c8ae}'+
+ '#gmenu .grid button{font-size:.98rem;color:#f1e4cf}#gmenu .grid button .k,#gmenu .wide .k,#gmenu .two .k{font-size:.8rem;color:#d8c9ae;opacity:1}#gmenu .wide .t,#gmenu .two .t{font-size:1.02rem}'+
+ '#gmenu button.caplock{opacity:.6!important;filter:grayscale(.4)!important}#gmenu .grid button[aria-pressed="false"]{opacity:.75}'+
+ '#gmenu .via{font-size:.98rem!important;line-height:1.6!important;color:#ecdfca!important}#gmenu .via .opt{opacity:.85!important}'+
+ // diálogos
+ '#dBody{font-size:1.04rem;line-height:1.6;color:#f1e6d2}#dBody .sub{color:#d2c4aa;font-size:.92rem}#dOpts button{font-size:1rem}';
+ document.head.appendChild(s);}catch(e){}
+try{const s=document.createElement('style');s.textContent='#gmenu button span.t{font-size:.94rem!important}#gmenu button span.k{font-size:.82rem!important;color:#dccdb2!important;opacity:1!important}#gmenu .gr .sec{font-size:.82rem!important;color:#e8b27a!important}#gmenu .gr .hint{font-size:.86rem!important}';document.head.appendChild(s);}catch(e){}
+// las cualidades del menú están dibujadas en SVG con letra de 8,5 a 11 px: un tercio más grandes
+{const f=gmRender;gmRender=function(){const r=f.apply(this,arguments);try{document.querySelectorAll('#gmenu svg text').forEach(t=>{if(t.dataset.k10)return;t.dataset.k10=1;const fs=parseFloat(getComputedStyle(t).fontSize);if(fs&&fs<12)t.style.fontSize=(fs*1.3).toFixed(1)+'px';});}catch(e){}return r;};}

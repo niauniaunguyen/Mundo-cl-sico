@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-351 funciones ampliadas, 695 capas.
+351 funciones ampliadas, 696 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -79,6 +79,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `floorAt` | `001_terreno.js` | 2 | `105`:501 · `900`:308 |
 | `gdTick` | `115_rutinas_y_sonido_por_zonas.js` | 2 | `203`:73 · `206`:31 |
 | `glbPart` | `005_modelos_de_blender.js` | 2 | `128`:139 · `176`:7 |
+| `gmRender` | `068_menu_del_juego.js` | 2 | `134`:44 · `278`:66 |
 | `gsRest` | `128_gestos.js` | 2 | `128`:107 · `129`:84 |
 | `gsRig` | `128_gestos.js` | 2 | `128`:105 · `129`:82 |
 | `guideTarget` | `014_hud.js` | 2 | `205`:173 · `229`:54 |
@@ -214,7 +215,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `g5Sparrow` | `236_graficos_5.js` | 1 | `242`:37 |
 | `g5Tick` | `236_graficos_5.js` | 1 | `242`:38 |
 | `gateTravel` | `012_escenarios_cuadrados.js` | 1 | `091`:36 |
-| `gmRender` | `068_menu_del_juego.js` | 1 | `134`:44 |
 | `grTick` | `156_hierba.js` | 1 | `156`:83 |
 | `gsApply` | `128_gestos.js` | 1 | `128`:108 |
 | `gsSet` | `128_gestos.js` | 1 | `128`:106 |
