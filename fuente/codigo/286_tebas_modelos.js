@@ -23,6 +23,21 @@ function tbTex(k){if(TBM.tex[k])return TBM.tex[k];const R0=forRng(k.length*0.137
       for(const[y0,rh]of regs){x.fillStyle='rgba(60,90,140,0.25)';x.fillRect(0,y0+2,w,8);x.fillStyle='rgba(160,60,40,0.2)';x.fillRect(0,y0+10,w,4);
         for(let i=0;i<4;i++){const cx=40+i*128+rn()*20,by=y0+rh-14;figure(x,cx,by,rh*0.6,'rgba(70,45,25,0.28)');figure(x,cx+2,by-1,rh*0.6,i%2?'rgba(170,70,50,0.18)':'rgba(60,100,150,0.16)');
           x.strokeStyle='rgba(60,40,20,0.35)';x.lineWidth=1.6;for(let j=0;j<5;j++)glyph(x,cx+52,y0+26+j*rh*0.15,rh*0.1);x.strokeStyle='rgba(60,40,20,0.2)';x.beginPath();x.moveTo(cx+40,y0+18);x.lineTo(cx+40,by);x.moveTo(cx+64,y0+18);x.lineTo(cx+64,by);x.stroke();}}});}
+  else if(k==='relief2'||k==='relief3')t=canvasTex(512,512,(x,w,h)=>{noise(x,w,h,'#d8c398',120);x.strokeStyle='rgba(90,60,30,0.35)';x.lineWidth=1;for(let y=0;y<h;y+=32){x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke();}
+      for(const[y0,rh]of[[0,256],[256,256]]){x.fillStyle='rgba(60,90,140,0.25)';x.fillRect(0,y0+2,w,8);x.fillStyle='rgba(160,60,40,0.2)';x.fillRect(0,y0+10,w,4);
+        if(k==='relief2'){   // ofrendas: el rey ante el dios, con la mesa llena entre los dos
+          for(let i=0;i<2;i++){const cx=80+i*256,by=y0+rh-16;figure(x,cx,by,rh*0.7,'rgba(70,45,25,0.3)');x.save();x.translate(2*(cx+150),0);x.scale(-1,1);figure(x,cx,by,rh*0.78,'rgba(60,100,150,0.22)');x.restore();
+            x.fillStyle='rgba(70,45,25,0.3)';x.fillRect(cx+56,by-rh*0.28,40,5);x.fillRect(cx+73,by-rh*0.28,6,rh*0.28);for(let j=0;j<5;j++){x.beginPath();x.arc(cx+60+j*8,by-rh*0.28-6-(j%2)*6,5,0,TAU);x.fill();}
+            x.strokeStyle='rgba(60,40,20,0.35)';x.lineWidth=1.6;for(let j=0;j<6;j++)for(let c2=0;c2<3;c2++)glyph(x,cx+40+c2*24,y0+30+j*16,12);}}
+        else{   // la batalla: el rey en su carro, los caballos al galope y los enemigos caídos
+          for(let i=0;i<2;i++){const cx=60+i*256,by=y0+rh-20;x.fillStyle='rgba(70,45,25,0.32)';
+            for(let hh=0;hh<2;hh++){x.beginPath();x.ellipse(cx+90+hh*6,by-48,34,14,-0.15,0,TAU);x.fill();x.beginPath();x.moveTo(cx+118+hh*6,by-58);x.lineTo(cx+140+hh*6,by-92);x.lineTo(cx+150+hh*6,by-80);x.lineTo(cx+124+hh*6,by-48);x.fill();
+              for(let l=0;l<4;l++){x.save();x.translate(cx+70+l*14+hh*6,by-40);x.rotate((l%2?0.6:-0.5));x.fillRect(-2,0,4,38);x.restore();}}
+            x.beginPath();x.arc(cx+40,by-24,22,0,TAU);x.strokeStyle='rgba(70,45,25,0.4)';x.lineWidth=3;x.stroke();x.fillRect(cx+18,by-70,44,8);
+            figure(x,cx+40,by-60,rh*0.55,'rgba(170,70,50,0.22)');x.strokeStyle='rgba(70,45,25,0.45)';x.lineWidth=2;x.beginPath();x.arc(cx+76,by-150,30,Math.PI*0.6,Math.PI*1.4);x.stroke();
+            for(let e=0;e<4;e++){x.save();x.translate(cx+170+e*18,by-6);x.rotate(1.3+e*0.2);figure(x,0,0,rh*0.32,'rgba(70,45,25,0.25)');x.restore();}}}}});
+  else if(k==='nemesQ'||k==='nemesG')t=canvasTex(64,64,(x,w,h)=>{noise(x,w,h,k==='nemesQ'?'#b49a7a':'#b07a6a',120);x.fillStyle='rgba(40,25,15,0.35)';for(let y=0;y<h;y+=8)x.fillRect(0,y,w,3);});
+  else if(k==='casing')t=canvasTex(128,128,(x,w,h)=>{noise(x,w,h,'#ece0c4',40);x.strokeStyle='rgba(120,100,70,0.16)';x.lineWidth=1;for(let y=0,r=0;y<h;y+=16,r++){x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke();for(let xx=(r%2)*24;xx<w;xx+=48){x.beginPath();x.moveTo(xx,y);x.lineTo(xx,y+16);x.stroke();}}});
   else if(k==='stone')t=canvasTex(256,256,(x,w,h)=>{noise(x,w,h,'#d3bd92',120);x.strokeStyle='rgba(90,60,30,0.3)';x.lineWidth=1;for(let y=0,r=0;y<h;y+=32,r++){x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke();for(let xx=(r%2)*32;xx<w;xx+=64){x.beginPath();x.moveTo(xx,y);x.lineTo(xx,y+32);x.stroke();}}});
   else if(k==='mud'||k==='mud2')t=canvasTex(256,256,(x,w,h)=>{noise(x,w,h,k==='mud'?'#a8865c':'#9a7a52',140);for(let y=0,r=0;y<h;y+=12,r++)for(let xx=-(r%2)*16;xx<w;xx+=32){x.fillStyle='rgba('+(rn()<0.5?'255,240,210':'40,25,10')+','+(0.05+rn()*0.07)+')';x.fillRect(xx+1,y+1,30,10);}
       x.strokeStyle='rgba(50,35,20,0.35)';x.lineWidth=1;for(let y=0;y<h;y+=12){x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke();}});
@@ -36,7 +51,7 @@ function tbTex(k){if(TBM.tex[k])return TBM.tex[k];const R0=forRng(k.length*0.137
   if(k==='colrel')t.repeat.set(3,3);   // en las columnas (torno con UV de 0 a 1), tres figuras alrededor y tres registros de alto
   t.anisotropy=4;TBM.tex[k]=t;return t;}
 // material con textura y su escala (metros que ocupa una repetición), que usan boxUV y las piezas
-function tbMat(k,col){const key=k+(col||'');if(TBM.mat[key])return TBM.mat[key];const S={relief:8,colrel:4,stone:4,mud:4,mud2:4,ceil:4,corn:4,capt:1,gran:3,obel:1,house:8,qtz:4}[k]||4;
+function tbMat(k,col){const key=k+(col||'');if(TBM.mat[key])return TBM.mat[key];const S={relief:8,relief2:8,relief3:8,nemesQ:2,nemesG:2,casing:8,colrel:4,stone:4,mud:4,mud2:4,ceil:4,corn:4,capt:1,gran:3,obel:1,house:8,qtz:4}[k]||4;
   const m=new THREE.MeshLambertMaterial({map:tbTex(k),color:col||'#ffffff'});m.userData.s=S;TBM.mat[key]=m;return m;}
 // caja con las UV a escala del mundo: la textura se repite cada s metros en cada cara, sin estirarse
 function boxUV(w,h,d,s){const g=new THREE.BoxGeometry(w,h,d),uv=g.attributes.uv,F=[[d,h],[d,h],[w,d],[w,d],[w,h],[w,h]];for(let f=0;f<6;f++)for(let v=0;v<4;v++){const i=f*4+v;uv.setXY(i,uv.getX(i)*F[f][0]/s,uv.getY(i)*F[f][1]/s);}return g;}
@@ -69,7 +84,7 @@ function tbGeo(){if(TBG.ok)return TBG;TBG.ok=1;const V=p=>p.map(q=>new THREE.Vec
   return TBG;}
 // pilono: dos torres en talud con toro y gola, puerta central con su cornisa, mástiles con banderas en la cara de delante (−z local)
 function tbPylonParts(x,y,z,a,w,h,push){const tw=w*0.42,td=Math.max(5,w*0.2),k=0.78,R=new THREE.Matrix4().makeRotationY(a),O=new THREE.Matrix4().makeTranslation(x,y,z),T=(lx,ly,lz,ry)=>O.clone().multiply(R).multiply(new THREE.Matrix4().makeRotationY(ry||0).setPosition(lx,ly,lz));
-  const rel=tbMat('relief'),corn=tbMat('corn'),st=tbMat('stone');
+  const rel=tbMat('relief3'),corn=tbMat('corn'),st=tbMat('stone');
   for(const s of[-1,1]){const g=boxUV(tw,h,td,rel.userData.s),p=g.attributes.position;for(let i=0;i<p.count;i++)if(p.getY(i)>0){p.setX(i,p.getX(i)*k);p.setZ(i,p.getZ(i)*k);}g.computeVertexNormals();push(rel,g,T(s*w*0.29,h/2,0));
     push(corn,boxUV(tw*k+1.2,h*0.07,td*k+1.2,4),T(s*w*0.29,h+h*0.035,0));const tor=new THREE.CylinderGeometry(0.45,0.45,tw*k+0.4,6);tor.rotateZ(Math.PI/2);push(st,tor,T(s*w*0.29,h-0.2,-td*k/2-0.1));
     for(const f of[-0.25,0.25]){const pole=new THREE.CylinderGeometry(0.35,0.5,h*1.35,6);push(st,pole,T(s*w*0.29+f*tw,h*0.675,-td/2-0.9));const fl=boxUV(0.08,h*0.12,h*0.1,4);push(tbMat('corn','#c84030'),fl,T(s*w*0.29+f*tw,h*1.28,-td/2-0.9-h*0.05));}}
@@ -79,10 +94,12 @@ function tbPylonParts(x,y,z,a,w,h,push){const tw=w*0.42,td=Math.max(5,w*0.2),k=0
 function tbColossusParts(x,y,z,a,H,mat,push){const s=H/18,R=new THREE.Matrix4().makeRotationY(a),O=new THREE.Matrix4().makeTranslation(x,y,z),T=(lx,ly,lz)=>O.clone().multiply(R).multiply(new THREE.Matrix4().makeTranslation(lx*s,ly*s,lz*s)),B=(w,h,d)=>boxUV(w*s,h*s,d*s,4);
   push(mat,B(8,2.4,11),T(0,1.2,0));push(mat,B(7,7.5,6),T(0,6.15,-2.4));push(mat,B(6.4,2,5),T(0,8.4,1.6));for(const sx of[-1,1]){push(mat,B(2.2,6.2,1.9),T(sx*1.55,5.3,3.8));push(mat,B(2.4,0.8,3),T(sx*1.55,2.8,4.6));}
   const to=new THREE.CylinderGeometry(2.3*s,3.0*s,6.2*s,4);to.rotateY(Math.PI/4);to.scale(1,1,0.65);push(mat,to,T(0,12.4,-1.6));for(const sx of[-1,1])push(mat,B(1.1,1,4.2),T(sx*2.4,9.8,1.2));
-  push(mat,B(2.4,3,2.4),T(0,16.6,-1.2));const ne=new THREE.CylinderGeometry(1.5*s,2.6*s,3.8*s,4);ne.rotateY(Math.PI/4);ne.scale(1,1,0.8);push(mat,ne,T(0,16.4,-1.7));
-  for(const sx of[-1,1])push(mat,B(0.9,2.6,0.5),T(sx*1.5,14.9,-0.2));push(mat,B(0.5,1.2,0.4),T(0,14.6,0.1));}
+  const nm=tbMat(mat.map===tbTex('gran')?'nemesG':'nemesQ');
+  push(mat,B(2.4,3,2.4),T(0,16.6,-1.2));const ne=new THREE.CylinderGeometry(1.5*s,2.6*s,3.8*s,4);ne.rotateY(Math.PI/4);ne.scale(1,1,0.8);push(nm,ne,T(0,16.4,-1.7));
+  push(nm,B(2.9,0.9,2.9),T(0,18.4,-1.4));for(const sx of[-1,1]){push(nm,B(0.9,2.8,0.5),T(sx*1.55,14.8,-0.15));push(mat,B(0.3,0.8,0.5),T(sx*1.3,16.8,-1.1));}
+  push(mat,B(0.4,0.6,0.5),T(0,16.4,0.15));push(mat,B(0.5,1.3,0.4),T(0,14.4,0.05));push(mat,B(0.35,0.9,0.35),T(0,18.6,0.0));}
 // templo genérico mejorado (pilono, patio porticado, sala de columnas con techo pintado, santuario con gola), de frente a +z local
-function tbTempleParts(x,y,z,a,s,ctx){const R=a,toW2=(lx,lz)=>toW(lx,lz,x,z,R),push=ctx.push,col=ctx.col,rel=tbMat('relief'),st=tbMat('stone'),corn=tbMat('corn'),M4=(lx,ly,lz)=>{const p=toW2(lx,lz);return new THREE.Matrix4().makeRotationY(R).setPosition(p[0],y+ly,p[1]);};
+function tbTempleParts(x,y,z,a,s,ctx){const R=a,toW2=(lx,lz)=>toW(lx,lz,x,z,R),push=ctx.push,col=ctx.col,rel=tbMat('relief2'),st=tbMat('stone'),corn=tbMat('corn'),M4=(lx,ly,lz)=>{const p=toW2(lx,lz);return new THREE.Matrix4().makeRotationY(R).setPosition(p[0],y+ly,p[1]);};
   tbPylonParts(x,y,z,R+Math.PI,34*s,18*s,push);
   const wl=(lx,lz,w,d,h,m)=>{push(m||rel,boxUV(w,h,d,(m||rel).userData.s),M4(lx,h/2,lz));push(corn,boxUV(w+0.8,1.1*s,d+0.8,4),M4(lx,h+0.55*s,lz));const p=toW2(lx,lz);addBox(p[0],p[1],w,d,R);};
   for(const sx of[-1,1])wl(sx*17*s,-22*s,1.6*s,40*s,8*s);

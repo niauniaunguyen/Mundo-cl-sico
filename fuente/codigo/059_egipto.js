@@ -61,7 +61,7 @@ Object.assign(SIMPLE_GR,{
    ['saqqara','La pirámide escalonada','ΣΑΚΚΑΡΑ','Al sur, en el desierto, se levanta una pirámide de seis escalones, la más antigua de todas: la hizo construir el rey Djoser hace más de dos mil doscientos años, y es el primer gran edificio de piedra del mundo. Su arquitecto, Imhotep, es venerado hoy como un sabio y un dios sanador. Siglos después, los griegos lo identificarán con Asclepio.'],
    ['momias','Cómo se embalsama un cuerpo','ΤΑΡΙΧΕΥΣΙΣ','Los embalsamadores de Menfis, dice Heródoto, ofrecen tres precios. En el más caro sacan el cerebro por la nariz con un gancho y las vísceras por un corte en el costado, secan el cuerpo setenta días en natrón, una sal del desierto, y lo envuelven en vendas de lino untadas de resina. Los egipcios creen que el cuerpo debe conservarse para que el alma pueda volver a él.']],
   extra(I){egNile(I,90);
-   egPyramid(I.x-330,I.z-280,230,146);egPyramid(I.x-350,I.z+20,215,143);egPyramid(I.x-260,I.z+230,105,65);
+   egPyramid(I.x-330,I.z-280,230,146,undefined,6);egPyramid(I.x-350,I.z+20,215,143);egPyramid(I.x-260,I.z+230,105,65);
    for(let i=0;i<3;i++)egPyramid(I.x-180,I.z+290+i*40,40,26);
    egSphinx(I.x-170,I.z+40,Math.PI/2,true);
    place('esfinge_gr','La Esfinge, bajo la arena','ΣΦΙΓΞ','Delante de la segunda pirámide, la arena del desierto ha cubierto casi por completo una enorme estatua con cuerpo de león y cabeza de rey: solo asoma la cabeza, con su tocado de rayas. Es tan antigua como las pirámides. Heródoto, que lo describió todo, no la menciona: quizá estaba enterrada cuando él pasó por aquí. Varios reyes la han desenterrado a lo largo de los siglos; el desierto siempre vuelve a cubrirla.',I.x-130,I.z+40,Math.PI/2);
@@ -106,7 +106,7 @@ Object.assign(SIMPLE_RO,{
    ['nilometro','El nilómetro','NILOSCOPIVM','Una escalera baja hasta el agua del Nilo, con marcas en la pared: es el nilómetro. Por la altura de la crecida se sabe cómo será la cosecha y cuántos impuestos se pueden cobrar. Dieciséis codos es la crecida perfecta: por eso la gran estatua del Nilo que hay en Roma está rodeada de dieciséis niños jugando, uno por cada codo.'],
    ['memnon','Los viajes por el Nilo','MEMNON','Los viajeros que tienen tiempo siguen río arriba hasta Tebas para oír cantar al amanecer a una de las dos estatuas gigantes de Memnón: con el calor de los primeros rayos de sol, la piedra rajada emite un sonido. Estrabón lo oyó y no supo decir de dónde venía. Los visitantes graban en sus piernas poemas y firmas, en griego y en latín.']],
   extra(I){egNile(I,90);
-   egPyramid(I.x-330,I.z-280,230,146);egPyramid(I.x-350,I.z+20,215,143);egPyramid(I.x-260,I.z+230,105,65);for(let i=0;i<3;i++)egPyramid(I.x-180,I.z+290+i*40,40,26);
+   egPyramid(I.x-330,I.z-280,230,146,undefined,6);egPyramid(I.x-350,I.z+20,215,143);egPyramid(I.x-260,I.z+230,105,65);for(let i=0;i<3;i++)egPyramid(I.x-180,I.z+290+i*40,40,26);
    egSphinx(I.x-170,I.z+40,Math.PI/2,false);egStepPyramid(I.x-140,I.z-560);
    egTemple(I.x+170,I.z-60,-Math.PI/2,1,'Templo de Ptah');egApis(I.x+150,I.z+60);
    {const x=I.x+150,z=I.z+60,gy=floorAt(x,z),wm=lam('#c4a274');for(const[ax,az,bx,bz]of[[-14,-12,14,-12],[14,-12,14,12],[14,12,4,12],[-4,12,-14,12],[-14,12,-14,-12]]){const L=Math.hypot(bx-ax,bz-az),m=box(L,2.6,0.8,wm,x+(ax+bx)/2,gy+1.3,z+(az+bz)/2);m.rotation.y=-Math.atan2(bz-az,bx-ax);addSeg(x+ax,z+az,x+bx,z+bz,0.4);}}

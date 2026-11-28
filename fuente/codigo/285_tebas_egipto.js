@@ -76,7 +76,7 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
     const t=new THREE.Mesh(new THREE.ConeGeometry(b*0.62*0.75,h*0.08,4),gold);t.rotation.y=Math.PI/4;t.position.set(X(x),y+h*0.96+1.2,Z(z));scene.add(t);addB(sand2,x,y+0.6,z,b*1.8,1.2,b*1.8);addCirc(X(x),Z(z),b*0.8);};
   const pylon=(x,z,a,w,h)=>{const r=tbPylonParts(X(x),Y(x,z),Z(z),a,w,h,PUSH);for(const s of[-1,1]){const p=toW(s*w*0.29,0,X(x),Z(z),a);addBox(p[0],p[1],r.tw*0.95,r.td,a);}};
   // carnero sentado (esfinge criocéfala), para las avenidas
-  const RAMS=[],SPHS=[],ram=(x,z,a)=>{RAMS.push([X(x),Y(x,z),Z(z),a]);addCirc(X(x),Z(z),1.6);};
+  const OSI=[],RAMS=[],SPHS=[],ram=(x,z,a)=>{RAMS.push([X(x),Y(x,z),Z(z),a]);addCirc(X(x),Z(z),1.6);};
   egNile(I,220);
   // ---------------- el embarcadero y la barca a la otra orilla
   {const z=-150;buildPort(I.id,'Tebas',X(N(z)+122),Z(z),-1,0);}
@@ -182,6 +182,7 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
    pylon(cx+80,cz,-Math.PI/2,67,22);wall(cx+20,cz-32,cx+78,cz-32,3,9,sand);wall(cx+20,cz+32,cx+78,cz+32,3,9,sand);pylon(cx+20,cz,-Math.PI/2,60,18);
    for(let i=0;i<4;i++)for(const s of[-1,1])col(cx-5-i*6,cz+s*14,1.1,10,false);
    for(let i=0;i<6;i++)for(let j=0;j<8;j++)col(cx-35-i*6,cz-21+j*6,1.1,11+(j===3||j===4?3:0),j===3||j===4);
+   for(let i=0;i<4;i++)for(const s2 of[-1,1])OSI.push([cx-5-i*6,Y(cx-5-i*6,cz+s2*12.4),cz+s2*12.4,s2>0?Math.PI:0,8]);   // Ramsés como Osiris, ante los pilares del segundo patio
    {const y=Y(cx-50,cz);addB(sand2,cx-50,y+12,cz,36,1.2,48);addB(sand,cx-92,y+5,cz,34,10,36);addBox(X(cx-92),Z(cz),34,36,0);}
    const vg=[];for(let i=0;i<10;i++)for(const s of[-1,1]){const lx=cx-140+i*14,lz=cz+s*62,y=Y(lx,lz),g=new THREE.CylinderGeometry(4.5,4.5,40,10,1,false,0,Math.PI);g.rotateZ(Math.PI/2);g.rotateY(Math.PI/2);vg.push([g,new THREE.Matrix4().makeTranslation(X(lx),y+3,Z(lz))]);addB(mud,lx,y+1.5,lz,9,3,40);addBox(X(lx),Z(lz),9,40,0);}
    const vm=new THREE.Mesh(tbMerge(vg),mud);vm.castShadow=true;scene.add(vm);
@@ -190,7 +191,14 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
    P('rameseo','El Rameseo','ΟΣΥΜΑΝΔΥΑΣ','El templo funerario de Ramsés II, de unos 180 m. Hecateo de Abdera, que lo vio hacia el 300 a.C., lo llamó la tumba de Osimandias y contó que en la entrada había la estatua más grande de Egipto, con una inscripción: «Soy Osimandias, rey de reyes; si alguien quiere saber lo grande que soy y dónde yazgo, que supere alguna de mis obras».'+grR(' Ahora el coloso está roto en el suelo; no se sabe cuándo cayó, quizá en el terremoto del 27 a.C.','')+' Alrededor, filas de almacenes de adobe con bóveda, para el grano y los tesoros del templo. Sus restos inspirarán en 1818 un poema famoso de Shelley.\n(Diodoro I 47-49; Golvin, p. 39, n.º 15)',cx+108,cz-40,-Math.PI/2);}
   // Medinet Habu: recinto de 210 × 315 m, la puerta alta en forma de fortaleza y el templo de 150 m
   {const cx=-750,cz=620;encl(cx-150,cz-157,cx+60,cz+157,6,18,mud,{e:[[cz-12,cz+12]],w:[[cz-10,cz+10]],n:[],s:[]});
-   {const x=cx+66,g=grp(X(x),Y(x,cz),Z(cz),0);for(const s of[-1,1])box(18,22,14,sand,0,11,s*11,g);box(18,6,8,sand,0,19,0,g);addBox(X(x),Z(cz-11),18,14,0);addBox(X(x),Z(cz+11),18,14,0);}
+   {const x=cx+66,y=Y(x,cz),st=tbMat('stone'),dk=tbMat('stone','#2a2018');   // la puerta alta: dos torres en talud con almenas redondeadas y ventanas, unidas por un puente, como un migdol sirio
+    for(const s2 of[-1,1]){const g=boxUV(18,22,14,4),p2=g.attributes.position;for(let i=0;i<p2.count;i++)if(p2.getY(i)>0)p2.setX(i,p2.getX(i)*0.88);g.computeVertexNormals();PUSH(st,g,new THREE.Matrix4().makeTranslation(X(x),y+11,Z(cz+s2*11)));
+      for(let m=0;m<6;m++)PUSH(st,boxUV(1.4,1.8,1.4,4),new THREE.Matrix4().makeTranslation(X(x+7.2),y+22.9,Z(cz+s2*11-6+m*2.4)));for(let m=0;m<6;m++)PUSH(st,boxUV(1.4,1.8,1.4,4),new THREE.Matrix4().makeTranslation(X(x-7.2),y+22.9,Z(cz+s2*11-6+m*2.4)));
+      for(const wy of[12,17])PUSH(dk,boxUV(0.3,1.8,1.4,4),new THREE.Matrix4().makeTranslation(X(x+7.95-(wy-12)*0.12),y+wy,Z(cz+s2*11)));addBox(X(x),Z(cz+s2*11),18,14,0);}
+    PUSH(st,boxUV(16,6,8,4),new THREE.Matrix4().makeTranslation(X(x),y+19,Z(cz)));PUSH(dk,boxUV(0.3,1.8,1.4,4),new THREE.Matrix4().makeTranslation(X(x+8.05),y+19,Z(cz)));
+    for(let m=0;m<4;m++)PUSH(st,boxUV(1.4,1.6,1.4,4),new THREE.Matrix4().makeTranslation(X(x+7.2),y+22.8,Z(cz-3+m*2)));
+    for(let m=0;m<12;m++)PUSH(st,boxUV(1.2,1.4,1.2,4),new THREE.Matrix4().makeTranslation(X(x+20),y+3.3,Z(cz-34+m*(m<6?2.4:2.4)+(m<6?0:40))));
+    PUSH(st,boxUV(2,2.6,30,4),new THREE.Matrix4().makeTranslation(X(x+20),y+1.3,Z(cz-25)));PUSH(st,boxUV(2,2.6,30,4),new THREE.Matrix4().makeTranslation(X(x+20),y+1.3,Z(cz+25)));addBox(X(x+20),Z(cz-25),2,30,0);addBox(X(x+20),Z(cz+25),2,30,0);}
    pylon(cx+10,cz,-Math.PI/2,68,24);wall(cx-40,cz-38,cx+8,cz-38,3,12,sand);wall(cx-40,cz+38,cx+8,cz+38,3,12,sand);pylon(cx-42,cz,-Math.PI/2,56,20);
    for(let i=0;i<4;i++)for(let j=0;j<6;j++)col(cx-55-i*7,cz-17+j*6.8,1.2,12,false);
    {const y=Y(cx-80,cz);addB(sand2,cx-66,y+12.6,cz,28,1.2,44);addB(sand,cx-112,y+6,cz,46,12,44);addBox(X(cx-112),Z(cz),46,44,0);}
@@ -203,6 +211,8 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
    addB(c,cx+12,y0+3.2,cz,26,0.8,10,0);addB(c,cx-46,y0+9.4,cz,26,0.8,10,0);
    const pl=[];for(let i=0;i<22;i++){for(const[xx,h,yy]of[[1.5,7,0],[-51,6,7]]){if(Math.abs(i-10.5)<1.2)continue;const pg=new THREE.BoxGeometry(1.4,h,1.4);pg.translate(0,h/2,0);pl.push([pg,new THREE.Matrix4().makeTranslation(X(cx+xx),y0+yy,Z(cz-46+i*4.4))]);}}
    const pm=new THREE.Mesh(tbMerge(pl),c);pm.castShadow=true;scene.add(pm);
+   addB(c,cx+1.5,y0+7.2,cz,4,0.5,96);addB(c,cx-55,y0+13.2,cz,11,0.5,96);   // los techos de los pórticos
+   for(let i=0;i<12;i++)OSI.push([cx-100,y0+15,cz-24+i*4.4,Math.PI/2,6.5]);   // los pilares osíricos de la terraza alta: la reina como Osiris
    for(let i=0;i<20;i++)for(const s of[-1,1])ram(cx+40+i*10,cz+s*9,s>0?Math.PI:0);
    P('deir_bahari','Deir el-Bahari','ΔΗΡ ΕΛ ΜΠΑΧΡΙ','Tres terrazas con pórticos de pilares, unidas por rampas, al pie del acantilado: el templo de la reina Hatshepsut, que gobernó Egipto como faraón hace unos mil cien años. Su arquitecto, Senenmut, lo encajó en el circo de roca. En sus relieves se ve la expedición que mandó al país del Punt, al sur del mar Rojo, a buscar incienso, mirra y árboles vivos en macetas.'+grR(' Ahora una de sus capillas es un santuario de Imhotep y de Amenhotep hijo de Hapu, dos sabios divinizados, adonde vienen enfermos a curarse.',' El templo está medio abandonado, y la reina, borrada de muchos muros por su sucesor.')+'\n(Golvin, p. 41)',cx+60,cz+40,-Math.PI/2);}
   // Deir el-Medina: la aldea de los artesanos de las tumbas, unas setenta casas en 130 × 50 m, en ruinas
@@ -222,6 +232,9 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
      Lc.forEach((c,i)=>{const hc=c[3]*(open?1.5:1.3);m4.makeScale(c[3]*0.95,hc,c[3]*0.95).setPosition(c[0],c[1],c[2]);im.setMatrixAt(i,m4);m4.makeScale(c[3]*(open?0.8:1),c[3],c[3]*(open?0.8:1)).setPosition(c[0],c[1]+hc,c[2]);ab.setMatrixAt(k++,m4);});im.castShadow=true;scene.add(im);}
    ab.count=k;scene.add(ab);
    for(const[L2,g]of[[RAMS,G0.ram],[SPHS,G0.sph]]){if(!L2.length)continue;const im=new THREE.InstancedMesh(g,tbMat('stone','#e8dcc0'),L2.length);L2.forEach((r,i)=>{q.setFromAxisAngle(up,r[3]);m4.compose(V3(r[0],r[1],r[2]),q,V3(1,1,1));im.setMatrixAt(i,m4);});im.castShadow=true;scene.add(im);}}
+  if(OSI.length){const L=[];for(const[x,y,z,a2,h]of OSI){const k=h/6.5,r=new THREE.Matrix4().makeRotationY(a2);const q=[[1.3,4.4,1,0,2.2,0],[1.7,0.7,1.1,0,4.6,0],[0.8,1,0.8,0,5.3,0],[0.9,1.1,0.7,0,6.1,-0.05],[0.25,0.7,0.25,0,4.9,0.45]];
+     for(const[w,hh,d,ox,oy,oz]of q){const g=boxUV(w*k,hh*k,d*k,4);g.translate(ox*k,oy*k,oz*k+0.6*k);L.push([g,r.clone().setPosition(X(x),y,Z(z))]);}}
+   const m=new THREE.Mesh(tbMerge(L),tbMat('stone','#f0e6d0'));m.castShadow=true;scene.add(m);}
   for(const k in BOX){const B=BOX[k],m=new THREE.Mesh(tbMerge(B.L),B.mat);m.castShadow=true;m.receiveShadow=true;scene.add(m);}
   // palmeras en las dos orillas
   {const pl=[];for(let i=0;i<320;i++){const z=I.z+rr(-I.R,I.R),s=R()<0.5?-1:1,x=nileX(I,z)+s*rr(125,230);if(isFree(x,z,3)&&terrainH(x,z)>1.5)pl.push([x,z]);}egPalms(pl);}
