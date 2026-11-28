@@ -138,6 +138,7 @@ function leyTick(dt){const inH=INT2.in&&LEY_ROOMS.includes(INT2.in.o.room);if(in
   for(let i=LEY.shots.length-1;i>=0;i--){const s=LEY.shots[i];s.life-=dt;s.v.y-=1.5*dt;s.m.position.addScaledVector(s.v,dt);const p=s.m.position;
     seg.closestPointToPoint(p,true,_c);let hit=_c.distanceTo(p)<0.5&&LEY.inv<=0;if(hit&&typeof legBlock==='function'&&legBlock(s)){hit=false;s.life=0;}
     if(hit||s.life<=0||p.y<R.Y+0.05||Math.hypot(p.x-R.X,p.z-R.Z)>LEY_RA+6){scene.remove(s.m);LEY.shots.splice(i,1);
+      if(hit&&typeof talBlock==='function'&&talBlock())hit=false;   /* Talos se interpone (290_talos_hefesto.js) */
       if(hit){LEY.hits++;LEY.inv=1.2;leySfx('hit');if(LEY.fl){LEY.fl.style.opacity=1;setTimeout(()=>LEY.fl&&(LEY.fl.style.opacity=0),280);}leyHud();if(LEY.hits>=3){leyLose();return;}}}}
   // orbes: siempre dos a la vista; se cogen pasando por encima
   while(LEY.orbs.length<2)leyOrb();
