@@ -278,7 +278,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `msgBtn` | `200_el_mensajero.js` | 1 | `225`:218 |
 | `mtSetup` | `092_ayuda_sin_llevar_de_la.js` | 1 | `900`:385 |
 | `natSpring` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `102`:84 |
-| `nileX` | `059_egipto.js` | 1 | `285`:14 |
+| `nileX` | `059_egipto.js` | 1 | `285`:17 |
 | `npbAnim` | `186_caras_cuerpos_y_estatuas.js` | 1 | `279`:57 |
 | `npbTick` | `186_caras_cuerpos_y_estatuas.js` | 1 | `279`:53 |
 | `npcDress` | `186_caras_cuerpos_y_estatuas.js` | 1 | `279`:48 |

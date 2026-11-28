@@ -8,12 +8,19 @@
 // Amón. La avenida de esfinges entre Karnak y Luxor y el gran primer pilono de Karnak son de Nectanebo I (desde el 380): aquí no salen
 // en el modo Atenas. En el 80 d.C. Tebas son aldeas entre ruinas (la arrasó Ptolomeo IX hacia el 85 a.C.; Cornelio Galo sofocó otra
 // revuelta en el 29 a.C.), pero los templos siguen en uso y los viajeros romanos vienen a oír cantar al Coloso de Memnón.
-// El id es tebas_eg (tebas ya es la Tebas de Beocia). Escala muy comprimida: Karnak y Luxor están a 3 km; aquí, a unos 400 m.
-const TB={nx:120,built:false};
-// el Nilo de Tebas, por el centro del mapa (nileX lo usan egNile, egTint, egFields y las casas)
-{const f=nileX;nileX=function(I,z){if(I&&I.id==='tebas_eg')return I.x+TB.nx+Math.sin((z-I.z)*0.003)*35;return f.apply(this,arguments);};}
-const TB_ISL={id:'tebas_eg',R:520,H:4,seed:39.4,net:'eg',land:true,step:8,desert:true,dir:[-1,0]};
-const TB_CFG={arr:[215,40],blobs:[[-500,-330,160,80],[-490,-150,160,88],[-495,30,160,80],[-500,210,160,72],[-505,380,150,60]],tx:300,tz:30,tr:40,houses:-1,tint:egTint('tebas_eg')};
+// El id es tebas_eg (tebas ya es la Tebas de Beocia).
+// ESCALA (28/11, segunda versión): los monumentos, a su tamaño real (Karnak, Luxor, el Rameseo, Medinet Habu, Deir el-Bahari, los
+// Colosos); lo que se acorta son las distancias entre ellos (de Karnak a Luxor, unos 1,2 km en vez de 3) y el ancho del Nilo (220 m en
+// vez de 500-700). El mapa es el mayor que cabe entre dos destinos (R = 1000: un cuadrado de 2,5 km).
+const TB={nx:-120,built:false,K:[220,-760],L:[120,470],route:[[120,445],[250,-60],[250,-420],[380,-420]]};
+// el Nilo de Tebas (nileX lo usan egNile, egFields y las casas)
+{const f=nileX;nileX=function(I,z){if(I&&I.id==='tebas_eg')return I.x+TB.nx+Math.sin((z-I.z)*0.0016)*60;return f.apply(this,arguments);};}
+const TB_ISL={id:'tebas_eg',R:1000,H:4,seed:39.4,net:'eg',land:true,step:8,desert:true,dir:[-1,0]};
+// la montaña de Occidente, al oeste, con su cumbre (el Qurn) y el acantilado detrás de Deir el-Bahari
+const TB_BLOBS=[[-1190,-1050,260,120],[-1180,-780,230,126],[-1110,-760,140,77],[-1160,-470,260,143],[-1190,-180,260,120],[-1170,100,250,110],[-1100,330,150,80],[-1190,560,250,100],[-1200,860,260,90]];
+const TB_SAND=new THREE.Color('#d8c4a0'),TB_GREEN=new THREE.Color('#7a9a4a');
+function tbTint(x,z,h,c){const I=destOf('tebas_eg');if(!I)return;const d=x-nileX(I,z),w=d<0?380:230,dd=Math.abs(d);if(dd<w)c.lerp(TB_GREEN,0.55*(1-dd/w));else c.lerp(TB_SAND,Math.min(0.85,(dd-w)/160));}
+const TB_CFG={arr:[90,-150],blobs:TB_BLOBS,tx:200,tz:-150,tr:40,houses:-1,tint:(x,z,h,c)=>tbTint(x,z,h,c)};
 // ---------------- en el modo Atenas
 if(typeof crDest==='function')crDest({id:'tebas_eg',pos:[32.65,25.7],links:[],label:'Tebas',
  isl:Object.assign({},TB_ISL,{name:'Tebas de Egipto',gr:'ΘΗΒΑΙ · ΑΙΓΥΠΤΟΣ',sub:'La ciudad santa de Amón: Karnak, Luxor y las tumbas de los reyes al otro lado del río.',
@@ -49,79 +56,172 @@ if(typeof ROMA_DESTS!=='undefined'){ROMA_DESTS.push(Object.assign({},TB_ISL,{nam
   quiz:{q:'¿Por qué «cantaba» el Coloso de Memnón?',a:['Una grieta de un terremoto hacía sonar la piedra al calentarse al amanecer','Tenía un mecanismo de agua dentro','Un sacerdote tocaba la flauta escondido'],ko:'No: según la explicación más aceptada, la grieta abierta por el terremoto del 27 a.C. hacía que la piedra sonara con el cambio de temperatura del amanecer; Estrabón no supo explicarlo.'}});
  ROMA_DEST_SRC.amenothes={a:['Estrabón XVII 1.46','Tácito, Anales II 60-61','Pausanias I 42.3','Diodoro I 46-49'],m:['A. Bernand y É. Bernand, Les inscriptions grecques et latines du Colosse de Memnon (1960)','J.-C. Golvin, Ciudades del mundo antiguo, pp. 36-41'],n:['Amenotes es inventado.']};}
 // ---------------- la construcción (las dos épocas)
-function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(z))-I.x,mud=lam('#a8865c'),sand=lam('#d8c4a0'),qtz=lam('#b49a7a'),
+// medidas reales: recinto de Amón (muralla de Nectanebo) unos 520 × 520 m; templo de Amón, del primer pilono al Akh-menu, unos 350 m;
+// sala hipóstila 102 × 53 m con 134 columnas (12 centrales de 21 m, el resto de 15 m); lago sagrado 120 × 77 m; Luxor 260 m;
+// Rameseo unos 180 m (recinto 270 × 175); Medinet Habu, recinto 210 × 315 m y templo de 150 m; Deir el-Bahari, unos 270 m con las rampas.
+function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(z))-I.x,Y=(x,z)=>floorAt(X(x),Z(z)),
+  mud=lam('#a8865c'),mud2=lam('#9a7a52'),sand=lam('#d8c4a0'),sand2=lam('#cdb791'),qtz=lam('#b49a7a'),gran=lam('#b07a6a'),gold=lam('#d8b050'),cap=lam('#6f8f6a'),
   P=(id,name,gr,txt,x,z,rot)=>place(id,name,gr,txt,X(x),Z(z),rot||0),grR=(r,g)=>ro?r:g;
-  egNile(I,90);
-  // el embarcadero de la orilla este y la barca a la otra orilla
-  {const z=40,sx=X(N(z)+44);buildPort(I.id,'Tebas',sx,Z(z),-1,0);}
-  {const z=-30,e=[X(N(z)+56),Z(z)],w=[X(N(z)-56),Z(z)];
+  const COLS=[],CAPS=[],BOX={},addB=(m,x,y,z,w,h,d,a)=>{(BOX[m.uuid]=BOX[m.uuid]||{mat:m,L:[]}).L.push([new THREE.BoxGeometry(w,h,d),new THREE.Matrix4().makeRotationY(a||0).setPosition(X(x),y,Z(z))]);};
+  const col=(x,z,r,h,open,coll)=>{const y=Y(x,z);COLS.push([X(x),y,Z(z),r,h]);CAPS.push([X(x),y+h,Z(z),r,open]);if(coll!==false)addCirc(X(x),Z(z),r*1.05);};
+  const wall=(x1,z1,x2,z2,th,h,m)=>{const L=Math.hypot(x2-x1,z2-z1),a=Math.atan2(x2-x1,z2-z1),mx=(x1+x2)/2,mz=(z1+z2)/2,y=Math.min(Y(x1,z1),Y(x2,z2));addB(m,mx,y+h/2-1,mz,th,h+2,L,a);
+    const nx=Math.cos(a)*th/2,nz=-Math.sin(a)*th/2;addSeg(X(x1+nx),Z(z1+nz),X(x2+nx),Z(z2+nz),0.4);addSeg(X(x1-nx),Z(z1-nz),X(x2-nx),Z(z2-nz),0.4);};
+  // recinto rectangular con huecos (puertas): sides = {n:[[x0,x1],...],...} huecos en coordenadas del lado
+  const encl=(x0,z0,x1,z1,th,h,m,gaps)=>{const side=(ax,az,bx,bz,G)=>{const horiz=az===bz,a0=horiz?ax:az,b0=horiz?bx:bz,cuts=(G||[]).slice().sort((p,q)=>p[0]-q[0]);let s=Math.min(a0,b0);const e=Math.max(a0,b0);
+      for(const[g0,g1]of cuts){if(g0>s)horiz?wall(s,az,g0,az,th,h,m):wall(ax,s,ax,g0,th,h,m);s=Math.max(s,g1);}if(e>s)horiz?wall(s,az,e,az,th,h,m):wall(ax,s,ax,e,th,h,m);};
+    side(x0,z0,x1,z0,gaps.n);side(x0,z1,x1,z1,gaps.s);side(x0,z0,x0,z1,gaps.w);side(x1,z0,x1,z1,gaps.e);};
+  const obel=(x,z,h)=>{const y=Y(x,z),b=h*0.1,g=new THREE.CylinderGeometry(b*0.62,b,h*0.92,4,1);g.rotateY(Math.PI/4);const m=new THREE.Mesh(g,gran);m.position.set(X(x),y+h*0.46+1.2,Z(z));m.castShadow=true;scene.add(m);
+    const t=new THREE.Mesh(new THREE.ConeGeometry(b*0.62*0.75,h*0.08,4),gold);t.rotation.y=Math.PI/4;t.position.set(X(x),y+h*0.96+1.2,Z(z));scene.add(t);addB(sand2,x,y+0.6,z,b*1.8,1.2,b*1.8);addCirc(X(x),Z(z),b*0.8);};
+  const pylon=(x,z,a,w,h,col2)=>egPylon(X(x),Z(z),a,w,h,col2);
+  // carnero sentado (esfinge criocéfala), para las avenidas
+  const RAMS=[],ram=(x,z,a)=>{const y=Y(x,z),r=new THREE.Matrix4().makeRotationY(a);for(const[w,h,d,ox,oy,oz]of[[1.8,1,4.2,0,0.5,0],[1.6,1.4,3.2,0,1.6,-0.3],[1.2,1.4,1.4,0,2.5,1.5],[1.6,0.5,0.6,0,2.9,1.2]]){const g=new THREE.BoxGeometry(w,h,d);g.translate(ox,oy,oz);RAMS.push([g,r.clone().setPosition(X(x),y,Z(z))]);}addCirc(X(x),Z(z),1.6);};
+  egNile(I,220);
+  // ---------------- el embarcadero y la barca a la otra orilla
+  {const z=-150;buildPort(I.id,'Tebas',X(N(z)+122),Z(z),-1,0);}
+  {const z=40,e=[X(N(z)+140),Z(z)],w=[X(N(z)-140),Z(z)];
    egxObj(e[0],e[1],undefined,()=>egxTeleport(w[0],w[1],undefined,-Math.PI/2,ro?'El barquero te cruza entre barcas de trigo y de turistas. Enfrente, la llanura verde y, al fondo, la montaña de las tumbas.':'El barquero te cruza a la orilla de los muertos. Enfrente, los campos y, al fondo, la montaña.'),'La barca','cruzar a la orilla oeste',3);
    egxObj(w[0],w[1],undefined,()=>egxTeleport(e[0],e[1],undefined,Math.PI/2,'Vuelves en barca a la orilla de Karnak y Luxor.'),'La barca','volver a la orilla este',3);}
-  // ---- KARNAK: el recinto de Amón (muralla de adobe con puertas), el templo hacia el río, la sala hipóstila, los obeliscos y el lago sagrado
-  {const cx=305,cz=-260;rectWall(X(cx),Z(cz),180,180,mud,10);
-   egTemple(X(225),Z(cz),-Math.PI/2,1.6,'Templo de Amón (Karnak)');
-   {const c=lam('#cdb791'),cap=lam('#5f8a6a'),cols=[];for(let i=0;i<6;i++)for(let j=0;j<4;j++)cols.push([X(330+i*9),Z(cz-13.5+j*9)]);
-    for(const[x,z]of cols){const gy=floorAt(x,z),m=new THREE.Mesh(new THREE.CylinderGeometry(2,2.2,16,12),c);m.position.set(x,gy+8,z);m.castShadow=true;scene.add(m);const k=new THREE.Mesh(new THREE.CylinderGeometry(3,2,1.8,12),cap);k.position.set(x,gy+16.9,z);scene.add(k);addCirc(x,z,2.1);}
-    const gy=floorAt(X(352),Z(cz));box(58,1.4,40,c,X(352),gy+18.5,Z(cz));}
-   egObelisks([[X(388),Z(cz-12),0.7],[X(388),Z(cz+12),0.6]]);
-   {const x=X(300),z=Z(-195),gy=floorAt(x,z);pool(x,z,56,26,gy-0.4);for(const[dx,dz,w,d]of[[0,-13.5,58,1],[0,13.5,58,1],[-28.5,0,1,28],[28.5,0,1,28]])box(w,0.8,d,M.limestone,x+dx,gy+0.2,z+dz);addBox(x,z,56,26,0);}
-   if(!ro){const x=X(198),z=Z(cz),g=grp(x,floorAt(x,z),z,0);for(const sx of[-1,1])for(const sz of[-1,1]){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.8,0.9,7,10),sand);c.position.set(sx*4,3.5,sz*6);g.add(c);addCirc(x+sx*4,z+sz*6,0.9);}box(10,0.9,14,sand,0,7.4,0,g);
-     P('capilla_hakor','La capilla de Hakor','ΝΑΟΣ ΑΧΩΡΙΟΣ','Delante del templo, el faraón Hakor levanta una capilla para la barca de Amón: un quiosco de columnas donde la estatua del dios descansa cuando sale en procesión. Hakor reina en el delta, lejos, pero quiere que Amón lo reconozca como rey.',-118,-28);}
-   P('karnak',grR('Karnak','Karnak, la casa de Amón'),'ΙΠΕΤ ΣΟΥΤ',grR('El mayor templo del mundo: cada faraón, durante dos mil años, le añadió algo, un pilono, un patio, una sala, un obelisco. Diodoro dice que el más antiguo de los cuatro templos de Tebas medía trece estadios de perímetro. Detrás de las puertas de la muralla de adobe, el pilono, los patios y la sala de las columnas, alta como una casa de cinco pisos. Los sacerdotes siguen celebrando los ritos, y en los muros más nuevos aparece Augusto vestido de faraón, ofreciendo a Amón.\n(Diodoro I 45-46; Estrabón XVII 1.46; Golvin, p. 37, n.º 3)',
-      'Ipet-sut, «el más venerado de los lugares»: el templo de Amón-Ra, el más grande del mundo. Cada faraón, durante mil quinientos años, le ha añadido un pilono, un patio, una sala o un obelisco, y el recinto de adobe que lo rodea es como una ciudad. Solo los sacerdotes entran en el santuario; la gente se queda en los patios.\n(Heródoto II 42; Diodoro I 45-46; Golvin, p. 37, n.º 3)'),-80,-28);
-   P('hipostila','La sala de las columnas','ΥΠΟΣΤΥΛΟΣ','Ciento treinta y cuatro columnas en forma de papiro, las del centro de más de veinte metros, sostenían el techo de una sala en penumbra, pintada de colores vivos. La empezó Seti I y la terminó Ramsés II, hace casi mil años. En el juego, solo una parte de las columnas y más bajas.\n(Golvin, p. 37)',25,-205);
-   P('obeliscos_karnak','Los obeliscos','ΟΒΕΛΙΣΚΟΙ','Agujas de granito rosa de Asuán, de una sola pieza, con la punta forrada de oro y plata para que brillen al sol. La reina Hatshepsut levantó aquí la más alta, de casi treinta metros; su sucesor, que quiso borrar su memoria, la rodeó con un muro para que no se viera.'+grR(' Augusto se llevó dos obeliscos de Heliópolis a Roma; Calígula, otro, que ahora está en el circo del Vaticano.','')+'\n(Golvin, p. 37)',95,-275);
-   P('lago_sagrado','El lago sagrado','ΛΙΜΝΗ ΙΕΡΑ','Un estanque de piedra donde los sacerdotes se purifican antes de los ritos, dos veces al día y dos veces cada noche, dice Heródoto de los sacerdotes egipcios. Aquí viven los gansos sagrados de Amón.\n(Heródoto II 37)',-5,-168);}
-  // ---- el camino de Karnak a Luxor; en el 80 d.C., con las esfinges de Nectanebo I
-  {const a=[305,-168],b=[330,128],L=Math.hypot(b[0]-a[0],b[1]-a[1]),ang=Math.atan2(b[0]-a[0],b[1]-a[1]),n=Math.ceil(L/6),pv=[],sph=[];
-   for(let i=0;i<n;i++){const t=(i+0.5)/n,x=X(a[0]+(b[0]-a[0])*t),z=Z(a[1]+(b[1]-a[1])*t);pv.push([new THREE.BoxGeometry(9,0.3,6.4),new THREE.Matrix4().makeRotationY(ang).setPosition(x,floorAt(x,z)+0.1,z)]);}
-   const m=new THREE.Mesh(mergeGeos(pv),lam('#d2bf98'));m.receiveShadow=true;scene.add(m);
-   if(ro){for(let i=1;i<n;i+=2){const t=i/n;for(const s of[-1,1]){const lx=a[0]+(b[0]-a[0])*t+Math.cos(ang)*s*7.5,lz=a[1]+(b[1]-a[1])*t-Math.sin(ang)*s*7.5,x=X(lx),z=Z(lz),gy=floorAt(x,z),r=new THREE.Matrix4().makeRotationY(ang+(s>0?-Math.PI/2:Math.PI/2));
-       for(const[w,h,d,ox,oy,oz]of[[1.6,0.8,3.6,0,0.4,0],[1.3,1.1,2.6,0,1.35,0.1],[1.1,1.2,1.0,0,2.2,1.2]]){const g=new THREE.BoxGeometry(w,h,d);g.translate(ox,oy,oz);sph.push([g,r.clone().setPosition(x,gy,z)]);}addCirc(x,z,1.3);}}
-     const sm=new THREE.Mesh(mergeGeos(sph),lam('#c9b08a'));sm.castShadow=true;scene.add(sm);}
-   P('dromos',grR('La avenida de las esfinges','El camino de la procesión'),'ΔΡΟΜΟΣ',grR('Casi tres kilómetros de esfinges con cabeza humana, una frente a otra, unen Karnak con Luxor: las hizo poner Nectanebo I, el penúltimo faraón egipcio, hace más de cuatrocientos años. Por aquí pasa cada año la procesión de Opet, con la barca de Amón a hombros de los sacerdotes.\n(Golvin, p. 37, n.º 2)',
-      'Por este camino pasa cada año, en la fiesta de Opet, la procesión que lleva la barca de Amón de Karnak a Luxor, con música, danzas y comida para todos. Dentro de unos años, el faraón Nectanebo I lo bordeará con cientos de esfinges, una frente a otra; ahora es un camino de tierra con algunos altares.\n(Golvin, p. 37, n.º 2)'),305,-60,0);}
-  // ---- LUXOR: el templo de Opet, con sus dos obeliscos y los colosos de Ramsés II delante del pilono
-  {const cx=330,cz=150;egTemple(X(cx),Z(cz),Math.PI,1.4,'Templo de Luxor');egObelisks([[X(cx-12),Z(cz-12),0.62],[X(cx+12),Z(cz-12),0.55]]);
-   for(const s of[-1,1])statue(X(cx+s*6),floorAt(X(cx),Z(cz))+1,Z(cz-5),Math.PI,4,'marble');
-   if(ro){const x=X(cx+30),z=Z(cz+30);P('alejandro_luxor','La capilla de Alejandro','ALEXANDER','Dentro del templo, Alejandro Magno hizo rehacer una capilla para la barca del dios, y en sus relieves aparece vestido de faraón, ofreciendo a Amón. Los egipcios lo aceptaron como hijo del dios: así se lo había dicho el oráculo de Amón en el oasis de Siwa.',cx+30,cz+30);}
-   P('luxor','Luxor, el templo de Opet','ΙΠΕΤ ΡΕΣΥΤ','El «harén del sur» de Amón: aquí viene el dios desde Karnak en la fiesta de Opet, para renovar cada año la fuerza del faraón. Delante del pilono, dos obeliscos de Ramsés II y sus estatuas sentadas.'+grR(' Uno de los obeliscos está hoy en París, en la plaza de la Concordia.',' Uno de los dos obeliscos acabará en París, en la plaza de la Concordia, en 1836.')+'\n(Golvin, p. 37, n.os 1 y 7)',cx-26,cz-30);}
-  // ---- las casas de la orilla este (en el 80, muchas menos: aldeas)
-  {let k=0;const want=ro?18:42,cor=(x,z)=>{const t=clamp((z+168)/296,0,1),dx=305+25*t;return Math.abs(x-dx)<16&&z>-175&&z<140;},
-     out=(x,z)=>(x>205&&x<405&&z>-360&&z<-160)||(x>290&&x<370&&z>120&&z<260)||cor(x,z);
-   for(let t=0;t<want*8&&k<want;t++){const lx=rr(200,470),lz=rr(-150,120),x=X(lx),z=Z(lz);if(out(lx,lz)||Math.abs(x-nileX(I,z))<75||!isFree(x,z,7)||terrainH(x,z)<1.5)continue;
-     const w=rr(7,11),d=rr(7,11),h=rr(3.2,5.5),a=R()<0.5?0:Math.PI/2,g=grp(x,floorAt(x,z),z,a),c=lam(pick(['#b8956a','#a8865c','#c4a274']));box(w,h,d,c,0,h/2,0,g);box(1.1,2,0.1,lam('#3a2a1e'),0,1,d/2+0.02,g);if(R()<0.4)box(2,1.6,2,c,w/2-1.2,h+0.8,-d/2+1.2,g);
-     addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:'#b8956a',house:true});k++;}}
-  // ---- LA ORILLA OESTE
-  // los Colosos de Memnón, delante de lo que queda del templo de Amenhotep III
-  {const cx=40,cz=30;for(const s of[-1,1]){const x=X(cx),z=Z(cz+s*12),g=grp(x,floorAt(x,z),z,Math.PI/2);
+  // ================= KARNAK: el eje este-oeste, con la entrada hacia el río
+  const[x0,zA]=TB.K;
+  // el canal y el muelle, con la avenida de carneros (ramésida, anterior a los dos momentos del juego)
+  addRiver([[N(zA)+100,zA],[x0-90,zA]].map(p=>[X(p[0]),Z(p[1])]),16,{name:'El canal de Karnak'});
+  addB(sand2,x0-80,Y(x0-80,zA)+0.5,zA,10,2,60);
+  for(let i=0;i<10;i++)for(const s of[-1,1])ram(x0-68+i*6.4,zA+s*9,s>0?Math.PI:0);
+  if(!ro){const x=x0-34,z=zA-26,g=grp(X(x),Y(x,z),Z(z),0);for(let i=0;i<3;i++)for(const s of[-1,1]){const c=new THREE.Mesh(new THREE.CylinderGeometry(0.8,0.9,7,10),sand);c.position.set(-5+i*5,3.5,s*4);g.add(c);addCirc(X(x-5+i*5),Z(z+s*4),0.9);}box(14,0.9,10,sand,0,7.4,0,g);
+    P('capilla_hakor','La capilla de Hakor','ΝΑΟΣ ΑΧΩΡΙΟΣ','Junto al muelle, el faraón Hakor levanta una capilla para la barca de Amón: un quiosco de columnas donde descansa la estatua del dios cuando sale en procesión hacia el río. Hakor reina en el delta, lejos, pero quiere que Amón lo reconozca como rey.',x+12,z-10);}
+  // el primer pilono (Nectanebo I, después del 380: solo en el 80) y el primer patio, con los muros laterales de los reyes libios
+  if(ro){pylon(x0,zA,Math.PI/2,113,31);P('pilono1_karnak','El primer pilono','PYLON','El más grande de Egipto: 113 m de ancho y más de 30 de alto. Lo empezó Nectanebo I, el penúltimo faraón egipcio, y nunca se terminó: todavía se ven las rampas de adobe que usaron para subir los bloques, y no lleva relieves.\n(Golvin, p. 37)',x0-18,zA+64,-Math.PI/2);}
+  wall(x0+4,zA-52,x0+86,zA-52,4,11,sand);wall(x0+4,zA+52,x0+86,zA+52,4,11,sand);
+  for(let i=0;i<5;i++)for(const s of[-1,1])col(x0+22+i*9,zA+s*7,1.5,21,true);   // el quiosco de Taharqa: diez columnas de 21 m
+  egTemple(X(x0+48),Z(zA+44),Math.PI,0.8,'Templo de Ramsés III (Karnak)');
+  P('patio_karnak','El primer patio','ΑΥΛΗ',grR('Un patio de más de cien metros por lado. En medio, el quiosco del faraón nubio Taharqa: diez columnas de veintiún metros. A la derecha, el pequeño templo de Ramsés III, que se abre al patio.','El patio delante del segundo pilono, cerrado a los lados por los muros de los reyes libios. Todavía no tiene pilono delante: el gran pilono que se ve hoy lo empezará Nectanebo I dentro de unos años. En medio, el quiosco del faraón nubio Taharqa: diez columnas de veintiún metros.')+'\n(Golvin, p. 37)',x0+30,zA-30);
+  // segundo pilono y la sala hipóstila
+  pylon(x0+88,zA,Math.PI/2,98,28);
+  {for(let i=0;i<6;i++)for(const s of[-1,1])col(x0+97+i*8.4,zA+s*5.6,1.8,21,true);
+   for(let k=0;k<7;k++)for(let i=0;i<9;i++){if(k===0&&(i===0||i===8))continue;for(const s of[-1,1])col(x0+94.5+i*5.9,zA+s*(13+k*5.9),1.35,15,false);}
+   const y=Y(x0+116,zA);addB(sand2,x0+116,y+24.6,zA,52,1.4,20);for(const s of[-1,1]){addB(sand2,x0+116,y+17.2,zA+s*31,52,1.2,41);addB(sand2,x0+116,y+20.6,zA+s*10.6,52,7,1.2);}
+   wall(x0+91,zA-52,x0+143,zA-52,3,18,sand);wall(x0+91,zA+52,x0+143,zA+52,3,18,sand);}
+  P('hipostila','La sala hipóstila','ΥΠΟΣΤΥΛΟΣ','Ciento treinta y cuatro columnas en forma de papiro sostienen el techo de una sala de 102 × 53 m: las doce del centro, de veintiún metros, con el capitel abierto, y las demás, de quince, cerrado. Por las celosías de piedra de la nave central entra una luz rasante. Las paredes y las columnas están pintadas y cubiertas de relieves: Seti I y Ramsés II ante los dioses, y sus guerras. La empezó Seti I y la terminó Ramsés II, hace más de novecientos años.\n(Golvin, p. 37, n.º 3)',x0+92,zA+20,-Math.PI/2);
+  // tercer pilono, obeliscos, pilonos cuarto a sexto, santuario, patio del Imperio Medio y el Akh-menu
+  pylon(x0+148,zA,Math.PI/2,100,26);obel(x0+157,zA-6,21.7);obel(x0+172,zA-9,29.5);obel(x0+172,zA+9,29.5);
+  pylon(x0+165,zA,Math.PI/2,70,20);pylon(x0+182,zA,Math.PI/2,60,18);pylon(x0+194,zA,Math.PI/2,50,15);
+  {const y=Y(x0+212,zA);addB(gran,x0+212,y+6,zA,18,12,9);addBox(X(x0+212),Z(zA),18,9,0);addB(sand2,x0+212,y+5,zA,30,10,26);addBox(X(x0+212),Z(zA),30,26,0);}
+  {const y=Y(x0+300,zA);addB(sand,x0+300,y+6,zA,80,12,44);addBox(X(x0+300),Z(zA),80,44,0);for(let i=0;i<10;i++)col(x0+262+i*7.6,zA-24,0.9,8,false);}
+  P('obeliscos_karnak','Los obeliscos','ΟΒΕΛΙΣΚΟΙ','Agujas de granito rosa de Asuán, de una sola pieza, con la punta forrada de oro y plata para que brillen al sol. El de Tutmosis I mide casi 22 m; los dos de la reina Hatshepsut, casi 30: su sucesor, que quiso borrar su memoria, los rodeó con un muro para que no se vieran.'+grR(' Augusto se llevó obeliscos de Heliópolis a Roma, y Calígula otro, que ahora está en el circo del Vaticano.','')+'\n(Golvin, p. 37)',x0+160,zA+22,-Math.PI/2);
+  P('santuario_karnak','El santuario y el Akh-menu','ΑΔΥΤΟΝ','Al fondo, en penumbra, la capilla donde vive la estatua de Amón en su barca, que solo ven los sacerdotes.'+grR(' La capilla de granito que hay ahora la rehízo Filipo Arrideo, el hermanastro de Alejandro, hacia el 320 a.C.','')+' Más allá, la gran sala de fiestas de Tutmosis III, el Akh-menu, con columnas que imitan los postes de una tienda de campaña, y en sus paredes, las plantas y los animales que el rey trajo de Siria.\n(Golvin, p. 37)',x0+230,zA+30,-Math.PI/2);
+  // el lago sagrado (120 × 77 m)
+  {const x=X(x0+290),z=Z(zA+128),gy=Y(x0+290,zA+128);pool(x,z,120,77,gy-0.4);for(const[dx,dz,w,d]of[[0,-39,122,2],[0,39,122,2],[-61,0,2,80],[61,0,2,80]])box(w,1,d,M.limestone,x+dx,gy+0.2,z+dz);addBox(x,z,120,77,0);
+   P('lago_sagrado','El lago sagrado','ΛΙΜΝΗ ΙΕΡΑ','Un estanque de piedra de 120 × 77 m, alimentado por el agua del Nilo que se filtra bajo tierra. Aquí se purifican los sacerdotes antes de los ritos, dos veces al día y dos veces cada noche, dice Heródoto de los sacerdotes egipcios, y aquí viven los gansos sagrados de Amón.\n(Heródoto II 37)',x0+225,zA+128,-Math.PI/2);}
+  // el eje sur: pilonos séptimo a décimo, hacia el templo de Mut
+  pylon(x0+175,zA+70,0,60,20);pylon(x0+175,zA+122,0,60,20);pylon(x0+175,zA+190,0,62,22);pylon(x0+175,zA+245,0,66,24);
+  // el templo de Jonsu, en la esquina suroeste, y la puerta de Evérgetes (ptolemaica: solo en el 80)
+  egTemple(X(x0+50),Z(zA+170),0,1.3,'Templo de Jonsu');
+  if(ro){const x=x0+50,z=zA+262,y=Y(x,z);addB(sand,x-8,y+10.5,z,9,21,14);addB(sand,x+8,y+10.5,z,9,21,14);addB(sand,x,y+19.5,z,7,3,14);addBox(X(x-8),Z(z),9,14,0);addBox(X(x+8),Z(z),9,14,0);}
+  P('jonsu','El templo de Jonsu','ΧΩΝΣ','Jonsu, el dios luna, es el hijo de Amón y de Mut: los tres forman la familia divina de Tebas. Su templo, de Ramsés III, mira hacia el sur, hacia Luxor.'+grR(' Delante, en la muralla, la gran puerta que levantó el rey Ptolomeo III Evérgetes.','')+'\n(Golvin, p. 37, n.º 6)',x0+50,zA+232);
+  // el recinto: en el 80, la gran muralla de adobe de Nectanebo I (520 × 520 m, 12 m de grueso); en el 386, uno menor y más antiguo
+  if(ro){encl(x0-25,zA-260,x0+495,zA+260,12,18,mud,{w:[[zA-60,zA+60]],s:[[x0+30,x0+70],[x0+150,x0+200]],e:[[zA-20,zA+20]],n:[[x0+150,x0+190]]});
+    P('recinto_karnak','La muralla de Nectanebo','PERIBOLOS','Una muralla de adobe de más de veinte metros de alto y doce de grueso rodea todo el recinto de Amón: más de dos kilómetros de perímetro. La levantó Nectanebo I; sus hiladas de ladrillo forman ondas, quizá para imitar las aguas del caos de las que nació el mundo.\n(Golvin, p. 37)',x0-40,zA-80,-Math.PI/2);}
+  else{encl(x0+80,zA-120,x0+360,zA+175,5,9,mud2,{w:[[zA-40,zA+40]],s:[[x0+150,x0+200]],e:[[zA-15,zA+15]],n:[]});
+    P('recinto_karnak','El recinto de Amón','PERIBOLOS','Un muro de adobe rodea el templo y el lago sagrado. Dentro de unos años, Nectanebo I lo sustituirá por una muralla enorme, de doce metros de grueso, que encerrará también el primer patio y el templo de Jonsu. Del muro anterior se sabe poco: su trazado aquí es aproximado.\n(Golvin, p. 37)',x0+40,zA-80,-Math.PI/2);}
+  P('karnak',grR('Karnak, la casa de Amón','Karnak, la casa de Amón'),'ΙΠΕΤ ΣΟΥΤ',grR('El mayor templo del mundo: cada faraón, durante dos mil años, le añadió algo, un pilono, un patio, una sala, un obelisco. Diodoro dice que el más antiguo de los cuatro templos de Tebas medía trece estadios de perímetro. Los sacerdotes siguen celebrando los ritos, y en los muros más nuevos aparece Augusto vestido de faraón, ofreciendo a Amón.\n(Diodoro I 45-46; Estrabón XVII 1.46; Golvin, p. 37, n.º 3)',
+      'Ipet-sut, «el más venerado de los lugares»: el templo de Amón-Ra, el más grande del mundo. Cada faraón, durante mil quinientos años, le ha añadido un pilono, un patio, una sala o un obelisco: del muelle al fondo hay más de trescientos cincuenta metros. Solo los sacerdotes entran en el santuario; la gente se queda en los patios.\n(Heródoto II 42; Diodoro I 45-46; Golvin, p. 37, n.º 3)'),x0-50,zA-34,-Math.PI/2);
+  // ================= MUT: avenida de carneros desde el décimo pilono, el templo y su lago en media luna
+  for(let i=0;i<14;i++)for(const s of[-1,1])ram(x0+175+s*9,zA+268+i*12,s>0?-Math.PI/2:Math.PI/2);
+  {const mx=x0+175,mz=zA+620;encl(mx-120,mz-170,mx+120,mz+170,5,8,mud2,{n:[[mx-20,mx+20]],s:[],w:[[mz-15,mz+15]],e:[]});egTemple(X(mx),Z(mz-90),Math.PI,1.2,'Templo de Mut');
+   for(const[dx,dz,w,d]of[[-48,10,18,110],[48,10,18,110],[0,64,114,18]]){const x=X(mx+dx),z=Z(mz+dz);pool(x,z,w,d,Y(mx+dx,mz+dz)-0.4);addBox(x,z,w,d,0);}
+   P('mut','El templo de Mut','ΜΟΥΤ','Mut, «la madre», es la esposa de Amón. Su templo está rodeado en tres lados por un lago en forma de media luna, el Isheru. En su patio hay cientos de estatuas de la diosa leona Sejmet, sentadas en fila: las puso Amenhotep III, quizá para calmar a la diosa del fuego y de las epidemias.\n(Golvin, p. 37, n.os 4-5)',mx+30,mz-150);}
+  P('avenida_carneros','La avenida de los carneros','ΚΡΙΟΙ','El carnero es el animal de Amón: estas esfinges con cuerpo de león y cabeza de carnero, que protegen entre sus patas una pequeña estatua del rey, bordean el camino del templo de Amón al de Mut.\n(Golvin, p. 37)',x0+192,zA+330,-Math.PI/2);
+  // ================= el camino de Luxor; en el 80, con las esfinges de Nectanebo I
+  {const pts=TB.route,pv=[],sph=[];
+   for(let s=0;s<pts.length-1;s++){const a=pts[s],b=pts[s+1],L=Math.hypot(b[0]-a[0],b[1]-a[1]),ang=Math.atan2(b[0]-a[0],b[1]-a[1]),n=Math.ceil(L/6);
+     for(let i=0;i<n;i++){const t=(i+0.5)/n,lx=a[0]+(b[0]-a[0])*t,lz=a[1]+(b[1]-a[1])*t;pv.push([new THREE.BoxGeometry(10,0.3,6.4),new THREE.Matrix4().makeRotationY(ang).setPosition(X(lx),Y(lx,lz)+0.1,Z(lz))]);
+       if(ro&&i%2===0)for(const sd of[-1,1]){const sx=lx+Math.cos(ang)*sd*8,sz=lz-Math.sin(ang)*sd*8,y=Y(sx,sz),r=new THREE.Matrix4().makeRotationY(ang+(sd>0?-Math.PI/2:Math.PI/2));
+         for(const[w,h,d,ox,oy,oz]of[[1.6,0.8,3.6,0,0.4,0],[1.3,1.1,2.6,0,1.35,0.1],[1.1,1.2,1.0,0,2.2,1.2]]){const g=new THREE.BoxGeometry(w,h,d);g.translate(ox,oy,oz);sph.push([g,r.clone().setPosition(X(sx),y,Z(sz))]);}addCirc(X(sx),Z(sz),1.3);}}}
+   const m=new THREE.Mesh(mergeGeos(pv),lam('#d2bf98'));m.receiveShadow=true;scene.add(m);if(sph.length){const sm=new THREE.Mesh(mergeGeos(sph),lam('#c9b08a'));sm.castShadow=true;scene.add(sm);}
+   P('dromos',grR('La avenida de las esfinges','El camino de la procesión'),'ΔΡΟΜΟΣ',grR('Casi tres kilómetros de esfinges con cabeza humana, una frente a otra, unen Karnak con Luxor: las hizo poner Nectanebo I hace más de cuatrocientos años. Por aquí pasa cada año la procesión de Opet, con la barca de Amón a hombros de los sacerdotes. En el juego, el camino es más corto: unos mil doscientos metros.\n(Golvin, p. 37, n.º 2)',
+      'Por este camino pasa cada año, en la fiesta de Opet, la procesión que lleva la barca de Amón de Karnak a Luxor, con música, danzas y comida para todos. Dentro de unos años, el faraón Nectanebo I lo bordeará con cientos de esfinges, una frente a otra. En el juego es más corto que el real, de casi tres kilómetros.\n(Golvin, p. 37, n.º 2)'),266,-200,Math.PI/2);}
+  // ================= LUXOR: eje norte-sur, entrada al norte (260 m)
+  {const[lx,lz]=TB.L;obel(lx-14,lz,25);obel(lx+14,lz,22.5);for(const s of[-1,1]){const y=Y(lx+s*7,lz+5);addB(qtz,lx+s*7,y+3.5,lz+5,4,7,6);statue(X(lx+s*7),y+7,Z(lz+5),Math.PI,3.2,'marble');}
+   pylon(lx,lz+10,0,65,24);
+   {const z0=lz+12,z1=lz+69;wall(lx-28,z0,lx-28,z1,3,12,sand);wall(lx+28,z0,lx+28,z1,3,12,sand);for(let i=0;i<9;i++)for(const s of[-1,1]){col(lx+s*24,z0+4+i*6.4,0.9,11,false);col(lx+s*19,z0+4+i*6.4,0.9,11,false);}}
+   {const z0=lz+70,z1=lz+122;wall(lx-13,z0,lx-13,z1,3,20,sand);wall(lx+13,z0,lx+13,z1,3,20,sand);for(let i=0;i<7;i++)for(const s of[-1,1])col(lx+s*4.6,z0+4+i*7.4,1.6,19,true);
+     const y=Y(lx,z0+26);addB(sand2,lx,y+20,z0+26,13,1.4,52);}
+   {const z0=lz+124,z1=lz+180;wall(lx-28,z0,lx-28,z1,3,12,sand);wall(lx+28,z0,lx+28,z1,3,12,sand);for(let i=0;i<8;i++)for(const s of[-1,1]){col(lx+s*24,z0+4+i*6.6,0.95,10,false);col(lx+s*19,z0+4+i*6.6,0.95,10,false);}
+     for(let i=0;i<8;i++)col(lx-21+i*6,z1-4,0.95,10,false);}
+   {for(let i=0;i<4;i++)for(let j=0;j<8;j++)col(lx-21+j*6,lz+184+i*5,0.9,9,false);const y=Y(lx,lz+192);addB(sand2,lx,y+9.6,lz+192,50,1.2,22);}
+   {const y=Y(lx,lz+232);addB(sand,lx,y+6,lz+232,40,12,56);addBox(X(lx),Z(lz+232),40,56,0);}
+   footprints.push({x:X(lx),z:Z(lz+130),w:60,d:270,a:0,c:'#e2d0a8',name:'Templo de Luxor'});
+   if(ro)P('alejandro_luxor','La capilla de Alejandro','ALEXANDER','Al fondo del templo, Alejandro Magno hizo rehacer la capilla de la barca del dios, y en sus relieves aparece vestido de faraón, ofreciendo a Amón. Los egipcios lo aceptaron como hijo del dios: así se lo había dicho el oráculo de Amón en el oasis de Siwa.',lx+30,lz+225,-Math.PI/2);
+   P('luxor','Luxor, el templo de Opet','ΙΠΕΤ ΡΕΣΥΤ','El «harén del sur» de Amón, de 260 m de largo: aquí viene el dios desde Karnak en la fiesta de Opet, para renovar cada año la fuerza del faraón. Delante del pilono de Ramsés II, dos obeliscos y sus estatuas; detrás, el patio de Ramsés, la gran columnata de Amenhotep III, con catorce columnas de diecinueve metros, el patio del sol y las salas del dios.'+grR(' Uno de los obeliscos está hoy en París, en la plaza de la Concordia.',' Uno de los dos obeliscos acabará en París, en la plaza de la Concordia, en 1836.')+'\n(Golvin, p. 37, n.os 1 y 7)',lx-40,lz-10,Math.PI/2);
+   P('columnata_luxor','La columnata de Amenhotep III','ΣΤΟΑ',grR('Catorce columnas en forma de papiro abierto, de diecinueve metros, en dos filas: el pasillo por el que entra la procesión de Opet. En sus muros, Tutankamón y Horemheb mandaron tallar la fiesta, con los barcos, los músicos y los sacerdotes.','Catorce columnas en forma de papiro abierto, de diecinueve metros, en dos filas: el pasillo por el que entra la procesión de Opet. En sus muros está tallada la fiesta: los barcos, los músicos, los soldados y los sacerdotes.')+'\n(Golvin, p. 37)',lx+20,lz+96,-Math.PI/2);}
+  // ================= la ciudad de la orilla este: barrios de casas de adobe de varios pisos (en el 80, aldeas)
+  {const occ=[[x0-100,zA-270,x0+510,zA+800],[TB.L[0]-45,TB.L[1]-30,TB.L[0]+45,TB.L[1]+270],[230,-480,270,-40],[TB.L[0]-20,TB.L[1]-40,270,TB.L[1]],[x0+100,-530,x0+200,-470]];
+   const segD=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=clamp(((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz),0,1);return Math.hypot(x-a[0]-dx*t,z-a[1]-dz*t);},
+     busy=(x,z,r)=>occ.some(o=>x>o[0]-r&&x<o[2]+r&&z>o[1]-r&&z<o[3]+r)||TB.route.some((p,i)=>i>0&&segD(x,z,TB.route[i-1],p)<r+12);
+   const zones=ro?[[60,-560,190,-380,40],[40,300,230,440,40],[60,-260,220,-120,50],[200,780,420,900,30]]:[[30,-1000,190,-300,190],[30,-300,240,440,330],[520,-450,850,200,150],[60,780,520,950,110],[300,40,560,400,110]];
+   const H=[],D=[],cols=['#b8956a','#a8865c','#c4a274','#b08a60','#c9ab7e'];
+   for(const[ax,az,bx,bz,n]of zones){let k=0;for(let t=0;t<n*8&&k<n;t++){const lx=rr(ax,bx),lz=rr(az,bz),w=rr(7,12),d=rr(7,12);if(busy(lx,lz,Math.max(w,d)/2+3))continue;const x=X(lx),z=Z(lz);
+       if(Math.abs(x-nileX(I,z))<135||terrainH(x,z)<1.5||!isFree(x,z,Math.max(w,d)/2+1.5))continue;const h=ro?rr(3.5,6):rr(5,13.5),a=R()<0.5?0:Math.PI/2,y=floorAt(x,z);
+       H.push({x,y,z,w,h,d,a,c:new THREE.Color(pick(cols))});addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:'#b8956a',house:true});k++;}}
+   const ub=new THREE.BoxGeometry(1,1,1);ub.translate(0,0.5,0);const im=new THREE.InstancedMesh(ub,lam('#ffffff'),H.length),dm=new THREE.InstancedMesh(ub,lam('#3a2a1e'),H.length),m4=new THREE.Matrix4(),q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0);
+   H.forEach((h,i)=>{q.setFromAxisAngle(up,h.a);m4.compose(new THREE.Vector3(h.x,h.y,h.z),q,new THREE.Vector3(h.w,h.h,h.d));im.setMatrixAt(i,m4);im.setColorAt(i,h.c);
+     const p=toW(0,h.d/2+0.03,h.x,h.z,h.a);m4.compose(new THREE.Vector3(p[0],h.y,p[1]),q,new THREE.Vector3(1.2,2.1,0.12));dm.setMatrixAt(i,m4);});
+   for(const m of[im,dm]){m.castShadow=true;m.receiveShadow=true;scene.add(m);}TB.houses=H.length;
+   if(!ro)P('ciudad_tebas','La ciudad','ΠΟΛΙΣ','Entre los templos y el río, barrios de casas de adobe apretadas, de varios pisos, con terrazas en el tejado donde se duerme en verano y se secan el grano y el pescado. Diodoro, siguiendo a autores antiguos, dirá que en la Tebas de los grandes reyes había casas de cuatro y cinco pisos. Ya no es la capital, pero sigue siendo una ciudad grande, llena de sacerdotes, escribas, artesanos de los templos y barqueros.\n(Diodoro I 45)',150,-320,Math.PI/2);}
+  // ================= LA ORILLA OESTE
+  // los Colosos de Memnón (18 m) y el campo de ruinas del templo de Amenhotep III detrás
+  {const cx=-430,cz=150;for(const s of[-1,1]){const x=X(cx),z=Z(cz+s*12),g=grp(x,floorAt(x,z),z,Math.PI/2);
      box(7,3,9,qtz,0,1.5,0,g);box(6.4,7,7.6,qtz,0,6.5,-0.4,g);box(5.6,2,5,qtz,0,8,2.4,g);box(2,6,1.6,qtz,-1.6,5,4.4,g);box(2,6,1.6,qtz,1.6,5,4.4,g);box(4.6,6.4,3.4,qtz,0,13.2,-1.4,g);box(2.6,3,2.6,qtz,0,17.8,-1.2,g);
      const ne=new THREE.Mesh(new THREE.CylinderGeometry(1.6,2.8,3.6,4),qtz);ne.rotation.y=Math.PI/4;ne.position.set(0,17.6,-1.6);g.add(ne);addBox(x,z,9,7.6,Math.PI/2);}
-   for(let i=0;i<14;i++){const x=X(cx-40+rr(-26,26)),z=Z(cz+rr(-40,40));if(!isFree(x,z,3))continue;const m=box(rr(2,5),rr(1,2.4),rr(2,4),qtz,x,floorAt(x,z)+0.6,z);m.rotation.y=R()*TAU;addCirc(x,z,1.6);}
+   for(let i=0;i<120;i++){const lx=cx-20-rr(0,520),lz=cz+rr(-110,110);const x=X(lx),z=Z(lz);if(!isFree(x,z,3))continue;addB(R()<0.3?qtz:sand2,lx,floorAt(x,z)+0.5,lz,rr(1.5,5),rr(0.8,2.6),rr(1.5,4),R()*TAU);addCirc(x,z,1.4);}
+   for(let i=0;i<5;i++){const lx=cx-90-i*90,lz=cz+rr(-30,30);addB(qtz,lx,Y(lx,lz)+1.2,lz,2.5,2.4,8,R()*TAU);}   // estatuas caídas
    if(ro)for(let i=0;i<4;i++){const p=makePerson({chiton:pick(['#e8dfcc','#d7c9ab']),himation:pick(['#7a5a3a','#8a3f2f','#4f6a7d']),female:i%2===1,hair:'#3b2a1e'});const x=X(cx+16+i*2),z=Z(cz+rr(-6,6));p.position.set(x,floorAt(x,z),z);p.rotation.y=-Math.PI/2;scene.add(p);addCirc(x,z,0.4);}
    P('memnon',grR('El Coloso que canta','Los colosos de Amenhotep'),'ΜΕΜΝΩΝ',grR('Dos estatuas sentadas de dieciocho metros, del faraón Amenhotep III, guardan la entrada de un templo que ya no existe. Desde que un terremoto partió la del norte, en el 27 a.C., al amanecer suena: los griegos dicen que es Memnón, el hijo de la Aurora al que mató Aquiles, que saluda a su madre. Estrabón lo oyó y sospechó un truco; Germánico vino a oírlo en el año 19. En sus piernas hay grabados nombres y poemas de visitantes.\n(Estrabón XVII 1.46; Tácito, Anales II 61; Pausanias I 42.3)',
-      'Dos estatuas sentadas de dieciocho metros, de piedra de cuarcita, del faraón Amenhotep III, que reinó hace más de mil años. Detrás estaba su templo funerario, el mayor de la orilla oeste; las crecidas del Nilo y los reyes posteriores, que se llevaron sus piedras, lo han dejado en nada. Dentro de tres siglos y medio, un terremoto partirá una de las estatuas, y empezará a «cantar» al amanecer.\n(Golvin, p. 39, n.º 12)'),cx+18,cz+26,-Math.PI/2);}
-  // el Rameseo, el templo funerario de Ramsés II («la tumba de Osimandias» de los griegos)
-  {egTemple(X(-110),Z(-110),Math.PI/2,1.25,'El Rameseo');P('rameseo','El Rameseo','ΟΣΥΜΑΝΔΥΑΣ','El templo funerario de Ramsés II. Hecateo de Abdera, que lo vio hacia el 300 a.C., lo llamó la tumba de Osimandias y contó que en la entrada había la estatua más grande de Egipto, con una inscripción: «Soy Osimandias, rey de reyes; si alguien quiere saber lo grande que soy y dónde yazgo, que supere alguna de mis obras». Sus restos inspirarán en 1818 un poema famoso de Shelley. Detrás, almacenes de adobe con bóveda.\n(Diodoro I 47-49; Golvin, p. 39, n.º 15)',-62,-140);}
-  // Medinet Habu, el templo de Ramsés III dentro de su muralla
-  {const cx=-110,cz=175;rectWall(X(cx),Z(cz),120,96,mud,9);egTemple(X(cx-6),Z(cz),Math.PI/2,1.2,'Medinet Habu');
-   {const x=X(cx+64),z=Z(cz),g=grp(x,floorAt(x,z),z,0);for(const s of[-1,1])box(10,16,12,sand,0,8,s*9,g);box(10,4,6,sand,0,14,0,g);addBox(x,z-9,10,12,0);addBox(x,z+9,10,12,0);}
-   P('medinet_habu','Medinet Habu','ΤΖΑΜΕ','El templo funerario de Ramsés III, rodeado por una muralla de adobe y con una puerta en forma de torre de fortaleza, a la manera de Siria. En sus muros, Ramsés cuenta su victoria sobre los Pueblos del Mar, que llegaron por mar y por tierra hacia el 1180 a.C. En tiempos de guerra, la gente de Tebas vivió dentro de sus murallas.'+grR(' Ahora es una aldea, Djeme, con casas dentro del recinto.','')+'\n(Golvin, p. 40)',cx+78,cz+20,-Math.PI/2);}
-  // Deir el-Bahari: las terrazas de la reina Hatshepsut, al pie de la montaña
-  {const x0=-290,z0=-235,c=lam('#d9cba8'),g=grp(X(x0),floorAt(X(x0),Z(z0)),Z(z0),0);
-   box(36,5,60,c,-8,2.5-0.5,0,g);box(26,10,50,c,-38,5,0,g);box(14,14,22,c,-56,7,0,g);box(14,0.6,6,c,15,2.3,0,g).rotation.z=-0.32;box(14,0.6,6,c,-21,7.2,0,g).rotation.z=-0.38;
-   const pl=[];for(let i=0;i<14;i++){for(const[xx,h,y0]of[[9.5,5,0],[-25.5,5,5]]){const pg=new THREE.BoxGeometry(1.2,h,1.2);pg.translate(0,h/2,0);pl.push([pg,new THREE.Matrix4().makeTranslation(X(x0+xx),floorAt(X(x0),Z(z0))+y0,Z(z0-26+i*4))]);}}
-   const pm=new THREE.Mesh(mergeGeos(pl),c);pm.castShadow=true;scene.add(pm);addBox(X(x0-20),Z(z0),72,60,0);
-   P('deir_bahari','Deir el-Bahari','ΔΗΡ ΕΛ ΜΠΑΧΡΙ','Tres terrazas con pórticos de pilares, unidas por rampas, al pie del acantilado: el templo de la reina Hatshepsut, que gobernó Egipto como faraón hace unos mil cien años. En sus relieves se ve la expedición que mandó al país del Punt, al sur del mar Rojo, a buscar incienso, mirra y árboles vivos en macetas.'+grR(' Ahora una de sus capillas es un santuario de Imhotep y de Amenhotep hijo de Hapu, dos sabios divinizados, adonde vienen enfermos a curarse.',' El templo está medio abandonado, y la reina, borrada de muchos muros por su sucesor.')+'\n(Golvin, p. 41)',x0+34,z0+36);}
-  // Deir el-Medina: la aldea de los artesanos de las tumbas, abandonada hace siete siglos
-  {const x0=-300,z0=70,c=lam('#a8865c');for(let i=0;i<9;i++){const z=Z(z0-30+i*7);for(const s of[-1,1]){const x=X(x0+s*6),gy=floorAt(x,z);box(9,rr(0.6,1.6),0.6,c,x,gy+0.4,z);}}
-   for(const s of[-1,1]){const x=X(x0+s*11),gy=floorAt(x,Z(z0));box(0.8,1.4,64,c,x,gy+0.5,Z(z0));}
-   P('deir_medina','Deir el-Medina','ΣΕΤ ΜΑΑΤ','Las ruinas de la aldea de los obreros que excavaban y pintaban las tumbas de los reyes: unas setenta casas a lo largo de una calle, dentro de un muro. Sabían leer y escribir, y dejaron miles de notas en trozos de cerámica: cuentas, quejas, cartas, hasta la primera huelga conocida, hacia el 1155 a.C., cuando no les pagaron el grano. Se abandonó hace más de mil años, al dejar de enterrarse aquí los reyes.\n(Golvin, p. 41)',x0+18,z0+40);}
+      'Dos estatuas sentadas de dieciocho metros, de cuarcita, del faraón Amenhotep III, que reinó hace más de mil años. Detrás, en más de quinientos metros, las ruinas de su templo funerario, el mayor de la orilla oeste: las crecidas del Nilo y los reyes posteriores, que se llevaron sus piedras, lo han dejado en un campo de bloques y estatuas caídas. Dentro de tres siglos y medio, un terremoto partirá una de las estatuas, y empezará a «cantar» al amanecer.\n(Golvin, p. 39, n.º 12)'),cx+18,cz+26,-Math.PI/2);}
+  // el Rameseo (recinto 270 × 175 m, templo de unos 180 m), con sus almacenes abovedados y el coloso de Ramsés II
+  {const cx=-700,cz=-250;encl(cx-150,cz-88,cx+120,cz+88,4,7,mud2,{e:[[cz-25,cz+25]],w:[],n:[],s:[]});
+   pylon(cx+80,cz,Math.PI/2,67,22);wall(cx+20,cz-32,cx+78,cz-32,3,9,sand);wall(cx+20,cz+32,cx+78,cz+32,3,9,sand);pylon(cx+20,cz,Math.PI/2,60,18);
+   for(let i=0;i<4;i++)for(const s of[-1,1])col(cx-5-i*6,cz+s*14,1.1,10,false);
+   for(let i=0;i<6;i++)for(let j=0;j<8;j++)col(cx-35-i*6,cz-21+j*6,1.1,11+(j===3||j===4?3:0),j===3||j===4);
+   {const y=Y(cx-50,cz);addB(sand2,cx-50,y+12,cz,36,1.2,48);addB(sand,cx-92,y+5,cz,34,10,36);addBox(X(cx-92),Z(cz),34,36,0);}
+   const vg=[];for(let i=0;i<10;i++)for(const s of[-1,1]){const lx=cx-140+i*14,lz=cz+s*62,y=Y(lx,lz),g=new THREE.CylinderGeometry(4.5,4.5,40,10,1,false,0,Math.PI);g.rotateZ(Math.PI/2);g.rotateY(Math.PI/2);vg.push([g,new THREE.Matrix4().makeTranslation(X(lx),y+3,Z(lz))]);addB(mud,lx,y+1.5,lz,9,3,40);addBox(X(lx),Z(lz),9,40,0);}
+   const vm=new THREE.Mesh(mergeGeos(vg),mud);vm.castShadow=true;scene.add(vm);
+   {const x=cx+50,z=cz;if(ro){addB(gran,x,Y(x,z)+2,z+4,6,4,9,0.3);addB(gran,x-4,Y(x,z)+1.6,z-5,7,3.2,5,1.1);addB(gran,x+5,Y(x,z)+1,z-2,3,2,3,0.6);}
+    else{const g=grp(X(x),Y(x,z),Z(z),Math.PI/2);box(7,4,9,gran,0,2,0,g);box(6,9,7,gran,0,8.5,-0.5,g);box(5,8,4,gran,0,17,-1.5,g);box(3,3.5,3,gran,0,22.6,-1.3,g);addBox(X(x),Z(z),9,7,Math.PI/2);}}
+   P('rameseo','El Rameseo','ΟΣΥΜΑΝΔΥΑΣ','El templo funerario de Ramsés II, de unos 180 m. Hecateo de Abdera, que lo vio hacia el 300 a.C., lo llamó la tumba de Osimandias y contó que en la entrada había la estatua más grande de Egipto, con una inscripción: «Soy Osimandias, rey de reyes; si alguien quiere saber lo grande que soy y dónde yazgo, que supere alguna de mis obras».'+grR(' Ahora el coloso está roto en el suelo; no se sabe cuándo cayó, quizá en el terremoto del 27 a.C.','')+' Alrededor, filas de almacenes de adobe con bóveda, para el grano y los tesoros del templo. Sus restos inspirarán en 1818 un poema famoso de Shelley.\n(Diodoro I 47-49; Golvin, p. 39, n.º 15)',cx+108,cz-40,-Math.PI/2);}
+  // Medinet Habu: recinto de 210 × 315 m, la puerta alta en forma de fortaleza y el templo de 150 m
+  {const cx=-750,cz=620;encl(cx-150,cz-157,cx+60,cz+157,6,18,mud,{e:[[cz-12,cz+12]],w:[[cz-10,cz+10]],n:[],s:[]});
+   {const x=cx+66,g=grp(X(x),Y(x,cz),Z(cz),0);for(const s of[-1,1])box(18,22,14,sand,0,11,s*11,g);box(18,6,8,sand,0,19,0,g);addBox(X(x),Z(cz-11),18,14,0);addBox(X(x),Z(cz+11),18,14,0);}
+   pylon(cx+10,cz,Math.PI/2,68,24);wall(cx-40,cz-38,cx+8,cz-38,3,12,sand);wall(cx-40,cz+38,cx+8,cz+38,3,12,sand);pylon(cx-42,cz,Math.PI/2,56,20);
+   for(let i=0;i<4;i++)for(let j=0;j<6;j++)col(cx-55-i*7,cz-17+j*6.8,1.2,12,false);
+   {const y=Y(cx-80,cz);addB(sand2,cx-66,y+12.6,cz,28,1.2,44);addB(sand,cx-112,y+6,cz,46,12,44);addBox(X(cx-112),Z(cz),46,44,0);}
+   egTemple(X(cx+20),Z(cz-110),Math.PI/2,0.7,'Templo pequeño de Amón (Medinet Habu)');
+   if(ro){for(let i=0;i<40;i++){const lx=cx+rr(-140,50),lz=cz+rr(-150,150);if(Math.abs(lz-cz)<50&&lx>cx-140)continue;const x=X(lx),z=Z(lz),w=rr(6,10),d=rr(6,10);if(!isFree(x,z,w/2+1))continue;addB(mud,lx,floorAt(x,z)+2,lz,w,4,d,R()<0.5?0:Math.PI/2);addBox(x,z,w,d,0);}}
+   P('medinet_habu','Medinet Habu','ΤΖΑΜΕ','El templo funerario de Ramsés III, de 150 m, dentro de una muralla de adobe de 210 × 315 m y dieciocho de alto, con una puerta en forma de torre de fortaleza, a la manera de Siria. En sus muros, Ramsés cuenta su victoria sobre los Pueblos del Mar, que llegaron por mar y por tierra hacia el 1180 a.C. Junto a la entrada, un templo pequeño de Amón, mucho más antiguo, al que los reyes siguen añadiendo puertas y patios.'+grR(' Ahora el recinto es una aldea, Djeme, con casas apiñadas entre los muros.',' En tiempos de guerra, la gente de Tebas vive dentro de sus murallas.')+'\n(Golvin, p. 40)',cx+82,cz+30,-Math.PI/2);}
+  // Deir el-Bahari: tres terrazas con pórticos de pilares y dos rampas, contra el acantilado (unos 270 m con el patio de abajo)
+  {const cx=-890,cz=-780,c=lam('#d9cba8'),y0=Y(cx,cz);
+   addB(c,cx-30,y0+3,cz,60,8,100);addB(c,cx-82,y0+8,cz,44,14,80);addB(c,cx-118,y0+13,cz,30,24,60);addBox(X(cx-60),Z(cz),120,100,0);
+   addB(c,cx+12,y0+3.2,cz,26,0.8,10,0);addB(c,cx-46,y0+9.4,cz,26,0.8,10,0);
+   const pl=[];for(let i=0;i<22;i++){for(const[xx,h,yy]of[[1.5,7,0],[-51,6,7]]){if(Math.abs(i-10.5)<1.2)continue;const pg=new THREE.BoxGeometry(1.4,h,1.4);pg.translate(0,h/2,0);pl.push([pg,new THREE.Matrix4().makeTranslation(X(cx+xx),y0+yy,Z(cz-46+i*4.4))]);}}
+   const pm=new THREE.Mesh(mergeGeos(pl),c);pm.castShadow=true;scene.add(pm);
+   for(let i=0;i<20;i++)for(const s of[-1,1])ram(cx+40+i*10,cz+s*9,s>0?Math.PI:0);
+   P('deir_bahari','Deir el-Bahari','ΔΗΡ ΕΛ ΜΠΑΧΡΙ','Tres terrazas con pórticos de pilares, unidas por rampas, al pie del acantilado: el templo de la reina Hatshepsut, que gobernó Egipto como faraón hace unos mil cien años. Su arquitecto, Senenmut, lo encajó en el circo de roca. En sus relieves se ve la expedición que mandó al país del Punt, al sur del mar Rojo, a buscar incienso, mirra y árboles vivos en macetas.'+grR(' Ahora una de sus capillas es un santuario de Imhotep y de Amenhotep hijo de Hapu, dos sabios divinizados, adonde vienen enfermos a curarse.',' El templo está medio abandonado, y la reina, borrada de muchos muros por su sucesor.')+'\n(Golvin, p. 41)',cx+60,cz+40,-Math.PI/2);}
+  // Deir el-Medina: la aldea de los artesanos de las tumbas, unas setenta casas en 130 × 50 m, en ruinas
+  {const cx=-980,cz=300;for(let i=0;i<14;i++)for(const s of[-1,1]){const lz=cz-62+i*9,lx=cx+s*10;addB(mud,lx,Y(lx,lz)+0.5,lz,14,rr(0.6,1.8),0.7);}
+   for(const s of[-1,1])addB(mud,cx+s*19,Y(cx,cz)+0.7,cz,1,1.6,132);
+   P('deir_medina','Deir el-Medina','ΣΕΤ ΜΑΑΤ','Las ruinas de la aldea de los obreros que excavaban y pintaban las tumbas de los reyes: unas setenta casas a lo largo de una calle, dentro de un muro. Sabían leer y escribir, y dejaron miles de notas en trozos de cerámica: cuentas, quejas, cartas, hasta la primera huelga conocida, hacia el 1155 a.C., cuando no les pagaron el grano. Se abandonó hace más de mil años, al dejar de enterrarse aquí los reyes.\n(Golvin, p. 41)',cx+30,cz+70,-Math.PI/2);}
   // las tumbas de los reyes: entradas en la ladera de la montaña (en realidad, en un valle escondido detrás de ella)
-  {const ent=[];for(let i=0;i<6;i++){const z=Z(-40+i*26);let x=X(-330);for(let k=0;k<60;k++){if(terrainH(x,z)>7)break;x-=2;}ent.push([x,z]);caveMouth(x,z,Math.PI/2);}
-   const e=ent[2];P('valle_reyes',grR('Las siringas','Las tumbas de los reyes'),'ΣΥΡΙΓΓΕΣ',grR('Unas cuarenta tumbas de reyes, dice Estrabón, excavadas en la roca: galerías largas que bajan a la montaña, por eso los griegos las llaman siringas, «flautas». Están vacías desde hace mil años, pero las pinturas de dioses y estrellas siguen ahí, y los visitantes bajan con antorchas y dejan su nombre escrito en las paredes. En el juego las entradas están en la ladera; las de verdad, en un valle escondido detrás de la montaña.\n(Estrabón XVII 1.46; Diodoro I 46.7)',
-      'Detrás de esta montaña, en un valle seco y escondido, están las tumbas de los grandes faraones, excavadas en la roca y decoradas con los textos del viaje del sol por la noche. Casi todas las saquearon los ladrones hace siglos. En el juego las entradas están en esta ladera; las de verdad, en el valle de detrás.\n(Diodoro I 46.7; Golvin, p. 39, n.º 18)'),e[0]-I.x+14,e[1]-I.z,Math.PI/2);}
-  P('montana_occidental','La montaña de Occidente','ΤΟ ΔΥΤΙΚΟΝ ΟΡΟΣ','La montaña tebana, con su cumbre en forma de pirámide natural, el Qurn: quizá por eso los reyes dejaron de construir pirámides y se enterraron debajo de ella. La protege una diosa serpiente, Meretseger, «la que ama el silencio».\n(Golvin, p. 39, n.º 19)',-250,-60,Math.PI/2);
+  {const ent=[];for(let i=0;i<8;i++){const z=Z(-560+i*40);let x=X(-880);for(let k=0;k<120;k++){if(terrainH(x,z)>14)break;x-=2;}ent.push([x,z]);caveMouth(x,z,Math.PI/2);}
+   const e=ent[3];P('valle_reyes',grR('Las siringas','Las tumbas de los reyes'),'ΣΥΡΙΓΓΕΣ',grR('Unas cuarenta tumbas de reyes, dice Estrabón, excavadas en la roca: galerías largas que bajan a la montaña, por eso los griegos las llaman siringas, «flautas». Están vacías desde hace mil años, pero las pinturas de dioses y estrellas siguen ahí, y los visitantes bajan con antorchas y dejan su nombre escrito en las paredes. En el juego las entradas están en la ladera; las de verdad, en un valle escondido detrás de la montaña.\n(Estrabón XVII 1.46; Diodoro I 46.7)',
+      'Detrás de esta montaña, en un valle seco y escondido, están las tumbas de los grandes faraones, excavadas en la roca y decoradas con los textos del viaje del sol por la noche. Casi todas las saquearon los ladrones hace siglos. En el juego las entradas están en esta ladera; las de verdad, en el valle de detrás.\n(Diodoro I 46.7; Golvin, p. 39, n.º 18)'),e[0]-I.x+16,e[1]-I.z,Math.PI/2);}
+  P('montana_occidental','La montaña de Occidente','ΤΟ ΔΥΤΙΚΟΝ ΟΡΟΣ','La montaña tebana, con su cumbre en forma de pirámide natural, el Qurn: quizá por eso los reyes dejaron de construir pirámides y se enterraron debajo de ella. La protege una diosa serpiente, Meretseger, «la que ama el silencio».\n(Golvin, p. 39, n.º 19)',-860,-430,Math.PI/2);
+  // ---- columnas y bloques, instanciados o fundidos (cientos de piezas en pocas llamadas de dibujo)
+  {const sg=new THREE.CylinderGeometry(1,1.12,1,12);sg.translate(0,0.5,0);const sm=new THREE.InstancedMesh(sg,sand2,COLS.length),m4=new THREE.Matrix4();
+   COLS.forEach((c,i)=>{m4.makeScale(c[3],c[4],c[3]).setPosition(c[0],c[1],c[2]);sm.setMatrixAt(i,m4);});sm.castShadow=true;sm.receiveShadow=true;scene.add(sm);
+   const og=new THREE.CylinderGeometry(1.9,1.05,1.3,12),cg=new THREE.CylinderGeometry(1.2,1.05,1.1,12),O=CAPS.filter(c=>c[4]),C=CAPS.filter(c=>!c[4]);
+   for(const[L,g]of[[O,og],[C,cg]]){if(!L.length)continue;const im=new THREE.InstancedMesh(g,cap,L.length);L.forEach((c,i)=>{m4.makeScale(c[3],c[3],c[3]).setPosition(c[0],c[1]+0.6*c[3],c[2]);im.setMatrixAt(i,m4);});im.castShadow=true;scene.add(im);}}
+  for(const k in BOX){const B=BOX[k],m=new THREE.Mesh(mergeGeos(B.L),B.mat);m.castShadow=true;m.receiveShadow=true;scene.add(m);}
+  if(RAMS.length){const m=new THREE.Mesh(mergeGeos(RAMS),lam('#c9b08a'));m.castShadow=true;scene.add(m);}
   // palmeras en las dos orillas
-  {const pl=[];for(let i=0;i<160;i++){const z=I.z+rr(-I.R,I.R),s=R()<0.5?-1:1,x=nileX(I,z)+s*rr(52,120);if(isFree(x,z,3)&&terrainH(x,z)>1.5)pl.push([x,z]);}egPalms(pl);}
+  {const pl=[];for(let i=0;i<320;i++){const z=I.z+rr(-I.R,I.R),s=R()<0.5?-1:1,x=nileX(I,z)+s*rr(125,230);if(isFree(x,z,3)&&terrainH(x,z)>1.5)pl.push([x,z]);}egPalms(pl);}
   TB.built=true;}
