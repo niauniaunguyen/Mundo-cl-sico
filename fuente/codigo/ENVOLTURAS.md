@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-367 funciones ampliadas, 727 capas.
+368 funciones ampliadas, 730 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -76,6 +76,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `buildDaedalus` | `047_dedalo_encerrado_en_su_propio.js` | 2 | `247`:42 · `900`:366 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
+| `defineSimple` | `012_escenarios_cuadrados.js` | 2 | `282`:14 · `900`:449 |
 | `eduReport` | `099_para_aprender_y_ensenar.js` | 2 | `106`:216 · `111`:140 |
 | `egxSetup` | `060_egipto_2.js` | 2 | `140`:98 · `900`:375 |
 | `findFocus` | `042_entrada.js` | 2 | `218`:25 · `248`:16 |
@@ -91,6 +92,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbSetup` | `087_la_barra_de_objetos_como.js` | 2 | `120`:108 · `900`:379 |
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
+| `islandBase` | `011_construccion_del_mundo.js` | 2 | `188`:29 · `282`:23 |
 | `jump` | `042_entrada.js` | 2 | `174`:28 · `253`:43 |
 | `legChoose` | `210_mas_leyendas.js` | 2 | `237`:20 · `240`:22 |
 | `legLose` | `210_mas_leyendas.js` | 2 | `253`:52 · `254`:132 |
@@ -188,7 +190,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `daedalusTalk` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `240`:36 |
 | `definePlaces` | `011_construccion_del_mundo.js` | 1 | `900`:432 |
 | `defineRiversGR` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `900`:433 |
-| `defineSimple` | `012_escenarios_cuadrados.js` | 1 | `900`:449 |
 | `delfosPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:374 |
 | `destHouses` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:450 |
 | `dogMake` | `179_coleccionar.js` | 1 | `257`:169 |
@@ -196,6 +197,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `drawMap` | `020_plano.js` | 1 | `151`:12 |
 | `eduTeacher` | `099_para_aprender_y_ensenar.js` | 1 | `111`:144 |
 | `eduTrade` | `099_para_aprender_y_ensenar.js` | 1 | `257`:33 |
+| `egFields` | `060_egipto_2.js` | 1 | `282`:31 |
 | `egxAct` | `060_egipto_2.js` | 1 | `103`:15 |
 | `egxObj` | `060_egipto_2.js` | 1 | `085`:6 |
 | `evTick` | `?` | 1 | `194`:104 |
@@ -243,7 +245,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `int2Door` | `204_puertas_a_interiores.js` | 1 | `233`:74 |
 | `int2Leave` | `204_puertas_a_interiores.js` | 1 | `254`:138 |
 | `int2Setup` | `204_puertas_a_interiores.js` | 1 | `208`:17 |
-| `islandBase` | `011_construccion_del_mundo.js` | 1 | `188`:29 |
 | `jmDone` | `211_jugar_mas.js` | 1 | `230`:76 |
 | `jrSetup` | `079_la_jornada_romana_a_partir.js` | 1 | `900`:381 |
 | `k7TradeExtra` | `257_jugabilidad_7.js` | 1 | `271`:17 |

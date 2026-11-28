@@ -72,6 +72,6 @@ function egxSetup(){EGX_OBJS.length=0;EGF.length=0;EGT.k=null;
     if(I.id==='menfis'){const px=I.x-330,pz=I.z-280;egxObj(px,pz-122,undefined,'pir_entrada','Cara norte de la Gran Pirámide',MODE==='roma'?'entrada':'');PYR.ex=px;PYR.ez=pz-128;
       if(MODE==='roma')egPyrInterior(px,pz);
       const z=I.z+150,x=nileX(I,z)-50;egxObj(x,z,undefined,'nilometro','El nilómetro','la medida de la crecida');}}
-  if(MODE==='roma'){const I=destOf('alejandria');if(I){const sh=shoreAlong(I.x+260,I.z,0,-1,I.R*1.6),fx=sh[0],fz=sh[1]-30,gy=floorAt(fx,fz);const top=gy+92;addPlat(fx,fz,20,20,0,top);addCirc(fx,fz,6.7);
+  if(MODE==='roma'){const I=destOf('alejandria');if(I){const[fx,fz]=alxFaro(I),gy=floorAt(fx,fz);const top=gy+92;addPlat(fx,fz,20,20,0,top);addCirc(fx,fz,6.7);
     EGX.faro={x:fx,z:fz,top};egxObj(fx,fz+17,undefined,'faro_subir','Entrada del Faro','subir');egxObj(fx-8,fz,top,'faro_bajar','Bajar del Faro','');}}}
 

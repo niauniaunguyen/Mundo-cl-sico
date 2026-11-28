@@ -65,7 +65,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `056_vida_urbana.js` | 59 | vida urbana: el ritmo del día y escenas públicas que se repiten |
 | `057_oficios.js` | 99 | oficios: talleres y vendedores con su trabajo, su explicación y sus pregones |
 | `058_dias_de_mercado.js` | 55 | días de mercado: puestos con vendedor y pregón, campesinos que llegan e inspectores |
-| `059_egipto.js` | 148 | Egipto: Náucratis y Menfis (modo Atenas, 386 a.C.); Alejandría y Menfis (modo Roma, 80 d.C.) |
+| `059_egipto.js` | 138 | Egipto: Náucratis y Menfis (modo Atenas, 386 a.C.); Alejandría y Menfis (modo Roma, 80 d.C.) |
 | `060_egipto_2.js` | 78 | Egipto (2): jeroglíficos, la Gran Pirámide por dentro, el Faro y la crecida del Nilo |
 | `061_sacar_partido_a_los_diez.js` | 273 | sacar partido a los diez destinos del 386: |
 | `062_game_feel.js` | 163 | GAME FEEL: inercia, cámara viva, aterrizajes, pasos según el suelo, ambiente,<br>modo táctil: acción contextual, joystick flotante, menú en hoja |
@@ -286,4 +286,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `279_optimizacion_3.js` | 101 | OPTIMIZACIÓN SIN PERDER CALIDAD (28/11) |
 | `280_leyendas_2.js` | 266 | LOS PORTALES DE LEYENDA, MEJORADOS (28/11) |
 | `281_atencion_2000.js` | 109 | MIRAR CON ATENCIÓN: 2000 COSAS QUE OBSERVAR EN CADA ÉPOCA (28/11) |
+| `282_alejandria.js` | 178 | ALEJANDRÍA, REHECHA CON ESTRABÓN Y GOLVIN (modo Roma, 80 d.C.) (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
