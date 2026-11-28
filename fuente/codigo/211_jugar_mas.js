@@ -39,7 +39,7 @@ function jmNewDay(){const z=jmz(),d=state.day||1;if(z.enc&&z.enc.day===d)return;
   if(d>1)toast('<span class="label">Encargos de hoy</span><br>'+pick.map(p=>'· '+p.txt).join('<br>'));}
 function jmDone(k,inc){const z=jmz();if(!z.enc)return;for(const e of z.enc.list){if(e.k!==k||e.done)continue;if(e.goal){e.n=(e.n||0)+(inc||1);if(e.n<e.goal){jmPanel();save();return;}}e.done=true;cyPay(3,'Encargo cumplido: '+e.txt);
     if(!z.enc.bonus&&z.enc.list.every(q=>q.done)){z.enc.bonus=true;setTimeout(()=>cyPay(4,'Los tres encargos del día'),1500);try{qAdd('so',1,'Cumples lo que te encargan.');}catch(e){}}save();jmPanel();return;}}
-function jmPanel(){const z=state&&jmz();if(!JM.ui){const d=document.createElement('div');d.id='jmEnc';d.style.cssText='position:fixed;left:16px;top:118px;z-index:20;max-width:300px;background:rgba(26,20,14,.78);color:#f3e6c8;border:1px solid #6a5034;border-radius:8px;padding:4px 10px;font:14px/1.35 var(--text,system-ui);cursor:pointer;user-select:none';
+function jmPanel(){const z=state&&jmz();if(!JM.ui){const d=document.createElement('div');d.id='jmEnc';d.style.cssText='position:fixed;left:16px;top:126px;z-index:20;max-width:300px;background:rgba(26,20,14,.78);color:#f3e6c8;border:1px solid #6a5034;border-radius:8px;padding:4px 10px;font:14px/1.35 var(--text,system-ui);cursor:pointer;user-select:none';
     d.onclick=()=>{JM.open=!JM.open;jmPanel();};document.body.appendChild(d);JM.ui=d;}
   if(!z||!z.enc){JM.ui.hidden=true;return;}const L=z.enc.list,n=L.filter(e=>e.done).length;
   JM.ui.innerHTML='<b>Encargos de hoy</b> '+n+'/'+L.length+' '+(JM.open?'▴':'▾')+(JM.open?'<br>'+L.map(e=>(e.done?'✔ <s>':'· ')+e.txt+(e.goal&&!e.done?' ('+(e.n||0)+'/'+e.goal+')':'')+(e.done?'</s>':'')).join('<br>'):'');}

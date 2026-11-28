@@ -28,7 +28,7 @@ function honTitle(){return honList()[honz().r||0][1];}
 function honCheck(){const z=honz(),sc=honScore(),r=honRank(sc);if(r<=(z.r||0))return;
   let gift=0;for(let k=(z.r||0)+1;k<=r;k++)gift+=k*5;state.obols+=gift;
   const R=honList()[r];z.r=r;save();updateStats();try{qAdd('kl',2,'Honra: '+R[1]);}catch(e){}try{sfxCoin();}catch(e){}
-  const show=()=>{if(ui!=='play'){setTimeout(show,1500);return;}vmS(MODE==='roma'?'✦':'✦','La honra',R[1],R[3]+'<p class="sub">Fuente: '+R[4]+' · +'+gift+' '+(MODE==='roma'?'sestercios':'óbolos')+', +2 Kléos</p>'+(r<honList().length-1?'<p class="sub">Siguiente honor: <b>'+honList()[r+1][1]+'</b> ('+sc+'/'+honList()[r+1][0]+' de honra). Míralo en el diario › La honra.</p>':'<p class="sub">Has alcanzado el honor más alto.</p>'),[vmBye]);};
+  const show=()=>{if(ui!=='play'){setTimeout(show,1500);return;}vmS(MODE==='roma'?'✦':'✦','La honra',R[1],R[3]+'<p class="sub">Fuente: '+R[4]+' · +'+gift+' '+(MODE==='roma'?'sestercios':'óbolos')+', +2 Kléos</p>'+(r<honList().length-1?'<p><b>Tu próxima meta: '+honList()[r+1][1]+'</b> — '+honList()[r+1][2]+'</p><p class="sub">Tienes '+sc+' de '+(MODE==='roma'?'dignitas':'honra')+'; te faltan '+(honList()[r+1][0]-sc)+'. Al llegar: una ceremonia y '+(r+1)*5+' '+(MODE==='roma'?'sestercios':'óbolos')+'. Míralo en Metas.</p>':'<p class="sub">Has alcanzado el honor más alto.</p>'),[vmBye]);};
   setTimeout(show,800);}
 function honPage(){const ro=MODE==='roma',sc=honScore(),L=honList(),r=honRank(sc),nx=L[r+1];
   let h='<p>'+(ro?'En Roma importa la <b>dignitas</b>: el prestigio que te da lo que haces por los demás.':'En Atenas importa la <b>timḗ</b>, la honra: lo que la ciudad reconoce de ti.')+' Todo lo que haces la aumenta.</p>';

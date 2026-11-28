@@ -7,18 +7,18 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-345 funciones ampliadas, 683 capas.
+350 funciones ampliadas, 693 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
 | `uxTick` | `091_para_que_sirven_los_objetos.js` | 60 | `146`:39 · `146`:85 · `146`:138 · `146`:156 · `148`:158 · `149`:354 · `151`:84 · `154`:32 · `156`:63 · `157`:84 · `158`:44 · `160`:32 · `164`:18 · `165`:46 · `166`:41 · `168`:45 · `170`:24 · `171`:38 · `172`:68 · `172`:118 · `173`:11 · `174`:48 · `175`:118 · `176`:30 · `179`:75 · `180`:67 · `181`:57 · `182`:69 · `184`:62 · `184`:84 · `186`:123 · `186`:158 · `186`:180 · `196`:38 · `196`:48 · `196`:88 · `198`:60 · `199`:38 · `200`:61 · `202`:76 · `203`:89 · `204`:185 · `205`:174 · `206`:50 · `208`:25 · `208`:148 · `208`:207 · `209`:16 · `211`:120 · `212`:105 · `213`:161 · `214`:130 · `215`:50 · `216`:155 · `217`:91 · `218`:72 · `218`:83 · `219`:81 · `220`:35 · `222`:65 |
-| `gfTick` | `062_game_feel.js` | 40 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:77 · `242`:39 · `243`:49 · `244`:22 · `246`:8 · `249`:52 · `252`:87 · `253`:69 · `255`:131 · `256`:69 · `257`:191 · `258`:18 · `259`:147 · `260`:124 · `261`:122 · `262`:97 · `263`:30 · `264`:105 · `265`:62 · `266`:109 · `267`:165 · `268`:46 · `269`:54 · `271`:109 · `272`:97 · `273`:81 · `274`:93 · `275`:45 |
+| `gfTick` | `062_game_feel.js` | 42 | `226`:121 · `227`:146 · `229`:159 · `230`:99 · `231`:134 · `232`:67 · `233`:83 · `234`:145 · `235`:117 · `236`:100 · `238`:33 · `239`:12 · `240`:77 · `242`:39 · `243`:49 · `244`:22 · `246`:8 · `249`:52 · `252`:87 · `253`:69 · `255`:131 · `256`:69 · `257`:191 · `258`:18 · `259`:147 · `260`:124 · `261`:122 · `262`:97 · `263`:30 · `264`:105 · `265`:62 · `266`:109 · `267`:165 · `268`:46 · `269`:54 · `271`:109 · `272`:97 · `273`:81 · `274`:93 · `275`:45 · `276`:119 · `276`:137 |
 | `egxAct0` | `060_egipto_2.js` | 22 | `113`:116 · `114`:118 · `117`:78 · `118`:73 · `119`:84 · `120`:100 · `120`:149 · `125`:37 · `132`:208 · `139`:49 · `140`:34 · `149`:352 · `150`:16 · `152`:70 · `153`:46 · `172`:100 · `175`:117 · `177`:88 · `178`:64 · `179`:72 · `204`:184 · `211`:87 |
 | `atCands` | `085_mirar_con_atencion.js` | 12 | `106`:201 · `126`:43 · `127`:121 · `133`:29 · `137`:46 · `146`:16 · `173`:21 · `197`:10 · `197`:16 · `214`:127 · `218`:49 · `248`:20 |
 | `gmDo` | `068_menu_del_juego.js` | 12 | `099`:140 · `101`:73 · `212`:22 · `213`:123 · `216`:142 · `219`:83 · `220`:110 · `223`:18 · `227`:148 · `230`:96 · `232`:63 · `235`:113 |
+| `gmRight` | `121_menu_de_esc.js` | 9 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 · `276`:125 |
 | `openDialog` | `015_dialogo.js` | 9 | `131`:88 · `151`:63 · `154`:10 · `170`:28 · `170`:45 · `211`:46 · `229`:116 · `229`:154 · `235`:104 |
 | `bpMake` | `184_personajes_blender.js` | 8 | `186`:68 · `196`:42 · `214`:66 · `218`:17 · `221`:55 · `233`:79 · `233`:81 · `269`:40 |
-| `gmRight` | `121_menu_de_esc.js` | 8 | `134`:26 · `138`:40 · `148`:139 · `158`:40 · `166`:38 · `179`:73 · `180`:42 · `202`:74 |
 | `updateSky` | `003_escena.js` | 8 | `089`:6 · `090`:90 · `123`:74 · `207`:18 · `208`:206 · `212`:34 · `231`:67 · `275`:40 |
 | `accMenu` | `099_para_aprender_y_ensenar.js` | 7 | `148`:150 · `151`:75 · `180`:60 · `189`:34 · `191`:14 · `200`:58 · `274`:83 |
 | `dzReport` | `151_diez_ideas.js` | 7 | `154`:17 · `158`:43 · `162`:10 · `166`:44 · `169`:18 · `180`:27 · `192`:62 |
@@ -38,6 +38,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `chooseMode` | `900_creta_y_arranque.js` | 4 | `147`:63 · `225`:221 · `232`:17 · `243`:17 |
 | `int2Enter` | `204_puertas_a_interiores.js` | 4 | `210`:19 · `240`:34 · `253`:58 · `254`:136 |
 | `legStart` | `210_mas_leyendas.js` | 4 | `237`:92 · `240`:58 · `253`:32 · `254`:121 |
+| `updateStats` | `014_hud.js` | 4 | `077`:78 · `199`:35 · `229`:55 · `276`:101 |
 | `applyFlats` | `001_terreno.js` | 3 | `146`:60 · `185`:64 · `900`:406 |
 | `buildIslandMesh` | `012_escenarios_cuadrados.js` | 3 | `161`:13 · `222`:45 · `900`:446 |
 | `destTrees` | `013_destinos_nuevos_grecia_italia_hispania.js` | 3 | `125`:39 · `222`:53 · `900`:451 |
@@ -56,7 +57,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `phToggle` | `086_el_anfiteatro_flavio_por_dentro.js` | 3 | `089`:37 · `134`:22 · `211`:114 |
 | `readSign` | `015_dialogo.js` | 3 | `190`:53 · `192`:57 · `202`:62 |
 | `trPrice` | `099_para_aprender_y_ensenar.js` | 3 | `211`:52 · `257`:20 · `271`:16 |
-| `updateStats` | `014_hud.js` | 3 | `077`:78 · `199`:35 · `229`:55 |
 | `updateTorch` | `040_caballo.js` | 3 | `090`:88 · `201`:57 · `202`:63 |
 | `v2Spd` | `114_vida_2.js` | 3 | `174`:16 · `202`:59 · `254`:140 |
 | `accApply` | `099_para_aprender_y_ensenar.js` | 2 | `189`:39 · `258`:17 |
@@ -111,6 +111,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `tutStart` | `049_discipulos.js` | 2 | `157`:82 · `227`:141 |
 | `wxSpeed` | `090_el_tiempo.js` | 2 | `091`:31 · `097`:69 |
 | `wxTick` | `090_el_tiempo.js` | 2 | `097`:68 · `204`:187 |
+| `x4Btn` | `229_jugabilidad_4.js` | 2 | `276`:106 · `276`:127 |
 | `accSave` | `099_para_aprender_y_ensenar.js` | 1 | `154`:31 |
 | `accSpeak` | `099_para_aprender_y_ensenar.js` | 1 | `160`:15 |
 | `acroteria` | `008_edificios.js` | 1 | `265`:17 |
@@ -226,6 +227,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hmBeacon` | `205_hermes_y_el_caduceo.js` | 1 | `229`:51 |
 | `hmClear` | `205_hermes_y_el_caduceo.js` | 1 | `229`:52 |
 | `honCheck` | `158_honra.js` | 1 | `160`:30 |
+| `honParts` | `158_honra.js` | 1 | `276`:32 |
 | `horaRomana` | `055_los_fastos.js` | 1 | `207`:39 |
 | `horseXP` | `046_el_caballo.js` | 1 | `077`:94 |
 | `hourLabel` | `003_escena.js` | 1 | `090`:96 |
@@ -261,10 +263,12 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `msgBtn` | `200_el_mensajero.js` | 1 | `225`:218 |
 | `mtSetup` | `092_ayuda_sin_llevar_de_la.js` | 1 | `900`:385 |
 | `natSpring` | `093_la_naturaleza_entre_las_ciudades.js` | 1 | `102`:84 |
+| `obFinish` | `157_llegada.js` | 1 | `276`:116 |
 | `obSay` | `157_llegada.js` | 1 | `160`:18 |
 | `ofSetup` | `057_oficios.js` | 1 | `900`:387 |
 | `openJournal` | `019_biblioteca.js` | 1 | `128`:74 |
 | `openMap` | `020_plano.js` | 1 | `154`:12 |
+| `origen` | `053_forastero_a.js` | 1 | `276`:28 |
 | `ovidSetup` | `075_las_metamorfosis_de_ovidio_libros.js` | 1 | `900`:388 |
 | `pad` | `011_construccion_del_mundo.js` | 1 | `188`:35 |
 | `personMat` | `009_personas.js` | 1 | `183`:18 |
@@ -356,3 +360,4 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `x3Furnish` | `217_graficos_3.js` | 1 | `243`:30 |
 | `x3Gulls` | `217_graficos_3.js` | 1 | `242`:35 |
 | `x3PigTick` | `217_graficos_3.js` | 1 | `242`:30 |
+| `x4Missions` | `229_jugabilidad_4.js` | 1 | `276`:108 |
