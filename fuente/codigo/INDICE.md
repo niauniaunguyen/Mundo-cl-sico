@@ -292,4 +292,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `285_tebas_egipto.js` | 242 | TEBAS DE EGIPTO: destino nuevo en las dos épocas (28/11) |
 | `286_tebas_modelos.js` | 112 | TEBAS: MODELOS MEJORADOS CASI SIN COSTE (28/11) |
 | `287_giza.js` | 65 | GIZA: LAS PIRÁMIDES, LA ESFINGE Y SUS TEMPLOS (Menfis, las dos épocas) (28/11) |
+| `288_buceo.js` | 310 | EL BUCEO, MEJORADO: 20 PROPUESTAS (28/11) |
+| `289_buceo_2.js` | 208 | EL BUCEO (2): LA RESPIRACIÓN, LA FAUNA, EL PORTAL, EL PALACIO DE POSEIDÓN Y LA ATLÁNTIDA (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
