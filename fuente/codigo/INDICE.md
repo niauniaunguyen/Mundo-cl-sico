@@ -288,4 +288,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `281_atencion_2000.js` | 109 | MIRAR CON ATENCIÓN: 2000 COSAS QUE OBSERVAR EN CADA ÉPOCA (28/11) |
 | `282_alejandria.js` | 180 | ALEJANDRÍA, REHECHA CON ESTRABÓN Y GOLVIN (modo Roma, 80 d.C.) (28/11) |
 | `283_ostia_portus.js` | 48 | OSTIA: EL TÍBER Y EL PUERTO DE CLAUDIO (modo Roma, 80 d.C.) (28/11) |
+| `284_acropolis_golvin.js` | 22 | LA ACRÓPOLIS, COMPLETADA CON GOLVIN (modo Atenas, 386 a.C.) (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-368 funciones ampliadas, 731 capas.
+368 funciones ampliadas, 732 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -77,6 +77,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `buildDaedalus` | `047_dedalo_encerrado_en_su_propio.js` | 2 | `247`:42 · `900`:366 |
 | `buildGeoGR` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `125`:11 · `900`:412 |
 | `colSetup` | `086_el_anfiteatro_flavio_por_dentro.js` | 2 | `120`:137 · `900`:405 |
+| `definePlaces` | `011_construccion_del_mundo.js` | 2 | `284`:21 · `900`:432 |
 | `defineSimple` | `012_escenarios_cuadrados.js` | 2 | `282`:14 · `900`:449 |
 | `eduReport` | `099_para_aprender_y_ensenar.js` | 2 | `106`:216 · `111`:140 |
 | `egxSetup` | `060_egipto_2.js` | 2 | `140`:98 · `900`:375 |
@@ -188,7 +189,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `cyAct` | `096_la_ciudad_mas_viva.js` | 1 | `097`:102 |
 | `cySetup` | `096_la_ciudad_mas_viva.js` | 1 | `900`:373 |
 | `daedalusTalk` | `047_dedalo_encerrado_en_su_propio.js` | 1 | `240`:36 |
-| `definePlaces` | `011_construccion_del_mundo.js` | 1 | `900`:432 |
 | `defineRiversGR` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `900`:433 |
 | `delfosPlus` | `069_delfos_y_las_termopilas_ampliados.js` | 1 | `900`:374 |
 | `destHouses` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:450 |
