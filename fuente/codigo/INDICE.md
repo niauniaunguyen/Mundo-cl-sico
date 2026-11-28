@@ -281,4 +281,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `274_optimizacion_chromebook.js` | 98 | OPTIMIZACIÓN PARA CHROMEBOOKS Y MINI-PC (28/11) |
 | `275_inframundo_2.js` | 64 | EL INFRAMUNDO, MÁS CREÍBLE (28/11) |
 | `276_metas.js` | 138 | METAS: QUE EL JUGADOR SEPA QUÉ PUEDE CONSEGUIR, Y QUIERA CONSEGUIRLO (28/11) |
+| `277_homero_y_quios.js` | 26 | HOMERO Y QUÍOS: LO QUE TE DICEN POR SER QUIOTA (28/11) |
+| `278_menu_legible.js` | 46 | EL PANEL DE METAS, LEGIBLE (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

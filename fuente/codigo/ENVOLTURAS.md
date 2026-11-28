@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-350 funciones ampliadas, 693 capas.
+351 funciones ampliadas, 695 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -99,6 +99,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `netPresence` | `045_modo_libre_en_linea_hasta.js` | 2 | `211`:117 · `213`:151 |
 | `newDay` | `014_hud.js` | 2 | `090`:109 · `202`:61 |
 | `pdRender` | `162_panel_docente.js` | 2 | `169`:23 · `180`:29 |
+| `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `129`:79 · `277`:25 |
 | `playerLook` | `040_caballo.js` | 2 | `076`:135 · `101`:50 |
 | `profeOpen` | `052_las_nueve_musas_mnemosine_y.js` | 2 | `162`:32 · `180`:41 |
 | `progAct` | `076_progresion.js` | 2 | `083`:82 · `090`:104 |
@@ -276,7 +277,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `pieceAt` | `031_roma.js` | 1 | `272`:54 |
 | `pjAvatar` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `101`:51 |
 | `pjDlg` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `227`:140 |
-| `pjGreet` | `052_las_nueve_musas_mnemosine_y.js` | 1 | `129`:79 |
 | `placeCamera` | `040_caballo.js` | 1 | `227`:111 |
 | `placeModules` | `005_modelos_de_blender.js` | 1 | `264`:78 |
 | `placeNewNPCs` | `013_destinos_nuevos_grecia_italia_hispania.js` | 1 | `900`:438 |
@@ -361,3 +361,4 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `x3Gulls` | `217_graficos_3.js` | 1 | `242`:35 |
 | `x3PigTick` | `217_graficos_3.js` | 1 | `242`:30 |
 | `x4Missions` | `229_jugabilidad_4.js` | 1 | `276`:108 |
+| `x4Panel` | `229_jugabilidad_4.js` | 1 | `278`:38 |
