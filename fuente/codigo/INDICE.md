@@ -284,4 +284,5 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `277_homero_y_quios.js` | 26 | HOMERO Y QUÍOS: LO QUE TE DICEN POR SER QUIOTA (28/11) |
 | `278_menu_legible.js` | 67 | EL PANEL DE METAS, LEGIBLE (28/11) |
 | `279_optimizacion_3.js` | 101 | OPTIMIZACIÓN SIN PERDER CALIDAD (28/11) |
+| `280_leyendas_2.js` | 266 | LOS PORTALES DE LEYENDA, MEJORADOS (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
