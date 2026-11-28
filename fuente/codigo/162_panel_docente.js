@@ -1,0 +1,32 @@
+// ============================================================ PANEL DE CLASE PARA EL DOCENTE (sin servidor: los datos no salen del ordenador)
+// Cada informe que descarga un alumno lleva al final un bloque de datos (JSON). En el modo profesor, «Panel de clase» abre los informes
+// que el docente arrastre o elija (uno por alumno) y muestra la clase en una tabla: progreso, honra, preguntas, atascos y encuesta.
+// Resume dónde se atasca más gente y exporta todo a una hoja de cálculo (CSV). No se envía nada a ningún sitio.
+const PANEL_MARK='--- datos para el panel del docente ---';
+function pdData(){const s=state,z=(()=>{try{return ptz();}catch(e){return{};}})();let am=[];try{am=amList().filter(t=>amz().seen[t.id]).map(t=>t.t);}catch(e){}
+  return{v:1,nombre:(s.pj&&s.pj.name)||'',modo:MODE,dia:s.day||1,fecha:new Date().toISOString(),min:Math.round((z.play||0)/60),lecciones:(s.lessons||[]).length,lugares:(s.places||[]).length,
+    suenos:Object.keys(s.seen||{}).filter(k=>k.startsWith('ep:')).length,honra:(()=>{try{return honScore();}catch(e){return 0;}})(),titulo:(()=>{try{return honTitle();}catch(e){return'';}})(),
+    ok:z.qok||0,ko:z.qko||0,atascos:(z.stuck||[]).map(x=>({w:x.w,m:x.m})),encuesta:z.surv||null,diosa:am,cartas:(()=>{try{return dzz().cartas||0;}catch(e){return 0;}})(),votos:(()=>{try{return asz().votes||0;}catch(e){return 0;}})()};}
+{const f=dzReport;dzReport=function(){return f()+'\n\n'+PANEL_MARK+'\n'+JSON.stringify(pdData());};}
+function pdParse(txt){const i=txt.indexOf(PANEL_MARK);try{return JSON.parse(i>=0?txt.slice(i+PANEL_MARK.length).trim():txt);}catch(e){return null;}}
+const PD={rows:[]};
+function pdOpen(){const o=eduOverlay('panelBox','Panel de clase','<p>Arrastra aquí los informes de tus alumnos (los archivos <b>nostos_informe…txt</b> que descargan desde «Aprender › ¿Qué he aprendido?» o al terminar una prueba), o elígelos con el botón. Todo se queda en este ordenador.</p>'+
+  '<div id="pdDrop" style="border:2px dashed #c98a4a;border-radius:12px;padding:22px;text-align:center;margin:10px 0">Suelta aquí los informes · <label style="text-decoration:underline;cursor:pointer">elegir archivos<input id="pdFile" type="file" multiple accept=".txt,.json" style="display:none"></label></div><div id="pdOut"></div>');
+  const add=files=>{let n=0,pend=files.length;for(const fl of files){const r=new FileReader();r.onload=()=>{const d=pdParse(String(r.result));if(d&&d.v){const k=(d.nombre||'?')+'|'+d.modo;const j=PD.rows.findIndex(x=>(x.nombre||'?')+'|'+x.modo===k);if(j>=0){if((d.fecha||'')>(PD.rows[j].fecha||''))PD.rows[j]=d;}else PD.rows.push(d);n++;}if(--pend===0){pdRender();toast(n+' informe(s) leído(s).');}};r.readAsText(fl);}};
+  $('pdFile').onchange=e=>add([...e.target.files]);const dr=$('pdDrop');dr.ondragover=e=>{e.preventDefault();dr.style.background='rgba(201,138,74,.15)';};dr.ondragleave=()=>dr.style.background='';dr.ondrop=e=>{e.preventDefault();dr.style.background='';add([...e.dataTransfer.files]);};pdRender();}
+function pdRender(){const O=$('pdOut');if(!O)return;const R=PD.rows;if(!R.length){O.innerHTML='<p class="sub">Aún no hay informes.</p>';return;}
+  const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const avg=k=>Math.round(R.reduce((a,r)=>a+(+r[k]||0),0)/R.length*10)/10;
+  const st={};for(const r of R)for(const a of r.atascos||[]){const w=a.w.split(' · ')[0];st[w]=st[w]||{n:0,m:0};st[w].n++;st[w].m+=a.m;}
+  const top=Object.entries(st).sort((a,b)=>b[1].n-a[1].n||b[1].m-a[1].m).slice(0,6);
+  const sv=R.filter(r=>r.encuesta);const fun=sv.length?Math.round(sv.reduce((a,r)=>a+(r.encuesta.fun||0),0)/sv.length*10)/10:'—',clr=sv.length?Math.round(sv.reduce((a,r)=>a+(r.encuesta.clear||0),0)/sv.length*10)/10:'—';
+  let h='<h3>Resumen de la clase ('+R.length+')</h3><p>Media: <b>'+avg('lecciones')+'</b> lecciones · <b>'+avg('lugares')+'</b> lugares · <b>'+avg('honra')+'</b> de honra · <b>'+avg('min')+'</b> min de juego.<br>Encuesta ('+sv.length+'): diversión <b>'+fun+'</b>/5 · claridad <b>'+clr+'</b>/5</p>';
+  h+='<p><b>Dónde se atascan más:</b> '+(top.length?top.map(([w,v])=>esc(w)+' ('+v.n+' alumno'+(v.n>1?'s':'')+', '+v.m+' min)').join(' · '):'en ningún sitio')+'</p>';
+  h+='<div style="overflow:auto"><table style="border-collapse:collapse;width:100%;font-size:.92em"><tr>'+['Alumno','Modo','Min','Lecciones','Lugares','Sueños','Honra','Preguntas','Atascos','Diversión','Aprendió'].map(t=>'<th style="text-align:left;border-bottom:1px solid #6a4a30;padding:4px">'+t+'</th>').join('')+'</tr>'+
+    R.sort((a,b)=>(a.nombre||'').localeCompare(b.nombre||'')).map(r=>'<tr>'+[esc(r.nombre),r.modo==='roma'?'Roma':'Atenas',r.min,r.lecciones,r.lugares,r.suenos,r.honra+' · '+esc(r.titulo),r.ok+' ✓ / '+r.ko+' ✗',(r.atascos||[]).length,r.encuesta?r.encuesta.fun+'/5':'—',esc(r.encuesta&&r.encuesta.learn||'')].map(c=>'<td style="border-bottom:1px solid #3a2a1e;padding:4px;vertical-align:top">'+c+'</td>').join('')+'</tr>').join('')+'</table></div>';
+  h+='<p><button id="pdCsv" style="padding:8px 14px;border-radius:8px;border:1px solid #c98a4a;background:#c98a4a;color:#1e1712;font:inherit;cursor:pointer">Exportar a hoja de cálculo (CSV)</button> <button id="pdClr" style="padding:8px 14px;border-radius:8px;border:1px solid #6a4a30;background:#1e1712;color:#f3e6cf;font:inherit;cursor:pointer">Vaciar</button></p>';
+  O.innerHTML=h;$('pdClr').onclick=()=>{PD.rows=[];pdRender();};
+  $('pdCsv').onclick=()=>{const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';const L=[['alumno','modo','minutos','lecciones','lugares','suenos','honra','titulo','aciertos','fallos','atascos','diversion','claridad','gusto','perdido','aprendido'].join(';')];
+    for(const r of R){const e=r.encuesta||{};L.push([r.nombre,r.modo,r.min,r.lecciones,r.lugares,r.suenos,r.honra,r.titulo,r.ok,r.ko,(r.atascos||[]).map(a=>a.w+' ('+a.m+'m)').join(' | '),e.fun||'',e.clear||'',e.like||'',e.lost||'',e.learn||''].map(q).join(';'));}
+    const b=new Blob(['﻿'+L.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='nostos_clase.csv';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);};}
+{const f=profeOpen;profeOpen=function(){f.apply(this,arguments);try{const A=$('profeA');if(A&&PROFE.ok){const x=document.createElement('button');x.textContent='Panel de clase';x.style.fontWeight='bold';x.onclick=()=>{profeClose();setTimeout(pdOpen,60);};A.insertBefore(x,A.firstChild);}}catch(e){}};}

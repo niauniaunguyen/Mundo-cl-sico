@@ -1,0 +1,1001 @@
+# PSRC: fuentes y notas de los lugares de Atenas y Grecia
+
+@857c7de9
+Plató, Protàgores 325c-326c
+Plato, Protagoras 325c-326c
+
+@d4ba0cf8
+Heròdot VI 27 (una escola de Quios el sostre de la qual s'enfonsa, 494)
+Herodotus VI 27 (a school on Chios whose roof collapses, 494)
+
+@affe2991
+D. Hernández de la Fuente i R. López Melero, Civilización griega (Madrid, 2014), cap. 3.1
+D. Hernández de la Fuente and R. López Melero, Civilización griega (Madrid, 2014), ch. 3.1
+
+@1bdfac15
+=
+=
+
+@24cc02c2
+L'escola del joc és genèrica; no sabem on eren les escoles ateneses.
+The game's school is generic; we don't know where Athenian schools were.
+
+@381f54cb
+IG II² 2642-2775 (horoi de l'Àtica)
+IG II² 2642-2775 (horoi of Attica)
+
+@500fee3b
+=
+=
+
+@cae36af9
+El text de la fita és un exemple amb la fórmula habitual («venut amb dret de recompra»); el nom és inventat.
+The text of the boundary stone is an example with the usual formula («sold with right of redemption»); the name is invented.
+
+@ac48eafe
+Heròdot VII 43
+Herodotus VII 43
+
+@1b6d480c
+Xenofont, Hel·lèniques I 1.4
+Xenophon, Hellenica I 1.4
+
+@89ad0a35
+Arrià, Anàbasi I 11.7-8 (armes troianes al temple; Alexandre)
+Arrian, Anabasis I 11.7-8 (Trojan arms in the temple; Alexander)
+
+@eb07ea6b
+=
+=
+
+@a3e9215f
+El temple del joc és petit i genèric; el gran temple hel·lenístic d'Atena es va construir després d'Alexandre.
+The game's temple is small and generic; the great Hellenistic temple of Athena was built after Alexander.
+
+@996ce572
+Homer, Ilíada VII 452-453 i XXI 441-457 (Posidó i Apol·lo construeixen els murs)
+Homer, Iliad VII 452-453 and XXI 441-457 (Poseidon and Apollo build the walls)
+
+@779850fb
+=
+=
+
+@4f548d97
+Els murs del joc evoquen els de Troia VI (c. 1700-1250 aC), molt esquemàtics.
+The game's walls evoke those of Troy VI (c. 1700-1250 BC), very schematically.
+
+@f395e74b
+Homer, Odissea XXIV 71-84
+Homer, Odyssey XXIV 71-84
+
+@daeec0c4
+Arrià, Anàbasi I 12.1 (Alexandre a la tomba)
+Arrian, Anabasis I 12.1 (Alexander at the tomb)
+
+@7bffbba4
+Estrabó XIII 1.32
+Strabo XIII 1.32
+
+@4e3ecb8b
+=
+=
+
+@6d54f6aa
+La identificació dels túmuls de la Tròade amb tombes concretes és tradicional, no arqueològica.
+Identifying the burial mounds of the Troad with particular tombs is traditional, not archaeological.
+
+@d65496ec
+Estrabó XIII 1.30
+Strabo XIII 1.30
+
+@373df310
+Pausànias I 35.4-5
+Pausanias I 35.4-5
+
+@5508fd07
+Sòfocles, Àiax
+Sophocles, Ajax
+
+@38794fe8
+=
+=
+
+@afc83bc6
+Homer, Ilíada XXI 1-384 (la batalla al costat del riu)
+Homer, Iliad XXI 1-384 (the battle by the river)
+
+@b075dffb
+Pausànias IX 5 i 12
+Pausanias IX 5 and 12
+
+@866bfbd9
+Xenofont, Hel·lèniques V 2.25-36 (ocupació espartana, 382)
+Xenophon, Hellenica V 2.25-36 (Spartan occupation, 382)
+
+@a6eff30a
+=
+=
+
+@f85f25ab
+La planta de Tebes al joc és esquemàtica; la ciutat clàssica s'estenia també fora de la Cadmea.
+The plan of Thebes in the game is schematic; the classical city also spread beyond the Cadmea.
+
+@dce8a70f
+Èsquil, Els set contra Tebes 375-652
+Aeschylus, Seven against Thebes 375-652
+
+@01967dbf
+Pausànias IX 8.4-7
+Pausanias IX 8.4-7
+
+@50e4d672
+Eurípides, Fenícies 1104-1140
+Euripides, Phoenician Women 1104-1140
+
+@4595f0d9
+=
+=
+
+@1df79c10
+Els noms de les portes varien entre les fonts; el seu nombre potser és més literari que real.
+The names of the gates vary between sources; their number may be more literary than real.
+
+@32efa00d
+Pausànias IX 12.3-4 (la cambra de Sèmele)
+Pausanias IX 12.3-4 (Semele's chamber)
+
+@7d8e39bf
+Eurípides, Bacants 6-12
+Euripides, Bacchae 6-12
+
+@aebc6d1d
+=
+=
+
+@9ab5af0f
+Pausànias IX 11.1
+Pausanias IX 11.1
+
+@1e871f6a
+Píndar, Nemea I 33-72
+Pindar, Nemean I 33-72
+
+@551c6a8e
+Plaute, Amfitrió (versió còmica posterior)
+Plautus, Amphitryon (later comic version)
+
+@044df063
+Eurípides, Antíope (fragments)
+Euripides, Antiope (fragments)
+
+@9126458c
+Apol·lodor, Biblioteca III 5.5
+Apollodorus, Library III 5.5
+
+@8acb0043
+Pausànias IX 17.6
+Pausanias IX 17.6
+
+@0deb8140
+Arrià, Anàbasi I 9.10
+Arrian, Anabasis I 9.10
+
+@f19c3ca8
+Plutarc, Alexandre 11.12
+Plutarch, Alexander 11.12
+
+@02b193db
+Pausànias IX 25.3
+Pausanias IX 25.3
+
+@6634f022
+La seva ubicació al costat de Dirce segueix Pausànias; la casa del joc és genèrica.
+Its location by Dirce follows Pausanias; the house in the game is generic.
+
+@0b498964
+Heròdot I 52, V 59-61 i VIII 134
+Herodotus I 52, V 59-61 and VIII 134
+
+@cc694654
+Pausànias IX 10.2-6
+Pausanias IX 10.2-6
+
+@5c62b437
+=
+=
+
+@f27d4ef8
+Tucídides II 18 (Ènoe, fortalesa al camí de Beòcia)
+Thucydides II 18 (Oenoe, a fortress on the road to Boeotia)
+
+@d68c875c
+Xenofont, Hel·lèniques V 4.14 (Cabries guarda Eleuteres)
+Xenophon, Hellenica V 4.14 (Chabrias guards Eleutherae)
+
+@5b3c445d
+=
+=
+
+@a2ac539e
+Al joc el camí surt de la porta nord; en realitat, el camí de Beòcia per Eleuteres sortia cap al nord-oest.
+In the game the road leaves from the north gate; in reality the road to Boeotia via Eleutherae set out to the north-west.
+
+@3fc48123
+IG II² 2318 (Fasti de les Dionísies: el 386 «els tràgics van presentar per primera vegada un drama antic»)
+IG II² 2318 (Fasti of the Dionysia: in 386 «the tragedians for the first time presented an old drama»)
+
+@55d60ea1
+Aristòtil, Poètica 1449a (tres actors)
+Aristotle, Poetics 1449a (three actors)
+
+@3b777abc
+Pòl·lux, Onomàstic IV 106-110 i 133-142 (cor, màscares)
+Pollux, Onomasticon IV 106-110 and 133-142 (chorus, masks)
+
+@850ddd4a
+A. Pickard-Cambridge, The Dramatic Festivals of Athens (2a ed., 1968)
+A. Pickard-Cambridge, The Dramatic Festivals of Athens (2nd ed., 1968)
+
+@698e0d15
+=
+=
+
+@0cb5040d
+Les funcions es feien de dia, a partir de l'alba, i només als festivals; la funció nocturna amb torxes és una llicència del joc. No sabem quina tragèdia antiga es va reposar el 386.
+Performances took place by day, from dawn, and only at festivals; the night performance by torchlight is a licence of the game. We don't know which old tragedy was revived in 386.
+
+@166e1c34
+Inventaris dels tresorers d'Atena, IG I³ 343-362 (segle V) i IG II² 1370-1513 (segle IV)
+Inventories of the treasurers of Athena, IG I³ 343-362 (fifth century) and IG II² 1370-1513 (fourth century)
+
+@c87e5f5f
+Tucídides II 13.3-5
+Thucydides II 13.3-5
+
+@3fa787f2
+=
+=
+
+@72ac6b98
+Els objectes del joc són una mostra genèrica dels que citen els inventaris.
+The objects in the game are a generic sample of those listed in the inventories.
+
+@98e50a5c
+Pausànias I 26.6-7 (la imatge caiguda del cel i la llàntia de Cal·límac)
+Pausanias I 26.6-7 (the image fallen from heaven and the lamp of Callimachus)
+
+@717bd62b
+Aristòtil, Constitució dels atenesos 60 (Panatenees)
+Aristotle, Constitution of the Athenians 60 (Panathenaia)
+
+@01adc816
+=
+=
+
+@063b3ab8
+=
+=
+
+@18a6794c
+No es conserva cap descripció precisa de l'aspecte de l'estàtua; la del joc és conjectural.
+No precise description of the statue's appearance survives; the one in the game is conjectural.
+
+@0759c467
+Pausànias I 26.5
+Pausanias I 26.5
+
+@8a115dd9
+Heròdot VIII 55 (l'olivera i el mar)
+Herodotus VIII 55 (the olive tree and the sea)
+
+@7d1b6c56
+=
+=
+
+@9919aa48
+La distribució de les sales interiors de l'Erectèon es discuteix; el joc segueix una reconstrucció habitual amb vestíbul oest, dues sales i la cel·la est separada.
+The layout of the Erechtheion's interior rooms is debated; the game follows a common reconstruction with a west vestibule, two rooms and a separate east cella.
+
+@932d77d6
+Pausànias I 22.6-7
+Pausanias I 22.6-7
+
+@f9f70670
+Els quadres del joc són genèrics; la hipòtesi de la sala de banquets es basa en la posició descentrada de la porta.
+The paintings in the game are generic; the banquet-hall hypothesis rests on the off-centre position of the door.
+
+@ec993eaa
+Pausànias I 23.7
+Pausanias I 23.7
+
+@856a5f4e
+Aristòfanes, Lisístrata 641-647
+Aristophanes, Lysistrata 641-647
+
+@dabf1c04
+Inventaris de les ofrenes a Àrtemis Brauronia, IG II² 1514-1531
+Inventories of the offerings to Artemis Brauronia, IG II² 1514-1531
+
+@61511720
+L'estàtua de culte que es mostra aquí és conjectural; la cèlebre de Praxíteles és posterior.
+The cult statue shown here is conjectural; Praxiteles' famous one is later.
+
+@95706976
+Inventaris de la Calcoteca, p. ex. IG II² 120 (mitjan segle IV)
+Inventories of the Chalkotheke, e.g. IG II² 120 (mid-fourth century)
+
+@68ba6c72
+El pòrtic davanter de l'edifici és posterior; les columnes interiors del joc són una suposició.
+The building's front porch is later; the interior columns in the game are a guess.
+
+@b230ae7f
+Tucídides I 93 (Temístocles fortifica el Pireu)
+Thucydides I 93 (Themistocles fortifies the Piraeus)
+
+@a3ec69c0
+Aristòtil, Política II 1267b (Hipòdam de Milet)
+Aristotle, Politics II 1267b (Hippodamus of Miletus)
+
+@c15ac40f
+Xenofont, Ingressos III
+Xenophon, Ways and Means III
+
+@ea7c670f
+Plató, Gòrgias 511d-e (el preu dels passatges)
+Plato, Gorgias 511d-e (the price of passages)
+
+@ba7c9162
+R. Garland, The Piraeus (2a ed., 2001)
+R. Garland, The Piraeus (2nd ed., 2001)
+
+@bd9347ca
+=
+=
+
+@ce5acd92
+El port està molt simplificat i la distància a la ciutat, comprimida.
+The harbour is much simplified and the distance to the city compressed.
+
+@2e1acafb
+Pausànias II 30.3
+Pausanias II 30.3
+
+@b4cc3371
+=
+=
+
+@61b335a4
+=
+=
+
+@157f6392
+Dimensions aproximades; les escultures dels frontons són avui a Munic.
+Approximate dimensions; the pediment sculptures are now in Munich.
+
+@a12f088c
+Tucídides II 27
+Thucydides II 27
+
+@65eba745
+Heròdot V 82-89
+Herodotus V 82-89
+
+@d877927e
+Xenofont, Hel·lèniques II 2.9 i V 1.1-24
+Xenophon, Hellenica II 2.9 and V 1.1-24
+
+@54575bde
+=
+=
+
+@78920a0f
+Homer, Odissea VI 162-167
+Homer, Odyssey VI 162-167
+
+@cc85afe1
+Himne homèric a Apol·lo 115-119
+Homeric Hymn to Apollo 115-119
+
+@f728e683
+Teognis 5-10
+Theognis 5-10
+
+@43d5540e
+Bruneau i Ducat (2005)
+Bruneau and Ducat (2005)
+
+@8463969a
+El nombre original de lleons és una estimació.
+The original number of lions is an estimate.
+
+@a5ccda56
+Cal·límac, Himne a Apol·lo 58-64
+Callimachus, Hymn to Apollo 58-64
+
+@e48688db
+Plutarc, Vida de Teseu 21
+Plutarch, Life of Theseus 21
+
+@6839a3a2
+La identificació del Keraton amb un edifici concret és discutida.
+Identifying the Keraton with a particular building is debated.
+
+@a6753fd4
+Tucídides III 104
+Thucydides III 104
+
+@93819216
+Dimensions aproximades.
+Approximate dimensions.
+
+@312103c7
+Heròdot I 61-64
+Herodotus I 61-64
+
+@2b2b5e97
+=
+=
+
+@d1e2fcea
+No se sap si la porta estava aixecada al segle IV.
+It's not known whether the doorway was standing in the fourth century.
+
+@0ca5b19c
+La seva data exacta i si representava un jove o Dionís es discuteixen.
+Its exact date and whether it depicted a youth or Dionysus are debated.
+
+@78b36473
+Tucídides I 4
+Thucydides I 4
+
+@2dc1df4a
+Homer, Odissea XIX 172-179
+Homer, Odyssey XIX 172-179
+
+@df14e18b
+=
+=
+
+@bb747289
+=
+=
+
+@6d7e752a
+El 386 la major part del palau estava enterrada; el joc mostra més ruïnes de les que es veien.
+In 386 most of the palace was buried; the game shows more ruins than could be seen.
+
+@73b711b6
+Hesíode, Teogonia 468-484
+Hesiod, Theogony 468-484
+
+@998f26eb
+Cal·límac, Himne a Zeus
+Callimachus, Hymn to Zeus
+
+@af0cfced
+Plató, Lleis I 625b
+Plato, Laws I 625b
+
+@b786a5c0
+Fanocles, fr. 1
+Phanocles, fr. 1
+
+@3dc0ac4a
+Filòstrat, Heroic 28
+Philostratus, Heroicus 28
+
+@b751a743
+Ovidi, Metamorfosis XI 50-60
+Ovid, Metamorphoses XI 50-60
+
+@e8718b77
+=
+=
+
+@42b08e6a
+Les fonts escrites són posteriors; el lloc del santuari és tradicional.
+The written sources are later; the site of the sanctuary is traditional.
+
+@dd346f3c
+Heròdot I 23-24
+Herodotus I 23-24
+
+@bd15dfb6
+Antologia Palatina IX 506 (epigrama atribuït a Plató)
+Palatine Anthology IX 506 (epigram attributed to Plato)
+
+@c004244a
+Safo i Alceu, fragments
+Sappho and Alcaeus, fragments
+
+@1d23ffca
+=
+=
+
+@4ccdd6fd
+Plutarc, Vida de Pèricles 12-13 (programa d'obres i artistes)
+Plutarch, Life of Pericles 12-13 (building programme and artists)
+
+@2424b847
+Pausànias I 24.5-7
+Pausanias I 24.5-7
+
+@aa807838
+Comptes de construcció del Partenó, IG I³ 436-451
+Building accounts of the Parthenon, IG I³ 436-451
+
+@c686a034
+=
+=
+
+@ecf8bb2d
+=
+=
+
+@64f8c583
+La distribució de colors del joc és aproximada: se sap que frisos, frontons i motllures anaven pintats, però no el detall de cada superfície.
+The game's colour scheme is approximate: we know that friezes, pediments and mouldings were painted, but not the detail of every surface.
+
+@6d51d3c1
+Tucídides II 13.5 (l'or de l'estàtua, desmuntable)
+Thucydides II 13.5 (the statue's gold, removable)
+
+@19a02983
+Plutarc, Vida de Pèricles 31 (el procés contra Fídias)
+Plutarch, Life of Pericles 31 (the trial of Phidias)
+
+@86de7dfe
+=
+=
+
+@ba1ace3b
+Tucídides parla de quaranta talents d'or. L'estàtua del joc està molt simplificada.
+Thucydides speaks of forty talents of gold. The statue in the game is much simplified.
+
+@e5fe0c28
+Heròdot VIII 55
+Herodotus VIII 55
+
+@145d7f68
+Apol·lodor, Biblioteca III 14.1 (la disputa d'Atena i Posidó)
+Apollodorus, Library III 14.1 (the contest of Athena and Poseidon)
+
+@a3bae3bb
+Lísias 7, Sobre l'olivera sagrada
+Lysias 7, On the Sacred Olive
+
+@53a127b0
+Aristòtil, Constitució dels atenesos 60.2
+Aristotle, Constitution of the Athenians 60.2
+
+@8f6d370c
+Pausànias I 28.2 (la punta de la llança vista des del Súnion)
+Pausanias I 28.2 (the spear tip seen from Sounion)
+
+@2ef058ff
+Demòstenes 19.272
+Demosthenes 19.272
+
+@d4c4c5e0
+Pausànias la relaciona amb el botí de Marató; molts estudiosos la daten cap al 460-450.
+Pausanias links it to the spoils of Marathon; many scholars date it to around 460-450.
+
+@0507182f
+Plutarc, Vida de Pèricles 13 (Mnèsicles; obra acabada en cinc anys)
+Plutarch, Life of Pericles 13 (Mnesicles; work finished in five years)
+
+@69f56989
+Pausànias I 22.4-7
+Pausanias I 22.4-7
+
+@1e0f892a
+Aristòtil, Constitució dels atenesos 25 (reforma d'Efialtes) i 57.3 (judicis per homicidi)
+Aristotle, Constitution of the Athenians 25 (Ephialtes' reform) and 57.3 (homicide trials)
+
+@5ffa6183
+Èsquil, Eumènides (fundació mítica del tribunal)
+Aeschylus, Eumenides (mythical founding of the court)
+
+@277ceec6
+=
+=
+
+@22f92e07
+Pausànias I 15 (descripció de les pintures)
+Pausanias I 15 (description of the paintings)
+
+@539ceef5
+Èsquines 3.186 (Milcíades a la pintura de Marató)
+Aeschines 3.186 (Miltiades in the Marathon painting)
+
+@70d532cb
+Diògenes Laerci VII 5 (Zenó hi ensenyarà cap al 300: d'aquí «estoics»)
+Diogenes Laertius VII 5 (Zeno will teach here around 300: hence «Stoics»)
+
+@9760f5eb
+=
+=
+
+@87c61680
+Pausànias I 3.5
+Pausanias I 3.5
+
+@201685be
+Aristòtil, Constitució dels atenesos 43-44
+Aristotle, Constitution of the Athenians 43-44
+
+@4a2143fd
+H. A. Thompson i R. E. Wycherley, The Agora of Athens (The Athenian Agora XIV, 1972)
+H. A. Thompson and R. E. Wycherley, The Agora of Athens (The Athenian Agora XIV, 1972)
+
+@8a18beb3
+Pausànias I 5.1-4
+Pausanias I 5.1-4
+
+@05666bab
+Demòstenes 24.23 (propostes de llei exposades davant dels Epònims)
+Demosthenes 24.23 (proposed laws displayed before the Eponymous Heroes)
+
+@bf5ed825
+Aristòtil, Constitució dels atenesos 53.4 (llistes de reclutament)
+Aristotle, Constitution of the Athenians 53.4 (call-up lists)
+
+@f7c6acf5
+El monument conservat és de mitjan segle IV; el seu predecessor era en un altre punt de l'Àgora. El joc mostra la versió posterior.
+The surviving monument is from the mid-fourth century; its predecessor stood elsewhere in the Agora. The game shows the later version.
+
+@7f6bf8a6
+Tucídides VI 54.6 (dedicat per Pisístrat, nét del tirà)
+Thucydides VI 54.6 (dedicated by Peisistratus, the tyrant's grandson)
+
+@2c52ce49
+Heròdot II 7 (distàncies mesurades des de l'altar) i VI 108 (els plateencs suplicants)
+Herodotus II 7 (distances measured from the altar) and VI 108 (the Plataean suppliants)
+
+@4fef6f9c
+=
+=
+
+@0e0b1ea9
+Aristòtil, Constitució dels atenesos 63-64
+Aristotle, Constitution of the Athenians 63-64
+
+@0705ee45
+=
+=
+
+@5728d0a9
+=
+=
+
+@2a831c9f
+Els kleroteria conservats són de mitjan segle IV o posteriors; el 386 potser encara no es feien servir així. És una llicència del joc.
+The surviving kleroteria are from the mid-fourth century or later; in 386 they may not yet have been used this way. It is a licence of the game.
+
+@0971e170
+Pausànias I 14.6
+Pausanias I 14.6
+
+@89151876
+Durant segles se'l va anomenar, per error, «Theseion». Es va començar cap al 450 i es va acabar cap al 415.
+For centuries it was wrongly called the «Theseion». It was begun around 450 and finished around 415.
+
+@ac4d842c
+IG I³ 1087 (fita de l'Àgora, cap al 500 aC)
+IG I³ 1087 (boundary stone of the Agora, around 500 BC)
+
+@d034d2b6
+Andòcides, Sobre els misteris 71-76 (l'atímia i les seves prohibicions)
+Andocides, On the Mysteries 71-76 (atimia and its prohibitions)
+
+@e2ab6f40
+Plutarc, Vida de Temístocles 19.4 (els Trenta reorienten la tribuna)
+Plutarch, Life of Themistocles 19.4 (the Thirty turn the speakers' platform round)
+
+@503d32fd
+Aristòfanes, Assemblea de dones 130-170 (la corona de l'orador)
+Aristophanes, Assemblywomen 130-170 (the speaker's wreath)
+
+@2a88886d
+=
+=
+
+@c52bc781
+=
+=
+
+@8ef031ef
+La forma de la Pnyx al joc està molt simplificada.
+The shape of the Pnyx in the game is much simplified.
+
+@3338c065
+Pausànias I 20.3
+Pausanias I 20.3
+
+@dd647907
+Aristòtil, Constitució dels atenesos 56.3
+Aristotle, Constitution of the Athenians 56.3
+
+@e4649014
+=
+=
+
+@86dd3c6e
+Csapo i Slater (1995)
+Csapo and Slater (1995)
+
+@edc7c4e7
+Les grades de pedra que es veuen avui són de l'època de Licurg (cap al 330).
+The stone seats visible today date from the time of Lycurgus (around 330).
+
+@d83b4250
+Titus Livi XXXI 24.9 (descripció de la porta)
+Livy XXXI 24.9 (description of the gate)
+
+@0d9940a1
+Plutarc, Vida de Pèricles 30.3
+Plutarch, Life of Pericles 30.3
+
+@b2ab2550
+=
+=
+
+@8682de74
+Tucídides II 34-46 (funerals públics i discurs fúnebre de Pèricles)
+Thucydides II 34-46 (public funerals and Pericles' funeral speech)
+
+@46968357
+Pausànias I 29
+Pausanias I 29
+
+@bcdf637f
+=
+=
+
+@73074ecc
+=
+=
+
+@24f02ff8
+Diògenes Laerci III 5-7
+Diogenes Laertius III 5-7
+
+@e43d8a91
+Pausànias I 29.2 i 30.1-2
+Pausanias I 29.2 and 30.1-2
+
+@16d42a84
+Aristòfanes, Núvols 1005-1008 (passejades sota les oliveres sagrades)
+Aristophanes, Clouds 1005-1008 (walks under the sacred olives)
+
+@4ad53390
+=
+=
+
+@ecd51c77
+Plató, Eutifró 2a i Lisis 203a-b
+Plato, Euthyphro 2a and Lysis 203a-b
+
+@d9b63500
+Xenofont, Hipàrquic 3.1
+Xenophon, Cavalry Commander 3.1
+
+@b25259b9
+=
+=
+
+@a03e1a9a
+Aristòtil hi fundarà la seva escola el 335.
+Aristotle will found his school here in 335.
+
+@06be5a65
+Aristòtil, Política V 1313b (obra dels Pisistràtides)
+Aristotle, Politics V 1313b (a work of the Peisistratids)
+
+@0dbb7987
+Pausànias I 18.6-8 (acabat per Adrià)
+Pausanias I 18.6-8 (finished by Hadrian)
+
+@b6589d85
+Vitruvi, Sobre l'arquitectura VII, prefaci 15
+Vitruvius, On Architecture VII, preface 15
+
+@162a7bb6
+=
+=
+
+@4630ee7e
+Pausànias I 26.5-27.3
+Pausanias I 26.5-27.3
+
+@ec9240f4
+Comptes de la construcció de l'Erectèon, IG I³ 474-479 (409-406)
+Building accounts of the Erechtheion, IG I³ 474-479 (409-406)
+
+@7c888c51
+Xenofont, Hel·lèniques I 6.1
+Xenophon, Hellenica I 6.1
+
+@1bc77398
+El desnivell d'uns 3 metres entre els costats est i nord està simplificat al joc: el pòrtic nord apareix al mateix nivell que la resta.
+The drop of about 3 metres between the east and north sides is simplified in the game: the north porch appears at the same level as the rest.
+
+@b118d95c
+Heròdot VIII 53-55 (incendi persa)
+Herodotus VIII 53-55 (the Persian fire)
+
+@e7d6e282
+Xenofont, Hel·lèniques I 6.1 (un incendi al temple antic el 406)
+Xenophon, Hellenica I 6.1 (a fire in the old temple in 406)
+
+@156f5139
+Licurg, Contra Leòcrates 81 (jurament de no reconstruir els temples cremats; la seva autenticitat es discuteix)
+Lycurgus, Against Leocrates 81 (oath not to rebuild the burned temples; its authenticity is debated)
+
+@4903ba12
+Si l'opistòdom del temple antic encara era dret al segle IV és una qüestió oberta; el joc només en mostra els fonaments.
+Whether the opisthodomos of the old temple still stood in the fourth century is an open question; the game shows only the foundations.
+
+@5a94fa3c
+Heròdot VI 105
+Herodotus VI 105
+
+@0f6b92e5
+Eurípides, Ió 492-506
+Euripides, Ion 492-506
+
+@2367ea5b
+Aristòfanes, Lisístrata 720-721
+Aristophanes, Lysistrata 720-721
+
+@c6c61c38
+Pausànias I 3.1-2 (les figures de terracota de la teulada)
+Pausanias I 3.1-2 (the terracotta figures on the roof)
+
+@bd59bac8
+Plató, Eutifró 2a
+Plato, Euthyphro 2a
+
+@03d57b84
+Aristòtil, Constitució dels atenesos 7.1 i 55.5 (lleis i jurament sobre la pedra)
+Aristotle, Constitution of the Athenians 7.1 and 55.5 (laws and the oath on the stone)
+
+@d234259e
+Andòcides, Sobre els misteris 82-85 (revisió de les lleis després del 403)
+Andocides, On the Mysteries 82-85 (revision of the laws after 403)
+
+@dcfa7b89
+=
+=
+
+@0307d864
+Fa 17,72 x 7,18 m, amb vuit columnes dòriques a la façana. Les figures de la teulada del joc són molt esquemàtiques.
+It measures 17.72 x 7.18 m, with eight Doric columns on the façade. The roof figures in the game are very schematic.
+
+@af61da36
+Èsquines 3.187 (un decret guardat al Metròon)
+Aeschines 3.187 (a decree kept in the Metroon)
+
+@bf279db7
+=
+=
+
+@c2e3f5de
+Thompson i Wycherley (1972)
+Thompson and Wycherley (1972)
+
+@004b22b2
+La forma exacta del vell Buleuteri és incerta; el joc el simplifica com un edifici quadrat.
+The exact shape of the old Bouleuterion is uncertain; the game simplifies it as a square building.
+
+@d75d8dd2
+Llei de l'impost sobre el gra del 374/373 (l'Eaceu fet servir com a graner)
+Grain-tax law of 374/373 (the Aiakeion used as a granary)
+
+@d7cbb931
+=
+=
+
+@3193d32d
+Identificació discutida: Heliea segons els excavadors, Eaceu segons Stroud i molts estudiosos actuals.
+Disputed identification: the Heliaia according to the excavators, the Aiakeion according to Stroud and many scholars today.
+
+@e28932cb
+Diògenes Laerci II 122-124
+Diogenes Laertius II 122-124
+
+@fc70c530
+Xenofont, Memorables IV 2.1
+Xenophon, Memorabilia IV 2.1
+
+@39909888
+=
+=
+
+@f0d7d690
+La relació d'aquesta casa amb el Simó de Diògenes Laerci és probable, però no segura.
+The link between this house and Diogenes Laertius' Simon is probable, but not certain.
+
+@5d4828b4
+Pausànias I 14.1
+Pausanias I 14.1
+
+@8a7eb3c6
+Tucídides II 15.5 (l'Enneacrunos)
+Thucydides II 15.5 (the Enneakrounos)
+
+@edb9608f
+La identificació amb l'Enneacrunos és discutida.
+The identification with the Enneakrounos is debated.
+
+@0e4f1037
+Pausànias I 14.1-3
+Pausanias I 14.1-3
+
+@f6a53a34
+Esteles àtiques, IG I³ 421-430
+Attic stelai, IG I³ 421-430
+
+@528d98ec
+=
+=
+
+@3874c58b
+Plutarc, Vida de Pèricles 13.9-11
+Plutarch, Life of Pericles 13.9-11
+
+@de39bf4c
+Pausànias I 20.4
+Pausanias I 20.4
+
+@17b73e69
+Vitruvi V 9.1
+Vitruvius V 9.1
+
+@7e23c1ff
+=
+=
+
+@0d4abde6
+Les excavacions donen uns 62,4 x 68,6 m; el nombre i la disposició de les columnes interiors es discuteixen (9 x 10 o 9 x 9).
+Excavation gives about 62.4 x 68.6 m; the number and arrangement of the interior columns are debated (9 x 10 or 9 x 9).
+
+@91699038
+=
+=
+
+@e926d1e4
+Les grans stoes del santuari són posteriors; el 386 era un recinte modest.
+The sanctuary's great stoas are later; in 386 it was a modest precinct.
+
+@160ce362
+Pausànias I 2.4
+Pausanias I 2.4
+
+@52a5adb1
+=
+=
+
+@a54ebc47
+Les dimensions del joc són aproximades.
+The dimensions in the game are approximate.
+
+@d06a0263
+Heròdot VI 116 (el santuari d'Hèracles a Cinosarges)
+Herodotus VI 116 (the sanctuary of Heracles at Cynosarges)
+
+@d912128b
+Plutarc, Vida de Temístocles 1.3 (el gimnàs dels nóthoi)
+Plutarch, Life of Themistocles 1.3 (the gymnasium of the nothoi)
+
+@3af87d56
+Diògenes Laerci VI 13 (Antístenes hi ensenya)
+Diogenes Laertius VI 13 (Antisthenes teaches there)
+
+@1aff277d
+=
+=
+
+@2eded434
+No se'n coneix amb seguretat l'emplaçament exacte.
+Its exact location is not known for certain.

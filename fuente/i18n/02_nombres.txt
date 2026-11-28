@@ -1,0 +1,3391 @@
+# Nombres de personajes, cargos, lecciones, lugares y zonas (Atenas, Grecia y Roma).
+# Bloques: español, catalán, inglés («=» = igual que en español).
+
+# ---------------------------------------------------------------- personajes de Atenas
+Eucles de Acarnas
+Eucles d'Acarnes
+Eucles of Acharnae
+
+Eutidemo
+Eutidem
+Euthydemus
+
+Lisímaco
+Lisímac
+Lysimachus
+
+Sosias
+Sòsias
+Sosias
+
+Platón
+Plató
+Plato
+
+Isócrates
+Isòcrates
+Isocrates
+
+Lisias
+Lísias
+Lysias
+
+Manes
+=
+=
+
+Timócrates
+Timòcrates
+Timocrates
+
+Teano
+Teano
+Theano
+
+Aristófanes
+Aristòfanes
+Aristophanes
+
+Cleótimo
+Cleòtim
+Cleotimus
+
+Pasión
+Pasió
+Pasion
+
+Filina
+Filina
+Philina
+
+Antístenes
+Antístenes
+Antisthenes
+
+Arcesilao
+Arcesilau
+Arcesilaus
+
+Eunice
+=
+=
+
+Cefisodoro
+Cefisodor
+Cephisodorus
+
+Hegeso
+=
+=
+
+Telamonio
+Telamoni
+Telamonius
+
+Corina
+Corinna
+Corinna
+
+Pólemon
+Polemó
+Polemon
+
+Cidón
+Cidó
+Cydon
+
+Erina
+Erinna
+Erinna
+
+Espeusipo
+Espeusip
+Speusippus
+
+Teeteto
+Teetet
+Theaetetus
+
+Iseo
+Iseu
+Isaeus
+
+Calístrato de Afidna
+Cal·lístrat d'Afidna
+Callistratus of Aphidna
+
+Araros
+=
+=
+
+Antífanes
+Antífanes
+Antiphanes
+
+Ifícrates
+Ifícrates
+Iphicrates
+
+Cabrias
+Cabries
+Chabrias
+
+Aristipo de Cirene
+Aristip de Cirene
+Aristippus of Cyrene
+
+Teleclo
+Tèlecles
+Teleclus
+
+Bálacro de Pela
+Bàlacre de Pel·la
+Balacrus of Pella
+
+Hicetas
+Hícetes
+Hicetas
+
+Timarco de Salamina
+Timarc de Salamina
+Timarchus of Salamis
+
+Eudico de Larisa
+Èudic de Larissa
+Eudicus of Larissa
+
+Sabirto
+Sabirt
+Sabyrtus
+
+Demofonte
+Demofont
+Demophon
+
+Ideo
+Ideu
+Idaeus
+
+Peribea
+Peribea
+Periboea
+
+Epaminondas
+Epaminondes
+Epaminondas
+
+Pelópidas
+Pelòpides
+Pelopidas
+
+Glicera
+Glícera
+Glycera
+
+Nicareta
+Nicàreta
+Nicarete
+
+Cálias
+Càl·lias
+Callias
+
+Mirrina
+Mirrina
+Myrrhine
+
+Carión
+Carió
+Carion
+
+Aristón
+Aristó
+Ariston
+
+Ctesón
+Ctesó
+Cteson
+
+Hagnón
+Hagnó
+Hagnon
+
+Lisicles
+Lisicles
+Lysicles
+
+Lisístrato
+Lisístrat
+Lysistratus
+
+Cleómaco
+Cleòmac
+Cleomachus
+
+Agesilao
+Agesilau
+Agesilaus
+
+Cinisca
+Cinisca
+Cynisca
+
+Eudámidas
+Eudàmides
+Eudamidas
+
+Melanto
+Melant
+Melanthus
+
+Calitea
+Cal·lítea
+Callithea
+
+Aristeo de Metaponto
+Aristeu de Metapont
+Aristeas of Metapontum
+
+Jantias
+Xàntias
+Xanthias
+
+Pródico de Ceos
+Pròdic de Ceos
+Prodicus of Ceos
+
+Hipias de Elis
+Hípias d'Elis
+Hippias of Elis
+
+Alcidamante de Elea
+Alcidamant d'Elea
+Alcidamas of Elaea
+
+Eutidemo de Quíos
+Eutidem de Quios
+Euthydemus of Chios
+
+# ---------------------------------------------------------------- dioses
+Hermes
+=
+=
+
+Hefesto
+Hefest
+Hephaestus
+
+Deméter
+Demèter
+Demeter
+
+Atenea
+Atena
+Athena
+
+Apolo
+Apol·lo
+Apollo
+
+Ártemis
+Àrtemis
+Artemis
+
+Afrodita
+Afrodita
+Aphrodite
+
+Dioniso
+Dionís
+Dionysus
+
+Poseidón
+Posidó
+Poseidon
+
+Hera
+=
+=
+
+Zeus
+=
+=
+
+Ares
+=
+=
+
+mensajero de los dioses
+missatger dels déus
+messenger of the gods
+
+dios del fuego y la forja
+déu del foc i de la forja
+god of fire and the forge
+
+señora del trigo
+senyora del blat
+lady of the grain
+
+protectora de Atenas
+protectora d'Atenes
+protector of Athens
+
+dios de la música y la profecía
+déu de la música i la profecia
+god of music and prophecy
+
+señora de los animales
+senyora dels animals
+mistress of animals
+
+diosa del amor
+deessa de l'amor
+goddess of love
+
+dios del vino y del teatro
+déu del vi i del teatre
+god of wine and theatre
+
+señor del mar
+senyor del mar
+lord of the sea
+
+reina de los dioses
+reina dels déus
+queen of the gods
+
+padre de dioses y hombres
+pare de déus i homes
+father of gods and men
+
+dios de la guerra
+déu de la guerra
+god of war
+
+en la encrucijada al salir del Dípilon
+a la cruïlla en sortir pel Dípilon
+at the crossroads outside the Dipylon
+
+entre los hornos del Cerámico, fuera del Dípilon
+entre els forns del Ceràmic, fora del Dípilon
+among the kilns of the Kerameikos, outside the Dipylon
+
+en la Vía Sacra, camino de Eleusis
+a la Via Sacra, camí d'Eleusis
+on the Sacred Way, on the road to Eleusis
+
+entre los olivos sagrados de la Academia
+entre les oliveres sagrades de l'Acadèmia
+among the sacred olive trees of the Academy
+
+junto al gimnasio del Liceo
+al costat del gimnàs del Liceu
+beside the gymnasium of the Lyceum
+
+en Agras, junto al río Iliso
+a Agres, vora el riu Ilissos
+at Agrae, by the river Ilissus
+
+en los Jardines, junto al Iliso
+als Jardins, vora l'Ilissos
+in the Gardens, by the Ilissus
+
+en el camino del norte, hacia Eleuteras
+al camí del nord, cap a Eleuteres
+on the northern road, towards Eleutherae
+
+en la playa del Falero
+a la platja de Falèron
+on the beach at Phaleron
+
+en el altar del Falero, junto al mar
+a l'altar de Falèron, vora el mar
+at the altar of Phaleron, by the sea
+
+en la ladera del Licabeto
+al vessant del Licabet
+on the slope of Lycabettus
+
+junto a los Muros Largos
+al costat dels Murs Llargs
+beside the Long Walls
+
+# ---------------------------------------------------------------- cargos y oficios (Atenas)
+Prítano de la tribu Eneida
+Prítan de la tribu Enèida
+Prytanis of the tribe Oineis
+
+Zapatero y asiduo de la Asamblea
+Sabater i assidu de l'Assemblea
+Shoemaker and regular at the Assembly
+
+Anciano jurado de la Heliea
+Vell jurat de l'Heliea
+Elderly juror of the Heliaia
+
+Servidor de los Once, guardián de la prisión
+Servidor dels Onze, guardià de la presó
+Servant of the Eleven, prison guard
+
+Filósofo, discípulo de Sócrates
+Filòsof, deixeble de Sòcrates
+Philosopher, disciple of Socrates
+
+Maestro de retórica
+Mestre de retòrica
+Teacher of rhetoric
+
+Meteco y logógrafo
+Meteco i logògraf
+Metic and speechwriter
+
+Esclavo frigio
+Esclau frigi
+Phrygian slave
+
+Alfarero del Cerámico
+Terrisser del Ceràmic
+Potter of the Kerameikos
+
+Sacerdotisa de Atenea Polias
+Sacerdotessa d'Atena Polias
+Priestess of Athena Polias
+
+Poeta cómico
+Poeta còmic
+Comic poet
+
+Hoplita veterano
+Hoplita veterà
+Veteran hoplite
+
+Banquero, antiguo esclavo
+Banquer, antic esclau
+Banker, former slave
+
+Hetera, música de banquetes
+Hetera, música de banquets
+Hetaira, banquet musician
+
+Filósofo, compañero de Sócrates
+Filòsof, company de Sòcrates
+Philosopher, companion of Socrates
+
+Orfeotelesta, purificador ambulante
+Orfeotelesta, purificador ambulant
+Orpheotelest, itinerant purifier
+
+Abuela, narradora de mitos
+Àvia, narradora de mites
+Grandmother, teller of myths
+
+Enfermo que espera la curación
+Malalt que espera la curació
+Sick man awaiting a cure
+
+Iniciada en los Misterios de Eleusis
+Iniciada en els Misteris d'Eleusis
+Initiate of the Eleusinian Mysteries
+
+Sacerdote del templo de Afaya
+Sacerdot del temple d'Afaia
+Priest of the temple of Aphaia
+
+Doncella del coro de las Delíades
+Donzella del cor de les Delíades
+Maiden of the chorus of the Deliades
+
+Pescador de Naxos
+Pescador de Naxos
+Fisherman of Naxos
+
+Guía de Cnosos
+Guia de Cnossos
+Guide at Knossos
+
+Poetisa de Antisa
+Poetessa d'Antissa
+Poetess of Antissa
+
+Sobrino de Platón
+Nebot de Plató
+Plato's nephew
+
+Matemático ateniense
+Matemàtic atenès
+Athenian mathematician
+
+Logógrafo, experto en herencias
+Logògraf, expert en herències
+Speechwriter, expert in inheritance cases
+
+Político y orador
+Polític i orador
+Politician and orator
+
+Poeta cómico, hijo de Aristófanes
+Poeta còmic, fill d'Aristòfanes
+Comic poet, son of Aristophanes
+
+Joven poeta cómico
+Jove poeta còmic
+Young comic poet
+
+General ateniense
+General atenès
+Athenian general
+
+Filósofo socrático, de viaje
+Filòsof socràtic, de viatge
+Socratic philosopher, travelling
+
+Enviado espartano
+Enviat espartà
+Spartan envoy
+
+Enviado del rey de Macedonia
+Enviat del rei de Macedònia
+Envoy of the king of Macedon
+
+Mercader de Siracusa
+Mercader de Siracusa
+Merchant from Syracuse
+
+Enviado de Evágoras de Chipre
+Enviat d'Evàgores de Xipre
+Envoy of Evagoras of Cyprus
+
+Criador de caballos tesalio
+Criador de cavalls tessali
+Thessalian horse breeder
+
+Moloso del Epiro
+Molós de l'Epir
+Molossian from Epirus
+
+Librero del Ágora
+Llibreter de l'Àgora
+Bookseller of the Agora
+
+Sacerdote de Atenea Ilíade
+Sacerdot d'Atena Ilíada
+Priest of Athena Ilias
+
+Doncella locria al servicio de Atenea
+Donzella lòcria al servei d'Atena
+Locrian maiden in the service of Athena
+
+Noble tebano, filósofo pitagórico
+Noble tebà, filòsof pitagòric
+Theban nobleman, Pythagorean philosopher
+
+Noble tebano
+Noble tebà
+Theban nobleman
+
+Nodriza tracia
+Dida tràcia
+Thracian wet nurse
+
+Madre de una novia
+Mare d'una núvia
+Mother of a bride
+
+Maestro de primeras letras
+Mestre de primeres lletres
+Teacher of reading and writing
+
+Vecina en la fuente
+Veïna a la font
+Neighbour at the fountain
+
+Carnicero de sacrificios
+Carnisser de sacrificis
+Sacrificial butcher
+
+Inspector de pesas y medidas
+Inspector de pesos i mesures
+Inspector of weights and measures
+
+Naviero del Pireo
+Naviliera del Pireu
+Ship-owner of Piraeus
+
+Armador · barco a las islas
+Armador · vaixell a les illes
+Shipowner · ship to the islands
+
+Arriero · caminos de Grecia
+Traginer · camins de Grècia
+Muleteer · roads of Greece
+
+Maestro de lira (kitharistés)
+Mestre de lira (kitharistés)
+Lyre teacher (kitharistes)
+
+Maestro de gimnasia (paidotribés)
+Mestre de gimnàstica (paidotribés)
+Physical trainer (paidotribes)
+
+Rey de Esparta
+Rei d'Esparta
+King of Sparta
+
+Princesa espartana, vencedora olímpica
+Princesa espartana, vencedora olímpica
+Spartan princess, Olympic victor
+
+Hilota
+Hilota
+Helot
+
+Muchacho de la agogé
+Noi de l'agogé
+Boy of the agoge
+
+Pastor de Micenas
+Pastor de Micenes
+Shepherd of Mycenae
+
+Sacerdotisa de Hera
+Sacerdotessa d'Hera
+Priestess of Hera
+
+Dice ser Pitágoras reencarnado
+Diu que és Pitàgores reencarnat
+Claims to be Pythagoras reborn
+
+Esclavo administrador de tu casa
+Esclau administrador de casa teva
+Slave who manages your house
+
+Sofista, maestro de la exactitud de las palabras
+Sofista, mestre de l'exactitud de les paraules
+Sophist, master of the precise use of words
+
+Sofista que dice saberlo todo
+Sofista que diu que ho sap tot
+Sophist who claims to know everything
+
+Sofista, discípulo de Gorgias
+Sofista, deixeble de Gòrgias
+Sophist, disciple of Gorgias
+
+Sofista erístico
+Sofista erístic
+Eristic sophist
+
+Heraldo del tribunal
+Herald del tribunal
+Herald of the court
+
+Miembro del Consejo · discurso de Lisias
+Membre del Consell · discurs de Lísias
+Member of the Council · speech by Lysias
+
+Uno de los vendedores · defensa reconstruida
+Un dels venedors · defensa reconstruïda
+One of the dealers · reconstructed defence
+
+Heraldo
+Herald
+Herald
+
+Acusador
+Acusador
+Prosecutor
+
+Defensa
+Defensa
+Defence
+
+Tribunal de la Heliea
+Tribunal de l'Heliea
+Court of the Heliaia
+
+# ---------------------------------------------------------------- categorías
+Política
+Política
+Politics
+
+Filosofía
+Filosofia
+Philosophy
+
+Historia
+Història
+History
+
+Sociedad
+Societat
+Society
+
+Cultura
+Cultura
+Culture
+
+Religión
+Religió
+Religion
+
+Ciencia
+Ciència
+Science
+
+Genealogías
+Genealogies
+Genealogies
+
+Contexto
+Context
+Context
+
+Juego
+Joc
+Game
+
+# ---------------------------------------------------------------- lecciones de Atenas
+La Boulé de los Quinientos
+La Bulé dels Cinc-cents
+The Boule of Five Hundred
+
+La Ekklesía, la Asamblea
+L'Ekklesía, l'Assemblea
+The Ekklesia, the Assembly
+
+Los tribunales populares
+Els tribunals populars
+The popular courts
+
+La muerte de Sócrates
+La mort de Sòcrates
+The death of Socrates
+
+Platón, la Academia y las Ideas
+Plató, l'Acadèmia i les Idees
+Plato, the Academy and the Forms
+
+Retórica y educación
+Retòrica i educació
+Rhetoric and education
+
+Metecos y los Treinta Tiranos
+Metecs i els Trenta Tirans
+Metics and the Thirty Tyrants
+
+La esclavitud
+L'esclavitud
+Slavery
+
+Cerámica, comercio y moneda
+Ceràmica, comerç i moneda
+Pottery, trade and coinage
+
+Religión y mujeres en la ciudad
+Religió i dones a la ciutat
+Religion and women in the city
+
+El teatro de Dioniso
+El teatre de Dionís
+The theatre of Dionysus
+
+Guerra de Corinto y Paz del Rey
+Guerra de Corint i Pau del Rei
+The Corinthian War and the King's Peace
+
+Bancos y dinero: la historia de Pasión
+Bancs i diners: la història de Pasió
+Banks and money: the story of Pasion
+
+El banquete (sympósion)
+El banquet (sympósion)
+The banquet (symposion)
+
+Antístenes: la virtud basta
+Antístenes: la virtut n'hi ha prou
+Antisthenes: virtue is enough
+
+Los órficos
+Els òrfics
+The Orphics
+
+Cómo se contaban los mitos
+Com s'explicaven els mites
+How myths were told
+
+Asclepio y la incubación
+Asclepi i la incubació
+Asclepius and incubation
+
+Deméter, Perséfone y los Misterios
+Demèter, Persèfone i els Misteris
+Demeter, Persephone and the Mysteries
+
+Éaco y los mirmidones (Egina)
+Èac i els mirmidons (Egina)
+Aeacus and the Myrmidons (Aegina)
+
+El nacimiento de Apolo y Ártemis (Delos)
+El naixement d'Apol·lo i Àrtemis (Delos)
+The birth of Apollo and Artemis (Delos)
+
+Ariadna y Dioniso (Naxos)
+Ariadna i Dionís (Naxos)
+Ariadne and Dionysus (Naxos)
+
+Minos, el Minotauro y Dédalo (Creta)
+Minos, el Minotaure i Dèdal (Creta)
+Minos, the Minotaur and Daedalus (Crete)
+
+La cabeza de Orfeo (Lesbos)
+El cap d'Orfeu (Lesbos)
+The head of Orpheus (Lesbos)
+
+La vida en la Academia
+La vida a l'Acadèmia
+Life at the Academy
+
+Los inconmensurables y los cinco sólidos
+Els incommensurables i els cinc sòlids
+The incommensurables and the five solids
+
+Herencias, adopciones y epícleras
+Herències, adopcions i epícleres
+Inheritance, adoption and epikleroi
+
+Políticos sin cargo y la acusación por ilegalidad
+Polítics sense càrrec i l'acusació per il·legalitat
+Politicians without office and the indictment for illegality
+
+La comedia cambia
+La comèdia canvia
+Comedy changes
+
+Mito y comedia: el oficio del poeta
+Mite i comèdia: l'ofici del poeta
+Myth and comedy: the poet's craft
+
+Peltastas y mercenarios
+Peltastes i mercenaris
+Peltasts and mercenaries
+
+Atenas, Chipre y Egipto
+Atenes, Xipre i Egipte
+Athens, Cyprus and Egypt
+
+Aristipo y los reyes Batíadas de Cirene
+Aristip i els reis Batíades de Cirene
+Aristippus and the Battiad kings of Cyrene
+
+Los dos reyes de Esparta
+Els dos reis d'Esparta
+The two kings of Sparta
+
+Los reyes argéadas de Macedonia
+Els reis argèades de Macedònia
+The Argead kings of Macedon
+
+Siracusa: de los Deinoménidas a Dionisio
+Siracusa: dels Dinomènides a Dionís
+Syracuse: from the Deinomenids to Dionysius
+
+Evágoras y los Teúcridas de Salamina
+Evàgores i els Teúcrides de Salamina
+Evagoras and the Teucrids of Salamis
+
+Los Aléuadas de Tesalia
+Els Alèuades de Tessàlia
+The Aleuadae of Thessaly
+
+Los Eácidas del Epiro
+Els Eàcides de l'Epir
+The Aeacids of Epirus
+
+Los mitos y sus fuentes
+Els mites i les seves fonts
+Myths and their sources
+
+La guerra de Troya contada en Ilión
+La guerra de Troia explicada a Ílion
+The Trojan War as told in Ilion
+
+Las doncellas locrias
+Les donzelles lòcries
+The Locrian maidens
+
+Tebas tras la Paz del Rey
+Tebes després de la Pau del Rei
+Thebes after the King's Peace
+
+La Liga Beocia y las facciones de Tebas
+La Lliga Beòcia i les faccions de Tebes
+The Boeotian League and the factions of Thebes
+
+Nacer en un oikos
+Néixer en un oikos
+Being born in an oikos
+
+Una boda ateniense
+Un casament atenès
+An Athenian wedding
+
+La escuela
+L'escola
+School
+
+La vida de las atenienses
+La vida de les ateneses
+The lives of Athenian women
+
+El sacrificio
+El sacrifici
+The sacrifice
+
+El mercado y sus inspectores
+El mercat i els seus inspectors
+The market and its inspectors
+
+Préstamos y riesgos del mar
+Préstecs i riscos del mar
+Loans and the risks of the sea
+
+Un juicio: Contra los vendedores de trigo
+Un judici: Contra els venedors de blat
+A trial: Against the Grain Dealers
+
+La música en la educación
+La música en l'educació
+Music in education
+
+La palestra y el deporte
+La palestra i l'esport
+The palaestra and sport
+
+Esparta y la paz del Rey
+Esparta i la pau del Rei
+Sparta and the King's Peace
+
+Las mujeres espartanas
+Les dones espartanes
+Spartan women
+
+Los hilotas
+Els hilotes
+The helots
+
+La agogé, la educación espartana
+L'agogé, l'educació espartana
+The agoge, Spartan education
+
+Micenas, la ciudad de Agamenón
+Micenes, la ciutat d'Agamèmnon
+Mycenae, the city of Agamemnon
+
+El Hereo y el culto de Hera
+L'Hereu i el culte d'Hera
+The Heraion and the cult of Hera
+
+Pitágoras y los pitagóricos
+Pitàgores i els pitagòrics
+Pythagoras and the Pythagoreans
+
+La casa ateniense
+La casa atenesa
+The Athenian house
+
+Pródico y la exactitud de las palabras
+Pròdic i l'exactitud de les paraules
+Prodicus and the precision of words
+
+Hipias: el saber enciclopédico
+Hípias: el saber enciclopèdic
+Hippias: encyclopaedic knowledge
+
+Gorgias y el poder de la palabra
+Gòrgias i el poder de la paraula
+Gorgias and the power of speech
+
+Erística y discursos dobles
+Erística i discursos dobles
+Eristics and double arguments
+
+# ---------------------------------------------------------------- dónde están (Atenas)
+Junto a la Tholos, en el lado oeste del Ágora
+Al costat de la Tolos, al costat oest de l'Àgora
+By the Tholos, on the west side of the Agora
+
+En la Pnyx, junto a la tribuna (bema)
+A la Pnyx, al costat de la tribuna (bema)
+On the Pnyx, beside the speakers' platform (bema)
+
+A la entrada de la Heliea, al sur del Ágora
+A l'entrada de l'Heliea, al sud de l'Àgora
+At the entrance to the Heliaia, south of the Agora
+
+Ante la prisión, al suroeste del Ágora
+Davant la presó, al sud-oest de l'Àgora
+Outside the prison, south-west of the Agora
+
+En la Academia, fuera de las murallas, siguiendo el camino del Dípilon
+A l'Acadèmia, fora de les muralles, seguint el camí del Dípilon
+At the Academy, outside the walls, along the road from the Dipylon
+
+Junto al gimnasio del Liceo, saliendo por la puerta este
+Al costat del gimnàs del Liceu, sortint per la porta est
+By the gymnasium of the Lyceum, out through the east gate
+
+Ante la Stoa de Zeus, en el Ágora
+Davant l'Stoa de Zeus, a l'Àgora
+In front of the Stoa of Zeus, in the Agora
+
+Entre los puestos del mercado, en el centro del Ágora
+Entre les parades del mercat, al centre de l'Àgora
+Among the market stalls, in the middle of the Agora
+
+En el barrio del Cerámico, junto a la puerta del Dípilon
+Al barri del Ceràmic, al costat de la porta del Dípilon
+In the Kerameikos quarter, by the Dipylon gate
+
+Junto al Erecteion, en la Acrópolis
+Al costat de l'Erectèon, a l'Acròpolis
+By the Erechtheion, on the Acropolis
+
+En la orquesta del teatro, en la ladera sur de la Acrópolis
+A l'orquestra del teatre, al vessant sud de l'Acròpolis
+In the orchestra of the theatre, on the south slope of the Acropolis
+
+En la puerta del Pireo, entre los Muros Largos
+A la porta del Pireu, entre els Murs Llargs
+At the Piraeus gate, between the Long Walls
+
+En su mesa de cambio, en el lado este del Ágora
+A la seva taula de canvi, al costat est de l'Àgora
+At his money-changing table, on the east side of the Agora
+
+A la puerta de una casa con andrón, cerca del Cerámico
+A la porta d'una casa amb andró, a prop del Ceràmic
+At the door of a house with an andron, near the Kerameikos
+
+En el gimnasio de Cinosarges, saliendo por la puerta sur
+Al gimnàs de Cinosarges, sortint per la porta sud
+At the gymnasium of Cynosarges, out through the south gate
+
+A la entrada del Eleusinion, junto a la Vía Panatenaica
+A l'entrada de l'Eleusinion, al costat de la Via Panatenaica
+At the entrance to the Eleusinion, by the Panathenaic Way
+
+En la fuente del sureste del Ágora
+A la font del sud-est de l'Àgora
+At the south-east fountain of the Agora
+
+En el santuario de Asclepio, en la ladera sur de la Acrópolis
+Al santuari d'Asclepi, al vessant sud de l'Acròpolis
+In the sanctuary of Asclepius, on the south slope of the Acropolis
+
+Dentro del Eleusinion, al sureste del Ágora
+Dins de l'Eleusinion, al sud-est de l'Àgora
+Inside the Eleusinion, south-east of the Agora
+
+En la isla de Egina, junto al templo de Afaya
+A l'illa d'Egina, al costat del temple d'Afaia
+On the island of Aegina, by the temple of Aphaia
+
+En Delos, junto al lago sagrado
+A Delos, al costat del llac sagrat
+On Delos, by the sacred lake
+
+En Naxos, junto al dique del islote de la gran puerta
+A Naxos, al costat del dic de l'illot de la gran porta
+On Naxos, by the causeway to the islet of the great doorway
+
+En Creta, entre las ruinas antiguas de Cnosos
+A Creta, entre les ruïnes antigues de Cnossos
+On Crete, among the ancient ruins of Knossos
+
+En Lesbos, junto al santuario de la cabeza de Orfeo
+A Lesbos, al costat del santuari del cap d'Orfeu
+On Lesbos, by the shrine of the head of Orpheus
+
+En la Academia, junto a Platón
+A l'Acadèmia, al costat de Plató
+At the Academy, beside Plato
+
+En la Academia, junto al banco semicircular
+A l'Acadèmia, al costat del banc semicircular
+At the Academy, by the semicircular bench
+
+Junto al recinto rectangular, al suroeste del Ágora
+Al costat del recinte rectangular, al sud-oest de l'Àgora
+By the rectangular enclosure, south-west of the Agora
+
+Junto al Metroon, en el lado oeste del Ágora
+Al costat del Metroon, al costat oest de l'Àgora
+By the Metroon, on the west side of the Agora
+
+Junto a la escena del teatro de Dioniso
+Al costat de l'escena del teatre de Dionís
+By the stage building of the theatre of Dionysus
+
+En las gradas del teatro de Dioniso
+A les grades del teatre de Dionís
+On the seats of the theatre of Dionysus
+
+En el muelle del Pireo, a punto de embarcar hacia Tracia
+Al moll del Pireu, a punt d'embarcar cap a Tràcia
+On the quay at Piraeus, about to sail for Thrace
+
+En el muelle del Pireo
+Al moll del Pireu
+On the quay at Piraeus
+
+Ante la Stoa Poikile, en el Ágora
+Davant l'Stoa Poikile, a l'Àgora
+In front of the Stoa Poikile, in the Agora
+
+Ante el Bouleuterion, en el Ágora
+Davant el Buleuterion, a l'Àgora
+In front of the Bouleuterion, in the Agora
+
+Ante el Metroon, en el Ágora
+Davant el Metroon, a l'Àgora
+In front of the Metroon, in the Agora
+
+En el lado este del Ágora, con sus caballos
+Al costat est de l'Àgora, amb els seus cavalls
+On the east side of the Agora, with his horses
+
+Junto al monumento de los Héroes Epónimos
+Al costat del monument dels Herois Epònims
+By the monument of the Eponymous Heroes
+
+En su puesto de libros, en el norte del Ágora
+A la seva parada de llibres, al nord de l'Àgora
+At his book stall, in the north of the Agora
+
+En Ilión (Troya), ante el templo de Atenea
+A Ílion (Troia), davant el temple d'Atena
+In Ilion (Troy), in front of the temple of Athena
+
+En Ilión, junto al templo de Atenea
+A Ílion, al costat del temple d'Atena
+In Ilion, by the temple of Athena
+
+En Tebas, junto a la Cadmea
+A Tebes, al costat de la Cadmea
+In Thebes, by the Cadmea
+
+En Tebas, junto a la fuente Dirce
+A Tebes, al costat de la font Dirce
+In Thebes, by the Dirce spring
+
+Junto a las casas, al sur del Ágora
+Al costat de les cases, al sud de l'Àgora
+By the houses, south of the Agora
+
+En la calle de las casas, al este del Eleusinion; al atardecer pasa el cortejo
+Al carrer de les cases, a l'est de l'Eleusinion; al capvespre hi passa el seguici
+In the street of houses, east of the Eleusinion; the procession passes at dusk
+
+En su escuela, un patio cerca del Ágora (por la mañana)
+A la seva escola, un pati a prop de l'Àgora (al matí)
+At his school, a courtyard near the Agora (in the morning)
+
+Junto al Altar de los Doce Dioses (al amanecer hay sacrificio)
+Al costat de l'Altar dels Dotze Déus (a l'alba hi ha sacrifici)
+By the Altar of the Twelve Gods (there is a sacrifice at dawn)
+
+Entre los puestos del mercado del Ágora
+Entre les parades del mercat de l'Àgora
+Among the market stalls of the Agora
+
+En la Heliea: pide a Lisímaco, el jurado, que te lleve a un juicio
+A l'Heliea: demana a Lisímac, el jurat, que et porti a un judici
+At the Heliaia: ask Lysimachus, the juror, to take you to a trial
+
+En la escuela de música, junto a la de letras, al sur del Ágora (por la mañana)
+A l'escola de música, al costat de la de lletres, al sud de l'Àgora (al matí)
+At the music school, next to the letters school, south of the Agora (in the morning)
+
+En la palestra, junto a las escuelas, al sur del Ágora (por la mañana)
+A la palestra, al costat de les escoles, al sud de l'Àgora (al matí)
+At the palaestra, next to the schools, south of the Agora (in the morning)
+
+En el Ágora de Esparta, junto al Pórtico Persa
+A l'Àgora d'Esparta, al costat del Pòrtic Persa
+In the Agora of Sparta, by the Persian Stoa
+
+En el Ágora de Esparta
+A l'Àgora d'Esparta
+In the Agora of Sparta
+
+En los campos de Pitane, al noroeste de Esparta
+Als camps de Pitane, al nord-oest d'Esparta
+In the fields of Pitane, north-west of Sparta
+
+En el santuario de Artemis Ortia, junto al Eurotas
+Al santuari d'Àrtemis Òrtia, vora l'Eurotas
+In the sanctuary of Artemis Orthia, by the Eurotas
+
+Junto a la aldea, al pie de la ciudadela de Micenas
+Al costat del llogaret, al peu de la ciutadella de Micenes
+By the village, at the foot of the citadel of Mycenae
+
+Ante el Hereo de Argos, al sur de Micenas
+Davant l'Hereu d'Argos, al sud de Micenes
+In front of the Heraion of Argos, south of Mycenae
+
+Junto a la entrada de la Academia
+Al costat de l'entrada de l'Acadèmia
+By the entrance to the Academy
+
+En el patio de tu casa
+Al pati de casa teva
+In the courtyard of your house
+
+En el andrón de tu casa, si Jantias lo contrata
+A l'andró de casa teva, si en Xàntias el contracta
+In the andron of your house, if Xanthias hires him
+
+En el sueño de la Academia (duerme bajo los olivos de Academo)
+Al somni de l'Acadèmia (dorm sota les oliveres d'Acadèmos)
+In the Academy dream (sleep under the olive trees of Academus)
+
+En el sueño de la Academia
+Al somni de l'Acadèmia
+In the Academy dream
+
+# ---------------------------------------------------------------- edificios y lugares de Atenas
+Vía Panatenaica
+Via Panatenaica
+Panathenaic Way
+
+Partenón
+Partenó
+Parthenon
+
+Templo antiguo
+Temple antic
+Old Temple
+
+Templo de Atenea Nike
+Temple d'Atena Niké
+Temple of Athena Nike
+
+Santuario de Ártemis Brauronia
+Santuari d'Àrtemis Braurònia
+Sanctuary of Artemis Brauronia
+
+Calcoteca
+Calcoteca
+Chalkotheke
+
+Erecteion
+Erectèon
+Erechtheion
+
+Propileos
+Propileus
+Propylaea
+
+Teatro
+Teatre
+Theatre
+
+Templo antiguo de Dioniso
+Temple antic de Dionís
+Old temple of Dionysus
+
+Odeón
+Odèon
+Odeon
+
+Templo de Asclepio
+Temple d'Asclepi
+Temple of Asclepius
+
+Stoa Basileios
+Stoa Basíleios
+Stoa Basileios
+
+Stoa de Zeus Eleutherios
+Stoa de Zeus Eleuteri
+Stoa of Zeus Eleutherios
+
+Hefestión
+Hefestèon
+Hephaisteion
+
+Metroon (antiguo Bouleuterion)
+Metroon (antic Buleuterion)
+Metroon (old Bouleuterion)
+
+Bouleuterion nuevo
+Buleuterion nou
+New Bouleuterion
+
+Tholos
+Tolos
+Tholos
+
+Stoa Poikile
+=
+=
+
+Stoa Sur I
+Stoa Sud I
+South Stoa I
+
+Recinto rectangular
+Recinte rectangular
+Rectangular Peribolos
+
+Fuente
+Font
+Fountain
+
+Prisión
+Presó
+Prison
+
+Eleusinion
+=
+=
+
+Templo del Eleusinion
+Temple de l'Eleusinion
+Temple of the Eleusinion
+
+Dípilon
+Dípilon
+Dipylon
+
+Pompeion
+=
+=
+
+Casa con andrón
+Casa amb andró
+House with an andron
+
+Bema
+=
+=
+
+Academia
+Acadèmia
+Academy
+
+Gimnasio del Liceo
+Gimnàs del Liceu
+Gymnasium of the Lyceum
+
+Gimnasio de Cinosarges
+Gimnàs de Cinosarges
+Gymnasium of Cynosarges
+
+Santuario de Heracles
+Santuari d'Hèracles
+Sanctuary of Heracles
+
+Olimpieion
+Olimpièon
+Olympieion
+
+Atenea Pártenos
+Atena Pàrtenos
+Athena Parthenos
+
+Cimientos del templo antiguo
+Fonaments del temple antic
+Foundations of the Old Temple
+
+El tesoro del Partenón
+El tresor del Partenó
+The treasury of the Parthenon
+
+Atenea Polias y la lámpara de oro
+Atena Polias i la llàntia d'or
+Athena Polias and the golden lamp
+
+El mar de Erecteo y las marcas del tridente
+El mar d'Erecteu i les marques del trident
+The sea of Erechtheus and the trident marks
+
+Pinacoteca
+Pinacoteca
+Pinakotheke
+
+El olivo de Atenea
+L'olivera d'Atena
+Athena's olive tree
+
+Atenea Prómacos
+Atena Pròmacos
+Athena Promachos
+
+Areópago
+Areòpag
+Areopagus
+
+Cueva de Pan
+Cova de Pan
+Cave of Pan
+
+Bouleuterion
+Buleuterion
+Bouleuterion
+
+Monumento de los Héroes Epónimos
+Monument dels Herois Epònims
+Monument of the Eponymous Heroes
+
+Altar de los Doce Dioses
+Altar dels Dotze Déus
+Altar of the Twelve Gods
+
+Kleroterion
+Kleroterion
+Kleroterion
+
+Mojón del Ágora
+Fita de l'Àgora
+Boundary stone of the Agora
+
+Casa de Simón el zapatero
+Casa de Simó el sabater
+House of Simon the shoemaker
+
+Fuente del sureste
+Font del sud-est
+South-east fountain
+
+Eleusinion de la ciudad
+Eleusinion de la ciutat
+City Eleusinion
+
+Bema de la Pnyx
+Bema de la Pnyx
+Bema of the Pnyx
+
+Teatro de Dioniso
+Teatre de Dionís
+Theatre of Dionysus
+
+Odeón de Pericles
+Odèon de Pèricles
+Odeon of Pericles
+
+Santuario de Asclepio
+Santuari d'Asclepi
+Sanctuary of Asclepius
+
+Puerta del Dípilon
+Porta del Dípilon
+Dipylon Gate
+
+Cementerio del Cerámico
+Cementiri del Ceràmic
+Kerameikos cemetery
+
+La Academia
+L'Acadèmia
+The Academy
+
+Liceo
+Liceu
+Lyceum
+
+Cinosarges
+=
+Cynosarges
+
+Escuela de letras
+Escola de lletres
+School of letters
+
+Escuela de música
+Escola de música
+School of music
+
+Palestra
+Palestra
+Palaestra
+
+Tu casa
+Casa teva
+Your house
+
+Almacenes del puerto
+Magatzems del port
+Harbour warehouses
+
+Templo de Afaya
+Temple d'Afaia
+Temple of Aphaia
+
+Templo de Apolo
+Temple d'Apol·lo
+Temple of Apollo
+
+Templo de los atenienses
+Temple dels atenesos
+Temple of the Athenians
+
+Gran templo
+Gran temple
+Great temple
+
+Portara
+=
+=
+
+Cnosos
+Cnossos
+Knossos
+
+Templo de Apolo (Lesbos)
+Temple d'Apol·lo (Lesbos)
+Temple of Apollo (Lesbos)
+
+Templo de Atenea Ilíade
+Temple d'Atena Ilíada
+Temple of Athena Ilias
+
+Ilión
+Ílion
+Ilion
+
+Cadmea
+=
+Cadmea
+
+Templo de Deméter Tesmófora
+Temple de Demèter Tesmòfora
+Temple of Demeter Thesmophoros
+
+Fuente Dirce
+Font Dirce
+Dirce spring
+
+Templo de Apolo Ismenio
+Temple d'Apol·lo Ismeni
+Temple of Apollo Ismenios
+
+Atenas, puerta norte
+Atenes, porta nord
+Athens, north gate
+
+Camino de Tebas
+Camí de Tebes
+Road to Thebes
+
+Templo de Atenea Calcieco
+Temple d'Atena Calcíec
+Temple of Athena Chalkioikos
+
+Pórtico Persa
+Pòrtic Persa
+Persian Stoa
+
+Sala de las comidas comunes
+Sala dels àpats comuns
+Hall of the common meals
+
+Templo de Artemis Ortia
+Temple d'Àrtemis Òrtia
+Temple of Artemis Orthia
+
+Menelaion
+Menelaion
+Menelaion
+
+Hereo de Argos
+Hereu d'Argos
+Argive Heraion
+
+# ---------------------------------------------------------------- islas y destinos
+Egina
+Egina
+Aegina
+
+Delos
+=
+=
+
+Naxos
+=
+=
+
+Creta
+=
+Crete
+
+Lesbos
+=
+=
+
+Troya (Ilión)
+Troia (Ílion)
+Troy (Ilion)
+
+Tebas
+Tebes
+Thebes
+
+Esparta
+Esparta
+Sparta
+
+Micenas
+Micenes
+Mycenae
+
+La isla de Éaco, en el golfo Sarónico, frente al Pireo.
+L'illa d'Èac, al golf Sarònic, davant del Pireu.
+The island of Aeacus, in the Saronic Gulf, opposite Piraeus.
+
+La isla sagrada de Apolo, en el centro de las Cícladas.
+L'illa sagrada d'Apol·lo, al centre de les Cíclades.
+The sacred island of Apollo, at the centre of the Cyclades.
+
+La mayor de las Cícladas, la isla de Ariadna y del mármol.
+La més gran de les Cíclades, l'illa d'Ariadna i del marbre.
+The largest of the Cyclades, the island of Ariadne and of marble.
+
+La gran isla de Minos.
+La gran illa de Minos.
+The great island of Minos.
+
+La isla de los poetas, frente a la costa de Asia.
+L'illa dels poetes, davant la costa d'Àsia.
+The island of poets, off the coast of Asia.
+
+La pequeña Ilión del siglo IV, sobre las ruinas de la Troya de Homero, junto al Helesponto.
+La petita Ílion del segle IV, sobre les ruïnes de la Troia d'Homer, vora l'Hel·lespont.
+The small Ilion of the fourth century, on the ruins of Homer's Troy, by the Hellespont.
+
+La gran ciudad de Beocia, la de Cadmo, Edipo y Heracles.
+La gran ciutat de Beòcia, la de Cadme, Èdip i Hèracles.
+The great city of Boeotia, the city of Cadmus, Oedipus and Heracles.
+
+La ciudad sin murallas de Licurgo, junto al Eurotas, al pie del Taigeto.
+La ciutat sense muralles de Licurg, vora l'Eurotas, al peu del Taíget.
+The unwalled city of Lycurgus, by the Eurotas, at the foot of Taygetus.
+
+Las ruinas de la ciudad de Agamenón, en la Argólide.
+Les ruïnes de la ciutat d'Agamèmnon, a l'Argòlida.
+The ruins of Agamemnon's city, in the Argolid.
+
+medio día de navegación con buen viento
+mig dia de navegació amb bon vent
+half a day's sail with a good wind
+
+dos días de navegación, con escala en Ceos
+dos dies de navegació, amb escala a Ceos
+two days' sail, stopping at Ceos
+
+dos días y medio de navegación
+dos dies i mig de navegació
+two and a half days' sail
+
+cuatro o cinco días por mar abierto
+quatre o cinc dies per mar obert
+four or five days across the open sea
+
+tres o cuatro días de navegación hacia el noreste
+tres o quatre dies de navegació cap al nord-est
+three or four days' sail to the north-east
+
+cuatro días de navegación hacia el Helesponto
+quatre dies de navegació cap a l'Hel·lespont
+four days' sail towards the Hellespont
+
+dos días de camino por el Citerón, por el paso de Eleuteras
+dos dies de camí pel Citeró, pel pas d'Eleuteres
+two days on the road over Cithaeron, through the pass of Eleutherae
+
+seis o siete días de camino por Mégara, el Istmo de Corinto, la Argólide y Arcadia
+sis o set dies de camí per Mègara, l'Istme de Corint, l'Argòlida i l'Arcàdia
+six or seven days on the road through Megara, the Isthmus of Corinth, the Argolid and Arcadia
+
+tres días de camino por Mégara y el Istmo de Corinto
+tres dies de camí per Mègara i l'Istme de Corint
+three days on the road through Megara and the Isthmus of Corinth
+
+# ---------------------------------------------------------------- zonas de Atenas
+El Pireo
+El Pireu
+Piraeus
+
+Acrópolis
+Acròpolis
+Acropolis
+
+Ágora
+Àgora
+Agora
+
+Pnyx
+=
+=
+
+Cerámico
+Ceràmic
+Kerameikos
+
+Muros Largos
+Murs Llargs
+Long Walls
+
+Calles de Atenas
+Carrers d'Atenes
+Streets of Athens
+
+Campos del Ática
+Camps de l'Àtica
+Fields of Attica
+
+El puerto de Atenas. Aquí embarcan los viajeros hacia las islas.
+El port d'Atenes. Aquí s'embarquen els viatgers cap a les illes.
+The port of Athens. Travellers set sail from here for the islands.
+
+La roca sagrada de Atenea, coronada por los templos de Pericles.
+La roca sagrada d'Atena, coronada pels temples de Pèricles.
+The sacred rock of Athena, crowned by the temples of Pericles.
+
+Mercado, plaza y corazón político de la ciudad.
+Mercat, plaça i cor polític de la ciutat.
+Market, square and political heart of the city.
+
+La colina donde se reúne la Asamblea del pueblo.
+El turó on es reuneix l'Assemblea del poble.
+The hill where the people's Assembly meets.
+
+Ladera sur de la Acrópolis.
+Vessant sud de l'Acròpolis.
+South slope of the Acropolis.
+
+La sala de los concursos musicales.
+La sala dels concursos musicals.
+The hall of the music contests.
+
+La colina de Ares, donde se juzgan los homicidios.
+El turó d'Ares, on es jutgen els homicidis.
+The hill of Ares, where homicide cases are tried.
+
+Santuario de Deméter y Core en la ciudad.
+Santuari de Demèter i Core a la ciutat.
+Sanctuary of Demeter and Kore in the city.
+
+El bosque sagrado de Academo, fuera de las murallas.
+El bosc sagrat d'Acadèmos, fora de les muralles.
+The sacred grove of Academus, outside the walls.
+
+Gimnasio de Apolo Liceo, junto al río Iliso.
+Gimnàs d'Apol·lo Liceu, vora el riu Ilissos.
+Gymnasium of Apollo Lyceius, by the river Ilissus.
+
+Barrio de alfareros y cementerio junto al Dípilon.
+Barri de terrissers i cementiri al costat del Dípilon.
+Potters' quarter and cemetery by the Dipylon.
+
+El corredor fortificado hacia el puerto del Pireo.
+El corredor fortificat cap al port del Pireu.
+The fortified corridor to the port of Piraeus.
+
+El templo inacabado de los tiranos.
+El temple inacabat dels tirans.
+The unfinished temple of the tyrants.
+
+Gimnasio de Heracles, junto al Iliso.
+Gimnàs d'Hèracles, vora l'Ilissos.
+Gymnasium of Heracles, by the Ilissus.
+
+Casas con patio, de adobe sobre zócalo de piedra, y callejas de tierra.
+Cases amb pati, de tova sobre sòcol de pedra, i carrerons de terra.
+Courtyard houses of mud brick on stone footings, and dirt lanes.
+
+Olivares, viñas y caminos entre los demos.
+Oliverars, vinyes i camins entre els demos.
+Olive groves, vineyards and roads between the demes.
+
+# ---------------------------------------------------------------- mitos, obras y ensayos (títulos)
+Dioses y origen del mundo
+Déus i origen del món
+The gods and the origin of the world
+
+Héroes
+Herois
+Heroes
+
+Troya y los regresos
+Troia i els retorns
+Troy and the homecomings
+
+Tebas y otras casas malditas
+Tebes i altres cases maleïdes
+Thebes and other cursed houses
+
+Amores y castigos
+Amors i càstigs
+Loves and punishments
+
+Del Caos a Zeus
+Del Caos a Zeus
+From Chaos to Zeus
+
+Prometeo y Pandora
+Prometeu i Pandora
+Prometheus and Pandora
+
+Las edades de los hombres y el diluvio
+Les edats dels homes i el diluvi
+The ages of man and the flood
+
+Perseo y Medusa
+Perseu i Medusa
+Perseus and Medusa
+
+Los trabajos de Heracles
+Els treballs d'Hèracles
+The labours of Heracles
+
+Jasón y los argonautas
+Jàson i els argonautes
+Jason and the Argonauts
+
+Belerofonte y la Quimera
+Bel·lerofont i la Quimera
+Bellerophon and the Chimera
+
+Atalanta
+=
+=
+
+El juicio de Paris y la guerra de Troya
+El judici de Paris i la guerra de Troia
+The judgement of Paris and the Trojan War
+
+El regreso de Odiseo
+El retorn d'Odisseu
+The return of Odysseus
+
+La casa de los Atridas
+La casa dels Atrides
+The house of Atreus
+
+Cadmo y la fundación de Tebas
+Cadme i la fundació de Tebes
+Cadmus and the founding of Thebes
+
+Edipo
+Èdip
+Oedipus
+
+Orfeo y Eurídice
+Orfeu i Eurídice
+Orpheus and Eurydice
+
+Faetón
+Faetó
+Phaethon
+
+Níobe
+Níobe
+Niobe
+
+Adonis y las Adonias
+Adonis i les Adònies
+Adonis and the Adonia
+
+Medea
+=
+=
+
+Las troyanas
+Les troianes
+The Trojan Women
+
+Las bacantes
+Les bacants
+The Bacchae
+
+por la mañana
+al matí
+in the morning
+
+por la tarde
+a la tarda
+in the afternoon
+
+por la noche
+a la nit
+at night
+
+Frontón este del Partenón
+Frontó est del Partenó
+East pediment of the Parthenon
+
+Frontón oeste del Partenón
+Frontó oest del Partenó
+West pediment of the Parthenon
+
+Metopas este del Partenón
+Mètopes est del Partenó
+East metopes of the Parthenon
+
+Metopas sur del Partenón
+Mètopes sud del Partenó
+South metopes of the Parthenon
+
+Friso del Partenón
+Fris del Partenó
+Parthenon frieze
+
+Metopas del Hefestión
+Mètopes de l'Hefestèon
+Metopes of the Hephaisteion
+
+Pintura de Maratón en la Stoa Poikile
+Pintura de Marató a l'Stoa Poikile
+Painting of Marathon in the Stoa Poikile
+
+Figuras del tejado de la Stoa Basileios
+Figures de la teulada de l'Stoa Basíleios
+Roof figures of the Stoa Basileios
+
+Relieve de Orfeo, Eurídice y Hermes
+Relleu d'Orfeu, Eurídice i Hermes
+Relief of Orpheus, Eurydice and Hermes
+
+Frontones del templo de Afaya (Egina)
+Frontons del temple d'Afaia (Egina)
+Pediments of the temple of Aphaia (Aegina)
+
+Batalla de Énoe
+Batalla d'Ènoe
+Battle of Oinoe
+
+Teseo contra las Amazonas
+Teseu contra les Amazones
+Theseus against the Amazons
+
+Caída de Troya
+Caiguda de Troia
+Fall of Troy
+
+Batalla de Maratón
+Batalla de Marató
+Battle of Marathon
+
+La casa y la familia: el oikos
+La casa i la família: l'oikos
+House and family: the oikos
+
+Las mujeres de Atenas
+Les dones d'Atenes
+The women of Athens
+
+El teatro en el 386
+El teatre el 386
+The theatre in 386
+
+Tebas en el 386: antes de la hegemonía
+Tebes el 386: abans de l'hegemonia
+Thebes in 386: before its hegemony
+
+Atenas en el 386 a.C.
+Atenes el 386 aC
+Athens in 386 BC
+
+Autores y figuras vivos hacia el 386
+Autors i figures vius cap al 386
+Authors and figures alive around 386
+
+Moneda, precios y salarios
+Moneda, preus i salaris
+Money, prices and wages
+
+Calendario y fiestas
+Calendari i festes
+Calendar and festivals
+
+Cómo se han reconstruido los edificios
+Com s'han reconstruït els edificis
+How the buildings were reconstructed
+
+Licencias históricas del juego
+Llicències històriques del joc
+Historical licences taken in the game
+
+Para seguir leyendo
+Per continuar llegint
+Further reading
+
+«La escuela de Atenas» de Rafael
+«L'escola d'Atenes» de Rafael
+Raphael's «School of Athens»
+
+Las letras
+Les lletres
+Letters
+
+Leer y escribir
+Llegir i escriure
+Reading and writing
+
+Contar
+Comptar
+Counting
+
+Homero de memoria
+Homer de memòria
+Homer by heart
+
+La lira
+La lira
+The lyre
+
+Los modos musicales
+Els modes musicals
+The musical modes
+
+Cantar a los poetas
+Cantar els poetes
+Singing the poets
+
+La lucha
+La lluita
+Wrestling
+
+El pentatlón
+El pentatló
+The pentathlon
+
+Aceite, polvo y estrígilo
+Oli, pols i estrígil
+Oil, dust and strigil
+
+Palabras que parecen iguales
+Paraules que semblen iguals
+Words that seem the same
+
+Heracles en la encrucijada
+Hèracles a la cruïlla
+Heracles at the crossroads
+
+Saberlo todo: ¿y qué es lo bello?
+Saber-ho tot: i què és el bell?
+Knowing everything: and what is the beautiful?
+
+El Encomio de Helena
+L'Encomi d'Helena
+The Encomium of Helen
+
+Hablar como Gorgias
+Parlar com Gòrgias
+Speaking like Gorgias
+
+Trampas de palabras
+Paranys de paraules
+Word traps
+
+Defender las dos partes
+Defensar les dues parts
+Arguing both sides
+
+Esparta en el 386 a.C.
+Esparta el 386 aC
+Sparta in 386 BC
+
+Micenas, ciudad en ruinas
+Micenes, ciutat en ruïnes
+Mycenae, a city in ruins
+
+La educación en Atenas
+L'educació a Atenes
+Education in Athens
+
+La educación en Roma
+L'educació a Roma
+Education in Rome
+
+# ---------------------------------------------------------------- Roma: personajes
+Marco Valerio Marcial
+Marc Valeri Marcial
+Marcus Valerius Martialis
+
+Marco Fabio Quintiliano
+Marc Fabi Quintilià
+Marcus Fabius Quintilianus
+
+Flavio Josefo
+Flavi Josep
+Flavius Josephus
+
+Epicteto
+Epictet
+Epictetus
+
+Gayo Musonio Rufo
+Gai Musoni Ruf
+Gaius Musonius Rufus
+
+Sexto Julio Frontino
+Sext Juli Frontí
+Sextus Julius Frontinus
+
+Plinio el Joven
+Plini el Jove
+Pliny the Younger
+
+Publio Cornelio Tácito
+Publi Corneli Tàcit
+Publius Cornelius Tacitus
+
+Dion de Prusa
+Dió de Prusa
+Dio of Prusa
+
+Sulpicia
+Sulpícia
+Sulpicia
+
+Rabirio
+Rabiri
+Rabirius
+
+Atrecto
+Atrecte
+Atrectus
+
+Prisco
+Prisc
+Priscus
+
+Cornelia
+Cornèlia
+Cornelia
+
+Gayo Pompeyo Hermeros
+Gai Pompeu Hermeros
+Gaius Pompeius Hermeros
+
+Lucio Fabio
+Luci Fabi
+Lucius Fabius
+
+Marco Valerio Pudente
+Marc Valeri Pudent
+Marcus Valerius Pudens
+
+Félix
+Fèlix
+Felix
+
+Tiberio Claudio Eutiques
+Tiberi Claudi Èutic
+Tiberius Claudius Eutyches
+
+Secundo
+Secund
+Secundus
+
+Aulo Sempronio
+Aule Semproni
+Aulus Sempronius
+
+Gneo Domicio Calvino
+Gneu Domici Calví
+Gnaeus Domitius Calvinus
+
+Junia
+Júnia
+Junia
+
+Asclepíades
+Asclepíades
+Asclepiades
+
+Tito Verrio
+Tit Verri
+Titus Verrius
+
+Aurelia
+Aurèlia
+Aurelia
+
+Lucio Vibio
+Luci Vibi
+Lucius Vibius
+
+Ambivio
+Ambivi
+Ambivius
+
+Flavio
+Flavi
+Flavius
+
+Poeta de epigramas
+Poeta d'epigrames
+Epigram poet
+
+Historiador judío
+Historiador jueu
+Jewish historian
+
+Esclavo y filósofo estoico
+Esclau i filòsof estoic
+Slave and Stoic philosopher
+
+Filósofo estoico
+Filòsof estoic
+Stoic philosopher
+
+Ingeniero, antiguo gobernador de Britania
+Enginyer, antic governador de Britània
+Engineer, former governor of Britain
+
+Estudiante de retórica, de 18 años
+Estudiant de retòrica, de 18 anys
+Rhetoric student, aged 18
+
+Joven senador
+Jove senador
+Young senator
+
+Orador y filósofo griego
+Orador i filòsof grec
+Greek orator and philosopher
+
+Poetisa
+Poetessa
+Poetess
+
+Arquitecto
+Arquitecte
+Architect
+
+Librero del Argileto
+Llibreter de l'Argilet
+Bookseller of the Argiletum
+
+Gladiador liberado por Tito
+Gladiador alliberat per Titus
+Gladiator freed by Titus
+
+Virgen vestal
+Verge vestal
+Vestal Virgin
+
+Liberto enriquecido
+Liberto enriquit
+Wealthy freedman
+
+Cliente en la salutatio
+Client a la salutatio
+Client at the salutatio
+
+Soldado de la guardia pretoriana
+Soldat de la guàrdia pretoriana
+Soldier of the Praetorian Guard
+
+Auriga de la facción de los verdes
+Auriga de la facció dels verds
+Charioteer of the Green faction
+
+Comerciante de grano del Emporio
+Comerciant de gra de l'Empori
+Grain merchant of the Emporium
+
+Encargado de las Termas de Tito
+Encarregat de les Termes de Titus
+Manager of the Baths of Titus
+
+Vigil (bombero) de la Subura
+Vigil (bomber) de la Subura
+Vigil (firefighter) of the Subura
+
+Augur
+Àugur
+Augur
+
+Cristiana del Trastévere
+Cristiana del Trastevere
+Christian woman of Trastevere
+
+Médico griego
+Metge grec
+Greek physician
+
+Gramático y maestro de escuela
+Gramàtic i mestre d'escola
+Grammarian and schoolteacher
+
+Latinismos
+Llatinismes
+Latin expressions
+
+Lectora apasionada de Ovidio
+Lectora apassionada d'Ovidi
+Passionate reader of Ovid
+
+Paduano, admirador de Tito Livio
+Paduà, admirador de Titus Livi
+Paduan, admirer of Livy
+
+Jefe de una compañía de cómicos
+Cap d'una companyia de còmics
+Head of a troupe of actors
+
+El teatro en Roma
+El teatre a Roma
+The theatre in Rome
+
+Maestro de primeras letras (ludi magister)
+Mestre de primeres lletres (ludi magister)
+Primary teacher (ludi magister)
+
+# ---------------------------------------------------------------- Roma: lecciones
+El Libro de los espectáculos
+El Llibre dels espectacles
+The Book of Spectacles
+
+La formación del orador
+La formació de l'orador
+The education of the orator
+
+La guerra judía y el Templo de la Paz
+La guerra jueva i el Temple de la Pau
+The Jewish War and the Temple of Peace
+
+Lo que depende de nosotros
+El que depèn de nosaltres
+What is up to us
+
+La filosofía también es para las mujeres
+La filosofia també és per a les dones
+Philosophy is for women too
+
+Los acueductos de Roma
+Els aqüeductes de Roma
+The aqueducts of Rome
+
+La erupción del Vesubio
+L'erupció del Vesuvi
+The eruption of Vesuvius
+
+El Senado y la carrera de los honores
+El Senat i la carrera dels honors
+The Senate and the course of honours
+
+Los griegos en Roma
+Els grecs a Roma
+Greeks in Rome
+
+Las mujeres romanas
+Les dones romanes
+Roman women
+
+Hormigón, arcos y bóvedas
+Formigó, arcs i voltes
+Concrete, arches and vaults
+
+Libros y lectura en Roma
+Llibres i lectura a Roma
+Books and reading in Rome
+
+Los gladiadores
+Els gladiadors
+Gladiators
+
+Las vestales
+Les vestals
+The Vestals
+
+Esclavos y libertos
+Esclaus i llibertos
+Slaves and freedmen
+
+Patronos y clientes
+Patrons i clients
+Patrons and clients
+
+El ejército romano
+L'exèrcit romà
+The Roman army
+
+Las carreras del Circo Máximo
+Les curses del Circ Màxim
+The races of the Circus Maximus
+
+La annona: pan para Roma
+L'annona: pa per a Roma
+The annona: bread for Rome
+
+Las termas
+Les termes
+The baths
+
+Las ínsulas y los incendios
+Les ínsules i els incendis
+Insulae and fires
+
+La religión romana
+La religió romana
+Roman religion
+
+Judíos y cristianos en Roma
+Jueus i cristians a Roma
+Jews and Christians in Rome
+
+La medicina en Roma
+La medicina a Roma
+Medicine in Rome
+
+Latinismos: el latín que no ha muerto
+Llatinismes: el llatí que no ha mort
+Latin expressions: the Latin that never died
+
+Ovidio, el poeta desterrado
+Ovidi, el poeta desterrat
+Ovid, the exiled poet
+
+Tito Livio y la historia de Roma
+Titus Livi i la història de Roma
+Livy and the history of Rome
+
+El teatro en Roma: Plauto y Terencio
+El teatre a Roma: Plaute i Terenci
+The theatre in Rome: Plautus and Terence
+
+La escuela de primeras letras
+L'escola de primeres lletres
+The primary school
+
+Letras y sílabas
+Lletres i síl·labes
+Letters and syllables
+
+Las cuentas
+Els comptes
+Sums
+
+Escribir en la tablilla
+Escriure a la tauleta
+Writing on the tablet
+
+Las Doce Tablas
+Les Dotze Taules
+The Twelve Tables
+
+Leer a Virgilio
+Llegir Virgili
+Reading Virgil
+
+Las partes de la oración
+Les parts de l'oració
+The parts of speech
+
+Griego y latín
+Grec i llatí
+Greek and Latin
+
+Las cinco partes del arte
+Les cinc parts de l'art
+The five parts of the art
+
+La suasoria
+La suasòria
+The suasoria
+
+La controversia
+La controvèrsia
+The controversia
+
+El arte de la memoria
+L'art de la memòria
+The art of memory
+
+# ---------------------------------------------------------------- Roma: dónde están
+Ante la entrada oeste del Anfiteatro Flavio
+Davant l'entrada oest de l'Amfiteatre Flavi
+At the west entrance of the Flavian Amphitheatre
+
+En la Basílica Julia, en el Foro
+A la Basílica Júlia, al Fòrum
+In the Basilica Julia, in the Forum
+
+En el Templo de la Paz, junto a los foros
+Al Temple de la Pau, al costat dels fòrums
+In the Temple of Peace, beside the fora
+
+Junto a las Termas de Tito, en la ladera del Esquilino
+Al costat de les Termes de Titus, al vessant de l'Esquilí
+By the Baths of Titus, on the slope of the Esquiline
+
+En el pórtico de Pompeyo, en el Campo de Marte
+Al pòrtic de Pompeu, al Camp de Mart
+In the Portico of Pompey, in the Campus Martius
+
+Bajo los arcos del Acueducto Claudio, en el Celio
+Sota els arcs de l'Aqüeducte Claudi, al Celi
+Under the arches of the Aqua Claudia, on the Caelian
+
+En el Foro de Augusto
+Al Fòrum d'August
+In the Forum of Augustus
+
+Ante la Curia Julia, en el Foro
+Davant la Cúria Júlia, al Fòrum
+In front of the Curia Julia, in the Forum
+
+Ante el Teatro de Pompeyo, en el Campo de Marte
+Davant el Teatre de Pompeu, al Camp de Mart
+In front of the Theatre of Pompey, in the Campus Martius
+
+En los jardines del Aventino
+Als jardins de l'Aventí
+In the gardens of the Aventine
+
+En las obras del Palatino
+A les obres del Palatí
+At the building works on the Palatine
+
+En su tienda del Argileto, junto al Foro
+A la seva botiga de l'Argilet, al costat del Fòrum
+In his shop in the Argiletum, beside the Forum
+
+En la arena del Anfiteatro Flavio (entra por la puerta oeste)
+A l'arena de l'Amfiteatre Flavi (entra per la porta oest)
+In the arena of the Flavian Amphitheatre (enter by the west gate)
+
+En la Casa de las Vestales, junto al Foro
+A la Casa de les Vestals, al costat del Fòrum
+In the House of the Vestals, beside the Forum
+
+En el Foro, cerca del Templo de Saturno
+Al Fòrum, a prop del Temple de Saturn
+In the Forum, near the Temple of Saturn
+
+A la puerta de una domus del Celio
+A la porta d'una domus del Celi
+At the door of a domus on the Caelian
+
+En la subida al Palatino
+A la pujada al Palatí
+On the way up the Palatine
+
+En el Circo Máximo, junto a las cárceres (las puertas de salida)
+Al Circ Màxim, al costat de les càrceres (les portes de sortida)
+In the Circus Maximus, by the carceres (the starting gates)
+
+En el Emporio, a orillas del Tíber, bajo el Aventino
+A l'Empori, a la vora del Tíber, sota l'Aventí
+At the Emporium, on the banks of the Tiber, below the Aventine
+
+A la entrada de las Termas de Tito
+A l'entrada de les Termes de Titus
+At the entrance to the Baths of Titus
+
+En una calle de la Subura
+En un carrer de la Subura
+In a street of the Subura
+
+En el Capitolio, ante el templo de Júpiter
+Al Capitoli, davant el temple de Júpiter
+On the Capitol, in front of the temple of Jupiter
+
+En el Trastévere, al otro lado del Tíber
+Al Trastevere, a l'altra banda del Tíber
+In Trastevere, across the Tiber
+
+En la Isla Tiberina, junto al templo de Esculapio
+A l'Illa Tiberina, al costat del temple d'Esculapi
+On the Tiber Island, by the temple of Aesculapius
+
+Bajo los pórticos del Foro, junto a la Basílica Emilia
+Sota els pòrtics del Fòrum, al costat de la Basílica Emília
+Under the porticoes of the Forum, by the Basilica Aemilia
+
+En la orquesta del Teatro de Pompeyo
+A l'orquestra del Teatre de Pompeu
+In the orchestra of the Theatre of Pompey
+
+En la orquesta del Teatro de Marcelo
+A l'orquestra del Teatre de Marcel
+In the orchestra of the Theatre of Marcellus
+
+Junto al escenario del Teatro de Pompeyo
+Al costat de l'escenari del Teatre de Pompeu
+By the stage of the Theatre of Pompey
+
+En su pérgola del Argileto, cerca del Foro
+A la seva pèrgola de l'Argilet, a prop del Fòrum
+Under his pergola in the Argiletum, near the Forum
+
+# ---------------------------------------------------------------- Roma: zonas y lugares
+Foro Romano
+Fòrum Romà
+Roman Forum
+
+Capitolio
+Capitoli
+Capitol
+
+Palatino
+Palatí
+Palatine
+
+Anfiteatro Flavio
+Amfiteatre Flavi
+Flavian Amphitheatre
+
+Circo Máximo
+Circ Màxim
+Circus Maximus
+
+Foros imperiales
+Fòrums imperials
+Imperial Fora
+
+Subura
+=
+=
+
+Termas de Tito
+Termes de Titus
+Baths of Titus
+
+Campo de Marte
+Camp de Mart
+Campus Martius
+
+Isla Tiberina
+Illa Tiberina
+Tiber Island
+
+Trastévere
+Trastevere
+Trastevere
+
+Aventino
+Aventí
+Aventine
+
+Celio
+Celi
+Caelian
+
+Esquilino
+Esquilí
+Esquiline
+
+Vía Apia
+Via Àpia
+Via Appia
+
+Apia
+Àpia
+Appia
+
+Calles de Roma
+Carrers de Roma
+Streets of Rome
+
+Campiña romana
+Camp romà
+Roman countryside
+
+El corazón político y religioso de Roma, entre el Capitolio y el Palatino.
+El cor polític i religiós de Roma, entre el Capitoli i el Palatí.
+The political and religious heart of Rome, between the Capitol and the Palatine.
+
+La colina sagrada de Júpiter Óptimo Máximo.
+El turó sagrat de Júpiter Òptim Màxim.
+The sacred hill of Jupiter Best and Greatest.
+
+La colina de Rómulo y de los palacios de los emperadores.
+El turó de Ròmul i dels palaus dels emperadors.
+The hill of Romulus and of the emperors' palaces.
+
+El anfiteatro que Tito inaugura con cien días de juegos.
+L'amfiteatre que Titus inaugura amb cent dies de jocs.
+The amphitheatre Titus is opening with a hundred days of games.
+
+Las carreras de carros, entre el Palatino y el Aventino.
+Les curses de carros, entre el Palatí i l'Aventí.
+The chariot races, between the Palatine and the Aventine.
+
+Los foros de César y de Augusto y el Templo de la Paz.
+Els fòrums de Cèsar i d'August i el Temple de la Pau.
+The fora of Caesar and Augustus and the Temple of Peace.
+
+El barrio más populoso y ruidoso de Roma: ínsulas, tabernas y talleres.
+El barri més populós i sorollós de Roma: ínsules, tavernes i tallers.
+The most crowded and noisy quarter of Rome: insulae, taverns and workshops.
+
+Baños públicos recién inaugurados junto al anfiteatro.
+Banys públics acabats d'inaugurar al costat de l'amfiteatre.
+Newly opened public baths beside the amphitheatre.
+
+La llanura junto al Tíber, llena de teatros, pórticos y monumentos.
+La plana vora el Tíber, plena de teatres, pòrtics i monuments.
+The plain by the Tiber, full of theatres, porticoes and monuments.
+
+La isla del dios Esculapio, en medio del río.
+L'illa del déu Esculapi, enmig del riu.
+The island of the god Aesculapius, in the middle of the river.
+
+Al otro lado del río: artesanos, marineros, judíos y extranjeros.
+A l'altra banda del riu: artesans, mariners, jueus i estrangers.
+Across the river: craftsmen, sailors, Jews and foreigners.
+
+Colina de templos antiguos y casas de los ricos; abajo, el puerto fluvial.
+Turó de temples antics i cases dels rics; a baix, el port fluvial.
+A hill of ancient temples and rich men's houses; below, the river port.
+
+Colina de domus aristocráticas, cruzada por el Acueducto Claudio.
+Turó de domus aristocràtiques, travessat per l'Aqüeducte Claudi.
+A hill of aristocratic domus, crossed by the Aqua Claudia.
+
+Colina de jardines y palacios; aquí estuvo la Casa Dorada de Nerón.
+Turó de jardins i palaus; aquí hi havia la Casa Daurada de Neró.
+A hill of gardens and palaces; Nero's Golden House stood here.
+
+La reina de las calzadas, flanqueada de tumbas.
+La reina de les calçades, flanquejada de tombes.
+The queen of roads, lined with tombs.
+
+Una ciudad de un millón de habitantes, ínsulas de pisos y calles estrechas.
+Una ciutat d'un milió d'habitants, ínsules de pisos i carrers estrets.
+A city of a million people, apartment blocks and narrow streets.
+
+Huertos, viñas, villas y tumbas a lo largo de las calzadas.
+Horts, vinyes, viles i tombes al llarg de les calçades.
+Gardens, vineyards, villas and tombs along the roads.
+
+Quirinal
+Quirinal
+Quirinal
+
+Viminal
+Viminal
+Viminal
+
+Panteón
+Panteó
+Pantheon
+
+Mausoleo de Augusto
+Mausoleu d'August
+Mausoleum of Augustus
+
+Teatro de Marcelo
+Teatre de Marcel
+Theatre of Marcellus
+
+Templo de la Paz
+Temple de la Pau
+Temple of Peace
+
+Tíber
+Tíber
+Tiber
+
+Curia Julia
+Cúria Júlia
+Curia Julia
+
+Rostra
+=
+=
+
+Templo de Saturno
+Temple de Saturn
+Temple of Saturn
+
+Templo de Cástor y Pólux
+Temple de Càstor i Pòl·lux
+Temple of Castor and Pollux
+
+Templo de Vesta
+Temple de Vesta
+Temple of Vesta
+
+Templo del Divino Julio
+Temple del Diví Juli
+Temple of the Divine Julius
+
+Basílica Julia
+Basílica Júlia
+Basilica Julia
+
+Basílica Emilia
+Basílica Emília
+Basilica Aemilia
+
+Tabularium
+=
+=
+
+Templo de Júpiter Óptimo Máximo
+Temple de Júpiter Òptim Màxim
+Temple of Jupiter Best and Greatest
+
+Roca Tarpeya
+Roca Tarpeia
+Tarpeian Rock
+
+El Palatino
+El Palatí
+The Palatine
+
+Cabaña de Rómulo
+Cabana de Ròmul
+Hut of Romulus
+
+Templo de Apolo Palatino
+Temple d'Apol·lo Palatí
+Temple of Palatine Apollo
+
+El Coloso
+El Colós
+The Colossus
+
+Foro de Augusto
+Fòrum d'August
+Forum of Augustus
+
+Foro de César
+Fòrum de Cèsar
+Forum of Caesar
+
+Panteón de Agripa
+Panteó d'Agripa
+Pantheon of Agrippa
+
+Teatro de Pompeyo
+Teatre de Pompeu
+Theatre of Pompey
+
+Ara Pacis
+=
+=
+
+Reloj solar de Augusto
+Rellotge de sol d'August
+Sundial of Augustus
+
+El Emporio
+L'Empori
+The Emporium
+
+Pirámide de Cestio
+Piràmide de Cesti
+Pyramid of Cestius
+
+Acueducto Claudio
+Aqüeducte Claudi
+Aqua Claudia
+
+El Lupercal
+El Lupercal
+The Lupercal
+
+Templo de Hércules Vencedor
+Temple d'Hèrcules Vencedor
+Temple of Hercules Victor
+
+La Subura
+=
+The Subura
+
+Curia
+Cúria
+Curia
+
+Templo de la Concordia
+Temple de la Concòrdia
+Temple of Concord
+
+Casa de las Vestales
+Casa de les Vestals
+House of the Vestals
+
+Templo de Juno Moneta
+Temple de Juno Moneta
+Temple of Juno Moneta
+
+Casa de Tiberio
+Casa de Tiberi
+House of Tiberius
+
+Palacio en obras
+Palau en obres
+Palace under construction
+
+Casa de Augusto
+Casa d'August
+House of Augustus
+
+Templo de Venus Genetrix
+Temple de Venus Genetrix
+Temple of Venus Genetrix
+
+Templo de Marte Vengador
+Temple de Mart Venjador
+Temple of Mars the Avenger
+
+Termas de Agripa
+Termes d'Agripa
+Baths of Agrippa
+
+Templo de Juno Regina
+Temple de Juno Regina
+Temple of Juno Regina
+
+Templo de Júpiter Estátor
+Temple de Júpiter Stator
+Temple of Jupiter Stator
+
+Templo de Esculapio
+Temple d'Esculapi
+Temple of Aesculapius
+
+Pórtico Emilio
+Pòrtic Emili
+Porticus Aemilia
+
+Templo del Divino Claudio
+Temple del Diví Claudi
+Temple of the Divine Claudius
+
+Arco de Augusto
+Arc d'August
+Arch of Augustus
+
+Arco de Tiberio
+Arc de Tiberi
+Arch of Tiberius
+
+Júpiter
+Júpiter
+Jupiter
+
+Escuela de primeras letras
+Escola de primeres lletres
+Primary school
+
+Escuela del gramático
+Escola del gramàtic
+Grammarian's school
+
+Vía Sacra
+Via Sacra
+Sacred Way
+
+Vico Tusco
+Vicus Tuscus
+Vicus Tuscus
+
+Clivo Capitolino
+Clivus Capitolinus
+Clivus Capitolinus
+
+Argileto
+Argilet
+Argiletum
+
+Vía Flaminia
+Via Flamínia
+Via Flaminia
+
+Vía Ostiense
+Via Ostiense
+Via Ostiensis
+
+Puentes de la isla
+Ponts de l'illa
+Bridges of the island
+
+Vía Labicana
+Via Labicana
+Via Labicana
+
+Vía Recta
+Via Recta
+Via Recta
+
+Calle del Velabro
+Carrer del Velabre
+Street of the Velabrum
+
+Clivo de Escauro
+Clivus Scauri
+Clivus Scauri
+
+Calle del Trastévere
+Carrer del Trastevere
+Trastevere street
+
+Verdes
+Verds
+Greens
+
+Azules
+Blaus
+Blues
+
+Rojos
+Vermells
+Reds
+
+Blancos
+Blancs
+Whites
+
+# ---------------------------------------------------------------- Roma: leyendas, obras, ensayos
+Leyendas de Roma
+Llegendes de Roma
+Legends of Rome
+
+Eneas, de Troya al Lacio
+Enees, de Troia al Laci
+Aeneas, from Troy to Latium
+
+Rómulo y Remo
+Ròmul i Rem
+Romulus and Remus
+
+El rapto de las sabinas
+El rapte de les sabines
+The rape of the Sabine women
+
+Horacios y Curiacios
+Horacis i Curiacis
+The Horatii and the Curiatii
+
+Lucrecia y el fin de los reyes
+Lucrècia i la fi dels reis
+Lucretia and the end of the kings
+
+Horacio Cocles y Mucio Escévola
+Horaci Cocles i Muci Escevola
+Horatius Cocles and Mucius Scaevola
+
+Roma en el año 80 d.C.
+Roma l'any 80 dC
+Rome in AD 80
+
+La ciudad: foros, ínsulas y domus
+La ciutat: fòrums, ínsules i domus
+The city: fora, insulae and domus
+
+Autores y figuras vivos hacia el 80
+Autors i figures vius cap al 80
+Authors and figures alive around 80
+
+Calendario y fiestas romanas
+Calendari i festes romanes
+The Roman calendar and festivals
+
+Cómo se ha reconstruido Roma
+Com s'ha reconstruït Roma
+How Rome was reconstructed
+
+Licencias históricas del modo Roma
+Llicències històriques del mode Roma
+Historical licences in the Rome mode
+
+La olla
+L'olla
+The Pot of Gold
+
+La comedia del fantasma
+La comèdia del fantasma
+The Haunted House
+
+Los Menecmos
+Els Menecmes
+The Two Menaechmuses
+
+Los hermanos
+Els germans
+The Brothers
+
+La suegra
+La sogra
+The Mother-in-Law
+
+Formión
+Formió
+Phormio
+
+Plauto
+Plaute
+Plautus
+
+Terencio
+Terenci
+Terence
+
+# ---------------------------------------------------------------- estelas de islas, Grecia y decoración
+Puerto de Egina
+Port d'Egina
+Harbour of Aegina
+
+Altar de cuernos (Keraton)
+Altar de banyes (Keraton)
+Altar of horns (Keraton)
+
+Lago sagrado y palmera de Leto
+Llac sagrat i palmera de Leto
+Sacred lake and Leto's palm tree
+
+Terraza de los leones
+Terrassa dels lleons
+Terrace of the Lions
+
+La Portara
+La Portara
+The Portara
+
+Kuros inacabado
+Kuros inacabat
+Unfinished kouros
+
+Ruinas de Cnosos
+Ruïnes de Cnossos
+Ruins of Knossos
+
+Cueva de Zeus
+Cova de Zeus
+Cave of Zeus
+
+Santuario de la cabeza de Orfeo
+Santuari del cap d'Orfeu
+Shrine of the head of Orpheus
+
+La isla de los poetas
+L'illa dels poetes
+The island of poets
+
+Tumba de Aquiles y Patroclo
+Tomba d'Aquil·les i Pàtrocle
+Tomb of Achilles and Patroclus
+
+Tumba de Áyax
+Tomba d'Àiax
+Tomb of Ajax
+
+El Escamandro
+L'Escamandre
+The Scamander
+
+Ilión y el templo de Atenea
+Ílion i el temple d'Atena
+Ilion and the temple of Athena
+
+Los muros de Troya
+Els murs de Troia
+The walls of Troy
+
+Ruinas del palacio de Cadmo
+Ruïnes del palau de Cadme
+Ruins of the palace of Cadmus
+
+La Cadmea
+La Cadmea
+The Cadmea
+
+Las siete puertas de Tebas
+Les set portes de Tebes
+The seven gates of Thebes
+
+Casa de Anfitrión
+Casa d'Amfitrió
+House of Amphitryon
+
+Casa de Píndaro
+Casa de Píndar
+House of Pindar
+
+Ismenion
+Ismènion
+Ismenion
+
+Programa del teatro
+Programa del teatre
+Theatre programme
+
+Mojón de hipoteca
+Fita d'hipoteca
+Mortgage stone
+
+Fuente pública
+Font pública
+Public fountain
+
+Altar de los lares de la encrucijada
+Altar dels lars de la cruïlla
+Altar of the Lares of the crossroads
+
+Las calzadas y las aceras
+Les calçades i les voreres
+Roads and pavements
+
+El Miliario de Oro
+El Mil·liari d'Or
+The Golden Milestone
+
+Lacus Curtius
+=
+=
+
+Lapis Niger
+=
+=
+
+Columnas rostrales
+Columnes rostrals
+Rostral columns
+
+La palestra
+La palestra
+The palaestra
+
+Los Tiranicidas
+Els Tiranicides
+The Tyrannicides
+
+Estatuas de Conón y Evágoras
+Estàtues de Conó i Evàgores
+Statues of Conon and Evagoras
+
+Las calles de Atenas
+Els carrers d'Atenes
+The streets of Athens
+
+El mercado del Ágora
+El mercat de l'Àgora
+The market of the Agora
+
+Hermas
+Hermes (pilars)
+Herms
+
+El Eurotas
+L'Eurotas
+The Eurotas
+
+Atenea Calcieco
+Atena Calcíec
+Athena Chalkioikos
+
+Tumba de Leónidas
+Tomba de Leònides
+Tomb of Leonidas
+
+El Pórtico Persa
+El Pòrtic Persa
+The Persian Stoa
+
+Las comidas comunes
+Els àpats comuns
+The common meals
+
+Una ciudad sin murallas
+Una ciutat sense muralles
+A city without walls
+
+Santuario de Artemis Ortia
+Santuari d'Àrtemis Òrtia
+Sanctuary of Artemis Orthia
+
+El Platanistas
+El Platanistes
+The Platanistas
+
+El Menelaion
+El Menelaion
+The Menelaion
+
+La Puerta de los Leones
+La Porta dels Lleons
+The Lion Gate
+
+El círculo de tumbas
+El cercle de tombes
+The grave circle
+
+El palacio de los Atridas
+El palau dels Atrides
+The palace of the Atreids
+
+El Tesoro de Atreo
+El Tresor d'Atreu
+The Treasury of Atreus
+
+La fuente Perseia
+La font Perseia
+The Perseia spring
+
+El Hereo de Argos
+L'Hereu d'Argos
+The Argive Heraion
+
+Tú estás aquí.
+Ets aquí.
+You are here.
+
+# ---------------------------------------------------------------- figuras de «La escuela de Atenas»
+La teoría de las Ideas
+La teoria de les Idees
+The theory of Forms
+
+Aristóteles y la observación
+Aristòtil i l'observació
+Aristotle and observation
+
+El método socrático
+El mètode socràtic
+The Socratic method
+
+Heráclito: todo fluye
+Heràclit: tot flueix
+Heraclitus: everything flows
+
+Diógenes y los cínicos
+Diògenes i els cínics
+Diogenes and the Cynics
+
+Hipatia de Alejandría
+Hipàtia d'Alexandria
+Hypatia of Alexandria
+
+Epicuro y el placer
+Epicur i el plaer
+Epicurus and pleasure
+
+Alcibíades, el discípulo rebelde
+Alcibíades, el deixeble rebel
+Alcibiades, the rebel disciple
+
+Pitágoras y los números
+Pitàgores i els nombres
+Pythagoras and numbers
+
+Euclides y la geometría
+Euclides i la geometria
+Euclid and geometry
+
+El universo de Ptolomeo
+L'univers de Ptolemeu
+Ptolemy's universe
+
+Zoroastro y la sabiduría persa
+Zoroastre i la saviesa persa
+Zoroaster and Persian wisdom

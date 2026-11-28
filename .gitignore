@@ -1,2 +1,19 @@
-*.blend1
-.claude/settings.local.json
+__pycache__/
+fuente/i18n/pendientes.md
+node_modules
+
+# prototipo de personajes en Blender: se regeneran con herramientas/blender/personajes.py
+modelos/tex_personajes/
+modelos/personajes.blend
+modelos/personajes.blend1
+Nóstos.html
+
+# copias de fuente/pwa que construir.py pone junto a atenas.html
+/sw.js
+/manifest.webmanifest
+/icono-192.png
+/icono-512.png
+modelos/_hidra_tex/
+
+# carpeta para subir a Netlify / Cloudflare Pages (la rehace construir.py)
+/web/

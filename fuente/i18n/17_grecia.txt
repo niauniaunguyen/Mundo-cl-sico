@@ -1,0 +1,793 @@
+# GREECE_NPCS: personajes de los viajes por Grecia
+
+@850aa2ca
+Esparta tenia dos reis alhora, de dues famílies (Agíades i Euripòntides), amb comandament militar i funcions religioses; els controlaven cinc èfors elegits cada any, un consell d'ancians (gerúsia) i l'assemblea de ciutadans. Agesilau II (c. 444-360), rei des del 400, coix de naixement, va fer la guerra a Àsia i va vèncer a Coronea (394). El 386 Esparta va imposar, amb el suport del rei de Pèrsia, la pau del Rei o d'Antàlcides, que la va convertir en àrbitre de Grècia.
+Sparta had two kings at once, from two families (Agiads and Eurypontids), with military command and religious duties; they were checked by five ephors elected every year, a council of elders (gerousia) and the assembly of citizens. Agesilaus II (c. 444-360), king from 400, lame from birth, made war in Asia and won at Coronea (394). In 386 Sparta, backed by the king of Persia, imposed the King's Peace or Peace of Antalcidas, which made it arbiter of Greece.
+
+@00f3d35e
+Foraster. Sóc Agesilau, fill d'Arquidam. Un dels dos reis dels lacedemonis. Sí, el coix. L'oracle va advertir dels perills d'un «regnat coix», i aquí em tens. Pregunta, però que sigui breu.
+Stranger. I am Agesilaus, son of Archidamus. One of the two kings of the Lacedaemonians. Yes, the lame one. The oracle warned of the dangers of a «lame reign», and here I am. Ask, but keep it short.
+
+@98ccede1
+Què és la pau del Rei?
+What is the King's Peace?
+
+@d8e90554
+El rei de Pèrsia dicta: les ciutats gregues d'Àsia són seves; les altres, lliures i autònomes. I nosaltres, els lacedemonis, vigilem que es compleixi. Així es va acabar la guerra de Corint. Els atenesos diuen que hem venut els grecs d'Àsia al bàrbar. Jo dic que hem dissolt les lligues de Tebes i d'Argos, que ens amenaçaven. Que cadascú jutgi.
+The king of Persia dictates: the Greek cities of Asia are his; the rest, free and autonomous. And we, the Lacedaemonians, see that it's kept. That's how the Corinthian War ended. The Athenians say we've sold the Greeks of Asia to the barbarian. I say we've dissolved the leagues of Thebes and Argos, which threatened us. Let each man judge.
+
+@f5bf3c86
+Com governa Esparta?
+How is Sparta governed?
+
+@89f3898a
+Som dos reis, de dues cases diferents, perquè cap no governi sol. A la guerra, un comanda l'exèrcit. Però cada mes jurem davant dels cinc èfors governar segons les lleis, i ells juren mantenir-nos el tron mentre les complim. Hi ha un consell de vint-i-vuit ancians de més de seixanta anys, i l'assemblea dels iguals, que vota a crits. Licurg ho va disposar així.
+We are two kings, from two different houses, so that neither rules alone. In war, one commands the army. But every month we swear before the five ephors to rule according to the laws, and they swear to keep us on the throne as long as we obey them. There's a council of twenty-eight elders over sixty, and the assembly of equals, which votes by shouting. Lycurgus arranged it so.
+
+@09368c4a
+És veritat que vius com els altres?
+Is it true you live like everyone else?
+
+@efcb70da
+Menjo als àpats comuns, com els altres, dormo on els altres i porto el mateix mantell a l'hivern i a l'estiu. Un rei s'ha de guanyar el seu poble amb l'exemple, no amb el luxe. A Àsia, els sàtrapes perses es reien del meu aspecte. Després van deixar de riure. Diu un amic atenès, Xenofont, que algun dia escriurà sobre mi. Espero que no exageri.
+I eat at the common meals, like the others, sleep where the others sleep and wear the same cloak winter and summer. A king must win his people by example, not luxury. In Asia, the Persian satraps laughed at how I looked. Then they stopped laughing. An Athenian friend, Xenophon, says he'll write about me some day. I hope he doesn't exaggerate.
+
+@94b92f77
+Quants reis tenia Esparta alhora?
+How many kings did Sparta have at once?
+
+@b0ea6a0f
+Dos, de dues famílies diferents
+Two, from two different families
+
+@505d8b7f
+Un, elegit de per vida
+One, elected for life
+
+@d19d2b6d
+Cinc, els èfors
+Five, the ephors
+
+@555cc0ac
+No. Esparta tenia dos reis alhora, de les cases dels Agíades i els Euripòntides, controlats per cinc èfors.
+No. Sparta had two kings at once, from the houses of the Agiads and the Eurypontids, checked by five ephors.
+
+@bfc7a1e6
+Les espartanes tenien una llibertat sorprenent per als altres grecs: feien exercici a l'aire lliure, es casaven més tard, podien heretar i van arribar a posseir gran part de les terres. Cinisca, germana del rei Agesilau, va ser la primera dona que va guanyar als Jocs Olímpics: els seus cavalls van vèncer a la cursa de quadrigues el 396 i el 392, i una inscripció a Olímpia ho recorda.
+Spartan women had a freedom that surprised other Greeks: they exercised outdoors, married later, could inherit and came to own much of the land. Cynisca, sister of King Agesilaus, was the first woman to win at the Olympic Games: her horses won the four-horse chariot race in 396 and 392, and an inscription at Olympia records it.
+
+@1ece16a1
+Salut, foraster. Sóc Cinisca, filla del rei Arquidam i germana d'Agesilau. Has sentit parlar de mi? Els meus cavalls han guanyat dues vegades la cursa de quadrigues a Olímpia. La primera dona de tota Grècia. I no serà l'última.
+Greetings, stranger. I am Cynisca, daughter of King Archidamus and sister of Agesilaus. Have you heard of me? My horses have twice won the chariot race at Olympia. The first woman in all Greece. And not the last.
+
+@8458e432
+Com va guanyar una dona a Olímpia?
+How did a woman win at Olympia?
+
+@14317115
+A les curses de carros no guanya l'auriga, sinó l'amo dels cavalls. Les dones ni tan sols podem mirar els jocs, sota pena de mort. Però els meus cavalls sí que poden córrer. El meu germà diu que ho vaig fer per demostrar que la victòria en els carros no és mèrit, sinó diners. Jo dic que ho vaig fer perquè els meus cavalls eren els millors. He fet posar a Olímpia una estàtua amb el meu carro i una inscripció.
+In chariot races it isn't the driver who wins but the owner of the horses. We women can't even watch the games, on pain of death. But my horses can race. My brother says I did it to show that chariot victories aren't merit but money. I say I did it because my horses were the best. I've had a statue with my chariot and an inscription set up at Olympia.
+
+@41fb5b7e
+Com viuen les espartanes?
+How do Spartan women live?
+
+@2e8baebd
+Correm, lluitem i llancem el disc des de petites, per tenir fills forts. Portem el peple obert pel costat, i els atenesos ens diuen «ensenya-cuixes». Ens casem als divuit o vint, no als catorze. Manem a casa i a les terres mentre els homes són a la guerra o als àpats comuns. Una dona de l'Àtica li va preguntar a Gorgo, l'esposa de Leònides, per què només les espartanes manen els seus marits. «Perquè només nosaltres parim homes», li va dir.
+We run, wrestle and throw the discus from childhood, to bear strong children. We wear the peplos open at the side, and the Athenians call us «thigh-showers». We marry at eighteen or twenty, not fourteen. We run the house and the land while the men are at war or at the common meals. A woman from Attica asked Gorgo, Leonidas' wife, why only Spartan women rule their husbands. «Because only we give birth to men», she said.
+
+@6b793a9f
+Què diuen les mares als fills?
+What do mothers tell their sons?
+
+@a8adc2a2
+Quan un fill marxa a la guerra, la seva mare li dona l'escut i li diu: «Torna amb ell o sobre ell». Amb ell, vencedor; sobre ell, mort, portat damunt del seu escut. Perdre'l, per fugir més de pressa, és la pitjor vergonya. Els estrangers ho expliquen com si fóssim de pedra. Plorem, com totes les mares. Però a casa.
+When a son leaves for war, his mother hands him his shield and says: «Come back with it or on it». With it, victorious; on it, dead, carried on his shield. Losing it, to run away faster, is the worst shame. Foreigners tell it as if we were made of stone. We cry, like all mothers. But at home.
+
+@1f63628a
+Per què va ser famosa Cinisca?
+Why was Cynisca famous?
+
+@6289c38a
+Va ser la primera dona a guanyar als Jocs Olímpics, a la cursa de quadrigues
+She was the first woman to win at the Olympic Games, in the chariot race
+
+@a7cc1786
+Va ser la primera dona que va governar Esparta
+She was the first woman to rule Sparta
+
+@e9974eec
+Va guanyar una guerra contra Atenes
+She won a war against Athens
+
+@c265a38c
+No. Cinisca, germana d'Agesilau, va ser la primera dona vencedora a Olímpia: els seus cavalls van guanyar la cursa de quadrigues el 396 i el 392.
+No. Cynisca, Agesilaus' sister, was the first woman victor at Olympia: her horses won the chariot race in 396 and 392.
+
+@b47c8735
+Els ilotes eren els habitants sotmesos de Lacònia i Messènia: treballaven les terres dels espartans i els lliuraven la meitat de la collita. Eren molts més que els ciutadans, i els espartans els temien: cada any els èfors els declaraven la guerra per poder-los matar sense culpa, i la krypteia, una prova dels joves, els vigilava i assassinava els més perillosos. La seva submissió permetia als espartans dedicar-se només a la guerra. A més hi havia periecs, lliures però sense drets polítics, que es dedicaven al comerç i l'artesania.
+The helots were the subject inhabitants of Laconia and Messenia: they worked the Spartans' land and handed over half the harvest. They far outnumbered the citizens, and the Spartans feared them: every year the ephors declared war on them so they could be killed without guilt, and the krypteia, a test for young men, watched them and murdered the most dangerous. Their subjection let the Spartans devote themselves solely to war. There were also perioikoi, free but without political rights, who worked in trade and crafts.
+
+@eb1d0251
+Què mires? No has vist mai un ilota, oi? Em dic Sòsias. Aquesta terra la treballo jo, el meu pare la va treballar, i la treballaran els meus fills. Però no és nostra: és d'un espartà que menja a la seva sissítia amb el que jo collo. Parla baix.
+What are you looking at? Never seen a helot, have you? My name is Sosias. I work this land, my father worked it, and my sons will work it. But it isn't ours: it belongs to a Spartan who eats at his syssition on what I harvest. Keep your voice down.
+
+@68e00212
+Què és un ilota?
+What is a helot?
+
+@925391b2
+No som esclaus d'un amo, com els d'Atenes: som de la ciutat. Estem lligats a la terra; no ens poden vendre fora, però tampoc no podem marxar. Lliurem la meitat de tot: ordi, vi, oli, formatge. Els nostres avis eren lliures, a Lacònia i a Messènia, fins que els espartans els van vèncer. Som molts més que ells. Per això ens temen.
+We aren't slaves of a master, like those in Athens: we belong to the city. We're bound to the land; they can't sell us abroad, but we can't leave either. We hand over half of everything: barley, wine, oil, cheese. Our grandfathers were free, in Laconia and Messenia, until the Spartans conquered them. We far outnumber them. That's why they fear us.
+
+@8420ced0
+Com us tracten?
+How do they treat you?
+
+@ca3c7d52
+Cada any, en entrar en el càrrec, els èfors ens declaren la guerra, per poder-nos matar sense tacar-se. A alguns ens emborratxen a la força i ens porten a les sissíties, perquè els joves vegin que vergonyosa és la borratxera. I a les nits surten els joves de la krypteia, amb un punyal, i maten qui els sembla. Expliquen que una vegada van prometre la llibertat als dos mil ilotes que més s'havien distingit a la guerra. Van desaparèixer tots.
+Every year, on taking office, the ephors declare war on us, so they can kill us without staining themselves. Some of us they get drunk by force and take to the syssitia, so the young can see how shameful drunkenness is. And at night the young men of the krypteia go out with a dagger and kill whomever they please. They say that once they promised freedom to the two thousand helots who had most distinguished themselves in war. They all disappeared.
+
+@c64ec860
+I Messènia?
+And Messenia?
+
+@a0897e2e
+Messènia, a l'altra banda del Taíget, és la terra dels nostres pares. Fa vuitanta anys, després del gran terratrèmol, els messenis es van revoltar i van resistir deu anys al mont Itome. Els atenesos van enviar ajuda a Esparta, i després els espartans els van fer fora, desconfiats. Algun dia Messènia serà lliure. Però això no ho diguis aquí.
+Messenia, on the other side of Taygetus, is the land of our fathers. Eighty years ago, after the great earthquake, the Messenians revolted and held out for ten years on Mount Ithome. The Athenians sent help to Sparta, and then the Spartans, suspicious, sent them away. Some day Messenia will be free. But don't say that here.
+
+@24390577
+Què eren els ilotes?
+What were the helots?
+
+@85d609b0
+Habitants sotmesos que treballaven les terres dels espartans i els lliuraven part de la collita
+Subject people who worked the Spartans' land and handed over part of the harvest
+
+@c1d44f17
+Els guerrers d'elit del rei
+The king's elite warriors
+
+@d77a8108
+Els sacerdots d'Àrtemis
+The priests of Artemis
+
+@f1bb3072
+No. Els ilotes eren la població sotmesa de Lacònia i Messènia, lligada a la terra, que lliurava la meitat de la collita als espartans.
+No. The helots were the subject population of Laconia and Messenia, bound to the land, who handed half the harvest to the Spartans.
+
+@62d531b3
+Als set anys els nens espartans deixaven casa i ingressaven a l'agogé, l'educació de l'Estat, organitzats en grups (agelai) sota nois més grans i un magistrat, el paidònom. Anaven descalços, amb un sol mantell l'any, dormien sobre canyes, menjaven poc i se'ls animava a robar menjar sense ser descoberts. Aprenien a llegir el just, a cantar, a ballar en cors i, sobretot, a obeir, aguantar i combatre. Les nenes també feien exercici, a part.
+At seven, Spartan boys left home and entered the agoge, the state education, organised in groups (agelai) under older boys and a magistrate, the paidonomos. They went barefoot, with one cloak a year, slept on reeds, ate little and were encouraged to steal food without being caught. They learned to read just enough, to sing, to dance in choruses and, above all, to obey, endure and fight. Girls exercised too, separately.
+
+@3f282e32
+Ets estranger? Es nota: parles molt. Sóc Eudàmides, tinc dotze anys. En porto cinc a l'agogé. El meu grup és allà, practicant la dansa de les armes. Jo he vingut a buscar canyes del riu per al meu llit. Sense ganivet, amb les mans.
+Are you a foreigner? It shows: you talk a lot. I'm Eudamidas, I'm twelve. I've been five years in the agoge. My group is over there, practising the war dance. I've come for river reeds for my bed. No knife, with my hands.
+
+@acbdf0a6
+Com és la teva vida?
+What is your life like?
+
+@d46e662a
+Sempre descalç, per tenir els peus durs. Un sol mantell per a tot l'any. Dormim tots junts, en llits de canyes de l'Eurotas. Mengem poc, per no engreixar-nos i créixer alts, i si tenim gana robem: si t'enxampen, t'assoten, no per robar, sinó per deixar-te enxampar. Hi ha una història d'un noi que va robar una guineu i la va amagar sota el mantell; abans de confessar va deixar que la guineu li mengés el ventre.
+Always barefoot, to toughen our feet. One cloak for the whole year. We all sleep together, on beds of reeds from the Eurotas. We eat little, so as not to get fat and to grow tall, and if we're hungry we steal: if they catch you, they flog you, not for stealing, but for getting caught. There's a story of a boy who stole a fox and hid it under his cloak; rather than confess he let the fox eat into his belly.
+
+@c12cb1d6
+Apreneu a llegir?
+Do you learn to read?
+
+@754a2938
+El just. Llegir i escriure el necessari, res de discursos llargs. L'important és parlar poc i bé. Quan algú ens amenaça, responem amb poques paraules. Un atenès es va burlar que les nostres espases eren curtes, i un espartà li va dir: «Ens serveixen per arribar fins a l'enemic». A això en dieu parlar lacònic. I cantem molt: els poemes de Tirteu, que animen a morir per la pàtria.
+Just enough. Reading and writing what's necessary, no long speeches. The important thing is to speak little and well. When someone threatens us, we answer in few words. An Athenian mocked our swords for being short, and a Spartan told him: «They're long enough to reach the enemy». That's what you call laconic speech. And we sing a lot: the poems of Tyrtaeus, which urge men to die for their country.
+
+@a1587700
+Què passa a l'altar d'Òrtia?
+What happens at the altar of Orthia?
+
+@e1a90278
+A la festa de la deessa posen formatges a l'altar. Nosaltres els hem de robar, i els grans els defensen amb fuets. Qui més aguanta sense queixar-se, més honor guanya. Jo en vaig treure dos formatges l'any passat. Les cicatrius es veuen a l'esquena. La meva mare estava orgullosa.
+At the goddess's festival they put cheeses on the altar. We have to steal them, and the older ones defend them with whips. Whoever bears it longest without complaining wins the most honour. I got two cheeses last year. You can see the scars on my back. My mother was proud.
+
+@487ed0fb
+A quina edat entraven els nens espartans a l'agogé?
+At what age did Spartan boys enter the agoge?
+
+@b1450f9d
+Als set anys
+At seven
+
+@1f945bde
+Als divuit
+At eighteen
+
+@f787528e
+Tot just néixer
+At birth
+
+@e8609ef3
+No. Als set anys els nens deixaven casa seva i ingressaven a l'agogé, l'educació organitzada per l'Estat.
+No. At seven, boys left home and entered the agoge, the education organised by the state.
+
+@5c2013ba
+Micenes va ser el centre més poderós de la Grècia de l'Edat del Bronze (c. 1600-1100 aC), amb un palau, muralles ciclòpies, tombes de cúpula i una escriptura sil·làbica, el lineal B. La civilització micènica es va enfonsar cap al 1200-1100 aC. En època clàssica Micenes era una petita ciutat que va lluitar a les Termòpiles i Platea; el 468 aC Argos la va conquerir i en va deportar els habitants. Els grecs la recordaven per Homer com la ciutat d'Agamèmnon, «rica en or».
+Mycenae was the most powerful centre of Bronze Age Greece (c. 1600-1100 BC), with a palace, Cyclopean walls, tholos tombs and a syllabic script, Linear B. Mycenaean civilisation collapsed around 1200-1100 BC. In classical times Mycenae was a small town that fought at Thermopylae and Plataea; in 468 BC Argos conquered it and deported its people. The Greeks remembered it through Homer as Agamemnon's city, «rich in gold».
+
+@52e9f417
+Salut, viatger. Em dic Melant. Les meves cabres pasturen entre les pedres de la ciutat d'Agamèmnon, «Micenes, rica en or», diu Homer. Or no en queda. Els d'Argos ho van arrasar tot fa vuitanta anys, quan jo no havia nascut. Si vols, t'ensenyo la porta dels lleons i la tomba d'Atreu.
+Greetings, traveller. My name is Melanthus. My goats graze among the stones of Agamemnon's city, «Mycenae, rich in gold», says Homer. There's no gold left. The Argives razed everything eighty years ago, before I was born. If you like, I'll show you the Lion Gate and the tomb of Atreus.
+
+@fbb6fbd7
+Qui va construir aquestes muralles?
+Who built these walls?
+
+@8d828057
+Els Cíclops, diu tothom: gegants d'un sol ull que Pretos va portar de Lícia per a Tirint, i que després van treballar per a Perseu aquí. Cap home no podria aixecar aquestes pedres: n'hi ha de més grans que un bou. Els d'Argos van intentar enderrocar-les i a penes van poder. Per això a les muralles així en diuen ciclòpies.
+The Cyclopes, everyone says: one-eyed giants Proetus brought from Lycia for Tiryns, who later worked for Perseus here. No man could lift these stones: some are bigger than an ox. The Argives tried to pull them down and barely managed. That's why walls like these are called Cyclopean.
+
+@e0c7fd84
+Explica'm la història dels Atrides
+Tell me the story of the Atreids
+
+@09e1148e
+Atreu i Tiestes eren germans i es disputaven el tron. Atreu va matar els fills de Tiestes i els hi va servir en un banquet. Des d'aleshores, la casa està maleïda. El seu fill Agamèmnon va sacrificar la seva filla Ifigènia perquè bufessin els vents cap a Troia; en tornar, deu anys després, la seva esposa Clitemnestra el va matar al bany. I Orestes, el seu fill, va matar la seva mare. Ho hauràs vist al teatre d'Atenes: Èsquil, Sòfocles, Eurípides.
+Atreus and Thyestes were brothers and fought over the throne. Atreus killed Thyestes' sons and served them to him at a banquet. Ever since, the house has been cursed. His son Agamemnon sacrificed his daughter Iphigenia so the winds would blow towards Troy; on his return, ten years later, his wife Clytemnestra killed him in the bath. And Orestes, his son, killed his mother. You'll have seen it in the theatre at Athens: Aeschylus, Sophocles, Euripides.
+
+@0699acfe
+Què va passar amb la ciutat?
+What happened to the city?
+
+@72174317
+Micenes era petita, però orgullosa: va enviar vuitanta homes a les Termòpiles amb Leònides i va lluitar a Platea, mentre Argos no va voler lluitar contra els perses. Els argius no l'hi van perdonar. Fa vuitanta-dos anys la van assetjar, la van prendre i se'n van endur tothom: uns a Macedònia, altres a Cleones. Des d'aleshores aquí només hi quedem uns quants pastors i els fantasmes.
+Mycenae was small, but proud: it sent eighty men to Thermopylae with Leonidas and fought at Plataea, while Argos refused to fight the Persians. The Argives never forgave it. Eighty-two years ago they besieged it, took it and carried everyone off: some to Macedonia, others to Cleonae. Since then only a few shepherds and the ghosts remain here.
+
+@d5b33c4c
+Per què s'anomenen «ciclòpies» les muralles de Micenes?
+Why are the walls of Mycenae called «Cyclopean»?
+
+@2043ebe5
+Perquè, segons la llegenda, les van construir els Cíclops, de tan grans que són les seves pedres
+Because, according to legend, the Cyclopes built them, the stones are so huge
+
+@4d99f90c
+Perquè tenen forma circular
+Because they are circular
+
+@20e3ec6c
+Perquè les va construir un rei anomenat Cíclop
+Because a king called Cyclops built them
+
+@307905c0
+No. Els grecs creien que només els Cíclops, gegants mítics, podien haver mogut aquelles pedres enormes.
+No. The Greeks believed only the Cyclopes, mythical giants, could have moved such enormous stones.
+
+@e5b81f3f
+Hera, esposa de Zeus, deessa del matrimoni, era la gran deessa de l'Argòlida. El seu santuari entre Argos i Micenes tenia un temple arcaic que va cremar el 423 per un descuit de la sacerdotessa Criseida; el nou, d'Eupòlem, acollia l'Hera d'or i ivori de Policlet. Els argius comptaven els anys pels anys de servei de les sacerdotesses d'Hera, com els atenesos pels seus arconts.
+Hera, wife of Zeus, goddess of marriage, was the great goddess of the Argolid. Her sanctuary between Argos and Mycenae had an archaic temple that burned down in 423 through the carelessness of the priestess Chrysis; the new one, by Eupolemus, housed Polyclitus' gold-and-ivory Hera. The Argives counted years by the years of service of Hera's priestesses, as the Athenians did by their archons.
+
+@d3844013
+Benvingut al santuari d'Hera, estranger. Sóc Cal·litea, sacerdotessa de la deessa. Pels meus anys de servei compten el temps els argius: aquest és l'any vuitè de Cal·litea. Entra a veure la deessa, la que va fer Policlet. Però no acostis la llàntia al vel: aquí ja va cremar un temple.
+Welcome to the sanctuary of Hera, stranger. I am Callithea, priestess of the goddess. The Argives count time by my years of service: this is the eighth year of Callithea. Go in and see the goddess, the one Polyclitus made. But don't bring the lamp near the veil: a temple has burned here before.
+
+@ef7957b0
+Què va passar amb el temple antic?
+What happened to the old temple?
+
+@8ac4dbae
+Fa trenta-set anys, la sacerdotessa Criseida es va adormir amb una llàntia encesa al costat de les garlandes sagrades. El foc ho va devorar tot. Ella va fugir a Tègea, de vergonya i de por, i els argius van elegir una altra sacerdotessa. Tucídides ho explica a la seva història. Després van construir aquest temple nou, més avall al turó.
+Thirty-seven years ago, the priestess Chrysis fell asleep with a lamp burning beside the sacred garlands. The fire devoured everything. She fled to Tegea, out of shame and fear, and the Argives chose another priestess. Thucydides tells it in his history. Then they built this new temple, lower down the hill.
+
+@c6222585
+Com és l'estàtua de Policlet?
+What is Polyclitus' statue like?
+
+@29d46c2a
+La deessa seu en un tron, d'or i ivori, enorme. Porta una corona amb les Hores i les Gràcies, en una mà una magrana i a l'altra un ceptre amb un cucut: Zeus es va convertir en cucut per acostar-se a ella quan era donzella. Policlet, el de les proporcions perfectes, la va fer ja vell. És tan bella com el Zeus de Fídias a Olímpia, diuen els argius. Els atenesos, és clar, no hi estan d'acord.
+The goddess sits on a throne, gold and ivory, huge. She wears a crown with the Seasons and the Graces, in one hand a pomegranate and in the other a sceptre with a cuckoo: Zeus turned into a cuckoo to approach her when she was a maiden. Polyclitus, he of the perfect proportions, made her in his old age. She's as beautiful as Phidias' Zeus at Olympia, the Argives say. The Athenians, of course, disagree.
+
+@13b6c2ef
+És veritat això de Cleobis i Bitó?
+Is the story of Cleobis and Biton true?
+
+@4d6d9458
+Era una sacerdotessa d'Hera, mare de dos joves d'Argos. Per arribar a la festa, com que els bous no arribaven del camp, els seus fills es van junyir al carro i la van portar fins aquí, quaranta-cinc estadis. Ella va demanar a la deessa per a ells el millor do. Es van adormir al temple i no es van despertar. Soló li ho va explicar a Cresos: morir en la glòria és la felicitat més gran. A Delfos tenen les seves estàtues.
+She was a priestess of Hera, mother of two young men of Argos. To reach the festival, since the oxen hadn't come in from the fields, her sons yoked themselves to the cart and pulled her here, forty-five stades. She asked the goddess to give them the best gift. They fell asleep in the temple and never woke. Solon told Croesus: dying in glory is the greatest happiness. Their statues stand at Delphi.
+
+@fd95a5cf
+Qui va fer l'estàtua d'or i ivori d'Hera a l'Hereu d'Argos?
+Who made the gold-and-ivory statue of Hera in the Argive Heraion?
+
+@7f220850
+Policlet
+Polyclitus
+
+@3656047a
+Fídias
+Phidias
+
+@f623c2b1
+Praxíteles
+Praxiteles
+
+@9407daca
+No. La gran estàtua d'or i ivori d'Hera era obra de Policlet, l'escultor d'Argos.
+No. The great gold-and-ivory statue of Hera was the work of Polyclitus, the sculptor of Argos.
+
+@128753e6
+Xenofont, Agesilau i Hel·lèniques III-V (la pau del Rei, V 1.31)
+Xenophon, Agesilaus and Hellenica III-V (the King's Peace, V 1.31)
+
+@8ea09404
+Plutarc, Agesilau 2-3 (la coixesa i l'oracle)
+Plutarch, Agesilaus 2-3 (the lameness and the oracle)
+
+@d719a606
+Xenofont, Constitució dels lacedemonis 15 (el jurament de reis i èfors)
+Xenophon, Constitution of the Lacedaemonians 15 (the oath of kings and ephors)
+
+@235e3ef6
+=
+=
+
+@885ac4ec
+El 386 Agesilau tenia uns 58 anys; el joc el fa residir a Esparta en lloc d'estar en campanya.
+In 386 Agesilaus was about 58; the game has him living in Sparta rather than on campaign.
+
+@c1079f0e
+Pausànias III 8.1-2 i VI 1.6 (les seves victòries i el seu monument a Olímpia)
+Pausanias III 8.1-2 and VI 1.6 (her victories and her monument at Olympia)
+
+@c074dfbc
+Inscripció de Cinisca a Olímpia (IG V 1, 1564a)
+Cynisca's inscription at Olympia (IG V 1, 1564a)
+
+@1b809e64
+Plutarc, Agesilau 20.1 i Moralia 240e (Gorgo)
+Plutarch, Agesilaus 20.1 and Moralia 240e (Gorgo)
+
+@9101ddaf
+=
+=
+
+@31c12cb1
+La frase de Gorgo i la de l'escut («amb ell o sobre ell») vénen de col·leccions de dites d'època posterior.
+Gorgo's saying and the shield one («with it or on it») come from later collections of sayings.
+
+@3156e8c0
+Tucídides IV 80 (els dos mil ilotes)
+Thucydides IV 80 (the two thousand helots)
+
+@07fa0d78
+Plutarc, Licurg 28 (la krypteia i la declaració de guerra)
+Plutarch, Lycurgus 28 (the krypteia and the declaration of war)
+
+@23dc51ae
+Tirteu, fr. 6-7 West (els ilotes lliuren la meitat)
+Tyrtaeus, fr. 6-7 West (the helots hand over half)
+
+@4afe0772
+Miró de Priene, a Ateneu XIV 657d
+Myron of Priene, in Athenaeus XIV 657d
+
+@12693a1d
+=
+=
+
+@0a8b9f82
+N. Luraghi i S. Alcock (eds.), Helots and their Masters (2003)
+N. Luraghi and S. Alcock (eds.), Helots and their Masters (2003)
+
+@8d57c0eb
+Sòsias és inventat.
+Sosias is invented.
+
+@b4973dcb
+Xenofont, Constitució dels lacedemonis 2-4
+Xenophon, Constitution of the Lacedaemonians 2-4
+
+@3028f1da
+Plutarc, Licurg 16-18 (la guineu, les canyes de l'Eurotas)
+Plutarch, Lycurgus 16-18 (the fox, the reeds of the Eurotas)
+
+@614531d8
+Plutarc, Moralia 216c (les espases curtes)
+Plutarch, Moralia 216c (the short swords)
+
+@b0ce2100
+=
+=
+
+@0e5ba40b
+=
+=
+
+@726d1759
+Eudàmides és inventat. Molt del que s'explica sobre l'agogé ve d'autors tardans, que idealitzen o exageren.
+Eudamidas is invented. Much of what is told about the agoge comes from late authors, who idealise or exaggerate.
+
+@b5230d74
+Homer, Ilíada VII 180 i XI 46 (Micenes rica en or)
+Homer, Iliad VII 180 and XI 46 (Mycenae rich in gold)
+
+@5d2cd712
+Pausànias II 15.4-16.7 (Micenes, la porta, les tombes, els Cíclops)
+Pausanias II 15.4-16.7 (Mycenae, the gate, the tombs, the Cyclopes)
+
+@f44a1e09
+Diodor XI 65 (la destrucció per Argos, 468)
+Diodorus XI 65 (the destruction by Argos, 468)
+
+@ac8f2837
+Heròdot VII 202 i IX 28 (micenis a les Termòpiles i Platea)
+Herodotus VII 202 and IX 28 (Mycenaeans at Thermopylae and Plataea)
+
+@4d66cb3a
+=
+=
+
+@fdebca6a
+J. Chadwick, El món micènic (1976)
+J. Chadwick, The Mycenaean World (1976)
+
+@9b7e2418
+Melant és inventat. Pausànias va visitar Micenes al segle II dC; la descripció del joc barreja el que es veia en època clàssica amb dades arqueològiques.
+Melanthus is invented. Pausanias visited Mycenae in the second century AD; the game's description mixes what could be seen in classical times with archaeological data.
+
+@45671eb3
+Tucídides IV 133 (l'incendi del 423 i Criseida)
+Thucydides IV 133 (the fire of 423 and Chrysis)
+
+@ecd57bf3
+Pausànias II 17 (el temple i l'estàtua de Policlet)
+Pausanias II 17 (the temple and Polyclitus' statue)
+
+@b729b406
+Heròdot I 31 (Cleobis i Bitó)
+Herodotus I 31 (Cleobis and Biton)
+
+@86fbe476
+=
+=
+
+@801db337
+Cal·litea és inventada.
+Callithea is invented.
+
+@07197c91
+El 386 Esparta és al cim del seu poder: ha vençut Atenes a la guerra del Peloponès (404) i, amb la pau del Rei, el rei de Pèrsia la reconeix com a garant de l'«autonomia» de les ciutats gregues. Però el nombre de ciutadans de ple dret, els «iguals» (hómoioi), no para de disminuir: potser uns tres mil, davant de vuit mil el 480.
+In 386 Sparta is at the height of its power: it defeated Athens in the Peloponnesian War (404) and, with the King's Peace, the king of Persia recognises it as guarantor of the «autonomy» of the Greek cities. But the number of full citizens, the «equals» (homoioi), keeps falling: perhaps about three thousand, against eight thousand in 480.
+
+@18de5baa
+La ciutat, sense muralles, es reparteix en llogarets a la plana de l'Eurotas, al peu del Taíget. Els ciutadans viuen de les terres que conreen els ilotes i es dediquen a la guerra; els periecs, lliures però sense drets polítics, comercien i fabriquen. Quinze anys després, el 371, els tebans d'Epaminondes vençaran els espartans a Leuctra i alliberaran Messènia: Esparta no es recuperarà.
+The city, unwalled, is spread across villages in the Eurotas plain, at the foot of Taygetus. Citizens live off the land the helots farm and devote themselves to war; the perioikoi, free but without political rights, trade and manufacture. Fifteen years later, in 371, Epaminondas' Thebans will defeat the Spartans at Leuctra and free Messenia: Sparta will never recover.
+
+@e6d3efe7
+Al joc s'arriba a Esparta per terra, amb el traginer de la porta nord d'Atenes. Les distàncies estan molt comprimides.
+In the game you reach Sparta overland, with the muleteer at Athens' north gate. Distances are greatly compressed.
+
+@402fd1d6
+Xenofont, Hel·lèniques V i Constitució dels lacedemonis
+Xenophon, Hellenica V and Constitution of the Lacedaemonians
+
+@16dbbba5
+Plutarc, Licurg i Agesilau
+Plutarch, Lycurgus and Agesilaus
+
+@0184c227
+Tucídides I 10 (Esparta sense monuments)
+Thucydides I 10 (Sparta without monuments)
+
+@1e33e37c
+Pausànias III 11-20
+Pausanias III 11-20
+
+@b3584d9e
+=
+=
+
+@6852d772
+=
+=
+
+@e81d5038
+La disposició dels edificis és aproximada i es basa sobretot en Pausànias, que va visitar Esparta cinc segles després.
+The layout of the buildings is approximate and based mainly on Pausanias, who visited Sparta five centuries later.
+
+@82e00d87
+Per a un grec del 386, Micenes és un lloc de llegenda: la ciutat de Perseu, d'Atreu i d'Agamèmnon, cantada per Homer. Les seves muralles ciclòpies, la Porta dels Lleons i les tombes de cúpula fa més de vuit-cents anys que són dretes, i ningú no recorda qui les va construir de debò.
+For a Greek of 386, Mycenae is a place of legend: the city of Perseus, Atreus and Agamemnon, sung by Homer. Its Cyclopean walls, the Lion Gate and the tholos tombs have stood for over eight hundred years, and no one remembers who really built them.
+
+@884dae9b
+Avui sabem que Micenes va ser el centre d'una civilització de l'Edat del Bronze (c. 1600-1100 aC) amb palaus, arxius en lineal B (una forma antiga de grec) i comerç per tota la Mediterrània. Després de la seva caiguda, Micenes va continuar habitada com una petita ciutat, fins que Argos la va destruir el 468 aC.
+Today we know that Mycenae was the centre of a Bronze Age civilisation (c. 1600-1100 BC) with palaces, archives in Linear B (an early form of Greek) and trade across the whole Mediterranean. After its fall, Mycenae remained inhabited as a small town, until Argos destroyed it in 468 BC.
+
+@6e8f1402
+El 1876 Heinrich Schliemann va excavar el cercle de tombes i hi va trobar màscares d'or; va telegrafiar que havia vist el rostre d'Agamèmnon, encara que les tombes són uns tres segles anteriors a la data tradicional de la guerra de Troia.
+In 1876 Heinrich Schliemann excavated the grave circle and found gold masks; he telegraphed that he had gazed on the face of Agamemnon, though the graves are some three centuries older than the traditional date of the Trojan War.
+
+@74a0953c
+Homer, Ilíada II 569-580
+Homer, Iliad II 569-580
+
+@07146a2e
+Pausànias II 15-16
+Pausanias II 15-16
+
+@9ee4c29a
+Diodor XI 65
+Diodorus XI 65
+
+@2c307489
+=
+=
+
+@08309bd2
+=
+=
+
+@5872c926
+El camí del Peloponès travessa l'Istme de Corint, on se celebren els Jocs Ístmics en honor de Posidó.
+The road to the Peloponnese crosses the Isthmus of Corinth, where the Isthmian Games are held in honour of Poseidon.
+
+@f30a36d9
+Corint, amb els seus dos ports, és la ciutat més rica de l'Istme; el seu temple d'Apol·lo, de columnes monolítiques, es veu des de lluny.
+Corinth, with its two harbours, is the richest city on the Isthmus; its temple of Apollo, with monolithic columns, can be seen from afar.
+
+@3eaa3c29
+A l'Argòlida, les muralles de Tirint són tan enormes com les de Micenes: també s'atribueixen als Cíclops.
+In the Argolid, the walls of Tiryns are as enormous as those of Mycenae: they too are attributed to the Cyclopes.
+
+@5a2b8e2c
+Per arribar a Esparta cal travessar les muntanyes d'Arcàdia, terra de pastors i del déu Pan.
+To reach Sparta you must cross the mountains of Arcadia, land of shepherds and of the god Pan.
+
+@1d2270cf
+Grammatistés
+Grammatistes
+
+@173401c3
+grammatistés
+grammatistes
+
+@032a5168
+El mestre de primeres lletres a Grècia: ensenyava a llegir, escriure, comptar i recitar Homer.
+The teacher of first letters in Greece: he taught reading, writing, counting and reciting Homer.
+
+@459bfa17
+Kitharistés
+Kitharistes
+
+@7e88008d
+kitharistés
+kitharistes
+
+@c1d0a70c
+El mestre de música: lira i cant dels poetes lírics.
+The music teacher: lyre and singing of the lyric poets.
+
+@3c170eb3
+Paidotribés
+Paidotribes
+
+@93dd5458
+paidotribés
+paidotribes
+
+@0f074fc2
+El mestre de gimnàstica a la palestra.
+The gymnastics teacher at the palaestra.
+
+@39b55341
+Pentatló
+Pentathlon
+
+@f7299b60
+pentatló
+pentathlon
+
+@88b14b70
+Competició de cinc proves: cursa de l'estadi, salt, disc, javelina i lluita.
+A five-event contest: stadium race, jump, discus, javelin and wrestling.
+
+@40c196f8
+Halteres
+Halteres
+
+@5dcec788
+Peses que l'atleta balancejava a les mans per saltar més lluny.
+Weights the athlete swung in his hands to jump further.
+
+@0b285edd
+Aríbal
+Aryballos
+
+@0ffe71c7
+aríbal
+aryballos
+
+@948f3fac
+aríbals
+aryballoi
+
+@f03918f4
+Flascó rodó per a l'oli dels atletes.
+Small round flask for athletes' oil.
+
+@e38cbefd
+Modes
+Modes
+
+@1d9b448a
+Les harmoníai, maneres d'ordenar l'escala musical, cadascuna amb el seu caràcter.
+The harmoniai, ways of ordering the musical scale, each with its own character.
+
+@26d94aca
+Ilotes
+Helots
+
+@78347a98
+La població sotmesa de Lacònia i Messènia, que treballava les terres dels espartans.
+The subject population of Laconia and Messenia, who worked the Spartans' land.
+
+@f8fd5ed7
+Agogé
+Agoge
+
+@70fa8f60
+agogé
+agoge
+
+@492982a7
+L'educació de l'Estat espartà, des dels set anys.
+The Spartan state education, from the age of seven.
+
+@319fef60
+Sissíties
+Syssitia
+
+@33538c7a
+Els àpats comuns obligatoris dels ciutadans espartans.
+The compulsory common meals of Spartan citizens.
+
+@4092a9c5
+Èfors
+Ephors
+
+@18c2e79c
+Els cinc magistrats elegits cada any a Esparta, que vigilaven els reis.
+The five magistrates elected every year in Sparta, who watched over the kings.
+
+@507c4e4e
+Licurg
+Lycurgus
+
+@57360dbc
+El llegendari legislador d'Esparta, a qui s'atribuïen les seves lleis i costums.
+Sparta's legendary lawgiver, to whom its laws and customs were attributed.
+
+@e286049e
+Periecs
+Perioikoi
+
+@7f10d63c
+Habitants lliures de Lacònia sense drets polítics, dedicats al comerç i l'artesania.
+Free inhabitants of Laconia without political rights, engaged in trade and crafts.
+
+@8a544f73
+Lacònic
+Laconic
+
+@5761e5ce
+lacònic
+laconic
+
+@19bcd727
+lacònica
+laconically
+
+@f89eff1d
+Breu i concís, com parlaven els espartans (de Lacònia).
+Brief and concise, as the Spartans (of Laconia) spoke.
+
+@532865c0
+micènic
+mycenaean
+
+@f82f8562
+micènics
+mycenaeans
+
+@d75978f3
+micènica
+mycenae
+
+@e203cf54
+La ciutat d'Agamèmnon a l'Argòlida, centre de la civilització de l'Edat del Bronze.
+Agamemnon's city in the Argolid, centre of Bronze Age civilisation.
+
+@95439988
+Cíclops
+Cyclopes
+
+@8cc3cb8e
+cíclops
+cyclopes
+
+@c76d26e1
+ciclòpies
+cyclopean
+
+@26786353
+ciclopi
+cyclops
+
+@10714291
+Gegants d'un sol ull als quals s'atribuïen les muralles de pedres enormes de Micenes i Tirint.
+One-eyed giants credited with the walls of enormous stones at Mycenae and Tiryns.
+
+@657bc620
+Tomba de cúpula de l'Edat del Bronze, com el Tresor d'Atreu.
+Bronze Age domed tomb, like the Treasury of Atreus.
+
+@94843056
+Atrides
+Atreids
+
+@f2e0ddea
+agamèmnon
+agamemnon
+
+@95602826
+La família maleïda d'Atreu i el seu fill Agamèmnon, rei de Micenes en el mite.
+The cursed family of Atreus and his son Agamemnon, king of Mycenae in myth.
+
+@8c2f13a3
+Hereu
+Heraion
+
+@8f3bfb8b
+Santuari d'Hera; el d'Argos era el més important de l'Argòlida.
+Sanctuary of Hera; the one at Argos was the most important in the Argolid.
+
+@1f57c6fb
+Escultor d'Argos del segle V aC, famós pel seu cànon de proporcions i la seva Hera d'or i ivori.
+Fifth-century BC sculptor from Argos, famous for his canon of proportions and his gold-and-ivory Hera.
+
+@a0910847
+Tiranicides
+Tyrannicides
+
+@dbabca48
+aristogitó
+aristogeiton
+
+@b00a912e
+Harmodi i Aristogitó, que van matar el germà del tirà Hípias el 514; Atenes els honorava com a herois de la llibertat.
+Harmodius and Aristogeiton, who killed the brother of the tyrant Hippias in 514; Athens honoured them as heroes of freedom.
+
+@b29d5308
+Conó
+Conon
+
+@eb3fbc68
+conó
+conon
+
+@35a6d57a
+General atenès que va derrotar Esparta a Cnidos (394) amb la flota persa i va reconstruir els Murs Llargs.
+Athenian general who defeated Sparta at Cnidus (394) with the Persian fleet and rebuilt the Long Walls.
+
+@d76fec95
+Pilar de pedra amb el cap d'Hermes, a la porta de les cases i a les cruïlles.
+Stone pillar with the head of Hermes, at house doors and crossroads.
+
+@8713811c
+Krene
+Krene
+
+@4882817b
+font pública
+public fountain
+
+@5b4c2221
+Font pública grega, sovint un petit pòrtic amb brocs en forma de cap de lleó.
+Greek public fountain, often a small portico with lion-head spouts.
