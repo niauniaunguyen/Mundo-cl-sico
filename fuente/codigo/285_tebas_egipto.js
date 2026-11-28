@@ -60,21 +60,23 @@ if(typeof ROMA_DESTS!=='undefined'){ROMA_DESTS.push(Object.assign({},TB_ISL,{nam
 // sala hipóstila 102 × 53 m con 134 columnas (12 centrales de 21 m, el resto de 15 m); lago sagrado 120 × 77 m; Luxor 260 m;
 // Rameseo unos 180 m (recinto 270 × 175); Medinet Habu, recinto 210 × 315 m y templo de 150 m; Deir el-Bahari, unos 270 m con las rampas.
 function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(z))-I.x,Y=(x,z)=>floorAt(X(x),Z(z)),
-  mud=lam('#a8865c'),mud2=lam('#9a7a52'),sand=lam('#d8c4a0'),sand2=lam('#cdb791'),qtz=lam('#b49a7a'),gran=lam('#b07a6a'),gold=lam('#d8b050'),cap=lam('#6f8f6a'),
+  G0=tbGeo(),mud=tbMat('mud'),mud2=tbMat('mud2'),sand=tbMat('relief'),sand2=tbMat('stone'),qtz=tbMat('qtz'),gran=tbMat('gran'),gold=lam('#d8b050'),
   P=(id,name,gr,txt,x,z,rot)=>place(id,name,gr,txt,X(x),Z(z),rot||0),grR=(r,g)=>ro?r:g;
-  const COLS=[],CAPS=[],BOX={},addB=(m,x,y,z,w,h,d,a)=>{(BOX[m.uuid]=BOX[m.uuid]||{mat:m,L:[]}).L.push([new THREE.BoxGeometry(w,h,d),new THREE.Matrix4().makeRotationY(a||0).setPosition(X(x),y,Z(z))]);};
+  const COLS=[],CAPS=[],BOX={},PUSH=(m,g,mt)=>{(BOX[m.uuid]=BOX[m.uuid]||{mat:m,L:[]}).L.push([g,mt]);},addB=(m,x,y,z,w,h,d,a)=>PUSH(m,boxUV(w,h,d,m.userData.s||4),new THREE.Matrix4().makeRotationY(a||0).setPosition(X(x),y,Z(z)));
+  const colW=(wx,wz,r,h,open,coll)=>{const y=floorAt(wx,wz);COLS.push([wx,y,wz,r,h]);CAPS.push([wx,y+h,wz,r,open]);if(coll!==false)addCirc(wx,wz,r*1.05);},TCTX=n=>({push:PUSH,col:colW,name:n}),
+    tbTemple=(wx,wz,a,sc,n)=>tbTempleParts(wx,floorAt(wx,wz),wz,a,sc,TCTX(n)),colossus=(x,z,a,H,m)=>{tbColossusParts(X(x),Y(x,z),Z(z),a,H,m,PUSH);addBox(X(x),Z(z),8*H/18,11*H/18,a);};
   const col=(x,z,r,h,open,coll)=>{const y=Y(x,z);COLS.push([X(x),y,Z(z),r,h]);CAPS.push([X(x),y+h,Z(z),r,open]);if(coll!==false)addCirc(X(x),Z(z),r*1.05);};
-  const wall=(x1,z1,x2,z2,th,h,m)=>{const L=Math.hypot(x2-x1,z2-z1),a=Math.atan2(x2-x1,z2-z1),mx=(x1+x2)/2,mz=(z1+z2)/2,y=Math.min(Y(x1,z1),Y(x2,z2));addB(m,mx,y+h/2-1,mz,th,h+2,L,a);
+  const wall=(x1,z1,x2,z2,th,h,m)=>{const L=Math.hypot(x2-x1,z2-z1),a=Math.atan2(x2-x1,z2-z1),mx=(x1+x2)/2,mz=(z1+z2)/2,y=Math.min(Y(x1,z1),Y(x2,z2));addB(m,mx,y+h/2-1,mz,th,h+2,L,a);if(m===sand||m===sand2)addB(tbMat('corn'),mx,y+h+0.5,mz,th+0.9,1.1,L+0.9,a);
     const nx=Math.cos(a)*th/2,nz=-Math.sin(a)*th/2;addSeg(X(x1+nx),Z(z1+nz),X(x2+nx),Z(z2+nz),0.4);addSeg(X(x1-nx),Z(z1-nz),X(x2-nx),Z(z2-nz),0.4);};
   // recinto rectangular con huecos (puertas): sides = {n:[[x0,x1],...],...} huecos en coordenadas del lado
   const encl=(x0,z0,x1,z1,th,h,m,gaps)=>{const side=(ax,az,bx,bz,G)=>{const horiz=az===bz,a0=horiz?ax:az,b0=horiz?bx:bz,cuts=(G||[]).slice().sort((p,q)=>p[0]-q[0]);let s=Math.min(a0,b0);const e=Math.max(a0,b0);
       for(const[g0,g1]of cuts){if(g0>s)horiz?wall(s,az,g0,az,th,h,m):wall(ax,s,ax,g0,th,h,m);s=Math.max(s,g1);}if(e>s)horiz?wall(s,az,e,az,th,h,m):wall(ax,s,ax,e,th,h,m);};
     side(x0,z0,x1,z0,gaps.n);side(x0,z1,x1,z1,gaps.s);side(x0,z0,x0,z1,gaps.w);side(x1,z0,x1,z1,gaps.e);};
-  const obel=(x,z,h)=>{const y=Y(x,z),b=h*0.1,g=new THREE.CylinderGeometry(b*0.62,b,h*0.92,4,1);g.rotateY(Math.PI/4);const m=new THREE.Mesh(g,gran);m.position.set(X(x),y+h*0.46+1.2,Z(z));m.castShadow=true;scene.add(m);
+  const obel=(x,z,h)=>{const y=Y(x,z),b=h*0.1,g=new THREE.CylinderGeometry(b*0.62,b,h*0.92,4,1);g.rotateY(Math.PI/4);const m=new THREE.Mesh(g,tbMat('obel'));m.position.set(X(x),y+h*0.46+1.2,Z(z));m.castShadow=true;scene.add(m);
     const t=new THREE.Mesh(new THREE.ConeGeometry(b*0.62*0.75,h*0.08,4),gold);t.rotation.y=Math.PI/4;t.position.set(X(x),y+h*0.96+1.2,Z(z));scene.add(t);addB(sand2,x,y+0.6,z,b*1.8,1.2,b*1.8);addCirc(X(x),Z(z),b*0.8);};
-  const pylon=(x,z,a,w,h,col2)=>egPylon(X(x),Z(z),a,w,h,col2);
+  const pylon=(x,z,a,w,h)=>{const r=tbPylonParts(X(x),Y(x,z),Z(z),a,w,h,PUSH);for(const s of[-1,1]){const p=toW(s*w*0.29,0,X(x),Z(z),a);addBox(p[0],p[1],r.tw*0.95,r.td,a);}};
   // carnero sentado (esfinge criocéfala), para las avenidas
-  const RAMS=[],ram=(x,z,a)=>{const y=Y(x,z),r=new THREE.Matrix4().makeRotationY(a);for(const[w,h,d,ox,oy,oz]of[[1.8,1,4.2,0,0.5,0],[1.6,1.4,3.2,0,1.6,-0.3],[1.2,1.4,1.4,0,2.5,1.5],[1.6,0.5,0.6,0,2.9,1.2]]){const g=new THREE.BoxGeometry(w,h,d);g.translate(ox,oy,oz);RAMS.push([g,r.clone().setPosition(X(x),y,Z(z))]);}addCirc(X(x),Z(z),1.6);};
+  const RAMS=[],SPHS=[],ram=(x,z,a)=>{RAMS.push([X(x),Y(x,z),Z(z),a]);addCirc(X(x),Z(z),1.6);};
   egNile(I,220);
   // ---------------- el embarcadero y la barca a la otra orilla
   {const z=-150;buildPort(I.id,'Tebas',X(N(z)+122),Z(z),-1,0);}
@@ -93,13 +95,13 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
   if(ro){pylon(x0,zA,Math.PI/2,113,31);P('pilono1_karnak','El primer pilono','PYLON','El más grande de Egipto: 113 m de ancho y más de 30 de alto. Lo empezó Nectanebo I, el penúltimo faraón egipcio, y nunca se terminó: todavía se ven las rampas de adobe que usaron para subir los bloques, y no lleva relieves.\n(Golvin, p. 37)',x0-18,zA+64,-Math.PI/2);}
   wall(x0+4,zA-52,x0+86,zA-52,4,11,sand);wall(x0+4,zA+52,x0+86,zA+52,4,11,sand);
   for(let i=0;i<5;i++)for(const s of[-1,1])col(x0+22+i*9,zA+s*7,1.5,21,true);   // el quiosco de Taharqa: diez columnas de 21 m
-  egTemple(X(x0+48),Z(zA+44),Math.PI,0.8,'Templo de Ramsés III (Karnak)');
+  tbTemple(X(x0+48),Z(zA+44),Math.PI,0.8,'Templo de Ramsés III (Karnak)');
   P('patio_karnak','El primer patio','ΑΥΛΗ',grR('Un patio de más de cien metros por lado. En medio, el quiosco del faraón nubio Taharqa: diez columnas de veintiún metros. A la derecha, el pequeño templo de Ramsés III, que se abre al patio.','El patio delante del segundo pilono, cerrado a los lados por los muros de los reyes libios. Todavía no tiene pilono delante: el gran pilono que se ve hoy lo empezará Nectanebo I dentro de unos años. En medio, el quiosco del faraón nubio Taharqa: diez columnas de veintiún metros.')+'\n(Golvin, p. 37)',x0+30,zA-30);
   // segundo pilono y la sala hipóstila
   pylon(x0+88,zA,Math.PI/2,98,28);
   {for(let i=0;i<6;i++)for(const s of[-1,1])col(x0+97+i*8.4,zA+s*5.6,1.8,21,true);
    for(let k=0;k<7;k++)for(let i=0;i<9;i++){if(k===0&&(i===0||i===8))continue;for(const s of[-1,1])col(x0+94.5+i*5.9,zA+s*(13+k*5.9),1.35,15,false);}
-   const y=Y(x0+116,zA);addB(sand2,x0+116,y+24.6,zA,52,1.4,20);for(const s of[-1,1]){addB(sand2,x0+116,y+17.2,zA+s*31,52,1.2,41);addB(sand2,x0+116,y+20.6,zA+s*10.6,52,7,1.2);}
+   const y=Y(x0+116,zA);addB(sand2,x0+116,y+24.6,zA,52,1.4,20);addB(tbMat('ceil'),x0+116,y+23.85,zA,52,0.1,20);for(const s2 of[-1,1])addB(tbMat('ceil'),x0+116,y+16.55,zA+s2*31,52,0.1,41);for(const s of[-1,1]){addB(sand2,x0+116,y+17.2,zA+s*31,52,1.2,41);addB(sand2,x0+116,y+20.6,zA+s*10.6,52,7,1.2);}
    wall(x0+91,zA-52,x0+143,zA-52,3,18,sand);wall(x0+91,zA+52,x0+143,zA+52,3,18,sand);}
   P('hipostila','La sala hipóstila','ΥΠΟΣΤΥΛΟΣ','Ciento treinta y cuatro columnas en forma de papiro sostienen el techo de una sala de 102 × 53 m: las doce del centro, de veintiún metros, con el capitel abierto, y las demás, de quince, cerrado. Por las celosías de piedra de la nave central entra una luz rasante. Las paredes y las columnas están pintadas y cubiertas de relieves: Seti I y Ramsés II ante los dioses, y sus guerras. La empezó Seti I y la terminó Ramsés II, hace más de novecientos años.\n(Golvin, p. 37, n.º 3)',x0+92,zA+20,-Math.PI/2);
   // tercer pilono, obeliscos, pilonos cuarto a sexto, santuario, patio del Imperio Medio y el Akh-menu
@@ -115,7 +117,7 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
   // el eje sur: pilonos séptimo a décimo, hacia el templo de Mut
   pylon(x0+175,zA+70,0,60,20);pylon(x0+175,zA+122,0,60,20);pylon(x0+175,zA+190,0,62,22);pylon(x0+175,zA+245,0,66,24);
   // el templo de Jonsu, en la esquina suroeste, y la puerta de Evérgetes (ptolemaica: solo en el 80)
-  egTemple(X(x0+50),Z(zA+170),0,1.3,'Templo de Jonsu');
+  tbTemple(X(x0+50),Z(zA+170),0,1.3,'Templo de Jonsu');
   if(ro){const x=x0+50,z=zA+262,y=Y(x,z);addB(sand,x-8,y+10.5,z,9,21,14);addB(sand,x+8,y+10.5,z,9,21,14);addB(sand,x,y+19.5,z,7,3,14);addBox(X(x-8),Z(z),9,14,0);addBox(X(x+8),Z(z),9,14,0);}
   P('jonsu','El templo de Jonsu','ΧΩΝΣ','Jonsu, el dios luna, es el hijo de Amón y de Mut: los tres forman la familia divina de Tebas. Su templo, de Ramsés III, mira hacia el sur, hacia Luxor.'+grR(' Delante, en la muralla, la gran puerta que levantó el rey Ptolomeo III Evérgetes.','')+'\n(Golvin, p. 37, n.º 6)',x0+50,zA+232);
   // el recinto: en el 80, la gran muralla de adobe de Nectanebo I (520 × 520 m, 12 m de grueso); en el 386, uno menor y más antiguo
@@ -127,7 +129,7 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
       'Ipet-sut, «el más venerado de los lugares»: el templo de Amón-Ra, el más grande del mundo. Cada faraón, durante mil quinientos años, le ha añadido un pilono, un patio, una sala o un obelisco: del muelle al fondo hay más de trescientos cincuenta metros. Solo los sacerdotes entran en el santuario; la gente se queda en los patios.\n(Heródoto II 42; Diodoro I 45-46; Golvin, p. 37, n.º 3)'),x0-50,zA-34,-Math.PI/2);
   // ================= MUT: avenida de carneros desde el décimo pilono, el templo y su lago en media luna
   for(let i=0;i<14;i++)for(const s of[-1,1])ram(x0+175+s*9,zA+268+i*12,s>0?-Math.PI/2:Math.PI/2);
-  {const mx=x0+175,mz=zA+620;encl(mx-120,mz-170,mx+120,mz+170,5,8,mud2,{n:[[mx-20,mx+20]],s:[],w:[[mz-15,mz+15]],e:[]});egTemple(X(mx),Z(mz-90),Math.PI,1.2,'Templo de Mut');
+  {const mx=x0+175,mz=zA+620;encl(mx-120,mz-170,mx+120,mz+170,5,8,mud2,{n:[[mx-20,mx+20]],s:[],w:[[mz-15,mz+15]],e:[]});tbTemple(X(mx),Z(mz-90),Math.PI,1.2,'Templo de Mut');
    for(const[dx,dz,w,d]of[[-48,10,18,110],[48,10,18,110],[0,64,114,18]]){const x=X(mx+dx),z=Z(mz+dz);pool(x,z,w,d,Y(mx+dx,mz+dz)-0.4);addBox(x,z,w,d,0);}
    P('mut','El templo de Mut','ΜΟΥΤ','Mut, «la madre», es la esposa de Amón. Su templo está rodeado en tres lados por un lago en forma de media luna, el Isheru. En su patio hay cientos de estatuas de la diosa leona Sejmet, sentadas en fila: las puso Amenhotep III, quizá para calmar a la diosa del fuego y de las epidemias.\n(Golvin, p. 37, n.os 4-5)',mx+30,mz-150);}
   P('avenida_carneros','La avenida de los carneros','ΚΡΙΟΙ','El carnero es el animal de Amón: estas esfinges con cuerpo de león y cabeza de carnero, que protegen entre sus patas una pequeña estatua del rey, bordean el camino del templo de Amón al de Mut.\n(Golvin, p. 37)',x0+192,zA+330,-Math.PI/2);
@@ -135,17 +137,16 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
   {const pts=TB.route,pv=[],sph=[];
    for(let s=0;s<pts.length-1;s++){const a=pts[s],b=pts[s+1],L=Math.hypot(b[0]-a[0],b[1]-a[1]),ang=Math.atan2(b[0]-a[0],b[1]-a[1]),n=Math.ceil(L/6);
      for(let i=0;i<n;i++){const t=(i+0.5)/n,lx=a[0]+(b[0]-a[0])*t,lz=a[1]+(b[1]-a[1])*t;pv.push([new THREE.BoxGeometry(10,0.3,6.4),new THREE.Matrix4().makeRotationY(ang).setPosition(X(lx),Y(lx,lz)+0.1,Z(lz))]);
-       if(ro&&i%2===0)for(const sd of[-1,1]){const sx=lx+Math.cos(ang)*sd*8,sz=lz-Math.sin(ang)*sd*8,y=Y(sx,sz),r=new THREE.Matrix4().makeRotationY(ang+(sd>0?-Math.PI/2:Math.PI/2));
-         for(const[w,h,d,ox,oy,oz]of[[1.6,0.8,3.6,0,0.4,0],[1.3,1.1,2.6,0,1.35,0.1],[1.1,1.2,1.0,0,2.2,1.2]]){const g=new THREE.BoxGeometry(w,h,d);g.translate(ox,oy,oz);sph.push([g,r.clone().setPosition(X(sx),y,Z(sz))]);}addCirc(X(sx),Z(sz),1.3);}}}
-   const m=new THREE.Mesh(mergeGeos(pv),lam('#d2bf98'));m.receiveShadow=true;scene.add(m);if(sph.length){const sm=new THREE.Mesh(mergeGeos(sph),lam('#c9b08a'));sm.castShadow=true;scene.add(sm);}
+       if(ro&&i%2===0)for(const sd of[-1,1]){const sx=lx+Math.cos(ang)*sd*8,sz=lz-Math.sin(ang)*sd*8;SPHS.push([X(sx),Y(sx,sz),Z(sz),ang+(sd>0?-Math.PI/2:Math.PI/2)]);addCirc(X(sx),Z(sz),1.3);}}}
+   const m=new THREE.Mesh(tbMerge(pv.map(([g,mt])=>[boxUV(10,0.3,6.4,4),mt])),tbMat('stone','#e8dcc0'));m.receiveShadow=true;scene.add(m);
    P('dromos',grR('La avenida de las esfinges','El camino de la procesión'),'ΔΡΟΜΟΣ',grR('Casi tres kilómetros de esfinges con cabeza humana, una frente a otra, unen Karnak con Luxor: las hizo poner Nectanebo I hace más de cuatrocientos años. Por aquí pasa cada año la procesión de Opet, con la barca de Amón a hombros de los sacerdotes. En el juego, el camino es más corto: unos mil doscientos metros.\n(Golvin, p. 37, n.º 2)',
       'Por este camino pasa cada año, en la fiesta de Opet, la procesión que lleva la barca de Amón de Karnak a Luxor, con música, danzas y comida para todos. Dentro de unos años, el faraón Nectanebo I lo bordeará con cientos de esfinges, una frente a otra. En el juego es más corto que el real, de casi tres kilómetros.\n(Golvin, p. 37, n.º 2)'),266,-200,Math.PI/2);}
   // ================= LUXOR: eje norte-sur, entrada al norte (260 m)
-  {const[lx,lz]=TB.L;obel(lx-14,lz,25);obel(lx+14,lz,22.5);for(const s of[-1,1]){const y=Y(lx+s*7,lz+5);addB(qtz,lx+s*7,y+3.5,lz+5,4,7,6);statue(X(lx+s*7),y+7,Z(lz+5),Math.PI,3.2,'marble');}
+  {const[lx,lz]=TB.L;obel(lx-14,lz,25);obel(lx+14,lz,22.5);for(const s of[-1,1])colossus(lx+s*9,lz+3,Math.PI,8,gran);
    pylon(lx,lz+10,0,65,24);
    {const z0=lz+12,z1=lz+69;wall(lx-28,z0,lx-28,z1,3,12,sand);wall(lx+28,z0,lx+28,z1,3,12,sand);for(let i=0;i<9;i++)for(const s of[-1,1]){col(lx+s*24,z0+4+i*6.4,0.9,11,false);col(lx+s*19,z0+4+i*6.4,0.9,11,false);}}
    {const z0=lz+70,z1=lz+122;wall(lx-13,z0,lx-13,z1,3,20,sand);wall(lx+13,z0,lx+13,z1,3,20,sand);for(let i=0;i<7;i++)for(const s of[-1,1])col(lx+s*4.6,z0+4+i*7.4,1.6,19,true);
-     const y=Y(lx,z0+26);addB(sand2,lx,y+20,z0+26,13,1.4,52);}
+     const y=Y(lx,z0+26);addB(sand2,lx,y+20,z0+26,13,1.4,52);addB(tbMat('ceil'),lx,y+19.25,z0+26,13,0.1,52);}
    {const z0=lz+124,z1=lz+180;wall(lx-28,z0,lx-28,z1,3,12,sand);wall(lx+28,z0,lx+28,z1,3,12,sand);for(let i=0;i<8;i++)for(const s of[-1,1]){col(lx+s*24,z0+4+i*6.6,0.95,10,false);col(lx+s*19,z0+4+i*6.6,0.95,10,false);}
      for(let i=0;i<8;i++)col(lx-21+i*6,z1-4,0.95,10,false);}
    {for(let i=0;i<4;i++)for(let j=0;j<8;j++)col(lx-21+j*6,lz+184+i*5,0.9,9,false);const y=Y(lx,lz+192);addB(sand2,lx,y+9.6,lz+192,50,1.2,22);}
@@ -159,20 +160,18 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
    const segD=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=clamp(((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz),0,1);return Math.hypot(x-a[0]-dx*t,z-a[1]-dz*t);},
      busy=(x,z,r)=>occ.some(o=>x>o[0]-r&&x<o[2]+r&&z>o[1]-r&&z<o[3]+r)||TB.route.some((p,i)=>i>0&&segD(x,z,TB.route[i-1],p)<r+12);
    const zones=ro?[[60,-560,190,-380,40],[40,300,230,440,40],[60,-260,220,-120,50],[200,780,420,900,30]]:[[30,-1000,190,-300,190],[30,-300,240,440,330],[520,-450,850,200,150],[60,780,520,950,110],[300,40,560,400,110]];
-   const H=[],D=[],cols=['#b8956a','#a8865c','#c4a274','#b08a60','#c9ab7e'];
-   for(const[ax,az,bx,bz,n]of zones){let k=0;for(let t=0;t<n*8&&k<n;t++){const lx=rr(ax,bx),lz=rr(az,bz),w=rr(7,12),d=rr(7,12);if(busy(lx,lz,Math.max(w,d)/2+3))continue;const x=X(lx),z=Z(lz);
-       if(Math.abs(x-nileX(I,z))<135||terrainH(x,z)<1.5||!isFree(x,z,Math.max(w,d)/2+1.5))continue;const h=ro?rr(3.5,6):rr(5,13.5),a=R()<0.5?0:Math.PI/2,y=floorAt(x,z);
-       H.push({x,y,z,w,h,d,a,c:new THREE.Color(pick(cols))});addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:'#b8956a',house:true});k++;}}
-   const ub=new THREE.BoxGeometry(1,1,1);ub.translate(0,0.5,0);const im=new THREE.InstancedMesh(ub,lam('#ffffff'),H.length),dm=new THREE.InstancedMesh(ub,lam('#3a2a1e'),H.length),m4=new THREE.Matrix4(),q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0);
-   H.forEach((h,i)=>{q.setFromAxisAngle(up,h.a);m4.compose(new THREE.Vector3(h.x,h.y,h.z),q,new THREE.Vector3(h.w,h.h,h.d));im.setMatrixAt(i,m4);im.setColorAt(i,h.c);
-     const p=toW(0,h.d/2+0.03,h.x,h.z,h.a);m4.compose(new THREE.Vector3(p[0],h.y,p[1]),q,new THREE.Vector3(1.2,2.1,0.12));dm.setMatrixAt(i,m4);});
-   for(const m of[im,dm]){m.castShadow=true;m.receiveShadow=true;scene.add(m);}TB.houses=H.length;
+   const H=[],cols=['#ffffff','#f0e4d0','#e4d4b8','#f6ecdc','#dcc8a8'],BT=[[8,4,7],[9,7.5,8],[8,11,8],[11,3.6,9]];
+   for(const[ax,az,bx,bz,n]of zones){let k=0;for(let t=0;t<n*8&&k<n;t++){const ty=ro?[0,3,0,1][Math.floor(R()*4)]:[0,1,1,2,2,3][Math.floor(R()*6)],f=rr(0.9,1.15),w=BT[ty][0]*f,d=BT[ty][2]*f,lx=rr(ax,bx),lz=rr(az,bz);if(busy(lx,lz,Math.max(w,d)/2+3))continue;const x=X(lx),z=Z(lz);
+       if(Math.abs(x-nileX(I,z))<135||terrainH(x,z)<1.5||!isFree(x,z,Math.max(w,d)/2+1.5))continue;const a=R()<0.5?0:Math.PI/2,y=floorAt(x,z);
+       H.push({x,y,z,ty,f,fy:rr(0.92,1.1),a,c:new THREE.Color(pick(cols))});addBox(x,z,w,d,a);footprints.push({x,z,w,d,a,c:'#b8956a',house:true});k++;}}
+   const m4=new THREE.Matrix4(),q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),hm=tbMat('house');
+   for(let ty=0;ty<4;ty++){const S=H.filter(h=>h.ty===ty);if(!S.length)continue;const im=new THREE.InstancedMesh(G0.house[ty],hm,S.length);S.forEach((h,i)=>{q.setFromAxisAngle(up,h.a);m4.compose(new THREE.Vector3(h.x,h.y,h.z),q,new THREE.Vector3(h.f,h.f*h.fy,h.f));im.setMatrixAt(i,m4);im.setColorAt(i,h.c);});im.castShadow=true;im.receiveShadow=true;scene.add(im);}
+
+   TB.houses=H.length;
    if(!ro)P('ciudad_tebas','La ciudad','ΠΟΛΙΣ','Entre los templos y el río, barrios de casas de adobe apretadas, de varios pisos, con terrazas en el tejado donde se duerme en verano y se secan el grano y el pescado. Diodoro, siguiendo a autores antiguos, dirá que en la Tebas de los grandes reyes había casas de cuatro y cinco pisos. Ya no es la capital, pero sigue siendo una ciudad grande, llena de sacerdotes, escribas, artesanos de los templos y barqueros.\n(Diodoro I 45)',150,-320,Math.PI/2);}
   // ================= LA ORILLA OESTE
   // los Colosos de Memnón (18 m) y el campo de ruinas del templo de Amenhotep III detrás
-  {const cx=-430,cz=150;for(const s of[-1,1]){const x=X(cx),z=Z(cz+s*12),g=grp(x,floorAt(x,z),z,Math.PI/2);
-     box(7,3,9,qtz,0,1.5,0,g);box(6.4,7,7.6,qtz,0,6.5,-0.4,g);box(5.6,2,5,qtz,0,8,2.4,g);box(2,6,1.6,qtz,-1.6,5,4.4,g);box(2,6,1.6,qtz,1.6,5,4.4,g);box(4.6,6.4,3.4,qtz,0,13.2,-1.4,g);box(2.6,3,2.6,qtz,0,17.8,-1.2,g);
-     const ne=new THREE.Mesh(new THREE.CylinderGeometry(1.6,2.8,3.6,4),qtz);ne.rotation.y=Math.PI/4;ne.position.set(0,17.6,-1.6);g.add(ne);addBox(x,z,9,7.6,Math.PI/2);}
+  {const cx=-430,cz=150;for(const s2 of[-1,1])colossus(cx,cz+s2*12,Math.PI/2,18,qtz);
    for(let i=0;i<120;i++){const lx=cx-20-rr(0,520),lz=cz+rr(-110,110);const x=X(lx),z=Z(lz);if(!isFree(x,z,3))continue;addB(R()<0.3?qtz:sand2,lx,floorAt(x,z)+0.5,lz,rr(1.5,5),rr(0.8,2.6),rr(1.5,4),R()*TAU);addCirc(x,z,1.4);}
    for(let i=0;i<5;i++){const lx=cx-90-i*90,lz=cz+rr(-30,30);addB(qtz,lx,Y(lx,lz)+1.2,lz,2.5,2.4,8,R()*TAU);}   // estatuas caídas
    if(ro)for(let i=0;i<4;i++){const p=makePerson({chiton:pick(['#e8dfcc','#d7c9ab']),himation:pick(['#7a5a3a','#8a3f2f','#4f6a7d']),female:i%2===1,hair:'#3b2a1e'});const x=X(cx+16+i*2),z=Z(cz+rr(-6,6));p.position.set(x,floorAt(x,z),z);p.rotation.y=-Math.PI/2;scene.add(p);addCirc(x,z,0.4);}
@@ -180,30 +179,30 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
       'Dos estatuas sentadas de dieciocho metros, de cuarcita, del faraón Amenhotep III, que reinó hace más de mil años. Detrás, en más de quinientos metros, las ruinas de su templo funerario, el mayor de la orilla oeste: las crecidas del Nilo y los reyes posteriores, que se llevaron sus piedras, lo han dejado en un campo de bloques y estatuas caídas. Dentro de tres siglos y medio, un terremoto partirá una de las estatuas, y empezará a «cantar» al amanecer.\n(Golvin, p. 39, n.º 12)'),cx+18,cz+26,-Math.PI/2);}
   // el Rameseo (recinto 270 × 175 m, templo de unos 180 m), con sus almacenes abovedados y el coloso de Ramsés II
   {const cx=-700,cz=-250;encl(cx-150,cz-88,cx+120,cz+88,4,7,mud2,{e:[[cz-25,cz+25]],w:[],n:[],s:[]});
-   pylon(cx+80,cz,Math.PI/2,67,22);wall(cx+20,cz-32,cx+78,cz-32,3,9,sand);wall(cx+20,cz+32,cx+78,cz+32,3,9,sand);pylon(cx+20,cz,Math.PI/2,60,18);
+   pylon(cx+80,cz,-Math.PI/2,67,22);wall(cx+20,cz-32,cx+78,cz-32,3,9,sand);wall(cx+20,cz+32,cx+78,cz+32,3,9,sand);pylon(cx+20,cz,-Math.PI/2,60,18);
    for(let i=0;i<4;i++)for(const s of[-1,1])col(cx-5-i*6,cz+s*14,1.1,10,false);
    for(let i=0;i<6;i++)for(let j=0;j<8;j++)col(cx-35-i*6,cz-21+j*6,1.1,11+(j===3||j===4?3:0),j===3||j===4);
    {const y=Y(cx-50,cz);addB(sand2,cx-50,y+12,cz,36,1.2,48);addB(sand,cx-92,y+5,cz,34,10,36);addBox(X(cx-92),Z(cz),34,36,0);}
    const vg=[];for(let i=0;i<10;i++)for(const s of[-1,1]){const lx=cx-140+i*14,lz=cz+s*62,y=Y(lx,lz),g=new THREE.CylinderGeometry(4.5,4.5,40,10,1,false,0,Math.PI);g.rotateZ(Math.PI/2);g.rotateY(Math.PI/2);vg.push([g,new THREE.Matrix4().makeTranslation(X(lx),y+3,Z(lz))]);addB(mud,lx,y+1.5,lz,9,3,40);addBox(X(lx),Z(lz),9,40,0);}
-   const vm=new THREE.Mesh(mergeGeos(vg),mud);vm.castShadow=true;scene.add(vm);
+   const vm=new THREE.Mesh(tbMerge(vg),mud);vm.castShadow=true;scene.add(vm);
    {const x=cx+50,z=cz;if(ro){addB(gran,x,Y(x,z)+2,z+4,6,4,9,0.3);addB(gran,x-4,Y(x,z)+1.6,z-5,7,3.2,5,1.1);addB(gran,x+5,Y(x,z)+1,z-2,3,2,3,0.6);}
-    else{const g=grp(X(x),Y(x,z),Z(z),Math.PI/2);box(7,4,9,gran,0,2,0,g);box(6,9,7,gran,0,8.5,-0.5,g);box(5,8,4,gran,0,17,-1.5,g);box(3,3.5,3,gran,0,22.6,-1.3,g);addBox(X(x),Z(z),9,7,Math.PI/2);}}
+    else colossus(x,z,Math.PI/2,19,gran);}
    P('rameseo','El Rameseo','ΟΣΥΜΑΝΔΥΑΣ','El templo funerario de Ramsés II, de unos 180 m. Hecateo de Abdera, que lo vio hacia el 300 a.C., lo llamó la tumba de Osimandias y contó que en la entrada había la estatua más grande de Egipto, con una inscripción: «Soy Osimandias, rey de reyes; si alguien quiere saber lo grande que soy y dónde yazgo, que supere alguna de mis obras».'+grR(' Ahora el coloso está roto en el suelo; no se sabe cuándo cayó, quizá en el terremoto del 27 a.C.','')+' Alrededor, filas de almacenes de adobe con bóveda, para el grano y los tesoros del templo. Sus restos inspirarán en 1818 un poema famoso de Shelley.\n(Diodoro I 47-49; Golvin, p. 39, n.º 15)',cx+108,cz-40,-Math.PI/2);}
   // Medinet Habu: recinto de 210 × 315 m, la puerta alta en forma de fortaleza y el templo de 150 m
   {const cx=-750,cz=620;encl(cx-150,cz-157,cx+60,cz+157,6,18,mud,{e:[[cz-12,cz+12]],w:[[cz-10,cz+10]],n:[],s:[]});
    {const x=cx+66,g=grp(X(x),Y(x,cz),Z(cz),0);for(const s of[-1,1])box(18,22,14,sand,0,11,s*11,g);box(18,6,8,sand,0,19,0,g);addBox(X(x),Z(cz-11),18,14,0);addBox(X(x),Z(cz+11),18,14,0);}
-   pylon(cx+10,cz,Math.PI/2,68,24);wall(cx-40,cz-38,cx+8,cz-38,3,12,sand);wall(cx-40,cz+38,cx+8,cz+38,3,12,sand);pylon(cx-42,cz,Math.PI/2,56,20);
+   pylon(cx+10,cz,-Math.PI/2,68,24);wall(cx-40,cz-38,cx+8,cz-38,3,12,sand);wall(cx-40,cz+38,cx+8,cz+38,3,12,sand);pylon(cx-42,cz,-Math.PI/2,56,20);
    for(let i=0;i<4;i++)for(let j=0;j<6;j++)col(cx-55-i*7,cz-17+j*6.8,1.2,12,false);
    {const y=Y(cx-80,cz);addB(sand2,cx-66,y+12.6,cz,28,1.2,44);addB(sand,cx-112,y+6,cz,46,12,44);addBox(X(cx-112),Z(cz),46,44,0);}
-   egTemple(X(cx+20),Z(cz-110),Math.PI/2,0.7,'Templo pequeño de Amón (Medinet Habu)');
+   tbTemple(X(cx+20),Z(cz-110),Math.PI/2,0.7,'Templo pequeño de Amón (Medinet Habu)');
    if(ro){for(let i=0;i<40;i++){const lx=cx+rr(-140,50),lz=cz+rr(-150,150);if(Math.abs(lz-cz)<50&&lx>cx-140)continue;const x=X(lx),z=Z(lz),w=rr(6,10),d=rr(6,10);if(!isFree(x,z,w/2+1))continue;addB(mud,lx,floorAt(x,z)+2,lz,w,4,d,R()<0.5?0:Math.PI/2);addBox(x,z,w,d,0);}}
    P('medinet_habu','Medinet Habu','ΤΖΑΜΕ','El templo funerario de Ramsés III, de 150 m, dentro de una muralla de adobe de 210 × 315 m y dieciocho de alto, con una puerta en forma de torre de fortaleza, a la manera de Siria. En sus muros, Ramsés cuenta su victoria sobre los Pueblos del Mar, que llegaron por mar y por tierra hacia el 1180 a.C. Junto a la entrada, un templo pequeño de Amón, mucho más antiguo, al que los reyes siguen añadiendo puertas y patios.'+grR(' Ahora el recinto es una aldea, Djeme, con casas apiñadas entre los muros.',' En tiempos de guerra, la gente de Tebas vive dentro de sus murallas.')+'\n(Golvin, p. 40)',cx+82,cz+30,-Math.PI/2);}
   // Deir el-Bahari: tres terrazas con pórticos de pilares y dos rampas, contra el acantilado (unos 270 m con el patio de abajo)
-  {const cx=-890,cz=-780,c=lam('#d9cba8'),y0=Y(cx,cz);
+  {const cx=-890,cz=-780,c=tbMat('relief','#f4ecdc'),y0=Y(cx,cz);
    addB(c,cx-30,y0+3,cz,60,8,100);addB(c,cx-82,y0+8,cz,44,14,80);addB(c,cx-118,y0+13,cz,30,24,60);addBox(X(cx-60),Z(cz),120,100,0);
    addB(c,cx+12,y0+3.2,cz,26,0.8,10,0);addB(c,cx-46,y0+9.4,cz,26,0.8,10,0);
    const pl=[];for(let i=0;i<22;i++){for(const[xx,h,yy]of[[1.5,7,0],[-51,6,7]]){if(Math.abs(i-10.5)<1.2)continue;const pg=new THREE.BoxGeometry(1.4,h,1.4);pg.translate(0,h/2,0);pl.push([pg,new THREE.Matrix4().makeTranslation(X(cx+xx),y0+yy,Z(cz-46+i*4.4))]);}}
-   const pm=new THREE.Mesh(mergeGeos(pl),c);pm.castShadow=true;scene.add(pm);
+   const pm=new THREE.Mesh(tbMerge(pl),c);pm.castShadow=true;scene.add(pm);
    for(let i=0;i<20;i++)for(const s of[-1,1])ram(cx+40+i*10,cz+s*9,s>0?Math.PI:0);
    P('deir_bahari','Deir el-Bahari','ΔΗΡ ΕΛ ΜΠΑΧΡΙ','Tres terrazas con pórticos de pilares, unidas por rampas, al pie del acantilado: el templo de la reina Hatshepsut, que gobernó Egipto como faraón hace unos mil cien años. Su arquitecto, Senenmut, lo encajó en el circo de roca. En sus relieves se ve la expedición que mandó al país del Punt, al sur del mar Rojo, a buscar incienso, mirra y árboles vivos en macetas.'+grR(' Ahora una de sus capillas es un santuario de Imhotep y de Amenhotep hijo de Hapu, dos sabios divinizados, adonde vienen enfermos a curarse.',' El templo está medio abandonado, y la reina, borrada de muchos muros por su sucesor.')+'\n(Golvin, p. 41)',cx+60,cz+40,-Math.PI/2);}
   // Deir el-Medina: la aldea de los artesanos de las tumbas, unas setenta casas en 130 × 50 m, en ruinas
@@ -216,12 +215,14 @@ function tbBuild(I){const ro=MODE==='roma',X=x=>I.x+x,Z=z=>I.z+z,N=z=>nileX(I,Z(
       'Detrás de esta montaña, en un valle seco y escondido, están las tumbas de los grandes faraones, excavadas en la roca y decoradas con los textos del viaje del sol por la noche. Casi todas las saquearon los ladrones hace siglos. En el juego las entradas están en esta ladera; las de verdad, en el valle de detrás.\n(Diodoro I 46.7; Golvin, p. 39, n.º 18)'),e[0]-I.x+16,e[1]-I.z,Math.PI/2);}
   P('montana_occidental','La montaña de Occidente','ΤΟ ΔΥΤΙΚΟΝ ΟΡΟΣ','La montaña tebana, con su cumbre en forma de pirámide natural, el Qurn: quizá por eso los reyes dejaron de construir pirámides y se enterraron debajo de ella. La protege una diosa serpiente, Meretseger, «la que ama el silencio».\n(Golvin, p. 39, n.º 19)',-860,-430,Math.PI/2);
   // ---- columnas y bloques, instanciados o fundidos (cientos de piezas en pocas llamadas de dibujo)
-  {const sg=new THREE.CylinderGeometry(1,1.12,1,12);sg.translate(0,0.5,0);const sm=new THREE.InstancedMesh(sg,sand2,COLS.length),m4=new THREE.Matrix4();
-   COLS.forEach((c,i)=>{m4.makeScale(c[3],c[4],c[3]).setPosition(c[0],c[1],c[2]);sm.setMatrixAt(i,m4);});sm.castShadow=true;sm.receiveShadow=true;scene.add(sm);
-   const og=new THREE.CylinderGeometry(1.9,1.05,1.3,12),cg=new THREE.CylinderGeometry(1.2,1.05,1.1,12),O=CAPS.filter(c=>c[4]),C=CAPS.filter(c=>!c[4]);
-   for(const[L,g]of[[O,og],[C,cg]]){if(!L.length)continue;const im=new THREE.InstancedMesh(g,cap,L.length);L.forEach((c,i)=>{m4.makeScale(c[3],c[3],c[3]).setPosition(c[0],c[1]+0.6*c[3],c[2]);im.setMatrixAt(i,m4);});im.castShadow=true;scene.add(im);}}
-  for(const k in BOX){const B=BOX[k],m=new THREE.Mesh(mergeGeos(B.L),B.mat);m.castShadow=true;m.receiveShadow=true;scene.add(m);}
-  if(RAMS.length){const m=new THREE.Mesh(mergeGeos(RAMS),lam('#c9b08a'));m.castShadow=true;scene.add(m);}
+  {const m4=new THREE.Matrix4(),q=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),V3=(a,b,c)=>new THREE.Vector3(a,b,c);
+   const sm=new THREE.InstancedMesh(G0.shaft,tbMat('colrel'),COLS.length);COLS.forEach((c,i)=>{m4.makeScale(c[3],c[4],c[3]).setPosition(c[0],c[1],c[2]);sm.setMatrixAt(i,m4);});sm.castShadow=true;sm.receiveShadow=true;scene.add(sm);
+   const ab=new THREE.InstancedMesh(G0.abac,sand2,CAPS.length);let k=0;
+   for(const[open,g]of[[true,G0.capO],[false,G0.capC]]){const Lc=CAPS.filter(c=>!!c[4]===open);if(!Lc.length)continue;const im=new THREE.InstancedMesh(g,tbMat('capt'),Lc.length);
+     Lc.forEach((c,i)=>{const hc=c[3]*(open?1.5:1.3);m4.makeScale(c[3]*0.95,hc,c[3]*0.95).setPosition(c[0],c[1],c[2]);im.setMatrixAt(i,m4);m4.makeScale(c[3]*(open?0.8:1),c[3],c[3]*(open?0.8:1)).setPosition(c[0],c[1]+hc,c[2]);ab.setMatrixAt(k++,m4);});im.castShadow=true;scene.add(im);}
+   ab.count=k;scene.add(ab);
+   for(const[L2,g]of[[RAMS,G0.ram],[SPHS,G0.sph]]){if(!L2.length)continue;const im=new THREE.InstancedMesh(g,tbMat('stone','#e8dcc0'),L2.length);L2.forEach((r,i)=>{q.setFromAxisAngle(up,r[3]);m4.compose(V3(r[0],r[1],r[2]),q,V3(1,1,1));im.setMatrixAt(i,m4);});im.castShadow=true;scene.add(im);}}
+  for(const k in BOX){const B=BOX[k],m=new THREE.Mesh(tbMerge(B.L),B.mat);m.castShadow=true;m.receiveShadow=true;scene.add(m);}
   // palmeras en las dos orillas
   {const pl=[];for(let i=0;i<320;i++){const z=I.z+rr(-I.R,I.R),s=R()<0.5?-1:1,x=nileX(I,z)+s*rr(125,230);if(isFree(x,z,3)&&terrainH(x,z)>1.5)pl.push([x,z]);}egPalms(pl);}
   TB.built=true;}

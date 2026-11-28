@@ -289,5 +289,6 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `282_alejandria.js` | 180 | ALEJANDRÍA, REHECHA CON ESTRABÓN Y GOLVIN (modo Roma, 80 d.C.) (28/11) |
 | `283_ostia_portus.js` | 48 | OSTIA: EL TÍBER Y EL PUERTO DE CLAUDIO (modo Roma, 80 d.C.) (28/11) |
 | `284_acropolis_golvin.js` | 22 | LA ACRÓPOLIS, COMPLETADA CON GOLVIN (modo Atenas, 386 a.C.) (28/11) |
-| `285_tebas_egipto.js` | 228 | TEBAS DE EGIPTO: destino nuevo en las dos épocas (28/11) |
+| `285_tebas_egipto.js` | 229 | TEBAS DE EGIPTO: destino nuevo en las dos épocas (28/11) |
+| `286_tebas_modelos.js` | 95 | TEBAS: MODELOS MEJORADOS CASI SIN COSTE (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |
