@@ -9,12 +9,12 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `000b_decodificador_meshopt.js` | 200 | DECODIFICADOR MESHOPT (27/11) |
 | `001_terreno.js` | 119 | terreno |
 | `002_colisiones.js` | 66 | colisiones |
-| `003_escena.js` | 57 | escena |
+| `003_escena.js` | 61 | escena |
 | `004_sonido_sintesis_sin_archivos.js` | 65 | sonido (síntesis, sin archivos) |
 | `005_modelos_de_blender.js` | 153 | modelos de Blender<br>caminos |
 | `006_murallas_circuito_de_temistocles_reconstruido.js` | 96 | murallas (circuito de Temístocles, reconstruido por Conón)<br>malla del terreno<br>columnas instanciadas (dóricas y jónicas) |
 | `007_campos_del_atica_y_de.js` | 95 | campos del Ática y de la campiña romana<br>texturas pintadas (policromía) |
-| `008_edificios.js` | 139 | edificios |
+| `008_edificios.js` | 140 | edificios |
 | `009_personas.js` | 145 | personas |
 | `010_contenido.js` | 928 | CONTENIDO |
 | `011_construccion_del_mundo.js` | 840 | construcción del mundo<br>caminos: Grecia e Italia recorribles a pie |
@@ -273,9 +273,11 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `266_mejoras_en_todos_los_mapas.js` | 112 | MEJORAS EN TODOS LOS MAPAS (27/11) |
 | `267_vida_en_las_ciudades.js` | 168 | VIDA EN LAS CIUDADES (27/11) |
 | `268_figuras_blender_en_escenas.js` | 50 | FIGURAS DE BLENDER EN LAS ESCENAS (27/11) |
-| `269_figuras_optimizadas.js` | 55 | FIGURAS DE BLENDER OPTIMIZADAS (27/11) |
+| `269_figuras_optimizadas.js` | 56 | FIGURAS DE BLENDER OPTIMIZADAS (27/11) |
 | `270_impostores_blender.js` | 27 | FIGURAS LEJANAS SACADAS DE BLENDER (27/11) |
 | `271_jugabilidad_9.js` | 113 | JUGABILIDAD (9): diez propuestas (28/11) |
 | `272_graficos_8.js` | 105 | MÁS MODELOS DE BLENDER Y DETALLES DE LA CIUDAD (27/11) |
 | `273_montanas.js` | 82 | MONTAÑAS MÁS REALES SIN CASTIGAR A LOS EQUIPOS MODESTOS (27/11) |
+| `274_optimizacion_chromebook.js` | 98 | OPTIMIZACIÓN PARA CHROMEBOOKS Y MINI-PC (28/11) |
+| `275_inframundo_2.js` | 64 | EL INFRAMUNDO, MÁS CREÍBLE (28/11) |
 | `900_creta_y_arranque.js` | 650 | EL INTERIOR DE CRETA (modo Atenas): tres tramos de tierra (camino del Ida, monte Ida, llanura de la Mesara) |

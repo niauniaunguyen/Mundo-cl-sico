@@ -1,6 +1,10 @@
 // ============================================================ escena
 const canvas=document.getElementById('c');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+// suavizado de bordes (antialias): caro en las gráficas integradas de los Chromebooks y mini-PC. Se decide al arrancar con lo guardado
+// (modo ligero, modo aula, nivel medido por 274) o, la primera vez, por el equipo (4 núcleos o menos, o 4 GB de memoria o menos: sin él)
+const AA_ON=(()=>{try{const a=JSON.parse(localStorage.getItem('nostos-acc')||'{}');if(a.lite||a.aula||a.tier==='bajo'||a.tier==='medio')return false;if(a.tier==='alto')return true;}catch(e){}
+  const nc=navigator.hardwareConcurrency||4,mem=navigator.deviceMemory||8;return !(nc<=4||mem<=4);})();
+const renderer=new THREE.WebGLRenderer({canvas,antialias:AA_ON,powerPreference:'high-performance'});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 const scene=new THREE.Scene();

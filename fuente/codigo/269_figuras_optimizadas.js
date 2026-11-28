@@ -44,8 +44,9 @@ function bp1Convert(max){let n=0;for(const g of BP.list){if(n>=max)break;const B
   const nu=bp1Make(B.kind,g.userData.cfg||{});if(!nu)continue;const old=g.children[0],root=nu.children[0];root.visible=old.visible;g.remove(old);g.add(root);g.children.splice(g.children.indexOf(root),1);g.children.unshift(root);
   const NB=nu.userData.bp;NB.ph=B.ph;NB.amp=B.amp;g.userData.bp=NB;g.userData.bp1=nu.userData.bp1;n++;BP1.conv++;}return n;}
 // nivel de detalle: geometría completa de cerca, aligerada de lejos; sombra solo de cerca
+const _bp1V=new THREE.Vector3();   // reutilizado: sin objetos nuevos en cada vuelta (menos trabajo para el recolector de memoria)
 function bp1Lod(){const cx=camera.position.x,cz=camera.position.z,N2=BP1.near*BP1.near,lists=[BP.list,(typeof BPF!=='undefined'?BPF.list:[])];
-  for(const L of lists)for(const g of L){const U=g.userData.bp1;if(!U||!g.parent)continue;const p=g.getWorldPosition?g.position:null;if(!p)continue;let wx=p.x,wz=p.z;if(g.parent!==scene){const v=new THREE.Vector3();g.getWorldPosition(v);wx=v.x;wz=v.z;}
+  for(const L of lists)for(const g of L){const U=g.userData.bp1;if(!U||!g.parent)continue;const p=g.getWorldPosition?g.position:null;if(!p)continue;let wx=p.x,wz=p.z;if(g.parent!==scene){g.getWorldPosition(_bp1V);wx=_bp1V.x;wz=_bp1V.z;}
     const far=(wx-cx)**2+(wz-cz)**2>N2,lowG=BP1.low[g.userData.bp.kind];if(!lowG)continue;if(far!==U.low){U.low=far;U.me.geometry=far?lowG:U.full;U.me.castShadow=!far;}}}
 // más figuras de Blender, ahora que cuestan una llamada de dibujo cada una
 function bp1Budget(){const lite=typeof ACC!=='undefined'&&ACC.lite,touch=typeof isTouch!=='undefined'&&isTouch;const K=lite?30:touch?55:110,VR=lite?45:touch?60:75;

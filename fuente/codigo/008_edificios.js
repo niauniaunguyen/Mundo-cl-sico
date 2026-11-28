@@ -15,8 +15,9 @@ function finishRoofs(){
         X.subVectors(p1,p0);const sl=X.length();X.divideScalar(sl);Z.subVectors(rb,ra).normalize();Y.crossVectors(Z,X);if(Y.y<0){Y.negate();Z.negate();}Z.crossVectors(X,Y);
         const m=new THREE.Matrix4().makeBasis(v.copy(X).multiplyScalar(sl),Y,Z);m.setPosition(p0);L.push(m);
         if(R0.fancy&&ag){const o=v.set(-X.x,0,-X.z).normalize();const ax=o.clone().negate(),az=new THREE.Vector3().crossVectors(ax,up);const ma=new THREE.Matrix4().makeBasis(ax,up,az);ma.setPosition(p0.x+o.x*0.04,p0.y-0.05,p0.z+o.z*0.04);afx.push(ma);}}}}
-  for(const{mat,list}of byMat.values()){const im=new THREE.InstancedMesh(cg,mat,list.length);list.forEach((m,i)=>im.setMatrixAt(i,m));im.castShadow=true;scene.add(im);}
-  if(afx.length){const im=new THREE.InstancedMesh(ag,lam('#d9cfbd'),afx.length);afx.forEach((m,i)=>im.setMatrixAt(i,m));scene.add(im);}
+  // por zonas (chunked): antes eran dos mallas para todo el mundo, sin descarte por la vista, con las tejas de todos los destinos (83.000 hiladas)
+  for(const{mat,list}of byMat.values())chunked(cg,mat,list.map(m=>({m})),{far:900,shadow:true});
+  if(afx.length)chunked(ag,lam('#d9cfbd'),afx.map(m=>({m})),{far:550,shadow:false});
 }
 function acroteria(g,W,L,y,h,mat,alongX){for(const e of[-1,1]){const p=alongX?[e*(L/2+0.2),0]:[0,e*(L/2+0.2)];const ac=new THREE.Mesh(new THREE.ConeGeometry(Math.max(0.25,W*0.02),Math.max(0.8,W*0.05),6),mat||M.gold);ac.position.set(p[0],y+h+0.4,p[1]);g.add(ac);
   for(const s of[-1,1]){const q=alongX?[e*(L/2+0.2),s*(W/2)]:[s*(W/2),e*(L/2+0.2)];const a2=new THREE.Mesh(new THREE.ConeGeometry(Math.max(0.2,W*0.015),Math.max(0.6,W*0.035),6),mat||M.gold);a2.position.set(q[0],y+0.35,q[1]);g.add(a2);}}}
