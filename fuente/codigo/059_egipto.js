@@ -93,7 +93,7 @@ Object.assign(SRC,{padiset:{a:['Heródoto II 154 (los intérpretes) y II 178-179
  wennefer:{a:['Heródoto II 99-142 (Menes, las pirámides, los reyes), II 86-88 (el embalsamamiento) y III 27-29 (Apis y Cambises)','Platón, Timeo 21e-25d (Solón en Sais)'],m:['M. Lehner, The Complete Pyramids (1997)'],n:['Wennefer es inventado. Heródoto no menciona la Esfinge.']}});
 // ---------------- modo Roma
 Object.assign(SIMPLE_RO,{
- alejandria:{npc:'heron',label:'Alejandría',roman:true,arr:[4,-168],lake:[0,400,520,110],tint:(x,z,h,c)=>alxTint(x,z,h,c),tx:0,tz:60,tr:40,site:[-300,150,48,8],houses:0,
+ alejandria:{npc:'heron',label:'Alejandría',roman:true,arr:[4,-168],lake:[0,400,520,110],tint:(x,z,h,c)=>alxTint(x,z,h,c),tx:0,tz:60,tr:40,site:[-300,150,48,8],houses:-1,
   rtemple:{name:'Serapeo de Alejandría',W:20,L:34,rot:Math.PI/2},
   // la ciudad, la isla de Faros y el Heptastadio, en 282_alejandria.js
   steles:[['alex_ciudad','La ciudad de Alejandro','ALEXANDRIA','Alejandro la fundó en el 331 a.C. en una franja de tierra entre el mar y el lago Mareotis, frente a la isla de Faros, y el arquitecto Dinócrates de Rodas la trazó en cuadrícula. Desde aquí: al norte, el Gran Puerto y el Faro; al oeste del muelle, el dique del Heptastadio; al sur, por la calle del Soma, el cruce con la Vía Canópica, la tumba de Alejandro y el lago. Hacia el este, el Museo, el teatro y los palacios; hacia el oeste, el Serapeo y la Necrópolis.\n(Estrabón XVII 1.6-10; J.-C. Golvin, Ciudades del mundo antiguo, p. 44)'],
