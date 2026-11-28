@@ -25,7 +25,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `016_viajes_en_barco.js` | 77 | viajes en barco |
 | `017_minijuego_de_navegacion.js` | 197 | minijuego de navegación: el sueño de Ulises (Odisea XII)<br>mitos en piedra |
 | `018_juicio_en_la_heliea.js` | 45 | juicio en la Heliea |
-| `019_biblioteca.js` | 85 | biblioteca<br>diario |
+| `019_biblioteca.js` | 91 | biblioteca<br>diario |
 | `020_plano.js` | 98 | plano |
 | `021_el_mediterraneo_entero_boton_del.js` | 102 | el Mediterráneo entero (botón del plano) |
 | `022_roma_ano_80_d_c.js` | 619 | ROMA, AÑO 80 d.C.: contenido |
