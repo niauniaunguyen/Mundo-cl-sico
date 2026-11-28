@@ -22,7 +22,7 @@ function bp1Mat(kind,c){const T=BP1.tpl[kind],m0=bp1Mesh(T.scene),map=m0.userDat
   const hA=(c.himation||c.veil)?(typeof c.veil==='string'?c.veil:c.himation):null,hB=c.chiton||null;
   // pelo y piel de cada persona: los de su configuración si los tiene; si no, uno según la persona (siempre el mismo)
   const seed=String(hA)+String(hB)+(c.female?'f':'m')+kind;let h=0;for(let i=0;i<seed.length;i++)h=(h*31+seed.charCodeAt(i))>>>0;
-  const hair=c.hair||c.beardC||BP1_HAIR[h%BP1_HAIR.length],skin=BP1_SKIN[(h>>3)%BP1_SKIN.length],key=kind+'|'+hA+'|'+hB+'|'+hair+'|'+((h>>3)%BP1_SKIN.length);if(BP1.mats.has(key))return BP1.mats.get(key);
+  const hair=c.hair||c.beardC||BP1_HAIR[h%BP1_HAIR.length],skin=BP1_SKIN[(h>>>3)%BP1_SKIN.length],key=kind+'|'+hA+'|'+hB+'|'+hair+'|'+((h>>>3)%BP1_SKIN.length);if(BP1.mats.has(key))return BP1.mats.get(key);
   const A=hA?new THREE.Color(hA).multiplyScalar(1.25):new THREE.Color(1,1,1),B=hB?new THREE.Color(hB).multiplyScalar(1.08):new THREE.Color(1,1,1);
   const m=new THREE.MeshLambertMaterial({map,skinning:true,vertexColors:true});m.userData.uA={value:A};m.userData.uB={value:B};m.userData.uH={value:new THREE.Color(hair)};m.userData.uS={value:new THREE.Vector3(...skin)};
   m.onBeforeCompile=sh=>{sh.uniforms.uA=m.userData.uA;sh.uniforms.uB=m.userData.uB;sh.uniforms.uH=m.userData.uH;sh.uniforms.uS=m.userData.uS;
