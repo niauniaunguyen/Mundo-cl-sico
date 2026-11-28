@@ -14,7 +14,9 @@ function alxPad(I,lx,lz,r,h){const p={x:I.x+lx,z:I.z+lz,r,h};I.pads.push(p);retu
 {const f=defineSimple;defineSimple=function(I,o){if(I.id==='alejandria'){
     for(let x=-470;x<=390;x+=50)alxPad(I,x,-192,40,ALX.Y);for(const z of[-120,-40,40,120,200])for(let x=-440;x<=440;x+=80)alxPad(I,x,z,52,ALX.Y);
     alxPad(I,525,70,80,ALX.Y);}   // el hipódromo, fuera de la Puerta Canópica
-  const r=f.apply(this,arguments);
+  const d0=I.arrive,r=f.apply(this,arguments);
+  // la llegada provisional de 028_roma.js (a −0,72 R) quedaba como solar suelto aunque el mapa tuviera otra: en Ostia, un islote en el mar
+  if(o.arr&&d0&&d0!==I.arrive){const k=I.pads.indexOf(d0);if(k>=0)I.pads.splice(k,1);}
   if(I.id==='alejandria'){if(I.arrive)I.arrive.h=ALX.Y;if(I.town)I.town.h=ALX.Y;alxPad(I,-140,-220,15,-3);if(I.site)I.site.h=ALX.Y+6;}
   return r;};}
 // la isla de Faros, el Heptastadio, el cabo Loquias, Antirrodos y el espigón del Timonio: tierra sobre el mar. Con montes («blobs») no salían,

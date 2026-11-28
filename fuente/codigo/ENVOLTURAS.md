@@ -7,7 +7,7 @@ Esta tabla dice, para cada función ampliada, dónde nace y qué módulos la amp
 Al llamar a la función se ejecuta primero la última capa, que llama a la anterior, y así hasta la original.
 `herramientas/pruebas/comprobar.js` falla si una capa apunta a algo que no es una función, y avisa si una capa no llama a la anterior.
 
-368 funciones ampliadas, 730 capas.
+368 funciones ampliadas, 731 capas.
 
 | Función | Nace en | Capas | Ampliada en |
 |---|---|---:|---|
@@ -52,6 +52,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbRender` | `087_la_barra_de_objetos_como.js` | 3 | `091`:57 · `097`:66 · `225`:217 |
 | `hogarAct` | `052_las_nueve_musas_mnemosine_y.js` | 3 | `252`:86 · `257`:120 · `271`:49 |
 | `honParts` | `158_honra.js` | 3 | `276`:32 · `280`:247 · `281`:65 |
+| `islandBase` | `011_construccion_del_mundo.js` | 3 | `188`:29 · `282`:25 · `283`:13 |
 | `legHurt` | `210_mas_leyendas.js` | 3 | `253`:30 · `254`:123 · `280`:209 |
 | `leyTick` | `208_portal_de_las_leyendas.js` | 3 | `210`:103 · `237`:74 · `280`:225 |
 | `makePerson` | `009_personas.js` | 3 | `116`:318 · `184`:12 · `186`:80 |
@@ -92,7 +93,6 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `hbSetup` | `087_la_barra_de_objetos_como.js` | 2 | `120`:108 · `900`:379 |
 | `hbTablilla` | `087_la_barra_de_objetos_como.js` | 2 | `091`:42 · `097`:100 |
 | `infAct` | `072_misiones_finales_de_las_cualidades.js` | 2 | `085`:52 · `097`:98 |
-| `islandBase` | `011_construccion_del_mundo.js` | 2 | `188`:29 · `282`:23 |
 | `jump` | `042_entrada.js` | 2 | `174`:28 · `253`:43 |
 | `legChoose` | `210_mas_leyendas.js` | 2 | `237`:20 · `240`:22 |
 | `legLose` | `210_mas_leyendas.js` | 2 | `253`:52 · `254`:132 |
@@ -197,7 +197,7 @@ Al llamar a la función se ejecuta primero la última capa, que llama a la anter
 | `drawMap` | `020_plano.js` | 1 | `151`:12 |
 | `eduTeacher` | `099_para_aprender_y_ensenar.js` | 1 | `111`:144 |
 | `eduTrade` | `099_para_aprender_y_ensenar.js` | 1 | `257`:33 |
-| `egFields` | `060_egipto_2.js` | 1 | `282`:31 |
+| `egFields` | `060_egipto_2.js` | 1 | `282`:33 |
 | `egxAct` | `060_egipto_2.js` | 1 | `103`:15 |
 | `egxObj` | `060_egipto_2.js` | 1 | `085`:6 |
 | `evTick` | `?` | 1 | `194`:104 |
