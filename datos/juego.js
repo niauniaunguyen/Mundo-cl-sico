@@ -5518,7 +5518,7 @@ const ROMA_PLACES=[
  ['ro_circo',_t(4036,'Circo Máximo'),'CIRCVS MAXIMVS',_t(4777,'El mayor edificio de espectáculos de Roma, en el valle entre el Palatino y el Aventino, donde según la leyenda se raptó a las sabinas. Las carreras de carros dan siete vueltas alrededor de la espina, adornada con un obelisco egipcio que trajo Augusto. Tras el incendio del 64, que empezó en sus tiendas, se reconstruyó.'),[-165,350],Math.PI/2],
  ['ro_paz',_t(4085,'Templo de la Paz'),_t(4778,'TEMPLVM PACIS'),_t(4779,'Inaugurado por Vespasiano en el 75 con el botín de la guerra de Judea. Es una gran plaza ajardinada con estanques y rosales, rodeada de pórticos, con una biblioteca y una sala de obras de arte griegas. Aquí se exponen el candelabro de siete brazos y otros objetos del Templo de Jerusalén.'),[118,-160],-Math.PI/2],
  ['ro_augusto',_t(4780,'Foro de Augusto'),_t(4781,'FORVM AVGVSTI'),_t(4782,'Augusto lo prometió antes de la batalla de Filipos (42 a.C.), donde vengó a César. El templo de Marte Vengador está al fondo, ante un enorme muro cortafuegos que lo separa del barrio de la Subura. En los pórticos hay estatuas de Eneas, de Rómulo y de los grandes hombres de Roma, cada uno con su inscripción.'),[40,-150],0],
- ['ro_cesar',_t(4783,'Foro de César'),_t(4784,'FORVM IVLIVM'),'La primera de las plazas imperiales, inaugurada por César en el 46 a.C. Al fondo, el templo de Venus Genetrix, la madre de Eneas, de quien la familia Julia decía descender. Dentro hay una estatua de Cleopatra en bronce dorado. En medio de la plaza, César a caballo; a los lados, pórticos con tiendas en dos pisos, y en la esquina, la Curia Julia. La plaza mide unos 160 × 75 m; en el juego es más estrecha, para que quepa entre la Curia y la colina.\n(Suetonio, César 26; Apiano, Guerras civiles II 102; J.-C. Golvin, Ciudades del mundo antiguo, p. 120)',[-60,-140],Math.PI/2],
+ ['ro_cesar',_t(4783,'Foro de César'),_t(4784,'FORVM IVLIVM'),'La primera de las plazas imperiales, inaugurada por César en el 46 a.C. Al fondo, el templo de Venus Genetrix, la madre de Eneas, de quien la familia Julia decía descender. Dentro hay una estatua de Cleopatra en bronce dorado. En medio de la plaza, César a caballo; a los lados, pórticos con tiendas en dos pisos, y en la esquina, la Curia Julia. Con pórticos y tiendas, el conjunto mide unos 160 × 75 m.\n(Suetonio, César 26; Apiano, Guerras civiles II 102; J.-C. Golvin, Ciudades del mundo antiguo, p. 120)',[-60,-140],Math.PI/2],
  ['ro_panteon',_t(4785,'Panteón de Agripa'),'PANTHEVM','Marco Agripa, el yerno de Augusto, lo construyó en el 27-25 a.C. en el Campo de Marte, dedicado a todos los dioses: dentro había estatuas de Marte, de Venus y del Divino Julio. El incendio de este año lo dañará, y lo restaurará Domiciano. El edificio con cúpula que se ve hoy en Roma es el de Adriano, hacia el 118-125, que conservó en el frontón la inscripción de Agripa.\nAnacronismo posible: nadie sabe cómo era el de Agripa. Golvin lo dibuja como un templo rectangular de unos 44 × 20 m; las excavaciones de los años noventa encontraron debajo del actual un pórtico que también miraba al norte, y Dion Casio dice que su techo «abovedado» recordaba el cielo. El juego muestra una rotonda con cúpula: es una hipótesis, y la cúpula de hormigón de 43 m es, con seguridad, de Adriano.\n(Dion Casio LIII 27; Plinio, Historia natural XXXVI 38; J.-C. Golvin, Ciudades del mundo antiguo, p. 119)',[-640,-597],Math.PI],
  ['ro_incendio80','El incendio del año 80','INCENDIVM','Este año, mientras el emperador Tito estaba en Campania ayudando a las víctimas del Vesubio, un incendio quemó Roma durante tres días y tres noches. Dion Casio enumera lo que ardió en el Campo de Marte y en el Capitolio: los templos de Isis y de Serapis, el Panteón, las termas de Agripa, el teatro de Balbo, la escena del teatro de Pompeyo, los edificios de Octavia con sus libros y el templo de Júpiter Capitolino. Tito dijo que todas las pérdidas eran suyas y vendió los adornos de sus villas para pagar la reconstrucción. Después llegó una peste. Por eso los juegos del anfiteatro son también un consuelo.',[-655,-575],Math.PI],
  ['ro_pompeyo',_t(4786,'Teatro de Pompeyo'),_t(4787,'THEATRVM POMPEI'),'El primer teatro de piedra de Roma, inaugurado por Pompeyo en el 55 a.C. En lo alto de las gradas tenía un templo de Venus Victoriosa, para que el teatro pareciera la escalinata de un templo. Detrás, un gran pórtico con jardines; en su sala de reuniones fue asesinado Julio César en los idus de marzo del 44 a.C. El incendio de este año ha dañado la escena, que se está reparando.',[-722,-300],Math.PI/2],
@@ -6545,14 +6545,22 @@ function romaCircus(){
   ROMA.circus={C,Lh,cr,CA};if(typeof NPC_POS!=='undefined'){const a=cr(-300,-30);NPC_POS.auriga=[a[0],a[1],Math.PI/2+CA];}
 }
 function romaFora(){
-  // Foro de César: plaza con pórticos y el templo de Venus Genetrix al fondo
-  {const x0=-150,x1=-20,zN=-160,zS=-122,gy=romaH(-85,-140);porticus(x0+12,zN,x1,zN,8,8,'corinthian',1,gy);porticus(x0+12,zS,x1,zS,8,8,'corinthian',-1,gy);
-   romanTemple({x:-140,z:-141,rot:Math.PI/2,W:22,L:30,pod:5,gy:gy-0.2,colD:1.3,colH:12,nW:8,deep:2,peri:true,name:_t(5169,'Templo de Venus Genetrix')});
-   footprints.push({x:-85,z:-141,w:130,d:46,a:0,c:'#d8ccb4',reserve:true});}
+  // Foro de César, con las medidas reales (Golvin, p. 120: unos 160 × 75 m, contando pórticos y tiendas): el templo de Venus Genetrix al
+  // fondo, contra la ladera del Capitolio; pórticos a los dos lados y, detrás, tiendas de dos pisos; en medio, César a caballo. El Argileto
+  // pasa justo por fuera del lado sur. Antes, 130 × 38 m y sin tiendas.
+  {const x0=-165,x1=-5,zN=-176,zS=-101,cz=(zN+zS)/2,gy=romaH(-85,cz);
+   porticus(x0+30,zN+13,x1,zN+13,10,8,'corinthian',1,gy);porticus(x0+30,zS-13,x1,zS-13,10,8,'corinthian',-1,gy);
+   romanTemple({x:-147,z:cz,rot:Math.PI/2,W:22,L:30,pod:5,gy:gy-0.2,colD:1.3,colH:12,nW:8,deep:2,peri:true,name:_t(5169,'Templo de Venus Genetrix')});
+   {const wall=lam('#d6c5a4'),dk=lam('#3a2c22'),D=[];
+    for(const[z,s]of[[zN+4,1],[zS-4,-1]]){const L=x1-(x0+30),mx=(x0+30+x1)/2;box(L,9.5,8,wall,mx,gy+4.75,z);box(L+0.6,0.5,8.8,M.tile,mx,gy+9.7,z);addBox(mx,z,L,8,0);
+      for(let x=x0+33;x<x1-2;x+=5){D.push([new THREE.BoxGeometry(2.4,3,0.2),new THREE.Matrix4().makeTranslation(x,gy+1.5,z+s*4.05)]);D.push([new THREE.BoxGeometry(1.6,1.3,0.2),new THREE.Matrix4().makeTranslation(x,gy+6.2,z+s*4.05)]);}}
+    const dm=new THREE.Mesh(mergeGeos(D),dk);scene.add(dm);
+    box(3,11,zS-zN,wall,x0+1.5,gy+5.5,cz);addBox(x0+1.5,cz,3,zS-zN,0);}   // el muro del fondo, contra la colina
+   footprints.push({x:(x0+x1)/2,z:cz,w:x1-x0,d:zS-zN,a:0,c:'#d8ccb4',reserve:true});}
   // Foro de Augusto: templo de Marte Vengador ante un gran muro cortafuegos
   {const gy=romaH(40,-195);romanTemple({x:40,z:-222,rot:0,W:36,L:46,pod:3.5,gy:gy-0.2,colD:1.75,colH:17.5,nW:8,deep:3,peri:true,name:_t(5170,'Templo de Marte Vengador')});
    const g=grp(40,gy,-258,0);box(130,33,3,TUFA,0,16.5-1,0,g);addSeg(-25,-258,105,-258,1.6);
-   porticus(-18,-250,-18,-140,10,9,'corinthian',-1,gy);porticus(98,-250,98,-140,10,9,'corinthian',1,gy);
+   porticus(-18,-250,-18,-182,10,9,'corinthian',-1,gy);   /* acortado: el Foro de César, a tamaño real, ocupa ahora hasta z = −176 */porticus(98,-250,98,-140,10,9,'corinthian',1,gy);
    for(const s of[-1,1]){const ex=ringGeo(2,20,(u,k)=>{const t=-Math.PI/2+u*Math.PI;return[Math.cos(t)*20*s,k?14:0,Math.sin(t)*20];},null,()=>'#bfb39a');ringMesh(ex,40+s*58,gy,-200);}
    footprints.push({x:40,z:-195,w:120,d:120,a:0,c:'#d8ccb4',reserve:true});}
   // Templo de la Paz: jardín con estanques y rosales entre pórticos; al fondo, la sala con el botín de Jerusalén
@@ -6981,7 +6989,7 @@ function arch(o){
 function romaDecor(){
   // pavimentos de plazas
   drape(0,0,232,116,0,'trav',6,0.05);                 // Foro Romano
-  drape(-85,-141,118,30,0,'trav',6,0.06);             // Foro de César
+  drape(-77,-138.5,126,39,0,'trav',6,0.06);           // Foro de César (la plaza abierta, entre los pórticos)
   drape(40,-195,104,108,0,'marble',4,0.06);           // Foro de Augusto: mármoles de colores (giallo antico, pavonazzetto, africano)
   drape(-640,-622,56,50,0,'trav',6,0.05);             // plaza ante el Panteón
   drape(-218,-32,108,82,0,'trav',6,0.14);             // área Capitolina (solo la cima llana)
@@ -7008,7 +7016,7 @@ function romaDecor(){
    box(4.2,1.8,5.6,M.marble,40,gy+0.9,-160);box(4.6,0.3,6,M.marble,40,gy+1.95,-160);quadriga(40,gy+2.1,-160,0,true);addBox(40,-160,4.2,5.6,0);}
   // estatuas sobre los áticos de las basílicas, y en el Foro de César, la de su fundador
   for(const[x,z,L,a]of[[20,-48,88,0],[-25,39,84,Math.PI]]){for(let i=0;i<12;i++){const lx=-L/2+3+i*(L-6)/11,p=toW(lx,0,x,z,a);statue(p[0],romaH(x,z)+20.6,p[1],a,1.05,'marble');}}
-  {const gy=romaH(-70,-141);box(3,3.2,4,M.marble,-70,gy+1.6,-141);statue(-70,gy+3.2,-141,Math.PI/2,1.5,'bronze');addBox(-70,-141,3,4,0);}
+  {const gy=romaH(-100,-138.5);box(3,3.2,4,M.marble,-100,gy+1.6,-138.5);statue(-100,gy+3.2,-138.5,Math.PI/2,1.5,'bronze');addBox(-100,-138.5,3,4,0);}
   // arcos honoríficos
   arch({x:71,z:22,rot:0,W:16,D:6,H:13,three:true,name:_t(5203,'Arco de Augusto')});
   arch({x:-84,z:2,rot:Math.PI/2,W:9,D:4,H:11,name:_t(5204,'Arco de Tiberio')});
@@ -22934,7 +22942,7 @@ function r7Decode(c){try{const s=decodeURIComponent(escape(atob(c.trim()+'==='.s
   $('tCSV').onclick=async()=>{const R=rows(),csv=[H,...R].map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(';')).join('\n'),blob=new Blob(['﻿'+csv],{type:'text/csv'}),name='nostos_clase.csv';
     try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl){await dl.save({filename:name,data:blob});toast('Hoja guardada.');return;}}catch(e){if(e&&e.code==='declined')return;}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();};};}
 // aviso de versión nueva: solo cuando el juego se sirve desde una web propia (no desde un archivo ni desde Claude)
-const NOSTOS_VER='025076725a24';
+const NOSTOS_VER='2dfdab9e908e';
 function r7VersionCheck(){if(!/^https?:/.test(location.protocol)||/claude/.test(location.hostname)||/^@@/.test(NOSTOS_VER))return;
   const chk=()=>fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===NOSTOS_VER||document.getElementById('verNew'))return;
     const d=document.createElement('div');d.id='verNew';d.style.cssText='position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:80;background:#2a1e14;color:#f1e8d8;border:1px solid #d9874a;border-radius:10px;padding:10px 14px;font:15px Alegreya,Georgia,serif;box-shadow:0 4px 18px #0008;max-width:92vw';

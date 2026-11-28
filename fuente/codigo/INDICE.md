@@ -35,7 +35,7 @@ Generado por `herramientas/indice_modulos.py` al construir. Los módulos se unen
 | `026_roma.js` | 154 | ROMA: constructores |
 | `027_roma.js` | 123 | ROMA: destinos de viaje (año 80 d.C.)<br>HISPANIA URBANA: piezas para reconstruir las ciudades (acueductos, puentes largos, circos) |
 | `028_roma.js` | 472 | ROMA: la domus visitable del Celio |
-| `029_roma.js` | 430 | ROMA: construcción del mundo |
+| `029_roma.js` | 438 | ROMA: construcción del mundo |
 | `030_roma.js` | 178 | ROMA: barrios, densidad y muralla |
 | `031_roma.js` | 179 | ROMA: decoración según las reconstrucciones |
 | `032_glosario_lateral.js` | 758 | glosario lateral |

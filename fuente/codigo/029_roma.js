@@ -260,14 +260,22 @@ function romaCircus(){
   ROMA.circus={C,Lh,cr,CA};if(typeof NPC_POS!=='undefined'){const a=cr(-300,-30);NPC_POS.auriga=[a[0],a[1],Math.PI/2+CA];}
 }
 function romaFora(){
-  // Foro de César: plaza con pórticos y el templo de Venus Genetrix al fondo
-  {const x0=-150,x1=-20,zN=-160,zS=-122,gy=romaH(-85,-140);porticus(x0+12,zN,x1,zN,8,8,'corinthian',1,gy);porticus(x0+12,zS,x1,zS,8,8,'corinthian',-1,gy);
-   romanTemple({x:-140,z:-141,rot:Math.PI/2,W:22,L:30,pod:5,gy:gy-0.2,colD:1.3,colH:12,nW:8,deep:2,peri:true,name:'Templo de Venus Genetrix'});
-   footprints.push({x:-85,z:-141,w:130,d:46,a:0,c:'#d8ccb4',reserve:true});}
+  // Foro de César, con las medidas reales (Golvin, p. 120: unos 160 × 75 m, contando pórticos y tiendas): el templo de Venus Genetrix al
+  // fondo, contra la ladera del Capitolio; pórticos a los dos lados y, detrás, tiendas de dos pisos; en medio, César a caballo. El Argileto
+  // pasa justo por fuera del lado sur. Antes, 130 × 38 m y sin tiendas.
+  {const x0=-165,x1=-5,zN=-176,zS=-101,cz=(zN+zS)/2,gy=romaH(-85,cz);
+   porticus(x0+30,zN+13,x1,zN+13,10,8,'corinthian',1,gy);porticus(x0+30,zS-13,x1,zS-13,10,8,'corinthian',-1,gy);
+   romanTemple({x:-147,z:cz,rot:Math.PI/2,W:22,L:30,pod:5,gy:gy-0.2,colD:1.3,colH:12,nW:8,deep:2,peri:true,name:'Templo de Venus Genetrix'});
+   {const wall=lam('#d6c5a4'),dk=lam('#3a2c22'),D=[];
+    for(const[z,s]of[[zN+4,1],[zS-4,-1]]){const L=x1-(x0+30),mx=(x0+30+x1)/2;box(L,9.5,8,wall,mx,gy+4.75,z);box(L+0.6,0.5,8.8,M.tile,mx,gy+9.7,z);addBox(mx,z,L,8,0);
+      for(let x=x0+33;x<x1-2;x+=5){D.push([new THREE.BoxGeometry(2.4,3,0.2),new THREE.Matrix4().makeTranslation(x,gy+1.5,z+s*4.05)]);D.push([new THREE.BoxGeometry(1.6,1.3,0.2),new THREE.Matrix4().makeTranslation(x,gy+6.2,z+s*4.05)]);}}
+    const dm=new THREE.Mesh(mergeGeos(D),dk);scene.add(dm);
+    box(3,11,zS-zN,wall,x0+1.5,gy+5.5,cz);addBox(x0+1.5,cz,3,zS-zN,0);}   // el muro del fondo, contra la colina
+   footprints.push({x:(x0+x1)/2,z:cz,w:x1-x0,d:zS-zN,a:0,c:'#d8ccb4',reserve:true});}
   // Foro de Augusto: templo de Marte Vengador ante un gran muro cortafuegos
   {const gy=romaH(40,-195);romanTemple({x:40,z:-222,rot:0,W:36,L:46,pod:3.5,gy:gy-0.2,colD:1.75,colH:17.5,nW:8,deep:3,peri:true,name:'Templo de Marte Vengador'});
    const g=grp(40,gy,-258,0);box(130,33,3,TUFA,0,16.5-1,0,g);addSeg(-25,-258,105,-258,1.6);
-   porticus(-18,-250,-18,-140,10,9,'corinthian',-1,gy);porticus(98,-250,98,-140,10,9,'corinthian',1,gy);
+   porticus(-18,-250,-18,-182,10,9,'corinthian',-1,gy);   /* acortado: el Foro de César, a tamaño real, ocupa ahora hasta z = −176 */porticus(98,-250,98,-140,10,9,'corinthian',1,gy);
    for(const s of[-1,1]){const ex=ringGeo(2,20,(u,k)=>{const t=-Math.PI/2+u*Math.PI;return[Math.cos(t)*20*s,k?14:0,Math.sin(t)*20];},null,()=>'#bfb39a');ringMesh(ex,40+s*58,gy,-200);}
    footprints.push({x:40,z:-195,w:120,d:120,a:0,c:'#d8ccb4',reserve:true});}
   // Templo de la Paz: jardín con estanques y rosales entre pórticos; al fondo, la sala con el botín de Jerusalén

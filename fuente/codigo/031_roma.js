@@ -90,7 +90,7 @@ function arch(o){
 function romaDecor(){
   // pavimentos de plazas
   drape(0,0,232,116,0,'trav',6,0.05);                 // Foro Romano
-  drape(-85,-141,118,30,0,'trav',6,0.06);             // Foro de César
+  drape(-77,-138.5,126,39,0,'trav',6,0.06);           // Foro de César (la plaza abierta, entre los pórticos)
   drape(40,-195,104,108,0,'marble',4,0.06);           // Foro de Augusto: mármoles de colores (giallo antico, pavonazzetto, africano)
   drape(-640,-622,56,50,0,'trav',6,0.05);             // plaza ante el Panteón
   drape(-218,-32,108,82,0,'trav',6,0.14);             // área Capitolina (solo la cima llana)
@@ -117,7 +117,7 @@ function romaDecor(){
    box(4.2,1.8,5.6,M.marble,40,gy+0.9,-160);box(4.6,0.3,6,M.marble,40,gy+1.95,-160);quadriga(40,gy+2.1,-160,0,true);addBox(40,-160,4.2,5.6,0);}
   // estatuas sobre los áticos de las basílicas, y en el Foro de César, la de su fundador
   for(const[x,z,L,a]of[[20,-48,88,0],[-25,39,84,Math.PI]]){for(let i=0;i<12;i++){const lx=-L/2+3+i*(L-6)/11,p=toW(lx,0,x,z,a);statue(p[0],romaH(x,z)+20.6,p[1],a,1.05,'marble');}}
-  {const gy=romaH(-70,-141);box(3,3.2,4,M.marble,-70,gy+1.6,-141);statue(-70,gy+3.2,-141,Math.PI/2,1.5,'bronze');addBox(-70,-141,3,4,0);}
+  {const gy=romaH(-100,-138.5);box(3,3.2,4,M.marble,-100,gy+1.6,-138.5);statue(-100,gy+3.2,-138.5,Math.PI/2,1.5,'bronze');addBox(-100,-138.5,3,4,0);}
   // arcos honoríficos
   arch({x:71,z:22,rot:0,W:16,D:6,H:13,three:true,name:'Arco de Augusto'});
   arch({x:-84,z:2,rot:Math.PI/2,W:9,D:4,H:11,name:'Arco de Tiberio'});
